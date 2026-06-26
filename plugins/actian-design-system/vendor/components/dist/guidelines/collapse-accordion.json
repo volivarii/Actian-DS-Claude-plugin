@@ -1,0 +1,96 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/collapse-accordion/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "collapse-accordion",
+  "component": "Collapse / accordion",
+  "meta": {
+    "category": "data-display"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n- To hide optional or advanced content that does not need to be visible by default.\n- When content is long and only some users will need all of it.\n- Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n- Write header labels as short noun phrases that describe the content inside.\n- Avoid generic labels like \"More\", \"Details\", or \"Other\".\n- The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n- With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n- Transitions should be smooth. Avoid layout shift.\n- The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Advanced settings | More options |\n| Connection details | Click to expand |\n| Notification preferences | Details |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "The collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "To hide optional or advanced content that does not need to be visible by default.",
+                "When content is long and only some users will need all of it.",
+                "Do not use for content users will need on every visit. Keep frequently accessed content visible."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Write header labels as short noun phrases that describe the content inside.",
+                "Avoid generic labels like \"More\", \"Details\", or \"Other\".",
+                "The label should not change when the section is expanded or collapsed."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.",
+                "Transitions should be smooth. Avoid layout shift.",
+                "The chevron icon rotates to indicate open and closed states."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Advanced settings",
+              "dont": "More options"
+            },
+            {
+              "do": "Connection details",
+              "dont": "Click to expand"
+            },
+            {
+              "do": "Notification preferences",
+              "dont": "Details"
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-06-25T13:12:15-07:00"
+}

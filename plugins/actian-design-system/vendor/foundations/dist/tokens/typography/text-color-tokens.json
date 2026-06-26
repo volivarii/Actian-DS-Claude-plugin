@@ -88,6 +88,27 @@
           "status": "shipped"
         },
         {
+          "Token": "--zen-color-text-link-default",
+          "Resolves To": "--zen-color-primary-500",
+          "Usage": "Hyperlinks",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-link-reverse",
+          "Resolves To": "--zen-color-white",
+          "Usage": "Hyperlinks on dark or primary-colored backgrounds",
+          "status_note": "Proposed",
+          "status": "proposed"
+        },
+        {
+          "Token": "--zen-color-text-link-visited",
+          "Resolves To": "--zen-color-primary-700",
+          "Usage": "Visited hyperlinks",
+          "status_note": "Proposed",
+          "status": "proposed"
+        },
+        {
           "Token": "--zen-color-text-warning",
           "Resolves To": "--zen-color-warning-600",
           "Usage": "Warning messages",

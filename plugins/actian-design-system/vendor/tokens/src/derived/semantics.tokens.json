@@ -1,0 +1,1466 @@
+{
+  "color": {
+    "primary": {
+      "25": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.25}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5f7c971b8a2b554781a19b14afab8f912727fde4",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.50}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c88179510c2749c82615db8f457bb1678bb7f8b7",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#CBE3FF",
+            "studio": "#CFEAFD",
+            "explorer": "#D0EFED"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.100}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6d07c6b9271f944d34e9fdced6b7e3e7387d67fd",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#AACAFE",
+            "studio": "#B1D5EE",
+            "explorer": "#B5DDDB"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.200}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9345f12e6c5f10bff1c9b2c3a0574f6e3449da8b",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#82B0FD",
+            "studio": "#8BC0E6",
+            "explorer": "#90CECB"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.300}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "fa9b1b487d583d83398bf1f66c6c999bcb51ff86",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#6296EF",
+            "studio": "#6BACD7",
+            "explorer": "#72BCB9"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.400}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "571c3113502ee3db28d15a0a904721a5f2bd6176",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#3D7CE6",
+            "studio": "#4598CB",
+            "explorer": "#4AACA9"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.500}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "a256595115f6048a1e1c843e3099a79a5c259288",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.600}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "da974a979d33999ef1aaf887fce141b5cfb1fba2",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0053D7",
+            "studio": "#0079B6",
+            "explorer": "#00908E"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.700}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "688df60fb4e8a2ff461f88fa8e92abce97727043",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0047BC",
+            "studio": "#00699F",
+            "explorer": "#007E7B"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.800}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6f47aefd86adc94fd2df93dc7f3643b606f7006b",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#033B92",
+            "studio": "#00547D",
+            "explorer": "#006563"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.900}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "20eb8ee672f97453640123b7d6d039a86f757322",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0D316D",
+            "studio": "#114361",
+            "explorer": "#15504E"
+          }
+        }
+      }
+    },
+    "neutral": {
+      "25": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.25}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d032b41f6a2fd16b7a379d3d11281fc6b19d6af1",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F5F5F8",
+            "studio": "#F8F4F5",
+            "explorer": "#F8F4F5"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.50}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "ae0a574eb0faad13ab5105c977dd122bb813abbd",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.100}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e935403e850e3d74231fca4bae97af17c7aa1e1a",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#C7C7CE",
+            "studio": "#DADADA",
+            "explorer": "#DADADA"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.200}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0be63f8d189d0c4dba4bf0798ab72098bd391b9c",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#ADADB7",
+            "studio": "#C9C9C9",
+            "explorer": "#C9C9C9"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.300}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d582906a82e5e431d29cba1246aca61173b0b341",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#9494A0",
+            "studio": "#B9B9B9",
+            "explorer": "#B9B9B9"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.400}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6f3e021b7060c44efc6733f4e94ebce51147bf68",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.500}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "975f14468c0396f238fab0a4d8a5ec23d67ac452",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.600}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "74774559c7ac6ef334f045b8c866c45904ebe848",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.700}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cd135f5777e849908453421e9337f030203e5b9f",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#50505D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.800}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d217ff24d2569bf6f7a5001d2449c76b4ad16f86",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#40404A",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.900}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "176702046d18969a57b6eba5e7fa95ca98437eae",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#33333A",
+            "studio": "#505050",
+            "explorer": "#505050"
+          }
+        }
+      }
+    },
+    "success": {
+      "25": {
+        "$type": "color",
+        "$value": "{color.primitive.green.25}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6c1d33645d721054d4025d4c19232fdaed610ace",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F3F6F3",
+            "studio": "#F3F6F3",
+            "explorer": "#F3F6F3"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "{color.primitive.green.50}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "eaf02fa14f074b9a12ce50324eb6b97ad4831022",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D3EFCD",
+            "studio": "#D3EFCD",
+            "explorer": "#D3EFCD"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.primitive.green.100}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "34bf1ab1ca3e0b87565ea5f9231c64ddcf6b3f98",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#B5DCAF",
+            "studio": "#B5DCAF",
+            "explorer": "#B5DCAF"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.primitive.green.200}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "654d3548bf4a841bdf089d2ad75bbaaee4119220",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#92CC89",
+            "studio": "#92CC89",
+            "explorer": "#92CC89"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.primitive.green.300}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "638dea6d2f7577177ce160a4a9dfada0d5211e51",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#75B86B",
+            "studio": "#75B86B",
+            "explorer": "#75B86B"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.primitive.green.400}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0edf2fdef18c21b5ab5ec280ebf71faafac15d41",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#53A647",
+            "studio": "#53A647",
+            "explorer": "#53A647"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.primitive.green.500}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "2e4ac92b8ed5fb7412cacc2d1146c5d57cb42113",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#299315",
+            "studio": "#299315",
+            "explorer": "#299315"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.primitive.green.600}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7e46b979e4b3106e8dd5db17df40eea5c4ba6732",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.primitive.green.700}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9877db29cc9fbeb8dc4571862add2e60ef0889d3",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#047800",
+            "studio": "#047800",
+            "explorer": "#047800"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.primitive.green.800}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9e46e0827f8cdd80280a166705f3ec3d92751ec5",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#145F04",
+            "studio": "#145F04",
+            "explorer": "#145F04"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.primitive.green.900}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "522eeb0c698b6ea6acbec638f2d2bcc0e8656abc",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#1A4B14",
+            "studio": "#1A4B14",
+            "explorer": "#1A4B14"
+          }
+        }
+      }
+    },
+    "warning": {
+      "25": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.25}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d5dfc2fea219d9b013761480609914eaba024b7b",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F7F4F2",
+            "studio": "#F7F4F2",
+            "explorer": "#F7F4F2"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.50}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "badc6dc1ed596b84bf9f7dbd0f00704dc05cdfbc",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFEBCE",
+            "studio": "#FFEBCE",
+            "explorer": "#FFEBCE"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.100}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7d60387082271bfba8d3a51f37787afed3566b7c",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFDDB6",
+            "studio": "#FFDDB6",
+            "explorer": "#FFDDB6"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.200}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e788618ece5fb4ce9e81fdd4df1bf0641e2a1d6c",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFCD92",
+            "studio": "#FFCD92",
+            "explorer": "#FFCD92"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.300}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "46213949fe93213251583a3073703a751f13f627",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFBE78",
+            "studio": "#FFBE78",
+            "explorer": "#FFBE78"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.400}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "23c50b84abdad96374b697fb5c1e15e82c0949a5",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFAF53",
+            "studio": "#FFAF53",
+            "explorer": "#FFAF53"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.500}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7c6d966243a84e1968a24e75400616da8e46ef52",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FC9F1D",
+            "studio": "#FC9F1D",
+            "explorer": "#FC9F1D"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.600}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "ae943bd794ef78d84a80dd3afb2c7e5a08d84d6f",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.700}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d3ec74975ed5673dde61522380f3a5d0860bbaae",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D27B00",
+            "studio": "#D27B00",
+            "explorer": "#D27B00"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.800}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6da04b99ae6f54a6f9715fbe7eaed6373dafd8ee",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#A76605",
+            "studio": "#A76605",
+            "explorer": "#A76605"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.900}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5a7eebd7870c681ef7054e5827e6caf1678245a1",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#83551F",
+            "studio": "#83551F",
+            "explorer": "#83551F"
+          }
+        }
+      }
+    },
+    "error": {
+      "25": {
+        "$type": "color",
+        "$value": "{color.primitive.red.25}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "752fb8a735debc3415f7f001814f7b0ce109c5a6",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F8F4F3",
+            "studio": "#F8F4F3",
+            "explorer": "#F8F4F3"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "{color.primitive.red.50}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bfccfa6f22e64cb84d49bb5332c97d45833fb0e2",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFDACF",
+            "studio": "#FFDACF",
+            "explorer": "#FFDACF"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.primitive.red.100}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5b1cb211471a7b6e46e82e79b5f363b068fd484b",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFC1B3",
+            "studio": "#FFC1B3",
+            "explorer": "#FFC1B3"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.primitive.red.200}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "358be7e75b2ee471eb17f21387970f5fd891f894",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFA38F",
+            "studio": "#FFA38F",
+            "explorer": "#FFA38F"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.primitive.red.300}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "1c24ae475b1f878252ddaec2282af3f7465cd99d",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F88973",
+            "studio": "#F88973",
+            "explorer": "#F88973"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.primitive.red.400}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "1d222c9385fe0543ef1fe7e7b6818f50a25d9e96",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF6B53",
+            "studio": "#EF6B53",
+            "explorer": "#EF6B53"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.primitive.red.500}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "393558481c0009f1085d0b1b86ba8110da12ea95",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E6492D",
+            "studio": "#E6492D",
+            "explorer": "#E6492D"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.primitive.red.600}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e015a67615380a1415326a35150ee91befb39598",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.primitive.red.700}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bfa0f0606d8bf941402e3ab242e82c8af9b492e0",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#C12C11",
+            "studio": "#C12C11",
+            "explorer": "#C12C11"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.primitive.red.800}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "84317479a16d5c25d0eed2b9d8586c0b0b10b29f",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#982A18",
+            "studio": "#982A18",
+            "explorer": "#982A18"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.primitive.red.900}",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "b0b680e4cc8c7a88f8467869ba595a64a46dee59",
+            "scopes": [
+              "ALL_FILLS",
+              "STROKE",
+              "EFFECT_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#762A1C",
+            "studio": "#762A1C",
+            "explorer": "#762A1C"
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.primitive.black}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.800}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#40404A",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.700}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#50505D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "placeholder": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "placeholder-subtle": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.400}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.500}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.500}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.primitive.red.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "link": {
+        "default": {
+          "$type": "color",
+          "$value": "{color.primitive.royal-blue.500}",
+          "$extensions": {
+            "com.actian.themes": {
+              "actian": "#0F5FDC",
+              "studio": "#0283BE",
+              "explorer": "#049B98"
+            }
+          }
+        },
+        "reverse": {
+          "$type": "color",
+          "$value": "{color.primitive.white}",
+          "$extensions": {
+            "com.actian.themes": {
+              "actian": "#FFFFFF",
+              "studio": "#FFFFFF",
+              "explorer": "#FFFFFF"
+            }
+          }
+        },
+        "visited": {
+          "$type": "color",
+          "$value": "{color.primitive.royal-blue.700}",
+          "$extensions": {
+            "com.actian.themes": {
+              "actian": "#0047BC",
+              "studio": "#00699F",
+              "explorer": "#007E7B"
+            }
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.primitive.green.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "reverse": {
+        "$type": "color",
+        "$value": "{color.primitive.white}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      }
+    },
+    "bg": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.primitive.white}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F5F5F8",
+            "studio": "#F8F4F5",
+            "explorer": "#F8F4F5"
+          }
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.50}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.50}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "selected": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": "#00000066",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#00000066",
+            "studio": "#00000066",
+            "explorer": "#00000066"
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.500}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "emphasis": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.500}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.primitive.green.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F6F3",
+            "studio": "#F3F6F3",
+            "explorer": "#F3F6F3"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F7F4F2",
+            "studio": "#F7F4F2",
+            "explorer": "#F7F4F2"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.primitive.red.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F8F4F3",
+            "studio": "#F8F4F3",
+            "explorer": "#F8F4F3"
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.25}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "reverse": {
+        "$type": "color",
+        "$value": "{color.primitive.black}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      }
+    },
+    "icon": {
+      "default": {
+        "$type": "color",
+        "$value": "{color.primitive.black}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.primitive.cool-grey.400}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "{color.primitive.royal-blue.500}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.primitive.red.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "{color.primitive.green.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "{color.primitive.orange.600}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      },
+      "reverse": {
+        "$type": "color",
+        "$value": "{color.primitive.white}",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      }
+    },
+    "annotation": {
+      "annotation": {
+        "$type": "color",
+        "$value": "#D71D6D",
+        "$extensions": {
+          "com.actian.status": "figma-only",
+          "com.actian.themes": {
+            "actian": "#D71D6D",
+            "studio": "#D71D6D",
+            "explorer": "#D71D6D"
+          }
+        }
+      }
+    }
+  }
+}

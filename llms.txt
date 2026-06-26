@@ -1,6 +1,6 @@
 # Actian Design System
 
-> Actian's design system, packaged as a Claude Code plugin. 8 skills for authoring and auditing Figma designs against the Actian DS via the official Figma MCP server. 155 tokens (3 themes, 8 collections), 319 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
+> Actian's design system, packaged as a Claude Code plugin. 8 skills for authoring and auditing Figma designs against the Actian DS via the official Figma MCP server. 155 tokens (3 themes, 8 collections), 318 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
 
 The Actian DS is in a federated configuration (2026-05-09): the **knowledge layer** lives in [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge); this plugin vendors a pinned snapshot at release time. The URLs below point AI agents at the canonical knowledge repo. The plugin's own AI orientation, push patterns, and skill code are linked at the bottom under "Plugin meta-docs".
 
@@ -42,6 +42,6 @@ The Actian DS is in a federated configuration (2026-05-09): the **knowledge laye
 - [CLAUDE.md (always-loaded plugin context)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/CLAUDE.md)
 - [Plugin architecture map](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/ARCHITECTURE.md)
 - [Knowledge repo README](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/README.md): federation status, repo layout, CI workflows
-- [Component guidelines (52 JSON files, all curated)](https://github.com/volivarii/actian-ds-knowledge/tree/main/components/guidelines): per-component guideline JSONs
+- [Component guidelines (58 JSON files, all curated)](https://github.com/volivarii/actian-ds-knowledge/tree/main/components/guidelines): per-component guideline JSONs
 - [Foundations subtree (8 JSON files)](https://github.com/volivarii/actian-ds-knowledge/tree/main/foundations): per-foundation JSON files derived from foundations.md
 - [Presentation guide](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/presentation/presentation-guide.md): generate-presentation skill content patterns

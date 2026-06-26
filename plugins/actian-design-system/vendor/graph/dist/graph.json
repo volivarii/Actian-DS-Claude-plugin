@@ -2974,11 +2974,6 @@
       "title": "star"
     },
     {
-      "id": "component:stars",
-      "type": "component",
-      "title": "stars"
-    },
-    {
       "id": "component:status-offline",
       "type": "component",
       "title": "status-offline"
@@ -3777,6 +3772,11 @@
       "id": "foundation:tokens/global-color",
       "type": "foundation_section",
       "title": "Global Color"
+    },
+    {
+      "id": "foundation:tokens/global-color/theme-palettes",
+      "type": "foundation_section",
+      "title": "Theme Palettes"
     },
     {
       "id": "foundation:tokens/heights-and-trigger-areas",
@@ -6067,11 +6067,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:stars",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
       "source": "component:stepper",
       "target": "category:navigation",
       "type": "in_category"
@@ -6838,6 +6833,11 @@
     {
       "source": "foundation:tokens/borders",
       "target": "foundation:tokens/borders/width",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/global-color",
+      "target": "foundation:tokens/global-color/theme-palettes",
       "type": "narrower"
     },
     {

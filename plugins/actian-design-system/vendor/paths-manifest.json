@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.29",
+  "knowledge_version": "0.34.36",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -141,6 +141,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'alert-banner' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.avatar": {
+      "path": "components/dist/guidelines/avatar.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'avatar' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.badge": {
       "path": "components/dist/guidelines/badge.json",
       "type": "json",
@@ -189,6 +196,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'checkbox' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.collapse-accordion": {
+      "path": "components/dist/guidelines/collapse-accordion.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'collapse-accordion' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.combo-box": {
       "path": "components/dist/guidelines/combo-box.json",
@@ -365,12 +379,40 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'radio-button' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.rich-text": {
+      "path": "components/dist/guidelines/rich-text.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'rich-text' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.scroll-bar": {
+      "path": "components/dist/guidelines/scroll-bar.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'scroll-bar' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.search": {
       "path": "components/dist/guidelines/search.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'search' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.search-result-card": {
+      "path": "components/dist/guidelines/search-result-card.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'search-result-card' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.segmented-control": {
+      "path": "components/dist/guidelines/segmented-control.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'segmented-control' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.side-nav": {
       "path": "components/dist/guidelines/side-nav.json",
@@ -617,14 +659,43 @@
     "tokens.css": {
       "path": "tokens/tokens.css",
       "type": "css",
+      "origin": "ci",
+      "generator": "scripts/tokens/derive-tokens.js",
+      "description": "CSS custom properties (--zen-*) — now generator-owned (P4b flip). Emitted by derive-tokens.js via emit-css.js from the live tokens.json tree."
+    },
+    "tokens.derivedNumerics": {
+      "path": "tokens/src/derived/numerics.tokens.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/tokens/derive-tokens.js",
+      "description": "Generated numeric/dimension token layer (DTCG: spacing, border, focus-ring, font, icon, size, shadow, motion + Figma bindings) — staging output of derive-tokens.js (P3)"
+    },
+    "tokens.derivedPrimitives": {
+      "path": "tokens/src/derived/primitives.tokens.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/tokens/derive-tokens.js",
+      "description": "Generated primitive color layer (DTCG: hex + oklch + Figma binding) — staging output of derive-tokens.js (P1)"
+    },
+    "tokens.derivedSemantics": {
+      "path": "tokens/src/derived/semantics.tokens.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/tokens/derive-tokens.js",
+      "description": "Generated semantic color layer (DTCG: alias $value + 3-theme hex expansion + Figma binding) — staging output of derive-tokens.js (P2)"
+    },
+    "tokens.figmaBindingsRaw": {
+      "path": "tokens/src/figma-bindings-raw.json",
+      "type": "json",
       "origin": "human",
-      "description": "CSS custom properties (--zen-*) — frozen snapshot"
+      "description": "Figma variable + style binding harvest (MCP search export) — input to the tokens deriver binding sidecar (P0)"
     },
     "tokens.json": {
       "path": "tokens/tokens.json",
       "type": "json",
-      "origin": "human",
-      "description": "DTCG W3C-format design tokens (frozen snapshot until successor generator returns)"
+      "origin": "ci",
+      "generator": "scripts/tokens/derive-tokens.js",
+      "description": "DTCG W3C-format design tokens — now generator-owned (P4b flip). Written by derive-tokens.js from color-primitives.md + tokens.md + figma-bindings-raw.json. _frozen:false."
     },
     "tokens.reference": {
       "path": "tokens/token-reference.md",

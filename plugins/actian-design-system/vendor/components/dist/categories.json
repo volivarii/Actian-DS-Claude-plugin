@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-06-17T11:44:49.440Z",
+  "generatedAt": "2026-06-25T10:13:44.868Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -63,22 +63,6 @@
       ],
       "count": 31
     },
-    "Form (input & selection)": {
-      "components": [
-        "calendar",
-        "checkbox-with-label",
-        "dropdown-select-default",
-        "input",
-        "input-date",
-        "radio-button",
-        "rich-text",
-        "search",
-        "search-dropdown-menu",
-        "search-filters",
-        "toggle"
-      ],
-      "count": 11
-    },
     "White-label services": {
       "components": [
         "white-label-merck-favicon"
@@ -127,6 +111,22 @@
         "tooltip"
       ],
       "count": 5
+    },
+    "Form (input & selection)": {
+      "components": [
+        "calendar",
+        "checkbox-with-label",
+        "dropdown-select-default",
+        "input",
+        "input-date",
+        "radio-button",
+        "rich-text",
+        "search",
+        "search-dropdown-menu",
+        "search-filters",
+        "toggle"
+      ],
+      "count": 11
     },
     "Action": {
       "components": [
@@ -332,7 +332,6 @@
         "spline",
         "splunk",
         "sqlserver",
-        "stars",
         "stop-outline",
         "success-filled",
         "suggestion",
@@ -374,7 +373,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 235
+      "count": 234
     },
     "Local components": {
       "components": [

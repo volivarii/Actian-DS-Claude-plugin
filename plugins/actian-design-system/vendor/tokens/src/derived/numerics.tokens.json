@@ -1,0 +1,1288 @@
+{
+  "font": {
+    "family": {
+      "text": {
+        "$type": "fontFamily",
+        "$value": "Roboto",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+            "scopes": [
+              "FONT_FAMILY"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "Roboto Mono",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "brand": {
+        "$type": "fontFamily",
+        "$value": "AllRpungGothic",
+        "$extensions": {
+          "com.actian.status": "figma-only"
+        }
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "43473f279ee258f286f158c73b43100027efdfe5",
+            "scopes": [
+              "FONT_STYLE"
+            ]
+          }
+        }
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "19a1696a54d7449050b75b407a8b35ead94cce41",
+            "scopes": [
+              "FONT_STYLE"
+            ]
+          }
+        }
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+            "scopes": [
+              "FONT_STYLE"
+            ]
+          }
+        }
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "e1c0d238faae46b5dfb6b13751effaf7f1dfaaae",
+            "scopes": [
+              "FONT_STYLE"
+            ]
+          }
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "11px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "cae490dd475e0e46b01395d482d57b601b1de273",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "52de705fdbef5396472563719a9a364f483897f5",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "bc026e5576296de7ef463631896000ebca5a3f01",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "18px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "d0b5b1d6474828074157d4761621af5b5ae23d70",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "c6abd4f7317a658ef2f840f790931d26b2f49840",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "971529fa3d8e2f240e93d12d26ac8333c372da20",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "4xl": {
+        "$type": "dimension",
+        "$value": "30px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "a73a3fb060f4ea226d2bdc8aed6bc2e0d1b790e1",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      }
+    },
+    "letterspacing": {
+      "normal": {
+        "$type": "dimension",
+        "$value": "0px",
+        "$extensions": {
+          "com.actian.status": "In Review"
+        }
+      },
+      "wide": {
+        "1": {
+          "$type": "dimension",
+          "$value": "0.1px",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "2": {
+          "$type": "dimension",
+          "$value": "0.2px",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "3": {
+          "$type": "dimension",
+          "$value": "0.3px",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "4": {
+          "$type": "dimension",
+          "$value": "0.4px",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        }
+      }
+    },
+    "lineheight": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "799b23131a58bbdd3f6e97a283fdc93de90e0b38",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "38cff3504a97357910fe12de774117b9ba8ff55f",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "26px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "1c5ac5d36f5416862803dd45c47fd97de4e2217e",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "0cf23a76e9caf5c6a5ec66ace4638bdf9ab6ae10",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      }
+    },
+    "text-styles": {
+      "heading-display": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.3xl}",
+          "letterSpacing": "{font.letterspacing.normal}",
+          "lineHeight": "{font.lineheight.2xl}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-prominent": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.xl}",
+          "letterSpacing": "{font.letterspacing.normal}",
+          "lineHeight": "{font.lineheight.xl}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-standard": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.lg}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-subtle": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-micro": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-display": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.xl}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-prominent": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.lg}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-standard": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-subtle": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-micro": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.xs}",
+          "letterSpacing": "{font.letterspacing.wide.4}",
+          "lineHeight": "{font.lineheight.xs}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-standard": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-subtle": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-micro": {
+        "$type": "typography",
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.xs}",
+          "letterSpacing": "{font.letterspacing.wide.4}",
+          "lineHeight": "{font.lineheight.xs}"
+        },
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    }
+  },
+  "border": {
+    "radius": {
+      "2xs": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "36267b0223009e715411b9c9ca145d28ab68d655",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "e86ac4c8021b3e15db45761ae05a0d415e08d737",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "6px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "70601bc06e07e748704235e617b4f7ca9ea8fb81",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "e3f39f7ca717955288264ed80bc99027564b31fe",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "10px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "8e4f8cdd91158975e5fb846243d02d6561a62ea8",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "cd2ee903810decb6b2f3339cd028b99584a94e73",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "full": {
+        "$type": "dimension",
+        "$value": "9999px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "96f69added0e5e58d02f4aaef4b05f02d6158cec",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      }
+    },
+    "width": {
+      "md": {
+        "$type": "dimension",
+        "$value": "1px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "91cb850d543fa1caaa9f9ba095a19b1c506baadb",
+            "scopes": [
+              "WIDTH_HEIGHT",
+              "STROKE_FLOAT"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$extensions": {
+          "com.actian.status": "Shipped",
+          "com.figma": {
+            "variableKey": "6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524",
+            "scopes": [
+              "WIDTH_HEIGHT",
+              "STROKE_FLOAT"
+            ]
+          }
+        }
+      }
+    },
+    "default": {
+      "$type": "color",
+      "$value": "#C7C7CE",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.100}"
+        },
+        "com.figma": {
+          "variableKey": "66a64687a41ae343d4b02fc25464cd05f967a9fd",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE"
+          ]
+        }
+      }
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "#E1E1E6",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.50}"
+        },
+        "com.figma": {
+          "variableKey": "ebb62fed2a17034855a5a6fb1bfdd4a56f16ba38",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE"
+          ]
+        }
+      }
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "#C7C7CE",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.100}"
+        },
+        "com.figma": {
+          "variableKey": "efa60d3fff3b5dab2fc6c41c3a5690c8f8247287",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE"
+          ]
+        }
+      }
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "#0F5FDC",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "selected": {
+      "$type": "color",
+      "$value": "#0F5FDC",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        },
+        "com.figma": {
+          "variableKey": "c9816fd5506a77d42d9d7c59ab9bf170667f57f7",
+          "scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL",
+            "STROKE"
+          ]
+        }
+      }
+    },
+    "error": {
+      "$type": "color",
+      "$value": "#DC3514",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.error.600}"
+        }
+      }
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "#EF8D00",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.warning.600}"
+        }
+      }
+    },
+    "success": {
+      "$type": "color",
+      "$value": "#098900",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.success.600}"
+        }
+      }
+    },
+    "info": {
+      "$type": "color",
+      "$value": "#0F5FDC",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "#40404A",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.800}"
+        }
+      }
+    },
+    "reverse": {
+      "$type": "color",
+      "$value": "#FFFFFF",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primitive.white}"
+        }
+      }
+    }
+  },
+  "breakpoint": {
+    "sm": {
+      "$type": "dimension",
+      "$value": "600px",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "840px",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "1200px",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "1920px",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    }
+  },
+  "focus-ring": {
+    "offset": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "3903270cbfbaacdb780be69bc7fa2a7e0db06afa",
+          "scopes": [
+            "WIDTH_HEIGHT",
+            "GAP"
+          ]
+        }
+      }
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "#0F5FDC",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.focusRing": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        },
+        "com.figma": {
+          "variableKey": "50671a856564fb0299bfd5348c36463af6c2b2cb",
+          "scopes": [
+            "STROKE"
+          ]
+        }
+      }
+    },
+    "error": {
+      "$type": "color",
+      "$value": "#DC3514",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.focusRing": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.error.600}"
+        },
+        "com.figma": {
+          "variableKey": "0558bb294e6232ec53d951d37f724968af86ed9c",
+          "scopes": [
+            "STROKE"
+          ]
+        }
+      }
+    }
+  },
+  "spacing": {
+    "3xs": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "9dea6a6ecbacd8ab5b5d132ed64149202a929cba",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "2xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "5a7e452ee094abaac62002b0b0e3dd02776e0330",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "9c98ee0ee8b9464165738d761e12dbdba0f60a09",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "e02968bd3fca3e90211bbfaea4f00abc573c842e",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "0ed0efbb23a84581762b07154031014525c51a2a",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "ac5c5c8d7ba29924dcbdc4734dd5b8d91767d007",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.figma": {
+          "variableKey": "25f333ee5dde5e89b28afa9cb249018b760089fa",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "8bcda0862c5e53105f3af078eb241c09d19f91cb",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "5a19a6047298296c74c8b2c9ba41946df7c2f036",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    }
+  },
+  "size": {
+    "height": {
+      "2xs": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "8f9031b6b674aef83107e6677aa705e73f5dafc7",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "f7e35ed75273ee38cd71435879eff862f8e01ae8",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "d86842380c84f5fdebcf6e28ca0b38cf79debf9e",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "b37323b2f8ac1bb7018ae991492fd7270e0dab2c",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "c50f86604cd63d258a19fbdb13364a8ebb3b7a02",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "56px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "c844688784aee57e2fb91b9cebbf183678da0427",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      }
+    },
+    "trigger": {
+      "min": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "c5eafaff0adb7b7fe248277e226ff8afb3468727",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      },
+      "min-mobile": {
+        "$type": "dimension",
+        "$value": "44px",
+        "$extensions": {
+          "com.actian.status": "Proposed",
+          "com.figma": {
+            "variableKey": "14e061758d27b33b87c69a717a2615e4577d400f",
+            "scopes": [
+              "WIDTH_HEIGHT"
+            ]
+          }
+        }
+      }
+    },
+    "sx": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "44px",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    }
+  },
+  "icon": {
+    "xs": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "fae7625516f487a690c641f24db5654859e2813f",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "ab607d333ba43ae5eea404e13f2fb049ed7f56b4",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "457a7f69457606d4f75afb8504c53db79acb4682",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.figma": {
+          "variableKey": "985b2ca68ae075e126b50bc53b377b13fd31a298",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    }
+  },
+  "shadow": {
+    "xs": {
+      "$type": "shadow",
+      "$value": "0px 1px 3px 1px rgba(0, 0, 15, 0.06), 0px 1px 5px 0px rgba(0, 0, 18, 0.07)",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "sm": {
+      "$type": "shadow",
+      "$value": "0px 1px 7px 3px rgba(0, 0, 20, 0.08), 0px 1px 3px 1px rgba(0, 0, 31, 0.12)",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "md": {
+      "$type": "shadow",
+      "$value": "0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15)",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "lg": {
+      "$type": "shadow",
+      "$value": "0px 6px 10px 4px rgba(0, 0, 38, 0.15), 0px 2px 3px 0px rgba(0, 0, 77, 0.3)",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xl": {
+      "$type": "shadow",
+      "$value": "0px 8px 12px 6px rgba(0, 0, 38, 0.15), 0px 4px 4px 0px rgba(0, 0, 77, 0.3)",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": "100ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": "200ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "400ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "ease": {
+      "entrance": {
+        "$type": "string",
+        "$value": "ease-out",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "exit": {
+        "$type": "string",
+        "$value": "ease-in",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "standard": {
+        "$type": "string",
+        "$value": "ease-in-out",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "delay": {
+      "stagger": {
+        "$type": "duration",
+        "$value": "20ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "intent": {
+        "$type": "duration",
+        "$value": "300ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "long": {
+        "$type": "duration",
+        "$value": "500ms",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    }
+  }
+}

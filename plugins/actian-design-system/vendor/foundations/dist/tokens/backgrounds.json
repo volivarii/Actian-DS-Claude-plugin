@@ -79,6 +79,13 @@
           "status": "proposed"
         },
         {
+          "Token": "--zen-color-bg-emphasis",
+          "Suggested Value": "--zen-color-primary-500",
+          "Usage": "Consumer-facing alias of bg-primary; emphasis fills",
+          "status_note": "Proposed",
+          "status": "proposed"
+        },
+        {
           "Token": "--zen-color-bg-success",
           "Suggested Value": "--zen-color-success-25",
           "Usage": "Success alert backgrounds",

@@ -1,0 +1,4607 @@
+{
+  "harvestedFrom": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "libraries": [
+      {
+        "name": "Zen colors",
+        "libraryKey": "lk-93a913f1f9de82e7faacbbccae70cb808ca33691b876b7e2aece888bfd0927b692b73d0e293340cc6f3a45358751f391b9961d02f91f7cf491a864f9c4bbe09a",
+        "scope": "colors"
+      },
+      {
+        "name": "Actian Design System v2.1.0",
+        "libraryKey": "lk-c4481c4e589f9afb4b8954ba4edbb8b23af24f098aa59f3927b969613b46ccafd2da0864051415bcedd48a2c91cb79fa2158060d918a7f27261a9d1bd7b0864f",
+        "scope": "numerics + text styles + semantic colors"
+      }
+    ]
+  },
+  "variables": [
+    {
+      "name": "white",
+      "key": "02ec9bc98201cffe768012ffbcb0e4f7f1713f83",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "black",
+      "key": "b6b8b93b07628f748304bbbd5abf74375bf81557",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/50",
+      "key": "b4e669e5b847616ba9ed97d4cc00f798c6de2baa",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/25",
+      "key": "53121dcc229aec1487113eedba38b11081675e67",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/200",
+      "key": "897ad9602758494d9f2ee86f85e9ffe26b909ee7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/900",
+      "key": "cde2ca4eed7400a68881b406e0f3df664a77f142",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/800",
+      "key": "9a44dad6e26e12857963574e86a15fa92cebac7d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/100",
+      "key": "655dd8d66ce72ebfd4c7c8992efd7acda179c83e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/500",
+      "key": "64a135f10a57d9b2dc5db238f4d29f7f1d95b3bd",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/300",
+      "key": "cc11696cd583313b627c36fb7b58a14735b2a9c2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/400",
+      "key": "f34fc2747bcfb43f6635bd2b5fa294203c35f820",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/600",
+      "key": "5aa01598801a6e7527259820979afbc547f3f568",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "green/700",
+      "key": "05f6e330f130e1d582972805b3f7ca150ea276e0",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/25",
+      "key": "b1ebb5e5fd9c824e75edfacd4f39ee6d8bc36c9b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/50",
+      "key": "e8e62dfe181ce84f1f737cbe3ced622e4854a88f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/300",
+      "key": "c5effdea301dd8f20d0086e1f0cd7a7048270d1c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/50",
+      "key": "5a19234859de38604dbdfc786274f661df9692e3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/25",
+      "key": "82fbd3e757a1594d431202b189a4a1d3d6ff2924",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/100",
+      "key": "f56eb1314b17535eb995a6e88ba5669b56c12e75",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/300",
+      "key": "348975f1ba55be3efc318e1e368c75e0673a6e1f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/500",
+      "key": "bbaedcf171b59923b92e8530197b6e8199c03f10",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/200",
+      "key": "e595c2d27820a87f9c1b36ab1175b86bba4017cf",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/400",
+      "key": "ff34a9b982836c049958c416799b7285c34bad0f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/800",
+      "key": "0b46e7a7fb91da07f9db5b63f03b2b216b6760e3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/600",
+      "key": "7abc99daa69be7a40babf669fc22567380524a04",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/900",
+      "key": "d0f149985b5521acf747ab7223e11989c11546ae",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "orange/700",
+      "key": "2bc72aba221ee129cb583e6ca5d4dd2729645e18",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/50",
+      "key": "37da37beee8d527d6771ac6141868ace9c1c8736",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/25",
+      "key": "5473acbf9704c6c0b2ada1c792937c202a3b3388",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/100",
+      "key": "7910a1bfc8a6e52aeec9ea9b206cc6f7cd61e8b6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/25",
+      "key": "ac6887d4d1d31403395871fca3e1e917ba0f1b29",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/50",
+      "key": "205d91170182f270bf746c5b4da67f5d74551b35",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/400",
+      "key": "4ff2076486a612984c5fdb1e8129cfdb22565ca7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/700",
+      "key": "64412fd0d01ba99d728e0638a1337146fe205e06",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/800",
+      "key": "0b7e4952bf69267f51bb84ebff9601bdad5b4010",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/500",
+      "key": "ef93904b57b1e1830083967c253f0c295e5f9df8",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/300",
+      "key": "8bd2759dc4bc24454f5789614bbf915c73124cf3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/200",
+      "key": "361f18c6da8c4f280575c275c6835d7e2268d2c8",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/100",
+      "key": "a01dfb7fa6834a0af5f52e50a2f93554160d2cb1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/600",
+      "key": "2b585d3d9c977c31d22f745a596fd7a3cca6c633",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "red/900",
+      "key": "d23ac306c08791126246c60fb5e5d95eea673cc6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/50",
+      "key": "236a07bce489096a8a9f353a537ab60d3a901756",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/25",
+      "key": "b237c12a62c7e4d33bb60e2cdf35eb82e0cfc248",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/600",
+      "key": "628d8250294137cdc8e58af772cf02fc37bc94cc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/50",
+      "key": "304d2ba4b9e257cba02df989e11e329769b316cb",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/25",
+      "key": "6e18061410f12c0e7bbd7f211b3daae78d7be6ad",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/600",
+      "key": "bafbfa6f3ee42726e9ed66cdee4648018b8d5a72",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/100",
+      "key": "5825b88d925fb25ab1ca414b2cd8016d5aa09959",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/800",
+      "key": "382f208e95c40c99790ca8170250d9843771eea7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/300",
+      "key": "857416b8e01d859d47009cb7be1db6c1e27d4447",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/900",
+      "key": "edf2c8715dd1a720ebf2a069f78c0c27d3f6aa07",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/700",
+      "key": "a64a0554f0e5498c44350efc1debb2ea703927b4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/200",
+      "key": "1720aeb2f3ae64d06cc35412833ef70ea9672b72",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/500",
+      "key": "5c3d3ebbb834f8a0987908f8e62f304f8f056d2d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "grey/400",
+      "key": "4ff07d0555182b9940ad068443ea4a4b54ded4e2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/25",
+      "key": "60395c3487b850c9d8aca74b053a50de99cc82e2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/25",
+      "key": "254aa1867c296243ff7fe2c928bf204965ee3fa5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "warm-grey/50",
+      "key": "f92c0dee0e7cdcef4824df3a1f88f2c78fe59d98",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/50",
+      "key": "ff66b88956caabc4a43f05f0d98fc295364ad39f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/25",
+      "key": "1e91d1554116b16f012648e3bfb39187f57ca8fb",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/400",
+      "key": "0dcb99b7909f999a61a04f62abc80db59b9128f6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/600",
+      "key": "29d00fe2df0f610062ffe078e52143d212068355",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/200",
+      "key": "cb0ade0584fcb8c2f9eea87e0ce63d02d4c59c1c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/500",
+      "key": "01b6d073b00b503f06cd4300422c9a5e4eee4e3a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/900",
+      "key": "a72083cb5e585d9426e8ba8ffd05ae0a0bd3f094",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/300",
+      "key": "6baaa26e212208279e905724a41439bf1a3b3ddc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/700",
+      "key": "331e340a87f50f51a45dc34d563d5be8ae0b9dd1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/800",
+      "key": "ab9651a36b33dbcf3e5d965be1dd1ae6dbea3aac",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "royal-blue/100",
+      "key": "21a8b068b3be6a5cc8b1148754b0a49ba627ce0e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/25",
+      "key": "d8dfb7cfcadb374d31471b388ad2f9ef08408df3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/50",
+      "key": "d823f131d492a63ffc8b962021e0dc3b058796a1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/200",
+      "key": "a3d2b980059b6af2bb4f24b80e771ead638c1d3a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/800",
+      "key": "55cf006a6d7fdb82f01b4c10655be4e8ae56fee5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/25",
+      "key": "85db36716a807a702a419fcf16c7f2ff146056e9",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/50",
+      "key": "f646740a02b73fb790b3c4b7365377846c8bea6d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/100",
+      "key": "e36a045b386c2a08723bf3e0f078171f400d87fb",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/400",
+      "key": "5d1a7d15f86e1e86d17921dac81d15adda9d8fab",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/200",
+      "key": "e14c1765831c11bd499a5edd964794845ee76b0f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/800",
+      "key": "1eaa6a0b8d5f2e30a616d104d927b138a786f03a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/500",
+      "key": "07306b339313276e756b94624fe04a1dacfc03e3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/600",
+      "key": "e13296953708fbf0ad9e4239bbea5db517a2a04c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/300",
+      "key": "6fd3dbc8e565a7da2fe85894d1ed6dcf18ab7c1d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/900",
+      "key": "57725c1bbfdf12bfec834ae48a149e31ac4cd4d2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "turquoise/700",
+      "key": "5d633a6b4b9b2b7eae18b019c68d322eb353222c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/50",
+      "key": "968b28ed283392daa15ec04f0215ba3848afe650",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/25",
+      "key": "8d2357ddaff680518b6af44ff9cf03f14653bf22",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/800",
+      "key": "b43571cf795c595532bc9daa348a576eeff6d6b0",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/100",
+      "key": "a5183349431670e667ec0b6d577c2ed7c3d85fd9",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/200",
+      "key": "e54913a693bcf838c5f1cdb1e5052740098d0db7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/600",
+      "key": "c41fe537028487b5f111c41d0d8c906e7fe83e47",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/900",
+      "key": "60fca08754307283941ffc731d413a61f5b2966a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/300",
+      "key": "9cac03f4ec63f341ef50829768809ff40cd42079",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/400",
+      "key": "738341e11b47774e31165600667168452238339e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/700",
+      "key": "fd483b69e75934635f0f856592d4a6539aa5ec77",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "purple/500",
+      "key": "f77cd17c3374c0b5baedf5ad88891b6cdc51c217",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/50",
+      "key": "0e5990cea43a24d24e2e591af1405ba7649705f4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/25",
+      "key": "cb8b8df0145fec8def085d0323a510d279c85df8",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/50",
+      "key": "e048261ab037eee740b7a0712ce1636d4f40269b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/400",
+      "key": "e976ab9d2b72ec46d14df297617ee6d4895eb90b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/800",
+      "key": "fe9e3fcd9ab986ce3b6af239923771ab540f6415",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/500",
+      "key": "0598bd5aa7f162c3f1929a409b474a4196186c05",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/100",
+      "key": "7748f3b9932bb1f020ac9e3e948c82ae81b1a52c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/200",
+      "key": "fa9b75027dc2e0af6e54fb4920ae22b8ed526da4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/900",
+      "key": "125c9135c88db296c92dab59c14454a12a06ba40",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/600",
+      "key": "b604b55ab91b2ad88f071452dfdbd831e98fa182",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/300",
+      "key": "cc89c7ad871399b8f38dc46f4e4b4edca4717126",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue-grey/700",
+      "key": "e725a9f66bb4c899e0a2ca77fe2d3aa65aeef51f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/50",
+      "key": "abb0720dd182340314e97306c6f51db0d096e931",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/25",
+      "key": "3b66f4c0686e87e63f580cdd93c333580a027f7f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/500",
+      "key": "7be9f3c0fffede8831f60e4010559ec1113c2fda",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/600",
+      "key": "e89092a6647515af86fd37ea956645128a20f304",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/200",
+      "key": "2a9df59552ede9fec8f7dcd271fde9927a9fed83",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/400",
+      "key": "d299182b12e017714ecc555ea9c7fa5dc0dca125",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/100",
+      "key": "0e99506e159002763678507361c9ab55510cccbe",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/900",
+      "key": "b6394a20a5792794475d9346457ee17dc727a8d5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/800",
+      "key": "dabc2de5c50b19c46b6a20c76dd2c07ae9669e40",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/700",
+      "key": "d181300f358fca1867db3f0d292de0e8c1d2a53d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "yellow/300",
+      "key": "59ad89e47c6bde657c86dd279d1693aa22bf3fc1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/25",
+      "key": "0210f0b8d8b5393aef821ceced04f2362d6f1283",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/50",
+      "key": "c038947fd25f0210638f8f388a2b971f1d7de667",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/100",
+      "key": "7410793c644393a8fff6ae94846b3b18a4b0809d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/25",
+      "key": "5a7db9e69d77d4bd3060549bea2f24d7bd654c43",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/900",
+      "key": "cfbf4a8e93f77626f8210613522fa5046ac8b6b3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/700",
+      "key": "81d20b096e66934261cb800cfb6aae04f9105dfc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/50",
+      "key": "0e4465b8f851dec9cd9601360e680ab0a3dcdaa6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/200",
+      "key": "67ec6ce67b547789c0e77ac96fe8458068bd8dd1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/800",
+      "key": "25b46428a76b274591a250495ff99414ed94cd72",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/300",
+      "key": "3eb8184050746d80c2e68248e20c09987824f586",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/600",
+      "key": "88e8713bbd02f8677b15d1d5a9b3c44ea064dddc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/100",
+      "key": "6a9ff138d8c9b8a6aa692923d3c83ff3083917d5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/400",
+      "key": "b41921f58a1b6c66228272314922458c4bf9e714",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "olive-green/500",
+      "key": "5f9a605339369ef2dbb5018b8f9694dba54601e1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/50",
+      "key": "ea2047631e94731003b01b12a5c923245bc3d685",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/25",
+      "key": "36fe4d517d319da2939cc24cbfe1562458679b10",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/400",
+      "key": "e5a51a4462ddd329c49f17d1f1ae521e86dba8cc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/900",
+      "key": "b5c01536a2b619e69955626f260728cc9af48dc3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/200",
+      "key": "7f54120e9ae3197b5b176211399aa43d6a06e4e0",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/500",
+      "key": "5c892dc826aa72bf31e7c23d98229965b5f36ea6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/100",
+      "key": "ca05850b4b70780a0f4b241cf32ad7f79872691a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/300",
+      "key": "5238170b1d3b521835756c47138454bd06a46a33",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/700",
+      "key": "dbe8dd70a2dc56cf5853510d62a371f77a6b67b1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/800",
+      "key": "9c5545c17f1c4960742b59e71f139700915614f1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pacific-blue/600",
+      "key": "c653f2184834147b4d8051fc08ee6e4d8428e939",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/50",
+      "key": "29ccdfc2cdd659138e0b0c5eb564cbd55e3244dd",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/25",
+      "key": "a8d13d5020c2fcfb353df6dcee7c880b8c0a0499",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/500",
+      "key": "385f91c6dcd94316fca333bf1cff220ec22009df",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/400",
+      "key": "d5e4e51b1a33a8f786304127e37fd6345e405c25",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/100",
+      "key": "79062cad80aeb6ac3fe6a292fc0571630c0238dc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/600",
+      "key": "9f89cfc6df23ca2e9628e5526748244585e8b089",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/900",
+      "key": "f5c1d99f1c08fb4e153aa2fcc3e7c3a209e2d947",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/300",
+      "key": "44a128eae0222a24d11d49142da0dd1922d7d205",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/200",
+      "key": "f57aa6bd755407a5067b2cd44dc3fea339cbf050",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/800",
+      "key": "d9a15663c60c807d5ab47da8c84e92c273fd1442",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "kickstart-purple/700",
+      "key": "350a5a8168a24154e060a4acc32d639a97666c1d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/600",
+      "key": "b83c38974747dfc198d9baf063dff31bb9a1ed6a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/400",
+      "key": "558d5c81e76daa05aaabf880a0bdbba2f6e78b61",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/700",
+      "key": "f3b07373042d6aacdb2443242c0015dd120b674a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/100",
+      "key": "e3ca58f461960169bbf868a8495343d0884e3ce4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/500",
+      "key": "2b8f16d4013bfd861473da887a8251e2f420c16d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/900",
+      "key": "61a6d482f8ef16424f3231e6a6c05b585f7794a3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "blue/300",
+      "key": "ac00ec93d7c868eddb2a851a35abb9046a383f46",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/500",
+      "key": "25927c19df84c3d60b5a8051f193f5a97f02091e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/800",
+      "key": "5be01ec1a16476487bb3411ad8f23eadb96ed4a5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/900",
+      "key": "a83555d3f2f298119338e93a1af09cb4d4334016",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/700",
+      "key": "8ce0549e693fb0d953ec1e48e73f5fc132f3461e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/100",
+      "key": "7e32083ff4543d4e25a446574661b030a305b26f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/400",
+      "key": "6e156928c9e0fceb31864d9649bbc36f0882720a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/200",
+      "key": "0982bd666eed0c2d6ff68796805277798b1a5d53",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/600",
+      "key": "4e0e00bbca582deee6c94d44617dede46e4dd40b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "clematis-purple/300",
+      "key": "a70fdfcb09656759c5728d7fe24ee39ca54008bb",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/600",
+      "key": "aa720862e8c90221421fbac0e5321bdd8f5f3318",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/300",
+      "key": "1a867c31ff141fa06177529c2f05667df8cd0544",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/500",
+      "key": "637cba2e959b4022a64e6d2db47b626a16b12b65",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/400",
+      "key": "2520c73bb39bba5552338bbc47f6f75379bc798b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/800",
+      "key": "f2e6101a181b705c0ba492fc511c440d253ae71e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/700",
+      "key": "bb6e7767744f7d64322674176c6f807eb0d6859b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/900",
+      "key": "063b8b95f1c531b058513b1bc048160642479acc",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "mellow-melon-pink/200",
+      "key": "b6790e2d0d78ff8d2ef96df3bda2aaf38b79b21f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/25",
+      "key": "b4c7fc87e84cd9b57833dd2bf6732a852cce547d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/50",
+      "key": "902171273b1ac66da0d7308ec676342ab0a0d538",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/600",
+      "key": "997efedb8b3d309d5c58877ca87a605d0617b9e2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/500",
+      "key": "a459255552af18448d4aebdfa3fa4ed3a8824997",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/200",
+      "key": "a9e64c664497810aeef8e95ee2a9fc2ea8220da5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/900",
+      "key": "436848bada09ed444a88feea3f5679a61f81eb0d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/400",
+      "key": "721a4d411bc1fc981b8d34d869eaac7466d3447c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/300",
+      "key": "c700dcbf453ced88a624aeddb7f1d616a254dd47",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/800",
+      "key": "0a12c581c8a18f16b8e0aab9208f47f4d134f989",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/100",
+      "key": "93dbc4ce219212f94ad115820144c1502d25d4f3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "zima-blue/700",
+      "key": "8b23e3feb435edb765b36005b30dc51dff4406e9",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/25",
+      "key": "ccc2f03d5a25c15ac48b553b1d87de471e47dd47",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/50",
+      "key": "8bed189e8e18859a9dbe4c7f7139043fa43c456d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/300",
+      "key": "834127e09867a5726d9b11cdf90470f9cd31c534",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/100",
+      "key": "e687592185910805dab4481f5462dc684501db9e",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/700",
+      "key": "768097945cef9de328daf099d6c64029cd6df326",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/600",
+      "key": "4701f6f31f5c354bb06140aa903765c45b337bb6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/400",
+      "key": "44a9ded6d145858d870618c0c059431ad9eb1916",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/500",
+      "key": "9beeda7c91b8ca41170d3781bfbe2648c394a22c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/800",
+      "key": "1d2b2501984f0f65564966115872cca7457286bf",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/900",
+      "key": "3abda74cc184eca3c3fe1aff37584cb5d31e78c3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "singapore-orchid-purple/200",
+      "key": "0cffc16fd8d129bfd5fa0dfada616847129c7a40",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/25",
+      "key": "da55235bb01b8ca71f42ae7443eb2f288c52ed2a",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/50",
+      "key": "872d98c7f7dfd2bb52245cee2968d02192d1e6c7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/300",
+      "key": "b1802134cfa69007d807fb6562ca5ba8a4189ad5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/500",
+      "key": "c4391f673f5dbf8f2840e103f4e6e8313c6eafc6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/200",
+      "key": "345fae08b7fdf78a129a285d54ce4a181d9285ae",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/100",
+      "key": "4628fd5ac4138bb492cc8718155a50fddbc42518",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/800",
+      "key": "3f6405d548532c6df8ad868e08a0dd61fe7b2b87",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/700",
+      "key": "d68aa9c620bf9ee6aba2b54d44fea6a2bba071af",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/600",
+      "key": "24e08c1d1691a2e9d76358f13f9b37e215d94dce",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/400",
+      "key": "58718a005dd8bb0479fc739fd124fc1e934e0ccb",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "dropped-brick-red/900",
+      "key": "12f398b8d704cfa72ccc24c63d600081c5df756c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/25",
+      "key": "60cd96a7a17e39820c8cc63d5a98e68735b1708c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/50",
+      "key": "13e17506adf5dbbc8e14ba9e5fc3560a8733d19f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/800",
+      "key": "223bac532beca24d2dd74b02a4e62ad2a1e2a6e6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/400",
+      "key": "5407f9918954737b8e811a0a0d88da9cb1bc100f",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/200",
+      "key": "34562a6cb4eda1f84590ef9d7fcab402f3b308fa",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/300",
+      "key": "dec191192b1cbb04db3d459d9270527166f59f79",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/600",
+      "key": "3df5fc2465664300626185808e6871d7ca472b4d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/100",
+      "key": "35775d95f73b424b9d707e6567fcf129c38ec811",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/500",
+      "key": "0afeb696f30c074fe65eb05508e138fd9775546b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/900",
+      "key": "245b1e4f381e2543afcb6b9892d4fae9a644a568",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "shutters-green/700",
+      "key": "f23358a6ad8e7cc0d4dfd23ae0d29a2994ca11b7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/50",
+      "key": "84c6369002aae28b710dd63fd020e236a394a864",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/25",
+      "key": "67cca73ffd75d416280435ae9a05b169cfde179c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/500",
+      "key": "96f90fa1892158904df1273e6acc9459b9b6854b",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/200",
+      "key": "fff45fa6e48b1aacdb67a9743d87239a83eb3a66",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/600",
+      "key": "a9849c648211cda5788a069f5bacbde69606cf32",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/100",
+      "key": "73efdcba1b9ad4e9c5fd3b2e542ff8f2b39003bf",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/700",
+      "key": "53f5bedd8963a60fcd2c4abd7517d435ac1d2c92",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/400",
+      "key": "be58705fe987ea8514d655e313687315f9afdc28",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/900",
+      "key": "6986c096dddbd377a288cafb2f31bf3c4e3b5bb6",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/300",
+      "key": "dcf7f9fd6108b4c9023df3a653a14b6c7d07aba2",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "frosted-glass-green/800",
+      "key": "40c6bdb2cbb60a31bf7813c40585e2b7fc2957a0",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/50",
+      "key": "9fd3ebbba56de049cd05b37a72b6f73a99107fb3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/300",
+      "key": "3fec4accbd89fe4ef5864d75a5b7d2e1bbd17043",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/200",
+      "key": "046631e793463d184f9d80ed665f09980e5d24bf",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/700",
+      "key": "25e29a820bd86ef7ee3462132eb65f81e92648be",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/600",
+      "key": "1edc62239c039cd74d47b61ef9434c239969461d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/800",
+      "key": "de9c91323e0f384e40c9a1066bd43778876e5e51",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/900",
+      "key": "742f3abcd09dba7d186f946bd2e6d74d389df293",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/100",
+      "key": "06639fcf4600a8b84db05634c7d998938119eebd",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/500",
+      "key": "053bd60a519b69508fc9efd59b5cf5339af70afe",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "cool-grey/400",
+      "key": "516bda6669f7acca819393ca0b0d7d727dda9cd4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/800",
+      "key": "bd1d88a4f159174ebe11bcaebd91b4cd81dbb668",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/700",
+      "key": "bf57ba268afb4db070213d795ad7b1eba5825c3d",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/400",
+      "key": "02618e1b4e3f8fd3d047cd57c45bd0d17a384b17",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/500",
+      "key": "dda0e699bcc4a4ced6267322dfcaac6089796ab1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/200",
+      "key": "66e2ca3c0b2415da407eae3b7918a82c3bf8dc00",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/600",
+      "key": "ac69deed2440aa677d3540eae769fb2188d60102",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/100",
+      "key": "af678a55f642c65de59cd6385b399e5e15535ea4",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "glint-green/900",
+      "key": "293c27c961d7f668b07ee319d29a02c4c20dcee5",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/600",
+      "key": "ec5c8ce2df177643f5be3890e7d29702e2d2f8d7",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/200",
+      "key": "26faf2ba445aa715a4aed49484878b6dc63fb4c8",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/400",
+      "key": "5540f45772b10458c70c4b8dfd3470b3e7988887",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/800",
+      "key": "23a6d93f4b34f3923d00107f3e52000ac9f558db",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/300",
+      "key": "0e74cea2ebd4d12ec45cb108012849d07b1483e1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/500",
+      "key": "c66bf38c04d3e541e46f493e1bd78be3a4839b04",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/900",
+      "key": "c1e407c6560efd21170abf99acc0afa3336425a3",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "viva-gold-orange/700",
+      "key": "003a2d236f3d5ce790fb058d8be86bbb904f14c8",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/700",
+      "key": "0c44e6691b85ece890bd06670a5a3fbd66c11ce1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/300",
+      "key": "9129f11902f1ef877ef3890cc0e9b5b523327acf",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/400",
+      "key": "57d9da43775615aca609fee0ed148dc2f09b2773",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/200",
+      "key": "db8521b75410cd8e5c742ab473a43538ec00f418",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/100",
+      "key": "7aa55ac78487d6561c58d33369e76b1a673254d1",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/800",
+      "key": "ee01fb316a516d4bcf8452980fbaf03452cb3e7c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/500",
+      "key": "58d0d8863b9950c7e17666e0d49680a7f582d837",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "pomegranate-red/900",
+      "key": "87aed778a4de34c807822dc61362724337cbfa9c",
+      "scopes": [
+        "ALL_SCOPES"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Zen colors",
+      "libraryName": "Zen colors"
+    },
+    {
+      "name": "color-text-error",
+      "key": "e7880495e75099825d37b7e4e51134c49ee1f60b",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-reverse",
+      "key": "04f0318793ff1b9729b7ab7bc4d25a29d2f310b2",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-default",
+      "key": "1587e6f425cb09958198a732ae093e3246c4291d",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-success",
+      "key": "00c42830229ed6b4a3e01cd89a306c69c236810a",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-tertiary",
+      "key": "b8ca5b6f7eaf8ff94a7c2b7bc0772f59b6cd7c50",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-warning",
+      "key": "a44643dc9e0d0742864a2553e71f6dd6da5d13ec",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-disabled",
+      "key": "002fee716e613df1afadafb2d43e37378741c14b",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-secondary",
+      "key": "88942eafd918e7714b571c1a651e7d5d490671d1",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-placeholder",
+      "key": "44a7f261b891cfe0f05a4eb6f68bbb4137d02c65",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-interactive",
+      "key": "e1c3b0f81dcfd8f0662dbcdf4fb0a9443e61d4d5",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-text-placeholder-subtle",
+      "key": "22a3237309c5540bfb5065ca542276c4a12ded19",
+      "scopes": [
+        "TEXT_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-family-text",
+      "key": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+      "scopes": [
+        "FONT_FAMILY"
+      ],
+      "variableType": "STRING",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-info",
+      "key": "424c59ad20e2024239bb47c11cb9cabc7848d625",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-error",
+      "key": "b5b1dc6a118e3d3592e477ace4aac4863eb232f0",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-sunken",
+      "key": "dc186db6f9814a0cb6b6dc2388afdc29e53046af",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-reverse",
+      "key": "474864f241bb7f8ecdbb05391396267fd633ebd4",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-overlay",
+      "key": "ef3332ef5969799d809499b5f73c14a6fc9a910e",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-surface",
+      "key": "25cbdc9f03d8e1f7a7e8efcbe6832e0aaba7bf7d",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-success",
+      "key": "7ad547980956969d68d5403689a21ecb9115945e",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-warning",
+      "key": "8c7657bf7c24021bf2b0d1b0892830c6d715bf60",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-bg-primary",
+      "key": "dcc3421e91c58a9500c39075c68818adbe58b0e4",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Backgrounds",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-subtle",
+      "key": "ebb62fed2a17034855a5a6fb1bfdd4a56f16ba38",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-width-md",
+      "key": "91cb850d543fa1caaa9f9ba095a19b1c506baadb",
+      "scopes": [
+        "WIDTH_HEIGHT",
+        "STROKE_FLOAT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-sm",
+      "key": "70601bc06e07e748704235e617b4f7ca9ea8fb81",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-md",
+      "key": "e3f39f7ca717955288264ed80bc99027564b31fe",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-full",
+      "key": "96f69added0e5e58d02f4aaef4b05f02d6158cec",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-info",
+      "key": "b2edcb0d407694e696876bb2a40f96b00345d421",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-error",
+      "key": "1c5e7d5f7c51d5e19e1d5c8ca3aeb9cc5c1ad6e8",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-strong",
+      "key": "eeff45cb0c3c36794454cbfae8ff225dbac33ebb",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-warning",
+      "key": "23cfaca44754da8ccbac2b45f3ff05ff99557d55",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-primary",
+      "key": "f1feb79e32b3cc29812690415926987bf97aa3ad",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-reverse",
+      "key": "f1c5ad48e6a0201d1f310dbd88ba6c2486de5af8",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-border-success",
+      "key": "00d42d2b76abf2ee1943139ee8eced5c32357127",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-default",
+      "key": "66a64687a41ae343d4b02fc25464cd05f967a9fd",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-width-lg",
+      "key": "6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524",
+      "scopes": [
+        "WIDTH_HEIGHT",
+        "STROKE_FLOAT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-error",
+      "key": "cc230a9641fbac932c72d775bdd8853691faf75c",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-subtle",
+      "key": "2c6da3e24b80ab216c6431af22e599517327e864",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-success",
+      "key": "121dbf960c2a8226670b4155a27a21ef2b7fd2e5",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-default",
+      "key": "62c24a016d61f82a67ee62a403fcd9abc22e5b9c",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-warning",
+      "key": "bd0a61d484c159d720313f015ecf1ec57891e1b1",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-reverse",
+      "key": "de3b98377ba46557025a2abc40327fb2c9e0f027",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-primary",
+      "key": "3d15f8defb98e2620785834ff60806b8c2da9312",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "color-icon-disabled",
+      "key": "fdb20cfa067a191e2c203b8d10b0c4977c1597e8",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "focus-ring-error",
+      "key": "0558bb294e6232ec53d951d37f724968af86ed9c",
+      "scopes": [
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Focus rings",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "focus-ring-offset",
+      "key": "3903270cbfbaacdb780be69bc7fa2a7e0db06afa",
+      "scopes": [
+        "WIDTH_HEIGHT",
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Focus rings",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "focus-ring-primary",
+      "key": "50671a856564fb0299bfd5348c36463af6c2b2cb",
+      "scopes": [
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Focus rings",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/50",
+      "key": "c88179510c2749c82615db8f457bb1678bb7f8b7",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/25",
+      "key": "5f7c971b8a2b554781a19b14afab8f912727fde4",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/700",
+      "key": "688df60fb4e8a2ff461f88fa8e92abce97727043",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/200",
+      "key": "9345f12e6c5f10bff1c9b2c3a0574f6e3449da8b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/400",
+      "key": "571c3113502ee3db28d15a0a904721a5f2bd6176",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/300",
+      "key": "fa9b1b487d583d83398bf1f66c6c999bcb51ff86",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/600",
+      "key": "da974a979d33999ef1aaf887fce141b5cfb1fba2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/800",
+      "key": "6f47aefd86adc94fd2df93dc7f3643b606f7006b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/900",
+      "key": "20eb8ee672f97453640123b7d6d039a86f757322",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/500",
+      "key": "a256595115f6048a1e1c843e3099a79a5c259288",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "primary/100",
+      "key": "6d07c6b9271f944d34e9fdced6b7e3e7387d67fd",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/25",
+      "key": "d032b41f6a2fd16b7a379d3d11281fc6b19d6af1",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/50",
+      "key": "ae0a574eb0faad13ab5105c977dd122bb813abbd",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/500",
+      "key": "975f14468c0396f238fab0a4d8a5ec23d67ac452",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/900",
+      "key": "176702046d18969a57b6eba5e7fa95ca98437eae",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/700",
+      "key": "cd135f5777e849908453421e9337f030203e5b9f",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/200",
+      "key": "0be63f8d189d0c4dba4bf0798ab72098bd391b9c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/600",
+      "key": "74774559c7ac6ef334f045b8c866c45904ebe848",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/300",
+      "key": "d582906a82e5e431d29cba1246aca61173b0b341",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/100",
+      "key": "e935403e850e3d74231fca4bae97af17c7aa1e1a",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/800",
+      "key": "d217ff24d2569bf6f7a5001d2449c76b4ad16f86",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "neutral/400",
+      "key": "6f3e021b7060c44efc6733f4e94ebce51147bf68",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/50",
+      "key": "eaf02fa14f074b9a12ce50324eb6b97ad4831022",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/25",
+      "key": "6c1d33645d721054d4025d4c19232fdaed610ace",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/600",
+      "key": "7e46b979e4b3106e8dd5db17df40eea5c4ba6732",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/200",
+      "key": "654d3548bf4a841bdf089d2ad75bbaaee4119220",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/400",
+      "key": "0edf2fdef18c21b5ab5ec280ebf71faafac15d41",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/500",
+      "key": "2e4ac92b8ed5fb7412cacc2d1146c5d57cb42113",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/900",
+      "key": "522eeb0c698b6ea6acbec638f2d2bcc0e8656abc",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/100",
+      "key": "34bf1ab1ca3e0b87565ea5f9231c64ddcf6b3f98",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/700",
+      "key": "9877db29cc9fbeb8dc4571862add2e60ef0889d3",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/800",
+      "key": "9e46e0827f8cdd80280a166705f3ec3d92751ec5",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "success/300",
+      "key": "638dea6d2f7577177ce160a4a9dfada0d5211e51",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/50",
+      "key": "badc6dc1ed596b84bf9f7dbd0f00704dc05cdfbc",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/25",
+      "key": "d5dfc2fea219d9b013761480609914eaba024b7b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/900",
+      "key": "5a7eebd7870c681ef7054e5827e6caf1678245a1",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/800",
+      "key": "6da04b99ae6f54a6f9715fbe7eaed6373dafd8ee",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/100",
+      "key": "7d60387082271bfba8d3a51f37787afed3566b7c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/500",
+      "key": "7c6d966243a84e1968a24e75400616da8e46ef52",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/600",
+      "key": "ae943bd794ef78d84a80dd3afb2c7e5a08d84d6f",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/300",
+      "key": "46213949fe93213251583a3073703a751f13f627",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/700",
+      "key": "d3ec74975ed5673dde61522380f3a5d0860bbaae",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/200",
+      "key": "e788618ece5fb4ce9e81fdd4df1bf0641e2a1d6c",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "warning/400",
+      "key": "23c50b84abdad96374b697fb5c1e15e82c0949a5",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/50",
+      "key": "bfccfa6f22e64cb84d49bb5332c97d45833fb0e2",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/25",
+      "key": "752fb8a735debc3415f7f001814f7b0ce109c5a6",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/700",
+      "key": "bfa0f0606d8bf941402e3ab242e82c8af9b492e0",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/400",
+      "key": "1d222c9385fe0543ef1fe7e7b6818f50a25d9e96",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/900",
+      "key": "b0b680e4cc8c7a88f8467869ba595a64a46dee59",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/600",
+      "key": "e015a67615380a1415326a35150ee91befb39598",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/100",
+      "key": "5b1cb211471a7b6e46e82e79b5f363b068fd484b",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/300",
+      "key": "1c24ae475b1f878252ddaec2282af3f7465cd99d",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/200",
+      "key": "358be7e75b2ee471eb17f21387970f5fd891f894",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/800",
+      "key": "84317479a16d5c25d0eed2b9d8586c0b0b10b29f",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "error/500",
+      "key": "393558481c0009f1085d0b1b86ba8110da12ea95",
+      "scopes": [
+        "ALL_FILLS",
+        "STROKE",
+        "EFFECT_COLOR"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Global colors",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-sm",
+      "key": "e02968bd3fca3e90211bbfaea4f00abc573c842e",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-lg",
+      "key": "ac5c5c8d7ba29924dcbdc4734dd5b8d91767d007",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-md",
+      "key": "0ed0efbb23a84581762b07154031014525c51a2a",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-xl",
+      "key": "25f333ee5dde5e89b28afa9cb249018b760089fa",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-xs",
+      "key": "9c98ee0ee8b9464165738d761e12dbdba0f60a09",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-2xl",
+      "key": "8bcda0862c5e53105f3af078eb241c09d19f91cb",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-3xs",
+      "key": "9dea6a6ecbacd8ab5b5d132ed64149202a929cba",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-2xs",
+      "key": "5a7e452ee094abaac62002b0b0e3dd02776e0330",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "Spacing/spacing-3xl",
+      "key": "5a19a6047298296c74c8b2c9ba41946df7c2f036",
+      "scopes": [
+        "GAP"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Spacing",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-xs",
+      "key": "e86ac4c8021b3e15db45761ae05a0d415e08d737",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-xl",
+      "key": "cd2ee903810decb6b2f3339cd028b99584a94e73",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-lg",
+      "key": "8e4f8cdd91158975e5fb846243d02d6561a62ea8",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-radius-2xs",
+      "key": "36267b0223009e715411b9c9ca145d28ab68d655",
+      "scopes": [
+        "CORNER_RADIUS"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-selected",
+      "key": "c9816fd5506a77d42d9d7c59ab9bf170667f57f7",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "border-disabled",
+      "key": "efa60d3fff3b5dab2fc6c41c3a5690c8f8247287",
+      "scopes": [
+        "FRAME_FILL",
+        "SHAPE_FILL",
+        "STROKE"
+      ],
+      "variableType": "COLOR",
+      "variableCollectionName": "Borders",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-sm",
+      "key": "d86842380c84f5fdebcf6e28ca0b38cf79debf9e",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-xl",
+      "key": "c844688784aee57e2fb91b9cebbf183678da0427",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-md",
+      "key": "b37323b2f8ac1bb7018ae991492fd7270e0dab2c",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-lg",
+      "key": "c50f86604cd63d258a19fbdb13364a8ebb3b7a02",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-xs",
+      "key": "f7e35ed75273ee38cd71435879eff862f8e01ae8",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-height-2xs",
+      "key": "8f9031b6b674aef83107e6677aa705e73f5dafc7",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Height",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-icon-sm",
+      "key": "ab607d333ba43ae5eea404e13f2fb049ed7f56b4",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-icon-md",
+      "key": "457a7f69457606d4f75afb8504c53db79acb4682",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-icon-xs",
+      "key": "fae7625516f487a690c641f24db5654859e2813f",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-icon-lg",
+      "key": "985b2ca68ae075e126b50bc53b377b13fd31a298",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Icon",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-trigger-min",
+      "key": "c5eafaff0adb7b7fe248277e226ff8afb3468727",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Trigger area",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "size-trigger-min-mobile",
+      "key": "14e061758d27b33b87c69a717a2615e4577d400f",
+      "scopes": [
+        "WIDTH_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Trigger area",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-sm",
+      "key": "52de705fdbef5396472563719a9a364f483897f5",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-xs",
+      "key": "cae490dd475e0e46b01395d482d57b601b1de273",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-md",
+      "key": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-lg",
+      "key": "bc026e5576296de7ef463631896000ebca5a3f01",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-xl",
+      "key": "d0b5b1d6474828074157d4761621af5b5ae23d70",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-2xl",
+      "key": "c6abd4f7317a658ef2f840f790931d26b2f49840",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-3xl",
+      "key": "971529fa3d8e2f240e93d12d26ac8333c372da20",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-size-4xl",
+      "key": "a73a3fb060f4ea226d2bdc8aed6bc2e0d1b790e1",
+      "scopes": [
+        "FONT_SIZE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-weight-bold",
+      "key": "e1c0d238faae46b5dfb6b13751effaf7f1dfaaae",
+      "scopes": [
+        "FONT_STYLE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-weight-medium",
+      "key": "19a1696a54d7449050b75b407a8b35ead94cce41",
+      "scopes": [
+        "FONT_STYLE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-weight-regular",
+      "key": "43473f279ee258f286f158c73b43100027efdfe5",
+      "scopes": [
+        "FONT_STYLE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-weight-semibold",
+      "key": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+      "scopes": [
+        "FONT_STYLE"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-lg",
+      "key": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-sm",
+      "key": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-md",
+      "key": "38cff3504a97357910fe12de774117b9ba8ff55f",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-xl",
+      "key": "1c5ac5d36f5416862803dd45c47fd97de4e2217e",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-xs",
+      "key": "799b23131a58bbdd3f6e97a283fdc93de90e0b38",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-lineheight-2xl",
+      "key": "0cf23a76e9caf5c6a5ec66ace4638bdf9ab6ae10",
+      "scopes": [
+        "LINE_HEIGHT"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-letterspacing-4",
+      "key": "7c8337cd66acb052f8d2355dce45ce53fd2284d6",
+      "scopes": [
+        "LETTER_SPACING"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-letterspacing-3",
+      "key": "2e6ee23fae4ad7e4a04311dcf453f1983264097c",
+      "scopes": [
+        "LETTER_SPACING"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-letterspacing-1",
+      "key": "b58a12ab63199f09b5a0365b963ca266196cf9ef",
+      "scopes": [
+        "LETTER_SPACING"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-letterspacing-2",
+      "key": "2f375d4df1725ceab14cd46c0e22f15c80c58c12",
+      "scopes": [
+        "LETTER_SPACING"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "font-letterspacing-normal",
+      "key": "20228f4843139ad580b637e80969410730f7a2aa",
+      "scopes": [
+        "LETTER_SPACING"
+      ],
+      "variableType": "FLOAT",
+      "variableCollectionName": "Font / Text",
+      "libraryName": "Actian Design System v2.1.0"
+    }
+  ],
+  "styles": [
+    {
+      "name": "heading-micro",
+      "key": "9847fe1277845ce86f97157b5ba8342ecaf3f180",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "heading-subtle",
+      "key": "c8c9880fd0f780b4e9a558f336c83131abe3447f",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "heading-display",
+      "key": "a14c21c5bc8ae3817de4f44cf89ac193e067bac7",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "heading-standard",
+      "key": "ea7401fa6fba7514c1aca93e911581cd3f16a1d8",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "heading-prominent",
+      "key": "6fe718b74016ab3a13b59f00020ad605edc82f55",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "body-micro",
+      "key": "9862f620e4c4e2114aeb1bd35838174be5098103",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "body-subtle",
+      "key": "e91a526042a6328e2e9b33b8aaa493a7d456d96e",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "body-stardard",
+      "key": "e2d890ede4702bfa4815b6805f53ac812caef4ad",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "body-prominent",
+      "key": "9997e4e40cb87b1902f1c832dfef7589175e0226",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "label-micro",
+      "key": "1abb2bafb770f181a96123707f8fd4b1199c5341",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "label-subtle",
+      "key": "48d53e9b9fca2555a64713c9c6eca3f0be96058e",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "label-standard",
+      "key": "693f5c1da87bf4ac6c00821229e0c47cea40ccd7",
+      "styleType": "TEXT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-sm",
+      "key": "3bdec05719c6a80952f2a909b2ee818bf23dc8b6",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-md",
+      "key": "a2b3143e1394d5cf10c76cd5cfa67ee3a769415e",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-xs",
+      "key": "e5e6f1d0c3aabfd9ff4aab0978c489771e7efcce",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-lg",
+      "key": "50793d1ceb271d09ec2ae79cb188b8d7c8ea85ba",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-xl",
+      "key": "ed326603bcb9d1ce54a00ae66352cdbdf9645a93",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    },
+    {
+      "name": "shadow-2xs",
+      "key": "7dc5ffd4d5e29881f55c6d776769ee732ddfce67",
+      "styleType": "EFFECT",
+      "libraryName": "Actian Design System v2.1.0"
+    }
+  ],
+  "values": {
+    "Typography/White": "#FFFFFF",
+    "Secondary/White": "#FFFFFF",
+    "Text/color-text-invert": "#ffffff",
+    "Messaging & Status/color-success-primary": "#007744",
+    "grey/875": "#1d1d23"
+  },
+  "coverage": {
+    "totalUniqueVariables": 418,
+    "variablesByType": {
+      "COLOR": 363,
+      "STRING": 1,
+      "FLOAT": 54
+    },
+    "variablesByCollection": {
+      "Zen colors": 267,
+      "Font / Text": 35,
+      "Backgrounds": 9,
+      "Borders": 20,
+      "Icon": 12,
+      "Focus rings": 3,
+      "Global colors": 55,
+      "Spacing": 9,
+      "Height": 6,
+      "Trigger area": 2
+    },
+    "totalUniqueStyles": 18,
+    "stylesByType": {
+      "TEXT": 12,
+      "EFFECT": 6
+    },
+    "zenColorPalettesFull11Shade": [
+      "blue",
+      "blue-grey",
+      "clematis-purple",
+      "cool-grey",
+      "dropped-brick-red",
+      "frosted-glass-green",
+      "glint-green",
+      "green",
+      "grey",
+      "kickstart-purple",
+      "mellow-melon-pink",
+      "olive-green",
+      "orange",
+      "pacific-blue",
+      "pomegranate-red",
+      "purple",
+      "red",
+      "royal-blue",
+      "shutters-green",
+      "singapore-orchid-purple",
+      "turquoise",
+      "viva-gold-orange",
+      "yellow",
+      "zima-blue"
+    ],
+    "zenColorPalettesPartial": {
+      "warm-grey": [
+        "50"
+      ]
+    },
+    "zenColorSingletons": [
+      "white",
+      "black"
+    ],
+    "adsGlobalColorRamps": {
+      "primary": [
+        "25",
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900"
+      ],
+      "neutral": [
+        "25",
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900"
+      ],
+      "success": [
+        "25",
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900"
+      ],
+      "warning": [
+        "25",
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900"
+      ],
+      "error": [
+        "25",
+        "50",
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "600",
+        "700",
+        "800",
+        "900"
+      ]
+    },
+    "discardedForeignResults": 0,
+    "valuesCapturedFromNode": "5006:98 (File Thumbnail instance on Cover page) — best-effort",
+    "valueCount": 5
+  },
+  "limitations": "search_design_system returns binding METADATA only (name, key, scopes, variableType, variableCollectionName, libraryName) — NOT resolved values. The fileKey l8biHxfarNi1I2RMvVxVOK is a thumbnail/cover file with no Tokens/Variables/Foundations/Color/Styles page; variables and styles live in the linked libraries, not as nodes in this file, so get_variable_defs could only resolve the few bindings present on the single Cover thumbnail instance (node 5006:98) — most of which come from foreign/older libraries, not the two canonical libraries. Therefore name->value resolution for the canonical libraries is NOT available via this file. search results are capped (~14 per query) so single-word palette queries truncate; full 11-shade coverage was obtained by querying each palette by its specific name."
+}

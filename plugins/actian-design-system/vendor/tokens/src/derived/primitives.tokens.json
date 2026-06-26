@@ -1,0 +1,3512 @@
+{
+  "color": {
+    "primitive": {
+      "white": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "com.actian.oklch": "oklch(1 0 89.9)",
+          "com.figma": {
+            "variableKey": "02ec9bc98201cffe768012ffbcb0e4f7f1713f83",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "black": {
+        "$type": "color",
+        "$value": "#000000",
+        "$extensions": {
+          "com.actian.oklch": "oklch(0 0 0)",
+          "com.figma": {
+            "variableKey": "b6b8b93b07628f748304bbbd5abf74375bf81557",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          }
+        }
+      },
+      "green": {
+        "25": {
+          "$type": "color",
+          "$value": "#F3F6F3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0051 145.5)",
+            "com.figma": {
+              "variableKey": "53121dcc229aec1487113eedba38b11081675e67",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#D3EFCD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9227 0.0541 140.1)",
+            "com.figma": {
+              "variableKey": "b4e669e5b847616ba9ed97d4cc00f798c6de2baa",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#B5DCAF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8546 0.0738 141.4)",
+            "com.figma": {
+              "variableKey": "655dd8d66ce72ebfd4c7c8992efd7acda179c83e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#92CC89",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7884 0.1103 141.2)",
+            "com.figma": {
+              "variableKey": "897ad9602758494d9f2ee86f85e9ffe26b909ee7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#75B86B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7188 0.1277 141.2)",
+            "com.figma": {
+              "variableKey": "cc11696cd583313b627c36fb7b58a14735b2a9c2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#53A647",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6513 0.1548 141.2)",
+            "com.figma": {
+              "variableKey": "f34fc2747bcfb43f6635bd2b5fa294203c35f820",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#299315",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5811 0.182 141.1)",
+            "com.figma": {
+              "variableKey": "64a135f10a57d9b2dc5db238f4d29f7f1d95b3bd",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#098900",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5467 0.1847 142.2)",
+            "com.figma": {
+              "variableKey": "5aa01598801a6e7527259820979afbc547f3f568",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#047800",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4966 0.1682 142.3)",
+            "com.figma": {
+              "variableKey": "05f6e330f130e1d582972805b3f7ca150ea276e0",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#145F04",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4243 0.1368 141)",
+            "com.figma": {
+              "variableKey": "9a44dad6e26e12857963574e86a15fa92cebac7d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#1A4B14",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3662 0.0998 141.5)",
+            "com.figma": {
+              "variableKey": "cde2ca4eed7400a68881b406e0f3df664a77f142",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "orange": {
+        "25": {
+          "$type": "color",
+          "$value": "#F7F4F2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9689 0.0042 56.4)",
+            "com.figma": {
+              "variableKey": "82fbd3e757a1594d431202b189a4a1d3d6ff2924",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFEBCE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9487 0.0438 77.2)",
+            "com.figma": {
+              "variableKey": "5a19234859de38604dbdfc786274f661df9692e3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FFDDB6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9163 0.0634 70.7)",
+            "com.figma": {
+              "variableKey": "f56eb1314b17535eb995a6e88ba5669b56c12e75",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FFCD92",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8789 0.0941 70.7)",
+            "com.figma": {
+              "variableKey": "e595c2d27820a87f9c1b36ab1175b86bba4017cf",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#FFBE78",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8466 0.1148 67.3)",
+            "com.figma": {
+              "variableKey": "348975f1ba55be3efc318e1e368c75e0673a6e1f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#FFAF53",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8147 0.1417 67.1)",
+            "com.figma": {
+              "variableKey": "ff34a9b982836c049958c416799b7285c34bad0f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#FC9F1D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7792 0.1657 67.1)",
+            "com.figma": {
+              "variableKey": "bbaedcf171b59923b92e8530197b6e8199c03f10",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#EF8D00",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7315 0.1662 63.5)",
+            "com.figma": {
+              "variableKey": "7abc99daa69be7a40babf669fc22567380524a04",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#D27B00",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6632 0.1509 63.3)",
+            "com.figma": {
+              "variableKey": "2bc72aba221ee129cb583e6ca5d4dd2729645e18",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#A76605",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5691 0.1245 66.8)",
+            "com.figma": {
+              "variableKey": "0b46e7a7fb91da07f9db5b63f03b2b216b6760e3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#83551F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4904 0.0916 66.6)",
+            "com.figma": {
+              "variableKey": "d0f149985b5521acf747ab7223e11989c11546ae",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "red": {
+        "25": {
+          "$type": "color",
+          "$value": "#F8F4F3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0045 34.3)",
+            "com.figma": {
+              "variableKey": "ac6887d4d1d31403395871fca3e1e917ba0f1b29",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFDACF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9164 0.0441 37.2)",
+            "com.figma": {
+              "variableKey": "205d91170182f270bf746c5b4da67f5d74551b35",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FFC1B3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8634 0.0744 33)",
+            "com.figma": {
+              "variableKey": "a01dfb7fa6834a0af5f52e50a2f93554160d2cb1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FFA38F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8028 0.1138 32.9)",
+            "com.figma": {
+              "variableKey": "361f18c6da8c4f280575c275c6835d7e2268d2c8",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#F88973",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7463 0.1397 32.3)",
+            "com.figma": {
+              "variableKey": "8bd2759dc4bc24454f5789614bbf915c73124cf3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#EF6B53",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6844 0.1681 32.1)",
+            "com.figma": {
+              "variableKey": "4ff2076486a612984c5fdb1e8129cfdb22565ca7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#E6492D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6243 0.1982 32.4)",
+            "com.figma": {
+              "variableKey": "ef93904b57b1e1830083967c253f0c295e5f9df8",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#DC3514",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5867 0.2074 32.6)",
+            "com.figma": {
+              "variableKey": "2b585d3d9c977c31d22f745a596fd7a3cca6c633",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#C12C11",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5308 0.1888 32.2)",
+            "com.figma": {
+              "variableKey": "64412fd0d01ba99d728e0638a1337146fe205e06",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#982A18",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4551 0.1488 32)",
+            "com.figma": {
+              "variableKey": "0b7e4952bf69267f51bb84ebff9601bdad5b4010",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#762A1C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3948 0.11 32.5)",
+            "com.figma": {
+              "variableKey": "d23ac306c08791126246c60fb5e5d95eea673cc6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "grey": {
+        "25": {
+          "$type": "color",
+          "$value": "#F8F4F5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0045 360)",
+            "com.figma": {
+              "variableKey": "6e18061410f12c0e7bbd7f211b3daae78d7be6ad",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#EBEBEB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9401 0 89.9)",
+            "com.figma": {
+              "variableKey": "304d2ba4b9e257cba02df989e11e329769b316cb",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#DADADA",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8884 0 89.9)",
+            "com.figma": {
+              "variableKey": "5825b88d925fb25ab1ca414b2cd8016d5aa09959",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#C9C9C9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8359 0 89.9)",
+            "com.figma": {
+              "variableKey": "1720aeb2f3ae64d06cc35412833ef70ea9672b72",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#B9B9B9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7858 0 89.9)",
+            "com.figma": {
+              "variableKey": "857416b8e01d859d47009cb7be1db6c1e27d4447",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#A9A9A9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7348 0 89.9)",
+            "com.figma": {
+              "variableKey": "4ff07d0555182b9940ad068443ea4a4b54ded4e2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#999999",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.683 0 89.9)",
+            "com.figma": {
+              "variableKey": "5c3d3ebbb834f8a0987908f8e62f304f8f056d2d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#8D8D8D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6434 0 89.9)",
+            "com.figma": {
+              "variableKey": "bafbfa6f3ee42726e9ed66cdee4648018b8d5a72",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#7B7B7B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5829 0 89.9)",
+            "com.figma": {
+              "variableKey": "a64a0554f0e5498c44350efc1debb2ea703927b4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#636363",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4997 0 89.9)",
+            "com.figma": {
+              "variableKey": "382f208e95c40c99790ca8170250d9843771eea7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#505050",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4313 0 89.9)",
+            "com.figma": {
+              "variableKey": "edf2c8715dd1a720ebf2a069f78c0c27d3f6aa07",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "royal-blue": {
+        "25": {
+          "$type": "color",
+          "$value": "#F3F5F9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 264.5)",
+            "com.figma": {
+              "variableKey": "1e91d1554116b16f012648e3bfb39187f57ca8fb",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#CBE3FF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.907 0.0462 252.3)",
+            "com.figma": {
+              "variableKey": "ff66b88956caabc4a43f05f0d98fc295364ad39f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#AACAFE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8339 0.0812 260)",
+            "com.figma": {
+              "variableKey": "21a8b068b3be6a5cc8b1148754b0a49ba627ce0e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#82B0FD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7555 0.1222 260.3)",
+            "com.figma": {
+              "variableKey": "cb0ade0584fcb8c2f9eea87e0ce63d02d4c59c1c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#6296EF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6768 0.1437 260.5)",
+            "com.figma": {
+              "variableKey": "6baaa26e212208279e905724a41439bf1a3b3ddc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#3D7CE6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6005 0.1735 260.2)",
+            "com.figma": {
+              "variableKey": "0dcb99b7909f999a61a04f62abc80db59b9128f6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#0F5FDC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5216 0.2044 260.3)",
+            "com.figma": {
+              "variableKey": "01b6d073b00b503f06cd4300422c9a5e4eee4e3a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#0053D7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.492 0.2138 261.1)",
+            "com.figma": {
+              "variableKey": "29d00fe2df0f610062ffe078e52143d212068355",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#0047BC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4439 0.194 261.2)",
+            "com.figma": {
+              "variableKey": "331e340a87f50f51a45dc34d563d5be8ae0b9dd1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#033B92",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3809 0.1533 260.3)",
+            "com.figma": {
+              "variableKey": "ab9651a36b33dbcf3e5d965be1dd1ae6dbea3aac",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#0D316D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3277 0.1123 260.3)",
+            "com.figma": {
+              "variableKey": "a72083cb5e585d9426e8ba8ffd05ae0a0bd3f094",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "blue": {
+        "25": {
+          "$type": "color",
+          "$value": "#F2F6F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9707 0.005 228.8)",
+            "com.figma": {
+              "variableKey": "d8dfb7cfcadb374d31471b388ad2f9ef08408df3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#CFEAFD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9232 0.0386 238.6)",
+            "com.figma": {
+              "variableKey": "d823f131d492a63ffc8b962021e0dc3b058796a1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#B1D5EE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8552 0.0517 238.5)",
+            "com.figma": {
+              "variableKey": "e3ca58f461960169bbf868a8495343d0884e3ce4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#8BC0E6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7845 0.0776 240.2)",
+            "com.figma": {
+              "variableKey": "a3d2b980059b6af2bb4f24b80e771ead638c1d3a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#6BACD7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7174 0.0916 238.8)",
+            "com.figma": {
+              "variableKey": "ac00ec93d7c868eddb2a851a35abb9046a383f46",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#4598CB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6502 0.1106 238.7)",
+            "com.figma": {
+              "variableKey": "558d5c81e76daa05aaabf880a0bdbba2f6e78b61",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#0283BE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5801 0.1298 238.8)",
+            "com.figma": {
+              "variableKey": "2b8f16d4013bfd861473da887a8251e2f420c16d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#0079B6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5512 0.1296 241.5)",
+            "com.figma": {
+              "variableKey": "b83c38974747dfc198d9baf063dff31bb9a1ed6a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#00699F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4985 0.1174 241.6)",
+            "com.figma": {
+              "variableKey": "f3b07373042d6aacdb2443242c0015dd120b674a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#00547D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4246 0.0964 239.5)",
+            "com.figma": {
+              "variableKey": "55cf006a6d7fdb82f01b4c10655be4e8ae56fee5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#114361",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3659 0.0729 240)",
+            "com.figma": {
+              "variableKey": "61a6d482f8ef16424f3231e6a6c05b585f7794a3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "turquoise": {
+        "25": {
+          "$type": "color",
+          "$value": "#F1F6F6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9694 0.0053 197.1)",
+            "com.figma": {
+              "variableKey": "85db36716a807a702a419fcf16c7f2ff146056e9",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#D0EFED",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9292 0.0325 191.9)",
+            "com.figma": {
+              "variableKey": "f646740a02b73fb790b3c4b7365377846c8bea6d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#B5DDDB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8685 0.0419 192.7)",
+            "com.figma": {
+              "variableKey": "e36a045b386c2a08723bf3e0f078171f400d87fb",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#90CECB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8086 0.0634 192.2)",
+            "com.figma": {
+              "variableKey": "e14c1765831c11bd499a5edd964794845ee76b0f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#72BCB9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7462 0.0742 192.4)",
+            "com.figma": {
+              "variableKey": "6fd3dbc8e565a7da2fe85894d1ed6dcf18ab7c1d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#4AACA9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6859 0.0914 192.5)",
+            "com.figma": {
+              "variableKey": "5d1a7d15f86e1e86d17921dac81d15adda9d8fab",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#049B98",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6234 0.1064 192.3)",
+            "com.figma": {
+              "variableKey": "07306b339313276e756b94624fe04a1dacfc03e3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#00908E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5908 0.1012 193)",
+            "com.figma": {
+              "variableKey": "e13296953708fbf0ad9e4239bbea5db517a2a04c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#007E7B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5359 0.092 191.8)",
+            "com.figma": {
+              "variableKey": "5d633a6b4b9b2b7eae18b019c68d322eb353222c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#006563",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.458 0.0786 192.4)",
+            "com.figma": {
+              "variableKey": "1eaa6a0b8d5f2e30a616d104d927b138a786f03a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#15504E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3939 0.0589 191.8)",
+            "com.figma": {
+              "variableKey": "57725c1bbfdf12bfec834ae48a149e31ac4cd4d2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "purple": {
+        "25": {
+          "$type": "color",
+          "$value": "#F6F4F7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9695 0.0045 314.8)",
+            "com.figma": {
+              "variableKey": "8d2357ddaff680518b6af44ff9cf03f14653bf22",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#F2E6F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9397 0.0271 314.7)",
+            "com.figma": {
+              "variableKey": "968b28ed283392daa15ec04f0215ba3848afe650",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#E3D3EC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8873 0.0379 313.6)",
+            "com.figma": {
+              "variableKey": "a5183349431670e667ec0b6d577c2ed7c3d85fd9",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#D7BFE4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8364 0.057 313.8)",
+            "com.figma": {
+              "variableKey": "e54913a693bcf838c5f1cdb1e5052740098d0db7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#C7ADD7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7837 0.065 312.5)",
+            "com.figma": {
+              "variableKey": "9cac03f4ec63f341ef50829768809ff40cd42079",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#BA9ACC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7319 0.079 313.2)",
+            "com.figma": {
+              "variableKey": "738341e11b47774e31165600667168452238339e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#AD88C1",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6817 0.0915 313.4)",
+            "com.figma": {
+              "variableKey": "f77cd17c3374c0b5baedf5ad88891b6cdc51c217",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#A17AB6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6393 0.0975 313.4)",
+            "com.figma": {
+              "variableKey": "c41fe537028487b5f111c41d0d8c906e7fe83e47",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#8C6A9F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.578 0.0881 313)",
+            "com.figma": {
+              "variableKey": "fd483b69e75934635f0f856592d4a6539aa5ec77",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#71567F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4967 0.0713 313.8)",
+            "com.figma": {
+              "variableKey": "b43571cf795c595532bc9daa348a576eeff6d6b0",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#5A4764",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4291 0.0525 313.8)",
+            "com.figma": {
+              "variableKey": "60fca08754307283941ffc731d413a61f5b2966a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "blue-grey": {
+        "25": {
+          "$type": "color",
+          "$value": "#F2F6F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9707 0.005 228.8)",
+            "com.figma": {
+              "variableKey": "254aa1867c296243ff7fe2c928bf204965ee3fa5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#DDE6EC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9199 0.0127 236.6)",
+            "com.figma": {
+              "variableKey": "e048261ab037eee740b7a0712ce1636d4f40269b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#C4D0D7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8505 0.0163 233.1)",
+            "com.figma": {
+              "variableKey": "7748f3b9932bb1f020ac9e3e948c82ae81b1a52c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#AABCC4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7839 0.0229 226.2)",
+            "com.figma": {
+              "variableKey": "fa9b75027dc2e0af6e54fb4920ae22b8ed526da4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#91A6B0",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7122 0.0277 228.1)",
+            "com.figma": {
+              "variableKey": "cc89c7ad871399b8f38dc46f4e4b4edca4717126",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#78929D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6436 0.0337 225.4)",
+            "com.figma": {
+              "variableKey": "e976ab9d2b72ec46d14df297617ee6d4895eb90b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#607D8C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5727 0.0405 230.8)",
+            "com.figma": {
+              "variableKey": "0598bd5aa7f162c3f1929a409b474a4196186c05",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#547482",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5397 0.0427 226.8)",
+            "com.figma": {
+              "variableKey": "b604b55ab91b2ad88f071452dfdbd831e98fa182",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#4A6470",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4871 0.0363 228)",
+            "com.figma": {
+              "variableKey": "e725a9f66bb4c899e0a2ca77fe2d3aa65aeef51f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#3C515A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4211 0.0299 226.1)",
+            "com.figma": {
+              "variableKey": "fe9e3fcd9ab986ce3b6af239923771ab540f6415",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#323F47",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3593 0.022 235.2)",
+            "com.figma": {
+              "variableKey": "125c9135c88db296c92dab59c14454a12a06ba40",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "yellow": {
+        "25": {
+          "$type": "color",
+          "$value": "#F6F5F1",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0054 95.1)",
+            "com.figma": {
+              "variableKey": "3b66f4c0686e87e63f580cdd93c333580a027f7f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFF5D5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.043 92.7)",
+            "com.figma": {
+              "variableKey": "abb0720dd182340314e97306c6f51db0d096e931",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FEEDC3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9493 0.0574 88.6)",
+            "com.figma": {
+              "variableKey": "0e99506e159002763678507361c9ab55510cccbe",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FFE6A5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9304 0.0866 89.4)",
+            "com.figma": {
+              "variableKey": "2a9df59552ede9fec8f7dcd271fde9927a9fed83",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#FCDF91",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9106 0.1021 89.8)",
+            "com.figma": {
+              "variableKey": "59ad89e47c6bde657c86dd279d1693aa22bf3fc1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#FBD776",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8901 0.1231 89.5)",
+            "com.figma": {
+              "variableKey": "d299182b12e017714ecc555ea9c7fa5dc0dca125",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#FACF55",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8699 0.1453 89.4)",
+            "com.figma": {
+              "variableKey": "7be9f3c0fffede8831f60e4010559ec1113c2fda",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#EABD34",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8163 0.1524 89.4)",
+            "com.figma": {
+              "variableKey": "e89092a6647515af86fd37ea956645128a20f304",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#CDA52C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7385 0.138 89.2)",
+            "com.figma": {
+              "variableKey": "d181300f358fca1867db3f0d292de0e8c1d2a53d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#A58732",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6354 0.1083 89.2)",
+            "com.figma": {
+              "variableKey": "dabc2de5c50b19c46b6a20c76dd2c07ae9669e40",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#836F37",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5484 0.0791 90)",
+            "com.figma": {
+              "variableKey": "b6394a20a5792794475d9346457ee17dc727a8d5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "olive-green": {
+        "25": {
+          "$type": "color",
+          "$value": "#F4F6F2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0057 128.5)",
+            "com.figma": {
+              "variableKey": "5a7db9e69d77d4bd3060549bea2f24d7bd654c43",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#E1EACB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9221 0.0422 120.4)",
+            "com.figma": {
+              "variableKey": "0e4465b8f851dec9cd9601360e680ab0a3dcdaa6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#CAD5AD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8542 0.055 120.1)",
+            "com.figma": {
+              "variableKey": "6a9ff138d8c9b8a6aa692923d3c83ff3083917d5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#B2C186",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7848 0.0809 119.9)",
+            "com.figma": {
+              "variableKey": "67ec6ce67b547789c0e77ac96fe8458068bd8dd1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#9CAD67",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7178 0.0958 120)",
+            "com.figma": {
+              "variableKey": "3eb8184050746d80c2e68248e20c09987824f586",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#879940",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6497 0.1167 119.3)",
+            "com.figma": {
+              "variableKey": "b41921f58a1b6c66228272314922458c4bf9e714",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#718601",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5825 0.1381 120.1)",
+            "com.figma": {
+              "variableKey": "5f9a605339369ef2dbb5018b8f9694dba54601e1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#677B00",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5471 0.1304 120.3)",
+            "com.figma": {
+              "variableKey": "88e8713bbd02f8677b15d1d5a9b3c44ea064dddc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#5A6B00",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4959 0.1177 120)",
+            "com.figma": {
+              "variableKey": "81d20b096e66934261cb800cfb6aae04f9105dfc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#475500",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4223 0.1003 120)",
+            "com.figma": {
+              "variableKey": "25b46428a76b274591a250495ff99414ed94cd72",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#3A440F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3658 0.0753 119.6)",
+            "com.figma": {
+              "variableKey": "cfbf4a8e93f77626f8210613522fa5046ac8b6b3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "pacific-blue": {
+        "25": {
+          "$type": "color",
+          "$value": "#F3F5F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9695 0.0045 258.3)",
+            "com.figma": {
+              "variableKey": "36fe4d517d319da2939cc24cbfe1562458679b10",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#CADCF7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8895 0.042 258.4)",
+            "com.figma": {
+              "variableKey": "ea2047631e94731003b01b12a5c923245bc3d685",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#A5BCDE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7893 0.0548 258)",
+            "com.figma": {
+              "variableKey": "ca05850b4b70780a0f4b241cf32ad7f79872691a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#7A9CCD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6862 0.0821 257.5)",
+            "com.figma": {
+              "variableKey": "7f54120e9ae3197b5b176211399aa43d6a06e4e0",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#577CB4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5829 0.0963 258.4)",
+            "com.figma": {
+              "variableKey": "5238170b1d3b521835756c47138454bd06a46a33",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#315EA0",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4839 0.1176 258)",
+            "com.figma": {
+              "variableKey": "e5a51a4462ddd329c49f17d1f1ae521e86dba8cc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#023E8A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3803 0.1386 258)",
+            "com.figma": {
+              "variableKey": "5c892dc826aa72bf31e7c23d98229965b5f36ea6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#003786",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3606 0.1426 259.4)",
+            "com.figma": {
+              "variableKey": "c653f2184834147b4d8051fc08ee6e4d8428e939",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#002F75",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3269 0.1294 259.4)",
+            "com.figma": {
+              "variableKey": "dbe8dd70a2dc56cf5853510d62a371f77a6b67b1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#00255A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.278 0.104 258.2)",
+            "com.figma": {
+              "variableKey": "9c5545c17f1c4960742b59e71f139700915614f1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#041E42",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.2399 0.0755 257.2)",
+            "com.figma": {
+              "variableKey": "b5c01536a2b619e69955626f260728cc9af48dc3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "pomegranate-red": {
+        "25": {
+          "$type": "color",
+          "$value": "#F8F4F4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0043 17.2)",
+            "com.figma": {
+              "variableKey": "b237c12a62c7e4d33bb60e2cdf35eb82e0cfc248",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFD6D8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9113 0.046 14.7)",
+            "com.figma": {
+              "variableKey": "236a07bce489096a8a9f353a537ab60d3a901756",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#EEB9BC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8342 0.0615 14.7)",
+            "com.figma": {
+              "variableKey": "7aa55ac78487d6561c58d33369e76b1a673254d1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#E4979E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7549 0.0931 13.6)",
+            "com.figma": {
+              "variableKey": "db8521b75410cd8e5c742ab473a43538ec00f418",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#D27A83",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6774 0.1099 13.9)",
+            "com.figma": {
+              "variableKey": "9129f11902f1ef877ef3890cc0e9b5b523327acf",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#C25A67",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5991 0.1335 14.3)",
+            "com.figma": {
+              "variableKey": "57d9da43775615aca609fee0ed148dc2f09b2773",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#B1374D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5214 0.1574 14)",
+            "com.figma": {
+              "variableKey": "58d0d8863b9950c7e17666e0d49680a7f582d837",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#A82743",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4878 0.1644 13.8)",
+            "com.figma": {
+              "variableKey": "628d8250294137cdc8e58af772cf02fc37bc94cc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#932139",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4422 0.1488 14.2)",
+            "com.figma": {
+              "variableKey": "0c44e6691b85ece890bd06670a5a3fbd66c11ce1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#73202F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3801 0.1157 14.1)",
+            "com.figma": {
+              "variableKey": "ee01fb316a516d4bcf8452980fbaf03452cb3e7c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#591E27",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3284 0.087 14.1)",
+            "com.figma": {
+              "variableKey": "87aed778a4de34c807822dc61362724337cbfa9c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "kickstart-purple": {
+        "25": {
+          "$type": "color",
+          "$value": "#F4F5F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0041 271.4)",
+            "com.figma": {
+              "variableKey": "a8d13d5020c2fcfb353df6dcee7c880b8c0a0499",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#E1E5FF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9268 0.0355 278.7)",
+            "com.figma": {
+              "variableKey": "29ccdfc2cdd659138e0b0c5eb564cbd55e3244dd",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#CBD0F2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8646 0.0473 278.8)",
+            "com.figma": {
+              "variableKey": "79062cad80aeb6ac3fe6a292fc0571630c0238dc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#B4BAEB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.801 0.0696 279.2)",
+            "com.figma": {
+              "variableKey": "f57aa6bd755407a5067b2cd44dc3fea339cbf050",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#9FA5DD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7375 0.0812 279.5)",
+            "com.figma": {
+              "variableKey": "44a128eae0222a24d11d49142da0dd1922d7d205",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#8A90D3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6749 0.0991 279.5)",
+            "com.figma": {
+              "variableKey": "d5e4e51b1a33a8f786304127e37fd6345e405c25",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#757BC8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6113 0.1162 279)",
+            "com.figma": {
+              "variableKey": "385f91c6dcd94316fca333bf1cff220ec22009df",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#6A6FBF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5739 0.1221 279.1)",
+            "com.figma": {
+              "variableKey": "9f89cfc6df23ca2e9628e5526748244585e8b089",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#5C61A7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5209 0.1096 278.8)",
+            "com.figma": {
+              "variableKey": "350a5a8168a24154e060a4acc32d639a97666c1d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#4A4E84",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4459 0.0881 279)",
+            "com.figma": {
+              "variableKey": "d9a15663c60c807d5ab47da8c84e92c273fd1442",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#3C4066",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3856 0.0647 278.3)",
+            "com.figma": {
+              "variableKey": "f5c1d99f1c08fb4e153aa2fcc3e7c3a209e2d947",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "glint-green": {
+        "25": {
+          "$type": "color",
+          "$value": "#F4F6F2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0057 128.5)",
+            "com.figma": {
+              "variableKey": "b1ebb5e5fd9c824e75edfacd4f39ee6d8bc36c9b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#F4FBEE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9793 0.0186 130.2)",
+            "com.figma": {
+              "variableKey": "e8e62dfe181ce84f1f737cbe3ced622e4854a88f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#EFF9E8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0247 132.1)",
+            "com.figma": {
+              "variableKey": "af678a55f642c65de59cd6385b399e5e15535ea4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#E9F7DD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9588 0.0373 130.4)",
+            "com.figma": {
+              "variableKey": "66e2ca3c0b2415da407eae3b7918a82c3bf8dc00",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#E4F6D6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9514 0.0463 131.4)",
+            "com.figma": {
+              "variableKey": "c5effdea301dd8f20d0086e1f0cd7a7048270d1c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#DFF4CE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9418 0.0549 131.1)",
+            "com.figma": {
+              "variableKey": "02618e1b4e3f8fd3d047cd57c45bd0d17a384b17",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#DAF1C5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9299 0.063 130.1)",
+            "com.figma": {
+              "variableKey": "dda0e699bcc4a4ced6267322dfcaac6089796ab1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#C6DFB2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8735 0.066 131.4)",
+            "com.figma": {
+              "variableKey": "ac69deed2440aa677d3540eae769fb2188d60102",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#AEC49B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7928 0.0612 130.7)",
+            "com.figma": {
+              "variableKey": "bf57ba268afb4db070213d795ad7b1eba5825c3d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#8E9F80",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6805 0.0483 131.1)",
+            "com.figma": {
+              "variableKey": "bd1d88a4f159174ebe11bcaebd91b4cd81dbb668",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#75806B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5846 0.0339 130)",
+            "com.figma": {
+              "variableKey": "293c27c961d7f668b07ee319d29a02c4c20dcee5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "clematis-purple": {
+        "25": {
+          "$type": "color",
+          "$value": "#F6F4F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 308.4)",
+            "com.figma": {
+              "variableKey": "cb8b8df0145fec8def085d0323a510d279c85df8",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#E7E0EE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9163 0.0202 308.2)",
+            "com.figma": {
+              "variableKey": "0e5990cea43a24d24e2e591af1405ba7649705f4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#D1C7D9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8432 0.0269 310.4)",
+            "com.figma": {
+              "variableKey": "7e32083ff4543d4e25a446574661b030a305b26f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#BBAEC9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7703 0.0405 307.1)",
+            "com.figma": {
+              "variableKey": "0982bd666eed0c2d6ff68796805277798b1a5d53",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#A695B4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.695 0.0485 309.7)",
+            "com.figma": {
+              "variableKey": "a70fdfcb09656759c5728d7fe24ee39ca54008bb",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#907DA3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6205 0.0602 307.4)",
+            "com.figma": {
+              "variableKey": "6e156928c9e0fceb31864d9649bbc36f0882720a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#7D6690",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5484 0.0692 309.1)",
+            "com.figma": {
+              "variableKey": "25927c19df84c3d60b5a8051f193f5a97f02091e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#745C88",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5159 0.0733 308.9)",
+            "com.figma": {
+              "variableKey": "4e0e00bbca582deee6c94d44617dede46e4dd40b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#644F77",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4652 0.068 307.9)",
+            "com.figma": {
+              "variableKey": "8ce0549e693fb0d953ec1e48e73f5fc132f3461e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#4F405D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3991 0.0513 307.8)",
+            "com.figma": {
+              "variableKey": "5be01ec1a16476487bb3411ad8f23eadb96ed4a5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#3F3548",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3474 0.035 308.5)",
+            "com.figma": {
+              "variableKey": "a83555d3f2f298119338e93a1af09cb4d4334016",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "mellow-melon-pink": {
+        "25": {
+          "$type": "color",
+          "$value": "#F8F4F4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0043 17.2)",
+            "com.figma": {
+              "variableKey": "0210f0b8d8b5393aef821ceced04f2362d6f1283",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFD5DD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9108 0.048 5.2)",
+            "com.figma": {
+              "variableKey": "c038947fd25f0210638f8f388a2b971f1d7de667",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#FFB9C4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8534 0.0821 8.5)",
+            "com.figma": {
+              "variableKey": "7410793c644393a8fff6ae94846b3b18a4b0809d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#FF96AA",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7879 0.1274 8.2)",
+            "com.figma": {
+              "variableKey": "b6790e2d0d78ff8d2ef96df3bda2aaf38b79b21f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#FC7993",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7349 0.161 9.4)",
+            "com.figma": {
+              "variableKey": "1a867c31ff141fa06177529c2f05667df8cd0544",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#F3557B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.671 0.1941 9.6)",
+            "com.figma": {
+              "variableKey": "2520c73bb39bba5552338bbc47f6f75379bc798b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#E91E64",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6064 0.2299 9.3)",
+            "com.figma": {
+              "variableKey": "637cba2e959b4022a64e6d2db47b626a16b12b65",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#E00058",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.579 0.2315 10.7)",
+            "com.figma": {
+              "variableKey": "aa720862e8c90221421fbac0e5321bdd8f5f3318",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#C4004C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5239 0.2094 10.7)",
+            "com.figma": {
+              "variableKey": "bb6e7767744f7d64322674176c6f807eb0d6859b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#9A083E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.442 0.1724 9.4)",
+            "com.figma": {
+              "variableKey": "f2e6101a181b705c0ba492fc511c440d253ae71e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#771A34",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3825 0.1273 9.4)",
+            "com.figma": {
+              "variableKey": "063b8b95f1c531b058513b1bc048160642479acc",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "zima-blue": {
+        "25": {
+          "$type": "color",
+          "$value": "#F2F6F7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9704 0.0045 214.3)",
+            "com.figma": {
+              "variableKey": "b4c7fc87e84cd9b57833dd2bf6732a852cce547d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#D2F6FF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9503 0.0392 214.5)",
+            "com.figma": {
+              "variableKey": "902171273b1ac66da0d7308ec676342ab0a0d538",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#BBEBFC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9121 0.0545 221.5)",
+            "com.figma": {
+              "variableKey": "93dbc4ce219212f94ad115820144c1502d25d4f3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#99E3FC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8759 0.0809 221.2)",
+            "com.figma": {
+              "variableKey": "a9e64c664497810aeef8e95ee2a9fc2ea8220da5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#7FD8F5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8368 0.0946 221.1)",
+            "com.figma": {
+              "variableKey": "c700dcbf453ced88a624aeddb7f1d616a254dd47",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#58CFF1",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8002 0.1157 219.9)",
+            "com.figma": {
+              "variableKey": "721a4d411bc1fc981b8d34d869eaac7466d3447c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#1BC4ED",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7605 0.1353 220.7)",
+            "com.figma": {
+              "variableKey": "a459255552af18448d4aebdfa3fa4ed3a8824997",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#00B6E1",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7202 0.1338 222.7)",
+            "com.figma": {
+              "variableKey": "997efedb8b3d309d5c58877ca87a605d0617b9e2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#009FC5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6518 0.1212 222.8)",
+            "com.figma": {
+              "variableKey": "8b23e3feb435edb765b36005b30dc51dff4406e9",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#00809D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5555 0.1019 221.1)",
+            "com.figma": {
+              "variableKey": "0a12c581c8a18f16b8e0aab9208f47f4d134f989",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#21677B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4798 0.0747 220.7)",
+            "com.figma": {
+              "variableKey": "436848bada09ed444a88feea3f5679a61f81eb0d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "singapore-orchid-purple": {
+        "25": {
+          "$type": "color",
+          "$value": "#F6F4F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 308.4)",
+            "com.figma": {
+              "variableKey": "ccc2f03d5a25c15ac48b553b1d87de471e47dd47",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#EED7FF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9102 0.059 310.9)",
+            "com.figma": {
+              "variableKey": "8bed189e8e18859a9dbe4c7f7139043fa43c456d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#D9BBFF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8407 0.0982 304.5)",
+            "com.figma": {
+              "variableKey": "e687592185910805dab4481f5462dc684501db9e",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#C898FF",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7637 0.1507 304.5)",
+            "com.figma": {
+              "variableKey": "0cffc16fd8d129bfd5fa0dfada616847129c7a40",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#B47BFC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6957 0.1876 302.2)",
+            "com.figma": {
+              "variableKey": "834127e09867a5726d9b11cdf90470f9cd31c534",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#A456F4",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6216 0.2273 303)",
+            "com.figma": {
+              "variableKey": "44a9ded6d145858d870618c0c059431ad9eb1916",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#9321ED",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5473 0.2685 302.7)",
+            "com.figma": {
+              "variableKey": "9beeda7c91b8ca41170d3781bfbe2648c394a22c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#8B00E8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5214 0.2753 302)",
+            "com.figma": {
+              "variableKey": "4701f6f31f5c354bb06140aa903765c45b337bb6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#7900CB",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4717 0.249 302)",
+            "com.figma": {
+              "variableKey": "768097945cef9de328daf099d6c64029cd6df326",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#5F0C9E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3995 0.2017 302.5)",
+            "com.figma": {
+              "variableKey": "1d2b2501984f0f65564966115872cca7457286bf",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#4A1A76",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3454 0.147 303)",
+            "com.figma": {
+              "variableKey": "3abda74cc184eca3c3fe1aff37584cb5d31e78c3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "dropped-brick-red": {
+        "25": {
+          "$type": "color",
+          "$value": "#F8F4F3",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0045 34.3)",
+            "com.figma": {
+              "variableKey": "da55235bb01b8ca71f42ae7443eb2f288c52ed2a",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FFD7CA",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9096 0.0484 38.8)",
+            "com.figma": {
+              "variableKey": "872d98c7f7dfd2bb52245cee2968d02192d1e6c7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#F3BBA9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8381 0.0698 38.6)",
+            "com.figma": {
+              "variableKey": "4628fd5ac4138bb492cc8718155a50fddbc42518",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#EB9980",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7595 0.1054 37.7)",
+            "com.figma": {
+              "variableKey": "345fae08b7fdf78a129a285d54ce4a181d9285ae",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#DA7C61",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6836 0.1237 36.9)",
+            "com.figma": {
+              "variableKey": "b1802134cfa69007d807fb6562ca5ba8a4189ad5",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#CB5D3B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6086 0.1485 37.7)",
+            "com.figma": {
+              "variableKey": "58718a005dd8bb0479fc739fd124fc1e934e0ccb",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#BA3800",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5292 0.1745 37.7)",
+            "com.figma": {
+              "variableKey": "c4391f673f5dbf8f2840e103f4e6e8313c6eafc6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#B22700",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4986 0.1796 33.9)",
+            "com.figma": {
+              "variableKey": "24e08c1d1691a2e9d76358f13f9b37e215d94dce",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#9C2000",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4516 0.1636 33.7)",
+            "com.figma": {
+              "variableKey": "d68aa9c620bf9ee6aba2b54d44fea6a2bba071af",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#7B2000",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3888 0.1306 36.8)",
+            "com.figma": {
+              "variableKey": "3f6405d548532c6df8ad868e08a0dd61fe7b2b87",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#5D1F0B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3321 0.0957 37.5)",
+            "com.figma": {
+              "variableKey": "12f398b8d704cfa72ccc24c63d600081c5df756c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "viva-gold-orange": {
+        "25": {
+          "$type": "color",
+          "$value": "#F7F5F1",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9706 0.0057 84.6)",
+            "com.figma": {
+              "variableKey": "5473acbf9704c6c0b2ada1c792937c202a3b3388",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#FEEDDC",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9551 0.0292 67.5)",
+            "com.figma": {
+              "variableKey": "37da37beee8d527d6771ac6141868ace9c1c8736",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#F5E1CA",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9199 0.0377 71.2)",
+            "com.figma": {
+              "variableKey": "7910a1bfc8a6e52aeec9ea9b206cc6f7cd61e8b6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#F2D4B2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8865 0.0561 70.5)",
+            "com.figma": {
+              "variableKey": "26faf2ba445aa715a4aed49484878b6dc63fb4c8",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#EBC8A0",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.853 0.0661 70.5)",
+            "com.figma": {
+              "variableKey": "0e74cea2ebd4d12ec45cb108012849d07b1483e1",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#E5BB8B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8179 0.0794 70.1)",
+            "com.figma": {
+              "variableKey": "5540f45772b10458c70c4b8dfd3470b3e7988887",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#E0AE74",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7838 0.0949 69.9)",
+            "com.figma": {
+              "variableKey": "c66bf38c04d3e541e46f493e1bd78be3a4839b04",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#D29F62",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7374 0.099 70.2)",
+            "com.figma": {
+              "variableKey": "ec5c8ce2df177643f5be3890e7d29702e2d2f8d7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#B78A55",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6652 0.0889 69.8)",
+            "com.figma": {
+              "variableKey": "003a2d236f3d5ce790fb058d8be86bbb904f14c8",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#937148",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5726 0.0713 70.8)",
+            "com.figma": {
+              "variableKey": "23a6d93f4b34f3923d00107f3e52000ac9f558db",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#755D40",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4951 0.0529 71.4)",
+            "com.figma": {
+              "variableKey": "c1e407c6560efd21170abf99acc0afa3336425a3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "shutters-green": {
+        "25": {
+          "$type": "color",
+          "$value": "#F5F6F2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9713 0.0054 117.9)",
+            "com.figma": {
+              "variableKey": "60cd96a7a17e39820c8cc63d5a98e68735b1708c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#E2E4DD",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9154 0.0096 119.6)",
+            "com.figma": {
+              "variableKey": "13e17506adf5dbbc8e14ba9e5fc3560a8733d19f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#C9CBC2",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.838 0.0125 116.9)",
+            "com.figma": {
+              "variableKey": "35775d95f73b424b9d707e6567fcf129c38ec811",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#B0B4A7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.763 0.0187 120.8)",
+            "com.figma": {
+              "variableKey": "34562a6cb4eda1f84590ef9d7fcab402f3b308fa",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#989D8E",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6876 0.0222 122)",
+            "com.figma": {
+              "variableKey": "dec191192b1cbb04db3d459d9270527166f59f79",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#818674",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6106 0.0271 119.8)",
+            "com.figma": {
+              "variableKey": "5407f9918954737b8e811a0a0d88da9cb1bc100f",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#6B705C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5349 0.0308 118.9)",
+            "com.figma": {
+              "variableKey": "0afeb696f30c074fe65eb05508e138fd9775546b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#626752",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5032 0.0327 118.5)",
+            "com.figma": {
+              "variableKey": "3df5fc2465664300626185808e6871d7ca472b4d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#555947",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4549 0.0287 117.7)",
+            "com.figma": {
+              "variableKey": "f23358a6ad8e7cc0d4dfd23ae0d29a2994ca11b7",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#43473A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.39 0.0219 121.3)",
+            "com.figma": {
+              "variableKey": "223bac532beca24d2dd74b02a4e62ad2a1e2a6e6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#37392F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3393 0.0172 116.5)",
+            "com.figma": {
+              "variableKey": "245b1e4f381e2543afcb6b9892d4fae9a644a568",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "frosted-glass-green": {
+        "25": {
+          "$type": "color",
+          "$value": "#F2F6F5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0044 179.7)",
+            "com.figma": {
+              "variableKey": "67cca73ffd75d416280435ae9a05b169cfde179c",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#D3E7E0",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9111 0.0232 172.8)",
+            "com.figma": {
+              "variableKey": "84c6369002aae28b710dd63fd020e236a394a864",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#B4CEC5",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8295 0.0306 172.7)",
+            "com.figma": {
+              "variableKey": "73efdcba1b9ad4e9c5fd3b2e542ff8f2b39003bf",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#91B7A9",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7475 0.0457 170.6)",
+            "com.figma": {
+              "variableKey": "fff45fa6e48b1aacdb67a9743d87239a83eb3a66",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#749F90",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6667 0.0518 171.1)",
+            "com.figma": {
+              "variableKey": "dcf7f9fd6108b4c9023df3a653a14b6c7d07aba2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#538877",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5844 0.0629 171.6)",
+            "com.figma": {
+              "variableKey": "be58705fe987ea8514d655e313687315f9afdc28",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#30725F",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5035 0.0743 171.6)",
+            "com.figma": {
+              "variableKey": "96f90fa1892158904df1273e6acc9459b9b6854b",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#216B57",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4767 0.0793 171.4)",
+            "com.figma": {
+              "variableKey": "a9849c648211cda5788a069f5bacbde69606cf32",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#1C5C4B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4292 0.0705 171.9)",
+            "com.figma": {
+              "variableKey": "53f5bedd8963a60fcd2c4abd7517d435ac1d2c92",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#1A493B",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3685 0.0569 170.6)",
+            "com.figma": {
+              "variableKey": "40c6bdb2cbb60a31bf7813c40585e2b7fc2957a0",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#1B3930",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3181 0.0398 172.1)",
+            "com.figma": {
+              "variableKey": "6986c096dddbd377a288cafb2f31bf3c4e3b5bb6",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      },
+      "cool-grey": {
+        "25": {
+          "$type": "color",
+          "$value": "#F5F5F8",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.971 0.004 286.3)",
+            "com.figma": {
+              "variableKey": "60395c3487b850c9d8aca74b053a50de99cc82e2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "50": {
+          "$type": "color",
+          "$value": "#E1E1E6",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9112 0.0067 286.3)",
+            "com.figma": {
+              "variableKey": "9fd3ebbba56de049cd05b37a72b6f73a99107fb3",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$type": "color",
+          "$value": "#C7C7CE",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8318 0.0097 286.2)",
+            "com.figma": {
+              "variableKey": "06639fcf4600a8b84db05634c7d998938119eebd",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$type": "color",
+          "$value": "#ADADB7",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7507 0.0142 286.1)",
+            "com.figma": {
+              "variableKey": "046631e793463d184f9d80ed665f09980e5d24bf",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "300": {
+          "$type": "color",
+          "$value": "#9494A0",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6704 0.0175 285.9)",
+            "com.figma": {
+              "variableKey": "3fec4accbd89fe4ef5864d75a5b7d2e1bbd17043",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$type": "color",
+          "$value": "#7C7C8A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.591 0.0212 285.7)",
+            "com.figma": {
+              "variableKey": "516bda6669f7acca819393ca0b0d7d727dda9cd4",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$type": "color",
+          "$value": "#656574",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5121 0.0235 285.5)",
+            "com.figma": {
+              "variableKey": "053bd60a519b69508fc9efd59b5cf5339af70afe",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "600": {
+          "$type": "color",
+          "$value": "#5C5C6C",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4806 0.0255 285.4)",
+            "com.figma": {
+              "variableKey": "1edc62239c039cd74d47b61ef9434c239969461d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "700": {
+          "$type": "color",
+          "$value": "#50505D",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4361 0.0212 285.5)",
+            "com.figma": {
+              "variableKey": "25e29a820bd86ef7ee3462132eb65f81e92648be",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "800": {
+          "$type": "color",
+          "$value": "#40404A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3753 0.0169 285.6)",
+            "com.figma": {
+              "variableKey": "de9c91323e0f384e40c9a1066bd43778876e5e51",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#33333A",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3239 0.0123 285.7)",
+            "com.figma": {
+              "variableKey": "742f3abcd09dba7d186f946bd2e6d74d389df293",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
