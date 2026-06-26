@@ -268,6 +268,41 @@
               "type": "array",
               "items": { "type": "string" },
               "description": "Standard field names for this entity from app-context.json"
+            },
+            "chrome": {
+              "type": "object",
+              "description": "Canonical app shell resolved from app-context.json apps[app] (header + top-level sidebar). The authoritative default and the validator baseline. See scripts/lib/app-context/resolve-chrome.js.",
+              "properties": {
+                "app": {
+                  "type": "string",
+                  "description": "Normalized app slug (e.g., 'studio')"
+                },
+                "header": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "Header variant (e.g., 'Studio')"
+                    }
+                  }
+                },
+                "sidebar": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": { "type": "string" },
+                      "id": { "type": "string" }
+                    }
+                  },
+                  "description": "Ordered top-level sidebar items"
+                }
+              }
+            },
+            "chromeJustification": {
+              "type": ["string", "null"],
+              "minLength": 30,
+              "description": "Flow-level: required when meta._glossary.chrome diverges from the canonical app-context chrome; explains the intentional departure. Mirrors screen.justification."
             }
           }
         }
