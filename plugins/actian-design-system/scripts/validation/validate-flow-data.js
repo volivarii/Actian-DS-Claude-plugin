@@ -11,6 +11,9 @@ var briefSourcing = require(
   path.join(__dirname, "..", "transformers", "brief-sourcing.js"),
 );
 var isStubGuideline = briefSourcing.isStubGuideline;
+var chromeResolver = require(
+  path.join(__dirname, "..", "lib", "app-context", "resolve-chrome.js"),
+);
 
 // ---------------------------------------------------------------------------
 // Pass 1: registry helpers + INSTANCE-node walker
@@ -1172,6 +1175,109 @@ var BUILT_DS_SLUGS = (function () {
 })();
 
 // ---------------------------------------------------------------------------
+// App-chrome grounding (S1) ---------------------------------------------
+function sidebarLabels(sidebar) {
+  if (!Array.isArray(sidebar)) return [];
+  return sidebar.map(function (it) {
+    if (it && typeof it === "object")
+      return String(it.label == null ? "" : it.label);
+    return String(it == null ? "" : it);
+  });
+}
+
+// Returns null if structurally identical, else a human-readable delta string.
+function chromeDelta(canonical, actual) {
+  var parts = [];
+  var canHeader = (canonical.header && canonical.header.type) || "";
+  var actHeader = (actual.header && actual.header.type) || "";
+  if (canHeader !== actHeader) {
+    parts.push('header "' + canHeader + '"→"' + actHeader + '"');
+  }
+  var canLabels = sidebarLabels(canonical.sidebar);
+  var actLabels = sidebarLabels(actual.sidebar);
+  var canSet = {};
+  var actSet = {};
+  canLabels.forEach(function (l) {
+    canSet[l] = true;
+  });
+  actLabels.forEach(function (l) {
+    actSet[l] = true;
+  });
+  var added = actLabels.filter(function (l) {
+    return !canSet[l];
+  });
+  var removed = canLabels.filter(function (l) {
+    return !actSet[l];
+  });
+  added.forEach(function (l) {
+    parts.push("+" + l);
+  });
+  removed.forEach(function (l) {
+    parts.push("−" + l);
+  });
+  if (added.length === 0 && removed.length === 0) {
+    var sameOrder =
+      canLabels.length === actLabels.length &&
+      canLabels.every(function (l, i) {
+        return l === actLabels[i];
+      });
+    if (!sameOrder) parts.push("reordered");
+  }
+  return parts.length ? parts.join(" · ") : null;
+}
+
+function checkChromeBaseline(data, findings) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var chrome = glossary.chrome;
+  if (!chrome) return; // backward-compat: flows without grounded chrome are skipped
+  var appName = chrome.app || glossary.app || (data.meta && data.meta.app);
+  var canonical = chromeResolver.resolveChrome(appName);
+  if (!canonical) {
+    findings.push({
+      kind: "chrome-ungrounded",
+      severity: "info",
+      screen: "",
+      message:
+        "Flow chrome set for app '" +
+        (appName || "") +
+        "' with no app-context baseline — nav is ungrounded.",
+    });
+    return;
+  }
+  var delta = chromeDelta(canonical, chrome);
+  if (!delta) return; // grounded — identical to canonical
+  var j = glossary.chromeJustification;
+  var justified = typeof j === "string" && j.trim().length >= 30;
+  if (justified) {
+    findings.push({
+      kind: "chrome-divergence",
+      severity: "info",
+      screen: "",
+      message:
+        "Flow chrome diverges from canonical " +
+        canonical.app +
+        ": " +
+        delta +
+        " — " +
+        j.trim(),
+    });
+  } else {
+    findings.push({
+      kind: "chrome-drift",
+      severity: "warning",
+      screen: "",
+      message:
+        "Flow chrome diverges from canonical " +
+        canonical.app +
+        " (" +
+        delta +
+        ") without a justification. Restore the canonical shell or add " +
+        "meta._glossary.chromeJustification (30+ chars).",
+    });
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Aggregator entry point. Returns { findings: [...] } using the unified shape
 // { severity, kind, screen, message } plus any extra fields needed by legacy
 // adapters. opts.skipTokens and opts.skipTerminology mirror the CLI flags.
@@ -1190,6 +1296,7 @@ function validate(data, opts) {
   // any check runs. Idempotent — preserves user-supplied ids; derives
   // <feature-slug>-<index> for missing ones.
   require("../lib/screen-id.js").stampScreenIds(data);
+  checkChromeBaseline(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -1723,6 +1830,9 @@ if (require.main === module) {
     "stub-guideline-used": true,
     "unknown-ds-slug": true,
     "ds-slug-unbuilt": true,
+    "chrome-divergence": true,
+    "chrome-drift": true,
+    "chrome-ungrounded": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
