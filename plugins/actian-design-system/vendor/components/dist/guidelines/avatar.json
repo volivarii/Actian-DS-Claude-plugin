@@ -1,0 +1,98 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/avatar/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "avatar",
+  "component": "Avatar",
+  "meta": {
+    "category": "data-display"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Avatar\n\nAvatars represent a user with their profile image or initials. They appear in headers, comments, assignee fields, and anywhere user identity is surfaced.\n\n***\n\n## When to use\n\n- To identify a user in context, such as in a list, a comment thread, or an assignee field.\n- As a compact representation when showing a full name would take too much space.\n\n## Style\n\n- Initials use first and last initial in uppercase. For example, \"CF\" for Chris Frost.\n- Always include a tooltip or accessible label with the user's full name, role, and email address.\n- If a profile image fails to load, fall back to initials. If initials are unavailable, use a generic placeholder.\n\n## Behavior\n\n- Clicking an avatar should open the user's profile or display their contact information at minimum.\n- When a group of avatars exceeds available space, show a \"+N\" overflow indicator instead of additional avatars. Use this pattern when displaying 5 or more avatars.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Initials: CF | Initials: C or Chris |\n| Tooltip: Chris Frost / Designer / chris.frost@example.com | Tooltip: Chris Frost only |\n| Fall back to initials when image is unavailable | Show a broken image icon |\n| Show +3 when a fourth avatar would overflow | Truncate without indicating how many are hidden |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Avatars represent a user with their profile image or initials. They appear in headers, comments, assignee fields, and anywhere user identity is surfaced."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "To identify a user in context, such as in a list, a comment thread, or an assignee field.",
+                "As a compact representation when showing a full name would take too much space."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Initials use first and last initial in uppercase. For example, \"CF\" for Chris Frost.",
+                "Always include a tooltip or accessible label with the user's full name, role, and email address.",
+                "If a profile image fails to load, fall back to initials. If initials are unavailable, use a generic placeholder."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "Clicking an avatar should open the user's profile or display their contact information at minimum.",
+                "When a group of avatars exceeds available space, show a \"+N\" overflow indicator instead of additional avatars. Use this pattern when displaying 5 or more avatars."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Initials: CF",
+              "dont": "Initials: C or Chris"
+            },
+            {
+              "do": "Tooltip: Chris Frost / Designer / chris.frost@example.com",
+              "dont": "Tooltip: Chris Frost only"
+            },
+            {
+              "do": "Fall back to initials when image is unavailable",
+              "dont": "Show a broken image icon"
+            },
+            {
+              "do": "Show +3 when a fourth avatar would overflow",
+              "dont": "Truncate without indicating how many are hidden"
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-06-25T13:12:15-07:00"
+}

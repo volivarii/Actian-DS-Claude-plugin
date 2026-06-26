@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "(patterns)",
+    "source": "components/src/radio-button/",
     "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
   },
   "slug": "radio-button",
@@ -12,8 +12,73 @@
   },
   "domains": {
     "content": {
-      "status": "synthesized",
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Radio button\n\nRadio buttons let users select exactly one option from a group. Use them when options are mutually exclusive and all choices should be visible at once.\n\n***\n\n## When to use\n\n- When users must choose exactly one option from a small set (2-6 options).\n- When the options are mutually exclusive.\n- When all options should be visible without interaction.\n- For larger or dynamic option sets, use a [dropdown select](dropdown-select) instead.\n\n## Style\n\n- Write labels as short noun phrases or adjectives, not full sentences.\n- Keep labels parallel in structure across the group.\n- Always include a group label that describes what is being selected.\n- Avoid labels like \"Option 1\" or \"Other\" without further context.\n\n## Behavior\n\n- One option in the group should be selected by default when a choice is required.\n- If no default is appropriate, leave all options unselected and require an explicit choice.\n- Clicking either the button or the label selects the option.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Daily / Weekly / Monthly | Every day / Once per week / Once per month |\n| Administrator / Editor / Viewer | The user is an administrator |\n| Select one | Choose from the following options below |",
       "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Radio buttons let users select exactly one option from a group. Use them when options are mutually exclusive and all choices should be visible at once."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "When users must choose exactly one option from a small set (2-6 options).",
+                "When the options are mutually exclusive.",
+                "When all options should be visible without interaction.",
+                "For larger or dynamic option sets, use a [dropdown select](dropdown-select) instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Write labels as short noun phrases or adjectives, not full sentences.",
+                "Keep labels parallel in structure across the group.",
+                "Always include a group label that describes what is being selected.",
+                "Avoid labels like \"Option 1\" or \"Other\" without further context."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "One option in the group should be selected by default when a choice is required.",
+                "If no default is appropriate, leave all options unselected and require an explicit choice.",
+                "Clicking either the button or the label selects the option."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Daily / Weekly / Monthly",
+              "dont": "Every day / Once per week / Once per month"
+            },
+            {
+              "do": "Administrator / Editor / Viewer",
+              "dont": "The user is an administrator"
+            },
+            {
+              "do": "Select one",
+              "dont": "Choose from the following options below"
+            }
+          ]
+        },
         {
           "heading": "",
           "source": "pattern:forms",
@@ -431,6 +496,19 @@
           ]
         }
       ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
     }
-  }
+  },
+  "updated_at": "2026-06-25T12:05:17-07:00"
 }

@@ -5,12 +5,14 @@
 | Component | Content | Usage | Design | Behavior | Tokens |
 |---|---|---|---|---|---|
 | Alert / banner | approved | not started | inherited | inherited | not started |
+| Avatar | approved | not started | inherited | inherited | not started |
 | Badges | approved | not started | inherited | inherited | approved |
 | Breadcrumbs | approved | not started | inherited | inherited | approved |
 | Buttons | approved | not started | draft | draft | approved |
 | Cards | approved | not started | inherited | inherited | approved |
 | Chat with AI Steward | draft | draft | draft | not started | not started |
 | Checkboxes | approved | not started | inherited | inherited | approved |
+| Collapse / accordion | approved | not started | inherited | inherited | not started |
 | Combo box | approved | not started | inherited | inherited | not started |
 | Confirmation | approved | not started | inherited | inherited | not started |
 | Drawer, side panel | approved | not started | inherited | inherited | not started |
@@ -31,11 +33,15 @@
 | Multi-select | approved | not started | inherited | inherited | not started |
 | Notification | approved | not started | inherited | inherited | not started |
 | Notification dropdown | approved | not started | inherited | inherited | not started |
-| Page header | not started | not started | not started | not started | approved |
+| Page header | approved | not started | not started | not started | approved |
 | Popover | approved | not started | inherited | inherited | not started |
 | Progress bar | approved | not started | inherited | inherited | not started |
-| Radio button | synthesized | — | — | — | — |
+| Radio button | approved | not started | inherited | inherited | not started |
+| Rich text | approved | not started | inherited | inherited | not started |
+| Scroll bar | approved | not started | inherited | inherited | not started |
 | Search | approved | not started | inherited | inherited | approved |
+| Search result card | approved | not started | inherited | inherited | not started |
+| Segmented control | approved | not started | inherited | inherited | not started |
 | Side nav | approved | not started | inherited | inherited | approved |
 | Spinner | approved | not started | inherited | inherited | not started |
 | Stepper | approved | not started | inherited | inherited | not started |
@@ -54,11 +60,11 @@
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 41 | 1 | 0 | 1 | 0 |
-| usage | 0 | 1 | 0 | 42 | 2 |
-| design | 0 | 3 | 39 | 1 | 2 |
-| behavior | 0 | 1 | 40 | 2 | 2 |
-| tokens | 12 | 0 | 0 | 31 | 2 |
+| content | 49 | 1 | 0 | 0 | 0 |
+| usage | 0 | 1 | 0 | 49 | 1 |
+| design | 0 | 3 | 46 | 1 | 1 |
+| behavior | 0 | 1 | 47 | 2 | 1 |
+| tokens | 12 | 0 | 0 | 38 | 1 |
 
 ## Registry aliases
 

@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-319 components.
+318 components.
 
 ---
 
@@ -817,7 +817,7 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Variants: **States:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
 - Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
 - **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Trailing icon#458:10` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Show .Textfield buttons#14241:0` (default: true) — set to `false` to hide
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Trailing icon#458:10` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `.Textfield buttons#14241:0` (default: true) — set to `false` to hide
 - Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
 
 ### Input, date
@@ -1403,11 +1403,6 @@ Indicates a background process is active. Use Spinner for small, localized actio
 
 - Single component (no variants)
 - Node: `8400:25174` | Key: `3fb27f1d5613379dcf8ed3d8d28e233cf83b4ed0`
-
-### stars
-
-- Single component (no variants)
-- Node: `7220:3430` | Key: `bdea9d42922a4619f8a317ef616d30055eb789ee`
 
 ### Stepper
 

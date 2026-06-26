@@ -12,7 +12,60 @@
   },
   "domains": {
     "content": {
-      "status": "not-started"
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n- At the top of every main page to orient the user and provide primary actions.\n- Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n- The title should match the name of the item or section exactly.\n- Use sentence case for page titles.\n- Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n- Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| New connection | Create a new connection |\n| Edit | Edit this item |\n| Sales pipeline | Sales Pipeline Overview |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "The page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "At the top of every main page to orient the user and provide primary actions.",
+                "Do not use inside modals, panels, or nested sections. Those use their own title patterns."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "The title should match the name of the item or section exactly.",
+                "Use sentence case for page titles.",
+                "Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".",
+                "Avoid putting more than two primary actions in the header. Move secondary actions to a menu."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "New connection",
+              "dont": "Create a new connection"
+            },
+            {
+              "do": "Edit",
+              "dont": "Edit this item"
+            },
+            {
+              "do": "Sales pipeline",
+              "dont": "Sales Pipeline Overview"
+            }
+          ]
+        }
+      ]
     },
     "usage": {
       "status": "not-started"
@@ -85,5 +138,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-25T13:12:15-07:00"
 }

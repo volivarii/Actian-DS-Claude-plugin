@@ -1,0 +1,59 @@
+{
+  "_schema_version": 1,
+  "id": "tokens/global-color/theme-palettes",
+  "title": "Theme Palettes",
+  "path": [
+    "tokens",
+    "global-color",
+    "theme-palettes"
+  ],
+  "parent": "tokens/global-color",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "global-color",
+    "h4": "theme-palettes"
+  },
+  "source": {
+    "file": "foundations/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "body": "A theme is a choice of two base palettes — primary and neutral. All other\nsemantics (success/warning/error/annotation) are theme-invariant. Adding a theme\nis two values. Default (un-suffixed) theme is Actian.",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Theme",
+        "primary",
+        "neutral",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Theme": "Actian",
+          "primary": "royal-blue",
+          "neutral": "cool-grey",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Theme": "Studio",
+          "primary": "blue",
+          "neutral": "grey",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Theme": "Explorer",
+          "primary": "turquoise",
+          "neutral": "grey",
+          "status_note": "Shipped",
+          "status": "shipped"
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 component: "Page header"
 category: data-display
 domains:
-  content:  { status: not-started }
+  content:  { status: approved, owner: content-team }
   usage:    { status: not-started }
   design:   { status: not-started }
   behavior: { status: not-started }

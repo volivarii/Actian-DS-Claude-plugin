@@ -80,6 +80,9 @@
         "components/dist/media/button/variations-0.webp",
         "components/dist/media/button/variations-1.webp"
       ],
+      "behavior": [
+        "components/dist/media/button/behavior-0.webp"
+      ],
       "default": "components/dist/media/button/default.webp"
     },
     "calendar": {

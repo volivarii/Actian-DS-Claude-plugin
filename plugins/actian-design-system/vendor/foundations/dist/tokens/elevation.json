@@ -32,35 +32,35 @@
       "rows": [
         {
           "Token": "--zen-shadow-xs",
-          "Value": "0px 1px 3px 1px #0F, 0px 1px 5px 0px #12",
+          "Value": "0px 1px 3px 1px rgba(0, 0, 15, 0.06), 0px 1px 5px 0px rgba(0, 0, 18, 0.07)",
           "Usage": "Dropdowns, elevated button (default), card hover",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-shadow-sm",
-          "Value": "0px 1px 7px 3px #14, 0px 1px 3px 1px #1F",
+          "Value": "0px 1px 7px 3px rgba(0, 0, 20, 0.08), 0px 1px 3px 1px rgba(0, 0, 31, 0.12)",
           "Usage": "App header, navigation menu, elevated button hover",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-shadow-md",
-          "Value": "0px 1px 3px 0px #4D, 0px 4px 8px 3px #26",
+          "Value": "0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15)",
           "Usage": "Notification message, snackbar",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-shadow-lg",
-          "Value": "0px 2px 3px 0px #4D, 0px 6px 10px 4px #26",
+          "Value": "0px 6px 10px 4px rgba(0, 0, 38, 0.15), 0px 2px 3px 0px rgba(0, 0, 77, 0.3)",
           "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-shadow-xl",
-          "Value": "0px 4px 4px 0px #4D, 0px 8px 12px 6px #26",
+          "Value": "0px 8px 12px 6px rgba(0, 0, 38, 0.15), 0px 4px 4px 0px rgba(0, 0, 77, 0.3)",
           "Usage": "Dialogs, toasts, overview panel",
           "status_note": "Shipped",
           "status": "shipped"
