@@ -8,12 +8,13 @@ properties:
   - item
   - use case
   - reason
-  - status
+  - { name: status, type: enum, states: [Pending, Accepted, Rejected, Granted, Error, Closed] }
   - created at
 relationships:
   targetsOutputPort: output-port
+  requiresJustification: use-case
 apps:
   - studio
   - explorer
 ---
-Consumer request for data product/item access with policy-driven approval workflow
+Consumer request for data-product/item access, submitted in Explorer with a required use-case justification. Accepted ≠ Granted (provisioned); processing happens in external systems (ServiceNow/Jira/owner) and status is tracked in Explorer.

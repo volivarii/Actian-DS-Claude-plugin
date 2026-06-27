@@ -22,6 +22,13 @@ sidebar:
     id: policies
   - label: Maintenance mode
     id: maintenance-mode
+useCases:
+  - audience: [Administrator, IT operations]
+    jobs:
+      - Configure connections and scanners
+      - Manage users, groups and permissions
+      - Set governance policies and maintenance windows
+    patterns: [search-filtered-table, filter-groups-form, table-with-tabs]
 ---
 
 ## Purpose

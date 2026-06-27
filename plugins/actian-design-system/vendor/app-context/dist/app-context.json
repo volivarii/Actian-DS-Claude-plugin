@@ -66,6 +66,24 @@
         "API keys",
         "maintenance",
         "catalogs"
+      ],
+      "useCases": [
+        {
+          "audience": [
+            "Administrator",
+            "IT operations"
+          ],
+          "jobs": [
+            "Configure connections and scanners",
+            "Manage users, groups and permissions",
+            "Set governance policies and maintenance windows"
+          ],
+          "patterns": [
+            "search-filtered-table",
+            "filter-groups-form",
+            "table-with-tabs"
+          ]
+        }
       ]
     },
     "explorer": {
@@ -93,6 +111,27 @@
         "ask AI",
         "suggestion",
         "favorite"
+      ],
+      "useCases": [
+        {
+          "audience": [
+            "Business user",
+            "Analyst",
+            "Data consumer"
+          ],
+          "jobs": [
+            "Discover and browse data products in the marketplace",
+            "Understand an asset before using it",
+            "Request access to the data they need",
+            "Ask AI for help finding and understanding data"
+          ],
+          "patterns": [
+            "marketplace-browsing",
+            "asset-detail-360",
+            "access-request-workflow",
+            "ask-ai"
+          ]
+        }
       ]
     },
     "studio": {
@@ -154,6 +193,40 @@
         "watchlist",
         "analytics",
         "catalog design"
+      ],
+      "useCases": [
+        {
+          "audience": [
+            "Data steward",
+            "Data architect"
+          ],
+          "jobs": [
+            "Govern and curate the catalog",
+            "Manage lineage and the business glossary",
+            "Enrich metadata and design catalog structure"
+          ],
+          "patterns": [
+            "asset-detail-360",
+            "search-filtered-table",
+            "table-with-tabs"
+          ]
+        },
+        {
+          "audience": [
+            "Data steward",
+            "Data engineer"
+          ],
+          "jobs": [
+            "Import and connect data sources",
+            "Review and resolve access requests",
+            "Track stewardship activity"
+          ],
+          "patterns": [
+            "import-wizard",
+            "access-request-management",
+            "activity-timeline"
+          ]
+        }
       ]
     }
   },
@@ -165,17 +238,29 @@
         "item",
         "use case",
         "reason",
-        "status",
+        {
+          "name": "status",
+          "type": "enum",
+          "states": [
+            "Pending",
+            "Accepted",
+            "Rejected",
+            "Granted",
+            "Error",
+            "Closed"
+          ]
+        },
         "created at"
       ],
       "relationships": {
-        "targetsOutputPort": "output-port"
+        "targetsOutputPort": "output-port",
+        "requiresJustification": "use-case"
       },
       "apps": [
         "studio",
         "explorer"
       ],
-      "description": "Consumer request for data product/item access with policy-driven approval workflow"
+      "description": "Consumer request for data-product/item access, submitted in Explorer with a required use-case justification. Accepted ≠ Granted (provisioned); processing happens in external systems (ServiceNow/Jira/owner) and status is tracked in Explorer."
     },
     "api-key": {
       "label": "API Key",
@@ -195,18 +280,26 @@
       "properties": [
         "name",
         "description",
-        "type",
-        "completion level",
-        "quality status",
+        {
+          "name": "type",
+          "type": "enum",
+          "example": "Dataset, Visualization, Data Process, Custom Item, Glossary Item, Data Product"
+        },
+        {
+          "name": "documentation completion",
+          "type": "number",
+          "example": "percentage (0–100) from 4 criteria: description, contact, glossary link, properties filled"
+        },
         "owner",
         "contacts",
         "last modified"
       ],
       "relationships": {
         "belongsTo": "domain",
+        "discoveredVia": "connection",
         "hasMetadata": "metadata",
         "hasLineage": "lineage",
-        "hasGlossaryTerms": "glossary-term",
+        "hasGlossaryItems": "glossary-item",
         "hasGovernancePolicies": "governance-policy",
         "hasDiscussionThreads": "discussion-thread",
         "hasSuggestions": "suggestion",
@@ -216,14 +309,26 @@
         "studio",
         "explorer"
       ],
-      "description": "Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item, Category"
+      "description": "Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item"
     },
     "connection": {
       "label": "Connection",
       "properties": [
         "name",
-        "type",
-        "status",
+        {
+          "name": "type",
+          "type": "enum",
+          "example": "Snowflake, PostgreSQL, Oracle, SQL Server, BigQuery, Databricks, Synapse, S3, ADLS, Power BI, Tableau, Looker, Kafka, dbt, Talend (91 connectors across 16 categories)"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "states": [
+            "Connected",
+            "Error",
+            "Pending"
+          ]
+        },
         "provider"
       ],
       "relationships": {
@@ -232,10 +337,30 @@
       "apps": [
         "administration"
       ],
-      "description": "Configuration for a data source connector (93+ pre-built)"
+      "description": "Configuration for a data source connector (91 pre-built across 16 categories)"
     },
-    "custom-asset": {
-      "label": "Custom Asset",
+    "contact": {
+      "label": "Contact",
+      "properties": [
+        "name",
+        {
+          "name": "email",
+          "type": "string",
+          "example": "person email"
+        }
+      ],
+      "relationships": {
+        "hasResponsibility": "responsibility"
+      },
+      "apps": [
+        "studio",
+        "explorer",
+        "administration"
+      ],
+      "description": "A person assigned a responsibility on a catalog item (e.g. Owner, Steward). Distinct from a user-group; surfaces on the item detail \"People\" section."
+    },
+    "custom-item": {
+      "label": "Custom Item",
       "properties": [
         "name",
         "description",
@@ -245,7 +370,7 @@
       "apps": [
         "studio"
       ],
-      "description": "User-defined asset type extending the catalog model"
+      "description": "A user-defined custom item type extending the catalog metamodel."
     },
     "data-contract": {
       "label": "Data Contract",
@@ -253,7 +378,17 @@
         "name",
         "quality thresholds",
         "access rules",
-        "validation rules"
+        "validation rules",
+        {
+          "name": "apiVersion",
+          "type": "string",
+          "example": "ODCS descriptor version"
+        },
+        {
+          "name": "schema",
+          "type": "reference",
+          "example": "fields with logicalType/physicalType/primaryKey"
+        }
       ],
       "relationships": {
         "attachedTo": "output-port"
@@ -261,19 +396,75 @@
       "apps": [
         "studio"
       ],
-      "description": "Formal agreement on an Output Port defining quality thresholds, access permissions, validation rules"
+      "description": "Formal agreement on an Output Port (ODCS YAML descriptor) defining schema, quality thresholds, access permissions, and validation rules."
+    },
+    "data-process": {
+      "label": "Data Process",
+      "properties": [
+        "name",
+        "description",
+        {
+          "name": "job status",
+          "type": "enum",
+          "states": [
+            "Created",
+            "Processing",
+            "Processed"
+          ]
+        }
+      ],
+      "relationships": {
+        "hasInputs": "dataset",
+        "hasOutputs": "dataset",
+        "produces": "lineage"
+      },
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "A transformation/pipeline catalog item. Its input/output connections to datasets (and custom items) generate the horizontal data lineage graph; supports field-level lineage."
     },
     "data-product": {
       "label": "Data Product",
       "properties": [
         "name",
         "description",
-        "status",
-        "input ports",
-        "output ports",
-        "datasets",
+        {
+          "name": "status",
+          "type": "enum",
+          "states": [
+            "Draft",
+            "Published",
+            "Deprecated"
+          ]
+        },
+        {
+          "name": "input ports",
+          "type": "reference",
+          "example": "links to Input Port entities"
+        },
+        {
+          "name": "output ports",
+          "type": "reference",
+          "example": "links to Output Port entities"
+        },
+        {
+          "name": "datasets",
+          "type": "reference",
+          "example": "1–N linked Datasets"
+        },
         "contacts",
-        "attachments"
+        "attachments",
+        {
+          "name": "apiVersion",
+          "type": "string",
+          "example": "ODPS descriptor version"
+        },
+        {
+          "name": "kind",
+          "type": "string",
+          "example": "DataProduct"
+        }
       ],
       "relationships": {
         "hasInputPorts": "input-port",
@@ -284,17 +475,47 @@
         "studio",
         "explorer"
       ],
-      "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Published to marketplace."
+      "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Published to the marketplace via an ODPS YAML descriptor; access requests target the output-port level (each governed by a data-contract)."
     },
     "dataset": {
       "label": "Dataset",
-      "properties": [],
-      "relationships": {},
+      "properties": [
+        "name",
+        "description",
+        {
+          "name": "orphan",
+          "type": "enum",
+          "states": [
+            "Present",
+            "Orphan"
+          ]
+        },
+        {
+          "name": "import date",
+          "type": "date",
+          "example": "when the dataset was imported by a scan"
+        },
+        {
+          "name": "deletion date",
+          "type": "date",
+          "example": "set when removed from the source connection"
+        },
+        {
+          "name": "documentation completion",
+          "type": "number",
+          "example": "percentage (0–100)"
+        }
+      ],
+      "relationships": {
+        "hasFields": "field",
+        "discoveredVia": "connection",
+        "exposedVia": "output-port"
+      },
       "apps": [
         "studio",
         "explorer"
       ],
-      "description": "A dataset asset contained by a data product; a type of catalog object."
+      "description": "A dataset asset contained by a data product; a type of catalog object. Has a schema of Fields; becomes an orphan when removed from its source connection."
     },
     "discussion-thread": {
       "label": "Discussion Thread",
@@ -320,7 +541,8 @@
         "description"
       ],
       "relationships": {
-        "containsCatalogObjects": "catalog-object"
+        "containsCatalogObjects": "catalog-object",
+        "subtypeOf": "glossary-item"
       },
       "apps": [
         "studio",
@@ -328,21 +550,60 @@
       ],
       "description": "Organizational/business unit owning a set of data assets"
     },
-    "glossary-term": {
-      "label": "Glossary Term",
+    "field": {
+      "label": "Field",
+      "properties": [
+        "name",
+        {
+          "name": "type",
+          "type": "enum",
+          "example": "string, integer, decimal, date, boolean"
+        },
+        {
+          "name": "nullable",
+          "type": "enum",
+          "states": [
+            "Nullable",
+            "Not null"
+          ]
+        },
+        {
+          "name": "key",
+          "type": "enum",
+          "states": [
+            "Primary key",
+            "Foreign key",
+            "Business key",
+            "None"
+          ]
+        },
+        "description"
+      ],
+      "relationships": {
+        "belongsTo": "dataset"
+      },
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "A column within a dataset's schema. Auto-created on import; participates in field-level lineage. Business keys (BK) are editable by Data Stewards."
+    },
+    "glossary-item": {
+      "label": "Glossary Item",
       "properties": [
         "name",
         "definition",
         "linked assets"
       ],
       "relationships": {
-        "linkedTo": "catalog-object"
+        "linkedTo": "catalog-object",
+        "parentItem": "glossary-item"
       },
       "apps": [
         "studio",
         "explorer"
       ],
-      "description": "Business vocabulary entry linked to technical assets"
+      "description": "A glossary item — business term, KPI, report, or domain — in the business glossary, linked to technical assets. Glossary item types are tenant-defined, with parent-child hierarchies (e.g. Business Object → Business Attribute); domain is a built-in sub-type."
     },
     "governance-policy": {
       "label": "Governance Policy",
@@ -419,6 +680,60 @@
       ],
       "description": "An output port of a data product — a published interface that a data contract can attach to."
     },
+    "property": {
+      "label": "Property",
+      "properties": [
+        "name",
+        {
+          "name": "type",
+          "type": "enum",
+          "states": [
+            "Short text",
+            "Rich text",
+            "Number",
+            "URL",
+            "Select",
+            "Multi-select",
+            "Date",
+            "Tag"
+          ]
+        },
+        {
+          "name": "importance",
+          "type": "enum",
+          "states": [
+            "Standard",
+            "Important",
+            "Required"
+          ]
+        }
+      ],
+      "relationships": {
+        "partOf": "template"
+      },
+      "apps": [
+        "studio"
+      ],
+      "description": "A typed metadata field definition in the catalog metamodel (8 value types). Importance (Standard/Important/Required) feeds the documentation-completion score. Configured in Studio Catalog Design."
+    },
+    "responsibility": {
+      "label": "Responsibility",
+      "properties": [
+        "name",
+        {
+          "name": "role",
+          "type": "enum",
+          "example": "Data Owner, Data Steward, Reader (tenant-configurable)"
+        }
+      ],
+      "relationships": {
+        "assignedTo": "contact"
+      },
+      "apps": [
+        "studio"
+      ],
+      "description": "A named contact role-type (Data Owner, Data Steward, Reader…), defined in Studio Catalog Design and assignable to any catalog item. Tenant-configurable."
+    },
     "scanner": {
       "label": "Scanner",
       "properties": [
@@ -443,6 +758,61 @@
       ],
       "description": "A suggested enrichment or change on a catalog object, pending steward review."
     },
+    "template": {
+      "label": "Template",
+      "properties": [
+        "name",
+        {
+          "name": "item type",
+          "type": "enum",
+          "example": "Dataset, Visualization, Data Process, Custom Item, Glossary Item"
+        },
+        "sections"
+      ],
+      "relationships": {
+        "contains": "property"
+      },
+      "apps": [
+        "studio"
+      ],
+      "description": "The documentation structure (ordered sections + properties) applied to an item type. Authored in Studio Catalog Design."
+    },
+    "topic": {
+      "label": "Topic",
+      "properties": [
+        "name",
+        "description",
+        {
+          "name": "color",
+          "type": "string",
+          "example": "display color for the topic card"
+        }
+      ],
+      "relationships": {
+        "groups": "catalog-object"
+      },
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "A curated collection of catalog items for business-user navigation in Explorer (carousel + browse). Created and curated by stewards in Studio. Replaces the deprecated \"Category\" concept."
+    },
+    "use-case": {
+      "label": "Use Case",
+      "properties": [
+        "name",
+        "description"
+      ],
+      "relationships": {
+        "justifies": "access-request",
+        "relatesTo": "data-product"
+      },
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "A built-in catalog item describing an analytical use case. Required as justification when a consumer submits an access request in Explorer."
+    },
     "user-group": {
       "label": "User / Group",
       "properties": [
@@ -459,6 +829,28 @@
         "administration"
       ],
       "description": "Identity and role assignments. Groups: Explorer, Data Steward, Super Admin"
+    },
+    "visualization": {
+      "label": "Visualization",
+      "properties": [
+        "name",
+        {
+          "name": "source tool",
+          "type": "enum",
+          "example": "Power BI, Tableau, Looker, Qlik"
+        },
+        "description",
+        "contacts"
+      ],
+      "relationships": {
+        "builtFrom": "dataset",
+        "discoveredVia": "connection"
+      },
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "A BI report or dashboard catalog item (Power BI, Tableau, Looker, Qlik…), auto-discovered by a connector and surfaced in lineage. Distinct from a dataset."
     },
     "watchlist": {
       "label": "Watchlist",
@@ -745,6 +1137,13 @@
       ],
       "description": "Chronological timeline with date headers, user avatars, action descriptions."
     },
+    "ai-analyst-panel": {
+      "label": "AI Analyst Panel",
+      "apps": [
+        "explorer"
+      ],
+      "description": "Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language."
+    },
     "analytics-dashboard": {
       "label": "Analytics dashboard",
       "apps": [
@@ -767,12 +1166,26 @@
       ],
       "description": "Every catalog object has a tabbed detail page with property panel/sidebar."
     },
+    "bulk-edit": {
+      "label": "Bulk Edit",
+      "apps": [
+        "studio"
+      ],
+      "description": "Multi-item batch update of properties, contacts, and glossary links across the catalog."
+    },
     "data-profiling-sampling": {
       "label": "Data profiling and sampling",
       "apps": [
         "studio"
       ],
       "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling)."
+    },
+    "data-steward-agent-panel": {
+      "label": "Data Steward Agent Panel",
+      "apps": [
+        "studio"
+      ],
+      "description": "AI metadata-curation agent panel with approval-gated writes, tenant memory, and plan mode, assisting stewards in Studio."
     },
     "discussion-threads": {
       "label": "Discussion threads",
@@ -781,6 +1194,13 @@
         "explorer"
       ],
       "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages."
+    },
+    "documentation-completion-dashboard": {
+      "label": "Documentation Completion Dashboard",
+      "apps": [
+        "studio"
+      ],
+      "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score."
     },
     "federated-catalog": {
       "label": "Federated Catalog",
@@ -819,6 +1239,14 @@
       ],
       "description": "Used for lineage (DAG), View 360 (radial knowledge graph), and Data Model (ER diagram). Nodes are clickable."
     },
+    "lineage-graph": {
+      "label": "Lineage Graph",
+      "apps": [
+        "studio",
+        "explorer"
+      ],
+      "description": "Directional data-flow graph with field-level path highlighting and an incomplete-process filter; rendered from data-process input/output edges."
+    },
     "marketplace-browsing": {
       "label": "Marketplace browsing",
       "apps": [
@@ -833,6 +1261,13 @@
         "explorer"
       ],
       "description": "7 tools for AI integrations (Find Glossary, Semantic Search, Get Data Model, etc.)."
+    },
+    "metamodel-designer": {
+      "label": "Metamodel Designer",
+      "apps": [
+        "studio"
+      ],
+      "description": "Drag-and-drop configuration of templates and properties per item type in Studio Catalog Design."
     },
     "notification-system": {
       "label": "Notification system",
@@ -890,6 +1325,13 @@
         "studio"
       ],
       "description": "Studio feature for creating documentation templates via Catalog Design page."
+    },
+    "topic-browse": {
+      "label": "Topic Browse",
+      "apps": [
+        "explorer"
+      ],
+      "description": "Curated topic collections browsed via carousel + selector + favorites for business-user discovery."
     },
     "type-picker-grid": {
       "label": "Type picker grid",
