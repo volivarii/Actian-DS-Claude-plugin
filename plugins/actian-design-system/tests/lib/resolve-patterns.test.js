@@ -106,3 +106,56 @@ describe("resolve-patterns (CLI)", function () {
     });
   });
 });
+
+describe("resolve-patterns (extensibility — synthetic 4th app, zero code change)", function () {
+  var synthetic = {
+    apps: {
+      observability: {
+        header: { type: "Observability" },
+        sidebar: [{ label: "Monitors", id: "monitors" }],
+        signals: ["monitor", "alert", "health"],
+        useCases: [
+          {
+            audience: ["sre"],
+            jobs: ["watch pipeline health"],
+            patterns: ["alert-timeline"],
+          },
+        ],
+      },
+    },
+    patterns: {
+      "alert-timeline": {
+        apps: ["observability"],
+        label: "Alert Timeline",
+        description: "Chronological alert feed.",
+      },
+      "search-filtered-table": {
+        apps: ["studio"],
+        label: "Search-filtered table",
+        description: "A studio-only pattern.",
+      },
+    },
+  };
+
+  it("resolves the new app's scoped patterns + useCases via the injection seam", function () {
+    var ps = resolver.resolvePatterns("observability", synthetic);
+    assert.strictEqual(ps.length, 1);
+    assert.strictEqual(ps[0].slug, "alert-timeline");
+    assert.deepStrictEqual(ps[0].tags, ["alert", "timeline"]);
+
+    var uc = resolver.resolveUseCases("observability", synthetic);
+    assert.strictEqual(uc.length, 1);
+    assert.deepStrictEqual(uc[0].jobs, ["watch pipeline health"]);
+
+    assert.ok(resolver.listApps(synthetic).indexOf("observability") !== -1);
+  });
+
+  it("does not leak other apps' patterns into the new app", function () {
+    var slugs = resolver
+      .resolvePatterns("observability", synthetic)
+      .map(function (p) {
+        return p.slug;
+      });
+    assert.strictEqual(slugs.indexOf("search-filtered-table"), -1);
+  });
+});
