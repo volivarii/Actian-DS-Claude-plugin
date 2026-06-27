@@ -95,6 +95,9 @@ step-by-step behavior.
 ## Pipeline (3 gates, then build + render; push opt-in) — for prompt + greenfield generation
 
 1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration). Disambiguate the app against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps[*].signals` (e.g. `studio`: steward/govern/curate/lineage…; `explorer`: browse/discover/marketplace…). An explicit app in the prompt ("in Studio") always wins.
+
+   **Announce the app (S2).** State one line — `Generating for **<App>** (inferred — say "use Explorer" / "use Administration" to switch).` — then continue without waiting. Accept an override only if it matches a known app (`scripts/lib/app-context/resolve-patterns.js` / `resolve-chrome.js` list the apps). **Hard-ask** which app *only* when signals match **zero** apps, or **two or more** apps with equal strength. This keeps the HTML-first "no new mandatory gate" rule — it's an announcement with an escape hatch, not a gate.
+
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail + config** (single merged gate — screen approval, detail level, AND generation config; see below). Prose pre-inference runs first.
@@ -268,6 +271,8 @@ This single gate covers screen approval, detail level, AND generation config (th
 - "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
 - "with empty state", "add error state", "loading state" → infer `--states <list>`
 
+**Frame by use case (S2).** Resolve the app's use cases — `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords — `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if still ambiguous, ask in one short line. Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
+
 Present a numbered screen list, then copy verbatim:
 
 ```
@@ -359,6 +364,14 @@ source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolv
 This is the authoritative shell every screen shares. **Do not invent, add, remove, rename, or reorder sidebar items** unless the prompt explicitly asks to restructure the navigation (e.g. "add a Reports section", "redesign the nav", "no app shell"). When it does, modify `_glossary.chrome` accordingly **and** set `_glossary.chromeJustification` to a one-line reason (30+ chars) — the change then applies flow-wide. The validator reports an ungrounded change without a justification as `chrome-drift` (warning).
 
 On **refine / iterate** of an existing flow, preserve any existing `_glossary.chrome` + `_glossary.chromeJustification` rather than re-resolving from scratch — only re-ground the screens you actually regenerate.
+
+**App patterns + use cases (grounded shortlist, S2).** After resolving chrome, resolve the app's idiomatic UX patterns and use cases:
+
+```bash
+source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>
+```
+
+Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags}]`) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns — a pattern not scoped to this app never appears (the app boundary is firm). Screen-generators bias recipe selection toward the recipe whose `tags[]` overlap these pattern tags; the validator flags any screen whose recipe shares **no** tag with them as `pattern-ungrounded` (info, advisory — never blocks). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
 
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
