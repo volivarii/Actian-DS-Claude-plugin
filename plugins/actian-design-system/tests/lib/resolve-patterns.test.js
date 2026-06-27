@@ -8,7 +8,13 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var resolver = require(
-  path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "resolve-patterns.js"),
+  path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "lib",
+    "app-context",
+    "resolve-patterns.js",
+  ),
 );
 var PATHS = require(path.join(PLUGIN_ROOT, "scripts", "lib", "paths.js"));
 
@@ -62,9 +68,41 @@ describe("resolve-patterns (resolver core)", function () {
 
   it("listApps includes studio; slugTags tokenizes a hyphenated slug", function () {
     assert.ok(resolver.listApps().indexOf("studio") !== -1);
-    assert.deepStrictEqual(
-      resolver.slugTags("search-filtered-table"),
-      ["search", "filtered", "table"],
-    );
+    assert.deepStrictEqual(resolver.slugTags("search-filtered-table"), [
+      "search",
+      "filtered",
+      "table",
+    ]);
+  });
+});
+
+describe("resolve-patterns (CLI)", function () {
+  var execFileSync = require("child_process").execFileSync;
+  var NODE = process.execPath;
+  var CLI = path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "lib",
+    "app-context",
+    "resolve-patterns.js",
+  );
+
+  it("--app studio prints { app, patterns, useCases } and exits 0", function () {
+    var out = execFileSync(NODE, [CLI, "--app", "studio"], {
+      encoding: "utf8",
+    });
+    var parsed = JSON.parse(out);
+    assert.strictEqual(parsed.app, "studio");
+    assert.ok(Array.isArray(parsed.patterns) && parsed.patterns.length > 0);
+    assert.ok(Array.isArray(parsed.useCases) && parsed.useCases.length === 2);
+  });
+
+  it("--app <unknown> exits 1", function () {
+    assert.throws(function () {
+      execFileSync(NODE, [CLI, "--app", "nope"], {
+        encoding: "utf8",
+        stdio: "pipe",
+      });
+    });
   });
 });

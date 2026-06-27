@@ -76,3 +76,29 @@ module.exports = {
   listApps: listApps,
   slugTags: slugTags,
 };
+
+// Thin CLI: `resolve-patterns.js --app studio` → { app, patterns, useCases }.
+// Parity with resolve-chrome.js --app.
+if (require.main === module) {
+  var args = process.argv.slice(2);
+  var appIdx = args.indexOf("--app");
+  if (appIdx !== -1 && args[appIdx + 1]) {
+    var app = args[appIdx + 1];
+    var key = normalizeApp(app);
+    var known = listApps().indexOf(key) !== -1;
+    process.stdout.write(
+      JSON.stringify(
+        {
+          app: key,
+          patterns: resolvePatterns(app),
+          useCases: resolveUseCases(app),
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+    process.exit(known ? 0 : 1);
+  }
+  process.stderr.write("usage: resolve-patterns.js --app <name>\n");
+  process.exit(2);
+}
