@@ -4,6 +4,9 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
+var fs = require("fs");
+var os = require("os");
+var child_process = require("child_process");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var validate = require(
@@ -110,5 +113,97 @@ describe("validate-pattern-grounding (S2, advisory)", function () {
       assert.notStrictEqual(f.severity, "error");
       assert.notStrictEqual(f.severity, "P0");
     });
+  });
+
+  // Fix 2: unknown/stale recipe archetype must be skipped, not flagged
+  it("unknown matchedRecipe not in recipe index → skipped (0 findings)", function () {
+    var f = patternFindings(
+      flow(
+        [{ slug: "lineage-graph", tags: ["lineage", "graph"] }],
+        "no-such-recipe",
+      ),
+    );
+    assert.strictEqual(
+      f.length,
+      0,
+      "screen with unknown recipe should be skipped, not flagged",
+    );
+  });
+
+  // Fix 3: if no pattern has tags, patternTagSet is empty → skip everything
+  it("tagless patterns build empty patternTagSet → no findings (nothing to check against)", function () {
+    // Pattern present but has no tags field — vocabulary is empty
+    var f = patternFindings(flow([{ slug: "x" }], "dashboard"));
+    assert.strictEqual(
+      f.length,
+      0,
+      "empty pattern-tag vocabulary should skip all screens",
+    );
+  });
+});
+
+describe("validate-pattern-grounding (CLI visibility)", function () {
+  // Fix 1: pattern-ungrounded must appear in CLI --json output
+  it("pattern-ungrounded finding reaches CLI --json output (not silently dropped)", function () {
+    // Build a minimal flow-data.json on disk that will produce a pattern-ungrounded
+    // finding: dashboard recipe tags = ["dashboard","cards","overview","metrics","home"],
+    // pattern tags = ["lineage","graph"] — guaranteed no overlap.
+    var data = {
+      meta: {
+        feature: "cli-test",
+        app: "Studio",
+        library: "ds",
+        _glossary: {
+          app: "Studio",
+          patterns: [{ slug: "lineage-graph", tags: ["lineage", "graph"] }],
+        },
+      },
+      screens: [
+        {
+          id: "sc1",
+          name: "SC1",
+          template: "studio",
+          content: [],
+          matchedRecipe: "dashboard",
+        },
+      ],
+    };
+    var tmpFile = path.join(
+      os.tmpdir(),
+      "validate-pg-cli-test-" + Date.now() + ".json",
+    );
+    fs.writeFileSync(tmpFile, JSON.stringify(data));
+    try {
+      var CLI = path.join(
+        PLUGIN_ROOT,
+        "scripts",
+        "validation",
+        "validate-flow-data.js",
+      );
+      var out = child_process.execFileSync(
+        process.execPath,
+        [
+          CLI,
+          tmpFile,
+          "--json",
+          "--skip-tokens",
+          "--skip-terminology",
+          "--skip-avoid-words",
+        ],
+        { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] },
+      );
+      var findings = JSON.parse(out);
+      var found = findings.some(function (f) {
+        return f.check === "pattern-ungrounded";
+      });
+      assert.ok(
+        found,
+        "CLI --json output should include a pattern-ungrounded entry",
+      );
+    } finally {
+      try {
+        fs.unlinkSync(tmpFile);
+      } catch (_) {}
+    }
   });
 });

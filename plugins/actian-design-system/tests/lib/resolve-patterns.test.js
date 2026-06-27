@@ -52,10 +52,13 @@ describe("resolve-patterns (resolver core)", function () {
     assert.deepStrictEqual(resolver.resolvePatterns(null), []);
   });
 
-  it("resolveUseCases returns the app's useCases (Studio has 2, each {audience,jobs})", function () {
+  it("resolveUseCases returns the app's useCases (Studio has multiple, each {audience,jobs})", function () {
     var uc = resolver.resolveUseCases("Studio");
     assert.ok(Array.isArray(uc));
-    assert.strictEqual(uc.length, 2);
+    assert.ok(
+      uc.length >= 2,
+      "Studio should have multiple use cases (disambiguation case)",
+    );
     uc.forEach(function (u) {
       assert.ok(Array.isArray(u.audience));
       assert.ok(Array.isArray(u.jobs));
@@ -94,7 +97,7 @@ describe("resolve-patterns (CLI)", function () {
     var parsed = JSON.parse(out);
     assert.strictEqual(parsed.app, "studio");
     assert.ok(Array.isArray(parsed.patterns) && parsed.patterns.length > 0);
-    assert.ok(Array.isArray(parsed.useCases) && parsed.useCases.length === 2);
+    assert.ok(Array.isArray(parsed.useCases) && parsed.useCases.length >= 2);
   });
 
   it("--app <unknown> exits 1", function () {

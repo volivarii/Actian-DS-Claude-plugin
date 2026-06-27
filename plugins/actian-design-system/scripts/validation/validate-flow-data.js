@@ -1267,10 +1267,13 @@ function checkPatternGrounding(data, findings, opts) {
       patternTagSet[String(t).toLowerCase()] = true;
     });
   });
+  if (Object.keys(patternTagSet).length === 0) return;
   var recipeTags = loadRecipeTags(opts);
   data.screens.forEach(function (screen) {
     if (!screen || !screen.matchedRecipe) return; // composition / tier-3 → no single recipe
-    var rTags = recipeTags[screen.matchedRecipe] || [];
+    if (!Object.prototype.hasOwnProperty.call(recipeTags, screen.matchedRecipe))
+      return;
+    var rTags = recipeTags[screen.matchedRecipe];
     var overlap = rTags.some(function (t) {
       return patternTagSet[String(t).toLowerCase()] === true;
     });
@@ -1935,6 +1938,7 @@ if (require.main === module) {
     "chrome-drift": true,
     "chrome-ungrounded": true,
     "chrome-incoherent": true,
+    "pattern-ungrounded": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
