@@ -1,8 +1,8 @@
 ---
 # yaml-language-server: $schema=../../../schemas/app-context-entity.json
 _schema_version: 1
-slug: custom-asset
-label: Custom Asset
+slug: custom-item
+label: Custom Item
 properties:
   - name
   - description
@@ -11,4 +11,4 @@ relationships: {}
 apps:
   - studio
 ---
-User-defined asset type extending the catalog model
+A user-defined custom item type extending the catalog metamodel.

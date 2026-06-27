@@ -6,6 +6,14 @@ label: Explorer
 header:
   type: Explorer
 sidebar: []
+useCases:
+  - audience: [Business user, Analyst, Data consumer]
+    jobs:
+      - Discover and browse data products in the marketplace
+      - Understand an asset before using it
+      - Request access to the data they need
+      - Ask AI for help finding and understanding data
+    patterns: [marketplace-browsing, asset-detail-360, access-request-workflow, ask-ai]
 ---
 
 ## Purpose

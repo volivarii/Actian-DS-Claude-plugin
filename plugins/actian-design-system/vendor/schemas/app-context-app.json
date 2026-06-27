@@ -29,9 +29,9 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["Studio", "Explorer", "Admin"],
-          "description": "Header variant; matches the DS global-header App type axis.",
-          "examples": ["Studio", "Explorer", "Admin"]
+          "minLength": 1,
+          "description": "Header variant; matches a DS global-header App type. Open by design so new apps can declare their own header.",
+          "examples": ["Studio", "Explorer", "Admin", "Observability"]
         }
       }
     },
@@ -58,6 +58,46 @@
             "type": "string",
             "description": "Stable identifier for the sidebar item; used for deep-linking and analytics.",
             "examples": ["pipelines", "connections", "settings"]
+          }
+        }
+      }
+    },
+    "useCases": {
+      "type": "array",
+      "description": "What the app is FOR, framed as audience → jobs. Optionally links each use case to app-scoped patterns. Drives flow framing + scaffold selection in consumers.",
+      "examples": [
+        [
+          {
+            "audience": ["Data steward", "Data engineer"],
+            "jobs": ["Govern the catalog", "Review access requests"],
+            "patterns": ["asset-detail-360"]
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["audience", "jobs"],
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Primary users this use case serves.",
+            "examples": [["Data steward", "Data engineer"]]
+          },
+          "jobs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Jobs-to-be-done for this audience in this app.",
+            "examples": [["Govern the catalog", "Review access requests"]]
+          },
+          "patterns": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "App-scoped pattern slugs idiomatic to this use case. Integrity (exists + app-scoped) enforced by validate-app-context.js.",
+            "examples": [["asset-detail-360", "access-request-management"]]
           }
         }
       }

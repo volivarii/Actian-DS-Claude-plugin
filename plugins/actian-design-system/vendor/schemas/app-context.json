@@ -218,6 +218,46 @@
           "items": { "type": "string" },
           "description": "Keywords/phrases that, when present in a user request, route work to this app. Used by skill routing to pick an app context.",
           "examples": [["steward", "govern", "lineage"]]
+        },
+        "useCases": {
+          "type": "array",
+          "description": "What the app is FOR, framed as audience → jobs, optionally linked to app-scoped patterns. Drives flow framing + scaffold selection in consumers.",
+          "examples": [
+            [
+              {
+                "audience": ["Data steward", "Data engineer"],
+                "jobs": ["Govern the catalog", "Review access requests"],
+                "patterns": ["asset-detail-360"]
+              }
+            ]
+          ],
+          "items": {
+            "type": "object",
+            "required": ["audience", "jobs"],
+            "additionalProperties": false,
+            "properties": {
+              "audience": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "Primary users this use case serves.",
+                "examples": [["Data steward", "Data engineer"]]
+              },
+              "jobs": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string" },
+                "description": "Jobs-to-be-done for this audience in this app.",
+                "examples": [["Govern the catalog", "Review access requests"]]
+              },
+              "patterns": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "App-scoped pattern slugs idiomatic to this use case; existence + app-scope enforced by validate-app-context.js.",
+                "examples": [["asset-detail-360", "access-request-management"]]
+              }
+            }
+          }
         }
       }
     },
@@ -245,9 +285,57 @@
         },
         "properties": {
           "type": "array",
-          "items": { "type": "string" },
-          "description": "Common attributes/fields the entity carries.",
-          "examples": [["name", "description", "status"]]
+          "description": "Common attributes/fields the entity carries. Each item is a bare field name (legacy) or a typed descriptor for realistic generated content.",
+          "examples": [
+            [
+              "name",
+              "description",
+              {
+                "name": "status",
+                "type": "enum",
+                "states": ["Draft", "Published"]
+              }
+            ]
+          ],
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "required": ["name"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Field name as shown in the UI.",
+                    "examples": ["status", "connection type"]
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Logical type of the field, used to shape generated form controls and table columns.",
+                    "examples": [
+                      "string",
+                      "enum",
+                      "number",
+                      "date",
+                      "reference"
+                    ]
+                  },
+                  "example": {
+                    "type": "string",
+                    "description": "Realistic example value(s) for generated content.",
+                    "examples": ["Snowflake, BigQuery, S3 (93+ connectors)"]
+                  },
+                  "states": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Enumerated states, when the type is enum.",
+                    "examples": [["Draft", "Published", "Deprecated"]]
+                  }
+                }
+              }
+            ]
+          }
         },
         "relationships": {
           "type": "object",
