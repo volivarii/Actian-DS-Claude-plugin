@@ -1226,6 +1226,67 @@ function chromeDelta(canonical, actual) {
   return parts.length ? parts.join(" · ") : null;
 }
 
+// App-pattern grounding (S2) --------------------------------------------
+// Recipe archetype → tags[] from recipes/flow/_index.json. Cached; an
+// injected opts.recipeIndex (array shaped like _index.json) bypasses disk.
+var _recipeTagsCache = null;
+function loadRecipeTags(opts) {
+  var idx;
+  if (opts && Array.isArray(opts.recipeIndex)) {
+    idx = opts.recipeIndex;
+  } else {
+    if (_recipeTagsCache) return _recipeTagsCache;
+    try {
+      idx = JSON.parse(
+        fs.readFileSync(
+          path.join(__dirname, "..", "..", "recipes", "flow", "_index.json"),
+          "utf8",
+        ),
+      );
+    } catch (e) {
+      idx = [];
+    }
+  }
+  var map = {};
+  (Array.isArray(idx) ? idx : []).forEach(function (r) {
+    if (r && r.archetype)
+      map[r.archetype] = Array.isArray(r.tags) ? r.tags : [];
+  });
+  if (!(opts && Array.isArray(opts.recipeIndex))) _recipeTagsCache = map;
+  return map;
+}
+
+function checkPatternGrounding(data, findings, opts) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var patterns = glossary.patterns;
+  if (!Array.isArray(patterns) || patterns.length === 0) return; // backward-compat
+  if (!Array.isArray(data.screens)) return;
+  var patternTagSet = {};
+  patterns.forEach(function (p) {
+    (p && Array.isArray(p.tags) ? p.tags : []).forEach(function (t) {
+      patternTagSet[String(t).toLowerCase()] = true;
+    });
+  });
+  var recipeTags = loadRecipeTags(opts);
+  data.screens.forEach(function (screen) {
+    if (!screen || !screen.matchedRecipe) return; // composition / tier-3 → no single recipe
+    var rTags = recipeTags[screen.matchedRecipe] || [];
+    var overlap = rTags.some(function (t) {
+      return patternTagSet[String(t).toLowerCase()] === true;
+    });
+    if (overlap) return;
+    findings.push({
+      kind: "pattern-ungrounded",
+      severity: "info",
+      screen: screen.id || "",
+      message:
+        "Screen recipe '" +
+        screen.matchedRecipe +
+        "' shares no tags with the app's grounded patterns — may not be idiomatic to this app.",
+    });
+  });
+}
+
 function checkChromeBaseline(data, findings) {
   var glossary = (data && data.meta && data.meta._glossary) || {};
   var chrome = glossary.chrome;
@@ -1333,6 +1394,7 @@ function validate(data, opts) {
   // <feature-slug>-<index> for missing ones.
   require("../lib/screen-id.js").stampScreenIds(data);
   checkChromeBaseline(data, findings);
+  checkPatternGrounding(data, findings, opts);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
