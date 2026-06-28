@@ -91,6 +91,19 @@ describe("resolve-relationships (CLI)", function () {
   });
 });
 
+describe("resolve-relationships (Fix #1 — array-shaped relationships guard)", function () {
+  it("returns [] when entity.relationships is an array (not an object map)", function () {
+    var ctx = {
+      entities: {
+        weird: {
+          relationships: ["a", "b"],
+        },
+      },
+    };
+    assert.deepStrictEqual(resolver.resolveRelationships("weird", ctx), []);
+  });
+});
+
 describe("resolve-relationships (extensibility — synthetic entity, zero code change)", function () {
   var synthetic = {
     entities: {

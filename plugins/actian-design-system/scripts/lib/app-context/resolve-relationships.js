@@ -46,7 +46,7 @@ function resolveRelationships(entityName, ctx) {
   var data = loadAppContext(ctx);
   if (!data || !data.entities || !data.entities[key]) return [];
   var rels = data.entities[key].relationships;
-  if (!rels || typeof rels !== "object") return [];
+  if (!rels || typeof rels !== "object" || Array.isArray(rels)) return [];
   var out = [];
   Object.keys(rels).forEach(function (relName) {
     var v = rels[relName];

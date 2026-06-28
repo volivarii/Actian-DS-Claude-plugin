@@ -1329,31 +1329,40 @@ function checkRelationshipGrounding(data, findings) {
     });
   });
   if (Object.keys(relTokenSet).length === 0) return;
+  // Flow-level: a flow is grounded if ANY tabbed detail-view screen reflects a
+  // relationship. Only flag when NONE do — so a multi-entity drill-down (e.g.
+  // catalog-object detail → lineage detail) does not false-positive the
+  // secondary-entity detail screen, which is grounded in a different entity.
+  var checkable = []; // tabbed detail-view screens we can judge
+  var anyOverlap = false;
   data.screens.forEach(function (screen) {
     if (!screen || !DETAIL_RECIPES[screen.matchedRecipe]) return;
     var tabLabels = collectTabLabels(screen.content);
     if (tabLabels.length === 0) return; // not a tabbed screen → can't judge
+    checkable.push(screen);
     var overlap = tabLabels.some(function (lbl) {
       return tokenizeLabel(lbl).some(function (t) {
         return relTokenSet[t] === true;
       });
     });
-    if (overlap) return;
-    findings.push({
-      kind: "relationships-ungrounded",
-      severity: "info",
-      screen: screen.id || "",
-      message:
-        "Detail screen tabs [" +
-        tabLabels.join(", ") +
-        "] reflect none of the entity's relationships (" +
-        rels
-          .map(function (r) {
-            return r.label;
-          })
-          .join(", ") +
-        ") — the detail page may be missing related-entity context.",
+    if (overlap) anyOverlap = true;
+  });
+  if (checkable.length === 0 || anyOverlap) return;
+  var relNames = rels
+    .map(function (r) {
+      return (r && r.label) || (r && r.relatedEntity) || "";
+    })
+    .filter(function (x) {
+      return x;
     });
+  findings.push({
+    kind: "relationships-ungrounded",
+    severity: "info",
+    screen: (checkable[0] && checkable[0].id) || "",
+    message:
+      "No detail screen in this flow reflects the entity's relationships (" +
+      relNames.join(", ") +
+      ") — the detail pages may be missing related-entity context.",
   });
 }
 
