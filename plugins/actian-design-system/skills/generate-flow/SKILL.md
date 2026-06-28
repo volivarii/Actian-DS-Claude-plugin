@@ -330,22 +330,22 @@ After the screen list is approved, build a `_glossary` object and set it on `met
     "sidebarActive": "Catalog",
     "app": "Studio",
     "entityProperties": [
-      "name",
-      "description",
-      "status",
-      "input ports",
-      "output ports",
-      "datasets",
-      "contacts",
-      "attachments"
+      { "name": "name", "label": "Name", "type": "string" },
+      { "name": "description", "label": "Description", "type": "string" },
+      { "name": "status", "label": "Status", "type": "enum", "states": ["Draft", "Published", "Deprecated"] },
+      { "name": "datasets", "label": "Datasets", "type": "reference" }
     ]
   }
 }
 ```
 
-**Entity properties lookup:** After building the glossary, slugify the entity name (lowercase, replace spaces with hyphens) and look it up in `vendor/app-context/dist/app-context.json` → `entities[slug]`. If found, set `_glossary.entityProperties` to the entity's `properties` array. Screen-generators use these for form field labels, table column headers, and detail page content instead of generic placeholders.
+**Entity properties (grounded table columns + form fields, S3b).** Using the same entity slug as the relationships lookup, resolve the primary entity's standard fields:
 
-Example: entity "Data Product" → slug "data-product" → `entities["data-product"].properties` → `["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"]`
+```bash
+source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-properties.js --entity <slug>
+```
+
+Set `_glossary.entityProperties` to the returned `properties` array (`[{name, label, type, states?, example?}]`). These are the entity's standard fields from the substrate (e.g. `data-product` → Name, Description, Status, Datasets, …). Screen-generators use them **verbatim** for table column headers and form field labels instead of generic placeholders; the validator flags the flow as `properties-ungrounded` (info, advisory — never blocks) when **no** table or form in it reflects them. On **refine / iterate**, preserve existing `_glossary.entityProperties` rather than re-resolving.
 
 If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
 

@@ -1375,6 +1375,93 @@ function checkRelationshipGrounding(data, findings) {
   });
 }
 
+// Property grounding (S3b) ----------------------------------------------
+// Collect table column headers (header-row fmTableCell numbered Labels) and
+// form field labels (any INSTANCE's "Label Text") from a screen's content.
+// Reuses the existing INSTANCE walker + prop reader — no new walker.
+var TABLE_CELL_LABEL_KEYS = [
+  "Label",
+  "Label 2",
+  "Label 3",
+  "Label 4",
+  "Label 5",
+];
+
+function collectColumnAndFieldLabels(content) {
+  var labels = [];
+  walkInstanceNodes(content, "", function (instNode) {
+    if (!instNode) return;
+    // Form field labels — input components expose "Label Text".
+    var lt = findPropValue(instNode.props, "Label Text");
+    if (typeof lt === "string" && lt) labels.push(lt);
+    // Table column headers — header-row fmTableCell numbered Labels.
+    if (
+      instNode.ref === "fmTableCell" &&
+      typeof instNode.variant === "string" &&
+      instNode.variant.indexOf("Header") !== -1
+    ) {
+      TABLE_CELL_LABEL_KEYS.forEach(function (k) {
+        var v = findPropValue(instNode.props, k);
+        if (typeof v === "string" && v) labels.push(v);
+      });
+    }
+  });
+  return labels;
+}
+
+function checkPropertiesGrounding(data, findings) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var props = glossary.entityProperties;
+  if (!Array.isArray(props) || props.length === 0) return; // backward-compat
+  if (!Array.isArray(data.screens)) return;
+  var propTokenSet = {};
+  props.forEach(function (p) {
+    var name =
+      typeof p === "string" ? p : p && typeof p === "object" ? p.name : "";
+    tokenizeLabel(name).forEach(function (t) {
+      propTokenSet[t] = true;
+      propTokenSet[singularize(t)] = true;
+    });
+  });
+  if (Object.keys(propTokenSet).length === 0) return;
+  // Flow-level: a flow is grounded if ANY table/form screen reflects the
+  // entity's fields. Only flag when there is at least one judgeable
+  // (table/form-bearing) screen and NONE of them overlap.
+  var checkable = [];
+  var anyOverlap = false;
+  data.screens.forEach(function (screen) {
+    if (!screen) return;
+    var labels = collectColumnAndFieldLabels(screen.content);
+    if (labels.length === 0) return; // no table/form → can't judge
+    checkable.push(screen);
+    var overlap = labels.some(function (lbl) {
+      return tokenizeLabel(lbl).some(function (t) {
+        return (
+          propTokenSet[t] === true || propTokenSet[singularize(t)] === true
+        );
+      });
+    });
+    if (overlap) anyOverlap = true;
+  });
+  if (checkable.length === 0 || anyOverlap) return;
+  var propNames = props
+    .map(function (p) {
+      return typeof p === "string" ? p : (p && p.label) || (p && p.name) || "";
+    })
+    .filter(function (x) {
+      return x;
+    });
+  findings.push({
+    kind: "properties-ungrounded",
+    severity: "info",
+    screen: "",
+    message:
+      "No table or form in this flow reflects the entity's standard fields (" +
+      propNames.join(", ") +
+      ") — columns/fields may not match the substrate.",
+  });
+}
+
 function checkChromeBaseline(data, findings) {
   var glossary = (data && data.meta && data.meta._glossary) || {};
   var chrome = glossary.chrome;
@@ -1484,6 +1571,7 @@ function validate(data, opts) {
   checkChromeBaseline(data, findings);
   checkPatternGrounding(data, findings, opts);
   checkRelationshipGrounding(data, findings);
+  checkPropertiesGrounding(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -2026,6 +2114,7 @@ if (require.main === module) {
     "chrome-incoherent": true,
     "pattern-ungrounded": true,
     "relationships-ungrounded": true,
+    "properties-ungrounded": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
