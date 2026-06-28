@@ -373,6 +373,14 @@ source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolv
 
 Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags}]`) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns — a pattern not scoped to this app never appears (the app boundary is firm). Screen-generators bias recipe selection toward the recipe whose `tags[]` overlap these pattern tags; the validator flags any screen whose recipe shares **no** tag with them as `pattern-ungrounded` (info, advisory — never blocks). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
 
+**Entity relationships (grounded detail tabs, S3).** Using the same entity slug as the `entityProperties` lookup above, resolve the primary entity's relationships:
+
+```bash
+source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-relationships.js --entity <slug>
+```
+
+Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory — never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
+
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
 ---

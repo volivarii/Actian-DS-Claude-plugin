@@ -1290,6 +1290,91 @@ function checkPatternGrounding(data, findings, opts) {
   });
 }
 
+// Relationship grounding (S3) -------------------------------------------
+var DETAIL_RECIPES = { "detail-view": true };
+
+// Collect fmTab "Tab label" values from a screen's content (reuses the
+// existing INSTANCE walker + prop reader — no new walker).
+function collectTabLabels(content) {
+  var labels = [];
+  walkInstanceNodes(content, "", function (instNode) {
+    if (!instNode || instNode.ref !== "fmTab") return;
+    var v = findPropValue(instNode.props, "Tab label");
+    if (typeof v === "string" && v) labels.push(v);
+  });
+  return labels;
+}
+
+function tokenizeLabel(s) {
+  return String(s == null ? "" : s)
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(function (t) {
+      return t.length > 0;
+    });
+}
+
+function singularize(t) {
+  if (typeof t !== "string") return "";
+  if (t.length > 3 && t.slice(-3) === "ies") return t.slice(0, -3) + "y";
+  if (t.length > 1 && t.slice(-1) === "s") return t.slice(0, -1);
+  return t;
+}
+
+function checkRelationshipGrounding(data, findings) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var rels = glossary.relationships;
+  if (!Array.isArray(rels) || rels.length === 0) return; // backward-compat
+  if (!Array.isArray(data.screens)) return;
+  var relTokenSet = {};
+  rels.forEach(function (r) {
+    tokenizeLabel(r && r.label).forEach(function (t) {
+      relTokenSet[t] = true;
+      relTokenSet[singularize(t)] = true;
+    });
+    tokenizeLabel(r && r.relatedEntity).forEach(function (t) {
+      relTokenSet[t] = true;
+      relTokenSet[singularize(t)] = true;
+    });
+  });
+  if (Object.keys(relTokenSet).length === 0) return;
+  // Flow-level: a flow is grounded if ANY tabbed detail-view screen reflects a
+  // relationship. Only flag when NONE do — so a multi-entity drill-down (e.g.
+  // catalog-object detail → lineage detail) does not false-positive the
+  // secondary-entity detail screen, which is grounded in a different entity.
+  var checkable = []; // tabbed detail-view screens we can judge
+  var anyOverlap = false;
+  data.screens.forEach(function (screen) {
+    if (!screen || !DETAIL_RECIPES[screen.matchedRecipe]) return;
+    var tabLabels = collectTabLabels(screen.content);
+    if (tabLabels.length === 0) return; // not a tabbed screen → can't judge
+    checkable.push(screen);
+    var overlap = tabLabels.some(function (lbl) {
+      return tokenizeLabel(lbl).some(function (t) {
+        return relTokenSet[t] === true || relTokenSet[singularize(t)] === true;
+      });
+    });
+    if (overlap) anyOverlap = true;
+  });
+  if (checkable.length === 0 || anyOverlap) return;
+  var relNames = rels
+    .map(function (r) {
+      return (r && r.label) || (r && r.relatedEntity) || "";
+    })
+    .filter(function (x) {
+      return x;
+    });
+  findings.push({
+    kind: "relationships-ungrounded",
+    severity: "info",
+    screen: "",
+    message:
+      "No detail screen in this flow reflects the entity's relationships (" +
+      relNames.join(", ") +
+      ") — the detail pages may be missing related-entity context.",
+  });
+}
+
 function checkChromeBaseline(data, findings) {
   var glossary = (data && data.meta && data.meta._glossary) || {};
   var chrome = glossary.chrome;
@@ -1398,6 +1483,7 @@ function validate(data, opts) {
   require("../lib/screen-id.js").stampScreenIds(data);
   checkChromeBaseline(data, findings);
   checkPatternGrounding(data, findings, opts);
+  checkRelationshipGrounding(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -1939,6 +2025,7 @@ if (require.main === module) {
     "chrome-ungrounded": true,
     "chrome-incoherent": true,
     "pattern-ungrounded": true,
+    "relationships-ungrounded": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
