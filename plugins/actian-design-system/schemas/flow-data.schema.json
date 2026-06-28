@@ -266,8 +266,18 @@
             },
             "entityProperties": {
               "type": "array",
-              "items": { "type": "string" },
-              "description": "Standard field names for this entity from app-context.json"
+              "items": {
+                "type": ["string", "object"],
+                "required": ["name"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "label": { "type": "string" },
+                  "type": { "type": "string" },
+                  "states": { "type": "array", "items": { "type": "string" } },
+                  "example": { "type": "string" }
+                }
+              },
+              "description": "Standard fields for this entity, resolved from app-context.json by resolve-properties.js. Each item is a field-name string (legacy) or a typed object {name,label,type,states?,example?}. Note: validate-schema.js has no oneOf, so the union is expressed as type:[string,object] with required:[name] — its required check is object-guarded, so string items stay valid. Used for table column headers + form field labels."
             },
             "chrome": {
               "type": "object",
