@@ -63,7 +63,7 @@ describe("validate-relationship-grounding (S3, advisory)", function () {
     assert.strictEqual(f.length, 1);
     assert.strictEqual(f[0].kind, "relationships-ungrounded");
     assert.strictEqual(f[0].severity, "info");
-    assert.strictEqual(f[0].screen, "s1");
+    assert.strictEqual(f[0].screen, "");
     assert.ok(f[0].message, "finding should carry a non-empty message");
   });
 
@@ -178,6 +178,86 @@ describe("validate-relationship-grounding (S3 review fixes)", function () {
     assert.ok(
       findings[0].message && findings[0].message.length > 0,
       "message must be non-empty",
+    );
+  });
+});
+
+describe("validate-relationship-grounding (S3 plural tolerance, Fix C)", function () {
+  // "Glossary items" (plural) should match relatedEntity:"glossary-item" / label:"Glossary item"
+  it("plural tab 'Glossary items' matches singular relationship label 'Glossary item' → 0 findings", function () {
+    var data = {
+      meta: {
+        feature: "t",
+        app: "Studio",
+        library: "ds",
+        _glossary: {
+          app: "Studio",
+          entity: "Catalog object",
+          relationships: [
+            {
+              relationship: "hasGlossaryItems",
+              relatedEntity: "glossary-item",
+              label: "Glossary item",
+            },
+          ],
+        },
+      },
+      screens: [
+        {
+          id: "s1",
+          name: "S1",
+          template: "studio",
+          matchedRecipe: "detail-view",
+          content: [
+            tabNode("Overview"),
+            tabNode("Glossary items"),
+            tabNode("Settings"),
+          ],
+        },
+      ],
+    };
+    var f = relFindings(data);
+    assert.strictEqual(
+      f.length,
+      0,
+      "plural 'Glossary items' should match singular relationship",
+    );
+  });
+
+  // "Connections" (plural) should match relatedEntity:"connection" / label:"Connection"
+  it("plural tab 'Connections' matches singular relationship label 'Connection' → 0 findings", function () {
+    var data = {
+      meta: {
+        feature: "t",
+        app: "Studio",
+        library: "ds",
+        _glossary: {
+          app: "Studio",
+          entity: "Catalog object",
+          relationships: [
+            {
+              relationship: "hasConnections",
+              relatedEntity: "connection",
+              label: "Connection",
+            },
+          ],
+        },
+      },
+      screens: [
+        {
+          id: "s1",
+          name: "S1",
+          template: "studio",
+          matchedRecipe: "detail-view",
+          content: [tabNode("Overview"), tabNode("Connections")],
+        },
+      ],
+    };
+    var f = relFindings(data);
+    assert.strictEqual(
+      f.length,
+      0,
+      "plural 'Connections' should match singular relationship",
     );
   });
 });

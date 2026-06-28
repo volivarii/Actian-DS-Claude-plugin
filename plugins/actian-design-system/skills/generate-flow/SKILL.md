@@ -379,7 +379,7 @@ Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,descrip
 source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-relationships.js --entity <slug>
 ```
 
-Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags a tabbed detail screen reflecting **none** of them as `relationships-ungrounded` (info, advisory — never blocks). On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
+Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory — never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
 
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 

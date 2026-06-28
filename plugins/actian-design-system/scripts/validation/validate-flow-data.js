@@ -1291,7 +1291,7 @@ function checkPatternGrounding(data, findings, opts) {
 }
 
 // Relationship grounding (S3) -------------------------------------------
-var DETAIL_RECIPES = { "detail-view": true, "composition-detail-table": true };
+var DETAIL_RECIPES = { "detail-view": true };
 
 // Collect fmTab "Tab label" values from a screen's content (reuses the
 // existing INSTANCE walker + prop reader — no new walker).
@@ -1314,6 +1314,13 @@ function tokenizeLabel(s) {
     });
 }
 
+function singularize(t) {
+  if (typeof t !== "string") return "";
+  if (t.length > 3 && t.slice(-3) === "ies") return t.slice(0, -3) + "y";
+  if (t.length > 1 && t.slice(-1) === "s") return t.slice(0, -1);
+  return t;
+}
+
 function checkRelationshipGrounding(data, findings) {
   var glossary = (data && data.meta && data.meta._glossary) || {};
   var rels = glossary.relationships;
@@ -1323,9 +1330,11 @@ function checkRelationshipGrounding(data, findings) {
   rels.forEach(function (r) {
     tokenizeLabel(r && r.label).forEach(function (t) {
       relTokenSet[t] = true;
+      relTokenSet[singularize(t)] = true;
     });
     tokenizeLabel(r && r.relatedEntity).forEach(function (t) {
       relTokenSet[t] = true;
+      relTokenSet[singularize(t)] = true;
     });
   });
   if (Object.keys(relTokenSet).length === 0) return;
@@ -1342,7 +1351,7 @@ function checkRelationshipGrounding(data, findings) {
     checkable.push(screen);
     var overlap = tabLabels.some(function (lbl) {
       return tokenizeLabel(lbl).some(function (t) {
-        return relTokenSet[t] === true;
+        return relTokenSet[t] === true || relTokenSet[singularize(t)] === true;
       });
     });
     if (overlap) anyOverlap = true;
@@ -1358,7 +1367,7 @@ function checkRelationshipGrounding(data, findings) {
   findings.push({
     kind: "relationships-ungrounded",
     severity: "info",
-    screen: (checkable[0] && checkable[0].id) || "",
+    screen: "",
     message:
       "No detail screen in this flow reflects the entity's relationships (" +
       relNames.join(", ") +
