@@ -90,3 +90,39 @@ describe("resolve-relationships (CLI)", function () {
     });
   });
 });
+
+describe("resolve-relationships (extensibility — synthetic entity, zero code change)", function () {
+  var synthetic = {
+    entities: {
+      widget: {
+        relationships: {
+          hasParts: "part",
+          belongsTo: "bin",
+          taggedWith: ["topic", "label-set"],
+        },
+      },
+      part: { relationships: {} },
+    },
+  };
+
+  it("resolves a brand-new entity's relationships via the injection seam", function () {
+    var rels = resolver.resolveRelationships("widget", synthetic);
+    // hasParts→part, belongsTo→bin, taggedWith→[topic, label-set] = 4 entries
+    assert.strictEqual(rels.length, 4);
+    var byTarget = {};
+    rels.forEach(function (r) {
+      byTarget[r.relatedEntity] = r;
+    });
+    assert.strictEqual(byTarget["part"].relationship, "hasParts");
+    assert.strictEqual(byTarget["bin"].label, "Bin");
+    assert.strictEqual(byTarget["label-set"].label, "Label set");
+    assert.ok(resolver.listEntities(synthetic).indexOf("widget") !== -1);
+  });
+
+  it("returns [] for an entity with an empty relationships map", function () {
+    assert.deepStrictEqual(
+      resolver.resolveRelationships("part", synthetic),
+      [],
+    );
+  });
+});
