@@ -75,3 +75,25 @@ module.exports = {
   humanizeSlug: humanizeSlug,
   listEntities: listEntities,
 };
+
+// Thin CLI: `resolve-relationships.js --entity catalog-object`
+// → { entity, relationships }. Parity with resolve-patterns.js --app.
+if (require.main === module) {
+  var args = process.argv.slice(2);
+  var idx = args.indexOf("--entity");
+  if (idx !== -1 && args[idx + 1]) {
+    var ent = args[idx + 1];
+    var key = normalizeEntity(ent);
+    var known = listEntities().indexOf(key) !== -1;
+    process.stdout.write(
+      JSON.stringify(
+        { entity: key, relationships: resolveRelationships(ent) },
+        null,
+        2,
+      ) + "\n",
+    );
+    process.exit(known ? 0 : 1);
+  }
+  process.stderr.write("usage: resolve-relationships.js --entity <slug>\n");
+  process.exit(2);
+}
