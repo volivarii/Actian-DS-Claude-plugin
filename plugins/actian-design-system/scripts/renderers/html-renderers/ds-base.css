@@ -1804,3 +1804,31 @@
 .ds-icon--rot180 {
   transform: rotate(180deg);
 }
+
+/* ============ Anatomy (structural floor for non-override slugs) ============ */
+/* anatomy-render.js interprets a component's vendored part-tree into structural
+   HTML for DS slugs that have no hand-authored leaf. Containers carry per-node
+   inline flex styles; the rules here give the wrapper sensible hugging, legible
+   text, and — critically — a size + token-bound neutral fill to the aria-hidden
+   media slots, which otherwise render 0x0 and disappear. 100% --zen-* bound. */
+.ds-anatomy {
+  display: inline-flex;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.ds-anatomy__text {
+  color: var(--zen-color-text-default);
+}
+.ds-anatomy__vector,
+.ds-anatomy__image {
+  display: inline-block;
+  flex: none;
+  min-width: var(--zen-size-md);
+  min-height: var(--zen-size-md);
+  background: var(--zen-color-neutral-100);
+  border-radius: var(--zen-border-radius-xs);
+}
+.ds-anatomy__image {
+  min-width: var(--zen-size-lg);
+  min-height: var(--zen-size-lg);
+}
