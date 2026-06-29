@@ -13,6 +13,9 @@ settings.json
 /presentations/
 /prototypes/
 
+# Dogfood/preview output generated in-plugin (local artifacts, not source).
+/plugins/actian-design-system/flows/
+
 # Annotation files (browser preview artifacts)
 .annotations.json
 
