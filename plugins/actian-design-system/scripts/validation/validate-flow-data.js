@@ -1462,6 +1462,51 @@ function checkPropertiesGrounding(data, findings) {
   });
 }
 
+// Enum typing (S3c) -----------------------------------------------------
+// Advisory: if the entity has enum-typed properties (status-like fields with
+// states[]) and the flow renders a table but NO fmTableCell Type=Pill cell
+// anywhere, the status values are plain text instead of the DS status badge.
+// Coarse + flow-level (screen:"") — precise per-column matching is S3b'.
+function checkEnumTyping(data, findings) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var props = glossary.entityProperties;
+  if (!Array.isArray(props) || props.length === 0) return; // backward-compat
+  if (!Array.isArray(data.screens)) return;
+  var enumNames = props
+    .filter(function (p) {
+      return p && typeof p === "object" && p.type === "enum";
+    })
+    .map(function (p) {
+      return p.label || p.name || "";
+    })
+    .filter(function (x) {
+      return x;
+    });
+  if (enumNames.length === 0) return; // no enum properties → nothing to type
+  var hasTable = false;
+  var hasPill = false;
+  walkInstanceNodes(data.screens, "screens", function (instNode) {
+    if (!instNode || instNode.ref !== "fmTableCell") return;
+    hasTable = true;
+    if (
+      typeof instNode.variant === "string" &&
+      instNode.variant.indexOf("Pill") !== -1
+    ) {
+      hasPill = true;
+    }
+  });
+  if (!hasTable || hasPill) return; // no table to type, or already typed
+  findings.push({
+    kind: "enum-not-typed",
+    severity: "info",
+    screen: "",
+    message:
+      "Entity has status/enum field(s) (" +
+      enumNames.join(", ") +
+      ") but no table renders them as status pills — set the column's data cells to fmTableCell Type=Pill.",
+  });
+}
+
 function checkChromeBaseline(data, findings) {
   var glossary = (data && data.meta && data.meta._glossary) || {};
   var chrome = glossary.chrome;
@@ -1572,6 +1617,7 @@ function validate(data, opts) {
   checkPatternGrounding(data, findings, opts);
   checkRelationshipGrounding(data, findings);
   checkPropertiesGrounding(data, findings);
+  checkEnumTyping(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -2115,6 +2161,7 @@ if (require.main === module) {
     "pattern-ungrounded": true,
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
+    "enum-not-typed": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
