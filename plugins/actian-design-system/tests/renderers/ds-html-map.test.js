@@ -2495,6 +2495,52 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     );
   });
 
+  it("non-override slug with server-side anatomy map (no window) → anatomy html, not chip", function () {
+    // Server-side (Node) rendering has no window; the canonical flow-share
+    // deliverable pre-renders in Node, so the map is supplied via setAnatomyMap.
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    delete global.window;
+    ds.setAnatomyMap({
+      "anatomy-only-fixture":
+        '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
+    });
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "anatomy-only-fixture",
+      props: {},
+    });
+    ds.setAnatomyMap(null);
+    if (prev !== undefined) global.window = prev;
+    assert.ok(
+      html.indexOf("ds-anatomy") !== -1,
+      "server-side anatomy map used when no window",
+    );
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "no chip when server-side anatomy present",
+    );
+  });
+
+  it("setAnatomyMap(null) resets — non-override slug chips again server-side", function () {
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    delete global.window;
+    ds.setAnatomyMap({
+      "anatomy-only-fixture":
+        '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
+    });
+    ds.setAnatomyMap(null);
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "anatomy-only-fixture",
+      props: {},
+    });
+    if (prev !== undefined) global.window = prev;
+    assert.ok(
+      html.indexOf("ds-component") !== -1,
+      "chip after map reset (no leakage across renders)",
+    );
+  });
+
   it("non-override slug, no anatomy → chip fallback", function () {
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     global.window = { __dsAnatomyMap: {} };

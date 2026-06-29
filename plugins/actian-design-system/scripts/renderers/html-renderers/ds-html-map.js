@@ -134,6 +134,22 @@
     return items[0];
   }
 
+  // Anatomy map for non-override slugs. Two supply paths:
+  //   • browser deliverable — embedded as window.__dsAnatomyMap (assemble-time)
+  //   • server-side (Node) — the canonical flow-share deliverable pre-renders
+  //     screens in Node where `window` is undefined, so the assembler injects the
+  //     map here via setAnatomyMap() before rendering and clears it after.
+  var _serverAnatomyMap = null;
+
+  /**
+   * setAnatomyMap(map) — supply the assemble-time anatomy map for server-side
+   * rendering. Pass a plain object { slug → htmlString }, or null/undefined to
+   * clear it (callers MUST reset after a render so state never leaks).
+   */
+  function setAnatomyMap(map) {
+    _serverAnatomyMap = map && typeof map === "object" ? map : null;
+  }
+
   /**
    * renderDSComponent(node)
    * node = { type: 'INSTANCE', library: 'ds', dsSlug: 'button', variant: '...', props: {...}, name: '...' }
@@ -1297,11 +1313,14 @@
         }
 
         default: {
-          // Anatomy dispatch: if an assemble-time anatomy map was embedded,
-          // look up the pre-rendered HTML. Only available in the browser
-          // (window exists); server-side rendering falls through to chip.
+          // Anatomy dispatch: if an assemble-time anatomy map was supplied,
+          // look up the pre-rendered HTML. Browser deliverables embed it on
+          // window.__dsAnatomyMap; server-side (Node) rendering reads the map
+          // injected via setAnatomyMap(). Either path → fall through to chip.
           var m =
-            (typeof window !== "undefined" && window.__dsAnatomyMap) || {};
+            (typeof window !== "undefined" && window.__dsAnatomyMap) ||
+            _serverAnatomyMap ||
+            {};
           if (m[slug]) return m[slug];
           // Unmapped slug with no anatomy: a clean labeled chip.
           return gracefulChip();
@@ -1348,6 +1367,7 @@
   ];
 
   exports.renderDSComponent = renderDSComponent;
+  exports.setAnatomyMap = setAnatomyMap;
   exports.renderIcon = renderIcon;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
