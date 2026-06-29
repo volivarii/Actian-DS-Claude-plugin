@@ -23,15 +23,26 @@ function normalizeEntity(name) {
   return name.trim().toLowerCase().replace(/\s+/g, "-");
 }
 
-// Sentence-case a space-separated property name: "use case" → "Use case".
-// Property names are phrases, not hyphenated slugs — so this capitalizes the
-// first character only (Actian sentence-case content rule), unlike
-// resolve-relationships.humanizeSlug.
+// Humanize a substrate property name into a sentence-case label. Names arrive
+// as space-separated phrases ("use case") OR camelCase identifiers
+// ("apiVersion"). Split on camelCase boundaries and normalize underscores/
+// hyphens to spaces, then sentence-case (capitalize the first word only, per
+// the Actian sentence-case content rule): "apiVersion" → "Api version",
+// "createdAt" → "Created at", "use case" → "Use case". Digits stay attached to
+// their word ("rowCount2" → "Row count2"); no acronym allow-list (so "API"
+// lower-cases to "Api" — accepted trade-off). Distinct from
+// resolve-relationships.humanizeSlug (which splits hyphenated slugs).
 function humanizeName(name) {
   if (typeof name !== "string") return "";
   var s = name.trim();
   if (s.length === 0) return "";
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  s = s
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2") // camelCase: apiVersion → api Version
+    .replace(/[_-]+/g, " ") // snake_case / kebab-case → spaces
+    .replace(/\s+/g, " ") // collapse runs of whitespace
+    .trim()
+    .toLowerCase(); // sentence-case step 1: lower everything…
+  return s.charAt(0).toUpperCase() + s.slice(1); // …then capitalize the first char
 }
 
 // Entity properties as a uniform [{name,label,type,states?,example?}]. The
@@ -53,7 +64,12 @@ function resolveProperties(entityName, ctx) {
       out.push({ name: p, label: humanizeName(p), type: "string" });
       return;
     }
-    if (p && typeof p === "object" && typeof p.name === "string" && p.name.length > 0) {
+    if (
+      p &&
+      typeof p === "object" &&
+      typeof p.name === "string" &&
+      p.name.length > 0
+    ) {
       var entry = {
         name: p.name,
         label: humanizeName(p.name),
@@ -90,7 +106,11 @@ if (require.main === module) {
     var key = normalizeEntity(ent);
     var known = listEntities().indexOf(key) !== -1;
     process.stdout.write(
-      JSON.stringify({ entity: key, properties: resolveProperties(ent) }, null, 2) + "\n",
+      JSON.stringify(
+        { entity: key, properties: resolveProperties(ent) },
+        null,
+        2,
+      ) + "\n",
     );
     process.exit(known ? 0 : 1);
   }
