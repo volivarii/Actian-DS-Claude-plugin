@@ -1,12 +1,16 @@
 "use strict";
 
-// ds-anatomy-map.test.js — Tests for the buildDsAnatomyMap helper in assemble-preview.js.
-// Verifies: override exclusion, anatomy+binding integration, null-anatomy exclusion.
+// ds-anatomy-map.test.js — Tests for the ds-anatomy-map helpers.
+// Verifies: collectDsSlugs (content-shaped traversal), buildDsAnatomyMap
+// (override exclusion, anatomy+binding integration, null-anatomy exclusion).
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var { buildDsAnatomyMap } = require("../../scripts/renderers/assemble-preview.js");
+var {
+  buildDsAnatomyMap,
+  collectDsSlugs,
+} = require("../../scripts/renderers/ds-anatomy-map.js");
 
 // Minimal anatomy data fixture (quality.ratio = 0.9, has a root node)
 var GOOD_ANATOMY = {
@@ -22,6 +26,51 @@ var GOOD_ANATOMY = {
   },
 };
 
+describe("collectDsSlugs", function () {
+  it("collects dsSlugs from real content-shaped screens (screens[].content)", function () {
+    // Real flow-data carries nodes under screens[].content, NOT .frames.
+    var data = {
+      screens: [
+        {
+          name: "Screen 1",
+          content: [
+            { dsSlug: "actian-data-intelligence" },
+            {
+              dsSlug: "card-for-items",
+              children: [{ dsSlug: "avatar" }],
+            },
+          ],
+        },
+        { name: "Screen 2", content: [{ dsSlug: "spinner" }] },
+      ],
+    };
+    var slugs = collectDsSlugs(data);
+    assert.deepEqual(slugs.sort(), [
+      "actian-data-intelligence",
+      "avatar",
+      "card-for-items",
+      "spinner",
+    ]);
+  });
+
+  it("dedupes slugs that appear on multiple screens/nodes", function () {
+    var data = {
+      screens: [
+        { content: [{ dsSlug: "spinner" }, { dsSlug: "spinner" }] },
+        { content: [{ dsSlug: "spinner" }] },
+      ],
+    };
+    assert.deepEqual(collectDsSlugs(data), ["spinner"]);
+  });
+
+  it("returns [] for empty / missing data without throwing", function () {
+    assert.deepEqual(collectDsSlugs(null), []);
+    assert.deepEqual(collectDsSlugs({}), []);
+    assert.deepEqual(collectDsSlugs({ screens: [] }), []);
+    assert.deepEqual(collectDsSlugs({ screens: [{}] }), []);
+  });
+});
+
 describe("buildDsAnatomyMap", function () {
   it("override slug is EXCLUDED from the map", function () {
     // 'button' is in BUILT_SLUGS → must be excluded even if anatomy loader has it
@@ -36,7 +85,10 @@ describe("buildDsAnatomyMap", function () {
       tokenBindingsLoader: tokenBindingsLoader,
     });
     assert.ok(!("button" in map), "override slug must be excluded from map");
-    assert.ok("spinner" in map, "non-override slug with good anatomy is included");
+    assert.ok(
+      "spinner" in map,
+      "non-override slug with good anatomy is included",
+    );
   });
 
   it("non-override slug with good anatomy + token binding → map[slug] contains bound cssVar", function () {
@@ -97,6 +149,9 @@ describe("buildDsAnatomyMap", function () {
         return [];
       },
     });
-    assert.ok("spinner" in map, "spinner included when not in custom builtSlugs");
+    assert.ok(
+      "spinner" in map,
+      "spinner included when not in custom builtSlugs",
+    );
   });
 });
