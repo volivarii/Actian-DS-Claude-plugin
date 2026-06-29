@@ -258,11 +258,19 @@
               name ||
               "",
           );
+          // S3c: a Pill cell wraps its value in an inline badge span so an
+          // enum/status value reads as a status chip, not plain text. The DS
+          // Pill variant is "status badge" (fmkit registry); the renderer is
+          // completing its interpretation of that existing variant.
+          var cellInner =
+            cellType === "pill"
+              ? '<span class="fm-table-cell__pill">' + cellText + "</span>"
+              : cellText;
           return (
             '<div class="fm-table-cell fm-table-cell--' +
             cellType +
             '">' +
-            cellText +
+            cellInner +
             "</div>"
           );
         }

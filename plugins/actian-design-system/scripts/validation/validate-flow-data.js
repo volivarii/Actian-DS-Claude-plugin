@@ -1415,13 +1415,24 @@ function checkPropertiesGrounding(data, findings) {
   if (!Array.isArray(props) || props.length === 0) return; // backward-compat
   if (!Array.isArray(data.screens)) return;
   var propTokenSet = {};
-  props.forEach(function (p) {
-    var name =
-      typeof p === "string" ? p : p && typeof p === "object" ? p.name : "";
-    tokenizeLabel(name).forEach(function (t) {
+  function addPropTokens(s) {
+    tokenizeLabel(s).forEach(function (t) {
       propTokenSet[t] = true;
       propTokenSet[singularize(t)] = true;
     });
+  }
+  props.forEach(function (p) {
+    // Match against BOTH the field name AND its humanized label. The
+    // screen-generator writes column headers from `.label`, which since S3c's
+    // camelCase-splitting humanizeName ("apiVersion" → "Api version") no longer
+    // token-equals the raw name — and tokenizeLabel only splits on non-alnum.
+    // Without the label tokens a camelCase-named column would never match.
+    if (typeof p === "string") {
+      addPropTokens(p);
+    } else if (p && typeof p === "object") {
+      addPropTokens(p.name);
+      addPropTokens(p.label);
+    }
   });
   if (Object.keys(propTokenSet).length === 0) return;
   // Flow-level: a flow is grounded if ANY table/form screen reflects the
@@ -1459,6 +1470,51 @@ function checkPropertiesGrounding(data, findings) {
       "No table or form in this flow reflects the entity's standard fields (" +
       propNames.join(", ") +
       ") — columns/fields may not match the substrate.",
+  });
+}
+
+// Enum typing (S3c) -----------------------------------------------------
+// Advisory: if the entity has enum-typed properties (status-like fields with
+// states[]) and the flow renders a table but NO fmTableCell Type=Pill cell
+// anywhere, the status values are plain text instead of the DS status badge.
+// Coarse + flow-level (screen:"") — precise per-column matching is S3b'.
+function checkEnumTyping(data, findings) {
+  var glossary = (data && data.meta && data.meta._glossary) || {};
+  var props = glossary.entityProperties;
+  if (!Array.isArray(props) || props.length === 0) return; // backward-compat
+  if (!Array.isArray(data.screens)) return;
+  var enumNames = props
+    .filter(function (p) {
+      return p && typeof p === "object" && p.type === "enum";
+    })
+    .map(function (p) {
+      return p.label || p.name || "";
+    })
+    .filter(function (x) {
+      return x;
+    });
+  if (enumNames.length === 0) return; // no enum properties → nothing to type
+  var hasTable = false;
+  var hasPill = false;
+  walkInstanceNodes(data.screens, "screens", function (instNode) {
+    if (!instNode || instNode.ref !== "fmTableCell") return;
+    hasTable = true;
+    if (
+      typeof instNode.variant === "string" &&
+      instNode.variant.indexOf("Pill") !== -1
+    ) {
+      hasPill = true;
+    }
+  });
+  if (!hasTable || hasPill) return; // no table to type, or already typed
+  findings.push({
+    kind: "enum-not-typed",
+    severity: "info",
+    screen: "",
+    message:
+      "Entity has status/enum field(s) (" +
+      enumNames.join(", ") +
+      ") but no table renders them as status pills — set the column's data cells to fmTableCell Type=Pill.",
   });
 }
 
@@ -1572,6 +1628,7 @@ function validate(data, opts) {
   checkPatternGrounding(data, findings, opts);
   checkRelationshipGrounding(data, findings);
   checkPropertiesGrounding(data, findings);
+  checkEnumTyping(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -2115,6 +2172,7 @@ if (require.main === module) {
     "pattern-ungrounded": true,
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
+    "enum-not-typed": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
