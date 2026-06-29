@@ -80,6 +80,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 
 > **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/`, `changelog/` — moved to `volivarii/actian-ds-knowledge` CI.
 - `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
+  - `lib/app-context/` — substrate-grounding resolvers (`resolve-chrome.js`, `resolve-patterns.js`, `resolve-relationships.js`, `resolve-properties.js`) that read the structured `vendor/app-context/dist/app-context.json` and populate the flow's `meta._glossary` (chrome, UX pattern, entity relationships, typed entity properties) before screen generation. Each exposes a `--entity`/`--app` CLI and a `loadAppContext(ctx)` injection seam. Consumed by `generate-flow` Step 3.5 + the `screen-generator` agent; grounding is checked (advisory, non-blocking) by `scripts/validation/validate-flow-data.js`.
 - `office/` — Python Office-document renderer (engine + mappers + dispatcher). Consumes the medium-agnostic data models (`slide-data.json` now; `brief-data`/`audit-data` later) and emits branded `.pptx`/`.docx`. Brand assets in `assets/office/`; reference docs in `references/office/`. Invoked opt-in from skills via `scripts/lib/resolve-python.sh` + `render-office.py`.
 
 ### `tests/` subdirs

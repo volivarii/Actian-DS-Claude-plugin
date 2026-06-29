@@ -69,7 +69,8 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 - `scripts/renderers/assemble-preview.js` — generates HTML previews from data models
 - `scripts/renderers/render-component-reference.js` — generates `*-components.md` mirrors from vendored registries (called by vendor-snapshot.yml post-pull)
 - `scripts/lib/shared-constants.js` — dynamic registry loaders, key maps, palette
-- `scripts/validation/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology) + `avoid-word` soft-check (warnings, non-blocking; `--skip-avoid-words`) against `vendor/content/dist/words-to-avoid.json`
+- `scripts/lib/app-context/resolve-{chrome,patterns,relationships,properties}.js` — deterministic resolvers that read `vendor/app-context/dist/app-context.json` and populate the flow's `meta._glossary` (app chrome, matched UX pattern, entity relationships, typed entity properties) so screen authoring is substrate-grounded. Each has a `--entity`/`--app` CLI and a `loadAppContext(ctx)` injection seam for tests.
+- `scripts/validation/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology) + `avoid-word` soft-check (warnings, non-blocking; `--skip-avoid-words`) against `vendor/content/dist/words-to-avoid.json`, plus non-blocking **substrate-grounding advisories** (`chrome-*`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed` — all `info`, flow-level `screen:""`, NOT in `HARD_KINDS`; new finding kinds must also be registered in `CLI_VISIBLE_KINDS`). Note: flow-data is **not** ajv-validated — schema checks go through the hand-rolled `scripts/validation/validate-schema.js` (no `oneOf`).
 - `scripts/transformers/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 - `scripts/vendor/vendor-snapshot.js` — pulls pinned snapshot from `volivarii/actian-ds-knowledge`
 

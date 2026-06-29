@@ -17,6 +17,55 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [2026.6.21] — 2026-06-29
+
+### Added
+- **Typed rendering in generated flows (S3c).** Entity properties carry a `type`
+  through the flow glossary, and the screen-generator now renders it: `type:"enum"`
+  columns become `fmTableCell Type=Pill` status badges (HTML `.fm-table-cell__pill`,
+  token-bound, mirroring `.fm-badge`), and `type:"date"` values follow the content
+  guideline's date format. Property labels are humanized from camelCase
+  (`apiVersion` → "Api version"). New non-blocking advisory `enum-not-typed` flags an
+  enum-bearing flow that renders no pill.
+
+### Fixed
+- The `properties-ungrounded` grounding check now tokenizes the rendered property
+  **label**, not just the raw field name, so camelCase-named columns
+  (`apiVersion` → "Api version") still ground and don't trip a spurious advisory.
+
+## [2026.6.20] — 2026-06-28
+
+### Added
+- **Entity-property-grounded tables & forms (S3b).** Table column headers and form
+  field labels are resolved from the entity's `properties` in `app-context.json`
+  (`resolve-properties.js` → `meta._glossary`) instead of invented per screen. New
+  non-blocking advisory `properties-ungrounded` flags a flow whose tables/forms reflect
+  none of the entity's standard fields.
+
+## [2026.6.19] — 2026-06-28
+
+### Added
+- **Relationship-grounded detail content (S3).** Detail-view screens draw their tab bar
+  and related sub-lists from the entity's relationship graph (`resolve-relationships.js`),
+  so a detail page reflects the entity's real connections. New non-blocking advisory
+  `relationships-ungrounded`.
+
+## [2026.6.17] — 2026-06-28
+
+### Added
+- **App-grounded authoring + pattern resolution (S2).** The target app is an explicit
+  choice; flows resolve one of the app-scoped named UX patterns (`resolve-patterns.js`)
+  into an idiomatic scaffold, with app-scope enforced (an app can't borrow another app's
+  pattern). New non-blocking advisory `pattern-ungrounded`.
+
+## [2026.6.14] — 2026-06-26
+
+### Added
+- **App-chrome grounding (S1).** Generated screens take their sidebar / header / nav from
+  the structured `app-context.json` for the target app (`resolve-chrome.js`), eliminating
+  generic or hallucinated navigation. New non-blocking advisories `chrome-divergence` /
+  `chrome-drift` / `chrome-ungrounded` / `chrome-incoherent`.
+
 ## [2026.6.0] — 2026-06-13
 
 ### Changed
