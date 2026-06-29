@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**v1.97.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**2026.6.21** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
@@ -225,7 +225,7 @@ The companion has always-loaded knowledge of:
 - **Tokens** — 155 design tokens in W3C DTCG format across 8 collections (color, spacing, border, size, breakpoint, focus-ring, font, icon), 3 theme modes, CSS custom properties (`--zen-*`)
 - **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 8 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with entities, terminology rules, and UI patterns
+- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 30 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
 - **Component inventory** — 318 DS Kit + 287 FM Kit + 28 Meta Kit components (80 / 33 / 11 sets) — dynamically derived from synced registries
 - **Component guidelines** — 58 per-component guideline docs (51 components + 7 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
@@ -282,8 +282,8 @@ Companion + skills read at runtime
 
 **Pipeline quality gates:**
 - **Foundations MD-as-SoT** (v1.60.0+) — `foundations.md` is the editable source; CI regenerates 8 derived JSONs and posts a PR comment confirming the regen.
-- **Flow glossary** — before generating screens, the skill builds a shared vocabulary (`_glossary`) with entity names, action verbs, and CTA labels. All parallel screen-generators use it, ensuring consistent terminology across screens.
-- **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), and avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress).
+- **Substrate-grounded glossary** — before generating screens, the skill resolves a shared `_glossary` directly from the structured `app-context.json` (deterministic resolvers under `scripts/lib/app-context/`): the app **chrome** (sidebar/header), the matched **UX pattern**, entity **relationships** (→ detail tabs + related sub-lists), and typed entity **properties** (→ table columns / form field labels, with `type:"enum"` columns rendered as status pills and dates formatted per the content guideline) — alongside entity names, action verbs, and CTA labels. All parallel screen-generators read it, so screens are idiomatic to the app rather than generic SaaS, with consistent terminology.
+- **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
 - **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
 - **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
 - **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
@@ -329,7 +329,7 @@ actian-design-system-plugin/
 │   ├── schemas/                           # JSON schemas (brief-data, flow-data, slide-data)
 │   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
-│   │   ├── components/                    # registries (dskit/fmkit/metakit) + 44 guideline docs + bundles
+│   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 8 derived JSONs
 │   │   ├── tokens/                        # W3C DTCG JSON + CSS custom properties
 │   │   ├── accessibility/                 # per-section WCAG 2.2 AA docs
