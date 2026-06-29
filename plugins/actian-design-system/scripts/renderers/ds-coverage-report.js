@@ -57,12 +57,14 @@ if (require.main === module) {
   // Print table
   var col1 = Math.max(
     "slug".length,
-    Math.max.apply(
-      null,
-      rows.map(function (r) {
-        return r.slug.length;
-      }),
-    ),
+    rows.length
+      ? Math.max.apply(
+          null,
+          rows.map(function (r) {
+            return r.slug.length;
+          }),
+        )
+      : "slug".length,
   );
   var col2 = 8; // "degraded".length
   var col3 = 5; // "ratio".length
