@@ -15,7 +15,25 @@ var runFidelity = require("../fidelity/run-fidelity.js");
 var fidelityReport = require("../fidelity/fidelity-report.js");
 var q = require("./quality-score.js");
 
-var PILOT = ["button", "checkbox-with-label", "alert-banner"];
+var PILOT = [
+  // Original pilot trio
+  "button",
+  "checkbox-with-label",
+  "alert-banner",
+  // Hi-Fi Slice 1 (Task 4) override leaves — all tier:override in ds-html-map,
+  // render correctly server-side (real switch-case, no window.__dsAnatomyMap needed).
+  // Anatomy-tier slugs are intentionally excluded: ds-html-map's default case reads
+  // window.__dsAnatomyMap, which is only populated in the browser; in the Node/gate
+  // render path they chip-degrade, producing misleadingly low structural scores.
+  "notification",
+  "stepper",
+  "tooltip",
+  "input-date",
+  "rich-text",
+  "dropdown-select-default",
+  "progress-bar-small",
+  "tag-interactive",
+];
 var DIFF_DIR = path.join(
   __dirname,
   "..",
