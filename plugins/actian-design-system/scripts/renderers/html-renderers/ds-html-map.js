@@ -994,7 +994,13 @@
         }
 
         default: {
-          // Unmapped slug: a clean labeled chip using the human name.
+          // Anatomy dispatch: if an assemble-time anatomy map was embedded,
+          // look up the pre-rendered HTML. Only available in the browser
+          // (window exists); server-side rendering falls through to chip.
+          var m =
+            (typeof window !== "undefined" && window.__dsAnatomyMap) || {};
+          if (m[slug]) return m[slug];
+          // Unmapped slug with no anatomy: a clean labeled chip.
           return gracefulChip();
         }
       }

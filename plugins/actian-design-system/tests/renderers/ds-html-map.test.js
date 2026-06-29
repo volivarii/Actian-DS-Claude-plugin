@@ -2158,3 +2158,90 @@ describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
     assert.match(html, /ds-steward--drawer/);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Task 3: dispatch override → anatomy → chip
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: dispatch override → anatomy → chip", function () {
+  it("non-override slug with embedded anatomy → anatomy html, not chip", function () {
+    // Stub window.__dsAnatomyMap with a fixture anatomy for a permanently-non-override slug
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    global.window = {
+      __dsAnatomyMap: {
+        "anatomy-only-fixture":
+          '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
+      },
+    };
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "anatomy-only-fixture",
+      props: {},
+    });
+    global.window = prev;
+    assert.ok(
+      html.indexOf("ds-anatomy") !== -1,
+      "embedded anatomy used for non-override slug",
+    );
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "no graceful chip when anatomy present",
+    );
+  });
+
+  it("non-override slug, no anatomy → chip fallback", function () {
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    global.window = { __dsAnatomyMap: {} };
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "totally-unknown-slug",
+      props: {},
+    });
+    global.window = prev;
+    assert.ok(
+      html.indexOf("ds-component") !== -1,
+      "chip fallback when no anatomy",
+    );
+  });
+
+  it("override slug is NOT intercepted by anatomy map", function () {
+    // Even if anatomy map has an entry for a BUILT_SLUG, override wins
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    global.window = {
+      __dsAnatomyMap: {
+        button: '<div class="ds-anatomy" data-ds-slug="button"></div>',
+      },
+    };
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "button",
+      variant: "Type=Primary",
+      props: { Label: "Save" },
+    });
+    global.window = prev;
+    assert.ok(
+      html.indexOf("<button") === 0,
+      "override renders real button element",
+    );
+    assert.ok(html.indexOf("ds-button--primary") !== -1, "has primary class");
+    assert.ok(
+      html.indexOf("ds-anatomy") === -1,
+      "anatomy map NOT used for override slug",
+    );
+  });
+
+  it("no window → chip fallback (server-side safety)", function () {
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    delete global.window;
+    var html = render({
+      type: "INSTANCE",
+      dsSlug: "anatomy-only-fixture",
+      props: {},
+    });
+    if (prev !== undefined) global.window = prev;
+    assert.ok(
+      html.indexOf("ds-component") !== -1,
+      "chip when no window (no map available)",
+    );
+  });
+});
