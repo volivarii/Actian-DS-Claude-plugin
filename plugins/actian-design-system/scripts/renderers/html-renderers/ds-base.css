@@ -1346,6 +1346,452 @@
   line-height: var(--zen-font-lineheight-sm);
 }
 
+/* ============================================================= */
+/* Hi-Fi Slice 1 (Task 4): 8 transform-target leaves              */
+/* All bound to vendored --zen-* tokens; no hardcoded color.      */
+/* ============================================================= */
+
+/* ============ Notification (inline banner + action) ============ */
+/* Registry axis: Type = Default | Critical. Mirrors the .ds-alert idiom:
+ * icon left, message, optional action button right. Critical = error accent. */
+.ds-notification {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-left-width: 4px; /* raw px: status accent strip, DS-conventional */
+  border-left-color: var(--zen-color-icon-primary);
+  border-radius: var(--zen-border-radius-xs);
+  box-shadow: var(--zen-shadow-sm);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md);
+}
+.ds-notification--critical {
+  border-left-color: var(--zen-color-icon-error);
+}
+.ds-notification__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--zen-color-icon-primary);
+  font-size: var(--zen-font-size-lg);
+}
+.ds-notification--critical .ds-notification__icon {
+  color: var(--zen-color-icon-error);
+}
+.ds-notification__message {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-notification__action {
+  flex: none;
+}
+
+/* ============ Stepper (numbered status + title/body) ============ */
+/* Registry axis: State = Complete | Active | Default (Incomplete). */
+.ds-stepper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-sm);
+  font-family: var(--zen-font-family-text);
+}
+.ds-stepper__status {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: var(--zen-size-lg); /* 24 */
+  height: var(--zen-size-lg);
+  border-radius: var(--zen-border-radius-full);
+  border: var(--zen-border-width-lg) solid var(--zen-border-default);
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-semibold);
+  line-height: 1;
+}
+.ds-stepper--active .ds-stepper__status {
+  border-color: var(--zen-color-icon-primary);
+  background: var(--zen-color-icon-primary);
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper--complete .ds-stepper__status {
+  border-color: var(--zen-color-icon-primary);
+  background: var(--zen-color-icon-primary);
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper__check {
+  width: 14px; /* glyph box geometry (raw px) */
+  height: 14px;
+  display: inline-flex;
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  padding-top: var(--zen-spacing-3xs);
+}
+.ds-stepper__title {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-stepper--active .ds-stepper__title {
+  color: var(--zen-color-text-primary);
+  font-weight: var(--zen-font-weight-semibold);
+}
+.ds-stepper__body {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Tooltip (small text bubble) ============ */
+/* Registry axis: Type = Default. */
+.ds-tooltip {
+  position: relative;
+  display: inline-block;
+  max-width: 240px; /* raw px: tooltip bubble max width (slice geometry) */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  background: var(--zen-color-text-primary); /* dark bubble, light text */
+  color: var(--zen-color-text-reverse);
+  border-radius: var(--zen-border-radius-xs);
+  box-shadow: var(--zen-shadow-md);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+}
+.ds-tooltip__body {
+  display: block;
+}
+.ds-tooltip__arrow {
+  position: absolute;
+  left: var(--zen-spacing-sm);
+  bottom: -4px; /* raw px: caret tip offset */
+  width: 8px; /* raw px: caret geometry */
+  height: 8px;
+  background: var(--zen-color-text-primary);
+  transform: rotate(45deg);
+}
+
+/* ============ Input date (labeled date field + calendar btn) ============ */
+/* Registry axes: Type = Single date | Date range; States = Enabled | … */
+.ds-input-date {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 320px; /* matches .ds-field width */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-input-date__label-row {
+  display: flex;
+  gap: var(--zen-spacing-2xs);
+  align-items: center;
+}
+.ds-input-date__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-input-date__inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+}
+.ds-input-date__field {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  height: 40px; /* matches .ds-input height (raw px) */
+  padding: var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  box-sizing: border-box;
+}
+.ds-input-date__value {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-placeholder);
+}
+.ds-input-date__calendar {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-input-date__calendar svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-input-date__sep {
+  flex: 0 0 auto;
+  color: var(--zen-color-text-secondary);
+}
+.ds-input-date__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-input-date.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Rich text (editor toolbar shell) ============ */
+/* Registry axis: State = Default | Expanded. */
+.ds-rich-text {
+  display: flex;
+  flex-direction: column;
+  width: 480px; /* raw px: editor shell width (forms max-width convention) */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  background: var(--zen-color-bg-default);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-rich-text__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  border-bottom: 1px solid var(--zen-border-default);
+  background: var(--zen-color-bg-subtle);
+}
+.ds-rich-text__group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-rich-text__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zen-size-xl); /* 32 */
+  height: var(--zen-size-xl);
+  padding: 0;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  font-size: var(--zen-font-size-lg);
+  cursor: pointer;
+}
+.ds-rich-text__btn:hover {
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-icon-primary);
+}
+.ds-rich-text__content {
+  min-height: 96px; /* raw px: collapsed editor body height */
+  padding: var(--zen-spacing-md);
+}
+.ds-rich-text--expanded .ds-rich-text__content {
+  min-height: 200px; /* raw px: expanded editor body height */
+}
+
+/* ============ Dropdown select (labeled select + helper) ============ */
+/* Registry axes: Type = Default | … ; State = Default | Disabled | … */
+.ds-dropdown-select {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 320px; /* matches .ds-field width */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-dropdown-select__label-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-3xs);
+}
+.ds-dropdown-select__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-dropdown-select__desc {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-dropdown-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  height: 40px; /* matches .ds-input height (raw px) */
+  padding: var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  box-sizing: border-box;
+}
+.ds-dropdown-select__value {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-dropdown-select__value--placeholder {
+  color: var(--zen-color-text-placeholder);
+}
+.ds-dropdown-select__chevron {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-dropdown-select__chevron svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-dropdown-select__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-dropdown-select.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Progress bar (small — track + fill + percent) ============ */
+/* Registry axes: Size = Default | Large; Completeness = 0% | 50% | 100%. */
+.ds-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  width: 240px; /* raw px: small progress width (slice geometry) */
+  font-family: var(--zen-font-family-text);
+}
+.ds-progress__track {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 4px; /* raw px: small track height */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-bg-subtle);
+  overflow: hidden;
+}
+.ds-progress--large .ds-progress__track {
+  height: 8px; /* raw px: large track height */
+}
+.ds-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-icon-primary);
+}
+.ds-progress__percent {
+  flex: 0 0 auto;
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Tag interactive (chip w/ icons + remove) ============ */
+/* Registry axis: State = Default | Hovered | Selected | Disabled | … */
+.ds-tag-interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  height: var(--zen-size-lg); /* 24 */
+  padding: 0 var(--zen-spacing-2xs) 0 var(--zen-spacing-xs);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-tertiary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  box-sizing: border-box;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ds-tag-interactive--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+  color: var(--zen-color-text-primary);
+}
+.ds-tag-interactive.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ds-tag-interactive__icon {
+  width: 14px; /* icon box geometry (raw px) */
+  height: 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-tag-interactive__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-tag-interactive__label {
+  display: inline-block;
+}
+.ds-tag-interactive__remove {
+  width: 16px; /* tap target geometry (raw px) */
+  height: 16px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: var(--zen-border-radius-full);
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ds-tag-interactive__remove:hover {
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-icon-error);
+}
+.ds-tag-interactive__remove svg {
+  width: 12px; /* glyph geometry (raw px) */
+  height: 12px;
+  display: block;
+}
+
 /* ============ Icon (real DS glyphs) ============ */
 /* Real DS icon glyphs (inlined from the vendored icon substrate via renderIcon). */
 .ds-icon {

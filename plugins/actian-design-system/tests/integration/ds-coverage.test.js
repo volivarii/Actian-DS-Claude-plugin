@@ -48,18 +48,10 @@ var DS_HTML_MAP = path.join(
 
 // Slugs reachable from the map but not yet built as hi-fi renderers. SHRINK this
 // as phases land (P1 forms, P2 display/feedback, P3 chrome). Empty = full parity.
-var NOT_YET_IMPLEMENTED = new Set([
-  // P1 — forms core
-  "dropdown-select-default",
-  "input-date",
-  "rich-text",
-  // P2 — display / feedback
-  "tag-interactive",
-  "notification",
-  "progress-bar-small",
-  "tooltip",
-  "stepper",
-]);
+// Hi-Fi Slice 1 (Task 4) built all previously-deferred slugs (notification,
+// stepper, tooltip, input-date, rich-text, dropdown-select-default,
+// progress-bar-small, tag-interactive) → empty = full conversion-reachable parity.
+var NOT_YET_IMPLEMENTED = new Set([]);
 
 function reachableDsSlugs() {
   var map = JSON.parse(fs.readFileSync(MAP, "utf8"));

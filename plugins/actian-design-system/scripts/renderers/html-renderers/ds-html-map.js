@@ -993,6 +993,309 @@
           );
         }
 
+        // ── Hi-Fi Slice 1 (Task 4): transform-target leaves ──────────────
+        // These 8 slugs chip-degraded before. Each renders a tokens-only leaf
+        // from its registry variant axes + Figma anatomy part-tree.
+
+        case "notification": {
+          // Registry axis: Type = Default | Critical.
+          // Anatomy: container[Type]{ text[message], instance[Button] } — an
+          // inline banner with a message + a single action button. Mirrors the
+          // alert-banner idiom; Critical → role=alert (like Danger).
+          var notifTypeRaw = (v.Type || "Default").toLowerCase();
+          var notifCritical = notifTypeRaw === "critical";
+          var notifCls =
+            "ds-notification" +
+            (notifCritical ? " ds-notification--critical" : "");
+          var notifRole = notifCritical ? "alert" : "status";
+          var notifMsg = esc(props.Message || "");
+          // Action button is optional — only render when an Action label exists.
+          var notifAction = props.Action
+            ? '<button class="ds-button ds-button--tertiary ds-button--small ds-notification__action" type="button">' +
+              esc(props.Action) +
+              "</button>"
+            : "";
+          return (
+            '<div class="' +
+            notifCls +
+            '" role="' +
+            notifRole +
+            '">' +
+            '<span class="ds-notification__icon">' +
+            renderIcon(notifCritical ? "error-filled" : "info-filled") +
+            "</span>" +
+            '<p class="ds-notification__message">' +
+            notifMsg +
+            "</p>" +
+            notifAction +
+            "</div>"
+          );
+        }
+
+        case "stepper": {
+          // Registry axis: State = Complete | Active | Default (Incomplete) | …
+          // Anatomy: container[State]{ container[Status]{number}, container[Text]
+          // {Title, Body} } — a numbered status circle + title/body. Complete
+          // swaps the number for a check glyph.
+          var stepStateRaw = (v.State || "Default").toLowerCase();
+          var stepComplete = stepStateRaw === "complete";
+          var stepActive = stepStateRaw === "active";
+          var stepperCls = "ds-stepper";
+          if (stepComplete) stepperCls += " ds-stepper--complete";
+          else if (stepActive) stepperCls += " ds-stepper--active";
+          var stepStatus = stepComplete
+            ? '<span class="ds-stepper__check">' +
+              renderIcon("simple-check") +
+              "</span>"
+            : esc(props.Step || "");
+          var stepBody = props.Body
+            ? '<span class="ds-stepper__body">' + esc(props.Body) + "</span>"
+            : "";
+          return (
+            '<div class="' +
+            stepperCls +
+            '">' +
+            '<span class="ds-stepper__status">' +
+            stepStatus +
+            "</span>" +
+            '<span class="ds-stepper__text">' +
+            '<span class="ds-stepper__title">' +
+            esc(props.Title || "") +
+            "</span>" +
+            stepBody +
+            "</span>" +
+            "</div>"
+          );
+        }
+
+        case "tooltip": {
+          // Registry axis: Type = Default. Anatomy: container[Type]{ text[Body] }
+          // — a small text bubble. role=tooltip for assistive tech.
+          return (
+            '<div class="ds-tooltip" role="tooltip">' +
+            '<span class="ds-tooltip__body">' +
+            esc(props.Body || "") +
+            "</span>" +
+            '<span class="ds-tooltip__arrow" aria-hidden="true"></span>' +
+            "</div>"
+          );
+        }
+
+        case "input-date": {
+          // Registry axes: Type = Single date | Date range; States = Enabled |
+          // Disabled | Error | … . Anatomy: container{ container[Label]{text},
+          // container[Input + icon button]{ inputfield, instance[Button] } } —
+          // a labeled date input with a trailing calendar icon button. Mirrors
+          // the .ds-field/.ds-input idiom; Date range adds a second input.
+          var dateRange = v.Type === "Date range";
+          var dateDisabled = v.States === "Disabled";
+          var dateCls = "ds-input-date";
+          if (dateRange) dateCls += " ds-input-date--range";
+          if (dateDisabled) dateCls += " is-disabled";
+          var datePlaceholder = esc(props["Placeholder text"] || "MM/DD/YYYY");
+          function dateInput() {
+            return (
+              '<div class="ds-input-date__field">' +
+              '<span class="ds-input-date__value">' +
+              datePlaceholder +
+              "</span>" +
+              '<span class="ds-input-date__calendar" aria-hidden="true">' +
+              renderIcon("calendar-2") +
+              "</span>" +
+              "</div>"
+            );
+          }
+          var dateInputs = dateRange
+            ? dateInput() +
+              '<span class="ds-input-date__sep">–</span>' +
+              dateInput()
+            : dateInput();
+          var dateHelper = props.Helper
+            ? '<span class="ds-input-date__helper">' +
+              esc(props.Helper) +
+              "</span>"
+            : "";
+          return (
+            '<div class="' +
+            dateCls +
+            '">' +
+            '<div class="ds-input-date__label-row"><span class="ds-input-date__label">' +
+            esc(props.Label || "Date") +
+            "</span></div>" +
+            '<div class="ds-input-date__inputs">' +
+            dateInputs +
+            "</div>" +
+            dateHelper +
+            "</div>"
+          );
+        }
+
+        case "rich-text": {
+          // Registry axis: State = Default | Expanded. Anatomy: container[State]{
+          // container[Toolbar]{ container[Left toolbar], container[Right toolbar]
+          // } } — an editor toolbar shell with grouped controls. Expanded shows
+          // a content area below the toolbar.
+          var rtExpanded = v.State === "Expanded";
+          var rtCls =
+            "ds-rich-text" + (rtExpanded ? " ds-rich-text--expanded" : "");
+          function rtBtn(iconSlug, label) {
+            return (
+              '<button class="ds-rich-text__btn" type="button" aria-label="' +
+              esc(label) +
+              '">' +
+              renderIcon(iconSlug) +
+              "</button>"
+            );
+          }
+          var rtLeft =
+            '<div class="ds-rich-text__group ds-rich-text__group--left">' +
+            rtBtn("text-type", "Text style") +
+            rtBtn("list-bullets", "Bulleted list") +
+            rtBtn("list-numbers", "Numbered list") +
+            "</div>";
+          var rtRight =
+            '<div class="ds-rich-text__group ds-rich-text__group--right">' +
+            rtBtn("link-type", "Insert link") +
+            "</div>";
+          var rtBody = rtExpanded
+            ? '<div class="ds-rich-text__content" aria-label="Editor"></div>'
+            : "";
+          return (
+            '<div class="' +
+            rtCls +
+            '">' +
+            '<div class="ds-rich-text__toolbar">' +
+            rtLeft +
+            rtRight +
+            "</div>" +
+            rtBody +
+            "</div>"
+          );
+        }
+
+        case "dropdown-select-default": {
+          // Registry axes: Type = Default | Search/Multiple | …; State = Default |
+          // Disabled | Focus | … . Anatomy: container{ container[Label + desc],
+          // container[input field]{ value, chevron }, text[helper] } — a labeled
+          // select with an input field + optional helper. Mirrors .ds-field idiom.
+          var ddDisabled = v.State === "Disabled";
+          var ddCls = "ds-dropdown-select";
+          if (ddDisabled) ddCls += " is-disabled";
+          var ddDesc = props.Description
+            ? '<span class="ds-dropdown-select__desc">' +
+              esc(props.Description) +
+              "</span>"
+            : "";
+          var ddValueText = props.Value;
+          var ddValueCls =
+            "ds-dropdown-select__value" +
+            (ddValueText ? "" : " ds-dropdown-select__value--placeholder");
+          var ddValue = esc(ddValueText || props.Placeholder || "Select…");
+          var ddHelper = props.Helper
+            ? '<span class="ds-dropdown-select__helper">' +
+              esc(props.Helper) +
+              "</span>"
+            : "";
+          return (
+            '<div class="' +
+            ddCls +
+            '">' +
+            '<div class="ds-dropdown-select__label-row">' +
+            '<span class="ds-dropdown-select__label">' +
+            esc(props.Label || "Label") +
+            "</span>" +
+            ddDesc +
+            "</div>" +
+            '<div class="ds-dropdown-select__field">' +
+            '<span class="' +
+            ddValueCls +
+            '">' +
+            ddValue +
+            "</span>" +
+            '<span class="ds-dropdown-select__chevron" aria-hidden="true">' +
+            renderIcon("chevron-up", { rotate: 180 }) +
+            "</span>" +
+            "</div>" +
+            ddHelper +
+            "</div>"
+          );
+        }
+
+        case "progress-bar-small": {
+          // Registry axes: Size = Default | Large; Completeness = 0% | 50% | 100%.
+          // Anatomy: container{ container[Bar]{ vector[fill] }, text[percent] } —
+          // a track with a clamped fill + a percent label. Completeness drives the
+          // default fill width; an explicit Percent prop overrides it.
+          var pbLarge = v.Size === "Large";
+          var pbCls = "ds-progress" + (pbLarge ? " ds-progress--large" : "");
+          // Resolve percent: explicit prop wins, else the Completeness variant,
+          // else 0. Parse to a number and clamp to [0, 100].
+          var pbRaw =
+            props.Percent != null && props.Percent !== ""
+              ? props.Percent
+              : v.Completeness;
+          var pbNum = parseInt(
+            String(pbRaw || "0").replace(/[^0-9.-]/g, ""),
+            10,
+          );
+          if (isNaN(pbNum)) pbNum = 0;
+          if (pbNum < 0) pbNum = 0;
+          if (pbNum > 100) pbNum = 100;
+          return (
+            '<div class="' +
+            pbCls +
+            '">' +
+            '<div class="ds-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
+            pbNum +
+            '">' +
+            '<span class="ds-progress__fill" style="width:' +
+            pbNum +
+            '%"></span>' +
+            "</div>" +
+            '<span class="ds-progress__percent">' +
+            pbNum +
+            "%</span>" +
+            "</div>"
+          );
+        }
+
+        case "tag-interactive": {
+          // Registry axis: State = Default | Hovered | Selected | Disabled | …
+          // Anatomy: container[State]{ instance[Leading icon], text[Tag-Name],
+          // instance[Trailing icon] } — a tag/chip with optional leading + a
+          // removable trailing control. Mirrors the .ds-tag idiom + state mods.
+          var tiStateRaw = (v.State || "Default").toLowerCase();
+          var tiCls = "ds-tag-interactive";
+          if (tiStateRaw === "selected")
+            tiCls += " ds-tag-interactive--selected";
+          if (tiStateRaw === "disabled") tiCls += " is-disabled";
+          // Leading icon defaults on (anatomy shows one); honor an explicit false.
+          var tiShowLead = props["Leading icon show"] !== false;
+          var tiLead = tiShowLead
+            ? '<span class="ds-tag-interactive__icon ds-tag-interactive__icon--lead">' +
+              renderIcon("directory") +
+              "</span>"
+            : "";
+          // Trailing control defaults on (interactive = removable); honor false.
+          var tiShowTrail = props["Trailing icon show"] !== false;
+          var tiTrail = tiShowTrail
+            ? '<button class="ds-tag-interactive__remove" type="button" aria-label="Remove">' +
+              renderIcon("close") +
+              "</button>"
+            : "";
+          return (
+            '<span class="' +
+            tiCls +
+            '">' +
+            tiLead +
+            '<span class="ds-tag-interactive__label">' +
+            esc(props.Label || "") +
+            "</span>" +
+            tiTrail +
+            "</span>"
+          );
+        }
+
         default: {
           // Anatomy dispatch: if an assemble-time anatomy map was embedded,
           // look up the pre-rendered HTML. Only available in the browser
@@ -1033,6 +1336,15 @@
     "empty-state",
     "alert-banner",
     "chat-with-ai-steward",
+    // Hi-Fi Slice 1 (Task 4): transform-target leaves
+    "notification",
+    "stepper",
+    "tooltip",
+    "input-date",
+    "rich-text",
+    "dropdown-select-default",
+    "progress-bar-small",
+    "tag-interactive",
   ];
 
   exports.renderDSComponent = renderDSComponent;

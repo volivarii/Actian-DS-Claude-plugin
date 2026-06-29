@@ -2160,6 +2160,312 @@ describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
 });
 
 // ---------------------------------------------------------------------------
+// Hi-Fi Slice 1 — Task 4: 8 new override leaves (transform targets)
+// Each was chip-degrading before; now a full tokens-only leaf.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: notification (Task 4)", function () {
+  it("renders a notification leaf — not a chip — with message + action", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "notification",
+      props: {
+        Message: "Your export is ready to download.",
+        Action: "View",
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-notification") !== -1,
+      "notification built leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "notification not a chip");
+    assert.ok(html.indexOf("Your export is ready") !== -1, "message text");
+    assert.ok(
+      html.indexOf("ds-button") !== -1 && html.indexOf("View") !== -1,
+      "action button reused",
+    );
+  });
+
+  it("Type=Critical adds the critical modifier and role=alert", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "notification",
+      variant: "Type=Critical",
+      props: { Message: "Pipeline failed." },
+    });
+    assert.ok(
+      html.indexOf("ds-notification--critical") !== -1,
+      "critical modifier",
+    );
+    assert.ok(html.indexOf('role="alert"') !== -1, "critical uses role=alert");
+  });
+
+  it("escapes XSS in Message", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "notification",
+      props: { Message: "<script>alert(1)</script>" },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+  });
+});
+
+describe("ds-html-map: stepper (Task 4)", function () {
+  it("renders a stepper leaf — not a chip — with number + title/body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "stepper",
+      variant: "State=Active",
+      props: { Step: "2", Title: "Configure source", Body: "Pick a dataset" },
+    });
+    assert.ok(html.indexOf("ds-stepper") !== -1, "stepper built leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "stepper not a chip");
+    assert.ok(
+      html.indexOf("ds-stepper--active") !== -1,
+      "active state modifier",
+    );
+    assert.ok(html.indexOf("Configure source") !== -1, "title text");
+    assert.ok(html.indexOf("Pick a dataset") !== -1, "body text");
+  });
+
+  it("State=Complete shows a check instead of the number", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "stepper",
+      variant: "State=Complete",
+      props: { Step: "1", Title: "Connect" },
+    });
+    assert.ok(html.indexOf("ds-stepper--complete") !== -1, "complete modifier");
+    assert.ok(html.indexOf("ds-icon") !== -1, "complete renders a check glyph");
+  });
+});
+
+describe("ds-html-map: tooltip (Task 4)", function () {
+  it("renders a tooltip bubble — not a chip — with body text", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tooltip",
+      props: { Body: "Only admins can edit this field." },
+    });
+    assert.ok(html.indexOf("ds-tooltip") !== -1, "tooltip built leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "tooltip not a chip");
+    assert.ok(html.indexOf("Only admins") !== -1, "body text present");
+    assert.ok(html.indexOf('role="tooltip"') !== -1, "has tooltip role");
+  });
+});
+
+describe("ds-html-map: input-date (Task 4)", function () {
+  it("renders a date field — not a chip — label + input + calendar button", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "input-date",
+      variant: "Type=Single date,States=Enabled",
+      props: { Label: "Start date", Helper: "MM/DD/YYYY" },
+    });
+    assert.ok(
+      html.indexOf("ds-input-date") !== -1,
+      "input-date built leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "input-date not a chip");
+    assert.ok(html.indexOf("Start date") !== -1, "label text");
+    assert.ok(
+      html.indexOf("ds-input-date__calendar") !== -1,
+      "calendar icon button",
+    );
+    assert.ok(html.indexOf("MM/DD/YYYY") !== -1, "helper text");
+  });
+
+  it("Type=Date range renders a second (end) input", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "input-date",
+      variant: "Type=Date range,States=Enabled",
+      props: { Label: "Range" },
+    });
+    assert.ok(html.indexOf("ds-input-date--range") !== -1, "range modifier");
+  });
+
+  it("States=Disabled adds the disabled flag", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "input-date",
+      variant: "States=Disabled",
+      props: { Label: "Start date" },
+    });
+    assert.ok(html.indexOf("is-disabled") !== -1, "disabled flag");
+  });
+});
+
+describe("ds-html-map: rich-text (Task 4)", function () {
+  it("renders an editor toolbar shell — not a chip — with grouped controls", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "rich-text",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-rich-text") !== -1,
+      "rich-text built leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "rich-text not a chip");
+    assert.ok(html.indexOf("ds-rich-text__toolbar") !== -1, "toolbar present");
+    assert.ok(html.indexOf("ds-icon") !== -1, "toolbar control glyphs");
+  });
+
+  it("State=Expanded adds the expanded modifier", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "rich-text",
+      variant: "State=Expanded",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-rich-text--expanded") !== -1,
+      "expanded modifier",
+    );
+  });
+});
+
+describe("ds-html-map: dropdown-select-default (Task 4)", function () {
+  it("renders a labeled select — not a chip — label + field + helper", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "dropdown-select-default",
+      variant: "Type=Default,State=Default",
+      props: {
+        Label: "Connection",
+        Description: "Where data lives",
+        Helper: "Required",
+        Value: "Snowflake",
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-dropdown-select") !== -1,
+      "dropdown-select built leaf class",
+    );
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "dropdown-select not a chip",
+    );
+    assert.ok(html.indexOf("Connection") !== -1, "label text");
+    assert.ok(html.indexOf("Snowflake") !== -1, "selected value");
+    assert.ok(html.indexOf("Required") !== -1, "helper text");
+    assert.ok(html.indexOf("ds-icon") !== -1, "chevron glyph");
+  });
+
+  it("State=Disabled adds the disabled flag", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "dropdown-select-default",
+      variant: "State=Disabled",
+      props: { Label: "Connection" },
+    });
+    assert.ok(html.indexOf("is-disabled") !== -1, "disabled flag");
+  });
+});
+
+describe("ds-html-map: progress-bar-small (Task 4)", function () {
+  it("renders a progress track + fill — not a chip — with percent label", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "progress-bar-small",
+      variant: "Size=Default,Completeness=50%",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-progress") !== -1,
+      "progress-bar built leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "progress-bar not a chip");
+    assert.ok(html.indexOf("ds-progress__fill") !== -1, "fill element");
+    assert.ok(html.indexOf("50%") !== -1, "percent label");
+    assert.ok(
+      html.indexOf('role="progressbar"') !== -1,
+      "has progressbar role",
+    );
+  });
+
+  it("Size=Large adds the large modifier and reads Percent prop", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "progress-bar-small",
+      variant: "Size=Large,Completeness=100%",
+      props: { Percent: "100" },
+    });
+    assert.ok(html.indexOf("ds-progress--large") !== -1, "large modifier");
+    assert.ok(html.indexOf("100%") !== -1, "percent label");
+  });
+});
+
+describe("ds-html-map: tag-interactive (Task 4)", function () {
+  it("renders an interactive tag — not a chip — leading icon + name + trailing icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tag-interactive",
+      props: {
+        Label: "Production",
+        "Leading icon show": true,
+        "Trailing icon show": true,
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-tag-interactive") !== -1,
+      "tag-interactive built leaf class",
+    );
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "tag-interactive not a chip",
+    );
+    assert.ok(html.indexOf("Production") !== -1, "tag name");
+    assert.ok(
+      html.indexOf("ds-tag-interactive__remove") !== -1,
+      "trailing remove control",
+    );
+  });
+
+  it("State=Selected adds the selected modifier", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tag-interactive",
+      variant: "State=Selected",
+      props: { Label: "Active" },
+    });
+    assert.ok(
+      html.indexOf("ds-tag-interactive--selected") !== -1,
+      "selected modifier",
+    );
+  });
+
+  it("State=Disabled adds the disabled flag", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tag-interactive",
+      variant: "State=Disabled",
+      props: { Label: "Archived" },
+    });
+    assert.ok(html.indexOf("is-disabled") !== -1, "disabled flag");
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Task 3: dispatch override → anatomy → chip
 // ---------------------------------------------------------------------------
 
