@@ -3,8 +3,8 @@
 
 // Task 3: DS-node validation tests
 // Covers unknown-ds-slug (hard error) + ds-slug-unbuilt (warning) + known-built (clean).
-// Warning-tier slug used: "tooltip" — present in the vendored dskit registry,
-// not in BUILT_SLUGS (ds-html-map.js switch has no "tooltip" case).
+// Warning-tier slug used: "avatar" — present in the vendored dskit registry,
+// not in BUILT_SLUGS (ds-html-map.js switch has no "avatar" case).
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -60,7 +60,11 @@ describe("validate-ds-nodes: unknown-ds-slug", function () {
     var errs = result.findings.filter(function (f) {
       return f.kind === "unknown-ds-slug";
     });
-    assert.strictEqual(errs.length, 1, "expected exactly one unknown-ds-slug finding");
+    assert.strictEqual(
+      errs.length,
+      1,
+      "expected exactly one unknown-ds-slug finding",
+    );
     assert.strictEqual(errs[0].severity, "error");
   });
 
@@ -93,35 +97,49 @@ describe("validate-ds-nodes: unknown-ds-slug", function () {
 
 // ---------------------------------------------------------------------------
 // Test 2: authorable-but-unbuilt dsSlug → WARNING (not an error)
-// Slug: "tooltip" — confirmed in vendored dskit.json, not in BUILT_SLUGS.
+// Slug: "avatar" — confirmed in vendored dskit.json, not in BUILT_SLUGS.
+// (Was "tooltip" until Hi-Fi Slice 1 Task 4 promoted tooltip to a built leaf;
+//  swapped to a still-unbuilt registry slug to keep covering the warning tier.)
 // ---------------------------------------------------------------------------
-describe("validate-ds-nodes: ds-slug-unbuilt (tooltip)", function () {
-  it("flags tooltip with kind=ds-slug-unbuilt, severity=warning", function () {
-    var data = flowWith(dsNode("tooltip"));
+describe("validate-ds-nodes: ds-slug-unbuilt (avatar)", function () {
+  it("flags avatar with kind=ds-slug-unbuilt, severity=warning", function () {
+    var data = flowWith(dsNode("avatar"));
     var result = validate.validate(data, QUIET);
     var warns = result.findings.filter(function (f) {
       return f.kind === "ds-slug-unbuilt";
     });
-    assert.strictEqual(warns.length, 1, "expected exactly one ds-slug-unbuilt finding for tooltip");
+    assert.strictEqual(
+      warns.length,
+      1,
+      "expected exactly one ds-slug-unbuilt finding for avatar",
+    );
     assert.strictEqual(warns[0].severity, "warning");
   });
 
-  it("tooltip does NOT produce an error finding", function () {
-    var data = flowWith(dsNode("tooltip"));
+  it("avatar does NOT produce an error finding", function () {
+    var data = flowWith(dsNode("avatar"));
     var result = validate.validate(data, QUIET);
     var errs = result.findings.filter(function (f) {
       return f.severity === "error" && f.kind !== "missing-justification";
     });
-    assert.strictEqual(errs.length, 0, "tooltip is in registry so must not produce any error");
+    assert.strictEqual(
+      errs.length,
+      0,
+      "avatar is in registry so must not produce any error",
+    );
   });
 
-  it("tooltip does NOT trigger unknown-component", function () {
-    var data = flowWith(dsNode("tooltip"));
+  it("avatar does NOT trigger unknown-component", function () {
+    var data = flowWith(dsNode("avatar"));
     var result = validate.validate(data, QUIET);
     var unknownComp = result.findings.filter(function (f) {
       return f.kind === "unknown-component";
     });
-    assert.strictEqual(unknownComp.length, 0, "DS nodes without ref must not trigger unknown-component");
+    assert.strictEqual(
+      unknownComp.length,
+      0,
+      "DS nodes without ref must not trigger unknown-component",
+    );
   });
 });
 
@@ -135,7 +153,11 @@ describe("validate-ds-nodes: built dsSlug clean (button)", function () {
     var dsFindings = result.findings.filter(function (f) {
       return f.kind === "unknown-ds-slug" || f.kind === "ds-slug-unbuilt";
     });
-    assert.strictEqual(dsFindings.length, 0, "built slug must produce zero ds-node findings");
+    assert.strictEqual(
+      dsFindings.length,
+      0,
+      "built slug must produce zero ds-node findings",
+    );
   });
 
   it("button dsSlug produces no error findings at all", function () {
@@ -144,7 +166,11 @@ describe("validate-ds-nodes: built dsSlug clean (button)", function () {
     var errs = result.findings.filter(function (f) {
       return f.severity === "error";
     });
-    assert.strictEqual(errs.length, 0, "clean built DS node must produce no errors");
+    assert.strictEqual(
+      errs.length,
+      0,
+      "clean built DS node must produce no errors",
+    );
   });
 });
 
@@ -154,23 +180,41 @@ describe("validate-ds-nodes: built dsSlug clean (button)", function () {
 describe("validate-ds-nodes: no ref → no FM ref checks fire", function () {
   it("library:ds node without ref field does not trigger unknown-component", function () {
     // Explicit: node has library:"ds" but no ref property at all
-    var node = { type: "INSTANCE", library: "ds", dsSlug: "button", props: { Label: "Go" } };
+    var node = {
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "button",
+      props: { Label: "Go" },
+    };
     assert.strictEqual(node.ref, undefined, "fixture must have no ref");
     var data = flowWith(node);
     var result = validate.validate(data, QUIET);
     var unknownComp = result.findings.filter(function (f) {
       return f.kind === "unknown-component";
     });
-    assert.strictEqual(unknownComp.length, 0, "no ref on DS node must not trigger unknown-component");
+    assert.strictEqual(
+      unknownComp.length,
+      0,
+      "no ref on DS node must not trigger unknown-component",
+    );
   });
 
   it("library:ds node without ref does not trigger missing-required-override", function () {
-    var node = { type: "INSTANCE", library: "ds", dsSlug: "button", props: { Label: "Go" } };
+    var node = {
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "button",
+      props: { Label: "Go" },
+    };
     var data = flowWith(node);
     var result = validate.validate(data, QUIET);
     var overrideFindings = result.findings.filter(function (f) {
       return f.kind === "missing-required-override";
     });
-    assert.strictEqual(overrideFindings.length, 0, "no ref → no required-override check");
+    assert.strictEqual(
+      overrideFindings.length,
+      0,
+      "no ref → no required-override check",
+    );
   });
 });

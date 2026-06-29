@@ -53,6 +53,17 @@ function assembleFlowShare(data) {
   var flowRenderer = require("./html-renderers/flow-renderer.js");
   var renderScreen = flowRenderer.renderScreen;
 
+  // Hi-fi anatomy tier: this deliverable pre-renders each screen server-side in
+  // Node (no `window`), so the assemble-time anatomy map for non-override DS
+  // slugs must be injected into the renderer module rather than embedded for the
+  // browser. Build it from the flow-data (content-shaped) and inject; the loop
+  // below resets it in a finally so module state never leaks across calls.
+  var dsHtmlMap = require("./html-renderers/ds-html-map.js");
+  var anatomyHelpers = require("./ds-anatomy-map.js");
+  var anatomyMap = anatomyHelpers.buildDsAnatomyMap(
+    anatomyHelpers.collectDsSlugs(data),
+  );
+
   // Assets (fail loudly if missing — same contract as readFileChecked).
   var wrapper = readFileChecked(WRAPPER_PATH);
   var alpine = readFileChecked(VENDOR_ALPINE);
@@ -80,28 +91,34 @@ function assembleFlowShare(data) {
   // target in Overview (enter that screen); display:contents in Prototype.
   var screensHtml = "";
   var navArray = [];
-  for (var s = 0; s < screens.length; s++) {
-    var id = s + 1;
-    var sc = screens[s];
-    if (metaLibrary && !sc.library) {
-      sc = Object.assign({}, sc, { library: metaLibrary });
+  dsHtmlMap.setAnatomyMap(anatomyMap);
+  try {
+    for (var s = 0; s < screens.length; s++) {
+      var id = s + 1;
+      var sc = screens[s];
+      if (metaLibrary && !sc.library) {
+        sc = Object.assign({}, sc, { library: metaLibrary });
+      }
+      navArray.push({ id: id, label: sc.name || "Screen " + id });
+      screensHtml +=
+        '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
+        id +
+        ')">' +
+        '<div class="proto-screen" data-screen="' +
+        id +
+        '"' +
+        " :aria-hidden=\"view === 'prototype' && screen !== " +
+        id +
+        '"' +
+        " x-show=\"view === 'overview' || screen === " +
+        id +
+        '">' +
+        renderScreen(sc) +
+        "</div></div>\n";
     }
-    navArray.push({ id: id, label: sc.name || "Screen " + id });
-    screensHtml +=
-      '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
-      id +
-      ')">' +
-      '<div class="proto-screen" data-screen="' +
-      id +
-      '"' +
-      " :aria-hidden=\"view === 'prototype' && screen !== " +
-      id +
-      '"' +
-      " x-show=\"view === 'overview' || screen === " +
-      id +
-      '">' +
-      renderScreen(sc) +
-      "</div></div>\n";
+  } finally {
+    // Reset module-level state so it never leaks into a later assembly.
+    dsHtmlMap.setAnatomyMap(null);
   }
   // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
   // esc (not escapeJsonForScript) is required: a bare " in a screen name would

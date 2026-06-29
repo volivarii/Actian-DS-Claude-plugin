@@ -27,6 +27,9 @@ var fs = require("fs");
 var path = require("path");
 var PATHS = require("../lib/paths");
 var shared = require("./assemble-shared");
+var anatomyMapHelpers = require("./ds-anatomy-map");
+var collectDsSlugs = anatomyMapHelpers.collectDsSlugs;
+var buildDsAnatomyMap = anatomyMapHelpers.buildDsAnatomyMap;
 
 // ---------------------------------------------------------------------------
 // Paths (via shared module)
@@ -187,6 +190,10 @@ function writeOutput(outputPath, html) {
   );
 }
 
+// DS anatomy map helpers (collectDsSlugs / buildDsAnatomyMap) were extracted to
+// ./ds-anatomy-map.js so the flow-share assembler can build the map too. They are
+// re-imported above and re-exported below for back-compat.
+
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
@@ -311,6 +318,16 @@ function main() {
   });
   if (inlinesDs) {
     rendererScripts += shared.buildDsIconsScript() + "\n";
+    // Build anatomy map at assemble-time and embed it so the client renderer
+    // can dispatch non-override slugs without reading any substrate at runtime.
+    var anatomySlugs = collectDsSlugs(data);
+    var anatomyMap = buildDsAnatomyMap(anatomySlugs);
+    var anatomyMapJson = escapeJsonForScript(JSON.stringify(anatomyMap));
+    rendererScripts +=
+      "  <script>\n  /* ds-anatomy-map (assemble-time) */\n" +
+      "  window.__dsAnatomyMap = " +
+      anatomyMapJson +
+      ";\n  </script>\n";
   }
   for (var r = 0; r < config.renderers.length; r++) {
     var rendererPath = config.renderers[r];
@@ -393,4 +410,15 @@ function main() {
   writeOutput(args.output, html);
 }
 
-main();
+// Only run main() when executed directly — not when require()'d by tests.
+if (require.main === module) {
+  main();
+}
+
+// ---------------------------------------------------------------------------
+// Exports (for testing and programmatic use)
+// ---------------------------------------------------------------------------
+module.exports = {
+  collectDsSlugs: collectDsSlugs,
+  buildDsAnatomyMap: buildDsAnatomyMap,
+};

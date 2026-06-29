@@ -1,0 +1,90 @@
+"use strict";
+
+// flow-share-anatomy.test.js — End-to-end proof that the CANONICAL flow-share
+// deliverable renders non-override DS slugs as anatomy HTML (not a gray chip).
+// This exercises both fixes together:
+//   C2 — the map is collected from content-shaped flow-data (screens[].content)
+//   C1 — the map is consumed server-side (flow-share pre-renders in Node, where
+//        there is no window) via ds-html-map.setAnatomyMap().
+// Markers: anatomy emits  data-ds-slug="<slug>";  the chip emits  data-slug="<slug>".
+// We assert on those (NOT a bare "ds-anatomy" substring, which also appears in
+// the inlined ds-base.css and would mask a chip regression).
+
+var { describe, it } = require("node:test");
+var assert = require("node:assert");
+
+var {
+  assembleFlowShare,
+} = require("../../scripts/renderers/assemble-flow-share.js");
+var {
+  collectDsSlugs,
+  buildDsAnatomyMap,
+} = require("../../scripts/renderers/ds-anatomy-map.js");
+var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+
+// A non-override DS slug with usable vendored anatomy (quality.ratio >= 0.6).
+var ANATOMY_SLUG = "link";
+
+function fixture() {
+  return {
+    meta: { library: "ds", app: "Test App", feature: "Anatomy wiring" },
+    screens: [
+      {
+        name: "Screen 1",
+        library: "ds",
+        content: [
+          { type: "INSTANCE", library: "ds", dsSlug: ANATOMY_SLUG, props: {} },
+        ],
+      },
+    ],
+  };
+}
+
+describe("flow-share: server-side anatomy rendering (C1 + C2)", function () {
+  it("precondition: chosen slug is non-override and has usable anatomy", function () {
+    var slugs = collectDsSlugs(fixture());
+    assert.ok(
+      slugs.indexOf(ANATOMY_SLUG) !== -1,
+      "collectDsSlugs must find the content-shaped slug",
+    );
+    var map = buildDsAnatomyMap(slugs);
+    assert.ok(
+      map[ANATOMY_SLUG],
+      "substrate must yield anatomy HTML for '" +
+        ANATOMY_SLUG +
+        "' — if this fails the slug became an override or lost anatomy; pick another non-override slug",
+    );
+  });
+
+  it("renders the non-override slug as anatomy HTML, not a chip", function () {
+    var html = assembleFlowShare(fixture());
+    assert.ok(
+      html.indexOf('data-ds-slug="' + ANATOMY_SLUG + '"') !== -1,
+      "anatomy HTML (data-ds-slug) must be present in flow-share output",
+    );
+    assert.strictEqual(
+      html.indexOf('data-slug="' + ANATOMY_SLUG + '"'),
+      -1,
+      "the slug must NOT fall back to a chip (data-slug)",
+    );
+  });
+
+  it("does not leak the server anatomy map after assembly", function () {
+    // After assembleFlowShare returns, a server-side render of the same slug with
+    // no window must chip — proving setAnatomyMap was reset (no cross-call state).
+    assembleFlowShare(fixture());
+    var prev = typeof global.window !== "undefined" ? global.window : undefined;
+    delete global.window;
+    var html = ds.renderDSComponent({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: ANATOMY_SLUG,
+      props: {},
+    });
+    if (prev !== undefined) global.window = prev;
+    assert.ok(
+      html.indexOf("ds-component") !== -1,
+      "slug must chip after assembly (server map was reset)",
+    );
+  });
+});
