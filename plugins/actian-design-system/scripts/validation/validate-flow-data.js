@@ -1415,13 +1415,24 @@ function checkPropertiesGrounding(data, findings) {
   if (!Array.isArray(props) || props.length === 0) return; // backward-compat
   if (!Array.isArray(data.screens)) return;
   var propTokenSet = {};
-  props.forEach(function (p) {
-    var name =
-      typeof p === "string" ? p : p && typeof p === "object" ? p.name : "";
-    tokenizeLabel(name).forEach(function (t) {
+  function addPropTokens(s) {
+    tokenizeLabel(s).forEach(function (t) {
       propTokenSet[t] = true;
       propTokenSet[singularize(t)] = true;
     });
+  }
+  props.forEach(function (p) {
+    // Match against BOTH the field name AND its humanized label. The
+    // screen-generator writes column headers from `.label`, which since S3c's
+    // camelCase-splitting humanizeName ("apiVersion" → "Api version") no longer
+    // token-equals the raw name — and tokenizeLabel only splits on non-alnum.
+    // Without the label tokens a camelCase-named column would never match.
+    if (typeof p === "string") {
+      addPropTokens(p);
+    } else if (p && typeof p === "object") {
+      addPropTokens(p.name);
+      addPropTokens(p.label);
+    }
   });
   if (Object.keys(propTokenSet).length === 0) return;
   // Flow-level: a flow is grounded if ANY table/form screen reflects the

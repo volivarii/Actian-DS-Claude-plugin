@@ -16,7 +16,12 @@ var QUIET = { skipTokens: true, skipTerminology: true, skipAvoidWords: true };
 var PROPS = [
   "name",
   "description",
-  { name: "status", label: "Status", type: "enum", states: ["Draft", "Published"] },
+  {
+    name: "status",
+    label: "Status",
+    type: "enum",
+    states: ["Draft", "Published"],
+  },
   "datasets",
 ];
 
@@ -24,18 +29,31 @@ var PROPS = [
 function tableHeader(labels) {
   var props = {};
   var keys = ["Label", "Label 2", "Label 3", "Label 4", "Label 5"];
-  labels.slice(0, 5).forEach(function (l, i) { props[keys[i]] = l; });
-  return { type: "INSTANCE", ref: "fmTableCell", variant: "Type=Header", props: props };
+  labels.slice(0, 5).forEach(function (l, i) {
+    props[keys[i]] = l;
+  });
+  return {
+    type: "INSTANCE",
+    ref: "fmTableCell",
+    variant: "Type=Header",
+    props: props,
+  };
 }
 
 // A form field with a label.
 function field(label) {
-  return { type: "INSTANCE", ref: "fmTextInput", variant: "State=Default", props: { "Label Text": label } };
+  return {
+    type: "INSTANCE",
+    ref: "fmTextInput",
+    variant: "State=Default",
+    props: { "Label Text": label },
+  };
 }
 
 function flow(entityProperties, screens) {
   var glossary = { app: "Studio", entity: "Data product" };
-  if (entityProperties !== undefined) glossary.entityProperties = entityProperties;
+  if (entityProperties !== undefined)
+    glossary.entityProperties = entityProperties;
   return {
     meta: { feature: "t", app: "Studio", library: "ds", _glossary: glossary },
     screens: screens,
@@ -54,17 +72,23 @@ function propFindings(data) {
 
 describe("validate-properties-grounding (S3b, advisory)", function () {
   it("table whose columns reflect entity fields → no finding", function () {
-    var data = flow(PROPS, [screen("s1", [tableHeader(["Name", "Status", "Datasets"])])]);
+    var data = flow(PROPS, [
+      screen("s1", [tableHeader(["Name", "Status", "Datasets"])]),
+    ]);
     assert.strictEqual(propFindings(data).length, 0);
   });
 
   it("form whose fields reflect entity fields → no finding", function () {
-    var data = flow(PROPS, [screen("s1", [field("Name"), field("Description")])]);
+    var data = flow(PROPS, [
+      screen("s1", [field("Name"), field("Description")]),
+    ]);
     assert.strictEqual(propFindings(data).length, 0);
   });
 
   it("table/form reflecting NONE of the entity fields → 1 properties-ungrounded info, screen ''", function () {
-    var data = flow(PROPS, [screen("s1", [tableHeader(["Column A", "Column B", "Value"])])]);
+    var data = flow(PROPS, [
+      screen("s1", [tableHeader(["Column A", "Column B", "Value"])]),
+    ]);
     var f = propFindings(data);
     assert.strictEqual(f.length, 1);
     assert.strictEqual(f[0].kind, "properties-ungrounded");
@@ -74,7 +98,9 @@ describe("validate-properties-grounding (S3b, advisory)", function () {
   });
 
   it("no _glossary.entityProperties (legacy) → no findings", function () {
-    var data = flow(undefined, [screen("s1", [tableHeader(["Column A", "Column B"])])]);
+    var data = flow(undefined, [
+      screen("s1", [tableHeader(["Column A", "Column B"])]),
+    ]);
     assert.strictEqual(propFindings(data).length, 0);
   });
 
@@ -85,7 +111,7 @@ describe("validate-properties-grounding (S3b, advisory)", function () {
 
   it("flow-level: one grounded screen grounds the whole flow", function () {
     var data = flow(PROPS, [
-      screen("s1", [tableHeader(["Name", "Status"])]),       // grounded
+      screen("s1", [tableHeader(["Name", "Status"])]), // grounded
       screen("s2", [tableHeader(["Column A", "Column B"])]), // not grounded on its own
     ]);
     assert.strictEqual(propFindings(data).length, 0);
@@ -99,8 +125,20 @@ describe("validate-properties-grounding (S3b, advisory)", function () {
     assert.strictEqual(propFindings(data).length, 1);
   });
 
+  it("camelCase property grounded by its humanized label → no finding (S3c regression guard)", function () {
+    // apiVersion (real: data-product, data-contract) → humanizeName → "Api version".
+    // The screen-generator writes the column header from .label, but the grounding
+    // check tokenizes .name. tokenizeLabel("apiVersion")=["apiversion"] vs the header
+    // "Api version"=["api","version"] — no overlap unless the check also tokenizes .label.
+    var props = [{ name: "apiVersion", label: "Api version", type: "string" }];
+    var data = flow(props, [screen("s1", [tableHeader(["Api version"])])]);
+    assert.strictEqual(propFindings(data).length, 0);
+  });
+
   it("the finding is advisory — info, not error/P0", function () {
-    var data = flow(PROPS, [screen("s1", [tableHeader(["Column A", "Column B"])])]);
+    var data = flow(PROPS, [
+      screen("s1", [tableHeader(["Column A", "Column B"])]),
+    ]);
     var f = propFindings(data);
     assert.strictEqual(f.length, 1);
     assert.notStrictEqual(f[0].severity, "error");
@@ -113,10 +151,17 @@ describe("validate-properties-grounding (CLI visibility)", function () {
   var fs = require("fs");
   var os = require("os");
   var NODE = process.execPath;
-  var CLI = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
+  var CLI = path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "validation",
+    "validate-flow-data.js",
+  );
 
   it("properties-ungrounded reaches CLI --json output (not silently dropped)", function () {
-    var data = flow(PROPS, [screen("s1", [tableHeader(["Column A", "Column B"])])]);
+    var data = flow(PROPS, [
+      screen("s1", [tableHeader(["Column A", "Column B"])]),
+    ]);
     var dir = fs.mkdtempSync(path.join(os.tmpdir(), "s3b-prop-"));
     var file = path.join(dir, "flow-data.json");
     fs.writeFileSync(file, JSON.stringify(data));
@@ -124,7 +169,14 @@ describe("validate-properties-grounding (CLI visibility)", function () {
     try {
       out = execFileSync(
         NODE,
-        [CLI, file, "--json", "--skip-tokens", "--skip-terminology", "--skip-avoid-words"],
+        [
+          CLI,
+          file,
+          "--json",
+          "--skip-tokens",
+          "--skip-terminology",
+          "--skip-avoid-words",
+        ],
         { encoding: "utf8" },
       );
     } catch (e) {
@@ -133,7 +185,12 @@ describe("validate-properties-grounding (CLI visibility)", function () {
       fs.rmSync(dir, { recursive: true, force: true });
     }
     var issues = JSON.parse(out);
-    var found = issues.some(function (i) { return i.check === "properties-ungrounded"; });
-    assert.ok(found, "CLI --json output should include a properties-ungrounded entry");
+    var found = issues.some(function (i) {
+      return i.check === "properties-ungrounded";
+    });
+    assert.ok(
+      found,
+      "CLI --json output should include a properties-ungrounded entry",
+    );
   });
 });
