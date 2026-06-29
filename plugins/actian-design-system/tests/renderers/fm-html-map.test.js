@@ -897,6 +897,49 @@ assertNotContains(xssBtn, "<script>", "script tag escaped in label");
 assertContains(xssBtn, "&lt;script&gt;", "angle brackets escaped");
 
 // ---------------------------------------------------------------------------
+// fmTableCell — typed rendering (S3c)
+// ---------------------------------------------------------------------------
+
+section("fmTableCell typed rendering");
+
+const cellPill = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmTableCell",
+  variant: "Type=Pill",
+  props: { "Cell Text": "Published" },
+});
+assertContains(cellPill, "fm-table-cell--pill", "pill cell modifier class");
+assertContains(cellPill, "fm-table-cell__pill", "pill inner badge span");
+assertContains(cellPill, "Published", "pill value rendered");
+
+const cellText = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmTableCell",
+  variant: "Type=Text",
+  props: { "Cell Text": "Draft" },
+});
+assertContains(cellText, "fm-table-cell--text", "text cell modifier class");
+assertNotContains(
+  cellText,
+  "fm-table-cell__pill",
+  "text cell has no pill span",
+);
+assertContains(cellText, "Draft", "text value rendered");
+
+const cellHeader = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmTableCell",
+  variant: "Type=Header",
+  props: { Label: "Status" },
+});
+assertContains(cellHeader, "fm-table-cell--header", "header cell class");
+assertNotContains(
+  cellHeader,
+  "fm-table-cell__pill",
+  "header cell has no pill span",
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 

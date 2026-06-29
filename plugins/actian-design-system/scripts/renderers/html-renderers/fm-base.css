@@ -409,6 +409,16 @@ body {
   font-weight: 600;
   color: var(--fm-text-secondary);
 }
+.fm-table-cell__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--fm-base-200);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
 
 /* ── FM Checkbox / Radio / Toggle ── */
 .fm-checkbox {
