@@ -26,6 +26,9 @@ var sharedConstants = require("../../lib/shared-constants.js");
 // Build the FM key map once at module load (camelCase ref → { key, method })
 var FM_KEYS = sharedConstants.buildKeyMapFromRegistry("fmkit", "fm");
 
+// Build the DS Kit key map once at module load (camelCase ref → { key, method })
+var DS_KEYS = sharedConstants.buildKeyMapFromRegistry("dskit", "ds");
+
 // ---------------------------------------------------------------------------
 // CLI — copied verbatim from figma-table/render-figma.js lines 38-70
 // ---------------------------------------------------------------------------
@@ -93,14 +96,17 @@ function main() {
     });
   });
 
-  // After structural validation: check INSTANCE refs against FM registry
+  // After structural validation: check INSTANCE refs against the appropriate registry
   function collectInstances(node, basePath) {
     if (!node || typeof node !== "object") return;
     if (node.type === "INSTANCE" && typeof node.ref === "string" && node.ref) {
-      if (!FM_KEYS[node.ref]) {
+      var isDs = node.library === "ds";
+      var keyMap = isDs ? DS_KEYS : FM_KEYS;
+      var tier = isDs ? "ds" : "fm";
+      if (!keyMap[node.ref]) {
         errors.push({
           path: basePath + ".ref",
-          message: "unknown FM ref: " + node.ref,
+          message: "unknown " + tier + " ref: " + node.ref,
         });
       }
     }
@@ -465,7 +471,8 @@ function buildWantMap(node) {
 }
 
 function emitInstance(node, v, lines) {
-  var entry = FM_KEYS[node.ref]; // guaranteed present (gate checked)
+  var keyMap = node.library === "ds" ? DS_KEYS : FM_KEYS;
+  var entry = keyMap[node.ref]; // guaranteed present (gate checked)
   if (entry.method === "set") {
     lines.push(
       "const " +
