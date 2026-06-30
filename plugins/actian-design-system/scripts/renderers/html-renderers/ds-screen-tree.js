@@ -203,22 +203,31 @@ function screenTree(s) {
     s.header || null,
   );
 
-  // Content-area frame (innermost)
-  // Padding mirrors the HTML reference `.screen__content-area` (24px 32px:
-  // 24 vertical / 32 horizontal) so the Figma push and the HTML deliverable
-  // share the same content inset. Inter-item spacing is intentionally NOT set
-  // here: real content[] is a single wrapping frame carrying its own
-  // layout.spacing (see fixtures/twin-emit/*.content.json), matching the
-  // HTML content-area which has no gap.
+  // App-shell spacing recipe. The DS Kit page-header component ships with
+  // padding [0,0,0,0] — it does NOT carry its own surrounding spacing — so the
+  // composition recipe must inset the content region. Values are the shared
+  // --zen spacing tokens (lg=24, xl=32), mirrored by the HTML reference rules
+  // `.screen__content` / `.screen__content-area` / `.ds-page-header` so Figma
+  // and HTML stay consistent.
+  var SP_LG = 24; // --zen-spacing-lg
+  var SP_XL = 32; // --zen-spacing-xl
+
+  // Content-area frame (innermost). No padding of its own: the content frame
+  // provides the region inset; real content[] is a single wrapping frame
+  // carrying its own layout.spacing (see fixtures/twin-emit/*.content.json).
   var contentArea = {
     type: "FRAME",
     name: "content-area",
-    layout: { mode: "VERTICAL", padding: { vertical: 24, horizontal: 32 } },
+    layout: { mode: "VERTICAL" },
     sizing: { horizontal: "FILL" },
     children: s.content || [],
   };
 
-  // Content frame: page-header (if present) + content-area
+  // Content frame: page-header (if present) + content-area. The region padding
+  // (lg vertical / xl horizontal) gives the zero-padding page-header band a top
+  // gap from the global header and a horizontal inset that aligns its title
+  // with the content below; the lg item-spacing separates the band from the
+  // content.
   var contentChildren = [];
   if (nodes.pageHeader) {
     contentChildren.push(nodes.pageHeader);
@@ -228,7 +237,11 @@ function screenTree(s) {
   var contentFrame = {
     type: "FRAME",
     name: "content",
-    layout: { mode: "VERTICAL" },
+    layout: {
+      mode: "VERTICAL",
+      padding: { top: SP_LG, right: SP_XL, bottom: SP_LG, left: SP_XL },
+      spacing: SP_LG,
+    },
     sizing: { horizontal: "FILL" },
     children: contentChildren,
   };

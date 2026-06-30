@@ -249,6 +249,16 @@ test("screenTree — returns root FRAME with expected shape", function () {
   assert.equal(content.type, "FRAME", "content FRAME");
   assert.equal(content.layout.mode, "VERTICAL");
   assert.equal(content.sizing.horizontal, "FILL");
+  // The content frame carries the app-shell region inset (lg vertical / xl
+  // horizontal = 24/32, the --zen spacing tokens) + lg item-spacing — this is
+  // where the zero-padding page-header gets its top gap + horizontal inset.
+  assert.deepEqual(content.layout.padding, {
+    top: 24,
+    right: 32,
+    bottom: 24,
+    left: 32,
+  });
+  assert.equal(content.layout.spacing, 24);
 
   // Content children: page-header + content-area
   var ph = content.children[0];
@@ -259,7 +269,11 @@ test("screenTree — returns root FRAME with expected shape", function () {
   var ca = content.children[1];
   assert.equal(ca.type, "FRAME", "content-area FRAME");
   assert.equal(ca.layout.mode, "VERTICAL");
-  assert.deepEqual(ca.layout.padding, { vertical: 24, horizontal: 32 });
+  // content-area has no padding of its own; the content frame provides the inset
+  assert.ok(
+    !ca.layout.padding,
+    "content-area has no padding (content frame insets)",
+  );
   assert.equal(ca.sizing.horizontal, "FILL");
 });
 

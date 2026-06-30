@@ -824,7 +824,11 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--zen-spacing-md); /* 16 — title block ↔ actions */
-  padding: var(--zen-spacing-md); /* 16 — band padding */
+  /* lg top / xl horizontal / md bottom: top gap from the app header + a 32px
+   * horizontal inset that aligns the title with `.screen__content-area` (also
+   * 32). The DS Kit Figma page-header ships padding 0, so its push counterpart
+   * carries the same lg/xl tokens via the screenTree content-frame recipe. */
+  padding: var(--zen-spacing-lg) var(--zen-spacing-xl) var(--zen-spacing-md);
   background: var(--zen-color-bg-default);
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
