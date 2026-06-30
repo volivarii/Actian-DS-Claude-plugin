@@ -119,9 +119,39 @@ describe("render-node-figma — DS tier", function () {
     });
     assert.strictEqual(r.status, 1, "exits 1 on unknown dsSlug");
     assert.ok(
-      (r.stderr || "").indexOf("not-a-real-slug") !== -1 ||
-        (r.stderr || "").indexOf("dsNotARealSlug") !== -1,
-      "error names the bad dsSlug or derived ref",
+      (r.stderr || "").indexOf("not-a-real-slug") !== -1,
+      "error names the bad dsSlug",
+    );
+    assert.strictEqual(
+      (r.stdout || "").trim(),
+      "",
+      "no Plugin API code on invalid spec",
+    );
+  });
+
+  it("fails loud (exit 1) when dsSlug is set but library is not 'ds' (validation gap)", function () {
+    // An INSTANCE with dsSlug but no library (or library:"fm") must be
+    // rejected at structural validation — not silently skipped then crash
+    // in emitInstance with FM_KEYS[undefined].method.
+    var spec = JSON.stringify({
+      content: [
+        {
+          type: "INSTANCE",
+          dsSlug: "button",
+          // deliberately omit library (or could be "fm") — no ref either
+          variant: "Type=Primary",
+        },
+      ],
+    });
+    var r = cp.spawnSync(process.execPath, [CLI, "--parent-id", "1:2"], {
+      input: spec,
+      encoding: "utf8",
+    });
+    assert.strictEqual(r.status, 1, "exits 1 on dsSlug without library:ds");
+    assert.ok(
+      (r.stderr || "").indexOf("library") !== -1 ||
+        (r.stderr || "").indexOf("dsSlug") !== -1,
+      "error mentions library or dsSlug requirement",
     );
     assert.strictEqual(
       (r.stdout || "").trim(),

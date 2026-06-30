@@ -65,6 +65,11 @@ function validateNode(node) {
         message:
           "INSTANCE requires a non-empty string ref (or dsSlug for library:ds nodes)",
       });
+    } else if (!hasRef && hasDsSlug && node.library !== "ds") {
+      errors.push({
+        path: "library",
+        message: "INSTANCE with dsSlug requires library:ds",
+      });
     }
   }
   Object.keys(node).forEach(function (k) {
