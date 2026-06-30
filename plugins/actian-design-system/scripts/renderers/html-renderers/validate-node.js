@@ -42,6 +42,7 @@ var ALLOWED_KEYS = [
   "contentHtml",
   "content",
   "intent",
+  "minHeight",
 ];
 
 function validateNode(node) {

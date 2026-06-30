@@ -348,6 +348,9 @@ function emitFrame(node, v, lines, ctx) {
         ");",
     );
   }
+  if (node.minHeight != null) {
+    lines.push(v + ".minHeight = " + Number(node.minHeight) + ";");
+  }
   // Recurse into children
   (node.children || []).forEach(function (child, i) {
     var cv = v + "_c" + i;
@@ -495,7 +498,7 @@ function buildWantMap(node) {
   return sorted;
 }
 
-function emitInstance(node, v, lines) {
+function emitInstance(node, v, lines, ctx) {
   var isDs = node.library === "ds";
   var keyMap = isDs ? DS_KEYS : FM_KEYS;
   // For DS nodes, resolve via dsSlug when ref is absent (canonical --hifi shape).
@@ -536,6 +539,7 @@ function emitInstance(node, v, lines) {
     );
     lines.push("  " + v + ".setProperties(__resolved); }");
   }
+  recordSizing(node, v, ctx);
 }
 
 // --- Node dispatcher --------------------------------------------------------
@@ -553,7 +557,7 @@ function emitNode(node, v, lines, ctx) {
     case "DIVIDER":
       return emitDivider(node, v, lines);
     case "INSTANCE":
-      return emitInstance(node, v, lines);
+      return emitInstance(node, v, lines, ctx);
     default:
       return; // unknown handled by the validate gate before emit
   }
