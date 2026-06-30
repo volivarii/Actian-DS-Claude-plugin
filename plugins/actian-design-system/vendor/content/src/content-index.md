@@ -29,12 +29,14 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="button">Buttons</a>
   <a href="badge">Badges</a>
   <a href="breadcrumbs">Breadcrumbs</a>
+  <a href="calendar">Calendar</a>
   <a href="card">Cards</a>
   <a href="chat-with-ai-steward">Chat with AI Steward</a>
   <a href="checkbox">Checkboxes</a>
   <a href="collapse-accordion">Collapse / accordion</a>
   <a href="combo-box">Combo box</a>
   <a href="confirmation">Confirmation</a>
+  <a href="input-date">Date input</a>
   <a href="dropdown-select">Dropdown / Select</a>
   <a href="drawer-side-panel">Drawer / Side panel</a>
   <a href="empty-and-system-states">Empty and system states</a>
@@ -69,6 +71,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="rich-text">Rich text</a>
   <a href="scroll-bar">Scroll bar</a>
   <a href="search">Search</a>
+  <a href="search-dropdown-menu">Search dropdown menu</a>
   <a href="search-result-card">Search result card</a>
   <a href="segmented-control">Segmented control</a>
   <a href="side-nav">Side nav</a>
@@ -81,6 +84,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="tag">Tags</a>
   <a href="text-input">Text input</a>
   <a href="toggle-control">Toggle control</a>
+  <a href="toolbar">Toolbar</a>
   <a href="tooltip">Tooltip</a>
   <a href="upload-file">Upload file</a>
   <a href="validation-messages">Validation messages</a>

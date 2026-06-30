@@ -581,7 +581,7 @@
         "design": {
           "status": "draft",
           "owner": "design",
-          "markdown": "## Anatomy\n\nA button is a single container holding an optional leading icon and a text\nlabel. The container is the click target; padding and the icon-to-label gap\nare token-driven so every variant shares one geometry.\n\n<Media role=\"parts\" layout=\"grid\" />\n\n> The icon is optional. When present it always leads the label — never trails\n> it — so the action verb stays the last thing read.\n\n## Variants\n\nFour variants cover the action hierarchy: primary, secondary, ghost, and\ndestructive. They differ only in fill, border, and text colour — never in\nshape or size.\n\n<Media role=\"variations\" layout=\"stack\" />\n\n## Spacing & size\n\n<Media role=\"spacing\" />\n\n* Three sizes: small (28px), medium (32px), large (40px). Medium is the\n  default.\n\n* Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.\n\n* Buttons never set their own margins — spacing belongs to the parent layout.\n\n## Behavior\n\nButtons expose five interaction states. Hover and focus are always visible;\nthe loading state replaces the label with a spinner and locks the width so\nthe layout never shifts.\n\n<Media role=\"behavior\" layout=\"grid\" />\n\n## Layout\n\n<Media role=\"layout\" />\n\nIn a button group the primary action sits right-most (LTR). Groups align to\nthe 4px baseline grid and wrap as a unit, never mid-group.",
+          "markdown": "## Anatomy\n\nA button is a single container holding an optional leading icon and a text\nlabel. The container is the click target; padding and the icon-to-label gap\nare token-driven so every variant shares one geometry.\n\n<Media role=\"parts\" layout=\"stack\" />\n\n> The icon is optional. When present it always leads the label — never trails\n> it — so the action verb stays the last thing read.\n\n## Variants\n\nFour variants cover the action hierarchy: primary, secondary, ghost, and\ndestructive. They differ only in fill, border, and text colour — never in\nshape or size.\n\n<Media role=\"variations\" layout=\"stack\" />\n\n## Spacing & size\n\n<Media role=\"spacing\" />\n\n* Three sizes: small (28px), medium (32px), large (40px). Medium is the\n  default.\n\n* Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.\n\n* Buttons never set their own margins — spacing belongs to the parent layout.\n\n## Behavior\n\nButtons expose five interaction states. Hover and focus are always visible;\nthe loading state replaces the label with a spinner and locks the width so\nthe layout never shifts.\n\n<Media role=\"behavior\" layout=\"grid\" />\n\n## Layout\n\n<Media role=\"layout\" />\n\nIn a button group the primary action sits right-most (LTR). Groups align to\nthe 4px baseline grid and wrap as a unit, never mid-group.",
           "sections": [
             {
               "heading": "Anatomy",
@@ -592,7 +592,7 @@
                 {
                   "media": {
                     "role": "parts",
-                    "layout": "grid"
+                    "layout": "stack"
                   }
                 },
                 {
@@ -758,7 +758,102 @@
           ]
         }
       },
-      "updated_at": "2026-06-23T14:42:59+02:00"
+      "updated_at": "2026-06-29T20:01:58+02:00"
+    },
+    "calendar": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/calendar/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "calendar",
+      "component": "Calendar",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n- When users need to select a date or date range and seeing surrounding days adds context.\n- For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead.\n\n## Style\n\n- Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n- Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n- For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n- Highlight today's date for orientation.\n- Disable dates that are not selectable rather than allowing selection and then showing an error.\n- For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Start date | Select date |\n| Jun 28, 2026 | 06/28/26 |\n| End date must be after start date. | Invalid range. |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "The calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When users need to select a date or date range and seeing surrounding days adds context.",
+                    "For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".",
+                    "Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".",
+                    "For a range, label both ends clearly as \"Start date\" and \"End date\"."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "Highlight today's date for orientation.",
+                    "Disable dates that are not selectable rather than allowing selection and then showing an error.",
+                    "For a range, show the span between the two selected dates."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Start date",
+                  "dont": "Select date"
+                },
+                {
+                  "do": "Jun 28, 2026",
+                  "dont": "06/28/26"
+                },
+                {
+                  "do": "End date must be after start date.",
+                  "dont": "Invalid range."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-29T22:22:59+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -4736,18 +4831,83 @@
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/input-date/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "input-date",
-      "component": "Input, date",
+      "component": "Date input",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "related": [
+          "calendar",
+          "text-input"
+        ]
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n- For single-date entry in a form, such as a deadline or an effective date.\n- When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n- Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n- Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n- Use a single, consistent date format across the product.\n\n## Behavior\n\n- Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n- State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today. | Invalid date. |\n| Effective date | Date field |",
           "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "For single-date entry in a form, such as a deadline or an effective date.",
+                    "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Label the field by what the date represents. For example, \"Start date\", not \"Date\".",
+                    "Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".",
+                    "Use a single, consistent date format across the product."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.",
+                    "State what is wrong and how to fix it when a date is invalid or out of range."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Label: Start date / Placeholder: YYYY-MM-DD",
+                  "dont": "Placeholder: Enter a date"
+                },
+                {
+                  "do": "Enter a date on or after today.",
+                  "dont": "Invalid date."
+                },
+                {
+                  "do": "Effective date",
+                  "dont": "Date field"
+                }
+              ]
+            },
             {
               "heading": "",
               "source": "pattern:forms",
@@ -5165,8 +5325,21 @@
               ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-29T22:22:59+02:00"
     },
     "link": {
       "_schema_version": 1,
@@ -7229,6 +7402,101 @@
         }
       },
       "updated_at": "2026-06-23T13:38:19+02:00"
+    },
+    "search-dropdown-menu": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/search-dropdown-menu/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "search-dropdown-menu",
+      "component": "Search dropdown menu",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Search dropdown menu\n\nThe search dropdown menu shows suggestions and matching results below a [search](search) field as the user types. It helps users reach a result without leaving the field.\n\n***\n\n## When to use\n\n- To surface matching results or suggestions as the user types in a search field.\n- Do not use it to show filters or unrelated actions. Keep it to query matches and suggestions.\n\n## Style\n\n- Group results by type when more than one type can match. Use a short heading for each group. For example, \"Datasets\", \"Topics\".\n- Highlight the matched portion of each result so users can confirm relevance.\n- Keep each result to its name plus minimal context, such as type or owner.\n\n## Behavior\n\n- Show a brief empty message when there are no matches. For example, \"No matches for [query]\".\n- Let users move through results with the keyboard and select with Enter.\n- Offer a way to see all results when matches exceed what the menu shows. For example, \"See all results\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| No matches for \"sales_q4\" | Nothing found. |\n| See all results | View more |\n| Datasets (group heading) | Mixing datasets and topics with no grouping |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "The search dropdown menu shows suggestions and matching results below a [search](search) field as the user types. It helps users reach a result without leaving the field."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To surface matching results or suggestions as the user types in a search field.",
+                    "Do not use it to show filters or unrelated actions. Keep it to query matches and suggestions."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Group results by type when more than one type can match. Use a short heading for each group. For example, \"Datasets\", \"Topics\".",
+                    "Highlight the matched portion of each result so users can confirm relevance.",
+                    "Keep each result to its name plus minimal context, such as type or owner."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "Show a brief empty message when there are no matches. For example, \"No matches for [query]\".",
+                    "Let users move through results with the keyboard and select with Enter.",
+                    "Offer a way to see all results when matches exceed what the menu shows. For example, \"See all results\"."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "No matches for \"sales_q4\"",
+                  "dont": "Nothing found."
+                },
+                {
+                  "do": "See all results",
+                  "dont": "View more"
+                },
+                {
+                  "do": "Datasets (group heading)",
+                  "dont": "Mixing datasets and topics with no grouping"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-29T22:22:59+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
@@ -10730,6 +10998,101 @@
         }
       },
       "updated_at": "2026-06-23T13:38:19+02:00"
+    },
+    "toolbar": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/toolbar/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "toolbar",
+      "component": "Toolbar",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n- To group the main actions that apply to a view or a selection within it.\n- Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n- Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n- Order actions by frequency of use, most common first.\n- Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n- Group related actions together and separate unrelated groups.\n\n## Behavior\n\n- Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n- When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export | Export selected items to file |\n| Add filter | Filtering |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "A toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To group the main actions that apply to a view or a selection within it.",
+                    "Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".",
+                    "Order actions by frequency of use, most common first.",
+                    "Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).",
+                    "Group related actions together and separate unrelated groups."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.",
+                    "When actions depend on a selection, state that in the empty case. For example, \"Select items to export\"."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Export",
+                  "dont": "Export selected items to file"
+                },
+                {
+                  "do": "Add filter",
+                  "dont": "Filtering"
+                },
+                {
+                  "do": "Delete (disabled until selection)",
+                  "dont": "Hide Delete until a row is selected"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-29T22:22:59+02:00"
     },
     "tooltip": {
       "_schema_version": 1,

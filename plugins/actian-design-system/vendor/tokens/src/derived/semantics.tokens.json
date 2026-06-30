@@ -1181,12 +1181,12 @@
       },
       "warning": {
         "$type": "color",
-        "$value": "{color.primitive.orange.600}",
+        "$value": "{color.primitive.orange.800}",
         "$extensions": {
           "com.actian.themes": {
-            "actian": "#EF8D00",
-            "studio": "#EF8D00",
-            "explorer": "#EF8D00"
+            "actian": "#A76605",
+            "studio": "#A76605",
+            "explorer": "#A76605"
           }
         }
       },
@@ -1427,12 +1427,12 @@
       },
       "warning": {
         "$type": "color",
-        "$value": "{color.primitive.orange.600}",
+        "$value": "{color.primitive.orange.700}",
         "$extensions": {
           "com.actian.themes": {
-            "actian": "#EF8D00",
-            "studio": "#EF8D00",
-            "explorer": "#EF8D00"
+            "actian": "#D27B00",
+            "studio": "#D27B00",
+            "explorer": "#D27B00"
           }
         }
       },

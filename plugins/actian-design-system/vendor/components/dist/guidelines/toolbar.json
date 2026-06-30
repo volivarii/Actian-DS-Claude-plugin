@@ -1,0 +1,95 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/toolbar/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "toolbar",
+  "component": "Toolbar",
+  "meta": {
+    "category": "data-display"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n- To group the main actions that apply to a view or a selection within it.\n- Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n- Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n- Order actions by frequency of use, most common first.\n- Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n- Group related actions together and separate unrelated groups.\n\n## Behavior\n\n- Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n- When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export | Export selected items to file |\n| Add filter | Filtering |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "A toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "To group the main actions that apply to a view or a selection within it.",
+                "Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".",
+                "Order actions by frequency of use, most common first.",
+                "Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).",
+                "Group related actions together and separate unrelated groups."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.",
+                "When actions depend on a selection, state that in the empty case. For example, \"Select items to export\"."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Export",
+              "dont": "Export selected items to file"
+            },
+            {
+              "do": "Add filter",
+              "dont": "Filtering"
+            },
+            {
+              "do": "Delete (disabled until selection)",
+              "dont": "Hide Delete until a row is selected"
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-06-29T22:22:59+02:00"
+}

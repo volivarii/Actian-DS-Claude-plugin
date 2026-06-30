@@ -9,6 +9,7 @@
 | Badges | approved | not started | inherited | inherited | approved |
 | Breadcrumbs | approved | not started | inherited | inherited | approved |
 | Buttons | approved | not started | draft | draft | approved |
+| Calendar | approved | not started | inherited | inherited | not started |
 | Cards | approved | not started | inherited | inherited | approved |
 | Chat with AI Steward | draft | draft | draft | not started | not started |
 | Checkboxes | approved | not started | inherited | inherited | approved |
@@ -23,7 +24,7 @@
 | Global header | approved | not started | inherited | inherited | approved |
 | Global toast | approved | not started | inherited | inherited | not started |
 | Inline toast | approved | not started | inherited | inherited | not started |
-| Input, date | synthesized | — | — | — | — |
+| Date input | approved | not started | inherited | inherited | not started |
 | Links | approved | not started | inherited | inherited | not started |
 | Loader | approved | not started | inherited | inherited | not started |
 | Loader with logo | approved | not started | inherited | inherited | not started |
@@ -40,6 +41,7 @@
 | Rich text | approved | not started | inherited | inherited | not started |
 | Scroll bar | approved | not started | inherited | inherited | not started |
 | Search | approved | not started | inherited | inherited | approved |
+| Search dropdown menu | approved | not started | inherited | inherited | not started |
 | Search result card | approved | not started | inherited | inherited | not started |
 | Segmented control | approved | not started | inherited | inherited | not started |
 | Side nav | approved | not started | inherited | inherited | approved |
@@ -52,6 +54,7 @@
 | Tags | approved | not started | inherited | inherited | approved |
 | Text input | approved | not started | draft | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
+| Toolbar | approved | not started | inherited | inherited | not started |
 | Tooltip | approved | not started | inherited | inherited | not started |
 | Upload file | approved | not started | inherited | inherited | not started |
 | What's new | approved | not started | inherited | inherited | not started |
@@ -60,11 +63,11 @@
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 49 | 1 | 0 | 0 | 0 |
-| usage | 0 | 1 | 0 | 49 | 1 |
-| design | 0 | 3 | 46 | 1 | 1 |
-| behavior | 0 | 1 | 47 | 2 | 1 |
-| tokens | 12 | 0 | 0 | 38 | 1 |
+| content | 53 | 1 | 0 | 0 | 0 |
+| usage | 0 | 1 | 0 | 53 | 0 |
+| design | 0 | 3 | 50 | 1 | 0 |
+| behavior | 0 | 1 | 51 | 2 | 0 |
+| tokens | 12 | 0 | 0 | 42 | 0 |
 
 ## Registry aliases
 

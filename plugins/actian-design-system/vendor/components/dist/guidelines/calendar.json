@@ -1,0 +1,95 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/calendar/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "calendar",
+  "component": "Calendar",
+  "meta": {
+    "category": "form-input-selection"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n- When users need to select a date or date range and seeing surrounding days adds context.\n- For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead.\n\n## Style\n\n- Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n- Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n- For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n- Highlight today's date for orientation.\n- Disable dates that are not selectable rather than allowing selection and then showing an error.\n- For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Start date | Select date |\n| Jun 28, 2026 | 06/28/26 |\n| End date must be after start date. | Invalid range. |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "The calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "When users need to select a date or date range and seeing surrounding days adds context.",
+                "For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".",
+                "Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".",
+                "For a range, label both ends clearly as \"Start date\" and \"End date\"."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "Highlight today's date for orientation.",
+                "Disable dates that are not selectable rather than allowing selection and then showing an error.",
+                "For a range, show the span between the two selected dates."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Start date",
+              "dont": "Select date"
+            },
+            {
+              "do": "Jun 28, 2026",
+              "dont": "06/28/26"
+            },
+            {
+              "do": "End date must be after start date.",
+              "dont": "Invalid range."
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-06-29T22:22:59+02:00"
+}
