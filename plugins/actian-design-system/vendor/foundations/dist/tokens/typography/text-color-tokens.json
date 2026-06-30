@@ -110,10 +110,10 @@
         },
         {
           "Token": "--zen-color-text-warning",
-          "Resolves To": "--zen-color-warning-600",
+          "Resolves To": "--zen-color-warning-800",
           "Usage": "Warning messages",
-          "status_note": "Shipped",
-          "status": "shipped"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-color-text-success",

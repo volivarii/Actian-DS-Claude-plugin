@@ -343,7 +343,7 @@ Total tokens: 466. Groups: 8.
 | `color.text.link.default` | `--zen-color-text-link-default` | `#0F5FDC` |
 | `color.text.link.reverse` | `--zen-color-text-link-reverse` | `#FFFFFF` |
 | `color.text.link.visited` | `--zen-color-text-link-visited` | `#0047BC` |
-| `color.text.warning` | `--zen-color-text-warning` | `#EF8D00` |
+| `color.text.warning` | `--zen-color-text-warning` | `#A76605` |
 | `color.text.success` | `--zen-color-text-success` | `#098900` |
 | `color.text.reverse` | `--zen-color-text-reverse` | `#FFFFFF` |
 | `color.bg.default` | `--zen-color-bg-default` | `#FFFFFF` |
@@ -365,7 +365,7 @@ Total tokens: 466. Groups: 8.
 | `color.icon.primary` | `--zen-color-icon-primary` | `#0F5FDC` |
 | `color.icon.error` | `--zen-color-icon-error` | `#DC3514` |
 | `color.icon.success` | `--zen-color-icon-success` | `#098900` |
-| `color.icon.warning` | `--zen-color-icon-warning` | `#EF8D00` |
+| `color.icon.warning` | `--zen-color-icon-warning` | `#D27B00` |
 | `color.icon.reverse` | `--zen-color-icon-reverse` | `#FFFFFF` |
 | `color.annotation.annotation` | `--zen-color-annotation-annotation` | `#D71D6D` |
 | `border.default` | `--zen-border-default` | `#C7C7CE` |

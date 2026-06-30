@@ -2,18 +2,83 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "(patterns)",
+    "source": "components/src/input-date/",
     "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
   },
   "slug": "input-date",
-  "component": "Input, date",
+  "component": "Date input",
   "meta": {
-    "category": "form-input-selection"
+    "category": "form-input-selection",
+    "related": [
+      "calendar",
+      "text-input"
+    ]
   },
   "domains": {
     "content": {
-      "status": "synthesized",
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n- For single-date entry in a form, such as a deadline or an effective date.\n- When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n- Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n- Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n- Use a single, consistent date format across the product.\n\n## Behavior\n\n- Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n- State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today. | Invalid date. |\n| Effective date | Date field |",
       "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "For single-date entry in a form, such as a deadline or an effective date.",
+                "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Label the field by what the date represents. For example, \"Start date\", not \"Date\".",
+                "Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".",
+                "Use a single, consistent date format across the product."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "bullets": [
+                "Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.",
+                "State what is wrong and how to fix it when a date is invalid or out of range."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Label: Start date / Placeholder: YYYY-MM-DD",
+              "dont": "Placeholder: Enter a date"
+            },
+            {
+              "do": "Enter a date on or after today.",
+              "dont": "Invalid date."
+            },
+            {
+              "do": "Effective date",
+              "dont": "Date field"
+            }
+          ]
+        },
         {
           "heading": "",
           "source": "pattern:forms",
@@ -431,6 +496,19 @@
           ]
         }
       ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
     }
-  }
+  },
+  "updated_at": "2026-06-29T22:22:59+02:00"
 }

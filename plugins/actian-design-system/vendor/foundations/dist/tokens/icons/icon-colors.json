@@ -75,7 +75,7 @@
         },
         {
           "Token": "--zen-color-icon-warning",
-          "Suggested Value": "--zen-color-warning-600",
+          "Suggested Value": "--zen-color-warning-700",
           "Usage": "Warning state icons",
           "status_note": "Proposed",
           "status": "proposed"

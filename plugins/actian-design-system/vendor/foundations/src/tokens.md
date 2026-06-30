@@ -72,7 +72,7 @@ is two values. Default (un-suffixed) theme is Actian.
 | `--zen-color-text-link-default`       | `--zen-color-primary-500` | Hyperlinks                                  | 🟢 Shipped                                                           |
 | `--zen-color-text-link-reverse`       | `--zen-color-white`       | Hyperlinks on dark or primary-colored backgrounds | 🟡 Proposed                                                     |
 | `--zen-color-text-link-visited`       | `--zen-color-primary-700` | Visited hyperlinks                          | 🟡 Proposed                                                          |
-| `--zen-color-text-warning`            | `--zen-color-warning-600` | Warning messages                            | 🟢 Shipped                                                           |
+| `--zen-color-text-warning`            | `--zen-color-warning-800` | Warning messages                            | 🟡 Proposed                                                          |
 | `--zen-color-text-success`            | `--zen-color-success-600` | Success messages                            | 🟢 Shipped                                                           |
 | `--zen-color-text-reverse`            | `--zen-color-white`       | Text on dark or primary-colored backgrounds | 🟡 Proposed                                                          |
 
@@ -289,7 +289,7 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 | `--zen-color-icon-primary`  | `--zen-color-primary-500` | Primary action icons                                  | 🟡 Proposed |
 | `--zen-color-icon-error`    | `--zen-color-error-600`   | Error state icons                                     | 🟡 Proposed |
 | `--zen-color-icon-success`  | `--zen-color-success-600` | Success state icons                                   | 🟡 Proposed |
-| `--zen-color-icon-warning`  | `--zen-color-warning-600` | Warning state icons                                   | 🟡 Proposed |
+| `--zen-color-icon-warning`  | `--zen-color-warning-700` | Warning state icons                                   | 🟡 Proposed |
 | `--zen-color-icon-reverse`  | `--zen-color-white`       | Icons on dark or primary-colored backgrounds          | 🟡 Proposed |
 
 ### 2.11 Motion
