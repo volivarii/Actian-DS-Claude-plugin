@@ -44,7 +44,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | Combination                         | Behavior                                                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `--hifi --audit`                    | **Incompatible** — audit needs a lo-fi FM-pushed frame to analyze; `--hifi` is DS-native. Warn, run `--hifi` (HTML deliverable, `--push` still applies), and drop `--audit`. For an audited DS frame, run lo-fi `--push` → `/convert-to-hifi` → `/design-audit`. |
-| `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants (HTML-only; no push)                                                          |
+| `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants (no Figma push unless `--push` is added)                                      |
 | `--from <url> --variants 3`         | 3 alternative iterations on the existing flow                                                                |
 | `--from <url> --branch X`           | Single fork named X. `--variants` is ignored when `--branch` is set.                                         |
 | `--breakpoints tablet --variants 3` | 3 variants × 2 breakpoints (desktop + tablet) = 6 outputs. Hard cap: 9 outputs total.                        |
@@ -52,7 +52,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--states X` without `--from`       | Generates flow + states from prompt (greenfield).                                                            |
 | `--push --no-push`                  | `--no-push` wins — no push (the HTML deliverable still renders).                                             |
 | `--hifi --push`                     | **Supported** — DS-native screens use the whole-tree emitter (DS chrome + content in one atomic call). For each `screen.library === "ds"` screen, follow the DS-screen path in `references/generate-flow/push-sequence.md` step 6: `screenTree(screen)` → JSON → `render-node-figma.js --parent-id <wrapperId>` → ONE `use_figma` call. FM screens (`library` absent) keep the existing step-6a–e path unchanged. |
-| `--hifi --no-push`                  | Valid (redundant) — `--hifi` is already HTML-only; `--no-push` changes nothing.                              |
+| `--hifi --no-push`                  | Valid (redundant) — `--hifi` alone produces HTML only (a Figma push needs explicit `--push`); `--no-push` changes nothing. |
 
 ## Step 0 — Parse args + classify input shape
 

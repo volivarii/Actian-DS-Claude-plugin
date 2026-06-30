@@ -45,7 +45,7 @@ emitter, and the designer report. Loaded on demand from
        --parent-id "<wrapperId>"
    )
    ```
-   Capture stdout (Plugin-API JS) and pass it **verbatim** into ONE `use_figma` call (`skillNames: "figma-use"`). The emitter creates the screen FRAME (1440 wide, VERTICAL, hugs height, min-height 960), imports all DS Kit chrome components via the registry, and appends everything to the wrapper. FILL sizing for header / sidebar / page-header instances is applied post-append automatically. On exit 1, read the `{ ok:false, errors }` JSON on stderr and fix the offending node spec, then re-run.
+   Capture stdout (Plugin-API JS) and pass it **verbatim** into ONE `use_figma` call (`skillNames: "figma-use"`). The emitter creates the screen FRAME (1440 wide, VERTICAL, hugs height, min-height 960), imports all DS Kit chrome components via the registry, and appends everything to the wrapper. FILL sizing for header / sidebar / page-header instances is applied post-append automatically. On exit 1, read the `{ ok:false, errors }` JSON on stderr and fix the offending node spec, then re-run. The `use_figma` return includes `droppedProps`: DS chrome instances carry HTML-render props (account / search / title / etc.) that are NOT Figma component properties, so they are set best-effort and any that don't exist (or whose value the live component rejects, e.g. registry-vs-library drift) are dropped and listed there. This is expected — drops are not an error.
 
    **FM-screen path (when `screen.library` is absent or not `"ds"`):** follow sub-steps a–e below.
 
