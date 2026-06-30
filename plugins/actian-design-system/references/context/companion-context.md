@@ -164,7 +164,7 @@ feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
 content — a stub guideline, or no per-component doc at all (most of the
-catalog; 58 guideline docs cover 51 components + 7 registry-key aliases) —
+catalog; 61 guideline docs cover 54 components + 7 registry-key aliases) —
 lift these defaults into the brief grounding payload via
 `scripts/transformers/category-defaults-loader.js`.
 

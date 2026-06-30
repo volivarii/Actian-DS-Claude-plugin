@@ -7,7 +7,7 @@ A button is a single container holding an optional leading icon and a text
 label. The container is the click target; padding and the icon-to-label gap
 are token-driven so every variant shares one geometry.
 
-<Media role="parts" layout="grid" />
+<Media role="parts" layout="stack" />
 
 > The icon is optional. When present it always leads the label — never trails
 > it — so the action verb stays the last thing read.

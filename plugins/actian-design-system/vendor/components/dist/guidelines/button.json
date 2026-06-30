@@ -141,7 +141,7 @@
     "design": {
       "status": "draft",
       "owner": "design",
-      "markdown": "## Anatomy\n\nA button is a single container holding an optional leading icon and a text\nlabel. The container is the click target; padding and the icon-to-label gap\nare token-driven so every variant shares one geometry.\n\n<Media role=\"parts\" layout=\"grid\" />\n\n> The icon is optional. When present it always leads the label — never trails\n> it — so the action verb stays the last thing read.\n\n## Variants\n\nFour variants cover the action hierarchy: primary, secondary, ghost, and\ndestructive. They differ only in fill, border, and text colour — never in\nshape or size.\n\n<Media role=\"variations\" layout=\"stack\" />\n\n## Spacing & size\n\n<Media role=\"spacing\" />\n\n* Three sizes: small (28px), medium (32px), large (40px). Medium is the\n  default.\n\n* Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.\n\n* Buttons never set their own margins — spacing belongs to the parent layout.\n\n## Behavior\n\nButtons expose five interaction states. Hover and focus are always visible;\nthe loading state replaces the label with a spinner and locks the width so\nthe layout never shifts.\n\n<Media role=\"behavior\" layout=\"grid\" />\n\n## Layout\n\n<Media role=\"layout\" />\n\nIn a button group the primary action sits right-most (LTR). Groups align to\nthe 4px baseline grid and wrap as a unit, never mid-group.",
+      "markdown": "## Anatomy\n\nA button is a single container holding an optional leading icon and a text\nlabel. The container is the click target; padding and the icon-to-label gap\nare token-driven so every variant shares one geometry.\n\n<Media role=\"parts\" layout=\"stack\" />\n\n> The icon is optional. When present it always leads the label — never trails\n> it — so the action verb stays the last thing read.\n\n## Variants\n\nFour variants cover the action hierarchy: primary, secondary, ghost, and\ndestructive. They differ only in fill, border, and text colour — never in\nshape or size.\n\n<Media role=\"variations\" layout=\"stack\" />\n\n## Spacing & size\n\n<Media role=\"spacing\" />\n\n* Three sizes: small (28px), medium (32px), large (40px). Medium is the\n  default.\n\n* Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.\n\n* Buttons never set their own margins — spacing belongs to the parent layout.\n\n## Behavior\n\nButtons expose five interaction states. Hover and focus are always visible;\nthe loading state replaces the label with a spinner and locks the width so\nthe layout never shifts.\n\n<Media role=\"behavior\" layout=\"grid\" />\n\n## Layout\n\n<Media role=\"layout\" />\n\nIn a button group the primary action sits right-most (LTR). Groups align to\nthe 4px baseline grid and wrap as a unit, never mid-group.",
       "sections": [
         {
           "heading": "Anatomy",
@@ -152,7 +152,7 @@
             {
               "media": {
                 "role": "parts",
-                "layout": "grid"
+                "layout": "stack"
               }
             },
             {
@@ -318,5 +318,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-23T14:42:59+02:00"
+  "updated_at": "2026-06-29T20:01:58+02:00"
 }
