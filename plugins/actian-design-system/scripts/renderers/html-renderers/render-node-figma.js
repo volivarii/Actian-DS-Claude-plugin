@@ -22,9 +22,27 @@
 var fs = require("fs");
 var validateNode = require("./validate-node.js");
 var sharedConstants = require("../../lib/shared-constants.js");
+var dsSetProps = require("./ds-set-props.js");
 
 // Build the FM key map once at module load (camelCase ref → { key, method })
 var FM_KEYS = sharedConstants.buildKeyMapFromRegistry("fmkit", "fm");
+
+// Build the DS Kit key map once at module load (camelCase ref → { key, method })
+var DS_KEYS = sharedConstants.buildKeyMapFromRegistry("dskit", "ds");
+
+// ---------------------------------------------------------------------------
+// Lookup-ref derivation
+// For FM nodes: always node.ref (camelCase, e.g. "fmButton").
+// For DS nodes: node.ref if present (convert-to-hifi path), else derive from
+// node.dsSlug via slugToRef (canonical generate-flow --hifi path).
+// ---------------------------------------------------------------------------
+function resolveDsRef(node) {
+  if (typeof node.ref === "string" && node.ref) return node.ref;
+  if (typeof node.dsSlug === "string" && node.dsSlug) {
+    return sharedConstants.slugToRef(node.dsSlug, "ds");
+  }
+  return undefined;
+}
 
 // ---------------------------------------------------------------------------
 // CLI — copied verbatim from figma-table/render-figma.js lines 38-70
@@ -93,15 +111,29 @@ function main() {
     });
   });
 
-  // After structural validation: check INSTANCE refs against FM registry
+  // After structural validation: check INSTANCE refs against the appropriate registry.
+  // DS nodes may carry dsSlug (canonical --hifi shape) instead of ref — derive the
+  // lookup ref via resolveDsRef so both shapes are validated.
   function collectInstances(node, basePath) {
     if (!node || typeof node !== "object") return;
-    if (node.type === "INSTANCE" && typeof node.ref === "string" && node.ref) {
-      if (!FM_KEYS[node.ref]) {
-        errors.push({
-          path: basePath + ".ref",
-          message: "unknown FM ref: " + node.ref,
-        });
+    if (node.type === "INSTANCE") {
+      var isDs = node.library === "ds";
+      if (isDs) {
+        var dsRef = resolveDsRef(node);
+        if (dsRef && !DS_KEYS[dsRef]) {
+          var label = node.dsSlug || node.ref;
+          errors.push({
+            path: basePath + ".dsSlug",
+            message: "unknown ds ref: " + label + " (resolved: " + dsRef + ")",
+          });
+        }
+      } else if (typeof node.ref === "string" && node.ref) {
+        if (!FM_KEYS[node.ref]) {
+          errors.push({
+            path: basePath + ".ref",
+            message: "unknown fm ref: " + node.ref,
+          });
+        }
       }
     }
     if (Array.isArray(node.children)) {
@@ -317,6 +349,9 @@ function emitFrame(node, v, lines, ctx) {
         ");",
     );
   }
+  if (node.minHeight != null) {
+    lines.push(v + ".minHeight = " + Number(node.minHeight) + ";");
+  }
   // Recurse into children
   (node.children || []).forEach(function (child, i) {
     var cv = v + "_c" + i;
@@ -464,8 +499,12 @@ function buildWantMap(node) {
   return sorted;
 }
 
-function emitInstance(node, v, lines) {
-  var entry = FM_KEYS[node.ref]; // guaranteed present (gate checked)
+function emitInstance(node, v, lines, ctx) {
+  var isDs = node.library === "ds";
+  var keyMap = isDs ? DS_KEYS : FM_KEYS;
+  // For DS nodes, resolve via dsSlug when ref is absent (canonical --hifi shape).
+  var lookupRef = isDs ? resolveDsRef(node) : node.ref;
+  var entry = keyMap[lookupRef]; // guaranteed present (gate checked)
   if (entry.method === "set") {
     lines.push(
       "const " +
@@ -490,17 +529,11 @@ function emitInstance(node, v, lines) {
   var want = buildWantMap(node);
   if (Object.keys(want).length) {
     lines.push(
-      "{ const __defs = " +
-        v +
-        ".componentProperties; const __want = " +
-        JSON.stringify(want) +
-        "; const __resolved = {};",
+      "__dsSetProps(" + v + ", " + JSON.stringify(want) + ", __dsDropped);",
     );
-    lines.push(
-      "  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });",
-    );
-    lines.push("  " + v + ".setProperties(__resolved); }");
+    ctx.usedSetProps = true;
   }
+  recordSizing(node, v, ctx);
 }
 
 // --- Node dispatcher --------------------------------------------------------
@@ -518,7 +551,7 @@ function emitNode(node, v, lines, ctx) {
     case "DIVIDER":
       return emitDivider(node, v, lines);
     case "INSTANCE":
-      return emitInstance(node, v, lines);
+      return emitInstance(node, v, lines, ctx);
     default:
       return; // unknown handled by the validate gate before emit
   }
@@ -527,7 +560,12 @@ function emitNode(node, v, lines, ctx) {
 // --- Top-level emit ---------------------------------------------------------
 
 function emit(nodes, parentId) {
-  var ctx = { fonts: {}, fillSizing: [], defaultFont: "Inter" };
+  var ctx = {
+    fonts: {},
+    fillSizing: [],
+    defaultFont: "Inter",
+    usedSetProps: false,
+  };
   var body = [];
   var roots = [];
   nodes.forEach(function (n, i) {
@@ -558,6 +596,16 @@ function emit(nodes, parentId) {
         "]);",
     );
   }
+  // Best-effort prop helper: emit once when any INSTANCE with props is present.
+  // The helper is stringified so it runs inside Figma (same code that runs in
+  // the Node unit tests). Emitted after font-preload so it is defined before
+  // the body calls __dsSetProps(...).
+  if (ctx.usedSetProps) {
+    header.push("var __dsDropped = [];");
+    header.push(
+      "var __dsSetProps = " + dsSetProps.dsSetPropsBestEffort.toString() + ";",
+    );
+  }
   // Footer: append roots into parent, apply FILL sizing post-append, return IDs
   var footer = [];
   footer.push(
@@ -580,7 +628,9 @@ function emit(nodes, parentId) {
         .join(", ") +
       "], mutatedNodeIds: [" +
       JSON.stringify(parentId) +
-      "] };",
+      "]" +
+      (ctx.usedSetProps ? ", droppedProps: __dsDropped" : "") +
+      " };",
   );
   return {
     code: header.concat(body, footer).join("\n"),

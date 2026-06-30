@@ -76,10 +76,12 @@ const mockDocument = {
 const fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
 const renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
 const dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+const dsScreenTree = require("../../scripts/renderers/html-renderers/ds-screen-tree.js");
 const mockWindow = {
   fmHtmlMap: fmHtmlMap,
   renderNode: renderNodeModule,
   dsHtmlMap: dsHtmlMap,
+  dsScreenTree: dsScreenTree,
 };
 
 // Execute the IIFE with mocked globals

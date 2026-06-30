@@ -1,4 +1,33 @@
 await Promise.all([figma.loadFontAsync({ family: "Inter", style: "Bold" }), figma.loadFontAsync({ family: "Inter", style: "Regular" })]);
+var __dsDropped = [];
+var __dsSetProps = function dsSetPropsBestEffort(inst, want, dropped) {
+  var defs = inst.componentProperties || {};
+  var resolved = {};
+  Object.keys(want).forEach(function (name) {
+    var k = Object.keys(defs).find(function (d) {
+      return d === name || d.split("#")[0] === name;
+    });
+    if (k) resolved[k] = want[name];
+    else if (dropped) dropped.push(name);
+  });
+  var keys = Object.keys(resolved);
+  if (!keys.length) return;
+  try {
+    inst.setProperties(resolved);
+  } catch (e) {
+    // An invalid value for one prop must not drop the rest (vendor drift).
+    // Retry per-prop so we set everything that is valid.
+    keys.forEach(function (k) {
+      var one = {};
+      one[k] = resolved[k];
+      try {
+        inst.setProperties(one);
+      } catch (e2) {
+        if (dropped) dropped.push(k);
+      }
+    });
+  }
+};
 const root0 = figma.createFrame();
 root0.name = "List";
 root0.layoutMode = 'VERTICAL';
@@ -24,15 +53,11 @@ root0_c1.paddingBottom = 8;
 root0_c1.paddingLeft = 0;
 const root0_c1_c0_set = await figma.importComponentSetByKeyAsync("355855c7b2e05b5b336167883b3c9ebbfbd881ad");
 const root0_c1_c0 = root0_c1_c0_set.defaultVariant.createInstance();
-{ const __defs = root0_c1_c0.componentProperties; const __want = {"Input Text":"Search…","Label Text":""}; const __resolved = {};
-  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
-  root0_c1_c0.setProperties(__resolved); }
+__dsSetProps(root0_c1_c0, {"Input Text":"Search…","Label Text":""}, __dsDropped);
 root0_c1.appendChild(root0_c1_c0);
 const root0_c1_c1_set = await figma.importComponentSetByKeyAsync("368b62312ca941c80ea8eeed84a57d33bb470b09");
 const root0_c1_c1 = root0_c1_c1_set.defaultVariant.createInstance();
-{ const __defs = root0_c1_c1.componentProperties; const __want = {"Label":"Add","Size":"md","Type":"Primary"}; const __resolved = {};
-  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
-  root0_c1_c1.setProperties(__resolved); }
+__dsSetProps(root0_c1_c1, {"Label":"Add","Size":"md","Type":"Primary"}, __dsDropped);
 root0_c1.appendChild(root0_c1_c1);
 root0.appendChild(root0_c1);
 const root0_c2 = figma.createLine();
@@ -61,9 +86,7 @@ root0_c3_c1.characters = "Active";
 root0_c3.appendChild(root0_c3_c1);
 const root0_c3_c2_set = await figma.importComponentSetByKeyAsync("2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8");
 const root0_c3_c2 = root0_c3_c2_set.defaultVariant.createInstance();
-{ const __defs = root0_c3_c2.componentProperties; const __want = {"Label":"New"}; const __resolved = {};
-  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
-  root0_c3_c2.setProperties(__resolved); }
+__dsSetProps(root0_c3_c2, {"Label":"New"}, __dsDropped);
 root0_c3.appendChild(root0_c3_c2);
 root0.appendChild(root0_c3);
 const root0_c4 = figma.createFrame();
@@ -88,9 +111,7 @@ root0_c4_c1.characters = "Pending";
 root0_c4.appendChild(root0_c4_c1);
 const root0_c4_c2_set = await figma.importComponentSetByKeyAsync("2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8");
 const root0_c4_c2 = root0_c4_c2_set.defaultVariant.createInstance();
-{ const __defs = root0_c4_c2.componentProperties; const __want = {"Label":"Draft"}; const __resolved = {};
-  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
-  root0_c4_c2.setProperties(__resolved); }
+__dsSetProps(root0_c4_c2, {"Label":"Draft"}, __dsDropped);
 root0_c4.appendChild(root0_c4_c2);
 root0.appendChild(root0_c4);
 const root0_c5 = figma.createFrame();
@@ -115,9 +136,7 @@ root0_c5_c1.characters = "Closed";
 root0_c5.appendChild(root0_c5_c1);
 const root0_c5_c2_set = await figma.importComponentSetByKeyAsync("2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8");
 const root0_c5_c2 = root0_c5_c2_set.defaultVariant.createInstance();
-{ const __defs = root0_c5_c2.componentProperties; const __want = {"Label":"Done"}; const __resolved = {};
-  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
-  root0_c5_c2.setProperties(__resolved); }
+__dsSetProps(root0_c5_c2, {"Label":"Done"}, __dsDropped);
 root0_c5.appendChild(root0_c5_c2);
 root0.appendChild(root0_c5);
 const __parent = await figma.getNodeByIdAsync("1:1");
@@ -127,4 +146,4 @@ root0_c3.layoutSizingHorizontal = 'FILL';
 root0_c4.layoutSizingHorizontal = 'FILL';
 root0_c5.layoutSizingHorizontal = 'FILL';
 root0.layoutSizingHorizontal = 'FILL';
-return { createdNodeIds: [root0.id], mutatedNodeIds: ["1:1"] };
+return { createdNodeIds: [root0.id], mutatedNodeIds: ["1:1"], droppedProps: __dsDropped };

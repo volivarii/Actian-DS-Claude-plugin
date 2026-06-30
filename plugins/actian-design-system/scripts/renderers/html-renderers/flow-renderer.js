@@ -49,6 +49,22 @@
     (typeof window !== "undefined" && window.dsHtmlMap) ||
     (typeof require !== "undefined" && require("./ds-html-map.js")) ||
     {};
+
+  // DS screen-tree builder — single source of truth for chrome node shapes,
+  // consumed by both this HTML renderer and the Figma emitter (Task 2b).
+  var chromeTree =
+    (typeof window !== "undefined" && window.dsScreenTree) ||
+    (typeof require !== "undefined" && require("./ds-screen-tree.js")) ||
+    {};
+
+  // resolveChrome is re-exported below for backward-compat with existing tests
+  // and the FM chrome path; it's an alias of the shared implementation.
+  var resolveChrome =
+    chromeTree.resolveChrome ||
+    function (s) {
+      return { appHeaderType: s.appHeader || null, hasSidebar: !!s.sidebar };
+    };
+
   function renderDS(slug, variant, props) {
     if (typeof dsMap.renderDSComponent !== "function") return "";
     return dsMap.renderDSComponent({
@@ -198,121 +214,6 @@
   }
 
   // -------------------------------------------------------------------------
-  // Hi-fi DS chrome — maps the same chrome config the FM path uses onto the
-  // real DS chrome leaves (global-header, side-nav, page-header), themed per app.
-  // -------------------------------------------------------------------------
-
-  // app header type → { theme, headerApp, navApp }. The DS axes are narrower
-  // than the FM ones: global-header App type ∈ {Studio,Explorer,Admin};
-  // side-nav App ∈ {Studio,Admin} (Explorer reuses the Studio nav). Admin is
-  // the base `actian` theme. Unknown/null falls back to Studio chrome + actian.
-  function appProfile(appHeaderType) {
-    switch (appHeaderType) {
-      case "Studio":
-        return { theme: "studio", headerApp: "Studio", navApp: "Studio" };
-      case "Explorer":
-        return { theme: "explorer", headerApp: "Explorer", navApp: "Studio" };
-      case "Administration":
-      case "Admin":
-        return { theme: "actian", headerApp: "Admin", navApp: "Admin" };
-      default:
-        return { theme: "actian", headerApp: "Studio", navApp: "Studio" };
-    }
-  }
-
-  function dsHeader(headerApp, config) {
-    // Feed the real Studio header cluster: app label + search + context.
-    // `config` (optional screen.header) may carry account/context overrides.
-    var c = config || {};
-    return renderDS(
-      "global-header",
-      "App type=" + headerApp + ", Breakpoints=XL",
-      {
-        App: headerApp,
-        Search: c.search !== false,
-        Account: c.account || "VO",
-        Context: c.context || "Catalog",
-        ContextValue: c.contextValue || "Default",
-      },
-    );
-  }
-
-  function dsSidebar(config, navApp) {
-    // Convert the chrome sidebar config into the DS side-nav prop shape.
-    // Preferred: `config.groups` (array of {items:[{label,icon}]}) → grouped
-    // sidebar. Else `config.items` carrying icons → wrap as one icon'd group.
-    // Else legacy `Items` comma list (back-compat for older flows).
-    var active = config && config.activeItem ? config.activeItem : "";
-    if (config && Array.isArray(config.groups) && config.groups.length) {
-      var props = { Groups: JSON.stringify(config.groups) };
-      if (active) props.Active = active;
-      return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
-    }
-    var labels = [];
-    var hasIcon = false;
-    var items = [];
-    if (config && Array.isArray(config.items)) {
-      config.items.forEach(function (entry) {
-        var label =
-          typeof entry === "string" ? entry : (entry && entry.label) || "";
-        var icon = entry && typeof entry === "object" ? entry.icon : null;
-        if (label) labels.push(label);
-        if (icon) hasIcon = true;
-        if (label) items.push({ label: label, icon: icon || null });
-        if (
-          !active &&
-          entry &&
-          entry.state &&
-          String(entry.state).toLowerCase() === "on"
-        ) {
-          active = label;
-        }
-      });
-    }
-    var props = {};
-    if (hasIcon) props.Groups = JSON.stringify([{ items: items }]);
-    else if (labels.length) props.Items = labels.join(", ");
-    if (active) props.Active = active;
-    return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
-  }
-
-  function dsPageHeader(config) {
-    if (!config) return "";
-    return renderDS("page-header", "Type=Default", {
-      Title: config.title,
-      Description: config.subtitle,
-      Actions: config.actions,
-    });
-  }
-
-  // -------------------------------------------------------------------------
-  // Template → chrome config resolution
-  // -------------------------------------------------------------------------
-
-  var TEMPLATE_CHROME = {
-    admin: { appHeaderType: "Administration", hasSidebar: true },
-    studio: { appHeaderType: "Studio", hasSidebar: true },
-    explorer: { appHeaderType: "Explorer", hasSidebar: true },
-    "no-sidebar": { appHeaderType: "Studio", hasSidebar: false },
-    bare: { appHeaderType: null, hasSidebar: false },
-    mobile: { appHeaderType: null, hasSidebar: false },
-    tablet: { appHeaderType: null, hasSidebar: false },
-    compact: { appHeaderType: null, hasSidebar: false },
-    custom: { appHeaderType: null, hasSidebar: false },
-  };
-
-  function resolveChrome(s) {
-    if (s.template && TEMPLATE_CHROME[s.template]) {
-      return TEMPLATE_CHROME[s.template];
-    }
-    // Backward compat: derive from legacy s.appHeader / s.sidebar
-    return {
-      appHeaderType: s.appHeader || null,
-      hasSidebar: !!s.sidebar,
-    };
-  }
-
-  // -------------------------------------------------------------------------
   // Tier badge
   // -------------------------------------------------------------------------
 
@@ -425,12 +326,23 @@
     // and the data-theme / screen--hifi additions differ. The lo-fi path below
     // is untouched.
     if (s.library === "ds") {
-      var prof = appProfile(chrome.appHeaderType);
-      var dsHeaderHtml = chrome.appHeaderType
-        ? dsHeader(prof.headerApp, s.header)
+      // Build chrome nodes via the shared builder (ds-screen-tree.js), then
+      // render each to HTML via dsMap.renderDSComponent. This keeps the node
+      // shape single-sourced for both HTML rendering and Figma emit (Task 2b).
+      var dsNodes = chromeTree.chromeNodes(
+        chrome,
+        sidebarConfig,
+        s.pageHeader || null,
+        s.header || null,
+      );
+      var dsHeaderHtml = dsNodes.header
+        ? dsMap.renderDSComponent(dsNodes.header)
         : "";
-      var dsSidebarHtml = chrome.hasSidebar
-        ? dsSidebar(sidebarConfig, prof.navApp)
+      var dsSidebarHtml = dsNodes.sidebar
+        ? dsMap.renderDSComponent(dsNodes.sidebar)
+        : "";
+      var dsPageHeaderHtml = dsNodes.pageHeader
+        ? dsMap.renderDSComponent(dsNodes.pageHeader)
         : "";
 
       // Build the shared inner chrome + content markup (header + body) once.
@@ -439,7 +351,7 @@
         '<div class="screen__body">' +
         dsSidebarHtml +
         '<div class="screen__content">' +
-        dsPageHeader(s.pageHeader) +
+        dsPageHeaderHtml +
         '<div class="screen__content-area">' +
         tierBadge(s) +
         contentHtml +
@@ -450,7 +362,8 @@
       // double-quote of the class attribute is written inline in each return
       // below so the css-staleness regex terminates the capture cleanly
       // and never crosses into the next tag.
-      var dsTheme = esc(prof.theme);
+      var dsProf = chromeTree.appProfile(chrome.appHeaderType);
+      var dsTheme = esc(dsProf.theme);
       var dsName = esc(s.name);
       var dsDims = "width:" + w + "px;height:" + h + "px;";
 
