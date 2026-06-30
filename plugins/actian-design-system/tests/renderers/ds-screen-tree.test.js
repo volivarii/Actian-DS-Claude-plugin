@@ -109,20 +109,31 @@ test("chromeNodes — studio: header + sidebar + pageHeader nodes", function () 
   var sidebarConfig = { items: ["Catalog", "Lineage"], activeItem: "Catalog" };
   var pageHeaderConfig = { title: "Catalog", subtitle: "Browse" };
   var headerConfig = {};
-  var nodes = chromeTree.chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig);
+  var nodes = chromeTree.chromeNodes(
+    chrome,
+    sidebarConfig,
+    pageHeaderConfig,
+    headerConfig,
+  );
 
   // Header node
   assert.ok(nodes.header, "header node present");
   assert.equal(nodes.header.type, "INSTANCE");
   assert.equal(nodes.header.library, "ds");
   assert.equal(nodes.header.dsSlug, "global-header");
-  assert.ok(nodes.header.variant.indexOf("Studio") >= 0, "header variant includes Studio");
+  assert.ok(
+    nodes.header.variant.indexOf("Studio") >= 0,
+    "header variant includes Studio",
+  );
 
   // Sidebar node
   assert.ok(nodes.sidebar, "sidebar node present");
   assert.equal(nodes.sidebar.type, "INSTANCE");
   assert.equal(nodes.sidebar.dsSlug, "side-nav");
-  assert.ok(nodes.sidebar.variant.indexOf("Studio") >= 0, "sidebar variant includes navApp");
+  assert.ok(
+    nodes.sidebar.variant.indexOf("Studio") >= 0,
+    "sidebar variant includes navApp",
+  );
 
   // PageHeader node
   assert.ok(nodes.pageHeader, "pageHeader node present");
@@ -134,7 +145,10 @@ test("chromeNodes — admin: uses Admin navApp", function () {
   var chrome = { appHeaderType: "Administration", hasSidebar: true };
   var sidebarConfig = { items: ["Users", "Roles"] };
   var nodes = chromeTree.chromeNodes(chrome, sidebarConfig, null, {});
-  assert.ok(nodes.sidebar.variant.indexOf("Admin") >= 0, "admin uses Admin nav");
+  assert.ok(
+    nodes.sidebar.variant.indexOf("Admin") >= 0,
+    "admin uses Admin nav",
+  );
   assert.equal(nodes.pageHeader, null, "pageHeader null when config absent");
 });
 
@@ -152,7 +166,10 @@ test("chromeNodes — no header: header is null", function () {
 
 test("chromeNodes — sidebar groups branch", function () {
   var chrome = { appHeaderType: "Explorer", hasSidebar: true };
-  var sidebarConfig = { groups: [{ items: [{ label: "Datasets", icon: "database" }] }], activeItem: "Datasets" };
+  var sidebarConfig = {
+    groups: [{ items: [{ label: "Datasets", icon: "database" }] }],
+    activeItem: "Datasets",
+  };
   var nodes = chromeTree.chromeNodes(chrome, sidebarConfig, null, {});
   assert.ok(nodes.sidebar, "sidebar present");
   var props = nodes.sidebar.props;
@@ -162,11 +179,16 @@ test("chromeNodes — sidebar groups branch", function () {
 
 test("chromeNodes — sidebar items-with-icons branch", function () {
   var chrome = { appHeaderType: "Studio", hasSidebar: true };
-  var sidebarConfig = { items: [{ label: "Catalog", icon: "grid" }, { label: "Lineage" }] };
+  var sidebarConfig = {
+    items: [{ label: "Catalog", icon: "grid" }, { label: "Lineage" }],
+  };
   var nodes = chromeTree.chromeNodes(chrome, sidebarConfig, null, {});
   assert.ok(nodes.sidebar, "sidebar present");
   // icon present on first item → should use Groups prop
-  assert.ok(nodes.sidebar.props.Groups, "Groups prop set when items have icons");
+  assert.ok(
+    nodes.sidebar.props.Groups,
+    "Groups prop set when items have icons",
+  );
 });
 
 test("chromeNodes — sidebar comma-list branch (no icons)", function () {
@@ -198,7 +220,10 @@ test("screenTree — returns root FRAME with expected shape", function () {
   assert.equal(tree.type, "FRAME", "root is FRAME");
   assert.equal(tree.sizing.horizontal, 1440, "root width 1440");
   assert.equal(tree.layout.mode, "VERTICAL", "root layout VERTICAL");
-  assert.ok(tree.minHeight >= 960 || tree.sizing.minHeight >= 960, "root min-height 960");
+  assert.ok(
+    tree.minHeight >= 960 || tree.sizing.minHeight >= 960,
+    "root min-height 960",
+  );
 
   // First child: global-header INSTANCE
   assert.ok(tree.children, "root has children");
@@ -234,34 +259,48 @@ test("screenTree — returns root FRAME with expected shape", function () {
   var ca = content.children[1];
   assert.equal(ca.type, "FRAME", "content-area FRAME");
   assert.equal(ca.layout.mode, "VERTICAL");
-  assert.equal(ca.layout.padding, 24);
+  assert.deepEqual(ca.layout.padding, { vertical: 24, horizontal: 32 });
   assert.equal(ca.sizing.horizontal, "FILL");
 });
 
 test("screenTree — no-sidebar: body has no sidebar child", function () {
   var s = {
-    name: "No Sidebar", template: "no-sidebar", library: "ds",
-    header: {}, pageHeader: { title: "Overview" }, content: [],
+    name: "No Sidebar",
+    template: "no-sidebar",
+    library: "ds",
+    header: {},
+    pageHeader: { title: "Overview" },
+    content: [],
   };
   var tree = chromeTree.screenTree(s);
   var body = tree.children[1];
   // Body first child should be content frame (no side-nav)
-  assert.equal(body.children[0].type, "FRAME", "body first child is content frame when no sidebar");
+  assert.equal(
+    body.children[0].type,
+    "FRAME",
+    "body first child is content frame when no sidebar",
+  );
   assert.ok(
-    !body.children.some(function (c) { return c.dsSlug === "side-nav"; }),
-    "no side-nav when hasSidebar false"
+    !body.children.some(function (c) {
+      return c.dsSlug === "side-nav";
+    }),
+    "no side-nav when hasSidebar false",
   );
 });
 
 test("screenTree — no header: root has no global-header child", function () {
   var s = {
-    name: "Bare", template: "bare", library: "ds",
+    name: "Bare",
+    template: "bare",
+    library: "ds",
     content: [],
   };
   var tree = chromeTree.screenTree(s);
   assert.ok(
-    !tree.children.some(function (c) { return c.dsSlug === "global-header"; }),
-    "no global-header when appHeaderType null"
+    !tree.children.some(function (c) {
+      return c.dsSlug === "global-header";
+    }),
+    "no global-header when appHeaderType null",
   );
 });
 
@@ -278,20 +317,33 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
   var golden = JSON.parse(
     fs.readFileSync(
       path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8"
-    )
+      "utf8",
+    ),
   );
 
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 
-  var mockDoc = { addEventListener: function () {}, getElementById: function () { return null; } };
-  var mockWin = { fmHtmlMap: fmHtmlMap, renderNode: renderNodeModule, dsHtmlMap: dsHtmlMap, dsScreenTree: chromeTree };
+  var mockDoc = {
+    addEventListener: function () {},
+    getElementById: function () {
+      return null;
+    },
+  };
+  var mockWin = {
+    fmHtmlMap: fmHtmlMap,
+    renderNode: renderNodeModule,
+    dsHtmlMap: dsHtmlMap,
+    dsScreenTree: chromeTree,
+  };
 
   var code = fs.readFileSync(
-    path.join(__dirname, "../../scripts/renderers/html-renderers/flow-renderer.js"),
-    "utf8"
+    path.join(
+      __dirname,
+      "../../scripts/renderers/html-renderers/flow-renderer.js",
+    ),
+    "utf8",
   );
   var fn = new Function("window", "document", code);
   fn(mockWin, mockDoc);
@@ -299,11 +351,33 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
   var screenFn = mockWin._testExports.screen;
 
   var actual = screenFn({
-    name: "Studio Screen", template: "studio", library: "ds",
-    header: { search: true, account: "VO", context: "Catalog", contextValue: "Default" },
-    sidebar: { items: [{ label: "Catalog", state: "On" }, { label: "Lineage" }], activeItem: "Catalog" },
-    pageHeader: { title: "Catalog", subtitle: "Browse data assets", actions: ["Import"] },
-    content: [{ type: "TEXT", name: "H1", content: "Hello", font: "Inter:Bold", size: 16 }],
+    name: "Studio Screen",
+    template: "studio",
+    library: "ds",
+    header: {
+      search: true,
+      account: "VO",
+      context: "Catalog",
+      contextValue: "Default",
+    },
+    sidebar: {
+      items: [{ label: "Catalog", state: "On" }, { label: "Lineage" }],
+      activeItem: "Catalog",
+    },
+    pageHeader: {
+      title: "Catalog",
+      subtitle: "Browse data assets",
+      actions: ["Import"],
+    },
+    content: [
+      {
+        type: "TEXT",
+        name: "H1",
+        content: "Hello",
+        font: "Inter:Bold",
+        size: 16,
+      },
+    ],
   });
 
   assert.equal(actual, golden.studio, "studio golden byte-identical");
@@ -311,22 +385,49 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
 
 test("HTML golden — explorer screen byte-identical after refactor", function () {
   var golden = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"), "utf8")
+    fs.readFileSync(
+      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
+      "utf8",
+    ),
   );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
-  var mockDoc = { addEventListener: function () {}, getElementById: function () { return null; } };
-  var mockWin = { fmHtmlMap, renderNode: renderNodeModule, dsHtmlMap, dsScreenTree: chromeTree };
+  var mockDoc = {
+    addEventListener: function () {},
+    getElementById: function () {
+      return null;
+    },
+  };
+  var mockWin = {
+    fmHtmlMap,
+    renderNode: renderNodeModule,
+    dsHtmlMap,
+    dsScreenTree: chromeTree,
+  };
   var code = fs.readFileSync(
-    path.join(__dirname, "../../scripts/renderers/html-renderers/flow-renderer.js"), "utf8"
+    path.join(
+      __dirname,
+      "../../scripts/renderers/html-renderers/flow-renderer.js",
+    ),
+    "utf8",
   );
   new Function("window", "document", code)(mockWin, mockDoc);
 
   var actual = mockWin._testExports.screen({
-    name: "Explorer Screen", template: "explorer", library: "ds",
-    header: { search: true, account: "VO", context: "Catalog", contextValue: "Default" },
-    sidebar: { groups: [{ items: [{ label: "Datasets", icon: "database" }] }], activeItem: "Datasets" },
+    name: "Explorer Screen",
+    template: "explorer",
+    library: "ds",
+    header: {
+      search: true,
+      account: "VO",
+      context: "Catalog",
+      contextValue: "Default",
+    },
+    sidebar: {
+      groups: [{ items: [{ label: "Datasets", icon: "database" }] }],
+      activeItem: "Datasets",
+    },
     pageHeader: { title: "Browse" },
   });
   assert.equal(actual, golden.explorer, "explorer golden byte-identical");
@@ -334,21 +435,45 @@ test("HTML golden — explorer screen byte-identical after refactor", function (
 
 test("HTML golden — admin screen byte-identical after refactor", function () {
   var golden = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"), "utf8")
+    fs.readFileSync(
+      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
+      "utf8",
+    ),
   );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
-  var mockDoc = { addEventListener: function () {}, getElementById: function () { return null; } };
-  var mockWin = { fmHtmlMap, renderNode: renderNodeModule, dsHtmlMap, dsScreenTree: chromeTree };
+  var mockDoc = {
+    addEventListener: function () {},
+    getElementById: function () {
+      return null;
+    },
+  };
+  var mockWin = {
+    fmHtmlMap,
+    renderNode: renderNodeModule,
+    dsHtmlMap,
+    dsScreenTree: chromeTree,
+  };
   var code = fs.readFileSync(
-    path.join(__dirname, "../../scripts/renderers/html-renderers/flow-renderer.js"), "utf8"
+    path.join(
+      __dirname,
+      "../../scripts/renderers/html-renderers/flow-renderer.js",
+    ),
+    "utf8",
   );
   new Function("window", "document", code)(mockWin, mockDoc);
 
   var actual = mockWin._testExports.screen({
-    name: "Admin Screen", template: "admin", library: "ds",
-    header: { search: true, account: "VO", context: "Catalog", contextValue: "Default" },
+    name: "Admin Screen",
+    template: "admin",
+    library: "ds",
+    header: {
+      search: true,
+      account: "VO",
+      context: "Catalog",
+      contextValue: "Default",
+    },
     sidebar: { items: ["Users", "Roles", "Settings"], activeItem: "Users" },
     pageHeader: { title: "Users", subtitle: "Manage permissions" },
   });
@@ -357,21 +482,45 @@ test("HTML golden — admin screen byte-identical after refactor", function () {
 
 test("HTML golden — no-sidebar screen byte-identical after refactor", function () {
   var golden = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"), "utf8")
+    fs.readFileSync(
+      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
+      "utf8",
+    ),
   );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
-  var mockDoc = { addEventListener: function () {}, getElementById: function () { return null; } };
-  var mockWin = { fmHtmlMap, renderNode: renderNodeModule, dsHtmlMap, dsScreenTree: chromeTree };
+  var mockDoc = {
+    addEventListener: function () {},
+    getElementById: function () {
+      return null;
+    },
+  };
+  var mockWin = {
+    fmHtmlMap,
+    renderNode: renderNodeModule,
+    dsHtmlMap,
+    dsScreenTree: chromeTree,
+  };
   var code = fs.readFileSync(
-    path.join(__dirname, "../../scripts/renderers/html-renderers/flow-renderer.js"), "utf8"
+    path.join(
+      __dirname,
+      "../../scripts/renderers/html-renderers/flow-renderer.js",
+    ),
+    "utf8",
   );
   new Function("window", "document", code)(mockWin, mockDoc);
 
   var actual = mockWin._testExports.screen({
-    name: "No Sidebar Screen", template: "no-sidebar", library: "ds",
-    header: { search: true, account: "VO", context: "Catalog", contextValue: "Default" },
+    name: "No Sidebar Screen",
+    template: "no-sidebar",
+    library: "ds",
+    header: {
+      search: true,
+      account: "VO",
+      context: "Catalog",
+      contextValue: "Default",
+    },
     pageHeader: { title: "Overview" },
   });
   assert.equal(actual, golden.noSidebar, "noSidebar golden byte-identical");

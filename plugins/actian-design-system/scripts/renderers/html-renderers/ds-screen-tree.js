@@ -116,7 +116,8 @@ function chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig) {
       if (Array.isArray(sc.items)) {
         for (var i = 0; i < sc.items.length; i++) {
           var entry = sc.items[i];
-          var label = typeof entry === "string" ? entry : (entry && entry.label) || "";
+          var label =
+            typeof entry === "string" ? entry : (entry && entry.label) || "";
           var icon = entry && typeof entry === "object" ? entry.icon : null;
           if (label) labels.push(label);
           if (icon) hasIcon = true;
@@ -195,13 +196,24 @@ function screenTree(s) {
     items: s.navItems || 6,
     activeItem: s.activeNavItem || null,
   };
-  var nodes = chromeNodes(chrome, sidebarConfig, s.pageHeader || null, s.header || null);
+  var nodes = chromeNodes(
+    chrome,
+    sidebarConfig,
+    s.pageHeader || null,
+    s.header || null,
+  );
 
   // Content-area frame (innermost)
+  // Padding mirrors the HTML reference `.screen__content-area` (24px 32px:
+  // 24 vertical / 32 horizontal) so the Figma push and the HTML deliverable
+  // share the same content inset. Inter-item spacing is intentionally NOT set
+  // here: real content[] is a single wrapping frame carrying its own
+  // layout.spacing (see fixtures/twin-emit/*.content.json), matching the
+  // HTML content-area which has no gap.
   var contentArea = {
     type: "FRAME",
     name: "content-area",
-    layout: { mode: "VERTICAL", padding: 24 },
+    layout: { mode: "VERTICAL", padding: { vertical: 24, horizontal: 32 } },
     sizing: { horizontal: "FILL" },
     children: s.content || [],
   };
