@@ -30,6 +30,20 @@ var FM_KEYS = sharedConstants.buildKeyMapFromRegistry("fmkit", "fm");
 var DS_KEYS = sharedConstants.buildKeyMapFromRegistry("dskit", "ds");
 
 // ---------------------------------------------------------------------------
+// Lookup-ref derivation
+// For FM nodes: always node.ref (camelCase, e.g. "fmButton").
+// For DS nodes: node.ref if present (convert-to-hifi path), else derive from
+// node.dsSlug via slugToRef (canonical generate-flow --hifi path).
+// ---------------------------------------------------------------------------
+function resolveDsRef(node) {
+  if (typeof node.ref === "string" && node.ref) return node.ref;
+  if (typeof node.dsSlug === "string" && node.dsSlug) {
+    return sharedConstants.slugToRef(node.dsSlug, "ds");
+  }
+  return undefined;
+}
+
+// ---------------------------------------------------------------------------
 // CLI — copied verbatim from figma-table/render-figma.js lines 38-70
 // ---------------------------------------------------------------------------
 
@@ -96,18 +110,29 @@ function main() {
     });
   });
 
-  // After structural validation: check INSTANCE refs against the appropriate registry
+  // After structural validation: check INSTANCE refs against the appropriate registry.
+  // DS nodes may carry dsSlug (canonical --hifi shape) instead of ref — derive the
+  // lookup ref via resolveDsRef so both shapes are validated.
   function collectInstances(node, basePath) {
     if (!node || typeof node !== "object") return;
-    if (node.type === "INSTANCE" && typeof node.ref === "string" && node.ref) {
+    if (node.type === "INSTANCE") {
       var isDs = node.library === "ds";
-      var keyMap = isDs ? DS_KEYS : FM_KEYS;
-      var tier = isDs ? "ds" : "fm";
-      if (!keyMap[node.ref]) {
-        errors.push({
-          path: basePath + ".ref",
-          message: "unknown " + tier + " ref: " + node.ref,
-        });
+      if (isDs) {
+        var dsRef = resolveDsRef(node);
+        if (dsRef && !DS_KEYS[dsRef]) {
+          var label = node.dsSlug || node.ref;
+          errors.push({
+            path: basePath + ".dsSlug",
+            message: "unknown ds ref: " + label + " (resolved: " + dsRef + ")",
+          });
+        }
+      } else if (typeof node.ref === "string" && node.ref) {
+        if (!FM_KEYS[node.ref]) {
+          errors.push({
+            path: basePath + ".ref",
+            message: "unknown fm ref: " + node.ref,
+          });
+        }
       }
     }
     if (Array.isArray(node.children)) {
@@ -471,8 +496,11 @@ function buildWantMap(node) {
 }
 
 function emitInstance(node, v, lines) {
-  var keyMap = node.library === "ds" ? DS_KEYS : FM_KEYS;
-  var entry = keyMap[node.ref]; // guaranteed present (gate checked)
+  var isDs = node.library === "ds";
+  var keyMap = isDs ? DS_KEYS : FM_KEYS;
+  // For DS nodes, resolve via dsSlug when ref is absent (canonical --hifi shape).
+  var lookupRef = isDs ? resolveDsRef(node) : node.ref;
+  var entry = keyMap[lookupRef]; // guaranteed present (gate checked)
   if (entry.method === "set") {
     lines.push(
       "const " +

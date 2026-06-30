@@ -11,6 +11,7 @@ var NODE_TYPES = ["FRAME", "TEXT", "INSTANCE", "RECT", "ELLIPSE", "DIVIDER"];
 var ALLOWED_KEYS = [
   "type",
   "ref",
+  "dsSlug",
   "variant",
   "props",
   "library",
@@ -55,11 +56,16 @@ function validateNode(node) {
       message: "unknown node type: " + String(node.type),
     });
   }
-  if (node.type === "INSTANCE" && (typeof node.ref !== "string" || !node.ref)) {
-    errors.push({
-      path: "ref",
-      message: "INSTANCE requires a non-empty string ref",
-    });
+  if (node.type === "INSTANCE") {
+    var hasRef = typeof node.ref === "string" && node.ref;
+    var hasDsSlug = typeof node.dsSlug === "string" && node.dsSlug;
+    if (!hasRef && !hasDsSlug) {
+      errors.push({
+        path: "ref",
+        message:
+          "INSTANCE requires a non-empty string ref (or dsSlug for library:ds nodes)",
+      });
+    }
   }
   Object.keys(node).forEach(function (k) {
     if (ALLOWED_KEYS.indexOf(k) === -1) {
