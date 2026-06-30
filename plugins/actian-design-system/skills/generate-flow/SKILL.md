@@ -286,7 +286,7 @@ Does this work, or would you like to adjust?
 - **production** — all states, edge cases, loading, empty, error
 
 **Config (defaults shown; only answer to change):**
-- Output:        **Fat Marker** — fast lo-fi wireframe, FM palette (default) | **hi-fi** — DS-native, themed, share-ready
+- Output:        **Fat Marker** (fast lo-fi wireframe, FM palette; default) | **hi-fi** (DS-native, themed, share-ready)
 - Variants:      1 (default) | 2 | 3
 - References:    none (default) | <paste Figma URL(s)>
 - Breakpoints:   desktop (default) | + tablet | + mobile | all
