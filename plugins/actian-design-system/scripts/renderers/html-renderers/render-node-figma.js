@@ -22,6 +22,7 @@
 var fs = require("fs");
 var validateNode = require("./validate-node.js");
 var sharedConstants = require("../../lib/shared-constants.js");
+var dsSetProps = require("./ds-set-props.js");
 
 // Build the FM key map once at module load (camelCase ref → { key, method })
 var FM_KEYS = sharedConstants.buildKeyMapFromRegistry("fmkit", "fm");
@@ -528,16 +529,9 @@ function emitInstance(node, v, lines, ctx) {
   var want = buildWantMap(node);
   if (Object.keys(want).length) {
     lines.push(
-      "{ const __defs = " +
-        v +
-        ".componentProperties; const __want = " +
-        JSON.stringify(want) +
-        "; const __resolved = {};",
+      "__dsSetProps(" + v + ", " + JSON.stringify(want) + ", __dsDropped);",
     );
-    lines.push(
-      "  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });",
-    );
-    lines.push("  " + v + ".setProperties(__resolved); }");
+    ctx.usedSetProps = true;
   }
   recordSizing(node, v, ctx);
 }
@@ -566,7 +560,12 @@ function emitNode(node, v, lines, ctx) {
 // --- Top-level emit ---------------------------------------------------------
 
 function emit(nodes, parentId) {
-  var ctx = { fonts: {}, fillSizing: [], defaultFont: "Inter" };
+  var ctx = {
+    fonts: {},
+    fillSizing: [],
+    defaultFont: "Inter",
+    usedSetProps: false,
+  };
   var body = [];
   var roots = [];
   nodes.forEach(function (n, i) {
@@ -597,6 +596,16 @@ function emit(nodes, parentId) {
         "]);",
     );
   }
+  // Best-effort prop helper: emit once when any INSTANCE with props is present.
+  // The helper is stringified so it runs inside Figma (same code that runs in
+  // the Node unit tests). Emitted after font-preload so it is defined before
+  // the body calls __dsSetProps(...).
+  if (ctx.usedSetProps) {
+    header.push("var __dsDropped = [];");
+    header.push(
+      "var __dsSetProps = " + dsSetProps.dsSetPropsBestEffort.toString() + ";",
+    );
+  }
   // Footer: append roots into parent, apply FILL sizing post-append, return IDs
   var footer = [];
   footer.push(
@@ -619,7 +628,9 @@ function emit(nodes, parentId) {
         .join(", ") +
       "], mutatedNodeIds: [" +
       JSON.stringify(parentId) +
-      "] };",
+      "]" +
+      (ctx.usedSetProps ? ", droppedProps: __dsDropped" : "") +
+      " };",
   );
   return {
     code: header.concat(body, footer).join("\n"),

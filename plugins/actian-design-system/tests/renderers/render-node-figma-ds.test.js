@@ -167,4 +167,67 @@ describe("render-node-figma — DS tier", function () {
     var out = rnf.emit(nodes, "1:2");
     assert.ok(out.code.indexOf("createInstance") !== -1);
   });
+
+  // -------------------------------------------------------------------------
+  // T-setprops: best-effort prop helper wiring in emitter
+  // RED until render-node-figma.js uses __dsSetProps (Task 4 fix)
+  // -------------------------------------------------------------------------
+  it("emits __dsSetProps helper once in header, a __dsSetProps call in body, and droppedProps in footer", function () {
+    var dsBtnKey = DS_KEYS["dsButton"].key;
+    var nodes = [
+      {
+        type: "INSTANCE",
+        library: "ds",
+        ref: "dsButton",
+        props: { Label: "Save" },
+      },
+    ];
+    var out = rnf.emit(nodes, "1:2");
+    var code = out.code;
+
+    // Helper def emitted exactly once in the header
+    var helperIdx = code.indexOf("var __dsSetProps =");
+    assert.ok(helperIdx !== -1, "helper def 'var __dsSetProps =' emitted");
+    assert.strictEqual(
+      code.indexOf("var __dsSetProps =", helperIdx + 1),
+      -1,
+      "helper def emitted only once (no duplicate)",
+    );
+
+    // __dsDropped array declared before body uses it
+    assert.ok(
+      code.indexOf("var __dsDropped = []") !== -1,
+      "__dsDropped array declaration present",
+    );
+
+    // Body contains a __dsSetProps call for root0
+    assert.ok(
+      code.indexOf("__dsSetProps(root0") !== -1,
+      "body contains __dsSetProps(root0, ...) call",
+    );
+
+    // The old inlined resolution block is gone
+    assert.strictEqual(
+      code.indexOf("const __defs ="),
+      -1,
+      "old inlined __defs block is removed",
+    );
+    assert.strictEqual(
+      code.indexOf("const __want ="),
+      -1,
+      "old inlined __want block is removed",
+    );
+
+    // Footer includes droppedProps field
+    assert.ok(
+      code.indexOf("droppedProps: __dsDropped") !== -1,
+      "footer return includes droppedProps: __dsDropped",
+    );
+
+    // DS Kit component KEY still in emitted code (import calls unchanged)
+    assert.ok(
+      code.indexOf(dsBtnKey) !== -1,
+      "DS Kit component key still present in emitted code",
+    );
+  });
 });
