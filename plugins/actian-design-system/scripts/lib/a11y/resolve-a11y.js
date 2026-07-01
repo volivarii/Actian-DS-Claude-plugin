@@ -1,12 +1,22 @@
 #!/usr/bin/env node
 "use strict";
 
-// resolve-a11y.js — per-component accessibility rulesets from the vendored
+// resolve-a11y.js: per-component accessibility rulesets from the vendored
 // knowledge graph + accessibility bundle. Mirrors scripts/lib/app-context/
 // resolve-*.js (injection seams + thin CLI). For a component slug it unions
 // two graph a11y_ref sources: the component's OWN direct edge (its specific
 // a11y section, e.g. component:button -> a11y:buttons) and its category's
 // edges (cross-cutting concerns, e.g. category:action -> a11y:focus-keyboard).
+//
+// Sibling, deliberately not unified: scripts/lib/knowledge/a11y.js also
+// resolves a component's linked a11y criteria (direct + inherited-category
+// union), but from a DIFFERENT substrate (guideline meta.a11y_refs plus
+// category-defaults, via the a11y-index), and returns a short body_excerpt
+// rather than the full rule list. This module reads the knowledge GRAPH
+// (graph.json a11y_ref edges, per the design-audit program's "consume
+// graph.json" goal) plus the accessibility bundle, for the full per-component
+// rules design-audit needs. The two intentionally differ; reconcile
+// deliberately if the domain rule is ever unified.
 
 var fs = require("fs");
 var path = require("path");
@@ -58,8 +68,8 @@ function wcagFrom(node, section) {
     .filter(Boolean);
 }
 
-// Flatten a bundle section's blocks to rule strings (list items + paragraph
-// text).
+// Flatten a bundle section's blocks to rule strings (list items, paragraph
+// text, and table rows).
 function rulesFrom(section) {
   var out = [];
   var blocks = section && Array.isArray(section.blocks) ? section.blocks : [];
@@ -67,6 +77,33 @@ function rulesFrom(section) {
     if (bl && Array.isArray(bl.items)) {
       bl.items.forEach(function (it) {
         if (typeof it === "string" && it.trim()) out.push(it.trim());
+      });
+    } else if (bl && Array.isArray(bl.rows)) {
+      var headers =
+        Array.isArray(bl.headers) && bl.headers.length ? bl.headers : null;
+      bl.rows.forEach(function (row) {
+        if (!row || typeof row !== "object") return;
+        var line;
+        if (headers) {
+          line = headers
+            .filter(function (h) {
+              return row[h] !== undefined && row[h] !== null && row[h] !== "";
+            })
+            .map(function (h) {
+              return h + ": " + row[h];
+            })
+            .join(", ");
+        } else {
+          line = Object.keys(row)
+            .map(function (k) {
+              return row[k];
+            })
+            .filter(function (v) {
+              return v !== undefined && v !== null && v !== "";
+            })
+            .join(", ");
+        }
+        if (line) out.push(line);
       });
     } else if (bl && typeof bl.text === "string" && bl.text.trim()) {
       out.push(bl.text.trim());
@@ -120,12 +157,24 @@ function resolveA11y(slugs, opts) {
     var cid = "component:" + slug;
     var sources = [cid].concat(idx.inCat[cid] || []); // direct + via-category
     var a11y = [];
-    var seen = {};
+    var bySection = {};
     sources.forEach(function (src) {
       (idx.a11yBySrc[src] || []).forEach(function (ref) {
         var sectionId = a11yId(ref.a11y);
-        if (!sectionId || seen[sectionId]) return;
-        seen[sectionId] = true;
+        if (!sectionId) return;
+        var existing = bySection[sectionId];
+        if (existing) {
+          // Re-encountered via another source (e.g. direct edge then
+          // category edge, or vice versa): upgrade an empty note with a
+          // substantive one rather than keeping whichever arrived first.
+          if (!existing.note && ref.note) {
+            existing.note = ref.note;
+            if (categories[sectionId] && !categories[sectionId].note) {
+              categories[sectionId].note = ref.note;
+            }
+          }
+          return;
+        }
         var section = sectionFor(sectionId);
         var node = idx.nodeById[ref.a11y];
         var entry = {
@@ -134,6 +183,11 @@ function resolveA11y(slugs, opts) {
           rules: rulesFrom(section),
           note: ref.note || "",
         };
+        // Contentless entries (no wcag, no rules, no note) are noise; skip
+        // recording them. A later ref for the same section with a note can
+        // still create the entry (bySection stays unset until recorded).
+        if (!entry.wcag.length && !entry.rules.length && !entry.note) return;
+        bySection[sectionId] = entry;
         a11y.push(entry);
         if (!categories[sectionId]) {
           categories[sectionId] = {
@@ -171,10 +225,10 @@ if (require.main === module) {
       .filter(Boolean);
     var res = resolveA11y(list);
     process.stdout.write(JSON.stringify(res, null, 2) + "\n");
-    var any = Object.keys(res.slugs).some(function (k) {
-      return res.slugs[k].resolved;
-    });
-    process.exit(any ? 0 : 1);
+    // A Fat-Marker-only target (no DS component match, all slugs
+    // resolved:false) is a legitimate, documented outcome, not a failure:
+    // always succeed once --slugs was supplied and parsed.
+    process.exit(0);
   }
   process.stderr.write("usage: resolve-a11y.js --slugs <slug,slug,...>\n");
   process.exit(2);

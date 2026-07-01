@@ -52,10 +52,26 @@ describe("resolve-a11y (real vendored substrate)", function () {
 
   it("resolves the representative real-component surface", function () {
     var slugs = [
-      "button", "modal", "tabs", "tooltip", "radio-button", "toggle",
-      "segmented-control", "side-nav", "breadcrumbs", "table", "search",
-      "stepper", "notification", "popover", "calendar", "toolbar", "loader",
-      "empty-state", "error-state", "input",
+      "button",
+      "modal",
+      "tabs",
+      "tooltip",
+      "radio-button",
+      "toggle",
+      "segmented-control",
+      "side-nav",
+      "breadcrumbs",
+      "table",
+      "search",
+      "stepper",
+      "notification",
+      "popover",
+      "calendar",
+      "toolbar",
+      "loader",
+      "empty-state",
+      "error-state",
+      "input",
     ];
     var res = resolver.resolveA11y(slugs);
     var missing = slugs.filter(function (s) {
@@ -73,6 +89,56 @@ describe("resolve-a11y (real vendored substrate)", function () {
     var b = JSON.stringify(resolver.resolveA11y(["button", "modal"]));
     assert.strictEqual(a, b);
   });
+
+  it("flattens table blocks into rule strings (F-B)", function () {
+    var res = resolver.resolveA11y(["button"]);
+    var b = res.slugs["button"];
+    var colorContrast = b.a11y.find(function (e) {
+      return e.section === "color-contrast";
+    });
+    assert.ok(
+      colorContrast,
+      "button should reach color-contrast via category:action",
+    );
+    assert.ok(
+      colorContrast.rules.some(function (r) {
+        return /4\.5:1/.test(r);
+      }),
+      "expected a table-derived rule mentioning a 4.5:1 contrast ratio",
+    );
+  });
+
+  it("keeps the substantive note when a section is reached via both direct + category edges (F-A)", function () {
+    var res = resolver.resolveA11y(["table"]);
+    var entry = res.slugs["table"].a11y.find(function (e) {
+      return e.section === "data-tables";
+    });
+    assert.ok(entry, "table should have a data-tables entry");
+    assert.ok(entry.note, "note should not be empty");
+    assert.ok(
+      /reflow|scroll|clip/i.test(entry.note),
+      "expected the substantive category note, got: " +
+        JSON.stringify(entry.note),
+    );
+  });
+
+  it("drops contentless section entries but keeps the slug resolved (F-C)", function () {
+    var res = resolver.resolveA11y(["input"]);
+    var input = res.slugs["input"];
+    assert.strictEqual(input.resolved, true, "input should still resolve");
+    assert.ok(
+      input.a11y.every(function (e) {
+        return e.wcag.length || e.rules.length || e.note;
+      }),
+      "every entry should carry wcag, rules, or a note",
+    );
+    assert.ok(
+      !input.a11y.some(function (e) {
+        return e.section === "states";
+      }),
+      "the contentless 'states' section should not appear",
+    );
+  });
 });
 
 describe("resolve-a11y (injected seam)", function () {
@@ -82,14 +148,42 @@ describe("resolve-a11y (injected seam)", function () {
         { id: "component:widget", type: "component", title: "widget" },
         { id: "component:gadget", type: "component", title: "gadget" },
         { id: "category:demo", type: "category", title: "demo" },
-        { id: "a11y:buttons", type: "a11y_criterion", title: "Buttons", wcag: ["4.1.2"] },
-        { id: "a11y:focus-keyboard", type: "a11y_criterion", title: "Focus", wcag: ["2.1.1"] },
+        {
+          id: "a11y:buttons",
+          type: "a11y_criterion",
+          title: "Buttons",
+          wcag: ["4.1.2"],
+        },
+        {
+          id: "a11y:focus-keyboard",
+          type: "a11y_criterion",
+          title: "Focus",
+          wcag: ["2.1.1"],
+        },
       ],
       edges: [
-        { type: "in_category", source: "component:widget", target: "category:demo" },
-        { type: "in_category", source: "component:gadget", target: "category:demo" },
-        { type: "a11y_ref", source: "component:widget", target: "a11y:buttons", note: "name it" },
-        { type: "a11y_ref", source: "category:demo", target: "a11y:focus-keyboard", note: "focus ring" },
+        {
+          type: "in_category",
+          source: "component:widget",
+          target: "category:demo",
+        },
+        {
+          type: "in_category",
+          source: "component:gadget",
+          target: "category:demo",
+        },
+        {
+          type: "a11y_ref",
+          source: "component:widget",
+          target: "a11y:buttons",
+          note: "name it",
+        },
+        {
+          type: "a11y_ref",
+          source: "category:demo",
+          target: "a11y:focus-keyboard",
+          note: "focus ring",
+        },
       ],
     };
     var bundle = {
@@ -103,10 +197,15 @@ describe("resolve-a11y (injected seam)", function () {
       "focus-keyboard": {
         id: "focus-keyboard",
         body: "WCAG criteria: 2.1.1",
-        blocks: [{ type: "list", items: ["Every control is keyboard reachable."] }],
+        blocks: [
+          { type: "list", items: ["Every control is keyboard reachable."] },
+        ],
       },
     };
-    var res = resolver.resolveA11y(["widget", "gadget"], { graph: graph, bundle: bundle });
+    var res = resolver.resolveA11y(["widget", "gadget"], {
+      graph: graph,
+      bundle: bundle,
+    });
     var w = res.slugs["widget"];
     assert.strictEqual(w.resolved, true);
     var sections = w.a11y
@@ -143,10 +242,19 @@ describe("resolve-a11y (injected seam)", function () {
         { id: "component:x", type: "component" },
         { id: "a11y:forms", type: "a11y_criterion", title: "Forms" },
       ],
-      edges: [{ type: "a11y_ref", source: "component:x", target: "a11y:forms", note: "" }],
+      edges: [
+        {
+          type: "a11y_ref",
+          source: "component:x",
+          target: "a11y:forms",
+          note: "",
+        },
+      ],
     };
     var bundle = {
-      components: { forms: { body: "WCAG criteria: 1.3.1, 3.3.2", blocks: [] } },
+      components: {
+        forms: { body: "WCAG criteria: 1.3.1, 3.3.2", blocks: [] },
+      },
     };
     var res = resolver.resolveA11y(["x"], { graph: graph, bundle: bundle });
     assert.deepStrictEqual(res.slugs["x"].a11y[0].wcag, ["1.3.1", "3.3.2"]);
