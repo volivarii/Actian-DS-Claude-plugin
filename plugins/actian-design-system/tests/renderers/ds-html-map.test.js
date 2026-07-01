@@ -2597,3 +2597,105 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 1: overlays.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: popover (A1)", function () {
+  it("renders a popover card — not a chip — with title + body + info icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      variant: "Type=Interaction guide",
+      props: {
+        Title: "Quick tip",
+        Body: "Do this next",
+        "Show info icon": true,
+      },
+    });
+    assert.ok(html.indexOf("ds-popover") !== -1, "popover built leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "popover not a chip");
+    assert.ok(html.indexOf("Quick tip") !== -1, "title text");
+    assert.ok(html.indexOf("Do this next") !== -1, "body text");
+    assert.ok(html.indexOf("ds-icon") !== -1, "info icon glyph shown");
+  });
+
+  it("Type=Advanced search adds the modifier; info icon off by default", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      variant: "Type=Advanced search",
+      props: { Title: "Filters" },
+    });
+    assert.ok(
+      html.indexOf("ds-popover--advanced-search") !== -1,
+      "advanced-search modifier",
+    );
+    assert.ok(
+      html.indexOf("ds-popover__info") === -1,
+      "no info icon by default",
+    );
+  });
+
+  it("hostile prop shape does not throw", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      props: { Title: { bad: 1 }, Body: [1, 2] },
+    });
+    assert.ok(typeof html === "string", "returns a string, never throws");
+  });
+});
+
+describe("ds-html-map: account-dropdown (A1)", function () {
+  it("renders an account menu — not a chip — with identity + default items", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "account-dropdown",
+      props: { Name: "Ada Lovelace", Email: "ada@example.com" },
+    });
+    assert.ok(
+      html.indexOf("ds-account-menu") !== -1,
+      "account-menu leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "account-menu not a chip");
+    assert.ok(html.indexOf("Ada Lovelace") !== -1, "name text");
+    assert.ok(html.indexOf("ada@example.com") !== -1, "email text");
+    assert.ok(html.indexOf("Sign out") !== -1, "default sign-out item");
+    assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
+  });
+
+  it("accepts a custom Items list", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "account-dropdown",
+      props: { Items: "Profile, Preferences, Log out" },
+    });
+    assert.ok(html.indexOf("Preferences") !== -1, "custom item rendered");
+  });
+});
+
+describe("ds-html-map: app-switcher-dropdown (A1)", function () {
+  it("renders an app switcher menu — not a chip — with apps + settings", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "app-switcher-dropdown",
+      props: { Items: "Data Studio, Catalog" },
+    });
+    assert.ok(
+      html.indexOf("ds-app-switcher") !== -1,
+      "app-switcher leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "app-switcher not a chip");
+    assert.ok(html.indexOf("Data Studio") !== -1, "app item text");
+    assert.ok(html.indexOf("Settings") !== -1, "settings row");
+    assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
+  });
+});

@@ -1312,6 +1312,121 @@
           );
         }
 
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays ----
+
+        case "popover": {
+          // Registry axis: Type = Interaction guide | Advanced search; prop
+          // "Show info icon". A floating card: optional info icon + title +
+          // body + arrow. role=dialog for assistive tech.
+          var poAdvanced = v.Type === "Advanced search";
+          var poCls =
+            "ds-popover" + (poAdvanced ? " ds-popover--advanced-search" : "");
+          var poInfo = props["Show info icon"]
+            ? '<span class="ds-popover__info" aria-hidden="true">' +
+              renderIcon("help-circle") +
+              "</span>"
+            : "";
+          var poTitle = props.Title
+            ? '<span class="ds-popover__title">' + esc(props.Title) + "</span>"
+            : "";
+          var poBody = props.Body
+            ? '<span class="ds-popover__body">' + esc(props.Body) + "</span>"
+            : "";
+          return (
+            '<div class="' +
+            poCls +
+            '" role="dialog" aria-label="' +
+            esc(props.Title || "Popover") +
+            '">' +
+            '<div class="ds-popover__header">' +
+            poInfo +
+            poTitle +
+            "</div>" +
+            poBody +
+            '<span class="ds-popover__arrow" aria-hidden="true"></span>' +
+            "</div>"
+          );
+        }
+
+        case "account-dropdown": {
+          // No registry variants/props (single-import; nested help-bubble /
+          // arrow-down / exit baked into the Figma component). Render an account
+          // menu overlay: identity header + default items (Items prop overrides).
+          var acName = esc(props.Name || "Account user");
+          var acEmail = props.Email
+            ? '<span class="ds-account-menu__email">' +
+              esc(props.Email) +
+              "</span>"
+            : "";
+          var acIcons = {
+            "account settings": "settings",
+            help: "help-bubble",
+            "sign out": "exit",
+          };
+          var acList = parseItems(props.Items, "Account settings,Help,Sign out")
+            .map(function (label) {
+              var ico = acIcons[label.toLowerCase()];
+              var g = ico
+                ? '<span class="ds-account-menu__icon" aria-hidden="true">' +
+                  renderIcon(ico) +
+                  "</span>"
+                : "";
+              return (
+                '<span class="ds-account-menu__item" role="menuitem">' +
+                g +
+                '<span class="ds-account-menu__label">' +
+                esc(label) +
+                "</span></span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-account-menu" role="menu" aria-label="Account">' +
+            '<div class="ds-account-menu__header">' +
+            '<span class="ds-account-menu__name">' +
+            acName +
+            "</span>" +
+            acEmail +
+            "</div>" +
+            '<div class="ds-account-menu__items">' +
+            acList +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "app-switcher-dropdown": {
+          // No registry variants/props (single-import; nested settings /
+          // arrow-down baked in). Render an app-switcher menu overlay: an app
+          // list + a settings row (Items prop overrides the app list).
+          var asList = parseItems(
+            props.Items,
+            "Data Studio,Data Catalog,Data Integration",
+          )
+            .map(function (label) {
+              return (
+                '<span class="ds-app-switcher__app" role="menuitem">' +
+                '<span class="ds-app-switcher__tile" aria-hidden="true"></span>' +
+                '<span class="ds-app-switcher__label">' +
+                esc(label) +
+                "</span></span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-app-switcher" role="menu" aria-label="Switch app">' +
+            '<div class="ds-app-switcher__apps">' +
+            asList +
+            "</div>" +
+            '<span class="ds-app-switcher__settings" role="menuitem">' +
+            '<span class="ds-app-switcher__icon" aria-hidden="true">' +
+            renderIcon("settings") +
+            "</span>" +
+            '<span class="ds-app-switcher__label">Settings</span></span>' +
+            "</div>"
+          );
+        }
+
         default: {
           // Anatomy dispatch: if an assemble-time anatomy map was supplied,
           // look up the pre-rendered HTML. Browser deliverables embed it on
@@ -1364,6 +1479,10 @@
     "dropdown-select-default",
     "progress-bar-small",
     "tag-interactive",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays.
+    "popover",
+    "account-dropdown",
+    "app-switcher-dropdown",
   ];
 
   exports.renderDSComponent = renderDSComponent;

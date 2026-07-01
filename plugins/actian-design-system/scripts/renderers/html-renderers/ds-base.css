@@ -1838,3 +1838,193 @@
   min-width: var(--zen-size-lg);
   min-height: var(--zen-size-lg);
 }
+
+/* ===================================================================== */
+/* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 1: overlays.  */
+/* ===================================================================== */
+
+/* ============ Popover (floating card overlay) ============ */
+/* Registry axis: Type = Interaction guide | Advanced search; prop Show info icon. */
+.ds-popover {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs);
+  max-width: 320px; /* raw px: popover card width */
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-popover--advanced-search {
+  max-width: 400px; /* raw px: wider advanced-search variant */
+}
+.ds-popover__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-popover__info {
+  width: 16px; /* raw px: info icon box */
+  height: 16px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-primary);
+}
+.ds-popover__info svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-popover__title {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-popover__body {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-popover__arrow {
+  position: absolute;
+  left: var(--zen-spacing-md);
+  bottom: -5px; /* raw px: caret tip offset */
+  width: 10px; /* raw px: caret geometry */
+  height: 10px;
+  background: var(--zen-color-bg-default);
+  border-left: 1px solid var(--zen-border-default);
+  border-bottom: 1px solid var(--zen-border-default);
+  transform: rotate(-45deg);
+}
+
+/* ============ Account menu (identity + item overlay) ============ */
+/* Single-import; nested help-bubble / arrow-down / exit baked into the component. */
+.ds-account-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px; /* raw px: menu overlay width */
+  padding: var(--zen-spacing-2xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-account-menu__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* raw px: tight identity stack */
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-bottom: 1px solid var(--zen-border-default);
+  margin-bottom: var(--zen-spacing-2xs);
+}
+.ds-account-menu__name {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-account-menu__email {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-account-menu__items {
+  display: flex;
+  flex-direction: column;
+}
+.ds-account-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-account-menu__icon {
+  width: 20px; /* raw px: item icon box */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-account-menu__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============ App switcher (product grid + settings overlay) ============ */
+/* Single-import; nested settings / arrow-down baked into the component. */
+.ds-app-switcher {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* raw px: switcher overlay width */
+  padding: var(--zen-spacing-2xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-app-switcher__apps {
+  display: flex;
+  flex-direction: column;
+}
+.ds-app-switcher__app {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-app-switcher__tile {
+  width: 24px; /* raw px: product tile */
+  height: 24px;
+  flex: 0 0 auto;
+  background: var(--zen-color-bg-subtle);
+  border-radius: var(--zen-border-radius-sm);
+}
+.ds-app-switcher__settings {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  margin-top: var(--zen-spacing-2xs);
+  border-top: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-app-switcher__icon {
+  width: 20px; /* raw px: settings icon box */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-app-switcher__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
