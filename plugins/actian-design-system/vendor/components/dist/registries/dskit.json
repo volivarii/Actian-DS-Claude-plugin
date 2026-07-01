@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-06-25T10:13:44.852Z",
-  "componentCount": 318,
+  "lastSynced": "2026-07-01T10:42:44.798Z",
+  "componentCount": 317,
   "components": {
     "xs-grid": {
       "name": "XS grid",
@@ -1706,11 +1706,6 @@
           "source": "child-instance"
         },
         {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
           "slug": "task-list",
           "role": null,
           "source": "child-instance"
@@ -2209,10 +2204,6 @@
           "type": "BOOLEAN",
           "default": true
         },
-        "Trailing icon#458:10": {
-          "type": "BOOLEAN",
-          "default": true
-        },
         "Label#458:13": {
           "type": "BOOLEAN",
           "default": true
@@ -2251,9 +2242,9 @@
         },
         "Input text#9633:68": {
           "type": "TEXT",
-          "default": "Typed"
+          "default": "Entered value"
         },
-        ".Textfield buttons#14241:0": {
+        "Textfield buttons#14241:0": {
           "type": "BOOLEAN",
           "default": true
         }
@@ -2270,17 +2261,17 @@
           "source": "child-instance"
         },
         {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
           "slug": "simple-check",
           "role": null,
           "source": "child-instance"
         },
         {
           "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
           "role": null,
           "source": "child-instance"
         }
@@ -2293,11 +2284,12 @@
       "variants": {
         "States": [
           "Default",
-          "Hovered",
-          "Focused",
+          "Hover",
+          "Focus",
           "Active",
           "Filled",
           "Error",
+          "Warning",
           "Disabled",
           "Read-only"
         ]
@@ -6859,21 +6851,6 @@
       "category": "Navigation",
       "categorySlug": "navigation",
       "group": "Global header"
-    },
-    "notes-feedback": {
-      "name": "Notes/Feedback",
-      "key": "4f1fba9d4ba4dd56ef8f60b7190456bf824a2089",
-      "nodeId": "8662:6474",
-      "importMethod": "single",
-      "description": "",
-      "page": "Local components",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Other Resources",
-      "category": "Local components",
-      "categorySlug": "local-components",
-      "group": "Local components"
     },
     "close": {
       "name": "close",

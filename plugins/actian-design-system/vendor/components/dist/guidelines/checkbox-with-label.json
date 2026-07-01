@@ -586,35 +586,42 @@
         },
         {
           "token": "spacing-2xs",
+          "property": "gap",
           "context": "Gap between box and label"
         },
         {
           "token": "color-text-primary",
+          "property": "color",
           "context": "Label text"
         },
         {
           "token": "font-family-text",
+          "property": "font-family",
           "context": "Label font family"
         },
         {
           "token": "font-size-md",
+          "property": "font-size",
           "context": "Label font size"
         },
         {
           "token": "font-weight-regular",
+          "property": "font-weight",
           "context": "Label font weight"
         },
         {
           "token": "font-lineheight-md",
+          "property": "line-height",
           "context": "Label line height"
         },
         {
           "token": "font-letterspacing-wide-2",
+          "property": "letter-spacing",
           "context": "Label letter spacing"
         }
       ]
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00",
+  "updated_at": "2026-07-01T12:29:36+02:00",
   "_alias_of": "checkbox"
 }

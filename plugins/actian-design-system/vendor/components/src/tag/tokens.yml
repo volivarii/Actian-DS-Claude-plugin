@@ -1,17 +1,19 @@
 # yaml-language-server: $schema=../../../schemas/guideline-tokens.json
 # NOTE: Default-Color palette only. The per-Color hue palette (<hue>/25 bg +
-# <hue>/50 border) is deferred — captured when the tag Color axis is built out.
+# <hue>/50 border) is deferred, captured when the tag Color axis is built out.
+#
+# `property` marks a binding render-grade.
 bindings:
-  - { token: size-lg,                    context: "Height" }
-  - { token: spacing-xs,                 context: "Horizontal padding" }
-  - { token: spacing-2xs,                context: "Gap between icon and label" }
-  - { token: border-default,             context: "Border (Default color)" }
-  - { token: border-radius-sm,           context: "Corner rounding" }
-  - { token: color-bg-subtle,            context: "Fill (Default color)" }
-  - { token: color-text-tertiary,        context: "Label text" }
-  - { token: color-icon-default,         context: "Leading icon" }
-  - { token: font-family-text,           context: "Font family" }
-  - { token: font-size-sm,               context: "Label font size" }
-  - { token: font-weight-regular,        context: "Label font weight" }
-  - { token: font-lineheight-sm,         context: "Label line height" }
-  - { token: font-letterspacing-wide-3,  context: "Label letter spacing" }
+  - { token: size-lg,                    property: height,           context: "Height" }
+  - { token: spacing-xs,                 property: padding,          context: "Horizontal padding" }
+  - { token: spacing-2xs,                property: gap,              context: "Gap between icon and label" }
+  - { token: border-default,             property: border-color,     context: "Border (Default color)" }
+  - { token: border-radius-sm,           property: border-radius,    context: "Corner rounding" }
+  - { token: color-bg-subtle,            property: background-color, context: "Fill (Default color)" }
+  - { token: color-text-tertiary,        property: color,            context: "Label text" }
+  - { token: color-icon-default,         property: fill,             context: "Leading icon" }
+  - { token: font-family-text,           property: font-family,      context: "Font family" }
+  - { token: font-size-sm,               property: font-size,        context: "Label font size" }
+  - { token: font-weight-regular,        property: font-weight,      context: "Label font weight" }
+  - { token: font-lineheight-sm,         property: line-height,      context: "Label line height" }
+  - { token: font-letterspacing-wide-3,  property: letter-spacing,   context: "Label letter spacing" }

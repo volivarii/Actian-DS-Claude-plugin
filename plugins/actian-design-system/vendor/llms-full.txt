@@ -629,7 +629,7 @@ is two values. Default (un-suffixed) theme is Actian.
 | `--zen-color-text-link-default`       | `--zen-color-primary-500` | Hyperlinks                                  | 🟢 Shipped                                                           |
 | `--zen-color-text-link-reverse`       | `--zen-color-white`       | Hyperlinks on dark or primary-colored backgrounds | 🟡 Proposed                                                     |
 | `--zen-color-text-link-visited`       | `--zen-color-primary-700` | Visited hyperlinks                          | 🟡 Proposed                                                          |
-| `--zen-color-text-warning`            | `--zen-color-warning-600` | Warning messages                            | 🟢 Shipped                                                           |
+| `--zen-color-text-warning`            | `--zen-color-warning-800` | Warning messages                            | 🟡 Proposed                                                          |
 | `--zen-color-text-success`            | `--zen-color-success-600` | Success messages                            | 🟢 Shipped                                                           |
 | `--zen-color-text-reverse`            | `--zen-color-white`       | Text on dark or primary-colored backgrounds | 🟡 Proposed                                                          |
 
@@ -736,7 +736,7 @@ These are semantic aliases that combine weight + size + letter spacing + line he
 | `--zen-border-primary`  | `1px solid --zen-color-primary-500` | Interactive elements                           | 🟡 Proposed |
 | `--zen-border-selected` | `2px solid --zen-color-primary-500` | Selected state of components                   | 🟡 Proposed |
 | `--zen-border-error`    | `1px solid --zen-color-error-600`   | Error state inputs                             | 🟡 Proposed |
-| `--zen-border-warning`  | `1px solid --zen-color-warning-600` | Warning state                                  | 🟡 Proposed |
+| `--zen-border-warning`  | `1px solid --zen-color-warning-700` | Warning state                                  | 🟡 Proposed |
 | `--zen-border-success`  | `1px solid --zen-color-success-600` | Success state                                  | 🟡 Proposed |
 | `--zen-border-info`     | `1px solid --zen-color-primary-500` | Info state                                     | 🟡 Proposed |
 | `--zen-border-strong`   | `1px solid --zen-color-neutral-800` | High emphasis borders                          | 🟡 Proposed |
@@ -846,7 +846,7 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 | `--zen-color-icon-primary`  | `--zen-color-primary-500` | Primary action icons                                  | 🟡 Proposed |
 | `--zen-color-icon-error`    | `--zen-color-error-600`   | Error state icons                                     | 🟡 Proposed |
 | `--zen-color-icon-success`  | `--zen-color-success-600` | Success state icons                                   | 🟡 Proposed |
-| `--zen-color-icon-warning`  | `--zen-color-warning-600` | Warning state icons                                   | 🟡 Proposed |
+| `--zen-color-icon-warning`  | `--zen-color-warning-700` | Warning state icons                                   | 🟡 Proposed |
 | `--zen-color-icon-reverse`  | `--zen-color-white`       | Icons on dark or primary-colored backgrounds          | 🟡 Proposed |
 
 ### 2.11 Motion

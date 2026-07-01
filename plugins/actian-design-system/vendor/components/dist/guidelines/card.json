@@ -144,22 +144,27 @@
       "bindings": [
         {
           "token": "spacing-md",
+          "property": "padding",
           "context": "Card padding"
         },
         {
           "token": "spacing-xs",
+          "property": "gap",
           "context": "Inner stack gap"
         },
         {
           "token": "color-bg-default",
+          "property": "background-color",
           "context": "Fill (default)"
         },
         {
           "token": "border-default",
+          "property": "border-color",
           "context": "Border (default)"
         },
         {
           "token": "border-radius-sm",
+          "property": "border-radius",
           "context": "Corner rounding"
         },
         {
@@ -172,38 +177,46 @@
         },
         {
           "token": "color-text-primary",
+          "property": "color",
           "context": "Title text"
         },
         {
           "token": "color-text-tertiary",
+          "property": "color",
           "context": "Body text"
         },
         {
           "token": "font-family-text",
+          "property": "font-family",
           "context": "Font family"
         },
         {
           "token": "font-size-md",
+          "property": "font-size",
           "context": "Title and body font size"
         },
         {
           "token": "font-weight-semibold",
+          "property": "font-weight",
           "context": "Title font weight"
         },
         {
           "token": "font-weight-regular",
+          "property": "font-weight",
           "context": "Body font weight"
         },
         {
           "token": "font-lineheight-md",
+          "property": "line-height",
           "context": "Title and body line height"
         },
         {
           "token": "font-letterspacing-wide-2",
+          "property": "letter-spacing",
           "context": "Title letter spacing"
         }
       ]
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-01T12:29:36+02:00"
 }

@@ -65,7 +65,7 @@
   {
     "dimension": "connectivity",
     "metric": "categories_without_a11y",
-    "value": 6,
+    "value": 5,
     "timestamp": null,
     "severity": "info"
   },
