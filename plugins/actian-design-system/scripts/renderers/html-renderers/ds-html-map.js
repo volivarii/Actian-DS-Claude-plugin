@@ -1441,9 +1441,13 @@
           var segList = segItems
             .map(function (label) {
               var on = label === segActive;
+              // Compute the class into a variable (never inline a ternary inside
+              // the class attribute literal — the css-staleness extractor scans
+              // raw source and mis-parses an inline ternary there).
+              var segCls = "ds-segmented__item" + (on ? " is-active" : "");
               return (
-                '<span class="ds-segmented__item' +
-                (on ? " is-active" : "") +
+                '<span class="' +
+                segCls +
                 '" role="tab" aria-selected="' +
                 (on ? "true" : "false") +
                 '">' +
@@ -1521,6 +1525,84 @@
           );
         }
 
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date ----
+
+        case "loader": {
+          // Registry axis: Percent (auto-named variants). "loader" is the
+          // indeterminate activity spinner (determinate progress is the
+          // progress-bar-small leaf). Optional visible Label; role=status +
+          // aria-live for assistive tech.
+          var ldLabel = props.Label
+            ? '<span class="ds-loader__label">' + esc(props.Label) + "</span>"
+            : "";
+          return (
+            '<div class="ds-loader" role="status" aria-live="polite" aria-label="' +
+            esc(props.Label || "Loading") +
+            '">' +
+            '<span class="ds-loader__spinner" aria-hidden="true"></span>' +
+            ldLabel +
+            "</div>"
+          );
+        }
+
+        case "calendar": {
+          // Registry axes: Type = Single date select | Date | Month | Single;
+          // Selection = Single | Range | Year. A static month grid
+          // (DETERMINISTIC — no Date()): header (month/year + prev/next nav) +
+          // weekday row + day cells. Range renders a start→end band; else a
+          // single selected day. Month label is overridable via props.Month.
+          var calRange = v.Selection === "Range";
+          var calMonth = esc(props.Month || "June 2026");
+          var calWeek = ["S", "M", "T", "W", "T", "F", "S"]
+            .map(function (d) {
+              return (
+                '<span class="ds-calendar__weekday" aria-hidden="true">' +
+                d +
+                "</span>"
+              );
+            })
+            .join("");
+          // Static month layout: 2 leading blanks, then days 1..30.
+          var calCells = [
+            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
+            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
+          ];
+          for (var cd = 1; cd <= 30; cd++) {
+            var cdCls = "ds-calendar__day";
+            if (calRange) {
+              if (cd >= 12 && cd <= 16) cdCls += " is-range";
+              if (cd === 12) cdCls += " is-range-start";
+              if (cd === 16) cdCls += " is-range-end";
+            } else if (cd === 15) {
+              cdCls += " is-selected";
+            }
+            calCells.push(
+              '<button class="' + cdCls + '" type="button">' + cd + "</button>",
+            );
+          }
+          return (
+            '<div class="ds-calendar">' +
+            '<div class="ds-calendar__header">' +
+            '<button class="ds-calendar__nav" type="button" aria-label="Previous month">' +
+            renderIcon("chevron-left") +
+            "</button>" +
+            '<span class="ds-calendar__month">' +
+            calMonth +
+            "</span>" +
+            '<button class="ds-calendar__nav" type="button" aria-label="Next month">' +
+            renderIcon("chevron-left", { rotate: 180 }) +
+            "</button>" +
+            "</div>" +
+            '<div class="ds-calendar__weekdays">' +
+            calWeek +
+            "</div>" +
+            '<div class="ds-calendar__grid" role="grid">' +
+            calCells.join("") +
+            "</div>" +
+            "</div>"
+          );
+        }
+
         default: {
           // Anatomy dispatch: if an assemble-time anatomy map was supplied,
           // look up the pre-rendered HTML. Browser deliverables embed it on
@@ -1581,6 +1663,9 @@
     "segmented-control",
     "toolbar",
     "sticky-footer",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date.
+    "loader",
+    "calendar",
   ];
 
   exports.renderDSComponent = renderDSComponent;

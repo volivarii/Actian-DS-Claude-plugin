@@ -25,6 +25,8 @@ var A1_OVERRIDES = [
   { slug: "segmented-control", cls: "ds-segmented" },
   { slug: "toolbar", cls: "ds-toolbar" },
   { slug: "sticky-footer", cls: "ds-sticky-footer" },
+  { slug: "loader", cls: "ds-loader" },
+  { slug: "calendar", cls: "ds-calendar" },
 ];
 
 function fixture(slug) {

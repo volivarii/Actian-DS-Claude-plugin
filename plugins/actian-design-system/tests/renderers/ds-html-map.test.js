@@ -2793,3 +2793,76 @@ describe("ds-html-map: sticky-footer (A1)", function () {
     assert.ok(html.indexOf("Cancel") !== -1, "default secondary");
   });
 });
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 3: feedback + date.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: loader (A1)", function () {
+  it("renders a spinner — not a chip — with status role + optional label", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "loader",
+      props: { Label: "Fetching results" },
+    });
+    assert.ok(html.indexOf("ds-loader") !== -1, "loader leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "loader not a chip");
+    assert.ok(html.indexOf("ds-loader__spinner") !== -1, "spinner element");
+    assert.ok(html.indexOf('role="status"') !== -1, "status role");
+    assert.ok(html.indexOf("Fetching results") !== -1, "label text");
+  });
+
+  it("renders without a label and never throws", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "loader",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-loader__spinner") !== -1, "spinner still shown");
+    assert.ok(typeof html === "string", "returns a string");
+  });
+});
+
+describe("ds-html-map: calendar (A1)", function () {
+  it("renders a month grid — not a chip — with header, weekdays, selected day", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      variant: "Selection=Single",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-calendar") !== -1, "calendar leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
+    assert.ok(html.indexOf("ds-calendar__month") !== -1, "month header");
+    assert.ok(html.indexOf("ds-calendar__weekdays") !== -1, "weekday row");
+    assert.ok(html.indexOf("is-selected") !== -1, "a selected day");
+    assert.ok(html.indexOf(">15</button>") !== -1, "renders day cells");
+    assert.ok(html.indexOf("ds-icon") !== -1, "nav chevrons");
+  });
+
+  it("Selection=Range renders a start→end band", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      variant: "Selection=Range",
+      props: {},
+    });
+    assert.ok(html.indexOf("is-range-start") !== -1, "range start");
+    assert.ok(html.indexOf("is-range-end") !== -1, "range end");
+    assert.ok(html.indexOf("is-selected") === -1, "no single-select in range");
+  });
+
+  it("uses a provided Month label deterministically", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      props: { Month: "March 2027" },
+    });
+    assert.ok(html.indexOf("March 2027") !== -1, "custom month label");
+  });
+});
