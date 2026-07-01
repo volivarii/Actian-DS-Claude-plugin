@@ -68,58 +68,71 @@
       "bindings": [
         {
           "token": "size-lg",
+          "property": "height",
           "context": "Height"
         },
         {
           "token": "spacing-xs",
+          "property": "padding",
           "context": "Horizontal padding"
         },
         {
           "token": "spacing-2xs",
+          "property": "gap",
           "context": "Gap between icon and label"
         },
         {
           "token": "border-default",
+          "property": "border-color",
           "context": "Border (Default color)"
         },
         {
           "token": "border-radius-sm",
+          "property": "border-radius",
           "context": "Corner rounding"
         },
         {
           "token": "color-bg-subtle",
+          "property": "background-color",
           "context": "Fill (Default color)"
         },
         {
           "token": "color-text-tertiary",
+          "property": "color",
           "context": "Label text"
         },
         {
           "token": "color-icon-default",
+          "property": "fill",
           "context": "Leading icon"
         },
         {
           "token": "font-family-text",
+          "property": "font-family",
           "context": "Font family"
         },
         {
           "token": "font-size-sm",
+          "property": "font-size",
           "context": "Label font size"
         },
         {
           "token": "font-weight-regular",
+          "property": "font-weight",
           "context": "Label font weight"
         },
         {
           "token": "font-lineheight-sm",
+          "property": "line-height",
           "context": "Label line height"
         },
         {
           "token": "font-letterspacing-wide-3",
+          "property": "letter-spacing",
           "context": "Label letter spacing"
         }
       ]
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-01T12:29:36+02:00"
 }

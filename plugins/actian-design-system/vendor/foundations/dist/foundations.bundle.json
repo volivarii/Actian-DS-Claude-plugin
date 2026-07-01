@@ -4124,7 +4124,7 @@
               },
               {
                 "Token": "--zen-border-warning",
-                "Value": "1px solid --zen-color-warning-600",
+                "Value": "1px solid --zen-color-warning-700",
                 "Usage": "Warning state",
                 "status_note": "Proposed",
                 "status": "proposed"

@@ -359,12 +359,6 @@
       "provenance": "figma-dskit"
     },
     {
-      "id": "category:local-components",
-      "type": "category",
-      "title": "Local components",
-      "provenance": "figma-dskit"
-    },
-    {
       "id": "category:navigation",
       "type": "category",
       "title": "Navigation",
@@ -2394,11 +2388,6 @@
       "title": "newspaper"
     },
     {
-      "id": "component:notes-feedback",
-      "type": "component",
-      "title": "Notes/Feedback"
-    },
-    {
       "id": "component:notification",
       "type": "component",
       "title": "Notification"
@@ -4403,7 +4392,7 @@
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/text-input/",
+        "source_file": "components/src/input/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -4463,7 +4452,7 @@
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/filters/",
+        "source_file": "components/src/search-filters/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -4571,7 +4560,7 @@
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/toggle-control/",
+        "source_file": "components/src/toggle/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -4583,7 +4572,7 @@
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/whats-new/",
+        "source_file": "components/src/whats-new-dropdown/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -4595,7 +4584,7 @@
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/whats-new/",
+        "source_file": "components/src/whats-new-dropdown/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -5749,11 +5738,6 @@
     {
       "source": "component:netezza",
       "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:notes-feedback",
-      "target": "category:local-components",
       "type": "in_category"
     },
     {

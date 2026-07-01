@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+# `property` marks a binding render-grade. Sub-part bindings (placeholder,
+# helper text, required asterisk, per-part font weights) and the dual-role
+# field/inner spacing are left unmapped, deferred to the part seam slice.
+bindings:
+  - { token: color-bg-default,           property: background-color, context: "Input field fill" }
+  - { token: border-default,             property: border-color,     context: "Input field border" }
+  - { token: border-radius-xs,           property: border-radius,    context: "Input field corner rounding" }
+  - { token: color-text-placeholder,                                 context: "Input placeholder text" }
+  - { token: color-text-primary,         property: color,            context: "Label and description text" }
+  - { token: color-text-error,                                       context: "Required asterisk" }
+  - { token: color-text-secondary,                                   context: "Helper text" }
+  - { token: color-icon-default,         property: fill,             context: "Info icon and trailing icon" }
+  - { token: spacing-xs,                                             context: "Field stack gap and input inner padding" }
+  - { token: spacing-2xs,                property: gap,              context: "Label-row gap" }
+  - { token: font-family-text,           property: font-family,      context: "Font family" }
+  - { token: font-size-md,               property: font-size,        context: "Label, input and description font size" }
+  - { token: font-size-sm,                                           context: "Helper text font size" }
+  - { token: font-weight-medium,         property: font-weight,      context: "Label font weight" }
+  - { token: font-weight-regular,                                    context: "Input and description font weight" }
+  - { token: font-lineheight-md,         property: line-height,      context: "Label and input line height" }
+  - { token: font-lineheight-sm,                                     context: "Helper text line height" }
+  - { token: font-letterspacing-wide-2,  property: letter-spacing,   context: "Label and input letter spacing" }
+  - { token: font-letterspacing-wide-3,                              context: "Helper text letter spacing" }

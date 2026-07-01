@@ -3,19 +3,23 @@
 # that is NOT present in tokens/tokens.json (known composite-token gap). It is
 # intentionally omitted here; the render CSS keeps var(--zen-shadow-xs) from
 # tokens.css. Add the binding when shadows land in tokens.json.
+#
+# `property` marks a binding render-grade. Selected-state bindings
+# (border-selected, color-bg-selected) are left unmapped, deferred to the
+# state/part seam slice.
 bindings:
-  - { token: spacing-md,                 context: "Card padding" }
-  - { token: spacing-xs,                 context: "Inner stack gap" }
-  - { token: color-bg-default,           context: "Fill (default)" }
-  - { token: border-default,             context: "Border (default)" }
-  - { token: border-radius-sm,           context: "Corner rounding" }
-  - { token: border-selected,            context: "Border (selected)" }
-  - { token: color-bg-selected,          context: "Fill (selected)" }
-  - { token: color-text-primary,         context: "Title text" }
-  - { token: color-text-tertiary,        context: "Body text" }
-  - { token: font-family-text,           context: "Font family" }
-  - { token: font-size-md,               context: "Title and body font size" }
-  - { token: font-weight-semibold,       context: "Title font weight" }
-  - { token: font-weight-regular,        context: "Body font weight" }
-  - { token: font-lineheight-md,         context: "Title and body line height" }
-  - { token: font-letterspacing-wide-2,  context: "Title letter spacing" }
+  - { token: spacing-md,                 property: padding,          context: "Card padding" }
+  - { token: spacing-xs,                 property: gap,              context: "Inner stack gap" }
+  - { token: color-bg-default,           property: background-color, context: "Fill (default)" }
+  - { token: border-default,             property: border-color,     context: "Border (default)" }
+  - { token: border-radius-sm,           property: border-radius,    context: "Corner rounding" }
+  - { token: border-selected,                                        context: "Border (selected)" }
+  - { token: color-bg-selected,                                      context: "Fill (selected)" }
+  - { token: color-text-primary,         property: color,            context: "Title text" }
+  - { token: color-text-tertiary,        property: color,            context: "Body text" }
+  - { token: font-family-text,           property: font-family,      context: "Font family" }
+  - { token: font-size-md,               property: font-size,        context: "Title and body font size" }
+  - { token: font-weight-semibold,       property: font-weight,      context: "Title font weight" }
+  - { token: font-weight-regular,        property: font-weight,      context: "Body font weight" }
+  - { token: font-lineheight-md,         property: line-height,      context: "Title and body line height" }
+  - { token: font-letterspacing-wide-2,  property: letter-spacing,   context: "Title letter spacing" }

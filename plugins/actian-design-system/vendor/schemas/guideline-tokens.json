@@ -33,6 +33,44 @@
             "minLength": 1,
             "description": "What the component uses this token for.",
             "examples": ["Minimum height", "Corner rounding"]
+          },
+          "property": {
+            "type": "string",
+            "description": "Optional CSS property this token maps to, from the render seam's allowlist. Presence + validity makes the binding render-grade. Absent = not yet render-grade (deferred).",
+            "enum": [
+              "background",
+              "background-color",
+              "color",
+              "border",
+              "border-color",
+              "border-top-color",
+              "border-bottom-color",
+              "border-radius",
+              "padding",
+              "padding-top",
+              "padding-right",
+              "padding-bottom",
+              "padding-left",
+              "margin",
+              "gap",
+              "row-gap",
+              "column-gap",
+              "height",
+              "min-height",
+              "max-height",
+              "width",
+              "min-width",
+              "max-width",
+              "font-family",
+              "font-size",
+              "font-weight",
+              "line-height",
+              "letter-spacing",
+              "box-shadow",
+              "fill",
+              "stroke",
+              "opacity"
+            ]
           }
         }
       }

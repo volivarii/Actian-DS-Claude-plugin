@@ -42,7 +42,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="empty-and-system-states">Empty and system states</a>
   <a href="empty-state">Empty state</a>
   <a href="error-state">Error state</a>
-  <a href="filters">Filters</a>
+  <a href="search-filters">Filters</a>
   <a href="forms">Forms</a>
   <a href="global-header">Global header</a>
   <a href="global-toast">Global toast</a>
@@ -82,13 +82,13 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="table">Table</a>
   <a href="tabs">Tabs</a>
   <a href="tag">Tags</a>
-  <a href="text-input">Text input</a>
-  <a href="toggle-control">Toggle control</a>
+  <a href="input">Text input</a>
+  <a href="toggle">Toggle control</a>
   <a href="toolbar">Toolbar</a>
   <a href="tooltip">Tooltip</a>
   <a href="upload-file">Upload file</a>
   <a href="validation-messages">Validation messages</a>
-  <a href="whats-new">What's new</a>
+  <a href="whats-new-dropdown">What's new</a>
   <a href="wizards">Wizards</a>
 </div>
 

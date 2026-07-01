@@ -327,10 +327,12 @@ key of its derived guideline (`components/dist/guidelines/<slug>.json`, and the
 plugin — look guidelines up by this slug.
 
 **The slug should match the component's key in the Figma-synced registries**
-(`components/dist/registries/dskit.json`). Today they diverge: guideline slugs
-were authored independently of the registry keys, so `checkbox` (guideline) has
-to be reconciled with `checkbox-with-label` (registry), `text-input` with
-`input`, `tag` with `tag-default`, `toggle-control` with `toggle`, and so on.
+(`components/dist/registries/dskit.json`). Some guideline slugs were authored
+independently of the registry keys and are still being reconciled, e.g.
+`checkbox` (guideline) with `checkbox-with-label` (registry) and `tag` with
+`tag-default`. The `filters`, `text-input`, `toggle-control`, and `whats-new`
+guidelines have been converged to their registry keys (`search-filters`,
+`input`, `toggle`, `whats-new-dropdown`).
 
 As an **interim** bridge, `paths-manifest.json` carries a `registryAliases`
 block mapping registry key → guideline slug. It is a stopgap, not a pattern to

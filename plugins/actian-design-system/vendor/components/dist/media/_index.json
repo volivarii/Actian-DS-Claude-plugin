@@ -123,6 +123,9 @@
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
       ],
+      "behavior": [
+        "components/dist/media/checkbox-with-label/behavior-0.webp"
+      ],
       "default": "components/dist/media/checkbox-with-label/default.webp"
     },
     "collapse-accordion": {
@@ -231,6 +234,15 @@
     },
     "input": {
       "preview": "components/dist/media/input/preview.webp",
+      "variations": [
+        "components/dist/media/input/variations-0.webp",
+        "components/dist/media/input/variations-1.webp",
+        "components/dist/media/input/variations-2.webp",
+        "components/dist/media/input/variations-3.webp"
+      ],
+      "behavior": [
+        "components/dist/media/input/behavior-0.webp"
+      ],
       "default": "components/dist/media/input/default.webp"
     },
     "input-date": {
@@ -338,6 +350,9 @@
     },
     "radio-button": {
       "preview": "components/dist/media/radio-button/preview.webp",
+      "behavior": [
+        "components/dist/media/radio-button/behavior-0.webp"
+      ],
       "default": "components/dist/media/radio-button/default.webp"
     },
     "rich-text": {
@@ -539,6 +554,9 @@
       "preview": "components/dist/media/toggle/preview.webp",
       "variations": [
         "components/dist/media/toggle/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/toggle/behavior-0.webp"
       ],
       "default": "components/dist/media/toggle/default.webp"
     },

@@ -99,7 +99,7 @@ relatedComponents: [empty-state, error-state, maintenance-state]
 ---
 title: "Forms"
 nav_order: 14
-relatedComponents: [text-input, checkbox, dropdown-select]
+relatedComponents: [input, checkbox, dropdown-select]
 relatedCategories: [form-input-selection]   # shorthand for every component in the category
 ---
 ```
@@ -113,7 +113,7 @@ What this means in practice:
 - Components that have only pattern-sourced content get a synthesized guideline doc (status `synthesized`). The coverage dashboard still flags them as authoring gaps — pattern fan-out does not hide which components lack per-component copy.
 - Referenced slugs are CI-gated: an unknown component slug or category slug fails the build with a pointer to the offending pattern file.
 
-When ordering multiple patterns into one component (e.g. `text-input` inherits from `forms` AND `validation-messages`), pattern order follows `content-index.md` order. Adjusting the sidebar order in `content-index.md` reorders the component-page sections too.
+When ordering multiple patterns into one component (e.g. `input` inherits from `forms` AND `validation-messages`), pattern order follows `content-index.md` order. Adjusting the sidebar order in `content-index.md` reorders the component-page sections too.
 
 ## What lives elsewhere
 
