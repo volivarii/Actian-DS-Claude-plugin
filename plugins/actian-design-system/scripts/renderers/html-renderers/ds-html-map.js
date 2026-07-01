@@ -1312,6 +1312,319 @@
           );
         }
 
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays ----
+
+        case "popover": {
+          // Registry axis: Type = Interaction guide | Advanced search; prop
+          // "Show info icon". A floating card: optional info icon + title +
+          // body + arrow. role=dialog for assistive tech.
+          var poAdvanced = v.Type === "Advanced search";
+          var poCls =
+            "ds-popover" + (poAdvanced ? " ds-popover--advanced-search" : "");
+          // "Show info icon" is a default-TRUE registry boolean → shown unless
+          // explicitly false (the file's default-true convention, cf. radio /
+          // toggle / tag-interactive: `props[x] !== false`).
+          var poInfo =
+            props["Show info icon"] !== false
+              ? '<span class="ds-popover__info" aria-hidden="true">' +
+                renderIcon("help-circle") +
+                "</span>"
+              : "";
+          var poTitle = props.Title
+            ? '<span class="ds-popover__title">' + esc(props.Title) + "</span>"
+            : "";
+          var poBody = props.Body
+            ? '<span class="ds-popover__body">' + esc(props.Body) + "</span>"
+            : "";
+          return (
+            '<div class="' +
+            poCls +
+            '" role="dialog" aria-label="' +
+            esc(props.Title || "Popover") +
+            '">' +
+            '<div class="ds-popover__header">' +
+            poInfo +
+            poTitle +
+            "</div>" +
+            poBody +
+            '<span class="ds-popover__arrow" aria-hidden="true"></span>' +
+            "</div>"
+          );
+        }
+
+        case "account-dropdown": {
+          // No registry variants/props (single-import; nested help-bubble /
+          // arrow-down / exit baked into the Figma component). Render an account
+          // menu overlay: identity header + default items (Items prop overrides).
+          var acName = esc(props.Name || "Account user");
+          var acEmail = props.Email
+            ? '<span class="ds-account-menu__email">' +
+              esc(props.Email) +
+              "</span>"
+            : "";
+          var acIcons = {
+            "account settings": "settings",
+            help: "help-bubble",
+            "sign out": "exit",
+          };
+          var acList = parseItems(props.Items, "Account settings,Help,Sign out")
+            .map(function (label) {
+              var ico = acIcons[label.toLowerCase()];
+              var g = ico
+                ? '<span class="ds-account-menu__icon" aria-hidden="true">' +
+                  renderIcon(ico) +
+                  "</span>"
+                : "";
+              return (
+                '<span class="ds-account-menu__item" role="menuitem">' +
+                g +
+                '<span class="ds-account-menu__label">' +
+                esc(label) +
+                "</span></span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-account-menu" role="menu" aria-label="Account">' +
+            '<div class="ds-account-menu__header">' +
+            '<span class="ds-account-menu__name">' +
+            acName +
+            "</span>" +
+            acEmail +
+            "</div>" +
+            '<div class="ds-account-menu__items">' +
+            acList +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "app-switcher-dropdown": {
+          // No registry variants/props (single-import; nested settings /
+          // arrow-down baked in). Render an app-switcher menu overlay: an app
+          // list + a settings row (Items prop overrides the app list).
+          var asList = parseItems(
+            props.Items,
+            "Data Studio,Data Catalog,Data Integration",
+          )
+            .map(function (label) {
+              return (
+                '<span class="ds-app-switcher__app" role="menuitem">' +
+                '<span class="ds-app-switcher__tile" aria-hidden="true"></span>' +
+                '<span class="ds-app-switcher__label">' +
+                esc(label) +
+                "</span></span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-app-switcher" role="menu" aria-label="Switch app">' +
+            '<div class="ds-app-switcher__apps">' +
+            asList +
+            "</div>" +
+            '<span class="ds-app-switcher__settings" role="menuitem">' +
+            '<span class="ds-app-switcher__icon" aria-hidden="true">' +
+            renderIcon("settings") +
+            "</span>" +
+            '<span class="ds-app-switcher__label">Settings</span></span>' +
+            "</div>"
+          );
+        }
+
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls ----
+
+        case "segmented-control": {
+          // Registry axis: Type = Default (no content props). Render a segmented
+          // toggle from Segments/Items (comma list; Active picks the selected
+          // segment, else the first). role=tablist for assistive tech.
+          var segItems = parseItems(
+            props.Segments || props.Items,
+            "Option A,Option B",
+          );
+          var segActive = resolveActive(segItems, props.Active);
+          var segList = segItems
+            .map(function (label) {
+              var on = label === segActive;
+              // Compute the class into a variable (never inline a ternary inside
+              // the class attribute literal — the css-staleness extractor scans
+              // raw source and mis-parses an inline ternary there).
+              var segCls = "ds-segmented__item" + (on ? " is-active" : "");
+              return (
+                '<span class="' +
+                segCls +
+                '" role="tab" aria-selected="' +
+                (on ? "true" : "false") +
+                '">' +
+                esc(label) +
+                "</span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-segmented" role="tablist">' + segList + "</div>"
+          );
+        }
+
+        case "toolbar": {
+          // Registry axes: Type = Single | Combined | Group; Orientation =
+          // Horizontal | Vertical; prop "Show View scale". Representative action
+          // bar (no content props) — a group of icon buttons + an optional
+          // zoom/view-scale control. role=toolbar.
+          var tbVertical = v.Orientation === "Vertical";
+          var tbCls = "ds-toolbar";
+          tbCls += tbVertical
+            ? " ds-toolbar--vertical"
+            : " ds-toolbar--horizontal";
+          function tbBtn(iconSlug, label) {
+            return (
+              '<button class="ds-toolbar__btn" type="button" aria-label="' +
+              esc(label) +
+              '">' +
+              renderIcon(iconSlug) +
+              "</button>"
+            );
+          }
+          var tbGroup =
+            '<div class="ds-toolbar__group">' +
+            tbBtn("filter", "Filter") +
+            tbBtn("chevron-sort", "Sort") +
+            tbBtn("view", "View") +
+            tbBtn("more", "More") +
+            "</div>";
+          // "Show View scale" is a default-TRUE registry boolean → shown unless
+          // explicitly false (the file's default-true convention).
+          var tbScale =
+            props["Show View scale"] !== false
+              ? '<div class="ds-toolbar__scale">' +
+                tbBtn("zoom-out", "Zoom out") +
+                '<span class="ds-toolbar__scale-value">100%</span>' +
+                tbBtn("zoom-in", "Zoom in") +
+                "</div>"
+              : "";
+          return (
+            '<div class="' +
+            tbCls +
+            '" role="toolbar">' +
+            tbGroup +
+            tbScale +
+            "</div>"
+          );
+        }
+
+        case "sticky-footer": {
+          // Registry axis: Property 1 = Default (no content props). Persistent
+          // bottom action bar; right-aligned DS buttons (reuses .ds-button) —
+          // defaults Cancel (secondary) + Save (primary); Primary/Secondary
+          // props override the labels.
+          var sfPrimary = esc(props.Primary || "Save");
+          var sfSecondary = esc(props.Secondary || "Cancel");
+          return (
+            '<div class="ds-sticky-footer">' +
+            '<div class="ds-sticky-footer__actions">' +
+            '<button class="ds-button ds-button--secondary">' +
+            sfSecondary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary">' +
+            sfPrimary +
+            "</button>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date ----
+
+        case "loader": {
+          // Registry axis: Percent (auto-named variants). "loader" is the
+          // indeterminate activity spinner (determinate progress is the
+          // progress-bar-small leaf). Optional visible Label; role=status +
+          // aria-live for assistive tech.
+          var ldLabel = props.Label
+            ? '<span class="ds-loader__label">' + esc(props.Label) + "</span>"
+            : "";
+          return (
+            '<div class="ds-loader" role="status" aria-live="polite" aria-label="' +
+            esc(props.Label || "Loading") +
+            '">' +
+            '<span class="ds-loader__spinner" aria-hidden="true"></span>' +
+            ldLabel +
+            "</div>"
+          );
+        }
+
+        case "calendar": {
+          // Registry axes: Type = Single date select | Date | Month | Single;
+          // Selection = Single | Range | Year. A static month grid
+          // (DETERMINISTIC — no Date()): header (month/year + prev/next nav) +
+          // weekday row + day cells. Range renders a start→end band; else a
+          // single selected day. Month label is overridable via props.Month.
+          var calRange = v.Selection === "Range";
+          var calMonth = esc(props.Month || "June 2026");
+          var calWeek = ["S", "M", "T", "W", "T", "F", "S"]
+            .map(function (d) {
+              return (
+                '<span class="ds-calendar__weekday" aria-hidden="true">' +
+                d +
+                "</span>"
+              );
+            })
+            .join("");
+          // Static month layout: 2 leading blanks, then days 1..30.
+          var calCells = [
+            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
+            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
+          ];
+          for (var cd = 1; cd <= 30; cd++) {
+            var cdCls = "ds-calendar__day";
+            var cdSel = false; // selected → aria-pressed (non-visual selection state)
+            if (calRange) {
+              if (cd >= 12 && cd <= 16) {
+                cdCls += " is-range";
+                cdSel = true;
+              }
+              if (cd === 12) cdCls += " is-range-start";
+              if (cd === 16) cdCls += " is-range-end";
+            } else if (cd === 15) {
+              cdCls += " is-selected";
+              cdSel = true;
+            }
+            calCells.push(
+              '<button class="' +
+                cdCls +
+                '" type="button"' +
+                (cdSel ? ' aria-pressed="true"' : "") +
+                ">" +
+                cd +
+                "</button>",
+            );
+          }
+          return (
+            '<div class="ds-calendar">' +
+            '<div class="ds-calendar__header">' +
+            '<button class="ds-calendar__nav" type="button" aria-label="Previous month">' +
+            renderIcon("chevron-left") +
+            "</button>" +
+            '<span class="ds-calendar__month">' +
+            calMonth +
+            "</span>" +
+            '<button class="ds-calendar__nav" type="button" aria-label="Next month">' +
+            renderIcon("chevron-left", { rotate: 180 }) +
+            "</button>" +
+            "</div>" +
+            '<div class="ds-calendar__weekdays">' +
+            calWeek +
+            "</div>" +
+            // No role="grid": a real grid requires row/gridcell descendants,
+            // which this static month strip does not provide; claiming the role
+            // without them is invalid ARIA (axe aria-required-children). Left as
+            // a styled group of day buttons; selection carried via aria-pressed.
+            '<div class="ds-calendar__grid">' +
+            calCells.join("") +
+            "</div>" +
+            "</div>"
+          );
+        }
+
         default: {
           // Anatomy dispatch: if an assemble-time anatomy map was supplied,
           // look up the pre-rendered HTML. Browser deliverables embed it on
@@ -1364,6 +1677,17 @@
     "dropdown-select-default",
     "progress-bar-small",
     "tag-interactive",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays.
+    "popover",
+    "account-dropdown",
+    "app-switcher-dropdown",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls.
+    "segmented-control",
+    "toolbar",
+    "sticky-footer",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date.
+    "loader",
+    "calendar",
   ];
 
   exports.renderDSComponent = renderDSComponent;

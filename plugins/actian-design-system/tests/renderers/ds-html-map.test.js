@@ -2597,3 +2597,377 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 1: overlays.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: popover (A1)", function () {
+  it("renders a popover card — not a chip — with title + body + info icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      variant: "Type=Interaction guide",
+      props: {
+        Title: "Quick tip",
+        Body: "Do this next",
+        "Show info icon": true,
+      },
+    });
+    assert.ok(html.indexOf("ds-popover") !== -1, "popover built leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "popover not a chip");
+    assert.ok(html.indexOf("Quick tip") !== -1, "title text");
+    assert.ok(html.indexOf("Do this next") !== -1, "body text");
+    assert.ok(html.indexOf("ds-icon") !== -1, "info icon glyph shown");
+  });
+
+  it("Type=Advanced search adds the modifier; info icon shown by default (registry default-true)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      variant: "Type=Advanced search",
+      props: { Title: "Filters" },
+    });
+    assert.ok(
+      html.indexOf("ds-popover--advanced-search") !== -1,
+      "advanced-search modifier",
+    );
+    assert.ok(
+      html.indexOf("ds-popover__info") !== -1,
+      "info icon shown by default (Show info icon defaults true in the registry)",
+    );
+  });
+
+  it('hides the info icon only when "Show info icon" is explicitly false', function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      props: { Title: "Filters", "Show info icon": false },
+    });
+    assert.ok(
+      html.indexOf("ds-popover__info") === -1,
+      "explicit false hides the info icon",
+    );
+  });
+
+  it("hostile prop shape does not throw", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      props: { Title: { bad: 1 }, Body: [1, 2] },
+    });
+    assert.ok(typeof html === "string", "returns a string, never throws");
+  });
+});
+
+describe("ds-html-map: account-dropdown (A1)", function () {
+  it("renders an account menu — not a chip — with identity + default items", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "account-dropdown",
+      props: { Name: "Ada Lovelace", Email: "ada@example.com" },
+    });
+    assert.ok(
+      html.indexOf("ds-account-menu") !== -1,
+      "account-menu leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "account-menu not a chip");
+    assert.ok(html.indexOf("Ada Lovelace") !== -1, "name text");
+    assert.ok(html.indexOf("ada@example.com") !== -1, "email text");
+    assert.ok(html.indexOf("Sign out") !== -1, "default sign-out item");
+    assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
+  });
+
+  it("accepts a custom Items list", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "account-dropdown",
+      props: { Items: "Profile, Preferences, Log out" },
+    });
+    assert.ok(html.indexOf("Preferences") !== -1, "custom item rendered");
+  });
+});
+
+describe("ds-html-map: app-switcher-dropdown (A1)", function () {
+  it("renders an app switcher menu — not a chip — with apps + settings", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "app-switcher-dropdown",
+      props: { Items: "Data Studio, Catalog" },
+    });
+    assert.ok(
+      html.indexOf("ds-app-switcher") !== -1,
+      "app-switcher leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "app-switcher not a chip");
+    assert.ok(html.indexOf("Data Studio") !== -1, "app item text");
+    assert.ok(html.indexOf("Settings") !== -1, "settings row");
+    assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
+  });
+
+  it("falls back to a default app list when no Items given", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "app-switcher-dropdown",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-app-switcher__app") !== -1,
+      "default apps rendered",
+    );
+    assert.ok(html.indexOf("Data Studio") !== -1, "default app label");
+    assert.ok(html.indexOf("Settings") !== -1, "settings row present");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 2: controls.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: segmented-control (A1)", function () {
+  it("renders a segmented control — not a chip — with items + active", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "segmented-control",
+      props: { Items: "List, Grid, Board", Active: "Grid" },
+    });
+    assert.ok(html.indexOf("ds-segmented") !== -1, "segmented leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "segmented not a chip");
+    assert.ok(html.indexOf("List") !== -1, "item 1");
+    assert.ok(html.indexOf("Board") !== -1, "item 3");
+    assert.ok(html.indexOf('role="tablist"') !== -1, "tablist semantics");
+    assert.ok(
+      /Grid<\/span>/.test(html) && html.indexOf("is-active") !== -1,
+      "active item flagged",
+    );
+  });
+
+  it("defaults to two options with the first active", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "segmented-control",
+      props: {},
+    });
+    assert.ok(html.indexOf("is-active") !== -1, "an item is active by default");
+    assert.ok(html.indexOf('aria-selected="true"') !== -1, "aria-selected set");
+  });
+});
+
+describe("ds-html-map: toolbar (A1)", function () {
+  it("renders a toolbar — not a chip — with action buttons + view scale", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      variant: "Type=Combined,Orientation=Horizontal",
+      props: { "Show View scale": true },
+    });
+    assert.ok(html.indexOf("ds-toolbar") !== -1, "toolbar leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "toolbar not a chip");
+    assert.ok(html.indexOf('role="toolbar"') !== -1, "toolbar semantics");
+    assert.ok(html.indexOf("ds-toolbar__scale") !== -1, "view scale shown");
+    assert.ok(html.indexOf("ds-icon") !== -1, "action icons present");
+  });
+
+  it("Orientation=Vertical adds the modifier; scale shown by default (registry default-true)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      variant: "Orientation=Vertical",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-toolbar--vertical") !== -1, "vertical modifier");
+    assert.ok(
+      html.indexOf("ds-toolbar__scale") !== -1,
+      "view scale shown by default (Show View scale defaults true in the registry)",
+    );
+  });
+
+  it('hides the view scale only when "Show View scale" is explicitly false', function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      props: { "Show View scale": false },
+    });
+    assert.ok(
+      html.indexOf("ds-toolbar__scale") === -1,
+      "explicit false hides the view scale",
+    );
+  });
+});
+
+describe("ds-html-map: sticky-footer (A1)", function () {
+  it("renders a sticky footer — not a chip — with DS action buttons", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "sticky-footer",
+      props: { Primary: "Publish", Secondary: "Discard" },
+    });
+    assert.ok(html.indexOf("ds-sticky-footer") !== -1, "sticky-footer class");
+    assert.ok(html.indexOf("ds-component") === -1, "sticky-footer not a chip");
+    assert.ok(html.indexOf("Publish") !== -1, "primary action label");
+    assert.ok(html.indexOf("Discard") !== -1, "secondary action label");
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "reuses the DS button primary class",
+    );
+  });
+
+  it("defaults to Cancel + Save", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "sticky-footer",
+      props: {},
+    });
+    assert.ok(html.indexOf("Save") !== -1, "default primary");
+    assert.ok(html.indexOf("Cancel") !== -1, "default secondary");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 3: feedback + date.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: loader (A1)", function () {
+  it("renders a spinner — not a chip — with status role + optional label", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "loader",
+      props: { Label: "Fetching results" },
+    });
+    assert.ok(html.indexOf("ds-loader") !== -1, "loader leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "loader not a chip");
+    assert.ok(html.indexOf("ds-loader__spinner") !== -1, "spinner element");
+    assert.ok(html.indexOf('role="status"') !== -1, "status role");
+    assert.ok(html.indexOf("Fetching results") !== -1, "label text");
+  });
+
+  it("renders without a label and never throws", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "loader",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-loader__spinner") !== -1, "spinner still shown");
+    assert.ok(typeof html === "string", "returns a string");
+  });
+});
+
+describe("ds-html-map: calendar (A1)", function () {
+  it("renders a month grid — not a chip — with header, weekdays, selected day", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      variant: "Selection=Single",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-calendar") !== -1, "calendar leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
+    assert.ok(html.indexOf("ds-calendar__month") !== -1, "month header");
+    assert.ok(html.indexOf("ds-calendar__weekdays") !== -1, "weekday row");
+    assert.ok(html.indexOf("is-selected") !== -1, "a selected day");
+    assert.ok(html.indexOf(">15</button>") !== -1, "renders day cells");
+    assert.ok(html.indexOf("ds-icon") !== -1, "nav chevrons");
+    assert.ok(
+      html.indexOf('aria-pressed="true"') !== -1,
+      "selected day carries non-visual selection state",
+    );
+    assert.ok(
+      html.indexOf('role="grid"') === -1,
+      "no invalid role=grid (lacks row/gridcell descendants)",
+    );
+  });
+
+  it("Selection=Range renders a start→end band", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      variant: "Selection=Range",
+      props: {},
+    });
+    assert.ok(html.indexOf("is-range-start") !== -1, "range start");
+    assert.ok(html.indexOf("is-range-end") !== -1, "range end");
+    assert.ok(html.indexOf("is-selected") === -1, "no single-select in range");
+  });
+
+  it("uses a provided Month label deterministically", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "calendar",
+      props: { Month: "March 2027" },
+    });
+    assert.ok(html.indexOf("March 2027") !== -1, "custom month label");
+  });
+});
+
+// Never-throws + no silent chip-degradation on hostile (object/array-shaped)
+// flow-data props — for the A1 slugs that lack a dedicated hostile-prop test
+// (popover + loader already have theirs above). esc()/String() coercion must
+// keep these rendering their real leaf, not degrading to a chip.
+describe("ds-html-map: A1 hostile-prop robustness", function () {
+  var HOSTILE = {
+    Title: { x: 1 },
+    Body: [1, 2],
+    Items: { a: 1 },
+    Name: [1],
+    Email: {},
+    Label: [1],
+    Active: {},
+    Primary: {},
+    Secondary: [1],
+    Month: {},
+    Segments: { s: 1 },
+  };
+  [
+    { slug: "account-dropdown", cls: "ds-account-menu" },
+    { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
+    { slug: "segmented-control", cls: "ds-segmented" },
+    { slug: "toolbar", cls: "ds-toolbar" },
+    { slug: "sticky-footer", cls: "ds-sticky-footer" },
+    { slug: "calendar", cls: "ds-calendar" },
+  ].forEach(function (t) {
+    it(
+      t.slug + " renders its leaf (no throw, no chip) on hostile props",
+      function () {
+        var html = render({
+          type: "INSTANCE",
+          library: "ds",
+          dsSlug: t.slug,
+          variant: "Selection=Range,Orientation=Vertical",
+          props: HOSTILE,
+        });
+        assert.ok(
+          typeof html === "string" && html.length > 0,
+          "returns a string",
+        );
+        assert.ok(
+          html.indexOf(t.cls) !== -1,
+          t.slug + " still renders its leaf",
+        );
+        assert.ok(
+          html.indexOf("ds-component") === -1,
+          t.slug + " did not silently chip-degrade",
+        );
+      },
+    );
+  });
+});
