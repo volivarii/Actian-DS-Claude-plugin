@@ -2698,6 +2698,21 @@ describe("ds-html-map: app-switcher-dropdown (A1)", function () {
     assert.ok(html.indexOf("Settings") !== -1, "settings row");
     assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
   });
+
+  it("falls back to a default app list when no Items given", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "app-switcher-dropdown",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-app-switcher__app") !== -1,
+      "default apps rendered",
+    );
+    assert.ok(html.indexOf("Data Studio") !== -1, "default app label");
+    assert.ok(html.indexOf("Settings") !== -1, "settings row present");
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -2841,6 +2856,14 @@ describe("ds-html-map: calendar (A1)", function () {
     assert.ok(html.indexOf("is-selected") !== -1, "a selected day");
     assert.ok(html.indexOf(">15</button>") !== -1, "renders day cells");
     assert.ok(html.indexOf("ds-icon") !== -1, "nav chevrons");
+    assert.ok(
+      html.indexOf('aria-pressed="true"') !== -1,
+      "selected day carries non-visual selection state",
+    );
+    assert.ok(
+      html.indexOf('role="grid"') === -1,
+      "no invalid role=grid (lacks row/gridcell descendants)",
+    );
   });
 
   it("Selection=Range renders a start→end band", function () {

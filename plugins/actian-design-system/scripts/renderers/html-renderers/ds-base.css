@@ -1921,7 +1921,7 @@
 .ds-account-menu__header {
   display: flex;
   flex-direction: column;
-  gap: 2px; /* raw px: tight identity stack */
+  gap: var(--zen-spacing-3xs);
   padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
   border-bottom: 1px solid var(--zen-border-default);
   margin-bottom: var(--zen-spacing-2xs);
@@ -2083,6 +2083,9 @@
   border-radius: var(--zen-border-radius-sm);
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
+}
+.ds-toolbar--horizontal {
+  flex-direction: row;
 }
 .ds-toolbar--vertical {
   flex-direction: column;

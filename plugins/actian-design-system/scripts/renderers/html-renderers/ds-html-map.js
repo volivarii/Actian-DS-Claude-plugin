@@ -1569,15 +1569,26 @@
           ];
           for (var cd = 1; cd <= 30; cd++) {
             var cdCls = "ds-calendar__day";
+            var cdSel = false; // selected → aria-pressed (non-visual selection state)
             if (calRange) {
-              if (cd >= 12 && cd <= 16) cdCls += " is-range";
+              if (cd >= 12 && cd <= 16) {
+                cdCls += " is-range";
+                cdSel = true;
+              }
               if (cd === 12) cdCls += " is-range-start";
               if (cd === 16) cdCls += " is-range-end";
             } else if (cd === 15) {
               cdCls += " is-selected";
+              cdSel = true;
             }
             calCells.push(
-              '<button class="' + cdCls + '" type="button">' + cd + "</button>",
+              '<button class="' +
+                cdCls +
+                '" type="button"' +
+                (cdSel ? ' aria-pressed="true"' : "") +
+                ">" +
+                cd +
+                "</button>",
             );
           }
           return (
@@ -1596,7 +1607,11 @@
             '<div class="ds-calendar__weekdays">' +
             calWeek +
             "</div>" +
-            '<div class="ds-calendar__grid" role="grid">' +
+            // No role="grid": a real grid requires row/gridcell descendants,
+            // which this static month strip does not provide; claiming the role
+            // without them is invalid ARIA (axe aria-required-children). Left as
+            // a styled group of day buttons; selection carried via aria-pressed.
+            '<div class="ds-calendar__grid">' +
             calCells.join("") +
             "</div>" +
             "</div>"
