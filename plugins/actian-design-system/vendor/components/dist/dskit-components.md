@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-318 components.
+317 components.
 
 ---
 
@@ -814,10 +814,10 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 
 Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
 
-- Variants: **States:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
+- Variants: **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
 - Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
 - **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Trailing icon#458:10` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `.Textfield buttons#14241:0` (default: true) — set to `false` to hide
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Textfield buttons#14241:0` (default: true) — set to `false` to hide
 - Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
 
 ### Input, date
@@ -1059,11 +1059,6 @@ A centered dialog that blocks the main content. Use for critical "Stop and Think
 
 - Single component (no variants)
 - Node: `8400:25111` | Key: `5a04491296f24a38a3364f6650782d09e2658fca`
-
-### Notes/Feedback
-
-- Single component (no variants)
-- Node: `8662:6474` | Key: `4f1fba9d4ba4dd56ef8f60b7190456bf824a2089`
 
 ### Notification
 

@@ -179,7 +179,7 @@ These are semantic aliases that combine weight + size + letter spacing + line he
 | `--zen-border-primary`  | `1px solid --zen-color-primary-500` | Interactive elements                           | 🟡 Proposed |
 | `--zen-border-selected` | `2px solid --zen-color-primary-500` | Selected state of components                   | 🟡 Proposed |
 | `--zen-border-error`    | `1px solid --zen-color-error-600`   | Error state inputs                             | 🟡 Proposed |
-| `--zen-border-warning`  | `1px solid --zen-color-warning-600` | Warning state                                  | 🟡 Proposed |
+| `--zen-border-warning`  | `1px solid --zen-color-warning-700` | Warning state                                  | 🟡 Proposed |
 | `--zen-border-success`  | `1px solid --zen-color-success-600` | Success state                                  | 🟡 Proposed |
 | `--zen-border-info`     | `1px solid --zen-color-primary-500` | Info state                                     | 🟡 Proposed |
 | `--zen-border-strong`   | `1px solid --zen-color-neutral-800` | High emphasis borders                          | 🟡 Proposed |

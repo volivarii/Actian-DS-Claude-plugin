@@ -2,15 +2,15 @@
   "_schema_version": 1,
   "slug": "input",
   "kit": "dskit",
-  "synced_at": "2026-06-29T11:56:29.316Z",
+  "synced_at": "2026-07-01T10:42:32.186Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7238:2487",
     "variant": "States=Default"
   },
   "quality": {
-    "nodesTotal": 12,
-    "nodesNormalized": 12,
+    "nodesTotal": 10,
+    "nodesNormalized": 10,
     "ratio": 1,
     "degraded": []
   },
@@ -37,11 +37,11 @@
     },
     "children": [
       {
-        "name": "Label + description",
+        "name": "Label",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "0px",
+          "axis": "row",
+          "gap": "4px",
           "padding": {
             "top": "0px",
             "right": "0px",
@@ -50,7 +50,7 @@
           },
           "align": {
             "main": "start",
-            "cross": "start"
+            "cross": "center"
           },
           "sizing": {
             "h": "fill",
@@ -60,49 +60,25 @@
         "children": [
           {
             "name": "Label",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "text": "Label"
-              },
-              {
-                "name": "Required",
-                "kind": "text",
-                "text": "*"
-              },
-              {
-                "name": "info",
-                "kind": "instance",
-                "slug": "info"
-              }
-            ]
+            "kind": "text",
+            "text": "Label"
           },
           {
-            "name": "Description",
+            "name": "Required",
             "kind": "text",
-            "text": "A description helps users to define and understand the purpose of the input."
+            "text": "*"
+          },
+          {
+            "name": "info",
+            "kind": "instance",
+            "slug": "info"
           }
         ]
+      },
+      {
+        "name": "Description",
+        "kind": "text",
+        "text": "A description helps users to define and understand the purpose of the input."
       },
       {
         "name": "Input field",
@@ -135,11 +111,6 @@
             "name": "close",
             "kind": "instance",
             "slug": "close"
-          },
-          {
-            "name": "arrow-down",
-            "kind": "instance",
-            "slug": "arrow-down"
           }
         ]
       },

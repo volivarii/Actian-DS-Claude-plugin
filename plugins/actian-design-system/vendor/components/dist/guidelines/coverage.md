@@ -20,10 +20,10 @@
 | Dropdown / Select | approved | not started | inherited | inherited | not started |
 | Empty state | approved | not started | inherited | inherited | not started |
 | Error state | approved | not started | inherited | inherited | not started |
-| Filters | approved | not started | inherited | inherited | not started |
 | Global header | approved | not started | inherited | inherited | approved |
 | Global toast | approved | not started | inherited | inherited | not started |
 | Inline toast | approved | not started | inherited | inherited | not started |
+| Text input | approved | not started | draft | inherited | approved |
 | Date input | approved | not started | inherited | inherited | not started |
 | Links | approved | not started | inherited | inherited | not started |
 | Loader | approved | not started | inherited | inherited | not started |
@@ -42,6 +42,7 @@
 | Scroll bar | approved | not started | inherited | inherited | not started |
 | Search | approved | not started | inherited | inherited | approved |
 | Search dropdown menu | approved | not started | inherited | inherited | not started |
+| Filters | approved | not started | inherited | inherited | not started |
 | Search result card | approved | not started | inherited | inherited | not started |
 | Segmented control | approved | not started | inherited | inherited | not started |
 | Side nav | approved | not started | inherited | inherited | approved |
@@ -52,7 +53,6 @@
 | Table | approved | not started | inherited | inherited | not started |
 | Tabs | approved | not started | inherited | inherited | approved |
 | Tags | approved | not started | inherited | inherited | approved |
-| Text input | approved | not started | draft | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
 | Toolbar | approved | not started | inherited | inherited | not started |
 | Tooltip | approved | not started | inherited | inherited | not started |
@@ -77,9 +77,24 @@
 |---|---|
 | checkbox-with-label | checkbox |
 | dropdown-select-default | dropdown-select |
-| input | text-input |
-| search-filters | filters |
 | tag-default | tag |
-| toggle | toggle-control |
-| whats-new-dropdown | whats-new |
+
+## Token render-grade
+
+> Bindings carrying a CSS `property` (render-grade) over total token bindings, per component. Absent = prose-only, not yet render-grade.
+
+| Component | Render-grade |
+|---|---|
+| Badges | 0/6 |
+| Breadcrumbs | 0/8 |
+| Buttons | 0/19 |
+| Cards | 13/15 |
+| Checkboxes | 7/13 |
+| Global header | 0/15 |
+| Text input | 11/19 |
+| Page header | 0/14 |
+| Search | 0/13 |
+| Side nav | 0/16 |
+| Tabs | 0/15 |
+| Tags | 13/13 |
 

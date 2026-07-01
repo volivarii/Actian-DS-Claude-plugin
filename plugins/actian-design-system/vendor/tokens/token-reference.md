@@ -374,7 +374,7 @@ Total tokens: 466. Groups: 8.
 | `border.primary` | `--zen-border-primary` | `#0F5FDC` |
 | `border.selected` | `--zen-border-selected` | `#0F5FDC` |
 | `border.error` | `--zen-border-error` | `#DC3514` |
-| `border.warning` | `--zen-border-warning` | `#EF8D00` |
+| `border.warning` | `--zen-border-warning` | `#D27B00` |
 | `border.success` | `--zen-border-success` | `#098900` |
 | `border.info` | `--zen-border-info` | `#0F5FDC` |
 | `border.strong` | `--zen-border-strong` | `#40404A` |

@@ -361,6 +361,11 @@
                 "minLength": 1,
                 "description": "What the component uses this token for.",
                 "examples": ["Minimum height", "Corner rounding"]
+              },
+              "property": {
+                "type": "string",
+                "description": "Optional CSS property this token maps to (render-grade). The allowed enum is enforced upstream on the authored tokens.yml by guideline-tokens.json; the derived value is copied verbatim, so this derived-doc contract accepts any string.",
+                "examples": ["background-color", "padding"]
               }
             }
           }
