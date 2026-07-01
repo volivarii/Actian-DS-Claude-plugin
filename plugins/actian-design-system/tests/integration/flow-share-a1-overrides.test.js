@@ -48,9 +48,14 @@ describe("flow-share: A1 override slugs render as leaves, not chips/anatomy", fu
       t.slug + " → " + t.cls + " in the canonical flow-share output",
       function () {
         var html = assembleFlowShare(fixture(t.slug));
+        // Assert the class-ATTRIBUTE form, not the bare class name: the full
+        // ds-base.css is inlined into the deliverable, so `indexOf("ds-popover")`
+        // matches the `.ds-popover {` CSS rule even when NO node rendered (a
+        // vacuous check — the inert-deliverable trap). `class="ds-popover` only
+        // appears in emitted markup, so this proves the override actually fired.
         assert.ok(
-          html.indexOf(t.cls) !== -1,
-          t.slug + " must render its override class " + t.cls,
+          html.indexOf('class="' + t.cls) !== -1,
+          t.slug + ' must render its override (class="' + t.cls + '")',
         );
         assert.strictEqual(
           html.indexOf('data-slug="' + t.slug + '"'),
