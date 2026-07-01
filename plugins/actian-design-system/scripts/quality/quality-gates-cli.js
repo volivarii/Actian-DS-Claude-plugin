@@ -33,6 +33,16 @@ var PILOT = [
   "dropdown-select-default",
   "progress-bar-small",
   "tag-interactive",
+  // Hi-Fi A1 (narrow) degraded-slug override leaves — same rationale as Slice 1
+  // (real switch-case, render server-side in Node, no window.__dsAnatomyMap).
+  "popover",
+  "account-dropdown",
+  "app-switcher-dropdown",
+  "segmented-control",
+  "toolbar",
+  "sticky-footer",
+  "loader",
+  "calendar",
 ];
 var DIFF_DIR = path.join(
   __dirname,

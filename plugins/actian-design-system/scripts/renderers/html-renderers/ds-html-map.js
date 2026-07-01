@@ -1321,11 +1321,15 @@
           var poAdvanced = v.Type === "Advanced search";
           var poCls =
             "ds-popover" + (poAdvanced ? " ds-popover--advanced-search" : "");
-          var poInfo = props["Show info icon"]
-            ? '<span class="ds-popover__info" aria-hidden="true">' +
-              renderIcon("help-circle") +
-              "</span>"
-            : "";
+          // "Show info icon" is a default-TRUE registry boolean → shown unless
+          // explicitly false (the file's default-true convention, cf. radio /
+          // toggle / tag-interactive: `props[x] !== false`).
+          var poInfo =
+            props["Show info icon"] !== false
+              ? '<span class="ds-popover__info" aria-hidden="true">' +
+                renderIcon("help-circle") +
+                "</span>"
+              : "";
           var poTitle = props.Title
             ? '<span class="ds-popover__title">' + esc(props.Title) + "</span>"
             : "";
@@ -1487,13 +1491,16 @@
             tbBtn("view", "View") +
             tbBtn("more", "More") +
             "</div>";
-          var tbScale = props["Show View scale"]
-            ? '<div class="ds-toolbar__scale">' +
-              tbBtn("zoom-out", "Zoom out") +
-              '<span class="ds-toolbar__scale-value">100%</span>' +
-              tbBtn("zoom-in", "Zoom in") +
-              "</div>"
-            : "";
+          // "Show View scale" is a default-TRUE registry boolean → shown unless
+          // explicitly false (the file's default-true convention).
+          var tbScale =
+            props["Show View scale"] !== false
+              ? '<div class="ds-toolbar__scale">' +
+                tbBtn("zoom-out", "Zoom out") +
+                '<span class="ds-toolbar__scale-value">100%</span>' +
+                tbBtn("zoom-in", "Zoom in") +
+                "</div>"
+              : "";
           return (
             '<div class="' +
             tbCls +

@@ -2277,7 +2277,9 @@
 .ds-calendar__day.is-selected,
 .ds-calendar__day.is-range-start,
 .ds-calendar__day.is-range-end {
-  background: var(--zen-color-bg-primary);
+  /* Brand fill: bg-emphasis is the canonical Figma color-bg-primary alias this
+     file standardizes on (see header note + .ds-button--primary), not bg-primary. */
+  background: var(--zen-color-bg-emphasis);
   color: var(--zen-color-text-reverse);
   font-weight: var(--zen-font-weight-medium);
 }

@@ -2622,7 +2622,7 @@ describe("ds-html-map: popover (A1)", function () {
     assert.ok(html.indexOf("ds-icon") !== -1, "info icon glyph shown");
   });
 
-  it("Type=Advanced search adds the modifier; info icon off by default", function () {
+  it("Type=Advanced search adds the modifier; info icon shown by default (registry default-true)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
@@ -2635,8 +2635,21 @@ describe("ds-html-map: popover (A1)", function () {
       "advanced-search modifier",
     );
     assert.ok(
+      html.indexOf("ds-popover__info") !== -1,
+      "info icon shown by default (Show info icon defaults true in the registry)",
+    );
+  });
+
+  it('hides the info icon only when "Show info icon" is explicitly false', function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "popover",
+      props: { Title: "Filters", "Show info icon": false },
+    });
+    assert.ok(
       html.indexOf("ds-popover__info") === -1,
-      "no info icon by default",
+      "explicit false hides the info icon",
     );
   });
 
@@ -2766,7 +2779,7 @@ describe("ds-html-map: toolbar (A1)", function () {
     assert.ok(html.indexOf("ds-icon") !== -1, "action icons present");
   });
 
-  it("Orientation=Vertical adds the modifier; no scale by default", function () {
+  it("Orientation=Vertical adds the modifier; scale shown by default (registry default-true)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
@@ -2775,7 +2788,23 @@ describe("ds-html-map: toolbar (A1)", function () {
       props: {},
     });
     assert.ok(html.indexOf("ds-toolbar--vertical") !== -1, "vertical modifier");
-    assert.ok(html.indexOf("ds-toolbar__scale") === -1, "no scale by default");
+    assert.ok(
+      html.indexOf("ds-toolbar__scale") !== -1,
+      "view scale shown by default (Show View scale defaults true in the registry)",
+    );
+  });
+
+  it('hides the view scale only when "Show View scale" is explicitly false', function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      props: { "Show View scale": false },
+    });
+    assert.ok(
+      html.indexOf("ds-toolbar__scale") === -1,
+      "explicit false hides the view scale",
+    );
   });
 });
 
@@ -2887,5 +2916,58 @@ describe("ds-html-map: calendar (A1)", function () {
       props: { Month: "March 2027" },
     });
     assert.ok(html.indexOf("March 2027") !== -1, "custom month label");
+  });
+});
+
+// Never-throws + no silent chip-degradation on hostile (object/array-shaped)
+// flow-data props — for the A1 slugs that lack a dedicated hostile-prop test
+// (popover + loader already have theirs above). esc()/String() coercion must
+// keep these rendering their real leaf, not degrading to a chip.
+describe("ds-html-map: A1 hostile-prop robustness", function () {
+  var HOSTILE = {
+    Title: { x: 1 },
+    Body: [1, 2],
+    Items: { a: 1 },
+    Name: [1],
+    Email: {},
+    Label: [1],
+    Active: {},
+    Primary: {},
+    Secondary: [1],
+    Month: {},
+    Segments: { s: 1 },
+  };
+  [
+    { slug: "account-dropdown", cls: "ds-account-menu" },
+    { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
+    { slug: "segmented-control", cls: "ds-segmented" },
+    { slug: "toolbar", cls: "ds-toolbar" },
+    { slug: "sticky-footer", cls: "ds-sticky-footer" },
+    { slug: "calendar", cls: "ds-calendar" },
+  ].forEach(function (t) {
+    it(
+      t.slug + " renders its leaf (no throw, no chip) on hostile props",
+      function () {
+        var html = render({
+          type: "INSTANCE",
+          library: "ds",
+          dsSlug: t.slug,
+          variant: "Selection=Range,Orientation=Vertical",
+          props: HOSTILE,
+        });
+        assert.ok(
+          typeof html === "string" && html.length > 0,
+          "returns a string",
+        );
+        assert.ok(
+          html.indexOf(t.cls) !== -1,
+          t.slug + " still renders its leaf",
+        );
+        assert.ok(
+          html.indexOf("ds-component") === -1,
+          t.slug + " did not silently chip-degrade",
+        );
+      },
+    );
   });
 });
