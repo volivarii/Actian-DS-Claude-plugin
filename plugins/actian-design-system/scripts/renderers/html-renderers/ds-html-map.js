@@ -1427,6 +1427,100 @@
           );
         }
 
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls ----
+
+        case "segmented-control": {
+          // Registry axis: Type = Default (no content props). Render a segmented
+          // toggle from Segments/Items (comma list; Active picks the selected
+          // segment, else the first). role=tablist for assistive tech.
+          var segItems = parseItems(
+            props.Segments || props.Items,
+            "Option A,Option B",
+          );
+          var segActive = resolveActive(segItems, props.Active);
+          var segList = segItems
+            .map(function (label) {
+              var on = label === segActive;
+              return (
+                '<span class="ds-segmented__item' +
+                (on ? " is-active" : "") +
+                '" role="tab" aria-selected="' +
+                (on ? "true" : "false") +
+                '">' +
+                esc(label) +
+                "</span>"
+              );
+            })
+            .join("");
+          return (
+            '<div class="ds-segmented" role="tablist">' + segList + "</div>"
+          );
+        }
+
+        case "toolbar": {
+          // Registry axes: Type = Single | Combined | Group; Orientation =
+          // Horizontal | Vertical; prop "Show View scale". Representative action
+          // bar (no content props) — a group of icon buttons + an optional
+          // zoom/view-scale control. role=toolbar.
+          var tbVertical = v.Orientation === "Vertical";
+          var tbCls = "ds-toolbar";
+          tbCls += tbVertical
+            ? " ds-toolbar--vertical"
+            : " ds-toolbar--horizontal";
+          function tbBtn(iconSlug, label) {
+            return (
+              '<button class="ds-toolbar__btn" type="button" aria-label="' +
+              esc(label) +
+              '">' +
+              renderIcon(iconSlug) +
+              "</button>"
+            );
+          }
+          var tbGroup =
+            '<div class="ds-toolbar__group">' +
+            tbBtn("filter", "Filter") +
+            tbBtn("chevron-sort", "Sort") +
+            tbBtn("view", "View") +
+            tbBtn("more", "More") +
+            "</div>";
+          var tbScale = props["Show View scale"]
+            ? '<div class="ds-toolbar__scale">' +
+              tbBtn("zoom-out", "Zoom out") +
+              '<span class="ds-toolbar__scale-value">100%</span>' +
+              tbBtn("zoom-in", "Zoom in") +
+              "</div>"
+            : "";
+          return (
+            '<div class="' +
+            tbCls +
+            '" role="toolbar">' +
+            tbGroup +
+            tbScale +
+            "</div>"
+          );
+        }
+
+        case "sticky-footer": {
+          // Registry axis: Property 1 = Default (no content props). Persistent
+          // bottom action bar; right-aligned DS buttons (reuses .ds-button) —
+          // defaults Cancel (secondary) + Save (primary); Primary/Secondary
+          // props override the labels.
+          var sfPrimary = esc(props.Primary || "Save");
+          var sfSecondary = esc(props.Secondary || "Cancel");
+          return (
+            '<div class="ds-sticky-footer">' +
+            '<div class="ds-sticky-footer__actions">' +
+            '<button class="ds-button ds-button--secondary">' +
+            sfSecondary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary">' +
+            sfPrimary +
+            "</button>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
         default: {
           // Anatomy dispatch: if an assemble-time anatomy map was supplied,
           // look up the pre-rendered HTML. Browser deliverables embed it on
@@ -1483,6 +1577,10 @@
     "popover",
     "account-dropdown",
     "app-switcher-dropdown",
+    // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls.
+    "segmented-control",
+    "toolbar",
+    "sticky-footer",
   ];
 
   exports.renderDSComponent = renderDSComponent;

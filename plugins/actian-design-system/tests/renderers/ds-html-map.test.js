@@ -2699,3 +2699,97 @@ describe("ds-html-map: app-switcher-dropdown (A1)", function () {
     assert.ok(html.indexOf('role="menu"') !== -1, "menu semantics");
   });
 });
+
+// ---------------------------------------------------------------------------
+// Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 2: controls.
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: segmented-control (A1)", function () {
+  it("renders a segmented control — not a chip — with items + active", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "segmented-control",
+      props: { Items: "List, Grid, Board", Active: "Grid" },
+    });
+    assert.ok(html.indexOf("ds-segmented") !== -1, "segmented leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "segmented not a chip");
+    assert.ok(html.indexOf("List") !== -1, "item 1");
+    assert.ok(html.indexOf("Board") !== -1, "item 3");
+    assert.ok(html.indexOf('role="tablist"') !== -1, "tablist semantics");
+    assert.ok(
+      /Grid<\/span>/.test(html) && html.indexOf("is-active") !== -1,
+      "active item flagged",
+    );
+  });
+
+  it("defaults to two options with the first active", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "segmented-control",
+      props: {},
+    });
+    assert.ok(html.indexOf("is-active") !== -1, "an item is active by default");
+    assert.ok(html.indexOf('aria-selected="true"') !== -1, "aria-selected set");
+  });
+});
+
+describe("ds-html-map: toolbar (A1)", function () {
+  it("renders a toolbar — not a chip — with action buttons + view scale", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      variant: "Type=Combined,Orientation=Horizontal",
+      props: { "Show View scale": true },
+    });
+    assert.ok(html.indexOf("ds-toolbar") !== -1, "toolbar leaf class");
+    assert.ok(html.indexOf("ds-component") === -1, "toolbar not a chip");
+    assert.ok(html.indexOf('role="toolbar"') !== -1, "toolbar semantics");
+    assert.ok(html.indexOf("ds-toolbar__scale") !== -1, "view scale shown");
+    assert.ok(html.indexOf("ds-icon") !== -1, "action icons present");
+  });
+
+  it("Orientation=Vertical adds the modifier; no scale by default", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toolbar",
+      variant: "Orientation=Vertical",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-toolbar--vertical") !== -1, "vertical modifier");
+    assert.ok(html.indexOf("ds-toolbar__scale") === -1, "no scale by default");
+  });
+});
+
+describe("ds-html-map: sticky-footer (A1)", function () {
+  it("renders a sticky footer — not a chip — with DS action buttons", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "sticky-footer",
+      props: { Primary: "Publish", Secondary: "Discard" },
+    });
+    assert.ok(html.indexOf("ds-sticky-footer") !== -1, "sticky-footer class");
+    assert.ok(html.indexOf("ds-component") === -1, "sticky-footer not a chip");
+    assert.ok(html.indexOf("Publish") !== -1, "primary action label");
+    assert.ok(html.indexOf("Discard") !== -1, "secondary action label");
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "reuses the DS button primary class",
+    );
+  });
+
+  it("defaults to Cancel + Save", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "sticky-footer",
+      props: {},
+    });
+    assert.ok(html.indexOf("Save") !== -1, "default primary");
+    assert.ok(html.indexOf("Cancel") !== -1, "default secondary");
+  });
+});

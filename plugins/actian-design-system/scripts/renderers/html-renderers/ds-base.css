@@ -2028,3 +2028,116 @@
   height: 100%;
   display: block;
 }
+
+/* ===================================================================== */
+/* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 2: controls.  */
+/* ===================================================================== */
+
+/* ============ Segmented control (mutually-exclusive toggle) ============ */
+/* Registry axis: Type = Default. */
+.ds-segmented {
+  display: inline-flex;
+  align-items: stretch;
+  padding: var(--zen-spacing-3xs);
+  gap: var(--zen-spacing-3xs);
+  background: var(--zen-color-bg-subtle);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-segmented__item {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-segmented__item.is-active {
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-text-primary);
+  box-shadow: var(--zen-shadow-sm);
+}
+
+/* ============ Toolbar (action bar) ============ */
+/* Registry axes: Type = Single | Combined | Group; Orientation = H | V. */
+.ds-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-toolbar--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+.ds-toolbar__group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-toolbar--vertical .ds-toolbar__group {
+  flex-direction: column;
+}
+.ds-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* raw px: icon button box */
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-toolbar__btn svg {
+  width: 20px; /* raw px: glyph box */
+  height: 20px;
+  display: block;
+}
+.ds-toolbar__scale {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+  padding-left: var(--zen-spacing-xs);
+  border-left: 1px solid var(--zen-border-default);
+}
+.ds-toolbar__scale-value {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+  min-width: 40px; /* raw px: stable percent column */
+  text-align: center;
+}
+
+/* ============ Sticky footer (persistent action bar) ============ */
+/* Registry axis: Property 1 = Default. Reuses .ds-button leaves. */
+.ds-sticky-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: var(--zen-spacing-sm) var(--zen-spacing-lg);
+  background: var(--zen-color-bg-default);
+  border-top: 1px solid var(--zen-border-default);
+  box-shadow: var(--zen-shadow-md);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-sticky-footer__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+}
