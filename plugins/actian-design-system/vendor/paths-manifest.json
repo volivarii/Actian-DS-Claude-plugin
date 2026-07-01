@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.45",
+  "knowledge_version": "0.34.54",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -260,13 +260,6 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'error-state' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.filters": {
-      "path": "components/dist/guidelines/filters.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'filters' component (content, usage, design, behavior, tokens — each optional)."
-    },
     "components.guidelineDoc.global-header": {
       "path": "components/dist/guidelines/global-header.json",
       "type": "json",
@@ -287,6 +280,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'inline-toast' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.input": {
+      "path": "components/dist/guidelines/input.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'input' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.input-date": {
       "path": "components/dist/guidelines/input-date.json",
@@ -414,6 +414,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'search-dropdown-menu' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.search-filters": {
+      "path": "components/dist/guidelines/search-filters.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'search-filters' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.search-result-card": {
       "path": "components/dist/guidelines/search-result-card.json",
       "type": "json",
@@ -484,19 +491,12 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'tag' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.text-input": {
-      "path": "components/dist/guidelines/text-input.json",
+    "components.guidelineDoc.toggle": {
+      "path": "components/dist/guidelines/toggle.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'text-input' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.toggle-control": {
-      "path": "components/dist/guidelines/toggle-control.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'toggle-control' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'toggle' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.toolbar": {
       "path": "components/dist/guidelines/toolbar.json",
@@ -519,12 +519,12 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'upload-file' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.whats-new": {
-      "path": "components/dist/guidelines/whats-new.json",
+    "components.guidelineDoc.whats-new-dropdown": {
+      "path": "components/dist/guidelines/whats-new-dropdown.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'whats-new' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'whats-new-dropdown' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.iconGroups": {
       "path": "components/src/icon-groups.json",
@@ -837,11 +837,7 @@
   "registryAliases": {
     "checkbox-with-label": "checkbox",
     "dropdown-select-default": "dropdown-select",
-    "search-filters": "filters",
-    "tag-default": "tag",
-    "input": "text-input",
-    "toggle": "toggle-control",
-    "whats-new-dropdown": "whats-new"
+    "tag-default": "tag"
   },
   "_notes": {
     "foundations_auto": "foundations.* entries are auto-regenerated by scripts/foundations/derive-foundations.js. Do not hand-edit. Hierarchical layout: bundle for one-shot, per-H2 _index entries for navigation; full per-leaf tree lives under foundations/dist/<slug>/.",

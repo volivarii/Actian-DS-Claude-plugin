@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-06-29T11:56:43.205Z",
+  "generatedAt": "2026-07-01T10:42:44.814Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -374,12 +374,6 @@
         "zoom-to-fit"
       ],
       "count": 234
-    },
-    "Local components": {
-      "components": [
-        "notes-feedback"
-      ],
-      "count": 1
     }
   },
   "uncategorized": {

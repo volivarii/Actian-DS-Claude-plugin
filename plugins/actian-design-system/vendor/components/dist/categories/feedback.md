@@ -39,7 +39,7 @@ foundations_refs:
 
 # Feedback — design rationale
 
-Components in this category communicate system state to the user. Members: `alert-banner`, `confirmation`, `empty-state`, `error-state`, `loader`, `loader-with-logo`, `loading-skeleton`, `maintenance-banner`, `maintenance-state`, `notification`, `spinner`.
+Components in this category communicate system state to the user. Members: `alert-banner`, `confirmation`, `empty-state`, `error-state`, `loader`, `loader-with-logo`, `loading-skeleton`, `maintenance-state`, `notification`, `spinner`.
 
 ## Reference patterns
 

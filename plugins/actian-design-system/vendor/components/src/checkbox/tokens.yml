@@ -1,15 +1,18 @@
 # yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+# `property` marks a binding render-grade. The box sub-part bindings (box size,
+# border, checked fill, checkmark) and their states are left unmapped, deferred
+# to the part/state seam slice.
 bindings:
-  - { token: size-lg,                    context: "Checkbox box size" }
-  - { token: border-width-lg,            context: "Box border width (unchecked)" }
-  - { token: color-icon-default,         context: "Box border (unchecked)" }
-  - { token: border-radius-sm,           context: "Box corner rounding" }
-  - { token: color-icon-primary,         context: "Checked box fill and border" }
-  - { token: color-text-reverse,         context: "Checkmark glyph" }
-  - { token: spacing-2xs,                context: "Gap between box and label" }
-  - { token: color-text-primary,         context: "Label text" }
-  - { token: font-family-text,           context: "Label font family" }
-  - { token: font-size-md,               context: "Label font size" }
-  - { token: font-weight-regular,        context: "Label font weight" }
-  - { token: font-lineheight-md,         context: "Label line height" }
-  - { token: font-letterspacing-wide-2,  context: "Label letter spacing" }
+  - { token: size-lg,                                                context: "Checkbox box size" }
+  - { token: border-width-lg,                                        context: "Box border width (unchecked)" }
+  - { token: color-icon-default,                                     context: "Box border (unchecked)" }
+  - { token: border-radius-sm,                                       context: "Box corner rounding" }
+  - { token: color-icon-primary,                                     context: "Checked box fill and border" }
+  - { token: color-text-reverse,                                     context: "Checkmark glyph" }
+  - { token: spacing-2xs,                property: gap,              context: "Gap between box and label" }
+  - { token: color-text-primary,         property: color,            context: "Label text" }
+  - { token: font-family-text,           property: font-family,      context: "Label font family" }
+  - { token: font-size-md,               property: font-size,        context: "Label font size" }
+  - { token: font-weight-regular,        property: font-weight,      context: "Label font weight" }
+  - { token: font-lineheight-md,         property: line-height,      context: "Label line height" }
+  - { token: font-letterspacing-wide-2,  property: letter-spacing,   context: "Label letter spacing" }

@@ -36,7 +36,7 @@ foundations_refs:
 
 # Navigation — design rationale
 
-Components in this category move the user between contexts (pages, sections, steps). Members: `account-dropdown`, `app-switcher-dropdown`, `breadcrumbs`, `global-header`, `notification-dropdown`, `side-nav`, `stepper`, `stepper-buttons`, `tabs`, `traffic-light`, `whats-new-dropdown`.
+Components in this category move the user between contexts (pages, sections, steps). Members: `account-dropdown`, `app-switcher-dropdown`, `breadcrumbs`, `global-header`, `notification-dropdown`, `side-nav`, `stepper`, `tabs`, `whats-new-dropdown`.
 
 ## Reference patterns
 
@@ -54,8 +54,6 @@ Navigation patterns share an items-with-current-state anatomy regardless of orie
 
 * `breadcrumbs` collapses items at narrow widths — the anatomy extends with `Overflow indicator` (...).
 
-* `stepper` / `stepper-buttons` add `Step number` + `Step status` parts and a `progressively-revealed` state value.
-
-* `traffic-light` is a status-only nav element; its anatomy strips down to `Container` + `Indicator`.
+* `stepper` adds `Step number` + `Step status` parts and a `progressively-revealed` state value.
 
 * For dropdown navs (`account-dropdown`, `app-switcher-dropdown`, `notification-dropdown`, `whats-new-dropdown`), the `anchor-motion` ref drives the popover open/close.
