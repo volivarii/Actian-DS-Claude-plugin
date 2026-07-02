@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "calendar",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8211:6664",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Type=Single date select, Selection=Single",
     "kind": "container",
+    "id": "8211:6034",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -44,6 +45,7 @@
       {
         "name": "mat-calender-controls",
         "kind": "container",
+        "id": "8211:5825",
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -66,6 +68,7 @@
           {
             "name": "Frame 1010110410",
             "kind": "container",
+            "id": "8211:5826",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -88,6 +91,7 @@
               {
                 "name": "Submit",
                 "kind": "text",
+                "id": "8211:5827",
                 "text": "Jan 2025"
               },
               {
@@ -97,13 +101,15 @@
                 "props": {
                   "Show icon": true,
                   "Label": "Button"
-                }
+                },
+                "id": "8211:5828"
               }
             ]
           },
           {
             "name": "buttons",
             "kind": "container",
+            "id": "8211:5829",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -130,7 +136,8 @@
                 "props": {
                   "Show icon": true,
                   "Label": "Button"
-                }
+                },
+                "id": "8211:5830"
               },
               {
                 "name": "button",
@@ -139,7 +146,8 @@
                 "props": {
                   "Show icon": true,
                   "Label": "Button"
-                }
+                },
+                "id": "8211:5831"
               }
             ]
           }
@@ -148,6 +156,7 @@
       {
         "name": "mat-calendar-content-wrapper",
         "kind": "container",
+        "id": "8211:5832",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -170,6 +179,7 @@
           {
             "name": "day-row",
             "kind": "container",
+            "id": "8211:5833",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -192,36 +202,43 @@
               {
                 "name": "S",
                 "kind": "text",
+                "id": "8211:5834",
                 "text": "S"
               },
               {
                 "name": "M",
                 "kind": "text",
+                "id": "8211:5835",
                 "text": "M"
               },
               {
                 "name": "T",
                 "kind": "text",
+                "id": "8211:5836",
                 "text": "T"
               },
               {
                 "name": "W",
                 "kind": "text",
+                "id": "8211:5837",
                 "text": "W"
               },
               {
                 "name": "T",
                 "kind": "text",
+                "id": "8211:5838",
                 "text": "T"
               },
               {
                 "name": "F",
                 "kind": "text",
+                "id": "8211:5839",
                 "text": "F"
               },
               {
                 "name": "S",
                 "kind": "text",
+                "id": "8211:5840",
                 "text": "S"
               }
             ]
@@ -229,6 +246,7 @@
           {
             "name": "Frame 1010110409",
             "kind": "container",
+            "id": "8211:5841",
             "normalizable": false,
             "rawHint": {
               "layoutMode": "GRID",
@@ -246,7 +264,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5910"
               },
               {
                 "name": ".Calendar item",
@@ -254,7 +273,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5914"
               },
               {
                 "name": ".Calendar item",
@@ -262,7 +282,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5916"
               },
               {
                 "name": ".Calendar item",
@@ -270,7 +291,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5976"
               },
               {
                 "name": ".Calendar item",
@@ -278,7 +300,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5918"
               },
               {
                 "name": ".Calendar item",
@@ -286,7 +309,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5920"
               },
               {
                 "name": ".Calendar item",
@@ -294,7 +318,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Selected"
-                }
+                },
+                "id": "8211:5922"
               },
               {
                 "name": ".Calendar item",
@@ -302,7 +327,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5924"
               },
               {
                 "name": ".Calendar item",
@@ -310,7 +336,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5926"
               },
               {
                 "name": ".Calendar item",
@@ -318,7 +345,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5928"
               },
               {
                 "name": ".Calendar item",
@@ -326,7 +354,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5978"
               },
               {
                 "name": ".Calendar item",
@@ -334,7 +363,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5930"
               },
               {
                 "name": ".Calendar item",
@@ -342,7 +372,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5932"
               },
               {
                 "name": ".Calendar item",
@@ -350,7 +381,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5934"
               },
               {
                 "name": ".Calendar item",
@@ -358,7 +390,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5936"
               },
               {
                 "name": ".Calendar item",
@@ -366,7 +399,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5938"
               },
               {
                 "name": ".Calendar item",
@@ -374,7 +408,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5940"
               },
               {
                 "name": ".Calendar item",
@@ -382,7 +417,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5980"
               },
               {
                 "name": ".Calendar item",
@@ -390,7 +426,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5942"
               },
               {
                 "name": ".Calendar item",
@@ -398,7 +435,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5944"
               },
               {
                 "name": ".Calendar item",
@@ -406,7 +444,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5946"
               },
               {
                 "name": ".Calendar item",
@@ -414,7 +453,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5948"
               },
               {
                 "name": ".Calendar item",
@@ -422,7 +462,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5950"
               },
               {
                 "name": ".Calendar item",
@@ -430,7 +471,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5952"
               },
               {
                 "name": ".Calendar item",
@@ -438,7 +480,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5982"
               },
               {
                 "name": ".Calendar item",
@@ -446,7 +489,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5954"
               },
               {
                 "name": ".Calendar item",
@@ -454,7 +498,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5956"
               },
               {
                 "name": ".Calendar item",
@@ -462,7 +507,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5958"
               },
               {
                 "name": ".Calendar item",
@@ -470,7 +516,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5960"
               },
               {
                 "name": ".Calendar item",
@@ -478,7 +525,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5962"
               },
               {
                 "name": ".Calendar item",
@@ -486,7 +534,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Default"
-                }
+                },
+                "id": "8211:5964"
               },
               {
                 "name": ".Calendar item",
@@ -494,7 +543,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6010"
               },
               {
                 "name": ".Calendar item",
@@ -502,7 +552,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6012"
               },
               {
                 "name": ".Calendar item",
@@ -510,7 +561,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6014"
               },
               {
                 "name": ".Calendar item",
@@ -518,7 +570,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6016"
               },
               {
                 "name": ".Calendar item",
@@ -526,7 +579,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6018"
               },
               {
                 "name": ".Calendar item",
@@ -534,7 +588,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6020"
               },
               {
                 "name": ".Calendar item",
@@ -542,7 +597,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6022"
               },
               {
                 "name": ".Calendar item",
@@ -550,7 +606,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6024"
               },
               {
                 "name": ".Calendar item",
@@ -558,7 +615,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:5996"
               },
               {
                 "name": ".Calendar item",
@@ -566,7 +624,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:5998"
               },
               {
                 "name": ".Calendar item",
@@ -574,7 +633,8 @@
                 "unresolved": true,
                 "props": {
                   "State": "Disabled"
-                }
+                },
+                "id": "8211:6000"
               }
             ]
           }
@@ -583,6 +643,7 @@
       {
         "name": "mat-datepicker-actions",
         "kind": "container",
+        "id": "8211:5875",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -614,7 +675,8 @@
               "Type": "Basic",
               "Color": "Default",
               "State": "Enabled"
-            }
+            },
+            "id": "8211:5876"
           },
           {
             "name": "Button",
@@ -628,7 +690,8 @@
               "Type": "Raised",
               "Color": "Primary",
               "State": "Enabled"
-            }
+            },
+            "id": "8211:5877"
           }
         ]
       }

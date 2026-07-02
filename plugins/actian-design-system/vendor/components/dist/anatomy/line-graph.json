@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "line-graph",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15473:49490",
@@ -26,6 +26,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "15473:49487",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -48,6 +49,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "15473:49319",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -70,11 +72,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "15473:49320",
             "text": "Total incidents over timeframe"
           },
           {
             "name": "Title",
             "kind": "text",
+            "id": "15473:49321",
             "text": "May 07, 2025 to June 07, 2025"
           },
           {
@@ -90,13 +94,15 @@
               "Emphasis": "Icon-only",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "15473:49322"
           }
         ]
       },
       {
         "name": "Bars + labels",
         "kind": "container",
+        "id": "15473:49323",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -119,6 +125,7 @@
           {
             "name": "Y-axis",
             "kind": "container",
+            "id": "15473:49324",
             "layout": {
               "axis": "column",
               "gap": "12px",
@@ -141,6 +148,7 @@
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49325",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -163,17 +171,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49326",
                     "text": "90"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49327"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49328",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -196,17 +207,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49329",
                     "text": "75"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49330"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49331",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -229,17 +243,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49332",
                     "text": "60"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49333"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49334",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -262,17 +279,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49335",
                     "text": "45"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49336"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49337",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -295,17 +315,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49338",
                     "text": "30"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49339"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49340",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -328,17 +351,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49341",
                     "text": "15"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49342"
                   }
                 ]
               },
               {
                 "name": "Baseline",
                 "kind": "container",
+                "id": "15473:49343",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -361,11 +387,13 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49344",
                     "text": "0"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49345"
                   }
                 ]
               }
@@ -374,6 +402,7 @@
           {
             "name": "X-axis",
             "kind": "container",
+            "id": "15473:49346",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -396,6 +425,7 @@
               {
                 "name": "X-axis",
                 "kind": "container",
+                "id": "15473:49347",
                 "layout": {
                   "axis": "row",
                   "gap": "47px",
@@ -418,171 +448,205 @@
                   {
                     "name": "May",
                     "kind": "text",
+                    "id": "15473:49348",
                     "text": "May"
                   },
                   {
                     "name": "7",
                     "kind": "text",
+                    "id": "15473:49349",
                     "text": "7"
                   },
                   {
                     "name": "8",
                     "kind": "text",
+                    "id": "15473:49350",
                     "text": "8"
                   },
                   {
                     "name": "9",
                     "kind": "text",
+                    "id": "15473:49351",
                     "text": "9"
                   },
                   {
                     "name": "10",
                     "kind": "text",
+                    "id": "15473:49352",
                     "text": "10"
                   },
                   {
                     "name": "11",
                     "kind": "text",
+                    "id": "15473:49353",
                     "text": "11"
                   },
                   {
                     "name": "12",
                     "kind": "text",
+                    "id": "15473:49354",
                     "text": "12"
                   },
                   {
                     "name": "13",
                     "kind": "text",
+                    "id": "15473:49355",
                     "text": "13"
                   },
                   {
                     "name": "14",
                     "kind": "text",
+                    "id": "15473:49356",
                     "text": "14"
                   },
                   {
                     "name": "15",
                     "kind": "text",
+                    "id": "15473:49357",
                     "text": "15"
                   },
                   {
                     "name": "16",
                     "kind": "text",
+                    "id": "15473:49358",
                     "text": "16"
                   },
                   {
                     "name": "17",
                     "kind": "text",
+                    "id": "15473:49359",
                     "text": "17"
                   },
                   {
                     "name": "18",
                     "kind": "text",
+                    "id": "15473:49360",
                     "text": "18"
                   },
                   {
                     "name": "19",
                     "kind": "text",
+                    "id": "15473:49361",
                     "text": "19"
                   },
                   {
                     "name": "20",
                     "kind": "text",
+                    "id": "15473:49362",
                     "text": "20"
                   },
                   {
                     "name": "21",
                     "kind": "text",
+                    "id": "15473:49363",
                     "text": "21"
                   },
                   {
                     "name": "22",
                     "kind": "text",
+                    "id": "15473:49364",
                     "text": "22"
                   },
                   {
                     "name": "23",
                     "kind": "text",
+                    "id": "15473:49365",
                     "text": "23"
                   },
                   {
                     "name": "24",
                     "kind": "text",
+                    "id": "15473:49366",
                     "text": "24"
                   },
                   {
                     "name": "25",
                     "kind": "text",
+                    "id": "15473:49367",
                     "text": "25"
                   },
                   {
                     "name": "26",
                     "kind": "text",
+                    "id": "15473:49368",
                     "text": "26"
                   },
                   {
                     "name": "27",
                     "kind": "text",
+                    "id": "15473:49369",
                     "text": "27"
                   },
                   {
                     "name": "28",
                     "kind": "text",
+                    "id": "15473:49370",
                     "text": "28"
                   },
                   {
                     "name": "29",
                     "kind": "text",
+                    "id": "15473:49371",
                     "text": "29"
                   },
                   {
                     "name": "30",
                     "kind": "text",
+                    "id": "15473:49372",
                     "text": "30"
                   },
                   {
                     "name": "30",
                     "kind": "text",
+                    "id": "15473:49373",
                     "text": "30"
                   },
                   {
                     "name": "31",
                     "kind": "text",
+                    "id": "15473:49374",
                     "text": "31"
                   },
                   {
                     "name": "June",
                     "kind": "text",
+                    "id": "15473:49375",
                     "text": "June"
                   },
                   {
                     "name": "2",
                     "kind": "text",
+                    "id": "15473:49376",
                     "text": "2"
                   },
                   {
                     "name": "3",
                     "kind": "text",
+                    "id": "15473:49377",
                     "text": "3"
                   },
                   {
                     "name": "4",
                     "kind": "text",
+                    "id": "15473:49378",
                     "text": "4"
                   },
                   {
                     "name": "5",
                     "kind": "text",
+                    "id": "15473:49379",
                     "text": "5"
                   },
                   {
                     "name": "6",
                     "kind": "text",
+                    "id": "15473:49380",
                     "text": "6"
                   },
                   {
                     "name": "7",
                     "kind": "text",
+                    "id": "15473:49381",
                     "text": "7"
                   }
                 ]
@@ -592,6 +656,7 @@
           {
             "name": "Lines",
             "kind": "container",
+            "id": "15473:49382",
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
@@ -605,11 +670,13 @@
             "children": [
               {
                 "name": "Line",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "15473:49383"
               },
               {
                 "name": "Shodowing line",
                 "kind": "container",
+                "id": "15473:49384",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -623,11 +690,13 @@
                 "children": [
                   {
                     "name": "Line",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49385"
                   },
                   {
                     "name": "Line",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49386"
                   }
                 ]
               }
@@ -638,6 +707,7 @@
       {
         "name": "Legends + checkbox",
         "kind": "container",
+        "id": "15473:49387",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -660,6 +730,7 @@
           {
             "name": "Legend",
             "kind": "container",
+            "id": "15473:49388",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -685,7 +756,8 @@
                 "unresolved": true,
                 "props": {
                   "Property 1": "Selected"
-                }
+                },
+                "id": "15473:49389"
               },
               {
                 "name": ".data-viz-legend-item",
@@ -693,7 +765,8 @@
                 "unresolved": true,
                 "props": {
                   "Property 1": "Default"
-                }
+                },
+                "id": "15473:49390"
               },
               {
                 "name": ".data-viz-legend-item",
@@ -701,7 +774,8 @@
                 "unresolved": true,
                 "props": {
                   "Property 1": "Default"
-                }
+                },
+                "id": "15473:49391"
               },
               {
                 "name": ".data-viz-legend-item",
@@ -709,7 +783,8 @@
                 "unresolved": true,
                 "props": {
                   "Property 1": "Default"
-                }
+                },
+                "id": "15473:49392"
               },
               {
                 "name": ".data-viz-legend-item",
@@ -717,13 +792,15 @@
                 "unresolved": true,
                 "props": {
                   "Property 1": "Default"
-                }
+                },
+                "id": "15473:49393"
               }
             ]
           },
           {
             "name": "checkbox",
             "kind": "container",
+            "id": "15473:49394",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -750,11 +827,13 @@
                 "props": {
                   "Selected": "Yes",
                   "State": "Default"
-                }
+                },
+                "id": "15473:49395"
               },
               {
                 "name": "Title",
                 "kind": "container",
+                "id": "15473:49396",
                 "layout": {
                   "axis": "column",
                   "gap": "4px",
@@ -777,6 +856,7 @@
                   {
                     "name": "Title",
                     "kind": "text",
+                    "id": "15473:49397",
                     "text": "Show comparison trend"
                   }
                 ]

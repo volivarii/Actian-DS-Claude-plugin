@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8589:11055",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Global header, State=Default",
     "kind": "container",
+    "id": "8589:11054",
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -39,6 +40,7 @@
       {
         "name": "dropdown",
         "kind": "container",
+        "id": "13934:29583",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -61,23 +63,27 @@
           {
             "name": "Input text",
             "kind": "text",
+            "id": "13934:29584",
             "text": "Default"
           },
           {
             "name": "close",
             "kind": "instance",
-            "slug": "close"
+            "slug": "close",
+            "id": "13934:29585"
           },
           {
             "name": "arrow-down",
             "kind": "instance",
-            "slug": "arrow-down"
+            "slug": "arrow-down",
+            "id": "13934:29586"
           }
         ]
       },
       {
         "name": "search input",
         "kind": "container",
+        "id": "13934:29568",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -100,11 +106,13 @@
           {
             "name": "search 2",
             "kind": "instance",
-            "unresolved": true
+            "unresolved": true,
+            "id": "13934:29569"
           },
           {
             "name": "Input text",
             "kind": "text",
+            "id": "13934:29570",
             "text": "Search items"
           },
           {
@@ -120,7 +128,8 @@
               "Emphasis": "Ghost",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "13934:30198"
           }
         ]
       }

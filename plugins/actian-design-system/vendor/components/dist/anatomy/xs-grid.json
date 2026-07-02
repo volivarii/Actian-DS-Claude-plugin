@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "xs-grid",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14744:8073",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "7011:1542",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -36,6 +37,7 @@
       {
         "name": "Columns",
         "kind": "container",
+        "id": "7011:881",
         "layout": {
           "axis": "row",
           "gap": "16px",
@@ -57,19 +59,23 @@
         "children": [
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "7010:870"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "7010:872"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "7010:873"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "7010:874"
           }
         ]
       }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-catalog",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13812:22309",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "11300:10571",
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -39,11 +40,13 @@
       {
         "name": "directory",
         "kind": "instance",
-        "unresolved": true
+        "unresolved": true,
+        "id": "11300:8565"
       },
       {
         "name": "Tag-Name",
         "kind": "text",
+        "id": "11300:8566",
         "text": "Catalog"
       }
     ]

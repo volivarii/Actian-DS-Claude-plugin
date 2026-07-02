@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "xl-grid",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12054:30623",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property=Default",
     "kind": "container",
+    "id": "12054:30624",
     "layout": {
       "axis": "row",
       "gap": "16px",
@@ -39,6 +40,7 @@
       {
         "name": "Coumns",
         "kind": "container",
+        "id": "14782:10054",
         "layout": {
           "axis": "row",
           "gap": "16px",
@@ -60,67 +62,83 @@
         "children": [
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30625"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30626"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30627"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30628"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30629"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30630"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30631"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30632"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30633"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30634"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30635"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30636"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30637"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30638"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30639"
           },
           {
             "name": "Column",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12054:30640"
           }
         ]
       }

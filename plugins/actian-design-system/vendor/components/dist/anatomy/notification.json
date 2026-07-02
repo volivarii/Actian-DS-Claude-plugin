@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13868:11595",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "13868:11596",
     "layout": {
       "axis": "row",
       "gap": "14px",
@@ -39,6 +40,7 @@
       {
         "name": "Item deleted",
         "kind": "text",
+        "id": "13868:11597",
         "text": "Item deleted"
       },
       {
@@ -54,7 +56,8 @@
           "Emphasis": "Ghost",
           "Size": "Default",
           "State": "Default"
-        }
+        },
+        "id": "16017:27852"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "global-header",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:22554",
@@ -22,6 +22,7 @@
   "root": {
     "name": "App type=Studio, Breakpoints=XL",
     "kind": "container",
+    "id": "7384:22553",
     "layout": {
       "axis": "row",
       "gap": "100px",
@@ -44,6 +45,7 @@
       {
         "name": "Logo",
         "kind": "container",
+        "id": "14035:6163",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -61,13 +63,15 @@
             "unresolved": true,
             "props": {
               "Type": "Logo Studio"
-            }
+            },
+            "id": "7805:6391"
           }
         ]
       },
       {
         "name": "Action on right",
         "kind": "container",
+        "id": "7384:14041",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -90,11 +94,13 @@
           {
             "name": "What’s new",
             "kind": "text",
+            "id": "14035:6518",
             "text": "What’s new"
           },
           {
             "name": "Divider",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "14783:9585"
           },
           {
             "name": "notification",
@@ -109,11 +115,13 @@
               "Emphasis": "Icon-only",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "14035:8192"
           },
           {
             "name": "Divider",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "14783:9571"
           },
           {
             "name": "App switcher",
@@ -128,11 +136,13 @@
               "Emphasis": "Icon-only",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "14036:7042"
           },
           {
             "name": "Divider",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "14783:9556"
           },
           {
             "name": "Avatar",
@@ -141,13 +151,15 @@
             "props": {
               "State": "Default",
               "Type": "Default"
-            }
+            },
+            "id": "7384:14239"
           }
         ]
       },
       {
         "name": "Search",
         "kind": "container",
+        "id": "8973:18456",
         "layout": {
           "axis": "row",
           "gap": "16px",
@@ -170,6 +182,7 @@
           {
             "name": "Catalog dropdown",
             "kind": "container",
+            "id": "14035:5339",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -192,16 +205,19 @@
               {
                 "name": "Input text",
                 "kind": "text",
+                "id": "14035:5340",
                 "text": "Default"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14035:5342"
               },
               {
                 "name": "Input text",
                 "kind": "text",
+                "id": "14035:5589",
                 "text": "Catalog"
               }
             ]
@@ -209,6 +225,7 @@
           {
             "name": "Search",
             "kind": "container",
+            "id": "14035:8879",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -236,12 +253,14 @@
                   "AI icon": false,
                   "Type": "Global header",
                   "State": "Default"
-                }
+                },
+                "id": "8589:11056"
               },
               {
                 "name": "Tooltip icon",
                 "kind": "instance",
-                "slug": "info"
+                "slug": "info",
+                "id": "9125:15127"
               }
             ]
           }

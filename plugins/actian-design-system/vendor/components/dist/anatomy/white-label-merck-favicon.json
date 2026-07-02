@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "white-label-merck-favicon",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15609:14859",
@@ -30,6 +30,7 @@
   "root": {
     "name": "Property 1=Merck-favicon-admin",
     "kind": "container",
+    "id": "15609:14860",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -44,6 +45,7 @@
       {
         "name": "Group",
         "kind": "container",
+        "id": "15609:14861",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -57,13 +59,15 @@
         "children": [
           {
             "name": "Frame",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14862"
           }
         ]
       },
       {
         "name": "vector",
         "kind": "container",
+        "id": "15609:14863",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -77,39 +81,48 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14864"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14865"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14866"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14867"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14868"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14869"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14870"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14871"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "15609:14872"
           }
         ]
       }

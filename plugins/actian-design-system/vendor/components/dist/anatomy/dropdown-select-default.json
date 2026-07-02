@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13972:708",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default, State=Default",
     "kind": "container",
+    "id": "13972:707",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Label + description",
         "kind": "container",
+        "id": "13937:34579",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -61,6 +63,7 @@
           {
             "name": "Label",
             "kind": "container",
+            "id": "13937:34580",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -83,23 +86,27 @@
               {
                 "name": "Label",
                 "kind": "text",
+                "id": "13937:34581",
                 "text": "Label"
               },
               {
                 "name": "Label",
                 "kind": "text",
+                "id": "13937:34582",
                 "text": "*"
               },
               {
                 "name": "info",
                 "kind": "instance",
-                "slug": "info"
+                "slug": "info",
+                "id": "13937:34583"
               }
             ]
           },
           {
             "name": "description",
             "kind": "text",
+            "id": "13937:34584",
             "text": "A description helps users to define and understand the purpose of the input."
           }
         ]
@@ -107,6 +114,7 @@
       {
         "name": "input field",
         "kind": "container",
+        "id": "13937:34585",
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -129,11 +137,13 @@
           {
             "name": "close",
             "kind": "instance",
-            "slug": "close"
+            "slug": "close",
+            "id": "13937:34587"
           },
           {
             "name": ".menu item",
             "kind": "container",
+            "id": "13972:602",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -156,12 +166,14 @@
               {
                 "name": "Label text",
                 "kind": "text",
+                "id": "13972:604",
                 "text": "Select item"
               },
               {
                 "name": "Trailing icon",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "13972:605"
               }
             ]
           }
@@ -170,6 +182,7 @@
       {
         "name": "helper text",
         "kind": "text",
+        "id": "13937:34589",
         "text": "Helper text goes here"
       }
     ]

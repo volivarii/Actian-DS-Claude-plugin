@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9114:15379",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=List",
     "kind": "container",
+    "id": "9114:15378",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -46,7 +47,8 @@
           "Label text": "Notification",
           "Type": "Selectable item",
           "State": "Selected"
-        }
+        },
+        "id": "9097:17458"
       },
       {
         "name": ".menu item",
@@ -58,11 +60,13 @@
           "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
-        }
+        },
+        "id": "9097:17509"
       },
       {
         "name": ".menu item",
         "kind": "container",
+        "id": "9097:17536",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -85,12 +89,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9097:17538",
             "text": "New items inventoried from PowerBi Online V1 at 7/11/25, 12:42 AM."
           },
           {
             "name": "Leading icon",
             "kind": "instance",
-            "slug": "checkmark-outline"
+            "slug": "checkmark-outline",
+            "id": "9097:17537"
           }
         ]
       },
@@ -104,11 +110,13 @@
           "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
-        }
+        },
+        "id": "9097:17522"
       },
       {
         "name": ".menu item",
         "kind": "container",
+        "id": "9097:17526",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -131,12 +139,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9097:17528",
             "text": "New items inventoried from PowerBi Online V1 at 7/6/25 12:42 AM."
           },
           {
             "name": "Leading icon",
             "kind": "instance",
-            "slug": "checkmark-outline"
+            "slug": "checkmark-outline",
+            "id": "9097:17527"
           }
         ]
       },
@@ -150,11 +160,13 @@
           "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
-        }
+        },
+        "id": "9114:15244"
       },
       {
         "name": ".menu item",
         "kind": "container",
+        "id": "9114:15189",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -177,12 +189,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9114:15190",
             "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 4:47 PM."
           },
           {
             "name": "Leading icon",
             "kind": "instance",
-            "slug": "checkmark-outline"
+            "slug": "checkmark-outline",
+            "id": "9114:15192"
           }
         ]
       },
@@ -196,11 +210,13 @@
           "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
-        }
+        },
+        "id": "9114:15242"
       },
       {
         "name": ".menu item",
         "kind": "container",
+        "id": "9114:15196",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -223,12 +239,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9114:15197",
             "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02 PM."
           },
           {
             "name": "Leading icon",
             "kind": "instance",
-            "slug": "checkmark-outline"
+            "slug": "checkmark-outline",
+            "id": "9114:15199"
           }
         ]
       }

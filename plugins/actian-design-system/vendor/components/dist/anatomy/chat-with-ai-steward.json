@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "chat-with-ai-steward",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15464:24509",
@@ -17,6 +17,7 @@
   "root": {
     "name": "size=Default, history=Closed",
     "kind": "container",
+    "id": "15464:23205",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -42,7 +43,8 @@
         "unresolved": true,
         "props": {
           "State": "Default"
-        }
+        },
+        "id": "15464:23995"
       },
       {
         "name": ".Chat with AI Steward Chat area",
@@ -50,7 +52,8 @@
         "unresolved": true,
         "props": {
           "State": "Default"
-        }
+        },
+        "id": "15464:23830"
       },
       {
         "name": ".Chat with AI Steward Footer",
@@ -58,7 +61,8 @@
         "unresolved": true,
         "props": {
           "State": "Default"
-        }
+        },
+        "id": "15608:35136"
       }
     ]
   }

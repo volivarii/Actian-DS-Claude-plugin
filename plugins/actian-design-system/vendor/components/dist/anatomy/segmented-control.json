@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "segmented-control",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7618:5187",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "7618:5284",
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -44,11 +45,13 @@
           "Label": "Label",
           "Icon2": true,
           "State": "Selected"
-        }
+        },
+        "id": "7618:5285"
       },
       {
         "name": " Divider",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "13811:13070"
       },
       {
         "name": ".segmented control sub component",
@@ -58,11 +61,13 @@
           "Label": "Label",
           "Icon2": true,
           "State": "Default"
-        }
+        },
+        "id": "7618:5286"
       },
       {
         "name": " Divider",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "13811:13068"
       },
       {
         "name": ".segmented control sub component",
@@ -72,11 +77,13 @@
           "Label": "Label",
           "Icon2": true,
           "State": "Default"
-        }
+        },
+        "id": "7618:5287"
       },
       {
         "name": " Divider",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "13811:13066"
       },
       {
         "name": ".segmented control sub component",
@@ -86,11 +93,13 @@
           "Label": "Label",
           "Icon2": true,
           "State": "Default"
-        }
+        },
+        "id": "7618:5288"
       },
       {
         "name": " Divider",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "13811:13064"
       },
       {
         "name": ".segmented control sub component",
@@ -100,7 +109,8 @@
           "Label": "Label",
           "Icon2": true,
           "State": "Default"
-        }
+        },
+        "id": "7618:5289"
       }
     ]
   }

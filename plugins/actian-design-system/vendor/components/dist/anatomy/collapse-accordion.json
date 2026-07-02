@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "collapse-accordion",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8292:80",
@@ -17,6 +17,7 @@
   "root": {
     "name": "State=Collapsed",
     "kind": "container",
+    "id": "8292:79",
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "15956:6279",
         "layout": {
           "axis": "row",
           "gap": "242px",
@@ -61,6 +63,7 @@
           {
             "name": "sideNavHeading",
             "kind": "text",
+            "id": "8291:2629",
             "text": "Accordion header "
           },
           {
@@ -76,7 +79,8 @@
               "Emphasis": "Icon-only",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "8291:2630"
           }
         ]
       }

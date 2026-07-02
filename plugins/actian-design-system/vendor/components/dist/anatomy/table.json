@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "table",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15295:14902",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Built type=By columns",
     "kind": "container",
+    "id": "15295:14903",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -42,11 +43,13 @@
         "unresolved": true,
         "props": {
           "Property 1": "Default"
-        }
+        },
+        "id": "15295:14904"
       },
       {
         "name": "Columns",
         "kind": "container",
+        "id": "15295:14905",
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -72,7 +75,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14906"
           },
           {
             "name": ".Table column",
@@ -80,7 +84,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14907"
           },
           {
             "name": ".Table column",
@@ -88,7 +93,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14908"
           },
           {
             "name": ".Table column",
@@ -96,7 +102,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14909"
           },
           {
             "name": ".Table column",
@@ -104,7 +111,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14910"
           },
           {
             "name": ".Table column",
@@ -112,7 +120,8 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "15295:14911"
           },
           {
             "name": ".Table column",
@@ -120,7 +129,8 @@
             "unresolved": true,
             "props": {
               "Type": "Tag"
-            }
+            },
+            "id": "15295:14912"
           },
           {
             "name": ".Table column",
@@ -128,7 +138,8 @@
             "unresolved": true,
             "props": {
               "Type": "Actions"
-            }
+            },
+            "id": "15295:14913"
           }
         ]
       },
@@ -138,7 +149,8 @@
         "unresolved": true,
         "props": {
           "Property 1": "Default"
-        }
+        },
+        "id": "15295:14914"
       }
     ]
   }

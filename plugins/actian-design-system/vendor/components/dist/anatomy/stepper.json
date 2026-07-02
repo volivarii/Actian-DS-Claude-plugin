@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "stepper",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7676:4492",
@@ -17,6 +17,7 @@
   "root": {
     "name": "State=Complete",
     "kind": "container",
+    "id": "14072:3654",
     "layout": {
       "axis": "column",
       "gap": "4px",
@@ -39,6 +40,7 @@
       {
         "name": "Status",
         "kind": "container",
+        "id": "15471:33206",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -61,6 +63,7 @@
           {
             "name": "1",
             "kind": "text",
+            "id": "15471:33207",
             "text": "1"
           }
         ]
@@ -68,6 +71,7 @@
       {
         "name": "Text",
         "kind": "container",
+        "id": "14072:3657",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -90,11 +94,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "14072:3658",
             "text": "Complete"
           },
           {
             "name": "Body",
             "kind": "text",
+            "id": "14072:3659",
             "text": "Optional body"
           }
         ]

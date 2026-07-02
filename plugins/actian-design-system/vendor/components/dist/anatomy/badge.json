@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "badge",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12159:16447",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Number",
     "kind": "container",
+    "id": "12159:16448",
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "3",
         "kind": "text",
+        "id": "12159:16449",
         "text": "3"
       }
     ]

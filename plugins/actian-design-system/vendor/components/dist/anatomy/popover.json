@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Interaction guide",
     "kind": "container",
+    "id": "14294:7344",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -39,6 +40,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "14294:6571",
         "layout": {
           "axis": "row",
           "gap": "666px",
@@ -61,6 +63,7 @@
           {
             "name": "Icon + header",
             "kind": "container",
+            "id": "14294:7320",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -83,11 +86,13 @@
               {
                 "name": "info",
                 "kind": "instance",
-                "slug": "info"
+                "slug": "info",
+                "id": "14294:7317"
               },
               {
                 "name": "Header",
                 "kind": "text",
+                "id": "14294:6219",
                 "text": "Interaction guide"
               }
             ]
@@ -99,13 +104,15 @@
             "props": {
               "Show icon": true,
               "Label": "Button"
-            }
+            },
+            "id": "14294:6276"
           }
         ]
       },
       {
         "name": "Body 1",
         "kind": "container",
+        "id": "14294:6793",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -128,16 +135,19 @@
           {
             "name": "Label",
             "kind": "text",
+            "id": "14294:6784",
             "text": "About this lineage"
           },
           {
             "name": "description",
             "kind": "text",
+            "id": "14294:6787",
             "text": "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline.  Learn how to navigate data lineage using mouse and keyboard controls."
           },
           {
             "name": "Table",
             "kind": "container",
+            "id": "14294:6994",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -160,6 +170,7 @@
               {
                 "name": ".Table column",
                 "kind": "container",
+                "id": "14294:6995",
                 "layout": {
                   "axis": "column",
                   "gap": "0px",
@@ -190,7 +201,8 @@
                       "Show Avatar": false,
                       "Show Sort": false,
                       "Type": "Header"
-                    }
+                    },
+                    "id": "14294:6996"
                   },
                   {
                     "name": ".Table cell",
@@ -203,7 +215,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:6997"
                   },
                   {
                     "name": ".Table cell",
@@ -216,7 +229,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:6998"
                   },
                   {
                     "name": ".Table cell",
@@ -229,7 +243,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:6999"
                   },
                   {
                     "name": ".Table cell",
@@ -242,7 +257,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7000"
                   },
                   {
                     "name": ".Table cell",
@@ -255,7 +271,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7001"
                   },
                   {
                     "name": ".Table cell",
@@ -268,7 +285,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7002"
                   },
                   {
                     "name": ".Table cell",
@@ -281,7 +299,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7003"
                   },
                   {
                     "name": ".Table cell",
@@ -294,13 +313,15 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7004"
                   }
                 ]
               },
               {
                 "name": ".Table column",
                 "kind": "container",
+                "id": "14294:7005",
                 "layout": {
                   "axis": "column",
                   "gap": "0px",
@@ -331,11 +352,13 @@
                       "Show Avatar": false,
                       "Show Sort": false,
                       "Type": "Header"
-                    }
+                    },
+                    "id": "14294:7006"
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "id": "14294:7007",
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -358,6 +381,7 @@
                       {
                         "name": "Buttons",
                         "kind": "container",
+                        "id": "14294:7008",
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -380,7 +404,8 @@
                           {
                             "name": "collapse-categories",
                             "kind": "instance",
-                            "unresolved": true
+                            "unresolved": true,
+                            "id": "14294:7009"
                           }
                         ]
                       }
@@ -389,6 +414,7 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "id": "14294:7010",
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -411,6 +437,7 @@
                       {
                         "name": "Buttons",
                         "kind": "container",
+                        "id": "14294:7011",
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -433,13 +460,15 @@
                           {
                             "name": "zoom-out",
                             "kind": "instance",
-                            "slug": "zoom-out"
+                            "slug": "zoom-out",
+                            "id": "14294:7012"
                           }
                         ]
                       },
                       {
                         "name": "/ Scroll down / pinch in",
                         "kind": "text",
+                        "id": "14294:7013",
                         "text": "/ Scroll down / pinch in"
                       }
                     ]
@@ -447,6 +476,7 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "id": "14294:7014",
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -469,6 +499,7 @@
                       {
                         "name": "Buttons",
                         "kind": "container",
+                        "id": "14294:7015",
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -491,13 +522,15 @@
                           {
                             "name": "zoom-in",
                             "kind": "instance",
-                            "slug": "zoom-in"
+                            "slug": "zoom-in",
+                            "id": "14294:7016"
                           }
                         ]
                       },
                       {
                         "name": "/ Scroll up / pinch out",
                         "kind": "text",
+                        "id": "14294:7017",
                         "text": "/ Scroll up / pinch out"
                       }
                     ]
@@ -513,7 +546,8 @@
                       "Show Button 2": true,
                       "Show Button 1": true,
                       "Type": "Action"
-                    }
+                    },
+                    "id": "14294:7018"
                   },
                   {
                     "name": ".Table cell",
@@ -526,11 +560,13 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7019"
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "id": "14294:7020",
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -553,6 +589,7 @@
                       {
                         "name": "Frame 1948755108",
                         "kind": "container",
+                        "id": "14294:7021",
                         "layout": {
                           "axis": "row",
                           "gap": "8px",
@@ -575,6 +612,7 @@
                           {
                             "name": "Frame 1948755105",
                             "kind": "container",
+                            "id": "14294:7022",
                             "layout": {
                               "axis": "row",
                               "gap": "0px",
@@ -600,7 +638,8 @@
                                 "unresolved": true,
                                 "props": {
                                   "Property 1": "Default"
-                                }
+                                },
+                                "id": "14294:7023"
                               },
                               {
                                 "name": "Table view",
@@ -608,7 +647,8 @@
                                 "unresolved": true,
                                 "props": {
                                   "Property 1": "Default"
-                                }
+                                },
+                                "id": "14294:7024"
                               }
                             ]
                           }
@@ -627,11 +667,13 @@
                       "Show Button 2": true,
                       "Show Button 1": true,
                       "Type": "Action"
-                    }
+                    },
+                    "id": "14294:7025"
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "id": "14294:7026",
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -654,6 +696,7 @@
                       {
                         "name": "Frame 2055248437",
                         "kind": "container",
+                        "id": "14294:7027",
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -686,11 +729,13 @@
                               "Emphasis": "Icon-only",
                               "Size": "Small",
                               "State": "Default"
-                            }
+                            },
+                            "id": "14294:7028"
                           },
                           {
                             "name": "/",
                             "kind": "text",
+                            "id": "14294:7029",
                             "text": "/"
                           },
                           {
@@ -706,7 +751,8 @@
                               "Emphasis": "Icon-only",
                               "Size": "Small",
                               "State": "Default"
-                            }
+                            },
+                            "id": "14294:7030"
                           }
                         ]
                       }
@@ -717,6 +763,7 @@
               {
                 "name": ".Table column",
                 "kind": "container",
+                "id": "14294:7031",
                 "layout": {
                   "axis": "column",
                   "gap": "0px",
@@ -747,7 +794,8 @@
                       "Show Avatar": false,
                       "Show Sort": false,
                       "Type": "Header"
-                    }
+                    },
+                    "id": "14294:7032"
                   },
                   {
                     "name": ".Table cell",
@@ -760,7 +808,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7033"
                   },
                   {
                     "name": ".Table cell",
@@ -773,7 +822,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7034"
                   },
                   {
                     "name": ".Table cell",
@@ -786,7 +836,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7035"
                   },
                   {
                     "name": ".Table cell",
@@ -799,7 +850,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7036"
                   },
                   {
                     "name": ".Table cell",
@@ -812,7 +864,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7037"
                   },
                   {
                     "name": ".Table cell",
@@ -825,7 +878,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7038"
                   },
                   {
                     "name": ".Table cell",
@@ -838,7 +892,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7039"
                   },
                   {
                     "name": ".Table cell",
@@ -851,7 +906,8 @@
                       "Show Sort": false,
                       "Show Avatar": false,
                       "Type": "Text"
-                    }
+                    },
+                    "id": "14294:7040"
                   }
                 ]
               },
@@ -861,7 +917,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Default"
-                }
+                },
+                "id": "14294:7041"
               },
               {
                 "name": ".Table column",
@@ -869,7 +926,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Default"
-                }
+                },
+                "id": "14294:7042"
               },
               {
                 "name": ".Table column",
@@ -877,7 +935,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Default"
-                }
+                },
+                "id": "14294:7043"
               },
               {
                 "name": ".Table column",
@@ -885,7 +944,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Tag"
-                }
+                },
+                "id": "14294:7044"
               },
               {
                 "name": ".Table column",
@@ -893,7 +953,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Actions"
-                }
+                },
+                "id": "14294:7045"
               }
             ]
           }
@@ -902,6 +963,7 @@
       {
         "name": "Body 2",
         "kind": "container",
+        "id": "14294:6794",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -927,13 +989,15 @@
             "unresolved": true,
             "props": {
               "State": "Collapsed"
-            }
+            },
+            "id": "14294:6277"
           }
         ]
       },
       {
         "name": "Action",
         "kind": "container",
+        "id": "14294:6836",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -966,7 +1030,8 @@
               "Emphasis": "Ghost",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "14294:6830"
           }
         ]
       }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13599:20120",
@@ -17,6 +17,7 @@
   "root": {
     "name": "App=Studio, View=Expanded",
     "kind": "container",
+    "id": "13599:20121",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Main",
         "kind": "container",
+        "id": "13599:20122",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -70,7 +72,8 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "13599:20123"
           },
           {
             "name": "nav item",
@@ -84,7 +87,8 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "13599:20124"
           },
           {
             "name": "nav item",
@@ -98,11 +102,13 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "13599:20125"
           },
           {
             "name": "Divider",
             "kind": "container",
+            "id": "13599:20126",
             "layout": {
               "axis": "column",
               "gap": "8px",
@@ -124,7 +130,8 @@
             "children": [
               {
                 "name": "Divider",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "13599:20127"
               }
             ]
           },
@@ -140,7 +147,8 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "13599:20128"
           },
           {
             "name": "nav item",
@@ -154,7 +162,8 @@
               "Level": "Sub",
               "Opened/Closed": "N/A",
               "State": "Default"
-            }
+            },
+            "id": "13599:20129"
           },
           {
             "name": "nav item",
@@ -168,7 +177,8 @@
               "Level": "Sub",
               "Opened/Closed": "N/A",
               "State": "Default"
-            }
+            },
+            "id": "13599:20130"
           },
           {
             "name": "nav item",
@@ -182,13 +192,15 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "13599:20131"
           }
         ]
       },
       {
         "name": "Frame 1948754907",
         "kind": "container",
+        "id": "13599:20137",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -220,7 +232,8 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "14115:17091"
           },
           {
             "name": "nav item",
@@ -234,7 +247,8 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "14115:17092"
           },
           {
             "name": "nav item",
@@ -248,11 +262,13 @@
               "Level": "Top",
               "Opened/Closed": "Closed",
               "State": "Default"
-            }
+            },
+            "id": "14115:17093"
           },
           {
             "name": "Divider",
             "kind": "container",
+            "id": "13599:20138",
             "layout": {
               "axis": "column",
               "gap": "8px",
@@ -274,7 +290,8 @@
             "children": [
               {
                 "name": "Divider",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "13599:20139"
               }
             ]
           },
@@ -291,7 +308,8 @@
               "Emphasis": "Icon-only",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "13599:20140"
           }
         ]
       }

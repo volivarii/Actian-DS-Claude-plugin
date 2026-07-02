@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loading-skeleton",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:8086",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Transition=1",
     "kind": "container",
+    "id": "14294:8084",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -35,15 +36,18 @@
     "children": [
       {
         "name": "Union",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "14294:8016"
       },
       {
         "name": "Background",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "14294:8024"
       },
       {
         "name": "Lens",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "14294:8025"
       }
     ]
   }

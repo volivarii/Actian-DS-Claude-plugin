@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "rich-text",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9480:17723",
@@ -130,6 +130,7 @@
   "root": {
     "name": "State=Default",
     "kind": "container",
+    "id": "9480:18728",
     "layout": {
       "axis": "row",
       "gap": "206px",
@@ -152,6 +153,7 @@
       {
         "name": "Toolbar",
         "kind": "container",
+        "id": "14226:20971",
         "layout": {
           "axis": "row",
           "gap": "206px",
@@ -174,6 +176,7 @@
           {
             "name": "Left toolbar",
             "kind": "container",
+            "id": "9480:18730",
             "layout": {
               "axis": "row",
               "gap": "12px",
@@ -196,6 +199,7 @@
               {
                 "name": "div.fr-btn-grp",
                 "kind": "container",
+                "id": "9480:18731",
                 "layout": {
                   "axis": "row",
                   "gap": "18px",
@@ -218,6 +222,7 @@
                   {
                     "name": "svg.fr-svg",
                     "kind": "container",
+                    "id": "9480:18732",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -232,6 +237,7 @@
                       {
                         "name": "Bold",
                         "kind": "container",
+                        "id": "9480:18733",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -245,7 +251,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "9480:18734"
                           }
                         ]
                       }
@@ -254,6 +261,7 @@
                   {
                     "name": "svg.fr-svg",
                     "kind": "container",
+                    "id": "9480:18735",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -268,6 +276,7 @@
                       {
                         "name": "Italicize",
                         "kind": "container",
+                        "id": "9480:18736",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -281,7 +290,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "9480:18737"
                           }
                         ]
                       }
@@ -290,6 +300,7 @@
                   {
                     "name": "Underline",
                     "kind": "container",
+                    "id": "9480:18738",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -304,6 +315,7 @@
                       {
                         "name": "Underline",
                         "kind": "container",
+                        "id": "9480:18739",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -317,7 +329,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "9480:18740"
                           }
                         ]
                       }
@@ -326,6 +339,7 @@
                   {
                     "name": "A:",
                     "kind": "container",
+                    "id": "9480:18741",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -340,6 +354,7 @@
                       {
                         "name": "Frame",
                         "kind": "container",
+                        "id": "9480:18742",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -353,7 +368,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "9480:18743"
                           }
                         ]
                       }
@@ -364,6 +380,7 @@
               {
                 "name": "Text positioning",
                 "kind": "container",
+                "id": "9480:18744",
                 "layout": {
                   "axis": "row",
                   "gap": "18px",
@@ -386,6 +403,7 @@
                   {
                     "name": "Justify left",
                     "kind": "container",
+                    "id": "13934:28560",
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -408,6 +426,7 @@
                       {
                         "name": "svg.fr-svg",
                         "kind": "container",
+                        "id": "9480:18745",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -422,6 +441,7 @@
                           {
                             "name": "Frame",
                             "kind": "container",
+                            "id": "9480:18746",
                             "normalizable": false,
                             "rawHint": {
                               "layoutMode": "NONE",
@@ -435,7 +455,8 @@
                             "children": [
                               {
                                 "name": "Vector",
-                                "kind": "vector"
+                                "kind": "vector",
+                                "id": "9480:18747"
                               }
                             ]
                           }
@@ -443,13 +464,15 @@
                       },
                       {
                         "name": "Polygon 1",
-                        "kind": "container"
+                        "kind": "container",
+                        "id": "13934:28558"
                       }
                     ]
                   },
                   {
                     "name": "Numbered list",
                     "kind": "container",
+                    "id": "13934:28563",
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -472,6 +495,7 @@
                       {
                         "name": "svg.fr-svg",
                         "kind": "container",
+                        "id": "9480:18751",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -486,6 +510,7 @@
                           {
                             "name": "Frame",
                             "kind": "container",
+                            "id": "9480:18752",
                             "normalizable": false,
                             "rawHint": {
                               "layoutMode": "NONE",
@@ -499,7 +524,8 @@
                             "children": [
                               {
                                 "name": "Vector",
-                                "kind": "vector"
+                                "kind": "vector",
+                                "id": "9480:18753"
                               }
                             ]
                           }
@@ -507,13 +533,15 @@
                       },
                       {
                         "name": "Polygon 2",
-                        "kind": "container"
+                        "kind": "container",
+                        "id": "13934:28561"
                       }
                     ]
                   },
                   {
                     "name": "Bulleted list",
                     "kind": "container",
+                    "id": "13934:28566",
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -536,6 +564,7 @@
                       {
                         "name": "svg.fr-svg",
                         "kind": "container",
+                        "id": "13934:28567",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -550,6 +579,7 @@
                           {
                             "name": "Frame",
                             "kind": "container",
+                            "id": "13934:28568",
                             "normalizable": false,
                             "rawHint": {
                               "layoutMode": "NONE",
@@ -563,27 +593,32 @@
                             "children": [
                               {
                                 "name": "Vector",
-                                "kind": "vector"
+                                "kind": "vector",
+                                "id": "13934:28569"
                               }
                             ]
                           },
                           {
                             "name": "Ellipse 1",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28574"
                           },
                           {
                             "name": "Ellipse 2",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28575"
                           },
                           {
                             "name": "Ellipse 3",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28576"
                           }
                         ]
                       },
                       {
                         "name": "Polygon 2",
-                        "kind": "container"
+                        "kind": "container",
+                        "id": "13934:28564"
                       }
                     ]
                   }
@@ -592,6 +627,7 @@
               {
                 "name": "Insert options",
                 "kind": "container",
+                "id": "9480:18757",
                 "layout": {
                   "axis": "row",
                   "gap": "19px",
@@ -614,6 +650,7 @@
                   {
                     "name": "Link",
                     "kind": "container",
+                    "id": "9480:18764",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -628,6 +665,7 @@
                       {
                         "name": "Frame",
                         "kind": "container",
+                        "id": "9480:18765",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -641,7 +679,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "9480:18766"
                           }
                         ]
                       }
@@ -650,6 +689,7 @@
                   {
                     "name": "Table",
                     "kind": "container",
+                    "id": "13934:28578",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -664,6 +704,7 @@
                       {
                         "name": "Frame",
                         "kind": "container",
+                        "id": "13934:28579",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -677,7 +718,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28580"
                           }
                         ]
                       }
@@ -686,6 +728,7 @@
                   {
                     "name": "Omega",
                     "kind": "container",
+                    "id": "13934:28586",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -700,6 +743,7 @@
                       {
                         "name": "Frame",
                         "kind": "container",
+                        "id": "13934:28587",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -713,7 +757,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28588"
                           }
                         ]
                       }
@@ -722,6 +767,7 @@
                   {
                     "name": "Image",
                     "kind": "container",
+                    "id": "13934:28590",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -736,6 +782,7 @@
                       {
                         "name": "Frame",
                         "kind": "container",
+                        "id": "13934:28591",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
@@ -749,7 +796,8 @@
                         "children": [
                           {
                             "name": "Vector",
-                            "kind": "vector"
+                            "kind": "vector",
+                            "id": "13934:28592"
                           }
                         ]
                       }
@@ -762,6 +810,7 @@
           {
             "name": "Right toolbar",
             "kind": "container",
+            "id": "9480:18773",
             "layout": {
               "axis": "row",
               "gap": "18px",
@@ -784,6 +833,7 @@
               {
                 "name": "Backwards arrow",
                 "kind": "container",
+                "id": "9480:18774",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -798,6 +848,7 @@
                   {
                     "name": "Frame",
                     "kind": "container",
+                    "id": "9480:18775",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -811,7 +862,8 @@
                     "children": [
                       {
                         "name": "Vector",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "9480:18776"
                       }
                     ]
                   }
@@ -820,6 +872,7 @@
               {
                 "name": "Forwards arrow",
                 "kind": "container",
+                "id": "9480:18777",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -834,6 +887,7 @@
                   {
                     "name": "Frame",
                     "kind": "container",
+                    "id": "9480:18778",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -847,7 +901,8 @@
                     "children": [
                       {
                         "name": "Vector",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "9480:18779"
                       }
                     ]
                   }
@@ -856,6 +911,7 @@
               {
                 "name": "More",
                 "kind": "container",
+                "id": "9480:18780",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -870,6 +926,7 @@
                   {
                     "name": "Frame",
                     "kind": "container",
+                    "id": "9480:18781",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
@@ -883,7 +940,8 @@
                     "children": [
                       {
                         "name": "Vector",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "9480:18782"
                       }
                     ]
                   }

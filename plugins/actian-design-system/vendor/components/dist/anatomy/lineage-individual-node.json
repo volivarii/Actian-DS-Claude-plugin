@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Type=Main item, State=Default, Fields=Collapsed",
     "kind": "container",
+    "id": "14747:19904",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -48,11 +49,13 @@
         "props": {
           "Icon": "Collapse",
           "State": "Default"
-        }
+        },
+        "id": "14747:19905"
       },
       {
         "name": "Card",
         "kind": "container",
+        "id": "14747:19906",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -75,6 +78,7 @@
           {
             "name": "Header",
             "kind": "container",
+            "id": "14747:19907",
             "layout": {
               "axis": "row",
               "gap": "9px",
@@ -101,11 +105,13 @@
                 "props": {
                   "Item type": "Dataset",
                   "Size": "Large"
-                }
+                },
+                "id": "14747:19908"
               },
               {
                 "name": "Name",
                 "kind": "container",
+                "id": "14747:19909",
                 "layout": {
                   "axis": "column",
                   "gap": "0px",
@@ -128,11 +134,13 @@
                   {
                     "name": "Name",
                     "kind": "text",
+                    "id": "14747:19910",
                     "text": "Albums Music"
                   },
                   {
                     "name": "Technical name",
                     "kind": "text",
+                    "id": "14747:19911",
                     "text": "[Technical_term]"
                   }
                 ]
@@ -140,6 +148,7 @@
               {
                 "name": "Featured icon",
                 "kind": "container",
+                "id": "14747:19912",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -154,7 +163,8 @@
                   {
                     "name": "check-circle",
                     "kind": "instance",
-                    "unresolved": true
+                    "unresolved": true,
+                    "id": "14747:19913"
                   }
                 ]
               }
@@ -163,6 +173,7 @@
           {
             "name": "Tag",
             "kind": "container",
+            "id": "14747:19914",
             "layout": {
               "axis": "column",
               "gap": "8px",
@@ -191,13 +202,15 @@
                   "Trailing icon show": false,
                   "Label": "powerbi",
                   "Color": "Default"
-                }
+                },
+                "id": "14747:19915"
               }
             ]
           },
           {
             "name": "Field expand collapse",
             "kind": "container",
+            "id": "14747:19916",
             "layout": {
               "axis": "column",
               "gap": "10px",
@@ -230,7 +243,8 @@
                   "Emphasis": "Ghost",
                   "Size": "Small",
                   "State": "Default"
-                }
+                },
+                "id": "14747:19917"
               }
             ]
           }

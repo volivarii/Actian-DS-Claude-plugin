@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "zeenea-logo",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12770:6651",
@@ -34,6 +34,7 @@
   "root": {
     "name": "Type=Logo Explorer",
     "kind": "container",
+    "id": "12770:6648",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -48,6 +49,7 @@
       {
         "name": "Logo Explorer Icon",
         "kind": "container",
+        "id": "12770:6605",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -61,21 +63,25 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6606"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6607"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6608"
           }
         ]
       },
       {
         "name": "Group",
         "kind": "container",
+        "id": "12770:6609",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -89,33 +95,40 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6610"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6611"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6612"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6613"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6614"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6615"
           }
         ]
       },
       {
         "name": "Group",
         "kind": "container",
+        "id": "12770:6616",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -129,35 +142,43 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6617"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6618"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6619"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6620"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6621"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6622"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6623"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "12770:6624"
           }
         ]
       }

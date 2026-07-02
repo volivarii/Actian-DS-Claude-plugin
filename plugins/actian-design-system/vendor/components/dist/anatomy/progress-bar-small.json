@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "progress-bar-small",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14136:1615",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Size=Default, Completeness=50%",
     "kind": "container",
+    "id": "14136:1616",
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -44,6 +45,7 @@
       {
         "name": "Bar",
         "kind": "container",
+        "id": "14136:1617",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -57,13 +59,15 @@
         "children": [
           {
             "name": "Complete",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "14136:1618"
           }
         ]
       },
       {
         "name": "50%",
         "kind": "text",
+        "id": "14136:1619",
         "text": "50%"
       }
     ]

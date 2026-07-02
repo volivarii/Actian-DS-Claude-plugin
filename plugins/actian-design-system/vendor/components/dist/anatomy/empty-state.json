@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "empty-state",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9230:22073",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Size=Large",
     "kind": "container",
+    "id": "8151:9689",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -42,11 +43,13 @@
         "unresolved": true,
         "props": {
           "Type": "Empty state large"
-        }
+        },
+        "id": "8991:11501"
       },
       {
         "name": "Text",
         "kind": "container",
+        "id": "9230:23474",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -69,11 +72,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "9230:23475",
             "text": "No policies available"
           },
           {
             "name": "Body",
             "kind": "text",
+            "id": "9230:23476",
             "text": "Create policies to define how your platform operates."
           }
         ]
@@ -81,6 +86,7 @@
       {
         "name": "Actions",
         "kind": "container",
+        "id": "9230:25785",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -113,7 +119,8 @@
               "Emphasis": "Ghost",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "9230:25786"
           },
           {
             "name": "Button",
@@ -128,7 +135,8 @@
               "Emphasis": "Filled",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "9230:25787"
           }
         ]
       }

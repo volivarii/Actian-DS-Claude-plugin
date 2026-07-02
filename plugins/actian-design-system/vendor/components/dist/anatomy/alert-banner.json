@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Primary, Orientation'=Horizontal",
     "kind": "container",
+    "id": "13732:3055",
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Primary",
         "kind": "text",
+        "id": "13732:3031",
         "text": "Primary"
       },
       {
@@ -54,12 +56,14 @@
           "Emphasis": "Ghost",
           "Size": "Small",
           "State": "Default"
-        }
+        },
+        "id": "14907:12512"
       },
       {
         "name": "info-filled",
         "kind": "instance",
-        "slug": "info-filled"
+        "slug": "info-filled",
+        "id": "14881:16319"
       },
       {
         "name": "Button",
@@ -74,7 +78,8 @@
           "Emphasis": "Icon-only",
           "Size": "Small",
           "State": "Default"
-        }
+        },
+        "id": "13868:12493"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "bar-graph",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15473:49489",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "15473:49488",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -39,6 +40,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "15473:49399",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -61,11 +63,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "15473:49400",
             "text": "Data Quality Status"
           },
           {
             "name": "Title",
             "kind": "text",
+            "id": "15473:49401",
             "text": "Support text"
           },
           {
@@ -81,13 +85,15 @@
               "Emphasis": "Icon-only",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "15473:49402"
           }
         ]
       },
       {
         "name": "Bars + labels",
         "kind": "container",
+        "id": "15473:49403",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -110,6 +116,7 @@
           {
             "name": "Y-axis",
             "kind": "container",
+            "id": "15473:49404",
             "layout": {
               "axis": "column",
               "gap": "12px",
@@ -132,11 +139,13 @@
               {
                 "name": "Y-axis main label",
                 "kind": "text",
+                "id": "15473:49405",
                 "text": "Number of Data quality checks"
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49406",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -159,17 +168,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49407",
                     "text": "100"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49408"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49409",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -192,17 +204,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49410",
                     "text": "80"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49411"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49412",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -225,17 +240,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49413",
                     "text": "60"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49414"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49415",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -258,17 +276,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49416",
                     "text": "40"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49417"
                   }
                 ]
               },
               {
                 "name": "Y-axis line",
                 "kind": "container",
+                "id": "15473:49418",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -291,17 +312,20 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49419",
                     "text": "20"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49420"
                   }
                 ]
               },
               {
                 "name": "Baseline",
                 "kind": "container",
+                "id": "15473:49421",
                 "layout": {
                   "axis": "row",
                   "gap": "8px",
@@ -324,11 +348,13 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "id": "15473:49422",
                     "text": "0"
                   },
                   {
                     "name": "Stroke",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "15473:49423"
                   }
                 ]
               }
@@ -337,6 +363,7 @@
           {
             "name": "Bars + x-axis",
             "kind": "container",
+            "id": "15473:49424",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -359,6 +386,7 @@
               {
                 "name": "Bar + label",
                 "kind": "container",
+                "id": "15473:49425",
                 "layout": {
                   "axis": "column",
                   "gap": "8px",
@@ -381,6 +409,7 @@
                   {
                     "name": "Bar",
                     "kind": "container",
+                    "id": "15473:49426",
                     "layout": {
                       "axis": "column",
                       "gap": "0px",
@@ -402,21 +431,25 @@
                     "children": [
                       {
                         "name": "Series 1",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49427"
                       },
                       {
                         "name": "Series 2",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49428"
                       },
                       {
                         "name": "Series 3",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49429"
                       }
                     ]
                   },
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "id": "15473:49430",
                     "text": "Freshness"
                   }
                 ]
@@ -424,6 +457,7 @@
               {
                 "name": "Bar + label",
                 "kind": "container",
+                "id": "15473:49431",
                 "layout": {
                   "axis": "column",
                   "gap": "8px",
@@ -446,6 +480,7 @@
                   {
                     "name": "Bar",
                     "kind": "container",
+                    "id": "15473:49432",
                     "layout": {
                       "axis": "column",
                       "gap": "0px",
@@ -467,21 +502,25 @@
                     "children": [
                       {
                         "name": "Series 1",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49433"
                       },
                       {
                         "name": "Series 2",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49434"
                       },
                       {
                         "name": "Series 3",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49435"
                       }
                     ]
                   },
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "id": "15473:49436",
                     "text": "Volume"
                   }
                 ]
@@ -489,6 +528,7 @@
               {
                 "name": "Bar + label",
                 "kind": "container",
+                "id": "15473:49437",
                 "layout": {
                   "axis": "column",
                   "gap": "8px",
@@ -511,6 +551,7 @@
                   {
                     "name": "Bar",
                     "kind": "container",
+                    "id": "15473:49438",
                     "layout": {
                       "axis": "column",
                       "gap": "0px",
@@ -532,21 +573,25 @@
                     "children": [
                       {
                         "name": "Series 1",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49439"
                       },
                       {
                         "name": "Series 2",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49440"
                       },
                       {
                         "name": "Series 3",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49441"
                       }
                     ]
                   },
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "id": "15473:49442",
                     "text": "Anomalies"
                   }
                 ]
@@ -554,6 +599,7 @@
               {
                 "name": "Bar + label",
                 "kind": "container",
+                "id": "15473:49443",
                 "layout": {
                   "axis": "column",
                   "gap": "8px",
@@ -576,6 +622,7 @@
                   {
                     "name": "Bar",
                     "kind": "container",
+                    "id": "15473:49444",
                     "layout": {
                       "axis": "column",
                       "gap": "0px",
@@ -597,21 +644,25 @@
                     "children": [
                       {
                         "name": "Series 1",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49445"
                       },
                       {
                         "name": "Series 2",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49446"
                       },
                       {
                         "name": "Series 3",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49447"
                       }
                     ]
                   },
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "id": "15473:49448",
                     "text": "Target"
                   }
                 ]
@@ -619,6 +670,7 @@
               {
                 "name": "Bar + label",
                 "kind": "container",
+                "id": "15473:49449",
                 "layout": {
                   "axis": "column",
                   "gap": "8px",
@@ -641,6 +693,7 @@
                   {
                     "name": "Bar",
                     "kind": "container",
+                    "id": "15473:49450",
                     "layout": {
                       "axis": "column",
                       "gap": "0px",
@@ -662,21 +715,25 @@
                     "children": [
                       {
                         "name": "Series 1",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49451"
                       },
                       {
                         "name": "Series 2",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49452"
                       },
                       {
                         "name": "Series 3",
-                        "kind": "vector"
+                        "kind": "vector",
+                        "id": "15473:49453"
                       }
                     ]
                   },
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "id": "15473:49454",
                     "text": "Other"
                   }
                 ]
@@ -684,6 +741,7 @@
               {
                 "name": "X-axis main label",
                 "kind": "text",
+                "id": "15473:49455",
                 "text": "Type"
               }
             ]
@@ -693,6 +751,7 @@
       {
         "name": "Legend",
         "kind": "container",
+        "id": "15473:49456",
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -718,7 +777,8 @@
             "unresolved": true,
             "props": {
               "Property 1": "Default"
-            }
+            },
+            "id": "15473:49457"
           },
           {
             "name": ".data-viz-legend-item",
@@ -726,7 +786,8 @@
             "unresolved": true,
             "props": {
               "Property 1": "Default"
-            }
+            },
+            "id": "15473:49458"
           },
           {
             "name": ".data-viz-legend-item",
@@ -734,7 +795,8 @@
             "unresolved": true,
             "props": {
               "Property 1": "Default"
-            }
+            },
+            "id": "15473:49459"
           }
         ]
       }

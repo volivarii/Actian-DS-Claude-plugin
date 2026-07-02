@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-items",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7613:7853",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Item, State=Default",
     "kind": "container",
+    "id": "7613:7852",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -43,16 +44,19 @@
         "props": {
           "Show counter": false,
           "Type": "Dataset"
-        }
+        },
+        "id": "7613:7709"
       },
       {
         "name": "Title",
         "kind": "text",
+        "id": "7613:7606",
         "text": "Title"
       },
       {
         "name": "Tag",
         "kind": "container",
+        "id": "7613:7607",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -78,13 +82,15 @@
             "unresolved": true,
             "props": {
               "Type": "Default"
-            }
+            },
+            "id": "7613:7712"
           }
         ]
       },
       {
         "name": "Subtitle",
         "kind": "text",
+        "id": "7613:7612",
         "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
       }
     ]
