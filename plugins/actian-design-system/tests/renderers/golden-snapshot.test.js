@@ -250,7 +250,7 @@ var DS_FIXTURES = {
           items: [
             { label: "Dashboard", icon: "dashboard" },
             { label: "Catalog", icon: "directory" },
-            { label: "Topics", icon: "more" },
+            { label: "Topics", icon: "dots" },
           ],
         },
         {
