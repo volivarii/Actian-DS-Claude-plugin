@@ -17,12 +17,13 @@ var GOOD_ANATOMY = {
   quality: { ratio: 0.9 },
   root: {
     kind: "container",
+    id: "9:1",
     layout: {
       axis: "row",
       gap: "8px",
       padding: { top: "0px", right: "0px", bottom: "0px", left: "0px" },
     },
-    children: [{ kind: "text", text: "Label" }],
+    children: [{ kind: "text", text: "Label", id: "9:2" }],
   },
 };
 
@@ -78,7 +79,7 @@ describe("buildDsAnatomyMap", function () {
       return GOOD_ANATOMY;
     };
     var tokenBindingsLoader = function () {
-      return [];
+      return null;
     };
     var map = buildDsAnatomyMap(["button", "spinner"], {
       anatomyLoader: anatomyLoader,
@@ -91,15 +92,31 @@ describe("buildDsAnatomyMap", function () {
     );
   });
 
-  it("non-override slug with good anatomy + token binding → map[slug] contains bound cssVar", function () {
-    // Inject a fake token binding for 'spinner' to prove the binding seam is wired
+  it("non-override slug with good anatomy + sidecar bindings → map[slug] carries per-node token facts", function () {
+    // Inject a fake sidecar byNodeId map for 'spinner' to prove the join is
+    // wired through the map layer (root container + text child).
     var anatomyLoader = function (slug) {
       return GOOD_ANATOMY;
     };
     var tokenBindingsLoader = function (slug) {
       if (slug === "spinner")
-        return [{ token: "--zen-color-primary-500", context: "background" }];
-      return [];
+        return {
+          "9:1": [
+            {
+              property: "background-color",
+              token: "--zen-color-primary-500",
+              grade: "semantic",
+            },
+          ],
+          "9:2": [
+            {
+              property: "color",
+              token: "--zen-color-text-default",
+              grade: "semantic",
+            },
+          ],
+        };
+      return null;
     };
     var map = buildDsAnatomyMap(["spinner"], {
       anatomyLoader: anatomyLoader,
@@ -107,8 +124,14 @@ describe("buildDsAnatomyMap", function () {
     });
     assert.ok("spinner" in map, "spinner must be in map");
     assert.ok(
-      map["spinner"].indexOf("background:var(--zen-color-primary-500)") !== -1,
-      "map entry must contain the bound cssVar (background:var(--zen-color-primary-500))",
+      map["spinner"].indexOf(
+        "background-color:var(--zen-color-primary-500)",
+      ) !== -1,
+      "map entry must carry the root node's token fact",
+    );
+    assert.ok(
+      map["spinner"].indexOf("color:var(--zen-color-text-default)") !== -1,
+      "map entry must carry the text node's token fact",
     );
   });
 
@@ -117,7 +140,7 @@ describe("buildDsAnatomyMap", function () {
       return null;
     };
     var tokenBindingsLoader = function () {
-      return [];
+      return null;
     };
     var map = buildDsAnatomyMap(["spinner"], {
       anatomyLoader: anatomyLoader,
@@ -132,7 +155,7 @@ describe("buildDsAnatomyMap", function () {
         return GOOD_ANATOMY;
       },
       tokenBindingsLoader: function () {
-        return [];
+        return null;
       },
     });
     assert.deepEqual(map, {});
@@ -146,7 +169,7 @@ describe("buildDsAnatomyMap", function () {
         return GOOD_ANATOMY;
       },
       tokenBindingsLoader: function () {
-        return [];
+        return null;
       },
     });
     assert.ok(
