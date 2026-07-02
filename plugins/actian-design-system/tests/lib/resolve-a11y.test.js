@@ -71,7 +71,7 @@ describe("resolve-a11y (real vendored substrate)", function () {
       "loader",
       "empty-state",
       "error-state",
-      "input",
+      "text-input",
     ];
     var res = resolver.resolveA11y(slugs);
     var missing = slugs.filter(function (s) {
@@ -123,8 +123,8 @@ describe("resolve-a11y (real vendored substrate)", function () {
   });
 
   it("drops contentless section entries but keeps the slug resolved (F-C)", function () {
-    var res = resolver.resolveA11y(["input"]);
-    var input = res.slugs["input"];
+    var res = resolver.resolveA11y(["text-input"]);
+    var input = res.slugs["text-input"];
     assert.strictEqual(input.resolved, true, "input should still resolve");
     assert.ok(
       input.a11y.every(function (e) {
@@ -258,5 +258,43 @@ describe("resolve-a11y (injected seam)", function () {
     };
     var res = resolver.resolveA11y(["x"], { graph: graph, bundle: bundle });
     assert.deepStrictEqual(res.slugs["x"].a11y[0].wcag, ["1.3.1", "3.3.2"]);
+  });
+
+  it("falls back to the guideline doc category when the graph lacks the in_category edge", function () {
+    // Registry category churn (e.g. a component re-created on a
+    // not-yet-categorized Figma page) drops the in_category edge from the
+    // graph; the resolver then reads the guideline doc's meta.category.
+    var graph = {
+      nodes: [
+        { id: "component:orphan", type: "component" },
+        { id: "category:form-input-selection", type: "category" },
+        { id: "a11y:forms", type: "a11y_criterion", wcag: ["1.3.1"] },
+      ],
+      edges: [
+        {
+          type: "a11y_ref",
+          source: "category:form-input-selection",
+          target: "a11y:forms",
+          note: "label every field",
+        },
+      ],
+    };
+    var bundle = {
+      components: { forms: { body: "WCAG criteria: 1.3.1", blocks: [] } },
+    };
+    var res = resolver.resolveA11y(["orphan"], {
+      graph: graph,
+      bundle: bundle,
+      guidelineCategoryLoader: function (slug) {
+        return slug === "orphan" ? "form-input-selection" : null;
+      },
+    });
+    assert.strictEqual(
+      res.slugs["orphan"].resolved,
+      true,
+      "resolves via the guideline-category fallback",
+    );
+    assert.strictEqual(res.slugs["orphan"].a11y[0].section, "forms");
+    assert.strictEqual(res.slugs["orphan"].a11y[0].note, "label every field");
   });
 });

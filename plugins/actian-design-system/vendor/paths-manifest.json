@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.56",
+  "knowledge_version": "0.34.61",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -281,13 +281,6 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'inline-toast' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.input": {
-      "path": "components/dist/guidelines/input.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'input' component (content, usage, design, behavior, tokens — each optional)."
-    },
     "components.guidelineDoc.input-date": {
       "path": "components/dist/guidelines/input-date.json",
       "type": "json",
@@ -491,6 +484,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'tag' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.text-input": {
+      "path": "components/dist/guidelines/text-input.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'text-input' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.toggle": {
       "path": "components/dist/guidelines/toggle.json",
       "type": "json",
@@ -593,6 +593,27 @@
       "origin": "ci",
       "generator": "scripts/styles-to-md.js",
       "description": "DS Kit text styles (human-readable catalog)"
+    },
+    "components.tokenBindings.card-for-grouped-content": {
+      "path": "components/dist/token-bindings/card-for-grouped-content.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/harvest-token-bindings.js",
+      "description": "Per-part render-grade token bindings for card-for-grouped-content, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
+    },
+    "components.tokenBindings.card-for-perimeter": {
+      "path": "components/dist/token-bindings/card-for-perimeter.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/harvest-token-bindings.js",
+      "description": "Per-part render-grade token bindings for card-for-perimeter, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
+    },
+    "components.tokenBindings.coverage": {
+      "path": "components/dist/token-bindings/coverage.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/components/harvest-token-bindings.js",
+      "description": "Per-component semantic/primitive/total token-binding coverage tally for the harvested sidecars."
     },
     "content.globalMd": {
       "path": "content/dist/global.md",

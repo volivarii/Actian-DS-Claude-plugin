@@ -96,7 +96,7 @@
       "dsKey": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3"
     },
     "fmTextInput": {
-      "dsSlug": "input",
+      "dsSlug": "text-input",
       "defaultVariant": {
         "States": "Default"
       },
@@ -155,7 +155,7 @@
         "Show label": "Show Label"
       },
       "notes": "FM 'Type' conflates state and type; maps to DS 'State' axis with DS Type=Default",
-      "dsKey": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd"
+      "dsKey": "ca2edc1660ee2f8c074434b36b95a4fe813bf41d"
     },
     "fmMultiSelectDropdown": {
       "dsSlug": "dropdown-select-default",
@@ -177,7 +177,7 @@
         "Dropdown Text": "Show description"
       },
       "notes": "Always maps to DS Type=Search/Multiple. FM 'Type' maps to DS 'State' axis.",
-      "dsKey": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd"
+      "dsKey": "ca2edc1660ee2f8c074434b36b95a4fe813bf41d"
     },
     "fmCheckbox": {
       "dsSlug": "checkbox-with-label",
@@ -196,7 +196,7 @@
         }
       },
       "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis (Default | Hover | Focus | Pressed | Disabled).",
-      "dsKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6"
+      "dsKey": "aeac0705e0e35c68961d6ee6c7ad594612124354"
     },
     "fmRadioButton": {
       "dsSlug": "radio-button",
@@ -219,7 +219,7 @@
         "Show Label": "Show Helper text"
       },
       "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
-      "dsKey": "9ceb34116fd119a17b08b9b445a204de28f9d249"
+      "dsKey": "ab2f317d788adf67fd8011dff22806ee9d981bbc"
     },
     "fmToggle": {
       "dsSlug": "toggle",
@@ -239,7 +239,7 @@
         }
       },
       "notes": "FM 'State' (Off/On) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
-      "dsKey": "4e7793f094eed660e01d8f7c804f2391e72115d2"
+      "dsKey": "15a140eb57120a02e6817c3e41d3c4322860601f"
     },
     "fmAppHeader": {
       "dsSlug": "global-header",
@@ -309,7 +309,7 @@
         "Input Text": null
       },
       "notes": "FM 'Type' conflates content state; maps to DS 'State' axis with DS Type=Inline. Note DS has typo 'Dsiabled' for disabled state.",
-      "dsKey": "1b7cd9f309d84560098a2506089a77da8972d470"
+      "dsKey": "67215eb0278926847181f8c8ab3ab60a7c49fba2"
     },
     "fmDateInput": {
       "dsSlug": "input-date",

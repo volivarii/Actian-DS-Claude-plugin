@@ -204,6 +204,23 @@
       },
       "textDecoration": "NONE",
       "textCase": "ORIGINAL"
+    },
+    {
+      "name": "body-display",
+      "key": "158bb07b48111b11919efc83527a2351b91f0045",
+      "fontFamily": "Roboto",
+      "fontStyle": "Regular",
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 26
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
     }
   ],
   "effectStyles": [

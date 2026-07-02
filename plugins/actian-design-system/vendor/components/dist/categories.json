@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-07-01T10:42:44.814Z",
+  "generatedAt": "2026-07-02T07:26:29.707Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -112,27 +112,21 @@
       ],
       "count": 5
     },
-    "Form (input & selection)": {
-      "components": [
-        "calendar",
-        "checkbox-with-label",
-        "dropdown-select-default",
-        "input",
-        "input-date",
-        "radio-button",
-        "rich-text",
-        "search",
-        "search-dropdown-menu",
-        "search-filters",
-        "toggle"
-      ],
-      "count": 11
-    },
     "Action": {
       "components": [
         "button",
+        "calendar",
+        "input-date",
         "link",
         "sticky-footer"
+      ],
+      "count": 5
+    },
+    "Form (input & selection)": {
+      "components": [
+        "rich-text",
+        "search-filters",
+        "text-input"
       ],
       "count": 3
     },
@@ -156,6 +150,7 @@
         "arrow-down",
         "asleep",
         "atlas",
+        "attachments",
         "avro",
         "award-04",
         "aws-glue-etl",
@@ -208,6 +203,7 @@
         "databricks",
         "dataiku",
         "dataset",
+        "datasets",
         "db2",
         "db2-database-1",
         "dbt",
@@ -256,6 +252,7 @@
         "info",
         "info-filled",
         "informatica",
+        "input-ports",
         "integer-type",
         "jdbc",
         "json",
@@ -281,7 +278,6 @@
         "minimize",
         "misuse-outline",
         "mongodb",
-        "more",
         "move",
         "ms-teams",
         "mysql",
@@ -373,10 +369,10 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 234
+      "count": 236
     }
   },
   "uncategorized": {
-    "count": 0
+    "count": 7
   }
 }

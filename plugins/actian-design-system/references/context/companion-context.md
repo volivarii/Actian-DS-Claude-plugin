@@ -104,7 +104,7 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 317 components (80 sets) | Roboto | Full design system, all tokens, 3 themes |
+| DS Kit | 320 components (81 sets) | Roboto | Full design system, all tokens, 3 themes |
 | FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 

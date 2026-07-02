@@ -2,10 +2,10 @@
   "_schema_version": 1,
   "slug": "search-dropdown-menu",
   "kit": "dskit",
-  "synced_at": "2026-07-02T02:59:36.615Z",
+  "synced_at": "2026-07-02T07:26:12.568Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "8756:9994",
+    "nodeId": "18857:3574",
     "variant": "Type=After typed"
   },
   "quality": {
@@ -17,7 +17,7 @@
   "root": {
     "name": "Type=After typed",
     "kind": "container",
-    "id": "8756:9991",
+    "id": "18857:3575",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -40,7 +40,7 @@
       {
         "name": "Menu list",
         "kind": "container",
-        "id": "8756:9946",
+        "id": "18857:3576",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -63,7 +63,7 @@
           {
             "name": "Label text",
             "kind": "text",
-            "id": "8756:9947",
+            "id": "18857:3577",
             "text": "Suggestions"
           }
         ]
@@ -71,7 +71,7 @@
       {
         "name": "Menu list",
         "kind": "container",
-        "id": "8756:9948",
+        "id": "18857:3578",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -94,12 +94,12 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9949"
+            "id": "18857:3579"
           },
           {
             "name": "Label text",
             "kind": "text",
-            "id": "8756:9950",
+            "id": "18857:3580",
             "text": "transmitting"
           }
         ]
@@ -107,7 +107,7 @@
       {
         "name": "Menu list",
         "kind": "container",
-        "id": "8756:9951",
+        "id": "18857:3581",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -130,12 +130,12 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9952"
+            "id": "18857:3582"
           },
           {
             "name": "Label text",
             "kind": "text",
-            "id": "8756:9953",
+            "id": "18857:3583",
             "text": "transmitter"
           }
         ]
@@ -143,7 +143,7 @@
       {
         "name": "Menu list",
         "kind": "container",
-        "id": "8756:9954",
+        "id": "18857:3584",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -166,12 +166,12 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9955"
+            "id": "18857:3585"
           },
           {
             "name": "Label text",
             "kind": "text",
-            "id": "8756:9956",
+            "id": "18857:3586",
             "text": "transmit"
           }
         ]
@@ -179,7 +179,7 @@
       {
         "name": "Menu list",
         "kind": "container",
-        "id": "8756:9957",
+        "id": "18857:3587",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -202,12 +202,12 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9958"
+            "id": "18857:3588"
           },
           {
             "name": "Label text",
             "kind": "text",
-            "id": "8756:9959",
+            "id": "18857:3589",
             "text": "transparent"
           }
         ]

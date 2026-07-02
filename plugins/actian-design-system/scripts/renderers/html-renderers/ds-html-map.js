@@ -234,7 +234,7 @@
           );
         }
 
-        case "input": {
+        case "text-input": {
           var inLabel = esc(props.Label || "Label");
           var inPlaceholder = esc(
             props["Placeholder text"] || "Placeholder text",
@@ -1650,7 +1650,7 @@
   // switch cases by tests/renderers/ds-built-slugs.test.js — update BOTH.
   var BUILT_SLUGS = [
     "button",
-    "input",
+    "text-input",
     "checkbox-with-label",
     "radio-button",
     "toggle",

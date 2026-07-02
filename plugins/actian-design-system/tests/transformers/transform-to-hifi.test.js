@@ -330,11 +330,11 @@ describe("Transform-to-Hifi Tests", function () {
       assert.strictEqual(out[0].name, "Login Form");
     });
 
-    it("transforms fmTextInput child to dsInput", function () {
+    it("transforms fmTextInput child to dsTextInput", function () {
       var out = xformNodes([frame]);
       var textInput = out[0].children[0];
-      assert.strictEqual(textInput.ref, "dsInput");
-      assert.strictEqual(textInput.dsSlug, "input");
+      assert.strictEqual(textInput.ref, "dsTextInput");
+      assert.strictEqual(textInput.dsSlug, "text-input");
     });
 
     it("transforms fmCheckbox child to dsCheckboxWithLabel", function () {

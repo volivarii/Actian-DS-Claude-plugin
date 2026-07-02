@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-07-01T10:42:44.798Z",
-  "componentCount": 317,
+  "lastSynced": "2026-07-02T07:26:29.693Z",
+  "componentCount": 320,
   "components": {
     "xs-grid": {
       "name": "XS grid",
@@ -39,6 +39,7 @@
       "category": "Navigation",
       "categorySlug": "navigation",
       "group": "Breadcrumbs",
+      "status": "in-progress",
       "variants": {
         "Type": [
           "Default"
@@ -415,18 +416,14 @@
     },
     "checkbox-with-label": {
       "name": "Checkbox with label",
-      "key": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
-      "nodeId": "9478:17216",
+      "key": "aeac0705e0e35c68961d6ee6c7ad594612124354",
+      "nodeId": "18857:2849",
       "importMethod": "set",
       "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
-      "page": "✅ Checkbox",
+      "page": "Form (input & selection)",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Checkbox",
       "variants": {
         "Selected": [
           "Yes",
@@ -598,11 +595,11 @@
     },
     "toggle": {
       "name": "Toggle",
-      "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
-      "nodeId": "14000:4395",
+      "key": "15a140eb57120a02e6817c3e41d3c4322860601f",
+      "nodeId": "18857:3321",
       "importMethod": "set",
       "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
-      "page": "✅ Toggle control",
+      "page": "Form (input & selection)",
       "properties": {
         "Show Helper text#13981:32": {
           "type": "BOOLEAN",
@@ -611,10 +608,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Toggle control",
       "variants": {
         "Toggle location": [
           "Left",
@@ -773,42 +766,7 @@
       "category": "Data Display",
       "categorySlug": "data-display",
       "group": "Digram",
-      "variants": {
-        "Item type": [
-          "Dataset",
-          "Data process",
-          "Data product",
-          "Field",
-          "Output port",
-          "Use case",
-          "Visualization",
-          "Category",
-          "Custom 1",
-          "Custom 2",
-          "Custom 3",
-          "Custom 4",
-          "Custom 5",
-          "Custom 6",
-          "Custom 7",
-          "Custom 8",
-          "Custom 9",
-          "Custom 10",
-          "Custom 11",
-          "Custom 12",
-          "Custom 13",
-          "Custom 14",
-          "Custom 16",
-          "Glossary 1",
-          "Glossary 2",
-          "Glossary 3",
-          "Glossary 4",
-          "Glossary 5"
-        ],
-        "Size": [
-          "Default",
-          "Large"
-        ]
-      }
+      "variants": {}
     },
     "progress-bar-small": {
       "name": "Progress bar small",
@@ -836,26 +794,6 @@
         ]
       }
     },
-    "confirmation": {
-      "name": "Confirmation",
-      "key": "41a7ce5d67baa4a49843fc0768bee6df42f945a7",
-      "nodeId": "13871:32310",
-      "importMethod": "set",
-      "description": "A placeholder shown when success. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "categorySlug": "feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large"
-        ]
-      }
-    },
     "s-grid": {
       "name": "S grid",
       "key": "15772025d13a090b6327442a396f6f9757858031",
@@ -878,11 +816,11 @@
     },
     "radio-button": {
       "name": "Radio button",
-      "key": "9ceb34116fd119a17b08b9b445a204de28f9d249",
-      "nodeId": "9474:16884",
+      "key": "ab2f317d788adf67fd8011dff22806ee9d981bbc",
+      "nodeId": "18857:3019",
       "importMethod": "set",
       "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).",
-      "page": "✅ Radio button",
+      "page": "Form (input & selection)",
       "properties": {
         "Show Helper text#13981:32": {
           "type": "BOOLEAN",
@@ -901,10 +839,6 @@
         }
       ],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Radio button",
       "variants": {
         "Format": [
           "Default",
@@ -949,6 +883,27 @@
         ]
       }
     },
+    "identification-key": {
+      "name": "Identification key",
+      "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
+      "nodeId": "14349:15323",
+      "importMethod": "set",
+      "description": "Use for identification keys. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
     "tag-catalog-item-type": {
       "name": "✍️ Tag, Catalog item type",
       "key": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
@@ -979,27 +934,6 @@
           "Output port",
           "Use case",
           "Visualization"
-        ]
-      }
-    },
-    "identification-key": {
-      "name": "Identification key",
-      "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
-      "nodeId": "14349:15323",
-      "importMethod": "set",
-      "description": "Use for identification keys. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
         ]
       }
     },
@@ -1127,148 +1061,6 @@
       "variants": {
         "Type": [
           "Default"
-        ]
-      }
-    },
-    "tag-status": {
-      "name": "✍️ Tag, Status",
-      "key": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
-      "nodeId": "7257:3705",
-      "importMethod": "set",
-      "description": "Use for status. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "misuse-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "warning-alt",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "checkmark-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "tools",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "calendar-2",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "icon-query-queue",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "stop-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "asleep",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "circle-dash",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "pending",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Status": [
-          "Fail",
-          "Warning",
-          "Loading",
-          "Maintenance",
-          "Scheduled",
-          "Queued",
-          "Stopped",
-          "Sleeping",
-          "Offline",
-          "Pending",
-          "Success"
-        ]
-      }
-    },
-    "global-header": {
-      "name": "Global header",
-      "key": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8",
-      "nodeId": "7384:22554",
-      "importMethod": "set",
-      "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "alert",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "applications",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "info",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "data-access-request",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "categorySlug": "navigation",
-      "group": "Global header",
-      "variants": {
-        "App type": [
-          "Explorer",
-          "Admin",
-          "Studio"
-        ],
-        "Breakpoints": [
-          "XL",
-          "L",
-          "M",
-          "S",
-          "XS"
         ]
       }
     },
@@ -1463,8 +1255,8 @@
       ],
       "documentationLinks": [],
       "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
+      "category": "Action",
+      "categorySlug": "action",
       "group": "Calendar",
       "variants": {
         "Type": [
@@ -1511,11 +1303,11 @@
     },
     "search-dropdown-menu": {
       "name": "Search dropdown menu",
-      "key": "9e267d055429c3f0e586f2fc787fd8b6fced1629",
-      "nodeId": "8756:9994",
+      "key": "884c291f74d9054567d6bf62f2cfb51c7f309d20",
+      "nodeId": "18857:3574",
       "importMethod": "set",
       "description": "",
-      "page": "✅ Search",
+      "page": "Form (input & selection)",
       "properties": {},
       "nestedComponents": [
         {
@@ -1525,10 +1317,6 @@
         }
       ],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Search",
       "variants": {
         "Type": [
           "No result",
@@ -1879,11 +1667,11 @@
     },
     "dropdown-select-default": {
       "name": "Dropdown, Select, default",
-      "key": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd",
-      "nodeId": "13972:708",
+      "key": "ca2edc1660ee2f8c074434b36b95a4fe813bf41d",
+      "nodeId": "18857:2544",
       "importMethod": "set",
       "description": "Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
-      "page": "✅ Dropdown",
+      "page": "Form (input & selection)",
       "properties": {
         "Show description#13978:0": {
           "type": "BOOLEAN",
@@ -1929,10 +1717,6 @@
         }
       ],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Dropdown",
       "variants": {
         "Type": [
           "Default",
@@ -1952,11 +1736,11 @@
     },
     "search": {
       "name": "Search",
-      "key": "1b7cd9f309d84560098a2506089a77da8972d470",
-      "nodeId": "8589:11055",
+      "key": "67215eb0278926847181f8c8ab3ab60a7c49fba2",
+      "nodeId": "18857:3454",
       "importMethod": "set",
       "description": "A specialized text input designed to query a database or filter a page's content in real-time.",
-      "page": "✅ Search",
+      "page": "Form (input & selection)",
       "properties": {
         "AI icon#8589:0": {
           "type": "BOOLEAN",
@@ -1976,10 +1760,6 @@
         }
       ],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Search",
       "variants": {
         "Type": [
           "Explorer home",
@@ -1993,82 +1773,6 @@
           "Active",
           "Dsiabled",
           "Default"
-        ]
-      }
-    },
-    "maintenance-state": {
-      "name": "Maintenance state",
-      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
-      "nodeId": "13871:32311",
-      "importMethod": "set",
-      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "categorySlug": "feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large"
-        ]
-      }
-    },
-    "lineage-individual-node": {
-      "name": "Lineage individual node",
-      "key": "5904351595c9b5b263bb5891bd1ed038fbaff636",
-      "nodeId": "14747:19902",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Lineage",
-      "properties": {
-        "Show left control#14691:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "powerbi",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "chevron-up",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "text-type",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Lineage",
-      "variants": {
-        "Type": [
-          "Main item",
-          "Sub item"
-        ],
-        "State": [
-          "Default",
-          "Selected",
-          "Disabled"
-        ],
-        "Fields": [
-          "Collapsed",
-          "Expanded"
         ]
       }
     },
@@ -2165,214 +1869,6 @@
         ]
       }
     },
-    "bar-graph": {
-      "name": "⛔️ Bar graph",
-      "key": "6ea07622a616f54b591da8eb26515332b9d02c31",
-      "nodeId": "15473:49489",
-      "importMethod": "set",
-      "description": "",
-      "page": "⛔️ WIP data visuzlization",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "WIP data visuzlization",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "input": {
-      "name": "Input",
-      "key": "9245f434d92d2a5d54962c51d7e374c87251fc4b",
-      "nodeId": "7238:2487",
-      "importMethod": "set",
-      "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
-      "page": "✅ Text input",
-      "properties": {
-        "Helper#458:9": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Label#458:13": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Info icon#7242:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "* (Asterisk)#7242:142": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Description#7242:164": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Delete icon#9482:0": {
-          "type": "BOOLEAN",
-          "default": false
-        },
-        "Label text#9633:0": {
-          "type": "TEXT",
-          "default": "Label"
-        },
-        "Description text#9633:17": {
-          "type": "TEXT",
-          "default": "A description helps users to define and understand the purpose of the input."
-        },
-        "Placeholder text#9633:34": {
-          "type": "TEXT",
-          "default": "Placeholder text"
-        },
-        "Helper text#9633:51": {
-          "type": "TEXT",
-          "default": "Helper text goes here"
-        },
-        "Input text#9633:68": {
-          "type": "TEXT",
-          "default": "Entered value"
-        },
-        "Textfield buttons#14241:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "info",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "simple-check",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "error-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "warning-filled",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Text input",
-      "variants": {
-        "States": [
-          "Default",
-          "Hover",
-          "Focus",
-          "Active",
-          "Filled",
-          "Error",
-          "Warning",
-          "Disabled",
-          "Read-only"
-        ]
-      }
-    },
-    "glossary-item-hierarchy-diagram": {
-      "name": "Glossary item hierarchy diagram",
-      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
-      "nodeId": "14747:30242",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Glossary item hierarchy diagram",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "list-bullets",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-to-fit",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-reset",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-in",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-out",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "more",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Glossary item hierarchy diagram",
-      "variants": {
-        "Type": [
-          "Default"
-        ]
-      }
-    },
-    "line-graph": {
-      "name": "⛔️ Line graph",
-      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "nodeId": "15473:49490",
-      "importMethod": "set",
-      "description": "",
-      "page": "⛔️ WIP data visuzlization",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "WIP data visuzlization",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
     "drawer-side-panel": {
       "name": "Drawer, side panel",
       "key": "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf",
@@ -2440,6 +1936,27 @@
         ]
       }
     },
+    "rich-text": {
+      "name": "Rich text",
+      "key": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
+      "nodeId": "9480:17723",
+      "importMethod": "set",
+      "description": "A multi-line input field that allows for text formatting (bold, links, lists). Use for long-form content like descriptions or comments.",
+      "page": "✅ Rich text",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Rich text",
+      "variants": {
+        "State": [
+          "Expanded",
+          "Default"
+        ]
+      }
+    },
     "input-date": {
       "name": "Input, date",
       "key": "9eafdb6242837b591ba5f39959150b53e40ef02d",
@@ -2474,8 +1991,8 @@
       ],
       "documentationLinks": [],
       "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
+      "category": "Action",
+      "categorySlug": "action",
       "group": "Calendar",
       "variants": {
         "Type": [
@@ -2490,101 +2007,6 @@
           "Disabled",
           "Fille",
           "Activ"
-        ]
-      }
-    },
-    "sticky-footer": {
-      "name": "Sticky footer",
-      "key": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
-      "nodeId": "14747:9839",
-      "importMethod": "set",
-      "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
-      "page": "✅ Sticky footer",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Action",
-      "categorySlug": "action",
-      "group": "Sticky footer",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "rich-text": {
-      "name": "Rich text",
-      "key": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
-      "nodeId": "9480:17723",
-      "importMethod": "set",
-      "description": "A multi-line input field that allows for text formatting (bold, links, lists). Use for long-form content like descriptions or comments.",
-      "page": "✅ Rich text",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Rich text",
-      "variants": {
-        "State": [
-          "Expanded",
-          "Default"
-        ]
-      }
-    },
-    "page-header": {
-      "name": "Page header",
-      "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
-      "nodeId": "12923:2794",
-      "importMethod": "set",
-      "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
-      "page": "✅ Page header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "open",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "suggestion",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "powerbi",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Page header",
-      "variants": {
-        "Type": [
-          "Default",
-          "Details page",
-          "Explorer home",
-          "Explorer detail"
         ]
       }
     },
@@ -2660,47 +2082,6 @@
         "Type": [
           "Main item",
           "Sub item"
-        ]
-      }
-    },
-    "tag-shared": {
-      "name": "✍️ Tag, Shared",
-      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
-      "nodeId": "13812:22307",
-      "importMethod": "set",
-      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "scroll-bar": {
-      "name": "Scroll bar",
-      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
-      "nodeId": "14747:17639",
-      "importMethod": "set",
-      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
-      "page": "✅ Scroll bar",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Scroll bar",
-      "variants": {
-        "Property 1": [
-          "Default"
         ]
       }
     },
@@ -3075,6 +2456,664 @@
         ]
       }
     },
+    "tag-status": {
+      "name": "✍️ Tag, Status",
+      "key": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
+      "nodeId": "7257:3705",
+      "importMethod": "set",
+      "description": "Use for status. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "misuse-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-alt",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "checkmark-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "tools",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "calendar-2",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-query-queue",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stop-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "asleep",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "circle-dash",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "pending",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Status": [
+          "Fail",
+          "Warning",
+          "Loading",
+          "Maintenance",
+          "Scheduled",
+          "Queued",
+          "Stopped",
+          "Sleeping",
+          "Offline",
+          "Pending",
+          "Success"
+        ]
+      }
+    },
+    "scroll-bar": {
+      "name": "Scroll bar",
+      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
+      "nodeId": "14747:17639",
+      "importMethod": "set",
+      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
+      "page": "✅ Scroll bar",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Scroll bar",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "maintenance-state": {
+      "name": "Maintenance state",
+      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
+      "nodeId": "13871:32311",
+      "importMethod": "set",
+      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "categorySlug": "feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      }
+    },
+    "lineage-individual-node": {
+      "name": "Lineage individual node",
+      "key": "5904351595c9b5b263bb5891bd1ed038fbaff636",
+      "nodeId": "14747:19902",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Lineage",
+      "properties": {
+        "Show left control#14691:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "text-type",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Lineage",
+      "variants": {
+        "Type": [
+          "Main item",
+          "Sub item"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ],
+        "Fields": [
+          "Collapsed",
+          "Expanded"
+        ]
+      }
+    },
+    "bar-graph": {
+      "name": "⛔️ Bar graph",
+      "key": "6ea07622a616f54b591da8eb26515332b9d02c31",
+      "nodeId": "15473:49489",
+      "importMethod": "set",
+      "description": "",
+      "page": "⛔️ WIP data visuzlization",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "WIP data visuzlization",
+      "status": "deprecated",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "glossary-item-hierarchy-diagram": {
+      "name": "Glossary item hierarchy diagram",
+      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
+      "nodeId": "14747:30242",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Glossary item hierarchy diagram",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "list-bullets",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Glossary item hierarchy diagram",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      }
+    },
+    "line-graph": {
+      "name": "⛔️ Line graph",
+      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
+      "nodeId": "15473:49490",
+      "importMethod": "set",
+      "description": "",
+      "page": "⛔️ WIP data visuzlization",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "WIP data visuzlization",
+      "status": "deprecated",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "tag-shared": {
+      "name": "✍️ Tag, Shared",
+      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
+      "nodeId": "13812:22307",
+      "importMethod": "set",
+      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "text-input": {
+      "name": "Text input",
+      "key": "9245f434d92d2a5d54962c51d7e374c87251fc4b",
+      "nodeId": "7238:2487",
+      "importMethod": "set",
+      "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
+      "page": "✅ Text input",
+      "properties": {
+        "Helper#458:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#458:13": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Info icon#7242:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "* (Asterisk)#7242:142": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Description#7242:164": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Delete icon#9482:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Label text#9633:0": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Description text#9633:17": {
+          "type": "TEXT",
+          "default": "A description helps users to define and understand the purpose of the input."
+        },
+        "Placeholder text#9633:34": {
+          "type": "TEXT",
+          "default": "Placeholder text"
+        },
+        "Helper text#9633:51": {
+          "type": "TEXT",
+          "default": "Helper text goes here"
+        },
+        "Input text#9633:68": {
+          "type": "TEXT",
+          "default": "Entered value"
+        },
+        "Textfield buttons#14241:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "simple-check",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Text input",
+      "variants": {
+        "States": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Active",
+          "Filled",
+          "Error",
+          "Warning",
+          "Disabled",
+          "Read-only"
+        ]
+      }
+    },
+    "sticky-footer": {
+      "name": "Sticky footer",
+      "key": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
+      "nodeId": "14747:9839",
+      "importMethod": "set",
+      "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
+      "page": "✅ Sticky footer",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Action",
+      "categorySlug": "action",
+      "group": "Sticky footer",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "global-header": {
+      "name": "Global header",
+      "key": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8",
+      "nodeId": "7384:22554",
+      "importMethod": "set",
+      "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "alert",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "applications",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "data-access-request",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "categorySlug": "navigation",
+      "group": "Global header",
+      "variants": {
+        "App type": [
+          "Explorer",
+          "Admin",
+          "Studio"
+        ],
+        "Breakpoints": [
+          "XL",
+          "L",
+          "M",
+          "S",
+          "XS"
+        ]
+      }
+    },
+    "page-header": {
+      "name": "Page header",
+      "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
+      "nodeId": "12923:2794",
+      "importMethod": "set",
+      "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
+      "page": "✅ Page header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "open",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "suggestion",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Page header",
+      "variants": {
+        "Type": [
+          "Default",
+          "Details page",
+          "Explorer home",
+          "Explorer detail"
+        ]
+      }
+    },
+    "input": {
+      "name": "Input",
+      "key": "2412217d1a3e596ce79e1e2aa840e5e0f59f7396",
+      "nodeId": "18857:3168",
+      "importMethod": "set",
+      "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
+      "page": "Form (input & selection)",
+      "properties": {
+        "Helper#458:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#458:10": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#458:13": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Info icon#7242:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "* (Asterisk)#7242:142": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Description#7242:164": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Delete icon#9482:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Label text#9633:0": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Description text#9633:17": {
+          "type": "TEXT",
+          "default": "A description helps users to define and understand the purpose of the input."
+        },
+        "Placeholder text#9633:34": {
+          "type": "TEXT",
+          "default": "Placeholder text"
+        },
+        "Helper text#9633:51": {
+          "type": "TEXT",
+          "default": "Helper text goes here"
+        },
+        "Input text#9633:68": {
+          "type": "TEXT",
+          "default": "Typed"
+        },
+        "Show .Textfield buttons#14241:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "simple-check",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "variants": {
+        "States": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Active",
+          "Filled",
+          "Error",
+          "Disabled",
+          "Read-only"
+        ]
+      }
+    },
+    "confirmation": {
+      "name": "Confirmation",
+      "key": "41a7ce5d67baa4a49843fc0768bee6df42f945a7",
+      "nodeId": "13871:32310",
+      "importMethod": "set",
+      "description": "A placeholder shown when success. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "categorySlug": "feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      }
+    },
     "mongodb": {
       "name": "mongodb",
       "key": "a7e4c3250458b92b70085dd66d67f00a3d469c6d",
@@ -3159,22 +3198,6 @@
       "name": "history",
       "key": "aaf85298722d8df888197a9174f219b7848cc013",
       "nodeId": "8742:13219",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "arrow-down": {
-      "name": "arrow-down",
-      "key": "43009d0b38b304e97c5716c0a32ccc3951851872",
-      "nodeId": "7207:2839",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -3864,22 +3887,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "zoom-reset": {
-      "name": "zoom-reset",
-      "key": "61225ecdbe8c2577297b8f190c86ccc3dc874641",
-      "nodeId": "7378:5606",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Graph",
-      "status": "in-progress"
-    },
     "influxdb": {
       "name": "influxdb",
       "key": "6230a2f34af32a060501ea1dd427519c42f1544c",
@@ -3942,38 +3949,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "list-bullets": {
-      "name": "list-bullets",
-      "key": "69ddc5d1660da5b9f5ae1eac95b5dda1e1299b37",
-      "nodeId": "7622:5395",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "mail": {
-      "name": "mail",
-      "key": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
-      "nodeId": "8012:1308",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "azure": {
@@ -4571,22 +4546,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "open": {
-      "name": "open",
-      "key": "f0af6e82dbffbc929018959ff7fbb609226fecaf",
-      "nodeId": "7293:667",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "bigquery": {
       "name": "bigquery",
       "key": "f2105b90a8f205ee78b02428b71cc2720fc451f6",
@@ -4601,22 +4560,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "filter-text": {
-      "name": "filter-text",
-      "key": "eeb978ec0554b3df748891134e68c1c98137b480",
-      "nodeId": "7378:5053",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "elasticsearch": {
@@ -4811,22 +4754,6 @@
       "group": "Message",
       "status": "in-progress"
     },
-    "zoom-in": {
-      "name": "zoom-in",
-      "key": "8743ba1b2c9fa86034a0e389b283e9da6e56d6fd",
-      "nodeId": "7378:5055",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Graph",
-      "status": "in-progress"
-    },
     "tableau": {
       "name": "Tableau",
       "key": "a45329ba671776415a9627ec9eb838052799ede6",
@@ -4889,22 +4816,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "more": {
-      "name": "more",
-      "key": "bfa5a189503a3916f7196a5acc18ebef6466a009",
-      "nodeId": "14335:17217",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Graph",
       "status": "in-progress"
     },
     "postgresql": {
@@ -5019,22 +4930,6 @@
       "group": "Graph",
       "status": "in-progress"
     },
-    "dots": {
-      "name": "dots",
-      "key": "d4bf02099fcf80e9f1956149da15460fe1ae13a7",
-      "nodeId": "7378:3729",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "database-check": {
       "name": "database-check",
       "key": "d94160526fbf06fff8a2be78f3449d5711a1f15e",
@@ -5065,22 +4960,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Field type",
-      "status": "in-progress"
-    },
-    "rotate-back": {
-      "name": "rotate-back",
-      "key": "e428e49c8dc1b6772d7b569e58fd6fa8a960b85f",
-      "nodeId": "7378:5031",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "menu": {
@@ -5211,22 +5090,6 @@
       "group": "Navigation",
       "status": "in-progress"
     },
-    "edit": {
-      "name": "edit",
-      "key": "2f0c909fda47237325e20a1fc1c3d6eea2b05cd6",
-      "nodeId": "7207:2827",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "home": {
       "name": "home",
       "key": "4a8ee163ef4f785c846a3a71344af13b834e02f0",
@@ -5257,22 +5120,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Misc",
-      "status": "in-progress"
-    },
-    "favorite": {
-      "name": "favorite",
-      "key": "5ab08e77426cace71669963cfecc7164391598b3",
-      "nodeId": "7378:3698",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "dashboard": {
@@ -5665,38 +5512,6 @@
       ],
       "status": "in-progress"
     },
-    "help-circle": {
-      "name": "help-circle",
-      "key": "2e8edce02b9198b99fe770fab00b636fb20d2f48",
-      "nodeId": "8504:23049",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "link-type": {
-      "name": "link-type",
-      "key": "30958f1f13ddf3866556b37ab570a09de2b2a26c",
-      "nodeId": "7378:5042",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
     "relation": {
       "name": "relation",
       "key": "328e40cf262d88c868275a408b432b445bf34888",
@@ -5809,25 +5624,6 @@
       "group": "Navigation",
       "secondaryGroups": [
         "Details"
-      ],
-      "status": "in-progress"
-    },
-    "download": {
-      "name": "download",
-      "key": "3a3acebe888e3a87c03831ab720ad5639c358af6",
-      "nodeId": "7439:4645",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Navigation",
-      "secondaryGroups": [
-        "Common"
       ],
       "status": "in-progress"
     },
@@ -6133,22 +5929,6 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Navigation",
-      "status": "in-progress"
-    },
-    "simple-check": {
-      "name": "simple-check",
-      "key": "a660b57404739aba1621b29bbe22ba70f81f4346",
-      "nodeId": "7271:6256",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "chart-pie": {
@@ -6522,38 +6302,6 @@
       "group": "Status",
       "status": "in-progress"
     },
-    "favorite-filled": {
-      "name": "favorite-filled",
-      "key": "f356489882aa4ddfc7e099e006510d6fdda704df",
-      "nodeId": "7378:3696",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "drag": {
-      "name": "drag",
-      "key": "f4dd4a86dfd0f91cce381eaa51abaa14a84785d3",
-      "nodeId": "7378:5050",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "brightness-contrast": {
       "name": "brightness-contrast",
       "key": "f6cb9d9b6a1a428237a5d845543c565524cd4eb0",
@@ -6746,22 +6494,6 @@
       "group": "Misc",
       "status": "in-progress"
     },
-    "suggestion": {
-      "name": "suggestion",
-      "key": "b0fdb7c7eb45f51182647cc89b12a5fd6989cafb",
-      "nodeId": "7279:3164",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "image": {
       "name": "image",
       "key": "b3f1a7f5ef3d50822c84ce0f6d745428607d9023",
@@ -6826,6 +6558,86 @@
       "group": "Navigation",
       "status": "in-progress"
     },
+    "close": {
+      "name": "close",
+      "key": "09bac5a4cba0cbd89819dbe34afadc5db046f29d",
+      "nodeId": "7293:24",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "ai": {
+      "name": "ai",
+      "key": "7afdab93e1015a122408dc9aff0a95c07b6a15d8",
+      "nodeId": "17991:4240",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other",
+      "status": "in-progress"
+    },
+    "attachments": {
+      "name": "Attachments",
+      "key": "3ae5cf1e1bb657ad769f3a534debba01ddf8ba5e",
+      "nodeId": "18532:4651",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other",
+      "status": "in-progress"
+    },
+    "input-ports": {
+      "name": "Input-ports",
+      "key": "d98d310de8453ec6b7dd90e9a6ed339e4155d8b0",
+      "nodeId": "18646:4476",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other",
+      "status": "in-progress"
+    },
+    "datasets": {
+      "name": "Datasets",
+      "key": "119f67e361c3421c5d2b3ad53ffd2df7f253de4c",
+      "nodeId": "18532:4652",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other",
+      "status": "in-progress"
+    },
     "app-switcher-dropdown": {
       "name": "App switcher dropdown",
       "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
@@ -6852,10 +6664,77 @@
       "categorySlug": "navigation",
       "group": "Global header"
     },
-    "close": {
-      "name": "close",
-      "key": "09bac5a4cba0cbd89819dbe34afadc5db046f29d",
-      "nodeId": "7293:24",
+    "help-circle": {
+      "name": "help-circle",
+      "key": "2e8edce02b9198b99fe770fab00b636fb20d2f48",
+      "nodeId": "8504:23049",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "edit": {
+      "name": "edit",
+      "key": "2f0c909fda47237325e20a1fc1c3d6eea2b05cd6",
+      "nodeId": "7207:2827",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "link-type": {
+      "name": "link-type",
+      "key": "30958f1f13ddf3866556b37ab570a09de2b2a26c",
+      "nodeId": "7378:5042",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "download": {
+      "name": "download",
+      "key": "3a3acebe888e3a87c03831ab720ad5639c358af6",
+      "nodeId": "7439:4645",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
+      "status": "in-progress"
+    },
+    "arrow-down": {
+      "name": "arrow-down",
+      "key": "43009d0b38b304e97c5716c0a32ccc3951851872",
+      "nodeId": "7207:2839",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -6899,10 +6778,10 @@
       "categorySlug": "navigation",
       "group": "Global header"
     },
-    "ai": {
-      "name": "ai",
-      "key": "7afdab93e1015a122408dc9aff0a95c07b6a15d8",
-      "nodeId": "17991:4240",
+    "favorite": {
+      "name": "favorite",
+      "key": "5ab08e77426cace71669963cfecc7164391598b3",
+      "nodeId": "7378:3698",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -6912,7 +6791,199 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "zoom-reset": {
+      "name": "zoom-reset",
+      "key": "61225ecdbe8c2577297b8f190c86ccc3dc874641",
+      "nodeId": "7378:5606",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Graph",
+      "status": "in-progress"
+    },
+    "list-bullets": {
+      "name": "list-bullets",
+      "key": "69ddc5d1660da5b9f5ae1eac95b5dda1e1299b37",
+      "nodeId": "7622:5395",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "mail": {
+      "name": "mail",
+      "key": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
+      "nodeId": "8012:1308",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "zoom-in": {
+      "name": "zoom-in",
+      "key": "8743ba1b2c9fa86034a0e389b283e9da6e56d6fd",
+      "nodeId": "7378:5055",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Graph",
+      "status": "in-progress"
+    },
+    "simple-check": {
+      "name": "simple-check",
+      "key": "a660b57404739aba1621b29bbe22ba70f81f4346",
+      "nodeId": "7271:6256",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "suggestion": {
+      "name": "suggestion",
+      "key": "b0fdb7c7eb45f51182647cc89b12a5fd6989cafb",
+      "nodeId": "7279:3164",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "dots": {
+      "name": "dots",
+      "key": "d4bf02099fcf80e9f1956149da15460fe1ae13a7",
+      "nodeId": "7378:3729",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "rotate-back": {
+      "name": "rotate-back",
+      "key": "e428e49c8dc1b6772d7b569e58fd6fa8a960b85f",
+      "nodeId": "7378:5031",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "filter-text": {
+      "name": "filter-text",
+      "key": "eeb978ec0554b3df748891134e68c1c98137b480",
+      "nodeId": "7378:5053",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "open": {
+      "name": "open",
+      "key": "f0af6e82dbffbc929018959ff7fbb609226fecaf",
+      "nodeId": "7293:667",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "favorite-filled": {
+      "name": "favorite-filled",
+      "key": "f356489882aa4ddfc7e099e006510d6fdda704df",
+      "nodeId": "7378:3696",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "drag": {
+      "name": "drag",
+      "key": "f4dd4a86dfd0f91cce381eaa51abaa14a84785d3",
+      "nodeId": "7378:5050",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common",
       "status": "in-progress"
     }
   }

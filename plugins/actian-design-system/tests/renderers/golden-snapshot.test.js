@@ -134,12 +134,12 @@ var DS_FIXTURES = {
     },
   },
   inputDefault: {
-    dsSlug: "input",
+    dsSlug: "text-input",
     variant: "States=Default",
     props: { Label: "Email", "Placeholder text": "you@co" },
   },
   inputTrailingIcon: {
-    dsSlug: "input",
+    dsSlug: "text-input",
     variant: "States=Default",
     props: {
       Label: "Date",
@@ -148,7 +148,7 @@ var DS_FIXTURES = {
     },
   },
   inputDisabled: {
-    dsSlug: "input",
+    dsSlug: "text-input",
     variant: "States=Disabled",
     props: { Label: "Email", "Placeholder text": "you@co" },
   },
@@ -250,7 +250,7 @@ var DS_FIXTURES = {
           items: [
             { label: "Dashboard", icon: "dashboard" },
             { label: "Catalog", icon: "directory" },
-            { label: "Topics", icon: "more" },
+            { label: "Topics", icon: "dots" },
           ],
         },
         {

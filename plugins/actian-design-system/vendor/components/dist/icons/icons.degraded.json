@@ -4,12 +4,20 @@
   },
   "degraded": [
     {
+      "slug": "attachments",
+      "reason": "multicolor"
+    },
+    {
       "slug": "cursor-arrow",
       "reason": "gradient-or-image-fill"
     },
     {
       "slug": "cursor-hand",
       "reason": "gradient-or-image-fill"
+    },
+    {
+      "slug": "datasets",
+      "reason": "multicolor"
     },
     {
       "slug": "lifecycle-policy",

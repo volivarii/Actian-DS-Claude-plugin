@@ -2,10 +2,10 @@
   "_schema_version": 1,
   "slug": "checkbox-with-label",
   "kit": "dskit",
-  "synced_at": "2026-07-02T02:59:36.615Z",
+  "synced_at": "2026-07-02T07:26:12.568Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "9478:17216",
+    "nodeId": "18857:2849",
     "variant": "Selected=No, State=Default"
   },
   "quality": {
@@ -17,7 +17,7 @@
   "root": {
     "name": "Selected=No, State=Default",
     "kind": "container",
-    "id": "8175:4413",
+    "id": "18857:2850",
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -45,12 +45,12 @@
           "Selected": "No",
           "State": "Default"
         },
-        "id": "8175:4407"
+        "id": "18857:2851"
       },
       {
         "name": "Label",
         "kind": "text",
-        "id": "8175:4408",
+        "id": "18857:2852",
         "text": "Inline label for checkbox"
       }
     ]

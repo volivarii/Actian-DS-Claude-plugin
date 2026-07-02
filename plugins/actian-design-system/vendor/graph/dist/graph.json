@@ -608,6 +608,11 @@
       "title": "atlas"
     },
     {
+      "id": "component:attachments",
+      "type": "component",
+      "title": "Attachments"
+    },
+    {
       "id": "component:avatar",
       "type": "component",
       "title": "Avatar"
@@ -1201,6 +1206,11 @@
       "id": "component:dataset",
       "type": "component",
       "title": "dataset"
+    },
+    {
+      "id": "component:datasets",
+      "type": "component",
+      "title": "Datasets"
     },
     {
       "id": "component:db2",
@@ -1928,6 +1938,11 @@
       "title": "Input, date"
     },
     {
+      "id": "component:input-ports",
+      "type": "component",
+      "title": "Input-ports"
+    },
+    {
       "id": "component:integer-type",
       "type": "component",
       "title": "integer-type"
@@ -2351,11 +2366,6 @@
       "id": "component:moon",
       "type": "component",
       "title": "moon"
-    },
-    {
-      "id": "component:more",
-      "type": "component",
-      "title": "more"
     },
     {
       "id": "component:move",
@@ -3146,6 +3156,11 @@
       "id": "component:text-file",
       "type": "component",
       "title": "text-file"
+    },
+    {
+      "id": "component:text-input",
+      "type": "component",
+      "title": "Text input"
     },
     {
       "id": "component:text-type",
@@ -4386,18 +4401,6 @@
       }
     },
     {
-      "source": "component:input",
-      "target": "a11y:forms",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/input/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:modal",
       "target": "a11y:modals",
       "type": "a11y_ref",
@@ -4549,6 +4552,18 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:text-input",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/text-input/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -4886,6 +4901,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:attachments",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:avatar",
       "target": "category:data-display",
       "type": "in_category"
@@ -4997,7 +5017,7 @@
     },
     {
       "source": "component:calendar",
-      "target": "category:form-input-selection",
+      "target": "category:action",
       "type": "in_category"
     },
     {
@@ -5048,11 +5068,6 @@
     {
       "source": "component:chat-with-ai-steward",
       "target": "category:overlays",
-      "type": "in_category"
-    },
-    {
-      "source": "component:checkbox-with-label",
-      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
@@ -5226,6 +5241,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:datasets",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:db2",
       "target": "category:icons",
       "type": "in_category"
@@ -5293,11 +5313,6 @@
     {
       "source": "component:drawer-side-panel",
       "target": "category:overlays",
-      "type": "in_category"
-    },
-    {
-      "source": "component:dropdown-select-default",
-      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
@@ -5516,13 +5531,13 @@
       "type": "in_category"
     },
     {
-      "source": "component:input",
-      "target": "category:form-input-selection",
+      "source": "component:input-date",
+      "target": "category:action",
       "type": "in_category"
     },
     {
-      "source": "component:input-date",
-      "target": "category:form-input-selection",
+      "source": "component:input-ports",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -5716,11 +5731,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:more",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
       "source": "component:move",
       "target": "category:icons",
       "type": "in_category"
@@ -5861,11 +5871,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:radio-button",
-      "target": "category:form-input-selection",
-      "type": "in_category"
-    },
-    {
       "source": "component:relation",
       "target": "category:icons",
       "type": "in_category"
@@ -5958,16 +5963,6 @@
     {
       "source": "component:scroll-bar",
       "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:search",
-      "target": "category:form-input-selection",
-      "type": "in_category"
-    },
-    {
-      "source": "component:search-dropdown-menu",
-      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
@@ -6176,6 +6171,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:text-input",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
       "source": "component:text-type",
       "target": "category:icons",
       "type": "in_category"
@@ -6198,11 +6198,6 @@
     {
       "source": "component:tibco-datavirtualization",
       "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:toggle",
-      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
@@ -6901,11 +6896,6 @@
     },
     {
       "source": "content:forms",
-      "target": "component:input",
-      "type": "related"
-    },
-    {
-      "source": "content:forms",
       "target": "component:input-date",
       "type": "related"
     },
@@ -6917,6 +6907,11 @@
     {
       "source": "content:forms",
       "target": "component:search-filters",
+      "type": "related"
+    },
+    {
+      "source": "content:forms",
+      "target": "component:text-input",
       "type": "related"
     },
     {
@@ -6976,17 +6971,17 @@
     },
     {
       "source": "content:validation-messages",
-      "target": "component:input",
-      "type": "related"
-    },
-    {
-      "source": "content:validation-messages",
       "target": "component:input-date",
       "type": "related"
     },
     {
       "source": "content:validation-messages",
       "target": "component:radio-button",
+      "type": "related"
+    },
+    {
+      "source": "content:validation-messages",
+      "target": "component:text-input",
       "type": "related"
     },
     {
