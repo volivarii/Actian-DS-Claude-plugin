@@ -49,7 +49,11 @@ function loadTokenBindings(slug, loader) {
       PATHS.components.tokenBindings && PATHS.components.tokenBindings[slug];
     if (typeof p !== "string") return null;
     var doc = JSON.parse(fs.readFileSync(p, "utf8"));
-    return (doc && doc.byNodeId) || null;
+    if (!doc || typeof doc !== "object" || !doc.byNodeId) return null;
+    return {
+      byNodeId: doc.byNodeId,
+      variantDefaults: doc.variantDefaults || null,
+    };
   } catch (e) {
     return null;
   }
@@ -148,11 +152,11 @@ function tokenDecls(node, byNodeId, targetVariant, variantDefaults) {
   if (!byNodeId || !node.id) return [];
   return resolveTokenDecls(byNodeId[node.id], targetVariant, variantDefaults);
 }
-function renderNode(node, byNodeId) {
+function renderNode(node, byNodeId, targetVariant, variantDefaults) {
   if (!node || typeof node !== "object") return "";
   var kind = node.kind,
     cls = "ds-anatomy__" + (kind || "node");
-  var decls = tokenDecls(node, byNodeId);
+  var decls = tokenDecls(node, byNodeId, targetVariant, variantDefaults);
   if (kind === "text") {
     var textStyle = decls.length ? ' style="' + esc(decls.join(";")) + '"' : "";
     return (
@@ -174,7 +178,7 @@ function renderNode(node, byNodeId) {
   var kids = Array.isArray(node.children)
     ? node.children
         .map(function (c) {
-          return renderNode(c, byNodeId);
+          return renderNode(c, byNodeId, targetVariant, variantDefaults);
         })
         .join("")
     : "";
@@ -197,14 +201,16 @@ function renderAnatomy(dsSlug, opts) {
       ? data.quality.ratio
       : 0;
   if (ratio < minRatio) return null;
-  var byNodeId = loadTokenBindings(dsSlug, opts.bindingsLoader);
+  var bindings = loadTokenBindings(dsSlug, opts.bindingsLoader);
+  var byNodeId = bindings ? bindings.byNodeId : null;
+  var variantDefaults = bindings ? bindings.variantDefaults : null;
   return (
     '<div class="ds-anatomy ds-anatomy--' +
     esc(dsSlug) +
     '" data-ds-slug="' +
     esc(dsSlug) +
     '">' +
-    renderNode(data.root, byNodeId) +
+    renderNode(data.root, byNodeId, opts.variant || null, variantDefaults) +
     "</div>"
   );
 }

@@ -101,20 +101,22 @@ describe("buildDsAnatomyMap", function () {
     var tokenBindingsLoader = function (slug) {
       if (slug === "spinner")
         return {
-          "9:1": [
-            {
-              property: "background-color",
-              token: "--zen-color-primary-500",
-              grade: "semantic",
-            },
-          ],
-          "9:2": [
-            {
-              property: "color",
-              token: "--zen-color-text-default",
-              grade: "semantic",
-            },
-          ],
+          byNodeId: {
+            "9:1": [
+              {
+                property: "background-color",
+                token: "--zen-color-primary-500",
+                grade: "semantic",
+              },
+            ],
+            "9:2": [
+              {
+                property: "color",
+                token: "--zen-color-text-default",
+                grade: "semantic",
+              },
+            ],
+          },
         };
       return null;
     };

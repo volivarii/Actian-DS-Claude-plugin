@@ -126,7 +126,7 @@ describe("anatomy-render", function () {
     var html = renderAnatomy("x", {
       loader: loader,
       bindingsLoader: function () {
-        return BINDINGS;
+        return { byNodeId: BINDINGS };
       },
     });
     assert.ok(
@@ -145,7 +145,7 @@ describe("anatomy-render", function () {
     var html = renderAnatomy("x", {
       loader: loader,
       bindingsLoader: function () {
-        return BINDINGS;
+        return { byNodeId: BINDINGS };
       },
     });
     var span = html.match(/<span[^>]*>/);
@@ -160,7 +160,7 @@ describe("anatomy-render", function () {
     var html = renderAnatomy("x", {
       loader: loader,
       bindingsLoader: function () {
-        return BINDINGS;
+        return { byNodeId: BINDINGS };
       },
     });
     var instance = html.match(/<div class="ds-anatomy__instance"[^>]*>/);
@@ -175,11 +175,13 @@ describe("anatomy-render", function () {
       loader: loader,
       bindingsLoader: function () {
         return {
-          "1:1": [
-            { property: "background;evil", token: "--zen-color-bg-default" },
-            { property: "color", token: "red" },
-            { property: "color", token: "--zen-color-text-default" },
-          ],
+          byNodeId: {
+            "1:1": [
+              { property: "background;evil", token: "--zen-color-bg-default" },
+              { property: "color", token: "red" },
+              { property: "color", token: "--zen-color-text-default" },
+            ],
+          },
         };
       },
     });
@@ -292,4 +294,73 @@ test("resolveTokenDecls: invalid property/token entries are dropped", () => {
   assert.deepStrictEqual(ar.resolveTokenDecls(list, null, null), [
     "padding:var(--zen-spacing-sm)",
   ]);
+});
+
+test("renderAnatomy: opts.variant selects the scoped token in the output", () => {
+  const anatomy = {
+    quality: { ratio: 1 },
+    root: { id: "n1", kind: "container", layout: {}, children: [] },
+  };
+  const bindings = {
+    variantDefaults: { Color: "Default" },
+    byNodeId: {
+      n1: [
+        {
+          property: "background-color",
+          token: "--zen-default",
+          variant: { prop: "Color", values: ["Default"] },
+        },
+        {
+          property: "background-color",
+          token: "--zen-pink",
+          variant: { prop: "Color", values: ["Pink"] },
+        },
+      ],
+    },
+  };
+  const html = ar.renderAnatomy("tag-default", {
+    loader: () => anatomy,
+    bindingsLoader: () => bindings,
+    variant: { Color: "Pink" },
+  });
+  assert.ok(
+    html.includes("background-color:var(--zen-pink)"),
+    "renders the Pink token",
+  );
+  assert.ok(
+    !html.includes("--zen-default"),
+    "does not also emit the Default token",
+  );
+});
+
+test("renderAnatomy: without opts.variant, output is unchanged (all decls)", () => {
+  const anatomy = {
+    quality: { ratio: 1 },
+    root: { id: "n1", kind: "container", layout: {}, children: [] },
+  };
+  const bindings = {
+    variantDefaults: { Color: "Default" },
+    byNodeId: {
+      n1: [
+        {
+          property: "background-color",
+          token: "--zen-default",
+          variant: { prop: "Color", values: ["Default"] },
+        },
+        {
+          property: "background-color",
+          token: "--zen-pink",
+          variant: { prop: "Color", values: ["Pink"] },
+        },
+      ],
+    },
+  };
+  const html = ar.renderAnatomy("tag-default", {
+    loader: () => anatomy,
+    bindingsLoader: () => bindings,
+  });
+  assert.ok(
+    html.includes("--zen-default") && html.includes("--zen-pink"),
+    "emits both (current behavior)",
+  );
 });
