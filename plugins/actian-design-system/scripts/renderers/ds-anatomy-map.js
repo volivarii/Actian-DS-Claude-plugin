@@ -9,13 +9,15 @@
  * and the canonical shareable deliverable (assemble-flow-share) can build the map
  * without one renderer depending on the other's CLI module. No side effects at
  * load. Pure functions; substrate reads happen via injectable loaders (defaults
- * read the vendored anatomy + guideline docs).
+ * read the vendored anatomy + token-bindings sidecars).
+ *
+ * Token facts come from the per-node sidecar join inside anatomy-render.js
+ * (anatomy node id → token-bindings byNodeId). The former root-level
+ * guideline domains.tokens read is gone: domains.tokens stays a human doc,
+ * the render-grade facts live in components/dist/token-bindings/.
  */
 
-var fs = require("fs");
-var PATHS = require("../lib/paths");
 var renderAnatomy = require("./anatomy-render").renderAnatomy;
-var bindTokens = require("./ds-token-binding").bindTokens;
 
 /**
  * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
@@ -51,7 +53,9 @@ function collectDsSlugs(data) {
  * @param {object}   opts
  *   opts.builtSlugs          - override list (default: BUILT_SLUGS from ds-html-map.js)
  *   opts.anatomyLoader       - injectable loader(slug) for anatomy JSON (default: fs read)
- *   opts.tokenBindingsLoader - injectable loader(slug) → [{token,context}] (default: fs read)
+ *   opts.tokenBindingsLoader - injectable loader(slug) → sidecar byNodeId map
+ *                              { nodeId: [{property, token, grade}] } (default:
+ *                              fs read of the vendored token-bindings sidecar)
  * @returns {{ [slug: string]: string }}
  */
 function buildDsAnatomyMap(slugs, opts) {
@@ -69,29 +73,9 @@ function buildDsAnatomyMap(slugs, opts) {
     // Override slugs have hand-authored HTML leaves — skip them
     if (builtSet[slug]) continue;
 
-    // Read token bindings for this slug
-    var tokenBindings = [];
-    if (typeof opts.tokenBindingsLoader === "function") {
-      tokenBindings = opts.tokenBindingsLoader(slug) || [];
-    } else {
-      try {
-        var guidelineDoc = JSON.parse(
-          fs.readFileSync(PATHS.components.guidelineDoc.byKey(slug), "utf8"),
-        );
-        var domains = (guidelineDoc && guidelineDoc.domains) || {};
-        tokenBindings = (domains.tokens && domains.tokens.bindings) || [];
-      } catch (e) {
-        tokenBindings = [];
-      }
-    }
-
-    // Build binding context from token bindings
-    var binding = bindTokens(slug, { tokenBindings: tokenBindings });
-
-    // Render anatomy with binding applied
     var html = renderAnatomy(slug, {
       loader: opts.anatomyLoader,
-      binding: binding,
+      bindingsLoader: opts.tokenBindingsLoader,
     });
 
     // Drop nulls (quality too low, missing root, or no anatomy file)

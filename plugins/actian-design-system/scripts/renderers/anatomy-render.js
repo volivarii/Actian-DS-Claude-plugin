@@ -4,6 +4,15 @@
 // part-tree → structural HTML. Returns null when the slug has no usable
 // anatomy so the caller falls back. NOT for client runtime — the result is
 // embedded into the deliverable by assemble-preview.js.
+//
+// Token facts: each anatomy node's Figma `id` is joined against the vendored
+// token-bindings sidecar (components/dist/token-bindings/<slug>.json,
+// byNodeId → [{property, token, grade}]) and emitted as inline
+// `property:var(--zen-*)` declarations. Facts append AFTER the structural
+// flex declarations so a bound token (e.g. padding:var(--zen-spacing-sm))
+// wins the cascade over the baked px value. Slugs without a sidecar render
+// structurally, unchanged. Sidecars only carry own-nodes — instance internals
+// are excluded at harvest time, so instance nodes never match.
 var fs = require("fs");
 var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
@@ -25,6 +34,21 @@ function loadAnatomy(slug, loader) {
     return JSON.parse(
       fs.readFileSync(PATHS.components.anatomy.byKey(slug), "utf8"),
     );
+  } catch (e) {
+    return null;
+  }
+}
+// byNodeId map from the vendored sidecar, or null when the slug has none.
+// Sidecars are registered as per-slug manifest entries
+// (components.tokenBindings.<slug>), so the PATHS node is a plain
+// slug → absolute-path object — no byKey collection (yet).
+function loadTokenBindings(slug, loader) {
+  if (typeof loader === "function") return loader(slug);
+  try {
+    var p = PATHS.components.tokenBindings && PATHS.components.tokenBindings[slug];
+    if (typeof p !== "string") return null;
+    var doc = JSON.parse(fs.readFileSync(p, "utf8"));
+    return (doc && doc.byNodeId) || null;
   } catch (e) {
     return null;
   }
@@ -58,26 +82,52 @@ function flexStyle(layout) {
   if (a.cross) parts.push("align-items:" + mapAlign(a.cross));
   return parts.join(";");
 }
-function renderNode(node) {
+// Shape guards on the sidecar entries (the vendored files are
+// schema-validated upstream, but the loader is injectable).
+var PROP_RE = /^[a-z][a-z-]*$/;
+var TOKEN_RE = /^--[a-zA-Z0-9-]+$/;
+function tokenDecls(node, byNodeId) {
+  if (!byNodeId || !node.id) return [];
+  var list = byNodeId[node.id];
+  if (!Array.isArray(list)) return [];
+  var decls = [];
+  list.forEach(function (b) {
+    if (!b || typeof b !== "object") return;
+    if (!PROP_RE.test(String(b.property || ""))) return;
+    if (!TOKEN_RE.test(String(b.token || ""))) return;
+    decls.push(b.property + ":var(" + b.token + ")");
+  });
+  return decls;
+}
+function renderNode(node, byNodeId) {
   if (!node || typeof node !== "object") return "";
   var kind = node.kind,
     cls = "ds-anatomy__" + (kind || "node");
-  if (kind === "text")
-    return '<span class="' + cls + '">' + esc(node.text || "") + "</span>";
-  if (kind === "image" || kind === "vector")
-    return '<div class="' + cls + '" aria-hidden="true"></div>';
+  var decls = tokenDecls(node, byNodeId);
+  if (kind === "text") {
+    var textStyle = decls.length ? ' style="' + esc(decls.join(";")) + '"' : "";
+    return (
+      '<span class="' + cls + '"' + textStyle + ">" + esc(node.text || "") + "</span>"
+    );
+  }
+  if (kind === "image" || kind === "vector") {
+    var leafStyle = decls.length ? ' style="' + esc(decls.join(";")) + '"' : "";
+    return '<div class="' + cls + '"' + leafStyle + ' aria-hidden="true"></div>';
+  }
   var kids = Array.isArray(node.children)
-    ? node.children.map(renderNode).join("")
+    ? node.children
+        .map(function (c) {
+          return renderNode(c, byNodeId);
+        })
+        .join("")
     : "";
-  return (
-    '<div class="' +
-    cls +
-    '" style="' +
-    esc(flexStyle(node.layout)) +
-    '">' +
-    kids +
-    "</div>"
-  );
+  var style = flexStyle(node.layout);
+  var all = style
+    ? decls.length
+      ? style + ";" + decls.join(";")
+      : style
+    : decls.join(";");
+  return '<div class="' + cls + '" style="' + esc(all) + '">' + kids + "</div>";
 }
 function renderAnatomy(dsSlug, opts) {
   if (!dsSlug) return null;
@@ -90,49 +140,20 @@ function renderAnatomy(dsSlug, opts) {
       ? data.quality.ratio
       : 0;
   if (ratio < minRatio) return null;
-
-  // Base root classes
-  var rootClass = "ds-anatomy ds-anatomy--" + esc(dsSlug);
-
-  // Apply opts.binding to root wrapper only
-  var binding = opts.binding;
-  var styleAttr = "";
-  if (binding && typeof binding === "object") {
-    // Append binding classes
-    if (Array.isArray(binding.classes) && binding.classes.length > 0) {
-      rootClass +=
-        " " +
-        binding.classes
-          .map(function (c) {
-            return esc(c);
-          })
-          .join(" ");
-    }
-    // Build style string from cssVars
-    if (binding.cssVars && typeof binding.cssVars === "object") {
-      var declarations = Object.keys(binding.cssVars).map(function (k) {
-        return k + ":" + binding.cssVars[k];
-      });
-      if (declarations.length > 0) {
-        styleAttr = ' style="' + esc(declarations.join(";")) + '"';
-      }
-    }
-  }
-
+  var byNodeId = loadTokenBindings(dsSlug, opts.bindingsLoader);
   return (
-    '<div class="' +
-    rootClass +
+    '<div class="ds-anatomy ds-anatomy--' +
+    esc(dsSlug) +
     '" data-ds-slug="' +
     esc(dsSlug) +
-    '"' +
-    styleAttr +
-    ">" +
-    renderNode(data.root) +
+    '">' +
+    renderNode(data.root, byNodeId) +
     "</div>"
   );
 }
 module.exports = {
   renderAnatomy: renderAnatomy,
   loadAnatomy: loadAnatomy,
+  loadTokenBindings: loadTokenBindings,
   flexStyle: flexStyle,
 };
