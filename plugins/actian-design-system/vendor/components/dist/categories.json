@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-07-02T10:08:05.980Z",
+  "generatedAt": "2026-07-02T13:31:20.852Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -112,6 +112,20 @@
       ],
       "count": 5
     },
+    "Form (input & selection)": {
+      "components": [
+        "checkbox-with-label",
+        "dropdown-select-default",
+        "radio-button",
+        "rich-text",
+        "search",
+        "search-dropdown-menu",
+        "search-filters",
+        "text-input",
+        "toggle"
+      ],
+      "count": 9
+    },
     "Action": {
       "components": [
         "button",
@@ -121,14 +135,6 @@
         "sticky-footer"
       ],
       "count": 5
-    },
-    "Form (input & selection)": {
-      "components": [
-        "rich-text",
-        "search-filters",
-        "text-input"
-      ],
-      "count": 3
     },
     "Icons": {
       "components": [
@@ -252,6 +258,7 @@
         "info",
         "info-filled",
         "informatica",
+        "input",
         "input-ports",
         "integer-type",
         "jdbc",
@@ -369,10 +376,10 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 236
+      "count": 237
     }
   },
   "uncategorized": {
-    "count": 7
+    "count": 0
   }
 }

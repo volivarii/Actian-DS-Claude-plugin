@@ -2,10 +2,10 @@
   "_schema_version": 1,
   "slug": "search",
   "kit": "dskit",
-  "synced_at": "2026-07-02T10:07:52.442Z",
+  "synced_at": "2026-07-02T13:31:03.720Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "18857:3454",
+    "nodeId": "8589:11055",
     "variant": "Type=Global header, State=Default"
   },
   "quality": {
@@ -17,7 +17,7 @@
   "root": {
     "name": "Type=Global header, State=Default",
     "kind": "container",
-    "id": "18857:3455",
+    "id": "8589:11054",
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -40,7 +40,7 @@
       {
         "name": "dropdown",
         "kind": "container",
-        "id": "18857:3456",
+        "id": "13934:29583",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -63,27 +63,27 @@
           {
             "name": "Input text",
             "kind": "text",
-            "id": "18857:3457",
+            "id": "13934:29584",
             "text": "Default"
           },
           {
             "name": "close",
             "kind": "instance",
             "slug": "close",
-            "id": "18857:3458"
+            "id": "13934:29585"
           },
           {
             "name": "arrow-down",
             "kind": "instance",
             "slug": "arrow-down",
-            "id": "18857:3459"
+            "id": "13934:29586"
           }
         ]
       },
       {
         "name": "search input",
         "kind": "container",
-        "id": "18857:3460",
+        "id": "13934:29568",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -107,12 +107,12 @@
             "name": "search 2",
             "kind": "instance",
             "unresolved": true,
-            "id": "18857:3461"
+            "id": "13934:29569"
           },
           {
             "name": "Input text",
             "kind": "text",
-            "id": "18857:3462",
+            "id": "13934:29570",
             "text": "Search items"
           },
           {
@@ -129,7 +129,7 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "18857:3463"
+            "id": "13934:30198"
           }
         ]
       }

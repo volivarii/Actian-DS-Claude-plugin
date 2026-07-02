@@ -2,10 +2,10 @@
   "_schema_version": 1,
   "slug": "radio-button",
   "kit": "dskit",
-  "synced_at": "2026-07-02T10:07:52.442Z",
+  "synced_at": "2026-07-02T13:31:03.720Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "18857:3019",
+    "nodeId": "9474:16884",
     "variant": "Format=Default, Selected=No, State=Default"
   },
   "quality": {
@@ -17,7 +17,7 @@
   "root": {
     "name": "Format=Default, Selected=No, State=Default",
     "kind": "container",
-    "id": "18857:3020",
+    "id": "8175:4423",
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -45,12 +45,12 @@
           "Selected": "No",
           "State": "Default"
         },
-        "id": "18857:3021"
+        "id": "8175:4418"
       },
       {
         "name": "Text",
         "kind": "container",
-        "id": "18857:3022",
+        "id": "14193:16187",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -73,13 +73,13 @@
           {
             "name": "Label",
             "kind": "text",
-            "id": "18857:3023",
+            "id": "8175:4419",
             "text": "Label"
           },
           {
             "name": "Helper text",
             "kind": "text",
-            "id": "18857:3024",
+            "id": "13981:7787",
             "text": "Helper text"
           }
         ]
