@@ -38,7 +38,8 @@ function loadAnatomy(slug, loader) {
     return null;
   }
 }
-// byNodeId map from the vendored sidecar, or null when the slug has none.
+// Returns the sidecar { byNodeId, variantDefaults } from the vendored sidecar,
+// or null when the slug has none.
 // Sidecars are registered as per-slug manifest entries
 // (components.tokenBindings.<slug>), so the PATHS node is a plain
 // slug → absolute-path object — no byKey collection (yet).
