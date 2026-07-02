@@ -25,21 +25,18 @@ var {
 var parseVariant = require("./html-renderers/ds-html-map.js").parseVariant;
 
 /**
- * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
- * Returns a deduplicated array of slug strings.
+ * Shared recursive tree-walk over a flow data tree (screens → content →
+ * nodes), invoking visitFn(node) for every node encountered (pre-order,
+ * children before nodes). Both collectors below differ only in what their
+ * visitor does with each node.
  */
-function collectDsSlugs(data) {
-  var seen = {};
-  var slugs = [];
+function walkDsContent(data, visitFn) {
   function walk(nodes) {
     if (!Array.isArray(nodes)) return;
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (!n || typeof n !== "object") continue;
-      if (typeof n.dsSlug === "string" && n.dsSlug && !seen[n.dsSlug]) {
-        seen[n.dsSlug] = true;
-        slugs.push(n.dsSlug);
-      }
+      visitFn(n);
       if (Array.isArray(n.children)) walk(n.children);
       if (Array.isArray(n.nodes)) walk(n.nodes);
     }
@@ -48,6 +45,21 @@ function collectDsSlugs(data) {
   for (var s = 0; s < screens.length; s++) {
     walk((screens[s] && screens[s].content) || []);
   }
+}
+
+/**
+ * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
+ * Returns a deduplicated array of slug strings.
+ */
+function collectDsSlugs(data) {
+  var seen = {};
+  var slugs = [];
+  walkDsContent(data, function (n) {
+    if (typeof n.dsSlug === "string" && n.dsSlug && !seen[n.dsSlug]) {
+      seen[n.dsSlug] = true;
+      slugs.push(n.dsSlug);
+    }
+  });
   return slugs;
 }
 
@@ -61,26 +73,16 @@ function collectDsSlugs(data) {
 function collectDsSlugVariants(data) {
   var seen = {};
   var pairs = [];
-  function walk(nodes) {
-    if (!Array.isArray(nodes)) return;
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      if (!n || typeof n !== "object") continue;
-      if (typeof n.dsSlug === "string" && isDelegated(n.dsSlug)) {
-        var variant = parseVariant(n.variant || "");
-        var key = anatomyVariantKey(n.dsSlug, variant);
-        if (!seen[key]) {
-          seen[key] = true;
-          pairs.push({ slug: n.dsSlug, variant: variant });
-        }
+  walkDsContent(data, function (n) {
+    if (typeof n.dsSlug === "string" && isDelegated(n.dsSlug)) {
+      var variant = parseVariant(n.variant || "");
+      var key = anatomyVariantKey(n.dsSlug, variant);
+      if (!seen[key]) {
+        seen[key] = true;
+        pairs.push({ slug: n.dsSlug, variant: variant });
       }
-      if (Array.isArray(n.children)) walk(n.children);
-      if (Array.isArray(n.nodes)) walk(n.nodes);
     }
-  }
-  var screens = (data && data.screens) || [];
-  for (var s = 0; s < screens.length; s++)
-    walk((screens[s] && screens[s].content) || []);
+  });
   return pairs;
 }
 
