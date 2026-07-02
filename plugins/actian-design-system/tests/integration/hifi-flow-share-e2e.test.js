@@ -51,7 +51,7 @@ var HIFI_FLOW = {
         {
           type: "INSTANCE",
           library: "ds",
-          dsSlug: "input",
+          dsSlug: "text-input",
           variant: "States=Default",
           props: { Label: "Workspace name", "Placeholder text": "Untitled" },
           name: "Name field",

@@ -289,7 +289,7 @@ describe("ds-html-map: button", function () {
 describe("ds-html-map: input", function () {
   it("default: emits ds-field/ds-input scaffold with esc'd Label + Placeholder", function () {
     var html = render({
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Default",
       props: { Label: "Email", "Placeholder text": "you@co.com" },
     });
@@ -303,7 +303,7 @@ describe("ds-html-map: input", function () {
 
   it("plain text input (no Trailing icon prop): NO ds-input__icon chevron", function () {
     var html = render({
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Default",
       props: { Label: "Email", "Placeholder text": "you@co.com" },
     });
@@ -315,7 +315,7 @@ describe("ds-html-map: input", function () {
 
   it("with Trailing icon prop: renders the ds-input__icon chevron", function () {
     var html = render({
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Default",
       props: { Label: "Email", "Trailing icon": "chevron" },
     });
@@ -327,7 +327,7 @@ describe("ds-html-map: input", function () {
 
   it("Disabled (States=Disabled): ds-field carries is-disabled", function () {
     var html = render({
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Disabled",
       props: { Label: "Email" },
     });
@@ -339,7 +339,7 @@ describe("ds-html-map: input", function () {
 
   it("falls back to default Label/Placeholder text when absent", function () {
     var html = render({
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Default",
       props: {},
     });

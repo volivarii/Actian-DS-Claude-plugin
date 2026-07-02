@@ -71,7 +71,7 @@ describe("resolve-a11y (real vendored substrate)", function () {
       "loader",
       "empty-state",
       "error-state",
-      "input",
+      "text-input",
     ];
     var res = resolver.resolveA11y(slugs);
     var missing = slugs.filter(function (s) {
@@ -123,8 +123,8 @@ describe("resolve-a11y (real vendored substrate)", function () {
   });
 
   it("drops contentless section entries but keeps the slug resolved (F-C)", function () {
-    var res = resolver.resolveA11y(["input"]);
-    var input = res.slugs["input"];
+    var res = resolver.resolveA11y(["text-input"]);
+    var input = res.slugs["text-input"];
     assert.strictEqual(input.resolved, true, "input should still resolve");
     assert.ok(
       input.a11y.every(function (e) {

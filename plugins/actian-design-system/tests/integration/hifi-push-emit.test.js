@@ -62,7 +62,7 @@ var DS_KEYS = shared.buildKeyMapFromRegistry("dskit", "ds");
 //
 // Content slugs chosen because they are all in ds-components-authoring.md and
 // all have verified registry keys:
-//   input          → dsInput
+//   text-input     → dsTextInput
 //   button         → dsButton
 //   card-for-items → dsCardForItems
 //
@@ -88,7 +88,7 @@ var FIXTURE_SCREEN = {
     {
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "input",
+      dsSlug: "text-input",
       variant: "States=Default",
       props: { "Placeholder text": "Search data products" },
       sizing: { horizontal: "FILL" },
@@ -195,7 +195,7 @@ describe("hifi-push-emit — deliverable-level CLI emit proof", function () {
     );
 
     // ---- content DS Kit keys ----
-    var inputKey = dsKey("input");
+    var inputKey = dsKey("text-input");
     var buttonKey = dsKey("button");
     var cardForItemsKey = dsKey("card-for-items");
 
