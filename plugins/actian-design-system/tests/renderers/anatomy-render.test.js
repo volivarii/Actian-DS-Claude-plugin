@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 "use strict";
-var { describe, it } = require("node:test");
+var { describe, it, test } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var { renderAnatomy } = require(
+var ar = require(
   path.resolve(
     __dirname,
     "..",
@@ -13,6 +13,7 @@ var { renderAnatomy } = require(
     "anatomy-render.js",
   ),
 );
+var { renderAnatomy } = ar;
 
 var GOOD = {
   slug: "x",
@@ -203,4 +204,92 @@ describe("anatomy-render", function () {
       "text span should have no style attribute without bindings",
     );
   });
+});
+
+test("resolveTokenDecls: no target variant returns all valid decls in order", () => {
+  const list = [
+    {
+      property: "background-color",
+      token: "--zen-a",
+      variant: { prop: "Color", values: ["Default"] },
+    },
+    {
+      property: "background-color",
+      token: "--zen-b",
+      variant: { prop: "Color", values: ["Pink"] },
+    },
+  ];
+  assert.deepStrictEqual(ar.resolveTokenDecls(list, null, null), [
+    "background-color:var(--zen-a)",
+    "background-color:var(--zen-b)",
+  ]);
+});
+
+test("resolveTokenDecls: target variant picks the scoped match, one per property", () => {
+  const list = [
+    {
+      property: "background-color",
+      token: "--zen-default",
+      variant: { prop: "Color", values: ["Default"] },
+    },
+    {
+      property: "background-color",
+      token: "--zen-pink",
+      variant: { prop: "Color", values: ["Pink"] },
+    },
+    {
+      property: "border-color",
+      token: "--zen-border-pink",
+      variant: { prop: "Color", values: ["Pink"] },
+    },
+  ];
+  assert.deepStrictEqual(
+    ar.resolveTokenDecls(list, { Color: "Pink" }, { Color: "Default" }),
+    ["background-color:var(--zen-pink)", "border-color:var(--zen-border-pink)"],
+  );
+});
+
+test("resolveTokenDecls: unknown target value falls back to variantDefaults binding", () => {
+  const list = [
+    {
+      property: "background-color",
+      token: "--zen-default",
+      variant: { prop: "Color", values: ["Default"] },
+    },
+    {
+      property: "background-color",
+      token: "--zen-pink",
+      variant: { prop: "Color", values: ["Pink"] },
+    },
+  ];
+  assert.deepStrictEqual(
+    ar.resolveTokenDecls(list, { Color: "Nonexistent" }, { Color: "Default" }),
+    ["background-color:var(--zen-default)"],
+  );
+});
+
+test("resolveTokenDecls: unscoped binding is always kept under a target variant", () => {
+  const list = [
+    { property: "padding", token: "--zen-spacing-sm" },
+    {
+      property: "background-color",
+      token: "--zen-pink",
+      variant: { prop: "Color", values: ["Pink"] },
+    },
+  ];
+  assert.deepStrictEqual(
+    ar.resolveTokenDecls(list, { Color: "Pink" }, { Color: "Default" }),
+    ["padding:var(--zen-spacing-sm)", "background-color:var(--zen-pink)"],
+  );
+});
+
+test("resolveTokenDecls: invalid property/token entries are dropped", () => {
+  const list = [
+    { property: "content!", token: "--zen-x" }, // property not in PROP_RE
+    { property: "padding", token: "red" }, // token not in TOKEN_RE
+    { property: "padding", token: "--zen-spacing-sm" },
+  ];
+  assert.deepStrictEqual(ar.resolveTokenDecls(list, null, null), [
+    "padding:var(--zen-spacing-sm)",
+  ]);
 });
