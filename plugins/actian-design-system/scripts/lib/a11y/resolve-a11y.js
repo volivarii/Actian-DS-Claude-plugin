@@ -51,6 +51,26 @@ function a11yId(nodeId) {
   return typeof nodeId === "string" ? nodeId.replace(/^a11y:/, "") : "";
 }
 
+// Fallback category source: when the graph lacks an in_category edge for a
+// component (registry category churn — e.g. a component re-created on a
+// not-yet-categorized Figma page ships category-less in the registry, so the
+// graph derive emits no edge), read the vendored guideline doc's
+// meta.category (hand-authored in _meta.yml; survives registry churn).
+// Graph edges stay the primary source; this only fills the gap.
+// Injection seam (testing): opts.guidelineCategoryLoader(slug) -> string|null.
+function guidelineCategoryOf(slug, loader) {
+  if (typeof loader === "function") return loader(slug);
+  try {
+    var doc = JSON.parse(
+      fs.readFileSync(PATHS.components.guidelineDoc.byKey(slug), "utf8"),
+    );
+    var cat = doc && doc.meta && doc.meta.category;
+    return typeof cat === "string" && cat ? cat : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 // WCAG list: prefer the graph node's wcag[], else parse the bundle section
 // body ("WCAG criteria: 2.1.1, 2.4.3, ...").
 function wcagFrom(node, section) {
@@ -155,7 +175,12 @@ function resolveA11y(slugs, opts) {
   var categories = {};
   (Array.isArray(slugs) ? slugs : []).forEach(function (slug) {
     var cid = "component:" + slug;
-    var sources = [cid].concat(idx.inCat[cid] || []); // direct + via-category
+    var viaCategory = idx.inCat[cid] || [];
+    if (!viaCategory.length) {
+      var fallbackCat = guidelineCategoryOf(slug, opts.guidelineCategoryLoader);
+      if (fallbackCat) viaCategory = ["category:" + fallbackCat];
+    }
+    var sources = [cid].concat(viaCategory); // direct + via-category
     var a11y = [];
     var bySection = {};
     sources.forEach(function (src) {
@@ -210,6 +235,7 @@ module.exports = {
   wcagFrom: wcagFrom,
   rulesFrom: rulesFrom,
   a11yId: a11yId,
+  guidelineCategoryOf: guidelineCategoryOf,
 };
 
 // Thin CLI: resolve-a11y.js --slugs button,modal,card
