@@ -62,6 +62,7 @@ function assembleFlowShare(data) {
   var anatomyHelpers = require("./ds-anatomy-map.js");
   var anatomyMap = anatomyHelpers.buildDsAnatomyMap(
     anatomyHelpers.collectDsSlugs(data),
+    { data: data },
   );
 
   // Assets (fail loudly if missing — same contract as readFileChecked).

@@ -2971,3 +2971,45 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Task 5: composite-key delegation lookup — delegated slugs (tag-*) render
+// via the variant-aware anatomy map when a composite-keyed entry exists;
+// a miss falls through to the hand-authored switch case unchanged.
+describe("ds-html-map: delegated composite-key lookup (Task 5)", function () {
+  it("delegated slug returns the composite-keyed anatomy HTML", function () {
+    ds.setAnatomyMap({
+      "tag-default|Color=Pink": '<div class="ds-anatomy">PINK</div>',
+    });
+    try {
+      var html = render({
+        dsSlug: "tag-default",
+        variant: "Color=Pink",
+        props: {},
+      });
+      assert.ok(html.includes("PINK"), "used the composite-keyed anatomy HTML");
+    } finally {
+      ds.setAnatomyMap(null);
+    }
+  });
+
+  it("delegated slug with no matching key falls back to the tag switch case", function () {
+    ds.setAnatomyMap({
+      "tag-default|Color=Nonexistent": "<div>X</div>",
+    });
+    try {
+      var html = render({
+        dsSlug: "tag-default",
+        variant: "Color=Pink",
+        props: { Label: "Hi" },
+      });
+      assert.ok(
+        html.includes("ds-tag"),
+        "fell through to the hand-authored tag case",
+      );
+      assert.ok(html.includes("Hi"), "rendered the label");
+    } finally {
+      ds.setAnatomyMap(null);
+    }
+  });
+});

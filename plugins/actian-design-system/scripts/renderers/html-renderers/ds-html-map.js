@@ -45,6 +45,34 @@
       return p || {};
     };
 
+  // Composite-key delegation helpers (Task 3: isDelegated/anatomyVariantKey).
+  // Same guard-with-inline-fallback shape as fm above: this module runs in
+  // BOTH Node (require works) and the browser deliverable (require may be
+  // absent), so the fallback bodies are verbatim mirrors of
+  // anatomy-variant-key.js kept here for the browser-without-require case.
+  // Do NOT delete them as dead code — they are the only implementation when
+  // `require` is unavailable.
+  var anatomyKey =
+    (typeof require !== "undefined" && require("./anatomy-variant-key.js")) ||
+    {};
+  var isDelegated =
+    anatomyKey.isDelegated ||
+    function (slug) {
+      return typeof slug === "string" && slug.indexOf("tag-") === 0;
+    };
+  var anatomyVariantKey =
+    anatomyKey.anatomyVariantKey ||
+    function (slug, variant) {
+      if (!variant || typeof variant !== "object") return slug;
+      var keys = Object.keys(variant).sort();
+      if (!keys.length) return slug;
+      var parts = [];
+      for (var i = 0; i < keys.length; i++) {
+        parts.push(keys[i] + "=" + variant[keys[i]]);
+      }
+      return slug + "|" + parts.join(",");
+    };
+
   // Icon geometry: browser global (injected by the assembler) or the vendored
   // read-surface in Node. Geometry-only { slug: {viewBox, body} }.
   var dsIcons =
@@ -179,6 +207,18 @@
     try {
       var v = parseVariant(node.variant || "");
       var props = normalizeProps(node.props);
+
+      // Delegated slugs (slice 1: tag-*) render via the variant-aware anatomy
+      // map when a composite-keyed entry exists; else fall through to the switch.
+      if (isDelegated(slug)) {
+        var _m =
+          (typeof window !== "undefined" && window.__dsAnatomyMap) ||
+          _serverAnatomyMap ||
+          {};
+        var _k = anatomyVariantKey(slug, v);
+        if (_m[_k]) return _m[_k];
+      }
+
       switch (slug) {
         case "button": {
           // Button taxonomy is Intent×Emphasis as of knowledge v0.34.x. Map the
