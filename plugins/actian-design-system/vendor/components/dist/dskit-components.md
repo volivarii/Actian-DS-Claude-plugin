@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-317 components.
+320 components.
 
 ---
 
@@ -133,6 +133,11 @@ Menu list item - can be edited by selecting individual list item and  selecting 
 
 - Single component (no variants)
 - Node: `8400:25203` | Key: `34094ec015b8f74b80ea36bdeb8a42621b1ba85f`
+
+### Attachments
+
+- Single component (no variants)
+- Node: `18532:4651` | Key: `3ae5cf1e1bb657ad769f3a534debba01ddf8ba5e`
 
 ### Avatar
 
@@ -326,7 +331,7 @@ A flexible container for grouping related information. Use for dashboard summari
 Used for binary choices (on/off) or when a user can select multiple options from a list of related items.
 
 - Variants: **Selected:** `Yes` · `Indeterminate` · `No` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
-- Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
+- Node: `18857:2849` | Key: `aeac0705e0e35c68961d6ee6c7ad594612124354`
 
 ### checkmark--outline
 
@@ -502,6 +507,11 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 - Single component (no variants)
 - Node: `8400:25053` | Key: `080e8e3e95430d11d6aaec7537143d437b0dbd75`
 
+### Datasets
+
+- Single component (no variants)
+- Node: `18532:4652` | Key: `119f67e361c3421c5d2b3ad53ffd2df7f253de4c`
+
 ### db2
 
 - Single component (no variants)
@@ -531,7 +541,7 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 Works like tags but contains only 2 letters (initials of category name)
 
-- Variants: **Item type:** `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization` · `Category` · `Custom 1` · `Custom 2` · `Custom 3` · `Custom 4` · `Custom 5` · `Custom 6` · `Custom 7` · `Custom 8` · `Custom 9` · `Custom 10` · `Custom 11` · `Custom 12` · `Custom 13` · `Custom 14` · `Custom 16` · `Glossary 1` · `Glossary 2` · `Glossary 3` · `Glossary 4` · `Glossary 5` | **Size:** `Default` · `Large`
+- Single component (no variants)
 - Node: `14007:23209` | Key: `1705ad4e55489bb9ca0f203be5bd0edbd77e82b2`
 
 ### Digram, Topic
@@ -583,7 +593,7 @@ Use when there are 5+ options or space is limited. Ideal for selecting one item 
 
 - Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Disabled`
 - Boolean properties: `Show description#13978:0` (default: true) — set to `false` to hide · `Show asterisk #13978:8` (default: true) — set to `false` to hide · `Show info icon#13978:16` (default: true) — set to `false` to hide · `Show helper text#13978:24` (default: true) — set to `false` to hide · `Show Label#14292:0` (default: true) — set to `false` to hide
-- Node: `13972:708` | Key: `1140aec3d572e3fbda362723cd7137ac2f0ce9bd`
+- Node: `18857:2544` | Key: `ca2edc1660ee2f8c074434b36b95a4fe813bf41d`
 
 ### edit
 
@@ -814,11 +824,11 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 
 Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
 
-- Variants: **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
+- Variants: **States:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
 - Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
 - **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Textfield buttons#14241:0` (default: true) — set to `false` to hide
-- Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Trailing icon#458:10` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Show .Textfield buttons#14241:0` (default: true) — set to `false` to hide
+- Node: `18857:3168` | Key: `2412217d1a3e596ce79e1e2aa840e5e0f59f7396`
 
 ### Input, date
 
@@ -827,6 +837,11 @@ Used for selecting a single date, a date range, or a specific point in time. Bes
 - Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
 - Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
 - Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
+
+### Input-ports
+
+- Single component (no variants)
+- Node: `18646:4476` | Key: `d98d310de8453ec6b7dd90e9a6ed339e4155d8b0`
 
 ### integer-type
 
@@ -1035,11 +1050,6 @@ A centered dialog that blocks the main content. Use for critical "Stop and Think
 - Single component (no variants)
 - Node: `8400:25107` | Key: `a7e4c3250458b92b70085dd66d67f00a3d469c6d`
 
-### more
-
-- Single component (no variants)
-- Node: `14335:17217` | Key: `bfa5a189503a3916f7196a5acc18ebef6466a009`
-
 ### move
 
 - Single component (no variants)
@@ -1195,7 +1205,7 @@ Used for mutually exclusive choices where the user must select exactly one optio
 
 - Variants: **Format:** `Default` · `Card format` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide · `Show Icon#14119:0` (default: true) — set to `false` to hide
-- Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
+- Node: `18857:3019` | Key: `ab2f317d788adf67fd8011dff22806ee9d981bbc`
 
 ### relation
 
@@ -1302,12 +1312,12 @@ A specialized text input designed to query a database or filter a page's content
 
 - Variants: **Type:** `Explorer home` · `Global header` · `Inline` | **State:** `Hovered` · `Focused` · `Filled` · `Active` · `Dsiabled` · `Default`
 - Boolean properties: `AI icon#8589:0` (default: true) — set to `false` to hide
-- Node: `8589:11055` | Key: `1b7cd9f309d84560098a2506089a77da8972d470`
+- Node: `18857:3454` | Key: `67215eb0278926847181f8c8ab3ab60a7c49fba2`
 
 ### Search dropdown menu
 
 - Variants: **Type:** `No result` · `Before typed` · `After typed` · `Explorer home`
-- Node: `8756:9994` | Key: `9e267d055429c3f0e586f2fc787fd8b6fced1629`
+- Node: `18857:3574` | Key: `884c291f74d9054567d6bf62f2cfb51c7f309d20`
 
 ### Search filters
 
@@ -1556,6 +1566,16 @@ Use for status. Can be interactive (removable) or static metadata.
 - Single component (no variants)
 - Node: `7378:5045` | Key: `8f09539f181a4dbe90a86d6ccfe73ac4d41dd8c8`
 
+### Text input
+
+Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
+
+- Variants: **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
+- Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
+- **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Textfield buttons#14241:0` (default: true) — set to `false` to hide
+- Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
+
 ### text-type
 
 - Single component (no variants)
@@ -1587,7 +1607,7 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 
 - Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide
-- Node: `14000:4395` | Key: `4e7793f094eed660e01d8f7c804f2391e72115d2`
+- Node: `18857:3321` | Key: `15a140eb57120a02e6817c3e41d3c4322860601f`
 
 ### Toolbar
 

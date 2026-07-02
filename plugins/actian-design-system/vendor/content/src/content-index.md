@@ -82,7 +82,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="table">Table</a>
   <a href="tabs">Tabs</a>
   <a href="tag">Tags</a>
-  <a href="input">Text input</a>
+  <a href="text-input">Text input</a>
   <a href="toggle">Toggle control</a>
   <a href="toolbar">Toolbar</a>
   <a href="tooltip">Tooltip</a>

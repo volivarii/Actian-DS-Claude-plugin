@@ -2,10 +2,10 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-07-02T02:59:36.615Z",
+  "synced_at": "2026-07-02T07:26:12.568Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "13972:708",
+    "nodeId": "18857:2544",
     "variant": "Type=Default, State=Default"
   },
   "quality": {
@@ -17,7 +17,7 @@
   "root": {
     "name": "Type=Default, State=Default",
     "kind": "container",
-    "id": "13972:707",
+    "id": "18857:2545",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -40,7 +40,7 @@
       {
         "name": "Label + description",
         "kind": "container",
-        "id": "13937:34579",
+        "id": "18857:2546",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -63,7 +63,7 @@
           {
             "name": "Label",
             "kind": "container",
-            "id": "13937:34580",
+            "id": "18857:2547",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -86,27 +86,27 @@
               {
                 "name": "Label",
                 "kind": "text",
-                "id": "13937:34581",
+                "id": "18857:2548",
                 "text": "Label"
               },
               {
                 "name": "Label",
                 "kind": "text",
-                "id": "13937:34582",
+                "id": "18857:2549",
                 "text": "*"
               },
               {
                 "name": "info",
                 "kind": "instance",
                 "slug": "info",
-                "id": "13937:34583"
+                "id": "18857:2550"
               }
             ]
           },
           {
             "name": "description",
             "kind": "text",
-            "id": "13937:34584",
+            "id": "18857:2551",
             "text": "A description helps users to define and understand the purpose of the input."
           }
         ]
@@ -114,7 +114,7 @@
       {
         "name": "input field",
         "kind": "container",
-        "id": "13937:34585",
+        "id": "18857:2552",
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -138,12 +138,12 @@
             "name": "close",
             "kind": "instance",
             "slug": "close",
-            "id": "13937:34587"
+            "id": "18857:2553"
           },
           {
             "name": ".menu item",
             "kind": "container",
-            "id": "13972:602",
+            "id": "18857:2554",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -166,14 +166,14 @@
               {
                 "name": "Label text",
                 "kind": "text",
-                "id": "13972:604",
+                "id": "18857:2555",
                 "text": "Select item"
               },
               {
                 "name": "Trailing icon",
                 "kind": "instance",
                 "slug": "arrow-down",
-                "id": "13972:605"
+                "id": "18857:2556"
               }
             ]
           }
@@ -182,7 +182,7 @@
       {
         "name": "helper text",
         "kind": "text",
-        "id": "13937:34589",
+        "id": "18857:2557",
         "text": "Helper text goes here"
       }
     ]

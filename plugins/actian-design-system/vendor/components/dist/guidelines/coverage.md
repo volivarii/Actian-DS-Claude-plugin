@@ -23,7 +23,6 @@
 | Global header | approved | not started | inherited | inherited | approved |
 | Global toast | approved | not started | inherited | inherited | not started |
 | Inline toast | approved | not started | inherited | inherited | not started |
-| Text input | approved | not started | draft | inherited | approved |
 | Date input | approved | not started | inherited | inherited | not started |
 | Links | approved | not started | inherited | inherited | not started |
 | Loader | approved | not started | inherited | inherited | not started |
@@ -53,6 +52,7 @@
 | Table | approved | not started | inherited | inherited | not started |
 | Tabs | approved | not started | inherited | inherited | approved |
 | Tags | approved | not started | inherited | inherited | approved |
+| Text input | approved | not started | draft | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
 | Toolbar | approved | not started | inherited | inherited | not started |
 | Tooltip | approved | not started | inherited | inherited | not started |
@@ -91,10 +91,10 @@
 | Cards | 13/15 |
 | Checkboxes | 7/13 |
 | Global header | 0/15 |
-| Text input | 11/19 |
 | Page header | 0/14 |
 | Search | 0/13 |
 | Side nav | 0/16 |
 | Tabs | 0/15 |
 | Tags | 13/13 |
+| Text input | 11/19 |
 
