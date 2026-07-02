@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "confirmation",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13871:32310",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Size=Large",
     "kind": "container",
+    "id": "11049:20515",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -42,11 +43,13 @@
         "unresolved": true,
         "props": {
           "Type": "Success"
-        }
+        },
+        "id": "14747:19722"
       },
       {
         "name": "Text",
         "kind": "container",
+        "id": "14747:19723",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -69,11 +72,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "14747:19724",
             "text": "Success!"
           },
           {
             "name": "Body",
             "kind": "text",
+            "id": "14747:19725",
             "text": "The selected items will be imported into the catalog. You will be notified once the import is complete."
           }
         ]
@@ -81,6 +86,7 @@
       {
         "name": "Actions",
         "kind": "container",
+        "id": "14747:19726",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -113,7 +119,8 @@
               "Emphasis": "Ghost",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "14747:19727"
           },
           {
             "name": "Button",
@@ -128,7 +135,8 @@
               "Emphasis": "Filled",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "14747:19728"
           }
         ]
       }

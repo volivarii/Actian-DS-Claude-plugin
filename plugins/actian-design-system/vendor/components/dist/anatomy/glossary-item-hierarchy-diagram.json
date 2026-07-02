@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:30242",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "14747:30243",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -44,6 +45,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "14747:30244",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -66,6 +68,7 @@
           {
             "name": "sideNavHeading",
             "kind": "text",
+            "id": "14747:30245",
             "text": "Glossary item hierarchy"
           },
           {
@@ -81,13 +84,15 @@
               "Emphasis": "Ghost",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "14747:30246"
           }
         ]
       },
       {
         "name": "Body",
         "kind": "container",
+        "id": "14747:30247",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -110,6 +115,7 @@
           {
             "name": "Graph",
             "kind": "container",
+            "id": "14747:30248",
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
@@ -127,7 +133,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Straight"
-                }
+                },
+                "id": "14747:30249"
               },
               {
                 "name": ".Glossary connecting line",
@@ -135,7 +142,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going down"
-                }
+                },
+                "id": "14747:30250"
               },
               {
                 "name": ".Glossary connecting line",
@@ -143,7 +151,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going up"
-                }
+                },
+                "id": "14747:30251"
               },
               {
                 "name": ".Glossary connecting line",
@@ -151,7 +160,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going up"
-                }
+                },
+                "id": "14747:30252"
               },
               {
                 "name": ".Glossary connecting line",
@@ -159,7 +169,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going up"
-                }
+                },
+                "id": "14747:30253"
               },
               {
                 "name": ".Glossary connecting line",
@@ -167,7 +178,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going down"
-                }
+                },
+                "id": "14747:30254"
               },
               {
                 "name": ".Glossary connecting line",
@@ -175,7 +187,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going down"
-                }
+                },
+                "id": "14747:30255"
               },
               {
                 "name": ".Glossary connecting line",
@@ -183,7 +196,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going down"
-                }
+                },
+                "id": "14747:30256"
               },
               {
                 "name": ".Glossary connecting line",
@@ -191,7 +205,8 @@
                 "unresolved": true,
                 "props": {
                   "Type": "Going up"
-                }
+                },
+                "id": "14747:30257"
               },
               {
                 "name": ".Glossary item",
@@ -200,7 +215,8 @@
                 "props": {
                   "Type": "Main item",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30258"
               },
               {
                 "name": ".Glossary item",
@@ -209,7 +225,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30259"
               },
               {
                 "name": ".Glossary item",
@@ -218,7 +235,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30260"
               },
               {
                 "name": ".Glossary item",
@@ -227,7 +245,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30261"
               },
               {
                 "name": ".Glossary item",
@@ -236,7 +255,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30262"
               },
               {
                 "name": ".Glossary item",
@@ -245,7 +265,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30263"
               },
               {
                 "name": ".Glossary item",
@@ -254,7 +275,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30264"
               },
               {
                 "name": ".Glossary item",
@@ -263,7 +285,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30265"
               },
               {
                 "name": ".Glossary item",
@@ -272,7 +295,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30266"
               },
               {
                 "name": ".Glossary item",
@@ -281,7 +305,8 @@
                 "props": {
                   "Type": "Sub items",
                   "State": "Default"
-                }
+                },
+                "id": "14747:30267"
               }
             ]
           },
@@ -293,7 +318,8 @@
               "Show View scale": true,
               "Type": "Group",
               "Orientation": "Horizontal"
-            }
+            },
+            "id": "14747:30268"
           },
           {
             "name": "Toolbar",
@@ -303,7 +329,8 @@
               "Show View scale": true,
               "Type": "Single",
               "Orientation": "Horizontal"
-            }
+            },
+            "id": "14747:30269"
           }
         ]
       }

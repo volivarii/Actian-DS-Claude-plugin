@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer-side-panel",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -17,6 +17,7 @@
   "root": {
     "name": "App=Studio",
     "kind": "container",
+    "id": "14292:2985",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -39,6 +40,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "14292:745",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -61,6 +63,7 @@
           {
             "name": "Back + Tag + Name",
             "kind": "container",
+            "id": "14292:1349",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -93,11 +96,13 @@
                   "Emphasis": "Icon-only",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "14292:1239"
               },
               {
                 "name": "Tag",
                 "kind": "container",
+                "id": "14292:1459",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -124,7 +129,8 @@
                     "props": {
                       "Show counter": false,
                       "Type": "Dataset"
-                    }
+                    },
+                    "id": "14292:1206"
                   },
                   {
                     "name": "Shared",
@@ -135,13 +141,15 @@
                       "Trailing icon show": false,
                       "Label": "Shared",
                       "Color": "Default"
-                    }
+                    },
+                    "id": "14292:1201"
                   }
                 ]
               },
               {
                 "name": "Name",
                 "kind": "text",
+                "id": "14292:1226",
                 "text": "Name"
               }
             ]
@@ -149,6 +157,7 @@
           {
             "name": "Actions",
             "kind": "container",
+            "id": "14292:1308",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -181,7 +190,8 @@
                   "Emphasis": "Icon-only",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "14292:1302"
               },
               {
                 "name": "Button",
@@ -196,7 +206,8 @@
                   "Emphasis": "Icon-only",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "14292:1305"
               }
             ]
           }
@@ -205,6 +216,7 @@
       {
         "name": "Body 1",
         "kind": "container",
+        "id": "14292:746",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -227,11 +239,13 @@
           {
             "name": "Technical name: able_agency",
             "kind": "text",
+            "id": "14292:1460",
             "text": "Technical name: able_agency"
           },
           {
             "name": "Catalog + Category + Connection",
             "kind": "container",
+            "id": "14292:1465",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -254,26 +268,31 @@
               {
                 "name": "Catalog",
                 "kind": "text",
+                "id": "14292:1462",
                 "text": "Catalog: Finance "
               },
               {
                 "name": "/",
                 "kind": "text",
+                "id": "14292:1463",
                 "text": "/"
               },
               {
                 "name": "Category",
                 "kind": "text",
+                "id": "14292:1466",
                 "text": "Category: 24/7"
               },
               {
                 "name": "/",
                 "kind": "text",
+                "id": "14292:1467",
                 "text": "/"
               },
               {
                 "name": "Connection",
                 "kind": "text",
+                "id": "14292:1464",
                 "text": "Connection: Powerbi"
               }
             ]
@@ -283,6 +302,7 @@
       {
         "name": "Body 2",
         "kind": "container",
+        "id": "14292:1474",
         "layout": {
           "axis": "row",
           "gap": "4px",
@@ -305,16 +325,19 @@
           {
             "name": "Last updated",
             "kind": "text",
+            "id": "14292:1475",
             "text": "Last updated\nDec 15, 2025"
           },
           {
             "name": "Fields",
             "kind": "text",
+            "id": "14292:1482",
             "text": "Fields\n10 Fields"
           },
           {
             "name": "Completion",
             "kind": "container",
+            "id": "14292:1524",
             "layout": {
               "axis": "column",
               "gap": "4px",
@@ -337,6 +360,7 @@
               {
                 "name": "Completion",
                 "kind": "text",
+                "id": "14292:1483",
                 "text": "Completion"
               },
               {
@@ -346,7 +370,8 @@
                 "props": {
                   "Size": "Default",
                   "Completeness": "50%"
-                }
+                },
+                "id": "14292:1514"
               }
             ]
           }
@@ -355,6 +380,7 @@
       {
         "name": "Tabs",
         "kind": "container",
+        "id": "14292:747",
         "layout": {
           "axis": "column",
           "gap": "8px",
@@ -381,13 +407,15 @@
             "props": {
               "Show Avatar": false,
               "Property 1": "Default"
-            }
+            },
+            "id": "14292:1808"
           }
         ]
       },
       {
         "name": "Body 3",
         "kind": "container",
+        "id": "14292:1867",
         "layout": {
           "axis": "column",
           "gap": "16px",
@@ -410,6 +438,7 @@
           {
             "name": "Glossary",
             "kind": "container",
+            "id": "14292:2892",
             "layout": {
               "axis": "column",
               "gap": "8px",
@@ -432,6 +461,7 @@
               {
                 "name": "Last updated",
                 "kind": "text",
+                "id": "14292:1868",
                 "text": "Glossary items (2)"
               },
               {
@@ -446,13 +476,15 @@
                   "Show description": false,
                   "Type": "Search/Multiple",
                   "State": "Filled"
-                }
+                },
+                "id": "14292:2840"
               }
             ]
           },
           {
             "name": "Description",
             "kind": "container",
+            "id": "14292:2867",
             "layout": {
               "axis": "column",
               "gap": "7.989999771118164px",
@@ -475,11 +507,13 @@
               {
                 "name": "Heading",
                 "kind": "text",
+                "id": "14292:2870",
                 "text": "Description"
               },
               {
                 "name": "Body",
                 "kind": "text",
+                "id": "14292:2871",
                 "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. Duisplatonem agam sagittis noster diam veri comprehensam explicari aliquip ecteque epicurei definitiones viris mi dignissim regione. "
               }
             ]
@@ -487,6 +521,7 @@
           {
             "name": "Source description",
             "kind": "container",
+            "id": "14292:2872",
             "layout": {
               "axis": "column",
               "gap": "7.085000038146973px",
@@ -509,11 +544,13 @@
               {
                 "name": "Heading",
                 "kind": "text",
+                "id": "14292:2874",
                 "text": "Source description"
               },
               {
                 "name": "Body",
                 "kind": "text",
+                "id": "14292:2876",
                 "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. "
               }
             ]

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loader",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2195",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Percent=10%",
     "kind": "container",
+    "id": "7372:2196",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -35,7 +36,8 @@
     "children": [
       {
         "name": "Progress bar",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2197"
       }
     ]
   }

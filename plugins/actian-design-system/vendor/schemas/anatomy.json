@@ -34,7 +34,9 @@
     "quality": {
       "type": "object",
       "description": "Self-measured extraction quality — how much of the tree normalized cleanly (a proxy for 'is this Figma well-built').",
-      "examples": [{ "nodesTotal": 7, "nodesNormalized": 7, "ratio": 1, "degraded": [] }],
+      "examples": [
+        { "nodesTotal": 7, "nodesNormalized": 7, "ratio": 1, "degraded": [] }
+      ],
       "required": ["nodesTotal", "nodesNormalized", "ratio", "degraded"],
       "properties": {
         "nodesTotal": {
@@ -59,7 +61,9 @@
         "degraded": {
           "type": "array",
           "description": "Nodes that could not be normalized to flex intent (e.g. absolute-positioned), with why.",
-          "examples": [[{ "name": "Badge overlay", "reason": "layoutMode:NONE" }]],
+          "examples": [
+            [{ "name": "Badge overlay", "reason": "layoutMode:NONE" }]
+          ],
           "items": {
             "type": "object",
             "required": ["name", "reason"],
@@ -96,6 +100,11 @@
           "examples": ["Banner container", "Label"]
         },
         "kind": { "enum": ["container", "text", "instance", "icon", "vector"] },
+        "id": {
+          "type": "string",
+          "description": "Figma node id (join key for the token-bindings sidecar).",
+          "examples": ["14783:7564"]
+        },
         "slug": {
           "type": "string",
           "description": "For kind=instance: the resolved DS-component slug (recursion stops here).",
@@ -135,7 +144,20 @@
         "layout": {
           "type": "object",
           "description": "Normalized auto-layout intent (present on flex containers), medium-neutral.",
-          "examples": [{ "axis": "row", "gap": "8px", "padding": { "top": "0px", "right": "0px", "bottom": "0px", "left": "0px" }, "align": { "main": "center", "cross": "center" }, "sizing": { "h": "hug", "v": "hug" } }],
+          "examples": [
+            {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": { "main": "center", "cross": "center" },
+              "sizing": { "h": "hug", "v": "hug" }
+            }
+          ],
           "required": ["axis", "gap", "padding", "align", "sizing"],
           "properties": {
             "axis": { "enum": ["row", "column"] },
@@ -147,13 +169,36 @@
             "padding": {
               "type": "object",
               "description": "Per-side padding as token refs or px values.",
-              "examples": [{ "top": "--zen-spacing-150", "right": "16px", "bottom": "16px", "left": "16px" }],
+              "examples": [
+                {
+                  "top": "--zen-spacing-150",
+                  "right": "16px",
+                  "bottom": "16px",
+                  "left": "16px"
+                }
+              ],
               "required": ["top", "right", "bottom", "left"],
               "properties": {
-                "top": { "type": "string", "description": "Top padding.", "examples": ["16px"] },
-                "right": { "type": "string", "description": "Right padding.", "examples": ["16px"] },
-                "bottom": { "type": "string", "description": "Bottom padding.", "examples": ["16px"] },
-                "left": { "type": "string", "description": "Left padding.", "examples": ["16px"] }
+                "top": {
+                  "type": "string",
+                  "description": "Top padding.",
+                  "examples": ["16px"]
+                },
+                "right": {
+                  "type": "string",
+                  "description": "Right padding.",
+                  "examples": ["16px"]
+                },
+                "bottom": {
+                  "type": "string",
+                  "description": "Bottom padding.",
+                  "examples": ["16px"]
+                },
+                "left": {
+                  "type": "string",
+                  "description": "Left padding.",
+                  "examples": ["16px"]
+                }
               }
             },
             "align": {
@@ -163,7 +208,9 @@
               "required": ["main", "cross"],
               "properties": {
                 "main": { "enum": ["start", "center", "end", "space-between"] },
-                "cross": { "enum": ["start", "center", "end", "baseline", "stretch"] }
+                "cross": {
+                  "enum": ["start", "center", "end", "baseline", "stretch"]
+                }
               }
             },
             "sizing": {

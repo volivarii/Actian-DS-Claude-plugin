@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "page-header",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12923:2794",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "12923:2795",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Title + action",
         "kind": "container",
+        "id": "12923:2796",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -61,11 +63,13 @@
           {
             "name": "Title",
             "kind": "text",
+            "id": "12923:2797",
             "text": "Financial Objectives"
           },
           {
             "name": "Buttons",
             "kind": "container",
+            "id": "12923:2798",
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -98,7 +102,8 @@
                   "Emphasis": "Ghost",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "12923:2799"
               },
               {
                 "name": "Button",
@@ -113,7 +118,8 @@
                   "Emphasis": "Outlined",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "12923:2800"
               },
               {
                 "name": "Button",
@@ -128,7 +134,8 @@
                   "Emphasis": "Filled",
                   "Size": "Default",
                   "State": "Default"
-                }
+                },
+                "id": "12923:2801"
               }
             ]
           }
@@ -137,6 +144,7 @@
       {
         "name": "Suppot text",
         "kind": "text",
+        "id": "12923:2802",
         "text": "Support text"
       }
     ]

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:14818",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "7279:3297",
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -46,7 +47,8 @@
           "Icon": false,
           "Selected": "Yes",
           "State": "Default"
-        }
+        },
+        "id": "7279:3254"
       },
       {
         "name": ".tab",
@@ -58,7 +60,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "7279:3255"
       },
       {
         "name": ".tab",
@@ -70,7 +73,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "7279:3256"
       },
       {
         "name": ".tab",
@@ -82,7 +86,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "7279:3257"
       },
       {
         "name": ".tab",
@@ -94,7 +99,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "7279:3258"
       },
       {
         "name": ".tab",
@@ -106,7 +112,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14072:3943"
       },
       {
         "name": ".tab",
@@ -118,7 +125,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14797:17631"
       },
       {
         "name": ".tab",
@@ -130,7 +138,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14797:17697"
       },
       {
         "name": ".tab",
@@ -142,7 +151,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14797:17727"
       },
       {
         "name": ".tab",
@@ -154,7 +164,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14797:17757"
       },
       {
         "name": ".tab",
@@ -166,7 +177,8 @@
           "Icon": false,
           "Selected": "No",
           "State": "Default"
-        }
+        },
+        "id": "14797:17787"
       },
       {
         "name": "Avatar",
@@ -175,7 +187,8 @@
         "props": {
           "State": "Default",
           "Type": "Two groups"
-        }
+        },
+        "id": "14797:18240"
       }
     ]
   }

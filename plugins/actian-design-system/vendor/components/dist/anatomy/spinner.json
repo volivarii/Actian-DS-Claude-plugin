@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "spinner",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2170",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Color mode=On light bg, Complete=100%",
     "kind": "container",
+    "id": "7372:2189",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -35,23 +36,28 @@
     "children": [
       {
         "name": "Ellipse 8",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2190"
       },
       {
         "name": "Ellipse 9",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2191"
       },
       {
         "name": "Ellipse 10",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2192"
       },
       {
         "name": "Ellipse 12",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2193"
       },
       {
         "name": "Ellipse 11",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7372:2194"
       }
     ]
   }

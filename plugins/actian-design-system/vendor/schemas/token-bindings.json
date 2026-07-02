@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian.com/schemas/token-bindings.json",
+  "title": "Token bindings sidecar (Figma-harvested CSS properties bound to design tokens)",
+  "description": "Maps Figma node IDs to arrays of CSS property bindings, where each binding associates a CSS property with a design token and its grade (semantic/primitive/literal). Harvested from Figma design context via get_design_context MCP.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "byNodeId"],
+  "properties": {
+    "_schema_version": {
+      "type": "integer",
+      "description": "Sidecar schema version, injected by the harvest writer.",
+      "examples": [1]
+    },
+    "slug": {
+      "type": "string",
+      "description": "Component slug this sidecar describes (registry key, join key with anatomy.json slug).",
+      "examples": ["card-for-perimeter", "button"]
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Metadata about the harvest: auto_generated flag, source (figma-mcp:get_design_context), harvested_at timestamp, do_not_edit flag.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "figma-mcp:get_design_context",
+          "harvested_at": "2026-07-01",
+          "do_not_edit": true
+        }
+      ]
+    },
+    "byNodeId": {
+      "type": "object",
+      "description": "Map of Figma node IDs to arrays of token binding objects.",
+      "examples": [
+        {
+          "14783:7564": [
+            {
+              "property": "background-color",
+              "token": "--zen-color-bg-default",
+              "grade": "semantic"
+            }
+          ]
+        }
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/binding"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "title": "CSS property token binding",
+      "description": "Associates a CSS property on a design-system node with a design token and its token grade.",
+      "required": ["property", "token", "grade"],
+      "additionalProperties": false,
+      "properties": {
+        "property": {
+          "enum": [
+            "color",
+            "background-color",
+            "background",
+            "border-color",
+            "border-top-color",
+            "border-bottom-color",
+            "border-width",
+            "border-radius",
+            "font-size",
+            "font-weight",
+            "line-height",
+            "letter-spacing",
+            "font-family",
+            "fill",
+            "stroke",
+            "box-shadow",
+            "opacity",
+            "padding",
+            "padding-top",
+            "padding-bottom",
+            "padding-left",
+            "padding-right",
+            "padding-inline",
+            "padding-block",
+            "gap",
+            "row-gap",
+            "column-gap"
+          ],
+          "description": "CSS property name (normalized to dash-case)."
+        },
+        "token": {
+          "type": "string",
+          "pattern": "^--zen-",
+          "description": "Design token name (must start with --zen- prefix).",
+          "examples": [
+            "--zen-color-bg-default",
+            "--zen-spacing-200",
+            "--zen-font-family-body"
+          ]
+        },
+        "grade": {
+          "enum": ["semantic", "primitive", "literal"],
+          "description": "Token grade: semantic (tied to intent), primitive (base token), or literal (hardcoded value as fallback)."
+        }
+      }
+    }
+  }
+}

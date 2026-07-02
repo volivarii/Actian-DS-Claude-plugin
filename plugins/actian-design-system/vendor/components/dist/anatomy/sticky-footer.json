@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "sticky-footer",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:9839",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "8190:6001",
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -45,11 +46,13 @@
           "Label": "Delete",
           "Show label": true,
           "Show leading icon": false
-        }
+        },
+        "id": "8190:5963"
       },
       {
         "name": "Right side actions",
         "kind": "container",
+        "id": "8190:5964",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -82,7 +85,8 @@
               "Emphasis": "Ghost",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "8190:5965"
           },
           {
             "name": "Button",
@@ -97,7 +101,8 @@
               "Emphasis": "Filled",
               "Size": "Default",
               "State": "Default"
-            }
+            },
+            "id": "8190:5966"
           }
         ]
       }

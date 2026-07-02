@@ -2,21 +2,22 @@
   "_schema_version": 1,
   "slug": "breadcrumbs",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13792:15247",
     "variant": "Type=Default"
   },
   "quality": {
-    "nodesTotal": 6,
+    "nodesTotal": 8,
     "nodesNormalized": 1,
-    "ratio": 0.17,
+    "ratio": 0.13,
     "degraded": []
   },
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "13792:15246",
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,40 +42,70 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Type": "Interactive"
-        }
+          "Show digram": true,
+          "Type": "Trial link"
+        },
+        "id": "13792:15217"
       },
       {
         "name": ".Breadcrumb-subcomponent",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Type": "Divider"
-        }
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "13792:15244"
       },
       {
         "name": ".Breadcrumb-subcomponent",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Type": "Interactive"
-        }
+          "Show digram": true,
+          "Type": "Trial link"
+        },
+        "id": "13792:15242"
       },
       {
         "name": ".Breadcrumb-subcomponent",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Type": "Divider"
-        }
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "19156:14844"
       },
       {
         "name": ".Breadcrumb-subcomponent",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Type": "Read only"
-        }
+          "Show digram": true,
+          "Type": "Trial link"
+        },
+        "id": "19156:14840"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "13792:15218"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Current page"
+        },
+        "id": "13792:15219"
       }
     ]
   }

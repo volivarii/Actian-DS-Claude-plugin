@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "whats-new-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9114:16794",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=Empty",
     "kind": "container",
+    "id": "9114:16792",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -39,6 +40,7 @@
       {
         "name": "Header",
         "kind": "container",
+        "id": "9684:4837",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -61,6 +63,7 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9684:4839",
             "text": "What’s new"
           }
         ]
@@ -75,11 +78,13 @@
           "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
-        }
+        },
+        "id": "9114:16737"
       },
       {
         "name": "Body",
         "kind": "container",
+        "id": "9114:16787",
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -102,6 +107,7 @@
           {
             "name": "Label text",
             "kind": "text",
+            "id": "9114:16788",
             "text": "No release updates"
           }
         ]

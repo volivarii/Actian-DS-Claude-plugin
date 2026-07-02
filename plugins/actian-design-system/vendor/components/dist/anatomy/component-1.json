@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "component-1",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8927:9233",
@@ -34,6 +34,7 @@
   "root": {
     "name": "Layout=Vertical",
     "kind": "container",
+    "id": "8927:9232",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -48,6 +49,7 @@
       {
         "name": "Group",
         "kind": "container",
+        "id": "8921:38056",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -61,21 +63,25 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38057"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38058"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38059"
           }
         ]
       },
       {
         "name": "Group",
         "kind": "container",
+        "id": "8921:38060",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -89,47 +95,58 @@
         "children": [
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38061"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38062"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38063"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38064"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38065"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38066"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38067"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38068"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38069"
           },
           {
             "name": "Vector",
-            "kind": "vector"
+            "kind": "vector",
+            "id": "8921:38070"
           },
           {
             "name": "Group",
             "kind": "container",
+            "id": "8921:38071",
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
@@ -143,31 +160,38 @@
             "children": [
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38072"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38073"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38074"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38075"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38076"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38077"
               },
               {
                 "name": "Vector",
-                "kind": "vector"
+                "kind": "vector",
+                "id": "8921:38078"
               }
             ]
           }

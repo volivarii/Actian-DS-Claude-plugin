@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-filters",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9660:49637",
@@ -22,6 +22,7 @@
   "root": {
     "name": "Type=Studio",
     "kind": "container",
+    "id": "9660:49636",
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -44,11 +45,13 @@
       {
         "name": "Filters",
         "kind": "text",
+        "id": "12703:3053",
         "text": "Filters"
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24140",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -71,6 +74,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24141",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -93,18 +97,21 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24142",
                 "text": "Completion level"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24272"
               }
             ]
           },
           {
             "name": "Bar, percentage",
             "kind": "container",
+            "id": "14007:24143",
             "layout": {
               "axis": "column",
               "gap": "4px",
@@ -127,11 +134,13 @@
               {
                 "name": "Result",
                 "kind": "text",
+                "id": "14007:24144",
                 "text": "2,341 results"
               },
               {
                 "name": "Bar",
                 "kind": "container",
+                "id": "14007:24145",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -145,21 +154,25 @@
                 "children": [
                   {
                     "name": "Background",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "14007:24146"
                   },
                   {
                     "name": "Progress",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "14007:24147"
                   },
                   {
                     "name": "Progress",
-                    "kind": "vector"
+                    "kind": "vector",
+                    "id": "14007:24148"
                   }
                 ]
               },
               {
                 "name": "0% 100%",
                 "kind": "container",
+                "id": "14007:24149",
                 "layout": {
                   "axis": "row",
                   "gap": "201px",
@@ -182,11 +195,13 @@
                   {
                     "name": "0%",
                     "kind": "text",
+                    "id": "14007:24150",
                     "text": "0%"
                   },
                   {
                     "name": "100%",
                     "kind": "text",
+                    "id": "14007:24151",
                     "text": "100%"
                   }
                 ]
@@ -198,6 +213,7 @@
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24098",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -220,6 +236,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24099",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -242,18 +259,21 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24100",
                 "text": "Item type"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24275"
               }
             ]
           },
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24291",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -280,11 +300,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24292"
               },
               {
                 "name": "Data products",
                 "kind": "container",
+                "id": "14007:24531",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -311,11 +333,13 @@
                     "props": {
                       "Item type": "Data product",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24293"
                   },
                   {
                     "name": "Data Products",
                     "kind": "text",
+                    "id": "14007:24530",
                     "text": "Data Products"
                   }
                 ]
@@ -323,6 +347,7 @@
               {
                 "name": "10",
                 "kind": "text",
+                "id": "14007:24294",
                 "text": "10"
               }
             ]
@@ -330,6 +355,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24295",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -356,11 +382,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24296"
               },
               {
                 "name": "Datasets",
                 "kind": "container",
+                "id": "14007:24542",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -387,11 +415,13 @@
                     "props": {
                       "Item type": "Dataset",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24297"
                   },
                   {
                     "name": "Datasets",
                     "kind": "text",
+                    "id": "14007:24534",
                     "text": "Datasets"
                   }
                 ]
@@ -399,6 +429,7 @@
               {
                 "name": "325",
                 "kind": "text",
+                "id": "14007:24298",
                 "text": "325"
               }
             ]
@@ -406,6 +437,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24299",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -432,11 +464,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24300"
               },
               {
                 "name": "Visualizations",
                 "kind": "container",
+                "id": "14007:24543",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -463,11 +497,13 @@
                     "props": {
                       "Item type": "Visualization",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24301"
                   },
                   {
                     "name": "Visualizations",
                     "kind": "text",
+                    "id": "14007:24533",
                     "text": "Visualizations"
                   }
                 ]
@@ -475,6 +511,7 @@
               {
                 "name": "147,247",
                 "kind": "text",
+                "id": "14007:24302",
                 "text": "147,247"
               }
             ]
@@ -482,6 +519,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24303",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -508,11 +546,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24304"
               },
               {
                 "name": "Data processes",
                 "kind": "container",
+                "id": "14007:24544",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -539,11 +579,13 @@
                     "props": {
                       "Item type": "Data process",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24305"
                   },
                   {
                     "name": "Data Processes",
                     "kind": "text",
+                    "id": "14007:24536",
                     "text": "Data Processes"
                   }
                 ]
@@ -551,6 +593,7 @@
               {
                 "name": "15",
                 "kind": "text",
+                "id": "14007:24306",
                 "text": "15"
               }
             ]
@@ -558,6 +601,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24307",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -584,11 +628,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24308"
               },
               {
                 "name": "Use cases",
                 "kind": "container",
+                "id": "14007:24545",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -615,11 +661,13 @@
                     "props": {
                       "Item type": "Use case",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24309"
                   },
                   {
                     "name": "Use Cases",
                     "kind": "text",
+                    "id": "14007:24535",
                     "text": "Use Cases"
                   }
                 ]
@@ -627,6 +675,7 @@
               {
                 "name": "5",
                 "kind": "text",
+                "id": "14007:24310",
                 "text": "5"
               }
             ]
@@ -634,6 +683,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24311",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -660,11 +710,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24312"
               },
               {
                 "name": "Categories",
                 "kind": "container",
+                "id": "14007:24546",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -691,11 +743,13 @@
                     "props": {
                       "Item type": "Category",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24313"
                   },
                   {
                     "name": "Categories",
                     "kind": "text",
+                    "id": "14007:24532",
                     "text": "Categories"
                   }
                 ]
@@ -703,6 +757,7 @@
               {
                 "name": "5",
                 "kind": "text",
+                "id": "14007:24314",
                 "text": "5"
               }
             ]
@@ -710,6 +765,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24552",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -736,11 +792,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24553"
               },
               {
                 "name": "[A-Team] delete",
                 "kind": "container",
+                "id": "14007:24554",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -767,11 +825,13 @@
                     "props": {
                       "Item type": "Field",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24555"
                   },
                   {
                     "name": "[A-Team] delete",
                     "kind": "text",
+                    "id": "14007:24556",
                     "text": "[A-Team] delete"
                   }
                 ]
@@ -779,6 +839,7 @@
               {
                 "name": "5",
                 "kind": "text",
+                "id": "14007:24557",
                 "text": "5"
               }
             ]
@@ -786,6 +847,7 @@
           {
             "name": "fitler item",
             "kind": "container",
+            "id": "14007:24569",
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -812,11 +874,13 @@
                 "props": {
                   "Selected": "No",
                   "State": "Default"
-                }
+                },
+                "id": "14007:24570"
               },
               {
                 "name": "aa_new_type",
                 "kind": "container",
+                "id": "14007:24571",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -843,11 +907,13 @@
                     "props": {
                       "Item type": "Field",
                       "Size": "Default"
-                    }
+                    },
+                    "id": "14007:24572"
                   },
                   {
                     "name": "aa_new_type",
                     "kind": "text",
+                    "id": "14007:24573",
                     "text": "aa_new_type"
                   }
                 ]
@@ -855,6 +921,7 @@
               {
                 "name": "5",
                 "kind": "text",
+                "id": "14007:24574",
                 "text": "5"
               }
             ]
@@ -872,13 +939,15 @@
               "Emphasis": "Ghost",
               "Size": "Small",
               "State": "Default"
-            }
+            },
+            "id": "14007:24284"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24135",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -901,6 +970,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24136",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -923,18 +993,21 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24137",
                 "text": "User suggestion"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24278"
               }
             ]
           },
           {
             "name": "Toglge",
             "kind": "container",
+            "id": "14007:24603",
             "layout": {
               "axis": "column",
               "gap": "0px",
@@ -957,6 +1030,7 @@
               {
                 "name": "Radio + label",
                 "kind": "container",
+                "id": "14007:24604",
                 "layout": {
                   "axis": "row",
                   "gap": "4px",
@@ -979,6 +1053,7 @@
                   {
                     "name": "Label",
                     "kind": "text",
+                    "id": "14007:24606",
                     "text": "Show items with pending suggestions"
                   },
                   {
@@ -988,7 +1063,8 @@
                     "props": {
                       "Selected": "No",
                       "State": "Default"
-                    }
+                    },
+                    "id": "14007:24605"
                   }
                 ]
               }
@@ -1011,13 +1087,15 @@
               "Label text": "",
               "Helper": false,
               "Trailing icon": true
-            }
+            },
+            "id": "14007:24139"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24577",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1040,6 +1118,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24578",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1062,12 +1141,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24579",
                 "text": "Item lifecycle event"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24580"
               }
             ]
           },
@@ -1088,7 +1169,8 @@
               "Label text": "",
               "Helper": false,
               "Trailing icon": true
-            }
+            },
+            "id": "14007:24581"
           },
           {
             "name": "Input",
@@ -1107,13 +1189,15 @@
               "Label text": "",
               "Helper": false,
               "Trailing icon": true
-            }
+            },
+            "id": "14007:24582"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24090",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1136,6 +1220,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24091",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1158,12 +1243,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24092",
                 "text": "Curator"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24279"
               }
             ]
           },
@@ -1184,13 +1271,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24093"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24164",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1213,6 +1302,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24165",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1235,12 +1325,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24166",
                 "text": "Contact"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24611"
               }
             ]
           },
@@ -1261,13 +1353,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24167"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24168",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1290,6 +1384,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24169",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1312,12 +1407,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24170",
                 "text": "Category"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24612"
               }
             ]
           },
@@ -1338,13 +1435,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24171"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24172",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1367,6 +1466,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24173",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1389,12 +1489,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24174",
                 "text": "Access request policy"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24613"
               }
             ]
           },
@@ -1415,13 +1517,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24175"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24156",
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -1444,6 +1548,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24157",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1466,12 +1571,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24158",
                 "text": "Source application"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24614"
               }
             ]
           },
@@ -1492,13 +1599,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24159"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24094",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1521,6 +1630,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24095",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1543,12 +1653,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24096",
                 "text": "Regulation"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24615"
               }
             ]
           },
@@ -1569,13 +1681,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24097"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24176",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1598,6 +1712,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24177",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1620,12 +1735,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24178",
                 "text": "Connection type"
               },
               {
                 "name": "arrow-down",
                 "kind": "instance",
-                "slug": "arrow-down"
+                "slug": "arrow-down",
+                "id": "14007:24616"
               }
             ]
           },
@@ -1646,13 +1763,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24179"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24160",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1675,6 +1794,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24161",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1697,6 +1817,7 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24162",
                 "text": "Curator"
               }
             ]
@@ -1718,13 +1839,15 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24163"
           }
         ]
       },
       {
         "name": ".Filter groups",
         "kind": "container",
+        "id": "14007:24152",
         "layout": {
           "axis": "column",
           "gap": "4px",
@@ -1747,6 +1870,7 @@
           {
             "name": ".Filter group header",
             "kind": "container",
+            "id": "14007:24153",
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -1769,6 +1893,7 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "id": "14007:24154",
                 "text": "Curator"
               }
             ]
@@ -1790,7 +1915,8 @@
               "Trailing icon": true,
               "Description": false,
               "Label": false
-            }
+            },
+            "id": "14007:24155"
           }
         ]
       }

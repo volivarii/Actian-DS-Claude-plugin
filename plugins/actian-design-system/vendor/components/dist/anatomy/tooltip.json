@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tooltip",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7038:351",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "id": "7036:1360",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -39,6 +40,7 @@
       {
         "name": "Body",
         "kind": "text",
+        "id": "7036:888",
         "text": "Body line text lorem ipsum dolor sit amet, consectetur"
       }
     ]

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-grouped-content",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14782:29281",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "id": "14782:29231",
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -45,15 +46,18 @@
           "Show info icon": true,
           "Show leading icon": false,
           "Size": "Default"
-        }
+        },
+        "id": "14782:29269"
       },
       {
         "name": "Divider",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "14782:29191"
       },
       {
         "name": "Slot",
         "kind": "container",
+        "id": "14782:29192",
         "layout": {
           "axis": "column",
           "gap": "8px",

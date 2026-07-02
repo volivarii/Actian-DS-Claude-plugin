@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "actian-pyramid",
   "kit": "dskit",
-  "synced_at": "2026-07-01T10:42:32.186Z",
+  "synced_at": "2026-07-02T02:59:36.615Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7764:7688",
@@ -17,6 +17,7 @@
   "root": {
     "name": "Color=Full color",
     "kind": "container",
+    "id": "7764:7687",
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -38,7 +39,8 @@
     "children": [
       {
         "name": "Vector",
-        "kind": "vector"
+        "kind": "vector",
+        "id": "7893:4666"
       }
     ]
   }
