@@ -4,7 +4,7 @@
 // Verifies: collectDsSlugs (content-shaped traversal), buildDsAnatomyMap
 // (override exclusion, anatomy+binding integration, null-anatomy exclusion).
 
-var { describe, it } = require("node:test");
+var { describe, it, test } = require("node:test");
 var assert = require("node:assert");
 
 var {
@@ -179,4 +179,70 @@ describe("buildDsAnatomyMap", function () {
       "spinner included when not in custom builtSlugs",
     );
   });
+});
+
+var anatomyMapMod = require("../../scripts/renderers/ds-anatomy-map.js");
+
+test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes", () => {
+  const data = {
+    screens: [
+      {
+        content: [
+          { dsSlug: "tag-default", variant: "Color=Pink" },
+          { dsSlug: "tag-default", variant: "Color=Pink" }, // dup -> collapses
+          { dsSlug: "tag-default", variant: "Color=Gray" },
+          { dsSlug: "button", variant: "Type=Primary" }, // not delegated -> ignored here
+        ],
+      },
+    ],
+  };
+  const pairs = anatomyMapMod.collectDsSlugVariants(data);
+  const keys = pairs
+    .map((p) => p.slug + "|" + JSON.stringify(p.variant))
+    .sort();
+  assert.deepStrictEqual(keys, [
+    'tag-default|{"Color":"Gray"}',
+    'tag-default|{"Color":"Pink"}',
+  ]);
+});
+
+test("buildDsAnatomyMap: keys delegated slugs by composite variant key", () => {
+  const anatomy = {
+    quality: { ratio: 1 },
+    root: { id: "n1", kind: "container", layout: {}, children: [] },
+  };
+  const bindings = {
+    variantDefaults: { Color: "Default" },
+    byNodeId: {
+      n1: [
+        {
+          property: "background-color",
+          token: "--zen-pink",
+          variant: { prop: "Color", values: ["Pink"] },
+        },
+        {
+          property: "background-color",
+          token: "--zen-default",
+          variant: { prop: "Color", values: ["Default"] },
+        },
+      ],
+    },
+  };
+  const data = {
+    screens: [{ content: [{ dsSlug: "tag-default", variant: "Color=Pink" }] }],
+  };
+  const map = anatomyMapMod.buildDsAnatomyMap([], {
+    data: data,
+    anatomyLoader: () => anatomy,
+    tokenBindingsLoader: () => bindings,
+  });
+  assert.ok(map["tag-default|Color=Pink"], "has the composite-keyed entry");
+  assert.ok(
+    map["tag-default|Color=Pink"].includes("--zen-pink"),
+    "rendered the Pink token",
+  );
+  assert.ok(
+    !map["tag-default"],
+    "delegated slug is NOT under the bare slug key",
+  );
 });

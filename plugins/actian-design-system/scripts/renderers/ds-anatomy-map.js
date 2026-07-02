@@ -18,6 +18,11 @@
  */
 
 var renderAnatomy = require("./anatomy-render").renderAnatomy;
+var {
+  isDelegated,
+  anatomyVariantKey,
+} = require("./html-renderers/anatomy-variant-key.js");
+var parseVariant = require("./html-renderers/ds-html-map.js").parseVariant;
 
 /**
  * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
@@ -47,15 +52,51 @@ function collectDsSlugs(data) {
 }
 
 /**
+ * Collect every unique {slug, variant} pair for DELEGATED dsSlugs (see
+ * isDelegated in anatomy-variant-key.js) from a flow data tree (screens →
+ * content → nodes). variant is the PARSED object (via ds-html-map's
+ * parseVariant), deduped by the same composite key anatomyVariantKey
+ * produces, so callers render each distinct pair exactly once.
+ */
+function collectDsSlugVariants(data) {
+  var seen = {};
+  var pairs = [];
+  function walk(nodes) {
+    if (!Array.isArray(nodes)) return;
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (!n || typeof n !== "object") continue;
+      if (typeof n.dsSlug === "string" && isDelegated(n.dsSlug)) {
+        var variant = parseVariant(n.variant || "");
+        var key = anatomyVariantKey(n.dsSlug, variant);
+        if (!seen[key]) {
+          seen[key] = true;
+          pairs.push({ slug: n.dsSlug, variant: variant });
+        }
+      }
+      if (Array.isArray(n.children)) walk(n.children);
+      if (Array.isArray(n.nodes)) walk(n.nodes);
+    }
+  }
+  var screens = (data && data.screens) || [];
+  for (var s = 0; s < screens.length; s++)
+    walk((screens[s] && screens[s].content) || []);
+  return pairs;
+}
+
+/**
  * Build the anatomy map { slug → htmlString } for all non-override DS slugs.
  *
  * @param {string[]} slugs - candidate slug list (typically from collectDsSlugs)
  * @param {object}   opts
  *   opts.builtSlugs          - override list (default: BUILT_SLUGS from ds-html-map.js)
  *   opts.anatomyLoader       - injectable loader(slug) for anatomy JSON (default: fs read)
- *   opts.tokenBindingsLoader - injectable loader(slug) → sidecar byNodeId map
- *                              { nodeId: [{property, token, grade}] } (default:
- *                              fs read of the vendored token-bindings sidecar)
+ *   opts.tokenBindingsLoader - injectable loader(slug) → the sidecar doc
+ *                              { byNodeId: { nodeId: [...] }, variantDefaults }
+ *                              (default: fs read of the vendored token-bindings sidecar)
+ *   opts.data                - optional flow data tree; when present, delegated
+ *                              slugs (see isDelegated) are additionally rendered
+ *                              per-variant and keyed via anatomyVariantKey
  * @returns {{ [slug: string]: string }}
  */
 function buildDsAnatomyMap(slugs, opts) {
@@ -81,10 +122,25 @@ function buildDsAnatomyMap(slugs, opts) {
     // Drop nulls (quality too low, missing root, or no anatomy file)
     if (html) map[slug] = html;
   }
+
+  if (opts.data) {
+    var delegated = collectDsSlugVariants(opts.data);
+    for (var d = 0; d < delegated.length; d++) {
+      var pair = delegated[d];
+      var dhtml = renderAnatomy(pair.slug, {
+        loader: opts.anatomyLoader,
+        bindingsLoader: opts.tokenBindingsLoader,
+        variant: pair.variant,
+      });
+      if (dhtml) map[anatomyVariantKey(pair.slug, pair.variant)] = dhtml;
+    }
+  }
+
   return map;
 }
 
 module.exports = {
   collectDsSlugs: collectDsSlugs,
+  collectDsSlugVariants: collectDsSlugVariants,
   buildDsAnatomyMap: buildDsAnatomyMap,
 };
