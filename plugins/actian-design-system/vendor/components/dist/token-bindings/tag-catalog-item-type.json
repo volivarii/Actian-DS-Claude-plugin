@@ -1,0 +1,222 @@
+{
+  "_schema_version": 1,
+  "slug": "tag-catalog-item-type",
+  "_meta": {
+    "auto_generated": true,
+    "source": "figma-mcp:get_design_context",
+    "harvested_at": "2026-07-02T12:07:54.111Z",
+    "do_not_edit": true
+  },
+  "byNodeId": {
+    "10520:5868": [
+      {
+        "property": "color",
+        "token": "--zen-blue-grey-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Output port"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-color-text-default",
+        "grade": "semantic",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Use case"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-cool-grey-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Data product"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-pomegranate-red-700",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Data process"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-primary-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Dataset"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-singapore-orchid-purple-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Visualization"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-success-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Field"
+          ]
+        }
+      },
+      {
+        "property": "color",
+        "token": "--zen-error-800",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Category"
+          ]
+        }
+      }
+    ],
+    "11300:8305": [
+      {
+        "property": "background-color",
+        "token": "--zen-blue-grey-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Output port"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-cool-grey-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Data product"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-pomegranate-red-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Data process"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-primary-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Dataset"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-singapore-orchid-purple-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Visualization"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-success-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Field"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-warning-25",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Use case"
+          ]
+        }
+      },
+      {
+        "property": "background-color",
+        "token": "--zen-error-50",
+        "grade": "primitive",
+        "variant": {
+          "prop": "Type",
+          "values": [
+            "Category"
+          ]
+        }
+      },
+      {
+        "property": "border-radius",
+        "token": "--zen-border-radius-xs",
+        "grade": "semantic"
+      },
+      {
+        "property": "gap",
+        "token": "--zen-spacing-xs",
+        "grade": "semantic"
+      },
+      {
+        "property": "height",
+        "token": "--zen-lg",
+        "grade": "primitive"
+      },
+      {
+        "property": "padding-inline",
+        "token": "--zen-spacing-xs",
+        "grade": "semantic"
+      }
+    ],
+    "14128:3370": [
+      {
+        "property": "color",
+        "token": "--zen-text-color-text-default",
+        "grade": "primitive"
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Type": "Category"
+  }
+}

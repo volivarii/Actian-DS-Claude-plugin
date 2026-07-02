@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-07-02T07:26:29.693Z",
+  "lastSynced": "2026-07-02T13:31:20.835Z",
   "componentCount": 320,
   "components": {
     "xs-grid": {
@@ -416,14 +416,18 @@
     },
     "checkbox-with-label": {
       "name": "Checkbox with label",
-      "key": "aeac0705e0e35c68961d6ee6c7ad594612124354",
-      "nodeId": "18857:2849",
+      "key": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
+      "nodeId": "9478:17216",
       "importMethod": "set",
       "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
-      "page": "Form (input & selection)",
+      "page": "✅ Checkbox",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Checkbox",
       "variants": {
         "Selected": [
           "Yes",
@@ -595,11 +599,11 @@
     },
     "toggle": {
       "name": "Toggle",
-      "key": "15a140eb57120a02e6817c3e41d3c4322860601f",
-      "nodeId": "18857:3321",
+      "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
+      "nodeId": "14000:4395",
       "importMethod": "set",
       "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
-      "page": "Form (input & selection)",
+      "page": "✅ Toggle control",
       "properties": {
         "Show Helper text#13981:32": {
           "type": "BOOLEAN",
@@ -608,6 +612,10 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Toggle control",
       "variants": {
         "Toggle location": [
           "Left",
@@ -816,11 +824,11 @@
     },
     "radio-button": {
       "name": "Radio button",
-      "key": "ab2f317d788adf67fd8011dff22806ee9d981bbc",
-      "nodeId": "18857:3019",
+      "key": "9ceb34116fd119a17b08b9b445a204de28f9d249",
+      "nodeId": "9474:16884",
       "importMethod": "set",
       "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).",
-      "page": "Form (input & selection)",
+      "page": "✅ Radio button",
       "properties": {
         "Show Helper text#13981:32": {
           "type": "BOOLEAN",
@@ -839,6 +847,10 @@
         }
       ],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Radio button",
       "variants": {
         "Format": [
           "Default",
@@ -1303,11 +1315,11 @@
     },
     "search-dropdown-menu": {
       "name": "Search dropdown menu",
-      "key": "884c291f74d9054567d6bf62f2cfb51c7f309d20",
-      "nodeId": "18857:3574",
+      "key": "9e267d055429c3f0e586f2fc787fd8b6fced1629",
+      "nodeId": "8756:9994",
       "importMethod": "set",
       "description": "",
-      "page": "Form (input & selection)",
+      "page": "✅ Search",
       "properties": {},
       "nestedComponents": [
         {
@@ -1317,6 +1329,10 @@
         }
       ],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Search",
       "variants": {
         "Type": [
           "No result",
@@ -1667,11 +1683,11 @@
     },
     "dropdown-select-default": {
       "name": "Dropdown, Select, default",
-      "key": "ca2edc1660ee2f8c074434b36b95a4fe813bf41d",
-      "nodeId": "18857:2544",
+      "key": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd",
+      "nodeId": "13972:708",
       "importMethod": "set",
       "description": "Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
-      "page": "Form (input & selection)",
+      "page": "✅ Dropdown",
       "properties": {
         "Show description#13978:0": {
           "type": "BOOLEAN",
@@ -1717,6 +1733,10 @@
         }
       ],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Dropdown",
       "variants": {
         "Type": [
           "Default",
@@ -1736,11 +1756,11 @@
     },
     "search": {
       "name": "Search",
-      "key": "67215eb0278926847181f8c8ab3ab60a7c49fba2",
-      "nodeId": "18857:3454",
+      "key": "1b7cd9f309d84560098a2506089a77da8972d470",
+      "nodeId": "8589:11055",
       "importMethod": "set",
       "description": "A specialized text input designed to query a database or filter a page's content in real-time.",
-      "page": "Form (input & selection)",
+      "page": "✅ Search",
       "properties": {
         "AI icon#8589:0": {
           "type": "BOOLEAN",
@@ -1760,6 +1780,10 @@
         }
       ],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Search",
       "variants": {
         "Type": [
           "Explorer home",
@@ -2989,108 +3013,6 @@
           "Details page",
           "Explorer home",
           "Explorer detail"
-        ]
-      }
-    },
-    "input": {
-      "name": "Input",
-      "key": "2412217d1a3e596ce79e1e2aa840e5e0f59f7396",
-      "nodeId": "18857:3168",
-      "importMethod": "set",
-      "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
-      "page": "Form (input & selection)",
-      "properties": {
-        "Helper#458:9": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Trailing icon#458:10": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Label#458:13": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Info icon#7242:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "* (Asterisk)#7242:142": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Description#7242:164": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Delete icon#9482:0": {
-          "type": "BOOLEAN",
-          "default": false
-        },
-        "Label text#9633:0": {
-          "type": "TEXT",
-          "default": "Label"
-        },
-        "Description text#9633:17": {
-          "type": "TEXT",
-          "default": "A description helps users to define and understand the purpose of the input."
-        },
-        "Placeholder text#9633:34": {
-          "type": "TEXT",
-          "default": "Placeholder text"
-        },
-        "Helper text#9633:51": {
-          "type": "TEXT",
-          "default": "Helper text goes here"
-        },
-        "Input text#9633:68": {
-          "type": "TEXT",
-          "default": "Typed"
-        },
-        "Show .Textfield buttons#14241:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "info",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "simple-check",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "error-filled",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "variants": {
-        "States": [
-          "Default",
-          "Hovered",
-          "Focused",
-          "Active",
-          "Filled",
-          "Error",
-          "Disabled",
-          "Read-only"
         ]
       }
     },
@@ -6578,6 +6500,22 @@
       "name": "ai",
       "key": "7afdab93e1015a122408dc9aff0a95c07b6a15d8",
       "nodeId": "17991:4240",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other",
+      "status": "in-progress"
+    },
+    "input": {
+      "name": "input",
+      "key": "e044df9621b9fec28326d9e35e61326bcdc7b324",
+      "nodeId": "8504:23028",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",

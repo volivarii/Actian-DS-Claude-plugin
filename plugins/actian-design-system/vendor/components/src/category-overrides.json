@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "description": "Curated slug -> category display-name overrides, consulted by scripts/graph/derive-graph.js ONLY when a registry component carries no category (e.g. its Figma frames sit directly on a category-header page, which the sync cannot attribute). The registry always wins when it carries a category, so each entry self-retires once the Figma pages are reorganized and a re-sync restores the category. Delete entries as they retire.",
+    "provenance": "manual-override",
+    "added": "2026-07-02",
+    "remove_when": "Figma member pages created under 'Form (input & selection)' and components' frames moved onto them; next sync then restores registry categories"
+  },
+  "overrides": {
+    "checkbox-with-label": "Form (input & selection)",
+    "dropdown-select-default": "Form (input & selection)",
+    "input": "Form (input & selection)",
+    "radio-button": "Form (input & selection)",
+    "search": "Form (input & selection)",
+    "search-dropdown-menu": "Form (input & selection)",
+    "toggle": "Form (input & selection)"
+  }
+}

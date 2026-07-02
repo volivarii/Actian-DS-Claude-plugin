@@ -48,6 +48,12 @@
           "$ref": "#/$defs/binding"
         }
       }
+    },
+    "variantDefaults": {
+      "type": "object",
+      "description": "Default value per variant axis (from the Figma component set), for consumers resolving which scoped bindings apply when an instance carries no explicit variant value. Only axes referenced by at least one scoped binding appear.",
+      "additionalProperties": { "type": "string" },
+      "examples": [{ "Status": "Fail" }]
     }
   },
   "$defs": {
@@ -86,7 +92,9 @@
             "padding-block",
             "gap",
             "row-gap",
-            "column-gap"
+            "column-gap",
+            "height",
+            "width"
           ],
           "description": "CSS property name (normalized to dash-case)."
         },
@@ -103,6 +111,35 @@
         "grade": {
           "enum": ["semantic", "primitive", "literal"],
           "description": "Token grade: semantic (tied to intent), primitive (base token), or literal (hardcoded value as fallback)."
+        },
+        "variant": {
+          "type": "object",
+          "description": "Optional variant scope: the binding applies only when the component set's variant axis `prop` has one of `values`. Absent = applies to every variant. Root-level scoped facts are attributed to the default variant's anatomy root node id by construction (set-level facts, not per-node Figma truth).",
+          "required": ["prop", "values"],
+          "additionalProperties": false,
+          "properties": {
+            "prop": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Variant axis name from the Figma component set.",
+              "examples": ["Status", "Size", "State"]
+            },
+            "values": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1,
+              "description": "Array of variant values that this binding applies to.",
+              "examples": [
+                ["Warning"],
+                ["Success", "Error"],
+                ["Small", "Medium", "Large"]
+              ]
+            }
+          },
+          "examples": [
+            { "prop": "Status", "values": ["Warning"] },
+            { "prop": "Size", "values": ["Small", "Medium"] }
+          ]
         }
       }
     }

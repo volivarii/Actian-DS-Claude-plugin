@@ -123,6 +123,9 @@
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
       ],
+      "behavior": [
+        "components/dist/media/checkbox-with-label/behavior-0.webp"
+      ],
       "default": "components/dist/media/checkbox-with-label/default.webp"
     },
     "collapse-accordion": {
@@ -168,13 +171,6 @@
     },
     "dropdown-select-default": {
       "preview": "components/dist/media/dropdown-select-default/preview.webp",
-      "parts": [
-        "components/dist/media/dropdown-select-default/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/dropdown-select-default/spacing-0.webp",
-        "components/dist/media/dropdown-select-default/spacing-1.webp"
-      ],
       "default": "components/dist/media/dropdown-select-default/default.webp"
     },
     "empty-state": {
@@ -352,12 +348,8 @@
     },
     "radio-button": {
       "preview": "components/dist/media/radio-button/preview.webp",
-      "parts": [
-        "components/dist/media/radio-button/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/radio-button/spacing-0.webp",
-        "components/dist/media/radio-button/spacing-1.webp"
+      "behavior": [
+        "components/dist/media/radio-button/behavior-0.webp"
       ],
       "default": "components/dist/media/radio-button/default.webp"
     },
@@ -374,24 +366,10 @@
     },
     "search": {
       "preview": "components/dist/media/search/preview.webp",
-      "parts": [
-        "components/dist/media/search/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/search/spacing-0.webp",
-        "components/dist/media/search/spacing-1.webp"
-      ],
       "default": "components/dist/media/search/default.webp"
     },
     "search-dropdown-menu": {
       "preview": "components/dist/media/search-dropdown-menu/preview.webp",
-      "parts": [
-        "components/dist/media/search-dropdown-menu/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/search-dropdown-menu/spacing-0.webp",
-        "components/dist/media/search-dropdown-menu/spacing-1.webp"
-      ],
       "default": "components/dist/media/search-dropdown-menu/default.webp"
     },
     "search-filters": {
@@ -585,12 +563,11 @@
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
-      "parts": [
-        "components/dist/media/toggle/parts-0.webp"
+      "variations": [
+        "components/dist/media/toggle/variations-0.webp"
       ],
-      "spacing": [
-        "components/dist/media/toggle/spacing-0.webp",
-        "components/dist/media/toggle/spacing-1.webp"
+      "behavior": [
+        "components/dist/media/toggle/behavior-0.webp"
       ],
       "default": "components/dist/media/toggle/default.webp"
     },

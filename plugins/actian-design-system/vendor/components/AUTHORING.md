@@ -35,6 +35,12 @@ Current headers:
 
 **Member pages** — 5-space leading whitespace + status emoji (✅ ✍️ ⛔️ ⚠️).
 
+A component whose frames sit directly on a category-header page, with no
+dedicated member page of its own, is excluded from the sync and surfaced
+as a warning in the sync PR changelog. The member-page convention is the
+publish gate: a component is published by giving it its own member page
+under the right category header.
+
 **Separators** — pages named with only `-` characters (`---`, `----`).
 
 ### Status emojis (DS Kit vocabulary)

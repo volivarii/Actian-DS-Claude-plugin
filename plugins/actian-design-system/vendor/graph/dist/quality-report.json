@@ -51,14 +51,14 @@
   {
     "dimension": "connectivity",
     "metric": "orphan_nodes",
-    "value": 308,
+    "value": 306,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "connectivity",
     "metric": "components_without_category",
-    "value": 300,
+    "value": 293,
     "timestamp": null,
     "severity": "info"
   },

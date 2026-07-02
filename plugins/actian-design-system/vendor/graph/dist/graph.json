@@ -1930,7 +1930,7 @@
     {
       "id": "component:input",
       "type": "component",
-      "title": "Input"
+      "title": "input"
     },
     {
       "id": "component:input-date",
@@ -5071,6 +5071,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:checkbox-with-label",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
       "source": "component:checkmark-outline",
       "target": "category:icons",
       "type": "in_category"
@@ -5316,6 +5321,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:dropdown-select-default",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
       "source": "component:edit",
       "target": "category:icons",
       "type": "in_category"
@@ -5527,6 +5537,11 @@
     },
     {
       "source": "component:informatica",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:input",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -5871,6 +5886,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:radio-button",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
       "source": "component:relation",
       "target": "category:icons",
       "type": "in_category"
@@ -5963,6 +5983,16 @@
     {
       "source": "component:scroll-bar",
       "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
+      "source": "component:search",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
+      "source": "component:search-dropdown-menu",
+      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
@@ -6198,6 +6228,11 @@
     {
       "source": "component:tibco-datavirtualization",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:toggle",
+      "target": "category:form-input-selection",
       "type": "in_category"
     },
     {

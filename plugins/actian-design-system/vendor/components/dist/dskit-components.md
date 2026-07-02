@@ -331,7 +331,7 @@ A flexible container for grouping related information. Use for dashboard summari
 Used for binary choices (on/off) or when a user can select multiple options from a list of related items.
 
 - Variants: **Selected:** `Yes` · `Indeterminate` · `No` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
-- Node: `18857:2849` | Key: `aeac0705e0e35c68961d6ee6c7ad594612124354`
+- Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
 
 ### checkmark--outline
 
@@ -593,7 +593,7 @@ Use when there are 5+ options or space is limited. Ideal for selecting one item 
 
 - Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Disabled`
 - Boolean properties: `Show description#13978:0` (default: true) — set to `false` to hide · `Show asterisk #13978:8` (default: true) — set to `false` to hide · `Show info icon#13978:16` (default: true) — set to `false` to hide · `Show helper text#13978:24` (default: true) — set to `false` to hide · `Show Label#14292:0` (default: true) — set to `false` to hide
-- Node: `18857:2544` | Key: `ca2edc1660ee2f8c074434b36b95a4fe813bf41d`
+- Node: `13972:708` | Key: `1140aec3d572e3fbda362723cd7137ac2f0ce9bd`
 
 ### edit
 
@@ -820,15 +820,10 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 - Single component (no variants)
 - Node: `8400:25085` | Key: `181f865b3a16ad0c0846ec99c3d247c7e00c6541`
 
-### Input
+### input
 
-Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
-
-- Variants: **States:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
-- Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
-- **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Trailing icon#458:10` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Show .Textfield buttons#14241:0` (default: true) — set to `false` to hide
-- Node: `18857:3168` | Key: `2412217d1a3e596ce79e1e2aa840e5e0f59f7396`
+- Single component (no variants)
+- Node: `8504:23028` | Key: `e044df9621b9fec28326d9e35e61326bcdc7b324`
 
 ### Input, date
 
@@ -1205,7 +1200,7 @@ Used for mutually exclusive choices where the user must select exactly one optio
 
 - Variants: **Format:** `Default` · `Card format` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide · `Show Icon#14119:0` (default: true) — set to `false` to hide
-- Node: `18857:3019` | Key: `ab2f317d788adf67fd8011dff22806ee9d981bbc`
+- Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
 
 ### relation
 
@@ -1312,12 +1307,12 @@ A specialized text input designed to query a database or filter a page's content
 
 - Variants: **Type:** `Explorer home` · `Global header` · `Inline` | **State:** `Hovered` · `Focused` · `Filled` · `Active` · `Dsiabled` · `Default`
 - Boolean properties: `AI icon#8589:0` (default: true) — set to `false` to hide
-- Node: `18857:3454` | Key: `67215eb0278926847181f8c8ab3ab60a7c49fba2`
+- Node: `8589:11055` | Key: `1b7cd9f309d84560098a2506089a77da8972d470`
 
 ### Search dropdown menu
 
 - Variants: **Type:** `No result` · `Before typed` · `After typed` · `Explorer home`
-- Node: `18857:3574` | Key: `884c291f74d9054567d6bf62f2cfb51c7f309d20`
+- Node: `8756:9994` | Key: `9e267d055429c3f0e586f2fc787fd8b6fced1629`
 
 ### Search filters
 
@@ -1607,7 +1602,7 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 
 - Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide
-- Node: `18857:3321` | Key: `15a140eb57120a02e6817c3e41d3c4322860601f`
+- Node: `14000:4395` | Key: `4e7793f094eed660e01d8f7c804f2391e72115d2`
 
 ### Toolbar
 
