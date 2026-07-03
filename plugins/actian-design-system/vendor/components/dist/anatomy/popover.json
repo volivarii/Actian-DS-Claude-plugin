@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -12,12 +12,24 @@
     "nodesTotal": 65,
     "nodesNormalized": 30,
     "ratio": 0.46,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Advanced search",
+        "path": "",
+        "reason": "childCount:4!=6"
+      }
+    ]
   },
   "root": {
     "name": "Type=Interaction guide",
     "kind": "container",
     "id": "14294:7344",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -41,6 +53,12 @@
         "name": "Header",
         "kind": "container",
         "id": "14294:6571",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
         "layout": {
           "axis": "row",
           "gap": "666px",
@@ -93,6 +111,14 @@
                 "name": "Header",
                 "kind": "text",
                 "id": "14294:6219",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  }
+                },
                 "text": "Interaction guide"
               }
             ]
@@ -105,7 +131,10 @@
               "Show icon": true,
               "Label": "Button"
             },
-            "id": "14294:6276"
+            "id": "14294:6276",
+            "appearance": {
+              "radius": "40px"
+            }
           }
         ]
       },
@@ -136,12 +165,30 @@
             "name": "Label",
             "kind": "text",
             "id": "14294:6784",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "About this lineage"
           },
           {
             "name": "description",
             "kind": "text",
             "id": "14294:6787",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline.  Learn how to navigate data lineage using mouse and keyboard controls."
           },
           {
@@ -202,7 +249,14 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
-                    "id": "14294:6996"
+                    "id": "14294:6996",
+                    "appearance": {
+                      "background": "#fbfbff",
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -216,7 +270,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:6997"
+                    "id": "14294:6997",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -230,7 +290,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:6998"
+                    "id": "14294:6998",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -244,7 +310,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:6999"
+                    "id": "14294:6999",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -258,7 +330,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7000"
+                    "id": "14294:7000",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -272,7 +350,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7001"
+                    "id": "14294:7001",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -286,7 +370,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7002"
+                    "id": "14294:7002",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -300,7 +390,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7003"
+                    "id": "14294:7003",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -314,7 +410,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7004"
+                    "id": "14294:7004",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -353,12 +455,25 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
-                    "id": "14294:7006"
+                    "id": "14294:7006",
+                    "appearance": {
+                      "background": "#fbfbff",
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
                     "id": "14294:7007",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    },
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -382,6 +497,9 @@
                         "name": "Buttons",
                         "kind": "container",
                         "id": "14294:7008",
+                        "appearance": {
+                          "radius": "4px"
+                        },
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -415,6 +533,12 @@
                     "name": ".Table cell",
                     "kind": "container",
                     "id": "14294:7010",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    },
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -438,6 +562,9 @@
                         "name": "Buttons",
                         "kind": "container",
                         "id": "14294:7011",
+                        "appearance": {
+                          "radius": "4px"
+                        },
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -469,6 +596,15 @@
                         "name": "/ Scroll down / pinch in",
                         "kind": "text",
                         "id": "14294:7013",
+                        "appearance": {
+                          "text": {
+                            "color": "#000000",
+                            "size": "14px",
+                            "weight": 400,
+                            "lineHeight": "20px",
+                            "letterSpacing": "0.2px"
+                          }
+                        },
                         "text": "/ Scroll down / pinch in"
                       }
                     ]
@@ -477,6 +613,12 @@
                     "name": ".Table cell",
                     "kind": "container",
                     "id": "14294:7014",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    },
                     "layout": {
                       "axis": "row",
                       "gap": "0px",
@@ -500,6 +642,9 @@
                         "name": "Buttons",
                         "kind": "container",
                         "id": "14294:7015",
+                        "appearance": {
+                          "radius": "4px"
+                        },
                         "layout": {
                           "axis": "row",
                           "gap": "0px",
@@ -531,6 +676,15 @@
                         "name": "/ Scroll up / pinch out",
                         "kind": "text",
                         "id": "14294:7017",
+                        "appearance": {
+                          "text": {
+                            "color": "#000000",
+                            "size": "14px",
+                            "weight": 400,
+                            "lineHeight": "20px",
+                            "letterSpacing": "0.2px"
+                          }
+                        },
                         "text": "/ Scroll up / pinch out"
                       }
                     ]
@@ -547,7 +701,13 @@
                       "Show Button 1": true,
                       "Type": "Action"
                     },
-                    "id": "14294:7018"
+                    "id": "14294:7018",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -561,12 +721,24 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7019"
+                    "id": "14294:7019",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
                     "id": "14294:7020",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    },
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -613,6 +785,9 @@
                             "name": "Frame 1948755105",
                             "kind": "container",
                             "id": "14294:7022",
+                            "appearance": {
+                              "radius": "4px"
+                            },
                             "layout": {
                               "axis": "row",
                               "gap": "0px",
@@ -639,7 +814,10 @@
                                 "props": {
                                   "Property 1": "Default"
                                 },
-                                "id": "14294:7023"
+                                "id": "14294:7023",
+                                "appearance": {
+                                  "radius": "4px 0px 0px 4px"
+                                }
                               },
                               {
                                 "name": "Table view",
@@ -648,7 +826,10 @@
                                 "props": {
                                   "Property 1": "Default"
                                 },
-                                "id": "14294:7024"
+                                "id": "14294:7024",
+                                "appearance": {
+                                  "radius": "0px 4px 4px 0px"
+                                }
                               }
                             ]
                           }
@@ -668,12 +849,24 @@
                       "Show Button 1": true,
                       "Type": "Action"
                     },
-                    "id": "14294:7025"
+                    "id": "14294:7025",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
                     "kind": "container",
                     "id": "14294:7026",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    },
                     "layout": {
                       "axis": "row",
                       "gap": "6px",
@@ -730,12 +923,24 @@
                               "Size": "Small",
                               "State": "Default"
                             },
-                            "id": "14294:7028"
+                            "id": "14294:7028",
+                            "appearance": {
+                              "radius": "9999px"
+                            }
                           },
                           {
                             "name": "/",
                             "kind": "text",
                             "id": "14294:7029",
+                            "appearance": {
+                              "text": {
+                                "color": "#000000",
+                                "size": "14px",
+                                "weight": 400,
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.2px"
+                              }
+                            },
                             "text": "/"
                           },
                           {
@@ -752,7 +957,10 @@
                               "Size": "Small",
                               "State": "Default"
                             },
-                            "id": "14294:7030"
+                            "id": "14294:7030",
+                            "appearance": {
+                              "radius": "9999px"
+                            }
                           }
                         ]
                       }
@@ -795,7 +1003,14 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
-                    "id": "14294:7032"
+                    "id": "14294:7032",
+                    "appearance": {
+                      "background": "#fbfbff",
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -809,7 +1024,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7033"
+                    "id": "14294:7033",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -823,7 +1044,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7034"
+                    "id": "14294:7034",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -837,7 +1064,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7035"
+                    "id": "14294:7035",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -851,7 +1084,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7036"
+                    "id": "14294:7036",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -865,7 +1104,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7037"
+                    "id": "14294:7037",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -879,7 +1124,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7038"
+                    "id": "14294:7038",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -893,7 +1144,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7039"
+                    "id": "14294:7039",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   },
                   {
                     "name": ".Table cell",
@@ -907,7 +1164,13 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
-                    "id": "14294:7040"
+                    "id": "14294:7040",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -990,7 +1253,10 @@
             "props": {
               "State": "Collapsed"
             },
-            "id": "14294:6277"
+            "id": "14294:6277",
+            "appearance": {
+              "background": "#ffffff"
+            }
           }
         ]
       },
@@ -1031,10 +1297,16 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "14294:6830"
+            "id": "14294:6830",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Interaction guide"
   }
 }

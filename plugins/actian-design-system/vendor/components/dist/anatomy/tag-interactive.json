@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-interactive",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13845:33759",
@@ -12,12 +12,89 @@
     "nodesTotal": 4,
     "nodesNormalized": 3,
     "ratio": 0.75,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Focused",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "State",
+        "value": "Selected",
+        "path": "",
+        "reason": "childCount:3!=2"
+      }
+    ]
   },
   "root": {
     "name": "State=Default",
     "kind": "container",
     "id": "13845:33758",
+    "appearance": {
+      "background": "#fbfbff",
+      "border": {
+        "color": "#e1e1e6",
+        "width": "1px"
+      },
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "State",
+          "values": [
+            "Disabled"
+          ],
+          "background": "#e1e1e6",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Focused"
+          ],
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Hovered"
+          ],
+          "background": "rgba(0, 0, 0, 0.05)",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Pressed"
+          ],
+          "background": "rgba(0, 0, 0, 0.1)",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Selected"
+          ],
+          "border": {
+            "color": "#0f5fdc",
+            "width": "2px"
+          }
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -47,6 +124,30 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "13846:34348",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
         "text": "Label"
       },
       {
@@ -56,5 +157,8 @@
         "id": "13849:34922"
       }
     ]
+  },
+  "variantDefaults": {
+    "State": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "s-grid",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14744:8072",
@@ -23,6 +23,9 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "7011:1541",
+    "appearance": {
+      "background": "#ffffff"
+    },
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -60,45 +63,72 @@
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:888"
+            "id": "7011:888",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:889"
+            "id": "7011:889",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:890"
+            "id": "7011:890",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:891"
+            "id": "7011:891",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:893"
+            "id": "7011:893",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:894"
+            "id": "7011:894",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:895"
+            "id": "7011:895",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           },
           {
             "name": "Column",
             "kind": "vector",
-            "id": "7011:896"
+            "id": "7011:896",
+            "appearance": {
+              "background": "#e8f3f2"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "page-header",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12923:2794",
@@ -12,7 +12,45 @@
     "nodesTotal": 8,
     "nodesNormalized": 5,
     "ratio": 0.63,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Details page",
+        "path": "0",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Details page",
+        "path": "1",
+        "reason": "kind:text!=container"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer detail",
+        "path": "0",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer detail",
+        "path": "1",
+        "reason": "kind:text!=container"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer home",
+        "path": "0",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer home",
+        "path": "1",
+        "reason": "kind:text!=instance"
+      }
+    ]
   },
   "root": {
     "name": "Type=Default",
@@ -64,6 +102,14 @@
             "name": "Title",
             "kind": "text",
             "id": "12923:2797",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "24px",
+                "weight": 600,
+                "lineHeight": "32px"
+              }
+            },
             "text": "Financial Objectives"
           },
           {
@@ -103,7 +149,10 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "12923:2799"
+                "id": "12923:2799",
+                "appearance": {
+                  "radius": "9999px"
+                }
               },
               {
                 "name": "Button",
@@ -119,7 +168,14 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "12923:2800"
+                "id": "12923:2800",
+                "appearance": {
+                  "border": {
+                    "color": "#0283be",
+                    "width": "1px"
+                  },
+                  "radius": "9999px"
+                }
               },
               {
                 "name": "Button",
@@ -135,7 +191,11 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "12923:2801"
+                "id": "12923:2801",
+                "appearance": {
+                  "background": "#0283be",
+                  "radius": "9999px"
+                }
               }
             ]
           }
@@ -145,8 +205,20 @@
         "name": "Suppot text",
         "kind": "text",
         "id": "12923:2802",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          }
+        },
         "text": "Support text"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Default"
   }
 }

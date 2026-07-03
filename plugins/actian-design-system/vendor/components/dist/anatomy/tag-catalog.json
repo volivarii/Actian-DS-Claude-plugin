@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-catalog",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13812:22309",
@@ -18,6 +18,14 @@
     "name": "Type=Default",
     "kind": "container",
     "id": "11300:10571",
+    "appearance": {
+      "background": "#ecffff",
+      "border": {
+        "color": "#d0efed",
+        "width": "1px"
+      },
+      "radius": "4px"
+    },
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -47,8 +55,20 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "11300:8566",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "Catalog"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Default"
   }
 }

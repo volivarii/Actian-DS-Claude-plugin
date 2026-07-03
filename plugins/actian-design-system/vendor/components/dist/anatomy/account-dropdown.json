@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "account-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9118:17382"
@@ -17,6 +17,10 @@
     "name": "Account dropdown",
     "kind": "container",
     "id": "9118:17382",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "4px"
+    },
     "layout": {
       "axis": "column",
       "gap": "4px",
@@ -67,12 +71,25 @@
               "State": "Default",
               "Type": "Default"
             },
-            "id": "9096:5422"
+            "id": "9096:5422",
+            "appearance": {
+              "background": "#edf6ff",
+              "radius": "9999px"
+            }
           },
           {
             "name": "Timothy Neal timothy.neal@hcl-software.com",
             "kind": "text",
             "id": "9085:21661",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 600,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Timothy Neal\ntimothy.neal@hcl-software.com"
           }
         ]
@@ -101,7 +118,10 @@
           "Type": "Selectable item",
           "State": "Selected"
         },
-        "id": "9096:17446"
+        "id": "9096:17446",
+        "appearance": {
+          "radius": "4px"
+        }
       },
       {
         "name": ".menu item",
@@ -127,7 +147,10 @@
           "Type": "Selectable item",
           "State": "Selected"
         },
-        "id": "14058:2325"
+        "id": "14058:2325",
+        "appearance": {
+          "radius": "4px"
+        }
       }
     ]
   }

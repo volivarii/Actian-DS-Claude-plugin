@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "confirmation",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13871:32310",
@@ -73,12 +73,29 @@
             "name": "Title",
             "kind": "text",
             "id": "14747:19724",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "18px",
+                "weight": 600,
+                "lineHeight": "26px"
+              }
+            },
             "text": "Success!"
           },
           {
             "name": "Body",
             "kind": "text",
             "id": "14747:19725",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 400,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
             "text": "The selected items will be imported into the catalog. You will be notified once the import is complete."
           }
         ]
@@ -120,7 +137,10 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14747:19727"
+            "id": "14747:19727",
+            "appearance": {
+              "radius": "9999px"
+            }
           },
           {
             "name": "Button",
@@ -136,10 +156,17 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14747:19728"
+            "id": "14747:19728",
+            "appearance": {
+              "background": "#0f5fdc",
+              "radius": "9999px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Size": "Large"
   }
 }

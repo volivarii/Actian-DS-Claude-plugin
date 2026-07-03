@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox-with-label",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
@@ -45,14 +45,72 @@
           "Selected": "No",
           "State": "Default"
         },
-        "id": "8175:4407"
+        "id": "8175:4407",
+        "appearance": {
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Focus"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)",
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Hover"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Pressed"
+              ],
+              "background": "rgba(0, 0, 0, 0.1)"
+            }
+          ]
+        }
       },
       {
         "name": "Label",
         "kind": "text",
         "id": "8175:4408",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
         "text": "Inline label for checkbox"
       }
     ]
+  },
+  "variantDefaults": {
+    "Selected": "No",
+    "State": "Default"
   }
 }

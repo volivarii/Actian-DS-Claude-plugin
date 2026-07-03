@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:30242",
@@ -23,6 +23,14 @@
     "name": "Type=Default",
     "kind": "container",
     "id": "14747:30243",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#c7c7ce",
+        "width": "1px"
+      },
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -46,6 +54,12 @@
         "name": "Header",
         "kind": "container",
         "id": "14747:30244",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -69,6 +83,15 @@
             "name": "sideNavHeading",
             "kind": "text",
             "id": "14747:30245",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
             "text": "Glossary item hierarchy"
           },
           {
@@ -85,7 +108,10 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "14747:30246"
+            "id": "14747:30246",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -116,6 +142,9 @@
             "name": "Graph",
             "kind": "container",
             "id": "14747:30248",
+            "appearance": {
+              "radius": "0px"
+            },
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
@@ -216,7 +245,11 @@
                   "Type": "Main item",
                   "State": "Default"
                 },
-                "id": "14747:30258"
+                "id": "14747:30258",
+                "appearance": {
+                  "background": "#a76605",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -226,7 +259,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30259"
+                "id": "14747:30259",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -236,7 +273,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30260"
+                "id": "14747:30260",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -246,7 +287,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30261"
+                "id": "14747:30261",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -256,7 +301,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30262"
+                "id": "14747:30262",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -266,7 +315,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30263"
+                "id": "14747:30263",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -276,7 +329,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30264"
+                "id": "14747:30264",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -286,7 +343,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30265"
+                "id": "14747:30265",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -296,7 +357,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30266"
+                "id": "14747:30266",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               },
               {
                 "name": ".Glossary item",
@@ -306,7 +371,11 @@
                   "Type": "Sub items",
                   "State": "Default"
                 },
-                "id": "14747:30267"
+                "id": "14747:30267",
+                "appearance": {
+                  "background": "#fff9e5",
+                  "radius": "9999px"
+                }
               }
             ]
           },
@@ -319,7 +388,15 @@
               "Type": "Group",
               "Orientation": "Horizontal"
             },
-            "id": "14747:30268"
+            "id": "14747:30268",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              },
+              "radius": "6px"
+            }
           },
           {
             "name": "Toolbar",
@@ -330,10 +407,21 @@
               "Type": "Single",
               "Orientation": "Horizontal"
             },
-            "id": "14747:30269"
+            "id": "14747:30269",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              },
+              "radius": "6px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Default"
   }
 }

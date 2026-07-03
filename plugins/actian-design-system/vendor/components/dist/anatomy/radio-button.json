@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "radio-button",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9474:16884",
@@ -12,7 +12,15 @@
     "nodesTotal": 5,
     "nodesNormalized": 4,
     "ratio": 0.8,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Format",
+        "value": "Card format",
+        "path": "",
+        "reason": "childCount:2!=3"
+      }
+    ]
   },
   "root": {
     "name": "Format=Default, Selected=No, State=Default",
@@ -45,7 +53,37 @@
           "Selected": "No",
           "State": "Default"
         },
-        "id": "8175:4418"
+        "id": "8175:4418",
+        "appearance": {
+          "radius": "9999px",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Focus"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)",
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Hover"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Pressed"
+              ],
+              "background": "rgba(0, 0, 0, 0.1)"
+            }
+          ]
+        }
       },
       {
         "name": "Text",
@@ -74,16 +112,113 @@
             "name": "Label",
             "kind": "text",
             "id": "8175:4419",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "Selected",
+                  "values": [
+                    "Yes"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "18px",
+                    "letterSpacing": "0.14px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "18px",
+                    "letterSpacing": "0.14px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Focus",
+                    "Hover",
+                    "Pressed"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "18px",
+                    "letterSpacing": "0.14px"
+                  }
+                }
+              ]
+            },
             "text": "Label"
           },
           {
             "name": "Helper text",
             "kind": "text",
             "id": "13981:7787",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#7c7c8a",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                }
+              ]
+            },
             "text": "Helper text"
           }
         ]
       }
-    ]
+    ],
+    "appearance": {
+      "variants": [
+        {
+          "prop": "Format",
+          "values": [
+            "Card format"
+          ],
+          "background": "#ffffff",
+          "radius": "6px",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        }
+      ]
+    }
+  },
+  "variantDefaults": {
+    "Format": "Default",
+    "Selected": "No",
+    "State": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "scroll-bar",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:17639",
@@ -37,8 +37,15 @@
       {
         "name": "Scroll bar",
         "kind": "vector",
-        "id": "8741:12495"
+        "id": "8741:12495",
+        "appearance": {
+          "background": "#7c7c8a",
+          "radius": "4px"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

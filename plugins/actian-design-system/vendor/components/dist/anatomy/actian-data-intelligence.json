@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "actian-data-intelligence",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7764:7617",
@@ -22,8 +22,138 @@
         "reason": "layoutMode:NONE"
       },
       {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR"
+      },
+      {
         "name": "Group",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Studio, Orientation=Horizontal",
+        "reason": "layoutMode:NONE (variant Type=Studio)"
+      },
+      {
+        "name": "Actian Data Intelligence Studio",
+        "reason": "layoutMode:NONE (variant Type=Studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Studio)"
+      },
+      {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Type=Studio)"
+      },
+      {
+        "name": "Type=Explorer, Orientation=Horizontal",
+        "reason": "layoutMode:NONE (variant Type=Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Explorer)"
+      },
+      {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Type=Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Explorer)"
+      },
+      {
+        "name": "Type=Admin, Orientation=Horizontal",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Group 6",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Type=Admin)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Admin)"
+      },
+      {
+        "name": "Type=Data Intelligence, Orientation=Vertical",
+        "reason": "layoutMode:NONE (variant Orientation=Vertical)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Orientation=Vertical)"
+      },
+      {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Orientation=Vertical)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Orientation=Vertical)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Orientation=Vertical)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Orientation",
+        "value": "Vertical",
+        "path": "0",
+        "reason": "childCount:13!=3"
+      },
+      {
+        "prop": "Orientation",
+        "value": "Vertical",
+        "path": "1",
+        "reason": "childCount:12!=11"
+      },
+      {
+        "prop": "Type",
+        "value": "Admin",
+        "path": "",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer",
+        "path": "",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Studio",
+        "path": "0",
+        "reason": "childCount:13!=28"
+      },
+      {
+        "prop": "Type",
+        "value": "Studio",
+        "path": "1",
+        "reason": "childCount:12!=3"
       }
     ]
   },
@@ -60,12 +190,18 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38238"
+            "id": "8921:38238",
+            "appearance": {
+              "background": "#000178"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38239"
+            "id": "8921:38239",
+            "appearance": {
+              "background": "#000178"
+            }
           },
           {
             "name": "Vector",
@@ -75,52 +211,82 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38241"
+            "id": "8921:38241",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38242"
+            "id": "8921:38242",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38243"
+            "id": "8921:38243",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38244"
+            "id": "8921:38244",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38245"
+            "id": "8921:38245",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38246"
+            "id": "8921:38246",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38247"
+            "id": "8921:38247",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38248"
+            "id": "8921:38248",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38249"
+            "id": "8921:38249",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38250"
+            "id": "8921:38250",
+            "appearance": {
+              "background": "#000000"
+            }
           }
         ]
       },
@@ -142,65 +308,105 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38252"
+            "id": "8921:38252",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38253"
+            "id": "8921:38253",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38254"
+            "id": "8921:38254",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38255"
+            "id": "8921:38255",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38256"
+            "id": "8921:38256",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38257"
+            "id": "8921:38257",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38258"
+            "id": "8921:38258",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38259"
+            "id": "8921:38259",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38260"
+            "id": "8921:38260",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38261"
+            "id": "8921:38261",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38262"
+            "id": "8921:38262",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38263"
+            "id": "8921:38263",
+            "appearance": {
+              "background": "#000000"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Data Intelligence",
+    "Orientation": "Horizontal"
   }
 }

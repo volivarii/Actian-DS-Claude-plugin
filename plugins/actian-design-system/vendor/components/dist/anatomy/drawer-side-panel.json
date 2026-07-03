@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer-side-panel",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -12,12 +12,47 @@
     "nodesTotal": 37,
     "nodesNormalized": 29,
     "ratio": 0.78,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "0.0",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "0.1",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "1",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "2.2.1",
+        "reason": "kind:instance!=container"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "4",
+        "reason": "childCount:3!=2"
+      }
+    ]
   },
   "root": {
     "name": "App=Studio",
     "kind": "container",
     "id": "14292:2985",
+    "appearance": {
+      "background": "#ffffff"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -97,7 +132,10 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "14292:1239"
+                "id": "14292:1239",
+                "appearance": {
+                  "radius": "9999px"
+                }
               },
               {
                 "name": "Tag",
@@ -130,7 +168,11 @@
                       "Show counter": false,
                       "Type": "Dataset"
                     },
-                    "id": "14292:1206"
+                    "id": "14292:1206",
+                    "appearance": {
+                      "background": "#cfeafd",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Shared",
@@ -142,7 +184,15 @@
                       "Label": "Shared",
                       "Color": "Default"
                     },
-                    "id": "14292:1201"
+                    "id": "14292:1201",
+                    "appearance": {
+                      "background": "#00699f",
+                      "border": {
+                        "color": "#00699f",
+                        "width": "1px"
+                      },
+                      "radius": "4px"
+                    }
                   }
                 ]
               },
@@ -150,6 +200,14 @@
                 "name": "Name",
                 "kind": "text",
                 "id": "14292:1226",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  }
+                },
                 "text": "Name"
               }
             ]
@@ -191,7 +249,10 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "14292:1302"
+                "id": "14292:1302",
+                "appearance": {
+                  "radius": "9999px"
+                }
               },
               {
                 "name": "Button",
@@ -207,7 +268,10 @@
                   "Size": "Default",
                   "State": "Default"
                 },
-                "id": "14292:1305"
+                "id": "14292:1305",
+                "appearance": {
+                  "radius": "9999px"
+                }
               }
             ]
           }
@@ -240,6 +304,15 @@
             "name": "Technical name: able_agency",
             "kind": "text",
             "id": "14292:1460",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Technical name: able_agency"
           },
           {
@@ -269,30 +342,75 @@
                 "name": "Catalog",
                 "kind": "text",
                 "id": "14292:1462",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Catalog: Finance "
               },
               {
                 "name": "/",
                 "kind": "text",
                 "id": "14292:1463",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "/"
               },
               {
                 "name": "Category",
                 "kind": "text",
                 "id": "14292:1466",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Category: 24/7"
               },
               {
                 "name": "/",
                 "kind": "text",
                 "id": "14292:1467",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "/"
               },
               {
                 "name": "Connection",
                 "kind": "text",
                 "id": "14292:1464",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Connection: Powerbi"
               }
             ]
@@ -326,12 +444,30 @@
             "name": "Last updated",
             "kind": "text",
             "id": "14292:1475",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Last updated\nDec 15, 2025"
           },
           {
             "name": "Fields",
             "kind": "text",
             "id": "14292:1482",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Fields\n10 Fields"
           },
           {
@@ -361,6 +497,15 @@
                 "name": "Completion",
                 "kind": "text",
                 "id": "14292:1483",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Completion"
               },
               {
@@ -408,7 +553,14 @@
               "Show Avatar": false,
               "Property 1": "Default"
             },
-            "id": "14292:1808"
+            "id": "14292:1808",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#dadada",
+                "width": "1px"
+              }
+            }
           }
         ]
       },
@@ -416,6 +568,9 @@
         "name": "Body 3",
         "kind": "container",
         "id": "14292:1867",
+        "appearance": {
+          "background": "#ffffff"
+        },
         "layout": {
           "axis": "column",
           "gap": "16px",
@@ -462,6 +617,15 @@
                 "name": "Last updated",
                 "kind": "text",
                 "id": "14292:1868",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
                 "text": "Glossary items (2)"
               },
               {
@@ -487,7 +651,7 @@
             "id": "14292:2867",
             "layout": {
               "axis": "column",
-              "gap": "7.989999771118164px",
+              "gap": "7.99px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -508,12 +672,30 @@
                 "name": "Heading",
                 "kind": "text",
                 "id": "14292:2870",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
                 "text": "Description"
               },
               {
                 "name": "Body",
                 "kind": "text",
                 "id": "14292:2871",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. Duisplatonem agam sagittis noster diam veri comprehensam explicari aliquip ecteque epicurei definitiones viris mi dignissim regione. "
               }
             ]
@@ -524,7 +706,7 @@
             "id": "14292:2872",
             "layout": {
               "axis": "column",
-              "gap": "7.085000038146973px",
+              "gap": "7.085px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -545,12 +727,30 @@
                 "name": "Heading",
                 "kind": "text",
                 "id": "14292:2874",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
                 "text": "Source description"
               },
               {
                 "name": "Body",
                 "kind": "text",
                 "id": "14292:2876",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. "
               }
             ]
@@ -558,5 +758,8 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "App": "Studio"
   }
 }
