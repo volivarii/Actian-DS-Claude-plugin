@@ -17,24 +17,28 @@
  * the render-grade facts live in components/dist/token-bindings/.
  */
 
-var renderAnatomy = require("./anatomy-render").renderAnatomy;
+var anatomyRender = require("./anatomy-render");
+var renderAnatomy = anatomyRender.renderAnatomy;
+var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
+var {
+  isDelegated,
+  anatomyVariantKey,
+} = require("./html-renderers/anatomy-variant-key.js");
+var parseVariant = require("./html-renderers/ds-html-map.js").parseVariant;
 
 /**
- * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
- * Returns a deduplicated array of slug strings.
+ * Shared recursive tree-walk over a flow data tree (screens → content →
+ * nodes), invoking visitFn(node) for every node encountered (pre-order,
+ * children before nodes). Both collectors below differ only in what their
+ * visitor does with each node.
  */
-function collectDsSlugs(data) {
-  var seen = {};
-  var slugs = [];
+function walkDsContent(data, visitFn) {
   function walk(nodes) {
     if (!Array.isArray(nodes)) return;
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (!n || typeof n !== "object") continue;
-      if (typeof n.dsSlug === "string" && n.dsSlug && !seen[n.dsSlug]) {
-        seen[n.dsSlug] = true;
-        slugs.push(n.dsSlug);
-      }
+      visitFn(n);
       if (Array.isArray(n.children)) walk(n.children);
       if (Array.isArray(n.nodes)) walk(n.nodes);
     }
@@ -43,7 +47,45 @@ function collectDsSlugs(data) {
   for (var s = 0; s < screens.length; s++) {
     walk((screens[s] && screens[s].content) || []);
   }
+}
+
+/**
+ * Collect every unique dsSlug from a flow data tree (screens → content → nodes).
+ * Returns a deduplicated array of slug strings.
+ */
+function collectDsSlugs(data) {
+  var seen = {};
+  var slugs = [];
+  walkDsContent(data, function (n) {
+    if (typeof n.dsSlug === "string" && n.dsSlug && !seen[n.dsSlug]) {
+      seen[n.dsSlug] = true;
+      slugs.push(n.dsSlug);
+    }
+  });
   return slugs;
+}
+
+/**
+ * Collect every unique {slug, variant} pair for DELEGATED dsSlugs (see
+ * isDelegated in anatomy-variant-key.js) from a flow data tree (screens →
+ * content → nodes). variant is the PARSED object (via ds-html-map's
+ * parseVariant), deduped by the same composite key anatomyVariantKey
+ * produces, so callers render each distinct pair exactly once.
+ */
+function collectDsSlugVariants(data) {
+  var seen = {};
+  var pairs = [];
+  walkDsContent(data, function (n) {
+    if (typeof n.dsSlug === "string" && isDelegated(n.dsSlug)) {
+      var variant = parseVariant(n.variant || "");
+      var key = anatomyVariantKey(n.dsSlug, variant);
+      if (!seen[key]) {
+        seen[key] = true;
+        pairs.push({ slug: n.dsSlug, variant: variant });
+      }
+    }
+  });
+  return pairs;
 }
 
 /**
@@ -53,9 +95,9 @@ function collectDsSlugs(data) {
  * @param {object}   opts
  *   opts.builtSlugs          - override list (default: BUILT_SLUGS from ds-html-map.js)
  *   opts.anatomyLoader       - injectable loader(slug) for anatomy JSON (default: fs read)
- *   opts.tokenBindingsLoader - injectable loader(slug) → sidecar byNodeId map
- *                              { nodeId: [{property, token, grade}] } (default:
- *                              fs read of the vendored token-bindings sidecar)
+ *   opts.tokenBindingsLoader - injectable loader(slug) → the sidecar doc
+ *                              { byNodeId: { nodeId: [...] }, variantDefaults }
+ *                              (default: fs read of the vendored token-bindings sidecar)
  * @returns {{ [slug: string]: string }}
  */
 function buildDsAnatomyMap(slugs, opts) {
@@ -81,10 +123,32 @@ function buildDsAnatomyMap(slugs, opts) {
     // Drop nulls (quality too low, missing root, or no anatomy file)
     if (html) map[slug] = html;
   }
+
+  return map;
+}
+
+// Build { anatomyVariantKey(slug, variant) -> inline-style-string } for the
+// delegated slugs used in the flow, for token-injection into hand-authored
+// templates. Entries with no resolvable root style are omitted.
+function buildDsVariantStyleMap(data, opts) {
+  opts = opts || {};
+  var map = {};
+  var pairs = collectDsSlugVariants(data);
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i];
+    var style = resolveRootTokenStyle(pair.slug, {
+      variant: pair.variant,
+      loader: opts.anatomyLoader,
+      bindingsLoader: opts.tokenBindingsLoader,
+    });
+    if (style) map[anatomyVariantKey(pair.slug, pair.variant)] = style;
+  }
   return map;
 }
 
 module.exports = {
   collectDsSlugs: collectDsSlugs,
+  collectDsSlugVariants: collectDsSlugVariants,
   buildDsAnatomyMap: buildDsAnatomyMap,
+  buildDsVariantStyleMap: buildDsVariantStyleMap,
 };

@@ -4,7 +4,7 @@
 // Verifies: collectDsSlugs (content-shaped traversal), buildDsAnatomyMap
 // (override exclusion, anatomy+binding integration, null-anatomy exclusion).
 
-var { describe, it } = require("node:test");
+var { describe, it, test } = require("node:test");
 var assert = require("node:assert");
 
 var {
@@ -101,20 +101,22 @@ describe("buildDsAnatomyMap", function () {
     var tokenBindingsLoader = function (slug) {
       if (slug === "spinner")
         return {
-          "9:1": [
-            {
-              property: "background-color",
-              token: "--zen-color-primary-500",
-              grade: "semantic",
-            },
-          ],
-          "9:2": [
-            {
-              property: "color",
-              token: "--zen-color-text-default",
-              grade: "semantic",
-            },
-          ],
+          byNodeId: {
+            "9:1": [
+              {
+                property: "background-color",
+                token: "--zen-color-primary-500",
+                grade: "semantic",
+              },
+            ],
+            "9:2": [
+              {
+                property: "color",
+                token: "--zen-color-text-default",
+                grade: "semantic",
+              },
+            ],
+          },
         };
       return null;
     };
@@ -177,4 +179,61 @@ describe("buildDsAnatomyMap", function () {
       "spinner included when not in custom builtSlugs",
     );
   });
+});
+
+var anatomyMapMod = require("../../scripts/renderers/ds-anatomy-map.js");
+
+test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes", () => {
+  const data = {
+    screens: [
+      {
+        content: [
+          { dsSlug: "tag-default", variant: "Color=Pink" },
+          { dsSlug: "tag-default", variant: "Color=Pink" }, // dup -> collapses
+          { dsSlug: "tag-default", variant: "Color=Gray" },
+          { dsSlug: "button", variant: "Type=Primary" }, // not delegated -> ignored here
+        ],
+      },
+    ],
+  };
+  const pairs = anatomyMapMod.collectDsSlugVariants(data);
+  const keys = pairs
+    .map((p) => p.slug + "|" + JSON.stringify(p.variant))
+    .sort();
+  assert.deepStrictEqual(keys, [
+    'tag-default|{"Color":"Gray"}',
+    'tag-default|{"Color":"Pink"}',
+  ]);
+});
+
+test("buildDsVariantStyleMap: keys tag-default by composite key with the root variant style", () => {
+  const anatomy = { quality: { ratio: 1 }, root: { id: "r" } };
+  const bindings = {
+    variantDefaults: { Color: "Default" },
+    byNodeId: {
+      r: [
+        {
+          property: "background-color",
+          token: "--zen-pink",
+          variant: { prop: "Color", values: ["Pink"] },
+        },
+        {
+          property: "background-color",
+          token: "--zen-default",
+          variant: { prop: "Color", values: ["Default"] },
+        },
+      ],
+    },
+  };
+  const data = {
+    screens: [{ content: [{ dsSlug: "tag-default", variant: "Color=Pink" }] }],
+  };
+  const map = anatomyMapMod.buildDsVariantStyleMap(data, {
+    anatomyLoader: () => anatomy,
+    tokenBindingsLoader: () => bindings,
+  });
+  assert.strictEqual(
+    map["tag-default|Color=Pink"],
+    "background-color:var(--zen-pink)",
+  );
 });

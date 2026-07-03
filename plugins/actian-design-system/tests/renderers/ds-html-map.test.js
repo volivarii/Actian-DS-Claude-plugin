@@ -2971,3 +2971,44 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Token-injection pivot: tag-default keeps the hand-authored .ds-tag template
+// (label + icon) and INJECTS the harvested variant token style as an inline
+// style attr, instead of being replaced by anatomy HTML.
+describe("ds-html-map: tag-default variant-style token injection", function () {
+  it("renderDSComponent: tag-default injects the variant style onto the ds-tag span, keeping the label", function () {
+    ds.setVariantStyleMap({
+      "tag-default|Color=Pink": "background-color:var(--zen-pink)",
+    });
+    try {
+      var html = render({
+        dsSlug: "tag-default",
+        variant: "Color=Pink",
+        props: { Label: "Customer Orders" },
+      });
+      assert.ok(html.includes('class="ds-tag"'), "hand-authored ds-tag span");
+      assert.ok(html.includes("Customer Orders"), "label preserved");
+      assert.ok(
+        html.includes("background-color:var(--zen-pink)"),
+        "variant style injected",
+      );
+    } finally {
+      ds.setVariantStyleMap(null);
+    }
+  });
+
+  it("renderDSComponent: tag-default with no style-map entry renders the plain ds-tag (no style attr)", function () {
+    ds.setVariantStyleMap(null);
+    var html = render({
+      dsSlug: "tag-default",
+      variant: "Color=Pink",
+      props: { Label: "Hi" },
+    });
+    assert.ok(
+      html.includes('class="ds-tag"') && html.includes("Hi"),
+      "plain ds-tag with label",
+    );
+    assert.ok(!html.includes(" style="), "no injected style when map is empty");
+  });
+});
