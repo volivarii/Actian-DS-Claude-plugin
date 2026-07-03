@@ -215,10 +215,35 @@ function renderAnatomy(dsSlug, opts) {
     "</div>"
   );
 }
+// Resolve the anatomy ROOT node's variant token declarations to an inline CSS
+// style string, for token-injection into a hand-authored template. Returns ""
+// when there is no anatomy, quality is below minRatio, there is no sidecar, or
+// the root has no resolvable bindings.
+function resolveRootTokenStyle(dsSlug, opts) {
+  opts = opts || {};
+  var minRatio = typeof opts.minRatio === "number" ? opts.minRatio : 0.6;
+  var data = loadAnatomy(dsSlug, opts.loader);
+  if (!data || !data.root || typeof data.root !== "object") return "";
+  var ratio =
+    data.quality && typeof data.quality.ratio === "number"
+      ? data.quality.ratio
+      : 0;
+  if (ratio < minRatio) return "";
+  var bindings = loadTokenBindings(dsSlug, opts.bindingsLoader);
+  if (!bindings || !bindings.byNodeId) return "";
+  var decls = resolveTokenDecls(
+    bindings.byNodeId[data.root.id],
+    opts.variant || null,
+    bindings.variantDefaults || null,
+  );
+  return decls.join(";");
+}
+
 module.exports = {
   renderAnatomy: renderAnatomy,
   loadAnatomy: loadAnatomy,
   loadTokenBindings: loadTokenBindings,
   flexStyle: flexStyle,
   resolveTokenDecls: resolveTokenDecls,
+  resolveRootTokenStyle: resolveRootTokenStyle,
 };

@@ -364,3 +364,43 @@ test("renderAnatomy: without opts.variant, output is unchanged (all decls)", () 
     "emits both (current behavior)",
   );
 });
+
+test("resolveRootTokenStyle: returns the root node's variant-resolved decls string", () => {
+  const anatomy = {
+    quality: { ratio: 1 },
+    root: { id: "r", kind: "container" },
+  };
+  const bindings = {
+    variantDefaults: { Color: "Default" },
+    byNodeId: {
+      r: [
+        {
+          property: "background-color",
+          token: "--zen-pink",
+          variant: { prop: "Color", values: ["Pink"] },
+        },
+        {
+          property: "background-color",
+          token: "--zen-default",
+          variant: { prop: "Color", values: ["Default"] },
+        },
+      ],
+    },
+  };
+  const style = ar.resolveRootTokenStyle("tag-default", {
+    variant: { Color: "Pink" },
+    loader: () => anatomy,
+    bindingsLoader: () => bindings,
+  });
+  assert.strictEqual(style, "background-color:var(--zen-pink)");
+});
+test("resolveRootTokenStyle: returns '' when anatomy quality is below minRatio", () => {
+  const anatomy = { quality: { ratio: 0.1 }, root: { id: "r" } };
+  assert.strictEqual(
+    ar.resolveRootTokenStyle("x", {
+      loader: () => anatomy,
+      bindingsLoader: () => ({ byNodeId: {} }),
+    }),
+    "",
+  );
+});

@@ -4,10 +4,10 @@
 // composite key for a delegated slug + variant. No requires (leaf module).
 "use strict";
 
-// Slice 1 delegates the tag family to the variant-aware anatomy render.
+// Slice 1 delegates ONLY tag-default to variant-aware token-injection.
 // Widening later = broadening this predicate; no other change needed.
 function isDelegated(slug) {
-  return typeof slug === "string" && slug.indexOf("tag-") === 0;
+  return slug === "tag-default";
 }
 
 // slug + a deterministic, sorted encoding of the variant object.
@@ -18,8 +18,12 @@ function anatomyVariantKey(slug, variant) {
   var keys = Object.keys(variant).sort();
   if (!keys.length) return slug;
   var parts = [];
-  for (var i = 0; i < keys.length; i++) parts.push(keys[i] + "=" + variant[keys[i]]);
+  for (var i = 0; i < keys.length; i++)
+    parts.push(keys[i] + "=" + variant[keys[i]]);
   return slug + "|" + parts.join(",");
 }
 
-module.exports = { isDelegated: isDelegated, anatomyVariantKey: anatomyVariantKey };
+module.exports = {
+  isDelegated: isDelegated,
+  anatomyVariantKey: anatomyVariantKey,
+};

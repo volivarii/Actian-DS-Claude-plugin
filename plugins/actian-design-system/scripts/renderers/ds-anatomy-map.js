@@ -17,7 +17,9 @@
  * the render-grade facts live in components/dist/token-bindings/.
  */
 
-var renderAnatomy = require("./anatomy-render").renderAnatomy;
+var anatomyRender = require("./anatomy-render");
+var renderAnatomy = anatomyRender.renderAnatomy;
+var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
 var {
   isDelegated,
   anatomyVariantKey,
@@ -96,9 +98,6 @@ function collectDsSlugVariants(data) {
  *   opts.tokenBindingsLoader - injectable loader(slug) → the sidecar doc
  *                              { byNodeId: { nodeId: [...] }, variantDefaults }
  *                              (default: fs read of the vendored token-bindings sidecar)
- *   opts.data                - optional flow data tree; when present, delegated
- *                              slugs (see isDelegated) are additionally rendered
- *                              per-variant and keyed via anatomyVariantKey
  * @returns {{ [slug: string]: string }}
  */
 function buildDsAnatomyMap(slugs, opts) {
@@ -125,19 +124,25 @@ function buildDsAnatomyMap(slugs, opts) {
     if (html) map[slug] = html;
   }
 
-  if (opts.data) {
-    var delegated = collectDsSlugVariants(opts.data);
-    for (var d = 0; d < delegated.length; d++) {
-      var pair = delegated[d];
-      var dhtml = renderAnatomy(pair.slug, {
-        loader: opts.anatomyLoader,
-        bindingsLoader: opts.tokenBindingsLoader,
-        variant: pair.variant,
-      });
-      if (dhtml) map[anatomyVariantKey(pair.slug, pair.variant)] = dhtml;
-    }
-  }
+  return map;
+}
 
+// Build { anatomyVariantKey(slug, variant) -> inline-style-string } for the
+// delegated slugs used in the flow, for token-injection into hand-authored
+// templates. Entries with no resolvable root style are omitted.
+function buildDsVariantStyleMap(data, opts) {
+  opts = opts || {};
+  var map = {};
+  var pairs = collectDsSlugVariants(data);
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i];
+    var style = resolveRootTokenStyle(pair.slug, {
+      variant: pair.variant,
+      loader: opts.anatomyLoader,
+      bindingsLoader: opts.tokenBindingsLoader,
+    });
+    if (style) map[anatomyVariantKey(pair.slug, pair.variant)] = style;
+  }
   return map;
 }
 
@@ -145,4 +150,5 @@ module.exports = {
   collectDsSlugs: collectDsSlugs,
   collectDsSlugVariants: collectDsSlugVariants,
   buildDsAnatomyMap: buildDsAnatomyMap,
+  buildDsVariantStyleMap: buildDsVariantStyleMap,
 };

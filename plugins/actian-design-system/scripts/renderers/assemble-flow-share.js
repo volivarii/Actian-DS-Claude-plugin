@@ -62,8 +62,12 @@ function assembleFlowShare(data) {
   var anatomyHelpers = require("./ds-anatomy-map.js");
   var anatomyMap = anatomyHelpers.buildDsAnatomyMap(
     anatomyHelpers.collectDsSlugs(data),
-    { data: data },
   );
+  // Token-injection tier (slice 1: tag-default): { anatomyVariantKey ->
+  // inline-style-string } for delegated slugs, so their hand-authored
+  // templates render with the harvested variant-correct token instead of
+  // being replaced by anatomy HTML.
+  var variantStyleMap = anatomyHelpers.buildDsVariantStyleMap(data);
 
   // Assets (fail loudly if missing — same contract as readFileChecked).
   var wrapper = readFileChecked(WRAPPER_PATH);
@@ -93,6 +97,7 @@ function assembleFlowShare(data) {
   var screensHtml = "";
   var navArray = [];
   dsHtmlMap.setAnatomyMap(anatomyMap);
+  dsHtmlMap.setVariantStyleMap(variantStyleMap);
   try {
     for (var s = 0; s < screens.length; s++) {
       var id = s + 1;
@@ -120,6 +125,7 @@ function assembleFlowShare(data) {
   } finally {
     // Reset module-level state so it never leaks into a later assembly.
     dsHtmlMap.setAnatomyMap(null);
+    dsHtmlMap.setVariantStyleMap(null);
   }
   // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
   // esc (not escapeJsonForScript) is required: a bare " in a screen name would

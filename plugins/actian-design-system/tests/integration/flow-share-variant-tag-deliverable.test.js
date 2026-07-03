@@ -52,21 +52,12 @@ function scopedBgToken(colorValue) {
   return candidates[0];
 }
 
-test("flow-share deliverable: Color=Pink and Color=Default tags render distinct harvested tokens", () => {
+test("flow-share deliverable: tag-default keeps its instance label AND injects its distinct harvested variant token", () => {
   const pink = scopedBgToken("Pink");
   const def = scopedBgToken("Default");
   assert.ok(
-    pink,
-    "sidecar has a Pink-scoped background-color binding (fixture precondition)",
-  );
-  assert.ok(
-    def,
-    "sidecar has a Default-scoped background-color binding (fixture precondition)",
-  );
-  assert.notStrictEqual(
-    pink,
-    def,
-    "Pink and Default must resolve to DISTINCT tokens, or this test cannot detect a composite-key collision",
+    pink && def && pink !== def,
+    "sidecar has distinct Pink/Default background tokens (precondition)",
   );
 
   const flow = {
@@ -80,14 +71,14 @@ test("flow-share deliverable: Color=Pink and Color=Default tags render distinct 
             library: "ds",
             dsSlug: "tag-default",
             variant: "Color=Pink",
-            props: { Label: "Pink" },
+            props: { Label: "Customer Orders" },
           },
           {
             type: "INSTANCE",
             library: "ds",
             dsSlug: "tag-default",
             variant: "Color=Default",
-            props: { Label: "Default" },
+            props: { Label: "Draft Items" },
           },
         ],
       },
@@ -98,12 +89,23 @@ test("flow-share deliverable: Color=Pink and Color=Default tags render distinct 
   const html = assemble.assembleFlowShare(flow);
 
   assert.ok(
+    html.includes("Customer Orders"),
+    "Pink tag keeps its instance label",
+  );
+  assert.ok(
+    html.includes("Draft Items"),
+    "Default tag keeps its instance label",
+  );
+  assert.ok(
+    html.includes('class="ds-tag"'),
+    "renders the hand-authored ds-tag span, not anatomy divs",
+  );
+  assert.ok(
     html.includes("background-color:var(" + pink + ")"),
-    "the Pink tag emitted its harvested Pink background token",
+    "Pink tag injected its harvested token",
   );
   assert.ok(
     html.includes("background-color:var(" + def + ")"),
-    "the Default tag emitted its harvested Default background token (a composite-key " +
-      "collision between the two nodes would drop one of the two distinct tokens)",
+    "Default tag injected its distinct harvested token",
   );
 });

@@ -45,21 +45,16 @@
       return p || {};
     };
 
-  // Composite-key delegation helpers (Task 3: isDelegated/anatomyVariantKey).
-  // Same guard-with-inline-fallback shape as fm above: this module runs in
-  // BOTH Node (require works) and the browser deliverable (require may be
-  // absent), so the fallback bodies are verbatim mirrors of
-  // anatomy-variant-key.js kept here for the browser-without-require case.
-  // Do NOT delete them as dead code — they are the only implementation when
+  // Composite-key helper (anatomyVariantKey) used by the tag-default
+  // token-injection case below. Same guard-with-inline-fallback shape as fm
+  // above: this module runs in BOTH Node (require works) and the browser
+  // deliverable (require may be absent), so the fallback body is a verbatim
+  // mirror of anatomy-variant-key.js kept here for the browser-without-require
+  // case. Do NOT delete it as dead code — it is the only implementation when
   // `require` is unavailable.
   var anatomyKey =
     (typeof require !== "undefined" && require("./anatomy-variant-key.js")) ||
     {};
-  var isDelegated =
-    anatomyKey.isDelegated ||
-    function (slug) {
-      return typeof slug === "string" && slug.indexOf("tag-") === 0;
-    };
   var anatomyVariantKey =
     anatomyKey.anatomyVariantKey ||
     function (slug, variant) {
@@ -178,6 +173,23 @@
     _serverAnatomyMap = map && typeof map === "object" ? map : null;
   }
 
+  // Variant-style map for token-injection into delegated hand-authored
+  // templates (slice 1: tag-default). Same two supply paths as the anatomy
+  // map above: window.__dsVariantStyles (browser) or setVariantStyleMap()
+  // (server-side Node render).
+  var _serverVariantStyleMap = null;
+
+  /**
+   * setVariantStyleMap(map) — supply the assemble-time variant-style map for
+   * server-side rendering. Pass a plain object
+   * { anatomyVariantKey(slug, variant) → inline-style-string }, or
+   * null/undefined to clear it (callers MUST reset after a render so state
+   * never leaks).
+   */
+  function setVariantStyleMap(map) {
+    _serverVariantStyleMap = map && typeof map === "object" ? map : null;
+  }
+
   /**
    * renderDSComponent(node)
    * node = { type: 'INSTANCE', library: 'ds', dsSlug: 'button', variant: '...', props: {...}, name: '...' }
@@ -207,17 +219,6 @@
     try {
       var v = parseVariant(node.variant || "");
       var props = normalizeProps(node.props);
-
-      // Delegated slugs (slice 1: tag-*) render via the variant-aware anatomy
-      // map when a composite-keyed entry exists; else fall through to the switch.
-      if (isDelegated(slug)) {
-        var _m =
-          (typeof window !== "undefined" && window.__dsAnatomyMap) ||
-          _serverAnatomyMap ||
-          {};
-        var _k = anatomyVariantKey(slug, v);
-        if (_m[_k]) return _m[_k];
-      }
 
       switch (slug) {
         case "button": {
@@ -376,9 +377,11 @@
         }
 
         case "tag-default": {
-          // Color variant axis exists in the kit (Default, Gray, Pink, …) but
-          // this slice renders the Default palette for every Color; the
-          // per-Color hue palette (<hue>/25 bg + <hue>/50 border) is deferred.
+          // Token-injection (not anatomy replacement): the hand-authored
+          // .ds-tag template (label + icon) stays intact; the harvested
+          // per-Color root token style is injected as an inline style attr so
+          // variant colors render correctly WITHOUT dropping the instance
+          // label. See resolveRootTokenStyle / buildDsVariantStyleMap.
           var tagCls = "ds-tag";
           var tagIcon = "";
           if (props["Leading icon show"]) {
@@ -388,10 +391,20 @@
               renderIcon("directory") +
               "</span>";
           }
+          var _styleMap =
+            (typeof window !== "undefined" && window.__dsVariantStyles) ||
+            _serverVariantStyleMap ||
+            {};
+          var _tagStyle = _styleMap[anatomyVariantKey("tag-default", v)] || "";
+          var _tagStyleAttr = _tagStyle
+            ? ' style="' + esc(_tagStyle) + '"'
+            : "";
           return (
             '<span class="' +
             tagCls +
-            '">' +
+            '"' +
+            _tagStyleAttr +
+            ">" +
             tagIcon +
             esc(props.Label || "") +
             "</span>"
@@ -1732,6 +1745,7 @@
 
   exports.renderDSComponent = renderDSComponent;
   exports.setAnatomyMap = setAnatomyMap;
+  exports.setVariantStyleMap = setVariantStyleMap;
   exports.renderIcon = renderIcon;
   exports.esc = esc;
   exports.parseVariant = parseVariant;

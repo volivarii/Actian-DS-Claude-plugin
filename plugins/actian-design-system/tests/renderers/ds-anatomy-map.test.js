@@ -206,15 +206,12 @@ test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes"
   ]);
 });
 
-test("buildDsAnatomyMap: keys delegated slugs by composite variant key", () => {
-  const anatomy = {
-    quality: { ratio: 1 },
-    root: { id: "n1", kind: "container", layout: {}, children: [] },
-  };
+test("buildDsVariantStyleMap: keys tag-default by composite key with the root variant style", () => {
+  const anatomy = { quality: { ratio: 1 }, root: { id: "r" } };
   const bindings = {
     variantDefaults: { Color: "Default" },
     byNodeId: {
-      n1: [
+      r: [
         {
           property: "background-color",
           token: "--zen-pink",
@@ -231,18 +228,12 @@ test("buildDsAnatomyMap: keys delegated slugs by composite variant key", () => {
   const data = {
     screens: [{ content: [{ dsSlug: "tag-default", variant: "Color=Pink" }] }],
   };
-  const map = anatomyMapMod.buildDsAnatomyMap([], {
-    data: data,
+  const map = anatomyMapMod.buildDsVariantStyleMap(data, {
     anatomyLoader: () => anatomy,
     tokenBindingsLoader: () => bindings,
   });
-  assert.ok(map["tag-default|Color=Pink"], "has the composite-keyed entry");
-  assert.ok(
-    map["tag-default|Color=Pink"].includes("--zen-pink"),
-    "rendered the Pink token",
-  );
-  assert.ok(
-    !map["tag-default"],
-    "delegated slug is NOT under the bare slug key",
+  assert.strictEqual(
+    map["tag-default|Color=Pink"],
+    "background-color:var(--zen-pink)",
   );
 });
