@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "app-switcher-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9118:17666"
@@ -17,6 +17,10 @@
     "name": "App switcher dropdown",
     "kind": "container",
     "id": "9118:17666",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "4px"
+    },
     "layout": {
       "axis": "column",
       "gap": "4px",
@@ -47,7 +51,10 @@
           "Type": "Selectable item",
           "State": "Selected"
         },
-        "id": "9085:21604"
+        "id": "9085:21604",
+        "appearance": {
+          "radius": "4px"
+        }
       },
       {
         "name": ".menu item",
@@ -60,7 +67,10 @@
           "Type": "Selectable item",
           "State": "Default"
         },
-        "id": "9085:21605"
+        "id": "9085:21605",
+        "appearance": {
+          "radius": "4px"
+        }
       }
     ]
   }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "white-label-merck-favicon",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15609:14859",
@@ -24,6 +24,30 @@
       {
         "name": "vector",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Property 1=Merck-favicon-explorer",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-explorer)"
+      },
+      {
+        "name": "vector",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-explorer)"
+      },
+      {
+        "name": "Property 1=Merck-favicon-studio",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-studio)"
+      },
+      {
+        "name": "vector",
+        "reason": "layoutMode:NONE (variant Property 1=Merck-favicon-studio)"
       }
     ]
   },
@@ -60,7 +84,10 @@
           {
             "name": "Frame",
             "kind": "vector",
-            "id": "15609:14862"
+            "id": "15609:14862",
+            "appearance": {
+              "background": "#ffffff"
+            }
           }
         ]
       },
@@ -82,50 +109,208 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14864"
+            "id": "15609:14864",
+            "appearance": {
+              "background": "#ffdcb9",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#0f69af"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#96d7d2"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14865"
+            "id": "15609:14865",
+            "appearance": {
+              "background": "#96d7d2",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#ffdcb9"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#0f69af"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14866"
+            "id": "15609:14866",
+            "appearance": {
+              "background": "#0f69af",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#96d7d2"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#ffdcb9"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14867"
+            "id": "15609:14867",
+            "appearance": {
+              "background": "#ffdcb9",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#0f69af"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#96d7d2"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14868"
+            "id": "15609:14868",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14869"
+            "id": "15609:14869",
+            "appearance": {
+              "background": "#96d7d2",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#ffdcb9"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#0f69af"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14870"
+            "id": "15609:14870",
+            "appearance": {
+              "background": "#ffdcb9",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#0f69af"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#96d7d2"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14871"
+            "id": "15609:14871",
+            "appearance": {
+              "background": "#ffdcb9",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#0f69af"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#96d7d2"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "15609:14872"
+            "id": "15609:14872",
+            "appearance": {
+              "background": "#ffdcb9",
+              "variants": [
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-explorer"
+                  ],
+                  "background": "#0f69af"
+                },
+                {
+                  "prop": "Property 1",
+                  "values": [
+                    "Merck-favicon-studio"
+                  ],
+                  "background": "#96d7d2"
+                }
+              ]
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Merck-favicon-admin"
   }
 }

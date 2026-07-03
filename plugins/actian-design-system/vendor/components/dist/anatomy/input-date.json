@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "input-date",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8194:7305",
@@ -12,7 +12,27 @@
     "nodesTotal": 8,
     "nodesNormalized": 7,
     "ratio": 0.88,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "States",
+        "value": "Error",
+        "path": "",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Date range",
+        "path": "1.0",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Type",
+        "value": "Date range",
+        "path": "1.1",
+        "reason": "kind:instance!=container"
+      }
+    ]
   },
   "root": {
     "name": "Type=Single date, States=Enabled",
@@ -64,12 +84,60 @@
             "name": "Label",
             "kind": "text",
             "id": "8194:7394",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Date"
           },
           {
             "name": "Label",
             "kind": "text",
             "id": "8194:7395",
+            "appearance": {
+              "text": {
+                "color": "#dc3514",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                }
+              ]
+            },
             "text": "*"
           }
         ]
@@ -101,6 +169,55 @@
             "name": "input field",
             "kind": "container",
             "id": "8194:7399",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              },
+              "radius": "4px",
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Activ"
+                  ],
+                  "border": {
+                    "color": "#0f5fdc",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Focused"
+                  ],
+                  "border": {
+                    "color": "#0f5fdc",
+                    "width": "2px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Hovered"
+                  ],
+                  "border": {
+                    "color": "#e1e1e6",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Date range"
+                  ],
+                  "background": null,
+                  "radius": null,
+                  "border": null
+                }
+              ]
+            },
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -124,6 +241,44 @@
                 "name": "Input text",
                 "kind": "text",
                 "id": "8194:7401",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Activ",
+                        "Fille"
+                      ],
+                      "text": {
+                        "color": "#000000",
+                        "size": "14px",
+                        "weight": 400,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "size": "14px",
+                        "weight": 400,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
                 "text": "mm/dd/yyyy"
               }
             ]
@@ -142,10 +297,17 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "13855:35381"
+            "id": "13855:35381",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Single date",
+    "States": "Enabled"
   }
 }

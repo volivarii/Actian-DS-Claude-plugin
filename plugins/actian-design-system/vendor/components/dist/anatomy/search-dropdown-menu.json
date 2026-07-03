@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-dropdown-menu",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8756:9994",
@@ -12,12 +12,53 @@
     "nodesTotal": 15,
     "nodesNormalized": 15,
     "ratio": 1,
-    "degraded": []
+    "degraded": [
+      {
+        "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+        "reason": "non-solid-fill:IMAGE"
+      },
+      {
+        "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+        "reason": "non-solid-fill:IMAGE"
+      },
+      {
+        "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+        "reason": "non-solid-fill:IMAGE"
+      },
+      {
+        "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+        "reason": "non-solid-fill:IMAGE"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Before typed",
+        "path": "",
+        "reason": "childCount:5!=2"
+      },
+      {
+        "prop": "Type",
+        "value": "Explorer home",
+        "path": "",
+        "reason": "childCount:5!=6"
+      },
+      {
+        "prop": "Type",
+        "value": "No result",
+        "path": "",
+        "reason": "childCount:5!=1"
+      }
+    ]
   },
   "root": {
     "name": "Type=After typed",
     "kind": "container",
     "id": "8756:9991",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -64,6 +105,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "8756:9947",
+            "appearance": {
+              "text": {
+                "color": "#40404a",
+                "size": "12px",
+                "weight": 500,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
             "text": "Suggestions"
           }
         ]
@@ -94,12 +144,24 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9949"
+            "id": "8756:9949",
+            "appearance": {
+              "radius": "4px"
+            }
           },
           {
             "name": "Label text",
             "kind": "text",
             "id": "8756:9950",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "transmitting"
           }
         ]
@@ -130,12 +192,24 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9952"
+            "id": "8756:9952",
+            "appearance": {
+              "radius": "4px"
+            }
           },
           {
             "name": "Label text",
             "kind": "text",
             "id": "8756:9953",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "transmitter"
           }
         ]
@@ -166,12 +240,24 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9955"
+            "id": "8756:9955",
+            "appearance": {
+              "radius": "4px"
+            }
           },
           {
             "name": "Label text",
             "kind": "text",
             "id": "8756:9956",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "transmit"
           }
         ]
@@ -202,16 +288,31 @@
           {
             "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
             "kind": "vector",
-            "id": "8756:9958"
+            "id": "8756:9958",
+            "appearance": {
+              "radius": "4px"
+            }
           },
           {
             "name": "Label text",
             "kind": "text",
             "id": "8756:9959",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "transparent"
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "After typed"
   }
 }

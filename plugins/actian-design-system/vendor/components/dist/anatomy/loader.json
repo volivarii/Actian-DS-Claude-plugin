@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loader",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2195",
@@ -16,6 +16,14 @@
       {
         "name": "Percent=10%",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Percent=Percent3",
+        "reason": "layoutMode:NONE (variant Percent=Percent3)"
+      },
+      {
+        "name": "Percent=99%",
+        "reason": "layoutMode:NONE (variant Percent=99%)"
       }
     ]
   },
@@ -23,6 +31,19 @@
     "name": "Percent=10%",
     "kind": "container",
     "id": "7372:2196",
+    "appearance": {
+      "background": "#e1e1e6",
+      "radius": "1000px",
+      "variants": [
+        {
+          "prop": "Percent",
+          "values": [
+            "99%"
+          ],
+          "background": "#ffffff"
+        }
+      ]
+    },
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -37,8 +58,15 @@
       {
         "name": "Progress bar",
         "kind": "vector",
-        "id": "7372:2197"
+        "id": "7372:2197",
+        "appearance": {
+          "background": "#0f5fdc",
+          "radius": "1000px"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Percent": "10%"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "identification-key",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14349:15323",
@@ -18,6 +18,14 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "14349:15322",
+    "appearance": {
+      "background": "#ecffff",
+      "border": {
+        "color": "#d0efed",
+        "width": "1px"
+      },
+      "radius": "4px"
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,8 +49,20 @@
         "name": "KEY",
         "kind": "text",
         "id": "14349:15320",
+        "appearance": {
+          "text": {
+            "color": "#006563",
+            "size": "11px",
+            "weight": 500,
+            "lineHeight": "14px",
+            "letterSpacing": "0.4px"
+          }
+        },
         "text": "KEY"
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

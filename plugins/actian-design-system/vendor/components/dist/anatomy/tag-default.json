@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-default",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3037",
@@ -18,6 +18,104 @@
     "name": "Color=Default",
     "kind": "container",
     "id": "7257:3040",
+    "appearance": {
+      "background": "#fbfbff",
+      "border": {
+        "color": "#e1e1e6",
+        "width": "1px"
+      },
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "Color",
+          "values": [
+            "Gray"
+          ],
+          "background": "#f7fdff",
+          "border": {
+            "color": "#dde6ec",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Indigo"
+          ],
+          "background": "#edf6ff",
+          "border": {
+            "color": "#cbe3ff",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Lime"
+          ],
+          "background": "#f0ffec",
+          "border": {
+            "color": "#d3efcd",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Orange"
+          ],
+          "background": "#fff4ec",
+          "border": {
+            "color": "#ffdacf",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Pink"
+          ],
+          "background": "#fff5f6",
+          "border": {
+            "color": "#ffd6d8",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Purple"
+          ],
+          "background": "#fff9ff",
+          "border": {
+            "color": "#f2e6f8",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Teal"
+          ],
+          "background": "#ecffff",
+          "border": {
+            "color": "#d0efed",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Color",
+          "values": [
+            "Yellow"
+          ],
+          "background": "#fff9e5",
+          "border": {
+            "color": "#ffddb6",
+            "width": "1px"
+          }
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -47,6 +145,15 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "7257:3041",
+        "appearance": {
+          "text": {
+            "color": "#50505d",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "Label"
       },
       {
@@ -56,5 +163,8 @@
         "id": "13812:20936"
       }
     ]
+  },
+  "variantDefaults": {
+    "Color": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-perimeter",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14783:7565",
@@ -18,6 +18,10 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "14783:7564",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,7 +45,11 @@
         "name": "Digram, Item types",
         "kind": "instance",
         "unresolved": true,
-        "id": "14783:7552"
+        "id": "14783:7552",
+        "appearance": {
+          "background": "#cfeafd",
+          "radius": "4px"
+        }
       },
       {
         "name": "Body",
@@ -93,12 +101,30 @@
                 "name": "Name",
                 "kind": "text",
                 "id": "14783:7555",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Dataset"
               },
               {
                 "name": "Counter",
                 "kind": "text",
                 "id": "14783:7556",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "23"
               }
             ]
@@ -116,5 +142,8 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

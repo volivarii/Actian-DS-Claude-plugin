@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "illustration",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8837:9945",
@@ -44,6 +44,176 @@
       {
         "name": "Group",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Error state",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group 835559150",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group 835559151",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group 835559152",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group 835559149",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Frame 1010110133",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Frame 1010110134",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Frame 1010110135",
+        "reason": "layoutMode:NONE (variant Type=Error state)"
+      },
+      {
+        "name": "Type=Empty state medium",
+        "reason": "layoutMode:NONE (variant Type=Empty state medium)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Empty state medium)"
+      },
+      {
+        "name": "Group 835559155",
+        "reason": "layoutMode:NONE (variant Type=Empty state medium)"
+      },
+      {
+        "name": "folder",
+        "reason": "layoutMode:NONE (variant Type=Empty state medium)"
+      },
+      {
+        "name": "Type=Error state medium",
+        "reason": "layoutMode:NONE (variant Type=Error state medium)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Error state medium)"
+      },
+      {
+        "name": "Group 835559155",
+        "reason": "layoutMode:NONE (variant Type=Error state medium)"
+      },
+      {
+        "name": "Group 835559149",
+        "reason": "layoutMode:NONE (variant Type=Error state medium)"
+      },
+      {
+        "name": "Type=Empty state small",
+        "reason": "layoutMode:NONE (variant Type=Empty state small)"
+      },
+      {
+        "name": "folder",
+        "reason": "layoutMode:NONE (variant Type=Empty state small)"
+      },
+      {
+        "name": "Type=Maintenance",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group 835559150",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group 835559151",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group 835559152",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group 835559149",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Group 835559531",
+        "reason": "layoutMode:NONE (variant Type=Maintenance)"
+      },
+      {
+        "name": "Type=Success",
+        "reason": "layoutMode:NONE (variant Type=Success)"
+      },
+      {
+        "name": "Group 835559532",
+        "reason": "layoutMode:NONE (variant Type=Success)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Empty state medium",
+        "path": "",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Empty state small",
+        "path": "",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Error state medium",
+        "path": "",
+        "reason": "childCount:2!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Error state",
+        "path": "",
+        "reason": "childCount:2!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Maintenance",
+        "path": "",
+        "reason": "childCount:2!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Success",
+        "path": "",
+        "reason": "childCount:2!=3"
       }
     ]
   },
@@ -66,6 +236,9 @@
         "name": "BACKGROUND",
         "kind": "container",
         "id": "8837:9632",
+        "appearance": {
+          "radius": "0px"
+        },
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
@@ -80,7 +253,10 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9633"
+            "id": "8837:9633",
+            "appearance": {
+              "background": "#ffffff"
+            }
           }
         ]
       },
@@ -102,72 +278,114 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9635"
+            "id": "8837:9635",
+            "appearance": {
+              "background": "#dde6ec"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9636"
+            "id": "8837:9636",
+            "appearance": {
+              "background": "#dde6ec"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9637"
+            "id": "8837:9637",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9638"
+            "id": "8837:9638",
+            "appearance": {
+              "background": "#4a6470"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9639"
+            "id": "8837:9639",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9640"
+            "id": "8837:9640",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9641"
+            "id": "8837:9641",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9642"
+            "id": "8837:9642",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9643"
+            "id": "8837:9643",
+            "appearance": {
+              "background": "#4a6470"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9644"
+            "id": "8837:9644",
+            "appearance": {
+              "background": "#4a6470"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9645"
+            "id": "8837:9645",
+            "appearance": {
+              "background": "#4a6470"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9646"
+            "id": "8837:9646",
+            "appearance": {
+              "background": "#a9c7fc"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9647"
+            "id": "8837:9647",
+            "appearance": {
+              "background": "#8ba702"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9648"
+            "id": "8837:9648",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Group",
@@ -187,47 +405,74 @@
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9650"
+                "id": "8837:9650",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9651"
+                "id": "8837:9651",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9652"
+                "id": "8837:9652",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9653"
+                "id": "8837:9653",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9654"
+                "id": "8837:9654",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9655"
+                "id": "8837:9655",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9656"
+                "id": "8837:9656",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9657"
+                "id": "8837:9657",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9658"
+                "id": "8837:9658",
+                "appearance": {
+                  "background": "#000000"
+                }
               }
             ]
           },
@@ -249,89 +494,140 @@
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9659"
+                "id": "8837:9659",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9660"
+                "id": "8837:9660",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9661"
+                "id": "8837:9661",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9662"
+                "id": "8837:9662",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9663"
+                "id": "8837:9663",
+                "appearance": {
+                  "background": "#8ba702"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9664"
+                "id": "8837:9664",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9665"
+                "id": "8837:9665",
+                "appearance": {
+                  "background": "#000000"
+                }
               }
             ]
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9666"
+            "id": "8837:9666",
+            "appearance": {
+              "background": "#4d4db9"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9667"
+            "id": "8837:9667",
+            "appearance": {
+              "background": "#a9c7fc"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9668"
+            "id": "8837:9668",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9669"
+            "id": "8837:9669",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9670"
+            "id": "8837:9670",
+            "appearance": {
+              "background": "#a9c7fc"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9671"
+            "id": "8837:9671",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9672"
+            "id": "8837:9672",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9673"
+            "id": "8837:9673",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9674"
+            "id": "8837:9674",
+            "appearance": {
+              "background": "#a9c7fc"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9675"
+            "id": "8837:9675",
+            "appearance": {
+              "background": "#db9c7f"
+            }
           },
           {
             "name": "Group",
@@ -351,24 +647,36 @@
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9677"
+                "id": "8837:9677",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9678"
+                "id": "8837:9678",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9679"
+                "id": "8837:9679",
+                "appearance": {
+                  "background": "#000000"
+                }
               }
             ]
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9680"
+            "id": "8837:9680",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Group",
@@ -388,7 +696,10 @@
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8837:9682"
+                "id": "8837:9682",
+                "appearance": {
+                  "background": "#db9c7f"
+                }
               },
               {
                 "name": "Group",
@@ -408,17 +719,26 @@
                   {
                     "name": "Vector",
                     "kind": "vector",
-                    "id": "8837:9684"
+                    "id": "8837:9684",
+                    "appearance": {
+                      "background": "#000000"
+                    }
                   },
                   {
                     "name": "Vector",
                     "kind": "vector",
-                    "id": "8837:9685"
+                    "id": "8837:9685",
+                    "appearance": {
+                      "background": "#000000"
+                    }
                   },
                   {
                     "name": "Vector",
                     "kind": "vector",
-                    "id": "8837:9686"
+                    "id": "8837:9686",
+                    "appearance": {
+                      "background": "#000000"
+                    }
                   }
                 ]
               }
@@ -427,110 +747,176 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9687"
+            "id": "8837:9687",
+            "appearance": {
+              "background": "#db9c7f"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9688"
+            "id": "8837:9688",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9689"
+            "id": "8837:9689",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9690"
+            "id": "8837:9690",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9691"
+            "id": "8837:9691",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9692"
+            "id": "8837:9692",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9693"
+            "id": "8837:9693",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9694"
+            "id": "8837:9694",
+            "appearance": {
+              "background": "#db9c7f"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9695"
+            "id": "8837:9695",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9696"
+            "id": "8837:9696",
+            "appearance": {
+              "background": "#db9c7f"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9697"
+            "id": "8837:9697",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9698"
+            "id": "8837:9698",
+            "appearance": {
+              "background": "#db9c7f"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9699"
+            "id": "8837:9699",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9700"
+            "id": "8837:9700",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9701"
+            "id": "8837:9701",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9702"
+            "id": "8837:9702",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9703"
+            "id": "8837:9703",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9704"
+            "id": "8837:9704",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9705"
+            "id": "8837:9705",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9706"
+            "id": "8837:9706",
+            "appearance": {
+              "background": "#ffffff"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8837:9707"
+            "id": "8837:9707",
+            "appearance": {
+              "background": "#000000"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Empty state large"
   }
 }

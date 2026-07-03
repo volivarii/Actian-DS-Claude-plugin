@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "stepper",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7676:4492",
@@ -41,6 +41,43 @@
         "name": "Status",
         "kind": "container",
         "id": "15471:33206",
+        "appearance": {
+          "border": {
+            "color": "#0f5fdc",
+            "width": "1px"
+          },
+          "radius": "24px",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Active"
+              ],
+              "background": "#0f5fdc",
+              "border": null
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Default"
+              ],
+              "border": {
+                "color": "#000000",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "State5"
+              ],
+              "border": {
+                "color": "#656574",
+                "width": "1px"
+              }
+            }
+          ]
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -64,6 +101,56 @@
             "name": "1",
             "kind": "text",
             "id": "15471:33207",
+            "appearance": {
+              "text": {
+                "color": "#0f5fdc",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Active"
+                  ],
+                  "text": {
+                    "color": "#ffffff",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Default"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "State5"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "1"
           }
         ]
@@ -95,16 +182,67 @@
             "name": "Title",
             "kind": "text",
             "id": "14072:3658",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "State5"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Complete"
           },
           {
             "name": "Body",
             "kind": "text",
             "id": "14072:3659",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "State5"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                }
+              ]
+            },
             "text": "Optional body"
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "State": "Complete"
   }
 }

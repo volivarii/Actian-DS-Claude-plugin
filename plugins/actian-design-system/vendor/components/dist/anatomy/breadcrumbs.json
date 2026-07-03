@@ -2,16 +2,16 @@
   "_schema_version": 1,
   "slug": "breadcrumbs",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13792:15247",
     "variant": "Type=Default"
   },
   "quality": {
-    "nodesTotal": 8,
+    "nodesTotal": 16,
     "nodesNormalized": 1,
-    "ratio": 0.13,
+    "ratio": 0.06,
     "degraded": []
   },
   "root": {
@@ -42,8 +42,8 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Show digram": true,
-          "Type": "Trial link"
+          "Show digram": false,
+          "Type": "Link"
         },
         "id": "13792:15217"
       },
@@ -62,8 +62,28 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
+          "Show digram": false,
+          "Type": "Link"
+        },
+        "id": "19230:22906"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
           "Show digram": true,
-          "Type": "Trial link"
+          "Type": "Separator"
+        },
+        "id": "19230:22902"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Link"
         },
         "id": "13792:15242"
       },
@@ -83,7 +103,7 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Trial link"
+          "Type": "Link"
         },
         "id": "19156:14840"
       },
@@ -103,10 +123,73 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
+          "Type": "Link"
+        },
+        "id": "19230:22854"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "19230:22866"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Link"
+        },
+        "id": "19230:22874"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "19230:22898"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Link"
+        },
+        "id": "19230:22886"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
+          "Type": "Separator"
+        },
+        "id": "19230:22870"
+      },
+      {
+        "name": ".Breadcrumb-subcomponent",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show digram": true,
           "Type": "Current page"
         },
         "id": "13792:15219"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Default"
   }
 }

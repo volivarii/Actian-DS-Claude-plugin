@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9114:15379",
@@ -12,12 +12,24 @@
     "nodesTotal": 18,
     "nodesNormalized": 13,
     "ratio": 0.72,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Property 1",
+        "value": "Empty",
+        "path": "",
+        "reason": "childCount:9!=3"
+      }
+    ]
   },
   "root": {
     "name": "Property 1=List",
     "kind": "container",
     "id": "9114:15378",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "4px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -48,7 +60,10 @@
           "Type": "Selectable item",
           "State": "Selected"
         },
-        "id": "9097:17458"
+        "id": "9097:17458",
+        "appearance": {
+          "radius": "4px"
+        }
       },
       {
         "name": ".menu item",
@@ -67,6 +82,9 @@
         "name": ".menu item",
         "kind": "container",
         "id": "9097:17536",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -90,6 +108,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "9097:17538",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "New items inventoried from PowerBi Online V1 at 7/11/25, 12:42 AM."
           },
           {
@@ -117,6 +144,9 @@
         "name": ".menu item",
         "kind": "container",
         "id": "9097:17526",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -140,6 +170,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "9097:17528",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "New items inventoried from PowerBi Online V1 at 7/6/25 12:42 AM."
           },
           {
@@ -167,6 +206,9 @@
         "name": ".menu item",
         "kind": "container",
         "id": "9114:15189",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -190,6 +232,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "9114:15190",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 4:47 PM."
           },
           {
@@ -217,6 +268,9 @@
         "name": ".menu item",
         "kind": "container",
         "id": "9114:15196",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -240,6 +294,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "9114:15197",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02 PM."
           },
           {
@@ -251,5 +314,8 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "List"
   }
 }

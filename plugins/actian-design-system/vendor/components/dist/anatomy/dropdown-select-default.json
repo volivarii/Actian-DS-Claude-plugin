@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13972:708",
@@ -12,7 +12,40 @@
     "nodesTotal": 13,
     "nodesNormalized": 13,
     "ratio": 1,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Active",
+        "path": "",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "State",
+        "value": "Filled",
+        "path": "1.1",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Compact/Custom",
+        "path": "",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "Type",
+        "value": "Search/Multiple",
+        "path": "1",
+        "reason": "childCount:2!=1"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Type",
+        "value": "With avatar",
+        "reason": "no isolated variant"
+      }
+    ]
   },
   "root": {
     "name": "Type=Default, State=Default",
@@ -87,12 +120,60 @@
                 "name": "Label",
                 "kind": "text",
                 "id": "13937:34581",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "State",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "size": "14px",
+                        "weight": 500,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
                 "text": "Label"
               },
               {
                 "name": "Label",
                 "kind": "text",
                 "id": "13937:34582",
+                "appearance": {
+                  "text": {
+                    "color": "#dc3514",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "State",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "size": "14px",
+                        "weight": 500,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
                 "text": "*"
               },
               {
@@ -107,6 +188,30 @@
             "name": "description",
             "kind": "text",
             "id": "13937:34584",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "A description helps users to define and understand the purpose of the input."
           }
         ]
@@ -115,6 +220,41 @@
         "name": "input field",
         "kind": "container",
         "id": "13937:34585",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          },
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "background": "#e1e1e6"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Focus"
+              ],
+              "background": "#fbfbff",
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Hover"
+              ],
+              "background": "#fbfbff"
+            }
+          ]
+        },
         "layout": {
           "axis": "row",
           "gap": "0px",
@@ -144,6 +284,18 @@
             "name": ".menu item",
             "kind": "container",
             "id": "13972:602",
+            "appearance": {
+              "radius": "4px",
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Filled"
+                  ],
+                  "radius": null
+                }
+              ]
+            },
             "layout": {
               "axis": "row",
               "gap": "4px",
@@ -167,6 +319,30 @@
                 "name": "Label text",
                 "kind": "text",
                 "id": "13972:604",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "State",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "size": "14px",
+                        "weight": 400,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
                 "text": "Select item"
               },
               {
@@ -183,8 +359,48 @@
         "name": "helper text",
         "kind": "text",
         "id": "13937:34589",
+        "appearance": {
+          "text": {
+            "color": "#40404a",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
         "text": "Helper text goes here"
       }
-    ]
+    ],
+    "appearance": {
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Compact/Custom"
+          ],
+          "background": "#ffffff",
+          "radius": "6px"
+        }
+      ]
+    }
+  },
+  "variantDefaults": {
+    "Type": "Default",
+    "State": "Default"
   }
 }

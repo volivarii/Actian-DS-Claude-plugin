@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-catalog-item-type",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "11300:8312",
@@ -18,6 +18,61 @@
     "name": "Type=Category",
     "kind": "container",
     "id": "11300:8305",
+    "appearance": {
+      "background": "#ffdacf",
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Data process"
+          ],
+          "background": "#ffd6d8"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Data product"
+          ],
+          "background": "#e1e1e6"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Dataset"
+          ],
+          "background": "#cfeafd"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Field"
+          ],
+          "background": "#d3efcd"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Output port"
+          ],
+          "background": "#dde6ec"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Use case"
+          ],
+          "background": "#fff9e5"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Visualization"
+          ],
+          "background": "#eed7ff"
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,14 +96,128 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "10520:5868",
+        "appearance": {
+          "text": {
+            "color": "#982a18",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Data process"
+              ],
+              "text": {
+                "color": "#932139",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Data product"
+              ],
+              "text": {
+                "color": "#40404a",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dataset"
+              ],
+              "text": {
+                "color": "#00547d",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Field"
+              ],
+              "text": {
+                "color": "#145f04",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Output port"
+              ],
+              "text": {
+                "color": "#3c515a",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Use case"
+              ],
+              "text": {
+                "color": "#000000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Visualization"
+              ],
+              "text": {
+                "color": "#5f0c9e",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
         "text": "Category"
       },
       {
         "name": "Counter",
         "kind": "text",
         "id": "14128:3370",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "00"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Category"
   }
 }

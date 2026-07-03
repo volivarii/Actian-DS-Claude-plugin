@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "modal",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14175:14426",
@@ -12,12 +12,84 @@
     "nodesTotal": 10,
     "nodesNormalized": 5,
     "ratio": 0.5,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Size & Type",
+        "value": "450px confirm",
+        "path": "0",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "450px confirm",
+        "path": "1",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "450px warning",
+        "path": "0",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "450px warning",
+        "path": "1",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "450px warning",
+        "path": "2",
+        "reason": "kind:instance!=text"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "700px create",
+        "path": "1",
+        "reason": "childCount:1!=5"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "700px create",
+        "path": "2",
+        "reason": "kind:instance!=container"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "700px create",
+        "path": "3",
+        "reason": "kind:container!=instance"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "700px setting",
+        "path": "1",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "900px create",
+        "path": "1",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Size & Type",
+        "value": "900px edit",
+        "path": "",
+        "reason": "childCount:4!=3"
+      }
+    ]
   },
   "root": {
     "name": "Size & Type=1200px, Dev status=🟢 Ready",
     "kind": "container",
     "id": "14226:20315",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -41,6 +113,12 @@
         "name": "Header",
         "kind": "container",
         "id": "14226:20316",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
         "layout": {
           "axis": "row",
           "gap": "666px",
@@ -64,6 +142,14 @@
             "name": "Heading 2 ⏵ Connection settings",
             "kind": "text",
             "id": "14226:20317",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "18px",
+                "weight": 600,
+                "lineHeight": "26px"
+              }
+            },
             "text": "Edit description"
           },
           {
@@ -80,7 +166,10 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "14226:20318"
+            "id": "14226:20318",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -88,6 +177,19 @@
         "name": "Body",
         "kind": "container",
         "id": "14226:20319",
+        "appearance": {
+          "background": "#fbfbff",
+          "variants": [
+            {
+              "prop": "Size & Type",
+              "values": [
+                "700px setting",
+                "900px create"
+              ],
+              "background": null
+            }
+          ]
+        },
         "layout": {
           "axis": "row",
           "gap": "16px",
@@ -114,7 +216,15 @@
             "props": {
               "State": "Default"
             },
-            "id": "14226:20669"
+            "id": "14226:20669",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              },
+              "radius": "6px"
+            }
           }
         ]
       },
@@ -132,12 +242,40 @@
           "Size": "Small",
           "State": "Default"
         },
-        "id": "14226:20350"
+        "id": "14226:20350",
+        "appearance": {
+          "radius": "9999px",
+          "variants": [
+            {
+              "prop": "Size & Type",
+              "values": [
+                "450px confirm"
+              ],
+              "radius": null
+            }
+          ]
+        }
       },
       {
         "name": "Footer",
         "kind": "container",
         "id": "14226:20351",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          },
+          "variants": [
+            {
+              "prop": "Size & Type",
+              "values": [
+                "450px confirm",
+                "450px warning"
+              ],
+              "border": null
+            }
+          ]
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -171,7 +309,14 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14226:20352"
+            "id": "14226:20352",
+            "appearance": {
+              "border": {
+                "color": "#0f5fdc",
+                "width": "1px"
+              },
+              "radius": "9999px"
+            }
           },
           {
             "name": "Button",
@@ -187,10 +332,27 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14226:20353"
+            "id": "14226:20353",
+            "appearance": {
+              "background": "#0f5fdc",
+              "radius": "9999px",
+              "variants": [
+                {
+                  "prop": "Size & Type",
+                  "values": [
+                    "450px warning"
+                  ],
+                  "background": "#dc3514"
+                }
+              ]
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Size & Type": "1200px",
+    "Dev status": "🟢 Ready"
   }
 }

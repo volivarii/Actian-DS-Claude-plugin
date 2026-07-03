@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "badge",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12159:16447",
@@ -18,6 +18,10 @@
     "name": "Type=Number",
     "kind": "container",
     "id": "12159:16448",
+    "appearance": {
+      "background": "#dc3514",
+      "radius": "20px"
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,8 +45,20 @@
         "name": "3",
         "kind": "text",
         "id": "12159:16449",
+        "appearance": {
+          "text": {
+            "color": "#ffffff",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "3"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Number"
   }
 }

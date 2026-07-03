@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "segmented-control",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7618:5187",
@@ -18,6 +18,14 @@
     "name": "Type=Default",
     "kind": "container",
     "id": "7618:5284",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#c7c7ce",
+        "width": "1px"
+      },
+      "radius": "6px"
+    },
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -46,12 +54,18 @@
           "Icon2": true,
           "State": "Selected"
         },
-        "id": "7618:5285"
+        "id": "7618:5285",
+        "appearance": {
+          "background": "#edf6ff"
+        }
       },
       {
         "name": " Divider",
         "kind": "vector",
-        "id": "13811:13070"
+        "id": "13811:13070",
+        "appearance": {
+          "background": "#c7c7ce"
+        }
       },
       {
         "name": ".segmented control sub component",
@@ -67,7 +81,10 @@
       {
         "name": " Divider",
         "kind": "vector",
-        "id": "13811:13068"
+        "id": "13811:13068",
+        "appearance": {
+          "background": "#c7c7ce"
+        }
       },
       {
         "name": ".segmented control sub component",
@@ -83,7 +100,10 @@
       {
         "name": " Divider",
         "kind": "vector",
-        "id": "13811:13066"
+        "id": "13811:13066",
+        "appearance": {
+          "background": "#c7c7ce"
+        }
       },
       {
         "name": ".segmented control sub component",
@@ -99,7 +119,10 @@
       {
         "name": " Divider",
         "kind": "vector",
-        "id": "13811:13064"
+        "id": "13811:13064",
+        "appearance": {
+          "background": "#c7c7ce"
+        }
       },
       {
         "name": ".segmented control sub component",
@@ -113,5 +136,8 @@
         "id": "7618:5289"
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Default"
   }
 }

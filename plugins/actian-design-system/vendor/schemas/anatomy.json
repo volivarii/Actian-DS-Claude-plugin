@@ -31,6 +31,11 @@
       "description": "Figma provenance: file key + node id the tree was extracted from.",
       "examples": [{ "fileKey": "AbC123", "nodeId": "1:23" }]
     },
+    "variantDefaults": {
+      "type": "object",
+      "description": "The default variant's property map; the base appearance is captured for this combination, and appearance.variants entries are deltas relative to it.",
+      "examples": [{ "Intent": "Default", "Size": "Default" }]
+    },
     "quality": {
       "type": "object",
       "description": "Self-measured extraction quality — how much of the tree normalized cleanly (a proxy for 'is this Figma well-built').",
@@ -77,6 +82,80 @@
                 "type": "string",
                 "description": "Why the node was not normalizable.",
                 "examples": ["layoutMode:NONE"]
+              }
+            }
+          }
+        },
+        "structuralVariants": {
+          "type": "array",
+          "description": "Variant values whose subtree diverged structurally from the default (added/removed/reordered nodes), so no appearance delta was emitted there.",
+          "examples": [
+            [
+              {
+                "prop": "State",
+                "value": "Hover",
+                "path": "0",
+                "reason": "childCount:3!=4"
+              }
+            ]
+          ],
+          "items": {
+            "type": "object",
+            "required": ["prop", "value", "path", "reason"],
+            "properties": {
+              "prop": {
+                "type": "string",
+                "description": "Variant axis name.",
+                "examples": ["State"]
+              },
+              "value": {
+                "type": "string",
+                "description": "Variant axis value.",
+                "examples": ["Hover"]
+              },
+              "path": {
+                "type": "string",
+                "description": "Dot-joined child-index path to the divergent node.",
+                "examples": ["0.2"]
+              },
+              "reason": {
+                "type": "string",
+                "description": "Why alignment stopped here.",
+                "examples": ["kind:text!=container"]
+              }
+            }
+          }
+        },
+        "uncapturedValues": {
+          "type": "array",
+          "description": "Axis values with no isolable variant (others held at default) or an unparseable name, so no delta was captured.",
+          "examples": [
+            [
+              {
+                "prop": "Intent",
+                "value": "Ghost",
+                "reason": "no isolated variant"
+              }
+            ]
+          ],
+          "items": {
+            "type": "object",
+            "required": ["prop", "value", "reason"],
+            "properties": {
+              "prop": {
+                "type": "string",
+                "description": "Variant axis name.",
+                "examples": ["Intent"]
+              },
+              "value": {
+                "type": "string",
+                "description": "Variant axis value.",
+                "examples": ["Ghost"]
+              },
+              "reason": {
+                "type": "string",
+                "description": "Why the value was not captured.",
+                "examples": ["no isolated variant"]
               }
             }
           }
@@ -130,6 +209,112 @@
           "description": "Design-token names bound on this node (fills/strokes/radius), resolved inline.",
           "examples": [["--zen-color-surface-warning"]],
           "items": { "type": "string" }
+        },
+        "appearance": {
+          "type": "object",
+          "description": "Resolved sRGB visual values captured from Figma for this node — the render substrate; consumers emit var(--token, <value>).",
+          "examples": [
+            {
+              "background": "#f2f6f8",
+              "border": { "color": "#607d8c", "width": "1px" },
+              "radius": "4px"
+            },
+            {
+              "text": {
+                "color": "#50505d",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px"
+              }
+            }
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "background": {
+              "type": "string",
+              "description": "Resolved fill color.",
+              "examples": ["#f2f6f8", "rgba(0, 0, 0, 0.5)"]
+            },
+            "border": {
+              "description": "Resolved border color and width.",
+              "examples": [{ "color": "#607d8c", "width": "1px" }],
+              "$ref": "#/$defs/borderShape"
+            },
+            "radius": {
+              "type": "string",
+              "description": "Resolved corner radius (uniform or 4-value).",
+              "examples": ["4px", "4px 4px 0px 0px"]
+            },
+            "text": {
+              "description": "Resolved text properties (color, size, weight, line height, letter spacing).",
+              "examples": [
+                {
+                  "color": "#50505d",
+                  "size": "14px",
+                  "weight": 400,
+                  "lineHeight": "20px"
+                }
+              ],
+              "$ref": "#/$defs/textShape"
+            },
+            "variants": {
+              "type": "array",
+              "description": "Per-variant appearance deltas relative to the base appearance (variantDefaults). Each entry scopes to one axis and its values; a null field means the base value is removed for those values.",
+              "examples": [
+                [
+                  {
+                    "prop": "Type",
+                    "values": ["Danger"],
+                    "background": "#dc3514"
+                  }
+                ]
+              ],
+              "items": {
+                "type": "object",
+                "required": ["prop", "values"],
+                "additionalProperties": false,
+                "properties": {
+                  "prop": {
+                    "type": "string",
+                    "description": "Variant axis name (verbatim from Figma).",
+                    "examples": ["Type", "Intent"]
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "Axis values sharing this delta.",
+                    "examples": [["Danger"], ["Stopped", "Sleeping"]],
+                    "items": { "type": "string" }
+                  },
+                  "background": {
+                    "type": ["string", "null"],
+                    "description": "Delta fill (null = removed).",
+                    "examples": ["#dc3514", null]
+                  },
+                  "radius": {
+                    "type": ["string", "null"],
+                    "description": "Delta radius (null = removed).",
+                    "examples": ["4px", null]
+                  },
+                  "border": {
+                    "description": "Delta border (null = removed).",
+                    "examples": [{ "color": "#dc3514", "width": "1px" }, null],
+                    "anyOf": [
+                      { "$ref": "#/$defs/borderShape" },
+                      { "type": "null" }
+                    ]
+                  },
+                  "text": {
+                    "description": "Delta text props (null = removed).",
+                    "examples": [{ "color": "#dc3514" }, null],
+                    "anyOf": [
+                      { "$ref": "#/$defs/textShape" },
+                      { "type": "null" }
+                    ]
+                  }
+                }
+              }
+            }
+          }
         },
         "normalizable": {
           "type": "boolean",
@@ -233,6 +418,53 @@
         }
       },
       "additionalProperties": false
+    },
+    "borderShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string",
+          "description": "Stroke color as sRGB hex or rgba.",
+          "examples": ["#607d8c"]
+        },
+        "width": {
+          "type": "string",
+          "description": "Stroke weight as px value.",
+          "examples": ["1px"]
+        }
+      }
+    },
+    "textShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "type": "string",
+          "description": "Text fill color as sRGB hex or rgba.",
+          "examples": ["#50505d"]
+        },
+        "size": {
+          "type": "string",
+          "description": "Font size as px value.",
+          "examples": ["14px"]
+        },
+        "weight": {
+          "type": "number",
+          "description": "Font weight (100, 200, ..., 900).",
+          "examples": [400, 600, 700]
+        },
+        "lineHeight": {
+          "type": "string",
+          "description": "Line height as a px value.",
+          "examples": ["20px"]
+        },
+        "letterSpacing": {
+          "type": "string",
+          "description": "Letter spacing as px value.",
+          "examples": ["0.14px"]
+        }
+      }
     }
   }
 }

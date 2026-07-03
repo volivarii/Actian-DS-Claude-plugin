@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:14818",
@@ -18,6 +18,13 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "7279:3297",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#c7c7ce",
+        "width": "1px"
+      }
+    },
     "layout": {
       "axis": "row",
       "gap": "0px",
@@ -48,7 +55,13 @@
           "Selected": "Yes",
           "State": "Default"
         },
-        "id": "7279:3254"
+        "id": "7279:3254",
+        "appearance": {
+          "border": {
+            "color": "#0f5fdc",
+            "width": "1px"
+          }
+        }
       },
       {
         "name": ".tab",
@@ -191,5 +204,8 @@
         "id": "14797:18240"
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

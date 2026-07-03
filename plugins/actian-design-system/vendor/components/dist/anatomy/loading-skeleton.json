@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loading-skeleton",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:8086",
@@ -16,6 +16,18 @@
       {
         "name": "Transition=1",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Lens",
+        "reason": "non-solid-fill:GRADIENT_LINEAR"
+      },
+      {
+        "name": "Transition=2",
+        "reason": "layoutMode:NONE (variant Transition=2)"
+      },
+      {
+        "name": "Lens",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Transition=2)"
       }
     ]
   },
@@ -37,12 +49,27 @@
       {
         "name": "Union",
         "kind": "vector",
-        "id": "14294:8016"
+        "id": "14294:8016",
+        "appearance": {
+          "background": "#e1e1e6"
+        }
       },
       {
         "name": "Background",
         "kind": "vector",
-        "id": "14294:8024"
+        "id": "14294:8024",
+        "appearance": {
+          "background": "rgba(225, 225, 230, 0.32)",
+          "variants": [
+            {
+              "prop": "Transition",
+              "values": [
+                "2"
+              ],
+              "background": "#f8f8f8"
+            }
+          ]
+        }
       },
       {
         "name": "Lens",
@@ -50,5 +77,8 @@
         "id": "14294:8025"
       }
     ]
+  },
+  "variantDefaults": {
+    "Transition": "1"
   }
 }

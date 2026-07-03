@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-topic",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14128:3800",
@@ -18,6 +18,75 @@
     "name": "Type=Light purple",
     "kind": "container",
     "id": "14128:3780",
+    "appearance": {
+      "background": "#a17ab6",
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Dark blue"
+          ],
+          "background": "#003786"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Dark green"
+          ],
+          "background": "#299315"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Dark orange"
+          ],
+          "background": "#b22700"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Dark purple"
+          ],
+          "background": "#8b00e8"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Light blue"
+          ],
+          "background": "#00b6e1"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Light green"
+          ],
+          "background": "#75b86b"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Orange"
+          ],
+          "background": "#ef8d00"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Red"
+          ],
+          "background": "#a82743"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Yellow"
+          ],
+          "background": "#eabd34"
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -41,13 +110,115 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "14128:3781",
+        "appearance": {
+          "text": {
+            "color": "#ffffff",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "TP"
       },
       {
         "name": "Border",
         "kind": "vector",
-        "id": "14128:3802"
+        "id": "14128:3802",
+        "appearance": {
+          "border": {
+            "color": "#a17ab6",
+            "width": "1px"
+          },
+          "radius": "4px",
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Dark blue"
+              ],
+              "border": {
+                "color": "#003786",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark green",
+                "Light blue"
+              ],
+              "border": {
+                "color": "#00b6e1",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark orange"
+              ],
+              "border": {
+                "color": "#b22700",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark purple"
+              ],
+              "border": {
+                "color": "#8b00e8",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Light green"
+              ],
+              "border": {
+                "color": "#75b86b",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Orange"
+              ],
+              "border": {
+                "color": "#ef8d00",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Red"
+              ],
+              "border": {
+                "color": "#a82743",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Yellow"
+              ],
+              "border": {
+                "color": "#eabd34",
+                "width": "1px"
+              }
+            }
+          ]
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Light purple"
   }
 }

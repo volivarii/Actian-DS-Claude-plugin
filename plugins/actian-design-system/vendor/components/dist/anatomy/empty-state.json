@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "empty-state",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9230:22073",
@@ -12,7 +12,21 @@
     "nodesTotal": 8,
     "nodesNormalized": 5,
     "ratio": 0.63,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Size",
+        "value": "Medium",
+        "path": "2",
+        "reason": "kind:container!=instance"
+      },
+      {
+        "prop": "Size",
+        "value": "Small",
+        "path": "",
+        "reason": "childCount:3!=2"
+      }
+    ]
   },
   "root": {
     "name": "Size=Large",
@@ -73,12 +87,59 @@
             "name": "Title",
             "kind": "text",
             "id": "9230:23475",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "18px",
+                "weight": 600,
+                "lineHeight": "26px"
+              },
+              "variants": [
+                {
+                  "prop": "Size",
+                  "values": [
+                    "Medium"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 600,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "No policies available"
           },
           {
             "name": "Body",
             "kind": "text",
             "id": "9230:23476",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 400,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              },
+              "variants": [
+                {
+                  "prop": "Size",
+                  "values": [
+                    "Medium"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Create policies to define how your platform operates."
           }
         ]
@@ -120,7 +181,10 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "9230:25786"
+            "id": "9230:25786",
+            "appearance": {
+              "radius": "9999px"
+            }
           },
           {
             "name": "Button",
@@ -136,10 +200,17 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "9230:25787"
+            "id": "9230:25787",
+            "appearance": {
+              "background": "#0f5fdc",
+              "radius": "9999px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Size": "Large"
   }
 }

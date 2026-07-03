@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -18,6 +18,33 @@
     "name": "Type=Primary, Orientation'=Horizontal",
     "kind": "container",
     "id": "13732:3055",
+    "appearance": {
+      "background": "#edf6ff",
+      "radius": "6px",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Danger"
+          ],
+          "background": "#fff4ec"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Success"
+          ],
+          "background": "#f0ffec"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Warning"
+          ],
+          "background": "#fff9e5"
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -41,6 +68,15 @@
         "name": "Primary",
         "kind": "text",
         "id": "13732:3031",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          }
+        },
         "text": "Primary"
       },
       {
@@ -57,7 +93,10 @@
           "Size": "Small",
           "State": "Default"
         },
-        "id": "14907:12512"
+        "id": "14907:12512",
+        "appearance": {
+          "radius": "9999px"
+        }
       },
       {
         "name": "info-filled",
@@ -79,8 +118,15 @@
           "Size": "Small",
           "State": "Default"
         },
-        "id": "13868:12493"
+        "id": "13868:12493",
+        "appearance": {
+          "radius": "9999px"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Primary",
+    "Orientation'": "Horizontal"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-connecting-line",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:20085",
@@ -16,6 +16,29 @@
       {
         "name": "Direction=Straight, State=Default",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Down, State=Default",
+        "reason": "layoutMode:NONE (variant Direction=Down)"
+      },
+      {
+        "name": "Direction=Up, State=Default",
+        "reason": "layoutMode:NONE (variant Direction=Up)"
+      },
+      {
+        "name": "Direction=Straight, State=Selected",
+        "reason": "layoutMode:NONE (variant State=Selected)"
+      },
+      {
+        "name": "Direction=Straight, State=Disabled",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Direction",
+        "value": "up",
+        "reason": "no isolated variant"
       }
     ]
   },
@@ -37,7 +60,34 @@
       {
         "name": "Lineage connector/Right/Straight",
         "kind": "vector",
-        "id": "14747:20087"
+        "id": "14747:20087",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "width": "2px"
+          },
+          "radius": "100px",
+          "variants": [
+            {
+              "prop": "Direction",
+              "values": [
+                "Down",
+                "Up"
+              ],
+              "radius": "0px"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Selected"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              }
+            }
+          ]
+        }
       },
       {
         "name": ".lineage connector icon",
@@ -49,5 +99,9 @@
         "id": "14747:20088"
       }
     ]
+  },
+  "variantDefaults": {
+    "Direction": "Straight",
+    "State": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -16,6 +16,33 @@
       {
         "name": "Featured icon",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Featured icon",
+        "reason": "layoutMode:NONE (variant Type=Sub item)"
+      },
+      {
+        "name": "Featured icon",
+        "reason": "layoutMode:NONE (variant State=Selected)"
+      },
+      {
+        "name": "Featured icon",
+        "reason": "layoutMode:NONE (variant Fields=Expanded)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Fields",
+        "value": "Expanded",
+        "path": "1",
+        "reason": "childCount:3!=7"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "State",
+        "value": "Disabled",
+        "reason": "no isolated variant"
       }
     ]
   },
@@ -23,6 +50,10 @@
     "name": "Type=Main item, State=Default, Fields=Collapsed",
     "kind": "container",
     "id": "14747:19904",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -50,12 +81,40 @@
           "Icon": "Collapse",
           "State": "Default"
         },
-        "id": "14747:19905"
+        "id": "14747:19905",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#e1e1e6",
+            "width": "1px"
+          },
+          "radius": "100px 0px 0px 100px"
+        }
       },
       {
         "name": "Card",
         "kind": "container",
         "id": "14747:19906",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#0f5fdc",
+            "width": "2px"
+          },
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Sub item"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "width": "1px"
+              }
+            }
+          ]
+        },
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -79,6 +138,18 @@
             "name": "Header",
             "kind": "container",
             "id": "14747:19907",
+            "appearance": {
+              "radius": "6px 6px 0px 0px",
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Selected"
+                  ],
+                  "background": "#0f5fdc"
+                }
+              ]
+            },
             "layout": {
               "axis": "row",
               "gap": "9px",
@@ -106,7 +177,11 @@
                   "Item type": "Dataset",
                   "Size": "Large"
                 },
-                "id": "14747:19908"
+                "id": "14747:19908",
+                "appearance": {
+                  "background": "#cfeafd",
+                  "radius": "4px"
+                }
               },
               {
                 "name": "Name",
@@ -135,12 +210,58 @@
                     "name": "Name",
                     "kind": "text",
                     "id": "14747:19910",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "14px",
+                        "weight": 600,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      },
+                      "variants": [
+                        {
+                          "prop": "State",
+                          "values": [
+                            "Selected"
+                          ],
+                          "text": {
+                            "color": "#ffffff",
+                            "size": "14px",
+                            "weight": 600,
+                            "lineHeight": "20px",
+                            "letterSpacing": "0.2px"
+                          }
+                        }
+                      ]
+                    },
                     "text": "Albums Music"
                   },
                   {
                     "name": "Technical name",
                     "kind": "text",
                     "id": "14747:19911",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 500,
+                        "lineHeight": "18px"
+                      },
+                      "variants": [
+                        {
+                          "prop": "State",
+                          "values": [
+                            "Selected"
+                          ],
+                          "text": {
+                            "color": "#ffffff",
+                            "size": "12px",
+                            "weight": 500,
+                            "lineHeight": "18px"
+                          }
+                        }
+                      ]
+                    },
                     "text": "[Technical_term]"
                   }
                 ]
@@ -149,6 +270,14 @@
                 "name": "Featured icon",
                 "kind": "container",
                 "id": "14747:19912",
+                "appearance": {
+                  "background": "#098900",
+                  "border": {
+                    "color": "#d3efcd",
+                    "width": "2px"
+                  },
+                  "radius": "28px"
+                },
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -203,7 +332,15 @@
                   "Label": "powerbi",
                   "Color": "Default"
                 },
-                "id": "14747:19915"
+                "id": "14747:19915",
+                "appearance": {
+                  "background": "#fbfbff",
+                  "border": {
+                    "color": "#e1e1e6",
+                    "width": "1px"
+                  },
+                  "radius": "4px"
+                }
               }
             ]
           },
@@ -211,6 +348,12 @@
             "name": "Field expand collapse",
             "kind": "container",
             "id": "14747:19916",
+            "appearance": {
+              "border": {
+                "color": "#e1e1e6",
+                "width": "1px"
+              }
+            },
             "layout": {
               "axis": "column",
               "gap": "10px",
@@ -244,12 +387,20 @@
                   "Size": "Small",
                   "State": "Default"
                 },
-                "id": "14747:19917"
+                "id": "14747:19917",
+                "appearance": {
+                  "radius": "9999px"
+                }
               }
             ]
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Main item",
+    "State": "Default",
+    "Fields": "Collapsed"
   }
 }

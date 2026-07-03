@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-filters",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9660:49637",
@@ -17,12 +17,27 @@
         "name": "Bar",
         "reason": "layoutMode:NONE"
       }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Explorer",
+        "path": "",
+        "reason": "childCount:14!=6"
+      }
     ]
   },
   "root": {
     "name": "Type=Studio",
     "kind": "container",
     "id": "9660:49636",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#dadada",
+        "width": "1px"
+      }
+    },
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -46,6 +61,15 @@
         "name": "Filters",
         "kind": "text",
         "id": "12703:3053",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "16px",
+            "weight": 600,
+            "lineHeight": "24px",
+            "letterSpacing": "0.1px"
+          }
+        },
         "text": "Filters"
       },
       {
@@ -98,6 +122,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24142",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Completion level"
               },
               {
@@ -135,12 +168,24 @@
                 "name": "Result",
                 "kind": "text",
                 "id": "14007:24144",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "14px",
+                    "letterSpacing": "0.4px"
+                  }
+                },
                 "text": "2,341 results"
               },
               {
                 "name": "Bar",
                 "kind": "container",
                 "id": "14007:24145",
+                "appearance": {
+                  "radius": "10px"
+                },
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -155,17 +200,29 @@
                   {
                     "name": "Background",
                     "kind": "vector",
-                    "id": "14007:24146"
+                    "id": "14007:24146",
+                    "appearance": {
+                      "background": "rgba(2, 131, 190, 0.4)",
+                      "radius": "9999px"
+                    }
                   },
                   {
                     "name": "Progress",
                     "kind": "vector",
-                    "id": "14007:24147"
+                    "id": "14007:24147",
+                    "appearance": {
+                      "background": "#0283be",
+                      "radius": "9999px"
+                    }
                   },
                   {
                     "name": "Progress",
                     "kind": "vector",
-                    "id": "14007:24148"
+                    "id": "14007:24148",
+                    "appearance": {
+                      "background": "#0283be",
+                      "radius": "9999px"
+                    }
                   }
                 ]
               },
@@ -196,12 +253,30 @@
                     "name": "0%",
                     "kind": "text",
                     "id": "14007:24150",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "11px",
+                        "weight": 400,
+                        "lineHeight": "14px",
+                        "letterSpacing": "0.4px"
+                      }
+                    },
                     "text": "0%"
                   },
                   {
                     "name": "100%",
                     "kind": "text",
                     "id": "14007:24151",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "11px",
+                        "weight": 400,
+                        "lineHeight": "14px",
+                        "letterSpacing": "0.4px"
+                      }
+                    },
                     "text": "100%"
                   }
                 ]
@@ -260,6 +335,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24100",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Item type"
               },
               {
@@ -301,7 +385,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24292"
+                "id": "14007:24292",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Data products",
@@ -334,12 +421,25 @@
                       "Item type": "Data product",
                       "Size": "Default"
                     },
-                    "id": "14007:24293"
+                    "id": "14007:24293",
+                    "appearance": {
+                      "background": "#e1e1e6",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Data Products",
                     "kind": "text",
                     "id": "14007:24530",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Data Products"
                   }
                 ]
@@ -348,6 +448,15 @@
                 "name": "10",
                 "kind": "text",
                 "id": "14007:24294",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "10"
               }
             ]
@@ -383,7 +492,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24296"
+                "id": "14007:24296",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Datasets",
@@ -416,12 +528,25 @@
                       "Item type": "Dataset",
                       "Size": "Default"
                     },
-                    "id": "14007:24297"
+                    "id": "14007:24297",
+                    "appearance": {
+                      "background": "#cfeafd",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Datasets",
                     "kind": "text",
                     "id": "14007:24534",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Datasets"
                   }
                 ]
@@ -430,6 +555,15 @@
                 "name": "325",
                 "kind": "text",
                 "id": "14007:24298",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "325"
               }
             ]
@@ -465,7 +599,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24300"
+                "id": "14007:24300",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Visualizations",
@@ -498,12 +635,25 @@
                       "Item type": "Visualization",
                       "Size": "Default"
                     },
-                    "id": "14007:24301"
+                    "id": "14007:24301",
+                    "appearance": {
+                      "background": "#eed7ff",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Visualizations",
                     "kind": "text",
                     "id": "14007:24533",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Visualizations"
                   }
                 ]
@@ -512,6 +662,15 @@
                 "name": "147,247",
                 "kind": "text",
                 "id": "14007:24302",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "147,247"
               }
             ]
@@ -547,7 +706,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24304"
+                "id": "14007:24304",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Data processes",
@@ -580,12 +742,25 @@
                       "Item type": "Data process",
                       "Size": "Default"
                     },
-                    "id": "14007:24305"
+                    "id": "14007:24305",
+                    "appearance": {
+                      "background": "#ffd6d8",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Data Processes",
                     "kind": "text",
                     "id": "14007:24536",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Data Processes"
                   }
                 ]
@@ -594,6 +769,15 @@
                 "name": "15",
                 "kind": "text",
                 "id": "14007:24306",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "15"
               }
             ]
@@ -629,7 +813,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24308"
+                "id": "14007:24308",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Use cases",
@@ -662,12 +849,25 @@
                       "Item type": "Use case",
                       "Size": "Default"
                     },
-                    "id": "14007:24309"
+                    "id": "14007:24309",
+                    "appearance": {
+                      "background": "#fff9e5",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Use Cases",
                     "kind": "text",
                     "id": "14007:24535",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Use Cases"
                   }
                 ]
@@ -676,6 +876,15 @@
                 "name": "5",
                 "kind": "text",
                 "id": "14007:24310",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "5"
               }
             ]
@@ -711,7 +920,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24312"
+                "id": "14007:24312",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Categories",
@@ -744,12 +956,25 @@
                       "Item type": "Category",
                       "Size": "Default"
                     },
-                    "id": "14007:24313"
+                    "id": "14007:24313",
+                    "appearance": {
+                      "background": "#ffdacf",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "Categories",
                     "kind": "text",
                     "id": "14007:24532",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Categories"
                   }
                 ]
@@ -758,6 +983,15 @@
                 "name": "5",
                 "kind": "text",
                 "id": "14007:24314",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "5"
               }
             ]
@@ -793,7 +1027,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24553"
+                "id": "14007:24553",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "[A-Team] delete",
@@ -826,12 +1063,25 @@
                       "Item type": "Field",
                       "Size": "Default"
                     },
-                    "id": "14007:24555"
+                    "id": "14007:24555",
+                    "appearance": {
+                      "background": "#d3efcd",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "[A-Team] delete",
                     "kind": "text",
                     "id": "14007:24556",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "[A-Team] delete"
                   }
                 ]
@@ -840,6 +1090,15 @@
                 "name": "5",
                 "kind": "text",
                 "id": "14007:24557",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "5"
               }
             ]
@@ -875,7 +1134,10 @@
                   "Selected": "No",
                   "State": "Default"
                 },
-                "id": "14007:24570"
+                "id": "14007:24570",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "aa_new_type",
@@ -908,12 +1170,25 @@
                       "Item type": "Field",
                       "Size": "Default"
                     },
-                    "id": "14007:24572"
+                    "id": "14007:24572",
+                    "appearance": {
+                      "background": "#d3efcd",
+                      "radius": "4px"
+                    }
                   },
                   {
                     "name": "aa_new_type",
                     "kind": "text",
                     "id": "14007:24573",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "aa_new_type"
                   }
                 ]
@@ -922,6 +1197,15 @@
                 "name": "5",
                 "kind": "text",
                 "id": "14007:24574",
+                "appearance": {
+                  "text": {
+                    "color": "#636363",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "5"
               }
             ]
@@ -940,7 +1224,10 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "14007:24284"
+            "id": "14007:24284",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -994,6 +1281,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24137",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "User suggestion"
               },
               {
@@ -1054,6 +1350,15 @@
                     "name": "Label",
                     "kind": "text",
                     "id": "14007:24606",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Show items with pending suggestions"
                   },
                   {
@@ -1064,7 +1369,10 @@
                       "Selected": "No",
                       "State": "Default"
                     },
-                    "id": "14007:24605"
+                    "id": "14007:24605",
+                    "appearance": {
+                      "radius": "4px"
+                    }
                   }
                 ]
               }
@@ -1142,6 +1450,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24579",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Item lifecycle event"
               },
               {
@@ -1244,6 +1561,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24092",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Curator"
               },
               {
@@ -1326,6 +1652,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24166",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Contact"
               },
               {
@@ -1408,6 +1743,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24170",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Category"
               },
               {
@@ -1490,6 +1834,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24174",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Access request policy"
               },
               {
@@ -1572,6 +1925,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24158",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Source application"
               },
               {
@@ -1654,6 +2016,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24096",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Regulation"
               },
               {
@@ -1736,6 +2107,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24178",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Connection type"
               },
               {
@@ -1818,6 +2198,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24162",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Curator"
               }
             ]
@@ -1894,6 +2283,15 @@
                 "name": "Group label",
                 "kind": "text",
                 "id": "14007:24154",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Curator"
               }
             ]
@@ -1921,5 +2319,8 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Studio"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "line-graph",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15473:49490",
@@ -20,6 +20,10 @@
       {
         "name": "Shodowing line",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Line",
+        "reason": "non-solid-fill:GRADIENT_LINEAR"
       }
     ]
   },
@@ -27,6 +31,14 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "15473:49487",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#c7c7ce",
+        "width": "1px"
+      },
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -73,12 +85,30 @@
             "name": "Title",
             "kind": "text",
             "id": "15473:49320",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
             "text": "Total incidents over timeframe"
           },
           {
             "name": "Title",
             "kind": "text",
             "id": "15473:49321",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "May 07, 2025 to June 07, 2025"
           },
           {
@@ -95,7 +125,10 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "15473:49322"
+            "id": "15473:49322",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -172,12 +205,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49326",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "90"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49327"
+                    "id": "15473:49327",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -208,12 +256,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49329",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "75"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49330"
+                    "id": "15473:49330",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -244,12 +307,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49332",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "60"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49333"
+                    "id": "15473:49333",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -280,12 +358,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49335",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "45"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49336"
+                    "id": "15473:49336",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -316,12 +409,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49338",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "30"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49339"
+                    "id": "15473:49339",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -352,12 +460,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49341",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "15"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49342"
+                    "id": "15473:49342",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -388,12 +511,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49344",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "0"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49345"
+                    "id": "15473:49345",
+                    "appearance": {
+                      "border": {
+                        "color": "#e1e1e6",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               }
@@ -449,204 +587,510 @@
                     "name": "May",
                     "kind": "text",
                     "id": "15473:49348",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "May"
                   },
                   {
                     "name": "7",
                     "kind": "text",
                     "id": "15473:49349",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "7"
                   },
                   {
                     "name": "8",
                     "kind": "text",
                     "id": "15473:49350",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "8"
                   },
                   {
                     "name": "9",
                     "kind": "text",
                     "id": "15473:49351",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "9"
                   },
                   {
                     "name": "10",
                     "kind": "text",
                     "id": "15473:49352",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "10"
                   },
                   {
                     "name": "11",
                     "kind": "text",
                     "id": "15473:49353",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "11"
                   },
                   {
                     "name": "12",
                     "kind": "text",
                     "id": "15473:49354",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "12"
                   },
                   {
                     "name": "13",
                     "kind": "text",
                     "id": "15473:49355",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "13"
                   },
                   {
                     "name": "14",
                     "kind": "text",
                     "id": "15473:49356",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "14"
                   },
                   {
                     "name": "15",
                     "kind": "text",
                     "id": "15473:49357",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "15"
                   },
                   {
                     "name": "16",
                     "kind": "text",
                     "id": "15473:49358",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "16"
                   },
                   {
                     "name": "17",
                     "kind": "text",
                     "id": "15473:49359",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "17"
                   },
                   {
                     "name": "18",
                     "kind": "text",
                     "id": "15473:49360",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "18"
                   },
                   {
                     "name": "19",
                     "kind": "text",
                     "id": "15473:49361",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "19"
                   },
                   {
                     "name": "20",
                     "kind": "text",
                     "id": "15473:49362",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "20"
                   },
                   {
                     "name": "21",
                     "kind": "text",
                     "id": "15473:49363",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "21"
                   },
                   {
                     "name": "22",
                     "kind": "text",
                     "id": "15473:49364",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "22"
                   },
                   {
                     "name": "23",
                     "kind": "text",
                     "id": "15473:49365",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "23"
                   },
                   {
                     "name": "24",
                     "kind": "text",
                     "id": "15473:49366",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "24"
                   },
                   {
                     "name": "25",
                     "kind": "text",
                     "id": "15473:49367",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "25"
                   },
                   {
                     "name": "26",
                     "kind": "text",
                     "id": "15473:49368",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "26"
                   },
                   {
                     "name": "27",
                     "kind": "text",
                     "id": "15473:49369",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "27"
                   },
                   {
                     "name": "28",
                     "kind": "text",
                     "id": "15473:49370",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "28"
                   },
                   {
                     "name": "29",
                     "kind": "text",
                     "id": "15473:49371",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "29"
                   },
                   {
                     "name": "30",
                     "kind": "text",
                     "id": "15473:49372",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "30"
                   },
                   {
                     "name": "30",
                     "kind": "text",
                     "id": "15473:49373",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "30"
                   },
                   {
                     "name": "31",
                     "kind": "text",
                     "id": "15473:49374",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "31"
                   },
                   {
                     "name": "June",
                     "kind": "text",
                     "id": "15473:49375",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "June"
                   },
                   {
                     "name": "2",
                     "kind": "text",
                     "id": "15473:49376",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "2"
                   },
                   {
                     "name": "3",
                     "kind": "text",
                     "id": "15473:49377",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "3"
                   },
                   {
                     "name": "4",
                     "kind": "text",
                     "id": "15473:49378",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "4"
                   },
                   {
                     "name": "5",
                     "kind": "text",
                     "id": "15473:49379",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "5"
                   },
                   {
                     "name": "6",
                     "kind": "text",
                     "id": "15473:49380",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "6"
                   },
                   {
                     "name": "7",
                     "kind": "text",
                     "id": "15473:49381",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "7"
                   }
                 ]
@@ -671,12 +1115,22 @@
               {
                 "name": "Line",
                 "kind": "vector",
-                "id": "15473:49383"
+                "id": "15473:49383",
+                "appearance": {
+                  "border": {
+                    "color": "#dc3514",
+                    "width": "1px"
+                  },
+                  "radius": "1.282px"
+                }
               },
               {
                 "name": "Shodowing line",
                 "kind": "container",
                 "id": "15473:49384",
+                "appearance": {
+                  "radius": "1.282px"
+                },
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
@@ -691,12 +1145,22 @@
                   {
                     "name": "Line",
                     "kind": "vector",
-                    "id": "15473:49385"
+                    "id": "15473:49385",
+                    "appearance": {
+                      "radius": "1.282px"
+                    }
                   },
                   {
                     "name": "Line",
                     "kind": "vector",
-                    "id": "15473:49386"
+                    "id": "15473:49386",
+                    "appearance": {
+                      "border": {
+                        "color": "#0f5fdc",
+                        "width": "1px"
+                      },
+                      "radius": "1.282px"
+                    }
                   }
                 ]
               }
@@ -757,7 +1221,11 @@
                 "props": {
                   "Property 1": "Selected"
                 },
-                "id": "15473:49389"
+                "id": "15473:49389",
+                "appearance": {
+                  "background": "#edf6ff",
+                  "radius": "4px"
+                }
               },
               {
                 "name": ".data-viz-legend-item",
@@ -766,7 +1234,11 @@
                 "props": {
                   "Property 1": "Default"
                 },
-                "id": "15473:49390"
+                "id": "15473:49390",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "4px"
+                }
               },
               {
                 "name": ".data-viz-legend-item",
@@ -775,7 +1247,11 @@
                 "props": {
                   "Property 1": "Default"
                 },
-                "id": "15473:49391"
+                "id": "15473:49391",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "4px"
+                }
               },
               {
                 "name": ".data-viz-legend-item",
@@ -784,7 +1260,11 @@
                 "props": {
                   "Property 1": "Default"
                 },
-                "id": "15473:49392"
+                "id": "15473:49392",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "4px"
+                }
               },
               {
                 "name": ".data-viz-legend-item",
@@ -793,7 +1273,11 @@
                 "props": {
                   "Property 1": "Default"
                 },
-                "id": "15473:49393"
+                "id": "15473:49393",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "4px"
+                }
               }
             ]
           },
@@ -828,12 +1312,21 @@
                   "Selected": "Yes",
                   "State": "Default"
                 },
-                "id": "15473:49395"
+                "id": "15473:49395",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Title",
                 "kind": "container",
                 "id": "15473:49396",
+                "appearance": {
+                  "border": {
+                    "color": "#40404a",
+                    "width": "1px"
+                  }
+                },
                 "layout": {
                   "axis": "column",
                   "gap": "4px",
@@ -857,6 +1350,15 @@
                     "name": "Title",
                     "kind": "text",
                     "id": "15473:49397",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Show comparison trend"
                   }
                 ]
@@ -866,5 +1368,8 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }
