@@ -30,6 +30,7 @@ var shared = require("./assemble-shared");
 var anatomyMapHelpers = require("./ds-anatomy-map");
 var collectDsSlugs = anatomyMapHelpers.collectDsSlugs;
 var buildDsAnatomyMap = anatomyMapHelpers.buildDsAnatomyMap;
+var buildDsAnatomyDocMap = anatomyMapHelpers.buildDsAnatomyDocMap;
 
 // ---------------------------------------------------------------------------
 // Paths (via shared module)
@@ -38,6 +39,10 @@ var buildDsAnatomyMap = anatomyMapHelpers.buildDsAnatomyMap;
 var TEMPLATES_DIR = shared.TEMPLATES_DIR;
 var RENDERERS_DIR = shared.RENDERERS_DIR;
 var FIGMA_TABLE_DIR = shared.FIGMA_TABLE_DIR;
+// appearance-style.js / appearance-render.js (Phase 1B) live alongside this
+// assembler in scripts/renderers/ — NOT scripts/renderers/html-renderers/
+// (RENDERERS_DIR), where the leaf HTML renderers (ds-html-map.js etc.) live.
+var SCRIPTS_RENDERERS_DIR = path.dirname(RENDERERS_DIR);
 
 var readFileChecked = shared.readFileChecked;
 var escapeJsonForScript = shared.escapeJsonForScript;
@@ -51,10 +56,19 @@ var TYPE_CONFIGS = {
     css: shared.FLOW_CSS,
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
+      // appearance-style.js / appearance-render.js (Phase 1B) must load
+      // BEFORE ds-html-map.js — dependency order: style -> render -> map —
+      // so window.appearanceStyle / window.appearanceRender exist when
+      // ds-html-map.js's default: case checks for them (it degrades to the
+      // legacy anatomy map / a graceful chip when either global is absent,
+      // so load order here is load-bearing, not merely defensive).
+      path.join(SCRIPTS_RENDERERS_DIR, "appearance-style.js"),
+      path.join(SCRIPTS_RENDERERS_DIR, "appearance-render.js"),
       // ds-html-map.js (hi-fi DS leaf map) must load AFTER fm-html-map.js (it
       // reads window.fmHtmlMap) and BEFORE render-node.js (which reads
       // window.dsHtmlMap to route library:"ds" INSTANCE nodes). Order is
-      // load-bearing: fm-html-map → ds-html-map → render-node → flow-renderer.
+      // load-bearing: fm-html-map → appearance-style → appearance-render →
+      // ds-html-map → render-node → flow-renderer.
       path.join(RENDERERS_DIR, "ds-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
       // pick it up via window.renderNode (shared structural-node renderer).
@@ -328,6 +342,18 @@ function main() {
       "  window.__dsAnatomyMap = " +
       anatomyMapJson +
       ";\n  </script>\n";
+    // Phase 1B: anatomy DOC map (raw parsed docs, not pre-rendered HTML) for
+    // the appearance-aware render seam — same content-shaped slug collection
+    // as anatomyMap above, embedded alongside it. ds-html-map.js's default:
+    // case reads window.__dsAnatomyDocs FIRST and falls back to
+    // window.__dsAnatomyMap (legacy) when a slug has no doc.
+    var docMap = buildDsAnatomyDocMap(anatomySlugs);
+    var docMapJson = escapeJsonForScript(JSON.stringify(docMap));
+    rendererScripts +=
+      "  <script>\n  /* ds-anatomy-docs (assemble-time) */\n" +
+      "  window.__dsAnatomyDocs = " +
+      docMapJson +
+      ";\n  </script>\n";
   }
   for (var r = 0; r < config.renderers.length; r++) {
     var rendererPath = config.renderers[r];
@@ -421,4 +447,5 @@ if (require.main === module) {
 module.exports = {
   collectDsSlugs: collectDsSlugs,
   buildDsAnatomyMap: buildDsAnatomyMap,
+  buildDsAnatomyDocMap: buildDsAnatomyDocMap,
 };

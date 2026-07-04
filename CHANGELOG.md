@@ -17,6 +17,17 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [Unreleased]
+
+### Added
+- **Unified appearance renderer (Phase 1B).** DS components that fall through the
+  instance render seam now draw their fill, border, radius, and text from Figma's
+  captured resolved appearance (values-only), so generated components render their
+  real colors instead of washing out. Renders per-instance so a component's variant
+  selects the right colors. Includes a values-only emit gate, a CSS-coverage guard,
+  non-default-variant real-data coverage, and the fidelity harness wired to render
+  appearance slugs. ([#223](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/223))
+
 ## [2026.6.21] — 2026-06-29
 
 ### Added

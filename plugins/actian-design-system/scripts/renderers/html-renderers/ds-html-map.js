@@ -68,6 +68,18 @@
       return slug + "|" + parts.join(",");
     };
 
+  // Appearance renderer (Phase 1B): browser global (injected by the
+  // assembler) or the sibling module in Node. Same guard-with-fallback shape
+  // as `fm`/`anatomyKey`/`dsIcons` above — this file is inlined VERBATIM into
+  // browser deliverables, so the require must stay guarded (never a bare
+  // top-level `require`). Falls back to {} so the default: case below can
+  // check for the method presence and degrade to gracefulChip() instead of
+  // throwing.
+  var appearanceRender =
+    (typeof window !== "undefined" && window.appearanceRender) ||
+    (typeof require !== "undefined" && require("../appearance-render.js")) ||
+    {};
+
   // Icon geometry: browser global (injected by the assembler) or the vendored
   // read-surface in Node. Geometry-only { slug: {viewBox, body} }.
   var dsIcons =
@@ -171,6 +183,24 @@
    */
   function setAnatomyMap(map) {
     _serverAnatomyMap = map && typeof map === "object" ? map : null;
+  }
+
+  // Anatomy DOC map (Phase 1B) for the default: seam — { slug → doc } where
+  // doc is the captured-appearance anatomy doc (Task 4's
+  // buildDsAnatomyDocMap output), rendered per-instance so the instance's own
+  // variant selects the right colors. Same two supply paths as the anatomy
+  // HTML map above: window.__dsAnatomyDocs (browser) or setAnatomyDocMap()
+  // (server-side Node render).
+  var _serverAnatomyDocs = null;
+
+  /**
+   * setAnatomyDocMap(map) — supply the assemble-time anatomy doc map for
+   * server-side rendering. Pass a plain object { slug → doc }, or
+   * null/undefined to clear it (callers MUST reset after a render so state
+   * never leaks).
+   */
+  function setAnatomyDocMap(map) {
+    _serverAnatomyDocs = map && typeof map === "object" ? map : null;
   }
 
   // Variant-style map for token-injection into delegated hand-authored
@@ -1679,16 +1709,38 @@
         }
 
         default: {
-          // Anatomy dispatch: if an assemble-time anatomy map was supplied,
-          // look up the pre-rendered HTML. Browser deliverables embed it on
-          // window.__dsAnatomyMap; server-side (Node) rendering reads the map
-          // injected via setAnatomyMap(). Either path → fall through to chip.
+          // Phase 1B: PREFER rendering the component per-instance from its
+          // captured appearance doc so the instance's own variant selects the
+          // right colors. Docs are injected server-side via setAnatomyDocMap()
+          // and embedded as window.__dsAnatomyDocs in browser deliverables.
+          var docs =
+            (typeof window !== "undefined" && window.__dsAnatomyDocs) ||
+            _serverAnatomyDocs ||
+            {};
+          var doc = docs[slug];
+          if (
+            doc &&
+            appearanceRender &&
+            appearanceRender.renderAppearanceComponent
+          ) {
+            var out = appearanceRender.renderAppearanceComponent(doc, {
+              variant: v,
+              props: props,
+            });
+            if (out) return out;
+          }
+          // No appearance doc for this slug (or it rendered empty): fall back
+          // to the LEGACY anatomy dispatch — pre-rendered HTML looked up on
+          // window.__dsAnatomyMap (browser) or _serverAnatomyMap (Node, via
+          // setAnatomyMap()). Retained with ZERO regression until Task 6
+          // repoints the pipeline at the doc map and Task 9 retires this path.
           var m =
             (typeof window !== "undefined" && window.__dsAnatomyMap) ||
             _serverAnatomyMap ||
             {};
           if (m[slug]) return m[slug];
-          // Unmapped slug with no anatomy: a clean labeled chip.
+          // Neither an appearance doc nor legacy anatomy html: a clean
+          // labeled chip. Total tolerance — this seam never throws.
           return gracefulChip();
         }
       }
@@ -1745,6 +1797,7 @@
 
   exports.renderDSComponent = renderDSComponent;
   exports.setAnatomyMap = setAnatomyMap;
+  exports.setAnatomyDocMap = setAnatomyDocMap;
   exports.setVariantStyleMap = setVariantStyleMap;
   exports.renderIcon = renderIcon;
   exports.esc = esc;

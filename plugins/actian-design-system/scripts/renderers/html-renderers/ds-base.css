@@ -1811,22 +1811,42 @@
   transform: rotate(180deg);
 }
 
-/* ============ Anatomy (structural floor for non-override slugs) ============ */
+/* ============ Anatomy + Appearance (structural floor for non-override slugs) === */
 /* anatomy-render.js interprets a component's vendored part-tree into structural
-   HTML for DS slugs that have no hand-authored leaf. Containers carry per-node
-   inline flex styles; the rules here give the wrapper sensible hugging, legible
-   text, and — critically — a size + token-bound neutral fill to the aria-hidden
-   media slots, which otherwise render 0x0 and disappear. 100% --zen-* bound. */
-.ds-anatomy {
+   HTML for DS slugs that have no hand-authored leaf; appearance-render.js (Phase
+   1B) does the same VALUES-ONLY, emitting parallel .ds-appearance* classes. Both
+   share this floor: the rules give the wrapper sensible hugging, the DS font +
+   legible text, and (critically) a size + token-bound neutral fill to the
+   aria-hidden media slots (vector/image/icon), which otherwise render 0x0 and
+   disappear. 100% --zen-* bound. */
+.ds-anatomy,
+.ds-appearance {
   display: inline-flex;
   max-width: 100%;
   box-sizing: border-box;
 }
-.ds-anatomy__text {
+.ds-anatomy__text,
+.ds-appearance__text {
   color: var(--zen-color-text-default);
+  font-family: var(--zen-font-family-text);
+}
+/* Non-leaf structural nodes (container = a layout frame; instance = a nested
+   DS component reference embedded in the anatomy tree, e.g. a nested icon).
+   Containers always carry their own inline flex layout (flexStyle) when the
+   anatomy captured one, so this is just a box-model safety net; kept
+   consistent with the wrapper above (100% --zen-* bound, no dimension
+   opinion here — a container's size comes from its children/layout). */
+.ds-appearance__container {
+  box-sizing: border-box;
+  max-width: 100%;
 }
 .ds-anatomy__vector,
-.ds-anatomy__image {
+.ds-anatomy__image,
+.ds-anatomy__icon,
+.ds-appearance__vector,
+.ds-appearance__image,
+.ds-appearance__icon,
+.ds-appearance__instance {
   display: inline-block;
   flex: none;
   min-width: var(--zen-size-md);
@@ -1834,7 +1854,8 @@
   background: var(--zen-color-neutral-100);
   border-radius: var(--zen-border-radius-xs);
 }
-.ds-anatomy__image {
+.ds-anatomy__image,
+.ds-appearance__image {
   min-width: var(--zen-size-lg);
   min-height: var(--zen-size-lg);
 }

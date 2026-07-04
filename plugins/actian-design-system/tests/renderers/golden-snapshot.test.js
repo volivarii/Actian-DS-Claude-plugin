@@ -5,6 +5,7 @@ var fs = require("fs");
 var path = require("path");
 var fm = require("../../scripts/renderers/html-renderers/fm-html-map.js");
 var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+var dsAnatomyMap = require("../../scripts/renderers/ds-anatomy-map.js");
 
 var GOLDEN_DIR = path.join(__dirname, "__goldens__");
 var UPDATE = process.env.UPDATE_GOLDENS === "1";
@@ -439,15 +440,49 @@ var DS_FIXTURES = {
       Confidence: "High",
     },
   },
+  // Phase 1B — appearance-driven default: seam (tag-status has no BUILT_SLUGS
+  // case, so renderDSComponent renders it per-instance from the captured
+  // appearance doc). variant selects the color; the doc's text is a static
+  // capture (opts.props is not yet consumed by appearance-render.js), so both
+  // fixtures render the label "Fail" — the point of this golden is the color
+  // swap (washed-out geometry -> real hex), not the text.
+  tagStatusSuccess: {
+    dsSlug: "tag-status",
+    variant: "Status=Success",
+    props: { Label: "Active" },
+  },
+  tagStatusFail: {
+    dsSlug: "tag-status",
+    variant: "Status=Fail",
+    props: { Label: "Failed" },
+  },
 };
+
+// dsSlugs handled by an explicit switch case in ds-html-map.js render without
+// any anatomy doc map (the fixtures above only use those). A fixture whose
+// dsSlug is NOT in BUILT_SLUGS falls to the default: seam, which renders from
+// the captured appearance doc ONLY when one is injected via
+// setAnatomyDocMap() — so those fixtures get the REAL vendored doc map
+// injected for the duration of their test (reset after), mirroring
+// ds-default-appearance.test.js's before/try-finally/after pattern.
+var DS_BUILT_SLUGS_SET = {};
+(ds.BUILT_SLUGS || []).forEach(function (slug) {
+  DS_BUILT_SLUGS_SET[slug] = true;
+});
 
 Object.keys(DS_FIXTURES).forEach(function (name) {
   test("golden(ds): " + name, function () {
-    var node = Object.assign(
-      { type: "INSTANCE", library: "ds" },
-      DS_FIXTURES[name],
-    );
-    golden("ds-" + name, ds.renderDSComponent(node));
+    var fixture = DS_FIXTURES[name];
+    var node = Object.assign({ type: "INSTANCE", library: "ds" }, fixture);
+    var needsDocMap = !DS_BUILT_SLUGS_SET[fixture.dsSlug];
+    if (needsDocMap) {
+      ds.setAnatomyDocMap(dsAnatomyMap.buildDsAnatomyDocMap([fixture.dsSlug]));
+    }
+    try {
+      golden("ds-" + name, ds.renderDSComponent(node));
+    } finally {
+      if (needsDocMap) ds.setAnatomyDocMap(null);
+    }
   });
 });
 
