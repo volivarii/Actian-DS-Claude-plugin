@@ -3,7 +3,9 @@
 
 /**
  * ds-anatomy-map.js — Assemble-time helpers that turn a flow's non-override DS
- * slugs into a { slug → structural-HTML } map.
+ * slugs into a { slug → anatomyDoc } map (buildDsAnatomyDocMap), consumed by
+ * the Phase 1B appearance-aware render seam, plus a { compositeKey →
+ * inline-style } token-injection map for delegated slugs (buildDsVariantStyleMap).
  *
  * Extracted from assemble-preview.js so BOTH the strip renderer (assemble-preview)
  * and the canonical shareable deliverable (assemble-flow-share) can build the map
@@ -11,10 +13,13 @@
  * load. Pure functions; substrate reads happen via injectable loaders (defaults
  * read the vendored anatomy + token-bindings sidecars).
  *
- * Token facts come from the per-node sidecar join inside anatomy-render.js
- * (anatomy node id → token-bindings byNodeId). The former root-level
- * guideline domains.tokens read is gone: domains.tokens stays a human doc,
- * the render-grade facts live in components/dist/token-bindings/.
+ * The former buildDsAnatomyMap (slug → pre-rendered HTML, "path c") was
+ * retired in Group C: it's superseded by the doc map + appearance-render.js.
+ * Token facts for the surviving token-injection path (path b) come from the
+ * per-node sidecar join inside anatomy-render.js (anatomy node id →
+ * token-bindings byNodeId). The former root-level guideline domains.tokens
+ * read is gone: domains.tokens stays a human doc, the render-grade facts
+ * live in components/dist/token-bindings/.
  */
 
 var fs = require("fs");
@@ -22,7 +27,6 @@ var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 
 var anatomyRender = require("./anatomy-render");
-var renderAnatomy = anatomyRender.renderAnatomy;
 var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
 var {
   isDelegated,
@@ -93,49 +97,10 @@ function collectDsSlugVariants(data) {
 }
 
 /**
- * Build the anatomy map { slug → htmlString } for all non-override DS slugs.
- *
- * @param {string[]} slugs - candidate slug list (typically from collectDsSlugs)
- * @param {object}   opts
- *   opts.builtSlugs          - override list (default: BUILT_SLUGS from ds-html-map.js)
- *   opts.anatomyLoader       - injectable loader(slug) for anatomy JSON (default: fs read)
- *   opts.tokenBindingsLoader - injectable loader(slug) → the sidecar doc
- *                              { byNodeId: { nodeId: [...] }, variantDefaults }
- *                              (default: fs read of the vendored token-bindings sidecar)
- * @returns {{ [slug: string]: string }}
- */
-function buildDsAnatomyMap(slugs, opts) {
-  opts = opts || {};
-  // Default builtSlugs: load from the renderer to keep it as single source of truth
-  var builtSlugs = Array.isArray(opts.builtSlugs)
-    ? opts.builtSlugs
-    : require("./html-renderers/ds-html-map.js").BUILT_SLUGS;
-  var builtSet = {};
-  for (var b = 0; b < builtSlugs.length; b++) builtSet[builtSlugs[b]] = true;
-
-  var map = {};
-  for (var i = 0; i < slugs.length; i++) {
-    var slug = slugs[i];
-    // Override slugs have hand-authored HTML leaves — skip them
-    if (builtSet[slug]) continue;
-
-    var html = renderAnatomy(slug, {
-      loader: opts.anatomyLoader,
-      bindingsLoader: opts.tokenBindingsLoader,
-    });
-
-    // Drop nulls (quality too low, missing root, or no anatomy file)
-    if (html) map[slug] = html;
-  }
-
-  return map;
-}
-
-/**
  * Build the anatomy DOC map { slug → anatomyDoc } for all non-override DS
- * slugs — unlike buildDsAnatomyMap (which renders each doc straight to an
- * HTML string), this keeps the parsed doc itself so callers can drive the
- * appearance-aware render seam (Phase 1B) with the raw tree.
+ * slugs — keeps the parsed doc itself (rather than pre-rendering to an HTML
+ * string) so callers can drive the appearance-aware render seam (Phase 1B)
+ * with the raw tree.
  *
  * @param {string[]} slugs - candidate slug list (typically from collectDsSlugs)
  * @param {object}   opts
@@ -207,7 +172,6 @@ function buildDsVariantStyleMap(data, opts) {
 module.exports = {
   collectDsSlugs: collectDsSlugs,
   collectDsSlugVariants: collectDsSlugVariants,
-  buildDsAnatomyMap: buildDsAnatomyMap,
   buildDsAnatomyDocMap: buildDsAnatomyDocMap,
   buildDsVariantStyleMap: buildDsVariantStyleMap,
 };

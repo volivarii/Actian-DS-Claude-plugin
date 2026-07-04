@@ -54,20 +54,18 @@ function assembleFlowShare(data) {
   var renderScreen = flowRenderer.renderScreen;
 
   // Hi-fi anatomy tier: this deliverable pre-renders each screen server-side in
-  // Node (no `window`), so the assemble-time anatomy map for non-override DS
-  // slugs must be injected into the renderer module rather than embedded for the
-  // browser. Build it from the flow-data (content-shaped) and inject; the loop
-  // below resets it in a finally so module state never leaks across calls.
+  // Node (no `window`), so the assemble-time anatomy doc map for non-override
+  // DS slugs must be injected into the renderer module rather than embedded
+  // for the browser. Build it from the flow-data (content-shaped) and inject;
+  // the loop below resets it in a finally so module state never leaks across
+  // calls.
   var dsHtmlMap = require("./html-renderers/ds-html-map.js");
   var anatomyHelpers = require("./ds-anatomy-map.js");
   var dsSlugs = anatomyHelpers.collectDsSlugs(data);
-  var anatomyMap = anatomyHelpers.buildDsAnatomyMap(dsSlugs);
   // Phase 1B: anatomy DOC map (raw parsed docs, not pre-rendered HTML) for the
   // default: seam's appearance-aware render path — each instance's own variant
-  // selects the right captured colors. Same content-shaped slug collection as
-  // the legacy anatomyMap above; injected into ds-html-map alongside it (both
-  // maps are consulted — doc map first, legacy anatomyMap as fallback — until
-  // Task 9 retires the legacy path).
+  // selects the right captured colors. (The legacy slug→pre-rendered-HTML
+  // anatomy map — "path c" — was retired in Group C.)
   var docMap = anatomyHelpers.buildDsAnatomyDocMap(dsSlugs);
   // Token-injection tier (slice 1: tag-default): { anatomyVariantKey ->
   // inline-style-string } for delegated slugs, so their hand-authored
@@ -102,7 +100,6 @@ function assembleFlowShare(data) {
   // target in Overview (enter that screen); display:contents in Prototype.
   var screensHtml = "";
   var navArray = [];
-  dsHtmlMap.setAnatomyMap(anatomyMap);
   dsHtmlMap.setAnatomyDocMap(docMap);
   dsHtmlMap.setVariantStyleMap(variantStyleMap);
   try {
@@ -131,7 +128,6 @@ function assembleFlowShare(data) {
     }
   } finally {
     // Reset module-level state so it never leaks into a later assembly.
-    dsHtmlMap.setAnatomyMap(null);
     dsHtmlMap.setAnatomyDocMap(null);
     dsHtmlMap.setVariantStyleMap(null);
   }

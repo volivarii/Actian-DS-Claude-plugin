@@ -21,10 +21,11 @@ var PILOT = [
   "checkbox-with-label",
   "alert-banner",
   // Hi-Fi Slice 1 (Task 4) override leaves — all tier:override in ds-html-map,
-  // render correctly server-side (real switch-case, no window.__dsAnatomyMap needed).
+  // render correctly server-side (real switch-case, no window.__dsAnatomyDocs needed).
   // Anatomy-tier slugs are intentionally excluded: ds-html-map's default case reads
-  // window.__dsAnatomyMap, which is only populated in the browser; in the Node/gate
-  // render path they chip-degrade, producing misleadingly low structural scores.
+  // window.__dsAnatomyDocs (Phase 1B appearance docs), which is only populated in
+  // the browser; in the Node/gate render path they chip-degrade, producing
+  // misleadingly low structural scores.
   "notification",
   "stepper",
   "tooltip",
@@ -34,7 +35,7 @@ var PILOT = [
   "progress-bar-small",
   "tag-interactive",
   // Hi-Fi A1 (narrow) degraded-slug override leaves — same rationale as Slice 1
-  // (real switch-case, render server-side in Node, no window.__dsAnatomyMap).
+  // (real switch-case, render server-side in Node, no window.__dsAnatomyDocs).
   "popover",
   "account-dropdown",
   "app-switcher-dropdown",

@@ -2,52 +2,87 @@
 "use strict";
 
 // ds-token-join-deliverable.test.js — deliverable-level gate for the
-// anatomy-id → token-bindings-sidecar join (knowledge #333/#335 consumer).
-// Runs the PRODUCTION path (buildDsAnatomyMap, default loaders) over the real
-// vendored substrate for the two harvested Card slugs and asserts the emitted
-// HTML carries per-part `property:var(--zen-*)` render facts. Real files, no
-// fixtures: if the vendor tree loses the sidecars or anatomy loses node ids,
-// this fails.
+// anatomy-id → token-bindings-sidecar JOIN mechanism (knowledge #333/#335
+// consumer). The former producer of this coverage (buildDsAnatomyMap /
+// renderAnatomy, "path c") was retired in Group C; the join itself
+// (loadAnatomy + loadTokenBindings + resolveTokenDecls) survives as path b's
+// substrate (see resolveRootTokenStyle / ds-anatomy-map.js's
+// buildDsVariantStyleMap). This walks the real anatomy tree locally and
+// asserts resolveTokenDecls joins the same per-part facts a card slug's
+// sidecar carries. Real files, no fixtures: if the vendor tree loses the
+// sidecars or anatomy loses node ids, this fails.
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var { buildDsAnatomyMap } = require(
-  path.resolve(__dirname, "..", "..", "scripts", "renderers", "ds-anatomy-map.js"),
+var ar = require(
+  path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "scripts",
+    "renderers",
+    "anatomy-render.js",
+  ),
 );
 
 var SLUGS = ["card-for-perimeter", "card-for-grouped-content"];
-var map = buildDsAnatomyMap(SLUGS);
+
+// Collect { nodeId -> decl[] } for every node in the doc's tree, via the SAME
+// join (loadTokenBindings + resolveTokenDecls) path b's resolveRootTokenStyle
+// uses for the root node alone.
+function joinAllNodes(slug) {
+  var doc = ar.loadAnatomy(slug);
+  var bindings = ar.loadTokenBindings(slug);
+  var byNodeId = bindings ? bindings.byNodeId : null;
+  var variantDefaults = bindings ? bindings.variantDefaults : null;
+  var out = {};
+  function walk(node) {
+    if (!node || typeof node !== "object") return;
+    if (node.id) {
+      out[node.id] = ar.resolveTokenDecls(
+        byNodeId ? byNodeId[node.id] : null,
+        null,
+        variantDefaults,
+      );
+    }
+    (node.children || []).forEach(walk);
+  }
+  walk(doc.root);
+  return { doc: doc, out: out };
+}
 
 describe("token-bindings join deliverable (real vendored Card sidecars)", function () {
-  it("renders both harvested card slugs at the anatomy tier", function () {
+  it("both harvested card slugs have usable anatomy above the render-tier gate", function () {
     SLUGS.forEach(function (slug) {
-      assert.ok(map[slug], slug + " should render (ratio above gate)");
-      // Inline-CSS trap guard: prove we're looking at real element markup,
-      // not a vacuous substring match on a stylesheet blob.
-      assert.ok(map[slug].indexOf('class="') !== -1, slug + " emits elements");
+      var doc = ar.loadAnatomy(slug);
+      assert.ok(doc && doc.root, slug + " must have a parsed anatomy root");
+      var ratio = doc.quality && doc.quality.ratio;
+      assert.ok(
+        typeof ratio === "number" && ratio >= 0.6,
+        slug +
+          " ratio should be above the render-tier gate (got " +
+          ratio +
+          ")",
+      );
     });
   });
 
-  it("card-for-perimeter root carries the harvested shell facts, after structural declarations", function () {
-    var html = map["card-for-perimeter"];
+  it("card-for-perimeter root carries the harvested shell facts", function () {
+    var joined = joinAllNodes("card-for-perimeter");
+    var decls = joined.out[joined.doc.root.id];
     [
       "background-color:var(--zen-color-bg-default)",
       "border-radius:var(--zen-border-radius-sm)",
       "padding:var(--zen-spacing-sm)",
     ].forEach(function (decl) {
-      assert.ok(html.indexOf(decl) !== -1, "missing root fact: " + decl);
+      assert.ok(decls.indexOf(decl) !== -1, "missing root fact: " + decl);
     });
-    var structural = html.indexOf("padding:12px 12px 12px 12px");
-    var fact = html.indexOf("padding:var(--zen-spacing-sm)");
-    assert.ok(
-      structural !== -1 && structural < fact,
-      "token fact must follow the structural padding so it wins the cascade",
-    );
   });
 
   it("card-for-perimeter inner parts carry gap/typography facts (incl. font-family)", function () {
-    var html = map["card-for-perimeter"];
+    var joined = joinAllNodes("card-for-perimeter");
+    var allDecls = [].concat.apply([], Object.values(joined.out));
     [
       "gap:var(--zen-spacing-2xs)", // Body container
       "color:var(--zen-color-text-default)", // Name + counter
@@ -56,28 +91,38 @@ describe("token-bindings join deliverable (real vendored Card sidecars)", functi
       "font-weight:var(--zen-font-weight-medium)", // Name
       "font-weight:var(--zen-font-weight-regular)", // Counter
     ].forEach(function (decl) {
-      assert.ok(html.indexOf(decl) !== -1, "missing part fact: " + decl);
+      assert.ok(allDecls.indexOf(decl) !== -1, "missing part fact: " + decl);
     });
   });
 
   it("instance nodes (excluded from harvest) carry no token facts", function () {
     SLUGS.forEach(function (slug) {
-      var re = /<div class="ds-anatomy__instance"[^>]*>/g;
-      var m;
-      while ((m = re.exec(map[slug]))) {
-        assert.ok(
-          m[0].indexOf("var(") === -1,
-          slug + ": instance node must stay token-free: " + m[0],
-        );
+      var joined = joinAllNodes(slug);
+      function walkInstances(node) {
+        if (!node || typeof node !== "object") return;
+        if (node.kind === "instance") {
+          assert.deepStrictEqual(
+            joined.out[node.id] || [],
+            [],
+            slug + ": instance node " + node.id + " must stay token-free",
+          );
+        }
+        (node.children || []).forEach(walkInstances);
       }
+      walkInstances(joined.doc.root);
     });
   });
 
   it("card-for-grouped-content joins shell + slot facts", function () {
-    var html = map["card-for-grouped-content"];
+    var joined = joinAllNodes("card-for-grouped-content");
+    var allDecls = [].concat.apply([], Object.values(joined.out));
     assert.ok(
-      html.indexOf("background-color:var(--zen-") !== -1 &&
-        html.indexOf("border-radius:var(--zen-") !== -1,
+      allDecls.some(function (d) {
+        return d.indexOf("background-color:var(--zen-") === 0;
+      }) &&
+        allDecls.some(function (d) {
+          return d.indexOf("border-radius:var(--zen-") === 0;
+        }),
       "shell facts missing",
     );
   });

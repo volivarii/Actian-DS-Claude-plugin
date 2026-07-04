@@ -2466,18 +2466,27 @@ describe("ds-html-map: tag-interactive (Task 4)", function () {
 });
 
 // ---------------------------------------------------------------------------
-// Task 3: dispatch override → anatomy → chip
+// Task 3 / 1B / Group C: dispatch override → appearance doc → chip
+// (renamed from "→ anatomy → chip": the legacy slug→html anatomy map was
+// retired in Group C — see anatomy-render.js / ds-anatomy-map.js history —
+// the default: seam now dispatches to the Phase 1B appearance-doc render.)
 // ---------------------------------------------------------------------------
 
-describe("ds-html-map: dispatch override → anatomy → chip", function () {
-  it("non-override slug with embedded anatomy → anatomy html, not chip", function () {
-    // Stub window.__dsAnatomyMap with a fixture anatomy for a permanently-non-override slug
+var APPEARANCE_FIXTURE_DOC = {
+  slug: "anatomy-only-fixture",
+  root: {
+    kind: "container",
+    layout: {},
+    children: [{ kind: "text", text: "Fixture" }],
+  },
+};
+
+describe("ds-html-map: dispatch override → appearance doc → chip", function () {
+  it("non-override slug with embedded appearance doc (browser) → appearance html, not chip", function () {
+    // Stub window.__dsAnatomyDocs with a fixture doc for a permanently-non-override slug
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     global.window = {
-      __dsAnatomyMap: {
-        "anatomy-only-fixture":
-          '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
-      },
+      __dsAnatomyDocs: { "anatomy-only-fixture": APPEARANCE_FIXTURE_DOC },
     };
     var html = render({
       type: "INSTANCE",
@@ -2486,49 +2495,44 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     });
     global.window = prev;
     assert.ok(
-      html.indexOf("ds-anatomy") !== -1,
-      "embedded anatomy used for non-override slug",
+      html.indexOf("ds-appearance") !== -1,
+      "embedded appearance doc used for non-override slug",
     );
     assert.ok(
       html.indexOf("ds-component") === -1,
-      "no graceful chip when anatomy present",
+      "no graceful chip when appearance doc present",
     );
   });
 
-  it("non-override slug with server-side anatomy map (no window) → anatomy html, not chip", function () {
+  it("non-override slug with server-side appearance doc map (no window) → appearance html, not chip", function () {
     // Server-side (Node) rendering has no window; the canonical flow-share
-    // deliverable pre-renders in Node, so the map is supplied via setAnatomyMap.
+    // deliverable pre-renders in Node, so the doc map is supplied via
+    // setAnatomyDocMap.
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     delete global.window;
-    ds.setAnatomyMap({
-      "anatomy-only-fixture":
-        '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
-    });
+    ds.setAnatomyDocMap({ "anatomy-only-fixture": APPEARANCE_FIXTURE_DOC });
     var html = render({
       type: "INSTANCE",
       dsSlug: "anatomy-only-fixture",
       props: {},
     });
-    ds.setAnatomyMap(null);
+    ds.setAnatomyDocMap(null);
     if (prev !== undefined) global.window = prev;
     assert.ok(
-      html.indexOf("ds-anatomy") !== -1,
-      "server-side anatomy map used when no window",
+      html.indexOf("ds-appearance") !== -1,
+      "server-side appearance doc map used when no window",
     );
     assert.ok(
       html.indexOf("ds-component") === -1,
-      "no chip when server-side anatomy present",
+      "no chip when server-side appearance doc present",
     );
   });
 
-  it("setAnatomyMap(null) resets — non-override slug chips again server-side", function () {
+  it("setAnatomyDocMap(null) resets — non-override slug chips again server-side", function () {
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     delete global.window;
-    ds.setAnatomyMap({
-      "anatomy-only-fixture":
-        '<div class="ds-anatomy" data-ds-slug="anatomy-only-fixture"></div>',
-    });
-    ds.setAnatomyMap(null);
+    ds.setAnatomyDocMap({ "anatomy-only-fixture": APPEARANCE_FIXTURE_DOC });
+    ds.setAnatomyDocMap(null);
     var html = render({
       type: "INSTANCE",
       dsSlug: "anatomy-only-fixture",
@@ -2537,13 +2541,13 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     if (prev !== undefined) global.window = prev;
     assert.ok(
       html.indexOf("ds-component") !== -1,
-      "chip after map reset (no leakage across renders)",
+      "chip after doc-map reset (no leakage across renders)",
     );
   });
 
-  it("non-override slug, no anatomy → chip fallback", function () {
+  it("non-override slug, no appearance doc → chip fallback", function () {
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
-    global.window = { __dsAnatomyMap: {} };
+    global.window = { __dsAnatomyDocs: {} };
     var html = render({
       type: "INSTANCE",
       dsSlug: "totally-unknown-slug",
@@ -2552,16 +2556,19 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     global.window = prev;
     assert.ok(
       html.indexOf("ds-component") !== -1,
-      "chip fallback when no anatomy",
+      "chip fallback when no appearance doc",
     );
   });
 
-  it("override slug is NOT intercepted by anatomy map", function () {
-    // Even if anatomy map has an entry for a BUILT_SLUG, override wins
+  it("override slug is NOT intercepted by appearance doc map", function () {
+    // Even if the doc map has an entry for a BUILT_SLUG, override wins
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     global.window = {
-      __dsAnatomyMap: {
-        button: '<div class="ds-anatomy" data-ds-slug="button"></div>',
+      __dsAnatomyDocs: {
+        button: {
+          slug: "button",
+          root: { kind: "container", layout: {}, children: [] },
+        },
       },
     };
     var html = render({
@@ -2577,8 +2584,8 @@ describe("ds-html-map: dispatch override → anatomy → chip", function () {
     );
     assert.ok(html.indexOf("ds-button--primary") !== -1, "has primary class");
     assert.ok(
-      html.indexOf("ds-anatomy") === -1,
-      "anatomy map NOT used for override slug",
+      html.indexOf("ds-appearance") === -1,
+      "appearance doc map NOT used for override slug",
     );
   });
 
