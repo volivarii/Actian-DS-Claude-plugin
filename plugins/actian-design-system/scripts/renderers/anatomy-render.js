@@ -115,6 +115,15 @@ function resolveTokenDecls(list, targetVariant, variantDefaults) {
   return decls;
 }
 
+// Ratio floor gate, shared by every consumer that gates rendering on anatomy
+// quality (this module's resolveRootTokenStyle, and ds-coverage-report.js's
+// coverage()). A missing/non-numeric ratio defaults to 0 (fails unless
+// minRatio is 0), matching the legacy renderAnatomy() gate semantics.
+function passesRatioGate(ratio, minRatio) {
+  var effectiveRatio = typeof ratio === "number" ? ratio : 0;
+  return effectiveRatio >= minRatio;
+}
+
 // Resolve the anatomy ROOT node's variant token declarations to an inline CSS
 // style string, for token-injection into a hand-authored template. Returns ""
 // when there is no anatomy, quality is below minRatio, there is no sidecar, or
@@ -124,11 +133,8 @@ function resolveRootTokenStyle(dsSlug, opts) {
   var minRatio = typeof opts.minRatio === "number" ? opts.minRatio : 0.6;
   var data = loadAnatomy(dsSlug, opts.loader);
   if (!data || !data.root || typeof data.root !== "object") return "";
-  var ratio =
-    data.quality && typeof data.quality.ratio === "number"
-      ? data.quality.ratio
-      : 0;
-  if (ratio < minRatio) return "";
+  var ratio = data.quality && data.quality.ratio;
+  if (!passesRatioGate(ratio, minRatio)) return "";
   var bindings = loadTokenBindings(dsSlug, opts.bindingsLoader);
   if (!bindings || !bindings.byNodeId) return "";
   var decls = resolveTokenDecls(
@@ -143,5 +149,6 @@ module.exports = {
   loadAnatomy: loadAnatomy,
   loadTokenBindings: loadTokenBindings,
   resolveTokenDecls: resolveTokenDecls,
+  passesRatioGate: passesRatioGate,
   resolveRootTokenStyle: resolveRootTokenStyle,
 };

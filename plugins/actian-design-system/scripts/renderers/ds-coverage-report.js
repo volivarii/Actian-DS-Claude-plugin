@@ -1,18 +1,21 @@
 #!/usr/bin/env node
 "use strict";
 var path = require("path");
-var { loadAnatomy } = require(path.join(__dirname, "anatomy-render.js"));
+var { loadAnatomy, passesRatioGate } = require(
+  path.join(__dirname, "anatomy-render.js"),
+);
 var { renderAppearanceComponent } = require(
   path.join(__dirname, "appearance-render.js"),
 );
 
 // Group C: the legacy renderAnatomy() minRatio gate (data.quality.ratio,
-// defaulting missing ratio to 0) is reproduced here directly, since
-// renderAppearanceComponent (Phase 1B) does no ratio gating itself — that
-// floor lives one layer up, at buildDsAnatomyDocMap time (ds-anatomy-map.js).
-// Mirroring it here keeps tier semantics identical to the retired path: once
-// a doc passes the gate, rendering a valid root never yields empty html, so
-// "degraded" only ever means "gate failed".
+// defaulting missing ratio to 0) is applied here via anatomy-render.js's
+// shared passesRatioGate(), since renderAppearanceComponent (Phase 1B) does
+// no ratio gating itself — that floor lives one layer up, at
+// buildDsAnatomyDocMap time (ds-anatomy-map.js). Mirroring it here keeps tier
+// semantics identical to the retired path: once a doc passes the gate,
+// rendering a valid root never yields empty html, so "degraded" only ever
+// means "gate failed".
 function coverage(slugs, opts) {
   opts = opts || {};
   var minRatio = typeof opts.minRatio === "number" ? opts.minRatio : 0.6;
@@ -28,9 +31,9 @@ function coverage(slugs, opts) {
       spec.quality && typeof spec.quality.ratio === "number"
         ? spec.quality.ratio
         : null;
-    var effectiveRatio = ratio != null ? ratio : 0;
-    var html =
-      effectiveRatio >= minRatio ? renderAppearanceComponent(spec, {}) : "";
+    var html = passesRatioGate(ratio, minRatio)
+      ? renderAppearanceComponent(spec, {})
+      : "";
     return { slug: slug, tier: html ? "anatomy" : "degraded", ratio: ratio };
   });
 }

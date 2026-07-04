@@ -17,10 +17,12 @@
 // window.appearanceRender.renderAppearanceComponent(doc, ...). If a future
 // edit drops appearance-render.js from TYPE_CONFIGS.flow, or reorders it
 // after ds-html-map.js, window.appearanceRender is undefined at the point
-// ds-html-map.js's IIFE captures it, so the browser seam silently falls back
-// to the legacy anatomy HTML / graceful chip — the washed-out-tag regression
-// — with zero prior test signal, because flow-share-appearance.test.js only
-// exercises the server (assembleFlowShare) path, not this browser CLI path.
+// ds-html-map.js's IIFE captures it, so the browser seam falls straight
+// through to a graceful chip — the washed-out-tag regression — with zero
+// prior test signal, because flow-share-appearance.test.js only exercises
+// the server (assembleFlowShare) path, not this browser CLI path. (There is
+// no legacy anatomy-render.js / anatomy-map fallback left to catch this —
+// that two-hop path was retired in Group C.)
 //
 // Repo style: node:test + node:assert, spawnSync over the real CLI (see
 // tests/renderers/assemble-preview.test.js's run() helper).
@@ -136,8 +138,9 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     // Load-bearing order: ds-html-map.js's default: case reads
     // window.appearanceRender at IIFE-eval time. If appearance-render.js is
     // dropped or moved after ds-html-map.js, window.appearanceRender is
-    // undefined when ds-html-map.js's closure runs, and the seam silently
-    // degrades to the legacy anatomy map / graceful chip.
+    // undefined when ds-html-map.js's closure runs, and the seam degrades
+    // straight to a graceful chip (there is no legacy anatomy-map fallback
+    // left to catch it — Group C retired that two-hop path).
     var r = assemble();
     var styleIdx = r.html.indexOf("/* appearance-style.js */");
     var renderIdx = r.html.indexOf("/* appearance-render.js */");

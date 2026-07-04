@@ -6,8 +6,9 @@
 //   C2 — the doc map is collected from content-shaped flow-data (screens[].content)
 //   C1 — the doc map is consumed server-side (flow-share pre-renders in Node,
 //        where there is no window) via ds-html-map.setAnatomyDocMap().
-// (Group C retired the legacy slug→html anatomy map / setAnatomyMap(); the
-// default: seam now dispatches to the Phase 1B appearance-doc render.)
+// (Group C retired the legacy slug→html anatomy map and its setAnatomyMap
+// setter; the default: seam now dispatches to the Phase 1B appearance-doc
+// render.)
 // Markers: both the retired anatomy path and the appearance path emit
 // data-ds-slug="<slug>"; the chip emits data-slug="<slug>". We assert on
 // those (NOT a bare "ds-anatomy"/"ds-appearance" substring, which also

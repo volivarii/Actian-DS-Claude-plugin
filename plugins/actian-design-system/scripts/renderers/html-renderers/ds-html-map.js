@@ -174,8 +174,9 @@
   // buildDsAnatomyDocMap output), rendered per-instance so the instance's own
   // variant selects the right colors. Two supply paths: window.__dsAnatomyDocs
   // (browser) or setAnatomyDocMap() (server-side Node render). (The former
-  // slug→pre-rendered-HTML anatomy map / setAnatomyMap() — "path c" — was
-  // retired in Group C; this doc map is now the only anatomy supply path.)
+  // slug→pre-rendered-HTML anatomy map and its setAnatomyMap setter —
+  // "path c" — was retired in Group C; this doc map is now the only anatomy
+  // supply path.)
   var _serverAnatomyDocs = null;
 
   /**
@@ -1716,8 +1717,8 @@
           }
           // No appearance doc for this slug (or it rendered empty): a clean
           // labeled chip. Total tolerance — this seam never throws. (The
-          // legacy slug→pre-rendered-HTML anatomy map / window.__dsAnatomyMap
-          // fallback — "path c" — was retired in Group C.)
+          // legacy slug→pre-rendered-HTML anatomy map fallback — "path c",
+          // formerly exposed as a window global — was retired in Group C.)
           return gracefulChip();
         }
       }
