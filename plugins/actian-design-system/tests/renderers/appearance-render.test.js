@@ -22,12 +22,23 @@ var TAG_STATUS_DOC = {
       border: { color: "#ffdacf", width: "1px" },
       radius: "4px",
       variants: [
-        { prop: "Status", values: ["Success"], background: "#f0ffec", border: { color: "#d3efcd", width: "1px" } },
+        {
+          prop: "Status",
+          values: ["Success"],
+          background: "#f0ffec",
+          border: { color: "#d3efcd", width: "1px" },
+        },
       ],
     },
     children: [
       { name: "misuse--outline", kind: "instance", id: "7370:4929" },
-      { name: "Tag-Name", kind: "text", id: "7370:4930", text: "Fail", appearance: { text: { color: "#50505d", size: "12px", weight: 400 } } },
+      {
+        name: "Tag-Name",
+        kind: "text",
+        id: "7370:4930",
+        text: "Fail",
+        appearance: { text: { color: "#50505d", size: "12px", weight: 400 } },
+      },
     ],
   },
 };
@@ -50,7 +61,9 @@ test("resolveNodeAppearance: no appearance -> null", function () {
 });
 
 test("renderAppearanceComponent: default variant emits base colors, escapes, recurses", function () {
-  var html = r.renderAppearanceComponent(TAG_STATUS_DOC, { variant: { Status: "Fail" } });
+  var html = r.renderAppearanceComponent(TAG_STATUS_DOC, {
+    variant: { Status: "Fail" },
+  });
   assert.match(html, /data-ds-slug="tag-status"/);
   assert.match(html, /background:#fff4ec/);
   assert.match(html, /border:1px solid #ffdacf/);
@@ -61,7 +74,9 @@ test("renderAppearanceComponent: default variant emits base colors, escapes, rec
 });
 
 test("renderAppearanceComponent: Success variant recolors the root", function () {
-  var html = r.renderAppearanceComponent(TAG_STATUS_DOC, { variant: { Status: "Success" } });
+  var html = r.renderAppearanceComponent(TAG_STATUS_DOC, {
+    variant: { Status: "Success" },
+  });
   assert.match(html, /background:#f0ffec/);
   assert.doesNotMatch(html, /background:#fff4ec/);
 });
@@ -69,4 +84,37 @@ test("renderAppearanceComponent: Success variant recolors the root", function ()
 test("renderAppearanceComponent: missing root -> empty string", function () {
   assert.equal(r.renderAppearanceComponent({ slug: "x" }, {}), "");
   assert.equal(r.renderAppearanceComponent(null, {}), "");
+});
+
+test("renderAppearanceComponent: escapes HTML special characters in text nodes", function () {
+  var doc = {
+    slug: "escape-test",
+    variantDefaults: {},
+    root: {
+      name: "EscapeTest",
+      kind: "container",
+      id: "test:001",
+      layout: {
+        axis: "row",
+        gap: "0px",
+        padding: { top: "0px", right: "0px", bottom: "0px", left: "0px" },
+        align: { main: "start", cross: "start" },
+      },
+      children: [
+        {
+          name: "TextWithEscapes",
+          kind: "text",
+          id: "test:002",
+          text: 'a & b < c > d "e"',
+          appearance: { text: { color: "#000000", size: "14px", weight: 400 } },
+        },
+      ],
+    },
+  };
+  var html = r.renderAppearanceComponent(doc, {});
+  // Assert escaped forms are present
+  assert.match(html, /a &amp; b &lt; c &gt; d &quot;e&quot;/);
+  // Assert raw unescaped angle bracket from text content is NOT present
+  // (but &lt; and &gt; should be)
+  assert.doesNotMatch(html, />\s*a & b < c >/);
 });
