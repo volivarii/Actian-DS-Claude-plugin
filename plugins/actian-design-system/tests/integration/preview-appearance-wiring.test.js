@@ -159,4 +159,26 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
       "appearance-render.js must be inlined before ds-html-map.js",
     );
   });
+
+  it("injects window.dsIcons BEFORE inlining appearance-render.js (F2)", function () {
+    // F2: renderIconGlyph resolves node.slug against the module-level `dsIcons`
+    // dual-source default, which reads window.dsIcons at IIFE-eval time (see
+    // appearance-render.js's top-of-file comment). If assemble-preview.js ever
+    // stopped injecting the window.dsIcons script (assemble-shared.js's
+    // buildDsIconsScript()) before inlining appearance-render.js, the module
+    // would resolve dsIcons to {} and every icon-bearing instance would
+    // silently fall back to the neutral-box placeholder, with zero prior
+    // signal from this suite (which only checked __dsAnatomyDocs / renderer
+    // ordering, not the icon-geometry global).
+    var r = assemble();
+    var iconsIdx = r.html.indexOf("window.dsIcons");
+    var renderIdx = r.html.indexOf("/* appearance-render.js */");
+
+    assert.ok(iconsIdx !== -1, "window.dsIcons script present");
+    assert.ok(renderIdx !== -1, "appearance-render.js marker present");
+    assert.ok(
+      iconsIdx < renderIdx,
+      "window.dsIcons must be injected before appearance-render.js is inlined",
+    );
+  });
 });

@@ -154,6 +154,16 @@ test("renderAppearanceNode: resolved instance slug emits real svg glyph (no back
   assert.doesNotMatch(html, /background:|border:|border-radius:/);
 });
 
+test("renderAppearanceNode: kind icon with resolvable slug also emits real svg glyph (mirrors instance-kind acceptance)", function () {
+  var node = { kind: "icon", slug: "misuse-outline" };
+  var html = r.renderAppearanceNode(node, null, { iconMap: ICON_MAP });
+  assert.equal(
+    html,
+    '<svg class="ds-icon" viewBox="0 0 48 48" aria-hidden="true">' +
+      '<path fill="currentColor" d="M1 1"/></svg>',
+  );
+});
+
 test("renderAppearanceNode: icon color prefers resolved text.color", function () {
   var node = {
     kind: "instance",

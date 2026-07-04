@@ -50,8 +50,7 @@ test("every vendored anatomy kind:instance node's slug resolves in icons.json (F
   assert.ok(files.length > 0, "expected vendored anatomy docs to be present");
 
   var icons =
-    JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8")).icons ||
-    {};
+    JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8")).icons || {};
 
   var found = [];
   files.forEach(function (f) {
@@ -67,8 +66,24 @@ test("every vendored anatomy kind:instance node's slug resolves in icons.json (F
       "snapshot changed shape or this gate is no longer exercising anything",
   );
 
+  // Acceptance mirrors renderIconGlyph's real predicate (appearance-render.js):
+  // an entry must be own-property present AND carry string viewBox + body, or
+  // the renderer treats it as unresolved and falls through to the placeholder.
+  // A prototype-chain hit (e.g. slug "toString"/"constructor") or a malformed
+  // entry (missing/non-string viewBox or body) must FAIL this gate the same
+  // way a wholly-absent slug does.
+  function resolvable(slug) {
+    if (!Object.prototype.hasOwnProperty.call(icons, slug)) return false;
+    var icon = icons[slug];
+    return (
+      icon != null &&
+      typeof icon.viewBox === "string" &&
+      typeof icon.body === "string"
+    );
+  }
+
   var missing = found.filter(function (f) {
-    return !(f.slug in icons);
+    return !resolvable(f.slug);
   });
 
   assert.deepEqual(
@@ -82,5 +97,45 @@ test("every vendored anatomy kind:instance node's slug resolves in icons.json (F
           return m.slug + " (doc: " + m.doc + ", id: " + m.id + ")";
         })
         .join(", "),
+  );
+});
+
+// Supply-chain tripwire: every icon entry actually referenced by an anatomy
+// slug is trusted verbatim into rendered HTML (appearance-render.js's
+// renderIconGlyph interpolates icon.body directly into the SVG markup with no
+// sanitization — see its C3-style denylist reasoning for appearance decls,
+// which does NOT cover icon body). A compromised or malformed vendor refresh
+// smuggling a <script> tag into a referenced icon's body would execute in
+// every generated preview. Guard it here, scoped to icons actually reachable
+// from vendored anatomy (not the full 142-icon set, most of which are never
+// instantiated by anatomy today).
+test("every icon.json entry referenced by vendored anatomy has no <script> in its body (F2 supply-chain tripwire)", function () {
+  var files = fs.readdirSync(ANATOMY_DIR).filter(function (f) {
+    return f.endsWith(".json");
+  });
+  var icons =
+    JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8")).icons || {};
+
+  var referenced = [];
+  files.forEach(function (f) {
+    var slug = f.replace(/\.json$/, "");
+    var doc = JSON.parse(fs.readFileSync(path.join(ANATOMY_DIR, f), "utf8"));
+    collectSluggedInstances(doc.root, referenced, slug);
+  });
+
+  var offenders = [];
+  referenced.forEach(function (r) {
+    if (!Object.prototype.hasOwnProperty.call(icons, r.slug)) return;
+    var icon = icons[r.slug];
+    if (icon && typeof icon.body === "string" && /<script/i.test(icon.body)) {
+      offenders.push(r.slug);
+    }
+  });
+
+  assert.deepEqual(
+    offenders,
+    [],
+    "icon body containing <script> for referenced slug(s): " +
+      offenders.join(", "),
   );
 });

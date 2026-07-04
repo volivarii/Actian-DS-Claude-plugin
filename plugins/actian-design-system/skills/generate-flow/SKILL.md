@@ -398,7 +398,7 @@ designer report) and the push rules.
 
 When `--hifi` is set, every content INSTANCE node must carry `library:"ds"` and `dsSlug` from the vocabulary doc `references/generate-flow/ds-components-authoring.md`. Set `meta.library:"ds"` on the flow-data when writing it — the renderer picks up the DS chrome branch and applies themed hi-fi HTML automatically.
 
-**Vocabulary and built leaves:** read `references/generate-flow/ds-components-authoring.md` FIRST. Favor BUILT leaves (they produce full CSS-styled HTML); unbuilt slugs render as labeled chips (informative but unstyled). Validation adds `unknown-ds-slug` (hard error — the slug is not in the DS registry) and `ds-slug-unbuilt` (warning — slug is valid but not yet a built leaf; renders as a chip; prefer a built leaf when one exists that covers the use case).
+**Vocabulary and built leaves:** read `references/generate-flow/ds-components-authoring.md` FIRST. Favor BUILT leaves (they produce full CSS-styled HTML); unbuilt slugs with a vendored appearance doc render their real captured colors (and real icon glyphs where anatomy resolves one) — the labeled chip is only the last-resort fallback when no appearance doc exists. Validation adds `unknown-ds-slug` (hard error — the slug is not in the DS registry) and `ds-slug-unbuilt` (warning — slug is valid but not yet a built leaf; renders as a chip; prefer a built leaf when one exists that covers the use case).
 
 **The HTML deliverable IS the hi-fi artifact.** The `flows/[feature].html` file is themed and fully styled — it is what you share. No separate conversion step is needed.
 
