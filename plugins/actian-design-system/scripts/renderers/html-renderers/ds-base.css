@@ -1830,12 +1830,23 @@
   color: var(--zen-color-text-default);
   font-family: var(--zen-font-family-text);
 }
+/* Non-leaf structural nodes (container = a layout frame; instance = a nested
+   DS component reference embedded in the anatomy tree, e.g. a nested icon).
+   Containers always carry their own inline flex layout (flexStyle) when the
+   anatomy captured one, so this is just a box-model safety net; kept
+   consistent with the wrapper above (100% --zen-* bound, no dimension
+   opinion here — a container's size comes from its children/layout). */
+.ds-appearance__container {
+  box-sizing: border-box;
+  max-width: 100%;
+}
 .ds-anatomy__vector,
 .ds-anatomy__image,
 .ds-anatomy__icon,
 .ds-appearance__vector,
 .ds-appearance__image,
-.ds-appearance__icon {
+.ds-appearance__icon,
+.ds-appearance__instance {
   display: inline-block;
   flex: none;
   min-width: var(--zen-size-md);
