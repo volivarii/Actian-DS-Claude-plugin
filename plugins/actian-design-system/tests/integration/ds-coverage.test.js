@@ -45,6 +45,15 @@ var DS_HTML_MAP = path.join(
   "html-renderers",
   "ds-html-map.js",
 );
+var ANATOMY_DIR = path.join(
+  __dirname,
+  "..",
+  "..",
+  "vendor",
+  "components",
+  "dist",
+  "anatomy",
+);
 
 // Slugs reachable from the map but not yet built as hi-fi renderers. SHRINK this
 // as phases land (P1 forms, P2 display/feedback, P3 chrome). Empty = full parity.
@@ -72,6 +81,26 @@ function implementedCases() {
   return cases;
 }
 
+// Phase 1B (Task 7): a slug also counts as covered when its vendored anatomy
+// doc carries a captured root `appearance` (the default: seam in
+// ds-html-map.js renders it per-instance via renderAppearanceComponent())
+// (see appearance-emit-values-only.test.js for the runtime values-only
+// gate on that path), so it is reachable WITHOUT a bespoke `case`. This
+// credit matters going forward as Task 9 retires bespoke cases in favor of
+// the generic appearance renderer; today every conversion-reachable slug
+// still also has a case, so the credit is additive, not currently load-
+// bearing on its own.
+function appearanceCovered(slug) {
+  try {
+    var doc = JSON.parse(
+      fs.readFileSync(path.join(ANATOMY_DIR, slug + ".json"), "utf8"),
+    );
+    return !!(doc && doc.root && doc.root.appearance);
+  } catch (e) {
+    return false;
+  }
+}
+
 // The authorable UI surface = every dskit component NOT in an icon/brand-asset
 // category. This is the real ceiling for the render tier (the DS-native feeder
 // can author any of these directly — far beyond the 22 conversion-reachable).
@@ -95,13 +124,15 @@ test("every reachable DS slug has a renderer case or is allowlisted", function (
   reachable.forEach(function (slug) {
     if (cases.has(slug)) return;
     if (NOT_YET_IMPLEMENTED.has(slug)) return;
+    if (appearanceCovered(slug)) return;
     uncovered.push(slug);
   });
   assert.deepEqual(
     uncovered.sort(),
     [],
-    "DS slugs reachable from fm-to-ds-map.json with no renderer case " +
-      "(implement them in ds-html-map.js or add to NOT_YET_IMPLEMENTED): " +
+    "DS slugs reachable from fm-to-ds-map.json with no renderer case, no " +
+      "captured appearance, and not allowlisted (implement them in " +
+      "ds-html-map.js, capture appearance, or add to NOT_YET_IMPLEMENTED): " +
       uncovered.join(", "),
   );
 });
