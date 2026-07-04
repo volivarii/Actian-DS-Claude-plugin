@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-grouped-node",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15634:17895",
@@ -12,12 +12,24 @@
     "nodesTotal": 7,
     "nodesNormalized": 5,
     "ratio": 0.71,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Expanded",
+        "path": "0.1",
+        "reason": "childCount:1!=3"
+      }
+    ]
   },
   "root": {
     "name": "State=Default, Type=Main item",
     "kind": "container",
     "id": "15634:17897",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -41,6 +53,23 @@
         "name": "Card",
         "kind": "container",
         "id": "15634:17899",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#0f5fdc",
+            "width": "2px"
+          },
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Sub item"
+              ],
+              "border": null
+            }
+          ]
+        },
         "layout": {
           "axis": "column",
           "gap": "0px",
@@ -64,6 +93,9 @@
             "name": "Header",
             "kind": "container",
             "id": "15634:17900",
+            "appearance": {
+              "radius": "6px 6px 0px 0px"
+            },
             "layout": {
               "axis": "row",
               "gap": "9px",
@@ -91,12 +123,25 @@
                   "Item type": "Category",
                   "Size": "Large"
                 },
-                "id": "15634:17901"
+                "id": "15634:17901",
+                "appearance": {
+                  "background": "#ffdacf",
+                  "radius": "4px"
+                }
               },
               {
                 "name": "Name",
                 "kind": "text",
                 "id": "15634:17903",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 600,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Connection1"
               }
             ]
@@ -105,6 +150,12 @@
             "name": "Field expand collapse",
             "kind": "container",
             "id": "15634:17909",
+            "appearance": {
+              "border": {
+                "color": "#e1e1e6",
+                "width": "1px"
+              }
+            },
             "layout": {
               "axis": "column",
               "gap": "10px",
@@ -138,12 +189,19 @@
                   "Size": "Small",
                   "State": "Default"
                 },
-                "id": "15634:17910"
+                "id": "15634:17910",
+                "appearance": {
+                  "radius": "9999px"
+                }
               }
             ]
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "State": "Default",
+    "Type": "Main item"
   }
 }

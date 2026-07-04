@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "avatar",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:14212",
@@ -16,6 +16,52 @@
       {
         "name": "State=Hovered, Type=Default",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "State=Focused, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Focused)"
+      },
+      {
+        "name": "State=Default, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Default)"
+      },
+      {
+        "name": "State=Pressed, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Pressed)"
+      },
+      {
+        "name": "State=Selected, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Selected)"
+      },
+      {
+        "name": "State=Disabled, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Default",
+        "path": "",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "State",
+        "value": "Focused",
+        "path": "",
+        "reason": "childCount:2!=3"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Type",
+        "value": "One group",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Two groups",
+        "reason": "no isolated variant"
       }
     ]
   },
@@ -23,6 +69,10 @@
     "name": "State=Hovered, Type=Default",
     "kind": "container",
     "id": "9132:27670",
+    "appearance": {
+      "background": "#edf6ff",
+      "radius": "9999px"
+    },
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
@@ -37,14 +87,68 @@
       {
         "name": "State",
         "kind": "vector",
-        "id": "9132:27686"
+        "id": "9132:27686",
+        "appearance": {
+          "background": "rgba(0, 0, 0, 0.05)",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "background": null
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Pressed"
+              ],
+              "background": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Selected"
+              ],
+              "background": "#edf6ff"
+            }
+          ]
+        }
       },
       {
         "name": "Initial",
         "kind": "text",
         "id": "9132:27672",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
         "text": "AV"
       }
     ]
+  },
+  "variantDefaults": {
+    "State": "Hovered",
+    "Type": "Default"
   }
 }

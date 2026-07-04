@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "calendar",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8211:6664",
@@ -16,6 +16,46 @@
       {
         "name": "Frame 1010110409",
         "reason": "layoutMode:GRID"
+      },
+      {
+        "name": "Frame 1010110409",
+        "reason": "layoutMode:GRID (variant Type=Month)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Month",
+        "path": "1.0",
+        "reason": "childCount:7!=0"
+      },
+      {
+        "prop": "Type",
+        "value": "Month",
+        "path": "1.1",
+        "reason": "childCount:42!=13"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Selection",
+        "value": "Range",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Selection",
+        "value": "Year",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Date",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Single",
+        "reason": "no isolated variant"
       }
     ]
   },
@@ -23,6 +63,10 @@
     "name": "Type=Single date select, Selection=Single",
     "kind": "container",
     "id": "8211:6034",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "4px"
+    },
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -92,6 +136,15 @@
                 "name": "Submit",
                 "kind": "text",
                 "id": "8211:5827",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 600,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Jan 2025"
               },
               {
@@ -102,7 +155,10 @@
                   "Show icon": true,
                   "Label": "Button"
                 },
-                "id": "8211:5828"
+                "id": "8211:5828",
+                "appearance": {
+                  "radius": "40px"
+                }
               }
             ]
           },
@@ -137,7 +193,10 @@
                   "Show icon": true,
                   "Label": "Button"
                 },
-                "id": "8211:5830"
+                "id": "8211:5830",
+                "appearance": {
+                  "radius": "40px"
+                }
               },
               {
                 "name": "button",
@@ -147,7 +206,10 @@
                   "Show icon": true,
                   "Label": "Button"
                 },
-                "id": "8211:5831"
+                "id": "8211:5831",
+                "appearance": {
+                  "radius": "40px"
+                }
               }
             ]
           }
@@ -180,6 +242,12 @@
             "name": "day-row",
             "kind": "container",
             "id": "8211:5833",
+            "appearance": {
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              }
+            },
             "layout": {
               "axis": "row",
               "gap": "0px",
@@ -203,42 +271,98 @@
                 "name": "S",
                 "kind": "text",
                 "id": "8211:5834",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "S"
               },
               {
                 "name": "M",
                 "kind": "text",
                 "id": "8211:5835",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "M"
               },
               {
                 "name": "T",
                 "kind": "text",
                 "id": "8211:5836",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "T"
               },
               {
                 "name": "W",
                 "kind": "text",
                 "id": "8211:5837",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "W"
               },
               {
                 "name": "T",
                 "kind": "text",
                 "id": "8211:5838",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "T"
               },
               {
                 "name": "F",
                 "kind": "text",
                 "id": "8211:5839",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "F"
               },
               {
                 "name": "S",
                 "kind": "text",
                 "id": "8211:5840",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "11px",
+                    "weight": 400,
+                    "lineHeight": "11px"
+                  }
+                },
                 "text": "S"
               }
             ]
@@ -265,7 +389,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5910"
+                "id": "8211:5910",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -274,7 +401,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5914"
+                "id": "8211:5914",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -283,7 +413,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5916"
+                "id": "8211:5916",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -292,7 +425,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5976"
+                "id": "8211:5976",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -301,7 +437,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5918"
+                "id": "8211:5918",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -310,7 +449,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5920"
+                "id": "8211:5920",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -319,7 +461,11 @@
                 "props": {
                   "State": "Selected"
                 },
-                "id": "8211:5922"
+                "id": "8211:5922",
+                "appearance": {
+                  "background": "#0f5fdc",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -328,7 +474,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5924"
+                "id": "8211:5924",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -337,7 +486,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5926"
+                "id": "8211:5926",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -346,7 +498,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5928"
+                "id": "8211:5928",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -355,7 +510,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5978"
+                "id": "8211:5978",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -364,7 +522,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5930"
+                "id": "8211:5930",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -373,7 +534,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5932"
+                "id": "8211:5932",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -382,7 +546,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5934"
+                "id": "8211:5934",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -391,7 +558,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5936"
+                "id": "8211:5936",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -400,7 +570,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5938"
+                "id": "8211:5938",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -409,7 +582,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5940"
+                "id": "8211:5940",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -418,7 +594,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5980"
+                "id": "8211:5980",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -427,7 +606,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5942"
+                "id": "8211:5942",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -436,7 +618,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5944"
+                "id": "8211:5944",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -445,7 +630,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5946"
+                "id": "8211:5946",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -454,7 +642,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5948"
+                "id": "8211:5948",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -463,7 +654,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5950"
+                "id": "8211:5950",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -472,7 +666,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5952"
+                "id": "8211:5952",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -481,7 +678,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5982"
+                "id": "8211:5982",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -490,7 +690,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5954"
+                "id": "8211:5954",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -499,7 +702,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5956"
+                "id": "8211:5956",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -508,7 +714,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5958"
+                "id": "8211:5958",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -517,7 +726,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5960"
+                "id": "8211:5960",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -526,7 +738,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5962"
+                "id": "8211:5962",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -535,7 +750,10 @@
                 "props": {
                   "State": "Default"
                 },
-                "id": "8211:5964"
+                "id": "8211:5964",
+                "appearance": {
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -544,7 +762,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6010"
+                "id": "8211:6010",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -553,7 +775,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6012"
+                "id": "8211:6012",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -562,7 +788,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6014"
+                "id": "8211:6014",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -571,7 +801,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6016"
+                "id": "8211:6016",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -580,7 +814,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6018"
+                "id": "8211:6018",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -589,7 +827,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6020"
+                "id": "8211:6020",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -598,7 +840,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6022"
+                "id": "8211:6022",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -607,7 +853,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6024"
+                "id": "8211:6024",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -616,7 +866,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:5996"
+                "id": "8211:5996",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -625,7 +879,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:5998"
+                "id": "8211:5998",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               },
               {
                 "name": ".Calendar item",
@@ -634,7 +892,11 @@
                 "props": {
                   "State": "Disabled"
                 },
-                "id": "8211:6000"
+                "id": "8211:6000",
+                "appearance": {
+                  "background": "#ffffff",
+                  "radius": "32px"
+                }
               }
             ]
           }
@@ -676,7 +938,11 @@
               "Color": "Default",
               "State": "Enabled"
             },
-            "id": "8211:5876"
+            "id": "8211:5876",
+            "appearance": {
+              "background": "rgba(0, 0, 0, 0)",
+              "radius": "4px"
+            }
           },
           {
             "name": "Button",
@@ -691,10 +957,18 @@
               "Color": "Primary",
               "State": "Enabled"
             },
-            "id": "8211:5877"
+            "id": "8211:5877",
+            "appearance": {
+              "background": "#029b98",
+              "radius": "4px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Single date select",
+    "Selection": "Single"
   }
 }

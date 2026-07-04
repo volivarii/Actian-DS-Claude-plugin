@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "text-input",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7238:2487",
@@ -12,7 +12,33 @@
     "nodesTotal": 10,
     "nodesNormalized": 10,
     "ratio": 1,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "States",
+        "value": "Active",
+        "path": "2",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "States",
+        "value": "Error",
+        "path": "3",
+        "reason": "kind:text!=container"
+      },
+      {
+        "prop": "States",
+        "value": "Read-only",
+        "path": "",
+        "reason": "childCount:4!=3"
+      },
+      {
+        "prop": "States",
+        "value": "Warning",
+        "path": "3",
+        "reason": "kind:text!=container"
+      }
+    ]
   },
   "root": {
     "name": "States=Default",
@@ -64,12 +90,60 @@
             "name": "Label",
             "kind": "text",
             "id": "7243:2949",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Label"
           },
           {
             "name": "Required",
             "kind": "text",
             "id": "7243:2950",
+            "appearance": {
+              "text": {
+                "color": "#dc3514",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "*"
           },
           {
@@ -84,12 +158,104 @@
         "name": "Description",
         "kind": "text",
         "id": "7243:3387",
+        "appearance": {
+          "text": {
+            "color": "#50505d",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "States",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
         "text": "A description helps users to define and understand the purpose of the input."
       },
       {
         "name": "Input field",
         "kind": "container",
         "id": "7243:2953",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#e1e1e6",
+            "width": "1px"
+          },
+          "radius": "4px",
+          "variants": [
+            {
+              "prop": "States",
+              "values": [
+                "Active"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Disabled"
+              ],
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Error"
+              ],
+              "border": {
+                "color": "#dc3514",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Focus"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Hover"
+              ],
+              "background": "#fbfbff"
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Warning"
+              ],
+              "border": {
+                "color": "#d27b00",
+                "width": "1px"
+              }
+            }
+          ]
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -113,6 +279,45 @@
             "name": "Input text",
             "kind": "text",
             "id": "7243:2955",
+            "appearance": {
+              "text": {
+                "color": "#5c5c6c",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Error",
+                    "Filled",
+                    "Warning"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Placeholder text"
           },
           {
@@ -127,8 +332,35 @@
         "name": "Helper text",
         "kind": "text",
         "id": "7243:2958",
+        "appearance": {
+          "text": {
+            "color": "#40404a",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "States",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
         "text": "Helper text goes here"
       }
     ]
+  },
+  "variantDefaults": {
+    "States": "Default"
   }
 }

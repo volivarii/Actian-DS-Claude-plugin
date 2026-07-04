@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "spinner",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2170",
@@ -16,6 +16,22 @@
       {
         "name": "Color mode=On light bg, Complete=100%",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=100%",
+        "reason": "layoutMode:NONE (variant Color mode=On dark bg)"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=75%",
+        "reason": "layoutMode:NONE (variant Complete=75%)"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=50%",
+        "reason": "layoutMode:NONE (variant Complete=50%)"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=25%",
+        "reason": "layoutMode:NONE (variant Complete=25%)"
       }
     ]
   },
@@ -37,28 +53,92 @@
       {
         "name": "Ellipse 8",
         "kind": "vector",
-        "id": "7372:2190"
+        "id": "7372:2190",
+        "appearance": {
+          "background": "#e1e1e6",
+          "variants": [
+            {
+              "prop": "Color mode",
+              "values": [
+                "On dark bg"
+              ],
+              "background": "#6296ef"
+            }
+          ]
+        }
       },
       {
         "name": "Ellipse 9",
         "kind": "vector",
-        "id": "7372:2191"
+        "id": "7372:2191",
+        "appearance": {
+          "background": "#0f5fdc",
+          "variants": [
+            {
+              "prop": "Color mode",
+              "values": [
+                "On dark bg"
+              ],
+              "background": "#ffffff"
+            }
+          ]
+        }
       },
       {
         "name": "Ellipse 10",
         "kind": "vector",
-        "id": "7372:2192"
+        "id": "7372:2192",
+        "appearance": {
+          "background": "#0f5fdc",
+          "variants": [
+            {
+              "prop": "Color mode",
+              "values": [
+                "On dark bg"
+              ],
+              "background": "#ffffff"
+            }
+          ]
+        }
       },
       {
         "name": "Ellipse 12",
         "kind": "vector",
-        "id": "7372:2193"
+        "id": "7372:2193",
+        "appearance": {
+          "background": "#0f5fdc",
+          "variants": [
+            {
+              "prop": "Color mode",
+              "values": [
+                "On dark bg"
+              ],
+              "background": "#ffffff"
+            }
+          ]
+        }
       },
       {
         "name": "Ellipse 11",
         "kind": "vector",
-        "id": "7372:2194"
+        "id": "7372:2194",
+        "appearance": {
+          "background": "#0f5fdc",
+          "variants": [
+            {
+              "prop": "Color mode",
+              "values": [
+                "On dark bg"
+              ],
+              "background": "#ffffff"
+            }
+          ]
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Color mode": "On light bg",
+    "Complete": "100%"
   }
 }

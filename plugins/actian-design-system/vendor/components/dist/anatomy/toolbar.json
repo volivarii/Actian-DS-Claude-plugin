@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "toolbar",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14335:16907",
@@ -12,12 +12,52 @@
     "nodesTotal": 2,
     "nodesNormalized": 1,
     "ratio": 0.5,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Combined",
+        "path": "",
+        "reason": "childCount:1!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Group",
+        "path": "",
+        "reason": "childCount:1!=7"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Orientation",
+        "value": "Vertical",
+        "reason": "no isolated variant"
+      }
+    ]
   },
   "root": {
     "name": "Type=Single, Orientation=Horizontal",
     "kind": "container",
     "id": "14335:16906",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#e1e1e6",
+        "width": "1px"
+      },
+      "radius": "9999px",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Combined"
+          ],
+          "background": null,
+          "radius": null,
+          "border": null
+        }
+      ]
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -51,8 +91,15 @@
           "Size": "Default",
           "State": "Default"
         },
-        "id": "14335:16896"
+        "id": "14335:16896",
+        "appearance": {
+          "radius": "9999px"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Single",
+    "Orientation": "Horizontal"
   }
 }

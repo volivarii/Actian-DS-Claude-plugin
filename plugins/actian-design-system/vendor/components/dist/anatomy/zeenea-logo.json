@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "zeenea-logo",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12770:6651",
@@ -28,6 +28,188 @@
       {
         "name": "Group",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Favicon Zeenea 1",
+        "reason": "layoutMode:NONE (variant Type=Favicon Zeenea 1)"
+      },
+      {
+        "name": "Type=Favicon Studio",
+        "reason": "layoutMode:NONE (variant Type=Favicon Studio)"
+      },
+      {
+        "name": "Type=Favicon Explorer",
+        "reason": "layoutMode:NONE (variant Type=Favicon Explorer)"
+      },
+      {
+        "name": "Type=Logo Zenea Corporate",
+        "reason": "layoutMode:NONE (variant Type=Logo Zenea Corporate)"
+      },
+      {
+        "name": "Logo Zeenea Corporate Icon",
+        "reason": "layoutMode:NONE (variant Type=Logo Zenea Corporate)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Logo Zenea Corporate)"
+      },
+      {
+        "name": "Type=Logo Studio",
+        "reason": "layoutMode:NONE (variant Type=Logo Studio)"
+      },
+      {
+        "name": "Logo Studio Icon",
+        "reason": "layoutMode:NONE (variant Type=Logo Studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Logo Studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Logo Studio)"
+      },
+      {
+        "name": "Type=Dev Logo Zenea Corporate",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Zenea Corporate)"
+      },
+      {
+        "name": "Logo Zeenea Corporate Icon",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Zenea Corporate)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Zenea Corporate)"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Zenea Corporate)"
+      },
+      {
+        "name": "Type=Dev Logo Explorer",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Explorer)"
+      },
+      {
+        "name": "Logo Explorer Icon",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Explorer)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Explorer)"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Explorer)"
+      },
+      {
+        "name": "Type=Dev Logo Studio",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Studio)"
+      },
+      {
+        "name": "Logo Studio Icon",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Studio)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Studio)"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE (variant Type=Dev Logo Studio)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Dev Logo Explorer",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Dev Logo Studio",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Dev Logo Zenea Corporate",
+        "path": "2",
+        "reason": "childCount:8!=3"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Explorer",
+        "path": "0",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Explorer",
+        "path": "1",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Explorer",
+        "path": "2",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Studio",
+        "path": "0",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Studio",
+        "path": "1",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Studio",
+        "path": "2",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Zeenea 1",
+        "path": "0",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Zeenea 1",
+        "path": "1",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Favicon Zeenea 1",
+        "path": "2",
+        "reason": "kind:container!=vector"
+      },
+      {
+        "prop": "Type",
+        "value": "Logo Studio",
+        "path": "2",
+        "reason": "childCount:8!=6"
+      },
+      {
+        "prop": "Type",
+        "value": "Logo Zenea Corporate",
+        "path": "",
+        "reason": "childCount:3!=2"
       }
     ]
   },
@@ -64,17 +246,61 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6606"
+            "id": "12770:6606",
+            "appearance": {
+              "background": "#049b98",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Logo Studio"
+                  ],
+                  "background": "#0283be"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6607"
+            "id": "12770:6607",
+            "appearance": {
+              "background": "#049b98",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dev Logo Zenea Corporate",
+                    "Logo Studio"
+                  ],
+                  "background": "#0283be"
+                }
+              ]
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6608"
+            "id": "12770:6608",
+            "appearance": {
+              "background": "#049b98",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dev Logo Zenea Corporate"
+                  ],
+                  "background": "#ef8d00"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Logo Studio"
+                  ],
+                  "background": "#0283be"
+                }
+              ]
+            }
           }
         ]
       },
@@ -96,32 +322,50 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6610"
+            "id": "12770:6610",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6611"
+            "id": "12770:6611",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6612"
+            "id": "12770:6612",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6613"
+            "id": "12770:6613",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6614"
+            "id": "12770:6614",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6615"
+            "id": "12770:6615",
+            "appearance": {
+              "background": "#000000"
+            }
           }
         ]
       },
@@ -143,45 +387,72 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6617"
+            "id": "12770:6617",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6618"
+            "id": "12770:6618",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6619"
+            "id": "12770:6619",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6620"
+            "id": "12770:6620",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6621"
+            "id": "12770:6621",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6622"
+            "id": "12770:6622",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6623"
+            "id": "12770:6623",
+            "appearance": {
+              "background": "#049b98"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "12770:6624"
+            "id": "12770:6624",
+            "appearance": {
+              "background": "#049b98"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Logo Explorer"
   }
 }

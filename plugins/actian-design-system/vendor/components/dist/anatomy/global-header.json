@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "global-header",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:22554",
@@ -16,6 +16,98 @@
       {
         "name": "Logo",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant App type=Explorer)"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant App type=Admin)"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant Breakpoints=L)"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant Breakpoints=M)"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant Breakpoints=S)"
+      },
+      {
+        "name": "Logo",
+        "reason": "layoutMode:NONE (variant Breakpoints=XS)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "App type",
+        "value": "Admin",
+        "path": "",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "App type",
+        "value": "Explorer",
+        "path": "1.0",
+        "reason": "kind:text!=container"
+      },
+      {
+        "prop": "App type",
+        "value": "Explorer",
+        "path": "1.2",
+        "reason": "kind:instance!=text"
+      },
+      {
+        "prop": "App type",
+        "value": "Explorer",
+        "path": "2.0",
+        "reason": "kind:container!=instance"
+      },
+      {
+        "prop": "App type",
+        "value": "Explorer",
+        "path": "2.1",
+        "reason": "kind:container!=instance"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "L",
+        "path": "1",
+        "reason": "childCount:7!=2"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "L",
+        "path": "2",
+        "reason": "childCount:2!=7"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "M",
+        "path": "1",
+        "reason": "childCount:7!=2"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "M",
+        "path": "2",
+        "reason": "childCount:2!=5"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "S",
+        "path": "",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "Breakpoints",
+        "value": "XS",
+        "path": "",
+        "reason": "childCount:3!=2"
       }
     ]
   },
@@ -23,6 +115,13 @@
     "name": "App type=Studio, Breakpoints=XL",
     "kind": "container",
     "id": "7384:22553",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#dadada",
+        "width": "1px"
+      }
+    },
     "layout": {
       "axis": "row",
       "gap": "100px",
@@ -95,12 +194,27 @@
             "name": "What’s new",
             "kind": "text",
             "id": "14035:6518",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "What’s new"
           },
           {
             "name": "Divider",
             "kind": "vector",
-            "id": "14783:9585"
+            "id": "14783:9585",
+            "appearance": {
+              "border": {
+                "color": "#dadada",
+                "width": "1px"
+              }
+            }
           },
           {
             "name": "notification",
@@ -116,12 +230,21 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14035:8192"
+            "id": "14035:8192",
+            "appearance": {
+              "radius": "9999px"
+            }
           },
           {
             "name": "Divider",
             "kind": "vector",
-            "id": "14783:9571"
+            "id": "14783:9571",
+            "appearance": {
+              "border": {
+                "color": "#dadada",
+                "width": "1px"
+              }
+            }
           },
           {
             "name": "App switcher",
@@ -137,12 +260,21 @@
               "Size": "Default",
               "State": "Default"
             },
-            "id": "14036:7042"
+            "id": "14036:7042",
+            "appearance": {
+              "radius": "9999px"
+            }
           },
           {
             "name": "Divider",
             "kind": "vector",
-            "id": "14783:9556"
+            "id": "14783:9556",
+            "appearance": {
+              "border": {
+                "color": "#dadada",
+                "width": "1px"
+              }
+            }
           },
           {
             "name": "Avatar",
@@ -152,7 +284,11 @@
               "State": "Default",
               "Type": "Default"
             },
-            "id": "7384:14239"
+            "id": "7384:14239",
+            "appearance": {
+              "background": "#d0efed",
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -183,6 +319,10 @@
             "name": "Catalog dropdown",
             "kind": "container",
             "id": "14035:5339",
+            "appearance": {
+              "background": "#ffffff",
+              "radius": "4px"
+            },
             "layout": {
               "axis": "row",
               "gap": "8px",
@@ -206,6 +346,15 @@
                 "name": "Input text",
                 "kind": "text",
                 "id": "14035:5340",
+                "appearance": {
+                  "text": {
+                    "color": "#0283be",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
                 "text": "Default"
               },
               {
@@ -218,6 +367,15 @@
                 "name": "Input text",
                 "kind": "text",
                 "id": "14035:5589",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "size": "11px",
+                    "weight": 500,
+                    "lineHeight": "14px",
+                    "letterSpacing": "0.4px"
+                  }
+                },
                 "text": "Catalog"
               }
             ]
@@ -254,7 +412,14 @@
                   "Type": "Global header",
                   "State": "Default"
                 },
-                "id": "8589:11056"
+                "id": "8589:11056",
+                "appearance": {
+                  "border": {
+                    "color": "#dadada",
+                    "width": "1px"
+                  },
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Tooltip icon",
@@ -267,5 +432,9 @@
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "App type": "Studio",
+    "Breakpoints": "XL"
   }
 }

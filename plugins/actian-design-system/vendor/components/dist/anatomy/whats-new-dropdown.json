@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "whats-new-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9114:16794",
@@ -12,12 +12,53 @@
     "nodesTotal": 6,
     "nodesNormalized": 5,
     "ratio": 0.83,
-    "degraded": []
+    "degraded": [
+      {
+        "name": "Image",
+        "reason": "non-solid-fill:IMAGE (variant Property 1=Drilldown1)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Property 1",
+        "value": "Drilldown1",
+        "path": "0",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Property 1",
+        "value": "Drilldown1",
+        "path": "2",
+        "reason": "childCount:1!=4"
+      },
+      {
+        "prop": "Property 1",
+        "value": "Drilldown2",
+        "path": "0",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Property 1",
+        "value": "Drilldown2",
+        "path": "2",
+        "reason": "childCount:1!=3"
+      },
+      {
+        "prop": "Property 1",
+        "value": "List",
+        "path": "",
+        "reason": "childCount:3!=7"
+      }
+    ]
   },
   "root": {
     "name": "Property 1=Empty",
     "kind": "container",
     "id": "9114:16792",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "4px"
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -41,6 +82,9 @@
         "name": "Header",
         "kind": "container",
         "id": "9684:4837",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -64,6 +108,15 @@
             "name": "Label text",
             "kind": "text",
             "id": "9684:4839",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
             "text": "What’s new"
           }
         ]
@@ -85,6 +138,9 @@
         "name": "Body",
         "kind": "container",
         "id": "9114:16787",
+        "appearance": {
+          "radius": "4px"
+        },
         "layout": {
           "axis": "row",
           "gap": "8px",
@@ -108,10 +164,22 @@
             "name": "Label text",
             "kind": "text",
             "id": "9114:16788",
+            "appearance": {
+              "text": {
+                "color": "#40404a",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "No release updates"
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Empty"
   }
 }

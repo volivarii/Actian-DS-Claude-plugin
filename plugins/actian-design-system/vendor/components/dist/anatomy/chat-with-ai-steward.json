@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "chat-with-ai-steward",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15464:24509",
@@ -12,12 +12,37 @@
     "nodesTotal": 4,
     "nodesNormalized": 1,
     "ratio": 0.25,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "history",
+        "value": "Open",
+        "path": "",
+        "reason": "childCount:3!=2"
+      }
+    ]
   },
   "root": {
     "name": "size=Default, history=Closed",
     "kind": "container",
     "id": "15464:23205",
+    "appearance": {
+      "background": "#ffffff",
+      "radius": "6px",
+      "variants": [
+        {
+          "prop": "size",
+          "values": [
+            "Drawer"
+          ],
+          "radius": null,
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        }
+      ]
+    },
     "layout": {
       "axis": "column",
       "gap": "0px",
@@ -44,7 +69,10 @@
         "props": {
           "State": "Default"
         },
-        "id": "15464:23995"
+        "id": "15464:23995",
+        "appearance": {
+          "background": "#ffffff"
+        }
       },
       {
         "name": ".Chat with AI Steward Chat area",
@@ -53,7 +81,10 @@
         "props": {
           "State": "Default"
         },
-        "id": "15464:23830"
+        "id": "15464:23830",
+        "appearance": {
+          "background": "#ffffff"
+        }
       },
       {
         "name": ".Chat with AI Steward Footer",
@@ -62,8 +93,15 @@
         "props": {
           "State": "Default"
         },
-        "id": "15608:35136"
+        "id": "15608:35136",
+        "appearance": {
+          "background": "#ffffff"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "size": "Default",
+    "history": "Closed"
   }
 }

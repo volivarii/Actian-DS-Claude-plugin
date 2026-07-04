@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "button",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7206:2643",
@@ -12,12 +12,96 @@
     "nodesTotal": 4,
     "nodesNormalized": 2,
     "ratio": 0.5,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Emphasis",
+        "value": "Icon-only",
+        "path": "",
+        "reason": "childCount:3!=1"
+      },
+      {
+        "prop": "State",
+        "value": "Expanded",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "State",
+        "value": "Focus",
+        "path": "",
+        "reason": "childCount:3!=5"
+      },
+      {
+        "prop": "State",
+        "value": "Hover",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "State",
+        "value": "Loading",
+        "path": "",
+        "reason": "childCount:3!=1"
+      },
+      {
+        "prop": "State",
+        "value": "Pressed",
+        "path": "",
+        "reason": "childCount:3!=4"
+      }
+    ]
   },
   "root": {
     "name": "Intent=Default, Emphasis=Filled, Size=Default, State=Default",
     "kind": "container",
     "id": "7206:2656",
+    "appearance": {
+      "background": "#0f5fdc",
+      "radius": "9999px",
+      "variants": [
+        {
+          "prop": "Emphasis",
+          "values": [
+            "Ghost",
+            "Icon-only"
+          ],
+          "background": null
+        },
+        {
+          "prop": "Emphasis",
+          "values": [
+            "Outlined"
+          ],
+          "background": null,
+          "border": {
+            "color": "#0f5fdc",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Intent",
+          "values": [
+            "Critical"
+          ],
+          "background": "#dc3514"
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Disabled"
+          ],
+          "background": "#e1e1e6"
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Loading"
+          ],
+          "background": "rgba(15, 95, 220, 0.8)"
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "8px",
@@ -47,6 +131,56 @@
         "name": "Button",
         "kind": "text",
         "id": "7206:2658",
+        "appearance": {
+          "text": {
+            "color": "#ffffff",
+            "size": "14px",
+            "weight": 500,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "Emphasis",
+              "values": [
+                "Ghost"
+              ],
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "Emphasis",
+              "values": [
+                "Outlined"
+              ],
+              "text": {
+                "color": "#0f5fdc",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
         "text": "Button"
       },
       {
@@ -56,5 +190,11 @@
         "id": "7206:2659"
       }
     ]
+  },
+  "variantDefaults": {
+    "Intent": "Default",
+    "Emphasis": "Filled",
+    "Size": "Default",
+    "State": "Default"
   }
 }

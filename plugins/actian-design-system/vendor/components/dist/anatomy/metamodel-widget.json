@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "metamodel-widget",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:23588",
@@ -18,6 +18,56 @@
     "name": "Type=Dataset",
     "kind": "container",
     "id": "14747:23589",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#0283be",
+        "width": "1.5px"
+      },
+      "radius": "6px",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Business Term"
+          ],
+          "border": {
+            "color": "#a76605",
+            "width": "1.5px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Data Process"
+          ],
+          "border": {
+            "color": "#a82743",
+            "width": "1.5px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Field"
+          ],
+          "border": {
+            "color": "#145f04",
+            "width": "1.5px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Visualisation"
+          ],
+          "border": {
+            "color": "#7900cb",
+            "width": "1.5px"
+          }
+        }
+      ]
+    },
     "layout": {
       "axis": "column",
       "gap": "8px",
@@ -68,12 +118,70 @@
               "Item type": "Dataset",
               "Size": "Large"
             },
-            "id": "14747:23591"
+            "id": "14747:23591",
+            "appearance": {
+              "background": "#cfeafd",
+              "radius": "4px",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Business Term"
+                  ],
+                  "background": "#fff9e5"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Data Process"
+                  ],
+                  "background": "#ffd6d8"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Field"
+                  ],
+                  "background": "#d3efcd"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Visualisation"
+                  ],
+                  "background": "#eed7ff"
+                }
+              ]
+            }
           },
           {
             "name": "Dataset",
             "kind": "text",
             "id": "14747:23592",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Visualisation"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
             "text": "Dataset"
           }
         ]
@@ -85,8 +193,15 @@
         "props": {
           "Section": "Collapsed"
         },
-        "id": "14747:23593"
+        "id": "14747:23593",
+        "appearance": {
+          "background": "#f2f2f2",
+          "radius": "6px"
+        }
       }
     ]
+  },
+  "variantDefaults": {
+    "Type": "Dataset"
   }
 }

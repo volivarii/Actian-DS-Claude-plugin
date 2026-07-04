@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "component-1",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8927:9233",
@@ -22,12 +22,36 @@
         "reason": "layoutMode:NONE"
       },
       {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR"
+      },
+      {
         "name": "Group",
         "reason": "layoutMode:NONE"
       },
       {
         "name": "Group",
         "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Layout=Horizontal",
+        "reason": "layoutMode:NONE (variant Layout=Horizontal)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Layout=Horizontal)"
+      },
+      {
+        "name": "Vector",
+        "reason": "non-solid-fill:GRADIENT_LINEAR (variant Layout=Horizontal)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Layout=Horizontal)"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE (variant Layout=Horizontal)"
       }
     ]
   },
@@ -64,12 +88,18 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38057"
+            "id": "8921:38057",
+            "appearance": {
+              "background": "#000178"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38058"
+            "id": "8921:38058",
+            "appearance": {
+              "background": "#000178"
+            }
           },
           {
             "name": "Vector",
@@ -96,52 +126,82 @@
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38061"
+            "id": "8921:38061",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38062"
+            "id": "8921:38062",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38063"
+            "id": "8921:38063",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38064"
+            "id": "8921:38064",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38065"
+            "id": "8921:38065",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38066"
+            "id": "8921:38066",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38067"
+            "id": "8921:38067",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38068"
+            "id": "8921:38068",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38069"
+            "id": "8921:38069",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Vector",
             "kind": "vector",
-            "id": "8921:38070"
+            "id": "8921:38070",
+            "appearance": {
+              "background": "#000000"
+            }
           },
           {
             "name": "Group",
@@ -161,42 +221,66 @@
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38072"
+                "id": "8921:38072",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38073"
+                "id": "8921:38073",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38074"
+                "id": "8921:38074",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38075"
+                "id": "8921:38075",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38076"
+                "id": "8921:38076",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38077"
+                "id": "8921:38077",
+                "appearance": {
+                  "background": "#000000"
+                }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
-                "id": "8921:38078"
+                "id": "8921:38078",
+                "appearance": {
+                  "background": "#000000"
+                }
               }
             ]
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Layout": "Vertical"
   }
 }

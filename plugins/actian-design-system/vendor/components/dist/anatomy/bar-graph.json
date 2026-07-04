@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "bar-graph",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15473:49489",
@@ -18,6 +18,14 @@
     "name": "Property 1=Default",
     "kind": "container",
     "id": "15473:49488",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#c7c7ce",
+        "width": "1px"
+      },
+      "radius": "6px"
+    },
     "layout": {
       "axis": "column",
       "gap": "16px",
@@ -64,12 +72,30 @@
             "name": "Title",
             "kind": "text",
             "id": "15473:49400",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
             "text": "Data Quality Status"
           },
           {
             "name": "Title",
             "kind": "text",
             "id": "15473:49401",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
             "text": "Support text"
           },
           {
@@ -86,7 +112,10 @@
               "Size": "Small",
               "State": "Default"
             },
-            "id": "15473:49402"
+            "id": "15473:49402",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
@@ -140,6 +169,15 @@
                 "name": "Y-axis main label",
                 "kind": "text",
                 "id": "15473:49405",
+                "appearance": {
+                  "text": {
+                    "color": "#40404a",
+                    "size": "12px",
+                    "weight": 500,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "Number of Data quality checks"
               },
               {
@@ -169,12 +207,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49407",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "100"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49408"
+                    "id": "15473:49408",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -205,12 +258,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49410",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "80"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49411"
+                    "id": "15473:49411",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -241,12 +309,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49413",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "60"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49414"
+                    "id": "15473:49414",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -277,12 +360,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49416",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "40"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49417"
+                    "id": "15473:49417",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -313,12 +411,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49419",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "20"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49420"
+                    "id": "15473:49420",
+                    "appearance": {
+                      "border": {
+                        "color": "#c7c7ce",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               },
@@ -349,12 +462,27 @@
                     "name": "Number",
                     "kind": "text",
                     "id": "15473:49422",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "0"
                   },
                   {
                     "name": "Stroke",
                     "kind": "vector",
-                    "id": "15473:49423"
+                    "id": "15473:49423",
+                    "appearance": {
+                      "border": {
+                        "color": "#e1e1e6",
+                        "width": "1px"
+                      }
+                    }
                   }
                 ]
               }
@@ -432,17 +560,26 @@
                       {
                         "name": "Series 1",
                         "kind": "vector",
-                        "id": "15473:49427"
+                        "id": "15473:49427",
+                        "appearance": {
+                          "background": "#eb0909"
+                        }
                       },
                       {
                         "name": "Series 2",
                         "kind": "vector",
-                        "id": "15473:49428"
+                        "id": "15473:49428",
+                        "appearance": {
+                          "background": "#ffaf38"
+                        }
                       },
                       {
                         "name": "Series 3",
                         "kind": "vector",
-                        "id": "15473:49429"
+                        "id": "15473:49429",
+                        "appearance": {
+                          "background": "#029c54"
+                        }
                       }
                     ]
                   },
@@ -450,6 +587,15 @@
                     "name": "X-axis sub label",
                     "kind": "text",
                     "id": "15473:49430",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Freshness"
                   }
                 ]
@@ -503,17 +649,26 @@
                       {
                         "name": "Series 1",
                         "kind": "vector",
-                        "id": "15473:49433"
+                        "id": "15473:49433",
+                        "appearance": {
+                          "background": "#eb0909"
+                        }
                       },
                       {
                         "name": "Series 2",
                         "kind": "vector",
-                        "id": "15473:49434"
+                        "id": "15473:49434",
+                        "appearance": {
+                          "background": "#ffaf38"
+                        }
                       },
                       {
                         "name": "Series 3",
                         "kind": "vector",
-                        "id": "15473:49435"
+                        "id": "15473:49435",
+                        "appearance": {
+                          "background": "#029c54"
+                        }
                       }
                     ]
                   },
@@ -521,6 +676,15 @@
                     "name": "X-axis sub label",
                     "kind": "text",
                     "id": "15473:49436",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Volume"
                   }
                 ]
@@ -574,17 +738,26 @@
                       {
                         "name": "Series 1",
                         "kind": "vector",
-                        "id": "15473:49439"
+                        "id": "15473:49439",
+                        "appearance": {
+                          "background": "#eb0909"
+                        }
                       },
                       {
                         "name": "Series 2",
                         "kind": "vector",
-                        "id": "15473:49440"
+                        "id": "15473:49440",
+                        "appearance": {
+                          "background": "#ffaf38"
+                        }
                       },
                       {
                         "name": "Series 3",
                         "kind": "vector",
-                        "id": "15473:49441"
+                        "id": "15473:49441",
+                        "appearance": {
+                          "background": "#029c54"
+                        }
                       }
                     ]
                   },
@@ -592,6 +765,15 @@
                     "name": "X-axis sub label",
                     "kind": "text",
                     "id": "15473:49442",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Anomalies"
                   }
                 ]
@@ -645,17 +827,26 @@
                       {
                         "name": "Series 1",
                         "kind": "vector",
-                        "id": "15473:49445"
+                        "id": "15473:49445",
+                        "appearance": {
+                          "background": "#eb0909"
+                        }
                       },
                       {
                         "name": "Series 2",
                         "kind": "vector",
-                        "id": "15473:49446"
+                        "id": "15473:49446",
+                        "appearance": {
+                          "background": "#ffaf38"
+                        }
                       },
                       {
                         "name": "Series 3",
                         "kind": "vector",
-                        "id": "15473:49447"
+                        "id": "15473:49447",
+                        "appearance": {
+                          "background": "#029c54"
+                        }
                       }
                     ]
                   },
@@ -663,6 +854,15 @@
                     "name": "X-axis sub label",
                     "kind": "text",
                     "id": "15473:49448",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Target"
                   }
                 ]
@@ -716,17 +916,26 @@
                       {
                         "name": "Series 1",
                         "kind": "vector",
-                        "id": "15473:49451"
+                        "id": "15473:49451",
+                        "appearance": {
+                          "background": "#eb0909"
+                        }
                       },
                       {
                         "name": "Series 2",
                         "kind": "vector",
-                        "id": "15473:49452"
+                        "id": "15473:49452",
+                        "appearance": {
+                          "background": "#ffaf38"
+                        }
                       },
                       {
                         "name": "Series 3",
                         "kind": "vector",
-                        "id": "15473:49453"
+                        "id": "15473:49453",
+                        "appearance": {
+                          "background": "#029c54"
+                        }
                       }
                     ]
                   },
@@ -734,6 +943,15 @@
                     "name": "X-axis sub label",
                     "kind": "text",
                     "id": "15473:49454",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.3px"
+                      }
+                    },
                     "text": "Other"
                   }
                 ]
@@ -742,6 +960,15 @@
                 "name": "X-axis main label",
                 "kind": "text",
                 "id": "15473:49455",
+                "appearance": {
+                  "text": {
+                    "color": "#475467",
+                    "size": "12px",
+                    "weight": 500,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
                 "text": "Type"
               }
             ]
@@ -778,7 +1005,11 @@
             "props": {
               "Property 1": "Default"
             },
-            "id": "15473:49457"
+            "id": "15473:49457",
+            "appearance": {
+              "background": "#ffffff",
+              "radius": "4px"
+            }
           },
           {
             "name": ".data-viz-legend-item",
@@ -787,7 +1018,11 @@
             "props": {
               "Property 1": "Default"
             },
-            "id": "15473:49458"
+            "id": "15473:49458",
+            "appearance": {
+              "background": "#ffffff",
+              "radius": "4px"
+            }
           },
           {
             "name": ".data-viz-legend-item",
@@ -796,10 +1031,17 @@
             "props": {
               "Property 1": "Default"
             },
-            "id": "15473:49459"
+            "id": "15473:49459",
+            "appearance": {
+              "background": "#ffffff",
+              "radius": "4px"
+            }
           }
         ]
       }
     ]
+  },
+  "variantDefaults": {
+    "Property 1": "Default"
   }
 }

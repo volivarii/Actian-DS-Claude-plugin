@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-status",
   "kit": "dskit",
-  "synced_at": "2026-07-02T13:31:03.720Z",
+  "synced_at": "2026-07-03T21:45:33.847Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3705",
@@ -18,6 +18,66 @@
     "name": "Status=Fail",
     "kind": "container",
     "id": "7370:4928",
+    "appearance": {
+      "background": "#fff4ec",
+      "border": {
+        "color": "#ffdacf",
+        "width": "1px"
+      },
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "Status",
+          "values": [
+            "Loading",
+            "Maintenance",
+            "Queued",
+            "Scheduled"
+          ],
+          "background": "#edf6ff",
+          "border": {
+            "color": "#edf6ff",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Status",
+          "values": [
+            "Offline",
+            "Pending",
+            "Sleeping",
+            "Stopped"
+          ],
+          "background": "#e1e1e6",
+          "border": {
+            "color": "#c7c7ce",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Status",
+          "values": [
+            "Success"
+          ],
+          "background": "#f0ffec",
+          "border": {
+            "color": "#d3efcd",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Status",
+          "values": [
+            "Warning"
+          ],
+          "background": "#fff9e5",
+          "border": {
+            "color": "#ffebce",
+            "width": "1px"
+          }
+        }
+      ]
+    },
     "layout": {
       "axis": "row",
       "gap": "4px",
@@ -47,8 +107,20 @@
         "name": "Tag-Name",
         "kind": "text",
         "id": "7314:4575",
+        "appearance": {
+          "text": {
+            "color": "#50505d",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
         "text": "Fail"
       }
     ]
+  },
+  "variantDefaults": {
+    "Status": "Fail"
   }
 }
