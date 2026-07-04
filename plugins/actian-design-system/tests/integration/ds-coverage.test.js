@@ -4,6 +4,7 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
+var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 
 // dskit categories that are NOT authorable UI components (icons + brand assets).
 // The authorable UI surface = dskit minus these (≈76 components) — the real
@@ -90,15 +91,52 @@ function implementedCases() {
 // the generic appearance renderer; today every conversion-reachable slug
 // still also has a case, so the credit is additive, not currently load-
 // bearing on its own.
+//
+// Test-integrity fix (T2): this must actually RENDER through the real seam,
+// not just check that the JSON carries a `root.appearance` field — a static
+// field check passes even if renderAppearanceComponent / the default: seam
+// is fully broken (the field exists regardless of whether anything reads
+// it). Inject the doc via setAnatomyDocMap, render through renderDSComponent
+// exactly as the seam does at assemble-time, reset immediately after, and
+// require the output to actually carry the `.ds-appearance` wrapper class —
+// the true, unambiguous marker that the appearance path (not a graceful
+// chip) produced it.
 function appearanceCovered(slug) {
+  var doc;
   try {
-    var doc = JSON.parse(
+    doc = JSON.parse(
       fs.readFileSync(path.join(ANATOMY_DIR, slug + ".json"), "utf8"),
     );
-    return !!(doc && doc.root && doc.root.appearance);
   } catch (e) {
     return false;
   }
+  if (
+    !doc ||
+    !doc.root ||
+    typeof doc.root !== "object" ||
+    !doc.root.appearance ||
+    typeof doc.root.appearance !== "object" ||
+    Object.keys(doc.root.appearance).length === 0
+  ) {
+    return false;
+  }
+  var mapping = {};
+  mapping[slug] = doc;
+  dsHtmlMap.setAnatomyDocMap(mapping);
+  var html;
+  try {
+    html = dsHtmlMap.renderDSComponent({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: slug,
+      variant: (doc.root && doc.root.name) || "",
+    });
+  } finally {
+    dsHtmlMap.setAnatomyDocMap(null);
+  }
+  return (
+    typeof html === "string" && html.indexOf('class="ds-appearance') !== -1
+  );
 }
 
 // The authorable UI surface = every dskit component NOT in an icon/brand-asset
