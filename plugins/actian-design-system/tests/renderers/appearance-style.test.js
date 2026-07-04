@@ -18,7 +18,13 @@ test("appearanceToDecls: background + border + radius", function () {
 
 test("appearanceToDecls: text block", function () {
   var d = s.appearanceToDecls({
-    text: { color: "#50505d", size: "12px", weight: 400, lineHeight: "16px", letterSpacing: "0.3px" },
+    text: {
+      color: "#50505d",
+      size: "12px",
+      weight: 400,
+      lineHeight: "16px",
+      letterSpacing: "0.3px",
+    },
   });
   assert.deepEqual(d, [
     "color:#50505d",
@@ -31,9 +37,10 @@ test("appearanceToDecls: text block", function () {
 
 test("appearanceToDecls: null background is skipped, rgba passes through", function () {
   assert.deepEqual(s.appearanceToDecls({ background: null }), []);
-  assert.deepEqual(s.appearanceToDecls({ background: "rgba(15, 95, 220, 0.8)" }), [
-    "background:rgba(15, 95, 220, 0.8)",
-  ]);
+  assert.deepEqual(
+    s.appearanceToDecls({ background: "rgba(15, 95, 220, 0.8)" }),
+    ["background:rgba(15, 95, 220, 0.8)"],
+  );
 });
 
 test("appearanceToDecls: border with default width when absent", function () {
@@ -45,4 +52,58 @@ test("appearanceToDecls: border with default width when absent", function () {
 test("appearanceToDecls: empty / non-object -> []", function () {
   assert.deepEqual(s.appearanceToDecls(null), []);
   assert.deepEqual(s.appearanceToDecls({}), []);
+});
+
+test("appearanceToDecls: C3 denylist drops injection but keeps legit values", function () {
+  // Malicious background carrying a `;` (extra declaration) is dropped whole,
+  // while the legit sibling text values survive unchanged.
+  var d = s.appearanceToDecls({
+    background: "red;position:fixed",
+    text: { color: "#50505d", size: "12px", weight: 400 },
+  });
+  assert.ok(
+    !d.some(function (x) {
+      return /position:fixed/.test(x);
+    }),
+    "malicious background must be dropped entirely",
+  );
+  assert.ok(
+    !d.some(function (x) {
+      return /^background:/.test(x);
+    }),
+  );
+  assert.deepEqual(d, ["color:#50505d", "font-size:12px", "font-weight:400"]);
+});
+
+test("appearanceToDecls: C3 drops url()/braces/markup, keeps hex/rgba/px/rem/%", function () {
+  // url(), braces, and </ markup escapes are all rejected.
+  assert.deepEqual(
+    s.appearanceToDecls({ background: "url(http://x/e.png)" }),
+    [],
+  );
+  assert.deepEqual(s.appearanceToDecls({ background: "#fff}" }), []);
+  assert.deepEqual(s.appearanceToDecls({ radius: "4px}</style>" }), []);
+  // Everything legit still passes through untouched.
+  assert.deepEqual(
+    s.appearanceToDecls({
+      background: "rgba(0, 0, 0, 0.05)",
+      border: { color: "#d3efcd", width: "0.3px" },
+      radius: "9999px",
+      text: {
+        color: "hsl(210, 50%, 40%)",
+        size: "1.25rem",
+        weight: 700,
+        letterSpacing: "0.2px",
+      },
+    }),
+    [
+      "background:rgba(0, 0, 0, 0.05)",
+      "border:0.3px solid #d3efcd",
+      "border-radius:9999px",
+      "color:hsl(210, 50%, 40%)",
+      "font-size:1.25rem",
+      "font-weight:700",
+      "letter-spacing:0.2px",
+    ],
+  );
 });

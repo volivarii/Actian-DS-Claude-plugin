@@ -43,7 +43,9 @@
     if (layout.gap) parts.push("gap:" + layout.gap);
     parts.push(
       "padding:" +
-        [p.top || "0", p.right || "0", p.bottom || "0", p.left || "0"].join(" "),
+        [p.top || "0", p.right || "0", p.bottom || "0", p.left || "0"].join(
+          " ",
+        ),
     );
     var a = layout.align || {};
     if (a.main) parts.push("justify-content:" + mapAlign(a.main));
@@ -71,11 +73,29 @@
       var target = variant ? variant[e.prop] : undefined;
       if (target != null && e.values.indexOf(target) !== -1) {
         APPEARANCE_KEYS.forEach(function (k) {
-          if (e[k] !== undefined) out[k] = e[k];
+          if (e[k] === undefined) return;
+          // C1: `border` and `text` are nested objects. A delta that changes
+          // only one sub-key (e.g. border.color, no width) must NOT drop the
+          // base sub-keys via whole-object replace, so deep-merge when both
+          // sides are plain objects. A null/primitive delta still replaces
+          // wholesale (so a variant can remove a border with `border: null`).
+          if (
+            (k === "border" || k === "text") &&
+            isPlainObject(out[k]) &&
+            isPlainObject(e[k])
+          ) {
+            out[k] = Object.assign({}, out[k], e[k]);
+          } else {
+            out[k] = e[k];
+          }
         });
       }
     }
     return out;
+  }
+
+  function isPlainObject(v) {
+    return v != null && typeof v === "object" && !Array.isArray(v);
   }
 
   function renderAppearanceNode(node, variant) {
@@ -86,9 +106,20 @@
 
     if (kind === "text") {
       var ts = decls.length ? ' style="' + esc(decls.join(";")) + '"' : "";
-      return '<span class="' + cls + '"' + ts + ">" + esc(node.text || "") + "</span>";
+      return (
+        '<span class="' +
+        cls +
+        '"' +
+        ts +
+        ">" +
+        esc(node.text || "") +
+        "</span>"
+      );
     }
-    if (kind === "image" || kind === "vector") {
+    // C2: the anatomy classifier emits "icon" (and "vector"), never "image".
+    // These media leaves carry no text children; render an aria-hidden box the
+    // CSS floor sizes + fills. ("image" was dead here, so it is dropped.)
+    if (kind === "icon" || kind === "vector") {
       var ls = decls.length ? ' style="' + esc(decls.join(";")) + '"' : "";
       return '<div class="' + cls + '"' + ls + ' aria-hidden="true"></div>';
     }

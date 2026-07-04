@@ -60,6 +60,47 @@ test("resolveNodeAppearance: no appearance -> null", function () {
   assert.equal(r.resolveNodeAppearance({ kind: "instance" }, null), null);
 });
 
+test("resolveNodeAppearance: color-only border delta preserves base width (C1 deep-merge)", function () {
+  var node = {
+    kind: "container",
+    appearance: {
+      border: { color: "#c7c7ce", width: "2px" },
+      variants: [
+        // delta changes ONLY the color — base width must survive
+        { prop: "State", values: ["Selected"], border: { color: "#0f5fdc" } },
+      ],
+    },
+  };
+  var ap = r.resolveNodeAppearance(node, { State: "Selected" });
+  assert.deepEqual(ap.border, { color: "#0f5fdc", width: "2px" });
+});
+
+test("resolveNodeAppearance: color-only text delta preserves base size/weight (C1 deep-merge)", function () {
+  var node = {
+    kind: "text",
+    appearance: {
+      text: { color: "#50505d", size: "12px", weight: 400 },
+      variants: [
+        { prop: "State", values: ["Selected"], text: { color: "#ffffff" } },
+      ],
+    },
+  };
+  var ap = r.resolveNodeAppearance(node, { State: "Selected" });
+  assert.deepEqual(ap.text, { color: "#ffffff", size: "12px", weight: 400 });
+});
+
+test("resolveNodeAppearance: null border delta still replaces wholesale (C1)", function () {
+  var node = {
+    kind: "container",
+    appearance: {
+      border: { color: "#c7c7ce", width: "1px" },
+      variants: [{ prop: "State", values: ["Bare"], border: null }],
+    },
+  };
+  var ap = r.resolveNodeAppearance(node, { State: "Bare" });
+  assert.equal(ap.border, null);
+});
+
 test("renderAppearanceComponent: default variant emits base colors, escapes, recurses", function () {
   var html = r.renderAppearanceComponent(TAG_STATUS_DOC, {
     variant: { Status: "Fail" },
