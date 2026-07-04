@@ -75,6 +75,33 @@ test("appearanceToDecls: C3 denylist drops injection but keeps legit values", fu
   assert.deepEqual(d, ["color:#50505d", "font-size:12px", "font-weight:400"]);
 });
 
+// F2 — icon glyph color. A resolved glyph draws via currentColor, so the icon
+// branch needs a single `color:` declaration (never background/border/radius
+// — those would repaint the neutral-box background behind a transparent
+// glyph, the washout-bug class). iconColorDecl prefers text.color (glyph
+// nested under text-colored composite) over the captured background.
+test("iconColorDecl: prefers text.color over background", function () {
+  assert.equal(
+    s.iconColorDecl({ background: "#fff4ec", text: { color: "#50505d" } }),
+    "color:#50505d",
+  );
+});
+
+test("iconColorDecl: falls back to background when no text.color", function () {
+  assert.equal(s.iconColorDecl({ background: "#fff4ec" }), "color:#fff4ec");
+});
+
+test("iconColorDecl: no color anywhere -> empty string", function () {
+  assert.equal(s.iconColorDecl(null), "");
+  assert.equal(s.iconColorDecl({}), "");
+  assert.equal(s.iconColorDecl({ border: { color: "#c7c7ce" } }), "");
+});
+
+test("iconColorDecl: C3 denylist applies to both text.color and background", function () {
+  assert.equal(s.iconColorDecl({ text: { color: "red;position:fixed" } }), "");
+  assert.equal(s.iconColorDecl({ background: "url(http://x/e.png)" }), "");
+});
+
 test("appearanceToDecls: C3 drops url()/braces/markup, keeps hex/rgba/px/rem/%", function () {
   // url(), braces, and </ markup escapes are all rejected.
   assert.deepEqual(

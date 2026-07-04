@@ -7,6 +7,20 @@
  *
  * No side effects at load (no main, no process.exit at module level).
  * Exported: assembleFlowShare(data) → html string.
+ *
+ * F2 determination (real icon glyphs): unlike assemble-preview.js
+ * (--type flow), this deliverable does NOT re-render DS instances
+ * client-side. Every screen is rendered server-side in Node below
+ * (renderScreen), and the resulting static HTML is spliced straight into
+ * templates/flow-prototype-wrapper.html, whose only <script> block is the
+ * inlined Alpine.js (view/nav toggling — no DOM re-render of DS content). No
+ * appearance-style.js / appearance-render.js / ds-html-map.js script tags,
+ * no window.__dsAnatomyDocs, and no window.dsIcons are ever embedded here.
+ * So appearance-render.js's icon glyphs resolve entirely through its Node
+ * dual-source branch (guarded require of the vendored icons.json) at
+ * server-render time — assemble-shared.js's buildDsIconsScript() (which
+ * assemble-preview.js injects for its browser bundle) is NOT needed for this
+ * deliverable, and should not be added here.
  */
 
 var path = require("path");
