@@ -17,6 +17,10 @@
  * the render-grade facts live in components/dist/token-bindings/.
  */
 
+var fs = require("fs");
+var path = require("path");
+var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
+
 var anatomyRender = require("./anatomy-render");
 var renderAnatomy = anatomyRender.renderAnatomy;
 var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
@@ -127,6 +131,47 @@ function buildDsAnatomyMap(slugs, opts) {
   return map;
 }
 
+/**
+ * Build the anatomy DOC map { slug → anatomyDoc } for all non-override DS
+ * slugs — unlike buildDsAnatomyMap (which renders each doc straight to an
+ * HTML string), this keeps the parsed doc itself so callers can drive the
+ * appearance-aware render seam (Phase 1B) with the raw tree.
+ *
+ * @param {string[]} slugs - candidate slug list (typically from collectDsSlugs)
+ * @param {object}   opts
+ *   opts.builtSlugs    - override list (default: BUILT_SLUGS from ds-html-map.js)
+ *   opts.anatomyLoader - injectable loader(slug) for anatomy JSON (default: fs read)
+ * @returns {{ [slug: string]: object }}
+ */
+function buildDsAnatomyDocMap(slugs, opts) {
+  opts = opts || {};
+  var builtSlugs = Array.isArray(opts.builtSlugs)
+    ? opts.builtSlugs
+    : require("./html-renderers/ds-html-map.js").BUILT_SLUGS;
+  var builtSet = {};
+  for (var b = 0; b < builtSlugs.length; b++) builtSet[builtSlugs[b]] = true;
+  var loader =
+    typeof opts.anatomyLoader === "function"
+      ? opts.anatomyLoader
+      : function (slug) {
+          try {
+            return JSON.parse(
+              fs.readFileSync(PATHS.components.anatomy.byKey(slug), "utf8"),
+            );
+          } catch (e) {
+            return null;
+          }
+        };
+  var map = {};
+  for (var i = 0; i < slugs.length; i++) {
+    var slug = slugs[i];
+    if (builtSet[slug]) continue;
+    var doc = loader(slug);
+    if (doc && doc.root && typeof doc.root === "object") map[slug] = doc;
+  }
+  return map;
+}
+
 // Build { anatomyVariantKey(slug, variant) -> inline-style-string } for the
 // delegated slugs used in the flow, for token-injection into hand-authored
 // templates. Entries with no resolvable root style are omitted.
@@ -150,5 +195,6 @@ module.exports = {
   collectDsSlugs: collectDsSlugs,
   collectDsSlugVariants: collectDsSlugVariants,
   buildDsAnatomyMap: buildDsAnatomyMap,
+  buildDsAnatomyDocMap: buildDsAnatomyDocMap,
   buildDsVariantStyleMap: buildDsVariantStyleMap,
 };
