@@ -1811,15 +1811,15 @@
   transform: rotate(180deg);
 }
 
-/* ============ Anatomy + Appearance (structural floor for non-override slugs) === */
+/* ============ Appearance (structural floor for non-override slugs) === */
 /* appearance-render.js (Phase 1B) interprets a component's vendored part-tree
    into structural HTML, VALUES-ONLY, for DS slugs with no hand-authored leaf,
    emitting .ds-appearance* classes. This floor gives the wrapper sensible
    hugging, the DS font + legible text, and a size + token-bound neutral fill
    to the aria-hidden media slots (vector/image/icon), which otherwise render
    0x0 and disappear. 100% --zen-* bound. (Group C retired the legacy
-   anatomy-render.js slug-to-HTML path and its .ds-anatomy__* rules.) */
-.ds-anatomy,
+   anatomy-render.js slug-to-HTML path and its .ds-anatomy__* rules; the bare
+   .ds-anatomy wrapper selector had no emitter either and was removed too.) */
 .ds-appearance {
   display: inline-flex;
   max-width: 100%;

@@ -79,7 +79,9 @@ function resolvableIcon(slug) {
   if (!Object.prototype.hasOwnProperty.call(ICONS, slug)) return false;
   var icon = ICONS[slug];
   return (
-    icon != null && typeof icon.viewBox === "string" && typeof icon.body === "string"
+    icon != null &&
+    typeof icon.viewBox === "string" &&
+    typeof icon.body === "string"
   );
 }
 
@@ -179,56 +181,34 @@ test("three-way classification: every slugged anatomy node is either a real icon
   );
 });
 
-// B4 — collision tripwire. icons.json and the component registry are
+// B4 — collision invariant. icons.json and the component registry are
 // different vendored artifacts; today EVERY icons.json key also appears as
 // a registry component key (Figma publishes icon components under
 // section=Foundations/category=Icons, and the registry indexes components
-// from every category, icons included — verified: all 142 current overlap
-// entries carry category "Icons", none is a different, non-icon UI
-// component coincidentally sharing an icon's slug). That specific ambiguity
-// (a non-icon component slug colliding with an icon slug) is what this
-// tripwire guards: renderIconGlyph checks icons.json first, so a future
-// collision would make it emit an icon glyph where a nested component
-// belongs — see the comment at its call site in appearance-render.js.
-// Hardcoded snapshot (not re-derived from current data) so a NEW slug
-// entering the overlap fails loudly here rather than silently in render.
-var KNOWN_ICON_REGISTRY_OVERLAP = [
-  "add", "add-circle", "ai", "alert", "alert-circle", "analytics", "api-key",
-  "applications", "arrow", "arrow-alt", "arrow-down", "asleep", "award-04",
-  "back", "bin-type", "book-bookmark", "book-edit", "boolean-type",
-  "brightness-contrast", "calendar-2", "catalog-design", "catalogs",
-  "chart-bar", "chart-pie", "checkmark-outline", "chevron-left",
-  "chevron-sort", "chevron-sort-down", "chevron-sort-up", "chevron-up",
-  "circle-dash", "close", "cloud-upload", "connected", "dashboard",
-  "data-access-request", "data-file-question", "data-model",
-  "data-product-output-port", "data-structured", "database",
-  "database-check", "directory", "disconnected", "discussion", "dots",
-  "download", "drag", "edit", "error-filled", "event-time-type", "exit",
-  "expand", "exploration", "export", "favorite", "favorite-filled", "filter",
-  "filter-text", "float-type", "geo-point-type", "glossary", "graph-merge",
-  "help-bubble", "help-circle", "help-laptop", "history", "home",
-  "icon-query-queue", "image", "info", "info-filled", "input", "input-ports",
-  "integer-type", "layers-front", "layers-front-curator-indicator",
-  "lineage", "link-type", "list-bullets", "list-numbers", "mail",
-  "maintenance", "map", "maximize", "menu", "minimize", "misuse-outline",
-  "move", "null-sign", "open", "output", "paragraph-justify", "pending",
-  "pii", "pin", "process", "relation", "relation-incoming",
-  "relation-outgoing", "rocket-1", "rotate-back", "scanner", "schema",
-  "security-services", "server-search", "settings", "shield-lock",
-  "simple-check", "stop-outline", "success-filled", "suggestion",
-  "tags-add", "target-type", "task-list", "task-list-multiple",
-  "task-list-settings", "text-file", "text-type", "thumbs-down",
-  "thumbs-up", "tools", "trash", "undo", "unknown-type", "upload-file",
-  "use-with-care", "user-add", "user-group", "user-info", "user-lock",
-  "user-single", "view", "view-card", "view-details", "view-table",
-  "warning-alt", "warning-filled", "zoom-in", "zoom-out", "zoom-reset",
-  "zoom-to-fit",
-].sort();
+// from every category, icons included). That overlap is EXPECTED and grows
+// legitimately whenever a new icon is published (new icons.json key + a
+// matching Icons-category registry entry) — a fixed-membership/fixed-count
+// snapshot would fail CI on that ordinary growth, which is exactly the
+// today-fact-not-invariant bug this gate exists to avoid.
+//
+// The actual ambiguity worth hard-failing on (see renderIconGlyph's call
+// site in appearance-render.js: it checks icons.json first) is a NON-icon
+// registry component coincidentally sharing an icon's slug — that would
+// make the renderer emit an icon glyph where a distinct nested component
+// belongs. So the invariant is category-shaped, not membership-shaped:
+// every registry entry that shares a slug with icons.json must itself be
+// categorized "Icons" (field verified against
+// vendor/components/dist/registries/dskit.json's `category` string —
+// inspected all 142 current overlap entries: every one carries category
+// "Icons" and none is missing the field; a future entry that lacks a
+// `category`, or carries any value other than "Icons", is treated as a
+// genuine collision and fails loudly here).
+function isIconsCategoryComponent(entry) {
+  return entry != null && entry.category === "Icons";
+}
 
-test("collision tripwire: icons.json keys that also exist as component registry keys must not grow beyond the known snapshot", function () {
-  var overlap = Object.keys(ICONS)
-    .filter(isRegistryComponent)
-    .sort();
+test("collision invariant: every icons.json/registry slug overlap resolves to an Icons-category component, never a different component", function () {
+  var overlap = Object.keys(ICONS).filter(isRegistryComponent).sort();
 
   // eslint-disable-next-line no-console
   console.log(
@@ -238,17 +218,26 @@ test("collision tripwire: icons.json keys that also exist as component registry 
       overlap.join(", "),
   );
 
-  var grown = overlap.filter(function (k) {
-    return KNOWN_ICON_REGISTRY_OVERLAP.indexOf(k) === -1;
+  var nonIconCollisions = overlap.filter(function (k) {
+    return !isIconsCategoryComponent(REGISTRY[k]);
   });
 
   assert.deepEqual(
-    grown,
+    nonIconCollisions,
     [],
-    "new icons.json/registry collision(s) not in the known snapshot: " +
-      grown.join(", ") +
-      " — inspect whether a non-icon component now shares an icon slug " +
-      "(genuine renderer ambiguity) before extending the snapshot",
+    "icons.json/registry slug collision(s) whose registry entry is NOT " +
+      'category "Icons": ' +
+      nonIconCollisions
+        .map(function (k) {
+          return (
+            k + " (category: " + (REGISTRY[k] && REGISTRY[k].category) + ")"
+          );
+        })
+        .join(", ") +
+      " — renderIconGlyph resolves icons.json first, so this slug would " +
+      "render an icon glyph instead of the distinct non-icon component " +
+      "that actually owns it; this is the genuine renderer ambiguity this " +
+      "gate exists to catch",
   );
 });
 
