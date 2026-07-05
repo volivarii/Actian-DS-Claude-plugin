@@ -4,9 +4,12 @@
  * side-nav). Geometry + token bindings
  * measured from the published Figma DS Kit (file l8biHxfarNi1I2RMvVxVOK, 2026-06-06).
  * Figma-var -> --zen-* alias notes: color-bg-primary->bg-emphasis,
- * color-text-default->text-primary, color-text-interactive->text-link-default,
- * color-border-primary->border-selected, size-icon-lg->size-lg,
- * font-letterspacing-N->letterspacing-wide-N. */
+ * color-text-interactive->text-primary (text-link-* retired, knowledge #341;
+ * text-primary = interactive text now), color-border-primary->border-selected,
+ * size-icon-lg->size-lg, font-letterspacing-N->letterspacing-wide-N.
+ * color-text-default->text-default in the chrome sections (page-header,
+ * breadcrumbs, tabs); older sections still bind it as text-primary from before
+ * the rename and migrate in a follow-up. */
 
 /* ============ Button ============ */
 .ds-button {
@@ -48,7 +51,7 @@
 }
 .ds-button--secondary {
   background: transparent;
-  color: var(--zen-color-text-link-default);
+  color: var(--zen-color-text-primary);
   border-color: var(--zen-border-selected);
 }
 .ds-button--secondary .ds-button__icon {
@@ -704,7 +707,7 @@
   background: var(
     --zen-color-bg-selected
   ); /* fallback: turquoise-50 not vendored */
-  color: var(--zen-color-text-link-default);
+  color: var(--zen-color-text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -849,7 +852,7 @@
     --zen-font-lineheight-2xl
   ); /* 32 — heading leading, intentionally > size tier */
   letter-spacing: var(--zen-font-letterspacing-normal);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-page-header__desc {
   margin: 0;
@@ -877,14 +880,14 @@
   letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
 }
 .ds-breadcrumbs__crumb {
-  color: var(--zen-color-text-link-default);
+  color: var(--zen-color-text-primary);
   font-weight: var(--zen-font-weight-regular);
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
 }
 .ds-breadcrumbs__crumb--current {
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-weight: var(--zen-font-weight-medium);
   cursor: default;
 }
@@ -893,7 +896,7 @@
   height: 16px;
   flex: 0 0 auto;
   display: inline-flex;
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-breadcrumbs__sep svg {
   width: 100%;
@@ -920,7 +923,7 @@
   border: none;
   border-bottom: var(--zen-border-width-md) solid transparent;
   background: transparent;
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-family: inherit;
   font-size: var(--zen-font-size-md); /* 14 */
   line-height: var(--zen-font-lineheight-md); /* 20 */
@@ -934,7 +937,7 @@
   background: var(--zen-color-bg-selected);
 }
 .ds-tabs__tab.is-active {
-  color: var(--zen-color-text-link-default);
+  color: var(--zen-color-text-primary);
   font-weight: var(--zen-font-weight-semibold);
   border-bottom-color: var(--zen-border-selected);
 }
@@ -1195,7 +1198,7 @@
   gap: var(--zen-spacing-xs); /* 8px */
 }
 .ds-steward__source-link {
-  color: var(--zen-color-text-link-default);
+  color: var(--zen-color-text-primary);
   text-decoration: underline;
   cursor: pointer;
 }

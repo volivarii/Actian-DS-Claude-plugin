@@ -159,7 +159,6 @@ describe("countChecks", function () {
         text: {
           primary: { $type: "color", $value: "#000000" },
           secondary: { $type: "color", $value: "#222222" },
-          link: { default: { $type: "color", $value: "#0000FF" } },
           error: { $type: "color", $value: "#CC0000" },
         },
         bg: { default: { $type: "color", $value: "#FFFFFF" } },
@@ -167,8 +166,8 @@ describe("countChecks", function () {
     };
     var counts = lint.countChecks({ cssText: css, tokensJson: tokens });
     assert.strictEqual(counts.refsChecked, 2); // text + color-x, deduped
-    // 4 CONTRAST_PAIRS that resolve × 3 themes = 12 contrast checks
-    assert.strictEqual(counts.contrastChecks, 12);
+    // 3 CONTRAST_PAIRS that resolve × 3 themes = 9 contrast checks
+    assert.strictEqual(counts.contrastChecks, 9);
   });
 
   it("only counts contrast pairs whose tokens resolve", function () {

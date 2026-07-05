@@ -19,6 +19,22 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.15] - 2026-07-05
+
+### Changed
+- **Migrated off the retired `--zen-color-text-link-*` tokens.** Knowledge #341
+  deletes the text-link family; `--zen-color-text-primary` is now the
+  interactive-text token (same resolved value, `#0f5fdc`). The five
+  `var(--zen-color-text-link-default)` call sites in `ds-base.css` (secondary
+  button, selected item, breadcrumb link, active tab, steward source link) and
+  the brief renderer's token-pill color now use
+  `var(--zen-color-text-primary)`; the contrast-lint pair and token-pill test
+  follow. In the three binding-gated chrome sections (page-header, breadcrumbs,
+  tabs), body text moved from the pre-rename `text-primary` to `text-default`
+  (black, matching the Figma measurement), and the binding-conformance gate
+  accepts old and new names during the vendor transition. Remaining body-text
+  `text-primary` call sites in other sections migrate in a follow-up.
+
 ## [2026.7.13] - 2026-07-05
 
 ### Added
