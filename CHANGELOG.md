@@ -25,13 +25,13 @@ are summarized at the release level.
 - **Real icon glyphs in generated flows/previews (F2).** The appearance renderer
   resolves anatomy icon instances against the vendored 142-icon set, so DS component
   icons render their real SVG glyph instead of a neutral placeholder box. Slug-only,
-  default-variant glyph until per-variant capture lands upstream. (PR TBD)
+  default-variant glyph until per-variant capture lands upstream. (#224)
 
 ### Removed
 - **Legacy slug-to-prerendered-HTML anatomy fallback.** Retired (Group C); the
   appearance-doc renderer with graceful chip fallback is now the only
   anatomy-derived render path. The tag-default token-injection path is unchanged.
-  (PR TBD)
+  (#224)
 
 ## [2026.7.12] - 2026-07-04
 
