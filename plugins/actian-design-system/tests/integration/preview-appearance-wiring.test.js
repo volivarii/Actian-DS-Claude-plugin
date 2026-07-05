@@ -17,15 +17,17 @@
 // window.appearanceRender.renderAppearanceComponent(doc, ...). If a future
 // edit drops appearance-render.js from TYPE_CONFIGS.flow, or reorders it
 // after ds-html-map.js, window.appearanceRender is undefined at the point
-// ds-html-map.js's IIFE captures it, so the browser seam silently falls back
-// to the legacy anatomy HTML / graceful chip — the washed-out-tag regression
-// — with zero prior test signal, because flow-share-appearance.test.js only
-// exercises the server (assembleFlowShare) path, not this browser CLI path.
+// ds-html-map.js's IIFE captures it, so the browser seam falls straight
+// through to a graceful chip — the washed-out-tag regression — with zero
+// prior test signal, because flow-share-appearance.test.js only exercises
+// the server (assembleFlowShare) path, not this browser CLI path. (There is
+// no legacy anatomy-render.js / anatomy-map fallback left to catch this —
+// that two-hop path was retired in Group C.)
 //
 // Repo style: node:test + node:assert, spawnSync over the real CLI (see
 // tests/renderers/assemble-preview.test.js's run() helper).
 
-var { describe, it } = require("node:test");
+var { describe, it, before } = require("node:test");
 var assert = require("node:assert");
 var spawnSync = require("child_process").spawnSync;
 var path = require("path");
@@ -91,13 +93,20 @@ function assemble() {
 }
 
 describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", function () {
+  // Every test below inspects the SAME deterministic output (fixed fixture,
+  // no randomness in the assembled HTML), so assemble() runs ONCE here
+  // instead of once per test (was 5 separate spawnSync child processes).
+  var r;
+
+  before(function () {
+    r = assemble();
+  });
+
   it("assembles cleanly", function () {
-    var r = assemble();
     assert.strictEqual(r.status, 0, "exits cleanly: " + r.stderr);
   });
 
   it("embeds window.__dsAnatomyDocs with the tag-status doc's real Success color", function () {
-    var r = assemble();
     var docsIdx = r.html.indexOf("window.__dsAnatomyDocs");
     assert.ok(docsIdx !== -1, "html embeds window.__dsAnatomyDocs");
 
@@ -117,7 +126,6 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
   });
 
   it("inlines both appearance-style.js and appearance-render.js", function () {
-    var r = assemble();
     assert.ok(
       r.html.indexOf("/* appearance-style.js */") !== -1,
       "appearance-style.js is inlined",
@@ -136,9 +144,9 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     // Load-bearing order: ds-html-map.js's default: case reads
     // window.appearanceRender at IIFE-eval time. If appearance-render.js is
     // dropped or moved after ds-html-map.js, window.appearanceRender is
-    // undefined when ds-html-map.js's closure runs, and the seam silently
-    // degrades to the legacy anatomy map / graceful chip.
-    var r = assemble();
+    // undefined when ds-html-map.js's closure runs, and the seam degrades
+    // straight to a graceful chip (there is no legacy anatomy-map fallback
+    // left to catch it — Group C retired that two-hop path).
     var styleIdx = r.html.indexOf("/* appearance-style.js */");
     var renderIdx = r.html.indexOf("/* appearance-render.js */");
     var dsMapIdx = r.html.indexOf("/* ds-html-map.js */");
@@ -154,6 +162,27 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     assert.ok(
       renderIdx < dsMapIdx,
       "appearance-render.js must be inlined before ds-html-map.js",
+    );
+  });
+
+  it("injects window.dsIcons BEFORE inlining appearance-render.js (F2)", function () {
+    // F2: renderIconGlyph resolves node.slug against the module-level `dsIcons`
+    // dual-source default, which reads window.dsIcons at IIFE-eval time (see
+    // appearance-render.js's top-of-file comment). If assemble-preview.js ever
+    // stopped injecting the window.dsIcons script (assemble-shared.js's
+    // buildDsIconsScript()) before inlining appearance-render.js, the module
+    // would resolve dsIcons to {} and every icon-bearing instance would
+    // silently fall back to the neutral-box placeholder, with zero prior
+    // signal from this suite (which only checked __dsAnatomyDocs / renderer
+    // ordering, not the icon-geometry global).
+    var iconsIdx = r.html.indexOf("window.dsIcons");
+    var renderIdx = r.html.indexOf("/* appearance-render.js */");
+
+    assert.ok(iconsIdx !== -1, "window.dsIcons script present");
+    assert.ok(renderIdx !== -1, "appearance-render.js marker present");
+    assert.ok(
+      iconsIdx < renderIdx,
+      "window.dsIcons must be injected before appearance-render.js is inlined",
     );
   });
 });

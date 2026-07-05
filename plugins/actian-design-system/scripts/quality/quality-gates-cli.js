@@ -21,10 +21,13 @@ var PILOT = [
   "checkbox-with-label",
   "alert-banner",
   // Hi-Fi Slice 1 (Task 4) override leaves — all tier:override in ds-html-map,
-  // render correctly server-side (real switch-case, no window.__dsAnatomyMap needed).
-  // Anatomy-tier slugs are intentionally excluded: ds-html-map's default case reads
-  // window.__dsAnatomyMap, which is only populated in the browser; in the Node/gate
-  // render path they chip-degrade, producing misleadingly low structural scores.
+  // render correctly server-side (real switch-case, no window.__dsAnatomyDocs
+  // needed). This PILOT list predates the F1 fidelity wiring: as of
+  // render-leaf.js's renderLeafFragment(), the Node/gate render path also
+  // injects the appearance doc map via setAnatomyDocMap() before each render,
+  // so anatomy-tier slugs (ds-html-map's default: case) now render their real
+  // per-instance appearance HTML here too, not a chip. PILOT staying limited
+  // to override-tier leaves is just scope, not a rendering limitation.
   "notification",
   "stepper",
   "tooltip",
@@ -34,7 +37,7 @@ var PILOT = [
   "progress-bar-small",
   "tag-interactive",
   // Hi-Fi A1 (narrow) degraded-slug override leaves — same rationale as Slice 1
-  // (real switch-case, render server-side in Node, no window.__dsAnatomyMap).
+  // (real switch-case, render server-side in Node, no window.__dsAnatomyDocs).
   "popover",
   "account-dropdown",
   "app-switcher-dropdown",

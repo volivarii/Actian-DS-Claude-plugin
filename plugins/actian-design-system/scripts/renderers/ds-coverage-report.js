@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 "use strict";
 var path = require("path");
-var { renderAnatomy, loadAnatomy } = require(
+var { loadAnatomy, passesRatioGate } = require(
   path.join(__dirname, "anatomy-render.js"),
 );
 
+// Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
+// same as resolveRootTokenStyle — see passesRatioGate's own doc comment in
+// anatomy-render.js for how this diverges from buildDsAnatomyDocMap's R2
+// floor (ds-anatomy-map.js), which intentionally keeps missing-ratio docs.
 function coverage(slugs, opts) {
   opts = opts || {};
   var minRatio = typeof opts.minRatio === "number" ? opts.minRatio : 0.6;
@@ -20,11 +24,8 @@ function coverage(slugs, opts) {
       spec.quality && typeof spec.quality.ratio === "number"
         ? spec.quality.ratio
         : null;
-    var html = renderAnatomy(slug, {
-      loader: opts.anatomyLoader,
-      minRatio: minRatio,
-    });
-    return { slug: slug, tier: html ? "anatomy" : "degraded", ratio: ratio };
+    var tier = passesRatioGate(ratio, minRatio) ? "anatomy" : "degraded";
+    return { slug: slug, tier: tier, ratio: ratio };
   });
 }
 

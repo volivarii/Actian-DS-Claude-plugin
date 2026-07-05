@@ -29,9 +29,10 @@ var BARE_VAR = /var\(\s*--[a-zA-Z0-9-]+\s*\)/;
 // Load-bearing floor (Task 8 fix): with the doc map fully populated, a real
 // wiring collapse — e.g. renderAppearanceComponent always returning "" / the
 // default: seam never reading _serverAnatomyDocs — would make every one of
-// these slugs fall through to the legacy anatomy map (also unset here) and
-// degrade to gracefulChip() (`class="ds-component"`), not a `ds-appearance`
-// wrapper. Observed today: 48/48 non-BUILT_SLUGS docs render via the
+// these slugs fall straight through to gracefulChip() (`class="ds-component"`)
+// rather than a `ds-appearance` wrapper (there is no legacy anatomy-map
+// fallback left to catch it — Group C retired that two-hop path). Observed
+// today: 48/48 non-BUILT_SLUGS docs render via the
 // appearance path. MIN_APPEARANCE_RENDERED is set well below that (not at
 // it) so normal per-slug churn (a doc dropping its root appearance, a new
 // low-quality doc skipped by the R2 ratio floor) doesn't make this test

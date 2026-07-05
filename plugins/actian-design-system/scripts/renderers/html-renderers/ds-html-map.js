@@ -169,28 +169,14 @@
     return items[0];
   }
 
-  // Anatomy map for non-override slugs. Two supply paths:
-  //   • browser deliverable — embedded as window.__dsAnatomyMap (assemble-time)
-  //   • server-side (Node) — the canonical flow-share deliverable pre-renders
-  //     screens in Node where `window` is undefined, so the assembler injects the
-  //     map here via setAnatomyMap() before rendering and clears it after.
-  var _serverAnatomyMap = null;
-
-  /**
-   * setAnatomyMap(map) — supply the assemble-time anatomy map for server-side
-   * rendering. Pass a plain object { slug → htmlString }, or null/undefined to
-   * clear it (callers MUST reset after a render so state never leaks).
-   */
-  function setAnatomyMap(map) {
-    _serverAnatomyMap = map && typeof map === "object" ? map : null;
-  }
-
   // Anatomy DOC map (Phase 1B) for the default: seam — { slug → doc } where
   // doc is the captured-appearance anatomy doc (Task 4's
   // buildDsAnatomyDocMap output), rendered per-instance so the instance's own
-  // variant selects the right colors. Same two supply paths as the anatomy
-  // HTML map above: window.__dsAnatomyDocs (browser) or setAnatomyDocMap()
-  // (server-side Node render).
+  // variant selects the right colors. Two supply paths: window.__dsAnatomyDocs
+  // (browser) or setAnatomyDocMap() (server-side Node render). (The former
+  // slug→pre-rendered-HTML anatomy map and its setAnatomyMap setter —
+  // "path c" — was retired in Group C; this doc map is now the only anatomy
+  // supply path.)
   var _serverAnatomyDocs = null;
 
   /**
@@ -1729,18 +1715,10 @@
             });
             if (out) return out;
           }
-          // No appearance doc for this slug (or it rendered empty): fall back
-          // to the LEGACY anatomy dispatch — pre-rendered HTML looked up on
-          // window.__dsAnatomyMap (browser) or _serverAnatomyMap (Node, via
-          // setAnatomyMap()). Retained with ZERO regression until Task 6
-          // repoints the pipeline at the doc map and Task 9 retires this path.
-          var m =
-            (typeof window !== "undefined" && window.__dsAnatomyMap) ||
-            _serverAnatomyMap ||
-            {};
-          if (m[slug]) return m[slug];
-          // Neither an appearance doc nor legacy anatomy html: a clean
-          // labeled chip. Total tolerance — this seam never throws.
+          // No appearance doc for this slug (or it rendered empty): a clean
+          // labeled chip. Total tolerance — this seam never throws. (The
+          // legacy slug→pre-rendered-HTML anatomy map fallback — "path c",
+          // formerly exposed as a window global — was retired in Group C.)
           return gracefulChip();
         }
       }
@@ -1796,7 +1774,6 @@
   ];
 
   exports.renderDSComponent = renderDSComponent;
-  exports.setAnatomyMap = setAnatomyMap;
   exports.setAnatomyDocMap = setAnatomyDocMap;
   exports.setVariantStyleMap = setVariantStyleMap;
   exports.renderIcon = renderIcon;

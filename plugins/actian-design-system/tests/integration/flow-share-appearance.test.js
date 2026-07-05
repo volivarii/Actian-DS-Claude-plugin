@@ -9,16 +9,17 @@
 // anatomy DOC map (buildDsAnatomyDocMap) and inject it via
 // setAnatomyDocMap() BEFORE the render loop, so renderAppearanceComponent
 // picks the Success variant's real vendored background (#f0ffec) instead of
-// degrading to a graceful chip (data-slug) or the old anatomy-HTML fallback
-// (which carries no per-instance variant color).
+// degrading straight to a graceful chip (data-slug).
 //
-// T3 correction: `data-ds-slug` is NOT a reliable distinguisher between this
-// path and the legacy anatomy-render.js fallback — anatomy-render.js ALSO
-// emits `data-ds-slug` on its wrapper. The real unique markers are (1) the
-// literal `#f0ffec` hex value (legacy anatomy rendering only ever emits
-// `var(--...)` token references, never a literal resolved hex) and (2) the
-// `class="ds-appearance"` wrapper class, which only renderAppearanceComponent
-// emits.
+// Current contract (post-Group-C): the default: case has exactly two
+// outcomes — an appearance doc renders via renderAppearanceComponent, or (no
+// doc, or it rendered empty) a direct gracefulChip(). There is no
+// anatomy-render.js / legacy slug-to-html anatomy-map fallback in between;
+// that two-hop path was retired in Group C. `data-ds-slug` is present on the
+// appearance output too, so the real unique markers are (1) the literal
+// `#f0ffec` hex value (appearance rendering emits resolved values, never a
+// `var(--...)` token reference) and (2) the `class="ds-appearance"` wrapper
+// class, which only renderAppearanceComponent emits.
 //
 // Repo style: node:test + node:assert (see flow-share-anatomy.test.js,
 // flow-share-a1-overrides.test.js).
@@ -65,16 +66,16 @@ describe("flow-share: appearance-doc rendering (Phase 1B, Task 6)", function () 
       -1,
       "tag-status must NOT fall back to a graceful chip",
     );
-    // data-ds-slug is present on BOTH this path and the legacy anatomy-render.js
-    // fallback, so it cannot distinguish them on its own — kept as a sanity
-    // check, not the unique marker.
+    // data-ds-slug alone isn't the unique marker (see the file header): it's
+    // kept here as a sanity check that the seam emitted something DS-shaped,
+    // not proof this is the appearance path specifically.
     assert.ok(
       html.indexOf('data-ds-slug="tag-status"') !== -1,
       "appearance renderer marker (data-ds-slug) must be present",
     );
     // The TRUE unique marker: only renderAppearanceComponent emits the
-    // `.ds-appearance` wrapper class — the legacy anatomy-render.js fallback
-    // never does.
+    // `.ds-appearance` wrapper class — a chip-degraded output never does (and
+    // there is no anatomy-render.js fallback left that could also emit it).
     assert.match(
       html,
       /class="ds-appearance/,

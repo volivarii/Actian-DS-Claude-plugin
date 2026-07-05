@@ -29,7 +29,6 @@ var PATHS = require("../lib/paths");
 var shared = require("./assemble-shared");
 var anatomyMapHelpers = require("./ds-anatomy-map");
 var collectDsSlugs = anatomyMapHelpers.collectDsSlugs;
-var buildDsAnatomyMap = anatomyMapHelpers.buildDsAnatomyMap;
 var buildDsAnatomyDocMap = anatomyMapHelpers.buildDsAnatomyDocMap;
 
 // ---------------------------------------------------------------------------
@@ -59,9 +58,9 @@ var TYPE_CONFIGS = {
       // appearance-style.js / appearance-render.js (Phase 1B) must load
       // BEFORE ds-html-map.js — dependency order: style -> render -> map —
       // so window.appearanceStyle / window.appearanceRender exist when
-      // ds-html-map.js's default: case checks for them (it degrades to the
-      // legacy anatomy map / a graceful chip when either global is absent,
-      // so load order here is load-bearing, not merely defensive).
+      // ds-html-map.js's default: case checks for them (it degrades straight
+      // to a graceful chip when either global is absent, so load order here
+      // is load-bearing, not merely defensive).
       path.join(SCRIPTS_RENDERERS_DIR, "appearance-style.js"),
       path.join(SCRIPTS_RENDERERS_DIR, "appearance-render.js"),
       // ds-html-map.js (hi-fi DS leaf map) must load AFTER fm-html-map.js (it
@@ -204,9 +203,9 @@ function writeOutput(outputPath, html) {
   );
 }
 
-// DS anatomy map helpers (collectDsSlugs / buildDsAnatomyMap) were extracted to
-// ./ds-anatomy-map.js so the flow-share assembler can build the map too. They are
-// re-imported above and re-exported below for back-compat.
+// DS anatomy map helpers (collectDsSlugs / buildDsAnatomyDocMap) were extracted
+// to ./ds-anatomy-map.js so the flow-share assembler can build the map too. They
+// are re-imported above and re-exported below for back-compat.
 
 // ---------------------------------------------------------------------------
 // Main
@@ -332,21 +331,15 @@ function main() {
   });
   if (inlinesDs) {
     rendererScripts += shared.buildDsIconsScript() + "\n";
-    // Build anatomy map at assemble-time and embed it so the client renderer
-    // can dispatch non-override slugs without reading any substrate at runtime.
+    // Build the anatomy DOC map at assemble-time and embed it so the client
+    // renderer can dispatch non-override slugs without reading any substrate
+    // at runtime. (The legacy slug→pre-rendered-HTML anatomy map — "path c" —
+    // was retired in Group C.)
     var anatomySlugs = collectDsSlugs(data);
-    var anatomyMap = buildDsAnatomyMap(anatomySlugs);
-    var anatomyMapJson = escapeJsonForScript(JSON.stringify(anatomyMap));
-    rendererScripts +=
-      "  <script>\n  /* ds-anatomy-map (assemble-time) */\n" +
-      "  window.__dsAnatomyMap = " +
-      anatomyMapJson +
-      ";\n  </script>\n";
     // Phase 1B: anatomy DOC map (raw parsed docs, not pre-rendered HTML) for
-    // the appearance-aware render seam — same content-shaped slug collection
-    // as anatomyMap above, embedded alongside it. ds-html-map.js's default:
-    // case reads window.__dsAnatomyDocs FIRST and falls back to
-    // window.__dsAnatomyMap (legacy) when a slug has no doc.
+    // the appearance-aware render seam. ds-html-map.js's default: case reads
+    // window.__dsAnatomyDocs and falls back to a graceful chip when a slug
+    // has no doc.
     var docMap = buildDsAnatomyDocMap(anatomySlugs);
     var docMapJson = escapeJsonForScript(JSON.stringify(docMap));
     rendererScripts +=
@@ -446,6 +439,5 @@ if (require.main === module) {
 // ---------------------------------------------------------------------------
 module.exports = {
   collectDsSlugs: collectDsSlugs,
-  buildDsAnatomyMap: buildDsAnatomyMap,
   buildDsAnatomyDocMap: buildDsAnatomyDocMap,
 };

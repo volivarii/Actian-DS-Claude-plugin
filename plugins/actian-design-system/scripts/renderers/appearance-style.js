@@ -57,7 +57,31 @@
     return d;
   }
 
+  // Icon glyph color (F2). A resolved glyph draws via `currentColor`, so it
+  // needs a single `color:` declaration (never background/border/radius,
+  // which would repaint the neutral-box background behind a transparent
+  // glyph, precisely the washout-bug class appearanceToDecls's other callers
+  // already guard against). Only text.color qualifies (a glyph nested under
+  // a text-colored composite, e.g. an icon matching an alert's message
+  // color): appearance.background on an instance node is always the
+  // instance root frame's own surface fill, never the glyph color, so
+  // falling back to it would paint glyph surface-on-surface, the very
+  // washout this function exists to prevent. Reuses the same has/safeValue
+  // gate as appearanceToDecls so an icon color can never smuggle a
+  // declaration/rule terminator or url()/expression() either. Returns "" when
+  // no safe color is present, so the caller omits the style attribute and
+  // the glyph inherits currentColor from its parent.
+  function iconColorDecl(appearance) {
+    if (!appearance || typeof appearance !== "object") return "";
+    var t = appearance.text;
+    if (t && typeof t === "object" && has(t.color) && safeValue(t.color)) {
+      return "color:" + t.color;
+    }
+    return "";
+  }
+
   exports.appearanceToDecls = appearanceToDecls;
+  exports.iconColorDecl = iconColorDecl;
 })(
   typeof module !== "undefined"
     ? module.exports

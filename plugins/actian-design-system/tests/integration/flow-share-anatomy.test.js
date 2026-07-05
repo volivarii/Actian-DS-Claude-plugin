@@ -1,14 +1,18 @@
 "use strict";
 
 // flow-share-anatomy.test.js — End-to-end proof that the CANONICAL flow-share
-// deliverable renders non-override DS slugs as anatomy HTML (not a gray chip).
-// This exercises both fixes together:
-//   C2 — the map is collected from content-shaped flow-data (screens[].content)
-//   C1 — the map is consumed server-side (flow-share pre-renders in Node, where
-//        there is no window) via ds-html-map.setAnatomyMap().
-// Markers: anatomy emits  data-ds-slug="<slug>";  the chip emits  data-slug="<slug>".
-// We assert on those (NOT a bare "ds-anatomy" substring, which also appears in
-// the inlined ds-base.css and would mask a chip regression).
+// deliverable renders non-override DS slugs as appearance HTML (not a gray
+// chip). This exercises both fixes together:
+//   C2 — the doc map is collected from content-shaped flow-data (screens[].content)
+//   C1 — the doc map is consumed server-side (flow-share pre-renders in Node,
+//        where there is no window) via ds-html-map.setAnatomyDocMap().
+// (Group C retired the legacy slug→html anatomy map and its setAnatomyMap
+// setter; the default: seam now dispatches to the Phase 1B appearance-doc
+// render.)
+// Markers: both the retired anatomy path and the appearance path emit
+// data-ds-slug="<slug>"; the chip emits data-slug="<slug>". We assert on
+// those (NOT a bare "ds-anatomy"/"ds-appearance" substring, which also
+// appears in the inlined ds-base.css and would mask a chip regression).
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -18,7 +22,7 @@ var {
 } = require("../../scripts/renderers/assemble-flow-share.js");
 var {
   collectDsSlugs,
-  buildDsAnatomyMap,
+  buildDsAnatomyDocMap,
 } = require("../../scripts/renderers/ds-anatomy-map.js");
 var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 
@@ -40,27 +44,27 @@ function fixture() {
   };
 }
 
-describe("flow-share: server-side anatomy rendering (C1 + C2)", function () {
-  it("precondition: chosen slug is non-override and has usable anatomy", function () {
+describe("flow-share: server-side appearance-doc rendering (C1 + C2)", function () {
+  it("precondition: chosen slug is non-override and has a usable appearance doc", function () {
     var slugs = collectDsSlugs(fixture());
     assert.ok(
       slugs.indexOf(ANATOMY_SLUG) !== -1,
       "collectDsSlugs must find the content-shaped slug",
     );
-    var map = buildDsAnatomyMap(slugs);
+    var map = buildDsAnatomyDocMap(slugs);
     assert.ok(
       map[ANATOMY_SLUG],
-      "substrate must yield anatomy HTML for '" +
+      "substrate must yield an appearance doc for '" +
         ANATOMY_SLUG +
         "' — if this fails the slug became an override or lost anatomy; pick another non-override slug",
     );
   });
 
-  it("renders the non-override slug as anatomy HTML, not a chip", function () {
+  it("renders the non-override slug as appearance HTML, not a chip", function () {
     var html = assembleFlowShare(fixture());
     assert.ok(
       html.indexOf('data-ds-slug="' + ANATOMY_SLUG + '"') !== -1,
-      "anatomy HTML (data-ds-slug) must be present in flow-share output",
+      "appearance HTML (data-ds-slug) must be present in flow-share output",
     );
     assert.strictEqual(
       html.indexOf('data-slug="' + ANATOMY_SLUG + '"'),
@@ -69,9 +73,10 @@ describe("flow-share: server-side anatomy rendering (C1 + C2)", function () {
     );
   });
 
-  it("does not leak the server anatomy map after assembly", function () {
+  it("does not leak the server appearance doc map after assembly", function () {
     // After assembleFlowShare returns, a server-side render of the same slug with
-    // no window must chip — proving setAnatomyMap was reset (no cross-call state).
+    // no window must chip — proving setAnatomyDocMap was reset (no cross-call
+    // state).
     assembleFlowShare(fixture());
     var prev = typeof global.window !== "undefined" ? global.window : undefined;
     delete global.window;
@@ -84,7 +89,7 @@ describe("flow-share: server-side anatomy rendering (C1 + C2)", function () {
     if (prev !== undefined) global.window = prev;
     assert.ok(
       html.indexOf("ds-component") !== -1,
-      "slug must chip after assembly (server map was reset)",
+      "slug must chip after assembly (server doc map was reset)",
     );
   });
 });

@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**2026.6.21** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**2026.7.13** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
