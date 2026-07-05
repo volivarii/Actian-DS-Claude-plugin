@@ -19,6 +19,25 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.16] - 2026-07-05
+
+### Fixed
+- **Body text no longer renders blue in the ds-base fallback styles.** 36
+  remaining pre-rename `var(--zen-color-text-primary)` call sites in
+  `ds-base.css` were written when text-primary meant black body text; since the
+  token's meaning flipped to interactive blue (`#0f5fdc`), those sites rendered
+  blue, mostly masked by the 1B inline appearance values. Each site was
+  verified against the captured appearance values in the vendored anatomy docs
+  (the resolved Figma colors): 33 body-text sites (labels, titles, table text,
+  banner messages, stepper titles including the active state, selected
+  interactive tag, active segment, calendar text) now bind
+  `--zen-color-text-default` (black), the input field description binds
+  `--zen-color-text-tertiary` (its exact captured value `#50505d`), and the
+  tooltip bubble background binds `--zen-color-bg-reverse` instead of a text
+  token. The five genuinely interactive sites (secondary button label, avatar
+  initials, breadcrumb link, active tab, steward source link) keep
+  `text-primary`. Completes the migration started in 2026.7.15 / PR #226.
+
 ## [2026.7.15] - 2026-07-05
 
 ### Changed

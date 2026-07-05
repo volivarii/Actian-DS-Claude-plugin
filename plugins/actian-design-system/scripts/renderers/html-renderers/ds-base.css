@@ -7,9 +7,9 @@
  * color-text-interactive->text-primary (text-link-* retired, knowledge #341;
  * text-primary = interactive text now), color-border-primary->border-selected,
  * size-icon-lg->size-lg, font-letterspacing-N->letterspacing-wide-N.
- * color-text-default->text-default in the chrome sections (page-header,
- * breadcrumbs, tabs); older sections still bind it as text-primary from before
- * the rename and migrate in a follow-up. */
+ * color-text-default->text-default everywhere (body text is text-default,
+ * black; text-primary is reserved for interactive text, verified against the
+ * captured appearance values in the vendored anatomy docs). */
 
 /* ============ Button ============ */
 .ds-button {
@@ -59,7 +59,7 @@
 }
 .ds-button--tertiary {
   background: transparent;
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-button--tertiary .ds-button__icon {
   color: var(--zen-color-icon-default);
@@ -111,7 +111,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-field__req {
   color: var(--zen-color-text-error);
@@ -129,7 +129,7 @@
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-tertiary);
 }
 .ds-input {
   display: flex;
@@ -213,7 +213,7 @@
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-checkbox.is-disabled {
   opacity: 0.4;
@@ -268,7 +268,7 @@
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-radio__helper {
   font-size: var(--zen-font-size-sm);
@@ -342,7 +342,7 @@
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-toggle__helper {
   font-size: var(--zen-font-size-sm);
@@ -473,7 +473,7 @@
   line-height: var(--zen-font-lineheight-md); /* 20 */
   font-weight: var(--zen-font-weight-semibold);
   letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-card__body {
   margin: 0;
@@ -525,7 +525,7 @@
   font-size: var(--zen-font-size-md); /* 14 */
   font-weight: var(--zen-font-weight-medium); /* 500 */
   line-height: var(--zen-font-lineheight-md); /* 20 */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 
 /* --- Center: context dropdown + search bar --- */
@@ -585,7 +585,7 @@
   flex-shrink: 0;
   padding: 0 var(--zen-spacing-md); /* 16 */
   border-right: 1px solid var(--zen-border-default);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-size: var(--zen-font-size-md); /* 14 */
   font-family: var(--zen-font-family-text);
 }
@@ -638,7 +638,7 @@
   background: transparent;
   font-size: var(--zen-font-size-md); /* 14 */
   line-height: var(--zen-font-lineheight-md); /* 20 */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-family: var(--zen-font-family-text);
 }
 .ds-header__search-input::placeholder {
@@ -676,7 +676,7 @@
   border-radius: var(--zen-border-radius-full);
   border: none;
   background: transparent;
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   cursor: pointer;
   padding: 0 var(--zen-spacing-2xs); /* 4 */
   font-family: var(--zen-font-family-text);
@@ -770,7 +770,7 @@
   gap: var(--zen-spacing-xs); /* anatomy: 8px icon ↔ label gap */
   padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* anatomy: 4px 8px */
   border-radius: var(--zen-border-radius-sm); /* 6px */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-size: var(--zen-font-size-md); /* 14px */
   line-height: var(--zen-font-lineheight-md); /* 20px */
   font-weight: var(--zen-font-weight-regular);
@@ -811,7 +811,7 @@
   background: var(--zen-color-bg-default);
   cursor: pointer;
   align-self: flex-end; /* bottom-right */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   padding: 0;
 }
 .ds-sidenav--collapsed {
@@ -951,7 +951,7 @@
   border-collapse: collapse;
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-sm); /* 12px */
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   background: var(--zen-color-bg-default);
 }
 .ds-table__head-row {
@@ -968,7 +968,7 @@
 .ds-table__td {
   padding: 12px 16px; /* data row raw px: ~40px total row height */
   border-bottom: 1px solid var(--zen-border-default);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   vertical-align: middle;
 }
 .ds-table__row:hover {
@@ -1011,7 +1011,7 @@
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-lg);
   font-weight: var(--zen-font-weight-semibold);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   line-height: var(--zen-font-lineheight-md);
   margin: 0;
 }
@@ -1047,7 +1047,7 @@
 .ds-empty-state__headline {
   font-size: var(--zen-font-size-lg);
   font-weight: var(--zen-font-weight-semibold);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   line-height: var(--zen-font-lineheight-md);
   margin: 0;
 }
@@ -1120,7 +1120,7 @@
 }
 .ds-alert__title {
   font-weight: var(--zen-font-weight-semibold);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   margin: 0;
 }
 .ds-alert__message {
@@ -1161,7 +1161,7 @@
   gap: var(--zen-spacing-xs); /* 8px */
   font-size: var(--zen-font-size-md);
   font-weight: var(--zen-font-weight-semibold);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-steward__spark {
   display: inline-flex;
@@ -1187,7 +1187,7 @@
 .ds-steward__insight {
   margin: 0;
   font-size: var(--zen-font-size-sm);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   line-height: var(--zen-font-lineheight-lg);
 }
 .ds-steward__source {
@@ -1296,7 +1296,7 @@
 .ds-steward__greeting {
   margin: 0;
   font-size: var(--zen-font-size-sm);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   line-height: var(--zen-font-lineheight-lg);
 }
 /* Task-input footer — input row + context chip + Plan button */
@@ -1314,7 +1314,7 @@
   padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4px 8px */
   font-size: var(--zen-font-size-sm);
   font-family: var(--zen-font-family-text);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   background: var(--zen-color-bg-default);
   border: 1px solid var(--zen-border-default);
   border-radius: var(--zen-border-radius-sm); /* 6px */
@@ -1394,7 +1394,7 @@
   flex: 1 1 0;
   min-width: 0;
   margin: 0;
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
 }
@@ -1453,10 +1453,10 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-stepper--active .ds-stepper__title {
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   font-weight: var(--zen-font-weight-semibold);
 }
 .ds-stepper__body {
@@ -1474,7 +1474,7 @@
   display: inline-block;
   max-width: 240px; /* raw px: tooltip bubble max width (slice geometry) */
   padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
-  background: var(--zen-color-text-primary); /* dark bubble, light text */
+  background: var(--zen-color-bg-reverse); /* dark bubble, light text */
   color: var(--zen-color-text-reverse);
   border-radius: var(--zen-border-radius-xs);
   box-shadow: var(--zen-shadow-md);
@@ -1492,7 +1492,7 @@
   bottom: -4px; /* raw px: caret tip offset */
   width: 8px; /* raw px: caret geometry */
   height: 8px;
-  background: var(--zen-color-text-primary);
+  background: var(--zen-color-bg-reverse);
   transform: rotate(45deg);
 }
 
@@ -1516,7 +1516,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-input-date__inputs {
   display: flex;
@@ -1643,7 +1643,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-dropdown-select__desc {
   font-size: var(--zen-font-size-sm);
@@ -1669,7 +1669,7 @@
   font-size: var(--zen-font-size-md);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-dropdown-select__value--placeholder {
   color: var(--zen-color-text-placeholder);
@@ -1756,7 +1756,7 @@
 .ds-tag-interactive--selected {
   border-color: var(--zen-border-selected);
   background: var(--zen-color-bg-selected);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-tag-interactive.is-disabled {
   opacity: 0.4;
@@ -1903,7 +1903,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-popover__body {
   font-size: var(--zen-font-size-sm);
@@ -1950,7 +1950,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-account-menu__email {
   font-size: var(--zen-font-size-sm);
@@ -2086,7 +2086,7 @@
 }
 .ds-segmented__item.is-active {
   background: var(--zen-color-bg-default);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   box-shadow: var(--zen-shadow-sm);
 }
 
@@ -2235,7 +2235,7 @@
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
 }
 .ds-calendar__nav {
   display: inline-flex;
@@ -2290,7 +2290,7 @@
 /* Band first, so the endpoints (which also carry is-range) win the strong fill below. */
 .ds-calendar__day.is-range {
   background: var(--zen-color-bg-selected);
-  color: var(--zen-color-text-primary);
+  color: var(--zen-color-text-default);
   border-radius: 0;
 }
 .ds-calendar__day.is-selected,
