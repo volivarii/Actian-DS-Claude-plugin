@@ -148,6 +148,20 @@ jobs:
         run: |
           node scripts/vendor/sync-doc-counts.js
 
+      - name: Regenerate the authoring vocabulary table
+        # The vocabulary table in references/generate-flow/
+        # ds-components-authoring.md is generated from the vendored dskit
+        # registry + BUILT_SLUGS, and the drift gate
+        # (tests/integration/authoring-table-sync.test.js) fails when they
+        # disagree. Without this step, a vendor refresh that renames a
+        # component or a variant axis would leave this auto-merge PR stuck
+        # red with no self-healing path (same class as the doc-counts guard
+        # above). Idempotent no-op when the registry change doesn't touch
+        # the table.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/render-authoring-table.js
+
       - name: Detect changes
         id: diff
         run: |
@@ -202,6 +216,7 @@ jobs:
             .claude-plugin/marketplace.json
             plugins/actian-design-system/references/context/companion-context.md
             plugins/actian-design-system/references/figma/figma-push-patterns.md
+            plugins/actian-design-system/references/generate-flow/ds-components-authoring.md
 
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number

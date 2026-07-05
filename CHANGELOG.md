@@ -19,6 +19,15 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+- **Nightly vendor refreshes self-heal the authoring table.** The
+  vendor-snapshot workflow now regenerates the
+  `ds-components-authoring.md` vocabulary table (introduced with its drift
+  gate in 2026.7.17) inside the same auto-merge PR, so a knowledge-side
+  component or variant-axis rename can no longer leave the nightly vendor PR
+  stuck red waiting for a manual regen. Same self-healing class as the
+  doc-counts guard.
+
 ## [2026.7.17] - 2026-07-05
 
 ### Added
