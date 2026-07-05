@@ -213,7 +213,7 @@ When the dispatch payload carries `library: "ds"` (set by the generate-flow skil
 
 - **No `ref` field** — DS nodes use `dsSlug`, not `ref`. Omit `ref` entirely.
 - **Read `references/generate-flow/ds-components-authoring.md` FIRST** — it lists the available slugs, which are built vs chip, and what props each built leaf consumes.
-- **Prefer BUILT leaves** — built leaves produce full CSS-styled HTML. Unbuilt slugs with a vendored appearance doc render their real captured colors (and real icon glyphs where anatomy resolves one); the labeled chip is only the last-resort fallback when no appearance doc exists. When a built leaf covers the use case, use it.
+- **Prefer BUILT leaves** (built leaves produce full CSS-styled HTML). Unbuilt slugs with a vendored appearance doc render their real captured colors (and real icon glyphs where anatomy resolves one); the labeled chip is only the last-resort fallback when no appearance doc exists. When a built leaf covers the use case, use it.
 
 ### DS detail bar (hi-fi authoring standards)
 

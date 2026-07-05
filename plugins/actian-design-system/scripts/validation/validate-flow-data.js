@@ -1685,7 +1685,7 @@ function validate(data, opts) {
             message:
               "DS node dsSlug '" +
               slug +
-              "' is in the registry but has no built leaf — renders as a graceful chip (prioritize for leaf implementation)",
+              "' is in the registry but has no built leaf — renders from its captured appearance doc when one exists, chip only as last resort (prioritize for leaf implementation)",
           });
         }
         // DS-native nodes have no ref; skip the FM ref/override checks entirely.

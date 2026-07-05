@@ -168,6 +168,30 @@
     var kind = node.kind || "node";
     var cls = "ds-appearance__" + kind;
     var resolved = resolveNodeAppearance(node, variant);
+
+    // F2: anatomy docs emit real glyph nodes as kind:"instance" (never
+    // kind:"icon"/"image" per C2 below); kind==="icon" is accepted too
+    // (harmless if a future doc ever emits it) but kind==="vector" must
+    // NEVER attempt slug resolution here — decorative vector paths, not
+    // icon-component instances. Unresolved -> null -> falls through:
+    // "instance" reaches the generic container branch below (byte-identical
+    // to pre-F2 behavior), "icon" reaches the placeholder branch next.
+    // Tried BEFORE decls are computed: a resolved glyph never uses `decls`
+    // (only `resolved`, via iconColorDecl), so an early return here skips
+    // appearanceToDecls entirely on the hot path.
+    // Ambiguity note (B4): a slug that resolves in icons.json always wins
+    // here over any same-named nested component instance (e.g. a Button
+    // reused under another component's anatomy). Today that ambiguity never
+    // actually arises in the vendored data (see
+    // appearance-icon-orphan-gate.test.js's collision tripwire), but if a
+    // future vendor sync ever introduces a non-icon component sharing an
+    // icon's slug, this call site would silently render the icon glyph
+    // instead of falling through to the component placeholder.
+    if (kind === "instance" || kind === "icon") {
+      var svg = renderIconGlyph(node, resolved, opts);
+      if (svg) return svg;
+    }
+
     var decls = style.appearanceToDecls(resolved);
 
     if (kind === "text") {
@@ -181,17 +205,6 @@
         esc(node.text || "") +
         "</span>"
       );
-    }
-    // F2: anatomy docs emit real glyph nodes as kind:"instance" (never
-    // kind:"icon"/"image" per C2 below); kind==="icon" is accepted too
-    // (harmless if a future doc ever emits it) but kind==="vector" must
-    // NEVER attempt slug resolution here — decorative vector paths, not
-    // icon-component instances. Unresolved -> null -> falls through:
-    // "instance" reaches the generic container branch below (byte-identical
-    // to pre-F2 behavior), "icon" reaches the placeholder branch next.
-    if (kind === "instance" || kind === "icon") {
-      var svg = renderIconGlyph(node, resolved, opts);
-      if (svg) return svg;
     }
     // C2: the anatomy classifier emits "icon" (and "vector"), never "image".
     // These media leaves carry no text children; render an aria-hidden box the

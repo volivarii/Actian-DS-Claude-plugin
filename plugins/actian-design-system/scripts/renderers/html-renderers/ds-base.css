@@ -1812,20 +1812,19 @@
 }
 
 /* ============ Anatomy + Appearance (structural floor for non-override slugs) === */
-/* anatomy-render.js interprets a component's vendored part-tree into structural
-   HTML for DS slugs that have no hand-authored leaf; appearance-render.js (Phase
-   1B) does the same VALUES-ONLY, emitting parallel .ds-appearance* classes. Both
-   share this floor: the rules give the wrapper sensible hugging, the DS font +
-   legible text, and (critically) a size + token-bound neutral fill to the
-   aria-hidden media slots (vector/image/icon), which otherwise render 0x0 and
-   disappear. 100% --zen-* bound. */
+/* appearance-render.js (Phase 1B) interprets a component's vendored part-tree
+   into structural HTML, VALUES-ONLY, for DS slugs with no hand-authored leaf,
+   emitting .ds-appearance* classes. This floor gives the wrapper sensible
+   hugging, the DS font + legible text, and a size + token-bound neutral fill
+   to the aria-hidden media slots (vector/image/icon), which otherwise render
+   0x0 and disappear. 100% --zen-* bound. (Group C retired the legacy
+   anatomy-render.js slug-to-HTML path and its .ds-anatomy__* rules.) */
 .ds-anatomy,
 .ds-appearance {
   display: inline-flex;
   max-width: 100%;
   box-sizing: border-box;
 }
-.ds-anatomy__text,
 .ds-appearance__text {
   color: var(--zen-color-text-default);
   font-family: var(--zen-font-family-text);
@@ -1840,9 +1839,6 @@
   box-sizing: border-box;
   max-width: 100%;
 }
-.ds-anatomy__vector,
-.ds-anatomy__image,
-.ds-anatomy__icon,
 .ds-appearance__vector,
 .ds-appearance__image,
 .ds-appearance__icon,
@@ -1854,7 +1850,6 @@
   background: var(--zen-color-neutral-100);
   border-radius: var(--zen-border-radius-xs);
 }
-.ds-anatomy__image,
 .ds-appearance__image {
   min-width: var(--zen-size-lg);
   min-height: var(--zen-size-lg);

@@ -28,6 +28,7 @@ var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 
 var anatomyRender = require("./anatomy-render");
 var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
+var passesRatioGate = anatomyRender.passesRatioGate;
 var {
   isDelegated,
   anatomyVariantKey,
@@ -133,18 +134,14 @@ function buildDsAnatomyDocMap(slugs, opts) {
     if (builtSet[slug]) continue;
     var doc = loader(slug);
     if (!doc || !doc.root || typeof doc.root !== "object") continue;
-    // R2: quality-ratio floor, mirroring the legacy anatomy-render path
-    // (minRatio 0.6). Low-normalization docs (e.g. freeform diagrams,
-    // connecting lines) render garbled from their washed-out geometry, so
-    // skip them here and let the seam fall through to gracefulChip(). Only a
-    // NUMERIC ratio below the floor is skipped: docs with no quality/ratio
-    // field are kept (synthetic/hand-built docs carry none).
-    if (
-      doc.quality &&
-      typeof doc.quality.ratio === "number" &&
-      doc.quality.ratio < 0.6
-    )
-      continue;
+    // R2: quality-ratio floor, sharing anatomy-render.js's passesRatioGate
+    // with keepMissingRatio (minRatio 0.6). Low-normalization docs (e.g.
+    // freeform diagrams, connecting lines) render garbled from their
+    // washed-out geometry, so skip them here and let the seam fall through
+    // to gracefulChip(). Docs with no quality/ratio field are kept
+    // (synthetic/hand-built docs carry none).
+    var r2Ratio = doc.quality && doc.quality.ratio;
+    if (!passesRatioGate(r2Ratio, 0.6, { keepMissingRatio: true })) continue;
     map[slug] = doc;
   }
   return map;

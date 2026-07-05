@@ -19,14 +19,9 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.13] - 2026-07-05
+
 ### Added
-- **Unified appearance renderer (Phase 1B).** DS components that fall through the
-  instance render seam now draw their fill, border, radius, and text from Figma's
-  captured resolved appearance (values-only), so generated components render their
-  real colors instead of washing out. Renders per-instance so a component's variant
-  selects the right colors. Includes a values-only emit gate, a CSS-coverage guard,
-  non-default-variant real-data coverage, and the fidelity harness wired to render
-  appearance slugs. ([#223](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/223))
 - **Real icon glyphs in generated flows/previews (F2).** The appearance renderer
   resolves anatomy icon instances against the vendored 142-icon set, so DS component
   icons render their real SVG glyph instead of a neutral placeholder box. Slug-only,
@@ -37,6 +32,17 @@ are summarized at the release level.
   appearance-doc renderer with graceful chip fallback is now the only
   anatomy-derived render path. The tag-default token-injection path is unchanged.
   (PR TBD)
+
+## [2026.7.12] - 2026-07-04
+
+### Added
+- **Unified appearance renderer (Phase 1B).** DS components that fall through the
+  instance render seam now draw their fill, border, radius, and text from Figma's
+  captured resolved appearance (values-only), so generated components render their
+  real colors instead of washing out. Renders per-instance so a component's variant
+  selects the right colors. Includes a values-only emit gate, a CSS-coverage guard,
+  non-default-variant real-data coverage, and the fidelity harness wired to render
+  appearance slugs. ([#223](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/223))
 
 ## [2026.6.21] — 2026-06-29
 

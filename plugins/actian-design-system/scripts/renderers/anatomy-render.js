@@ -115,20 +115,18 @@ function resolveTokenDecls(list, targetVariant, variantDefaults) {
   return decls;
 }
 
-// Ratio floor gate, shared by this module's resolveRootTokenStyle and
-// ds-coverage-report.js's coverage() — NOT by buildDsAnatomyDocMap
-// (ds-anatomy-map.js's R2 floor), which intentionally diverges from this gate:
-// a missing/non-numeric ratio defaults to 0 HERE (fails unless minRatio is 0,
-// matching the legacy renderAnatomy() gate semantics), whereas R2 only skips a
-// doc when ratio is a NUMBER below the floor and KEEPS (renders) docs that
-// carry no ratio field at all. So a doc with no quality.ratio still renders in
-// the actual deliverable (R2 keeps it) while THIS gate reports it "degraded"
-// (missing ratio defaults to 0, which fails). Today zero vendored docs lack a
-// numeric ratio, so the divergence is latent — it would surface as a
-// deliverable/coverage-report mismatch if that ever changes.
-function passesRatioGate(ratio, minRatio) {
-  var effectiveRatio = typeof ratio === "number" ? ratio : 0;
-  return effectiveRatio >= minRatio;
+// Ratio floor gate, shared by resolveRootTokenStyle, ds-coverage-report.js's
+// coverage(), and buildDsAnatomyDocMap's R2 floor (ds-anatomy-map.js). Strict
+// mode (default): missing/non-numeric ratio fails unless minRatio <= 0.
+// opts.keepMissingRatio flips that one case to PASS (used by R2, which keeps
+// synthetic/hand-built docs that carry no quality.ratio at all); a numeric
+// ratio is always compared to minRatio the same way in both modes.
+function passesRatioGate(ratio, minRatio, opts) {
+  opts = opts || {};
+  if (typeof ratio !== "number") {
+    return opts.keepMissingRatio ? true : 0 >= minRatio;
+  }
+  return ratio >= minRatio;
 }
 
 // Resolve the anatomy ROOT node's variant token declarations to an inline CSS

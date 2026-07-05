@@ -174,14 +174,19 @@ test("renderAppearanceNode: icon color prefers resolved text.color", function ()
   assert.match(html, /<svg class="ds-icon" style="color:#50505d"/);
 });
 
-test("renderAppearanceNode: icon color falls back to background when no text.color", function () {
+test("renderAppearanceNode: icon color never falls back to background (instance root surface fill, not glyph color) -> no style attr", function () {
   var node = {
     kind: "instance",
     slug: "misuse-outline",
     appearance: { background: "#fff4ec" },
   };
   var html = r.renderAppearanceNode(node, null, { iconMap: ICON_MAP });
-  assert.match(html, /<svg class="ds-icon" style="color:#fff4ec"/);
+  assert.equal(
+    html,
+    '<svg class="ds-icon" viewBox="0 0 48 48" aria-hidden="true">' +
+      '<path fill="currentColor" d="M1 1"/></svg>',
+  );
+  assert.doesNotMatch(html, /style=/);
 });
 
 test("renderAppearanceNode: unknown slug (not in icon map) -> placeholder unchanged", function () {

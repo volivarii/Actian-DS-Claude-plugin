@@ -4,24 +4,11 @@ var path = require("path");
 var { loadAnatomy, passesRatioGate } = require(
   path.join(__dirname, "anatomy-render.js"),
 );
-var { renderAppearanceComponent } = require(
-  path.join(__dirname, "appearance-render.js"),
-);
 
-// Group C: the legacy renderAnatomy() minRatio gate (data.quality.ratio,
-// defaulting missing ratio to 0) is applied here via anatomy-render.js's
-// shared passesRatioGate(), since renderAppearanceComponent (Phase 1B) does
-// no ratio gating itself — that floor lives one layer up, at
-// buildDsAnatomyDocMap time (ds-anatomy-map.js). This does NOT keep tier
-// semantics identical to the deliverable: buildDsAnatomyDocMap's R2 floor only
-// skips a doc when ratio is a NUMBER below 0.6, and intentionally KEEPS
-// (renders) docs with no quality/ratio field at all — whereas
-// passesRatioGate() here defaults a missing ratio to 0, which FAILS the gate.
-// So a doc with no numeric ratio is reported "degraded" by this script even
-// though the actual deliverable (assemble-preview.js et al., via
-// buildDsAnatomyDocMap) renders it. Today zero vendored docs lack a numeric
-// ratio, so the divergence is latent — it would surface as a false "degraded"
-// count if that ever changes.
+// Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
+// same as resolveRootTokenStyle — see passesRatioGate's own doc comment in
+// anatomy-render.js for how this diverges from buildDsAnatomyDocMap's R2
+// floor (ds-anatomy-map.js), which intentionally keeps missing-ratio docs.
 function coverage(slugs, opts) {
   opts = opts || {};
   var minRatio = typeof opts.minRatio === "number" ? opts.minRatio : 0.6;
@@ -37,10 +24,8 @@ function coverage(slugs, opts) {
       spec.quality && typeof spec.quality.ratio === "number"
         ? spec.quality.ratio
         : null;
-    var html = passesRatioGate(ratio, minRatio)
-      ? renderAppearanceComponent(spec, {})
-      : "";
-    return { slug: slug, tier: html ? "anatomy" : "degraded", ratio: ratio };
+    var tier = passesRatioGate(ratio, minRatio) ? "anatomy" : "degraded";
+    return { slug: slug, tier: tier, ratio: ratio };
   });
 }
 

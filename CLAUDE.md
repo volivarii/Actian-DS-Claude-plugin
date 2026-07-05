@@ -20,9 +20,11 @@ touches, in the same PR:
 4. a plain-language summary into `actian-ds-ecosystem` (its bundle and `confluence/`), per the
    standing ecosystem-sync rule.
 
-Never hand-edit the version field in `.claude-plugin/plugin.json` (CI owns it). Routine nightly
-`vendor(knowledge): refresh to vX.Y.Z` bumps are automated and are not listed individually unless
-they change user-facing behavior.
+Bump the version field in `.claude-plugin/plugin.json` (CalVer `YYYY.MM.PATCH`) as part of the same
+PR that changes plugin source, per the nested `plugins/actian-design-system/CLAUDE.md` Versioning
+section; `check-version-bump.js` enforces this as a required PR gate. Routine nightly
+`vendor(knowledge): refresh to vX.Y.Z` bumps are the one exception, automated by CI and not listed
+individually unless they change user-facing behavior.
 
 This is an **ecosystem-wide** rule shared by all four DS repos (`actian-ds-knowledge`,
 `actian-design-system-plugin`, `actian-ds-docs`, `actian-ds-ecosystem`). The global cross-repo copy

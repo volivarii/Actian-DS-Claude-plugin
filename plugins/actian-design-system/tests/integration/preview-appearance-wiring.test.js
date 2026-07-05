@@ -27,7 +27,7 @@
 // Repo style: node:test + node:assert, spawnSync over the real CLI (see
 // tests/renderers/assemble-preview.test.js's run() helper).
 
-var { describe, it } = require("node:test");
+var { describe, it, before } = require("node:test");
 var assert = require("node:assert");
 var spawnSync = require("child_process").spawnSync;
 var path = require("path");
@@ -93,13 +93,20 @@ function assemble() {
 }
 
 describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", function () {
+  // Every test below inspects the SAME deterministic output (fixed fixture,
+  // no randomness in the assembled HTML), so assemble() runs ONCE here
+  // instead of once per test (was 5 separate spawnSync child processes).
+  var r;
+
+  before(function () {
+    r = assemble();
+  });
+
   it("assembles cleanly", function () {
-    var r = assemble();
     assert.strictEqual(r.status, 0, "exits cleanly: " + r.stderr);
   });
 
   it("embeds window.__dsAnatomyDocs with the tag-status doc's real Success color", function () {
-    var r = assemble();
     var docsIdx = r.html.indexOf("window.__dsAnatomyDocs");
     assert.ok(docsIdx !== -1, "html embeds window.__dsAnatomyDocs");
 
@@ -119,7 +126,6 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
   });
 
   it("inlines both appearance-style.js and appearance-render.js", function () {
-    var r = assemble();
     assert.ok(
       r.html.indexOf("/* appearance-style.js */") !== -1,
       "appearance-style.js is inlined",
@@ -141,7 +147,6 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     // undefined when ds-html-map.js's closure runs, and the seam degrades
     // straight to a graceful chip (there is no legacy anatomy-map fallback
     // left to catch it — Group C retired that two-hop path).
-    var r = assemble();
     var styleIdx = r.html.indexOf("/* appearance-style.js */");
     var renderIdx = r.html.indexOf("/* appearance-render.js */");
     var dsMapIdx = r.html.indexOf("/* ds-html-map.js */");
@@ -170,7 +175,6 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     // silently fall back to the neutral-box placeholder, with zero prior
     // signal from this suite (which only checked __dsAnatomyDocs / renderer
     // ordering, not the icon-geometry global).
-    var r = assemble();
     var iconsIdx = r.html.indexOf("window.dsIcons");
     var renderIdx = r.html.indexOf("/* appearance-render.js */");
 
