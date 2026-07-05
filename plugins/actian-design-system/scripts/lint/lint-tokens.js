@@ -76,7 +76,6 @@ function themeValue(tokensJson, dotPath, theme) {
 var CONTRAST_PAIRS = [
   { fg: "color.text.primary", bg: "color.bg.default", min: 4.5 },
   { fg: "color.text.secondary", bg: "color.bg.default", min: 4.5 },
-  { fg: "color.text.link.default", bg: "color.bg.default", min: 4.5 },
   { fg: "color.text.error", bg: "color.bg.default", min: 4.5 },
 ];
 

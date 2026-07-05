@@ -32,6 +32,17 @@ var KNOWN_UNUSED = {
   tabs: new Set(["font-weight-medium"]), // we render the body-standard inactive weight
 };
 
+// Rename transition (knowledge #341): text-link-* retired, text-primary now
+// means interactive text, text-default is body text. Until the vendored
+// guideline docs refresh past that change, their bindings may still name a
+// pre-rename token while the CSS already uses the successor. A binding is
+// "used" if any listed name appears. Delete this map once the vendored
+// knowledge snapshot is newer than v0.34.71 and the suite is green without it.
+var RENAME_ACCEPT = {
+  "color-text-link-default": ["color-text-link-default", "color-text-primary"],
+  "color-text-primary": ["color-text-primary", "color-text-default"],
+};
+
 // Every --zen-* var DEFINED in tokens.css (the "resolves" universe).
 function definedZenVars() {
   var css = fs.readFileSync(PATHS.tokens.css, "utf8");
@@ -95,9 +106,14 @@ Object.keys(ROOT_CLASS).forEach(function (slug) {
             // Whitespace-tolerant: the repo's format-on-save (Prettier) can wrap a
             // long declaration inside `var( ... )`, so match `var(<ws>--zen-token<ws>)`
             // rather than the exact single-line substring.
-            var usedRe = new RegExp("var\\(\\s*--zen-" + b.token + "\\s*\\)");
+            var accepted = RENAME_ACCEPT[b.token] || [b.token];
+            var used = accepted.some(function (name) {
+              return new RegExp("var\\(\\s*--zen-" + name + "\\s*\\)").test(
+                section,
+              );
+            });
             assert.ok(
-              usedRe.test(section),
+              used,
               "binding token --zen-" +
                 b.token +
                 " (" +

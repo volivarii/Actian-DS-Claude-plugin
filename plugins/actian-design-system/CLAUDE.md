@@ -120,7 +120,7 @@ Every output includes a generation card (first element) with: skill name, prompt
 
 ## Design System Rules
 
-- **Tokens:** `vendor/tokens/tokens.json` (source of truth). For HTML: bind to vendored `--zen-*` vars (brand primary = `var(--zen-color-primary-500)` = canonical `#0F5FDC`; links = `var(--zen-color-text-link-default)`), never hardcoded hex. *(There is no `--zen-color-theme-primary` in vendored tokens.)*
+- **Tokens:** `vendor/tokens/tokens.json` (source of truth). For HTML: bind to vendored `--zen-*` vars (brand primary = `var(--zen-color-primary-500)` = canonical `#0F5FDC`; links = `var(--zen-color-text-primary)`), never hardcoded hex. *(There is no `--zen-color-theme-primary` in vendored tokens.)*
 - **Content guidelines:** `vendor/content/dist/global.md` (cross-cutting voice/tone/word rules) + `vendor/content/dist/words-to-avoid.json` (structured avoid-word rules for tooling; `PATHS.content.wordsToAvoid`) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`
 - **Accessibility:** `vendor/accessibility/src/<slug>.md` (per-section) — WCAG 2.2 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.

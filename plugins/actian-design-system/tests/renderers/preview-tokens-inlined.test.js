@@ -74,12 +74,12 @@ describe("preview-tokens-inlined", function () {
       );
     });
 
-    it("token-pill color is bound to var(--zen-color-text-link-default", function () {
+    it("token-pill color is bound to var(--zen-color-text-primary", function () {
       var r = run([BRIEF_FIXTURE, "--type", "brief"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
       assert.ok(
-        r.html.includes("var(--zen-color-text-link-default"), // prefix match — the resolved value comes from vendored tokens
-        "brief HTML contains var(--zen-color-text-link-default for token-pill color",
+        r.html.includes("var(--zen-color-text-primary"), // prefix match — the resolved value comes from vendored tokens
+        "brief HTML contains var(--zen-color-text-primary for token-pill color",
       );
     });
   });
