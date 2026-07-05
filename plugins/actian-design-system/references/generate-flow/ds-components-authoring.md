@@ -10,75 +10,75 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 
 | Slug | Name | Status | Variant axes |
 |---|---|---|---|
-| `account-dropdown` | Account dropdown | chip | — |
-| `alert-banner` | Alert-banner | **BUILT** | Type / Orientation |
-| `app-switcher-dropdown` | App switcher dropdown | chip | — |
-| `avatar` | Avatar | chip | State / Type |
-| `badge` | Badge | **BUILT** | Type |
-| `bar-graph` | Bar graph | chip | — |
+| `account-dropdown` | Account dropdown | **BUILT** | — |
+| `alert-banner` | ✍️ Alert-banner | **BUILT** | Type / Orientation' |
+| `app-switcher-dropdown` | App switcher dropdown | **BUILT** | — |
+| `avatar` | Avatar | appearance | State / Type |
+| `badge` | ✍️ Badge | **BUILT** | Type |
+| `bar-graph` | ⛔️ Bar graph | appearance | Property 1 |
 | `breadcrumbs` | Breadcrumbs | **BUILT** | Type |
-| `button` | Button | **BUILT** | Type / Size / State |
-| `calendar` | Calendar | chip | Type / Selection |
-| `card-for-grouped-content` | Card for grouped content | chip | — |
+| `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
+| `calendar` | Calendar | **BUILT** | Type / Selection |
+| `card-for-grouped-content` | Card for grouped content | appearance | Property 1 |
 | `card-for-items` | Card for items | **BUILT** | Type / State |
-| `card-for-perimeter` | Card for perimeter | chip | — |
-| `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | State (Default / Generating) |
+| `card-for-perimeter` | Card for perimeter | appearance | Property 1 |
+| `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
 | `checkbox-with-label` | Checkbox with label | **BUILT** | Selected / State |
-| `collapse-accordion` | Collapse-accordion | chip | State |
-| `confirmation` | Confirmation | chip | Size |
-| `digram-item-types` | Diagram, Item types | chip | Item type / Size |
-| `digram-topic` | Diagram, Topic | chip | Type |
-| `drawer-side-panel` | Drawer, side panel | chip | App |
-| `dropdown-select-default` | Dropdown, Select, default | chip | Type / State |
+| `collapse-accordion` | ✍️ Collapse-accordion | appearance | State |
+| `confirmation` | Confirmation | appearance | Size |
+| `digram-item-types` | Digram, Item types | appearance | — |
+| `digram-topic` | Digram, Topic | appearance | Type |
+| `drawer-side-panel` | Drawer, side panel | appearance | App |
+| `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
 | `empty-state` | Empty state | **BUILT** | Size |
-| `error-state` | Error state | chip | Size |
+| `error-state` | Error state | appearance | Size |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `glossary-item-hierarchy-diagram` | Glossary item hierarchy diagram | chip | Type |
-| `identification-key` | Identification key | chip | — |
-| `input` | Input | **BUILT** | States |
-| `input-date` | Input, date | chip | Type / States |
+| `identification-key` | Identification key | appearance | Property 1 |
+| `input-date` | Input, date | **BUILT** | Type / States |
+| `line-graph` | ⛔️ Line graph | appearance | Property 1 |
 | `lineage-connecting-line` | Lineage connecting line | chip | Direction / State |
-| `lineage-grouped-node` | Lineage grouped node | chip | State / Type |
+| `lineage-grouped-node` | Lineage grouped node | appearance | State / Type |
 | `lineage-individual-node` | Lineage individual node | chip | Type / State / Fields |
-| `line-graph` | Line graph | chip | — |
-| `link` | Link | chip | State |
-| `loader` | Loader | chip | Percent |
+| `link` | Link | appearance | State |
+| `loader` | Loader | **BUILT** | Percent |
 | `loader-with-logo` | Loader with logo | chip | App |
-| `loading-skeleton` | Loading skeleton | chip | Transition |
-| `maintenance-state` | Maintenance state | chip | Size |
-| `metamodel-widget` | Metamodel widget | chip | Type |
-| `modal` | Modal | **BUILT** | Size & Type |
-| `notification` | Notification | chip | Type |
-| `notification-dropdown` | Notification dropdown | chip | — |
+| `loading-skeleton` | Loading skeleton | appearance | Transition |
+| `maintenance-state` | Maintenance state | appearance | Size |
+| `metamodel-widget` | Metamodel widget | appearance | Type |
+| `modal` | Modal | **BUILT** | Size & Type / Dev status |
+| `notification` | Notification | **BUILT** | Type |
+| `notification-dropdown` | Notification dropdown | appearance | Property 1 |
 | `page-header` | Page header | **BUILT** | Type |
-| `popover` | Popover | chip | Type |
-| `progress-bar-small` | Progress bar small | chip | Size / Completeness |
+| `popover` | ⛔️ Popover | **BUILT** | Type |
+| `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio-button` | Radio button | **BUILT** | Format / Selected / State |
-| `rich-text` | Rich text | chip | State |
-| `scroll-bar` | Scroll bar | chip | — |
+| `rich-text` | Rich text | **BUILT** | State |
+| `scroll-bar` | Scroll bar | chip | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
-| `search-dropdown-menu` | Search dropdown menu | chip | Type |
-| `search-filters` | Search filters | chip | Type |
-| `search-result-card` | Search result card | chip | App / State |
-| `segmented-control` | Segmented control | chip | Type |
-| `side-nav` | Side nav | **BUILT** | App / View |
-| `spinner` | Spinner | chip | Color mode / Complete |
-| `stepper` | Stepper | chip | State |
-| `sticky-footer` | Sticky footer | chip | — |
-| `table` | Table | **BUILT** | Built type |
-| `tabs` | Tabs | **BUILT** | — |
-| `tag-catalog` | Tag, Catalog | chip | Type |
-| `tag-catalog-item-type` | Tag, Catalog item type | chip | Type |
-| `tag-default` | Tag, Default | **BUILT** | Color |
-| `tag-glossary-item-type` | Tag, Glossary item type | chip | — |
-| `tag-interactive` | Tag, Interactive | chip | State |
-| `tag-shared` | Tag, Shared | chip | — |
-| `tag-stage` | Tag, Stage | chip | Color |
-| `tag-status` | Tag, Status | chip | Status |
+| `search-dropdown-menu` | Search dropdown menu | appearance | Type |
+| `search-filters` | Search filters | appearance | Type |
+| `search-result-card` | Search result card | appearance | App / State |
+| `segmented-control` | Segmented control | **BUILT** | Type |
+| `side-nav` | ✍️ Side nav | **BUILT** | App / View |
+| `spinner` | Spinner | appearance | Color mode / Complete |
+| `stepper` | Stepper | **BUILT** | State |
+| `sticky-footer` | Sticky footer | **BUILT** | Property 1 |
+| `table` | ✍️ Table | **BUILT** | Built type |
+| `tabs` | Tabs | **BUILT** | Property 1 |
+| `tag-catalog` | ✍️ Tag, Catalog | appearance | Type |
+| `tag-catalog-item-type` | ✍️ Tag, Catalog item type | appearance | Type |
+| `tag-default` | ✍️ Tag, Default | **BUILT** | Color |
+| `tag-glossary-item-type` | ✍️ Tag, Glossary item type | appearance | Property 1 |
+| `tag-interactive` | ✍️ Tag, Interactive | **BUILT** | State |
+| `tag-shared` | ✍️ Tag, Shared | appearance | Property 1 |
+| `tag-stage` | ✍️ Tag, Stage | appearance | Color |
+| `tag-status` | ✍️ Tag, Status | appearance | Status |
+| `text-input` | Text input | **BUILT** | States |
 | `toggle` | Toggle | **BUILT** | Toggle location / Selected / State |
-| `toolbar` | Toolbar | chip | Type / Orientation |
-| `tooltip` | Tooltip | chip | Type |
-| `whats-new-dropdown` | Whats new dropdown | chip | — |
+| `toolbar` | Toolbar | **BUILT** | Type / Orientation |
+| `tooltip` | ⚠️ Tooltip | **BUILT** | Type |
+| `whats-new-dropdown` | Whats new dropdown | appearance | Property 1 |
 
 ## Built leaf props
 
@@ -108,13 +108,17 @@ The following 19 slugs have real HTML leaf renderers. Prop names are case-sensit
 - `props["Leading icon show"]`: `true` renders the `add` icon before the label
 - `props["Trailing icon show"]`: `true` renders a rotated `chevron-up` (chevron-down) after the label
 
-### `input`
+### `text-input`
+
+The text field. (The `input` slug is retired: since the knowledge publish gate
+landed, `input` names an icon in Foundations/Icons and is no longer authorable —
+never author `dsSlug: "input"`.)
 
 ```json
 {
   "type": "INSTANCE",
   "library": "ds",
-  "dsSlug": "input",
+  "dsSlug": "text-input",
   "variant": "States=Default",
   "props": {
     "Label": "Name",
@@ -124,7 +128,7 @@ The following 19 slugs have real HTML leaf renderers. Prop names are case-sensit
 }
 ```
 
-- `variant.States`: `Default` | `Focused` | `Filled` | `Disabled` | `Error` (default: `Default`)
+- `variant.States`: `Default` | `Hover` | `Focus` | `Active` | `Filled` | `Error` | `Warning` | `Disabled` | `Read-only` (default: `Default`; the built leaf styles `Disabled`, other states render the default field)
 - `props.Label`: field label (default: `"Label"`)
 - `props["Placeholder text"]`: placeholder copy (default: `"Placeholder text"`)
 - `props["Trailing icon"]`: `true` renders a chevron-down (used for select-style fields)

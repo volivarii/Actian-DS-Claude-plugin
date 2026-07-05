@@ -207,6 +207,80 @@ test("renderAppearanceNode: absent slug -> placeholder unchanged (byte-identical
   assert.equal(html, '<div class="ds-appearance__instance"></div>');
 });
 
+// Per-variant icon slug swaps (knowledge #354): the anatomy variant delta may
+// carry a `slug` field so each variant renders its OWN glyph instead of the
+// default variant's (the Success-tag-shows-Fail-icon defect).
+var SWAP_ICON_MAP = {
+  "misuse-outline": {
+    viewBox: "0 0 48 48",
+    body: '<path fill="currentColor" d="M1 1"/>',
+  },
+  "check-outline": {
+    viewBox: "0 0 48 48",
+    body: '<path fill="currentColor" d="M2 2"/>',
+  },
+};
+
+function swapNode() {
+  return {
+    kind: "instance",
+    slug: "misuse-outline",
+    appearance: {
+      variants: [
+        { prop: "Status", values: ["Success"], slug: "check-outline" },
+      ],
+    },
+  };
+}
+
+test("resolveNodeAppearance: matching slug delta rides the merge", function () {
+  var ap = r.resolveNodeAppearance(swapNode(), { Status: "Success" });
+  assert.equal(ap.slug, "check-outline");
+});
+
+test("resolveNodeAppearance: non-matching variant leaves slug absent", function () {
+  var ap = r.resolveNodeAppearance(swapNode(), { Status: "Fail" });
+  assert.equal(ap.slug, undefined);
+});
+
+test("renderAppearanceNode: matching variant renders the swapped glyph", function () {
+  var html = r.renderAppearanceNode(
+    swapNode(),
+    { Status: "Success" },
+    { iconMap: SWAP_ICON_MAP },
+  );
+  assert.match(html, /d="M2 2"/); // check-outline's body, not misuse-outline's
+  assert.doesNotMatch(html, /d="M1 1"/);
+});
+
+test("renderAppearanceNode: no variant -> base glyph unchanged", function () {
+  var html = r.renderAppearanceNode(swapNode(), null, {
+    iconMap: SWAP_ICON_MAP,
+  });
+  assert.match(html, /d="M1 1"/);
+});
+
+test("renderAppearanceNode: swapped slug missing from the icon map -> placeholder, never a wrong glyph", function () {
+  var html = r.renderAppearanceNode(
+    swapNode(),
+    { Status: "Success" },
+    { iconMap: { "misuse-outline": SWAP_ICON_MAP["misuse-outline"] } },
+  );
+  assert.equal(html, '<div class="ds-appearance__instance"></div>');
+});
+
+test("renderAppearanceNode: slug delta never leaks into a style attribute", function () {
+  var node = swapNode();
+  node.appearance.text = { color: "#50505d" };
+  var html = r.renderAppearanceNode(
+    node,
+    { Status: "Success" },
+    { iconMap: SWAP_ICON_MAP },
+  );
+  assert.match(html, /style="color:#50505d"/);
+  assert.doesNotMatch(html, /style="[^"]*slug/);
+});
+
 test("renderAppearanceNode: icon map absent entirely (simulated browser without window.dsIcons) -> unchanged placeholder, no throw", function () {
   var node = { kind: "instance", slug: "misuse-outline" };
   var html;

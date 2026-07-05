@@ -19,6 +19,31 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.17] - 2026-07-05
+
+### Added
+- **Per-variant icon glyphs (consumer half).** The appearance renderer now
+  honors the `slug` field on anatomy variant deltas (knowledge #354): when a
+  variant swaps the component an instance references (a per-status tag icon),
+  the matching delta's slug wins over the node's base slug, so a Success tag
+  renders its own check glyph instead of Fail's x-circle. Total-tolerant in
+  either landing order: without slug deltas in the vendored data, rendering is
+  byte-identical to today; a swapped slug missing from the icon set renders
+  the neutral placeholder, never the wrong glyph. Closes the F2 known
+  limitation once the knowledge capture lands and vendors.
+
+### Fixed
+- **`ds-components-authoring.md` vocabulary table regenerated and gated.** The
+  hand-maintained table had drifted badly (16 built slugs still marked as chip
+  fallbacks, the retired `input` slug listed as the text field, `text-input`
+  missing, stale variant axes), mis-steering hi-fi screen generation. The
+  table is now generated from the vendored registry + `BUILT_SLUGS`
+  (`node scripts/renderers/render-authoring-table.js`, statuses:
+  BUILT / appearance / chip per the real render tiers, verbatim registry axis
+  names), a sync gate test fails on any future drift, and the text-field
+  authoring section moved to `text-input` with an explicit
+  never-author-`input` note.
+
 ## [2026.7.16] - 2026-07-05
 
 ### Fixed
