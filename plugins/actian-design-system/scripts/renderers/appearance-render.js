@@ -111,6 +111,13 @@
             out[k] = e[k];
           }
         });
+        // Per-variant instance swap (knowledge #354): a delta may carry the
+        // registry slug of the component this instance references for these
+        // values (e.g. a per-status icon). Kept OUT of APPEARANCE_KEYS: it is
+        // content, not paint — the base appearance never carries it, and
+        // appearanceToDecls reads explicit paint keys only, so it can never
+        // leak into a style attribute. String-only by schema (never null).
+        if (typeof e.slug === "string" && e.slug) out.slug = e.slug;
       }
     }
     return out;
@@ -132,7 +139,15 @@
   // is absent, unresolved, or the map entry is malformed, so the caller
   // falls through to the existing placeholder/container path unchanged.
   function renderIconGlyph(node, resolved, opts) {
-    var slug = node.slug;
+    // A matching variant delta may swap the referenced component (per-variant
+    // icon, knowledge #354); the resolved slug wins over the node's base slug
+    // so a Success tag renders its own check glyph, not Fail's x-circle. If
+    // the swapped slug is absent from the icon map, the normal unknown-slug
+    // fallthrough below renders the placeholder — never the WRONG glyph.
+    var slug =
+      resolved && typeof resolved.slug === "string" && resolved.slug
+        ? resolved.slug
+        : node.slug;
     if (typeof slug !== "string" || !slug) return null;
     var iconMap =
       opts && Object.prototype.hasOwnProperty.call(opts, "iconMap")
