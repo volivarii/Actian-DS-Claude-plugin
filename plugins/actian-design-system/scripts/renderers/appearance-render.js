@@ -75,7 +75,18 @@
     return parts.join(";");
   }
 
-  var APPEARANCE_KEYS = ["background", "border", "radius", "text"];
+  // backgroundToken is a top-level scalar sibling of background (P2 name
+  // layer); it must be listed so the base copy AND variant-delta merge carry
+  // it (incl. a null delta that removes the base binding). border/text carry
+  // their colorToken nested inside the object, so they ride the deep-merge
+  // already. radius has no token (radiusToken deferred upstream).
+  var APPEARANCE_KEYS = [
+    "background",
+    "backgroundToken",
+    "border",
+    "radius",
+    "text",
+  ];
 
   // Base appearance (minus variants) with every MATCHING variant delta merged
   // over it. A delta matches when variant[entry.prop] is in entry.values.
@@ -107,10 +118,34 @@
             isPlainObject(e[k])
           ) {
             out[k] = Object.assign({}, out[k], e[k]);
+            // colorToken pairs with THIS color. The knowledge diffAppearance
+            // ships the whole border/text object but sets colorToken only when
+            // that variant's slot is variable-bound (it never emits a nested
+            // colorToken:null the way it nulls the top-level backgroundToken).
+            // So a delta that RE-COLORS with an UNBOUND value carries `color`
+            // but omits colorToken, and Object.assign would otherwise strand
+            // the BASE token over the variant's different value — theming it to
+            // the base color. Key off the color: only when the delta actually
+            // re-specifies `color` without a token do we clear the stale base
+            // token. A size/weight-only text delta (border color is always
+            // present; text color is conditional) keeps the base color AND its
+            // still-valid token; a re-bound delta carries its own colorToken.
+            if ("color" in e[k] && !("colorToken" in e[k]))
+              delete out[k].colorToken;
           } else {
             out[k] = e[k];
           }
         });
+        // Same pairing for the top-level background/backgroundToken scalars.
+        // diffAppearance nulls backgroundToken only when it DIFFERS from base;
+        // if the base background is unbound, a variant that recolors it unbound
+        // omits backgroundToken entirely (its token equals the base's absent
+        // one), so in a multi-axis render a value-only background delta would
+        // otherwise strand a token an earlier-matching axis installed. When
+        // this delta re-specifies `background` but carries no backgroundToken,
+        // clear the accumulated one -> value-only for that variant.
+        if ("background" in e && !("backgroundToken" in e))
+          delete out.backgroundToken;
         // Per-variant instance swap (knowledge #354): a delta may carry the
         // registry slug of the component this instance references for these
         // values (e.g. a per-status icon). Kept OUT of APPEARANCE_KEYS: it is
