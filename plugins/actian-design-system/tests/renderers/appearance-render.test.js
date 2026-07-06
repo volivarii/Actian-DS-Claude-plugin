@@ -433,3 +433,92 @@ test("renderAppearanceComponent: emits var(--token, value) end to end", function
     /border:1px solid var\(--zen-color-border-default, #e1e1e6\)/,
   );
 });
+
+// A nested colorToken pairs with its OWN color. The knowledge diffAppearance
+// emits the whole border/text object per variant but sets colorToken only when
+// that variant's slot is variable-bound (it never emits colorToken:null inside
+// the object, unlike the top-level backgroundToken scalar). So a variant that
+// recolors a base-tokened border/text with an UNBOUND value ships a delta with
+// color but no colorToken — the base token must NOT survive the merge and theme
+// the variant's different color to the base color.
+var P2_STALE_TOKEN_DOC = {
+  slug: "field",
+  variantDefaults: { State: "Default" },
+  root: {
+    name: "State=Default",
+    kind: "container",
+    appearance: {
+      border: {
+        color: "#0f5fdc",
+        colorToken: "--zen-color-primary-500",
+        width: "1px",
+      },
+      text: {
+        color: "#0f5fdc",
+        colorToken: "--zen-color-primary-500",
+        size: "12px",
+      },
+      variants: [
+        // Error: hardcoded red, not token-bound -> delta omits colorToken.
+        {
+          prop: "State",
+          values: ["Error"],
+          border: { color: "#dc3514", width: "1px" },
+          text: { color: "#dc3514", size: "12px" },
+        },
+        // Focus: re-bound to a DIFFERENT token -> delta carries its own token.
+        {
+          prop: "State",
+          values: ["Focus"],
+          border: {
+            color: "#0283be",
+            colorToken: "--zen-color-info-500",
+            width: "1px",
+          },
+        },
+      ],
+    },
+    children: [],
+  },
+};
+
+test("resolveNodeAppearance: an unbound variant color clears the stale base border colorToken", function () {
+  var ap = r.resolveNodeAppearance(P2_STALE_TOKEN_DOC.root, { State: "Error" });
+  assert.equal(ap.border.color, "#dc3514");
+  assert.equal(ap.border.colorToken, undefined); // NOT the base primary-500
+  assert.equal(ap.border.width, "1px"); // base sub-key still preserved (C1)
+  assert.equal(ap.text.color, "#dc3514");
+  assert.equal(ap.text.colorToken, undefined);
+  assert.equal(ap.text.size, "12px");
+});
+
+test("resolveNodeAppearance: a re-bound variant color uses the variant's own token", function () {
+  var ap = r.resolveNodeAppearance(P2_STALE_TOKEN_DOC.root, { State: "Focus" });
+  assert.equal(ap.border.color, "#0283be");
+  assert.equal(ap.border.colorToken, "--zen-color-info-500");
+});
+
+test("renderAppearanceComponent: an unbound variant emits value-only, never the base token", function () {
+  var html = r.renderAppearanceComponent(P2_STALE_TOKEN_DOC, {
+    variant: { State: "Error" },
+  });
+  assert.match(html, /border:1px solid #dc3514/);
+  assert.doesNotMatch(html, /--zen-color-primary-500/); // no stale base token
+});
+
+test("renderAppearanceNode: a resolved icon glyph rides its text colorToken end to end", function () {
+  // Exercises renderIconGlyph -> iconColorDecl -> tokenized (the P2 emit) on
+  // the real glyph path, not just the iconColorDecl unit.
+  var node = {
+    kind: "instance",
+    slug: "misuse-outline",
+    appearance: {
+      text: { color: "#50505d", colorToken: "--zen-color-text-secondary" },
+    },
+  };
+  var html = r.renderAppearanceNode(node, null, { iconMap: ICON_MAP });
+  assert.match(
+    html,
+    /<svg class="ds-icon" style="color:var\(--zen-color-text-secondary, #50505d\)"/,
+  );
+});

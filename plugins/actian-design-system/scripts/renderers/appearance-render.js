@@ -118,6 +118,17 @@
             isPlainObject(e[k])
           ) {
             out[k] = Object.assign({}, out[k], e[k]);
+            // colorToken pairs with THIS color. The knowledge diffAppearance
+            // ships the whole border/text object but sets colorToken only when
+            // that variant's slot is variable-bound (it never emits a nested
+            // colorToken:null the way it nulls the top-level backgroundToken).
+            // So a delta that re-colors with an UNBOUND value omits colorToken,
+            // and Object.assign would otherwise strand the BASE token over the
+            // variant's different value — theming it to the base color. A delta
+            // always re-specifies color, so the delta's token (present) or its
+            // absence (clear) governs; a color-only delta (same binding) still
+            // carries its colorToken, so this never drops a live binding.
+            if (!("colorToken" in e[k])) delete out[k].colorToken;
           } else {
             out[k] = e[k];
           }
