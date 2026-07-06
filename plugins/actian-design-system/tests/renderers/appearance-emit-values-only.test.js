@@ -172,3 +172,46 @@ test("resolution check is non-vacuous: published --zen name rides, unpublished i
     "the resolution check must flag exactly the unpublished name",
   );
 });
+
+// Same teeth for the LAYOUT emit (flexStyle gap/padding), which the invariant-2
+// scan covers structurally but no vendored data exercises yet. Drives a layout
+// token through the SAME emit + gate regexes: a published spacing token rides as
+// a real var() and an unpublished one is flagged, proving the layout path is not
+// silently escaping the runtime gate.
+test("resolution check is non-vacuous for LAYOUT tokens (flexStyle gap/padding)", function () {
+  var defined = definedVars(fs.readFileSync(PATHS.tokens.css, "utf8"));
+  var doc = {
+    slug: "synthetic-layout",
+    root: {
+      name: "",
+      kind: "container",
+      layout: {
+        axis: "row",
+        gap: "8px",
+        gapToken: "--zen-spacing-xs", // real, defined in tokens.css
+        padding: { top: "16px", right: "8px", bottom: "16px", left: "8px" },
+        paddingTokens: { left: "--zen-not-a-real-spacing-xyz" }, // unpublished
+        align: { main: "start", cross: "center" },
+      },
+      children: [],
+    },
+  };
+  var html = appearanceRender.renderAppearanceComponent(doc, {});
+  assert.doesNotMatch(html, BARE_VAR); // gap + padding both carry a fallback
+  var refs = [];
+  var m;
+  while ((m = VAR_REF.exec(html))) refs.push(m[1]);
+  VAR_REF.lastIndex = 0;
+  assert.ok(
+    refs.indexOf("--zen-spacing-xs") !== -1,
+    "a published layout token must ride as var(--name, value)",
+  );
+  var unresolved = refs.filter(function (n) {
+    return !defined.has(n);
+  });
+  assert.deepEqual(
+    unresolved,
+    ["--zen-not-a-real-spacing-xyz"],
+    "the gate must flag an unpublished layout token exactly as it does a color one",
+  );
+});

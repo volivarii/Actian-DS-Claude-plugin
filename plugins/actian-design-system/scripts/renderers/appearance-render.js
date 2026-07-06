@@ -58,16 +58,25 @@
   function flexStyle(layout) {
     if (!layout || typeof layout !== "object") return "";
     var p = layout.padding || {};
+    var pt = layout.paddingTokens || {};
     var parts = [
       "display:flex",
       "flex-direction:" + (layout.axis === "row" ? "row" : "column"),
     ];
-    if (layout.gap) parts.push("gap:" + layout.gap);
+    // P2 layout tokens: a spacing slot rides var(<token>, <value>) when the
+    // knowledge capture bound it, value-only otherwise — the same tokenized()
+    // the color emit uses (value is the fallback; a bare name is never
+    // emitted). No token -> byte-identical to the prior value-only output.
+    if (layout.gap)
+      parts.push("gap:" + style.tokenized(layout.gapToken, layout.gap));
     parts.push(
       "padding:" +
-        [p.top || "0", p.right || "0", p.bottom || "0", p.left || "0"].join(
-          " ",
-        ),
+        [
+          style.tokenized(pt.top, p.top || "0"),
+          style.tokenized(pt.right, p.right || "0"),
+          style.tokenized(pt.bottom, p.bottom || "0"),
+          style.tokenized(pt.left, p.left || "0"),
+        ].join(" "),
     );
     var a = layout.align || {};
     if (a.main) parts.push("justify-content:" + mapAlign(a.main));

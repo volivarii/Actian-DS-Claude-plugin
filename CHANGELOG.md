@@ -19,6 +19,20 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.22] - 2026-07-06
+
+### Added
+- **Layout spacing tokens theme too (P2 consumer, layout half).** When the
+  vendored anatomy carries a `layout.gapToken` / `layout.paddingTokens` (knowledge
+  #357), `flexStyle` now emits `gap:var(--zen-spacing-xs, 8px)` and per-side
+  `padding:var(--zen-spacing-sm, 8px) …` instead of the bare value — the value
+  stays the fallback, the name themes. Uses the same `tokenized` helper as the
+  color emit (now exported from `appearance-style.js`), so a bare token name is
+  never emitted into a CSS value. Total-tolerant: no layout token → value-only,
+  byte-identical to before (goldens/real-data green), so it's a no-op until the
+  knowledge variable-id export is populated. Completes the P2 name-layer consumer
+  surface: appearance colors (2026.7.20) + layout spacing now both theme.
+
 ## [2026.7.20] - 2026-07-06
 
 ### Added

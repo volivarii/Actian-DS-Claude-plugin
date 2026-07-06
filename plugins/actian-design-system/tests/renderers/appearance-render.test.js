@@ -616,3 +616,55 @@ test("renderAppearanceComponent: multi-axis unbound background emits value-only,
   assert.match(html, /background:#dc3514/);
   assert.doesNotMatch(html, /--zen-color-primary-500/);
 });
+
+// ─── P2 layout tokens: gap/padding ride as var(--token, value) ──────────────
+// The knowledge layout capture (its #357) stores layout.gapToken beside
+// layout.gap and layout.paddingTokens per bound side beside layout.padding.
+// flexStyle var-wraps them (value = fallback), value-only otherwise — the same
+// tokenized() the color emit uses, so a bare token name is never emitted.
+test("flexStyle: gap + padding ride their layout tokens as var(--token, value)", function () {
+  var doc = {
+    slug: "card",
+    root: {
+      name: "Card",
+      kind: "container",
+      layout: {
+        axis: "row",
+        gap: "8px",
+        gapToken: "--zen-spacing-xs",
+        padding: { top: "16px", right: "8px", bottom: "16px", left: "8px" },
+        paddingTokens: { right: "--zen-spacing-sm", left: "--zen-spacing-sm" },
+        align: { main: "start", cross: "center" },
+      },
+      children: [],
+    },
+  };
+  var html = r.renderAppearanceComponent(doc, {});
+  assert.match(html, /gap:var\(--zen-spacing-xs, 8px\)/);
+  // per-side var-wrap in the padding shorthand (top/bottom unbound = raw value)
+  assert.match(
+    html,
+    /padding:16px var\(--zen-spacing-sm, 8px\) 16px var\(--zen-spacing-sm, 8px\)/,
+  );
+});
+
+test("flexStyle: no layout tokens -> value-only gap/padding (byte-identical to today)", function () {
+  var doc = {
+    slug: "card",
+    root: {
+      name: "Card",
+      kind: "container",
+      layout: {
+        axis: "column",
+        gap: "4px",
+        padding: { top: "0", right: "0", bottom: "0", left: "0" },
+        align: { main: "start", cross: "start" },
+      },
+      children: [],
+    },
+  };
+  var html = r.renderAppearanceComponent(doc, {});
+  assert.match(html, /gap:4px/);
+  assert.match(html, /padding:0 0 0 0/);
+  assert.doesNotMatch(html, /var\(/);
+});
