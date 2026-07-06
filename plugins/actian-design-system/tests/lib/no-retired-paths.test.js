@@ -12,6 +12,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { execSync } = require("node:child_process");
 const path = require("node:path");
+const fs = require("node:fs");
 
 const PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 
@@ -84,8 +85,11 @@ guardPatterns(
 // (Phase 1B): the default: seam now either renders an appearance doc via
 // renderAppearanceComponent or falls straight to gracefulChip() — no
 // anatomy-render.js / legacy-map fallback exists in between. Path b
-// (resolveRootTokenStyle / token-injection, via anatomy-render.js) is
-// unrelated and still live — do not add its identifiers here.
+// (resolveRootTokenStyle / token-injection, via anatomy-render.js) was a
+// separate, unrelated mechanism at the time of Group C; it is retired on its
+// own schedule by the Task A3 guard below (narrower on purpose, see that
+// guard's own comment for why it doesn't use guardPatterns()/liveReferencesTo
+// here).
 guardPatterns(
   "Group C — retired slug→html anatomy path must not reappear in live code",
   [
@@ -95,3 +99,37 @@ guardPatterns(
     "buildDsAnatomyMap(",
   ],
 );
+
+// Task A3 (branch feat/retire-tag-default-path-b): retire the path-b
+// sidecar-reading chain that anatomy-render.js orchestrated (loadTokenBindings,
+// pickBinding, resolveTokenDecls, resolveRootTokenStyle). Task A2 already
+// stopped ds-anatomy-map.js's buildDsVariantStyleMap from calling
+// resolveRootTokenStyle, so these four had no remaining production caller.
+//
+// This guard checks anatomy-render.js's own source text rather than using
+// guardPatterns()/liveReferencesTo() above: two sibling test files
+// (ds-token-bindings.test.js, ds-token-join-deliverable.test.js) still
+// reference these identifiers and are retired in the next task, so a
+// whole-tree git-grep guard would false-positive here. Scoping to "is the
+// function definition gone from the one file that used to define it" is the
+// exact claim this task makes.
+const RETIRED_PATH_B_FNS = [
+  "resolveRootTokenStyle",
+  "loadTokenBindings",
+  "resolveTokenDecls",
+  "pickBinding",
+];
+
+test("Task A3: path-b sidecar readers are gone from anatomy-render.js", () => {
+  const src = fs.readFileSync(
+    path.resolve(PLUGIN_ROOT, "scripts", "renderers", "anatomy-render.js"),
+    "utf8",
+  );
+  RETIRED_PATH_B_FNS.forEach((id) => {
+    assert.equal(
+      src.indexOf(`function ${id}`),
+      -1,
+      `${id} still defined in anatomy-render.js`,
+    );
+  });
+});
