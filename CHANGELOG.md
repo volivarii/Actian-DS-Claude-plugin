@@ -19,7 +19,7 @@ are summarized at the release level.
 
 ## [Unreleased]
 
-## [2026.7.21] - 2026-07-06
+## [2026.7.22] - 2026-07-06
 
 ### Added
 - **Layout spacing tokens theme too (P2 consumer, layout half).** When the
