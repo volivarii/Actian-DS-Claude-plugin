@@ -105,6 +105,8 @@
 
   exports.appearanceToDecls = appearanceToDecls;
   exports.iconColorDecl = iconColorDecl;
+  // Shared by flexStyle for the layout gap/padding token wrap (P2).
+  exports.tokenized = tokenized;
 })(
   typeof module !== "undefined"
     ? module.exports
