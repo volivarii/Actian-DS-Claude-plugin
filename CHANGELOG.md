@@ -19,7 +19,19 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.18] - 2026-07-06
+
 ### Fixed
+- **Ref-collision in the registry key maps is now deterministic.** Two
+  registry slugs can derive the same camelCase ref (`chip` and `fm-chip`
+  both become `fmChip` because ref derivation strips the kit prefix), and
+  the winner used to be whichever entry the registry emitted last. The
+  knowledge sync's move to canonically sorted keys (its #355) flipped that
+  order and silently re-pointed `fmChip` from the single chip component to
+  the `fm-chip` set, breaking Figma push for FM chips on the vendor PR.
+  Collision resolution is now order-independent: a plain slug beats a
+  prefix-stripped one, then sorted-first wins; applies to both the key maps
+  and the ref→slug maps.
 - **Nightly vendor refreshes self-heal the authoring table.** The
   vendor-snapshot workflow now regenerates the
   `ds-components-authoring.md` vocabulary table (introduced with its drift
