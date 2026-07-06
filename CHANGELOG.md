@@ -19,6 +19,14 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.23] - 2026-07-06
+
+### Fixed
+- tag-default washout: per-variant colors now render from the appearance layer with a value fallback, replacing the retired path-b token-injection that emitted unresolved bare `var(--token)`.
+
+### Removed
+- Retired the path-b token-injection chain (resolveRootTokenStyle et al.) and the vendored harvest token-bindings sidecars; tag-default now renders via the unified appearance path (bespoke pill kept, colors re-sourced).
+
 ## [2026.7.22] - 2026-07-06
 
 ### Added
