@@ -103,8 +103,27 @@
     return "";
   }
 
+  // Variant color declarations (tag bespoke). Emits ONLY background and
+  // border-color for per-variant color overrides, never radius/border-width/text
+  // (ds-base.css owns the invariant geometry and default colors). Reuses
+  // has/safeValue/safeToken/tokenized gates from appearanceToDecls.
+  function variantColorDecls(appearance) {
+    var d = [];
+    if (!appearance || typeof appearance !== "object") return d;
+    if (has(appearance.background) && safeValue(appearance.background))
+      d.push(
+        "background:" +
+          tokenized(appearance.backgroundToken, appearance.background),
+      );
+    var b = appearance.border;
+    if (b && typeof b === "object" && has(b.color) && safeValue(b.color))
+      d.push("border-color:" + tokenized(b.colorToken, b.color));
+    return d;
+  }
+
   exports.appearanceToDecls = appearanceToDecls;
   exports.iconColorDecl = iconColorDecl;
+  exports.variantColorDecls = variantColorDecls;
   // Shared by flexStyle for the layout gap/padding token wrap (P2).
   exports.tokenized = tokenized;
 })(

@@ -1,63 +1,59 @@
 const { test } = require("node:test");
 const assert = require("node:assert");
-const path = require("path");
-const fs = require("fs");
 
-const SIDE = path.resolve(
-  __dirname,
-  "..",
-  "..",
-  "vendor",
-  "components",
-  "dist",
-  "token-bindings",
-  "tag-default.json",
-);
 const assemble = require("../../scripts/renderers/assemble-flow-share.js");
+const anatomyRender = require("../../scripts/renderers/anatomy-render.js");
+const appearanceRender = require("../../scripts/renderers/appearance-render.js");
+const { parseVariant } = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 
-// Pull the real background-color token from the vendored sidecar whose
-// binding is scoped to variant.prop === "Color" and whose variant.values
-// includes colorValue (e.g. "Pink", "Default"). Fails loudly (rather than
-// silently returning the first match) unless there is EXACTLY ONE such
-// candidate — a zero or multi-match sidecar would let this test pass while
-// a composite-key collision quietly rendered the wrong token.
-function scopedBgToken(colorValue) {
-  const doc = JSON.parse(fs.readFileSync(SIDE, "utf8"));
-  const candidates = [];
-  for (const nid of Object.keys(doc.byNodeId)) {
-    for (const b of doc.byNodeId[nid]) {
-      if (
-        b.property === "background-color" &&
-        b.variant &&
-        b.variant.prop === "Color" &&
-        Array.isArray(b.variant.values) &&
-        b.variant.values.indexOf(colorValue) !== -1
-      ) {
-        candidates.push(b.token);
-      }
-    }
-  }
-  assert.strictEqual(
-    candidates.length,
-    1,
-    "expected exactly one Color=" +
-      colorValue +
-      "-scoped background-color binding in " +
-      "tag-default.json, found " +
-      candidates.length +
-      " (" +
-      JSON.stringify(candidates) +
-      ")",
-  );
-  return candidates[0];
-}
+// flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
+// deliverable renders tag-default's per-variant colors from the appearance
+// layer (Task A2 re-sourced buildDsVariantStyleMap onto resolveNodeAppearance
+// + variantColorDecls), not the retired path-b token-injection chain
+// (resolveRootTokenStyle / the vendored token-bindings sidecar join, deleted
+// in Task A4). That retired chain emitted bare, mostly-unresolved
+// var(--zen-*) declarations with no value fallback ("the washout bug"): tags
+// rendered transparent or collapsed because tokens.css never defined most of
+// those vars. The appearance layer instead emits a real color VALUE (a hex,
+// pulled straight off the anatomy doc's captured Figma fill) with no token
+// wrapper at all for this component today, so there is nothing left to
+// silently fail to resolve.
+//
+// Real-data-first: the expected colors below are derived independently, at
+// test time, from resolveNodeAppearance against the real vendored
+// tag-default anatomy doc -- no hardcoded hex, no fixtures -- then compared
+// against what assemble-flow-share actually renders. A dedicated regression
+// guard also asserts no ds-tag span ever injects a fallback-less
+// var(--token) (the exact shape of the bug this whole effort fixes).
 
-test("flow-share deliverable: tag-default keeps its instance label AND injects its distinct harvested variant token", () => {
-  const pink = scopedBgToken("Pink");
-  const def = scopedBgToken("Default");
+test("flow-share deliverable: tag-default renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
+  const doc = anatomyRender.loadAnatomy("tag-default");
+  assert.ok(doc && doc.root, "tag-default anatomy doc must load (precondition)");
+
+  const purpleVariant = parseVariant("Color=Purple");
+  const defaultVariant = parseVariant("Color=Default");
+
+  const base = appearanceRender.resolveNodeAppearance(doc.root, null);
+  const purple = appearanceRender.resolveNodeAppearance(doc.root, purpleVariant);
+  const def = appearanceRender.resolveNodeAppearance(doc.root, defaultVariant);
+
   assert.ok(
-    pink && def && pink !== def,
-    "sidecar has distinct Pink/Default background tokens (precondition)",
+    purple && purple.background && purple.border && purple.border.color,
+    "Color=Purple must resolve a background + border color (precondition)",
+  );
+  assert.ok(
+    purple.background !== base.background || purple.border.color !== base.border.color,
+    "Color=Purple must differ from the base appearance (precondition: otherwise nothing to inject)",
+  );
+  assert.strictEqual(
+    def.background,
+    base.background,
+    "Color=Default must equal the base appearance background (precondition: default renders via ds-base.css, no injection)",
+  );
+  assert.strictEqual(
+    def.border.color,
+    base.border.color,
+    "Color=Default must equal the base appearance border color (precondition)",
   );
 
   const flow = {
@@ -70,8 +66,8 @@ test("flow-share deliverable: tag-default keeps its instance label AND injects i
             type: "INSTANCE",
             library: "ds",
             dsSlug: "tag-default",
-            variant: "Color=Pink",
-            props: { Label: "Customer Orders" },
+            variant: "Color=Purple",
+            props: { Label: "Tag" },
           },
           {
             type: "INSTANCE",
@@ -89,23 +85,50 @@ test("flow-share deliverable: tag-default keeps its instance label AND injects i
   const html = assemble.assembleFlowShare(flow);
 
   assert.ok(
-    html.includes("Customer Orders"),
-    "Pink tag keeps its instance label",
-  );
-  assert.ok(
-    html.includes("Draft Items"),
-    "Default tag keeps its instance label",
-  );
-  assert.ok(
     html.includes('class="ds-tag"'),
     "renders the hand-authored ds-tag span, not anatomy divs",
   );
+  assert.ok(html.includes("Tag"), "Purple tag keeps its instance label");
+  assert.ok(html.includes("Draft Items"), "Default tag keeps its instance label");
+
+  // The colored variant's span carries an inline style sourced from the
+  // appearance layer: real color VALUES, no token indirection to wash out.
+  const purpleSpan =
+    '<span class="ds-tag" style="background:' +
+    purple.background +
+    ";border-color:" +
+    purple.border.color +
+    '">Tag</span>';
   assert.ok(
-    html.includes("background-color:var(" + pink + ")"),
-    "Pink tag injected its harvested token",
+    html.includes(purpleSpan),
+    "Color=Purple's ds-tag span must render the appearance layer's real background + border-color values, got no match for: " +
+      purpleSpan,
   );
+
+  // The DEFAULT variant equals the base appearance, so buildDsVariantStyleMap
+  // emits no map entry for it: no injected style at all, ds-base.css owns
+  // the default pill's background/border.
+  const defaultSpan = '<span class="ds-tag">Draft Items</span>';
   assert.ok(
-    html.includes("background-color:var(" + def + ")"),
-    "Default tag injected its distinct harvested token",
+    html.includes(defaultSpan),
+    "Color=Default's ds-tag span must carry NO injected inline style (ds-base.css owns the default), got no match for: " +
+      defaultSpan,
   );
+
+  // Regression guard: no ds-tag span, of any variant, may ever inject a
+  // fallback-less var(--token) -- that bare-token shape is exactly what
+  // rendered most tag-default variants transparent/collapsed under path b.
+  const tagSpanOpenTags = html.match(/<span class="ds-tag"[^>]*>/g) || [];
+  assert.ok(
+    tagSpanOpenTags.length >= 2,
+    "expected at least 2 ds-tag opening tags in the rendered flow, found " +
+      tagSpanOpenTags.length,
+  );
+  const bareVarRe = /var\(\s*--[A-Za-z0-9-]+\s*\)/;
+  tagSpanOpenTags.forEach(function (tag) {
+    assert.ok(
+      !bareVarRe.test(tag),
+      "ds-tag span must never inject a fallback-less var(--token): " + tag,
+    );
+  });
 });

@@ -10,16 +10,17 @@
  * Extracted from assemble-preview.js so BOTH the strip renderer (assemble-preview)
  * and the canonical shareable deliverable (assemble-flow-share) can build the map
  * without one renderer depending on the other's CLI module. No side effects at
- * load. Pure functions; substrate reads happen via injectable loaders (defaults
- * read the vendored anatomy + token-bindings sidecars).
+ * load. Pure functions; substrate reads happen via injectable loaders (default
+ * reads the vendored anatomy).
  *
  * The former buildDsAnatomyMap (slug → pre-rendered HTML, "path c") was
  * retired in Group C: it's superseded by the doc map + appearance-render.js.
- * Token facts for the surviving token-injection path (path b) come from the
- * per-node sidecar join inside anatomy-render.js (anatomy node id →
- * token-bindings byNodeId). The former root-level guideline domains.tokens
- * read is gone: domains.tokens stays a human doc, the render-grade facts
- * live in components/dist/token-bindings/.
+ * Task A2 re-sourced buildDsVariantStyleMap's color facts from the appearance
+ * layer (resolveNodeAppearance, via the module-local appearanceVariantStyle)
+ * instead of the token-bindings sidecar join ("path b", the washout bug's
+ * origin: bare var(--token) with no fallback, most unresolved in tokens.css).
+ * The default variant's colors equal the base, so it emits no map entry and
+ * ds-base.css's `.ds-tag` renders the correct default with no injection.
  */
 
 var fs = require("fs");
@@ -27,8 +28,10 @@ var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 
 var anatomyRender = require("./anatomy-render");
-var resolveRootTokenStyle = anatomyRender.resolveRootTokenStyle;
+var loadAnatomy = anatomyRender.loadAnatomy;
 var passesRatioGate = anatomyRender.passesRatioGate;
+var appearanceRender = require("./appearance-render");
+var { variantColorDecls } = require("./appearance-style.js");
 var {
   isDelegated,
   anatomyVariantKey,
@@ -147,6 +150,29 @@ function buildDsAnatomyDocMap(slugs, opts) {
   return map;
 }
 
+// Task A2: re-sourced from the appearance layer (Phase 1B) instead of the
+// former token-bindings sidecar join (the retired resolveRootTokenStyle,
+// "path b", the washout bug's origin: bare var(--token) with no fallback,
+// most unresolved in tokens.css). Resolves the root node's appearance for
+// the variant and emits ONLY the color-only override (variantColorDecls);
+// the DEFAULT variant's colors equal the base, so it returns "" and
+// ds-base.css's `.ds-tag` owns the correct default geometry + colors with
+// no injection.
+function appearanceVariantStyle(slug, variant, loader) {
+  var doc = loadAnatomy(slug, loader);
+  if (!doc || !doc.root) return "";
+  var base = appearanceRender.resolveNodeAppearance(doc.root, null);
+  var res = appearanceRender.resolveNodeAppearance(doc.root, variant);
+  if (!res) return "";
+  // Default variant: colors equal the base => no override, ds-base.css wins.
+  var baseBg = base && base.background;
+  var baseBorder = base && base.border && base.border.color;
+  var resBg = res.background;
+  var resBorder = res.border && res.border.color;
+  if (resBg === baseBg && resBorder === baseBorder) return "";
+  return variantColorDecls(res).join(";");
+}
+
 // Build { anatomyVariantKey(slug, variant) -> inline-style-string } for the
 // delegated slugs used in the flow, for token-injection into hand-authored
 // templates. Entries with no resolvable root style are omitted.
@@ -156,11 +182,11 @@ function buildDsVariantStyleMap(data, opts) {
   var pairs = collectDsSlugVariants(data);
   for (var i = 0; i < pairs.length; i++) {
     var pair = pairs[i];
-    var style = resolveRootTokenStyle(pair.slug, {
-      variant: pair.variant,
-      loader: opts.anatomyLoader,
-      bindingsLoader: opts.tokenBindingsLoader,
-    });
+    var style = appearanceVariantStyle(
+      pair.slug,
+      pair.variant,
+      opts.anatomyLoader,
+    );
     if (style) map[anatomyVariantKey(pair.slug, pair.variant)] = style;
   }
   return map;

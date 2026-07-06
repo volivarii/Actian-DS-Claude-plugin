@@ -227,3 +227,44 @@ test("appearanceToDecls: C3 drops url()/braces/markup, keeps hex/rgba/px/rem/%",
     ],
   );
 });
+
+// ─── variantColorDecls: tag bespoke per-variant color overrides ─────────────
+// Emits ONLY background + border-color (never radius/border-width/text);
+// ds-base.css owns the invariant geometry and default colors). Reuses the
+// same has/safeValue/safeToken/tokenized gates as appearanceToDecls, so the
+// C3 injection denylist and P2 token-wrap behavior apply identically here.
+test.describe("variantColorDecls", function () {
+  test.it("variantColorDecls emits only background + border-color", function () {
+    var decls = s.variantColorDecls({
+      background: "#fff9ff",
+      backgroundToken: "--zen-color-tag-purple",
+      border: { color: "#f2e6f8", width: "1px" },
+      radius: "4px",
+      text: { color: "#50505d" },
+    });
+    assert.deepEqual(decls, [
+      "background:var(--zen-color-tag-purple, #fff9ff)",
+      "border-color:#f2e6f8",
+    ]);
+  });
+
+  test.it("variantColorDecls is value-only when no token rides", function () {
+    var decls = s.variantColorDecls({
+      background: "#fff4ec",
+      border: { color: "#ffdacf" },
+    });
+    assert.deepEqual(decls, ["background:#fff4ec", "border-color:#ffdacf"]);
+  });
+
+  test.it("variantColorDecls drops unsafe/absent slots", function () {
+    assert.deepEqual(s.variantColorDecls({ background: "red;}" }), []);
+    assert.deepEqual(s.variantColorDecls(null), []);
+    assert.deepEqual(s.variantColorDecls({ radius: "4px" }), []);
+    // Coverage gap (review): an unsafe border.color alone, with no background,
+    // must also be dropped whole rather than partially emitted.
+    assert.deepEqual(
+      s.variantColorDecls({ border: { color: "url(x)" } }),
+      [],
+    );
+  });
+});

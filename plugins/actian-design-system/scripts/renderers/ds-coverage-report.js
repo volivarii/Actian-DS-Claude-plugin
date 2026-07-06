@@ -6,7 +6,7 @@ var { loadAnatomy, passesRatioGate } = require(
 );
 
 // Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
-// same as resolveRootTokenStyle — see passesRatioGate's own doc comment in
+// matching passesRatioGate's own strict default; see its doc comment in
 // anatomy-render.js for how this diverges from buildDsAnatomyDocMap's R2
 // floor (ds-anatomy-map.js), which intentionally keeps missing-ratio docs.
 function coverage(slugs, opts) {
