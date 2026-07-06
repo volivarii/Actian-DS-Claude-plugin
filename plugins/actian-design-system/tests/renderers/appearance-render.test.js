@@ -522,3 +522,97 @@ test("renderAppearanceNode: a resolved icon glyph rides its text colorToken end 
     /<svg class="ds-icon" style="color:var\(--zen-color-text-secondary, #50505d\)"/,
   );
 });
+
+// A color-less (size/weight-only) text delta: the variant text node has no
+// SOLID fill of its own, so diffAppearance emits {size} with NO color and NO
+// colorToken. The deep-merge preserves the BASE color, whose base token still
+// validly pairs with it — the token must NOT be dropped. So the stale-clear
+// must key on whether the delta RE-SPECIFIES color, not merely on colorToken
+// being absent (border color is always present; text color is conditional).
+test("resolveNodeAppearance: a color-less size-only text delta keeps the base colorToken", function () {
+  var node = {
+    kind: "text",
+    appearance: {
+      text: {
+        color: "#0f5fdc",
+        colorToken: "--zen-color-primary-500",
+        size: "12px",
+      },
+      variants: [{ prop: "Size", values: ["Large"], text: { size: "16px" } }],
+    },
+  };
+  var ap = r.resolveNodeAppearance(node, { Size: "Large" });
+  assert.equal(ap.text.color, "#0f5fdc");
+  assert.equal(ap.text.colorToken, "--zen-color-primary-500"); // color unchanged -> token stays
+  assert.equal(ap.text.size, "16px");
+});
+
+// Residual of the SAME class on the top-level backgroundToken scalar. A
+// multi-axis render where an earlier-sorted axis binds background to a token
+// and a later axis recolors it UNBOUND: diffAppearance omits backgroundToken
+// from the unbound delta (its token equals the base's absent token), so the
+// scalar path must clear the stranded token the way the nested path does.
+var P2_SCALAR_STRAND_DOC = {
+  slug: "chip",
+  variantDefaults: { Emphasis: "Default", State: "Default" },
+  root: {
+    name: "Emphasis=Default, State=Default",
+    kind: "container",
+    appearance: {
+      background: "#ffffff", // base UNBOUND
+      variants: [
+        {
+          prop: "Emphasis",
+          values: ["Strong"],
+          background: "#0050c8",
+          backgroundToken: "--zen-color-primary-500",
+        },
+        { prop: "State", values: ["Error"], background: "#dc3514" }, // unbound recolor
+      ],
+    },
+    children: [],
+  },
+};
+
+test("resolveNodeAppearance: a later unbound background delta clears an earlier axis's stranded backgroundToken", function () {
+  var ap = r.resolveNodeAppearance(P2_SCALAR_STRAND_DOC.root, {
+    Emphasis: "Strong",
+    State: "Error",
+  });
+  assert.equal(ap.background, "#dc3514");
+  assert.equal(ap.backgroundToken, undefined); // NOT primary-500 from the Emphasis axis
+});
+
+test("resolveNodeAppearance: a later BOUND background delta keeps its own token (multi-axis)", function () {
+  var doc = {
+    kind: "container",
+    appearance: {
+      background: "#ffffff",
+      variants: [
+        {
+          prop: "Emphasis",
+          values: ["Strong"],
+          background: "#0050c8",
+          backgroundToken: "--zen-color-primary-500",
+        },
+        {
+          prop: "State",
+          values: ["Info"],
+          background: "#0283be",
+          backgroundToken: "--zen-color-info-500",
+        },
+      ],
+    },
+  };
+  var ap = r.resolveNodeAppearance(doc, { Emphasis: "Strong", State: "Info" });
+  assert.equal(ap.background, "#0283be");
+  assert.equal(ap.backgroundToken, "--zen-color-info-500");
+});
+
+test("renderAppearanceComponent: multi-axis unbound background emits value-only, no stranded token", function () {
+  var html = r.renderAppearanceComponent(P2_SCALAR_STRAND_DOC, {
+    variant: { Emphasis: "Strong", State: "Error" },
+  });
+  assert.match(html, /background:#dc3514/);
+  assert.doesNotMatch(html, /--zen-color-primary-500/);
+});
