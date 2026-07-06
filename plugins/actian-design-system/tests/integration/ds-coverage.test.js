@@ -85,8 +85,9 @@ function implementedCases() {
 // Phase 1B (Task 7): a slug also counts as covered when its vendored anatomy
 // doc carries a captured root `appearance` (the default: seam in
 // ds-html-map.js renders it per-instance via renderAppearanceComponent())
-// (see appearance-emit-values-only.test.js for the runtime values-only
-// gate on that path), so it is reachable WITHOUT a bespoke `case`. This
+// (see appearance-emit-values-only.test.js for the runtime emit gate on
+// that path — var() fallback + token resolution), so it is reachable
+// WITHOUT a bespoke `case`. This
 // credit matters going forward as Task 9 retires bespoke cases in favor of
 // the generic appearance renderer; today every conversion-reachable slug
 // still also has a case, so the credit is additive, not currently load-

@@ -75,7 +75,18 @@
     return parts.join(";");
   }
 
-  var APPEARANCE_KEYS = ["background", "border", "radius", "text"];
+  // backgroundToken is a top-level scalar sibling of background (P2 name
+  // layer); it must be listed so the base copy AND variant-delta merge carry
+  // it (incl. a null delta that removes the base binding). border/text carry
+  // their colorToken nested inside the object, so they ride the deep-merge
+  // already. radius has no token (radiusToken deferred upstream).
+  var APPEARANCE_KEYS = [
+    "background",
+    "backgroundToken",
+    "border",
+    "radius",
+    "text",
+  ];
 
   // Base appearance (minus variants) with every MATCHING variant delta merged
   // over it. A delta matches when variant[entry.prop] is in entry.values.

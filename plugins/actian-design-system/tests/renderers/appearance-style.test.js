@@ -107,6 +107,94 @@ test("iconColorDecl: malicious background is never emitted (background unused)",
   assert.equal(s.iconColorDecl({ background: "url(http://x/e.png)" }), "");
 });
 
+// ─── P2 name layer: token names ride as var(--token, value) ─────────────────
+// When the anatomy appearance carries the published --zen-* name a color slot
+// is bound to, the emit wraps the value as var(<token>, <value>): the value is
+// the FALLBACK (fidelity + no washout if the name is unpublished downstream),
+// the name enables theming. No token / null token / unsafe token -> value-only
+// (byte-identical to Phase 1B). A token never rescues an unsafe VALUE.
+
+test("P2: backgroundToken wraps the value as var(token, value)", function () {
+  assert.deepEqual(
+    s.appearanceToDecls({
+      background: "#f3f5f9",
+      backgroundToken: "--zen-color-bg-selected",
+    }),
+    ["background:var(--zen-color-bg-selected, #f3f5f9)"],
+  );
+});
+
+test("P2: border.colorToken wraps the color inside the border shorthand", function () {
+  assert.deepEqual(
+    s.appearanceToDecls({
+      border: {
+        color: "#0f5fdc",
+        colorToken: "--zen-color-primary-500",
+        width: "1px",
+      },
+    }),
+    ["border:1px solid var(--zen-color-primary-500, #0f5fdc)"],
+  );
+});
+
+test("P2: text.colorToken wraps the text color", function () {
+  assert.deepEqual(
+    s.appearanceToDecls({
+      text: {
+        color: "#50505d",
+        colorToken: "--zen-color-text-secondary",
+        size: "12px",
+      },
+    }),
+    ["color:var(--zen-color-text-secondary, #50505d)", "font-size:12px"],
+  );
+});
+
+test("P2: no token / null token -> value-only (unchanged 1B behavior)", function () {
+  assert.deepEqual(s.appearanceToDecls({ background: "#f3f5f9" }), [
+    "background:#f3f5f9",
+  ]);
+  assert.deepEqual(
+    s.appearanceToDecls({ background: "#f3f5f9", backgroundToken: null }),
+    ["background:#f3f5f9"],
+  );
+});
+
+test("P2: an unsafe token name is rejected (value-only), never emitted into var()", function () {
+  // A token carrying anything outside a CSS custom-property identifier must not
+  // reach the output — the value still rides, so fidelity is preserved.
+  assert.deepEqual(
+    s.appearanceToDecls({
+      background: "#fff",
+      backgroundToken: "--zen); color:red",
+    }),
+    ["background:#fff"],
+  );
+  assert.deepEqual(
+    s.appearanceToDecls({ background: "#fff", backgroundToken: "notavar" }),
+    ["background:#fff"],
+  );
+});
+
+test("P2: a token never rescues an UNSAFE value (whole decl still dropped)", function () {
+  assert.deepEqual(
+    s.appearanceToDecls({
+      background: "red;position:fixed",
+      backgroundToken: "--zen-color-bg-selected",
+    }),
+    [],
+  );
+});
+
+test("P2: iconColorDecl wraps text.color with its token", function () {
+  assert.equal(
+    s.iconColorDecl({
+      text: { color: "#50505d", colorToken: "--zen-color-text-secondary" },
+    }),
+    "color:var(--zen-color-text-secondary, #50505d)",
+  );
+});
+
 test("appearanceToDecls: C3 drops url()/braces/markup, keeps hex/rgba/px/rem/%", function () {
   // url(), braces, and </ markup escapes are all rejected.
   assert.deepEqual(

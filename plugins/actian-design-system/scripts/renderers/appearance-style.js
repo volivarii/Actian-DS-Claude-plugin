@@ -1,8 +1,11 @@
 // scripts/renderers/appearance-style.js
-// Pure appearance -> CSS-declarations mapper. VALUES-ONLY (Phase 1B): each
-// declaration is the raw resolved value captured in the anatomy `appearance`.
-// Phase 2 will teach this single emit point to wrap known token names as
-// var(--name, value) without touching callers.
+// Pure appearance -> CSS-declarations mapper. Each color declaration is the
+// raw resolved value captured in the anatomy `appearance`; when that slot also
+// carries the published --zen-* name it is bound to (P2 name layer), the value
+// is wrapped as var(<token>, <value>) at this single emit point — the value
+// stays the fallback (fidelity), the name enables theming. No token present ->
+// value-only (byte-identical to Phase 1B). radius carries no token yet
+// (radiusToken deferred upstream until the REST bind shape is verified).
 (function (exports) {
   "use strict";
 
@@ -25,18 +28,37 @@
     return true;
   }
 
+  // P2 name layer. A token is a CSS custom-property NAME; accept only a strict
+  // `--` identifier so nothing (a `)` closing the var(), a `;`/`{`/`}`, a
+  // hand-edited/future-dist smuggle) can break out of the var() wrapper. Any
+  // other shape degrades to value-only, never a poisoned declaration.
+  function safeToken(t) {
+    return typeof t === "string" && /^--[A-Za-z0-9-]+$/.test(t);
+  }
+
+  // Wrap an ALREADY-safeValue'd value as var(<token>, <value>) when a valid
+  // token name rides alongside it. The value is the FALLBACK: an unpublished
+  // name degrades to the correct value (no washout), a published name themes.
+  // No/invalid token -> the raw value (byte-identical to Phase 1B).
+  function tokenized(token, value) {
+    return safeToken(token) ? "var(" + token + ", " + value + ")" : value;
+  }
+
   // appearance: { background?, border?:{color,width}, radius?, text?:{...} }
   function appearanceToDecls(appearance) {
     var d = [];
     if (!appearance || typeof appearance !== "object") return d;
 
     if (has(appearance.background) && safeValue(appearance.background))
-      d.push("background:" + appearance.background);
+      d.push(
+        "background:" +
+          tokenized(appearance.backgroundToken, appearance.background),
+      );
 
     var b = appearance.border;
     if (b && typeof b === "object" && has(b.color) && safeValue(b.color)) {
       var w = has(b.width) && safeValue(b.width) ? b.width : "1px";
-      d.push("border:" + w + " solid " + b.color);
+      d.push("border:" + w + " solid " + tokenized(b.colorToken, b.color));
     }
 
     if (has(appearance.radius) && safeValue(appearance.radius))
@@ -44,7 +66,8 @@
 
     var t = appearance.text;
     if (t && typeof t === "object") {
-      if (has(t.color) && safeValue(t.color)) d.push("color:" + t.color);
+      if (has(t.color) && safeValue(t.color))
+        d.push("color:" + tokenized(t.colorToken, t.color));
       if (has(t.size) && safeValue(t.size)) d.push("font-size:" + t.size);
       if (has(t.weight) && safeValue(t.weight))
         d.push("font-weight:" + t.weight);
@@ -75,7 +98,7 @@
     if (!appearance || typeof appearance !== "object") return "";
     var t = appearance.text;
     if (t && typeof t === "object" && has(t.color) && safeValue(t.color)) {
-      return "color:" + t.color;
+      return "color:" + tokenized(t.colorToken, t.color);
     }
     return "";
   }

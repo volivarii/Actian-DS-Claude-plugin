@@ -357,3 +357,79 @@ test("renderAppearanceComponent: escapes HTML special characters in text nodes",
   // (but &lt; and &gt; should be)
   assert.doesNotMatch(html, />\s*a & b < c >/);
 });
+
+// ─── P2 name layer: token bindings flow through resolveNodeAppearance ────────
+// backgroundToken is a TOP-LEVEL sibling of background (a scalar), so it must
+// be in APPEARANCE_KEYS to survive base-copy + variant-delta merge. border and
+// text carry their colorToken nested inside the object, so they ride through
+// the existing deep-merge — but the whole point is the emit downstream sees
+// them, so these tests pin the flow end to end.
+var P2_TOKEN_DOC = {
+  slug: "banner",
+  variantDefaults: { Type: "Default" },
+  root: {
+    name: "Type=Default",
+    kind: "container",
+    appearance: {
+      background: "#ffffff",
+      backgroundToken: "--zen-color-bg-default",
+      border: {
+        color: "#e1e1e6",
+        colorToken: "--zen-color-border-default",
+        width: "1px",
+      },
+      text: {
+        color: "#50505d",
+        colorToken: "--zen-color-text-secondary",
+        size: "12px",
+      },
+      variants: [
+        {
+          prop: "Type",
+          values: ["Selected"],
+          background: "#f3f5f9",
+          backgroundToken: "--zen-color-bg-selected",
+        },
+        {
+          prop: "Type",
+          // A variant whose fill is not token-bound: the base token is removed
+          // (null) so the value rides alone, never a stale name over a new value.
+          values: ["Plain"],
+          background: "#fafafa",
+          backgroundToken: null,
+        },
+      ],
+    },
+    children: [],
+  },
+};
+
+test("resolveNodeAppearance: base carries backgroundToken + nested colorTokens", function () {
+  var ap = r.resolveNodeAppearance(P2_TOKEN_DOC.root, { Type: "Default" });
+  assert.equal(ap.backgroundToken, "--zen-color-bg-default");
+  assert.equal(ap.border.colorToken, "--zen-color-border-default");
+  assert.equal(ap.text.colorToken, "--zen-color-text-secondary");
+});
+
+test("resolveNodeAppearance: a variant delta's backgroundToken merges over base", function () {
+  var ap = r.resolveNodeAppearance(P2_TOKEN_DOC.root, { Type: "Selected" });
+  assert.equal(ap.background, "#f3f5f9");
+  assert.equal(ap.backgroundToken, "--zen-color-bg-selected");
+});
+
+test("resolveNodeAppearance: a null delta backgroundToken removes the base binding", function () {
+  var ap = r.resolveNodeAppearance(P2_TOKEN_DOC.root, { Type: "Plain" });
+  assert.equal(ap.background, "#fafafa");
+  assert.equal(ap.backgroundToken, null);
+});
+
+test("renderAppearanceComponent: emits var(--token, value) end to end", function () {
+  var html = r.renderAppearanceComponent(P2_TOKEN_DOC, {
+    variant: { Type: "Default" },
+  });
+  assert.match(html, /background:var\(--zen-color-bg-default, #ffffff\)/);
+  assert.match(
+    html,
+    /border:1px solid var\(--zen-color-border-default, #e1e1e6\)/,
+  );
+});

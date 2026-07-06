@@ -19,6 +19,28 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+## [2026.7.20] - 2026-07-06
+
+### Added
+- **Token names ride the appearance render (P2 consumer half).** When the
+  vendored anatomy carries the published `--zen-*` custom property a color slot
+  is bound to (knowledge P2, its #356), the appearance renderer now emits
+  `var(<token>, <value>)` at its single emit point (`appearance-style.js`)
+  instead of the bare value: the value stays the fallback (fidelity, no washout
+  if a name is unpublished downstream), the name enables theming. Covers
+  `background`, `border` color, and `text` color, plus resolved icon-glyph
+  color, per variant (the top-level `backgroundToken` now flows through
+  `resolveNodeAppearance` alongside the nested `border`/`text` tokens).
+  Total-tolerant: a slot with no token, a null token, or an unsafe token name
+  degrades to value-only (byte-identical to the previous values-only emit), so
+  with today's token-less vendored data rendering is unchanged — the var()
+  wrapping switches on automatically once the knowledge-side variable-id export
+  is populated and a real sync carries the names. Corner-radius token binding
+  is not emitted (deferred upstream until the REST bind shape is verified). The
+  runtime emit gate now enforces two invariants on real rendered output: every
+  emitted `var()` carries a value fallback (no bare `var(--name)` washout), and
+  every emitted `--zen-*` name resolves in the vendored `tokens.css`.
+
 ## [2026.7.18] - 2026-07-06
 
 ### Fixed
