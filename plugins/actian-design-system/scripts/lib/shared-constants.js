@@ -158,15 +158,58 @@ function slugToRef(slug, prefix) {
 }
 
 /**
+ * Deterministic ref-collision resolution. Two registry slugs can derive the
+ * SAME ref ("chip" and "fm-chip" both -> fmChip, because slugToRef strips
+ * the kit prefix). The winner must never depend on registry emit order —
+ * that flipped when the knowledge sync moved to canonically sorted keys
+ * (knowledge #352/#355) and silently swapped fmChip from the single "chip"
+ * component to the "fm-chip" set. Preference: a plain slug beats a
+ * prefix-stripped one (a slug already carrying the kit prefix is the
+ * anomaly); otherwise sorted-first wins. Returns { refName: winningSlug }.
+ */
+function resolveRefWinners(store, prefix, overrides) {
+  var winners = {};
+  var strippedBy = {};
+  var slugs = Object.keys(store).sort();
+  for (var i = 0; i < slugs.length; i++) {
+    var slug = slugs[i];
+    var ref = (overrides && overrides[slug]) || slugToRef(slug, prefix);
+    var stripped = slug.indexOf(prefix + "-") === 0;
+    if (Object.prototype.hasOwnProperty.call(winners, ref)) {
+      // Keep the current winner unless it needed stripping and this slug is plain.
+      if (!(strippedBy[ref] && !stripped)) continue;
+    }
+    winners[ref] = slug;
+    strippedBy[ref] = stripped;
+  }
+  return winners;
+}
+
+/**
  * Build { refName: slug } map from a registry, deriving ref names from slugs.
  */
 function buildSlugMap(registryName, prefix, section, overrides) {
   var registry = loadRegistry(registryName);
-  var store = registry[section || "components"];
+  return resolveRefWinners(
+    registry[section || "components"],
+    prefix,
+    overrides,
+  );
+}
+
+/**
+ * Build { refName: { key, method } } map from a plain slug->entry store.
+ * Pure and injectable — buildKeyMapFromRegistry is the disk-backed wrapper.
+ */
+function buildKeyMapFromStore(store, prefix, overrides) {
+  var winners = resolveRefWinners(store, prefix, overrides);
   var result = {};
-  for (var slug of Object.keys(store)) {
-    var ref = (overrides && overrides[slug]) || slugToRef(slug, prefix);
-    result[ref] = slug;
+  for (var ref in winners) {
+    var entry = store[winners[ref]];
+    result[ref] = {
+      key: entry.key,
+      method: entry.importMethod === "set" ? "set" : "single",
+    };
   }
   return result;
 }
@@ -176,17 +219,11 @@ function buildSlugMap(registryName, prefix, section, overrides) {
  */
 function buildKeyMapFromRegistry(registryName, prefix, section, overrides) {
   var registry = loadRegistry(registryName);
-  var store = registry[section || "components"];
-  var result = {};
-  for (var slug of Object.keys(store)) {
-    var entry = store[slug];
-    var ref = (overrides && overrides[slug]) || slugToRef(slug, prefix);
-    result[ref] = {
-      key: entry.key,
-      method: entry.importMethod === "set" ? "set" : "single",
-    };
-  }
-  return result;
+  return buildKeyMapFromStore(
+    registry[section || "components"],
+    prefix,
+    overrides,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -425,6 +462,7 @@ module.exports = {
   slugToRef,
   slugFromKey,
   buildSlugMap,
+  buildKeyMapFromStore,
   buildKeyMapFromRegistry,
   TOKEN_COLORS,
   PALETTE,
