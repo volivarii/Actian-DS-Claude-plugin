@@ -17,7 +17,7 @@
  * retired in Group C: it's superseded by the doc map + appearance-render.js.
  * Task A2 re-sourced buildDsVariantStyleMap's color facts from the appearance
  * layer (resolveNodeAppearance, via the module-local appearanceVariantStyle)
- * instead of the token-bindings sidecar join ("path b" — the washout bug's
+ * instead of the token-bindings sidecar join ("path b", the washout bug's
  * origin: bare var(--token) with no fallback, most unresolved in tokens.css).
  * The default variant's colors equal the base, so it emits no map entry and
  * ds-base.css's `.ds-tag` renders the correct default with no injection.
@@ -151,7 +151,7 @@ function buildDsAnatomyDocMap(slugs, opts) {
 }
 
 // Task A2: re-sourced from the appearance layer (Phase 1B) instead of the
-// token-bindings sidecar join (resolveRootTokenStyle, "path b" — the washout
+// token-bindings sidecar join (resolveRootTokenStyle, "path b", the washout
 // bug's origin: bare var(--token) with no fallback, most unresolved in
 // tokens.css). Resolves the root node's appearance for the variant and emits
 // ONLY the color-only override (variantColorDecls); the DEFAULT variant's

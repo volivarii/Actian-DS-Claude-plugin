@@ -83,7 +83,7 @@ test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes"
 });
 
 // Task A2: updated for the appearance-sourced data contract (the prior
-// fixture modeled the retired token-bindings sidecar join, "path b" — see
+// fixture modeled the retired token-bindings sidecar join, "path b"; see
 // the two new appearance-sourced tests below for the real-vendored-data
 // coverage). Same intent, injected-loader unit coverage of the composite-key
 // lookup, now shaped like an anatomy `root.appearance` doc.
