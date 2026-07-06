@@ -1,8 +1,7 @@
 # yaml-language-server: $schema=../../../schemas/guideline-tokens.json
 # Figma-measured (file l8biHxfarNi1I2RMvVxVOK, node 14747:14818, 2026-06-07).
-# Figma var aliases applied: color-text-interactive→color-text-link-default,
-# color-border-primary→border-selected, primary/25→color-bg-selected,
-# color-text-default→color-text-primary.
+# Figma var aliases applied: color-text-interactive→color-text-primary,
+# color-border-primary→border-selected, primary/25→color-bg-selected.
 bindings:
   - { token: size-xl,                    context: "Tab row height" }
   - { token: spacing-xs,                 context: "Tab inner padding and gap" }
@@ -10,8 +9,8 @@ bindings:
   - { token: border-default,             context: "Tab row bottom border (track)" }
   - { token: border-selected,            context: "Active tab underline" }
   - { token: color-bg-selected,          context: "Tab fill (hover/selected)" }
-  - { token: color-text-link-default,    context: "Active tab label text" }
-  - { token: color-text-primary,         context: "Inactive tab label text" }
+  - { token: color-text-primary,         context: "Active tab label text" }
+  - { token: color-text-default,         context: "Inactive tab label text" }
   - { token: font-family-text,           context: "Font family" }
   - { token: font-size-md,               context: "Tab label font size" }
   - { token: font-weight-semibold,       context: "Active tab label weight (heading-subtle)" }

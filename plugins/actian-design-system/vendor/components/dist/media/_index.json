@@ -62,6 +62,16 @@
     },
     "breadcrumbs": {
       "preview": "components/dist/media/breadcrumbs/preview.webp",
+      "parts": [
+        "components/dist/media/breadcrumbs/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/breadcrumbs/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/breadcrumbs/behavior-0.webp",
+        "components/dist/media/breadcrumbs/behavior-1.webp"
+      ],
       "default": "components/dist/media/breadcrumbs/default.webp"
     },
     "button": {
@@ -281,6 +291,9 @@
       ],
       "variations": [
         "components/dist/media/link/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/link/behavior-0.webp"
       ],
       "default": "components/dist/media/link/default.webp"
     },

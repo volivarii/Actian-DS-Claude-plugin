@@ -10,7 +10,7 @@ bindings:
   - { token: color-icon-primary,                                     context: "Checked box fill and border" }
   - { token: color-text-reverse,                                     context: "Checkmark glyph" }
   - { token: spacing-2xs,                property: gap,              context: "Gap between box and label" }
-  - { token: color-text-primary,         property: color,            context: "Label text" }
+  - { token: color-text-default,         property: color,            context: "Label text" }
   - { token: font-family-text,           property: font-family,      context: "Label font family" }
   - { token: font-size-md,               property: font-size,        context: "Label font size" }
   - { token: font-weight-regular,        property: font-weight,      context: "Label font weight" }

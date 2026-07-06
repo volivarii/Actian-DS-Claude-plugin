@@ -8,10 +8,10 @@ bindings:
   - { token: color-bg-emphasis,          context: "Primary fill" }
   - { token: color-text-reverse,         context: "Primary/critical label text" }
   - { token: color-icon-reverse,         context: "Primary/critical icon" }
-  - { token: color-text-link-default,    context: "Secondary label text" }
+  - { token: color-text-primary,         context: "Secondary label text" }
   - { token: border-selected,            context: "Secondary border" }
   - { token: color-icon-primary,         context: "Secondary icon" }
-  - { token: color-text-primary,         context: "Tertiary label text" }
+  - { token: color-text-default,         context: "Tertiary label text" }
   - { token: color-icon-default,         context: "Tertiary icon" }
   - { token: color-text-error,           context: "Critical/destructive fill (approximate — confirm in P1)" }
   - { token: font-family-text,           context: "Label font family" }

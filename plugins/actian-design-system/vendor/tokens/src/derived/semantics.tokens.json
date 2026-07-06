@@ -1144,41 +1144,6 @@
           }
         }
       },
-      "link": {
-        "default": {
-          "$type": "color",
-          "$value": "{color.primitive.royal-blue.500}",
-          "$extensions": {
-            "com.actian.themes": {
-              "actian": "#0F5FDC",
-              "studio": "#0283BE",
-              "explorer": "#049B98"
-            }
-          }
-        },
-        "reverse": {
-          "$type": "color",
-          "$value": "{color.primitive.white}",
-          "$extensions": {
-            "com.actian.themes": {
-              "actian": "#FFFFFF",
-              "studio": "#FFFFFF",
-              "explorer": "#FFFFFF"
-            }
-          }
-        },
-        "visited": {
-          "$type": "color",
-          "$value": "{color.primitive.royal-blue.700}",
-          "$extensions": {
-            "com.actian.themes": {
-              "actian": "#0047BC",
-              "studio": "#00699F",
-              "explorer": "#007E7B"
-            }
-          }
-        }
-      },
       "warning": {
         "$type": "color",
         "$value": "{color.primitive.orange.800}",

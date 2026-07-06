@@ -176,7 +176,7 @@
           "context": "Fill (selected)"
         },
         {
-          "token": "color-text-primary",
+          "token": "color-text-default",
           "property": "color",
           "context": "Title text"
         },
@@ -218,5 +218,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-01T12:29:36+02:00"
+  "updated_at": "2026-07-05T20:42:11+02:00"
 }

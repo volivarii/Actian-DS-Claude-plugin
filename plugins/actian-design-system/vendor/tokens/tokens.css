@@ -76,9 +76,6 @@
   --zen-color-text-default: #000000;
   --zen-color-text-disabled: #656574;
   --zen-color-text-error: #dc3514;
-  --zen-color-text-link-default: #0f5fdc;
-  --zen-color-text-link-reverse: #ffffff;
-  --zen-color-text-link-visited: #0047bc;
   --zen-color-text-placeholder: #5c5c6c;
   --zen-color-text-placeholder-subtle: #7c7c8a;
   --zen-color-text-primary: #0f5fdc;
@@ -291,8 +288,6 @@
   --zen-color-primary-800: #00547d;
   --zen-color-primary-900: #114361;
   --zen-color-text-disabled: #999999;
-  --zen-color-text-link-default: #0283be;
-  --zen-color-text-link-visited: #00699f;
   --zen-color-text-placeholder: #8d8d8d;
   --zen-color-text-placeholder-subtle: #a9a9a9;
   --zen-color-text-primary: #0283be;
@@ -342,8 +337,6 @@
   --zen-color-primary-800: #006563;
   --zen-color-primary-900: #15504e;
   --zen-color-text-disabled: #999999;
-  --zen-color-text-link-default: #049b98;
-  --zen-color-text-link-visited: #007e7b;
   --zen-color-text-placeholder: #8d8d8d;
   --zen-color-text-placeholder-subtle: #a9a9a9;
   --zen-color-text-primary: #049b98;

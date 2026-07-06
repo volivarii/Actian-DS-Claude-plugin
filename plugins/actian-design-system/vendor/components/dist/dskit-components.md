@@ -261,7 +261,7 @@ Secondary: "Use for supporting actions that are not the main goal of the page (e
 Tertiary/Ghost: "Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More')."
 Critical: "Use specifically for actions that result in data loss or permanent changes. Usually styled in Red."
 
-- Variants: **Intent:** `Default` · `Critical` | **Emphasis:** `Filled` · `Outlined` · `Ghost` · `Icon-only` | **Size:** `Default` · `Small` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected` · `Disabled` · `Loading`
+- Variants: **Intent:** `Default` · `Critical` | **Emphasis:** `Filled` · `Outlined` · `Ghost` · `Icon-only` | **Size:** `Default` · `Small` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Expanded` · `Disabled` · `Loading`
 - Text overrides: `Label#724:10`
 - **Required overrides:** `Label#724:10` (default `"Button"` is a placeholder)
 - Boolean properties: `Show leading icon#809:73` (default: true) — set to `false` to hide · `Show trailing icon#13807:82` (default: true) — set to `false` to hide · `Show label#15988:3` (default: true) — set to `false` to hide
@@ -911,7 +911,7 @@ A Link visually represents clickable text or elements that navigate users to oth
 
 Used for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.
 
-- Variants: **State:** `Disabled` · `Pressed` · `Focused` · `Hovered` · `Enabled`
+- Variants: **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Expanded` · `Visited` · `Disabled`
 - Node: `8346:6897` | Key: `433bc17e08514c14ee821f2b03421bad865e0a0e`
 
 ### link-type
@@ -1616,6 +1616,8 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 - Node: `7311:2826` | Key: `2a497ba6f8e5040d5654e86cdc32b90f51eb6849`
 
 ### ⚠️ Tooltip
+
+Flex width with maximum width of 320px.
 
 - Variants: **Type:** `Default`
 - Text overrides: `Body#7038:10`

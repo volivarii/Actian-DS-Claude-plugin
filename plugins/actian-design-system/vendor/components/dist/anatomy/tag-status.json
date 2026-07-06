@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-status",
   "kit": "dskit",
-  "synced_at": "2026-07-03T21:45:33.847Z",
+  "synced_at": "2026-07-06T00:09:37.751Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3705",
@@ -101,7 +101,74 @@
         "name": "misuse--outline",
         "kind": "instance",
         "slug": "misuse-outline",
-        "id": "7314:4574"
+        "id": "7314:4574",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "Status",
+              "values": [
+                "Maintenance"
+              ],
+              "slug": "tools"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Offline"
+              ],
+              "slug": "circle-dash"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Pending"
+              ],
+              "slug": "pending"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Queued"
+              ],
+              "slug": "icon-query-queue"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Scheduled"
+              ],
+              "slug": "calendar-2"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Sleeping"
+              ],
+              "slug": "asleep"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Stopped"
+              ],
+              "slug": "stop-outline"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Success"
+              ],
+              "slug": "checkmark-outline"
+            },
+            {
+              "prop": "Status",
+              "values": [
+                "Warning"
+              ],
+              "slug": "warning-alt"
+            }
+          ]
+        }
       },
       {
         "name": "Tag-Name",
