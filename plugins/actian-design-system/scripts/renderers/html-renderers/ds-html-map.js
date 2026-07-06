@@ -397,7 +397,7 @@
           // .ds-tag template (label + icon) stays intact; the harvested
           // per-Color root token style is injected as an inline style attr so
           // variant colors render correctly WITHOUT dropping the instance
-          // label. See resolveRootTokenStyle / buildDsVariantStyleMap.
+          // label. See buildDsVariantStyleMap (appearance-sourced).
           var tagCls = "ds-tag";
           var tagIcon = "";
           if (props["Leading icon show"]) {

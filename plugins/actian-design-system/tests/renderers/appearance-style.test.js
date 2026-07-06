@@ -229,7 +229,7 @@ test("appearanceToDecls: C3 drops url()/braces/markup, keeps hex/rgba/px/rem/%",
 });
 
 // ─── variantColorDecls: tag bespoke per-variant color overrides ─────────────
-// Emits ONLY background + border-color (never radius/border-width/text —
+// Emits ONLY background + border-color (never radius/border-width/text);
 // ds-base.css owns the invariant geometry and default colors). Reuses the
 // same has/safeValue/safeToken/tokenized gates as appearanceToDecls, so the
 // C3 injection denylist and P2 token-wrap behavior apply identically here.

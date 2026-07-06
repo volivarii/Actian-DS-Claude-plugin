@@ -151,12 +151,13 @@ function buildDsAnatomyDocMap(slugs, opts) {
 }
 
 // Task A2: re-sourced from the appearance layer (Phase 1B) instead of the
-// token-bindings sidecar join (resolveRootTokenStyle, "path b", the washout
-// bug's origin: bare var(--token) with no fallback, most unresolved in
-// tokens.css). Resolves the root node's appearance for the variant and emits
-// ONLY the color-only override (variantColorDecls); the DEFAULT variant's
-// colors equal the base, so it returns "" and ds-base.css's `.ds-tag` owns
-// the correct default geometry + colors with no injection.
+// former token-bindings sidecar join (the retired resolveRootTokenStyle,
+// "path b", the washout bug's origin: bare var(--token) with no fallback,
+// most unresolved in tokens.css). Resolves the root node's appearance for
+// the variant and emits ONLY the color-only override (variantColorDecls);
+// the DEFAULT variant's colors equal the base, so it returns "" and
+// ds-base.css's `.ds-tag` owns the correct default geometry + colors with
+// no injection.
 function appearanceVariantStyle(slug, variant, loader) {
   var doc = loadAnatomy(slug, loader);
   if (!doc || !doc.root) return "";
