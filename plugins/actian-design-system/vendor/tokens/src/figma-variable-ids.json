@@ -1,0 +1,8 @@
+{
+  "_meta": {
+    "description": "Figma local-variable id -> stable library key map for the P2 name layer. Populate by running scripts/figma-plugin in the dskit Figma file and pasting its export over this file. With an empty ids map the sync captures values only (no token names) — today's behavior.",
+    "generator": "scripts/figma-plugin (manual run in Figma)",
+    "auto_generated": false
+  },
+  "ids": {}
+}

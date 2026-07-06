@@ -235,6 +235,13 @@
               "description": "Resolved fill color.",
               "examples": ["#f2f6f8", "rgba(0, 0, 0, 0.5)"]
             },
+            "backgroundToken": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^--",
+              "description": "Published --zen-* custom property the fill is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). Consumers emit var(<backgroundToken>, <background>).",
+              "examples": ["--zen-color-bg-selected"]
+            },
             "border": {
               "description": "Resolved border color and width.",
               "examples": [{ "color": "#607d8c", "width": "1px" }],
@@ -289,6 +296,11 @@
                     "type": ["string", "null"],
                     "description": "Delta fill (null = removed).",
                     "examples": ["#dc3514", null]
+                  },
+                  "backgroundToken": {
+                    "type": ["string", "null"],
+                    "description": "Delta fill token binding (P2 name layer; null = the base binding is removed for these values).",
+                    "examples": ["--zen-color-bg-selected", null]
                   },
                   "radius": {
                     "type": ["string", "null"],
@@ -434,6 +446,13 @@
           "description": "Stroke color as sRGB hex or rgba.",
           "examples": ["#607d8c"]
         },
+        "colorToken": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^--",
+          "description": "Published --zen-* custom property the stroke color is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). Consumers emit var(<colorToken>, <color>).",
+          "examples": ["--zen-color-primary-500"]
+        },
         "width": {
           "type": "string",
           "description": "Stroke weight as px value.",
@@ -449,6 +468,13 @@
           "type": "string",
           "description": "Text fill color as sRGB hex or rgba.",
           "examples": ["#50505d"]
+        },
+        "colorToken": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^--",
+          "description": "Published --zen-* custom property the text color is bound to (P2 name layer). Consumers emit var(<colorToken>, <color>).",
+          "examples": ["--zen-color-text-secondary"]
         },
         "size": {
           "type": "string",
