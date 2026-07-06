@@ -12,6 +12,45 @@ var sc = require(
 );
 
 describe("shared-constants", function () {
+  describe("buildKeyMapFromStore ref-collision handling", function () {
+    // "chip" and "fm-chip" both derive the ref fmChip (slugToRef strips the
+    // kit prefix). Before the fix, the winner was whichever the registry
+    // emitted LAST — which flipped when the knowledge sync started emitting
+    // canonically sorted keys (#355) and broke render-node-figma's fmChip.
+    var single = {
+      key: "46e1d850aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      importMethod: "single",
+    };
+    var set = {
+      key: "0861d937bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      importMethod: "set",
+    };
+
+    it("prefers the plain slug over the prefix-stripped one, in either store order", function () {
+      var a = sc.buildKeyMapFromStore({ chip: single, "fm-chip": set }, "fm");
+      var b = sc.buildKeyMapFromStore({ "fm-chip": set, chip: single }, "fm");
+      assert.deepStrictEqual(a.fmChip, { key: single.key, method: "single" });
+      assert.deepStrictEqual(b.fmChip, { key: single.key, method: "single" });
+    });
+
+    it("falls back to sorted-first-wins when neither colliding slug is prefix-stripped", function () {
+      var a = sc.buildKeyMapFromStore({ "a-b": set, aB: single }, "fm");
+      var b = sc.buildKeyMapFromStore({ aB: single, "a-b": set }, "fm");
+      // "a-b" sorts before "aB" — same winner regardless of insertion order.
+      assert.deepStrictEqual(a.fmAB, { key: set.key, method: "set" });
+      assert.deepStrictEqual(b.fmAB, a.fmAB);
+    });
+
+    it("non-colliding slugs are unaffected", function () {
+      var m = sc.buildKeyMapFromStore(
+        { chip: single, button: { key: "cc", importMethod: "set" } },
+        "fm",
+      );
+      assert.deepStrictEqual(m.fmChip, { key: single.key, method: "single" });
+      assert.deepStrictEqual(m.fmButton, { key: "cc", method: "set" });
+    });
+  });
+
   describe("FM_SLUGS", function () {
     it("maps fmButton to fm-button", function () {
       assert.strictEqual(sc.FM_SLUGS.fmButton, "fm-button");
