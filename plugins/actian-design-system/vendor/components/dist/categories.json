@@ -1,8 +1,18 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-07-02T13:31:20.852Z",
+  "generatedAt": "2026-07-06T00:09:51.115Z",
   "categories": {
+    "Action": {
+      "components": [
+        "button",
+        "calendar",
+        "input-date",
+        "link",
+        "sticky-footer"
+      ],
+      "count": 5
+    },
     "Breakpoint, grid & structure": {
       "components": [
         "l-grid",
@@ -12,20 +22,6 @@
         "xs-grid"
       ],
       "count": 5
-    },
-    "Navigation": {
-      "components": [
-        "account-dropdown",
-        "app-switcher-dropdown",
-        "breadcrumbs",
-        "global-header",
-        "notification-dropdown",
-        "side-nav",
-        "stepper",
-        "tabs",
-        "whats-new-dropdown"
-      ],
-      "count": 9
     },
     "Data Display": {
       "components": [
@@ -63,30 +59,6 @@
       ],
       "count": 31
     },
-    "White-label services": {
-      "components": [
-        "white-label-merck-favicon"
-      ],
-      "count": 1
-    },
-    "Product logos": {
-      "components": [
-        "actian-data-intelligence",
-        "actian-data-observability",
-        "actian-pyramid",
-        "component-1",
-        "data-intelligence-dev-logo",
-        "zeenea-logo"
-      ],
-      "count": 6
-    },
-    "Illustrations & graphics": {
-      "components": [
-        "background-explore",
-        "illustration"
-      ],
-      "count": 2
-    },
     "Feedback": {
       "components": [
         "alert-banner",
@@ -102,16 +74,6 @@
       ],
       "count": 10
     },
-    "Overlays": {
-      "components": [
-        "chat-with-ai-steward",
-        "drawer-side-panel",
-        "modal",
-        "popover",
-        "tooltip"
-      ],
-      "count": 5
-    },
     "Form (input & selection)": {
       "components": [
         "checkbox-with-label",
@@ -125,16 +87,6 @@
         "toggle"
       ],
       "count": 9
-    },
-    "Action": {
-      "components": [
-        "button",
-        "calendar",
-        "input-date",
-        "link",
-        "sticky-footer"
-      ],
-      "count": 5
     },
     "Icons": {
       "components": [
@@ -377,6 +329,54 @@
         "zoom-to-fit"
       ],
       "count": 237
+    },
+    "Illustrations & graphics": {
+      "components": [
+        "background-explore",
+        "illustration"
+      ],
+      "count": 2
+    },
+    "Navigation": {
+      "components": [
+        "account-dropdown",
+        "app-switcher-dropdown",
+        "breadcrumbs",
+        "global-header",
+        "notification-dropdown",
+        "side-nav",
+        "stepper",
+        "tabs",
+        "whats-new-dropdown"
+      ],
+      "count": 9
+    },
+    "Overlays": {
+      "components": [
+        "chat-with-ai-steward",
+        "drawer-side-panel",
+        "modal",
+        "popover",
+        "tooltip"
+      ],
+      "count": 5
+    },
+    "Product logos": {
+      "components": [
+        "actian-data-intelligence",
+        "actian-data-observability",
+        "actian-pyramid",
+        "component-1",
+        "data-intelligence-dev-logo",
+        "zeenea-logo"
+      ],
+      "count": 6
+    },
+    "White-label services": {
+      "components": [
+        "white-label-merck-favicon"
+      ],
+      "count": 1
     }
   },
   "uncategorized": {

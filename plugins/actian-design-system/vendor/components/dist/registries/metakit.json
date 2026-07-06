@@ -5,91 +5,17 @@
   "lastSynced": "2026-05-13T13:45:45.425Z",
   "componentCount": 28,
   "components": {
-    "meta-content-stat-card": {
-      "name": "Meta / Content / Stat Card",
-      "key": "8662c721d74d6f0079f273f76eec374b12ec2fae",
-      "nodeId": "46:29",
+    "meta-chrome-accessibility-card": {
+      "name": "Meta / Chrome / Accessibility Card",
+      "key": "b4779a13f4097d682413a669eaaf9ead1b49f115",
+      "nodeId": "47:24",
       "importMethod": "set",
-      "description": "Data callout card with value, trend indicator, and label. Used in presentations for KPI highlights.",
+      "description": "Container for WCAG requirements with severity badges. Used in component-brief Cards 7-8. Detach instance before appending content to the Content slot.",
       "page": "Brief",
       "properties": {
-        "Value#46:6": {
+        "Title#47:2": {
           "type": "TEXT",
-          "default": "94%"
-        },
-        "Label#46:7": {
-          "type": "TEXT",
-          "default": "WCAG AA compliance"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "variants": {
-        "Trend": [
-          "Up",
-          "Down",
-          "Neutral"
-        ]
-      }
-    },
-    "meta-chrome-theme-card": {
-      "name": "Meta / Chrome / Theme Card",
-      "key": "9081a7761dfbe11d576182f3cb1711b9e76c2d36",
-      "nodeId": "47:43",
-      "importMethod": "set",
-      "description": "Theme-branded card with colored accent bar. Used in component-brief for theme comparison views (Actian/Studio/Explorer). Detach to append content.",
-      "page": "Brief",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "variants": {
-        "Theme": [
-          "Actian",
-          "Studio",
-          "Explorer"
-        ]
-      }
-    },
-    "meta-chrome-feedback": {
-      "name": "Meta / Chrome / Feedback",
-      "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
-      "nodeId": "66:20",
-      "importMethod": "set",
-      "description": "Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap.",
-      "page": "Shared",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "variants": {
-        "Type": [
-          "Designer",
-          "System"
-        ]
-      }
-    },
-    "meta-content-do-don-t-pair": {
-      "name": "Meta / Content / Do-Don't Pair",
-      "key": "28edfacf13e50706586172bd48f8a3ad84d7c263",
-      "nodeId": "9:24",
-      "importMethod": "set",
-      "description": "Side-by-side Do and Don't examples with green/red color bars. Used in component-brief Cards 6-7 and presentation best-practice slides.",
-      "page": "Brief",
-      "properties": {
-        "Do Label#9:8": {
-          "type": "TEXT",
-          "default": "Do — Use sentence case for all UI labels"
-        },
-        "Don't Label#9:9": {
-          "type": "TEXT",
-          "default": "Don't — Use ALL CAPS for labels"
-        },
-        "Do Example#9:10": {
-          "type": "TEXT",
-          "default": "Save changes"
-        },
-        "Don't Example#9:11": {
-          "type": "TEXT",
-          "default": "SAVE CHANGES"
+          "default": "Accessibility Requirements"
         }
       },
       "nestedComponents": [],
@@ -141,6 +67,71 @@
         ]
       }
     },
+    "meta-chrome-brief-card-header": {
+      "name": "Meta / Chrome / Brief Card Header",
+      "key": "057e742610975479a8c9c245e713d9911a49e484",
+      "nodeId": "140:12",
+      "importMethod": "single",
+      "description": "Card header for component briefs. Used as first child inside Brief Card shells. Set Title, Subtitle, and Show Subtitle via properties — do not detach.",
+      "page": "Brief",
+      "properties": {
+        "Title#140:0": {
+          "type": "TEXT",
+          "default": "Card title "
+        },
+        "Subtitle#140:1": {
+          "type": "TEXT",
+          "default": "Subtitle text"
+        },
+        "Show Subtitle#140:2": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-chrome-feedback": {
+      "name": "Meta / Chrome / Feedback",
+      "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
+      "nodeId": "66:20",
+      "importMethod": "set",
+      "description": "Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap.",
+      "page": "Shared",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "variants": {
+        "Type": [
+          "Designer",
+          "System"
+        ]
+      }
+    },
+    "meta-chrome-flow-cover-card": {
+      "name": "Meta / Chrome / Flow Cover Card",
+      "key": "eaebde6bd07d2f19f3f9c00a9587240cb085a90d",
+      "nodeId": "46:344",
+      "importMethod": "single",
+      "description": "Dark cover card at the start of each sub-flow. Shows Feature, Flow, and User fields on a dark background.",
+      "page": "Flow",
+      "properties": {
+        "Feature#46:8": {
+          "type": "TEXT",
+          "default": "Feature Name"
+        },
+        "Flow#46:9": {
+          "type": "TEXT",
+          "default": "Flow Description"
+        },
+        "User#46:10": {
+          "type": "TEXT",
+          "default": "User Persona"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
     "meta-chrome-flow-screen": {
       "name": "Meta / Chrome / Flow Screen",
       "key": "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6",
@@ -158,25 +149,122 @@
         ]
       }
     },
-    "meta-chrome-accessibility-card": {
-      "name": "Meta / Chrome / Accessibility Card",
-      "key": "b4779a13f4097d682413a669eaaf9ead1b49f115",
-      "nodeId": "47:24",
+    "meta-chrome-generation-log": {
+      "name": "Meta / Chrome / Generation Log",
+      "key": "a9653f30925367e96dea90093d750bfe70849571",
+      "nodeId": "3:2",
+      "importMethod": "single",
+      "description": "Generation metadata card. First element in every AI-generated output. Shows skill name, prompt, timestamp, duration, model, and plugin version.",
+      "page": "Shared",
+      "properties": {
+        "Skill#3:0": {
+          "type": "TEXT",
+          "default": "Skill: component-brief"
+        },
+        "Prompt#3:1": {
+          "type": "TEXT",
+          "default": "Prompt: Create a component brief for Button"
+        },
+        "Date#3:2": {
+          "type": "TEXT",
+          "default": "2026-03-26T10:00:00Z"
+        },
+        "Duration#3:3": {
+          "type": "TEXT",
+          "default": "Duration: 2m 34s"
+        },
+        "Model#3:4": {
+          "type": "TEXT",
+          "default": "claude-opus-4-6"
+        },
+        "Plugin Version#3:5": {
+          "type": "TEXT",
+          "default": "v1.11.0"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-chrome-theme-card": {
+      "name": "Meta / Chrome / Theme Card",
+      "key": "9081a7761dfbe11d576182f3cb1711b9e76c2d36",
+      "nodeId": "47:43",
       "importMethod": "set",
-      "description": "Container for WCAG requirements with severity badges. Used in component-brief Cards 7-8. Detach instance before appending content to the Content slot.",
+      "description": "Theme-branded card with colored accent bar. Used in component-brief for theme comparison views (Actian/Studio/Explorer). Detach to append content.",
+      "page": "Brief",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "variants": {
+        "Theme": [
+          "Actian",
+          "Studio",
+          "Explorer"
+        ]
+      }
+    },
+    "meta-content-code-block": {
+      "name": "Meta / Content / Code Block",
+      "key": "1bf10eee1751a46da5f90a9671be6c9abf0073b7",
+      "nodeId": "8:2",
+      "importMethod": "single",
+      "description": "Dark code block for CSS, HTML, ARIA code examples. Used in component-brief Card 9 and presentation code slides. Toggle Show Header for filename/language label.",
       "page": "Brief",
       "properties": {
-        "Title#47:2": {
+        "Show Header#8:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Header Text#8:1": {
           "type": "TEXT",
-          "default": "Accessibility Requirements"
+          "default": "button.css"
+        },
+        "Code#8:2": {
+          "type": "TEXT",
+          "default": ".button {\n  background: var(--zen-color-theme-primary);\n}"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-content-color-swatch": {
+      "name": "Meta / Content / Color Swatch",
+      "key": "da3369932f710386b76ca91a40ebd48d94e3f2e0",
+      "nodeId": "42:17",
+      "importMethod": "set",
+      "description": "Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS2026 variable at runtime.",
+      "page": "Brief",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "variants": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    },
+    "meta-content-contrast-badge": {
+      "name": "Meta / Content / Contrast Badge",
+      "key": "941756541adc6ce21e32e848c2039c64fece0fcf",
+      "nodeId": "44:20",
+      "importMethod": "set",
+      "description": "WCAG contrast result badge (Pass/Exempt/Fail). Used in component-brief Card 8 accessibility contrast table.",
+      "page": "Brief",
+      "properties": {
+        "Label#44:3": {
+          "type": "TEXT",
+          "default": "Pass"
         }
       },
       "nestedComponents": [],
       "documentationLinks": [],
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
+        "Status": [
+          "Pass",
+          "Exempt",
+          "Fail"
         ]
       }
     },
@@ -199,6 +287,40 @@
         "Orientation": [
           "Horizontal",
           "Vertical"
+        ]
+      }
+    },
+    "meta-content-do-don-t-pair": {
+      "name": "Meta / Content / Do-Don't Pair",
+      "key": "28edfacf13e50706586172bd48f8a3ad84d7c263",
+      "nodeId": "9:24",
+      "importMethod": "set",
+      "description": "Side-by-side Do and Don't examples with green/red color bars. Used in component-brief Cards 6-7 and presentation best-practice slides.",
+      "page": "Brief",
+      "properties": {
+        "Do Label#9:8": {
+          "type": "TEXT",
+          "default": "Do — Use sentence case for all UI labels"
+        },
+        "Don't Label#9:9": {
+          "type": "TEXT",
+          "default": "Don't — Use ALL CAPS for labels"
+        },
+        "Do Example#9:10": {
+          "type": "TEXT",
+          "default": "Save changes"
+        },
+        "Don't Example#9:11": {
+          "type": "TEXT",
+          "default": "SAVE CHANGES"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "variants": {
+        "Mode": [
+          "DS",
+          "FM"
         ]
       }
     },
@@ -226,83 +348,6 @@
         ]
       }
     },
-    "meta-content-contrast-badge": {
-      "name": "Meta / Content / Contrast Badge",
-      "key": "941756541adc6ce21e32e848c2039c64fece0fcf",
-      "nodeId": "44:20",
-      "importMethod": "set",
-      "description": "WCAG contrast result badge (Pass/Exempt/Fail). Used in component-brief Card 8 accessibility contrast table.",
-      "page": "Brief",
-      "properties": {
-        "Label#44:3": {
-          "type": "TEXT",
-          "default": "Pass"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "variants": {
-        "Status": [
-          "Pass",
-          "Exempt",
-          "Fail"
-        ]
-      }
-    },
-    "meta-content-color-swatch": {
-      "name": "Meta / Content / Color Swatch",
-      "key": "da3369932f710386b76ca91a40ebd48d94e3f2e0",
-      "nodeId": "42:17",
-      "importMethod": "set",
-      "description": "Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS2026 variable at runtime.",
-      "page": "Brief",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "variants": {
-        "Size": [
-          "Small",
-          "Medium",
-          "Large"
-        ]
-      }
-    },
-    "meta-template-table-data-row": {
-      "name": "Meta / Template / Table Data Row",
-      "key": "3a1fae22dd85936f81565122888efd8a50e37180",
-      "nodeId": "74:12",
-      "importMethod": "single",
-      "description": "Hidden template for table data rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "page": "Brief",
-      "properties": {
-        "label#84:0": {
-          "type": "TEXT",
-          "default": "Label"
-        },
-        "value#84:1": {
-          "type": "TEXT",
-          "default": "Value"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-template-state-column": {
-      "name": "Meta / Template / State Column",
-      "key": "4f782d1a8541b4474858767209f99dce1428784b",
-      "nodeId": "75:12",
-      "importMethod": "single",
-      "description": "Hidden template for state grid columns. Skills clone, fill title, replace content placeholder. Do not use directly.",
-      "page": "Brief",
-      "properties": {
-        "title#85:0": {
-          "type": "TEXT",
-          "default": "State"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
     "meta-content-research-frame": {
       "name": "Meta / Content / Research Frame",
       "key": "e671618f2b4c6ea406a995fdc3012ac54eadfe56",
@@ -323,14 +368,134 @@
       "nestedComponents": [],
       "documentationLinks": []
     },
-    "meta-utility-card-divider": {
-      "name": "Meta / Utility / Card Divider",
-      "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7",
-      "nodeId": "4:2",
+    "meta-content-stat-card": {
+      "name": "Meta / Content / Stat Card",
+      "key": "8662c721d74d6f0079f273f76eec374b12ec2fae",
+      "nodeId": "46:29",
+      "importMethod": "set",
+      "description": "Data callout card with value, trend indicator, and label. Used in presentations for KPI highlights.",
+      "page": "Brief",
+      "properties": {
+        "Value#46:6": {
+          "type": "TEXT",
+          "default": "94%"
+        },
+        "Label#46:7": {
+          "type": "TEXT",
+          "default": "WCAG AA compliance"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "variants": {
+        "Trend": [
+          "Up",
+          "Down",
+          "Neutral"
+        ]
+      }
+    },
+    "meta-slide-back-cover": {
+      "name": "Meta / Slide / Back Cover",
+      "key": "6df533ae800a6596fd84e93a2e5fc725dbd6a369",
+      "nodeId": "112:18",
       "importMethod": "single",
-      "description": "Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FILL' on instances to fill parent width.",
-      "page": "Shared",
-      "properties": {},
+      "description": "Presentation slide template. Used by generate-presentation skill.",
+      "page": "Presentation",
+      "properties": {
+        "Title#112:10": {
+          "type": "TEXT",
+          "default": "Thank you"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-slide-body-full": {
+      "name": "Meta / Slide / Body Full",
+      "key": "281e7a9bc55abe69bb2364e639f7511b4a005694",
+      "nodeId": "112:15",
+      "importMethod": "single",
+      "description": "Presentation slide template. Used by generate-presentation skill.",
+      "page": "Presentation",
+      "properties": {
+        "Title#112:5": {
+          "type": "TEXT",
+          "default": "Title"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-slide-body-text-visual": {
+      "name": "Meta / Slide / Body Text Visual",
+      "key": "28ea7a37752149d78679847ec7893368a4c4f1a0",
+      "nodeId": "112:16",
+      "importMethod": "single",
+      "description": "Presentation slide template. Used by generate-presentation skill.",
+      "page": "Presentation",
+      "properties": {
+        "Title#112:6": {
+          "type": "TEXT",
+          "default": "Title"
+        },
+        "Body#112:7": {
+          "type": "TEXT",
+          "default": "Body"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-slide-cover": {
+      "name": "Meta / Slide / Cover",
+      "key": "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
+      "nodeId": "112:14",
+      "importMethod": "single",
+      "description": "Presentation slide template. Used by generate-presentation skill.",
+      "page": "Presentation",
+      "properties": {
+        "Topic#112:0": {
+          "type": "TEXT",
+          "default": "Topic"
+        },
+        "Title#112:1": {
+          "type": "TEXT",
+          "default": "Title"
+        },
+        "Subtitle#112:2": {
+          "type": "TEXT",
+          "default": "Subtitle"
+        },
+        "Date#112:3": {
+          "type": "TEXT",
+          "default": "Created date or month, year"
+        },
+        "Creators#112:4": {
+          "type": "TEXT",
+          "default": "Creators"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-slide-section": {
+      "name": "Meta / Slide / Section",
+      "key": "348efaa22a6da818c435017399a357b47257bcdc",
+      "nodeId": "112:17",
+      "importMethod": "single",
+      "description": "Presentation slide template. Used by generate-presentation skill.",
+      "page": "Presentation",
+      "properties": {
+        "Topic#112:8": {
+          "type": "TEXT",
+          "default": "Topic"
+        },
+        "Title#112:9": {
+          "type": "TEXT",
+          "default": "Title"
+        }
+      },
       "nestedComponents": [],
       "documentationLinks": []
     },
@@ -370,30 +535,6 @@
       "nestedComponents": [],
       "documentationLinks": []
     },
-    "meta-chrome-brief-card-header": {
-      "name": "Meta / Chrome / Brief Card Header",
-      "key": "057e742610975479a8c9c245e713d9911a49e484",
-      "nodeId": "140:12",
-      "importMethod": "single",
-      "description": "Card header for component briefs. Used as first child inside Brief Card shells. Set Title, Subtitle, and Show Subtitle via properties — do not detach.",
-      "page": "Brief",
-      "properties": {
-        "Title#140:0": {
-          "type": "TEXT",
-          "default": "Card title "
-        },
-        "Subtitle#140:1": {
-          "type": "TEXT",
-          "default": "Subtitle text"
-        },
-        "Show Subtitle#140:2": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
     "meta-template-section-header": {
       "name": "Meta / Template / Section Header",
       "key": "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
@@ -418,205 +559,17 @@
       "nestedComponents": [],
       "documentationLinks": []
     },
-    "meta-chrome-generation-log": {
-      "name": "Meta / Chrome / Generation Log",
-      "key": "a9653f30925367e96dea90093d750bfe70849571",
-      "nodeId": "3:2",
+    "meta-template-state-column": {
+      "name": "Meta / Template / State Column",
+      "key": "4f782d1a8541b4474858767209f99dce1428784b",
+      "nodeId": "75:12",
       "importMethod": "single",
-      "description": "Generation metadata card. First element in every AI-generated output. Shows skill name, prompt, timestamp, duration, model, and plugin version.",
-      "page": "Shared",
-      "properties": {
-        "Skill#3:0": {
-          "type": "TEXT",
-          "default": "Skill: component-brief"
-        },
-        "Prompt#3:1": {
-          "type": "TEXT",
-          "default": "Prompt: Create a component brief for Button"
-        },
-        "Date#3:2": {
-          "type": "TEXT",
-          "default": "2026-03-26T10:00:00Z"
-        },
-        "Duration#3:3": {
-          "type": "TEXT",
-          "default": "Duration: 2m 34s"
-        },
-        "Model#3:4": {
-          "type": "TEXT",
-          "default": "claude-opus-4-6"
-        },
-        "Plugin Version#3:5": {
-          "type": "TEXT",
-          "default": "v1.11.0"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-slide-body-full": {
-      "name": "Meta / Slide / Body Full",
-      "key": "281e7a9bc55abe69bb2364e639f7511b4a005694",
-      "nodeId": "112:15",
-      "importMethod": "single",
-      "description": "Presentation slide template. Used by generate-presentation skill.",
-      "page": "Presentation",
-      "properties": {
-        "Title#112:5": {
-          "type": "TEXT",
-          "default": "Title"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-slide-cover": {
-      "name": "Meta / Slide / Cover",
-      "key": "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
-      "nodeId": "112:14",
-      "importMethod": "single",
-      "description": "Presentation slide template. Used by generate-presentation skill.",
-      "page": "Presentation",
-      "properties": {
-        "Topic#112:0": {
-          "type": "TEXT",
-          "default": "Topic"
-        },
-        "Title#112:1": {
-          "type": "TEXT",
-          "default": "Title"
-        },
-        "Subtitle#112:2": {
-          "type": "TEXT",
-          "default": "Subtitle"
-        },
-        "Date#112:3": {
-          "type": "TEXT",
-          "default": "Created date or month, year"
-        },
-        "Creators#112:4": {
-          "type": "TEXT",
-          "default": "Creators"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-slide-body-text-visual": {
-      "name": "Meta / Slide / Body Text Visual",
-      "key": "28ea7a37752149d78679847ec7893368a4c4f1a0",
-      "nodeId": "112:16",
-      "importMethod": "single",
-      "description": "Presentation slide template. Used by generate-presentation skill.",
-      "page": "Presentation",
-      "properties": {
-        "Title#112:6": {
-          "type": "TEXT",
-          "default": "Title"
-        },
-        "Body#112:7": {
-          "type": "TEXT",
-          "default": "Body"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-slide-back-cover": {
-      "name": "Meta / Slide / Back Cover",
-      "key": "6df533ae800a6596fd84e93a2e5fc725dbd6a369",
-      "nodeId": "112:18",
-      "importMethod": "single",
-      "description": "Presentation slide template. Used by generate-presentation skill.",
-      "page": "Presentation",
-      "properties": {
-        "Title#112:10": {
-          "type": "TEXT",
-          "default": "Thank you"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-slide-section": {
-      "name": "Meta / Slide / Section",
-      "key": "348efaa22a6da818c435017399a357b47257bcdc",
-      "nodeId": "112:17",
-      "importMethod": "single",
-      "description": "Presentation slide template. Used by generate-presentation skill.",
-      "page": "Presentation",
-      "properties": {
-        "Topic#112:8": {
-          "type": "TEXT",
-          "default": "Topic"
-        },
-        "Title#112:9": {
-          "type": "TEXT",
-          "default": "Title"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-content-code-block": {
-      "name": "Meta / Content / Code Block",
-      "key": "1bf10eee1751a46da5f90a9671be6c9abf0073b7",
-      "nodeId": "8:2",
-      "importMethod": "single",
-      "description": "Dark code block for CSS, HTML, ARIA code examples. Used in component-brief Card 9 and presentation code slides. Toggle Show Header for filename/language label.",
+      "description": "Hidden template for state grid columns. Skills clone, fill title, replace content placeholder. Do not use directly.",
       "page": "Brief",
       "properties": {
-        "Show Header#8:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Header Text#8:1": {
+        "title#85:0": {
           "type": "TEXT",
-          "default": "button.css"
-        },
-        "Code#8:2": {
-          "type": "TEXT",
-          "default": ".button {\n  background: var(--zen-color-theme-primary);\n}"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-template-table-header-row": {
-      "name": "Meta / Template / Table Header Row",
-      "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
-      "nodeId": "73:12",
-      "importMethod": "single",
-      "description": "Hidden template for table header rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "page": "Brief",
-      "properties": {
-        "label#83:0": {
-          "type": "TEXT",
-          "default": "Header"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": []
-    },
-    "meta-chrome-flow-cover-card": {
-      "name": "Meta / Chrome / Flow Cover Card",
-      "key": "eaebde6bd07d2f19f3f9c00a9587240cb085a90d",
-      "nodeId": "46:344",
-      "importMethod": "single",
-      "description": "Dark cover card at the start of each sub-flow. Shows Feature, Flow, and User fields on a dark background.",
-      "page": "Flow",
-      "properties": {
-        "Feature#46:8": {
-          "type": "TEXT",
-          "default": "Feature Name"
-        },
-        "Flow#46:9": {
-          "type": "TEXT",
-          "default": "Flow Description"
-        },
-        "User#46:10": {
-          "type": "TEXT",
-          "default": "User Persona"
+          "default": "State"
         }
       },
       "nestedComponents": [],
@@ -643,6 +596,53 @@
           "default": "#000000"
         }
       },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-template-table-data-row": {
+      "name": "Meta / Template / Table Data Row",
+      "key": "3a1fae22dd85936f81565122888efd8a50e37180",
+      "nodeId": "74:12",
+      "importMethod": "single",
+      "description": "Hidden template for table data rows. Skills clone and fill text slots via the template engine. Do not use directly.",
+      "page": "Brief",
+      "properties": {
+        "label#84:0": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "value#84:1": {
+          "type": "TEXT",
+          "default": "Value"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-template-table-header-row": {
+      "name": "Meta / Template / Table Header Row",
+      "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
+      "nodeId": "73:12",
+      "importMethod": "single",
+      "description": "Hidden template for table header rows. Skills clone and fill text slots via the template engine. Do not use directly.",
+      "page": "Brief",
+      "properties": {
+        "label#83:0": {
+          "type": "TEXT",
+          "default": "Header"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": []
+    },
+    "meta-utility-card-divider": {
+      "name": "Meta / Utility / Card Divider",
+      "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7",
+      "nodeId": "4:2",
+      "importMethod": "single",
+      "description": "Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FILL' on instances to fill parent width.",
+      "page": "Shared",
+      "properties": {},
       "nestedComponents": [],
       "documentationLinks": []
     }

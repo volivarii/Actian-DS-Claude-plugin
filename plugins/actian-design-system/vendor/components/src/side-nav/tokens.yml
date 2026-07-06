@@ -7,9 +7,9 @@ bindings:
   - { token: border-radius-sm,           context: "Item corner rounding" }
   - { token: border-radius-xs,           context: "Item icon corner rounding" }
   - { token: color-bg-subtle,            context: "Item icon fill (default)" }
-  - { token: color-text-primary,         context: "Item text (default)" }
+  - { token: color-text-default,         context: "Item text (default)" }
   - { token: color-bg-selected,          context: "Active item fill" }
-  - { token: color-text-link-default,    context: "Active item text" }
+  - { token: color-text-primary,         context: "Active item text" }
   - { token: border-selected,            context: "Active item icon fill" }
   - { token: font-family-text,           context: "Font family" }
   - { token: font-size-md,               context: "Item font size" }

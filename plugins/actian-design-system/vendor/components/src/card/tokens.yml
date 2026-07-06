@@ -15,7 +15,7 @@ bindings:
   - { token: border-radius-sm,           property: border-radius,    context: "Corner rounding" }
   - { token: border-selected,                                        context: "Border (selected)" }
   - { token: color-bg-selected,                                      context: "Fill (selected)" }
-  - { token: color-text-primary,         property: color,            context: "Title text" }
+  - { token: color-text-default,         property: color,            context: "Title text" }
   - { token: color-text-tertiary,        property: color,            context: "Body text" }
   - { token: font-family-text,           property: font-family,      context: "Font family" }
   - { token: font-size-md,               property: font-size,        context: "Title and body font size" }

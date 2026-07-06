@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-grouped-node",
   "kit": "dskit",
-  "synced_at": "2026-07-03T21:45:33.847Z",
+  "synced_at": "2026-07-06T00:09:37.751Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15634:17895",
@@ -119,10 +119,6 @@
                 "name": "Digram, Item types",
                 "kind": "instance",
                 "unresolved": true,
-                "props": {
-                  "Item type": "Category",
-                  "Size": "Large"
-                },
                 "id": "15634:17901",
                 "appearance": {
                   "background": "#ffdacf",

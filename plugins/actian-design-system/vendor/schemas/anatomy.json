@@ -310,6 +310,12 @@
                       { "$ref": "#/$defs/textShape" },
                       { "type": "null" }
                     ]
+                  },
+                  "slug": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Instance content swap: the registry slug of the component this instance references for these values (e.g. a per-status icon). Replaces the node's base slug when the delta matches; never null — an unresolved variant instance captures nothing rather than removing the base glyph.",
+                    "examples": ["check-circle--outline"]
                   }
                 }
               }

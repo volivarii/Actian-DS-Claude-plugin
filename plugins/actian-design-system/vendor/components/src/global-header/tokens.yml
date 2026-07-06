@@ -8,8 +8,8 @@ bindings:
   - { token: border-radius-sm,           context: "Logo box corner rounding" }
   - { token: border-radius-full,         context: "Account avatar rounding" }
   - { token: color-bg-selected,          context: "Account avatar fill" }
-  - { token: color-text-link-default,    context: "Account avatar initials" }
-  - { token: color-text-primary,         context: "App label text" }
+  - { token: color-text-primary,         context: "Account avatar initials" }
+  - { token: color-text-default,         context: "App label text" }
   - { token: font-family-text,           context: "Font family" }
   - { token: font-size-md,               context: "App label font size" }
   - { token: font-size-sm,               context: "Avatar initials font size" }

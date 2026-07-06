@@ -1,11 +1,10 @@
 # yaml-language-server: $schema=../../../schemas/guideline-tokens.json
 # Figma-measured (file l8biHxfarNi1I2RMvVxVOK, node 12923:2794, 2026-06-07).
 # Page-header's OWN chrome only — nested action buttons / tags / badges carry
-# their own components' bindings. Figma var aliases applied:
-# color-text-default→color-text-primary.
+# their own components' bindings.
 bindings:
   - { token: color-bg-default,           context: "Header surface fill" }
-  - { token: color-text-primary,         context: "Title text (heading-display)" }
+  - { token: color-text-default,         context: "Title text (heading-display)" }
   - { token: color-text-secondary,       context: "Description/subtitle text (body-prominent)" }
   - { token: spacing-md,                 context: "Gap between title block and actions" }
   - { token: spacing-2xs,                context: "Title/description stack gap" }

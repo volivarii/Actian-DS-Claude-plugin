@@ -542,7 +542,7 @@
           "context": "Input placeholder text"
         },
         {
-          "token": "color-text-primary",
+          "token": "color-text-default",
           "property": "color",
           "context": "Label and description text"
         },
@@ -612,5 +612,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-02T10:02:47+02:00"
+  "updated_at": "2026-07-05T20:42:11+02:00"
 }

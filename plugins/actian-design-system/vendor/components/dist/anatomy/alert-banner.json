@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-03T21:45:33.847Z",
+  "synced_at": "2026-07-06T00:09:37.751Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -102,7 +102,32 @@
         "name": "info-filled",
         "kind": "instance",
         "slug": "info-filled",
-        "id": "14881:16319"
+        "id": "14881:16319",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Danger"
+              ],
+              "slug": "error-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Success"
+              ],
+              "slug": "success-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Warning"
+              ],
+              "slug": "warning-filled"
+            }
+          ]
+        }
       },
       {
         "name": "Button",

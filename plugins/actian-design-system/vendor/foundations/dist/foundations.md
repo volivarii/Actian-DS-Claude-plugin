@@ -622,9 +622,6 @@ is two values. Default (un-suffixed) theme is Actian.
 | `--zen-color-text-disabled`           | `--zen-color-neutral-500` | Disabled inputs, buttons, form elements     | 🟢 Shipped                                                           |
 | `--zen-color-text-primary`            | `--zen-color-primary-500` | Interactive text                            | 🟡 Proposed (named `primary` to align with primary color convention) |
 | `--zen-color-text-error`              | `--zen-color-error-600`   | Error messages                              | 🟢 Shipped                                                           |
-| `--zen-color-text-link-default`       | `--zen-color-primary-500` | Hyperlinks                                  | 🟢 Shipped                                                           |
-| `--zen-color-text-link-reverse`       | `--zen-color-white`       | Hyperlinks on dark or primary-colored backgrounds | 🟡 Proposed                                                     |
-| `--zen-color-text-link-visited`       | `--zen-color-primary-700` | Visited hyperlinks                          | 🟡 Proposed                                                          |
 | `--zen-color-text-warning`            | `--zen-color-warning-800` | Warning messages                            | 🟡 Proposed                                                          |
 | `--zen-color-text-success`            | `--zen-color-success-600` | Success messages                            | 🟢 Shipped                                                           |
 | `--zen-color-text-reverse`            | `--zen-color-white`       | Text on dark or primary-colored backgrounds | 🟡 Proposed                                                          |

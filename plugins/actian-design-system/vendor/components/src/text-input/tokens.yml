@@ -7,7 +7,7 @@ bindings:
   - { token: border-default,             property: border-color,     context: "Input field border" }
   - { token: border-radius-xs,           property: border-radius,    context: "Input field corner rounding" }
   - { token: color-text-placeholder,                                 context: "Input placeholder text" }
-  - { token: color-text-primary,         property: color,            context: "Label and description text" }
+  - { token: color-text-default,         property: color,            context: "Label and description text" }
   - { token: color-text-error,                                       context: "Required asterisk" }
   - { token: color-text-secondary,                                   context: "Helper text" }
   - { token: color-icon-default,         property: fill,             context: "Info icon and trailing icon" }
