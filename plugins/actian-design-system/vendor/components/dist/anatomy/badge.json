@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "badge",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12159:16447",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Type=Number",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-icon-error"
+    ],
     "id": "12159:16448",
     "appearance": {
       "background": "#dc3514",
+      "backgroundToken": "--zen-color-icon-error",
       "radius": "20px"
     },
     "layout": {
@@ -44,15 +48,34 @@
       {
         "name": "3",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "12159:16449",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
             "letterSpacing": "0.3px"
-          }
+          },
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Dot"
+              ],
+              "text": {
+                "color": "#ffffff",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
         },
         "text": "3"
       }

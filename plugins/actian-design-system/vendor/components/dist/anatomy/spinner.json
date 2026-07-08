@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "spinner",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2170",
@@ -62,7 +62,8 @@
               "values": [
                 "On dark bg"
               ],
-              "background": "#6296ef"
+              "background": "#6296ef",
+              "backgroundToken": "--zen-color-primary-300"
             }
           ]
         }
@@ -70,16 +71,21 @@
       {
         "name": "Ellipse 9",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-primary-500"
+        ],
         "id": "7372:2191",
         "appearance": {
           "background": "#0f5fdc",
+          "backgroundToken": "--zen-color-primary-500",
           "variants": [
             {
               "prop": "Color mode",
               "values": [
                 "On dark bg"
               ],
-              "background": "#ffffff"
+              "background": "#ffffff",
+              "backgroundToken": null
             }
           ]
         }
@@ -87,16 +93,21 @@
       {
         "name": "Ellipse 10",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-primary-500"
+        ],
         "id": "7372:2192",
         "appearance": {
           "background": "#0f5fdc",
+          "backgroundToken": "--zen-color-primary-500",
           "variants": [
             {
               "prop": "Color mode",
               "values": [
                 "On dark bg"
               ],
-              "background": "#ffffff"
+              "background": "#ffffff",
+              "backgroundToken": null
             }
           ]
         }
@@ -104,16 +115,21 @@
       {
         "name": "Ellipse 12",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-primary-500"
+        ],
         "id": "7372:2193",
         "appearance": {
           "background": "#0f5fdc",
+          "backgroundToken": "--zen-color-primary-500",
           "variants": [
             {
               "prop": "Color mode",
               "values": [
                 "On dark bg"
               ],
-              "background": "#ffffff"
+              "background": "#ffffff",
+              "backgroundToken": null
             }
           ]
         }
@@ -121,16 +137,21 @@
       {
         "name": "Ellipse 11",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-primary-500"
+        ],
         "id": "7372:2194",
         "appearance": {
           "background": "#0f5fdc",
+          "backgroundToken": "--zen-color-primary-500",
           "variants": [
             {
               "prop": "Color mode",
               "values": [
                 "On dark bg"
               ],
-              "background": "#ffffff"
+              "background": "#ffffff",
+              "backgroundToken": null
             }
           ]
         }

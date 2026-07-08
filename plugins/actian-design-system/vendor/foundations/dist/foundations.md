@@ -631,6 +631,7 @@ is two values. Default (un-suffixed) theme is Actian.
 | Token                    | Value           | Usage                       | Status     |
 | ------------------------ | --------------- | --------------------------- | ---------- |
 | `--zen-font-family-text` | `Roboto`        | Default — headings and body | 🟢 Shipped |
+| `--zen-font-family-brand` | `HCLTech Roobert`        | Brand accent font. Use sparingly for high-impact moments — landing/marketing pages (e.g. Explorer landing), hero and display headers, and occasional accent headings. Never for body copy, UI controls, or data. | 🟡 Proposed |
 | `--zen-font-family-mono` | `"Roboto Mono"` | Code and data               | 🟢 Shipped |
 
 #### Font Weight

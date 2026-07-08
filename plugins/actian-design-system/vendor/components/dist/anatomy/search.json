@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8589:11055",
@@ -79,6 +79,7 @@
           "background": "#ffffff",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         }
@@ -106,11 +107,15 @@
       {
         "name": "dropdown",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13934:29583",
         "appearance": {
           "background": "#ffffff",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "radius": "6px 0px 0px 6px",
@@ -120,7 +125,12 @@
               "values": [
                 "Dsiabled"
               ],
-              "background": "#e1e1e6"
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
             }
           ]
         },
@@ -140,16 +150,24 @@
           "sizing": {
             "h": "fixed",
             "v": "fixed"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "Input text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "13934:29584",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -163,6 +181,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -190,11 +209,15 @@
       {
         "name": "search input",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13934:29568",
         "appearance": {
           "background": "#ffffff",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "radius": "0px 6px 6px 0px",
@@ -214,7 +237,12 @@
               "values": [
                 "Dsiabled"
               ],
-              "background": "#e1e1e6"
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
             },
             {
               "prop": "State",
@@ -223,6 +251,7 @@
               ],
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -251,6 +280,11 @@
           "sizing": {
             "h": "fill",
             "v": "fixed"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-xs"
           }
         },
         "children": [
@@ -263,10 +297,14 @@
           {
             "name": "Input text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-secondary"
+            ],
             "id": "13934:29570",
             "appearance": {
               "text": {
                 "color": "#40404a",
+                "colorToken": "--zen-color-text-secondary",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -280,6 +318,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",

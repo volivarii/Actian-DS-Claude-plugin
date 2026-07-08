@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.76",
+  "knowledge_version": "0.34.79",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -600,90 +600,6 @@
       "generator": "scripts/styles-to-md.js",
       "description": "DS Kit text styles (human-readable catalog)"
     },
-    "components.tokenBindings.card-for-grouped-content": {
-      "path": "components/dist/token-bindings/card-for-grouped-content.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-grouped-content, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
-    },
-    "components.tokenBindings.card-for-items": {
-      "path": "components/dist/token-bindings/card-for-items.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-items, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.card-for-perimeter": {
-      "path": "components/dist/token-bindings/card-for-perimeter.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-perimeter, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
-    },
-    "components.tokenBindings.coverage": {
-      "path": "components/dist/token-bindings/coverage.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-component semantic/primitive/total token-binding coverage tally for the harvested sidecars."
-    },
-    "components.tokenBindings.tag-catalog": {
-      "path": "components/dist/token-bindings/tag-catalog.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-catalog, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-catalog-item-type": {
-      "path": "components/dist/token-bindings/tag-catalog-item-type.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-catalog-item-type, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-default": {
-      "path": "components/dist/token-bindings/tag-default.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-default, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-glossary-item-type": {
-      "path": "components/dist/token-bindings/tag-glossary-item-type.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-glossary-item-type, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-interactive": {
-      "path": "components/dist/token-bindings/tag-interactive.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-interactive, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-shared": {
-      "path": "components/dist/token-bindings/tag-shared.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-shared, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-stage": {
-      "path": "components/dist/token-bindings/tag-stage.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-stage, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-status": {
-      "path": "components/dist/token-bindings/tag-status.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-status, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
     "content.globalMd": {
       "path": "content/dist/global.md",
       "type": "markdown",
@@ -758,7 +674,20 @@
       "type": "json",
       "origin": "ci",
       "generator": "scripts/graph/derive-graph.js",
-      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, narrower). Transversal refs are category-mediated. Consumed by future graph viz + AI agents."
+      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic/app/app_entity/terminology_term/ux_pattern) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, narrower, in_app, entity_related, term_about). Transversal refs are category-mediated; app-context adds a product-domain island (apps, entities, terminology, UX patterns) linked by in_app / entity_related / term_about. Consumed by future graph viz + AI agents."
+    },
+    "graph.context": {
+      "path": "graph/context.jsonld",
+      "type": "json",
+      "origin": "human",
+      "description": "Hand-authored JSON-LD @context for the knowledge graph: maps node-id prefixes, node/edge type terms, and field terms to IRIs (reusing schema.org/SKOS/PROV; actian-ds: for DS-specific concepts). Governs graph/dist/graph.jsonld. Keep in sync with graph/vocabulary.json."
+    },
+    "graph.jsonld": {
+      "path": "graph/dist/graph.jsonld",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graph/derive-graph.js",
+      "description": "Derived linked-data (JSON-LD) view of the knowledge graph: the same nodes + edges as graph.bundle, wrapped with graph/context.jsonld, node @types, and reified edges. Structurally lossless (every node and edge field is carried through). Additive sibling of graph/dist/graph.json (which stays canonical). A JSON-LD 1.1 document ready for a linked-data reader; full RDF/SPARQL round-tripping (a stable IRI base plus source-file provenance as dereferenceable IRIs) is deferred until the IRI base domain is chosen (spec open decision)."
     },
     "graph.quality-report": {
       "path": "graph/dist/quality-report.json",

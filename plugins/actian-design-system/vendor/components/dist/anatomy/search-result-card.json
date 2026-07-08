@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-result-card",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12932:3259",
@@ -73,11 +73,15 @@
   "root": {
     "name": "App=Explorer, State=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-subtle"
+    ],
     "id": "12932:3260",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#ebebeb",
+        "colorToken": "--zen-border-subtle",
         "width": "1px"
       },
       "variants": [
@@ -88,6 +92,7 @@
           ],
           "border": {
             "color": "#049b98",
+            "colorToken": "--zen-focus-ring-primary",
             "width": "2px"
           }
         }
@@ -109,6 +114,13 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "right": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
@@ -132,7 +144,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -166,19 +179,27 @@
                   "Show counter": false,
                   "Type": "Category"
                 },
+                "tokenRefs": [
+                  "--zen-color-error-50"
+                ],
                 "id": "12932:3266",
                 "appearance": {
                   "background": "#ffdacf",
+                  "backgroundToken": "--zen-color-error-50",
                   "radius": "4px"
                 }
               },
               {
                 "name": "name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "12932:3264",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 600,
                     "lineHeight": "20px",
@@ -190,10 +211,14 @@
               {
                 "name": "tech name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "12932:3265",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -273,7 +298,8 @@
           "sizing": {
             "h": "fill",
             "v": "fill"
-          }
+          },
+          "gapToken": "--zen-spacing-xs"
         },
         "children": [
           {
@@ -321,10 +347,14 @@
           {
             "name": "Description",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "12932:3276",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -359,10 +389,14 @@
               {
                 "name": "Featured property 1",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14076:882",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -374,10 +408,14 @@
               {
                 "name": "Featured property 2",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14076:883",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -415,9 +453,13 @@
                 "name": "Digram, Item types",
                 "kind": "instance",
                 "unresolved": true,
+                "tokenRefs": [
+                  "--zen-color-warning-25"
+                ],
                 "id": "12932:3278",
                 "appearance": {
                   "background": "#fff9e5",
+                  "backgroundToken": "--zen-color-warning-25",
                   "radius": "6px",
                   "variants": [
                     {
@@ -428,6 +470,7 @@
                       "radius": "4px",
                       "border": {
                         "color": "#fff9e5",
+                        "colorToken": "--zen-color-warning-25",
                         "width": "1px"
                       }
                     }
@@ -437,10 +480,14 @@
               {
                 "name": "Glossary item",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "12932:3279",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",

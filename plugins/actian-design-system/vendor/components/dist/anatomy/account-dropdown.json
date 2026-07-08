@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "account-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9118:17382"
@@ -37,6 +37,11 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-2xs",
+        "bottom": "--zen-spacing-2xs"
       }
     },
     "children": [
@@ -71,19 +76,27 @@
               "State": "Default",
               "Type": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-primary-25"
+            ],
             "id": "9096:5422",
             "appearance": {
               "background": "#edf6ff",
+              "backgroundToken": "--zen-color-primary-25",
               "radius": "9999px"
             }
           },
           {
             "name": "Timothy Neal timothy.neal@hcl-software.com",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "9085:21661",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 600,
                 "lineHeight": "20px",

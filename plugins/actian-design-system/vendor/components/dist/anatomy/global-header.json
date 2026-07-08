@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "global-header",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:22554",
@@ -114,11 +114,15 @@
   "root": {
     "name": "App type=Studio, Breakpoints=XL",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "7384:22553",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#dadada",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -187,16 +191,21 @@
           "sizing": {
             "h": "hug",
             "v": "fixed"
-          }
+          },
+          "gapToken": "--zen-spacing-xs"
         },
         "children": [
           {
             "name": "What’s new",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14035:6518",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -208,10 +217,14 @@
           {
             "name": "Divider",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14783:9585",
             "appearance": {
               "border": {
                 "color": "#dadada",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               }
             }
@@ -238,10 +251,14 @@
           {
             "name": "Divider",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14783:9571",
             "appearance": {
               "border": {
                 "color": "#dadada",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               }
             }
@@ -268,10 +285,14 @@
           {
             "name": "Divider",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14783:9556",
             "appearance": {
               "border": {
                 "color": "#dadada",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               }
             }
@@ -312,7 +333,8 @@
           "sizing": {
             "h": "hug",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-md"
         },
         "children": [
           {
@@ -345,10 +367,14 @@
               {
                 "name": "Input text",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "14035:5340",
                 "appearance": {
                   "text": {
                     "color": "#0283be",
+                    "colorToken": "--zen-color-primary-500",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -366,10 +392,14 @@
               {
                 "name": "Input text",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14035:5589",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "11px",
                     "weight": 500,
                     "lineHeight": "14px",
@@ -400,7 +430,8 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
@@ -412,10 +443,14 @@
                   "Type": "Global header",
                   "State": "Default"
                 },
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
                 "id": "8589:11056",
                 "appearance": {
                   "border": {
                     "color": "#dadada",
+                    "colorToken": "--zen-border-default",
                     "width": "1px"
                   },
                   "radius": "6px"

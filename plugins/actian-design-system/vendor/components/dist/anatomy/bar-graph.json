@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "bar-graph",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15473:49489",
@@ -17,11 +17,15 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "15473:49488",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       },
       "radius": "6px"
@@ -71,10 +75,14 @@
           {
             "name": "Title",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "15473:49400",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "16px",
                 "weight": 600,
                 "lineHeight": "24px",
@@ -86,10 +94,14 @@
           {
             "name": "Title",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "15473:49401",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -168,10 +180,14 @@
               {
                 "name": "Y-axis main label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "15473:49405",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 500,
                     "lineHeight": "16px",
@@ -206,10 +222,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49407",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -221,10 +241,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "15473:49408",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -257,10 +281,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49410",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -272,10 +300,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "15473:49411",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -308,10 +340,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49413",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -323,10 +359,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "15473:49414",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -359,10 +399,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49416",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -374,10 +418,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "15473:49417",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -410,10 +458,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49419",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -425,10 +477,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "15473:49420",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -461,10 +517,14 @@
                   {
                     "name": "Number",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49422",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -476,10 +536,14 @@
                   {
                     "name": "Stroke",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-subtle"
+                    ],
                     "id": "15473:49423",
                     "appearance": {
                       "border": {
                         "color": "#e1e1e6",
+                        "colorToken": "--zen-border-subtle",
                         "width": "1px"
                       }
                     }
@@ -586,10 +650,14 @@
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49430",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -675,10 +743,14 @@
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49436",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -764,10 +836,14 @@
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49442",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -853,10 +929,14 @@
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49448",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -942,10 +1022,14 @@
                   {
                     "name": "X-axis sub label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
                     "id": "15473:49454",
                     "appearance": {
                       "text": {
                         "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",

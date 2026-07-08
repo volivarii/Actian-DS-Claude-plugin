@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "modal",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14175:14426",
@@ -112,10 +112,14 @@
       {
         "name": "Header",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14226:20316",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -135,16 +139,26 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
           {
             "name": "Heading 2 ⏵ Connection settings",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14226:20317",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "18px",
                 "weight": 600,
                 "lineHeight": "26px"
@@ -206,6 +220,13 @@
           "sizing": {
             "h": "fill",
             "v": "fill"
+          },
+          "gapToken": "--zen-spacing-md",
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
@@ -216,11 +237,15 @@
             "props": {
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14226:20669",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               },
               "radius": "6px"
@@ -259,10 +284,14 @@
       {
         "name": "Footer",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14226:20351",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "variants": [
@@ -292,6 +321,13 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "gapToken": "--zen-spacing-xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
@@ -332,9 +368,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "14226:20353",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px",
               "variants": [
                 {
@@ -342,7 +382,8 @@
                   "values": [
                     "450px warning"
                   ],
-                  "background": "#dc3514"
+                  "background": "#dc3514",
+                  "backgroundToken": "--zen-color-icon-error"
                 }
               ]
             }

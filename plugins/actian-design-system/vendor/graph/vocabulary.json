@@ -10,7 +10,11 @@
     "a11y_criterion": { "prefix": "a11y", "description": "An accessibility criterion / topic (WCAG-linked)." },
     "foundation_section": { "prefix": "foundation", "description": "A design-foundation section (tokens, color, spacing, ...); hierarchical." },
     "motion_pattern": { "prefix": "motion", "description": "A motion / animation pattern." },
-    "content_topic": { "prefix": "content", "description": "A content / UX-writing topic." }
+    "content_topic": { "prefix": "content", "description": "A content / UX-writing topic." },
+    "app": { "prefix": "app", "description": "An Actian product application (Studio, Explorer, Administration)." },
+    "app_entity": { "prefix": "entity", "description": "A product/domain entity from the app-context model (Data Product, Dataset, Access Request, ...)." },
+    "terminology_term": { "prefix": "term", "description": "A controlled-terminology term: preferred usage + meaning + discouraged alternatives." },
+    "ux_pattern": { "prefix": "pattern", "description": "A product UX pattern (marketplace browsing, import wizard, ...)." }
   },
   "edgeTypes": {
     "in_category": { "source": ["component"], "target": ["category"], "description": "Component membership in a category." },
@@ -18,6 +22,9 @@
     "foundations_ref": { "source": ["category", "component"], "target": ["foundation_section"], "description": "Transversal reference to a design foundation." },
     "motion_ref": { "source": ["category", "component"], "target": ["motion_pattern"], "description": "Transversal reference to a motion pattern." },
     "related": { "source": ["content_topic"], "target": ["component"], "description": "Non-hierarchical association from a content topic to a component." },
-    "narrower": { "source": ["foundation_section"], "target": ["foundation_section"], "description": "SKOS-style broader/narrower hierarchy (non-transitive; topical, NOT subclass or part-of). Was 'child' before this version." }
+    "narrower": { "source": ["foundation_section"], "target": ["foundation_section"], "description": "SKOS-style broader/narrower hierarchy (non-transitive; topical, NOT subclass or part-of). Was 'child' before this version." },
+    "in_app": { "source": ["app_entity", "ux_pattern"], "target": ["app"], "description": "A domain entity or UX pattern appears in / belongs to an app." },
+    "entity_related": { "source": ["app_entity"], "target": ["app_entity"], "description": "A directed relationship between two domain entities; the specific relation name rides the edge's 'predicate' field (36 distinct predicates share this one type)." },
+    "term_about": { "source": ["terminology_term"], "target": ["app_entity", "app", "ux_pattern"], "description": "A terminology term is about an entity/app/pattern, inferred where the term key exactly matches the node slug (confidence=inferred)." }
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "sticky-footer",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:9839",
@@ -17,11 +17,15 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "8190:6001",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -41,6 +45,12 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-lg",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-lg"
       }
     },
     "children": [
@@ -119,9 +129,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "8190:5966",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px"
             }
           }

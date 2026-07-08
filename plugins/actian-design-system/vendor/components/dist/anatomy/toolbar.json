@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "toolbar",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14335:16907",
@@ -38,11 +38,15 @@
   "root": {
     "name": "Type=Single, Orientation=Horizontal",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-subtle"
+    ],
     "id": "14335:16906",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#e1e1e6",
+        "colorToken": "--zen-border-subtle",
         "width": "1px"
       },
       "radius": "9999px",
@@ -74,6 +78,12 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-2xs",
+        "right": "--zen-spacing-2xs",
+        "bottom": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
       }
     },
     "children": [

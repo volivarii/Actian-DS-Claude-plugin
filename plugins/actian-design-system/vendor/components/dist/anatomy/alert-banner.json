@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-06T00:09:37.751Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Type=Primary, Orientation'=Horizontal",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-info"
+    ],
     "id": "13732:3055",
     "appearance": {
       "background": "#edf6ff",
+      "backgroundToken": "--zen-color-bg-info",
       "radius": "6px",
       "variants": [
         {
@@ -27,21 +31,24 @@
           "values": [
             "Danger"
           ],
-          "background": "#fff4ec"
+          "background": "#fff4ec",
+          "backgroundToken": "--zen-color-bg-error"
         },
         {
           "prop": "Type",
           "values": [
             "Success"
           ],
-          "background": "#f0ffec"
+          "background": "#f0ffec",
+          "backgroundToken": "--zen-color-bg-success"
         },
         {
           "prop": "Type",
           "values": [
             "Warning"
           ],
-          "background": "#fff9e5"
+          "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning"
         }
       ]
     },
@@ -61,16 +68,25 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Primary",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "13732:3031",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",

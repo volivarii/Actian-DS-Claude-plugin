@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13868:11595",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-reverse"
+    ],
     "id": "13868:11596",
     "appearance": {
       "background": "#000000",
+      "backgroundToken": "--zen-color-bg-reverse",
       "radius": "4px",
       "variants": [
         {
@@ -27,7 +31,8 @@
           "values": [
             "Critical"
           ],
-          "background": "#c12c11"
+          "background": "#c12c11",
+          "backgroundToken": "--zen-color-error-700"
         }
       ]
     },
@@ -53,10 +58,14 @@
       {
         "name": "Item deleted",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "13868:11597",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",

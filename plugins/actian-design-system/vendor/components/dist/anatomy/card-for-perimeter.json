@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-perimeter",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14783:7565",
@@ -38,6 +38,12 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-sm",
+        "right": "--zen-spacing-sm",
+        "bottom": "--zen-spacing-sm",
+        "left": "--zen-spacing-sm"
       }
     },
     "children": [
@@ -71,7 +77,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -94,16 +101,21 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
                 "name": "Name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14783:7555",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -115,10 +127,14 @@
               {
                 "name": "Counter",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14783:7556",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",

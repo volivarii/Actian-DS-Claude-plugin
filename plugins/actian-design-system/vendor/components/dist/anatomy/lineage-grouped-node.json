@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-grouped-node",
   "kit": "dskit",
-  "synced_at": "2026-07-06T00:09:37.751Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15634:17895",
@@ -112,6 +112,12 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
+              },
+              "paddingTokens": {
+                "top": "--zen-spacing-xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-2xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [
@@ -128,10 +134,14 @@
               {
                 "name": "Name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "15634:17903",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 600,
                     "lineHeight": "20px",
@@ -145,10 +155,14 @@
           {
             "name": "Field expand collapse",
             "kind": "container",
+            "tokenRefs": [
+              "--zen-border-subtle"
+            ],
             "id": "15634:17909",
             "appearance": {
               "border": {
                 "color": "#e1e1e6",
+                "colorToken": "--zen-border-subtle",
                 "width": "1px"
               }
             },
@@ -168,6 +182,12 @@
               "sizing": {
                 "h": "fixed",
                 "v": "hug"
+              },
+              "paddingTokens": {
+                "top": "--zen-spacing-2xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-2xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [

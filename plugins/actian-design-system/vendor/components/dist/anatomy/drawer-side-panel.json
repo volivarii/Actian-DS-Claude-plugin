@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer-side-panel",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -92,6 +92,12 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
@@ -115,7 +121,8 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
@@ -157,7 +164,8 @@
                   "sizing": {
                     "h": "hug",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
@@ -168,9 +176,13 @@
                       "Show counter": false,
                       "Type": "Dataset"
                     },
+                    "tokenRefs": [
+                      "--zen-color-primary-50"
+                    ],
                     "id": "14292:1206",
                     "appearance": {
                       "background": "#cfeafd",
+                      "backgroundToken": "--zen-color-primary-50",
                       "radius": "4px"
                     }
                   },
@@ -184,11 +196,16 @@
                       "Label": "Shared",
                       "Color": "Default"
                     },
+                    "tokenRefs": [
+                      "--zen-color-primary-700"
+                    ],
                     "id": "14292:1201",
                     "appearance": {
                       "background": "#00699f",
+                      "backgroundToken": "--zen-color-primary-700",
                       "border": {
                         "color": "#00699f",
+                        "colorToken": "--zen-color-primary-700",
                         "width": "1px"
                       },
                       "radius": "4px"
@@ -199,10 +216,14 @@
               {
                 "name": "Name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1226",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "18px",
                     "weight": 600,
                     "lineHeight": "26px"
@@ -232,7 +253,8 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
@@ -297,16 +319,27 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "Technical name: able_agency",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14292:1460",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -335,16 +368,21 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-2xs"
             },
             "children": [
               {
                 "name": "Catalog",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1462",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -356,10 +394,14 @@
               {
                 "name": "/",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1463",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -371,10 +413,14 @@
               {
                 "name": "Category",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1466",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -386,10 +432,14 @@
               {
                 "name": "/",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1467",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -401,10 +451,14 @@
               {
                 "name": "Connection",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1464",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -437,16 +491,26 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "Last updated",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14292:1475",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -458,10 +522,14 @@
           {
             "name": "Fields",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14292:1482",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -490,16 +558,21 @@
               "sizing": {
                 "h": "fixed",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-2xs"
             },
             "children": [
               {
                 "name": "Completion",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1483",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -542,6 +615,9 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md"
           }
         },
         "children": [
@@ -553,11 +629,15 @@
               "Show Avatar": false,
               "Property 1": "Default"
             },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14292:1808",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#dadada",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               }
             }
@@ -587,6 +667,13 @@
           "sizing": {
             "h": "fill",
             "v": "fill"
+          },
+          "gapToken": "--zen-spacing-md",
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
@@ -616,10 +703,14 @@
               {
                 "name": "Last updated",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:1868",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "16px",
                     "weight": 600,
                     "lineHeight": "24px",
@@ -671,10 +762,14 @@
               {
                 "name": "Heading",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:2870",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "16px",
                     "weight": 600,
                     "lineHeight": "24px",
@@ -686,10 +781,14 @@
               {
                 "name": "Body",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:2871",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -726,10 +825,14 @@
               {
                 "name": "Heading",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:2874",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "16px",
                     "weight": 600,
                     "lineHeight": "24px",
@@ -741,10 +844,14 @@
               {
                 "name": "Body",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14292:2876",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",

@@ -51,7 +51,7 @@
   {
     "dimension": "connectivity",
     "metric": "orphan_nodes",
-    "value": 306,
+    "value": 322,
     "timestamp": null,
     "severity": "info"
   },

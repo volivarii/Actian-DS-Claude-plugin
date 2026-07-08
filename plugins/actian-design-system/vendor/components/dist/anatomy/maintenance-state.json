@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "maintenance-state",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13871:32311",
@@ -34,7 +34,8 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-md"
     },
     "children": [
       {
@@ -66,16 +67,21 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
             "name": "Title",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14747:19546",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "18px",
                 "weight": 600,
                 "lineHeight": "26px"
@@ -86,10 +92,14 @@
           {
             "name": "Body",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14747:19547",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "16px",
                 "weight": 400,
                 "lineHeight": "24px",
@@ -156,9 +166,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "14747:19550",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px"
             }
           }

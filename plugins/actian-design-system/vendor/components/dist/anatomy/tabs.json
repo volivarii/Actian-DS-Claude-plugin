@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:14818",
@@ -17,11 +17,15 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "7279:3297",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },

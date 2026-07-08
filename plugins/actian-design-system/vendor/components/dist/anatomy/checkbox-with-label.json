@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox-with-label",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
@@ -34,7 +34,8 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-2xs"
     },
     "children": [
       {
@@ -57,6 +58,7 @@
               "background": "rgba(0, 0, 0, 0.05)",
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -80,10 +82,14 @@
       {
         "name": "Label",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "8175:4408",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
@@ -97,6 +103,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
