@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-interactive",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13845:33759",
@@ -48,6 +48,7 @@
           "background": "#e1e1e6",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
             "width": "1px"
           }
         },
@@ -58,6 +59,7 @@
           ],
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -69,6 +71,7 @@
           "background": "rgba(0, 0, 0, 0.05)",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -80,6 +83,7 @@
           "background": "rgba(0, 0, 0, 0.1)",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -90,6 +94,7 @@
           ],
           "border": {
             "color": "#0f5fdc",
+            "colorToken": "--zen-border-selected",
             "width": "2px"
           }
         }
@@ -111,6 +116,11 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
@@ -123,10 +133,14 @@
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "13846:34348",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -140,6 +154,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",

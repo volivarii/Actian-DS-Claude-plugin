@@ -6,6 +6,11 @@
 
 - [Foundations spec](foundations/src/): primitives, scales, tokens reference, per-section files
 
+## Tokens
+
+- [Design tokens (W3C DTCG)](tokens/tokens.json): color, spacing, type, motion; 3 themes (Actian, Studio, Explorer)
+- [Token reference](tokens/token-reference.md): human-readable token catalog
+
 ## Content
 
 - [Content guidelines — global topics](content/dist/global.md): voice, tone, capitalization, words to avoid, UX-pattern topics
@@ -15,10 +20,20 @@
 
 - [WCAG 2.2 AA guidance](accessibility/src/): applied rules + criteria, per-section files
 
+## App context
+
+- [App context](app-context/dist/app-context.json): Actian apps, domain entities, terminology, and UX patterns
+
 ## Components
 
 - [DS Kit registry](components/dist/registries/dskit.json)
 - [Component categories](components/dist/categories.json)
+
+## Derived views and connectors
+
+- [Component anatomy](components/dist/anatomy.bundle.json): per-component structure trees with resolved appearance (fill, border, radius, type)
+- [Component media](components/dist/media/): per-component preview and default-variant captures (webp)
+- [Knowledge graph](graph/dist/graph.json): typed cross-domain nodes and edges; also graph/dist/graph.jsonld (JSON-LD linked-data view)
 
 ## Manifest
 

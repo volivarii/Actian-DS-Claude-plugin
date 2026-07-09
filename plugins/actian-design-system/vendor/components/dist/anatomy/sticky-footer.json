@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "sticky-footer",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:9839",
@@ -10,18 +10,22 @@
   },
   "quality": {
     "nodesTotal": 5,
-    "nodesNormalized": 2,
-    "ratio": 0.4,
+    "nodesNormalized": 4,
+    "ratio": 0.8,
     "degraded": []
   },
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "8190:6001",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -41,6 +45,12 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-lg",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-lg"
       }
     },
     "children": [
@@ -89,7 +99,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Label": "Cancel",
               "Show label": true,
@@ -108,7 +118,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Label": "Save",
               "Show label": true,
@@ -119,9 +129,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "8190:5966",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px"
             }
           }

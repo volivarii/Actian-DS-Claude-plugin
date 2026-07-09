@@ -80,6 +80,37 @@ not by component name.
 Sync detects renames as drift and warns (warn-only initially). Update
 `KNOWN_CATEGORIES` in the same PR as the Figma rename.
 
+### Icon pages and self-hosting / churned pages (page-level overrides)
+
+Some pages do not encode their category via the positional convention: the
+icons live on a self-hosting page whose name has churned (`Icons` ->
+`DS Icons` -> `DS Icons: replacement`), and a WIP page can be pulled above its
+category header. These are handled by
+`components/src/category-page-overrides.json`:
+
+- `overrides`: page clean-name (status emoji stripped) -> canonical category.
+  Example: `"DS Icons": "Icons"`. Applied first in `inferCategoryMap`, so it
+  wins regardless of the page's section or order.
+- `exclude`: page clean-names whose components are dropped from the sync
+  entirely (staging / not-ready). Example: `"DS Icons: replacement"`.
+
+When you rename an icon (or other overridden) page in Figma, update the matching
+key here in the same change. The config is self-retiring: once Figma encodes the
+category natively, delete the entry and a re-sync restores it.
+
+### Mass category-loss is a hard sync failure
+
+If a category with 10 or more members drops to zero between syncs (typically a
+page rename that the override config does not yet cover), the sync fails loud
+(exit 2, no PR) rather than shipping a category-gutted registry or an empty
+`icons.json`. Fix the page category or add the page to
+`category-page-overrides.json` and re-run. An intentional category removal is
+acknowledged with the `SYNC_ALLOW_CATEGORY_LOSS` env var (comma-separated
+category names). That env var only clears the registry-root guard; the
+`deriveIcons` icon tripwire has no env hatch, so an intentional removal of the
+`Icons` category also requires emptying `components/src/icons-svg.json` (which
+drops the icon skip-count to zero, so the tripwire passes).
+
 ### Why this isn't Figma's native Page Sections feature
 
 Figma's native Pages-panel section dividers are an Enterprise-tier

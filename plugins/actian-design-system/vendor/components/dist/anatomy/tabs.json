@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:14818",
@@ -10,18 +10,22 @@
   },
   "quality": {
     "nodesTotal": 13,
-    "nodesNormalized": 1,
-    "ratio": 0.08,
+    "nodesNormalized": 2,
+    "ratio": 0.15,
     "degraded": []
   },
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "7279:3297",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -196,7 +200,7 @@
       {
         "name": "Avatar",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "avatar",
         "props": {
           "State": "Default",
           "Type": "Two groups"

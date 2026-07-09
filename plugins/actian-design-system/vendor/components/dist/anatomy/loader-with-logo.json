@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loader-with-logo",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7650",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 3,
-    "nodesNormalized": 1,
-    "ratio": 0.33,
+    "nodesNormalized": 3,
+    "ratio": 1,
     "degraded": []
   },
   "root": {
@@ -34,23 +34,37 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-xl"
     },
     "children": [
       {
         "name": "Actian Data Intelligence",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "actian-data-intelligence",
         "props": {
           "Type": "Data Intelligence",
           "Orientation": "Vertical"
         },
-        "id": "8157:6306"
+        "id": "8157:6306",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "App",
+              "values": [
+                "Admin",
+                "Explorer",
+                "Studio"
+              ],
+              "slug": "zeenea-logo"
+            }
+          ]
+        }
       },
       {
         "name": "Loader",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "loader",
         "props": {
           "Percent": "10%"
         },

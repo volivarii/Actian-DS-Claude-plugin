@@ -1,8 +1,3720 @@
 {
   "_meta": {
-    "description": "Figma local-variable id -> stable library key map for the P2 name layer. Populate by running scripts/figma-plugin in the dskit Figma file and pasting its export over this file. With an empty ids map the sync captures values only (no token names) — today's behavior.",
+    "description": "Figma local-variable id -> stable library key map for the P2 name layer. Paste this file over tokens/src/figma-variable-ids.json.",
     "generator": "scripts/figma-plugin (manual run in Figma)",
-    "auto_generated": false
+    "auto_generated": false,
+    "fileName": "Actian Design System v2.3.0",
+    "exportedAt": "2026-07-06T13:08:32.840Z",
+    "idCount": 618
   },
-  "ids": {}
+  "ids": {
+    "VariableID:003a2d236f3d5ce790fb058d8be86bbb904f14c8/4040:455": {
+      "key": "003a2d236f3d5ce790fb058d8be86bbb904f14c8",
+      "name": "viva-gold-orange/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:01b6d073b00b503f06cd4300422c9a5e4eee4e3a/4085:0": {
+      "key": "01b6d073b00b503f06cd4300422c9a5e4eee4e3a",
+      "name": "royal-blue/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:01fd0a478e23ec65b8c9c362f97da47e64d2c09c/13617:1542": {
+      "key": "01fd0a478e23ec65b8c9c362f97da47e64d2c09c",
+      "name": "Status/info-primary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:02ec9bc98201cffe768012ffbcb0e4f7f1713f83/4052:478": {
+      "key": "02ec9bc98201cffe768012ffbcb0e4f7f1713f83",
+      "name": "white",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:03861ea04ce4e80d4b00fa69390e0588c0572b43/13617:1545": {
+      "key": "03861ea04ce4e80d4b00fa69390e0588c0572b43",
+      "name": "Border/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:04abcb73c49a1fa87e3a7269b9184fbb01e83eb0/2204:1282": {
+      "key": "04abcb73c49a1fa87e3a7269b9184fbb01e83eb0",
+      "name": "grey/100",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:04f0318793ff1b9729b7ab7bc4d25a29d2f310b2/17324:287": {
+      "key": "04f0318793ff1b9729b7ab7bc4d25a29d2f310b2",
+      "name": "color-text-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:0551ac90ccea27266461ad075d82b61b6368b5d9/10690:221": {
+      "key": "0551ac90ccea27266461ad075d82b61b6368b5d9",
+      "name": "Primary/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:05f6e330f130e1d582972805b3f7ca150ea276e0/4028:67": {
+      "key": "05f6e330f130e1d582972805b3f7ca150ea276e0",
+      "name": "green/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:07306b339313276e756b94624fe04a1dacfc03e3/4028:75": {
+      "key": "07306b339313276e756b94624fe04a1dacfc03e3",
+      "name": "turquoise/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:087ceabca67e1322066d2fe2691b4a92e110df11/13617:1562": {
+      "key": "087ceabca67e1322066d2fe2691b4a92e110df11",
+      "name": "Data Viz (WIP)/Categorical/color-data-category7",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:08eba5d091710e180f0c52d55c404ffced972b82/32891:955": {
+      "key": "08eba5d091710e180f0c52d55c404ffced972b82",
+      "name": "color/zima-blue/800",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:092fb52e3ace1f08ee0f2215e907e494e6432f83/32891:598": {
+      "key": "092fb52e3ace1f08ee0f2215e907e494e6432f83",
+      "name": "color/blue/25",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:094b59d2dddbe3cfa196bf979f5917a8d2bfb5b1/7011:5": {
+      "key": "094b59d2dddbe3cfa196bf979f5917a8d2bfb5b1",
+      "name": "Merck/Rrich blue",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:0a47eea6fd453a5167ba5135190201ea3b70717a/2204:1311": {
+      "key": "0a47eea6fd453a5167ba5135190201ea3b70717a",
+      "name": "orange/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:0b3d41fd01f53c15a203467b5ff465c0ae454d7c/32889:609": {
+      "key": "0b3d41fd01f53c15a203467b5ff465c0ae454d7c",
+      "name": "Colors/Border/border-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:0b46e7a7fb91da07f9db5b63f03b2b216b6760e3/4028:48": {
+      "key": "0b46e7a7fb91da07f9db5b63f03b2b216b6760e3",
+      "name": "orange/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:0b7e4952bf69267f51bb84ebff9601bdad5b4010/4028:38": {
+      "key": "0b7e4952bf69267f51bb84ebff9601bdad5b4010",
+      "name": "red/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:0c44e6691b85ece890bd06670a5a3fbd66c11ce1/4040:477": {
+      "key": "0c44e6691b85ece890bd06670a5a3fbd66c11ce1",
+      "name": "pomegranate-red/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:0c5b42d1b00aad65d88ce8b806d5925b01c9bf39/6425:52": {
+      "key": "0c5b42d1b00aad65d88ce8b806d5925b01c9bf39",
+      "name": "spacing-sm",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:0e4465b8f851dec9cd9601360e680ab0a3dcdaa6/4040:481": {
+      "key": "0e4465b8f851dec9cd9601360e680ab0a3dcdaa6",
+      "name": "olive-green/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:0e7e99ac6b0a79ed12f01b9cf3b74a46f39030f6/7383:21": {
+      "key": "0e7e99ac6b0a79ed12f01b9cf3b74a46f39030f6",
+      "name": "Merck/Selected purple",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:0ed555c513c29fe5588ad7213061e222950074c7/32886:47": {
+      "key": "0ed555c513c29fe5588ad7213061e222950074c7",
+      "name": "Colors/Text/text-tertiary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:10661:5731": {
+      "key": "d56575506dae345c45ea1563df6b81ca041c8c4f",
+      "name": "text/color-text-tertiary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:10661:5735": {
+      "key": "46c4b4f0f65db6a2cf513ef25f32230fae75e562",
+      "name": "text/color-text-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:10690:30534": {
+      "key": "ac9ee1d261266d473cea120b10b946fa2eaefdbe",
+      "name": "Theme/reverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:10690:30544": {
+      "key": "5f7c971b8a2b554781a19b14afab8f912727fde4",
+      "name": "primary/25",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:11123:13555": {
+      "key": "e02968bd3fca3e90211bbfaea4f00abc573c842e",
+      "name": "Spacing/spacing-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:11123:13573": {
+      "key": "66b473a7c0f9cfa531c058c9609b3765b84ffd8f",
+      "name": "radius/sm",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:11123:13582": {
+      "key": "cd2ee903810decb6b2f3339cd028b99584a94e73",
+      "name": "border-radius-xl",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:11123:13585": {
+      "key": "96f69added0e5e58d02f4aaef4b05f02d6158cec",
+      "name": "border-radius-full",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:11481e8e9c7b477a9e9fca35c6aec4d71ae315d0/6672:17": {
+      "key": "11481e8e9c7b477a9e9fca35c6aec4d71ae315d0",
+      "name": "Colors/Text/text-tertiary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:11a303fe124c8bf68bf242d1366f3ba35de9d709/6672:92": {
+      "key": "11a303fe124c8bf68bf242d1366f3ba35de9d709",
+      "name": "Component colors/Components/Application navigation/nav-item-icon-fg_active",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:12008:46767": {
+      "key": "e1471a14123187f89eccb120e987d84030232c0b",
+      "name": "Colors/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:12008:46768": {
+      "key": "aada7f726e2b882b4a945c6002f35cea543d73c9",
+      "name": "Color/Background/bg-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:12008:46770": {
+      "key": "8ea84745a8f41c8520d221d5526989d3ac236707",
+      "name": "Colors/Text/text-tertiary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:12818:4298": {
+      "key": "d67c85228205d20fffbf501dfffc7ee2e0d0a4b7",
+      "name": "Text/reverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:12fdfce385d8a810cb45015d66860288bdbf6156/2215:2665": {
+      "key": "12fdfce385d8a810cb45015d66860288bdbf6156",
+      "name": "color/yellow/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:13463:21649": {
+      "key": "404d432989c0659955af4859c04ef7802bd93d5d",
+      "name": "width/lg",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:13544:4972": {
+      "key": "69722d1f8eddb08d32a172637ad4687e1a37021f",
+      "name": "Border/strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:13805:8477": {
+      "key": "70601bc06e07e748704235e617b4f7ca9ea8fb81",
+      "name": "border-radius-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:13805:8531": {
+      "key": "6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524",
+      "name": "border-width-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:13805:8532": {
+      "key": "91cb850d543fa1caaa9f9ba095a19b1c506baadb",
+      "name": "border-width-md",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:13805:8870": {
+      "key": "a3bb28c3ad6cca9243e2246178a246cfa742ba68",
+      "name": "sx",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13805:8871": {
+      "key": "ee3ef7cabc07275346ec0e0828dadedafd71c53e",
+      "name": "sm",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13805:8872": {
+      "key": "27370a3d0443dac20588a321a5dc6fddb8d79d2a",
+      "name": "md",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13805:8873": {
+      "key": "8e8b332993e629e50e11184d297276995d9a53af",
+      "name": "lg",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13805:8874": {
+      "key": "5d33f18eea164e63cf9c9307a6e257949b7bae8f",
+      "name": "xl",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13805:8875": {
+      "key": "c632aed239c9073ab8c91d703402ab0665fbac80",
+      "name": "2xl",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:13e17506adf5dbbc8e14ba9e5fc3560a8733d19f/4040:426": {
+      "key": "13e17506adf5dbbc8e14ba9e5fc3560a8733d19f",
+      "name": "shutters-green/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:14119:15154": {
+      "key": "b9657ab94410a39cb9b6ab9b9d6ae445b3ceb4de",
+      "name": "icon/reverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14139:2149": {
+      "key": "3d35091ed8a67f9cf4dc1e55e32a4bac7ac07a79",
+      "name": "bg/reverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14722:22742": {
+      "key": "49099364f52f5b1e69681b3a3abdd271cf1cadce",
+      "name": "Status/warning-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14733:378": {
+      "key": "e34e7702643edf1bb8f17ad77aafbd8874f89017",
+      "name": "text/color-text-placeholder",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14737:14765": {
+      "key": "930c476be7cb644ff8c317fe5fc9b2d8a68ad06f",
+      "name": "icon/disabled",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14737:14787": {
+      "key": "d5b2b08fd5bab41595edb892bf4707cb94bae50a",
+      "name": "text/color-text-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14747:41913": {
+      "key": "3f3f05ce2b1febb9e2d3f26652d01aa1461f9f46",
+      "name": "bg/disabled",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:14805e29dc1327316cb08b745211aea1224ff9ef/32891:457": {
+      "key": "14805e29dc1327316cb08b745211aea1224ff9ef",
+      "name": "color/red/700",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:14a892bc180a73ee968fde4f86c3e8c7e301ff67/6673:0": {
+      "key": "14a892bc180a73ee968fde4f86c3e8c7e301ff67",
+      "name": "Colors/Background/bg-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:15580:28653": {
+      "key": "031f8a76b3668df2b4ee10657fe17c2a47360a08",
+      "name": "Border/subtle",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:1587e6f425cb09958198a732ae093e3246c4291d/17324:272": {
+      "key": "1587e6f425cb09958198a732ae093e3246c4291d",
+      "name": "color-text-default",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:15aacdf7f59555df9ee1756bab8d9387d0c469c4/13617:1582": {
+      "key": "15aacdf7f59555df9ee1756bab8d9387d0c469c4",
+      "name": "Icon/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:15d67f53c59331c4c4dc5de78809c316e6906b1e/32889:202": {
+      "key": "15d67f53c59331c4c4dc5de78809c316e6906b1e",
+      "name": "color/red/200",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:16572:29622": {
+      "key": "6c1d33645d721054d4025d4c19232fdaed610ace",
+      "name": "success/25",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29627": {
+      "key": "eaf02fa14f074b9a12ce50324eb6b97ad4831022",
+      "name": "success/50",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29645": {
+      "key": "7e46b979e4b3106e8dd5db17df40eea5c4ba6732",
+      "name": "success/600",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29647": {
+      "key": "9e46e0827f8cdd80280a166705f3ec3d92751ec5",
+      "name": "success/800",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29652": {
+      "key": "d5dfc2fea219d9b013761480609914eaba024b7b",
+      "name": "warning/25",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29653": {
+      "key": "badc6dc1ed596b84bf9f7dbd0f00704dc05cdfbc",
+      "name": "warning/50",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29654": {
+      "key": "7d60387082271bfba8d3a51f37787afed3566b7c",
+      "name": "warning/100",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29655": {
+      "key": "e788618ece5fb4ce9e81fdd4df1bf0641e2a1d6c",
+      "name": "warning/200",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29657": {
+      "key": "23c50b84abdad96374b697fb5c1e15e82c0949a5",
+      "name": "warning/400",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29661": {
+      "key": "6da04b99ae6f54a6f9715fbe7eaed6373dafd8ee",
+      "name": "warning/800",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29662": {
+      "key": "5a7eebd7870c681ef7054e5827e6caf1678245a1",
+      "name": "warning/900",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29669": {
+      "key": "752fb8a735debc3415f7f001814f7b0ce109c5a6",
+      "name": "error/25",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29670": {
+      "key": "bfccfa6f22e64cb84d49bb5332c97d45833fb0e2",
+      "name": "error/50",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29671": {
+      "key": "5b1cb211471a7b6e46e82e79b5f363b068fd484b",
+      "name": "error/100",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29677": {
+      "key": "bfa0f0606d8bf941402e3ab242e82c8af9b492e0",
+      "name": "error/700",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29678": {
+      "key": "84317479a16d5c25d0eed2b9d8586c0b0b10b29f",
+      "name": "error/800",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16575:29679": {
+      "key": "b0b680e4cc8c7a88f8467869ba595a64a46dee59",
+      "name": "error/900",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16651:26838": {
+      "key": "ae0a574eb0faad13ab5105c977dd122bb813abbd",
+      "name": "neutral/50",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16651:26839": {
+      "key": "e935403e850e3d74231fca4bae97af17c7aa1e1a",
+      "name": "neutral/100",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16651:26842": {
+      "key": "6f3e021b7060c44efc6733f4e94ebce51147bf68",
+      "name": "neutral/400",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16651:26844": {
+      "key": "74774559c7ac6ef334f045b8c866c45904ebe848",
+      "name": "neutral/600",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16651:38376": {
+      "key": "66a64687a41ae343d4b02fc25464cd05f967a9fd",
+      "name": "border-default",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:16651:38377": {
+      "key": "ebb62fed2a17034855a5a6fb1bfdd4a56f16ba38",
+      "name": "border-subtle",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:16651:38378": {
+      "key": "efa60d3fff3b5dab2fc6c41c3a5690c8f8247287",
+      "name": "border-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:16651:39620": {
+      "key": "50671a856564fb0299bfd5348c36463af6c2b2cb",
+      "name": "focus-ring-primary",
+      "resolvedType": "COLOR",
+      "collection": "Focus rings"
+    },
+    "VariableID:16651:39621": {
+      "key": "0558bb294e6232ec53d951d37f724968af86ed9c",
+      "name": "focus-ring-error",
+      "resolvedType": "COLOR",
+      "collection": "Focus rings"
+    },
+    "VariableID:16651:40338": {
+      "key": "43473f279ee258f286f158c73b43100027efdfe5",
+      "name": "font-weight-regular",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40339": {
+      "key": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+      "name": "font-family-text",
+      "resolvedType": "STRING",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40342": {
+      "key": "19a1696a54d7449050b75b407a8b35ead94cce41",
+      "name": "font-weight-medium",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40343": {
+      "key": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+      "name": "font-weight-semibold",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40345": {
+      "key": "cae490dd475e0e46b01395d482d57b601b1de273",
+      "name": "font-size-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40346": {
+      "key": "52de705fdbef5396472563719a9a364f483897f5",
+      "name": "font-size-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40350": {
+      "key": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+      "name": "font-size-md",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40389": {
+      "key": "bc026e5576296de7ef463631896000ebca5a3f01",
+      "name": "font-size-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40390": {
+      "key": "d0b5b1d6474828074157d4761621af5b5ae23d70",
+      "name": "font-size-xl",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40392": {
+      "key": "971529fa3d8e2f240e93d12d26ac8333c372da20",
+      "name": "font-size-3xl",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:40848": {
+      "key": "20228f4843139ad580b637e80969410730f7a2aa",
+      "name": "font-letterspacing-normal",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41024": {
+      "key": "b58a12ab63199f09b5a0365b963ca266196cf9ef",
+      "name": "font-letterspacing-1",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41028": {
+      "key": "2f375d4df1725ceab14cd46c0e22f15c80c58c12",
+      "name": "font-letterspacing-2",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41029": {
+      "key": "2e6ee23fae4ad7e4a04311dcf453f1983264097c",
+      "name": "font-letterspacing-3",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41030": {
+      "key": "7c8337cd66acb052f8d2355dce45ce53fd2284d6",
+      "name": "font-letterspacing-4",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41031": {
+      "key": "799b23131a58bbdd3f6e97a283fdc93de90e0b38",
+      "name": "font-lineheight-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41032": {
+      "key": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+      "name": "font-lineheight-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41036": {
+      "key": "38cff3504a97357910fe12de774117b9ba8ff55f",
+      "name": "font-lineheight-md",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41037": {
+      "key": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+      "name": "font-lineheight-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41038": {
+      "key": "1c5ac5d36f5416862803dd45c47fd97de4e2217e",
+      "name": "font-lineheight-xl",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16651:41039": {
+      "key": "0cf23a76e9caf5c6a5ec66ace4638bdf9ab6ae10",
+      "name": "font-lineheight-2xl",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:16670:47477": {
+      "key": "c88179510c2749c82615db8f457bb1678bb7f8b7",
+      "name": "primary/50",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47478": {
+      "key": "6d07c6b9271f944d34e9fdced6b7e3e7387d67fd",
+      "name": "primary/100",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47479": {
+      "key": "9345f12e6c5f10bff1c9b2c3a0574f6e3449da8b",
+      "name": "primary/200",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47480": {
+      "key": "fa9b1b487d583d83398bf1f66c6c999bcb51ff86",
+      "name": "primary/300",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47481": {
+      "key": "571c3113502ee3db28d15a0a904721a5f2bd6176",
+      "name": "primary/400",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47482": {
+      "key": "da974a979d33999ef1aaf887fce141b5cfb1fba2",
+      "name": "primary/600",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47483": {
+      "key": "688df60fb4e8a2ff461f88fa8e92abce97727043",
+      "name": "primary/700",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47484": {
+      "key": "6f47aefd86adc94fd2df93dc7f3643b606f7006b",
+      "name": "primary/800",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47505": {
+      "key": "e71aa33e2a20b2df834a1aca3634ecfddc7a2aee",
+      "name": "bg/overlay",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:16670:47517": {
+      "key": "c9816fd5506a77d42d9d7c59ab9bf170667f57f7",
+      "name": "border-selected",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:16670:47518": {
+      "key": "1c5e7d5f7c51d5e19e1d5c8ca3aeb9cc5c1ad6e8",
+      "name": "color-border-error",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:16691:48021": {
+      "key": "985b2ca68ae075e126b50bc53b377b13fd31a298",
+      "name": "size-icon-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Icon"
+    },
+    "VariableID:16798a7a58631efc70166c9f13d07f67878dbc4f/53122:3116": {
+      "key": "16798a7a58631efc70166c9f13d07f67878dbc4f",
+      "name": "Text/text-on-color",
+      "resolvedType": "COLOR",
+      "collection": "Theme"
+    },
+    "VariableID:17314:44511": {
+      "key": "f1feb79e32b3cc29812690415926987bf97aa3ad",
+      "name": "color-border-primary",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:17314:44512": {
+      "key": "23cfaca44754da8ccbac2b45f3ff05ff99557d55",
+      "name": "color-border-warning",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:17314:44513": {
+      "key": "00d42d2b76abf2ee1943139ee8eced5c32357127",
+      "name": "color-border-success",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:17314:44515": {
+      "key": "eeff45cb0c3c36794454cbfae8ff225dbac33ebb",
+      "name": "color-border-strong",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:17314:44518": {
+      "key": "5f104b2b2a7685471b7914bc8cb276d7b289624e",
+      "name": "color-bg-default",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17314:44519": {
+      "key": "25cbdc9f03d8e1f7a7e8efcbe6832e0aaba7bf7d",
+      "name": "color-bg-surface",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:148": {
+      "key": "dc186db6f9814a0cb6b6dc2388afdc29e53046af",
+      "name": "color-bg-sunken",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:149": {
+      "key": "f0856961271750011f82cd4b62605d7e011b305c",
+      "name": "color-bg-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:150": {
+      "key": "f1f4741e316a0d009a7aa4e65e933bd6836ada99",
+      "name": "color-bg-selected",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:151": {
+      "key": "ef3332ef5969799d809499b5f73c14a6fc9a910e",
+      "name": "color-bg-overlay",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:152": {
+      "key": "dcc3421e91c58a9500c39075c68818adbe58b0e4",
+      "name": "color-bg-primary",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:153": {
+      "key": "7ad547980956969d68d5403689a21ecb9115945e",
+      "name": "color-bg-success",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:154": {
+      "key": "8c7657bf7c24021bf2b0d1b0892830c6d715bf60",
+      "name": "color-bg-warning",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:155": {
+      "key": "b5b1dc6a118e3d3592e477ace4aac4863eb232f0",
+      "name": "color-bg-error",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:156": {
+      "key": "424c59ad20e2024239bb47c11cb9cabc7848d625",
+      "name": "color-bg-info",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:157": {
+      "key": "474864f241bb7f8ecdbb05391396267fd633ebd4",
+      "name": "color-bg-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17321:159": {
+      "key": "8f9031b6b674aef83107e6677aa705e73f5dafc7",
+      "name": "size-height-2xs",
+      "resolvedType": "FLOAT",
+      "collection": "Height"
+    },
+    "VariableID:17321:160": {
+      "key": "f7e35ed75273ee38cd71435879eff862f8e01ae8",
+      "name": "size-height-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Height"
+    },
+    "VariableID:17321:162": {
+      "key": "b37323b2f8ac1bb7018ae991492fd7270e0dab2c",
+      "name": "size-height-md",
+      "resolvedType": "FLOAT",
+      "collection": "Height"
+    },
+    "VariableID:17323:166": {
+      "key": "c5eafaff0adb7b7fe248277e226ff8afb3468727",
+      "name": "size-trigger-min",
+      "resolvedType": "FLOAT",
+      "collection": "Trigger area"
+    },
+    "VariableID:17323:168": {
+      "key": "62c24a016d61f82a67ee62a403fcd9abc22e5b9c",
+      "name": "color-icon-default",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:169": {
+      "key": "2c6da3e24b80ab216c6431af22e599517327e864",
+      "name": "color-icon-subtle",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:170": {
+      "key": "fdb20cfa067a191e2c203b8d10b0c4977c1597e8",
+      "name": "color-icon-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:171": {
+      "key": "3d15f8defb98e2620785834ff60806b8c2da9312",
+      "name": "color-icon-primary",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:172": {
+      "key": "cc230a9641fbac932c72d775bdd8853691faf75c",
+      "name": "color-icon-error",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:173": {
+      "key": "121dbf960c2a8226670b4155a27a21ef2b7fd2e5",
+      "name": "color-icon-success",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:174": {
+      "key": "bd0a61d484c159d720313f015ecf1ec57891e1b1",
+      "name": "color-icon-warning",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:175": {
+      "key": "de3b98377ba46557025a2abc40327fb2c9e0f027",
+      "name": "color-icon-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:17323:176": {
+      "key": "1587e6f425cb09958198a732ae093e3246c4291d",
+      "name": "color-text-default",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:177": {
+      "key": "88942eafd918e7714b571c1a651e7d5d490671d1",
+      "name": "color-text-secondary",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:178": {
+      "key": "b8ca5b6f7eaf8ff94a7c2b7bc0772f59b6cd7c50",
+      "name": "color-text-tertiary",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:179": {
+      "key": "44a7f261b891cfe0f05a4eb6f68bbb4137d02c65",
+      "name": "color-text-placeholder",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:180": {
+      "key": "22a3237309c5540bfb5065ca542276c4a12ded19",
+      "name": "color-text-placeholder-subtle",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:181": {
+      "key": "002fee716e613df1afadafb2d43e37378741c14b",
+      "name": "color-text-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:182": {
+      "key": "e1c3b0f81dcfd8f0662dbcdf4fb0a9443e61d4d5",
+      "name": "color-text-primary",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:183": {
+      "key": "e7880495e75099825d37b7e4e51134c49ee1f60b",
+      "name": "color-text-error",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:184": {
+      "key": "a44643dc9e0d0742864a2553e71f6dd6da5d13ec",
+      "name": "color-text-warning",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:185": {
+      "key": "00c42830229ed6b4a3e01cd89a306c69c236810a",
+      "name": "color-text-success",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17323:186": {
+      "key": "04f0318793ff1b9729b7ab7bc4d25a29d2f310b2",
+      "name": "color-text-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:17676:1288679": {
+      "key": "305c2e463fc4e81a1db3454e9d1061fe1578df1a",
+      "name": "Hover or focus",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17676:1288798": {
+      "key": "b3b9c7b90ae39942372f11a1af075ea00d912818",
+      "name": "Pressed or expanded",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:17a7c68d8e78113dc0a663910b421e2a731054fb/6672:12": {
+      "key": "17a7c68d8e78113dc0a663910b421e2a731054fb",
+      "name": "Colors/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:186c50e8cb3296f378ad0b2ad783e3a2f3fa4bf5/6672:40": {
+      "key": "186c50e8cb3296f378ad0b2ad783e3a2f3fa4bf5",
+      "name": "Colors/Foreground/fg-quarterary (500)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:193a2827098dda6aa0719a898fbe27e9df4f2f68/16651:269": {
+      "key": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+      "name": "weight/semibold",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:193a2827098dda6aa0719a898fbe27e9df4f2f68/17323:351": {
+      "key": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+      "name": "font-weight-semibold",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:19a1696a54d7449050b75b407a8b35ead94cce41/17323:350": {
+      "key": "19a1696a54d7449050b75b407a8b35ead94cce41",
+      "name": "font-weight-medium",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:19ec04b0deabdb57516aefef0233c97ac374f989/32891:664": {
+      "key": "19ec04b0deabdb57516aefef0233c97ac374f989",
+      "name": "color/grey/25",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:1a850d9450e1ff312185cf4ba4dd783830efc0d1/2215:2670": {
+      "key": "1a850d9450e1ff312185cf4ba4dd783830efc0d1",
+      "name": "color/blue-grey/900",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:1d2b2501984f0f65564966115872cca7457286bf/4040:357": {
+      "key": "1d2b2501984f0f65564966115872cca7457286bf",
+      "name": "singapore-orchid-purple/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:1d882d410aeffe186a834de012dc918b831c45b3/32889:850": {
+      "key": "1d882d410aeffe186a834de012dc918b831c45b3",
+      "name": "spacing-xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:1e42a3a18178236680fe8df6375a711075169330/2482:13": {
+      "key": "1e42a3a18178236680fe8df6375a711075169330",
+      "name": "Background/color-background-default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:1eaa6a0b8d5f2e30a616d104d927b138a786f03a/4028:78": {
+      "key": "1eaa6a0b8d5f2e30a616d104d927b138a786f03a",
+      "name": "turquoise/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:1eef1c4422c327076142a083587eee7407ea5c86/32889:844": {
+      "key": "1eef1c4422c327076142a083587eee7407ea5c86",
+      "name": "spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:1f0aba252b5a0b86364218c2a14473e81b8210b7/251:129": {
+      "key": "1f0aba252b5a0b86364218c2a14473e81b8210b7",
+      "name": "Font/Line Height/Line height 16",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:1f49699099db76400598d7ef72b40236278c7bca/32889:531": {
+      "key": "1f49699099db76400598d7ef72b40236278c7bca",
+      "name": "Colors/Text/text-error-primary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:1f6ba95e6458d0b8e9a25819250780a25f81a6ff/6672:91": {
+      "key": "1f6ba95e6458d0b8e9a25819250780a25f81a6ff",
+      "name": "Component colors/Components/Application navigation/nav-item-icon-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:1fdd42977d51850b1d9031dbbd5da4447e35cc57/18046:1435": {
+      "key": "1fdd42977d51850b1d9031dbbd5da4447e35cc57",
+      "name": "Text/primary",
+      "resolvedType": "COLOR",
+      "collection": "Color"
+    },
+    "VariableID:205d91170182f270bf746c5b4da67f5d74551b35/4028:30": {
+      "key": "205d91170182f270bf746c5b4da67f5d74551b35",
+      "name": "red/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:2264a28a9e5d873d80a57a4f562109d17e1ff8d1/32891:2116": {
+      "key": "2264a28a9e5d873d80a57a4f562109d17e1ff8d1",
+      "name": "Color/Components/Buttons/Secondary/button-secondary-bg_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:22a3237309c5540bfb5065ca542276c4a12ded19/17440:645": {
+      "key": "22a3237309c5540bfb5065ca542276c4a12ded19",
+      "name": "color-text-placeholder-subtle",
+      "resolvedType": "COLOR",
+      "collection": "Font / Text"
+    },
+    "VariableID:22fc484b2c322ab23f6f9933cd43ed10f980b8f4/32891:439": {
+      "key": "22fc484b2c322ab23f6f9933cd43ed10f980b8f4",
+      "name": "color/red/100",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:236a07bce489096a8a9f353a537ab60d3a901756/4040:470": {
+      "key": "236a07bce489096a8a9f353a537ab60d3a901756",
+      "name": "pomegranate-red/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:23a6d93f4b34f3923d00107f3e52000ac9f558db/4040:456": {
+      "key": "23a6d93f4b34f3923d00107f3e52000ac9f558db",
+      "name": "viva-gold-orange/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:2430e2627469d21bb0cdb665354d9e34276c227b/32891:568": {
+      "key": "2430e2627469d21bb0cdb665354d9e34276c227b",
+      "name": "color/turquoise/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:24e08c1d1691a2e9d76358f13f9b37e215d94dce/4040:465": {
+      "key": "24e08c1d1691a2e9d76358f13f9b37e215d94dce",
+      "name": "dropped-brick-red/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:254aa1867c296243ff7fe2c928bf204965ee3fa5/4092:9": {
+      "key": "254aa1867c296243ff7fe2c928bf204965ee3fa5",
+      "name": "blue-grey/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:2581605cdcce045e090463fc651b594abbdbd77e/8429:1302": {
+      "key": "2581605cdcce045e090463fc651b594abbdbd77e",
+      "name": "Color/Background/bg-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:25b46428a76b274591a250495ff99414ed94cd72/4040:489": {
+      "key": "25b46428a76b274591a250495ff99414ed94cd72",
+      "name": "olive-green/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:27a11cda850cc0ddee57bc3d0297c6bcfaf21fad/32891:925": {
+      "key": "27a11cda850cc0ddee57bc3d0297c6bcfaf21fad",
+      "name": "color/mellow-melon-pink/900",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:285c31cd8933e46ebd96cdc2426ef29b1c920cfe/2215:89": {
+      "key": "285c31cd8933e46ebd96cdc2426ef29b1c920cfe",
+      "name": "color/grey/grey-800",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:2889f68b1926b948cc3d1c62888ad38846edb706/7255:95": {
+      "key": "2889f68b1926b948cc3d1c62888ad38846edb706",
+      "name": "Colors/Foreground/fg-brand-primary_alt",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:290c868621027b488cbc3b262619959bec52765f/7233:202": {
+      "key": "290c868621027b488cbc3b262619959bec52765f",
+      "name": "Border/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:290c868621027b488cbc3b262619959bec52765f/8620:3": {
+      "key": "290c868621027b488cbc3b262619959bec52765f",
+      "name": "Border/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:2918bf64cc3b00e091b70b4f8ad5a0daa5a06ca8/32889:135": {
+      "key": "2918bf64cc3b00e091b70b4f8ad5a0daa5a06ca8",
+      "name": "color/pacific-blue/900",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:29ccdfc2cdd659138e0b0c5eb564cbd55e3244dd/4040:371": {
+      "key": "29ccdfc2cdd659138e0b0c5eb564cbd55e3244dd",
+      "name": "kickstart-purple/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:2a17bf0f66bd86f1baca60e6d09c363332370452/13617:1536": {
+      "key": "2a17bf0f66bd86f1baca60e6d09c363332370452",
+      "name": "Status/success-primary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:2b20bf224c5b86a86d71bdec0dfb224047f59eec/8429:1420": {
+      "key": "2b20bf224c5b86a86d71bdec0dfb224047f59eec",
+      "name": "Color/Effects/Focus rings/focus-ring",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:2b8f16d4013bfd861473da887a8251e2f420c16d/4028:85": {
+      "key": "2b8f16d4013bfd861473da887a8251e2f420c16d",
+      "name": "blue/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31/7691:1": {
+      "key": "2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31",
+      "name": "Surface/neutral 2",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:2e6ee23fae4ad7e4a04311dcf453f1983264097c/16651:309": {
+      "key": "2e6ee23fae4ad7e4a04311dcf453f1983264097c",
+      "name": "letterspacing/wide/3",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:2e6ee23fae4ad7e4a04311dcf453f1983264097c/17323:364": {
+      "key": "2e6ee23fae4ad7e4a04311dcf453f1983264097c",
+      "name": "font-letterspacing-3",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:2f08c7c847c382110bedd5c81bf92f16f68ec332/6672:31": {
+      "key": "2f08c7c847c382110bedd5c81bf92f16f68ec332",
+      "name": "Colors/Border/border-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:2f375d4df1725ceab14cd46c0e22f15c80c58c12/16651:307": {
+      "key": "2f375d4df1725ceab14cd46c0e22f15c80c58c12",
+      "name": "letterspacing/wide/2",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:2f375d4df1725ceab14cd46c0e22f15c80c58c12/17323:363": {
+      "key": "2f375d4df1725ceab14cd46c0e22f15c80c58c12",
+      "name": "font-letterspacing-2",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:3065b8f895f6e530b30eac48f52b1456488c822b/13617:1667": {
+      "key": "3065b8f895f6e530b30eac48f52b1456488c822b",
+      "name": "Category/3-strong",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:30ca996707df5890bd9c49d0e20a7b3c6403cbb6/32891:616": {
+      "key": "30ca996707df5890bd9c49d0e20a7b3c6403cbb6",
+      "name": "color/blue/500",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:311259c51b37791301bd42d5415fb3df9b6c948b/2204:1412": {
+      "key": "311259c51b37791301bd42d5415fb3df9b6c948b",
+      "name": "white-black/black",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:3141f6eaa3e2e9f01ae4a85565596a00d8b369b6/2249:52": {
+      "key": "3141f6eaa3e2e9f01ae4a85565596a00d8b369b6",
+      "name": "Icon/color-icon-default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:31bcd7210b62d25549b80bbf8ebcc811834a46dc/2215:2502": {
+      "key": "31bcd7210b62d25549b80bbf8ebcc811834a46dc",
+      "name": "color/blue-grey/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:31d24ca860b7ec1ffec0adae32a7e46477a0b637/13617:1635": {
+      "key": "31d24ca860b7ec1ffec0adae32a7e46477a0b637",
+      "name": "Category/3-lower",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:31d9273fe4a6889d9aa135e630e754fe38655fcf/8429:14": {
+      "key": "31d9273fe4a6889d9aa135e630e754fe38655fcf",
+      "name": "Color/Effects/Shadows/shadow-md_01",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:323336335dd739b67dc58623d60cde96b6dcfbef/2215:2533": {
+      "key": "323336335dd739b67dc58623d60cde96b6dcfbef",
+      "name": "color/pomegranate-red/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:335d8643b7edb110f12b47ee2e8b18d124b8616a/7233:149": {
+      "key": "335d8643b7edb110f12b47ee2e8b18d124b8616a",
+      "name": "CoolGrey/10",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:341aeadc8853374214bd868b20491b3e61eab946/53122:3114": {
+      "key": "341aeadc8853374214bd868b20491b3e61eab946",
+      "name": "Text/text--on-color-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Theme"
+    },
+    "VariableID:3453e7fce242f89da89e9d9e5c34bd2957425b58/32886:90": {
+      "key": "3453e7fce242f89da89e9d9e5c34bd2957425b58",
+      "name": "Colors/Foreground/fg-senary (300)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:350a5a8168a24154e060a4acc32d639a97666c1d/4040:378": {
+      "key": "350a5a8168a24154e060a4acc32d639a97666c1d",
+      "name": "kickstart-purple/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:352a82d82fdf7044b9de69e29e6c27bf60c535a7/2204:1291": {
+      "key": "352a82d82fdf7044b9de69e29e6c27bf60c535a7",
+      "name": "grey/875",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:356425d7cb8ed1a525d773a5fa3568f7b890f0be/32889:612": {
+      "key": "356425d7cb8ed1a525d773a5fa3568f7b890f0be",
+      "name": "Component colors/Alpha/alpha-black-10",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:362f4d1398e7d94ed5df1bb716d7ee72190c2ec5/6672:23": {
+      "key": "362f4d1398e7d94ed5df1bb716d7ee72190c2ec5",
+      "name": "Colors/Text/text-placeholder",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:369482cc2cbcdf9c9b622491a2b8271281ce9711/6668:541": {
+      "key": "369482cc2cbcdf9c9b622491a2b8271281ce9711",
+      "name": "Colors/Foreground/fg-success-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:36fe4d517d319da2939cc24cbfe1562458679b10/4092:12": {
+      "key": "36fe4d517d319da2939cc24cbfe1562458679b10",
+      "name": "pacific-blue/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:373be9485052a278e51e0ce8920f4f5d9abedffb/32891:1977": {
+      "key": "373be9485052a278e51e0ce8920f4f5d9abedffb",
+      "name": "Color/Primary/500",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:38bcb6f44293493d6207b390485aaa4a18877891/2215:212": {
+      "key": "38bcb6f44293493d6207b390485aaa4a18877891",
+      "name": "color/blue/blue-100",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:38cff3504a97357910fe12de774117b9ba8ff55f/16651:320": {
+      "key": "38cff3504a97357910fe12de774117b9ba8ff55f",
+      "name": "lineheight/md",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:38cff3504a97357910fe12de774117b9ba8ff55f/17323:368": {
+      "key": "38cff3504a97357910fe12de774117b9ba8ff55f",
+      "name": "font-lineheight-md",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:396494d26e47a2127e9b0e006fb685c382c0e70e/2215:2560": {
+      "key": "396494d26e47a2127e9b0e006fb685c382c0e70e",
+      "name": "Colors/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:3b66f4c0686e87e63f580cdd93c333580a027f7f/4092:10": {
+      "key": "3b66f4c0686e87e63f580cdd93c333580a027f7f",
+      "name": "yellow/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:3b94e95065a0d2027b755047e101f193412ea51f/2215:2660": {
+      "key": "3b94e95065a0d2027b755047e101f193412ea51f",
+      "name": "color/green/800",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:3c002d57a47cf98e9d5ee8feb13d66eb54d67480/6672:73": {
+      "key": "3c002d57a47cf98e9d5ee8feb13d66eb54d67480",
+      "name": "Component colors/Utility/Gray/utility-gray-200",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:3c6d51084659248d03a9d38bb4aa5c13a9501d5e/53122:3157": {
+      "key": "3c6d51084659248d03a9d38bb4aa5c13a9501d5e",
+      "name": "Text/text-primary",
+      "resolvedType": "COLOR",
+      "collection": "Theme"
+    },
+    "VariableID:3cf7e9187805b68aea58ac9cf5e8affab58d42a8/2215:2602": {
+      "key": "3cf7e9187805b68aea58ac9cf5e8affab58d42a8",
+      "name": "color/red/400",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:3d040fd7f9fafa86548a3633514b0d0f05ceacf2/32891:1994": {
+      "key": "3d040fd7f9fafa86548a3633514b0d0f05ceacf2",
+      "name": "Color/Primary/700",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:3d106e4edc597cb0a423e2c6887e9c6e187fa011/32891:472": {
+      "key": "3d106e4edc597cb0a423e2c6887e9c6e187fa011",
+      "name": "color/orange/100",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:3dbe8fcde6e23ade3806e0a8a7a6315ea47ab605/449:614": {
+      "key": "3dbe8fcde6e23ade3806e0a8a7a6315ea47ab605",
+      "name": "Neutrals (Delete)/CoolGrey 110",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:3dbe8fcde6e23ade3806e0a8a7a6315ea47ab605/6:286": {
+      "key": "3dbe8fcde6e23ade3806e0a8a7a6315ea47ab605",
+      "name": "Neutrals/CoolGrey 110",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:3dcaaa7ab47eefe274129f94647b3649bde36778/10690:130": {
+      "key": "3dcaaa7ab47eefe274129f94647b3649bde36778",
+      "name": "Icon/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:3dcaaa7ab47eefe274129f94647b3649bde36778/13463:422": {
+      "key": "3dcaaa7ab47eefe274129f94647b3649bde36778",
+      "name": "Icon/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:3dcaaa7ab47eefe274129f94647b3649bde36778/7521:56": {
+      "key": "3dcaaa7ab47eefe274129f94647b3649bde36778",
+      "name": "Icon/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:3df5fc2465664300626185808e6871d7ca472b4d/4040:432": {
+      "key": "3df5fc2465664300626185808e6871d7ca472b4d",
+      "name": "shutters-green/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:3fffcfb0aa07846c09691cc5cb60ba622185639b/6672:48": {
+      "key": "3fffcfb0aa07846c09691cc5cb60ba622185639b",
+      "name": "Colors/Background/bg-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:40d20a7d60d5db924df9e5e6648180bf7e9c40a8/16651:260": {
+      "key": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+      "name": "family/text",
+      "resolvedType": "STRING",
+      "collection": "Font"
+    },
+    "VariableID:40d20a7d60d5db924df9e5e6648180bf7e9c40a8/17323:348": {
+      "key": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+      "name": "font-family-text",
+      "resolvedType": "STRING",
+      "collection": "Font / Text"
+    },
+    "VariableID:42de9688912eba9f040a9f1b8c305ce60baf2788/32891:2024": {
+      "key": "42de9688912eba9f040a9f1b8c305ce60baf2788",
+      "name": "Color/Border/border-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:430fa627031442eb60b0c63a98c84c74e63d7386/32886:67": {
+      "key": "430fa627031442eb60b0c63a98c84c74e63d7386",
+      "name": "Component colors/Components/Breadcrumbs/breadcrumb-bg_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:43473f279ee258f286f158c73b43100027efdfe5/16651:267": {
+      "key": "43473f279ee258f286f158c73b43100027efdfe5",
+      "name": "weight/regular",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:43473f279ee258f286f158c73b43100027efdfe5/17323:347": {
+      "key": "43473f279ee258f286f158c73b43100027efdfe5",
+      "name": "font-weight-regular",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:435234319122c8815a4fd9d02ac56d4771521b03/251:123": {
+      "key": "435234319122c8815a4fd9d02ac56d4771521b03",
+      "name": "Font/Size/Font size 20",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:4403eed908541b828c071e1ea5e3e0b6e59d2b08/32889:849": {
+      "key": "4403eed908541b828c071e1ea5e3e0b6e59d2b08",
+      "name": "spacing-sm",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:442146a4243580a451c5e8bc441b6f2520d2233c/32891:898": {
+      "key": "442146a4243580a451c5e8bc441b6f2520d2233c",
+      "name": "color/mellow-melon-pink/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:442f049ecec242ac8137ca153de1b2d4f372049b/6425:47": {
+      "key": "442f049ecec242ac8137ca153de1b2d4f372049b",
+      "name": "spacing-3xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:44b1e42c7d1d931fa3dd0b7d647c586eb5fb2d1d/32886:134": {
+      "key": "44b1e42c7d1d931fa3dd0b7d647c586eb5fb2d1d",
+      "name": "Component colors/Components/Breadcrumbs/breadcrumb-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:44d3df4a5948c6a110a3ade64c91a4190406f269/32891:529": {
+      "key": "44d3df4a5948c6a110a3ade64c91a4190406f269",
+      "name": "color/yellow/900",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:456d7af4357c5d2aea6f4387a054416a3f7f7339/6343:28": {
+      "key": "456d7af4357c5d2aea6f4387a054416a3f7f7339",
+      "name": "radius-md",
+      "resolvedType": "FLOAT",
+      "collection": "2. Radius"
+    },
+    "VariableID:4701f6f31f5c354bb06140aa903765c45b337bb6/4040:355": {
+      "key": "4701f6f31f5c354bb06140aa903765c45b337bb6",
+      "name": "singapore-orchid-purple/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:4795cd9110b860cee4eb5b96027892f149c8351a/32891:691": {
+      "key": "4795cd9110b860cee4eb5b96027892f149c8351a",
+      "name": "color/grey/800",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:48b650338bdb2c06892b496ba053bbfc3490da5a/2027:1247": {
+      "key": "48b650338bdb2c06892b496ba053bbfc3490da5a",
+      "name": "alias/color/text",
+      "resolvedType": "COLOR",
+      "collection": "Explorer"
+    },
+    "VariableID:4c5d3de4bbb1ef30efd3ae61c522e240d186b6c0/2215:2573": {
+      "key": "4c5d3de4bbb1ef30efd3ae61c522e240d186b6c0",
+      "name": "color/orange/400",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:4c77e51d6971b2ddfef932b4579a89c961b41713/32891:2025": {
+      "key": "4c77e51d6971b2ddfef932b4579a89c961b41713",
+      "name": "Color/Border/border-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:4cd604a4eb07bb6c76ea04be6602ebe005531243/13617:1631": {
+      "key": "4cd604a4eb07bb6c76ea04be6602ebe005531243",
+      "name": "Category/4-lower",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:4e162ce58017c691dde5ac14ae233929d299d1c3/4856:0": {
+      "key": "4e162ce58017c691dde5ac14ae233929d299d1c3",
+      "name": "Messaging & Status/color-success-primary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:4ea117ff0b08997bd082a81bf9698bc86bcdb413/6672:14": {
+      "key": "4ea117ff0b08997bd082a81bf9698bc86bcdb413",
+      "name": "Colors/Text/text-secondary (700)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:4f8c694b4d687f10e3a3bc7424370d896b645f10/38:8368": {
+      "key": "4f8c694b4d687f10e3a3bc7424370d896b645f10",
+      "name": "Color/Effects/Shadows/shadow-xs",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:500853c68461e83b747aca03d0edafe0eaa62d87/32891:682": {
+      "key": "500853c68461e83b747aca03d0edafe0eaa62d87",
+      "name": "color/grey/500",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:505fe0a40a3976b6ba7c9eb221b752454804926a/32889:253": {
+      "key": "505fe0a40a3976b6ba7c9eb221b752454804926a",
+      "name": "color/mellow-melon-pink/500",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:5128b6509e5edc4c7cf648f3931fe136c5f19f4a/7233:554": {
+      "key": "5128b6509e5edc4c7cf648f3931fe136c5f19f4a",
+      "name": "Graphic/lime1",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:5128b6509e5edc4c7cf648f3931fe136c5f19f4a/8403:63": {
+      "key": "5128b6509e5edc4c7cf648f3931fe136c5f19f4a",
+      "name": "Graphic/lime-highest",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:519c229237ee9a737ee50d197dbe71c6be836331/32891:1987": {
+      "key": "519c229237ee9a737ee50d197dbe71c6be836331",
+      "name": "Color/Primary/600",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:51f7c5574850b96ae338ecd7361740125b165678/192:114": {
+      "key": "51f7c5574850b96ae338ecd7361740125b165678",
+      "name": "Font/Letter Spacing/Default",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:51fee5038ca35b1210fe9fd204c565d3b046472c/2204:1309": {
+      "key": "51fee5038ca35b1210fe9fd204c565d3b046472c",
+      "name": "orange/300",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:52de705fdbef5396472563719a9a364f483897f5/16651:272": {
+      "key": "52de705fdbef5396472563719a9a364f483897f5",
+      "name": "size/sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:52de705fdbef5396472563719a9a364f483897f5/17323:354": {
+      "key": "52de705fdbef5396472563719a9a364f483897f5",
+      "name": "font-size-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:52f12135cfaefedbbd1a5de0bf13a35784a07705/32891:454": {
+      "key": "52f12135cfaefedbbd1a5de0bf13a35784a07705",
+      "name": "color/red/600",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:53121dcc229aec1487113eedba38b11081675e67/4092:1": {
+      "key": "53121dcc229aec1487113eedba38b11081675e67",
+      "name": "green/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:541e7219b525b2e465838795360ccc6a0adb8554/2204:1303": {
+      "key": "541e7219b525b2e465838795360ccc6a0adb8554",
+      "name": "red/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:54d9d36f7653380d99e9aadbad21e14f9dcdb295/8303:0": {
+      "key": "54d9d36f7653380d99e9aadbad21e14f9dcdb295",
+      "name": "Text/secondary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:5558adcb2fd6cd89bad373c6bf9f20ffe6898f96/32889:845": {
+      "key": "5558adcb2fd6cd89bad373c6bf9f20ffe6898f96",
+      "name": "spacing-lg",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:55cf006a6d7fdb82f01b4c10655be4e8ae56fee5/4028:87": {
+      "key": "55cf006a6d7fdb82f01b4c10655be4e8ae56fee5",
+      "name": "blue/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5676848be07ce5ce0c8b5184ba0b66b87f69b817/32891:931": {
+      "key": "5676848be07ce5ce0c8b5184ba0b66b87f69b817",
+      "name": "color/zima-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:5690821bb25fab74de2b7c020114ad2d3d9a9139/251:116": {
+      "key": "5690821bb25fab74de2b7c020114ad2d3d9a9139",
+      "name": "Font/Size/Font size 14",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:569517a31a12e81002cdd4dce20a1da143169ab4/2204:1377": {
+      "key": "569517a31a12e81002cdd4dce20a1da143169ab4",
+      "name": "pacific-blue/300",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:582659b4ca0f8e3758bdd3f73ffd999ce1e9bdeb/6343:30": {
+      "key": "582659b4ca0f8e3758bdd3f73ffd999ce1e9bdeb",
+      "name": "radius-sm",
+      "resolvedType": "FLOAT",
+      "collection": "2. Radius"
+    },
+    "VariableID:58d0d8863b9950c7e17666e0d49680a7f582d837/4040:475": {
+      "key": "58d0d8863b9950c7e17666e0d49680a7f582d837",
+      "name": "pomegranate-red/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:58e4faed9761f8d52749613897488bea232a04c5/6425:48": {
+      "key": "58e4faed9761f8d52749613897488bea232a04c5",
+      "name": "spacing-2xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:5950a1c645f0a8009bd75bbba44fab1c60c002f5/32891:601": {
+      "key": "5950a1c645f0a8009bd75bbba44fab1c60c002f5",
+      "name": "color/blue/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:5a19234859de38604dbdfc786274f661df9692e3/4028:40": {
+      "key": "5a19234859de38604dbdfc786274f661df9692e3",
+      "name": "orange/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5a7db9e69d77d4bd3060549bea2f24d7bd654c43/4092:11": {
+      "key": "5a7db9e69d77d4bd3060549bea2f24d7bd654c43",
+      "name": "olive-green/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5a7e452ee094abaac62002b0b0e3dd02776e0330/17314:553": {
+      "key": "5a7e452ee094abaac62002b0b0e3dd02776e0330",
+      "name": "Spacing/spacing-2xs",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:5aa01598801a6e7527259820979afbc547f3f568/4028:66": {
+      "key": "5aa01598801a6e7527259820979afbc547f3f568",
+      "name": "green/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5b81f09b624b854fb4913e66a38d7a183b9724a7/2204:1321": {
+      "key": "5b81f09b624b854fb4913e66a38d7a183b9724a7",
+      "name": "yellow/400",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:5c3d3ebbb834f8a0987908f8e62f304f8f056d2d/4039:198": {
+      "key": "5c3d3ebbb834f8a0987908f8e62f304f8f056d2d",
+      "name": "grey/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5c5feae57d5428af272fe6a24293087161991d9f/32891:670": {
+      "key": "5c5feae57d5428af272fe6a24293087161991d9f",
+      "name": "color/grey/100",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:5c68b5c04a65fc65d90f1cfca1259138a99c7b9b/6672:15": {
+      "key": "5c68b5c04a65fc65d90f1cfca1259138a99c7b9b",
+      "name": "Colors/Text/text-secondary_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:5d33f18eea164e63cf9c9307a6e257949b7bae8f/17321:35": {
+      "key": "5d33f18eea164e63cf9c9307a6e257949b7bae8f",
+      "name": "xl",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:5d633a6b4b9b2b7eae18b019c68d322eb353222c/4028:77": {
+      "key": "5d633a6b4b9b2b7eae18b019c68d322eb353222c",
+      "name": "turquoise/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:5d782ab7d42b692c299c159bd6237bd936b50b3b/6:337": {
+      "key": "5d782ab7d42b692c299c159bd6237bd936b50b3b",
+      "name": "Font/Weight/Medium",
+      "resolvedType": "STRING",
+      "collection": "Typography"
+    },
+    "VariableID:5db9f45c9fe8eaf1ea99604709b69ab787536e95/2204:1301": {
+      "key": "5db9f45c9fe8eaf1ea99604709b69ab787536e95",
+      "name": "red/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:5dd98aced7c008bc041d46c61457d95a14e6778d/32891:667": {
+      "key": "5dd98aced7c008bc041d46c61457d95a14e6778d",
+      "name": "color/grey/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:5e4a14ea19838143375783d6a9d6d80c1ef860e1/32891:2118": {
+      "key": "5e4a14ea19838143375783d6a9d6d80c1ef860e1",
+      "name": "Color/Components/Buttons/Secondary/button-secondary-border",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:5f7c971b8a2b554781a19b14afab8f912727fde4/10700:73": {
+      "key": "5f7c971b8a2b554781a19b14afab8f912727fde4",
+      "name": "Base/selected-default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:60395c3487b850c9d8aca74b053a50de99cc82e2/4092:24": {
+      "key": "60395c3487b850c9d8aca74b053a50de99cc82e2",
+      "name": "cool-grey/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:61a32fc5a7206a676f294fa54977eb0b436b842d/2215:2664": {
+      "key": "61a32fc5a7206a676f294fa54977eb0b436b842d",
+      "name": "color/blue-grey/800",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:61a6d482f8ef16424f3231e6a6c05b585f7794a3/4028:114": {
+      "key": "61a6d482f8ef16424f3231e6a6c05b585f7794a3",
+      "name": "blue/900",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:61d860511e4a60729a60be8cac3f19056e7d85da/32889:136": {
+      "key": "61d860511e4a60729a60be8cac3f19056e7d85da",
+      "name": "color/zima-blue/900",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:6223710fcf8e6d65be75c1b3278f0c4decfb9d11/32891:694": {
+      "key": "6223710fcf8e6d65be75c1b3278f0c4decfb9d11",
+      "name": "color/grey/900",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:625f07475c9a7590fb985606deebd0a4469d006b/6:341": {
+      "key": "625f07475c9a7590fb985606deebd0a4469d006b",
+      "name": "Font/Weight/Regular",
+      "resolvedType": "STRING",
+      "collection": "Typography"
+    },
+    "VariableID:628d8250294137cdc8e58af772cf02fc37bc94cc/4040:476": {
+      "key": "628d8250294137cdc8e58af772cf02fc37bc94cc",
+      "name": "pomegranate-red/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:62c24a016d61f82a67ee62a403fcd9abc22e5b9c/17324:320": {
+      "key": "62c24a016d61f82a67ee62a403fcd9abc22e5b9c",
+      "name": "color-icon-default",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:63525a88cbfd15f1fbecee3bb17107be18ba9e38/32886:33": {
+      "key": "63525a88cbfd15f1fbecee3bb17107be18ba9e38",
+      "name": "Colors/Border/border-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524/17314:524": {
+      "key": "6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524",
+      "name": "border-width-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:64a135f10a57d9b2dc5db238f4d29f7f1d95b3bd/4028:65": {
+      "key": "64a135f10a57d9b2dc5db238f4d29f7f1d95b3bd",
+      "name": "green/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:64b614f6cf880de788049685e0ba28c12f867edb/2204:1287": {
+      "key": "64b614f6cf880de788049685e0ba28c12f867edb",
+      "name": "grey/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:652f726d0d62b7ed677411991dd89738f85243fc/409:39": {
+      "key": "652f726d0d62b7ed677411991dd89738f85243fc",
+      "name": "zds/color/base/black",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:652f726d0d62b7ed677411991dd89738f85243fc/641:241": {
+      "key": "652f726d0d62b7ed677411991dd89738f85243fc",
+      "name": "zds/color/base/black",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:655cae00ea0a2afb3738e7c55aab97b15ef4ec8e/32891:2004": {
+      "key": "655cae00ea0a2afb3738e7c55aab97b15ef4ec8e",
+      "name": "Color/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:66cad5d5661b0ba35e54619637ca389566127728/2003:77": {
+      "key": "66cad5d5661b0ba35e54619637ca389566127728",
+      "name": "Grey/10",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:675cc07b858224c17fbc1d92a5f0048cdff90b18/13617:1680": {
+      "key": "675cc07b858224c17fbc1d92a5f0048cdff90b18",
+      "name": "Category/2-stronger",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:68a0f6a30c3d07a47634db8db95e6634f9316c6d/13617:1603": {
+      "key": "68a0f6a30c3d07a47634db8db95e6634f9316c6d",
+      "name": "Data Viz (WIP)/Sequential/indigo4",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:690ce9bbe1debf6e90a2a822bdf545e93801cc02/18046:1441": {
+      "key": "690ce9bbe1debf6e90a2a822bdf545e93801cc02",
+      "name": "Background (bg)/default",
+      "resolvedType": "COLOR",
+      "collection": "Color"
+    },
+    "VariableID:6a47c133d6fb049f3dc2d86b127798b1b489d64d/13617:1675": {
+      "key": "6a47c133d6fb049f3dc2d86b127798b1b489d64d",
+      "name": "Primary/neutral",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:6ba0caf19dba09d2137a167d28f119e9af19fa64/32891:209": {
+      "key": "6ba0caf19dba09d2137a167d28f119e9af19fa64",
+      "name": "spacing-none",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:6c479756a25ed57ab2c0efd5afa536151558cd4e/33326:1": {
+      "key": "6c479756a25ed57ab2c0efd5afa536151558cd4e",
+      "name": "Font family/font-family-body",
+      "resolvedType": "STRING",
+      "collection": "6. Typography"
+    },
+    "VariableID:6d55d06f1fcec8652695bfbf85c94e077099a391/32891:685": {
+      "key": "6d55d06f1fcec8652695bfbf85c94e077099a391",
+      "name": "color/grey/600",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:6d592dfa1a57e1f20e104df00006ea023f22700a/32889:528": {
+      "key": "6d592dfa1a57e1f20e104df00006ea023f22700a",
+      "name": "Colors/Text/text-secondary (700)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:6d65f9865e1f71f5bcc09153035163d9fe94fda0/14744:9": {
+      "key": "6d65f9865e1f71f5bcc09153035163d9fe94fda0",
+      "name": "Overlay/default",
+      "resolvedType": "COLOR",
+      "collection": "Color"
+    },
+    "VariableID:6dc7e6df2308964fc1cea20c36f14e55069c982b/32889:65": {
+      "key": "6dc7e6df2308964fc1cea20c36f14e55069c982b",
+      "name": "color/mellow-melon-pink/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:6eccc2182a7f0a397252fc169e871b1e56209043/7255:122": {
+      "key": "6eccc2182a7f0a397252fc169e871b1e56209043",
+      "name": "Component colors/Components/Buttons/Tertiary color/button-tertiary-color-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:6f8c893a5e73838ab01136daf8789db4b9fd7d8a/32891:397": {
+      "key": "6f8c893a5e73838ab01136daf8789db4b9fd7d8a",
+      "name": "color/base/black",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:7005:31": {
+      "key": "5a7e452ee094abaac62002b0b0e3dd02776e0330",
+      "name": "Spacing/spacing-2xs",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7005:32": {
+      "key": "9c98ee0ee8b9464165738d761e12dbdba0f60a09",
+      "name": "Spacing/spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7005:33": {
+      "key": "0ed0efbb23a84581762b07154031014525c51a2a",
+      "name": "Spacing/spacing-md",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7005:34": {
+      "key": "ac5c5c8d7ba29924dcbdc4734dd5b8d91767d007",
+      "name": "Spacing/spacing-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7005:35": {
+      "key": "25f333ee5dde5e89b28afa9cb249018b760089fa",
+      "name": "Spacing/spacing-xl",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7006:42": {
+      "key": "ec06f930c29f71f61c422403881ef3f7962f9813",
+      "name": "Neutral/White",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:7006:43": {
+      "key": "4c58eea4aabd940b32d851f30b9ab3aa314a9852",
+      "name": "Neutral/Black",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:7006:45": {
+      "key": "7d02b6fef1716b1b299abbfff851402f8091c1c5",
+      "name": "CoolGrey/15",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:7006:53": {
+      "key": "869fe72690a9853b77bfdd19b35d9c92023ddc7d",
+      "name": "CoolGrey/90",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:7006:55": {
+      "key": "0b000953a8f45492b04d1c081a3951d03e58251d",
+      "name": "CoolGrey/110",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:700916192a6d065d6ef67e03b408bb64df67640a/32891:2160": {
+      "key": "700916192a6d065d6ef67e03b408bb64df67640a",
+      "name": "Color/Components/Icons/Featured icons/Light/featured-icon-light-fg-gray",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:70601bc06e07e748704235e617b4f7ca9ea8fb81/17314:517": {
+      "key": "70601bc06e07e748704235e617b4f7ca9ea8fb81",
+      "name": "border-radius-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:7101fea46363f53bc4335053770d3ae89f0808cf/7011:14": {
+      "key": "7101fea46363f53bc4335053770d3ae89f0808cf",
+      "name": "Merck/Sensitive yellow",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:713c18aa933ad70fe29a9fe312aceb18ebd9ea2d/2027:932": {
+      "key": "713c18aa933ad70fe29a9fe312aceb18ebd9ea2d",
+      "name": "Primitives/grey/700",
+      "resolvedType": "COLOR",
+      "collection": "_Color Primitives"
+    },
+    "VariableID:713c18aa933ad70fe29a9fe312aceb18ebd9ea2d/2215:2631": {
+      "key": "713c18aa933ad70fe29a9fe312aceb18ebd9ea2d",
+      "name": "color/grey/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:714b74a250c7b4c8ab52c1c2da6b7998fe9d7e4a/2204:1333": {
+      "key": "714b74a250c7b4c8ab52c1c2da6b7998fe9d7e4a",
+      "name": "olive-green/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:7195:1358": {
+      "key": "d4cb1c5b38dd4b09395696724bbdfe6046b156f3",
+      "name": "Status/success-secondary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1359": {
+      "key": "b8c56f1d09375fd2087f84d74c0c5d5af119ed5c",
+      "name": "Status/success-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1361": {
+      "key": "5cad2e9c1d6882fea96e6c0f00d3f2aa9c8adf18",
+      "name": "Status/warning-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1363": {
+      "key": "bc472063267d7d69f837a57c80df56f73d64c577",
+      "name": "Status/error-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1364": {
+      "key": "f7ad3100ff05e64ccaead66803680ff5981ae474",
+      "name": "Annotation/annotation",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1365": {
+      "key": "676c39f76d7abe409b803ab3db0c7c8aed9fa454",
+      "name": "Status/info-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1366": {
+      "key": "2680dc77efc74b4b1b58fa50bc31e521cf3952f3",
+      "name": "Status/info-secondary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1367": {
+      "key": "1bf45199a98ba08a96c8b1c97e2eff6c14c16c0a",
+      "name": "Status/inactive-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1368": {
+      "key": "290c868621027b488cbc3b262619959bec52765f",
+      "name": "Border/default",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1370": {
+      "key": "cb3cf6a8b661f3a2ff12835120957f3278d329d0",
+      "name": "text/color-text-default",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1371": {
+      "key": "54d9d36f7653380d99e9aadbad21e14f9dcdb295",
+      "name": "text/color-text-secondary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1373": {
+      "key": "805afec875092b89deebe685e17992963d603974",
+      "name": "bg/default",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1374": {
+      "key": "62257cce2f8b13cca0c39739e79569c69f22b028",
+      "name": "bg/subtle",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1377": {
+      "key": "bde5bde6b2154905d8abf633cc72b76b604f27e8",
+      "name": "Border/stronger",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1385": {
+      "key": "a256595115f6048a1e1c843e3099a79a5c259288",
+      "name": "primary/500",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1386": {
+      "key": "b872d6cde755b572810b320078577156c415065d",
+      "name": "Border/subtle",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1387": {
+      "key": "d9bfdc4269806c57cb39ec6fe8a2b8436ce17c65",
+      "name": "Text/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1420": {
+      "key": "a001f07eac22fb2bbf523c61631d53731761e6c6",
+      "name": "Data Viz (WIP)/Categorical/color-data-category2",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1425": {
+      "key": "e02131bd841330a0c6d98208c4230bb2c221e44e",
+      "name": "Data Viz (WIP)/Categorical/color-data-category7",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1430": {
+      "key": "ef0ef2deb691cfdf317418ec09650c550efc82d6",
+      "name": "Data Viz (WIP)/Diverging/color-data-diverging2",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1454": {
+      "key": "3dcaaa7ab47eefe274129f94647b3649bde36778",
+      "name": "icon/default",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1455": {
+      "key": "f6875e0de54f754962777341d5b605ee585eade2",
+      "name": "Icon/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1457": {
+      "key": "2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31",
+      "name": "bg/muted",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1458": {
+      "key": "14b9d4d27ae515bfcae31f516892494c6a8a8d3c",
+      "name": "Interactive/hovered-secodary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1461": {
+      "key": "f32a8d87ca6d1865ae75469178f808f70e0cf895",
+      "name": "Interactive/dragged-secodary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1462": {
+      "key": "110d55f885c009b21caa47ae0545373c79a3930a",
+      "name": "Interactive/selected-secodary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1463": {
+      "key": "226235904cc0141fd82410af0e31b32cd59d1591",
+      "name": "Interactive/disabled-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7195:1464": {
+      "key": "817090c8ce118eaa4deb1dbd50be8921a30b47d6",
+      "name": "Interactive/disabled-secodary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:719af7a1bb97c0c305ee693138f2d9f6ad51b89f/6672:29": {
+      "key": "719af7a1bb97c0c305ee693138f2d9f6ad51b89f",
+      "name": "Colors/Border/border-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:7233:2887": {
+      "key": "46bce1837762c1b333605be4f66639a87eb23e72",
+      "name": "Data Viz (WIP)/Sequential/indigo4",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2898": {
+      "key": "9a53de66e8a73662b626ee798951fe22873c259b",
+      "name": "Data Viz (WIP)/Sequential/teal3",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2929": {
+      "key": "54efe8c511336ec321a17158ab5c5cd3e62d4afa",
+      "name": "Category/5-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2949": {
+      "key": "fbde0edc41e27723007f7da758fd0fd9acaf357a",
+      "name": "Category/4-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2950": {
+      "key": "02b0559bf41e90ca4e1ba93b82642b7a9feaf447",
+      "name": "Graphic/purple-strongest",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2959": {
+      "key": "6ca13b6b587c3932001702849e77a58a3a72f1d4",
+      "name": "Category/2-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2960": {
+      "key": "96010552ef142676967216fd8de026cb08fb1081",
+      "name": "Graphic/indigo-strongest",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2968": {
+      "key": "74016c01c5eb724a956ac7a27e95fe4a6dc6ee63",
+      "name": "Category/3-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2976": {
+      "key": "aaa364c84a670e9731af28398d91fbfee3bdc882",
+      "name": "Category/6-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7233:2998": {
+      "key": "844690c754dd02e452a2a58151ddc18d5809315d",
+      "name": "Category/7-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7242:9655": {
+      "key": "e66ce98f5c4aa3f1db4a1b0d41afc7e2cbda3672",
+      "name": "Interactive/enabled-primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7243:3538": {
+      "key": "d7763f4f65a64f22ef013ddeb6c683faf03179c9",
+      "name": "focus border",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:7250:2549": {
+      "key": "0dace0dc11a0f6f627c27597c094dcb0ad2c2a15",
+      "name": "icon/success",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7257:3118": {
+      "key": "a45b7c64a878ea9b55ee3d4ee7849789b1e1ad79",
+      "name": "Category/1-lower",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7257:3121": {
+      "key": "e5ca40e8181d8151426841107ca87aed52c58314",
+      "name": "Graphic/neutral-low",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7271:4731": {
+      "key": "3babe95aab2440a14c4c9abcf5a2dde38e8279c8",
+      "name": "icon/primary",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:7348d407c02ced0be90f1a873b5a532041a4bdc4/3890:22": {
+      "key": "7348d407c02ced0be90f1a873b5a532041a4bdc4",
+      "name": "radius-sm",
+      "resolvedType": "FLOAT",
+      "collection": "2. Radius"
+    },
+    "VariableID:7364:2810": {
+      "key": "cd45477161cdd7b8131362f3ce24a6c5e9368036",
+      "name": "Focus",
+      "resolvedType": "FLOAT",
+      "collection": "Focus"
+    },
+    "VariableID:73edcad1992b5b980b2e9c7fa975f923a6ac247f/32889:31": {
+      "key": "73edcad1992b5b980b2e9c7fa975f923a6ac247f",
+      "name": "color/red/500",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:742f3abcd09dba7d186f946bd2e6d74d389df293/4077:9": {
+      "key": "742f3abcd09dba7d186f946bd2e6d74d389df293",
+      "name": "cool-grey/900",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:7437:13005": {
+      "key": "e86ac4c8021b3e15db45761ae05a0d415e08d737",
+      "name": "border-radius-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:7527:48691": {
+      "key": "01e1a9205cfe978d27f414eb3212fecd2b9c8a6e",
+      "name": "Background (bg)/neutral 3",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:768097945cef9de328daf099d6c64029cd6df326/4040:356": {
+      "key": "768097945cef9de328daf099d6c64029cd6df326",
+      "name": "singapore-orchid-purple/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:76a09b60359d7479d1e92b87ca8dcbb2799d4583/7:437": {
+      "key": "76a09b60359d7479d1e92b87ca8dcbb2799d4583",
+      "name": "Font/Letter Spacing/Loose 1",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:76cd27e7aaa33de4ce46b7836662bf961a4dafc3/2204:1281": {
+      "key": "76cd27e7aaa33de4ce46b7836662bf961a4dafc3",
+      "name": "grey/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:7720740f194d3caa9a78fdee1fd5b59eca87b864/2215:2629": {
+      "key": "7720740f194d3caa9a78fdee1fd5b59eca87b864",
+      "name": "color/base/white",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:7836607a62f32b71f0fd9fe9777d8bc9d36a2542/32889:26": {
+      "key": "7836607a62f32b71f0fd9fe9777d8bc9d36a2542",
+      "name": "color/mellow-melon-pink/200",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:7957f90fc490c5ce0529bb38bf3f41cd1ed70ed2/2215:2571": {
+      "key": "7957f90fc490c5ce0529bb38bf3f41cd1ed70ed2",
+      "name": "color/orange/500",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:79c9beb4e0bf1eef6ede8cac3fdce8039936d693/2215:2542": {
+      "key": "79c9beb4e0bf1eef6ede8cac3fdce8039936d693",
+      "name": "color/blue/25",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:7abc99daa69be7a40babf669fc22567380524a04/4028:46": {
+      "key": "7abc99daa69be7a40babf669fc22567380524a04",
+      "name": "orange/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:7ad547980956969d68d5403689a21ecb9115945e/17460:17": {
+      "key": "7ad547980956969d68d5403689a21ecb9115945e",
+      "name": "color-bg-success",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:7b0617ec83df9281657947e20ec355754813f52f/6672:98": {
+      "key": "7b0617ec83df9281657947e20ec355754813f52f",
+      "name": "Component colors/Components/Breadcrumbs/breadcrumb-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:7b75bc61e36b10eea55be4c7d24891187c4e4bce/2003:93": {
+      "key": "7b75bc61e36b10eea55be4c7d24891187c4e4bce",
+      "name": "Grey/80",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:7d508768f9a5cddb4681d3b0800206e55c8d7621/6672:60": {
+      "key": "7d508768f9a5cddb4681d3b0800206e55c8d7621",
+      "name": "Colors/Background/bg-quaternary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:7ed719449b69f5c9406ff3469b87458457ccbac5/32891:2135": {
+      "key": "7ed719449b69f5c9406ff3469b87458457ccbac5",
+      "name": "Color/Components/Buttons/Primary error/button-primary-error-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:7f144060ccb5c8011f891c464fce92e1e5d1495f/32891:505": {
+      "key": "7f144060ccb5c8011f891c464fce92e1e5d1495f",
+      "name": "color/yellow/100",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:7f92372458688e9a89bfb22ff623a0eecdf0c4f7/32891:2110": {
+      "key": "7f92372458688e9a89bfb22ff623a0eecdf0c4f7",
+      "name": "Color/Components/Buttons/Primary/button-primary-bg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:804e6f01b5506811cd5a03720042d552811b8c44/6425:54": {
+      "key": "804e6f01b5506811cd5a03720042d552811b8c44",
+      "name": "spacing-xxs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:805afec875092b89deebe685e17992963d603974/7233:313": {
+      "key": "805afec875092b89deebe685e17992963d603974",
+      "name": "Surface/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:805afec875092b89deebe685e17992963d603974/7691:3": {
+      "key": "805afec875092b89deebe685e17992963d603974",
+      "name": "Surface/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:8183fef44bec954ccfa86bb1cfd22b34d1a25c0c/13617:1633": {
+      "key": "8183fef44bec954ccfa86bb1cfd22b34d1a25c0c",
+      "name": "Category/2-lower",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:81d20b096e66934261cb800cfb6aae04f9105dfc/4040:488": {
+      "key": "81d20b096e66934261cb800cfb6aae04f9105dfc",
+      "name": "olive-green/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:82fbd3e757a1594d431202b189a4a1d3d6ff2924/4092:2": {
+      "key": "82fbd3e757a1594d431202b189a4a1d3d6ff2924",
+      "name": "orange/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:8322:2048": {
+      "key": "c2c0376490a69426cedfdcb1ab2a6d531b626fdf",
+      "name": "Category/2-strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8322:2053": {
+      "key": "9997cab3913a4dfbcb8729e5a11bd21f14f16b86",
+      "name": "Category/3-strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8322:2072": {
+      "key": "eac2d5774c2afa0239f67512a120dd64d827a33f",
+      "name": "Category/6-strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8326:2076": {
+      "key": "6d2a82ddcd9dabd2ceeb8c5805bb824a6eecaccb",
+      "name": "Category/8-strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8326:2084": {
+      "key": "a6da1a364e8613bd146667f77efa03ee7ea39305",
+      "name": "Category/1-strong",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8338:5582": {
+      "key": "0551ac90ccea27266461ad075d82b61b6368b5d9",
+      "name": "Primary/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8338:5586": {
+      "key": "92a7777cea0531df5270190020766d02d31e3325",
+      "name": "Primary/neutral",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8370496d5861f62fdc66482261f52562001930bc/32891:2059": {
+      "key": "8370496d5861f62fdc66482261f52562001930bc",
+      "name": "Color/Background/bg-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:83a4f88c13b5958b4628dbf49fd85233ec9da5aa/13617:1654": {
+      "key": "83a4f88c13b5958b4628dbf49fd85233ec9da5aa",
+      "name": "Category/1-lower",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:8403:2124": {
+      "key": "b55492a8e36ebf065405415280556f7a2ad023cd",
+      "name": "Category/2-stronger",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8403:2626": {
+      "key": "e275b869b7768f86f651457258d34e592ada71da",
+      "name": "Category/2-low",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8403:2708": {
+      "key": "db06d2d0d2b6c9301c142faf146b8cd71f82a9cd",
+      "name": "Category/3-stronger",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8403:2712": {
+      "key": "b98caff09aa9caa95c84d5074a5ee4f008b72b85",
+      "name": "Category/3-low",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:8403:3502": {
+      "key": "d47bcb154facaf734f3881f7cfaecbea0ffffa59",
+      "name": "Category/1-low",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:84c6369002aae28b710dd63fd020e236a394a864/4040:415": {
+      "key": "84c6369002aae28b710dd63fd020e236a394a864",
+      "name": "frosted-glass-green/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:85096842733218e209c6300188ffc7e751111342/32891:2114": {
+      "key": "85096842733218e209c6300188ffc7e751111342",
+      "name": "Color/Components/Buttons/Secondary/button-secondary-fg_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:85db36716a807a702a419fcf16c7f2ff146056e9/4092:7": {
+      "key": "85db36716a807a702a419fcf16c7f2ff146056e9",
+      "name": "turquoise/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:8740bdba8251a8711baff6dfb8c222e3f5a56ef7/6671:311": {
+      "key": "8740bdba8251a8711baff6dfb8c222e3f5a56ef7",
+      "name": "Colors/Gray (light mode)/300",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:87fc6e7e71ebef25c1cddae7766ca71f25cb6c81/32891:2105": {
+      "key": "87fc6e7e71ebef25c1cddae7766ca71f25cb6c81",
+      "name": "Color/Components/Breadcrumbs/breadcrumb-icon-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:88e8713bbd02f8677b15d1d5a9b3c44ea064dddc/4040:487": {
+      "key": "88e8713bbd02f8677b15d1d5a9b3c44ea064dddc",
+      "name": "olive-green/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:89167caabbab9b64a48bfdbafb24e9c710b997be/2215:2514": {
+      "key": "89167caabbab9b64a48bfdbafb24e9c710b997be",
+      "name": "color/blue-grey/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:8a6be8e9001aeed461ad0c9621e088cdc797e5a3/2204:1283": {
+      "key": "8a6be8e9001aeed461ad0c9621e088cdc797e5a3",
+      "name": "grey/200",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:8b8835efc16c8a8afad9a9a6504ea232e5cfdaf0/32891:394": {
+      "key": "8b8835efc16c8a8afad9a9a6504ea232e5cfdaf0",
+      "name": "color/base/white",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:8bed189e8e18859a9dbe4c7f7139043fa43c456d/4040:349": {
+      "key": "8bed189e8e18859a9dbe4c7f7139043fa43c456d",
+      "name": "singapore-orchid-purple/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:8c082c96ec6dc51935836a839b88c5ba3d41a24f/32889:17": {
+      "key": "8c082c96ec6dc51935836a839b88c5ba3d41a24f",
+      "name": "color/mellow-melon-pink/50",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:8c7657bf7c24021bf2b0d1b0892830c6d715bf60/17460:18": {
+      "key": "8c7657bf7c24021bf2b0d1b0892830c6d715bf60",
+      "name": "color-bg-warning",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:8d2357ddaff680518b6af44ff9cf03f14653bf22/4092:8": {
+      "key": "8d2357ddaff680518b6af44ff9cf03f14653bf22",
+      "name": "purple/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:8e625b4d4a5ba0f636a6347e9e5b46283250ea73/7011:0": {
+      "key": "8e625b4d4a5ba0f636a6347e9e5b46283250ea73",
+      "name": "Merck/Rich purple",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:8e8b332993e629e50e11184d297276995d9a53af/17321:34": {
+      "key": "8e8b332993e629e50e11184d297276995d9a53af",
+      "name": "lg",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:91d0303ccd4122a8d5c4574633a2485e94e4cc7b/8429:7": {
+      "key": "91d0303ccd4122a8d5c4574633a2485e94e4cc7b",
+      "name": "Color/Effects/Shadows/shadow-sm_02",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:920c93887eb9636812f9820489279577134be788/32889:90": {
+      "key": "920c93887eb9636812f9820489279577134be788",
+      "name": "color/red/25",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:93448c875dbe9d29e1a35e0d154e508ab79fd1a9/6672:12": {
+      "key": "93448c875dbe9d29e1a35e0d154e508ab79fd1a9",
+      "name": "Colors/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:968b28ed283392daa15ec04f0215ba3848afe650/4028:88": {
+      "key": "968b28ed283392daa15ec04f0215ba3848afe650",
+      "name": "purple/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:96b67a03d6efcc872f4038cc5c7a4983a4b81180/2215:2671": {
+      "key": "96b67a03d6efcc872f4038cc5c7a4983a4b81180",
+      "name": "color/green/300",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:96f69added0e5e58d02f4aaef4b05f02d6158cec/17314:520": {
+      "key": "96f69added0e5e58d02f4aaef4b05f02d6158cec",
+      "name": "border-radius-full",
+      "resolvedType": "FLOAT",
+      "collection": "Borders"
+    },
+    "VariableID:985b2ca68ae075e126b50bc53b377b13fd31a298/17324:295": {
+      "key": "985b2ca68ae075e126b50bc53b377b13fd31a298",
+      "name": "size-icon-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Icon"
+    },
+    "VariableID:98df95e79491fc691f5a002c445e447ca8afbf23/2215:2603": {
+      "key": "98df95e79491fc691f5a002c445e447ca8afbf23",
+      "name": "color/red/600",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:991bdb7e75e382eec42cbc79bc3d4f98c8c9c583/2215:2518": {
+      "key": "991bdb7e75e382eec42cbc79bc3d4f98c8c9c583",
+      "name": "color/blue-grey/25",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:997efedb8b3d309d5c58877ca87a605d0617b9e2/4040:410": {
+      "key": "997efedb8b3d309d5c58877ca87a605d0617b9e2",
+      "name": "zima-blue/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:99d428d9b93620cbba4e9c5d1f10358a8e439220/13617:1541": {
+      "key": "99d428d9b93620cbba4e9c5d1f10358a8e439220",
+      "name": "Annotation/annotation",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:9b3f9a846657c2bb38ee0a698079f5035b9c8b65/3890:20": {
+      "key": "9b3f9a846657c2bb38ee0a698079f5035b9c8b65",
+      "name": "radius-md",
+      "resolvedType": "FLOAT",
+      "collection": "2. Radius"
+    },
+    "VariableID:9beeda7c91b8ca41170d3781bfbe2648c394a22c/4040:354": {
+      "key": "9beeda7c91b8ca41170d3781bfbe2648c394a22c",
+      "name": "singapore-orchid-purple/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:9c2781af206c82b9818008ad5fbc93772f2807b2/7233:123": {
+      "key": "9c2781af206c82b9818008ad5fbc93772f2807b2",
+      "name": "Neutral/White",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:9c29dc56632e42c5d1057c300b7e7527e5f53dcf/2027:1249": {
+      "key": "9c29dc56632e42c5d1057c300b7e7527e5f53dcf",
+      "name": "alias/color/text-light",
+      "resolvedType": "COLOR",
+      "collection": "Explorer"
+    },
+    "VariableID:9c5545c17f1c4960742b59e71f139700915614f1/4040:401": {
+      "key": "9c5545c17f1c4960742b59e71f139700915614f1",
+      "name": "pacific-blue/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:9c907529a3eaf6fd31becf52bda41ab0dbb19b17/6425:53": {
+      "key": "9c907529a3eaf6fd31becf52bda41ab0dbb19b17",
+      "name": "spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:9c98ee0ee8b9464165738d761e12dbdba0f60a09/17314:554": {
+      "key": "9c98ee0ee8b9464165738d761e12dbdba0f60a09",
+      "name": "Spacing/spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:9de91482675767dd5bcf703f2c3687a814f4ec5a/32891:2048": {
+      "key": "9de91482675767dd5bcf703f2c3687a814f4ec5a",
+      "name": "Color/Foreground/fg-brand-primary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:9fd3ebbba56de049cd05b37a72b6f73a99107fb3/4077:1": {
+      "key": "9fd3ebbba56de049cd05b37a72b6f73a99107fb3",
+      "name": "cool-grey/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:a077d74f76e47a70a17a4be7768f60680800884d/32889:853": {
+      "key": "a077d74f76e47a70a17a4be7768f60680800884d",
+      "name": "spacing-2xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:a1693f75e49f7a1bb9a31371bee24a030150e99c/32891:2171": {
+      "key": "a1693f75e49f7a1bb9a31371bee24a030150e99c",
+      "name": "Color/Components/Mockups/screen-mockup-border",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:a17afe7a5ac7f352da5f3a09887e9ca83f2d93e3/2215:2504": {
+      "key": "a17afe7a5ac7f352da5f3a09887e9ca83f2d93e3",
+      "name": "color/blue-grey/600",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:a2dd7c44d4d15e8d235c8fd07b4d6ac932c420a7/39:28": {
+      "key": "a2dd7c44d4d15e8d235c8fd07b4d6ac932c420a7",
+      "name": "Font/Family/Sans Serif",
+      "resolvedType": "STRING",
+      "collection": "Typography"
+    },
+    "VariableID:a4c96b63c0feaba2cfb88c2004d196501f295606/6672:42": {
+      "key": "a4c96b63c0feaba2cfb88c2004d196501f295606",
+      "name": "Colors/Foreground/fg-quinary (400)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:a5005e60b8b0c511467e2b29bbf168762bc2f4aa/32891:688": {
+      "key": "a5005e60b8b0c511467e2b29bbf168762bc2f4aa",
+      "name": "color/grey/700",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:a612575fbb2baee0647b9efc5b706902b4c06332/13617:1547": {
+      "key": "a612575fbb2baee0647b9efc5b706902b4c06332",
+      "name": "Text/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:a6a937a5c990a0b79452a65993f338ce18331e0c/32889:846": {
+      "key": "a6a937a5c990a0b79452a65993f338ce18331e0c",
+      "name": "spacing-md",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:a881cacc79249379ef9a026df6bd64e2b8529bb7/32891:2112": {
+      "key": "a881cacc79249379ef9a026df6bd64e2b8529bb7",
+      "name": "Color/Components/Buttons/Primary/button-primary-bg_selected",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:a930d8363980e71138adcf4c88c937f66f63902c/6672:83": {
+      "key": "a930d8363980e71138adcf4c88c937f66f63902c",
+      "name": "Component colors/Utility/Gray/utility-gray-700",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:a94ec3b6df6adbfd7e02954ac837cf8fc039a7a6/32891:751": {
+      "key": "a94ec3b6df6adbfd7e02954ac837cf8fc039a7a6",
+      "name": "color/pacific-blue/600",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:a9849c648211cda5788a069f5bacbde69606cf32/4040:421": {
+      "key": "a9849c648211cda5788a069f5bacbde69606cf32",
+      "name": "frosted-glass-green/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:a9abf2050dbf54e99e792e812b50a9f97643eed7/6425:50": {
+      "key": "a9abf2050dbf54e99e792e812b50a9f97643eed7",
+      "name": "spacing-lg",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:a9b7baca751db666e8bfd14c94fa1a022ec7e683/32891:754": {
+      "key": "a9b7baca751db666e8bfd14c94fa1a022ec7e683",
+      "name": "color/pacific-blue/700",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:aaa364c84a670e9731af28398d91fbfee3bdc882/8403:69": {
+      "key": "aaa364c84a670e9731af28398d91fbfee3bdc882",
+      "name": "Graphic/lime-lowest",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:ab3bfb59d31d92bf0765f6751d676eb42695255d/2204:1376": {
+      "key": "ab3bfb59d31d92bf0765f6751d676eb42695255d",
+      "name": "pacific-blue/200",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:abc08dbac1240fb00d01da438bdd2a00ac06045d/251:140": {
+      "key": "abc08dbac1240fb00d01da438bdd2a00ac06045d",
+      "name": "Font/Line Height/Line height 28",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:ac6887d4d1d31403395871fca3e1e917ba0f1b29/4092:3": {
+      "key": "ac6887d4d1d31403395871fca3e1e917ba0f1b29",
+      "name": "red/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:ac9ee1d261266d473cea120b10b946fa2eaefdbe/10700:65": {
+      "key": "ac9ee1d261266d473cea120b10b946fa2eaefdbe",
+      "name": "Base/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:ad33edfe35b4cc0597ac0540c41397e6dddab45b/6425:53": {
+      "key": "ad33edfe35b4cc0597ac0540c41397e6dddab45b",
+      "name": "spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:ada4e69085dae8316f284e8769b36fc3b88b2b6d/6343:26": {
+      "key": "ada4e69085dae8316f284e8769b36fc3b88b2b6d",
+      "name": "radius-full",
+      "resolvedType": "FLOAT",
+      "collection": "2. Radius"
+    },
+    "VariableID:ae55a999c45703bb06c01721cd66dcdc71af47d5/32886:65": {
+      "key": "ae55a999c45703bb06c01721cd66dcdc71af47d5",
+      "name": "Component colors/Components/Buttons/Primary/button-primary-bg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:af1f117eb359dbca831ecace0e176412ac6a9bb7/32891:1959": {
+      "key": "af1f117eb359dbca831ecace0e176412ac6a9bb7",
+      "name": "Color/Primary/100",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:af2c1b9af0cd301481edef79bf9d5fdc65cdc4b8/1462:3968": {
+      "key": "af2c1b9af0cd301481edef79bf9d5fdc65cdc4b8",
+      "name": "Colors/Border/border-secondary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:afb9d618e2c6ca235fe0a890e6ee19403aa52141/6672:61": {
+      "key": "afb9d618e2c6ca235fe0a890e6ee19403aa52141",
+      "name": "Colors/Background/bg-active",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:b175c783ee073c7b704b52697da5482973b1390f/32891:2115": {
+      "key": "b175c783ee073c7b704b52697da5482973b1390f",
+      "name": "Color/Components/Buttons/Secondary/button-secondary-bg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:b1f37c86c6c96c1b6387f8085ff709724a79dbba/32891:2020": {
+      "key": "b1f37c86c6c96c1b6387f8085ff709724a79dbba",
+      "name": "Color/Text/text-brand-tertiary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:b237c12a62c7e4d33bb60e2cdf35eb82e0cfc248/4092:13": {
+      "key": "b237c12a62c7e4d33bb60e2cdf35eb82e0cfc248",
+      "name": "pomegranate-red/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b4e669e5b847616ba9ed97d4cc00f798c6de2baa/4028:60": {
+      "key": "b4e669e5b847616ba9ed97d4cc00f798c6de2baa",
+      "name": "green/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b4fc2241809fd64765d23a913c932f25e765ee8d/32886:60": {
+      "key": "b4fc2241809fd64765d23a913c932f25e765ee8d",
+      "name": "Component colors/Components/Breadcrumbs/breadcrumb-icon-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:b58a12ab63199f09b5a0365b963ca266196cf9ef/16651:304": {
+      "key": "b58a12ab63199f09b5a0365b963ca266196cf9ef",
+      "name": "letterspacing/wide/1",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:b58a12ab63199f09b5a0365b963ca266196cf9ef/17323:362": {
+      "key": "b58a12ab63199f09b5a0365b963ca266196cf9ef",
+      "name": "font-letterspacing-1",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:b5b1dc6a118e3d3592e477ace4aac4863eb232f0/17460:19": {
+      "key": "b5b1dc6a118e3d3592e477ace4aac4863eb232f0",
+      "name": "color-bg-error",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:b604b55ab91b2ad88f071452dfdbd831e98fa182/4040:388": {
+      "key": "b604b55ab91b2ad88f071452dfdbd831e98fa182",
+      "name": "blue-grey/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b6394a20a5792794475d9346457ee17dc727a8d5/4028:59": {
+      "key": "b6394a20a5792794475d9346457ee17dc727a8d5",
+      "name": "yellow/900",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b653c05a510da83a90da7606be195c62aaa70af6/2215:2646": {
+      "key": "b653c05a510da83a90da7606be195c62aaa70af6",
+      "name": "color/grey/600",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:b6b8b93b07628f748304bbbd5abf74375bf81557/4052:481": {
+      "key": "b6b8b93b07628f748304bbbd5abf74375bf81557",
+      "name": "black",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b6f7c8069f77a20482fb42d40c740d623b27f542/32886:72": {
+      "key": "b6f7c8069f77a20482fb42d40c740d623b27f542",
+      "name": "Colors/Text/text-primary (900)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:b83c38974747dfc198d9baf063dff31bb9a1ed6a/4028:117": {
+      "key": "b83c38974747dfc198d9baf063dff31bb9a1ed6a",
+      "name": "blue/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:b8684a92fe34bd1c9c1506c9005af26a0b079c8b/32889:125": {
+      "key": "b8684a92fe34bd1c9c1506c9005af26a0b079c8b",
+      "name": "color/pacific-blue/25",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:b8ce5ecdbbdb063b94d31cdd1c1441c8ad9cc965/32886:45": {
+      "key": "b8ce5ecdbbdb063b94d31cdd1c1441c8ad9cc965",
+      "name": "Component colors/Components/Buttons/Primary/button-primary-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:b94a03ff29e766f19c20ed3d8fc90f1285782627/32889:77": {
+      "key": "b94a03ff29e766f19c20ed3d8fc90f1285782627",
+      "name": "color/zima-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:b9ad17c3846962be981872b2ffce00b80ff52fe9/32889:193": {
+      "key": "b9ad17c3846962be981872b2ffce00b80ff52fe9",
+      "name": "color/red/50",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:b9ee3dab7bd479490e6707760eb9846afc0ff524/32891:559": {
+      "key": "b9ee3dab7bd479490e6707760eb9846afc0ff524",
+      "name": "color/green/800",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:ba35dbcb672ec8fcc64348e43b0ccdd880b081c5/32889:177": {
+      "key": "ba35dbcb672ec8fcc64348e43b0ccdd880b081c5",
+      "name": "color/mellow-melon-pink/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:bba490294e2dfc78e6cd3c5f19cfc064c6f7396a/32889:236": {
+      "key": "bba490294e2dfc78e6cd3c5f19cfc064c6f7396a",
+      "name": "color/red/300",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:bba96cf084cab4b476e9cefbd1d841ba641acb16/7011:1": {
+      "key": "bba96cf084cab4b476e9cefbd1d841ba641acb16",
+      "name": "Merck/Vibrant cyan",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:bc026e5576296de7ef463631896000ebca5a3f01/16651:289": {
+      "key": "bc026e5576296de7ef463631896000ebca5a3f01",
+      "name": "size/lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:bc026e5576296de7ef463631896000ebca5a3f01/17323:356": {
+      "key": "bc026e5576296de7ef463631896000ebca5a3f01",
+      "name": "font-size-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:bc472063267d7d69f837a57c80df56f73d64c577/7233:350": {
+      "key": "bc472063267d7d69f837a57c80df56f73d64c577",
+      "name": "Messaging & status/critical-primary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:bd0a61d484c159d720313f015ecf1ec57891e1b1/18880:1": {
+      "key": "bd0a61d484c159d720313f015ecf1ec57891e1b1",
+      "name": "color-icon-warning",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:be3a9f69520907a418ed2a230efec69d6c14ec98/32891:2015": {
+      "key": "be3a9f69520907a418ed2a230efec69d6c14ec98",
+      "name": "Color/Text/text-disabled",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:bede67ead94831c91f22e535e2905cabe7e7ae11/8429:60": {
+      "key": "bede67ead94831c91f22e535e2905cabe7e7ae11",
+      "name": "Color/Effects/Shadows/shadow-md_02",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:bf01e1a76c5d32db9c93e81399d22dafa4563528/724:10": {
+      "key": "bf01e1a76c5d32db9c93e81399d22dafa4563528",
+      "name": "Primary/color-primary-neutral2",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:bfa0f0606d8bf941402e3ab242e82c8af9b492e0/17440:589": {
+      "key": "bfa0f0606d8bf941402e3ab242e82c8af9b492e0",
+      "name": "error/700",
+      "resolvedType": "COLOR",
+      "collection": "Global colors"
+    },
+    "VariableID:c038947fd25f0210638f8f388a2b971f1d7de667/4028:98": {
+      "key": "c038947fd25f0210638f8f388a2b971f1d7de667",
+      "name": "mellow-melon-pink/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:c185505c52be433bc6fdd4f719147f9e4857b550/32889:855": {
+      "key": "c185505c52be433bc6fdd4f719147f9e4857b550",
+      "name": "width-xxs",
+      "resolvedType": "FLOAT",
+      "collection": "4. Widths"
+    },
+    "VariableID:c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d/16651:322": {
+      "key": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+      "name": "lineheight/lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d/17323:369": {
+      "key": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+      "name": "font-lineheight-lg",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21/16651:318": {
+      "key": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+      "name": "lineheight/sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21/17323:367": {
+      "key": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+      "name": "font-lineheight-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:c41fe537028487b5f111c41d0d8c906e7fe83e47/4028:94": {
+      "key": "c41fe537028487b5f111c41d0d8c906e7fe83e47",
+      "name": "purple/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:c5657417db002d0c1c793d3fe1e5caa0da7d4f68/53122:3305": {
+      "key": "c5657417db002d0c1c793d3fe1e5caa0da7d4f68",
+      "name": "Inverse White + Black/Black in light themes",
+      "resolvedType": "COLOR",
+      "collection": "Theme"
+    },
+    "VariableID:c581f476a05e2acb7daf4cbae6fb0793443370f6/409:163": {
+      "key": "c581f476a05e2acb7daf4cbae6fb0793443370f6",
+      "name": "zds/color/turquoise/turquoise-500",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:c58d993df0135b08a272757847c9de7a98a763bc/6425:49": {
+      "key": "c58d993df0135b08a272757847c9de7a98a763bc",
+      "name": "spacing-xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:c5d7e5aa9a06e7594b5e1ff6785c3c1914a7cf69/14747:177": {
+      "key": "c5d7e5aa9a06e7594b5e1ff6785c3c1914a7cf69",
+      "name": "Text/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Color"
+    },
+    "VariableID:c632aed239c9073ab8c91d703402ab0665fbac80/17321:36": {
+      "key": "c632aed239c9073ab8c91d703402ab0665fbac80",
+      "name": "2xl",
+      "resolvedType": "FLOAT",
+      "collection": "Size"
+    },
+    "VariableID:c653f2184834147b4d8051fc08ee6e4d8428e939/4040:399": {
+      "key": "c653f2184834147b4d8051fc08ee6e4d8428e939",
+      "name": "pacific-blue/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:c6ff602e21c49f4b141399720b5e32cca231f779/32891:634": {
+      "key": "c6ff602e21c49f4b141399720b5e32cca231f779",
+      "name": "color/slate/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:c7052f4621bf4ca74e99d5fc71b567ecc5ada90f/13617:1682": {
+      "key": "c7052f4621bf4ca74e99d5fc71b567ecc5ada90f",
+      "name": "Category/3-stronger",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:c7328d57f7630eb9dd71a4d67bbc67f76b42bb98/32886:94": {
+      "key": "c7328d57f7630eb9dd71a4d67bbc67f76b42bb98",
+      "name": "Component colors/Components/Breadcrumbs/breadcrumb-fg_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:c878b37d30b878a0ce128588011561a8887c7c72/13617:1614": {
+      "key": "c878b37d30b878a0ce128588011561a8887c7c72",
+      "name": "Data Viz (WIP)/Sequential/teal3",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:c8bee5db17f9abb473bb487020bbbf5665bcd3fe/32891:2056": {
+      "key": "c8bee5db17f9abb473bb487020bbbf5665bcd3fe",
+      "name": "Color/Background/bg-primary",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:c9c554f220c9c3bec700d01e34fd2b8c20c5908f/6425:53": {
+      "key": "c9c554f220c9c3bec700d01e34fd2b8c20c5908f",
+      "name": "spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:cb3cf6a8b661f3a2ff12835120957f3278d329d0/10049:10": {
+      "key": "cb3cf6a8b661f3a2ff12835120957f3278d329d0",
+      "name": "Text/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:cb3cf6a8b661f3a2ff12835120957f3278d329d0/7233:218": {
+      "key": "cb3cf6a8b661f3a2ff12835120957f3278d329d0",
+      "name": "Text/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:cb3cf6a8b661f3a2ff12835120957f3278d329d0/7521:51": {
+      "key": "cb3cf6a8b661f3a2ff12835120957f3278d329d0",
+      "name": "Text/default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:cbd25ebc57d354f44b30583ddb0b445c845328fa/32889:27": {
+      "key": "cbd25ebc57d354f44b30583ddb0b445c845328fa",
+      "name": "color/red/400",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:cc11696cd583313b627c36fb7b58a14735b2a9c2/4028:63": {
+      "key": "cc11696cd583313b627c36fb7b58a14735b2a9c2",
+      "name": "green/300",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:cc230a9641fbac932c72d775bdd8853691faf75c/17440:639": {
+      "key": "cc230a9641fbac932c72d775bdd8853691faf75c",
+      "name": "color-icon-error",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:ccc2f03d5a25c15ac48b553b1d87de471e47dd47/4092:19": {
+      "key": "ccc2f03d5a25c15ac48b553b1d87de471e47dd47",
+      "name": "singapore-orchid-purple/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:ccf3e20ed33f869a861949808a49561aa3908720/32889:197": {
+      "key": "ccf3e20ed33f869a861949808a49561aa3908720",
+      "name": "color/blue-grey/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:cf2e727a8acfbd30cd9097fa297cd34f6403999f/32891:673": {
+      "key": "cf2e727a8acfbd30cd9097fa297cd34f6403999f",
+      "name": "color/grey/200",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:cfec9c83ea25f4c2f87833d879b370c4a5210546/2215:2611": {
+      "key": "cfec9c83ea25f4c2f87833d879b370c4a5210546",
+      "name": "color/green/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:d2cb395b97e8c7ba036d48ad83918aedc55efdc2/38:8440": {
+      "key": "d2cb395b97e8c7ba036d48ad83918aedc55efdc2",
+      "name": "Color/Effects/Shadows/shadow-sm_01",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:d3f02c35854fac86f4b12f0d811536a91208a6bf/32889:133": {
+      "key": "d3f02c35854fac86f4b12f0d811536a91208a6bf",
+      "name": "color/pacific-blue/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:d59a6ab66b8847dfe78c6dd7b6e2383d33d4bee4/251:133": {
+      "key": "d59a6ab66b8847dfe78c6dd7b6e2383d33d4bee4",
+      "name": "Font/Line Height/Line height 20",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:d5b2b08fd5bab41595edb892bf4707cb94bae50a/16943:369": {
+      "key": "d5b2b08fd5bab41595edb892bf4707cb94bae50a",
+      "name": "text/reverse",
+      "resolvedType": "COLOR",
+      "collection": "Color"
+    },
+    "VariableID:d823f131d492a63ffc8b962021e0dc3b058796a1/4028:80": {
+      "key": "d823f131d492a63ffc8b962021e0dc3b058796a1",
+      "name": "blue/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:d8369e8dc54c30e38595b4e45256f66d93d839f3/32889:188": {
+      "key": "d8369e8dc54c30e38595b4e45256f66d93d839f3",
+      "name": "color/red/100",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:d8dfb7cfcadb374d31471b388ad2f9ef08408df3/4092:6": {
+      "key": "d8dfb7cfcadb374d31471b388ad2f9ef08408df3",
+      "name": "blue/25",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:d9bfdc4269806c57cb39ec6fe8a2b8436ce17c65/10700:136": {
+      "key": "d9bfdc4269806c57cb39ec6fe8a2b8436ce17c65",
+      "name": "Text/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:da1b55b3b5f54b8688e2e085fff3deeaa6e2dbdd/10700:169": {
+      "key": "da1b55b3b5f54b8688e2e085fff3deeaa6e2dbdd",
+      "name": "Tooltip/Surface",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:da2d657d6dbc323e3330c88eb0db05efd8c06d7f/7233:180": {
+      "key": "da2d657d6dbc323e3330c88eb0db05efd8c06d7f",
+      "name": "CoolGrey/15",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:da7232c8f2f1c34aa653550e46bed9bf9c270907/7011:2": {
+      "key": "da7232c8f2f1c34aa653550e46bed9bf9c270907",
+      "name": "Merck/Sensitive blue",
+      "resolvedType": "COLOR",
+      "collection": "Variable collection"
+    },
+    "VariableID:db99d0480928235084c2e81da730da83ccac71da/2215:2516": {
+      "key": "db99d0480928235084c2e81da730da83ccac71da",
+      "name": "color/blue-grey/50",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:dba1f975abece7ef45dcf09ba89e860462926f3d/13617:1666": {
+      "key": "dba1f975abece7ef45dcf09ba89e860462926f3d",
+      "name": "Category/2-strong",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:dbea84aad776f1e4015c9933938cc5f260350e9b/6672:69": {
+      "key": "dbea84aad776f1e4015c9933938cc5f260350e9b",
+      "name": "Component colors/Utility/Gray/utility-gray-50",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:dc3b83c044c4a9aa553a183ade1f912f206cd369/2215:2509": {
+      "key": "dc3b83c044c4a9aa553a183ade1f912f206cd369",
+      "name": "color/glint-green/400",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:dc78b9dd9b4e4292df4c24c729ed1da176d8d2d1/6425:46": {
+      "key": "dc78b9dd9b4e4292df4c24c729ed1da176d8d2d1",
+      "name": "spacing-4xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:dcd62f9fe9a92ceb5b26040a13a130ab28d44e26/32891:230": {
+      "key": "dcd62f9fe9a92ceb5b26040a13a130ab28d44e26",
+      "name": "spacing-2xl",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:dd6d3ba47eec46aff1b5f64fc2b026fa70e6b61d/2204:1344": {
+      "key": "dd6d3ba47eec46aff1b5f64fc2b026fa70e6b61d",
+      "name": "green/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:dd9b3c1c57349bbb96e92269673cb7cc1d290582/409:185": {
+      "key": "dd9b3c1c57349bbb96e92269673cb7cc1d290582",
+      "name": "zds/color/blue/blue-500",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:de3b98377ba46557025a2abc40327fb2c9e0f027/17324:327": {
+      "key": "de3b98377ba46557025a2abc40327fb2c9e0f027",
+      "name": "color-icon-reverse",
+      "resolvedType": "COLOR",
+      "collection": "Icon"
+    },
+    "VariableID:de9c91323e0f384e40c9a1066bd43778876e5e51/4077:8": {
+      "key": "de9c91323e0f384e40c9a1066bd43778876e5e51",
+      "name": "cool-grey/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:ded0ef4989df9692f33cb14b068d4b1a49052b11/449:668": {
+      "key": "ded0ef4989df9692f33cb14b068d4b1a49052b11",
+      "name": "Text/color-text-invert",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:df0d6305c19fe500ed93d30f95946cbe6ddda013/251:112": {
+      "key": "df0d6305c19fe500ed93d30f95946cbe6ddda013",
+      "name": "Font/Size/Font size 12",
+      "resolvedType": "FLOAT",
+      "collection": "Typography"
+    },
+    "VariableID:dffad30cf495afb2ff1f9ed70f44839ab87a4556/32891:215": {
+      "key": "dffad30cf495afb2ff1f9ed70f44839ab87a4556",
+      "name": "spacing-xs",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:e004ddd5678f980250f8fdfb289bdbfb813ecb66/7233:195": {
+      "key": "e004ddd5678f980250f8fdfb289bdbfb813ecb66",
+      "name": "CoolGrey/90",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:e02968bd3fca3e90211bbfaea4f00abc573c842e/17314:555": {
+      "key": "e02968bd3fca3e90211bbfaea4f00abc573c842e",
+      "name": "Spacing/spacing-sm",
+      "resolvedType": "FLOAT",
+      "collection": "Spacing"
+    },
+    "VariableID:e048261ab037eee740b7a0712ce1636d4f40269b/4040:382": {
+      "key": "e048261ab037eee740b7a0712ce1636d4f40269b",
+      "name": "blue-grey/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:e0769be784b798815d999b25e4af5db947b8d465/32889:7": {
+      "key": "e0769be784b798815d999b25e4af5db947b8d465",
+      "name": "color/zima-blue/800",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:e13296953708fbf0ad9e4239bbea5db517a2a04c/4028:76": {
+      "key": "e13296953708fbf0ad9e4239bbea5db517a2a04c",
+      "name": "turquoise/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:e1cb532b69e1b2617cdf61f5635361f62ca87f95/32891:2009": {
+      "key": "e1cb532b69e1b2617cdf61f5635361f62ca87f95",
+      "name": "Color/Text/text-tertiary (600)",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:e1cd68e99db13a341e9a886cdbcef764c7975367/6672:112": {
+      "key": "e1cd68e99db13a341e9a886cdbcef764c7975367",
+      "name": "Component colors/Components/Buttons/Tertiary/button-tertiary-fg",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:e1d920f54d26a9088990db166cb433fb6f3b5fe5/32891:538": {
+      "key": "e1d920f54d26a9088990db166cb433fb6f3b5fe5",
+      "name": "color/green/100",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:e26a482655b624276a39f282311feab88f669e83/32891:2057": {
+      "key": "e26a482655b624276a39f282311feab88f669e83",
+      "name": "Color/Background/bg-primary_hover",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:e2a94552473cf3d756d4548a2cba35ec1219f091/449:614": {
+      "key": "e2a94552473cf3d756d4548a2cba35ec1219f091",
+      "name": "Neutrals (Delete)/CoolGrey 110",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:e6cf749baa86577c4425e05a24729fb9def1ddd8/13617:1554": {
+      "key": "e6cf749baa86577c4425e05a24729fb9def1ddd8",
+      "name": "Text/inverse",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:e725a9f66bb4c899e0a2ca77fe2d3aa65aeef51f/4040:389": {
+      "key": "e725a9f66bb4c899e0a2ca77fe2d3aa65aeef51f",
+      "name": "blue-grey/700",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:e7e55625e13a98a161a9335cc1b49889267f491b/2215:2524": {
+      "key": "e7e55625e13a98a161a9335cc1b49889267f491b",
+      "name": "color/blue/700",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:e89092a6647515af86fd37ea956645128a20f304/4028:56": {
+      "key": "e89092a6647515af86fd37ea956645128a20f304",
+      "name": "yellow/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:e8c9ae08720756e95794dd5be5707dc355558e3f/16651:287": {
+      "key": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+      "name": "size/md",
+      "resolvedType": "FLOAT",
+      "collection": "Font"
+    },
+    "VariableID:e8c9ae08720756e95794dd5be5707dc355558e3f/17323:355": {
+      "key": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+      "name": "font-size-md",
+      "resolvedType": "FLOAT",
+      "collection": "Font / Text"
+    },
+    "VariableID:e8e62dfe181ce84f1f737cbe3ced622e4854a88f/4040:437": {
+      "key": "e8e62dfe181ce84f1f737cbe3ced622e4854a88f",
+      "name": "glint-green/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:e9b514cf7ec6e6be4a295e3dad578a909e12be70/2249:37": {
+      "key": "e9b514cf7ec6e6be4a295e3dad578a909e12be70",
+      "name": "Text/color-text-default",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:ea2047631e94731003b01b12a5c923245bc3d685/4040:393": {
+      "key": "ea2047631e94731003b01b12a5c923245bc3d685",
+      "name": "pacific-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:eb2dcbcf3cca53219a38e3936d4a64326da8c65e/32886:124": {
+      "key": "eb2dcbcf3cca53219a38e3936d4a64326da8c65e",
+      "name": "Component colors/Components/Buttons/Primary/button-primary-border",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes Untitled"
+    },
+    "VariableID:ec4a0941eccd331c48a4951502c8c94ce10d3baf/13617:1543": {
+      "key": "ec4a0941eccd331c48a4951502c8c94ce10d3baf",
+      "name": "Status/info-secondary",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:ec9cfb9fd02bd855baf1c59c1511253a974f18d3/32891:733": {
+      "key": "ec9cfb9fd02bd855baf1c59c1511253a974f18d3",
+      "name": "color/pacific-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:ee2baf6b559732d6042d9ea2d078913f6c233e25/32891:676": {
+      "key": "ee2baf6b559732d6042d9ea2d078913f6c233e25",
+      "name": "color/grey/300",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:ee711d5ca86ad68bb4aaef81c38784c673238ae6/32922:3": {
+      "key": "ee711d5ca86ad68bb4aaef81c38784c673238ae6",
+      "name": "Color/Components/Buttons/Primary/button-primary-bg_disabled",
+      "resolvedType": "COLOR",
+      "collection": "1. Color modes"
+    },
+    "VariableID:eed2f3d7c54a49f4abdc4cca43d985f4692ad4b0/6425:51": {
+      "key": "eed2f3d7c54a49f4abdc4cca43d985f4692ad4b0",
+      "name": "spacing-md",
+      "resolvedType": "FLOAT",
+      "collection": "3. Spacing"
+    },
+    "VariableID:ef93904b57b1e1830083967c253f0c295e5f9df8/4028:35": {
+      "key": "ef93904b57b1e1830083967c253f0c295e5f9df8",
+      "name": "red/500",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:f0603e382076e41dee3515e409417c18a706da5d/2204:1296": {
+      "key": "f0603e382076e41dee3515e409417c18a706da5d",
+      "name": "red/100",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:f0856961271750011f82cd4b62605d7e011b305c/17440:629": {
+      "key": "f0856961271750011f82cd4b62605d7e011b305c",
+      "name": "color-bg-disabled",
+      "resolvedType": "COLOR",
+      "collection": "Backgrounds"
+    },
+    "VariableID:f185bb301412b6427ad6044b78073ceb8ac324bb/2204:1380": {
+      "key": "f185bb301412b6427ad6044b78073ceb8ac324bb",
+      "name": "pacific-blue/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:f1feb79e32b3cc29812690415926987bf97aa3ad/17499:8": {
+      "key": "f1feb79e32b3cc29812690415926987bf97aa3ad",
+      "name": "color-border-primary",
+      "resolvedType": "COLOR",
+      "collection": "Borders"
+    },
+    "VariableID:f4464758a8eaf9d28abbc2465aeb2486ae828f00/2204:1345": {
+      "key": "f4464758a8eaf9d28abbc2465aeb2486ae828f00",
+      "name": "green/600",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:f58734c9c1ea4d9b640c3981ba59045367cd6111/32889:28": {
+      "key": "f58734c9c1ea4d9b640c3981ba59045367cd6111",
+      "name": "color/pacific-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "00.Color Primitives"
+    },
+    "VariableID:f646740a02b73fb790b3c4b7365377846c8bea6d/4028:70": {
+      "key": "f646740a02b73fb790b3c4b7365377846c8bea6d",
+      "name": "turquoise/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:f662e871eebb50a87b8c4e4e9aac77b2ad603a7d/452:1304": {
+      "key": "f662e871eebb50a87b8c4e4e9aac77b2ad603a7d",
+      "name": "Annotation/color-annotation",
+      "resolvedType": "COLOR",
+      "collection": "Colors"
+    },
+    "VariableID:f7e35ed75273ee38cd71435879eff862f8e01ae8/17324:404": {
+      "key": "f7e35ed75273ee38cd71435879eff862f8e01ae8",
+      "name": "size-height-xs",
+      "resolvedType": "FLOAT",
+      "collection": "Height"
+    },
+    "VariableID:f944afddd62f3d466e902591d11d43acd3f731dd/2003:9": {
+      "key": "f944afddd62f3d466e902591d11d43acd3f731dd",
+      "name": "Neutral/White",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:f944afddd62f3d466e902591d11d43acd3f731dd/2083:0": {
+      "key": "f944afddd62f3d466e902591d11d43acd3f731dd",
+      "name": "White Black/White",
+      "resolvedType": "COLOR",
+      "collection": "HCL Color Palette"
+    },
+    "VariableID:f944afddd62f3d466e902591d11d43acd3f731dd/2204:1411": {
+      "key": "f944afddd62f3d466e902591d11d43acd3f731dd",
+      "name": "white-black/white",
+      "resolvedType": "COLOR",
+      "collection": "Zen token"
+    },
+    "VariableID:facb8c5ef611cb685303160c2b10182a29356587/2215:87": {
+      "key": "facb8c5ef611cb685303160c2b10182a29356587",
+      "name": "color/grey/grey-900",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:fc7113c3457a06a4341f495255ba53ced9a2844c/2215:100": {
+      "key": "fc7113c3457a06a4341f495255ba53ced9a2844c",
+      "name": "color/blue-grey/blue-grey-900",
+      "resolvedType": "COLOR",
+      "collection": "_Primitives"
+    },
+    "VariableID:fe8e7d2d4f6fa47823099f860155d30a9471ef63/32891:760": {
+      "key": "fe8e7d2d4f6fa47823099f860155d30a9471ef63",
+      "name": "color/pacific-blue/900",
+      "resolvedType": "COLOR",
+      "collection": "0. Color Primitives"
+    },
+    "VariableID:fe9e3fcd9ab986ce3b6af239923771ab540f6415/4040:390": {
+      "key": "fe9e3fcd9ab986ce3b6af239923771ab540f6415",
+      "name": "blue-grey/800",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    },
+    "VariableID:ff66b88956caabc4a43f05f0d98fc295364ad39f/4085:4": {
+      "key": "ff66b88956caabc4a43f05f0d98fc295364ad39f",
+      "name": "royal-blue/50",
+      "resolvedType": "COLOR",
+      "collection": "Zen colors"
+    }
+  }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13868:11595",
@@ -10,16 +10,20 @@
   },
   "quality": {
     "nodesTotal": 3,
-    "nodesNormalized": 2,
-    "ratio": 0.67,
+    "nodesNormalized": 3,
+    "ratio": 1,
     "degraded": []
   },
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-reverse"
+    ],
     "id": "13868:11596",
     "appearance": {
       "background": "#000000",
+      "backgroundToken": "--zen-color-bg-reverse",
       "radius": "4px",
       "variants": [
         {
@@ -27,7 +31,8 @@
           "values": [
             "Critical"
           ],
-          "background": "#c12c11"
+          "background": "#c12c11",
+          "backgroundToken": "--zen-color-error-700"
         }
       ]
     },
@@ -53,10 +58,14 @@
       {
         "name": "Item deleted",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "13868:11597",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
@@ -68,7 +77,7 @@
       {
         "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
           "Label": "Close",
           "Show label": true,

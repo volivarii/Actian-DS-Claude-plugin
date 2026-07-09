@@ -635,6 +635,7 @@ is two values. Default (un-suffixed) theme is Actian.
 | Token                    | Value           | Usage                       | Status     |
 | ------------------------ | --------------- | --------------------------- | ---------- |
 | `--zen-font-family-text` | `Roboto`        | Default — headings and body | 🟢 Shipped |
+| `--zen-font-family-brand` | `HCLTech Roobert`        | Brand accent font. Use sparingly for high-impact moments — landing/marketing pages (e.g. Explorer landing), hero and display headers, and occasional accent headings. Never for body copy, UI controls, or data. | 🟡 Proposed |
 | `--zen-font-family-mono` | `"Roboto Mono"` | Code and data               | 🟢 Shipped |
 
 #### Font Weight
@@ -819,8 +820,8 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 
 | Token                           | Value  | Usage                                                             | Status      |
 | ------------------------------- | ------ | ----------------------------------------------------------------- | ----------- |
-| `--zen-size-trigger-min`        | `24px` | Minimum interactive target area for desktop (WCAG 2.5.5 Level AA) | 🟡 Proposed |
-| `--zen-size-trigger-min-mobile` | `44px` | Minimum interactive target area for mobile (WCAG 2.5.5 Level AA)  | 🟡 Proposed |
+| `--zen-size-trigger-min`        | `24px` | Minimum interactive target area for desktop (WCAG 2.5.8 Level AA) | 🟡 Proposed |
+| `--zen-size-trigger-min-mobile` | `44px` | Minimum interactive target area for mobile (WCAG 2.5.8 Level AA)  | 🟡 Proposed |
 
 ### 2.10 Icons
 

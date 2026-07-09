@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "link",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8346:6897",
@@ -63,6 +63,12 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-2xs",
+        "right": "--zen-spacing-2xs",
+        "bottom": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
       }
     },
     "children": [
@@ -86,6 +92,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -99,6 +106,7 @@
               ],
               "text": {
                 "color": "#033b92",
+                "colorToken": "--zen-color-primary-800",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",

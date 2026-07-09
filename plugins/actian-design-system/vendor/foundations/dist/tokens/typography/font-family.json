@@ -39,6 +39,13 @@
           "status": "shipped"
         },
         {
+          "Token": "--zen-font-family-brand",
+          "Value": "HCLTech Roobert",
+          "Usage": "Brand accent font. Use sparingly for high-impact moments — landing/marketing pages (e.g. Explorer landing), hero and display headers, and occasional accent headings. Never for body copy, UI controls, or data.",
+          "status_note": "Proposed",
+          "status": "proposed"
+        },
+        {
           "Token": "--zen-font-family-mono",
           "Value": "&quot;Roboto Mono&quot;",
           "Usage": "Code and data",

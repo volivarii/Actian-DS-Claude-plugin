@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-status",
   "kit": "dskit",
-  "synced_at": "2026-07-06T00:09:37.751Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3705",
@@ -17,11 +17,17 @@
   "root": {
     "name": "Status=Fail",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-error-25",
+      "--zen-color-error-50"
+    ],
     "id": "7370:4928",
     "appearance": {
       "background": "#fff4ec",
+      "backgroundToken": "--zen-color-error-25",
       "border": {
         "color": "#ffdacf",
+        "colorToken": "--zen-color-error-50",
         "width": "1px"
       },
       "radius": "4px",
@@ -35,8 +41,10 @@
             "Scheduled"
           ],
           "background": "#edf6ff",
+          "backgroundToken": "--zen-color-primary-25",
           "border": {
             "color": "#edf6ff",
+            "colorToken": "--zen-color-primary-25",
             "width": "1px"
           }
         },
@@ -49,8 +57,10 @@
             "Stopped"
           ],
           "background": "#e1e1e6",
+          "backgroundToken": null,
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
             "width": "1px"
           }
         },
@@ -60,8 +70,10 @@
             "Success"
           ],
           "background": "#f0ffec",
+          "backgroundToken": "--zen-color-success-25",
           "border": {
             "color": "#d3efcd",
+            "colorToken": "--zen-color-success-50",
             "width": "1px"
           }
         },
@@ -71,8 +83,10 @@
             "Warning"
           ],
           "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning",
           "border": {
             "color": "#ffebce",
+            "colorToken": "--zen-color-warning-50",
             "width": "1px"
           }
         }
@@ -94,6 +108,11 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
@@ -104,6 +123,13 @@
         "id": "7314:4574",
         "appearance": {
           "variants": [
+            {
+              "prop": "Status",
+              "values": [
+                "Loading"
+              ],
+              "slug": "spinner"
+            },
             {
               "prop": "Status",
               "values": [
@@ -173,10 +199,14 @@
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-tertiary"
+        ],
         "id": "7314:4575",
         "appearance": {
           "text": {
             "color": "#50505d",
+            "colorToken": "--zen-color-text-tertiary",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

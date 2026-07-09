@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "scroll-bar",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:17639",
@@ -37,9 +37,13 @@
       {
         "name": "Scroll bar",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-icon-disabled"
+        ],
         "id": "8741:12495",
         "appearance": {
           "background": "#7c7c8a",
+          "backgroundToken": "--zen-color-icon-disabled",
           "radius": "4px"
         }
       }

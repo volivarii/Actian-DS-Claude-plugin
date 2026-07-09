@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "chat-with-ai-steward",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15464:24509",
@@ -38,6 +38,7 @@
           "radius": null,
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         }
