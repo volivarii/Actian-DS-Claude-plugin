@@ -484,13 +484,23 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**.
 
+#### Checkbox group vs Multi-select dropdown
+
+**Use a checkbox group when:**
+
+* The list has roughly seven or fewer options and all of them should stay visible at once.
+
+**Use a** **[multi-select dropdown](multi-select)** **when:**
+
+* The list is long or space is limited, and a search field would help users find options.
+
 ***
 
 ### Radio button
 
 #### When to use
 
-* When the user must select exactly one option from a short visible list (typically two to six options).
+* When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.
 
 * When all choices should be visible up front rather than hidden in a dropdown.
 
@@ -531,6 +541,44 @@ Use card-format radio buttons instead of traditional radio buttons when each opt
 * Title: short, descriptive, and consistent across tiles.
 
 * Supporting text: use only in the large variant.
+
+***
+
+### Segmented control
+
+#### When to use
+
+* To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.
+
+* Do not use for page-level navigation - use [tabs](tabs) instead.
+
+#### Segmented control vs Radio button
+
+**Use a segmented control when:**
+
+* The choice takes effect immediately, with no separate submit step.
+
+**Use a** **[radio button](#radio-button)** **group when:**
+
+* The choice is part of a form and applies on submit.
+
+***
+
+### Combo box
+
+#### When to use
+
+* When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid.
+
+#### Combo box vs Single-select dropdown
+
+**Use a combo box when:**
+
+* The list is long enough that typing to filter is faster than scanning it.
+
+**Use a single-select dropdown when:**
+
+* The list is shorter and fixed.
 
 ---
 
@@ -632,7 +680,31 @@ Lineage views display the origin, transformation history, and downstream depende
 
 ---
 
+## Notifications and messaging
 
+Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened.
+
+***
+
+### Principles
+
+* Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).
+
+* An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.
+
+* If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else.
+
+### Choosing a messaging pattern
+
+| Type             | Scope                | When it appears                                               | Where it appears                  | How it goes away                                               | Example                                                                           |
+| ---------------- | -------------------- | ------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Banner (page)    | The whole page       | Until the underlying issue is resolved                        | Top of the page, below the header | Cleared when the issue resolves, or dismissed if informational | "Some datasets are read-only. Contact your administrator to request edit access." |
+| Banner (section) | One part of the page | While a section-level issue exists                            | Top of the affected section       | Cleared when the issue resolves                                | "This output port is managed by an external data contract and is read-only."      |
+| Toast            | One completed action | Right after the action completes                              | Bottom center                     | Dismisses automatically after a few seconds                    | "Prospect customers created."                                                     |
+| Inline message   | One form field       | On blur, or on submit attempt                                 | Directly below the field          | Clears as soon as the field is valid                           | "Enter a valid email address."                                                    |
+| Modal            | A required decision  | When the user must confirm or provide input before continuing | Centered, blocking the page       | Dismissed only by completing or canceling the action           | "This will permanently delete the dataset and cannot be undone."                  |
+
+Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead.
 
 ---
 

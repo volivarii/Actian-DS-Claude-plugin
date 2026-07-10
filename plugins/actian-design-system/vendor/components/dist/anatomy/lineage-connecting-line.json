@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-connecting-line",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:20085",
@@ -60,10 +60,14 @@
       {
         "name": "Lineage connector/Right/Straight",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14747:20087",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "2px"
           },
           "radius": "100px",
@@ -83,6 +87,7 @@
               ],
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-color-primary-500",
                 "width": "2px"
               }
             }

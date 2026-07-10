@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "description": "Page clean-name -> canonical category. Applied both in inferCategoryMap (on the Pages-panel canvas name) and as a fallback in transform-registry's per-component category lookup (on each component's own containing_frame.pageName), so an override still resolves when the canvas name and the component's reported page name diverge (e.g. the icons page shows 'DS Icons' in the panel while icon components report 'Icons'). Keys are clean-names (status emoji stripped) so they survive the emoji changing. `exclude` drops a page's components entirely (staging / not-ready). Self-retiring: delete an entry once Figma encodes the category natively and a re-sync restores it.",
+    "provenance": "manual-override",
+    "added": "2026-07-08",
+    "remove_when": "Figma re-encodes these pages so the sync attributes their category natively; a re-sync then restores it and the entry can be deleted."
+  },
+  "overrides": {
+    "Icons": "Icons",
+    "DS Icons": "Icons",
+    "Alert (banner)": "Feedback"
+  },
+  "exclude": ["DS Icons: replacement"]
+}

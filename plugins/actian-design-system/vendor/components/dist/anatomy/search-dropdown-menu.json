@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-dropdown-menu",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8756:9994",
@@ -104,10 +104,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-secondary"
+            ],
             "id": "8756:9947",
             "appearance": {
               "text": {
                 "color": "#40404a",
+                "colorToken": "--zen-color-text-secondary",
                 "size": "12px",
                 "weight": 500,
                 "lineHeight": "16px",
@@ -152,10 +156,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8756:9950",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -200,10 +208,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8756:9953",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -248,10 +260,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8756:9956",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -296,10 +312,14 @@
           {
             "name": "Label text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8756:9959",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",

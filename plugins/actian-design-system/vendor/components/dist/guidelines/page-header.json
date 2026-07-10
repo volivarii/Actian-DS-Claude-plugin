@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n- At the top of every main page to orient the user and provide primary actions.\n- Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n- The title should match the name of the item or section exactly.\n- Use sentence case for page titles.\n- Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n- Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| New connection | Create a new connection |\n| Edit | Edit this item |\n| Sales pipeline | Sales Pipeline Overview |",
+      "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n* At the top of every main page to orient the user and provide primary actions.\n\n* Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n* The title should match the name of the item or section exactly.\n\n* Use sentence case for page titles.\n\n* Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n\n* Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do             | Don't                   |\n| -------------- | ----------------------- |\n| New connection | Create a new connection |\n| Edit           | Edit this item          |\n| Sales pipeline | Sales Pipeline Overview |",
       "sections": [
         {
           "heading": "",
@@ -138,5 +138,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-05T20:42:11+02:00"
+  "updated_at": "2026-07-09T19:34:09+02:00"
 }

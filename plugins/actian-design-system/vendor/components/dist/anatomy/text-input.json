@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "text-input",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7238:2487",
@@ -60,7 +60,8 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-2xs"
     },
     "children": [
       {
@@ -83,16 +84,21 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
             "name": "Label",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "7243:2949",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",
@@ -106,6 +112,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -119,10 +126,14 @@
           {
             "name": "Required",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-error"
+            ],
             "id": "7243:2950",
             "appearance": {
               "text": {
                 "color": "#dc3514",
+                "colorToken": "--zen-color-text-error",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",
@@ -136,6 +147,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -157,10 +169,14 @@
       {
         "name": "Description",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-tertiary"
+        ],
         "id": "7243:3387",
         "appearance": {
           "text": {
             "color": "#50505d",
+            "colorToken": "--zen-color-text-tertiary",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
@@ -174,6 +190,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -187,11 +204,15 @@
       {
         "name": "Input field",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-subtle"
+        ],
         "id": "7243:2953",
         "appearance": {
           "background": "#ffffff",
           "border": {
             "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
             "width": "1px"
           },
           "radius": "4px",
@@ -214,6 +235,7 @@
               "background": "#e1e1e6",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
                 "width": "1px"
               }
             },
@@ -234,6 +256,7 @@
               ],
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -272,16 +295,26 @@
           "sizing": {
             "h": "fill",
             "v": "fixed"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-xs",
+            "right": "--zen-spacing-xs",
+            "bottom": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
           }
         },
         "children": [
           {
             "name": "Input text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-placeholder"
+            ],
             "id": "7243:2955",
             "appearance": {
               "text": {
                 "color": "#5c5c6c",
+                "colorToken": "--zen-color-text-placeholder",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -295,6 +328,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -310,6 +344,7 @@
                   ],
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -331,10 +366,14 @@
       {
         "name": "Helper text",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-secondary"
+        ],
         "id": "7243:2958",
         "appearance": {
           "text": {
             "color": "#40404a",
+            "colorToken": "--zen-color-text-secondary",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -348,6 +387,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",

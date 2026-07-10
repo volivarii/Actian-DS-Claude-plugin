@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n- To hide optional or advanced content that does not need to be visible by default.\n- When content is long and only some users will need all of it.\n- Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n- Write header labels as short noun phrases that describe the content inside.\n- Avoid generic labels like \"More\", \"Details\", or \"Other\".\n- The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n- With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n- Transitions should be smooth. Avoid layout shift.\n- The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Advanced settings | More options |\n| Connection details | Click to expand |\n| Notification preferences | Details |",
+      "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n* To hide optional or advanced content that does not need to be visible by default.\n\n* When content is long and only some users will need all of it.\n\n* Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n* Write header labels as short noun phrases that describe the content inside.\n\n* Avoid generic labels like \"More\", \"Details\", or \"Other\".\n\n* The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n* With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n\n* Transitions should be smooth. Avoid layout shift.\n\n* The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do                       | Don't           |\n| ------------------------ | --------------- |\n| Advanced settings        | More options    |\n| Connection details       | Click to expand |\n| Notification preferences | Details         |",
       "sections": [
         {
           "heading": "",
@@ -92,5 +92,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-09T19:34:09+02:00"
 }

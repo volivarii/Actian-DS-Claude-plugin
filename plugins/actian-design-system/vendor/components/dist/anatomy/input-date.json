@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "input-date",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8194:7305",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 8,
-    "nodesNormalized": 7,
-    "ratio": 0.88,
+    "nodesNormalized": 8,
+    "ratio": 1,
     "degraded": [],
     "structuralVariants": [
       {
@@ -83,10 +83,14 @@
           {
             "name": "Label",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8194:7394",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",
@@ -100,6 +104,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -113,10 +118,14 @@
           {
             "name": "Label",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-error"
+            ],
             "id": "8194:7395",
             "appearance": {
               "text": {
                 "color": "#dc3514",
+                "colorToken": "--zen-color-text-error",
                 "size": "16px",
                 "weight": 600,
                 "lineHeight": "24px",
@@ -130,6 +139,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "16px",
                     "weight": 600,
                     "lineHeight": "24px",
@@ -168,11 +178,15 @@
           {
             "name": "input field",
             "kind": "container",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "8194:7399",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               },
               "radius": "4px",
@@ -184,6 +198,18 @@
                   ],
                   "border": {
                     "color": "#0f5fdc",
+                    "colorToken": "--zen-border-selected",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "border": {
+                    "color": "#c7c7ce",
+                    "colorToken": "--zen-border-disabled",
                     "width": "1px"
                   }
                 },
@@ -194,6 +220,7 @@
                   ],
                   "border": {
                     "color": "#0f5fdc",
+                    "colorToken": "--zen-focus-ring-primary",
                     "width": "2px"
                   }
                 },
@@ -204,6 +231,7 @@
                   ],
                   "border": {
                     "color": "#e1e1e6",
+                    "colorToken": "--zen-border-subtle",
                     "width": "1px"
                   }
                 },
@@ -240,10 +268,14 @@
               {
                 "name": "Input text",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8194:7401",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -258,6 +290,7 @@
                       ],
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "14px",
                         "weight": 400,
                         "lineHeight": "20px",
@@ -271,6 +304,7 @@
                       ],
                       "text": {
                         "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
                         "size": "14px",
                         "weight": 400,
                         "lineHeight": "20px",
@@ -286,7 +320,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show label": true,
               "Label": "Button",

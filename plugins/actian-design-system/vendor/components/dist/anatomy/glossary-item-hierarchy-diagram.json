@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:30242",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 27,
-    "nodesNormalized": 4,
-    "ratio": 0.15,
+    "nodesNormalized": 5,
+    "ratio": 0.19,
     "degraded": [
       {
         "name": "Graph",
@@ -22,11 +22,15 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "14747:30243",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       },
       "radius": "6px"
@@ -53,10 +57,14 @@
       {
         "name": "Header",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14747:30244",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -76,16 +84,26 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-xs",
+            "right": "--zen-spacing-xs",
+            "bottom": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
           }
         },
         "children": [
           {
             "name": "sideNavHeading",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14747:30245",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "16px",
                 "weight": 600,
                 "lineHeight": "24px",
@@ -97,7 +115,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show label": true,
               "Show trailing icon": false,
@@ -388,11 +406,15 @@
               "Type": "Group",
               "Orientation": "Horizontal"
             },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14747:30268",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               },
               "radius": "6px"
@@ -407,11 +429,15 @@
               "Type": "Single",
               "Orientation": "Horizontal"
             },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14747:30269",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               },
               "radius": "6px"

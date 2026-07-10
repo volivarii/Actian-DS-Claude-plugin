@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-perimeter",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14783:7565",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 7,
-    "nodesNormalized": 5,
-    "ratio": 0.71,
+    "nodesNormalized": 7,
+    "ratio": 1,
     "degraded": []
   },
   "root": {
@@ -38,13 +38,23 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-sm",
+        "right": "--zen-spacing-sm",
+        "bottom": "--zen-spacing-sm",
+        "left": "--zen-spacing-sm"
       }
     },
     "children": [
       {
         "name": "Digram, Item types",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "digram-item-types",
+        "props": {
+          "Item type": "Dataset",
+          "Size": "Default"
+        },
         "id": "14783:7552",
         "appearance": {
           "background": "#cfeafd",
@@ -71,7 +81,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -94,16 +105,21 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
                 "name": "Name",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14783:7555",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -115,10 +131,14 @@
               {
                 "name": "Counter",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14783:7556",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -132,7 +152,7 @@
           {
             "name": "Progress bar small",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "progress-bar-small",
             "props": {
               "Size": "Default",
               "Completeness": "50%"

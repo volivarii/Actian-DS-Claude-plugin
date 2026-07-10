@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-glossary-item-type",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13812:22308",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-warning-25"
+    ],
     "id": "11300:8551",
     "appearance": {
       "background": "#fff9e5",
+      "backgroundToken": "--zen-color-warning-25",
       "radius": "4px"
     },
     "layout": {
@@ -38,16 +42,25 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-warning-900"
+        ],
         "id": "11300:8381",
         "appearance": {
           "text": {
             "color": "#83551f",
+            "colorToken": "--zen-color-warning-900",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

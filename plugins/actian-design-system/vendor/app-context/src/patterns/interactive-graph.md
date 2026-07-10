@@ -6,5 +6,9 @@ label: Interactive graph visualization
 apps:
   - studio
   - explorer
+components:
+  - lineage-individual-node
+  - lineage-grouped-node
+  - lineage-connecting-line
 ---
 Used for lineage (DAG), View 360 (radial knowledge graph), and Data Model (ER diagram). Nodes are clickable.

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "collapse-accordion",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8292:80",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 4,
-    "nodesNormalized": 3,
-    "ratio": 0.75,
+    "nodesNormalized": 4,
+    "ratio": 1,
     "degraded": [],
     "structuralVariants": [
       {
@@ -45,6 +45,12 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-md",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-md"
       }
     },
     "children": [
@@ -74,10 +80,14 @@
           {
             "name": "sideNavHeading",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "8291:2629",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "16px",
                 "weight": 600,
                 "lineHeight": "24px",
@@ -89,7 +99,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show leading icon": true,
               "Show label": true,

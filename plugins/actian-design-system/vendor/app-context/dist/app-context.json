@@ -1120,6 +1120,12 @@
       "apps": [
         "studio"
       ],
+      "components": [
+        "table",
+        "tabs",
+        "tag-status",
+        "button"
+      ],
       "description": "Table with Requester, Item, Status, Actions. Status tabs: Pending / Done."
     },
     "access-request-workflow": {
@@ -1128,12 +1134,21 @@
         "explorer",
         "studio"
       ],
+      "components": [
+        "button",
+        "dropdown-select-default",
+        "text-input",
+        "tag-status"
+      ],
       "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval."
     },
     "activity-timeline": {
       "label": "Activity timeline",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "avatar"
       ],
       "description": "Chronological timeline with date headers, user avatars, action descriptions."
     },
@@ -1142,6 +1157,11 @@
       "apps": [
         "explorer"
       ],
+      "components": [
+        "chat-with-ai-steward",
+        "drawer-side-panel",
+        "text-input"
+      ],
       "description": "Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language."
     },
     "analytics-dashboard": {
@@ -1149,12 +1169,22 @@
       "apps": [
         "studio"
       ],
+      "components": [
+        "card-for-items",
+        "bar-graph",
+        "line-graph",
+        "page-header"
+      ],
       "description": "Completion cards, adoption rate charts, popular items, frequent searches."
     },
     "ask-ai": {
       "label": "Ask AI",
       "apps": [
         "explorer"
+      ],
+      "components": [
+        "search",
+        "chat-with-ai-steward"
       ],
       "description": "Natural language query search through the knowledge graph with AI-generated summaries."
     },
@@ -1164,12 +1194,25 @@
         "studio",
         "explorer"
       ],
+      "components": [
+        "tabs",
+        "page-header",
+        "breadcrumbs",
+        "side-nav",
+        "drawer-side-panel"
+      ],
       "description": "Every catalog object has a tabbed detail page with property panel/sidebar."
     },
     "bulk-edit": {
       "label": "Bulk Edit",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "table",
+        "checkbox-with-label",
+        "button",
+        "modal"
       ],
       "description": "Multi-item batch update of properties, contacts, and glossary links across the catalog."
     },
@@ -1178,12 +1221,23 @@
       "apps": [
         "studio"
       ],
+      "components": [
+        "bar-graph",
+        "line-graph",
+        "table"
+      ],
       "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling)."
     },
     "data-steward-agent-panel": {
       "label": "Data Steward Agent Panel",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "chat-with-ai-steward",
+        "drawer-side-panel",
+        "confirmation",
+        "button"
       ],
       "description": "AI metadata-curation agent panel with approval-gated writes, tenant memory, and plan mode, assisting stewards in Studio."
     },
@@ -1193,6 +1247,12 @@
         "studio",
         "explorer"
       ],
+      "components": [
+        "rich-text",
+        "avatar",
+        "text-input",
+        "button"
+      ],
       "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages."
     },
     "documentation-completion-dashboard": {
@@ -1200,12 +1260,22 @@
       "apps": [
         "studio"
       ],
+      "components": [
+        "progress-bar-small",
+        "table",
+        "card-for-items"
+      ],
       "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score."
     },
     "federated-catalog": {
       "label": "Federated Catalog",
       "apps": [
         "administration"
+      ],
+      "components": [
+        "search",
+        "search-filters",
+        "table"
       ],
       "description": "Multi-catalog federation with scoped permissions and cross-catalog search."
     },
@@ -1222,12 +1292,27 @@
       "apps": [
         "administration"
       ],
+      "components": [
+        "page-header",
+        "text-input",
+        "collapse-accordion",
+        "sticky-footer",
+        "button",
+        "toggle",
+        "checkbox-with-label"
+      ],
       "description": "Edit-group / permission / role configuration pattern. Page header + top inputs section + one or more collapsible filter-group sections, each containing label rows with toggle switches, plus optional slot cards for nested config (Checkbox + Toggle stacks). Sticky footer pinned at the bottom for save/cancel actions. Used when administrators configure access bundles or named groups with many fine-grained permissions."
     },
     "import-wizard": {
       "label": "Multi-step import wizard",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "stepper",
+        "button",
+        "text-input",
+        "dropdown-select-default"
       ],
       "description": "6-step horizontal stepper (Connection → Items → Curator → Contact → Data Product → Confirm)."
     },
@@ -1237,6 +1322,11 @@
         "studio",
         "explorer"
       ],
+      "components": [
+        "lineage-individual-node",
+        "lineage-grouped-node",
+        "lineage-connecting-line"
+      ],
       "description": "Used for lineage (DAG), View 360 (radial knowledge graph), and Data Model (ER diagram). Nodes are clickable."
     },
     "lineage-graph": {
@@ -1245,12 +1335,23 @@
         "studio",
         "explorer"
       ],
+      "components": [
+        "lineage-individual-node",
+        "lineage-grouped-node",
+        "lineage-connecting-line"
+      ],
       "description": "Directional data-flow graph with field-level path highlighting and an incomplete-process filter; rendered from data-process input/output edges."
     },
     "marketplace-browsing": {
       "label": "Marketplace browsing",
       "apps": [
         "explorer"
+      ],
+      "components": [
+        "search",
+        "search-filters",
+        "card-for-items",
+        "global-header"
       ],
       "description": "Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards)."
     },
@@ -1267,6 +1368,11 @@
       "apps": [
         "studio"
       ],
+      "components": [
+        "metamodel-widget",
+        "button",
+        "text-input"
+      ],
       "description": "Drag-and-drop configuration of templates and properties per item type in Studio Catalog Design."
     },
     "notification-system": {
@@ -1276,6 +1382,11 @@
         "explorer",
         "administration"
       ],
+      "components": [
+        "notification",
+        "notification-dropdown",
+        "global-header"
+      ],
       "description": "Bell icon with unread counter. Three notification types with click-to-action redirects."
     },
     "right-sliding-drawer": {
@@ -1283,6 +1394,10 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "components": [
+        "drawer-side-panel",
+        "button"
       ],
       "description": "Opens from list row click. Studio: quick edit. Explorer: quick view with Request Access."
     },
@@ -1293,6 +1408,11 @@
         "studio",
         "explorer"
       ],
+      "components": [
+        "search",
+        "table",
+        "search-filters"
+      ],
       "description": "List table with an inline Search input directly above it (no separate filter sidebar). Common for member directories, group lists, scanner inventories, connection lists. Pairs Page header → Search → Table. Search filters table contents in place; no other facets."
     },
     "smart-suggestions": {
@@ -1300,6 +1420,11 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "components": [
+        "tabs",
+        "badge",
+        "button"
       ],
       "description": "AI-powered metadata enrichment: suggestion counts inline, dedicated Suggestions tab."
     },
@@ -1309,6 +1434,12 @@
         "explorer",
         "studio"
       ],
+      "components": [
+        "button",
+        "confirmation",
+        "text-input",
+        "tag-status"
+      ],
       "description": "Explorer users submit suggestions, curators review (accept/decline with comment)."
     },
     "table-with-tabs": {
@@ -1317,12 +1448,22 @@
         "administration",
         "studio"
       ],
+      "components": [
+        "page-header",
+        "tabs",
+        "table"
+      ],
       "description": "Page header → Tabs → Table layout. Tabs split the table by status (Active / Pending / Archived), type (My / Shared / All), or role-scoped view. Used for admin dashboards, queue views, and any list where users mentally pre-filter by category before scanning rows."
     },
     "template-builder": {
       "label": "Drag-and-drop template builder",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "metamodel-widget",
+        "button",
+        "text-input"
       ],
       "description": "Studio feature for creating documentation templates via Catalog Design page."
     },
@@ -1331,12 +1472,20 @@
       "apps": [
         "explorer"
       ],
+      "components": [
+        "card-for-items",
+        "search"
+      ],
       "description": "Curated topic collections browsed via carousel + selector + favorites for business-user discovery."
     },
     "type-picker-grid": {
       "label": "Type picker grid",
       "apps": [
         "studio"
+      ],
+      "components": [
+        "card-for-items",
+        "modal"
       ],
       "description": "Grid of type tiles with color-coded icons for New Item creation."
     }

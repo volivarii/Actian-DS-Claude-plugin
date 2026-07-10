@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-shared",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13812:22307",
@@ -42,16 +42,24 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Shared",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-tertiary"
+        ],
         "id": "8643:7702",
         "appearance": {
           "text": {
             "color": "#50505d",
+            "colorToken": "--zen-color-text-tertiary",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

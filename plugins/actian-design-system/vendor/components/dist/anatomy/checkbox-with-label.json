@@ -2,20 +2,49 @@
   "_schema_version": 1,
   "slug": "checkbox-with-label",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
-    "variant": "Selected=No, State=Default"
+    "variant": "Selection=Unchecked, State=Default"
   },
   "quality": {
-    "nodesTotal": 3,
-    "nodesNormalized": 2,
-    "ratio": 0.67,
-    "degraded": []
+    "nodesTotal": 9,
+    "nodesNormalized": 7,
+    "ratio": 0.78,
+    "degraded": [
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant Selection=Indeterminate)"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant Selection=Checked)"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant State=Hover)"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant State=Focus)"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant State=Pressed)"
+      },
+      {
+        "name": "Checkbox",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ]
   },
   "root": {
-    "name": "Selected=No, State=Default",
+    "name": "Selection=Unchecked, State=Default",
     "kind": "container",
     "id": "8175:4413",
     "layout": {
@@ -29,23 +58,19 @@
       },
       "align": {
         "main": "start",
-        "cross": "center"
+        "cross": "start"
       },
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-2xs"
     },
     "children": [
       {
-        "name": ".Checkbox",
-        "kind": "instance",
-        "unresolved": true,
-        "props": {
-          "Selected": "No",
-          "State": "Default"
-        },
-        "id": "8175:4407",
+        "name": "Checkbox",
+        "kind": "container",
+        "id": "19705:28859",
         "appearance": {
           "radius": "6px",
           "variants": [
@@ -57,6 +82,7 @@
               "background": "rgba(0, 0, 0, 0.05)",
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -75,42 +101,164 @@
               "background": "rgba(0, 0, 0, 0.1)"
             }
           ]
-        }
+        },
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5995,
+          "y": 494,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-icon-default"
+            ],
+            "id": "19705:28860",
+            "appearance": {
+              "background": "#000000",
+              "backgroundToken": "--zen-color-icon-default",
+              "variants": [
+                {
+                  "prop": "Selection",
+                  "values": [
+                    "Checked",
+                    "Indeterminate"
+                  ],
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-icon-primary"
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "background": "#7c7c8a",
+                  "backgroundToken": "--zen-color-icon-disabled"
+                }
+              ]
+            }
+          }
+        ]
       },
       {
-        "name": "Label",
-        "kind": "text",
-        "id": "8175:4408",
-        "appearance": {
-          "text": {
-            "color": "#000000",
-            "size": "14px",
-            "weight": 400,
-            "lineHeight": "20px",
-            "letterSpacing": "0.2px"
+        "name": "Text",
+        "kind": "container",
+        "id": "19748:36340",
+        "layout": {
+          "axis": "column",
+          "gap": "2px",
+          "padding": {
+            "top": "2px",
+            "right": "0px",
+            "bottom": "2px",
+            "left": "0px"
           },
-          "variants": [
-            {
-              "prop": "State",
-              "values": [
-                "Disabled"
-              ],
-              "text": {
-                "color": "#656574",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            }
-          ]
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
         },
-        "text": "Inline label for checkbox"
+        "children": [
+          {
+            "name": "Label",
+            "kind": "container",
+            "id": "19748:37398",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "slug": "digram-item-types",
+                "props": {
+                  "Item type": "Dataset",
+                  "Size": "Small"
+                },
+                "id": "19748:36913",
+                "appearance": {
+                  "background": "#cfeafd",
+                  "radius": "4px"
+                }
+              },
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true,
+                "id": "19748:36914"
+              },
+              {
+                "name": "Label",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "19748:36341",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Inline label for checkbox"
+              }
+            ]
+          },
+          {
+            "name": "Description",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "19748:36342",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            "text": "Description"
+          }
+        ]
       }
     ]
   },
   "variantDefaults": {
-    "Selected": "No",
+    "Selection": "Unchecked",
     "State": "Default"
   }
 }
