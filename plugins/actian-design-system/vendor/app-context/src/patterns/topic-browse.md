@@ -5,5 +5,8 @@ slug: topic-browse
 label: Topic Browse
 apps:
   - explorer
+components:
+  - card-for-items
+  - search
 ---
 Curated topic collections browsed via carousel + selector + favorites for business-user discovery.

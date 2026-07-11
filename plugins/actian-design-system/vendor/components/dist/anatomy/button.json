@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "button",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7206:2643",
@@ -55,9 +55,13 @@
   "root": {
     "name": "Intent=Default, Emphasis=Filled, Size=Default, State=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-primary"
+    ],
     "id": "7206:2656",
     "appearance": {
       "background": "#0f5fdc",
+      "backgroundToken": "--zen-color-bg-primary",
       "radius": "9999px",
       "variants": [
         {
@@ -66,7 +70,8 @@
             "Ghost",
             "Icon-only"
           ],
-          "background": null
+          "background": null,
+          "backgroundToken": null
         },
         {
           "prop": "Emphasis",
@@ -74,6 +79,7 @@
             "Outlined"
           ],
           "background": null,
+          "backgroundToken": null,
           "border": {
             "color": "#0f5fdc",
             "width": "1px"
@@ -84,14 +90,16 @@
           "values": [
             "Critical"
           ],
-          "background": "#dc3514"
+          "background": "#dc3514",
+          "backgroundToken": null
         },
         {
           "prop": "State",
           "values": [
             "Disabled"
           ],
-          "background": "#e1e1e6"
+          "background": "#e1e1e6",
+          "backgroundToken": null
         },
         {
           "prop": "State",
@@ -118,6 +126,11 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-sm",
+        "left": "--zen-spacing-sm"
       }
     },
     "children": [
@@ -130,10 +143,14 @@
       {
         "name": "Button",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "7206:2658",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "14px",
             "weight": 500,
             "lineHeight": "20px",
@@ -147,6 +164,7 @@
               ],
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",
@@ -173,6 +191,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",

@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n- To display individual results in a search results list.\n- When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n- The result title should match the item name exactly. Do not truncate titles in the title field.\n- Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".\n- Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n- Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL |\n| Owner: Chris Frost | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last modified 2 days ago | Last modified: 2025-06-23T14:32:00Z |",
+      "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n* To display individual results in a search results list.\n\n* When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n* The result title should match the item name exactly. Do not truncate titles in the title field.\n\n* Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".\n\n* Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n\n* Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do                            | Don't                                              |\n| ----------------------------- | -------------------------------------------------- |\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL       |\n| Owner: Chris Frost            | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last modified 2 days ago      | Last modified: 2025-06-23T14:32:00Z                |",
       "sections": [
         {
           "heading": "",
@@ -80,5 +80,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-10T13:07:46+02:00"
 }

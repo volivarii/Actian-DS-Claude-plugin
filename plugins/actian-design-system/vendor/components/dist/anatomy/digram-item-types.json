@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-item-types",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14007:23209",
@@ -25,8 +25,14 @@
         {
           "prop": "Item type",
           "values": [
-            "Custom 10",
-            "Field"
+            "Custom 1"
+          ],
+          "backgroundToken": "--zen-color-error-50"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Custom 10"
           ],
           "background": "#d3efcd"
         },
@@ -116,10 +122,19 @@
         {
           "prop": "Item type",
           "values": [
+            "Field"
+          ],
+          "background": "#d3efcd",
+          "backgroundToken": "--zen-color-success-50"
+        },
+        {
+          "prop": "Item type",
+          "values": [
             "Glossary 1",
             "Use case"
           ],
-          "background": "#fff9e5"
+          "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning"
         },
         {
           "prop": "Item type",
@@ -127,7 +142,8 @@
             "Glossary 2",
             "Glossary 5"
           ],
-          "background": "#ffebce"
+          "background": "#ffebce",
+          "backgroundToken": "--zen-color-warning-50"
         },
         {
           "prop": "Item type",
@@ -135,7 +151,8 @@
             "Glossary 3",
             "Glossary 4"
           ],
-          "background": "#fff4ec"
+          "background": "#fff4ec",
+          "backgroundToken": "--zen-color-bg-error"
         },
         {
           "prop": "Item type",
@@ -162,16 +179,25 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-error"
+        ],
         "id": "14007:23211",
         "appearance": {
           "text": {
             "color": "#dc3514",
+            "colorToken": "--zen-color-text-error",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -359,6 +385,7 @@
               ],
               "text": {
                 "color": "#145f04",
+                "colorToken": "--zen-color-success-800",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -373,6 +400,7 @@
               ],
               "text": {
                 "color": "#a76605",
+                "colorToken": "--zen-color-warning-800",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -413,6 +441,7 @@
               ],
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -439,6 +468,7 @@
               ],
               "text": {
                 "color": "#dc3514",
+                "colorToken": "--zen-color-text-error",
                 "size": "16px",
                 "weight": 400,
                 "lineHeight": "24px",

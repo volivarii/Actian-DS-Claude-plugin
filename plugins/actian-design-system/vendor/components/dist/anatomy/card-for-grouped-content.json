@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-grouped-content",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14782:29281",
@@ -59,9 +59,13 @@
       {
         "name": "Divider",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14782:29191",
         "appearance": {
-          "background": "#c7c7ce"
+          "background": "#c7c7ce",
+          "backgroundToken": "--zen-border-default"
         }
       },
       {
@@ -87,6 +91,13 @@
           "sizing": {
             "h": "fill",
             "v": "fill"
+          },
+          "gapToken": "--zen-spacing-xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         }
       }

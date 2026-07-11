@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n- To group the main actions that apply to a view or a selection within it.\n- Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n- Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n- Order actions by frequency of use, most common first.\n- Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n- Group related actions together and separate unrelated groups.\n\n## Behavior\n\n- Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n- When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export | Export selected items to file |\n| Add filter | Filtering |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
+      "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n* To group the main actions that apply to a view or a selection within it.\n\n* Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n* Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n\n* Order actions by frequency of use, most common first.\n\n* Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n\n* Group related actions together and separate unrelated groups.\n\n## Behavior\n\n* Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n\n* When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do                                | Don't                               |\n| --------------------------------- | ----------------------------------- |\n| Export                            | Export selected items to file       |\n| Add filter                        | Filtering                           |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
       "sections": [
         {
           "heading": "",
@@ -91,5 +91,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-29T22:22:59+02:00"
+  "updated_at": "2026-07-10T13:07:46+02:00"
 }

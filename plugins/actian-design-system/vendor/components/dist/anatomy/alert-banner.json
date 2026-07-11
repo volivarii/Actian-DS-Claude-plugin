@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-06T00:09:37.751Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -10,16 +10,20 @@
   },
   "quality": {
     "nodesTotal": 5,
-    "nodesNormalized": 3,
-    "ratio": 0.6,
+    "nodesNormalized": 5,
+    "ratio": 1,
     "degraded": []
   },
   "root": {
     "name": "Type=Primary, Orientation'=Horizontal",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-info"
+    ],
     "id": "13732:3055",
     "appearance": {
       "background": "#edf6ff",
+      "backgroundToken": "--zen-color-bg-info",
       "radius": "6px",
       "variants": [
         {
@@ -27,32 +31,35 @@
           "values": [
             "Danger"
           ],
-          "background": "#fff4ec"
+          "background": "#fff4ec",
+          "backgroundToken": "--zen-color-bg-error"
         },
         {
           "prop": "Type",
           "values": [
             "Success"
           ],
-          "background": "#f0ffec"
+          "background": "#f0ffec",
+          "backgroundToken": "--zen-color-bg-success"
         },
         {
           "prop": "Type",
           "values": [
             "Warning"
           ],
-          "background": "#fff9e5"
+          "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning"
         }
       ]
     },
     "layout": {
       "axis": "row",
-      "gap": "8px",
+      "gap": "4px",
       "padding": {
         "top": "8px",
-        "right": "36px",
+        "right": "32px",
         "bottom": "8px",
-        "left": "36px"
+        "left": "32px"
       },
       "align": {
         "main": "start",
@@ -61,16 +68,25 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Primary",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "13732:3031",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
@@ -82,7 +98,7 @@
       {
         "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
           "Show label": true,
           "Show trailing icon": false,
@@ -132,7 +148,7 @@
       {
         "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
           "Show leading icon": true,
           "Show label": true,

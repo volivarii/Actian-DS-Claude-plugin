@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13972:708",
@@ -67,7 +67,8 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-xs"
     },
     "children": [
       {
@@ -113,16 +114,21 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-2xs"
             },
             "children": [
               {
                 "name": "Label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "13937:34581",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -136,6 +142,7 @@
                       ],
                       "text": {
                         "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
                         "size": "14px",
                         "weight": 500,
                         "lineHeight": "20px",
@@ -149,10 +156,14 @@
               {
                 "name": "Label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-error"
+                ],
                 "id": "13937:34582",
                 "appearance": {
                   "text": {
                     "color": "#dc3514",
+                    "colorToken": "--zen-color-text-error",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -166,6 +177,7 @@
                       ],
                       "text": {
                         "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
                         "size": "14px",
                         "weight": 500,
                         "lineHeight": "20px",
@@ -187,10 +199,14 @@
           {
             "name": "description",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "13937:34584",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -204,6 +220,7 @@
                   ],
                   "text": {
                     "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -219,11 +236,15 @@
       {
         "name": "input field",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13937:34585",
         "appearance": {
           "background": "#ffffff",
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "radius": "6px",
@@ -233,7 +254,12 @@
               "values": [
                 "Disabled"
               ],
-              "background": "#e1e1e6"
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
             },
             {
               "prop": "State",
@@ -243,6 +269,7 @@
               "background": "#fbfbff",
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -271,6 +298,10 @@
           "sizing": {
             "h": "fill",
             "v": "fixed"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-2xs",
+            "bottom": "--zen-spacing-2xs"
           }
         },
         "children": [
@@ -312,16 +343,27 @@
               "sizing": {
                 "h": "fill",
                 "v": "fixed"
+              },
+              "gapToken": "--zen-spacing-2xs",
+              "paddingTokens": {
+                "top": "--zen-spacing-xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [
               {
                 "name": "Label text",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "13972:604",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -335,6 +377,7 @@
                       ],
                       "text": {
                         "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
                         "size": "14px",
                         "weight": 400,
                         "lineHeight": "20px",
@@ -358,10 +401,14 @@
       {
         "name": "helper text",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-secondary"
+        ],
         "id": "13937:34589",
         "appearance": {
           "text": {
             "color": "#40404a",
+            "colorToken": "--zen-color-text-secondary",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -375,6 +422,7 @@
               ],
               "text": {
                 "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",

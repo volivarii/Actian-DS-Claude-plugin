@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.76",
+  "knowledge_version": "0.34.83",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -139,6 +139,12 @@
       "type": "json",
       "origin": "human",
       "description": "Curated slug -> category display-name overrides consumed by scripts/graph/derive-graph.js when a registry component carries no category (Figma frames on a category-header page). Registry wins when present; entries self-retire after the Figma page reorg + re-sync. Provenance manual-override."
+    },
+    "components.categoryPageOverrides": {
+      "path": "components/src/category-page-overrides.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Page clean-name -> canonical category overrides plus a staging-exclude list, consumed by scripts/transformers/transform-categories.js during the Figma sync when a page's own name does not encode its category (a WIP-renamed or self-hosting icons page). Applied first in inferCategoryMap; self-retiring after the Figma pages are reorganized and a re-sync restores the category. Provenance manual-override."
     },
     "components.guidelineDoc.alert-banner": {
       "path": "components/dist/guidelines/alert-banner.json",
@@ -600,90 +606,6 @@
       "generator": "scripts/styles-to-md.js",
       "description": "DS Kit text styles (human-readable catalog)"
     },
-    "components.tokenBindings.card-for-grouped-content": {
-      "path": "components/dist/token-bindings/card-for-grouped-content.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-grouped-content, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
-    },
-    "components.tokenBindings.card-for-items": {
-      "path": "components/dist/token-bindings/card-for-items.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-items, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.card-for-perimeter": {
-      "path": "components/dist/token-bindings/card-for-perimeter.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for card-for-perimeter, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive."
-    },
-    "components.tokenBindings.coverage": {
-      "path": "components/dist/token-bindings/coverage.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-component semantic/primitive/total token-binding coverage tally for the harvested sidecars."
-    },
-    "components.tokenBindings.tag-catalog": {
-      "path": "components/dist/token-bindings/tag-catalog.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-catalog, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-catalog-item-type": {
-      "path": "components/dist/token-bindings/tag-catalog-item-type.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-catalog-item-type, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-default": {
-      "path": "components/dist/token-bindings/tag-default.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-default, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-glossary-item-type": {
-      "path": "components/dist/token-bindings/tag-glossary-item-type.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-glossary-item-type, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-interactive": {
-      "path": "components/dist/token-bindings/tag-interactive.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-interactive, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-shared": {
-      "path": "components/dist/token-bindings/tag-shared.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-shared, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-stage": {
-      "path": "components/dist/token-bindings/tag-stage.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-stage, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
-    "components.tokenBindings.tag-status": {
-      "path": "components/dist/token-bindings/tag-status.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/harvest-token-bindings.js",
-      "description": "Per-part render-grade token bindings for tag-status, harvested from Figma via get_design_context (agent-run) and keyed by Figma node-id for joining to the anatomy tree. --zen- token refs graded semantic|primitive; variant-scoped bindings carry {prop, values} with axis defaults in variantDefaults."
-    },
     "content.globalMd": {
       "path": "content/dist/global.md",
       "type": "markdown",
@@ -691,12 +613,33 @@
       "generator": "scripts/content/derive-content.js",
       "description": "Global / cross-cutting content guidelines only (voice, tone, capitalization, words to avoid, UX-pattern topics, Actian product-surface rules) — auto-generated from content/src/{writing,patterns,product}/*.md plus root-level meta files. The docs /content page and the markdown-consuming plugin skills read this; component-scoped content guidance lives per-component in components/dist/guidelines/{slug}.json instead."
     },
+    "content.patternsMd": {
+      "path": "content/dist/patterns.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/content/derive-content.js",
+      "description": "The patterns bucket of the global content guidelines, split out (UX-pattern content topics: empty/system states, forms, notifications, onboarding, validation, wizards). Same sections as global.md's patterns family, same index order. Note the same source sections also fan out per-component into components/dist/guidelines/{slug}.json."
+    },
+    "content.productMd": {
+      "path": "content/dist/product.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/content/derive-content.js",
+      "description": "The product bucket of the global content guidelines, split out (Actian product-surface rules: lineage UI, object preview panels, related-content panels). Same sections as global.md's product family, same index order."
+    },
     "content.wordsToAvoid": {
       "path": "content/dist/words-to-avoid.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/content/derive-content.js",
       "description": "Structured words-to-avoid rules (content's first JSON dist), parsed from content/src/writing/words-to-avoid.md. Each rule = { avoid: [tokens], reason, example: { do, dont } }; advisory rules carry avoid: []. Consumers read avoid[] for programmatic checks; global.md keeps the prose table for humans."
+    },
+    "content.writingMd": {
+      "path": "content/dist/writing.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/content/derive-content.js",
+      "description": "The writing bucket of the global content guidelines, split out (voice, tone, capitalization, punctuation, words to avoid with the rendered Do/Don't table). Same sections as global.md's writing family, same index order; a consumer that needs only writing rules reads this instead of the full concat. Root-level ground rules (global-guidelines) stay in global.md only."
     },
     "foundations.authoring": {
       "path": "foundations/src/AUTHORING.md",
@@ -758,7 +701,27 @@
       "type": "json",
       "origin": "ci",
       "generator": "scripts/graph/derive-graph.js",
-      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, narrower). Transversal refs are category-mediated. Consumed by future graph viz + AI agents."
+      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic/app/app_entity/terminology_term/ux_pattern) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, narrower, in_app, entity_related, term_about). Transversal refs are category-mediated; app-context adds a product-domain island (apps, entities, terminology, UX patterns) linked by in_app / entity_related / term_about. Component nodes additionally carry figmaKey / figmaNodeId (stable Figma identifiers) as queryable external ids; the slug stays the node id. Consumed by future graph viz + AI agents."
+    },
+    "graph.collisions": {
+      "path": "graph/dist/collisions.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graph/derive-graph.js",
+      "description": "Cross-registry component slug collisions (slug present in >1 kit with distinct Figma keys), each with the candidate {kit, key, nodeId} and the kit the graph node resolved to. Makes the silent first-wins tie-break legible."
+    },
+    "graph.context": {
+      "path": "graph/context.jsonld",
+      "type": "json",
+      "origin": "human",
+      "description": "Hand-authored JSON-LD @context for the knowledge graph: maps node-id prefixes, node/edge type terms, and field terms to IRIs (reusing schema.org/SKOS/PROV; actian-ds: for DS-specific concepts). Governs graph/dist/graph.jsonld. Keep in sync with graph/vocabulary.json."
+    },
+    "graph.jsonld": {
+      "path": "graph/dist/graph.jsonld",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graph/derive-graph.js",
+      "description": "Derived linked-data (JSON-LD) view of the knowledge graph: the same nodes + edges as graph.bundle, wrapped with graph/context.jsonld, node @types, and reified edges. Structurally lossless (every node and edge field is carried through). Additive sibling of graph/dist/graph.json (which stays canonical). A JSON-LD 1.1 document ready for a linked-data reader; full RDF/SPARQL round-tripping (a stable IRI base plus source-file provenance as dereferenceable IRIs) is deferred until the IRI base domain is chosen (spec open decision)."
     },
     "graph.quality-report": {
       "path": "graph/dist/quality-report.json",

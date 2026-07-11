@@ -124,6 +124,91 @@
                   ]
                 }
               ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+                }
+              ]
+            },
+            {
+              "heading": "Principles",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Choosing a messaging pattern",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Scope",
+                      "When it appears",
+                      "Where it appears",
+                      "How it goes away",
+                      "Example"
+                    ],
+                    "rows": [
+                      [
+                        "Banner (page)",
+                        "The whole page",
+                        "Until the underlying issue is resolved",
+                        "Top of the page, below the header",
+                        "Cleared when the issue resolves, or dismissed if informational",
+                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                      ],
+                      [
+                        "Banner (section)",
+                        "One part of the page",
+                        "While a section-level issue exists",
+                        "Top of the affected section",
+                        "Cleared when the issue resolves",
+                        "\"This output port is managed by an external data contract and is read-only.\""
+                      ],
+                      [
+                        "Toast",
+                        "One completed action",
+                        "Right after the action completes",
+                        "Bottom center",
+                        "Dismisses automatically after a few seconds",
+                        "\"Prospect customers created.\""
+                      ],
+                      [
+                        "Inline message",
+                        "One form field",
+                        "On blur, or on submit attempt",
+                        "Directly below the field",
+                        "Clears as soon as the field is valid",
+                        "\"Enter a valid email address.\""
+                      ],
+                      [
+                        "Modal",
+                        "A required decision",
+                        "When the user must confirm or provide input before continuing",
+                        "Centered, blocking the page",
+                        "Dismissed only by completing or canceling the action",
+                        "\"This will permanently delete the dataset and cannot be undone.\""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+                }
+              ]
             }
           ]
         },
@@ -776,7 +861,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n- When users need to select a date or date range and seeing surrounding days adds context.\n- For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead.\n\n## Style\n\n- Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n- Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n- For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n- Highlight today's date for orientation.\n- Disable dates that are not selectable rather than allowing selection and then showing an error.\n- For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Start date | Select date |\n| Jun 28, 2026 | 06/28/26 |\n| End date must be after start date. | Invalid range. |",
+          "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n* When users need to select a date or date range and seeing surrounding days adds context.\n\n* For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead.\n\n## Style\n\n* Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n\n* Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n\n* For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n* Highlight today's date for orientation.\n\n* Disable dates that are not selectable rather than allowing selection and then showing an error.\n\n* For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do                                 | Don't          |\n| ---------------------------------- | -------------- |\n| Start date                         | Select date    |\n| Jun 28, 2026                       | 06/28/26       |\n| End date must be after start date. | Invalid range. |",
           "sections": [
             {
               "heading": "",
@@ -853,7 +938,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-29T22:22:59+02:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -1708,6 +1793,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -1721,7 +1827,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -1774,6 +1880,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -1841,6 +2024,119 @@
                 {
                   "do": "Select at least one data domain.",
                   "dont": "You must make a selection."
+                }
+              ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -2334,6 +2630,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -2347,7 +2664,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -2400,6 +2717,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -2467,6 +2861,119 @@
                 {
                   "do": "Select at least one data domain.",
                   "dont": "You must make a selection."
+                }
+              ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -2565,7 +3072,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n- To hide optional or advanced content that does not need to be visible by default.\n- When content is long and only some users will need all of it.\n- Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n- Write header labels as short noun phrases that describe the content inside.\n- Avoid generic labels like \"More\", \"Details\", or \"Other\".\n- The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n- With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n- Transitions should be smooth. Avoid layout shift.\n- The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Advanced settings | More options |\n| Connection details | Click to expand |\n| Notification preferences | Details |",
+          "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n* To hide optional or advanced content that does not need to be visible by default.\n\n* When content is long and only some users will need all of it.\n\n* Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n* Write header labels as short noun phrases that describe the content inside.\n\n* Avoid generic labels like \"More\", \"Details\", or \"Other\".\n\n* The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n* With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n\n* Transitions should be smooth. Avoid layout shift.\n\n* The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do                       | Don't           |\n| ------------------------ | --------------- |\n| Advanced settings        | More options    |\n| Connection details       | Click to expand |\n| Notification preferences | Details         |",
           "sections": [
             {
               "heading": "",
@@ -2643,7 +3150,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T13:12:15-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "combo-box": {
       "_schema_version": 1,
@@ -3831,7 +4338,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n- For single-date entry in a form, such as a deadline or an effective date.\n- When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n- Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n- Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n- Use a single, consistent date format across the product.\n\n## Behavior\n\n- Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n- State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today. | Invalid date. |\n| Effective date | Date field |",
+          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
           "sections": [
             {
               "heading": "",
@@ -4172,6 +4679,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -4185,7 +4713,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -4238,6 +4766,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -4307,6 +4912,119 @@
                   "dont": "You must make a selection."
                 }
               ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -4323,7 +5041,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-29T22:22:59+02:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "link": {
       "_schema_version": 1,
@@ -4891,6 +5609,91 @@
                   "dont": "Primary CTA: Yes / Secondary CTA: No"
                 }
               ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+                }
+              ]
+            },
+            {
+              "heading": "Principles",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Choosing a messaging pattern",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Scope",
+                      "When it appears",
+                      "Where it appears",
+                      "How it goes away",
+                      "Example"
+                    ],
+                    "rows": [
+                      [
+                        "Banner (page)",
+                        "The whole page",
+                        "Until the underlying issue is resolved",
+                        "Top of the page, below the header",
+                        "Cleared when the issue resolves, or dismissed if informational",
+                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                      ],
+                      [
+                        "Banner (section)",
+                        "One part of the page",
+                        "While a section-level issue exists",
+                        "Top of the affected section",
+                        "Cleared when the issue resolves",
+                        "\"This output port is managed by an external data contract and is read-only.\""
+                      ],
+                      [
+                        "Toast",
+                        "One completed action",
+                        "Right after the action completes",
+                        "Bottom center",
+                        "Dismisses automatically after a few seconds",
+                        "\"Prospect customers created.\""
+                      ],
+                      [
+                        "Inline message",
+                        "One form field",
+                        "On blur, or on submit attempt",
+                        "Directly below the field",
+                        "Clears as soon as the field is valid",
+                        "\"Enter a valid email address.\""
+                      ],
+                      [
+                        "Modal",
+                        "A required decision",
+                        "When the user must confirm or provide input before continuing",
+                        "Centered, blocking the page",
+                        "Dismissed only by completing or canceling the action",
+                        "\"This will permanently delete the dataset and cannot be undone.\""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+                }
+              ]
             }
           ]
         },
@@ -5076,6 +5879,91 @@
                   "dont": "Something happened."
                 }
               ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+                }
+              ]
+            },
+            {
+              "heading": "Principles",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Choosing a messaging pattern",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Scope",
+                      "When it appears",
+                      "Where it appears",
+                      "How it goes away",
+                      "Example"
+                    ],
+                    "rows": [
+                      [
+                        "Banner (page)",
+                        "The whole page",
+                        "Until the underlying issue is resolved",
+                        "Top of the page, below the header",
+                        "Cleared when the issue resolves, or dismissed if informational",
+                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                      ],
+                      [
+                        "Banner (section)",
+                        "One part of the page",
+                        "While a section-level issue exists",
+                        "Top of the affected section",
+                        "Cleared when the issue resolves",
+                        "\"This output port is managed by an external data contract and is read-only.\""
+                      ],
+                      [
+                        "Toast",
+                        "One completed action",
+                        "Right after the action completes",
+                        "Bottom center",
+                        "Dismisses automatically after a few seconds",
+                        "\"Prospect customers created.\""
+                      ],
+                      [
+                        "Inline message",
+                        "One form field",
+                        "On blur, or on submit attempt",
+                        "Directly below the field",
+                        "Clears as soon as the field is valid",
+                        "\"Enter a valid email address.\""
+                      ],
+                      [
+                        "Modal",
+                        "A required decision",
+                        "When the user must confirm or provide input before continuing",
+                        "Centered, blocking the page",
+                        "Dismissed only by completing or canceling the action",
+                        "\"This will permanently delete the dataset and cannot be undone.\""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+                }
+              ]
             }
           ]
         },
@@ -5158,6 +6046,91 @@
                   "dont": "Clear all / Dismiss all"
                 }
               ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+                }
+              ]
+            },
+            {
+              "heading": "Principles",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Choosing a messaging pattern",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Scope",
+                      "When it appears",
+                      "Where it appears",
+                      "How it goes away",
+                      "Example"
+                    ],
+                    "rows": [
+                      [
+                        "Banner (page)",
+                        "The whole page",
+                        "Until the underlying issue is resolved",
+                        "Top of the page, below the header",
+                        "Cleared when the issue resolves, or dismissed if informational",
+                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                      ],
+                      [
+                        "Banner (section)",
+                        "One part of the page",
+                        "While a section-level issue exists",
+                        "Top of the affected section",
+                        "Cleared when the issue resolves",
+                        "\"This output port is managed by an external data contract and is read-only.\""
+                      ],
+                      [
+                        "Toast",
+                        "One completed action",
+                        "Right after the action completes",
+                        "Bottom center",
+                        "Dismisses automatically after a few seconds",
+                        "\"Prospect customers created.\""
+                      ],
+                      [
+                        "Inline message",
+                        "One form field",
+                        "On blur, or on submit attempt",
+                        "Directly below the field",
+                        "Clears as soon as the field is valid",
+                        "\"Enter a valid email address.\""
+                      ],
+                      [
+                        "Modal",
+                        "A required decision",
+                        "When the user must confirm or provide input before continuing",
+                        "Centered, blocking the page",
+                        "Dismissed only by completing or canceling the action",
+                        "\"This will permanently delete the dataset and cannot be undone.\""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+                }
+              ]
             }
           ]
         },
@@ -5192,7 +6165,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n- At the top of every main page to orient the user and provide primary actions.\n- Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n- The title should match the name of the item or section exactly.\n- Use sentence case for page titles.\n- Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n- Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| New connection | Create a new connection |\n| Edit | Edit this item |\n| Sales pipeline | Sales Pipeline Overview |",
+          "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n* At the top of every main page to orient the user and provide primary actions.\n\n* Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n* The title should match the name of the item or section exactly.\n\n* Use sentence case for page titles.\n\n* Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n\n* Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do             | Don't                   |\n| -------------- | ----------------------- |\n| New connection | Create a new connection |\n| Edit           | Edit this item          |\n| Sales pipeline | Sales Pipeline Overview |",
           "sections": [
             {
               "heading": "",
@@ -5316,7 +6289,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-05T20:42:11+02:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "popover": {
       "_schema_version": 1,
@@ -5563,7 +6536,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Radio button\n\nRadio buttons let users select exactly one option from a group. Use them when options are mutually exclusive and all choices should be visible at once.\n\n***\n\n## When to use\n\n- When users must choose exactly one option from a small set (2-6 options).\n- When the options are mutually exclusive.\n- When all options should be visible without interaction.\n- For larger or dynamic option sets, use a [dropdown select](dropdown-select) instead.\n\n## Style\n\n- Write labels as short noun phrases or adjectives, not full sentences.\n- Keep labels parallel in structure across the group.\n- Always include a group label that describes what is being selected.\n- Avoid labels like \"Option 1\" or \"Other\" without further context.\n\n## Behavior\n\n- One option in the group should be selected by default when a choice is required.\n- If no default is appropriate, leave all options unselected and require an explicit choice.\n- Clicking either the button or the label selects the option.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Daily / Weekly / Monthly | Every day / Once per week / Once per month |\n| Administrator / Editor / Viewer | The user is an administrator |\n| Select one | Choose from the following options below |",
+          "markdown": "# Radio button\n\nRadio buttons let users select exactly one option from a group. Use them when options are mutually exclusive and all choices should be visible at once.\n\n***\n\n## When to use\n\n* When users must choose exactly one option from a small set (2-6 options).\n\n* When the options are mutually exclusive.\n\n* When all options should be visible without interaction.\n\n* For larger or dynamic option sets, use a [dropdown select](dropdown-select) instead.\n\n## Style\n\n* Write labels as short noun phrases or adjectives, not full sentences.\n\n* Keep labels parallel in structure across the group.\n\n* Always include a group label that describes what is being selected.\n\n* Avoid labels like \"Option 1\" or \"Other\" without further context.\n\n## Behavior\n\n* One option in the group should be selected by default when a choice is required.\n\n* If no default is appropriate, leave all options unselected and require an explicit choice.\n\n* Clicking either the button or the label selects the option.\n\n## Do / Don't\n\n| Do                              | Don't                                      |\n| ------------------------------- | ------------------------------------------ |\n| Daily / Weekly / Monthly        | Every day / Once per week / Once per month |\n| Administrator / Editor / Viewer | The user is an administrator               |\n| Select one                      | Choose from the following options below    |",
           "sections": [
             {
               "heading": "",
@@ -5908,6 +6881,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -5921,7 +6915,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -5974,6 +6968,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -6043,6 +7114,119 @@
                   "dont": "You must make a selection."
                 }
               ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -6059,7 +7243,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T12:05:17-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "rich-text": {
       "_schema_version": 1,
@@ -6077,7 +7261,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Rich text\n\nThe rich text editor allows users to write and format long-form content such as descriptions, notes, and documentation.\n\n***\n\n## When to use\n\n- When users need to format content with headings, lists, links, or emphasis.\n- For long-form inputs such as descriptions, notes, or comments.\n- Do not use for short single-line inputs. Use a [text input](text-input) instead.\n\n## Style\n\n- Placeholder text should describe what kind of content belongs here. For example, \"Add a description\" or \"Write release notes.\"\n- Toolbar button labels follow standard conventions: Bold, Italic, Link, Bullet list, Numbered list.\n- Do not use placeholder text to convey formatting instructions. Use helper text below the field instead.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Add a description | Write here... |\n| Helper text: Markdown is supported | Placeholder: Use **bold** for emphasis |\n| Release notes | Enter text |",
+          "markdown": "# Rich text\n\nThe rich text editor allows users to write and format long-form content such as descriptions, notes, and documentation.\n\n***\n\n## When to use\n\n* When users need to format content with headings, lists, links, or emphasis.\n\n* For long-form inputs such as descriptions, notes, or comments.\n\n* Do not use for short single-line inputs. Use a [text input](text-input) instead.\n\n## Style\n\n* Placeholder text should describe what kind of content belongs here. For example, \"Add a description\" or \"Write release notes.\"\n\n* Toolbar button labels follow standard conventions: Bold, Italic, Link, Bullet list, Numbered list.\n\n* Do not use placeholder text to convey formatting instructions. Use helper text below the field instead.\n\n## Do / Don't\n\n| Do                                 | Don't                                  |\n| ---------------------------------- | -------------------------------------- |\n| Add a description                  | Write here...                          |\n| Helper text: Markdown is supported | Placeholder: Use **bold** for emphasis |\n| Release notes                      | Enter text                             |",
           "sections": [
             {
               "heading": "",
@@ -6143,7 +7327,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T13:12:15-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "scroll-bar": {
       "_schema_version": 1,
@@ -6161,7 +7345,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n- Automatically when content exceeds the visible area of a container.\n- Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n- Scroll bars carry no copy.\n- Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
+          "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n* Automatically when content exceeds the visible area of a container.\n\n* Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n* Scroll bars carry no copy.\n\n* Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
           "sections": [
             {
               "heading": "",
@@ -6208,7 +7392,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T13:12:15-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "search": {
       "_schema_version": 1,
@@ -6830,6 +8014,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -6843,7 +8048,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -6901,6 +8106,83 @@
                   ]
                 }
               ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -6935,7 +8217,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n- To display individual results in a search results list.\n- When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n- The result title should match the item name exactly. Do not truncate titles in the title field.\n- Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".\n- Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n- Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL |\n| Owner: Chris Frost | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last modified 2 days ago | Last modified: 2025-06-23T14:32:00Z |",
+          "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n* To display individual results in a search results list.\n\n* When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n* The result title should match the item name exactly. Do not truncate titles in the title field.\n\n* Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".\n\n* Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n\n* Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do                            | Don't                                              |\n| ----------------------------- | -------------------------------------------------- |\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL       |\n| Owner: Chris Frost            | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last modified 2 days ago      | Last modified: 2025-06-23T14:32:00Z                |",
           "sections": [
             {
               "heading": "",
@@ -7001,7 +8283,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T13:12:15-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "segmented-control": {
       "_schema_version": 1,
@@ -7019,7 +8301,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Segmented control\n\nA segmented control lets users switch between mutually exclusive views or modes. All options are visible simultaneously.\n\n***\n\n## When to use\n\n- To switch between 2-5 mutually exclusive views or modes within a single surface.\n- When all options benefit from side-by-side visibility.\n- Do not use for page-level navigation. Use [tabs](tabs) instead.\n- Do not use when options represent independent toggles. Use separate [toggle controls](toggle-control) instead.\n\n## Style\n\n- Labels should be short nouns or verbs. One or two words maximum.\n- Keep all labels similar in length for visual balance.\n- Use sentence case.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| List / Grid | List view / Grid view |\n| Day / Week / Month | Daily / Weekly / Monthly view |\n| Chart / Table | Show as chart / Show as table |",
+          "markdown": "# Segmented control\n\nA segmented control lets users switch between mutually exclusive views or modes. All options are visible simultaneously.\n\n***\n\n## When to use\n\n* To switch between 2-5 mutually exclusive views or modes within a single surface.\n\n* When all options benefit from side-by-side visibility.\n\n* Do not use for page-level navigation. Use [tabs](tabs) instead.\n\n* Do not use when options represent independent toggles. Use separate [toggle controls](toggle-control) instead.\n\n## Style\n\n* Labels should be short nouns or verbs. One or two words maximum.\n\n* Keep all labels similar in length for visual balance.\n\n* Use sentence case.\n\n## Do / Don't\n\n| Do                 | Don't                         |\n| ------------------ | ----------------------------- |\n| List / Grid        | List view / Grid view         |\n| Day / Week / Month | Daily / Weekly / Monthly view |\n| Chart / Table      | Show as chart / Show as table |",
           "sections": [
             {
               "heading": "",
@@ -7070,6 +8352,456 @@
                   "dont": "Show as chart / Show as table"
                 }
               ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "Forms collect or update user data. Consistent structure, clear labels, and helpful guidance reduce friction and prevent errors."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "bullets": [
+                    "To collect user input that affects data, configuration, or permissions.",
+                    "To edit or update existing records or entities.",
+                    "To guide users through multi-step flows where input drives behavior.",
+                    "To allow users to provide comments and suggestions, or to confirm, approve, or reject requests that require context."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Types of forms",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Usage",
+                      "Examples"
+                    ],
+                    "rows": [
+                      [
+                        "Single page or simple form",
+                        "Data entry for simple workflows",
+                        "Editing a dataset name or description"
+                      ],
+                      [
+                        "Stepper or multi-page form",
+                        "Task-based workflows",
+                        "Creating a data connection or access request"
+                      ],
+                      [
+                        "Modal form",
+                        "Short, focused tasks that require user confirmation",
+                        "Adding a note or setting permissions"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "General form guidelines",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "How to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Be concise and directive: each label or helper text should clearly describe the required action.",
+                        "Use sentence case for labels and titles."
+                      ]
+                    },
+                    {
+                      "do": "Group name",
+                      "dont": "Group Name"
+                    },
+                    {
+                      "bullets": [
+                        "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
+                        "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
+                        "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
+                        "Error text should guide correction."
+                      ]
+                    },
+                    {
+                      "do": "Enter a valid date",
+                      "dont": "Invalid input"
+                    },
+                    {
+                      "bullets": [
+                        "Success or confirmation text should be brief, reassuring, and specific. For example, `The policy was successfully created`.",
+                        "Use progressive disclosure for field entry assistance: Label → Tooltip → Descriptive text → Link to docs."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Structure",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Group related fields together under sections.",
+                        "Always place the primary CTA at the bottom right for consistency.",
+                        "Avoid multi-column layouts when possible - single column is easier to read. Exceptions such as separate fields for first and last names are acceptable."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Labels should be visible even when the field is in focus.",
+                        "Include placeholder text only when it provides value - never to just repeat the label.",
+                        "The primary CTA should be disabled until all required fields are filled.",
+                        "Validate fields inline and provide red error text below the field. See [validation messages](validation-messages) for error text guidelines."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Input labels and helper text",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Labels describe the purpose of the field. They are always visible.",
+                        "Helper text provides brief instruction or clarification below the field. Use it sparingly.",
+                        "Placeholder text is a hint only - never a substitute for a label. It disappears when the user starts typing."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Do / Don't",
+                  "content": [
+                    {
+                      "do": "Label: Connection name / Helper: Use a unique name to identify this connection.",
+                      "dont": "Placeholder: Enter connection name (no visible label)"
+                    },
+                    {
+                      "do": "Helper: Must be 8–32 characters.",
+                      "dont": "Helper: Please enter a valid password."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Dropdown",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "For lists of 5 to 20 options.",
+                        "When the full list does not need to be visible at all times."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Label the dropdown clearly. The label should describe the category of options, not the action.",
+                        "Close after selection.",
+                        "Keep option phrasing consistent within the same dropdown.",
+                        "Use sentence case for all options."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Calendar",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "The calendar component is used for any interaction involving date ranges, filtering, or scheduling."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "prose": "For any interaction involving date ranges, filtering, or scheduling."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Use labels like `From` and `To`, or `Start date` and `End date` for range fields. Do not leave any fields unlabeled.",
+                        "Display date formats clearly (MM/DD/YYYY or regional format) with placeholders or hints where appropriate.",
+                        "Do not pre-fill dates for users."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Support both typing and calendar picking.",
+                        "Auto-close the calendar when the selection is complete.",
+                        "Highlight today, weekends, and blocked dates visually when appropriate.",
+                        "Visually display any selected range in the calendar."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Toggle",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Label the toggle next to or above the control. For example, **Enable alerts**.",
+                        "Show the label for the state that is currently active. For example, show `Off` when off, `On` when on - but not both at the same time."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "The action should happen on toggle with no confirmation step.",
+                        "Left = off, right = on.",
+                        "Should update instantly unless a delay is unavoidable - show a loading indicator if delayed.",
+                        "Do not use toggles for destructive or irreversible actions."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Toggle vs Checkbox vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a toggle when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The action takes effect immediately.",
+                        "It represents a system state (for example, ON/OFF, enabled/disabled).",
+                        "It is a binary setting that persists (for example, dark mode, notifications)."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The user is selecting one or more items.",
+                        "The action does not take effect immediately (typically part of a form or group submission).",
+                        "It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Radio button",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
+                        "When all choices should be visible up front rather than hidden in a dropdown."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Use short, descriptive labels that clearly state each option.",
+                        "Write labels as direct answers to the group's prompt or question. For example, **Yes / No** instead of `Select yes if you agree`.",
+                        "Ensure the group label or question is always visible next to the options.",
+                        "Avoid jargon or abbreviations.",
+                        "Keep labels parallel in structure - all nouns, or all verb phrases."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Radio button card format",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "Use card-format radio buttons instead of traditional radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                        "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Indicate selected state visually (`Selected` highlight border, and so on).",
+                        "Click anywhere on the tile to toggle selection.",
+                        "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                        "Maintain selection across steps if part of a multi-step process.",
+                        "Title: short, descriptive, and consistent across tiles.",
+                        "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -7086,7 +8818,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-25T13:12:15-07:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "side-nav": {
       "_schema_version": 1,
@@ -8753,6 +10485,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -8766,7 +10519,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -8819,6 +10572,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -8886,6 +10716,119 @@
                 {
                   "do": "Select at least one data domain.",
                   "dont": "You must make a selection."
+                }
+              ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -9361,6 +11304,27 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -9374,7 +11338,7 @@
                   "content": [
                     {
                       "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to six options).",
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                         "When all choices should be visible up front rather than hidden in a dropdown."
                       ]
                     }
@@ -9427,6 +11391,83 @@
                         "Maintain selection across steps if part of a multi-step process.",
                         "Title: short, descriptive, and consistent across tiles.",
                         "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
                       ]
                     }
                   ]
@@ -9496,6 +11537,119 @@
                   "dont": "You must make a selection."
                 }
               ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](input-date)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -9530,7 +11684,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n- To group the main actions that apply to a view or a selection within it.\n- Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n- Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n- Order actions by frequency of use, most common first.\n- Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n- Group related actions together and separate unrelated groups.\n\n## Behavior\n\n- Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n- When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export | Export selected items to file |\n| Add filter | Filtering |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
+          "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n* To group the main actions that apply to a view or a selection within it.\n\n* Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n* Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n\n* Order actions by frequency of use, most common first.\n\n* Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n\n* Group related actions together and separate unrelated groups.\n\n## Behavior\n\n* Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n\n* When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do                                | Don't                               |\n| --------------------------------- | ----------------------------------- |\n| Export                            | Export selected items to file       |\n| Add filter                        | Filtering                           |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
           "sections": [
             {
               "heading": "",
@@ -9607,7 +11761,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-29T22:22:59+02:00"
+      "updated_at": "2026-07-10T13:07:46+02:00"
     },
     "tooltip": {
       "_schema_version": 1,

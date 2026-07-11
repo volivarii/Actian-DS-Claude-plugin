@@ -5,5 +5,10 @@ slug: import-wizard
 label: Multi-step import wizard
 apps:
   - studio
+components:
+  - stepper
+  - button
+  - text-input
+  - dropdown-select-default
 ---
 6-step horizontal stepper (Connection → Items → Curator → Contact → Data Product → Confirm).

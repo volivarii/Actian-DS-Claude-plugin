@@ -632,10 +632,11 @@ is two values. Default (un-suffixed) theme is Actian.
 
 #### Font Family
 
-| Token                    | Value           | Usage                       | Status     |
-| ------------------------ | --------------- | --------------------------- | ---------- |
-| `--zen-font-family-text` | `Roboto`        | Default — headings and body | 🟢 Shipped |
-| `--zen-font-family-mono` | `"Roboto Mono"` | Code and data               | 🟢 Shipped |
+| Token                     | Value             | Usage                                                                                                                                                                                                            | Status      |
+| ------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `--zen-font-family-text`  | `Roboto`          | Default — headings and body                                                                                                                                                                                      | 🟢 Shipped  |
+| `--zen-font-family-brand` | `HCLTech Roobert` | Brand accent font. Use sparingly for high-impact moments — landing/marketing pages (e.g. Explorer landing), hero and display headers, and occasional accent headings. Never for body copy, UI controls, or data. | 🟡 Proposed |
+| `--zen-font-family-mono`  | `"Roboto Mono"`   | Code and data                                                                                                                                                                                                    | 🟢 Shipped  |
 
 #### Font Weight
 
@@ -762,11 +763,11 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 
 > Elevation must only be used to define layering between elements when required. Use drop shadows only — do not use bevels, borders, or opacity to depict layering.
 
-| Token             | Value                                       | Usage                                              | Status     |
-| ----------------- | ------------------------------------------- | -------------------------------------------------- | ---------- |
+| Token             | Value                                                                        | Usage                                              | Status     |
+| ----------------- | ---------------------------------------------------------------------------- | -------------------------------------------------- | ---------- |
 | `--zen-shadow-xs` | `0px 1px 3px 1px rgba(0, 0, 15, 0.06), 0px 1px 5px 0px rgba(0, 0, 18, 0.07)` | Dropdowns, elevated button (default), card hover   | 🟢 Shipped |
 | `--zen-shadow-sm` | `0px 1px 7px 3px rgba(0, 0, 20, 0.08), 0px 1px 3px 1px rgba(0, 0, 31, 0.12)` | App header, navigation menu, elevated button hover | 🟢 Shipped |
-| `--zen-shadow-md` | `0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15)` | Notification message, snackbar                     | 🟢 Shipped |
+| `--zen-shadow-md` | `0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15)`  | Notification message, snackbar                     | 🟢 Shipped |
 | `--zen-shadow-lg` | `0px 6px 10px 4px rgba(0, 0, 38, 0.15), 0px 2px 3px 0px rgba(0, 0, 77, 0.3)` | —                                                  | 🟢 Shipped |
 | `--zen-shadow-xl` | `0px 8px 12px 6px rgba(0, 0, 38, 0.15), 0px 4px 4px 0px rgba(0, 0, 77, 0.3)` | Dialogs, toasts, overview panel                    | 🟢 Shipped |
 
@@ -786,21 +787,21 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 
 ### 2.8 Backgrounds
 
-| Token                     | Suggested Value                    | Usage                                | Status      |
-| ------------------------- | ---------------------------------- | ------------------------------------ | ----------- |
-| `--zen-color-bg-default`  | `--zen-color-white`                | Default page background              | 🟡 Proposed |
-| `--zen-color-bg-subtle`   | `--zen-color-neutral-25`           | Subtle section backgrounds, sidebars | 🟡 Proposed |
-| `--zen-color-bg-muted`    | `--zen-color-neutral-50`           | Cards, input fills, table rows       | 🟡 Proposed |
-| `--zen-color-bg-disabled` | `--zen-color-neutral-50`           | Disabled state backgrounds           | 🟡 Proposed |
-| `--zen-color-bg-selected` | `--zen-color-primary-25`           | Selected row or item background      | 🟡 Proposed |
-| `--zen-color-bg-overlay`  | `--zen-color-black` at 40% opacity | Modal/dialog backdrop                | 🟡 Proposed |
-| `--zen-color-bg-primary`  | `--zen-color-primary-500`          | CTA banners, primary filled areas    | 🟡 Proposed |
+| Token                     | Suggested Value                    | Usage                                               | Status      |
+| ------------------------- | ---------------------------------- | --------------------------------------------------- | ----------- |
+| `--zen-color-bg-default`  | `--zen-color-white`                | Default page background                             | 🟡 Proposed |
+| `--zen-color-bg-subtle`   | `--zen-color-neutral-25`           | Subtle section backgrounds, sidebars                | 🟡 Proposed |
+| `--zen-color-bg-muted`    | `--zen-color-neutral-50`           | Cards, input fills, table rows                      | 🟡 Proposed |
+| `--zen-color-bg-disabled` | `--zen-color-neutral-50`           | Disabled state backgrounds                          | 🟡 Proposed |
+| `--zen-color-bg-selected` | `--zen-color-primary-25`           | Selected row or item background                     | 🟡 Proposed |
+| `--zen-color-bg-overlay`  | `--zen-color-black` at 40% opacity | Modal/dialog backdrop                               | 🟡 Proposed |
+| `--zen-color-bg-primary`  | `--zen-color-primary-500`          | CTA banners, primary filled areas                   | 🟡 Proposed |
 | `--zen-color-bg-emphasis` | `--zen-color-primary-500`          | Consumer-facing alias of bg-primary; emphasis fills | 🟡 Proposed |
-| `--zen-color-bg-success`  | `--zen-color-success-25`           | Success alert backgrounds            | 🟡 Proposed |
-| `--zen-color-bg-warning`  | `--zen-color-warning-25`           | Warning alert backgrounds            | 🟡 Proposed |
-| `--zen-color-bg-error`    | `--zen-color-error-25`             | Error alert backgrounds              | 🟡 Proposed |
-| `--zen-color-bg-info`     | `--zen-color-primary-25`           | Info alert backgrounds               | 🟡 Proposed |
-| `--zen-color-bg-reverse`  | `--zen-color-black`                | Dark/inverted surface backgrounds    | 🟡 Proposed |
+| `--zen-color-bg-success`  | `--zen-color-success-25`           | Success alert backgrounds                           | 🟡 Proposed |
+| `--zen-color-bg-warning`  | `--zen-color-warning-25`           | Warning alert backgrounds                           | 🟡 Proposed |
+| `--zen-color-bg-error`    | `--zen-color-error-25`             | Error alert backgrounds                             | 🟡 Proposed |
+| `--zen-color-bg-info`     | `--zen-color-primary-25`           | Info alert backgrounds                              | 🟡 Proposed |
+| `--zen-color-bg-reverse`  | `--zen-color-black`                | Dark/inverted surface backgrounds                   | 🟡 Proposed |
 
 ### 2.9 Heights and Trigger Areas
 
@@ -819,8 +820,8 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 
 | Token                           | Value  | Usage                                                             | Status      |
 | ------------------------------- | ------ | ----------------------------------------------------------------- | ----------- |
-| `--zen-size-trigger-min`        | `24px` | Minimum interactive target area for desktop (WCAG 2.5.5 Level AA) | 🟡 Proposed |
-| `--zen-size-trigger-min-mobile` | `44px` | Minimum interactive target area for mobile (WCAG 2.5.5 Level AA)  | 🟡 Proposed |
+| `--zen-size-trigger-min`        | `24px` | Minimum interactive target area for desktop (WCAG 2.5.8 Level AA) | 🟡 Proposed |
+| `--zen-size-trigger-min-mobile` | `44px` | Minimum interactive target area for mobile (WCAG 2.5.8 Level AA)  | 🟡 Proposed |
 
 ### 2.10 Icons
 
@@ -1234,7 +1235,7 @@ Covers voice and tone, capitalization rules, button and label copy, error messag
 > **Auto-generated** by `scripts/content/derive-content.js`. Do not edit this file directly — edit the per-section source files.
 >
 > **Scope:** cross-cutting writing guidance (voice, tone, capitalization, words to avoid) and UX-pattern topics. Component-scoped content guidance lives per-component in `components/dist/guidelines/{slug}.json` instead.
-> **Sources** (23 sections): `content/src/{bucket}/{slug}.md` where bucket is one of writing, patterns, product (plus `global-guidelines.md` at the root).
+> **Sources** (22 sections): `content/src/{bucket}/{slug}.md` where bucket is one of writing, patterns, product (plus `global-guidelines.md` at the root).
 > **Authoring guide:** `content/src/AUTHORING.md`
 
 ---
@@ -1715,13 +1716,23 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**.
 
+#### Checkbox group vs Multi-select dropdown
+
+**Use a checkbox group when:**
+
+* The list has roughly seven or fewer options and all of them should stay visible at once.
+
+**Use a** **[multi-select dropdown](multi-select)** **when:**
+
+* The list is long or space is limited, and a search field would help users find options.
+
 ***
 
 ### Radio button
 
 #### When to use
 
-* When the user must select exactly one option from a short visible list (typically two to six options).
+* When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.
 
 * When all choices should be visible up front rather than hidden in a dropdown.
 
@@ -1762,6 +1773,44 @@ Use card-format radio buttons instead of traditional radio buttons when each opt
 * Title: short, descriptive, and consistent across tiles.
 
 * Supporting text: use only in the large variant.
+
+***
+
+### Segmented control
+
+#### When to use
+
+* To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.
+
+* Do not use for page-level navigation - use [tabs](tabs) instead.
+
+#### Segmented control vs Radio button
+
+**Use a segmented control when:**
+
+* The choice takes effect immediately, with no separate submit step.
+
+**Use a** **[radio button](#radio-button)** **group when:**
+
+* The choice is part of a form and applies on submit.
+
+***
+
+### Combo box
+
+#### When to use
+
+* When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid.
+
+#### Combo box vs Single-select dropdown
+
+**Use a combo box when:**
+
+* The list is long enough that typing to filter is faster than scanning it.
+
+**Use a single-select dropdown when:**
+
+* The list is shorter and fixed.
 
 ---
 
@@ -1859,11 +1908,31 @@ Lineage views display the origin, transformation history, and downstream depende
 
 ---
 
+## Notifications and messaging
 
+Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened.
 
----
+***
 
+### Principles
 
+* Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).
+
+* An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.
+
+* If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else.
+
+### Choosing a messaging pattern
+
+| Type             | Scope                | When it appears                                               | Where it appears                  | How it goes away                                               | Example                                                                           |
+| ---------------- | -------------------- | ------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Banner (page)    | The whole page       | Until the underlying issue is resolved                        | Top of the page, below the header | Cleared when the issue resolves, or dismissed if informational | "Some datasets are read-only. Contact your administrator to request edit access." |
+| Banner (section) | One part of the page | While a section-level issue exists                            | Top of the affected section       | Cleared when the issue resolves                                | "This output port is managed by an external data contract and is read-only."      |
+| Toast            | One completed action | Right after the action completes                              | Bottom center                     | Dismisses automatically after a few seconds                    | "Prospect customers created."                                                     |
+| Inline message   | One form field       | On blur, or on submit attempt                                 | Directly below the field          | Clears as soon as the field is valid                           | "Enter a valid email address."                                                    |
+| Modal            | A required decision  | When the user must confirm or provide input before continuing | Centered, blocking the page       | Dismissed only by completing or canceling the action           | "This will permanently delete the dataset and cannot be undone."                  |
+
+Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead.
 
 ---
 

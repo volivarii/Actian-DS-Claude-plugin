@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-catalog-item-type",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "11300:8312",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Type=Category",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-error-50"
+    ],
     "id": "11300:8305",
     "appearance": {
       "background": "#ffdacf",
+      "backgroundToken": "--zen-color-error-50",
       "radius": "4px",
       "variants": [
         {
@@ -27,49 +31,56 @@
           "values": [
             "Data process"
           ],
-          "background": "#ffd6d8"
+          "background": "#ffd6d8",
+          "backgroundToken": null
         },
         {
           "prop": "Type",
           "values": [
             "Data product"
           ],
-          "background": "#e1e1e6"
+          "background": "#e1e1e6",
+          "backgroundToken": null
         },
         {
           "prop": "Type",
           "values": [
             "Dataset"
           ],
-          "background": "#cfeafd"
+          "background": "#cfeafd",
+          "backgroundToken": "--zen-color-primary-50"
         },
         {
           "prop": "Type",
           "values": [
             "Field"
           ],
-          "background": "#d3efcd"
+          "background": "#d3efcd",
+          "backgroundToken": "--zen-color-success-50"
         },
         {
           "prop": "Type",
           "values": [
             "Output port"
           ],
-          "background": "#dde6ec"
+          "background": "#dde6ec",
+          "backgroundToken": null
         },
         {
           "prop": "Type",
           "values": [
             "Use case"
           ],
-          "background": "#fff9e5"
+          "background": "#fff9e5",
+          "backgroundToken": "--zen-color-warning-25"
         },
         {
           "prop": "Type",
           "values": [
             "Visualization"
           ],
-          "background": "#eed7ff"
+          "background": "#eed7ff",
+          "backgroundToken": null
         }
       ]
     },
@@ -89,16 +100,25 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-error-800"
+        ],
         "id": "10520:5868",
         "appearance": {
           "text": {
             "color": "#982a18",
+            "colorToken": "--zen-color-error-800",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -138,6 +158,7 @@
               ],
               "text": {
                 "color": "#00547d",
+                "colorToken": "--zen-color-primary-800",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -151,6 +172,7 @@
               ],
               "text": {
                 "color": "#145f04",
+                "colorToken": "--zen-color-success-800",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -177,6 +199,7 @@
               ],
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",

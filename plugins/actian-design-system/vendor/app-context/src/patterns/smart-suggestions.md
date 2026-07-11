@@ -6,5 +6,9 @@ label: Smart suggestions
 apps:
   - studio
   - explorer
+components:
+  - tabs
+  - badge
+  - button
 ---
 AI-powered metadata enrichment: suggestion counts inline, dedicated Suggestions tab.

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "toggle",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14000:4395",
@@ -48,7 +48,8 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-2xs"
     },
     "children": [
       {
@@ -71,6 +72,7 @@
               "background": "rgba(0, 0, 0, 0.05)",
               "border": {
                 "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
                 "width": "2px"
               }
             },
@@ -111,16 +113,21 @@
           "sizing": {
             "h": "hug",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
             "name": "Label",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14000:4399",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -134,6 +141,7 @@
                   ],
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "18px",
@@ -147,6 +155,7 @@
                   ],
                   "text": {
                     "color": "#7c7c8a",
+                    "colorToken": "--zen-color-text-placeholder-subtle",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "18px",
@@ -162,6 +171,7 @@
                   ],
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "18px",
@@ -175,10 +185,14 @@
           {
             "name": "Helper text",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14000:4401",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -192,6 +206,7 @@
                   ],
                   "text": {
                     "color": "#7c7c8a",
+                    "colorToken": "--zen-color-text-placeholder-subtle",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",

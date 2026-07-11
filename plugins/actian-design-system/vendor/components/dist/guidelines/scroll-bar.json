@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n- Automatically when content exceeds the visible area of a container.\n- Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n- Scroll bars carry no copy.\n- Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
+      "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n* Automatically when content exceeds the visible area of a container.\n\n* Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n* Scroll bars carry no copy.\n\n* Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
       "sections": [
         {
           "heading": "",
@@ -61,5 +61,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-10T13:07:46+02:00"
 }
