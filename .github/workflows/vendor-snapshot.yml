@@ -262,13 +262,24 @@ jobs:
             exit 0
           fi
 
-          # Any open vendor PR whose checks are failing means the pipe is clogged.
+          # A PR is only "stuck" if a check has actually FAILED, or it has
+          # conflicts. Do NOT use mergeStateStatus == BLOCKED: a PR whose checks
+          # are still running is also BLOCKED, and this step runs in the same
+          # workflow that just opened tonight's PR. That would fire a false alarm
+          # every single night, and a nightly false alarm is how a signal becomes
+          # noise and then gets ignored, which is the exact failure this whole
+          # change exists to prevent.
           blocked=""
           while IFS=$'\t' read -r num created title; do
             [ -z "$num" ] && continue
-            state=$(gh pr view "$num" --json mergeStateStatus --jq .mergeStateStatus 2>/dev/null)
-            if [ "$state" = "BLOCKED" ] || [ "$state" = "DIRTY" ]; then
-              blocked="${blocked}- #${num} (opened ${created}): ${title} — \`${state}\`"$'\n'
+            failed=$(gh pr view "$num" --json statusCheckRollup \
+              --jq '[.statusCheckRollup[]? | select(.conclusion == "FAILURE" or .conclusion == "TIMED_OUT" or .conclusion == "CANCELLED")] | length' 2>/dev/null)
+            dirty=$(gh pr view "$num" --json mergeStateStatus --jq 'select(.mergeStateStatus == "DIRTY") | "conflicts"' 2>/dev/null)
+            reason=""
+            [ "${failed:-0}" -gt 0 ] 2>/dev/null && reason="${failed} failing check(s)"
+            [ -n "$dirty" ] && reason="${reason:+$reason, }merge conflicts"
+            if [ -n "$reason" ]; then
+              blocked="${blocked}- #${num} (opened ${created}): ${title} — ${reason}"$'\n'
             fi
           done <<< "$open_prs"
 
