@@ -44,12 +44,22 @@ are summarized at the release level.
     rework deleted. That test is about the resolution *mechanism*, not about any one glyph, so it now
     picks a slug **from** the vendored icon set.
 
-### Known issue (blocked upstream, deliberately left red)
-- `golden(ds): tagStatusFail` fails because **`misuse-outline` no longer exists in Figma**. It is the
-  glyph inside Tag Status's "Fail" variant, so the renderer correctly produces an empty box. This
-  golden was **not** re-baselined: doing so would bake a missing icon into the expected output and hide
-  a real defect in the design system. It goes green when the glyph is restored upstream. See
-  knowledge's ghost-component detection for the full diagnosis.
+### Known broken upstream (recorded, not hidden)
+- **Tag Status "Fail" renders no icon, and its golden now records that.** The glyph is
+  `misuse-outline`, which the 2026-07 Figma icon rework **deleted**. This is not a renderer bug:
+  given an icon set without that glyph, an empty box is the correct output, so the golden says so
+  rather than asserting a stale expectation.
+
+  The defect is real and must be fixed, it is just not ours to fix here. **Tag Status ships in the DS
+  today pointing at an icon that does not exist.** `misuse-outline` is one of six glyphs the rework
+  dropped that are **not** on the design team's own "REMOVED" note, so they look like collateral:
+  `expand`, `maximize`, `minimize`, `misuse-outline`, `tools`, `view-table`.
+
+  Deliberately NOT worked around with a curated icon override: that would be a new file to maintain
+  that shadows Figma, and it would mask the defect while pretending to fix it. The signal lives
+  upstream where the fix lives (knowledge now detects and names ghost components, and every sync PR
+  lists them), and the fixture carries a comment naming the glyph. When it is restored in Figma this
+  golden fails, which is the point: re-baseline it with the icon and delete the note.
 
 ## [2026.7.23] - 2026-07-06
 
