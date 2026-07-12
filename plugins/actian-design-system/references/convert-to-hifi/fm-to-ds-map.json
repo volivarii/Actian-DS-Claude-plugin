@@ -182,43 +182,39 @@
     "fmCheckbox": {
       "dsSlug": "checkbox-with-label",
       "defaultVariant": {
-        "Selected": "No",
+        "Selection": "Unchecked",
         "State": "Default"
       },
       "variantMap": {
         "State": {
-          "Off": "No",
-          "On": "Yes"
+          "Off": "Unchecked",
+          "On": "Checked"
         },
         "Style": {
           "Default": "Default",
           "Disabled": "Disabled"
         }
       },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis (Default | Hover | Focus | Pressed | Disabled).",
+      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis (Default | Hover | Focus | Pressed | Disabled). The DS renamed this axis Selected=[No,Yes] -> Selection=[Unchecked,Indeterminate,Checked] in the 2026-07 Figma form-control rework (knowledge sync #378). FM has no source for Indeterminate, so nothing maps to it.",
       "dsKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6"
     },
     "fmRadioButton": {
       "dsSlug": "radio-button",
       "defaultVariant": {
-        "Format": "Default",
-        "State": "Default",
-        "Selected": "No"
+        "Selection": "Unselected",
+        "State": "Default"
       },
       "variantMap": {
         "State": {
-          "On": "Yes",
-          "Off": "No"
+          "On": "Selected",
+          "Off": "Unselected"
         },
         "Style": {
           "Default": "Default",
           "Disabled": "Disabled"
         }
       },
-      "propertyMap": {
-        "Show Label": "Show Helper text"
-      },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
+      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma form-control rework (knowledge sync #378) renamed Selected=[No,Yes] -> Selection=[Unselected,Selected] and DELETED the 'Format' axis (dropped from defaultVariant here) and the 'Show Helper text' property (so FM's 'Show Label' now has no DS counterpart and its propertyMap entry is gone; DS radio exposes Show Digram / Show Icon / Show Description instead).",
       "dsKey": "9ceb34116fd119a17b08b9b445a204de28f9d249"
     },
     "fmToggle": {

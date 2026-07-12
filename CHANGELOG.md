@@ -19,6 +19,38 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+- **Adapted to the 2026-07 Figma form-control rework** (knowledge sync #378), which is what has kept
+  every vendor-refresh PR red since 2026-07-07. The DS renamed the selection axis on the form
+  controls, and the Fat Marker to DS map still targeted the old values:
+  - `fmCheckbox`: `Selected=[No,Yes]` became `Selection=[Unchecked,Indeterminate,Checked]`.
+  - `fmRadioButton`: `Selected=[No,Yes]` became `Selection=[Unselected,Selected]`; the `Format` axis
+    and the `Show Helper text` property were deleted upstream, so both are dropped here (FM's
+    `Show Label` no longer has a DS counterpart).
+  - `fmToggle` is untouched: its rename is still sitting in unmerged knowledge PR #382.
+- **Tag Status "Success" golden re-baselined.** Not an icon problem: the new vendor resolves more
+  values to tokens, so the renderer now emits `var(--zen-color-success-25, #f0ffec)` where it used to
+  emit the raw `#f0ffec`. That is the values-first pivot working as intended, so the golden was stale.
+
+### Changed
+- Two brittle tests now assert data-derived invariants instead of frozen snapshots, per the durable
+  lesson from the render-fidelity pivot:
+  - The appearance-coverage check asserted `>= 56` slugs, a magic number snapshotted from whatever the
+    substrate held that day. It broke at 55 when the Figma rework left `radio-button`'s root without an
+    appearance, reporting a "coverage regression" for what may be a correct model of a radio row. It
+    now asserts a **ratio** of the anatomy set actually supplied. Per-slug correctness is still checked
+    in the loop, which is where a real regression shows up.
+  - The end-to-end icon-resolution test hardcoded the slug `misuse-outline`, which the Figma icon
+    rework deleted. That test is about the resolution *mechanism*, not about any one glyph, so it now
+    picks a slug **from** the vendored icon set.
+
+### Known issue (blocked upstream, deliberately left red)
+- `golden(ds): tagStatusFail` fails because **`misuse-outline` no longer exists in Figma**. It is the
+  glyph inside Tag Status's "Fail" variant, so the renderer correctly produces an empty box. This
+  golden was **not** re-baselined: doing so would bake a missing icon into the expected output and hide
+  a real defect in the design system. It goes green when the glyph is restored upstream. See
+  knowledge's ghost-component detection for the full diagnosis.
+
 ## [2026.7.23] - 2026-07-06
 
 ### Fixed

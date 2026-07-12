@@ -314,15 +314,29 @@ test("renderAppearanceComponent: default dsIcons resolution (no injected opts.ic
   // Exercises the production dual-source path (Node branch: guarded require
   // of the vendored icons.json via PATHS.components.icons.svg) — proving the
   // real wiring, not just the injectable test seam, resolves a glyph.
+  //
+  // The glyph is picked FROM the vendored set rather than hardcoded. This test
+  // is about the resolution mechanism, not about any one icon; naming a slug
+  // couples it to the DS icon library's churn. It used to hardcode
+  // `misuse-outline`, which the 2026-07 Figma icon rework deleted, so this
+  // failed for a reason that had nothing to do with what it tests.
+  var icons = require("../../vendor/components/dist/icons/icons.json").icons;
+  var someRealSlug = Object.keys(icons).sort()[0];
+  assert.ok(someRealSlug, "vendored icons.json is empty — nothing to resolve");
+
   var doc = {
     slug: "icon-e2e-fixture",
     root: {
       kind: "container",
-      children: [{ kind: "instance", slug: "misuse-outline" }],
+      children: [{ kind: "instance", slug: someRealSlug }],
     },
   };
   var html = r.renderAppearanceComponent(doc, {});
-  assert.match(html, /<svg class="ds-icon"/);
+  assert.match(
+    html,
+    /<svg class="ds-icon"/,
+    "failed to resolve '" + someRealSlug + "' from the vendored icon set",
+  );
 });
 
 test("renderAppearanceComponent: escapes HTML special characters in text nodes", function () {
