@@ -322,7 +322,10 @@ test("renderAppearanceComponent: default dsIcons resolution (no injected opts.ic
   // failed for a reason that had nothing to do with what it tests.
   var icons = require("../../vendor/components/dist/icons/icons.json").icons;
   var someRealSlug = Object.keys(icons).sort()[0];
-  assert.ok(someRealSlug, "vendored icons.json is empty — nothing to resolve");
+  assert.ok(
+    someRealSlug,
+    "vendored icons.json is empty, so there is nothing to resolve",
+  );
 
   var doc = {
     slug: "icon-e2e-fixture",
@@ -336,6 +339,12 @@ test("renderAppearanceComponent: default dsIcons resolution (no injected opts.ic
     html,
     /<svg class="ds-icon"/,
     "failed to resolve '" + someRealSlug + "' from the vendored icon set",
+  );
+  // Assert it resolved to the RIGHT glyph, not merely to some glyph: a lookup
+  // bug that returned the wrong icon would still emit an <svg class="ds-icon">.
+  assert.ok(
+    html.indexOf(icons[someRealSlug].body) !== -1,
+    "resolved a glyph, but not the body of '" + someRealSlug + "'",
   );
 });
 

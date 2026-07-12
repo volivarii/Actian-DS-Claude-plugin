@@ -214,7 +214,10 @@
           "Disabled": "Disabled"
         }
       },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma form-control rework (knowledge sync #378) renamed Selected=[No,Yes] -> Selection=[Unselected,Selected] and DELETED the 'Format' axis (dropped from defaultVariant here) and the 'Show Helper text' property (so FM's 'Show Label' now has no DS counterpart and its propertyMap entry is gone; DS radio exposes Show Digram / Show Icon / Show Description instead).",
+      "propertyMap": {
+        "Show Label": null
+      },
+      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma form-control rework (knowledge sync #378) renamed Selected=[No,Yes] -> Selection=[Unselected,Selected] and DELETED the 'Format' axis (dropped from defaultVariant here) and the 'Show Helper text' property. FM's 'Show Label' therefore has no DS counterpart, so it maps to null (transform-to-hifi drops a null-mapped property). Do NOT simply delete the entry: an unmapped property is passed through VERBATIM, which would emit a DS prop named 'Show Label' that the radio no longer exposes. DS radio exposes Show Digram / Show Icon / Show Description instead.",
       "dsKey": "9ceb34116fd119a17b08b9b445a204de28f9d249"
     },
     "fmToggle": {
