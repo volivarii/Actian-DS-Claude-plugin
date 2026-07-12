@@ -401,6 +401,12 @@
           "items": { "type": "string" },
           "description": "App slugs (from the `apps` map) where the pattern appears.",
           "examples": [["studio", "explorer"]]
+        },
+        "components": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Registry-key slugs of the DS components this pattern composes (authored; projected as ux_pattern -> component edges).",
+          "examples": [["search-filters", "table", "tabs"]]
         }
       }
     }

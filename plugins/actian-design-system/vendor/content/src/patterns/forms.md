@@ -5,7 +5,7 @@ nav_order: 14
 # category that benefit from form-level layout/labeling/copy guidance.
 # Skipped: search, search-dropdown-menu (search has its own pattern), and
 # calendar (date-picker is narrower). Jeff: edit/correct/extend.
-relatedComponents: [text-input, input-date, checkbox-with-label, radio-button, toggle, search-filters]
+relatedComponents: [text-input, input-date, checkbox-with-label, radio-button, toggle, search-filters, segmented-control]
 ---
 # Forms
 
@@ -184,13 +184,23 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**.
 
+### Checkbox group vs Multi-select dropdown
+
+**Use a checkbox group when:**
+
+* The list has roughly seven or fewer options and all of them should stay visible at once.
+
+**Use a** **[multi-select dropdown](multi-select)** **when:**
+
+* The list is long or space is limited, and a search field would help users find options.
+
 ***
 
 ## Radio button
 
 ### When to use
 
-* When the user must select exactly one option from a short visible list (typically two to six options).
+* When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.
 
 * When all choices should be visible up front rather than hidden in a dropdown.
 
@@ -231,3 +241,41 @@ Use card-format radio buttons instead of traditional radio buttons when each opt
 * Title: short, descriptive, and consistent across tiles.
 
 * Supporting text: use only in the large variant.
+
+***
+
+## Segmented control
+
+### When to use
+
+* To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.
+
+* Do not use for page-level navigation - use [tabs](tabs) instead.
+
+### Segmented control vs Radio button
+
+**Use a segmented control when:**
+
+* The choice takes effect immediately, with no separate submit step.
+
+**Use a** **[radio button](#radio-button)** **group when:**
+
+* The choice is part of a form and applies on submit.
+
+***
+
+## Combo box
+
+### When to use
+
+* When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid.
+
+### Combo box vs Single-select dropdown
+
+**Use a combo box when:**
+
+* The list is long enough that typing to filter is faster than scanning it.
+
+**Use a single-select dropdown when:**
+
+* The list is shorter and fixed.

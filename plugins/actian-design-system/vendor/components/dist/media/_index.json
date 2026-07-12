@@ -133,9 +133,6 @@
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
       ],
-      "behavior": [
-        "components/dist/media/checkbox-with-label/behavior-0.webp"
-      ],
       "default": "components/dist/media/checkbox-with-label/default.webp"
     },
     "collapse-accordion": {

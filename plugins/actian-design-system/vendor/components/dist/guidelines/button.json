@@ -136,7 +136,76 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a button to trigger an action: submit a form, confirm a choice, start or cancel a process.\n\n* Use one filled (primary) button per view for the single most important action (for example **Create data product**, **Save changes**).\n\n* Use outlined (secondary) buttons for supporting actions that sit beside the primary (for example **Cancel**, **Back**, **Preview**).\n\n* Use ghost buttons for low-emphasis or repeated actions, such as row-level actions in a [table](table) or card footers.\n\n* Use icon-only buttons for compact, high-frequency actions whose icon is unambiguous; always pair them with a [tooltip](tooltip) that supplies the accessible name.\n\n## When not to use\n\n* Don't use a button to take the user somewhere: navigation is a [link](link). If activating it only changes location, it is not an action.\n\n* Don't use a button to switch between views of the same content: use [tabs](tabs) or a [segmented control](segmented-control).\n\n* Don't use a button for an immediate on/off state change: use a [toggle](toggle).\n\n* Don't line up more than three actions in a row: keep the two that matter and move the rest behind an actions menu (**Actions** or **More**, see [dropdown / select](dropdown-select)). A [page header](page-header) carries at most two.\n\n## Variant selection\n\n* **Filled (primary):** the one main action of the screen or modal.\n\n* **Outlined (secondary):** alternative actions displayed next to the primary.\n\n* **Ghost:** low-priority or repeated actions where visual noise must stay low (table rows, toolbars, card footers).\n\n* **Icon-only:** dense surfaces with well-known icons (edit, delete, refresh).\n\n* **Critical intent:** actions that destroy data or make a permanent change (for example **Delete dataset**). Pair with a [confirmation](confirmation) dialog (the 450px confirm [modal](modal)) when the loss is irreversible.\n\n* **Small size:** dense surfaces such as [table](table) rows and toolbars; use the default size everywhere else.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| One filled primary button per view | Two competing primary buttons side by side |\n| Confirm before a permanent destructive action | Delete data in a single click |\n| Give icon-only buttons a tooltip naming the action | Rely on the icon alone to convey the action |\n| Keep action placement consistent across similar screens | Reorder Cancel and Save from one modal to the next |\n\n> Label wording rules (sentence case, verb + object, no punctuation) live in the Content guidelines for buttons.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a button to trigger an action: submit a form, confirm a choice, start or cancel a process.",
+                "Use one filled (primary) button per view for the single most important action (for example **Create data product**, **Save changes**).",
+                "Use outlined (secondary) buttons for supporting actions that sit beside the primary (for example **Cancel**, **Back**, **Preview**).",
+                "Use ghost buttons for low-emphasis or repeated actions, such as row-level actions in a [table](table) or card footers.",
+                "Use icon-only buttons for compact, high-frequency actions whose icon is unambiguous; always pair them with a [tooltip](tooltip) that supplies the accessible name."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a button to take the user somewhere: navigation is a [link](link). If activating it only changes location, it is not an action.",
+                "Don't use a button to switch between views of the same content: use [tabs](tabs) or a [segmented control](segmented-control).",
+                "Don't use a button for an immediate on/off state change: use a [toggle](toggle).",
+                "Don't line up more than three actions in a row: keep the two that matter and move the rest behind an actions menu (**Actions** or **More**, see [dropdown / select](dropdown-select)). A [page header](page-header) carries at most two."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Filled (primary):** the one main action of the screen or modal.",
+                "**Outlined (secondary):** alternative actions displayed next to the primary.",
+                "**Ghost:** low-priority or repeated actions where visual noise must stay low (table rows, toolbars, card footers).",
+                "**Icon-only:** dense surfaces with well-known icons (edit, delete, refresh).",
+                "**Critical intent:** actions that destroy data or make a permanent change (for example **Delete dataset**). Pair with a [confirmation](confirmation) dialog (the 450px confirm [modal](modal)) when the loss is irreversible.",
+                "**Small size:** dense surfaces such as [table](table) rows and toolbars; use the default size everywhere else."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "One filled primary button per view",
+              "dont": "Two competing primary buttons side by side"
+            },
+            {
+              "do": "Confirm before a permanent destructive action",
+              "dont": "Delete data in a single click"
+            },
+            {
+              "do": "Give icon-only buttons a tooltip naming the action",
+              "dont": "Rely on the icon alone to convey the action"
+            },
+            {
+              "do": "Keep action placement consistent across similar screens",
+              "dont": "Reorder Cancel and Save from one modal to the next"
+            },
+            {
+              "note": "Label wording rules (sentence case, verb + object, no punctuation) live in the Content guidelines for buttons."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "draft",
@@ -318,5 +387,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-05T20:42:11+02:00"
+  "updated_at": "2026-07-12T02:45:52+02:00"
 }

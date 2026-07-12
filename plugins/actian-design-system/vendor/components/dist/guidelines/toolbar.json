@@ -8,13 +8,18 @@
   "slug": "toolbar",
   "component": "Toolbar",
   "meta": {
-    "category": "data-display"
+    "category": "data-display",
+    "a11y_refs": [
+      {
+        "ref": "buttons"
+      }
+    ]
   },
   "domains": {
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n- To group the main actions that apply to a view or a selection within it.\n- Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n- Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n- Order actions by frequency of use, most common first.\n- Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n- Group related actions together and separate unrelated groups.\n\n## Behavior\n\n- Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n- When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export | Export selected items to file |\n| Add filter | Filtering |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
+      "markdown": "# Toolbar\n\nA toolbar groups the primary actions for the content below it, such as a table or a canvas. It keeps frequent actions visible and in a predictable place.\n\n***\n\n## When to use\n\n* To group the main actions that apply to a view or a selection within it.\n\n* Do not use a toolbar for page-level title actions. Those belong in the [page header](page-header).\n\n## Style\n\n* Use short action labels. Prefer one or two words. For example, \"Export\", \"Add filter\".\n\n* Order actions by frequency of use, most common first.\n\n* Use icon-only buttons only for well-understood actions, and always pair them with a [tooltip](tooltip).\n\n* Group related actions together and separate unrelated groups.\n\n## Behavior\n\n* Disable actions that do not apply to the current selection rather than hiding them, so the layout stays stable.\n\n* When actions depend on a selection, state that in the empty case. For example, \"Select items to export\".\n\n## Do / Don't\n\n| Do                                | Don't                               |\n| --------------------------------- | ----------------------------------- |\n| Export                            | Export selected items to file       |\n| Add filter                        | Filtering                           |\n| Delete (disabled until selection) | Hide Delete until a row is selected |",
       "sections": [
         {
           "heading": "",
@@ -79,7 +84,73 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a toolbar to group the primary actions for the working surface directly below it: a [table](table), a canvas, or a list (for example **Export**, **Add filter**, **Delete** above a dataset table).\n\n* Use it for actions that apply to the current view or to the current selection within it, and that users reach for repeatedly.\n\n* Use it to keep frequent actions visible in one predictable place instead of scattering them around the content.\n\n## When not to use\n\n* Don't use a toolbar for page-level title actions (**New dataset**, **Edit**): those belong in the [page header](page-header).\n\n* Don't use it for actions on a single row: those are ghost or icon-only [buttons](button) inside the [table](table) row itself.\n\n* Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the [sticky footer](sticky-footer).\n\n* Don't use it for navigation between views or places: use [tabs](tabs) or the [side nav](side-nav).\n\n## Variant selection\n\n* **Single:** one standalone action or control; the minimal strip.\n\n* **Combined:** mixed controls in one strip (buttons, filters, search); the default for tables and lists.\n\n* **Group:** related actions clustered into visible groups, separated from unrelated groups; use when the strip carries more than a handful of actions.\n\n* **Horizontal:** the default orientation, spanning the top of the surface it controls.\n\n* **Vertical:** alongside a canvas surface, such as the lineage graph, where actions stack on the edge.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Disable actions that don't apply to the selection | Hide actions and let the layout jump around |\n| Say what's needed in the empty case (**Select items to export**) | Leave disabled actions unexplained |\n| Order actions by frequency, most common first | Order actions alphabetically or by team ownership |\n| Keep the same toolbar layout on every similar surface | Rearrange actions between two dataset tables |\n\n> Action label wording (one or two words, verb first) lives in the Content guidelines for toolbars.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a toolbar to group the primary actions for the working surface directly below it: a [table](table), a canvas, or a list (for example **Export**, **Add filter**, **Delete** above a dataset table).",
+                "Use it for actions that apply to the current view or to the current selection within it, and that users reach for repeatedly.",
+                "Use it to keep frequent actions visible in one predictable place instead of scattering them around the content."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a toolbar for page-level title actions (**New dataset**, **Edit**): those belong in the [page header](page-header).",
+                "Don't use it for actions on a single row: those are ghost or icon-only [buttons](button) inside the [table](table) row itself.",
+                "Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the [sticky footer](sticky-footer).",
+                "Don't use it for navigation between views or places: use [tabs](tabs) or the [side nav](side-nav)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Single:** one standalone action or control; the minimal strip.",
+                "**Combined:** mixed controls in one strip (buttons, filters, search); the default for tables and lists.",
+                "**Group:** related actions clustered into visible groups, separated from unrelated groups; use when the strip carries more than a handful of actions.",
+                "**Horizontal:** the default orientation, spanning the top of the surface it controls.",
+                "**Vertical:** alongside a canvas surface, such as the lineage graph, where actions stack on the edge."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Disable actions that don't apply to the selection",
+              "dont": "Hide actions and let the layout jump around"
+            },
+            {
+              "do": "Say what's needed in the empty case (**Select items to export**)",
+              "dont": "Leave disabled actions unexplained"
+            },
+            {
+              "do": "Order actions by frequency, most common first",
+              "dont": "Order actions alphabetically or by team ownership"
+            },
+            {
+              "do": "Keep the same toolbar layout on every similar surface",
+              "dont": "Rearrange actions between two dataset tables"
+            },
+            {
+              "note": "Action label wording (one or two words, verb first) lives in the Content guidelines for toolbars."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -91,5 +162,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-29T22:22:59+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

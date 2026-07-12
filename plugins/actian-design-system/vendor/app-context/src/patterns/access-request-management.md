@@ -5,5 +5,10 @@ slug: access-request-management
 label: Access request management
 apps:
   - studio
+components:
+  - table
+  - tabs
+  - tag-status
+  - button
 ---
 Table with Requester, Item, Status, Actions. Status tabs: Pending / Done.

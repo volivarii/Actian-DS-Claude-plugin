@@ -5,5 +5,8 @@ slug: ask-ai
 label: Ask AI
 apps:
   - explorer
+components:
+  - search
+  - chat-with-ai-steward
 ---
 Natural language query search through the knowledge graph with AI-generated summaries.

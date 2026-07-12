@@ -73,7 +73,74 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a confirmation to interrupt the user before an irreversible or destructive action and verify intent: deleting a dataset, revoking a connection, resetting a configuration.\n\n* Use it when the action reaches beyond the user's own work: unpublishing a shared data product, removing another user's access.\n\n* Use it only when the action cannot be undone; the interruption is the price of irreversibility.\n\n## When not to use\n\n* Don't confirm reversible actions: perform them and offer **Undo** in a [global toast](global-toast).\n\n* Don't confirm routine, low-stakes operations (saving, closing a panel with nothing typed); constant interruptions teach users to click through.\n\n* Don't use a confirmation to collect input or choices: that is a create or edit task for a [modal](modal).\n\n* Don't use it after the action to report the outcome: completion feedback is a [global toast](global-toast), and a finished journey ends on a [success state](success-state).\n\n## Variant selection\n\nConfirmations come in one dialog size; the vehicle is the 450px confirm [modal](modal), and the choices are configuration.\n\n* **Destructive:** the primary action uses the critical [button](button) intent (**Delete**, **Revoke**); start focus on the safe action.\n\n* **Consequential but not destructive:** a permanent change that destroys nothing (transferring ownership); keep the default primary intent.\n\n* Keep it to one sentence of consequence and two actions; if it needs more, the action deserves a task modal or a page, not a bigger dialog.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Ask about one decision at a time | Chain a second confirmation behind the first |\n| Make **Cancel** a safe, complete exit | Start any part of the action before the user confirms |\n| Require a typed name when irreversibly deleting a shared or production asset | Guard a shared, production-wide delete with one click |\n| Reserve the interruption for irreversible actions | Confirm what a toast **Undo** already protects |\n\n> Wording rules (title names the action, CTA matches the title verb, body states the consequence) live in the Content guidelines for confirmation.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a confirmation to interrupt the user before an irreversible or destructive action and verify intent: deleting a dataset, revoking a connection, resetting a configuration.",
+                "Use it when the action reaches beyond the user's own work: unpublishing a shared data product, removing another user's access.",
+                "Use it only when the action cannot be undone; the interruption is the price of irreversibility."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't confirm reversible actions: perform them and offer **Undo** in a [global toast](global-toast).",
+                "Don't confirm routine, low-stakes operations (saving, closing a panel with nothing typed); constant interruptions teach users to click through.",
+                "Don't use a confirmation to collect input or choices: that is a create or edit task for a [modal](modal).",
+                "Don't use it after the action to report the outcome: completion feedback is a [global toast](global-toast), and a finished journey ends on a [success state](success-state)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Confirmations come in one dialog size; the vehicle is the 450px confirm [modal](modal), and the choices are configuration."
+            },
+            {
+              "bullets": [
+                "**Destructive:** the primary action uses the critical [button](button) intent (**Delete**, **Revoke**); start focus on the safe action.",
+                "**Consequential but not destructive:** a permanent change that destroys nothing (transferring ownership); keep the default primary intent.",
+                "Keep it to one sentence of consequence and two actions; if it needs more, the action deserves a task modal or a page, not a bigger dialog."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Ask about one decision at a time",
+              "dont": "Chain a second confirmation behind the first"
+            },
+            {
+              "do": "Make **Cancel** a safe, complete exit",
+              "dont": "Start any part of the action before the user confirms"
+            },
+            {
+              "do": "Require a typed name when irreversibly deleting a shared or production asset",
+              "dont": "Guard a shared, production-wide delete with one click"
+            },
+            {
+              "do": "Reserve the interruption for irreversible actions",
+              "dont": "Confirm what a toast **Undo** already protects"
+            },
+            {
+              "note": "Wording rules (title names the action, CTA matches the title verb, body states the consequence) live in the Content guidelines for confirmation."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -85,5 +152,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

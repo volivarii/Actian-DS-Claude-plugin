@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-06T00:09:37.751Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 14,
-    "nodesNormalized": 8,
-    "ratio": 0.57,
+    "nodesNormalized": 11,
+    "ratio": 0.79,
     "degraded": [
       {
         "name": "Featured icon",
@@ -81,11 +81,15 @@
           "Icon": "Collapse",
           "State": "Default"
         },
+        "tokenRefs": [
+          "--zen-border-subtle"
+        ],
         "id": "14747:19905",
         "appearance": {
           "background": "#ffffff",
           "border": {
             "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
             "width": "1px"
           },
           "radius": "100px 0px 0px 100px"
@@ -103,6 +107,17 @@
           },
           "radius": "6px",
           "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Selected"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-border-selected",
+                "width": "2px"
+              }
+            },
             {
               "prop": "Type",
               "values": [
@@ -146,7 +161,8 @@
                   "values": [
                     "Selected"
                   ],
-                  "background": "#0f5fdc"
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-border-selected"
                 }
               ]
             },
@@ -166,13 +182,23 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
+              },
+              "paddingTokens": {
+                "top": "--zen-spacing-xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-2xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [
               {
                 "name": "Digram, Item types",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "digram-item-types",
+                "props": {
+                  "Item type": "Dataset",
+                  "Size": "Large"
+                },
                 "id": "14747:19908",
                 "appearance": {
                   "background": "#cfeafd",
@@ -205,10 +231,14 @@
                   {
                     "name": "Name",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14747:19910",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "14px",
                         "weight": 600,
                         "lineHeight": "20px",
@@ -222,6 +252,7 @@
                           ],
                           "text": {
                             "color": "#ffffff",
+                            "colorToken": "--zen-color-text-reverse",
                             "size": "14px",
                             "weight": 600,
                             "lineHeight": "20px",
@@ -235,10 +266,14 @@
                   {
                     "name": "Technical name",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14747:19911",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 500,
                         "lineHeight": "18px"
@@ -251,6 +286,7 @@
                           ],
                           "text": {
                             "color": "#ffffff",
+                            "colorToken": "--zen-color-text-reverse",
                             "size": "12px",
                             "weight": 500,
                             "lineHeight": "18px"
@@ -265,11 +301,17 @@
               {
                 "name": "Featured icon",
                 "kind": "container",
+                "tokenRefs": [
+                  "--zen-color-icon-success",
+                  "--zen-color-success-50"
+                ],
                 "id": "14747:19912",
                 "appearance": {
                   "background": "#098900",
+                  "backgroundToken": "--zen-color-icon-success",
                   "border": {
                     "color": "#d3efcd",
+                    "colorToken": "--zen-color-success-50",
                     "width": "2px"
                   },
                   "radius": "28px"
@@ -315,13 +357,19 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
+              },
+              "paddingTokens": {
+                "top": "--zen-spacing-2xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [
               {
                 "name": "✍️ Tag, Default",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "tag-default",
                 "props": {
                   "Leading icon show": true,
                   "Trailing icon show": false,
@@ -343,10 +391,14 @@
           {
             "name": "Field expand collapse",
             "kind": "container",
+            "tokenRefs": [
+              "--zen-border-subtle"
+            ],
             "id": "14747:19916",
             "appearance": {
               "border": {
                 "color": "#e1e1e6",
+                "colorToken": "--zen-border-subtle",
                 "width": "1px"
               }
             },
@@ -366,13 +418,19 @@
               "sizing": {
                 "h": "fixed",
                 "v": "hug"
+              },
+              "paddingTokens": {
+                "top": "--zen-spacing-2xs",
+                "right": "--zen-spacing-xs",
+                "bottom": "--zen-spacing-2xs",
+                "left": "--zen-spacing-xs"
               }
             },
             "children": [
               {
                 "name": "Button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
                   "Show label": true,
                   "Show trailing icon": false,

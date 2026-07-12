@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/icons.json",
+  "title": "Derived icon geometry (dist)",
+  "description": "Schema for components/dist/icons/icons.json: the derived, vendored icon read-surface produced by scripts/icons/derive-icons-svg.js. Each icon carries geometry (viewBox, body) plus joined provenance (group, dsKey, nodeId). icons.minProperties:1 guards against an empty library shipping after a Figma category mass-loss.",
+  "type": "object",
+  "required": ["_schema_version", "icons"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Provenance stamp on the CI-derived file. Documents the source script and generation metadata.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "scripts/icons/derive-icons-svg.js",
+          "do_not_edit": "Edit components/src/icons-svg.json; CI regenerates this file."
+        }
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "auto_generated": {
+          "type": "boolean",
+          "description": "True when this file was produced by the derive script.",
+          "examples": [true]
+        },
+        "source": {
+          "type": "string",
+          "description": "Relative path (from repo root) of the script that generated this file.",
+          "examples": ["scripts/icons/derive-icons-svg.js"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "description": "Guidance string signalling that manual edits will be overwritten on next derive run.",
+          "examples": [
+            "Edit components/src/icons-svg.json; CI regenerates this file."
+          ]
+        }
+      }
+    },
+    "icons": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "description": "Map of icon slug -> geometry and provenance. Each icon includes SVG geometry (viewBox, body) plus metadata joined at derive time (group, dsKey, nodeId from Figma). minProperties:1 ensures library is never empty.",
+      "examples": [
+        {
+          "add": {
+            "viewBox": "0 0 24 24",
+            "body": "<path d=\"M11.375 3C11.7202 3 12 3.27982 12 3.625V11.625H20.0352C20.3803 11.625 20.6602 11.9048 20.6602 12.25C20.6602 12.5952 20.3803 12.875 20.0352 12.875H12V20.375C12 20.7202 11.7202 21 11.375 21C11.0298 21 10.75 20.7202 10.75 20.375V12.875H3.28516C2.93998 12.875 2.66016 12.5952 2.66016 12.25C2.66016 11.9048 2.93998 11.625 3.28516 11.625H10.75V3.625C10.75 3.27982 11.0298 3 11.375 3Z\" fill=\"currentColor\"/>",
+            "group": "Navigation",
+            "dsKey": "2b10108613a16fe36ada2420f992f0240b076804",
+            "nodeId": "7378:3994"
+          }
+        }
+      ],
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "required": ["viewBox", "body"],
+          "additionalProperties": true,
+          "properties": {
+            "viewBox": {
+              "type": "string",
+              "pattern": "^-?[0-9.]+ -?[0-9.]+ -?[0-9.]+ -?[0-9.]+$",
+              "description": "SVG viewBox: four space-separated numbers (minX minY width height)."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Inner SVG markup (paths/groups), no root <svg>. Normalized to currentColor for rendering flexibility."
+            },
+            "group": {
+              "type": ["string", "null"],
+              "description": "Icon category group (e.g. 'Navigation', 'Status'). Null if uncategorized.",
+              "examples": ["Navigation", "Status", null]
+            },
+            "dsKey": {
+              "type": ["string", "null"],
+              "description": "Figma-derived stable key for this icon node. Null if not applicable.",
+              "examples": ["2b10108613a16fe36ada2420f992f0240b076804", null]
+            },
+            "nodeId": {
+              "type": ["string", "null"],
+              "description": "Figma node ID. Null if not applicable.",
+              "examples": ["7378:3994", null]
+            }
+          }
+        }
+      }
+    }
+  }
+}

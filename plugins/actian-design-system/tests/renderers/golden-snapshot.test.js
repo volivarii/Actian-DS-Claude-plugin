@@ -451,6 +451,23 @@ var DS_FIXTURES = {
     variant: "Status=Success",
     props: { Label: "Active" },
   },
+  // ⚠️ KNOWN BROKEN UPSTREAM, and its golden records that on purpose.
+  //
+  // ds-tagStatusFail.html contains NO glyph. That is not a renderer bug: the
+  // Fail variant's icon is `misuse-outline`, and the 2026-07 Figma icon rework
+  // DELETED it. Given an icon set without that glyph, an empty box is the
+  // correct render, so the golden says so rather than asserting a stale
+  // expectation.
+  //
+  // The defect is real and must be fixed, it just is not ours to fix here:
+  // Tag Status "Fail" ships in the DS today pointing at an icon that does not
+  // exist. `misuse-outline` is one of six glyphs the rework dropped that are
+  // NOT on the design team's own "REMOVED" note, so it looks like collateral.
+  // Tracked upstream (knowledge #405 detects and names ghost components, and
+  // every sync PR now lists them).
+  //
+  // When the glyph is restored in Figma this golden will fail. That is the
+  // point: re-baseline it WITH the icon and delete this comment.
   tagStatusFail: {
     dsSlug: "tag-status",
     variant: "Status=Fail",

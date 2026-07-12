@@ -11,7 +11,6 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | Slug | Name | Status | Variant axes |
 |---|---|---|---|
 | `account-dropdown` | Account dropdown | **BUILT** | — |
-| `alert-banner` | ✍️ Alert-banner | **BUILT** | Type / Orientation' |
 | `app-switcher-dropdown` | App switcher dropdown | **BUILT** | — |
 | `avatar` | Avatar | appearance | State / Type |
 | `badge` | ✍️ Badge | **BUILT** | Type |
@@ -23,10 +22,10 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `card-for-items` | Card for items | **BUILT** | Type / State |
 | `card-for-perimeter` | Card for perimeter | appearance | Property 1 |
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
-| `checkbox-with-label` | Checkbox with label | **BUILT** | Selected / State |
+| `checkbox-with-label` | Checkbox with label | **BUILT** | Selection / State |
 | `collapse-accordion` | ✍️ Collapse-accordion | appearance | State |
 | `confirmation` | Confirmation | appearance | Size |
-| `digram-item-types` | Digram, Item types | appearance | — |
+| `digram-item-types` | Digram, Item types | appearance | Item type / Size |
 | `digram-topic` | Digram, Topic | appearance | Type |
 | `drawer-side-panel` | Drawer, side panel | appearance | App |
 | `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
@@ -39,10 +38,10 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `line-graph` | ⛔️ Line graph | appearance | Property 1 |
 | `lineage-connecting-line` | Lineage connecting line | chip | Direction / State |
 | `lineage-grouped-node` | Lineage grouped node | appearance | State / Type |
-| `lineage-individual-node` | Lineage individual node | chip | Type / State / Fields |
+| `lineage-individual-node` | Lineage individual node | appearance | Type / State / Fields |
 | `link` | Link | appearance | State |
 | `loader` | Loader | **BUILT** | Percent |
-| `loader-with-logo` | Loader with logo | chip | App |
+| `loader-with-logo` | Loader with logo | appearance | App |
 | `loading-skeleton` | Loading skeleton | appearance | Transition |
 | `maintenance-state` | Maintenance state | appearance | Size |
 | `metamodel-widget` | Metamodel widget | appearance | Type |
@@ -52,7 +51,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `page-header` | Page header | **BUILT** | Type |
 | `popover` | ⛔️ Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
-| `radio-button` | Radio button | **BUILT** | Format / Selected / State |
+| `radio-button` | Radio button | **BUILT** | Selection / State |
 | `rich-text` | Rich text | **BUILT** | State |
 | `scroll-bar` | Scroll bar | chip | Property 1 |
 | `search` | Search | **BUILT** | Type / State |

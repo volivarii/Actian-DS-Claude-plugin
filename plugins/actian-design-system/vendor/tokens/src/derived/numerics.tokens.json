@@ -14,18 +14,18 @@
           }
         }
       },
-      "mono": {
-        "$type": "fontFamily",
-        "$value": "Roboto Mono",
-        "$extensions": {
-          "com.actian.status": "Shipped"
-        }
-      },
       "brand": {
         "$type": "fontFamily",
         "$value": "AllRpungGothic",
         "$extensions": {
           "com.actian.status": "figma-only"
+        }
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "Roboto Mono",
+        "$extensions": {
+          "com.actian.status": "Shipped"
         }
       }
     },

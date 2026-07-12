@@ -462,8 +462,8 @@ Total tokens: 463. Groups: 8.
 | Token | CSS Variable | Value |
 |-------|--------------|-------|
 | `font.family.text` | `--zen-font-family-text` | `Roboto` |
-| `font.family.mono` | `--zen-font-family-mono` | `Roboto Mono` |
 | `font.family.brand` | `--zen-font-family-brand` | `AllRpungGothic` |
+| `font.family.mono` | `--zen-font-family-mono` | `Roboto Mono` |
 
 ## FontWeight Tokens
 

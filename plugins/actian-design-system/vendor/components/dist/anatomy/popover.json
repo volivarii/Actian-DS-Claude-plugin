@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 65,
-    "nodesNormalized": 30,
-    "ratio": 0.46,
+    "nodesNormalized": 34,
+    "ratio": 0.52,
     "degraded": [],
     "structuralVariants": [
       {
@@ -46,16 +46,24 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-md",
+      "paddingTokens": {
+        "bottom": "--zen-spacing-md"
       }
     },
     "children": [
       {
         "name": "Header",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14294:6571",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -75,6 +83,12 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
@@ -98,7 +112,8 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-xs"
             },
             "children": [
               {
@@ -110,10 +125,14 @@
               {
                 "name": "Header",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14294:6219",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "18px",
                     "weight": 600,
                     "lineHeight": "26px"
@@ -158,16 +177,25 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "gapToken": "--zen-spacing-xs",
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "Label",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14294:6784",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 500,
                 "lineHeight": "20px",
@@ -179,10 +207,14 @@
           {
             "name": "description",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14294:6787",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
                 "lineHeight": "20px",
@@ -249,11 +281,15 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:6996",
                     "appearance": {
                       "background": "#fbfbff",
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -270,10 +306,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:6997",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -290,10 +330,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:6998",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -310,10 +354,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:6999",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -330,10 +378,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7000",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -350,10 +402,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7001",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -370,10 +426,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7002",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -390,10 +450,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7003",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -410,10 +474,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7004",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -455,11 +523,15 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7006",
                     "appearance": {
                       "background": "#fbfbff",
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -467,10 +539,14 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7007",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     },
@@ -532,10 +608,14 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7010",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     },
@@ -595,10 +675,14 @@
                       {
                         "name": "/ Scroll down / pinch in",
                         "kind": "text",
+                        "tokenRefs": [
+                          "--zen-color-text-default"
+                        ],
                         "id": "14294:7013",
                         "appearance": {
                           "text": {
                             "color": "#000000",
+                            "colorToken": "--zen-color-text-default",
                             "size": "14px",
                             "weight": 400,
                             "lineHeight": "20px",
@@ -612,10 +696,14 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7014",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     },
@@ -675,10 +763,14 @@
                       {
                         "name": "/ Scroll up / pinch out",
                         "kind": "text",
+                        "tokenRefs": [
+                          "--zen-color-text-default"
+                        ],
                         "id": "14294:7017",
                         "appearance": {
                           "text": {
                             "color": "#000000",
+                            "colorToken": "--zen-color-text-default",
                             "size": "14px",
                             "weight": 400,
                             "lineHeight": "20px",
@@ -701,10 +793,14 @@
                       "Show Button 1": true,
                       "Type": "Action"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7018",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -721,10 +817,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7019",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -732,10 +832,14 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7020",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     },
@@ -784,6 +888,9 @@
                           {
                             "name": "Frame 1948755105",
                             "kind": "container",
+                            "tokenRefs": [
+                              "--zen-border-default"
+                            ],
                             "id": "14294:7022",
                             "appearance": {
                               "radius": "4px"
@@ -814,6 +921,9 @@
                                 "props": {
                                   "Property 1": "Default"
                                 },
+                                "tokenRefs": [
+                                  "--zen-border-default"
+                                ],
                                 "id": "14294:7023",
                                 "appearance": {
                                   "radius": "4px 0px 0px 4px"
@@ -826,6 +936,9 @@
                                 "props": {
                                   "Property 1": "Default"
                                 },
+                                "tokenRefs": [
+                                  "--zen-border-default"
+                                ],
                                 "id": "14294:7024",
                                 "appearance": {
                                   "radius": "0px 4px 4px 0px"
@@ -849,10 +962,14 @@
                       "Show Button 1": true,
                       "Type": "Action"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7025",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -860,10 +977,14 @@
                   {
                     "name": ".Table cell",
                     "kind": "container",
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7026",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     },
@@ -912,7 +1033,7 @@
                           {
                             "name": "Button",
                             "kind": "instance",
-                            "unresolved": true,
+                            "slug": "button",
                             "props": {
                               "Show leading icon": true,
                               "Show label": true,
@@ -931,10 +1052,14 @@
                           {
                             "name": "/",
                             "kind": "text",
+                            "tokenRefs": [
+                              "--zen-color-text-default"
+                            ],
                             "id": "14294:7029",
                             "appearance": {
                               "text": {
                                 "color": "#000000",
+                                "colorToken": "--zen-color-text-default",
                                 "size": "14px",
                                 "weight": 400,
                                 "lineHeight": "20px",
@@ -946,7 +1071,7 @@
                           {
                             "name": "Button",
                             "kind": "instance",
-                            "unresolved": true,
+                            "slug": "button",
                             "props": {
                               "Show leading icon": true,
                               "Show label": true,
@@ -1003,11 +1128,15 @@
                       "Show Sort": false,
                       "Type": "Header"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7032",
                     "appearance": {
                       "background": "#fbfbff",
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1024,10 +1153,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7033",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1044,10 +1177,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7034",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1064,10 +1201,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7035",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1084,10 +1225,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7036",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1104,10 +1249,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7037",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1124,10 +1273,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7038",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1144,10 +1297,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7039",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1164,10 +1321,14 @@
                       "Show Avatar": false,
                       "Type": "Text"
                     },
+                    "tokenRefs": [
+                      "--zen-border-default"
+                    ],
                     "id": "14294:7040",
                     "appearance": {
                       "border": {
                         "color": "#c7c7ce",
+                        "colorToken": "--zen-border-default",
                         "width": "1px"
                       }
                     }
@@ -1243,13 +1404,17 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "✍️ Collapse-accordion",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "collapse-accordion",
             "props": {
               "State": "Collapsed"
             },
@@ -1280,13 +1445,17 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show label": true,
               "Show trailing icon": false,

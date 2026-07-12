@@ -54,7 +54,75 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use tabs to switch between peer views of the same object or context, in place, without full navigation (for example **Overview**, **Lineage**, **Settings** on a dataset detail page).\n\n* Use them when the views are at the same level and the user moves between them repeatedly during one task.\n\n* Use them under a [page header](page-header) to structure a detail page whose content does not fit one scroll.\n\n## When not to use\n\n* Don't use tabs to navigate between different places in the app: use the [side nav](side-nav) or links. If the URL context changes meaningfully, it is navigation, not tabs.\n\n* Don't use tabs to filter or re-display the same content set: use a [segmented control](segmented-control) (for example switching a list between grid and table view).\n\n* Don't use tabs for sequential steps that must be completed in order: use a [stepper](stepper).\n\n* Don't nest tabs inside tabs. If a view needs its own sub-views, the page is carrying too much: split it.\n\n## Variant selection\n\nTabs have a single Default variant; the real choices are configuration.\n\n* **Number of tabs:** two to six. Beyond six, labels truncate and scanning breaks; regroup the content or promote it to navigation.\n\n* **First tab:** make it the summary view (**Overview**) and load it selected. Never land the user on an empty tab.\n\n* **Show avatar:** turn it on only when a tab represents a person or account.\n\n* **Tab order:** most-used view first, administrative or rarely used views (for example **Settings**) last. Keep the order identical across similar detail pages.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the user on the same page when a tab is clicked | Trigger a full page navigation from a tab |\n| Preserve entered state when switching tabs | Discard a half-filled form because the user peeked at another tab |\n| Keep tab sets identical across entities of the same kind | Show Lineage on one dataset but not its sibling |\n| Land on a populated default tab | Open on an empty tab that needs setup first |\n\n> Tab label wording (short nouns, no verbs, sentence case) lives in the Content guidelines for tabs.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use tabs to switch between peer views of the same object or context, in place, without full navigation (for example **Overview**, **Lineage**, **Settings** on a dataset detail page).",
+                "Use them when the views are at the same level and the user moves between them repeatedly during one task.",
+                "Use them under a [page header](page-header) to structure a detail page whose content does not fit one scroll."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use tabs to navigate between different places in the app: use the [side nav](side-nav) or links. If the URL context changes meaningfully, it is navigation, not tabs.",
+                "Don't use tabs to filter or re-display the same content set: use a [segmented control](segmented-control) (for example switching a list between grid and table view).",
+                "Don't use tabs for sequential steps that must be completed in order: use a [stepper](stepper).",
+                "Don't nest tabs inside tabs. If a view needs its own sub-views, the page is carrying too much: split it."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Tabs have a single Default variant; the real choices are configuration."
+            },
+            {
+              "bullets": [
+                "**Number of tabs:** two to six. Beyond six, labels truncate and scanning breaks; regroup the content or promote it to navigation.",
+                "**First tab:** make it the summary view (**Overview**) and load it selected. Never land the user on an empty tab.",
+                "**Show avatar:** turn it on only when a tab represents a person or account.",
+                "**Tab order:** most-used view first, administrative or rarely used views (for example **Settings**) last. Keep the order identical across similar detail pages."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep the user on the same page when a tab is clicked",
+              "dont": "Trigger a full page navigation from a tab"
+            },
+            {
+              "do": "Preserve entered state when switching tabs",
+              "dont": "Discard a half-filled form because the user peeked at another tab"
+            },
+            {
+              "do": "Keep tab sets identical across entities of the same kind",
+              "dont": "Show Lineage on one dataset but not its sibling"
+            },
+            {
+              "do": "Land on a populated default tab",
+              "dont": "Open on an empty tab that needs setup first"
+            },
+            {
+              "note": "Tab label wording (short nouns, no verbs, sentence case) lives in the Content guidelines for tabs."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -128,5 +196,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-05T20:42:11+02:00"
+  "updated_at": "2026-07-12T02:45:52+02:00"
 }

@@ -6,5 +6,10 @@ label: Suggestion workflow
 apps:
   - explorer
   - studio
+components:
+  - button
+  - confirmation
+  - text-input
+  - tag-status
 ---
 Explorer users submit suggestions, curators review (accept/decline with comment).

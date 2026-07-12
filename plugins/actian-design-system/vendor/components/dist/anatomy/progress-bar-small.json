@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "progress-bar-small",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14136:1615",
@@ -67,9 +67,13 @@
       {
         "name": "Bar",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-color-neutral-100"
+        ],
         "id": "14136:1617",
         "appearance": {
           "background": "#c7c7ce",
+          "backgroundToken": "--zen-color-neutral-100",
           "radius": "4px"
         },
         "normalizable": false,
@@ -86,9 +90,13 @@
           {
             "name": "Complete",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-400"
+            ],
             "id": "14136:1618",
             "appearance": {
               "background": "#3d7ce6",
+              "backgroundToken": "--zen-color-primary-400",
               "radius": "4px"
             }
           }
@@ -97,10 +105,14 @@
       {
         "name": "50%",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "14136:1619",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

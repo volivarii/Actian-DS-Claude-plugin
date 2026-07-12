@@ -34,14 +34,14 @@
         {
           "Token": "--zen-size-trigger-min",
           "Value": "24px",
-          "Usage": "Minimum interactive target area for desktop (WCAG 2.5.5 Level AA)",
+          "Usage": "Minimum interactive target area for desktop (WCAG 2.5.8 Level AA)",
           "status_note": "Proposed",
           "status": "proposed"
         },
         {
           "Token": "--zen-size-trigger-min-mobile",
           "Value": "44px",
-          "Usage": "Minimum interactive target area for mobile (WCAG 2.5.5 Level AA)",
+          "Usage": "Minimum interactive target area for mobile (WCAG 2.5.8 Level AA)",
           "status_note": "Proposed",
           "status": "proposed"
         }

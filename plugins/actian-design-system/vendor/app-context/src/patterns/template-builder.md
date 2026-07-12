@@ -5,5 +5,9 @@ slug: template-builder
 label: Drag-and-drop template builder
 apps:
   - studio
+components:
+  - metamodel-widget
+  - button
+  - text-input
 ---
 Studio feature for creating documentation templates via Catalog Design page.

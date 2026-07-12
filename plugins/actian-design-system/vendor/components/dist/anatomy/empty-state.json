@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "empty-state",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9230:22073",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 8,
-    "nodesNormalized": 5,
-    "ratio": 0.63,
+    "nodesNormalized": 8,
+    "ratio": 1,
     "degraded": [],
     "structuralVariants": [
       {
@@ -48,13 +48,14 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-md"
     },
     "children": [
       {
         "name": "Illustration",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "illustration",
         "props": {
           "Type": "Empty state large"
         },
@@ -80,16 +81,21 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
             "name": "Title",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "9230:23475",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "18px",
                 "weight": 600,
                 "lineHeight": "26px"
@@ -102,6 +108,7 @@
                   ],
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 600,
                     "lineHeight": "20px",
@@ -115,10 +122,14 @@
           {
             "name": "Body",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "9230:23476",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "16px",
                 "weight": 400,
                 "lineHeight": "24px",
@@ -132,6 +143,7 @@
                   ],
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 400,
                     "lineHeight": "20px",
@@ -170,7 +182,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Label": "Learn more",
               "Show label": true,
@@ -189,7 +201,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Label": "Create policy",
               "Show label": true,
@@ -200,9 +212,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "9230:25787",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px"
             }
           }
