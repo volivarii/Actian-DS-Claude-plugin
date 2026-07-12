@@ -330,7 +330,8 @@ A flexible container for grouping related information. Use for dashboard summari
 
 Used for binary choices (on/off) or when a user can select multiple options from a list of related items.
 
-- Variants: **Selected:** `Yes` · `Indeterminate` · `No` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
+- Variants: **Selection:** `Unchecked` · `Indeterminate` · `Checked` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
+- Boolean properties: `Show label#19716:0` (default: true) — set to `false` to hide
 - Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
 
 ### checkmark--outline
@@ -541,7 +542,7 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 Works like tags but contains only 2 letters (initials of category name)
 
-- Single component (no variants)
+- Variants: **Item type:** `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization` · `Category` · `Custom 1` · `Custom 2` · `Custom 3` · `Custom 4` · `Custom 5` · `Custom 6` · `Custom 7` · `Custom 8` · `Custom 9` · `Custom 10` · `Custom 11` · `Custom 12` · `Custom 13` · `Custom 14` · `Custom 16` · `Glossary 1` · `Glossary 2` · `Glossary 3` · `Glossary 4` · `Glossary 5` | **Size:** `Small` · `Default` · `Large`
 - Node: `14007:23209` | Key: `1705ad4e55489bb9ca0f203be5bd0edbd77e82b2`
 
 ### Digram, Topic
@@ -1198,8 +1199,7 @@ Visualizes the completion percentage of a task.  Use as a static visualization l
 
 Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).
 
-- Variants: **Format:** `Default` · `Card format` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
-- Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide · `Show Icon#14119:0` (default: true) — set to `false` to hide
+- Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
 
 ### relation

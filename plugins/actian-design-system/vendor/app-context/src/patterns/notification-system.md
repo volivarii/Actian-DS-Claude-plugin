@@ -7,5 +7,9 @@ apps:
   - studio
   - explorer
   - administration
+components:
+  - notification
+  - notification-dropdown
+  - global-header
 ---
 Bell icon with unread counter. Three notification types with click-to-action redirects.

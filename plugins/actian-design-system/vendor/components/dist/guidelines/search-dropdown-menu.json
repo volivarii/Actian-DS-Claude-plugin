@@ -8,7 +8,12 @@
   "slug": "search-dropdown-menu",
   "component": "Search dropdown menu",
   "meta": {
-    "category": "form-input-selection"
+    "category": "form-input-selection",
+    "a11y_refs": [
+      {
+        "ref": "dropdowns-menus-popovers"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -79,7 +84,80 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "The search dropdown menu is the suggestion surface of the search flow: it opens under a [search](search) field, before the full results page with its [search result cards](search-result-card) and [filters](search-filters).\n\n## When to use\n\n* Use it to surface matching results and suggestions live under a [search](search) field as the user types, so a known target is reachable without leaving the field.\n\n* Use it to shortcut the full results page: a user typing an exact asset name should land on that asset in one click.\n\n* Use it to group matches by type (**Datasets**, **Topics**) when more than one kind of asset can match the query.\n\n## When not to use\n\n* Don't put filter controls or unrelated actions in the menu: refinement belongs to [filters](search-filters) on the results page; the menu carries only matches and suggestions.\n\n* Don't use it as a form control that assigns a value by typing: use a [combo box](combo-box).\n\n* Don't use it as a command or actions menu under a button: use [dropdown / select](dropdown-select).\n\n* Don't make it the whole search experience: cap the list and hand off to the full results page (**See all results**) instead of scrolling dozens of matches in a floating menu.\n\n## Variant selection\n\n* **Before typed:** the field is focused but empty; show recent searches or suggested entry points so the menu is never blank.\n\n* **After typed:** live matches for the current query, grouped by type, matched portion highlighted.\n\n* **No result:** a brief message naming the query (for example **No matches for \"orders\"**); suggest adjusting the query, never a create action.\n\n* **Explorer home:** the wider menu paired with the Explorer home [search](search) variant on the landing surface.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight the matched portion of each result | Make users guess why a result matched |\n| Keep each row to its name plus minimal context (type, owner) | Load full metadata cards into the menu |\n| Offer **See all results** when matches exceed the menu | Truncate the list silently |\n| Let users move through results with the keyboard and select with Enter | Support pointer selection only |\n\n> Group headings, empty-message wording, and the **See all results** phrasing live in the Content guidelines for the search dropdown menu.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "The search dropdown menu is the suggestion surface of the search flow: it opens under a [search](search) field, before the full results page with its [search result cards](search-result-card) and [filters](search-filters)."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use it to surface matching results and suggestions live under a [search](search) field as the user types, so a known target is reachable without leaving the field.",
+                "Use it to shortcut the full results page: a user typing an exact asset name should land on that asset in one click.",
+                "Use it to group matches by type (**Datasets**, **Topics**) when more than one kind of asset can match the query."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't put filter controls or unrelated actions in the menu: refinement belongs to [filters](search-filters) on the results page; the menu carries only matches and suggestions.",
+                "Don't use it as a form control that assigns a value by typing: use a [combo box](combo-box).",
+                "Don't use it as a command or actions menu under a button: use [dropdown / select](dropdown-select).",
+                "Don't make it the whole search experience: cap the list and hand off to the full results page (**See all results**) instead of scrolling dozens of matches in a floating menu."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Before typed:** the field is focused but empty; show recent searches or suggested entry points so the menu is never blank.",
+                "**After typed:** live matches for the current query, grouped by type, matched portion highlighted.",
+                "**No result:** a brief message naming the query (for example **No matches for \"orders\"**); suggest adjusting the query, never a create action.",
+                "**Explorer home:** the wider menu paired with the Explorer home [search](search) variant on the landing surface."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Highlight the matched portion of each result",
+              "dont": "Make users guess why a result matched"
+            },
+            {
+              "do": "Keep each row to its name plus minimal context (type, owner)",
+              "dont": "Load full metadata cards into the menu"
+            },
+            {
+              "do": "Offer **See all results** when matches exceed the menu",
+              "dont": "Truncate the list silently"
+            },
+            {
+              "do": "Let users move through results with the keyboard and select with Enter",
+              "dont": "Support pointer selection only"
+            },
+            {
+              "note": "Group headings, empty-message wording, and the **See all results** phrasing live in the Content guidelines for the search dropdown menu."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -91,5 +169,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-29T22:22:59+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

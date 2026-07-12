@@ -63,7 +63,72 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use the global header as the one persistent bar at the top of every screen, across Studio, Explorer, and Administration.\n\n* Use it for suite-level chrome only: switching between product areas, global [search](search), notifications, what's new, help, and the account menu (profile, logout).\n\n* Use it to state which app the user is in: the branded title and navigation context adapt to the current app.\n\n## When not to use\n\n* Don't put page identity or page-level actions in it (**New dataset**, **Edit**): those belong to the [page header](page-header), which sits below it.\n\n* Don't use it to navigate between sections within an app: that is the [side nav](side-nav).\n\n* Don't add app-specific or entity-specific tools to it: if a control only makes sense on one page or for one entity, it does not belong in suite chrome.\n\n* Don't stack a second custom top bar under it: one global header per screen, then the page header.\n\n* Don't detach its dropdowns from it: notifications, [what's new](whats-new-dropdown), and the account menu open anchored to their header icons.\n\n## Variant selection\n\n* **App type (Studio, Explorer, Admin):** always match the app the user is actually in; never mix one app's header with another app's content.\n\n* **Breakpoints (XL to XS):** the breakpoint follows the viewport of the screen you are designing for; it is not a preference.\n\n* Across app types, only the branded title and navigation context change: utility icons keep the same set, order, and position everywhere.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the header identical in structure across all apps | Rearrange utility icons from one app to the next |\n| Reflect the current app in the branded title | Show the Studio header on an Explorer page |\n| Give unlabeled utility icons a [tooltip](tooltip) | Add text labels next to every icon |\n| Route recent-changes announcements to the [what's new](whats-new-dropdown) entry | Announce releases with a page-level banner on every screen |\n\n> Wording for the branded title and utility tooltips lives in the Content guidelines for the global header.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use the global header as the one persistent bar at the top of every screen, across Studio, Explorer, and Administration.",
+                "Use it for suite-level chrome only: switching between product areas, global [search](search), notifications, what's new, help, and the account menu (profile, logout).",
+                "Use it to state which app the user is in: the branded title and navigation context adapt to the current app."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't put page identity or page-level actions in it (**New dataset**, **Edit**): those belong to the [page header](page-header), which sits below it.",
+                "Don't use it to navigate between sections within an app: that is the [side nav](side-nav).",
+                "Don't add app-specific or entity-specific tools to it: if a control only makes sense on one page or for one entity, it does not belong in suite chrome.",
+                "Don't stack a second custom top bar under it: one global header per screen, then the page header.",
+                "Don't detach its dropdowns from it: notifications, [what's new](whats-new-dropdown), and the account menu open anchored to their header icons."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**App type (Studio, Explorer, Admin):** always match the app the user is actually in; never mix one app's header with another app's content.",
+                "**Breakpoints (XL to XS):** the breakpoint follows the viewport of the screen you are designing for; it is not a preference.",
+                "Across app types, only the branded title and navigation context change: utility icons keep the same set, order, and position everywhere."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep the header identical in structure across all apps",
+              "dont": "Rearrange utility icons from one app to the next"
+            },
+            {
+              "do": "Reflect the current app in the branded title",
+              "dont": "Show the Studio header on an Explorer page"
+            },
+            {
+              "do": "Give unlabeled utility icons a [tooltip](tooltip)",
+              "dont": "Add text labels next to every icon"
+            },
+            {
+              "do": "Route recent-changes announcements to the [what's new](whats-new-dropdown) entry",
+              "dont": "Announce releases with a page-level banner on every screen"
+            },
+            {
+              "note": "Wording for the branded title and utility tooltips lives in the Content guidelines for the global header."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -137,5 +202,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-05T20:42:11+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

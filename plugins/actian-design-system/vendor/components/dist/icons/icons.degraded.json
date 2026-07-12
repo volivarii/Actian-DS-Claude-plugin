@@ -4,8 +4,40 @@
   },
   "degraded": [
     {
+      "slug": "asleep",
+      "reason": "render-failed"
+    },
+    {
       "slug": "attachments",
       "reason": "multicolor"
+    },
+    {
+      "slug": "award-04",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "book-bookmark",
+      "reason": "multicolor"
+    },
+    {
+      "slug": "brightness-contrast",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "chart-bar",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "chart-pie",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "chevron-sort",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "circle-dash",
+      "reason": "render-failed"
     },
     {
       "slug": "cursor-arrow",
@@ -20,8 +52,92 @@
       "reason": "multicolor"
     },
     {
+      "slug": "expand",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "help-laptop",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "history",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "icon-query-queue",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "image",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "layers-front-curator-indicator",
+      "reason": "render-failed"
+    },
+    {
       "slug": "lifecycle-policy",
       "reason": "gradient-or-image-fill"
+    },
+    {
+      "slug": "mail",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "maximize",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "minimize",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "misuse-outline",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "pending",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "rocket-1",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "stop-outline",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "task-list-multiple",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "tools",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "undo",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "upload-file",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "use-with-care",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "user-lock",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "view-card",
+      "reason": "render-failed"
+    },
+    {
+      "slug": "view-table",
+      "reason": "render-failed"
     }
   ]
 }

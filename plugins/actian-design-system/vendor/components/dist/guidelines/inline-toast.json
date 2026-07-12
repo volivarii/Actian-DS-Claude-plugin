@@ -87,7 +87,74 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use an inline toast to confirm a localized micro-action, right where it happened: a value copied to the clipboard, a field saved in place, a tag added to an asset, a share link generated.\n\n* Use it when the user's eyes are already on the element the feedback concerns, inside a form, panel, or drawer. The message appears next to that element, not at the screen edge.\n\n* Use it for brief, non-blocking feedback that the user can safely miss: it confirms, it never asks.\n\n## When not to use\n\n* Don't use an inline toast for the result of a page-level or background action (import finished, scan started): use a [global toast](global-toast) at the screen edge.\n\n* Don't use an inline toast for an error the user must fix. Field errors belong to inline validation on the [text input](text-input) itself; section-level problems belong in an [alert banner](alert-banner).\n\n* Don't use an inline toast for a message that must persist until acknowledged: use an [alert banner](alert-banner).\n\n* Don't stack inline toasts to narrate a multi-step operation; confirm the end result once with a [global toast](global-toast).\n\n## Variant selection\n\nInline toasts have no variants of their own; the choice is the intent.\n\n* **Success:** the default and by far the most common intent (**Copied**, **Saved**, **Tag added**).\n\n* **Info:** a neutral, transient notice tied to an element (for example a value refreshed in place).\n\n* **Warning:** a non-blocking caution the user can ignore (for example a value saved with a fallback). If the user must respond, leave the toast family.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep it under ten words (**Copied**, **Link created**) | Write a sentence explaining what copying means |\n| Anchor the toast to the element it confirms | Float a \"Saved\" message at the screen edge for one field |\n| Let it dismiss itself without user action | Add a close button to a two-word confirmation |\n| Use inline validation for field errors | Report a required-field error in a toast that fades away |\n\n> Wording rules (under ten words, past-tense confirmations, example messages) live in the Content guidelines for inline toast.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use an inline toast to confirm a localized micro-action, right where it happened: a value copied to the clipboard, a field saved in place, a tag added to an asset, a share link generated.",
+                "Use it when the user's eyes are already on the element the feedback concerns, inside a form, panel, or drawer. The message appears next to that element, not at the screen edge.",
+                "Use it for brief, non-blocking feedback that the user can safely miss: it confirms, it never asks."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use an inline toast for the result of a page-level or background action (import finished, scan started): use a [global toast](global-toast) at the screen edge.",
+                "Don't use an inline toast for an error the user must fix. Field errors belong to inline validation on the [text input](text-input) itself; section-level problems belong in an [alert banner](alert-banner).",
+                "Don't use an inline toast for a message that must persist until acknowledged: use an [alert banner](alert-banner).",
+                "Don't stack inline toasts to narrate a multi-step operation; confirm the end result once with a [global toast](global-toast)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Inline toasts have no variants of their own; the choice is the intent."
+            },
+            {
+              "bullets": [
+                "**Success:** the default and by far the most common intent (**Copied**, **Saved**, **Tag added**).",
+                "**Info:** a neutral, transient notice tied to an element (for example a value refreshed in place).",
+                "**Warning:** a non-blocking caution the user can ignore (for example a value saved with a fallback). If the user must respond, leave the toast family."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep it under ten words (**Copied**, **Link created**)",
+              "dont": "Write a sentence explaining what copying means"
+            },
+            {
+              "do": "Anchor the toast to the element it confirms",
+              "dont": "Float a \"Saved\" message at the screen edge for one field"
+            },
+            {
+              "do": "Let it dismiss itself without user action",
+              "dont": "Add a close button to a two-word confirmation"
+            },
+            {
+              "do": "Use inline validation for field errors",
+              "dont": "Report a required-field error in a toast that fades away"
+            },
+            {
+              "note": "Wording rules (under ten words, past-tense confirmations, example messages) live in the Content guidelines for inline toast."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -99,5 +166,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

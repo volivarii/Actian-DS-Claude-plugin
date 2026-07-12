@@ -2,9 +2,11 @@
 component: "Date input"
 category: form-input-selection
 related: [calendar, text-input]
+a11y_refs:
+  - { ref: forms }
 domains:
   content:  { status: approved, owner: content-team }
-  usage:    { status: not-started }
+  usage:    { status: draft }
   design:   { status: inherited }
   behavior: { status: inherited }
   tokens:   { status: not-started }

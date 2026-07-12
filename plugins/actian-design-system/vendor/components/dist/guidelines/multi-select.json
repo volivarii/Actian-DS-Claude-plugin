@@ -89,7 +89,77 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a multi-select as a form field that collects several values from one list, shown as chips inside the field (for example assigning tags, owners, or data domains to a data product).\n\n* Use it when the option list is too long to show as a group of visible checkboxes.\n\n* Use it to apply several filters from one category at once above a [table](table) or catalog list.\n\n## When not to use\n\n* Don't use it when exactly one value is valid: use a [dropdown / select](dropdown-select) or a [radio button](radio-button) group.\n\n* Don't use it for up to roughly seven options that fit on screen: use a [checkbox](checkbox) group so users can compare every option at a glance.\n\n* Don't reach for a searchable multi-choice [dropdown / select](dropdown-select) to collect form values: its in-menu checkboxes are for filtering; a multi-select carries the chosen values as chips.\n\n## Variant selection\n\nMulti-selects have no type or size variants; the choices are between modes.\n\n* **Chips in field:** the default; every selected value stays visible and individually removable via its close icon.\n\n* **Collapsed count:** when selections outgrow the field, collapse to a count such as **3 selected**.\n\n* **Select all / Clear all:** add these actions when picking everything or resetting is a common move.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the list open while the user picks several values | Close the menu after every single pick |\n| Let each chip be removed by keyboard as well as its close icon | Force a full reset to drop one value |\n| Show a count when the field collapses | Truncate chips with no signal of how many are chosen |\n| Keep chip labels to the item name only | Pack metadata into every chip |\n| Preload current assignments when editing an asset | Open an edit form with an empty field |\n\n> Count and action wording rules (**3 selected**, **Select all**, **Clear all**) live in the Content guidelines for multi-selects.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a multi-select as a form field that collects several values from one list, shown as chips inside the field (for example assigning tags, owners, or data domains to a data product).",
+                "Use it when the option list is too long to show as a group of visible checkboxes.",
+                "Use it to apply several filters from one category at once above a [table](table) or catalog list."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use it when exactly one value is valid: use a [dropdown / select](dropdown-select) or a [radio button](radio-button) group.",
+                "Don't use it for up to roughly seven options that fit on screen: use a [checkbox](checkbox) group so users can compare every option at a glance.",
+                "Don't reach for a searchable multi-choice [dropdown / select](dropdown-select) to collect form values: its in-menu checkboxes are for filtering; a multi-select carries the chosen values as chips."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Multi-selects have no type or size variants; the choices are between modes."
+            },
+            {
+              "bullets": [
+                "**Chips in field:** the default; every selected value stays visible and individually removable via its close icon.",
+                "**Collapsed count:** when selections outgrow the field, collapse to a count such as **3 selected**.",
+                "**Select all / Clear all:** add these actions when picking everything or resetting is a common move."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep the list open while the user picks several values",
+              "dont": "Close the menu after every single pick"
+            },
+            {
+              "do": "Let each chip be removed by keyboard as well as its close icon",
+              "dont": "Force a full reset to drop one value"
+            },
+            {
+              "do": "Show a count when the field collapses",
+              "dont": "Truncate chips with no signal of how many are chosen"
+            },
+            {
+              "do": "Keep chip labels to the item name only",
+              "dont": "Pack metadata into every chip"
+            },
+            {
+              "do": "Preload current assignments when editing an asset",
+              "dont": "Open an edit form with an empty field"
+            },
+            {
+              "note": "Count and action wording rules (**3 selected**, **Select all**, **Clear all**) live in the Content guidelines for multi-selects."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -101,5 +171,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

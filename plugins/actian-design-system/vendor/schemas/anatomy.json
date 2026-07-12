@@ -181,7 +181,7 @@
         "kind": { "enum": ["container", "text", "instance", "icon", "vector"] },
         "id": {
           "type": "string",
-          "description": "Figma node id (join key for the token-bindings sidecar).",
+          "description": "Figma node id (stable identity for the anatomy node).",
           "examples": ["14783:7564"]
         },
         "slug": {
@@ -212,7 +212,7 @@
         },
         "appearance": {
           "type": "object",
-          "description": "Resolved sRGB visual values captured from Figma for this node — the render substrate; consumers emit var(--token, <value>).",
+          "description": "Resolved sRGB visual values captured from Figma for this node: the medium-neutral render fact. The value alone guarantees fidelity; a CSS consumer can emit each as var(--token, <value>), pairing it with the token name below.",
           "examples": [
             {
               "background": "#f2f6f8",
@@ -239,7 +239,7 @@
               "type": "string",
               "minLength": 1,
               "pattern": "^--",
-              "description": "Published --zen-* custom property the fill is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). Consumers emit var(<backgroundToken>, <background>).",
+              "description": "Published --zen-* custom property the fill is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). A CSS consumer can emit var(<backgroundToken>, <background>).",
               "examples": ["--zen-color-bg-selected"]
             },
             "border": {
@@ -366,15 +366,22 @@
             "axis": { "enum": ["row", "column"] },
             "gap": {
               "type": "string",
-              "description": "Item spacing as a token ref or px value.",
-              "examples": ["--zen-spacing-200", "8px"]
+              "description": "Item spacing as a px value.",
+              "examples": ["8px"]
+            },
+            "gapToken": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^--",
+              "description": "Published --zen-* length custom property the item spacing is bound to (P2 name layer; length-gated join). A CSS consumer can emit gap:var(<gapToken>, <gap>).",
+              "examples": ["--zen-spacing-200"]
             },
             "padding": {
               "type": "object",
-              "description": "Per-side padding as token refs or px values.",
+              "description": "Per-side padding as px values.",
               "examples": [
                 {
-                  "top": "--zen-spacing-150",
+                  "top": "16px",
                   "right": "16px",
                   "bottom": "16px",
                   "left": "16px"
@@ -401,6 +408,43 @@
                   "type": "string",
                   "description": "Left padding.",
                   "examples": ["16px"]
+                }
+              }
+            },
+            "paddingTokens": {
+              "type": "object",
+              "description": "Published --zen-* length custom property each padding side is bound to (P2 name layer; length-gated). Only bound sides appear. A CSS consumer can emit each side as var(<paddingTokens.side>, <padding.side>).",
+              "examples": [
+                { "top": "--zen-spacing-150", "left": "--zen-spacing-100" }
+              ],
+              "properties": {
+                "top": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^--",
+                  "description": "Top padding length token.",
+                  "examples": ["--zen-spacing-150"]
+                },
+                "right": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^--",
+                  "description": "Right padding length token.",
+                  "examples": ["--zen-spacing-100"]
+                },
+                "bottom": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^--",
+                  "description": "Bottom padding length token.",
+                  "examples": ["--zen-spacing-150"]
+                },
+                "left": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^--",
+                  "description": "Left padding length token.",
+                  "examples": ["--zen-spacing-100"]
                 }
               }
             },
@@ -450,7 +494,7 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^--",
-          "description": "Published --zen-* custom property the stroke color is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). Consumers emit var(<colorToken>, <color>).",
+          "description": "Published --zen-* custom property the stroke color is bound to (P2 name layer; key-based join, only names that exist in tokens.css with a color value). A CSS consumer can emit var(<colorToken>, <color>).",
           "examples": ["--zen-color-primary-500"]
         },
         "width": {
@@ -473,7 +517,7 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^--",
-          "description": "Published --zen-* custom property the text color is bound to (P2 name layer). Consumers emit var(<colorToken>, <color>).",
+          "description": "Published --zen-* custom property the text color is bound to (P2 name layer). A CSS consumer can emit var(<colorToken>, <color>).",
           "examples": ["--zen-color-text-secondary"]
         },
         "size": {

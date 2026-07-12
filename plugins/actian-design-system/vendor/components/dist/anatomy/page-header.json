@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "page-header",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12923:2794",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 8,
-    "nodesNormalized": 5,
-    "ratio": 0.63,
+    "nodesNormalized": 8,
+    "ratio": 1,
     "degraded": [],
     "structuralVariants": [
       {
@@ -72,7 +72,8 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-xs"
     },
     "children": [
       {
@@ -101,10 +102,14 @@
           {
             "name": "Title",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "12923:2797",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "24px",
                 "weight": 600,
                 "lineHeight": "32px"
@@ -138,7 +143,7 @@
               {
                 "name": "Button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
                   "Label": "Button",
                   "Show label": true,
@@ -157,7 +162,7 @@
               {
                 "name": "Button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
                   "Show label": true,
                   "Label": "Button",
@@ -180,7 +185,7 @@
               {
                 "name": "Button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
                   "Label": "Button",
                   "Show label": true,
@@ -191,9 +196,13 @@
                   "Size": "Default",
                   "State": "Default"
                 },
+                "tokenRefs": [
+                  "--zen-color-bg-primary"
+                ],
                 "id": "12923:2801",
                 "appearance": {
                   "background": "#0283be",
+                  "backgroundToken": "--zen-color-bg-primary",
                   "radius": "9999px"
                 }
               }
@@ -204,10 +213,14 @@
       {
         "name": "Suppot text",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "12923:2802",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",

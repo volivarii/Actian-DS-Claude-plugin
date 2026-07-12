@@ -5,5 +5,8 @@ slug: type-picker-grid
 label: Type picker grid
 apps:
   - studio
+components:
+  - card-for-items
+  - modal
 ---
 Grid of type tiles with color-coded icons for New Item creation.

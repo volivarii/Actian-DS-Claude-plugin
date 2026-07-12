@@ -5,7 +5,7 @@ a11y_refs:
   - { ref: buttons }
 domains:
   content: { status: approved, owner: content-team }
-  usage: { status: not-started }
+  usage: { status: draft }
   design: { status: draft, owner: design }
   behavior: { status: draft }
   tokens: { status: approved }

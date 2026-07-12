@@ -25,6 +25,12 @@
       "items": { "type": "string" },
       "description": "App slugs where this UX pattern appears.",
       "examples": [["studio", "explorer"]]
+    },
+    "components": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Registry-key slugs of the DS components this pattern composes (authored; projected to the graph as ux_pattern -> component 'uses_component' edges).",
+      "examples": [["search-filters", "table", "tabs"]]
     }
   }
 }

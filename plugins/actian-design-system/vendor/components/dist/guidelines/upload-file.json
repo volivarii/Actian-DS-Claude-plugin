@@ -8,7 +8,12 @@
   "slug": "upload-file",
   "component": "Upload file",
   "meta": {
-    "category": "form-input-selection"
+    "category": "form-input-selection",
+    "a11y_refs": [
+      {
+        "ref": "forms"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -79,7 +84,77 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use an upload component whenever the user brings a file into the platform: importing data files into a dataset, adding certificates or configuration files during connection setup, attaching files.\n\n* Use a drop zone with a browse link so both drag-and-drop and file-picker users are served.\n\n* Surface the constraints (accepted formats, size limit) in the drop zone before the user picks a file.\n\n## When not to use\n\n* Don't ask for a file when the value could just be typed (a URL, a path to an existing source): use a [text input](text-input).\n\n* Don't use it to pick from files already on the platform: use a selection control such as a [table](table) with row selection or a [combo box](combo-box).\n\n* Don't ask users to export and re-upload data when a direct connection to the source exists: point them to connection setup instead.\n\n## Variant selection\n\nUpload components have no type or size variants; the choices are between modes.\n\n* **Drop zone:** the default surface; an action phrase plus the accepted file types, with a browse link.\n\n* **In progress:** filename, progress bar, and percentage while the file transfers.\n\n* **Result rows:** each file resolves to a success indicator or a specific error naming the file and the failure.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| State accepted formats and the size limit up front | Reveal constraints only in the rejection error |\n| Name the file and the exact problem on failure | Report a bare upload failure |\n| Show per-file progress during upload | Leave the screen static with no transfer signal |\n| Validate type and size on drop, before the transfer | Upload the whole file and reject it afterwards |\n| Let the user remove or replace an uploaded file | Force a restart of the flow to retry |\n\n> Drop zone, constraint, and status wording rules live in the Content guidelines for file uploads.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use an upload component whenever the user brings a file into the platform: importing data files into a dataset, adding certificates or configuration files during connection setup, attaching files.",
+                "Use a drop zone with a browse link so both drag-and-drop and file-picker users are served.",
+                "Surface the constraints (accepted formats, size limit) in the drop zone before the user picks a file."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't ask for a file when the value could just be typed (a URL, a path to an existing source): use a [text input](text-input).",
+                "Don't use it to pick from files already on the platform: use a selection control such as a [table](table) with row selection or a [combo box](combo-box).",
+                "Don't ask users to export and re-upload data when a direct connection to the source exists: point them to connection setup instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Upload components have no type or size variants; the choices are between modes."
+            },
+            {
+              "bullets": [
+                "**Drop zone:** the default surface; an action phrase plus the accepted file types, with a browse link.",
+                "**In progress:** filename, progress bar, and percentage while the file transfers.",
+                "**Result rows:** each file resolves to a success indicator or a specific error naming the file and the failure."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "State accepted formats and the size limit up front",
+              "dont": "Reveal constraints only in the rejection error"
+            },
+            {
+              "do": "Name the file and the exact problem on failure",
+              "dont": "Report a bare upload failure"
+            },
+            {
+              "do": "Show per-file progress during upload",
+              "dont": "Leave the screen static with no transfer signal"
+            },
+            {
+              "do": "Validate type and size on drop, before the transfer",
+              "dont": "Upload the whole file and reject it afterwards"
+            },
+            {
+              "do": "Let the user remove or replace an uploaded file",
+              "dont": "Force a restart of the flow to retry"
+            },
+            {
+              "note": "Drop zone, constraint, and status wording rules live in the Content guidelines for file uploads."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -91,5 +166,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

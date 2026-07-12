@@ -70,11 +70,164 @@
               "dont": "Primary CTA: Yes / Secondary CTA: No"
             }
           ]
+        },
+        {
+          "heading": "",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+            }
+          ]
+        },
+        {
+          "heading": "Principles",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "bullets": [
+                "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Choosing a messaging pattern",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Type",
+                  "Scope",
+                  "When it appears",
+                  "Where it appears",
+                  "How it goes away",
+                  "Example"
+                ],
+                "rows": [
+                  [
+                    "Banner (page)",
+                    "The whole page",
+                    "Until the underlying issue is resolved",
+                    "Top of the page, below the header",
+                    "Cleared when the issue resolves, or dismissed if informational",
+                    "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                  ],
+                  [
+                    "Banner (section)",
+                    "One part of the page",
+                    "While a section-level issue exists",
+                    "Top of the affected section",
+                    "Cleared when the issue resolves",
+                    "\"This output port is managed by an external data contract and is read-only.\""
+                  ],
+                  [
+                    "Toast",
+                    "One completed action",
+                    "Right after the action completes",
+                    "Bottom center",
+                    "Dismisses automatically after a few seconds",
+                    "\"Prospect customers created.\""
+                  ],
+                  [
+                    "Inline message",
+                    "One form field",
+                    "On blur, or on submit attempt",
+                    "Directly below the field",
+                    "Clears as soon as the field is valid",
+                    "\"Enter a valid email address.\""
+                  ],
+                  [
+                    "Modal",
+                    "A required decision",
+                    "When the user must confirm or provide input before continuing",
+                    "Centered, blocking the page",
+                    "Dismissed only by completing or canceling the action",
+                    "\"This will permanently delete the dataset and cannot be undone.\""
+                  ]
+                ]
+              }
+            },
+            {
+              "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.\n\n* Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.\n\n* Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.\n\n* Use it when the underlying page state must not change while the user decides.\n\n## When not to use\n\n* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).\n\n* Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.\n\n* Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.\n\n* Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.\n\n* Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception.\n\n## Variant selection\n\n* **450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).\n\n* **700px create / setting:** short single-column forms, up to roughly six fields.\n\n* **900px create / edit:** richer forms that need breathing room or a second column.\n\n* **1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep one task per modal | Stack a second modal on top of the first |\n| Name the primary action after the task (**Create report**) | Label a task modal's primary action **OK** |\n| Land initial focus on the safe action in destructive confirms | Let a reflex Enter keypress delete data |\n| Warn before discarding unsaved input on dismiss | Silently drop what the user typed |\n| Pick the smallest size that fits the task | Default every dialog to 900px |",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.",
+                "Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.",
+                "Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.",
+                "Use it when the underlying page state must not change while the user decides."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).",
+                "Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.",
+                "Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.",
+                "Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.",
+                "Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).",
+                "**700px create / setting:** short single-column forms, up to roughly six fields.",
+                "**900px create / edit:** richer forms that need breathing room or a second column.",
+                "**1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep one task per modal",
+              "dont": "Stack a second modal on top of the first"
+            },
+            {
+              "do": "Name the primary action after the task (**Create report**)",
+              "dont": "Label a task modal's primary action **OK**"
+            },
+            {
+              "do": "Land initial focus on the safe action in destructive confirms",
+              "dont": "Let a reflex Enter keypress delete data"
+            },
+            {
+              "do": "Warn before discarding unsaved input on dismiss",
+              "dont": "Silently drop what the user typed"
+            },
+            {
+              "do": "Pick the smallest size that fits the task",
+              "dont": "Default every dialog to 900px"
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -86,5 +239,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T02:45:52+02:00"
 }

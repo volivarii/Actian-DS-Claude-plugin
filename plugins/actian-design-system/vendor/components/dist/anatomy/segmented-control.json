@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "segmented-control",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7618:5187",
@@ -17,11 +17,15 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "7618:5284",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       },
       "radius": "6px"
@@ -62,9 +66,13 @@
       {
         "name": " Divider",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13811:13070",
         "appearance": {
-          "background": "#c7c7ce"
+          "background": "#c7c7ce",
+          "backgroundToken": "--zen-border-default"
         }
       },
       {
@@ -81,9 +89,13 @@
       {
         "name": " Divider",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13811:13068",
         "appearance": {
-          "background": "#c7c7ce"
+          "background": "#c7c7ce",
+          "backgroundToken": "--zen-border-default"
         }
       },
       {
@@ -100,9 +112,13 @@
       {
         "name": " Divider",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13811:13066",
         "appearance": {
-          "background": "#c7c7ce"
+          "background": "#c7c7ce",
+          "backgroundToken": "--zen-border-default"
         }
       },
       {
@@ -119,9 +135,13 @@
       {
         "name": " Divider",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "13811:13064",
         "appearance": {
-          "background": "#c7c7ce"
+          "background": "#c7c7ce",
+          "backgroundToken": "--zen-border-default"
         }
       },
       {

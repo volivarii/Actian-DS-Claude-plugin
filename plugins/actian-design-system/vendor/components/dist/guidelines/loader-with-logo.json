@@ -8,7 +8,12 @@
   "slug": "loader-with-logo",
   "component": "Loader with logo",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "a11y_refs": [
+      {
+        "ref": "loading-patterns"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -62,7 +67,72 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use the loader with logo for application startup: the first paint of Studio, Explorer, or Administration before the shell renders.\n\n* Use it for logging in and out, where the suite itself is the context.\n\n* Use it for switches between apps of the suite, where the whole screen changes hands.\n\n* Use it full-screen only; the brand carries the wait when there is nothing else on screen to look at.\n\n## When not to use\n\n* Don't use it for in-page or section-level loading: use the standard [loader](loader).\n\n* Don't use it once the app shell has rendered and the incoming layout is known: use a [loading skeleton](loading-skeleton) for the content.\n\n* Don't use it for a control-level wait: use a [spinner](spinner).\n\n* Don't use it when progress is measurable (an install, a large import): use a [progress bar](progress-bar-small).\n\n* Don't use it when the transition is instant; a flash of brand between two ready screens reads as a glitch.\n\n## Variant selection\n\n* **Studio / Explorer / Admin:** match the logo to the destination app, the one being opened, not the one being left.\n\n* **Actian Data Intelligence:** suite-level surfaces where no single app owns the screen (login, the switch itself before a destination is chosen).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Match the logo to the app being opened | Show the Studio mark while Explorer boots |\n| Hand off to the shell and its [loading skeleton](loading-skeleton) as soon as they can render | Hold the logo screen until every widget has data |\n| Show it for the whole boot, once | Replay it on every in-app navigation |\n| Respect reduced-motion preferences with a calm fallback | Force the full animation on users who opted out |\n\n> Wording rules (brief present-tense messages such as **Loading your workspace...**) live in the Content guidelines for loader with logo.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use the loader with logo for application startup: the first paint of Studio, Explorer, or Administration before the shell renders.",
+                "Use it for logging in and out, where the suite itself is the context.",
+                "Use it for switches between apps of the suite, where the whole screen changes hands.",
+                "Use it full-screen only; the brand carries the wait when there is nothing else on screen to look at."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use it for in-page or section-level loading: use the standard [loader](loader).",
+                "Don't use it once the app shell has rendered and the incoming layout is known: use a [loading skeleton](loading-skeleton) for the content.",
+                "Don't use it for a control-level wait: use a [spinner](spinner).",
+                "Don't use it when progress is measurable (an install, a large import): use a [progress bar](progress-bar-small).",
+                "Don't use it when the transition is instant; a flash of brand between two ready screens reads as a glitch."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Studio / Explorer / Admin:** match the logo to the destination app, the one being opened, not the one being left.",
+                "**Actian Data Intelligence:** suite-level surfaces where no single app owns the screen (login, the switch itself before a destination is chosen)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Match the logo to the app being opened",
+              "dont": "Show the Studio mark while Explorer boots"
+            },
+            {
+              "do": "Hand off to the shell and its [loading skeleton](loading-skeleton) as soon as they can render",
+              "dont": "Hold the logo screen until every widget has data"
+            },
+            {
+              "do": "Show it for the whole boot, once",
+              "dont": "Replay it on every in-app navigation"
+            },
+            {
+              "do": "Respect reduced-motion preferences with a calm fallback",
+              "dont": "Force the full animation on users who opted out"
+            },
+            {
+              "note": "Wording rules (brief present-tense messages such as **Loading your workspace...**) live in the Content guidelines for loader with logo."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -74,5 +144,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

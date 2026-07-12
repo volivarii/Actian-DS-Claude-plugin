@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "background-explore",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "16494:19414"
@@ -55,265 +55,397 @@
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19380",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19381",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19382",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19383",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19384",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19385",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19386",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19387",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19388",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19389",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19390",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19391",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19392",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19393",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19394",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19395",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19396",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19397",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19398",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19399",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19400",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19401",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19402",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19403",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19404",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19405",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19406",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19407",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19408",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19409",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19410",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19411",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           },
           {
             "name": "Vector",
             "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
             "id": "16494:19412",
             "appearance": {
-              "background": "#049b98"
+              "background": "#049b98",
+              "backgroundToken": "--zen-color-primary-500"
             }
           }
         ]

@@ -6,5 +6,11 @@ label: 360-degree asset detail view
 apps:
   - studio
   - explorer
+components:
+  - tabs
+  - page-header
+  - breadcrumbs
+  - side-nav
+  - drawer-side-panel
 ---
 Every catalog object has a tabbed detail page with property panel/sidebar.

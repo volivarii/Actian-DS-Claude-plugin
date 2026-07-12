@@ -8,7 +8,12 @@
   "slug": "notification-dropdown",
   "component": "Notification dropdown",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "a11y_refs": [
+      {
+        "ref": "alerts-toasts-banners"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -62,11 +67,163 @@
               "dont": "Clear all / Dismiss all"
             }
           ]
+        },
+        {
+          "heading": "",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+            }
+          ]
+        },
+        {
+          "heading": "Principles",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "bullets": [
+                "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Choosing a messaging pattern",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Type",
+                  "Scope",
+                  "When it appears",
+                  "Where it appears",
+                  "How it goes away",
+                  "Example"
+                ],
+                "rows": [
+                  [
+                    "Banner (page)",
+                    "The whole page",
+                    "Until the underlying issue is resolved",
+                    "Top of the page, below the header",
+                    "Cleared when the issue resolves, or dismissed if informational",
+                    "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                  ],
+                  [
+                    "Banner (section)",
+                    "One part of the page",
+                    "While a section-level issue exists",
+                    "Top of the affected section",
+                    "Cleared when the issue resolves",
+                    "\"This output port is managed by an external data contract and is read-only.\""
+                  ],
+                  [
+                    "Toast",
+                    "One completed action",
+                    "Right after the action completes",
+                    "Bottom center",
+                    "Dismisses automatically after a few seconds",
+                    "\"Prospect customers created.\""
+                  ],
+                  [
+                    "Inline message",
+                    "One form field",
+                    "On blur, or on submit attempt",
+                    "Directly below the field",
+                    "Clears as soon as the field is valid",
+                    "\"Enter a valid email address.\""
+                  ],
+                  [
+                    "Modal",
+                    "A required decision",
+                    "When the user must confirm or provide input before continuing",
+                    "Centered, blocking the page",
+                    "Dismissed only by completing or canceling the action",
+                    "\"This will permanently delete the dataset and cannot be undone.\""
+                  ]
+                ]
+              }
+            },
+            {
+              "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).\n\n* Use it to let the user browse, open, and mark notifications as read without leaving their current page.\n\n* Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.\n\n* Signal unread items with an indicator on the bell; the user decides when to open the panel.\n\n## When not to use\n\n* Don't rely on the panel to deliver an error that blocks the user's current work: put it in an [alert banner](alert-banner) on the affected page.\n\n* Don't use it to confirm an action the user is watching: that moment belongs to a [global toast](global-toast).\n\n* Don't open it automatically when a notification arrives; only a user click opens it.\n\n* Don't put content in the panel that is not a notification item: product announcements and release notes belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\nThe notification dropdown has no type or size variants; the choice is between its two configurations.\n\n* **List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.\n\n* **Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Order items newest first | Make the user scroll to find the latest event |\n| Show enough of each message to act on it | Truncate every item to a cryptic first line |\n| Clear the bell's indicator once items are read | Keep the badge lit after everything is read |\n| Show the empty message when the list is empty | Hide or disable the bell when there is nothing new |\n\n> Wording rules (panel header, empty copy, mark-all-as-read labels) live in the Content guidelines for notification dropdown.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).",
+                "Use it to let the user browse, open, and mark notifications as read without leaving their current page.",
+                "Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.",
+                "Signal unread items with an indicator on the bell; the user decides when to open the panel."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't rely on the panel to deliver an error that blocks the user's current work: put it in an [alert banner](alert-banner) on the affected page.",
+                "Don't use it to confirm an action the user is watching: that moment belongs to a [global toast](global-toast).",
+                "Don't open it automatically when a notification arrives; only a user click opens it.",
+                "Don't put content in the panel that is not a notification item: product announcements and release notes belong to the [what's new dropdown](whats-new-dropdown)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "The notification dropdown has no type or size variants; the choice is between its two configurations."
+            },
+            {
+              "bullets": [
+                "**List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.",
+                "**Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Order items newest first",
+              "dont": "Make the user scroll to find the latest event"
+            },
+            {
+              "do": "Show enough of each message to act on it",
+              "dont": "Truncate every item to a cryptic first line"
+            },
+            {
+              "do": "Clear the bell's indicator once items are read",
+              "dont": "Keep the badge lit after everything is read"
+            },
+            {
+              "do": "Show the empty message when the list is empty",
+              "dont": "Hide or disable the bell when there is nothing new"
+            },
+            {
+              "note": "Wording rules (panel header, empty copy, mark-all-as-read labels) live in the Content guidelines for notification dropdown."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -78,5 +235,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

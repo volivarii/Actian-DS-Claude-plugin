@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "modal",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14175:14426",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 10,
-    "nodesNormalized": 5,
-    "ratio": 0.5,
+    "nodesNormalized": 10,
+    "ratio": 1,
     "degraded": [],
     "structuralVariants": [
       {
@@ -112,10 +112,14 @@
       {
         "name": "Header",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14226:20316",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           }
         },
@@ -135,16 +139,26 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
           {
             "name": "Heading 2 ⏵ Connection settings",
             "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
             "id": "14226:20317",
             "appearance": {
               "text": {
                 "color": "#000000",
+                "colorToken": "--zen-color-text-default",
                 "size": "18px",
                 "weight": 600,
                 "lineHeight": "26px"
@@ -155,7 +169,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show leading icon": true,
               "Show label": true,
@@ -206,21 +220,32 @@
           "sizing": {
             "h": "fill",
             "v": "fill"
+          },
+          "gapToken": "--zen-spacing-md",
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
           {
             "name": "Rich text",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "rich-text",
             "props": {
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "14226:20669",
             "appearance": {
               "background": "#ffffff",
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               },
               "radius": "6px"
@@ -231,7 +256,7 @@
       {
         "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
           "Show leading icon": true,
           "Show label": true,
@@ -251,7 +276,8 @@
               "values": [
                 "450px confirm"
               ],
-              "radius": null
+              "radius": null,
+              "slug": "text-input"
             }
           ]
         }
@@ -259,10 +285,14 @@
       {
         "name": "Footer",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14226:20351",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "variants": [
@@ -292,13 +322,20 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
+          },
+          "gapToken": "--zen-spacing-xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
           }
         },
         "children": [
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show label": true,
               "Label": "Cancel",
@@ -321,7 +358,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Label": "Confirm",
               "Show label": true,
@@ -332,9 +369,13 @@
               "Size": "Default",
               "State": "Default"
             },
+            "tokenRefs": [
+              "--zen-color-bg-primary"
+            ],
             "id": "14226:20353",
             "appearance": {
               "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-bg-primary",
               "radius": "9999px",
               "variants": [
                 {
@@ -342,7 +383,8 @@
                   "values": [
                     "450px warning"
                   ],
-                  "background": "#dc3514"
+                  "background": "#dc3514",
+                  "backgroundToken": "--zen-color-icon-error"
                 }
               ]
             }

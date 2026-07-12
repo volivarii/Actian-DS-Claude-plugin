@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-topic",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14128:3800",
@@ -103,16 +103,25 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "14128:3781",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
