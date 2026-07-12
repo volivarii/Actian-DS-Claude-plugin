@@ -346,6 +346,27 @@
                   ]
                 }
               ]
+            },
+            {
+              "subheading": "Checkbox group vs Multi-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a checkbox group when:**"
+                },
+                {
+                  "bullets": [
+                    "The list has roughly seven or fewer options and all of them should stay visible at once."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long or space is limited, and a search field would help users find options."
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -359,7 +380,7 @@
               "content": [
                 {
                   "bullets": [
-                    "When the user must select exactly one option from a short visible list (typically two to six options).",
+                    "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                     "When all choices should be visible up front rather than hidden in a dropdown."
                   ]
                 }
@@ -417,11 +438,161 @@
               ]
             }
           ]
+        },
+        {
+          "heading": "Segmented control",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                    "Do not use for page-level navigation - use [tabs](tabs) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Segmented control vs Radio button",
+              "content": [
+                {
+                  "prose": "**Use a segmented control when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice takes effect immediately, with no separate submit step."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice is part of a form and applies on submit."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Combo box",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Combo box vs Single-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a combo box when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long enough that typing to filter is faster than scanning it."
+                  ]
+                },
+                {
+                  "prose": "**Use a single-select dropdown when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is shorter and fixed."
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "Filters are the refinement surface of the search flow: they narrow what a [search](search) returned or what a list shows, alongside the [search dropdown menu](search-dropdown-menu) for suggestions and [search result cards](search-result-card) for presentation.\n\n## When to use\n\n* Use filters when a result set or list is large enough that users need structured criteria (**Owner**, **Status**, **Data domain**) to find what they need.\n\n* Use them when several criteria apply simultaneously and users combine them to converge on a result.\n\n* Place them above or to the left of the content they control, so cause and effect stay visually connected.\n\n* Use them to refine search results in Explorer or narrow asset lists in Studio; filters only change what is visible, never the underlying data.\n\n## When not to use\n\n* Don't use filters for keyword lookup: a query typed against names and metadata is [search](search).\n\n* Don't use them to switch between views of the same content set (grid vs table, day vs week): use a [segmented control](segmented-control).\n\n* Don't reach for the full filter collection when one or two independent dropdowns above a [table](table) do the job: those stay plain [dropdown / select](dropdown-select) controls.\n\n* Don't use filters as a saved-scope or permission mechanism; a filter is a temporary view refinement the user can always clear.\n\n## Variant selection\n\n* **Explorer:** refining search results and catalog browsing in Explorer, where search is a first-class surface.\n\n* **Studio:** narrowing working lists of catalog assets, topics, and access requests.\n\n* Match the variant to the app the user is in; never mix the two on one surface.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show the active count when collapsed (**Filters (3)**) | Hide that filters are silently narrowing the view |\n| Offer **Clear all** whenever filters are active | Force users to unpick criteria one by one |\n| Keep the surrounding chrome and a clear-filters link when nothing matches (see [table](table)) | Swap in a create-new [empty state](empty-state) for a filtered-out view |\n| Persist filter state when users leave and return to the view | Reset every filter on navigation |\n\n> Filter label wording (short noun phrases, sentence case, the **Filters (3)** pattern) lives in the Content guidelines for filters.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Filters are the refinement surface of the search flow: they narrow what a [search](search) returned or what a list shows, alongside the [search dropdown menu](search-dropdown-menu) for suggestions and [search result cards](search-result-card) for presentation."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use filters when a result set or list is large enough that users need structured criteria (**Owner**, **Status**, **Data domain**) to find what they need.",
+                "Use them when several criteria apply simultaneously and users combine them to converge on a result.",
+                "Place them above or to the left of the content they control, so cause and effect stay visually connected.",
+                "Use them to refine search results in Explorer or narrow asset lists in Studio; filters only change what is visible, never the underlying data."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use filters for keyword lookup: a query typed against names and metadata is [search](search).",
+                "Don't use them to switch between views of the same content set (grid vs table, day vs week): use a [segmented control](segmented-control).",
+                "Don't reach for the full filter collection when one or two independent dropdowns above a [table](table) do the job: those stay plain [dropdown / select](dropdown-select) controls.",
+                "Don't use filters as a saved-scope or permission mechanism; a filter is a temporary view refinement the user can always clear."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Explorer:** refining search results and catalog browsing in Explorer, where search is a first-class surface.",
+                "**Studio:** narrowing working lists of catalog assets, topics, and access requests.",
+                "Match the variant to the app the user is in; never mix the two on one surface."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Show the active count when collapsed (**Filters (3)**)",
+              "dont": "Hide that filters are silently narrowing the view"
+            },
+            {
+              "do": "Offer **Clear all** whenever filters are active",
+              "dont": "Force users to unpick criteria one by one"
+            },
+            {
+              "do": "Keep the surrounding chrome and a clear-filters link when nothing matches (see [table](table))",
+              "dont": "Swap in a create-new [empty state](empty-state) for a filtered-out view"
+            },
+            {
+              "do": "Persist filter state when users leave and return to the view",
+              "dont": "Reset every filter on navigation"
+            },
+            {
+              "note": "Filter label wording (short noun phrases, sentence case, the **Filters (3)** pattern) lives in the Content guidelines for filters."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -433,5 +604,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-30T21:13:00+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

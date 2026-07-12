@@ -12,13 +12,18 @@
     "related": [
       "calendar",
       "text-input"
+    ],
+    "a11y_refs": [
+      {
+        "ref": "forms"
+      }
     ]
   },
   "domains": {
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n- For single-date entry in a form, such as a deadline or an effective date.\n- When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n- Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n- Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n- Use a single, consistent date format across the product.\n\n## Behavior\n\n- Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n- State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today. | Invalid date. |\n| Effective date | Date field |",
+      "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
       "sections": [
         {
           "heading": "",
@@ -359,6 +364,27 @@
                   ]
                 }
               ]
+            },
+            {
+              "subheading": "Checkbox group vs Multi-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a checkbox group when:**"
+                },
+                {
+                  "bullets": [
+                    "The list has roughly seven or fewer options and all of them should stay visible at once."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long or space is limited, and a search field would help users find options."
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -372,7 +398,7 @@
               "content": [
                 {
                   "bullets": [
-                    "When the user must select exactly one option from a short visible list (typically two to six options).",
+                    "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                     "When all choices should be visible up front rather than hidden in a dropdown."
                   ]
                 }
@@ -425,6 +451,83 @@
                     "Maintain selection across steps if part of a multi-step process.",
                     "Title: short, descriptive, and consistent across tiles.",
                     "Supporting text: use only in the large variant."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Segmented control",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                    "Do not use for page-level navigation - use [tabs](tabs) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Segmented control vs Radio button",
+              "content": [
+                {
+                  "prose": "**Use a segmented control when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice takes effect immediately, with no separate submit step."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice is part of a form and applies on submit."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Combo box",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Combo box vs Single-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a combo box when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long enough that typing to filter is faster than scanning it."
+                  ]
+                },
+                {
+                  "prose": "**Use a single-select dropdown when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is shorter and fixed."
                   ]
                 }
               ]
@@ -494,11 +597,192 @@
               "dont": "You must make a selection."
             }
           ]
+        },
+        {
+          "heading": "Text slots",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+            },
+            {
+              "table": {
+                "headers": [
+                  "Slot",
+                  "When it appears",
+                  "Content"
+                ],
+                "rows": [
+                  [
+                    "Label",
+                    "Always",
+                    "The field name. Mark required fields with an asterisk."
+                  ],
+                  [
+                    "Description",
+                    "Always, before the user interacts",
+                    "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                  ],
+                  [
+                    "Helper",
+                    "Reactively, below the field",
+                    "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Severity",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "bullets": [
+                "**Error** blocks submission. State what's wrong and how to fix it.",
+                "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Common fields",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+            },
+            {
+              "bullets": [
+                "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+              ]
+            }
+          ],
+          "subsections": [
+            {
+              "subheading": "Email",
+              "content": [
+                {
+                  "bullets": [
+                    "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                    "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "URL",
+              "content": [
+                {
+                  "bullets": [
+                    "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                    "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                    "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Date input",
+              "content": [
+                {
+                  "bullets": [
+                    "Description or helper: show the expected format as an example, not an instruction.",
+                    "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                  ]
+                },
+                {
+                  "prose": "See [date input](input-date)."
+                }
+              ]
+            },
+            {
+              "subheading": "Character counters",
+              "content": [
+                {
+                  "bullets": [
+                    "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                    "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.",
+                "Use it when users may know the exact date, so typing it is as fast as picking it.",
+                "Pair it with an attached [calendar](calendar) when a visual month view would help the choice."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).",
+                "Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.",
+                "Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Single date:** one date field; the default for deadlines and effective dates.",
+                "**Date range:** start and end in one control, for spans such as a reporting window or a retention period.",
+                "**Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.",
+                "**Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Validate the date on blur",
+              "dont": "Flash errors while the user is still typing"
+            },
+            {
+              "do": "Accept typing and the attached calendar equally",
+              "dont": "Force every entry through the picker"
+            },
+            {
+              "do": "Say what range is valid when a date is rejected",
+              "dont": "Stop at naming the field invalid"
+            },
+            {
+              "do": "Keep one date format across the product",
+              "dont": "Vary the format field by field"
+            },
+            {
+              "do": "Constrain a range so the end follows the start",
+              "dont": "Accept an end date before the start date"
+            },
+            {
+              "note": "Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -510,5 +794,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-29T22:22:59+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

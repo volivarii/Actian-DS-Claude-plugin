@@ -179,7 +179,74 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a stepper for a linear process of three or more distinct steps that must be completed in order: connection setup, onboarding, a create wizard for a data product or connection.\n\n* Use it when seeing progress matters: the stepper shows which steps are completed, which one is current, and what is still ahead.\n\n* Use it on a dedicated page when a task outgrows a [modal](modal): a long form split into digestible stages.\n\n## When not to use\n\n* Don't use a stepper for a simple two-step confirmation: use a [modal](modal).\n\n* Don't use it for peer views the user can visit in any order: use [tabs](tabs). A stepper implies sequence; tabs imply choice.\n\n* Don't use it to show a running system process (an import, a metadata scan): use a [progress bar](progress-bar-small) or a [loader](loader). The stepper tracks the user's task, not the machine's.\n\n* Don't split a short form that fits one screen into steps: the ceremony costs more than it guides.\n\n## Variant selection\n\nSteppers have no type or size variants; the choices are between modes and configurations.\n\n* **Step states:** each step reads as completed, current, or upcoming; exactly one step is current at any time.\n\n* **Placement:** the stepper sits above the step content on a dedicated page, never inside a modal.\n\n* **Navigation:** Back and Next move between steps; the final step's button names the outcome (Create, or the matching object-specific verb).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate on Next and move focus to the first error | Let users advance past missing required fields |\n| Keep entered data when the user goes Back | Wipe earlier steps on return |\n| Let the component render step numbers | Write \"Step 1:\" into the title text |\n| Make each step a discrete, completable task | Slice one field per screen just to have a wizard |\n\n> Step title and navigation button wording rules live in the Content guidelines for steppers.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a stepper for a linear process of three or more distinct steps that must be completed in order: connection setup, onboarding, a create wizard for a data product or connection.",
+                "Use it when seeing progress matters: the stepper shows which steps are completed, which one is current, and what is still ahead.",
+                "Use it on a dedicated page when a task outgrows a [modal](modal): a long form split into digestible stages."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a stepper for a simple two-step confirmation: use a [modal](modal).",
+                "Don't use it for peer views the user can visit in any order: use [tabs](tabs). A stepper implies sequence; tabs imply choice.",
+                "Don't use it to show a running system process (an import, a metadata scan): use a [progress bar](progress-bar-small) or a [loader](loader). The stepper tracks the user's task, not the machine's.",
+                "Don't split a short form that fits one screen into steps: the ceremony costs more than it guides."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Steppers have no type or size variants; the choices are between modes and configurations."
+            },
+            {
+              "bullets": [
+                "**Step states:** each step reads as completed, current, or upcoming; exactly one step is current at any time.",
+                "**Placement:** the stepper sits above the step content on a dedicated page, never inside a modal.",
+                "**Navigation:** Back and Next move between steps; the final step's button names the outcome (Create, or the matching object-specific verb)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Validate on Next and move focus to the first error",
+              "dont": "Let users advance past missing required fields"
+            },
+            {
+              "do": "Keep entered data when the user goes Back",
+              "dont": "Wipe earlier steps on return"
+            },
+            {
+              "do": "Let the component render step numbers",
+              "dont": "Write \"Step 1:\" into the title text"
+            },
+            {
+              "do": "Make each step a discrete, completable task",
+              "dont": "Slice one field per screen just to have a wizard"
+            },
+            {
+              "note": "Step title and navigation button wording rules live in the Content guidelines for steppers."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -191,5 +258,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

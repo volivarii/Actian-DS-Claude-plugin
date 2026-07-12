@@ -8,7 +8,12 @@
   "slug": "spinner",
   "component": "Spinner",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "a11y_refs": [
+      {
+        "ref": "loading-patterns"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -62,7 +67,72 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a spinner right after a user triggers an action, inside the control that triggered it: a saving [button](button), a validating field, a small section refreshing.\n\n* Use it for short, indeterminate, localized waits where a full loading treatment would be noise.\n\n* Add a brief label only when the context doesn't already say what is happening (**Running query...**).\n\n## When not to use\n\n* Don't use a spinner for a large component or a page section: use a [loader](loader).\n\n* Don't use it when the incoming layout is known: use a [loading skeleton](loading-skeleton).\n\n* Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable: use a [progress bar](progress-bar-small).\n\n* Don't run several spinners in the same view at once; a whole area waiting is one [loader](loader), not many spinners.\n\n## Variant selection\n\n* **On light bg:** the default on standard surfaces: forms, panels, [table](table) cells.\n\n* **On dark bg:** dark surfaces such as a filled [button](button) or dark chrome, where the light-surface spinner would vanish; pick the mode from the surface behind it.\n\n* The completion arc (25 to 100%) is the animation's own cycle, not a variant to choose.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the spinner inside the control it concerns | Overlay the whole page because one button is saving |\n| Disable the triggering control while it spins | Let a second click fire the same request again |\n| Escalate to a [loader](loader) or [progress bar](progress-bar-small) when the wait grows long | Spin a button for a minute-long job |\n| Clear it the moment the response lands | Leave a stale spinner on a control that already finished |\n\n> Wording rules (brief present-tense labels, when to add one) live in the Content guidelines for spinner.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a spinner right after a user triggers an action, inside the control that triggered it: a saving [button](button), a validating field, a small section refreshing.",
+                "Use it for short, indeterminate, localized waits where a full loading treatment would be noise.",
+                "Add a brief label only when the context doesn't already say what is happening (**Running query...**)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a spinner for a large component or a page section: use a [loader](loader).",
+                "Don't use it when the incoming layout is known: use a [loading skeleton](loading-skeleton).",
+                "Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).",
+                "Don't use it when progress is measurable: use a [progress bar](progress-bar-small).",
+                "Don't run several spinners in the same view at once; a whole area waiting is one [loader](loader), not many spinners."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**On light bg:** the default on standard surfaces: forms, panels, [table](table) cells.",
+                "**On dark bg:** dark surfaces such as a filled [button](button) or dark chrome, where the light-surface spinner would vanish; pick the mode from the surface behind it.",
+                "The completion arc (25 to 100%) is the animation's own cycle, not a variant to choose."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep the spinner inside the control it concerns",
+              "dont": "Overlay the whole page because one button is saving"
+            },
+            {
+              "do": "Disable the triggering control while it spins",
+              "dont": "Let a second click fire the same request again"
+            },
+            {
+              "do": "Escalate to a [loader](loader) or [progress bar](progress-bar-small) when the wait grows long",
+              "dont": "Spin a button for a minute-long job"
+            },
+            {
+              "do": "Clear it the moment the response lands",
+              "dont": "Leave a stale spinner on a control that already finished"
+            },
+            {
+              "note": "Wording rules (brief present-tense labels, when to add one) live in the Content guidelines for spinner."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -74,5 +144,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

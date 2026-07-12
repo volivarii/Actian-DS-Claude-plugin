@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "rich-text",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9480:17723",
@@ -272,11 +272,15 @@
   "root": {
     "name": "State=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "9480:18728",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       },
       "radius": "6px"
@@ -303,10 +307,14 @@
       {
         "name": "Toolbar",
         "kind": "container",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
         "id": "14226:20971",
         "appearance": {
           "border": {
             "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
             "width": "1px"
           },
           "variants": [
@@ -417,9 +425,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "9480:18734",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -459,9 +471,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "9480:18737",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -501,9 +517,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "9480:18740",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -543,9 +563,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "9480:18743",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -633,9 +657,13 @@
                               {
                                 "name": "Vector",
                                 "kind": "vector",
+                                "tokenRefs": [
+                                  "--zen-color-icon-default"
+                                ],
                                 "id": "9480:18747",
                                 "appearance": {
-                                  "background": "#000000"
+                                  "background": "#000000",
+                                  "backgroundToken": "--zen-color-icon-default"
                                 }
                               }
                             ]
@@ -645,9 +673,13 @@
                       {
                         "name": "Polygon 1",
                         "kind": "container",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "13934:28558",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]
@@ -708,9 +740,13 @@
                               {
                                 "name": "Vector",
                                 "kind": "vector",
+                                "tokenRefs": [
+                                  "--zen-color-icon-default"
+                                ],
                                 "id": "9480:18753",
                                 "appearance": {
-                                  "background": "#000000"
+                                  "background": "#000000",
+                                  "backgroundToken": "--zen-color-icon-default"
                                 }
                               }
                             ]
@@ -720,9 +756,13 @@
                       {
                         "name": "Polygon 2",
                         "kind": "container",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "13934:28561",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]
@@ -783,9 +823,13 @@
                               {
                                 "name": "Vector",
                                 "kind": "vector",
+                                "tokenRefs": [
+                                  "--zen-color-icon-default"
+                                ],
                                 "id": "13934:28569",
                                 "appearance": {
-                                  "background": "#000000"
+                                  "background": "#000000",
+                                  "backgroundToken": "--zen-color-icon-default"
                                 }
                               }
                             ]
@@ -793,25 +837,37 @@
                           {
                             "name": "Ellipse 1",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28574",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           },
                           {
                             "name": "Ellipse 2",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28575",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           },
                           {
                             "name": "Ellipse 3",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28576",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -819,9 +875,13 @@
                       {
                         "name": "Polygon 2",
                         "kind": "container",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "13934:28564",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]
@@ -884,9 +944,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "9480:18766",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -926,9 +990,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28580",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -968,9 +1036,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28588",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -1010,9 +1082,13 @@
                           {
                             "name": "Vector",
                             "kind": "vector",
+                            "tokenRefs": [
+                              "--zen-color-icon-default"
+                            ],
                             "id": "13934:28592",
                             "appearance": {
-                              "background": "#000000"
+                              "background": "#000000",
+                              "backgroundToken": "--zen-color-icon-default"
                             }
                           }
                         ]
@@ -1079,9 +1155,13 @@
                       {
                         "name": "Vector",
                         "kind": "vector",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "9480:18776",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]
@@ -1121,9 +1201,13 @@
                       {
                         "name": "Vector",
                         "kind": "vector",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "9480:18779",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]
@@ -1163,9 +1247,13 @@
                       {
                         "name": "Vector",
                         "kind": "vector",
+                        "tokenRefs": [
+                          "--zen-color-icon-default"
+                        ],
                         "id": "9480:18782",
                         "appearance": {
-                          "background": "#000000"
+                          "background": "#000000",
+                          "backgroundToken": "--zen-color-icon-default"
                         }
                       }
                     ]

@@ -106,7 +106,78 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nSticky footers have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the footer | Let the sticky bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.",
+                "Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).",
+                "Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use it in a [modal](modal): modals have their own footer as part of the dialog.",
+                "Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).",
+                "Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.",
+                "Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Sticky footers have a single Default variant; the choices are configuration."
+            },
+            {
+              "bullets": [
+                "**Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.",
+                "**Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.",
+                "**Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Keep the footer visible for the whole scroll of the form",
+              "dont": "Let the actions scroll away with the content"
+            },
+            {
+              "do": "Commit or discard the entire form state from it",
+              "dont": "Mix in actions that only affect one field or section"
+            },
+            {
+              "do": "Keep primary and secondary in the same position on every form",
+              "dont": "Swap Save and Cancel between two drawers"
+            },
+            {
+              "do": "Validate on save and move focus to the first error",
+              "dont": "Park a permanently disabled Save the user cannot interrogate"
+            },
+            {
+              "do": "Keep the focused field visible above the footer",
+              "dont": "Let the sticky bar cover the input the user is typing in"
+            },
+            {
+              "note": "Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -118,5 +189,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

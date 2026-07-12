@@ -116,11 +116,165 @@
               ]
             }
           ]
+        },
+        {
+          "heading": "",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+            }
+          ]
+        },
+        {
+          "heading": "Principles",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "bullets": [
+                "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Choosing a messaging pattern",
+          "source": "pattern:notifications-and-messaging",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Type",
+                  "Scope",
+                  "When it appears",
+                  "Where it appears",
+                  "How it goes away",
+                  "Example"
+                ],
+                "rows": [
+                  [
+                    "Banner (page)",
+                    "The whole page",
+                    "Until the underlying issue is resolved",
+                    "Top of the page, below the header",
+                    "Cleared when the issue resolves, or dismissed if informational",
+                    "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                  ],
+                  [
+                    "Banner (section)",
+                    "One part of the page",
+                    "While a section-level issue exists",
+                    "Top of the affected section",
+                    "Cleared when the issue resolves",
+                    "\"This output port is managed by an external data contract and is read-only.\""
+                  ],
+                  [
+                    "Toast",
+                    "One completed action",
+                    "Right after the action completes",
+                    "Bottom center",
+                    "Dismisses automatically after a few seconds",
+                    "\"Prospect customers created.\""
+                  ],
+                  [
+                    "Inline message",
+                    "One form field",
+                    "On blur, or on submit attempt",
+                    "Directly below the field",
+                    "Clears as soon as the field is valid",
+                    "\"Enter a valid email address.\""
+                  ],
+                  [
+                    "Modal",
+                    "A required decision",
+                    "When the user must confirm or provide input before continuing",
+                    "Centered, blocking the page",
+                    "Dismissed only by completing or canceling the action",
+                    "\"This will permanently delete the dataset and cannot be undone.\""
+                  ]
+                ]
+              }
+            },
+            {
+              "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use an alert banner for a message that must persist until the user deals with it: it sits at the top of the page or affected section and never auto-dismisses.\n\n* Use it to warn about a condition that may affect the user's work or data before they act (read-only datasets, an expiring connection).\n\n* Use it for a system-level error that requires action to resolve (authentication expired, a broken connection blocking the section).\n\n* Use the inline banner form for the same kind of message scoped to a form or panel rather than the whole page.\n\n## When not to use\n\n* Don't use a banner to confirm a routine action: use a [global toast](global-toast); plain confirmations dismiss themselves after a few seconds.\n\n* Don't use it for feedback tied to one element on screen (a value copied, a field saved): use an [inline toast](inline-toast).\n\n* Don't use it for a single field's validation error: that belongs to inline validation on the [text input](text-input) itself.\n\n* Don't use it when a whole region failed to render: show an [error state](error-state) in place of the missing content.\n\n* Don't use it to ask for a decision before an action proceeds: use a [confirmation](confirmation) dialog.\n\n## Variant selection\n\n* **Primary (info):** neutral system information the user should know while working (an upcoming maintenance window, a policy change).\n\n* **Success:** a significant completed action the user must not miss the way they might a passing toast; dismissible. Routine completions stay a [global toast](global-toast); a finished journey ends on a [success state](success-state).\n\n* **Warning:** a condition that may affect work or data if the user proceeds.\n\n* **Danger:** an error that blocks work or requires action to resolve.\n\n* **Horizontal:** the default; a one-sentence message with the action inline.\n\n* **Vertical:** longer messages where the text wraps and the action drops below it, or narrow containers such as panels.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Place the banner at the top of the page or section it concerns | Float an alert in the middle of the screen |\n| Include the action that resolves the issue (**Log in again**) | State a problem with nothing the user can do about it |\n| Consolidate related problems into one banner | Stack three banners at the top of the same page |\n| Keep Warning and Danger banners up until resolved | Auto-dismiss an error the user has not dealt with |\n\n> Wording rules (one to two sentences, no \"Warning:\" prefixes, example messages) live in the Content guidelines for alert / banner.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use an alert banner for a message that must persist until the user deals with it: it sits at the top of the page or affected section and never auto-dismisses.",
+                "Use it to warn about a condition that may affect the user's work or data before they act (read-only datasets, an expiring connection).",
+                "Use it for a system-level error that requires action to resolve (authentication expired, a broken connection blocking the section).",
+                "Use the inline banner form for the same kind of message scoped to a form or panel rather than the whole page."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a banner to confirm a routine action: use a [global toast](global-toast); plain confirmations dismiss themselves after a few seconds.",
+                "Don't use it for feedback tied to one element on screen (a value copied, a field saved): use an [inline toast](inline-toast).",
+                "Don't use it for a single field's validation error: that belongs to inline validation on the [text input](text-input) itself.",
+                "Don't use it when a whole region failed to render: show an [error state](error-state) in place of the missing content.",
+                "Don't use it to ask for a decision before an action proceeds: use a [confirmation](confirmation) dialog."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Primary (info):** neutral system information the user should know while working (an upcoming maintenance window, a policy change).",
+                "**Success:** a significant completed action the user must not miss the way they might a passing toast; dismissible. Routine completions stay a [global toast](global-toast); a finished journey ends on a [success state](success-state).",
+                "**Warning:** a condition that may affect work or data if the user proceeds.",
+                "**Danger:** an error that blocks work or requires action to resolve.",
+                "**Horizontal:** the default; a one-sentence message with the action inline.",
+                "**Vertical:** longer messages where the text wraps and the action drops below it, or narrow containers such as panels."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Place the banner at the top of the page or section it concerns",
+              "dont": "Float an alert in the middle of the screen"
+            },
+            {
+              "do": "Include the action that resolves the issue (**Log in again**)",
+              "dont": "State a problem with nothing the user can do about it"
+            },
+            {
+              "do": "Consolidate related problems into one banner",
+              "dont": "Stack three banners at the top of the same page"
+            },
+            {
+              "do": "Keep Warning and Danger banners up until resolved",
+              "dont": "Auto-dismiss an error the user has not dealt with"
+            },
+            {
+              "note": "Wording rules (one to two sentences, no \"Warning:\" prefixes, example messages) live in the Content guidelines for alert / banner."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -132,5 +286,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

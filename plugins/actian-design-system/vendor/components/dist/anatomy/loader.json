@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loader",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2195",
@@ -58,9 +58,13 @@
       {
         "name": "Progress bar",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-color-primary-500"
+        ],
         "id": "7372:2197",
         "appearance": {
           "background": "#0f5fdc",
+          "backgroundToken": "--zen-color-primary-500",
           "radius": "1000px"
         }
       }

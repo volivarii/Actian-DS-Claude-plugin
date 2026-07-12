@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "calendar",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8211:6664",
@@ -135,10 +135,14 @@
               {
                 "name": "Submit",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "8211:5827",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 600,
                     "lineHeight": "20px",
@@ -235,16 +239,21 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-xs"
         },
         "children": [
           {
             "name": "day-row",
             "kind": "container",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
             "id": "8211:5833",
             "appearance": {
               "border": {
                 "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
                 "width": "1px"
               }
             },
@@ -270,10 +279,14 @@
               {
                 "name": "S",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5834",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -284,10 +297,14 @@
               {
                 "name": "M",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5835",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -298,10 +315,14 @@
               {
                 "name": "T",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5836",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -312,10 +333,14 @@
               {
                 "name": "W",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5837",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -326,10 +351,14 @@
               {
                 "name": "T",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5838",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -340,10 +369,14 @@
               {
                 "name": "F",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5839",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -354,10 +387,14 @@
               {
                 "name": "S",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "8211:5840",
                 "appearance": {
                   "text": {
                     "color": "#40404a",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "11px"
@@ -461,9 +498,13 @@
                 "props": {
                   "State": "Selected"
                 },
+                "tokenRefs": [
+                  "--zen-border-selected"
+                ],
                 "id": "8211:5922",
                 "appearance": {
                   "background": "#0f5fdc",
+                  "backgroundToken": "--zen-border-selected",
                   "radius": "32px"
                 }
               },

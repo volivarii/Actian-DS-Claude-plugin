@@ -200,7 +200,76 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a drawer for a quick view of an item's properties when the user clicks a tile in a list or a catalog search result: metadata, details, and actions, without leaving the page.\n\n* Use it to surface dependencies, related assets, or linked catalog entries alongside an asset detail page.\n\n* Use it for secondary tasks that need focus while the main page stays visible for reference: the mirror case of a [modal](modal), which blocks the page behind.\n\n* Use it to cut context switching during browsing and review: open, scan, close, move to the next item.\n\n## When not to use\n\n* Don't use a drawer for confirmations or destructive actions: use a [modal](modal), which forces the stop-and-think moment a drawer deliberately avoids.\n\n* Don't rebuild the full detail experience in the panel: when the user needs everything, send them to the full details page instead.\n\n* Don't use it for a linear multi-step process: navigate to a dedicated page with a [stepper](stepper).\n\n* Don't use it for a one-line definition or hint: use a [popover](popover) or [tooltip](tooltip).\n\n## Variant selection\n\n* **Studio** and **Explorer:** the only choice is the app; pick the one matching the product the panel opens in so the chrome stays consistent.\n\n* Content is otherwise free-form: compose metadata, attribute groups, related items, and actions to fit the task.\n\n* **Dismissal and focus:** Escape closes the panel and focus returns to the element that opened it; the non-modal form never traps focus, so the browse loop (open, scan, close, next) works by keyboard.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Slide in from the right, over the current page | Push the page content aside or navigate away |\n| Title the panel with the exact asset name | Paraphrase or shorten the name |\n| Put a View full details link at the top right | Bury the way to the full page |\n| Show a message when a section is empty (No related datasets found.) | Leave a blank section |\n| Group related attributes under subheadings when the panel runs long | Pour everything into one unstructured list |\n\n> Attribute label wording and empty-section copy live in the Content guidelines for drawers.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a drawer for a quick view of an item's properties when the user clicks a tile in a list or a catalog search result: metadata, details, and actions, without leaving the page.",
+                "Use it to surface dependencies, related assets, or linked catalog entries alongside an asset detail page.",
+                "Use it for secondary tasks that need focus while the main page stays visible for reference: the mirror case of a [modal](modal), which blocks the page behind.",
+                "Use it to cut context switching during browsing and review: open, scan, close, move to the next item."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a drawer for confirmations or destructive actions: use a [modal](modal), which forces the stop-and-think moment a drawer deliberately avoids.",
+                "Don't rebuild the full detail experience in the panel: when the user needs everything, send them to the full details page instead.",
+                "Don't use it for a linear multi-step process: navigate to a dedicated page with a [stepper](stepper).",
+                "Don't use it for a one-line definition or hint: use a [popover](popover) or [tooltip](tooltip)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Studio** and **Explorer:** the only choice is the app; pick the one matching the product the panel opens in so the chrome stays consistent.",
+                "Content is otherwise free-form: compose metadata, attribute groups, related items, and actions to fit the task.",
+                "**Dismissal and focus:** Escape closes the panel and focus returns to the element that opened it; the non-modal form never traps focus, so the browse loop (open, scan, close, next) works by keyboard."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Slide in from the right, over the current page",
+              "dont": "Push the page content aside or navigate away"
+            },
+            {
+              "do": "Title the panel with the exact asset name",
+              "dont": "Paraphrase or shorten the name"
+            },
+            {
+              "do": "Put a View full details link at the top right",
+              "dont": "Bury the way to the full page"
+            },
+            {
+              "do": "Show a message when a section is empty (No related datasets found.)",
+              "dont": "Leave a blank section"
+            },
+            {
+              "do": "Group related attributes under subheadings when the panel runs long",
+              "dont": "Pour everything into one unstructured list"
+            },
+            {
+              "note": "Attribute label wording and empty-section copy live in the Content guidelines for drawers."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -212,5 +281,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

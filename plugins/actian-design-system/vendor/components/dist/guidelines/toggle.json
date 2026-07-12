@@ -349,6 +349,27 @@
                   ]
                 }
               ]
+            },
+            {
+              "subheading": "Checkbox group vs Multi-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a checkbox group when:**"
+                },
+                {
+                  "bullets": [
+                    "The list has roughly seven or fewer options and all of them should stay visible at once."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long or space is limited, and a search field would help users find options."
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -362,7 +383,7 @@
               "content": [
                 {
                   "bullets": [
-                    "When the user must select exactly one option from a short visible list (typically two to six options).",
+                    "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
                     "When all choices should be visible up front rather than hidden in a dropdown."
                   ]
                 }
@@ -415,6 +436,83 @@
                     "Maintain selection across steps if part of a multi-step process.",
                     "Title: short, descriptive, and consistent across tiles.",
                     "Supporting text: use only in the large variant."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Segmented control",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                    "Do not use for page-level navigation - use [tabs](tabs) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Segmented control vs Radio button",
+              "content": [
+                {
+                  "prose": "**Use a segmented control when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice takes effect immediately, with no separate submit step."
+                  ]
+                },
+                {
+                  "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                },
+                {
+                  "bullets": [
+                    "The choice is part of a form and applies on submit."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Combo box",
+          "source": "pattern:forms",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Combo box vs Single-select dropdown",
+              "content": [
+                {
+                  "prose": "**Use a combo box when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is long enough that typing to filter is faster than scanning it."
+                  ]
+                },
+                {
+                  "prose": "**Use a single-select dropdown when:**"
+                },
+                {
+                  "bullets": [
+                    "The list is shorter and fixed."
                   ]
                 }
               ]
@@ -484,11 +582,187 @@
               "dont": "You must make a selection."
             }
           ]
+        },
+        {
+          "heading": "Text slots",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+            },
+            {
+              "table": {
+                "headers": [
+                  "Slot",
+                  "When it appears",
+                  "Content"
+                ],
+                "rows": [
+                  [
+                    "Label",
+                    "Always",
+                    "The field name. Mark required fields with an asterisk."
+                  ],
+                  [
+                    "Description",
+                    "Always, before the user interacts",
+                    "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                  ],
+                  [
+                    "Helper",
+                    "Reactively, below the field",
+                    "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Severity",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "bullets": [
+                "**Error** blocks submission. State what's wrong and how to fix it.",
+                "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Common fields",
+          "source": "pattern:validation-messages",
+          "content": [
+            {
+              "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+            },
+            {
+              "bullets": [
+                "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+              ]
+            }
+          ],
+          "subsections": [
+            {
+              "subheading": "Email",
+              "content": [
+                {
+                  "bullets": [
+                    "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                    "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "URL",
+              "content": [
+                {
+                  "bullets": [
+                    "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                    "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                    "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Date input",
+              "content": [
+                {
+                  "bullets": [
+                    "Description or helper: show the expected format as an example, not an instruction.",
+                    "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                  ]
+                },
+                {
+                  "prose": "See [date input](input-date)."
+                }
+              ]
+            },
+            {
+              "subheading": "Character counters",
+              "content": [
+                {
+                  "bullets": [
+                    "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                    "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a toggle for an on/off state change that applies the moment it is flipped, with no save step (for example **Auto-refresh** in Explorer, or a notification setting in Administration).\n\n* Use it in settings pages (Administration, user preferences) where each row is one independent setting saved instantly.\n\n* Use it to enable or disable a feature, permission, or schedule that has a clear on state and off state.\n\n## When not to use\n\n* Don't use a toggle inside a form that submits; if the change waits for a save action, use a [checkbox](checkbox).\n\n* Don't use a toggle to pick one of several exclusive options: use a [radio button](radio-button) group, or a [segmented control](segmented-control) for immediate view changes.\n\n* Don't use a toggle to trigger an action such as starting an import: use a [button](button).\n\n* Don't use a toggle when the off state is ambiguous; if users can't predict what off means, use a [radio button](radio-button) pair with explicit labels instead.\n\n## Variant selection\n\n* **Toggle location, left (the captured default):** the toggle leads its label; suits a single inline control in dense or embedded contexts.\n\n* **Toggle location, right:** label first with toggles aligned at the end of the row, keeping a settings column scannable. Pick one location per surface and keep it consistent.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Apply the change immediately when the toggle flips | Pair a toggle with a **Save** button |\n| Revert the toggle and explain if the change fails | Leave a toggle on after the request errored |\n| Use one toggle per independent setting | Use a toggle to choose between three modes |\n| Confirm first when flipping is destructive or affects others (disabling a shared connection) | Silently cut off every consumer of a shared connection |\n\n> Label wording rules (name the setting, never the state) live in the Content guidelines for toggle controls.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a toggle for an on/off state change that applies the moment it is flipped, with no save step (for example **Auto-refresh** in Explorer, or a notification setting in Administration).",
+                "Use it in settings pages (Administration, user preferences) where each row is one independent setting saved instantly.",
+                "Use it to enable or disable a feature, permission, or schedule that has a clear on state and off state."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a toggle inside a form that submits; if the change waits for a save action, use a [checkbox](checkbox).",
+                "Don't use a toggle to pick one of several exclusive options: use a [radio button](radio-button) group, or a [segmented control](segmented-control) for immediate view changes.",
+                "Don't use a toggle to trigger an action such as starting an import: use a [button](button).",
+                "Don't use a toggle when the off state is ambiguous; if users can't predict what off means, use a [radio button](radio-button) pair with explicit labels instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Toggle location, left (the captured default):** the toggle leads its label; suits a single inline control in dense or embedded contexts.",
+                "**Toggle location, right:** label first with toggles aligned at the end of the row, keeping a settings column scannable. Pick one location per surface and keep it consistent."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Apply the change immediately when the toggle flips",
+              "dont": "Pair a toggle with a **Save** button"
+            },
+            {
+              "do": "Revert the toggle and explain if the change fails",
+              "dont": "Leave a toggle on after the request errored"
+            },
+            {
+              "do": "Use one toggle per independent setting",
+              "dont": "Use a toggle to choose between three modes"
+            },
+            {
+              "do": "Confirm first when flipping is destructive or affects others (disabling a shared connection)",
+              "dont": "Silently cut off every consumer of a shared connection"
+            },
+            {
+              "note": "Label wording rules (name the setting, never the state) live in the Content guidelines for toggle controls."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -500,5 +774,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-30T21:13:00+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

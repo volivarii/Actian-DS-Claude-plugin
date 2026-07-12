@@ -1,9 +1,11 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Tooltip"
 category: overlays
+a11y_refs:
+  - { ref: tooltips }
 domains:
   content:  { status: approved, owner: content-team }
-  usage:    { status: not-started }
+  usage:    { status: draft }
   design:   { status: inherited }
   behavior: { status: inherited }
   tokens:   { status: not-started }

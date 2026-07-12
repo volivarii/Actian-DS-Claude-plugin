@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "app-switcher-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9118:17666"
@@ -37,6 +37,11 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-2xs",
+        "bottom": "--zen-spacing-2xs"
       }
     },
     "children": [

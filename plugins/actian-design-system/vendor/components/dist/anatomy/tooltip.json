@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tooltip",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7038:351",
@@ -17,9 +17,13 @@
   "root": {
     "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-bg-reverse"
+    ],
     "id": "7036:1360",
     "appearance": {
       "background": "#000000",
+      "backgroundToken": "--zen-color-bg-reverse",
       "radius": "4px"
     },
     "layout": {
@@ -44,10 +48,14 @@
       {
         "name": "Body",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-reverse"
+        ],
         "id": "7036:888",
         "appearance": {
           "text": {
             "color": "#ffffff",
+            "colorToken": "--zen-color-text-reverse",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

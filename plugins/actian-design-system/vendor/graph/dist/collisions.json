@@ -1,0 +1,361 @@
+{
+  "slug_collisions": [
+    {
+      "slug": "arrow-down",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "43009d0b38b304e97c5716c0a32ccc3951851872",
+          "nodeId": "7207:2839"
+        },
+        {
+          "kit": "fmkit",
+          "key": "4caaf6d49061d720b9b70805aabd1a74d0716d4d",
+          "nodeId": "8:20590"
+        }
+      ]
+    },
+    {
+      "slug": "calendar",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
+          "nodeId": "8211:6664"
+        },
+        {
+          "kit": "fmkit",
+          "key": "adb7742ac4c7b658ecae580e1f49939ee11ef938",
+          "nodeId": "8:20750"
+        }
+      ]
+    },
+    {
+      "slug": "chart-bar",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "dde572f16c897c96ae7bc7a82532276fe87b7410",
+          "nodeId": "9246:14002"
+        },
+        {
+          "kit": "fmkit",
+          "key": "f688ec904baf1b330abbbf4fc6696a1ddaf87933",
+          "nodeId": "8:20852"
+        }
+      ]
+    },
+    {
+      "slug": "chart-pie",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
+          "nodeId": "9246:14001"
+        },
+        {
+          "kit": "fmkit",
+          "key": "d53df90928900dca8a0dece510ebad1335b52d63",
+          "nodeId": "8:20630"
+        }
+      ]
+    },
+    {
+      "slug": "chevron-left",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
+          "nodeId": "7207:2837"
+        },
+        {
+          "kit": "fmkit",
+          "key": "6d33856c56d2a74fc8f0d304183ed3c874b9bae4",
+          "nodeId": "8:20738"
+        }
+      ]
+    },
+    {
+      "slug": "chevron-up",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
+          "nodeId": "7207:2842"
+        },
+        {
+          "kit": "fmkit",
+          "key": "73975e9ee4c3a21b836ec6e03512cc0bc791e609",
+          "nodeId": "8:20714"
+        }
+      ]
+    },
+    {
+      "slug": "cloud-upload",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
+          "nodeId": "7908:5403"
+        },
+        {
+          "kit": "fmkit",
+          "key": "ff0e585eac58907733beb4beb1dfa70864a5e0c5",
+          "nodeId": "8:20914"
+        }
+      ]
+    },
+    {
+      "slug": "database",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "eb4d7d43a2ef5bae16611e36a2da213bd07e27ba",
+          "nodeId": "7378:3700"
+        },
+        {
+          "kit": "fmkit",
+          "key": "3336f030a7ef858da5b96be9582608a58b9da993",
+          "nodeId": "8:20928"
+        }
+      ]
+    },
+    {
+      "slug": "download",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "3a3acebe888e3a87c03831ab720ad5639c358af6",
+          "nodeId": "7439:4645"
+        },
+        {
+          "kit": "fmkit",
+          "key": "2819d114035f7eb35e689f7b6e85b2f0889b312e",
+          "nodeId": "8:20616"
+        }
+      ]
+    },
+    {
+      "slug": "filter",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "ce37c828e8be322438e3530c7680d1eee95af253",
+          "nodeId": "14335:17202"
+        },
+        {
+          "kit": "fmkit",
+          "key": "0449b597665bda8f401595df36232b6e7665a28a",
+          "nodeId": "8:20682"
+        }
+      ]
+    },
+    {
+      "slug": "home",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "4a8ee163ef4f785c846a3a71344af13b834e02f0",
+          "nodeId": "7378:5034"
+        },
+        {
+          "kit": "fmkit",
+          "key": "0ea0c8b22d91bbcb0661252163fa3a92b0260ac3",
+          "nodeId": "8:20578"
+        }
+      ]
+    },
+    {
+      "slug": "link",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "433bc17e08514c14ee821f2b03421bad865e0a0e",
+          "nodeId": "8346:6897"
+        },
+        {
+          "kit": "fmkit",
+          "key": "7872167802b0cd319d07484e7ac222d6ef905937",
+          "nodeId": "8:20752"
+        }
+      ]
+    },
+    {
+      "slug": "mail",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
+          "nodeId": "8012:1308"
+        },
+        {
+          "kit": "fmkit",
+          "key": "04a09a5c924eee871df579a56443bcaf8c92b893",
+          "nodeId": "8:20530"
+        }
+      ]
+    },
+    {
+      "slug": "map",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "c79f5921936c1c9b69477d09ce5c1d7ae7d24863",
+          "nodeId": "7378:5048"
+        },
+        {
+          "kit": "fmkit",
+          "key": "d6fcd844e966d5e0a61ff1226d1d208c0a9c14ef",
+          "nodeId": "8:20908"
+        }
+      ]
+    },
+    {
+      "slug": "menu",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "f55f4bc6e00be7b6c3dabbc2e426c9660964a1d4",
+          "nodeId": "7893:4605"
+        },
+        {
+          "kit": "fmkit",
+          "key": "538cacc62e4f1edb74a5443fdc10ef57bf1d6fd4",
+          "nodeId": "8:20536"
+        }
+      ]
+    },
+    {
+      "slug": "search",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "1b7cd9f309d84560098a2506089a77da8972d470",
+          "nodeId": "8589:11055"
+        },
+        {
+          "kit": "fmkit",
+          "key": "701934d562bb22fd53b60a54ad8d7e9465d93daa",
+          "nodeId": "8:20734"
+        }
+      ]
+    },
+    {
+      "slug": "table",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "62d235b35d44ddafd58cb1a060107b4f69ab234e",
+          "nodeId": "15295:14902"
+        },
+        {
+          "kit": "fmkit",
+          "key": "d4ca563cb546fc1c8727358c67289b945eb86eed",
+          "nodeId": "8:20892"
+        }
+      ]
+    },
+    {
+      "slug": "trash",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "09df4020b9f8d306843fca4159658c8ed4b5e323",
+          "nodeId": "7378:5056"
+        },
+        {
+          "kit": "fmkit",
+          "key": "74e59094d4c999fad9159ed3514d0332be4775e6",
+          "nodeId": "8:20730"
+        }
+      ]
+    },
+    {
+      "slug": "user-add",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "48c0ce663827e3dddb050be67302b9af9ceb74c0",
+          "nodeId": "7378:5027"
+        },
+        {
+          "kit": "fmkit",
+          "key": "38b7904183440b8932f5afcd89ccbfdfdf493667",
+          "nodeId": "8:20758"
+        }
+      ]
+    },
+    {
+      "slug": "user-group",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "db200734daac36815be3bf52f078c9e528b15da4",
+          "nodeId": "7378:5131"
+        },
+        {
+          "kit": "fmkit",
+          "key": "e427c987f13a9a044c9ac34906c6ac8ac3a84028",
+          "nodeId": "8:20602"
+        }
+      ]
+    },
+    {
+      "slug": "zoom-in",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "8743ba1b2c9fa86034a0e389b283e9da6e56d6fd",
+          "nodeId": "7378:5055"
+        },
+        {
+          "kit": "fmkit",
+          "key": "892c8274c8e034ceeaae7796893a65b359eee91c",
+          "nodeId": "8:20686"
+        }
+      ]
+    },
+    {
+      "slug": "zoom-out",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "fe8ce8b1dc8f249bb19bbfb2304e20431984452f",
+          "nodeId": "7378:5026"
+        },
+        {
+          "kit": "fmkit",
+          "key": "9c1694817d45655852d7f7ece87656ac802cad12",
+          "nodeId": "8:20710"
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "auto_generated": true,
+    "generator": "scripts/graph/derive-graph.js",
+    "do_not_edit": "Regenerated by CI from the registries; edit the source, not this file."
+  }
+}

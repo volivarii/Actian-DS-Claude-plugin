@@ -6,5 +6,10 @@ label: Discussion threads
 apps:
   - studio
   - explorer
+components:
+  - rich-text
+  - avatar
+  - text-input
+  - button
 ---
 Available on Dataset detail pages. Users create threads, reply, edit own messages.

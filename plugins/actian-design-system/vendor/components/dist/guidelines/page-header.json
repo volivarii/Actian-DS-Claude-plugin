@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n- At the top of every main page to orient the user and provide primary actions.\n- Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n- The title should match the name of the item or section exactly.\n- Use sentence case for page titles.\n- Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n- Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| New connection | Create a new connection |\n| Edit | Edit this item |\n| Sales pipeline | Sales Pipeline Overview |",
+      "markdown": "# Page header\n\nThe page header identifies the current page and surfaces its primary actions. It appears at the top of every main content area.\n\n***\n\n## When to use\n\n* At the top of every main page to orient the user and provide primary actions.\n\n* Do not use inside modals, panels, or nested sections. Those use their own title patterns.\n\n## Style\n\n* The title should match the name of the item or section exactly.\n\n* Use sentence case for page titles.\n\n* Keep action labels in the header short. Prefer one or two words. For example, \"New dataset\" not \"Create a new dataset\".\n\n* Avoid putting more than two primary actions in the header. Move secondary actions to a menu.\n\n## Do / Don't\n\n| Do             | Don't                   |\n| -------------- | ----------------------- |\n| New connection | Create a new connection |\n| Edit           | Edit this item          |\n| Sales pipeline | Sales Pipeline Overview |",
       "sections": [
         {
           "heading": "",
@@ -68,7 +68,72 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumbs), and the page's primary actions.\n\n* Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).\n\n* Use it on detail pages to anchor identity: the entity's exact name plus breadcrumbs back up the hierarchy.\n\n## When not to use\n\n* Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.\n\n* Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.\n\n* Don't use it as a section divider within a page: use plain headings.\n\n* Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select)).\n\n## Variant selection\n\n* **Default:** list and index pages (connections, datasets, data processes in Studio or Administration): title plus page-level create action.\n\n* **Details page:** a single entity's page: breadcrumbs, the entity name as title, and entity-level actions such as **Edit**.\n\n* **Explorer home:** the Explorer landing page only; do not reuse it elsewhere.\n\n* **Explorer detail:** asset detail pages inside Explorer; pairs with Explorer's browsing chrome.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Title the page with the entity's exact name | Paraphrase or decorate the name (**Sales analytics overview**) |\n| Keep at most two primary actions in the header | Line up four buttons across the title row |\n| Use breadcrumbs on detail pages to show the path back | Rely on the browser back button as the only way up |\n| Use the same variant for every page of the same kind | Give two list pages different header layouts |\n\n> Title and action label wording (sentence case, one or two words per action) lives in the Content guidelines for page headers.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumbs), and the page's primary actions.",
+                "Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).",
+                "Use it on detail pages to anchor identity: the entity's exact name plus breadcrumbs back up the hierarchy."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.",
+                "Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.",
+                "Don't use it as a section divider within a page: use plain headings.",
+                "Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select))."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Default:** list and index pages (connections, datasets, data processes in Studio or Administration): title plus page-level create action.",
+                "**Details page:** a single entity's page: breadcrumbs, the entity name as title, and entity-level actions such as **Edit**.",
+                "**Explorer home:** the Explorer landing page only; do not reuse it elsewhere.",
+                "**Explorer detail:** asset detail pages inside Explorer; pairs with Explorer's browsing chrome."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Title the page with the entity's exact name",
+              "dont": "Paraphrase or decorate the name (**Sales analytics overview**)"
+            },
+            {
+              "do": "Keep at most two primary actions in the header",
+              "dont": "Line up four buttons across the title row"
+            },
+            {
+              "do": "Use breadcrumbs on detail pages to show the path back",
+              "dont": "Rely on the browser back button as the only way up"
+            },
+            {
+              "do": "Use the same variant for every page of the same kind",
+              "dont": "Give two list pages different header layouts"
+            },
+            {
+              "note": "Title and action label wording (sentence case, one or two words per action) lives in the Content guidelines for page headers."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "not-started"
@@ -138,5 +203,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-05T20:42:11+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

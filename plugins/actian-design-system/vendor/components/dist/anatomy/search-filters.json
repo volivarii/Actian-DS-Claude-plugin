@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-filters",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9660:49637",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 126,
-    "nodesNormalized": 95,
-    "ratio": 0.75,
+    "nodesNormalized": 104,
+    "ratio": 0.83,
     "degraded": [
       {
         "name": "Bar",
@@ -30,11 +30,15 @@
   "root": {
     "name": "Type=Studio",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "9660:49636",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#dadada",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -54,16 +58,21 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "gapToken": "--zen-spacing-md"
     },
     "children": [
       {
         "name": "Filters",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "12703:3053",
         "appearance": {
           "text": {
             "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "16px",
             "weight": 600,
             "lineHeight": "24px",
@@ -92,7 +101,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -121,10 +131,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24142",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -161,16 +175,21 @@
               "sizing": {
                 "h": "fill",
                 "v": "hug"
-              }
+              },
+              "gapToken": "--zen-spacing-2xs"
             },
             "children": [
               {
                 "name": "Result",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24144",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "11px",
                     "weight": 400,
                     "lineHeight": "14px",
@@ -200,27 +219,39 @@
                   {
                     "name": "Background",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-border-selected"
+                    ],
                     "id": "14007:24146",
                     "appearance": {
                       "background": "rgba(2, 131, 190, 0.4)",
+                      "backgroundToken": "--zen-border-selected",
                       "radius": "9999px"
                     }
                   },
                   {
                     "name": "Progress",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-color-primary-500"
+                    ],
                     "id": "14007:24147",
                     "appearance": {
                       "background": "#0283be",
+                      "backgroundToken": "--zen-color-primary-500",
                       "radius": "9999px"
                     }
                   },
                   {
                     "name": "Progress",
                     "kind": "vector",
+                    "tokenRefs": [
+                      "--zen-color-primary-500"
+                    ],
                     "id": "14007:24148",
                     "appearance": {
                       "background": "#0283be",
+                      "backgroundToken": "--zen-color-primary-500",
                       "radius": "9999px"
                     }
                   }
@@ -252,10 +283,14 @@
                   {
                     "name": "0%",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24150",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "11px",
                         "weight": 400,
                         "lineHeight": "14px",
@@ -267,10 +302,14 @@
                   {
                     "name": "100%",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24151",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "11px",
                         "weight": 400,
                         "lineHeight": "14px",
@@ -305,7 +344,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -334,10 +374,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24100",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -410,13 +454,14 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Data product",
                       "Size": "Default"
@@ -430,10 +475,14 @@
                   {
                     "name": "Data Products",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24530",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -447,10 +496,14 @@
               {
                 "name": "10",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24294",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -517,13 +570,14 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Dataset",
                       "Size": "Default"
@@ -537,10 +591,14 @@
                   {
                     "name": "Datasets",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24534",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -554,10 +612,14 @@
               {
                 "name": "325",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24298",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -624,13 +686,14 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Visualization",
                       "Size": "Default"
@@ -644,10 +707,14 @@
                   {
                     "name": "Visualizations",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24533",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -661,10 +728,14 @@
               {
                 "name": "147,247",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24302",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -731,13 +802,14 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Data process",
                       "Size": "Default"
@@ -751,10 +823,14 @@
                   {
                     "name": "Data Processes",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24536",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -768,10 +844,14 @@
               {
                 "name": "15",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24306",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -838,30 +918,39 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Use case",
                       "Size": "Default"
                     },
+                    "tokenRefs": [
+                      "--zen-color-bg-warning"
+                    ],
                     "id": "14007:24309",
                     "appearance": {
                       "background": "#fff9e5",
+                      "backgroundToken": "--zen-color-bg-warning",
                       "radius": "4px"
                     }
                   },
                   {
                     "name": "Use Cases",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24535",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -875,10 +964,14 @@
               {
                 "name": "5",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24310",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -945,13 +1038,14 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Category",
                       "Size": "Default"
@@ -965,10 +1059,14 @@
                   {
                     "name": "Categories",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24532",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -982,10 +1080,14 @@
               {
                 "name": "5",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24314",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -1052,30 +1154,39 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Field",
                       "Size": "Default"
                     },
+                    "tokenRefs": [
+                      "--zen-color-success-50"
+                    ],
                     "id": "14007:24555",
                     "appearance": {
                       "background": "#d3efcd",
+                      "backgroundToken": "--zen-color-success-50",
                       "radius": "4px"
                     }
                   },
                   {
                     "name": "[A-Team] delete",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24556",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -1089,10 +1200,14 @@
               {
                 "name": "5",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24557",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -1159,30 +1274,39 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Digram, Item types",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "digram-item-types",
                     "props": {
                       "Item type": "Field",
                       "Size": "Default"
                     },
+                    "tokenRefs": [
+                      "--zen-color-success-50"
+                    ],
                     "id": "14007:24572",
                     "appearance": {
                       "background": "#d3efcd",
+                      "backgroundToken": "--zen-color-success-50",
                       "radius": "4px"
                     }
                   },
                   {
                     "name": "aa_new_type",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24573",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -1196,10 +1320,14 @@
               {
                 "name": "5",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-secondary"
+                ],
                 "id": "14007:24574",
                 "appearance": {
                   "text": {
                     "color": "#636363",
+                    "colorToken": "--zen-color-text-secondary",
                     "size": "12px",
                     "weight": 400,
                     "lineHeight": "16px",
@@ -1213,7 +1341,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show label": true,
               "Show trailing icon": true,
@@ -1251,7 +1379,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1280,10 +1409,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24137",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1343,16 +1476,21 @@
                   "sizing": {
                     "h": "fill",
                     "v": "hug"
-                  }
+                  },
+                  "gapToken": "--zen-spacing-2xs"
                 },
                 "children": [
                   {
                     "name": "Label",
                     "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
                     "id": "14007:24606",
                     "appearance": {
                       "text": {
                         "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
                         "size": "12px",
                         "weight": 400,
                         "lineHeight": "16px",
@@ -1420,7 +1558,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1449,10 +1588,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24579",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1531,7 +1674,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1560,10 +1704,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24092",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1622,7 +1770,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1651,10 +1800,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24166",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1713,7 +1866,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1742,10 +1896,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24170",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1804,7 +1962,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -1833,10 +1992,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24174",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1924,10 +2087,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24158",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -1986,7 +2153,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -2015,10 +2183,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24096",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -2077,7 +2249,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -2106,10 +2279,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24178",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -2168,7 +2345,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -2197,10 +2375,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24162",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",
@@ -2253,7 +2435,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -2282,10 +2465,14 @@
               {
                 "name": "Group label",
                 "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
                 "id": "14007:24154",
                 "appearance": {
                   "text": {
                     "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
                     "size": "14px",
                     "weight": 500,
                     "lineHeight": "20px",

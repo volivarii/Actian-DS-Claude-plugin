@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-08T14:07:52.886Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13599:20120",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 18,
-    "nodesNormalized": 7,
-    "ratio": 0.39,
+    "nodesNormalized": 8,
+    "ratio": 0.44,
     "degraded": [],
     "structuralVariants": [
       {
@@ -37,11 +37,15 @@
   "root": {
     "name": "App=Studio, View=Expanded",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-border-default"
+    ],
     "id": "13599:20121",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
+        "colorToken": "--zen-border-default",
         "width": "1px"
       }
     },
@@ -61,6 +65,12 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-md",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-md"
       }
     },
     "children": [
@@ -84,7 +94,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -158,9 +169,13 @@
               {
                 "name": "Divider",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
                 "id": "13599:20127",
                 "appearance": {
-                  "background": "#c7c7ce"
+                  "background": "#c7c7ce",
+                  "backgroundToken": "--zen-border-default"
                 }
               }
             ]
@@ -247,7 +262,8 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {
@@ -354,9 +370,13 @@
               {
                 "name": "Divider",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
                 "id": "13599:20139",
                 "appearance": {
-                  "background": "#c7c7ce"
+                  "background": "#c7c7ce",
+                  "backgroundToken": "--zen-border-default"
                 }
               }
             ]
@@ -364,7 +384,7 @@
           {
             "name": "Button",
             "kind": "instance",
-            "unresolved": true,
+            "slug": "button",
             "props": {
               "Show leading icon": true,
               "Show label": true,

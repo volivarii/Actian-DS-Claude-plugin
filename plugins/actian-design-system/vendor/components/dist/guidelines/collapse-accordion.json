@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n- To hide optional or advanced content that does not need to be visible by default.\n- When content is long and only some users will need all of it.\n- Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n- Write header labels as short noun phrases that describe the content inside.\n- Avoid generic labels like \"More\", \"Details\", or \"Other\".\n- The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n- With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n- Transitions should be smooth. Avoid layout shift.\n- The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Advanced settings | More options |\n| Connection details | Click to expand |\n| Notification preferences | Details |",
+      "markdown": "# Collapse / accordion\n\nThe collapse accordion progressively discloses content that users may not always need. Use it to reduce visual complexity in long pages or settings panels.\n\n***\n\n## When to use\n\n* To hide optional or advanced content that does not need to be visible by default.\n\n* When content is long and only some users will need all of it.\n\n* Do not use for content users will need on every visit. Keep frequently accessed content visible.\n\n## Style\n\n* Write header labels as short noun phrases that describe the content inside.\n\n* Avoid generic labels like \"More\", \"Details\", or \"Other\".\n\n* The label should not change when the section is expanded or collapsed.\n\n## Behavior\n\n* With few exceptions, only one section should be open at a time. Opening a section should close the currently open one.\n\n* Transitions should be smooth. Avoid layout shift.\n\n* The chevron icon rotates to indicate open and closed states.\n\n## Do / Don't\n\n| Do                       | Don't           |\n| ------------------------ | --------------- |\n| Advanced settings        | More options    |\n| Connection details       | Click to expand |\n| Notification preferences | Details         |",
       "sections": [
         {
           "heading": "",
@@ -80,7 +80,74 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a collapse / accordion to progressively disclose secondary content on long pages: advanced settings, connection details, FAQ answers.\n\n* Use it when content is long and only some users need all of it: everyone else keeps a shorter page.\n\n* Use it to reduce vertical clutter on a detail or settings page while keeping every section on the page and reachable in one click.\n\n## When not to use\n\n* Don't use it for content users need on every visit: keep frequently accessed content visible.\n\n* Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.\n\n* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).\n\n* Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event.\n\n## Variant selection\n\nCollapse / accordion sections have no type or size variants; the choices are between modes and configurations.\n\n* **One open at a time:** the default; opening a section closes the current one. Allow multiple open sections only when users genuinely compare their contents.\n\n* **Initial state:** sections holding optional content start collapsed; auto-expanding everything on load defeats the disclosure.\n\n* **Header:** the whole header row is the toggle, with a chevron that rotates to show the open or closed state.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Label sections with specific noun phrases (Advanced settings, Connection details) | Fall back to generic labels (More options, Details) |\n| Put only genuinely optional content behind a collapse | Hide required form fields in a collapsed section |\n| Animate expand and collapse smoothly | Snap open with a layout shift |\n| Keep the header label identical in both states | Toggle the label between Show and Hide |\n\n> Header label wording rules live in the Content guidelines for collapse / accordion.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a collapse / accordion to progressively disclose secondary content on long pages: advanced settings, connection details, FAQ answers.",
+                "Use it when content is long and only some users need all of it: everyone else keeps a shorter page.",
+                "Use it to reduce vertical clutter on a detail or settings page while keeping every section on the page and reachable in one click."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use it for content users need on every visit: keep frequently accessed content visible.",
+                "Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.",
+                "Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).",
+                "Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Collapse / accordion sections have no type or size variants; the choices are between modes and configurations."
+            },
+            {
+              "bullets": [
+                "**One open at a time:** the default; opening a section closes the current one. Allow multiple open sections only when users genuinely compare their contents.",
+                "**Initial state:** sections holding optional content start collapsed; auto-expanding everything on load defeats the disclosure.",
+                "**Header:** the whole header row is the toggle, with a chevron that rotates to show the open or closed state."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Label sections with specific noun phrases (Advanced settings, Connection details)",
+              "dont": "Fall back to generic labels (More options, Details)"
+            },
+            {
+              "do": "Put only genuinely optional content behind a collapse",
+              "dont": "Hide required form fields in a collapsed section"
+            },
+            {
+              "do": "Animate expand and collapse smoothly",
+              "dont": "Snap open with a layout shift"
+            },
+            {
+              "do": "Keep the header label identical in both states",
+              "dont": "Toggle the label between Show and Hide"
+            },
+            {
+              "note": "Header label wording rules live in the Content guidelines for collapse / accordion."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -92,5 +159,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

@@ -8,7 +8,12 @@
   "slug": "loading-skeleton",
   "component": "Loading skeleton",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "a11y_refs": [
+      {
+        "ref": "loading-patterns"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -50,7 +55,74 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a loading skeleton when content is on its way and the layout is known in advance: the placeholder sketches the blocks the content will fill.\n\n* Use it for content-heavy views: [table](table) rows, card grids, detail pages with a fixed structure.\n\n* Use it for the first paint of a page inside an already-running app, before the response lands.\n\n* Keep it visual only; if the wait needs a message, use a [loader](loader) alongside instead of writing into the blocks.\n\n## When not to use\n\n* Don't use a skeleton when the incoming layout is unpredictable: use a [loader](loader).\n\n* Don't use it for a small, control-level wait: use a [spinner](spinner) inside the control.\n\n* Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable: use a [progress bar](progress-bar-small).\n\n## Variant selection\n\nLoading skeletons have no type or size variants; the shape is the choice, built from the layout it stands in for.\n\n* **Structure:** same columns, headings, and block placement as the final view.\n\n* **Density:** a plausible number of rows or cards for the container, not an arbitrary fill.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Mirror the final layout's shapes | Show generic gray bars unrelated to the content |\n| Resolve to content, an [empty state](empty-state), or an [error state](error-state) when the response lands | Drop from skeleton to a blank container |\n| Fill in real content progressively as it arrives | Hold the whole skeleton until the last request finishes |\n| Cap the placeholder at a screenful | Fake two hundred skeleton rows for a table of five |\n\n> Copy rules (skeletons carry no text, no \"Loading...\" inside blocks) live in the Content guidelines for loading skeleton.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a loading skeleton when content is on its way and the layout is known in advance: the placeholder sketches the blocks the content will fill.",
+                "Use it for content-heavy views: [table](table) rows, card grids, detail pages with a fixed structure.",
+                "Use it for the first paint of a page inside an already-running app, before the response lands.",
+                "Keep it visual only; if the wait needs a message, use a [loader](loader) alongside instead of writing into the blocks."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a skeleton when the incoming layout is unpredictable: use a [loader](loader).",
+                "Don't use it for a small, control-level wait: use a [spinner](spinner) inside the control.",
+                "Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).",
+                "Don't use it when progress is measurable: use a [progress bar](progress-bar-small)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Loading skeletons have no type or size variants; the shape is the choice, built from the layout it stands in for."
+            },
+            {
+              "bullets": [
+                "**Structure:** same columns, headings, and block placement as the final view.",
+                "**Density:** a plausible number of rows or cards for the container, not an arbitrary fill."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Mirror the final layout's shapes",
+              "dont": "Show generic gray bars unrelated to the content"
+            },
+            {
+              "do": "Resolve to content, an [empty state](empty-state), or an [error state](error-state) when the response lands",
+              "dont": "Drop from skeleton to a blank container"
+            },
+            {
+              "do": "Fill in real content progressively as it arrives",
+              "dont": "Hold the whole skeleton until the last request finishes"
+            },
+            {
+              "do": "Cap the placeholder at a screenful",
+              "dont": "Fake two hundred skeleton rows for a table of five"
+            },
+            {
+              "note": "Copy rules (skeletons carry no text, no \"Loading...\" inside blocks) live in the Content guidelines for loading skeleton."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -62,5 +134,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

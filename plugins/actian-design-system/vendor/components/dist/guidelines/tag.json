@@ -55,7 +55,82 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "This guideline covers the tag family: default, status, stage, catalog, catalog item type, glossary item type, shared, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default:** user-defined or topic labels. The color axis (pink through gray) differentiates neighboring tags; color carries no meaning here.\n\n* **Status:** operational status of a running asset (for example **Success**, **Fail**, **Warning**, **Scheduled**, **Stopped**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Stage:** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Catalog, catalog item type, glossary item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Shared:** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "This guideline covers the tag family: default, status, stage, catalog, catalog item type, glossary item type, shared, and interactive tags."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
+                "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
+                "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
+                "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
+                "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
+                "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Default:** user-defined or topic labels. The color axis (pink through gray) differentiates neighboring tags; color carries no meaning here.",
+                "**Status:** operational status of a running asset (for example **Success**, **Fail**, **Warning**, **Scheduled**, **Stopped**). Use the platform status vocabulary; never coin a new status word per screen.",
+                "**Stage:** data lifecycle stages, colored per stage consistently across the platform.",
+                "**Catalog, catalog item type, glossary item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
+                "**Shared:** flags an item as recently updated; apply it automatically, not by hand.",
+                "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Use the specialized variant for types, stages, and statuses",
+              "dont": "Put a system status in a freeform default tag"
+            },
+            {
+              "do": "Show the remove affordance only in edit contexts",
+              "dont": "Render an X on tags in a read-only view"
+            },
+            {
+              "do": "Keep one color per category, consistent across screens",
+              "dont": "Recolor the same topic tag from page to page"
+            },
+            {
+              "do": "Let tag values come from the platform vocabulary where one exists",
+              "dont": "Mix **Published** and **Live** for the same state"
+            },
+            {
+              "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -134,5 +209,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-01T12:29:36+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

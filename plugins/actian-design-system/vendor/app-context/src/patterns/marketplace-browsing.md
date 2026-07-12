@@ -5,5 +5,10 @@ slug: marketplace-browsing
 label: Marketplace browsing
 apps:
   - explorer
+components:
+  - search
+  - search-filters
+  - card-for-items
+  - global-header
 ---
 Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards).

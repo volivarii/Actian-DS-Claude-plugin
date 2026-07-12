@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loading-skeleton",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:8086",
@@ -49,9 +49,13 @@
       {
         "name": "Union",
         "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-subtle"
+        ],
         "id": "14294:8016",
         "appearance": {
-          "background": "#e1e1e6"
+          "background": "#e1e1e6",
+          "backgroundToken": "--zen-border-subtle"
         }
       },
       {

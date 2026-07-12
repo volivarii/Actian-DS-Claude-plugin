@@ -130,7 +130,71 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use a popover for rich or multi-sentence contextual content that a [tooltip](tooltip) cannot hold: formatted text and links. It opens on click and stays open until the user clicks outside or presses Escape.\n\n* Use it to explain a concept, term, or complex field inline, without sending the user off the page or into documentation.\n\n* Use it when the user needs to keep the page visible while reading: a popover is non-modal and never dims the page behind.\n\n## When not to use\n\n* Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.\n\n* Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).\n\n* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).\n\n* Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not.\n\n## Variant selection\n\n* **Interaction guide:** in-place guidance that walks the user through a control or feature, anchored to the element it explains.\n\n* **Advanced search:** the structured search-options panel that opens under the [search](search) field to build a precise query.\n\n* Both types are click-triggered and non-modal; there is no plain default popover, so pick the type whose structure matches the content.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Open on click, close on outside click or Escape | Trigger a popover on hover |\n| Keep the body to two to four short sentences | Pack bullet lists and long prose into it |\n| Anchor the popover to the element it explains | Float it in the middle of the screen like a dialog |\n| Show one popover at a time | Chain a second popover from the first |\n\n> Title and body wording rules live in the Content guidelines for popovers.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a popover for rich or multi-sentence contextual content that a [tooltip](tooltip) cannot hold: formatted text and links. It opens on click and stays open until the user clicks outside or presses Escape.",
+                "Use it to explain a concept, term, or complex field inline, without sending the user off the page or into documentation.",
+                "Use it when the user needs to keep the page visible while reading: a popover is non-modal and never dims the page behind."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.",
+                "Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).",
+                "Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).",
+                "Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Interaction guide:** in-place guidance that walks the user through a control or feature, anchored to the element it explains.",
+                "**Advanced search:** the structured search-options panel that opens under the [search](search) field to build a precise query.",
+                "Both types are click-triggered and non-modal; there is no plain default popover, so pick the type whose structure matches the content."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Open on click, close on outside click or Escape",
+              "dont": "Trigger a popover on hover"
+            },
+            {
+              "do": "Keep the body to two to four short sentences",
+              "dont": "Pack bullet lists and long prose into it"
+            },
+            {
+              "do": "Anchor the popover to the element it explains",
+              "dont": "Float it in the middle of the screen like a dialog"
+            },
+            {
+              "do": "Show one popover at a time",
+              "dont": "Chain a second popover from the first"
+            },
+            {
+              "note": "Title and body wording rules live in the Content guidelines for popovers."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -142,5 +206,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-23T13:38:19+02:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

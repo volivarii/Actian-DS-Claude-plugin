@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-default",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-07-06T13:21:40.803Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3037",
@@ -43,8 +43,10 @@
             "Indigo"
           ],
           "background": "#edf6ff",
+          "backgroundToken": "--zen-color-primary-25",
           "border": {
             "color": "#cbe3ff",
+            "colorToken": "--zen-color-primary-50",
             "width": "1px"
           }
         },
@@ -54,8 +56,10 @@
             "Lime"
           ],
           "background": "#f0ffec",
+          "backgroundToken": "--zen-color-bg-success",
           "border": {
             "color": "#d3efcd",
+            "colorToken": "--zen-color-success-50",
             "width": "1px"
           }
         },
@@ -65,8 +69,10 @@
             "Orange"
           ],
           "background": "#fff4ec",
+          "backgroundToken": "--zen-color-bg-error",
           "border": {
             "color": "#ffdacf",
+            "colorToken": "--zen-color-error-50",
             "width": "1px"
           }
         },
@@ -109,8 +115,10 @@
             "Yellow"
           ],
           "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning",
           "border": {
             "color": "#ffddb6",
+            "colorToken": "--zen-color-warning-100",
             "width": "1px"
           }
         }
@@ -132,6 +140,11 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [
@@ -144,10 +157,14 @@
       {
         "name": "Tag-Name",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-tertiary"
+        ],
         "id": "7257:3041",
         "appearance": {
           "text": {
             "color": "#50505d",
+            "colorToken": "--zen-color-text-tertiary",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

@@ -8,13 +8,18 @@
   "slug": "rich-text",
   "component": "Rich text",
   "meta": {
-    "category": "form-input-selection"
+    "category": "form-input-selection",
+    "a11y_refs": [
+      {
+        "ref": "forms"
+      }
+    ]
   },
   "domains": {
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Rich text\n\nThe rich text editor allows users to write and format long-form content such as descriptions, notes, and documentation.\n\n***\n\n## When to use\n\n- When users need to format content with headings, lists, links, or emphasis.\n- For long-form inputs such as descriptions, notes, or comments.\n- Do not use for short single-line inputs. Use a [text input](text-input) instead.\n\n## Style\n\n- Placeholder text should describe what kind of content belongs here. For example, \"Add a description\" or \"Write release notes.\"\n- Toolbar button labels follow standard conventions: Bold, Italic, Link, Bullet list, Numbered list.\n- Do not use placeholder text to convey formatting instructions. Use helper text below the field instead.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Add a description | Write here... |\n| Helper text: Markdown is supported | Placeholder: Use **bold** for emphasis |\n| Release notes | Enter text |",
+      "markdown": "# Rich text\n\nThe rich text editor allows users to write and format long-form content such as descriptions, notes, and documentation.\n\n***\n\n## When to use\n\n* When users need to format content with headings, lists, links, or emphasis.\n\n* For long-form inputs such as descriptions, notes, or comments.\n\n* Do not use for short single-line inputs. Use a [text input](text-input) instead.\n\n## Style\n\n* Placeholder text should describe what kind of content belongs here. For example, \"Add a description\" or \"Write release notes.\"\n\n* Toolbar button labels follow standard conventions: Bold, Italic, Link, Bullet list, Numbered list.\n\n* Do not use placeholder text to convey formatting instructions. Use helper text below the field instead.\n\n## Do / Don't\n\n| Do                                 | Don't                                  |\n| ---------------------------------- | -------------------------------------- |\n| Add a description                  | Write here...                          |\n| Helper text: Markdown is supported | Placeholder: Use **bold** for emphasis |\n| Release notes                      | Enter text                             |",
       "sections": [
         {
           "heading": "",
@@ -68,7 +73,78 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "## When to use\n\n* Use rich text for long-form content where formatting carries meaning: headings, lists, links, emphasis (for example a data product description).\n\n* Use it for fields users will later read as a formatted page: dataset documentation, notes, comments.\n\n* Use it for release notes and changelog-style updates, where lists and emphasis structure the message.\n\n* Use the same editor everywhere formatted content is written, so descriptions read the same across Studio, Explorer, and Administration.\n\n## When not to use\n\n* Don't use it for short single-line values such as names, hosts, or titles: use a [text input](text-input).\n\n* Don't use it for values the system parses (connection strings, expressions, queries): formatting markup would corrupt the value; use a [text input](text-input) with the right type.\n\n* Don't use it when the content never benefits from formatting, such as a one-sentence reason field: the toolbar becomes noise.\n\n* Don't use it to lay out tabular data: structured rows and columns belong in a [table](table), not formatted prose.\n\n## Variant selection\n\nRich text has no type or size variants; the choice is how much room the field gets.\n\n* **Compact field:** a few formatted lines inside a form, the typical description field.\n\n* **Full writing surface:** long documentation where the user needs room to write and review; give the editor the panel or page, not a form row.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Offer only the formats the field needs (bold, links, lists) | Ship a full word-processor toolbar for a two-line description |\n| Put formatting hints in helper text below the field | Cram formatting instructions into the placeholder |\n| Preserve formatting wherever the content is displayed | Strip formatting on the read view and surprise the author |\n| Warn before discarding long unsaved content | Lose a written description on accidental navigation |\n| Sanitize pasted content down to the allowed formats | Import arbitrary styling from pasted documents |\n\n> Placeholder and toolbar label wording rules (Bold, Italic, Bullet list) live in the Content guidelines for rich text.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use rich text for long-form content where formatting carries meaning: headings, lists, links, emphasis (for example a data product description).",
+                "Use it for fields users will later read as a formatted page: dataset documentation, notes, comments.",
+                "Use it for release notes and changelog-style updates, where lists and emphasis structure the message.",
+                "Use the same editor everywhere formatted content is written, so descriptions read the same across Studio, Explorer, and Administration."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use it for short single-line values such as names, hosts, or titles: use a [text input](text-input).",
+                "Don't use it for values the system parses (connection strings, expressions, queries): formatting markup would corrupt the value; use a [text input](text-input) with the right type.",
+                "Don't use it when the content never benefits from formatting, such as a one-sentence reason field: the toolbar becomes noise.",
+                "Don't use it to lay out tabular data: structured rows and columns belong in a [table](table), not formatted prose."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Rich text has no type or size variants; the choice is how much room the field gets."
+            },
+            {
+              "bullets": [
+                "**Compact field:** a few formatted lines inside a form, the typical description field.",
+                "**Full writing surface:** long documentation where the user needs room to write and review; give the editor the panel or page, not a form row."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Offer only the formats the field needs (bold, links, lists)",
+              "dont": "Ship a full word-processor toolbar for a two-line description"
+            },
+            {
+              "do": "Put formatting hints in helper text below the field",
+              "dont": "Cram formatting instructions into the placeholder"
+            },
+            {
+              "do": "Preserve formatting wherever the content is displayed",
+              "dont": "Strip formatting on the read view and surprise the author"
+            },
+            {
+              "do": "Warn before discarding long unsaved content",
+              "dont": "Lose a written description on accidental navigation"
+            },
+            {
+              "do": "Sanitize pasted content down to the allowed formats",
+              "dont": "Import arbitrary styling from pasted documents"
+            },
+            {
+              "note": "Placeholder and toolbar label wording rules (Bold, Italic, Bullet list) live in the Content guidelines for rich text."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -80,5 +156,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }

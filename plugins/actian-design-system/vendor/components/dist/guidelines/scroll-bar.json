@@ -8,13 +8,18 @@
   "slug": "scroll-bar",
   "component": "Scroll bar",
   "meta": {
-    "category": "data-display"
+    "category": "data-display",
+    "a11y_refs": [
+      {
+        "ref": "truncation-overflow"
+      }
+    ]
   },
   "domains": {
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n- Automatically when content exceeds the visible area of a container.\n- Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n- Scroll bars carry no copy.\n- Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
+      "markdown": "# Scroll bar\n\nThe scroll bar indicates that a container has overflow content and lets users navigate it. It appears automatically when content exceeds its container.\n\n***\n\n## When to use\n\n* Automatically when content exceeds the visible area of a container.\n\n* Do not suppress scroll bars in contexts where content overflow is expected.\n\n## Style\n\n* Scroll bars carry no copy.\n\n* Scrollable regions should have an accessible label so screen reader users understand the context. For example, \"Dataset list\" or \"Query results\".",
       "sections": [
         {
           "heading": "",
@@ -49,7 +54,86 @@
       ]
     },
     "usage": {
-      "status": "not-started"
+      "status": "draft",
+      "markdown": "Scroll bars are a behavior primitive, not a layout choice: they appear automatically when content overflows its container. The usage question is when a custom scroll container is appropriate at all.\n\n## When to use\n\n* Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.\n\n* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.\n\n* Use it in any container with a fixed height and variable content: query results, log output, long attribute lists.\n\n## When not to use\n\n* Don't restyle or replace the page-level browser scroll: custom scroll is for regions inside the page, not the page itself.\n\n* Don't suppress scroll bars where overflow is expected: a region that looks unscrollable reads as complete when it isn't.\n\n* Don't nest independently scrolling regions inside one another: two scroll bars in the same direction fight for the wheel.\n\n* Don't use scrolling as a fix for an overloaded panel: when a drawer scrolls forever, move the content to the full details page.\n\n## Variant selection\n\nScroll bars have no type or size variants; the choices are between modes and configurations.\n\n* **Orientation:** vertical for lists and panels; horizontal only for wide [table](table) content that cannot reflow, never for prose.\n\n* **Accessible label:** give the scrollable region an accessible label (Dataset list, Query results) so screen reader users know what they are scrolling.\n\n* **Keyboard access:** a custom scroll region must be reachable and scrollable by keyboard (focusable, arrow keys work), not only by wheel or trackpad.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Let the scroll bar appear only on overflow | Force one onto content that fits |\n| Name the scrollable region for assistive tech | Leave an anonymous scroll region |\n| Keep one scroll direction per region | Make users pan both axes to read a list |\n| Keep the scroll position stable while content loads | Yank the user back to the top on data refresh |\n| Pair a pinned header with a scrolling table body | Let column headers scroll out of view |\n\n> Accessible-label wording for scroll regions lives in the Content guidelines for scroll bars.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Scroll bars are a behavior primitive, not a layout choice: they appear automatically when content overflows its container. The usage question is when a custom scroll container is appropriate at all."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.",
+                "Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.",
+                "Use it in any container with a fixed height and variable content: query results, log output, long attribute lists."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't restyle or replace the page-level browser scroll: custom scroll is for regions inside the page, not the page itself.",
+                "Don't suppress scroll bars where overflow is expected: a region that looks unscrollable reads as complete when it isn't.",
+                "Don't nest independently scrolling regions inside one another: two scroll bars in the same direction fight for the wheel.",
+                "Don't use scrolling as a fix for an overloaded panel: when a drawer scrolls forever, move the content to the full details page."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Scroll bars have no type or size variants; the choices are between modes and configurations."
+            },
+            {
+              "bullets": [
+                "**Orientation:** vertical for lists and panels; horizontal only for wide [table](table) content that cannot reflow, never for prose.",
+                "**Accessible label:** give the scrollable region an accessible label (Dataset list, Query results) so screen reader users know what they are scrolling.",
+                "**Keyboard access:** a custom scroll region must be reachable and scrollable by keyboard (focusable, arrow keys work), not only by wheel or trackpad."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Let the scroll bar appear only on overflow",
+              "dont": "Force one onto content that fits"
+            },
+            {
+              "do": "Name the scrollable region for assistive tech",
+              "dont": "Leave an anonymous scroll region"
+            },
+            {
+              "do": "Keep one scroll direction per region",
+              "dont": "Make users pan both axes to read a list"
+            },
+            {
+              "do": "Keep the scroll position stable while content loads",
+              "dont": "Yank the user back to the top on data refresh"
+            },
+            {
+              "do": "Pair a pinned header with a scrolling table body",
+              "dont": "Let column headers scroll out of view"
+            },
+            {
+              "note": "Accessible-label wording for scroll regions lives in the Content guidelines for scroll bars."
+            }
+          ]
+        }
+      ]
     },
     "design": {
       "status": "inherited"
@@ -61,5 +145,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-25T13:12:15-07:00"
+  "updated_at": "2026-07-12T03:29:26+02:00"
 }
