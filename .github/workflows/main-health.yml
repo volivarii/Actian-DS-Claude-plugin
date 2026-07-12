@@ -1,0 +1,82 @@
+name: main health
+
+# The plugin's test suite only ever ran on `pull_request`. main itself was NEVER
+# tested, so it could sit broken indefinitely with nothing to say so.
+#
+# That is not hypothetical. The nightly vendor refresh opens a PR per knowledge
+# release; between 2026-07-07 and 2026-07-12, five of them went red and stacked
+# up (#237 to #241) while the plugin consumed no knowledge at all for five days.
+# The only reason anyone noticed was that a human went looking.
+#
+# This runs the suite on every push to main and turns a red main into ONE
+# tracking issue (not one per push) that auto-closes when main is green again.
+# GitHub emails the actor who triggered a failed run, but these pushes come from
+# merges and bots, so that email reaches nobody. The issue does.
+#
+# Same self-managing pattern as the knowledge repo's sync-failure issue.
+
+on:
+  push:
+    branches: [main]
+  # Lets a human re-check main after a fix without pushing an empty commit.
+  workflow_dispatch:
+
+concurrency:
+  group: main-health
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test suite (main)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Install plugin deps
+        working-directory: plugins/actian-design-system
+        run: npm install --no-audit --no-fund
+      - name: Run test suite
+        working-directory: plugins/actian-design-system
+        run: |
+          set -euo pipefail
+          find tests -name '*.test.js' -type f -print0 \
+            | xargs -0 node --test
+
+  notify-red-main:
+    # always(): this must run even though the job it watches failed.
+    if: always()
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Open or update the red-main issue
+        if: needs.test.result == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SHA: ${{ github.sha }}
+        # Best-effort: a notification hiccup must never be the thing that fails.
+        run: |
+          gh label create red-main --color B60205 --description "main is red" 2>/dev/null || true
+          note="Run: $RUN_URL"$'\n'"Commit: \`${SHA:0:7}\`"
+          existing=$(gh issue list --state open --label red-main --json number --jq '.[0].number // empty' 2>/dev/null || true)
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Still red. $note" || true
+          else
+            gh issue create --title "🔴 plugin main is red" --label red-main \
+              --body "The plugin's test suite is failing on \`main\`."$'\n\n'"$note"$'\n\n'"This issue auto-closes when main is green again." || true
+          fi
+
+      - name: Close the red-main issue when main is green again
+        if: needs.test.result == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          for n in $(gh issue list --state open --label red-main --json number --jq '.[].number' 2>/dev/null || true); do
+            gh issue close "$n" --comment "✅ main is green again. $RUN_URL" || true
+          done

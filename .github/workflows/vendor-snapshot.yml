@@ -40,6 +40,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -234,3 +235,65 @@ jobs:
           else
             echo "### Vendor: no changes (already at ${{ steps.target.outputs.label }})" >> "$GITHUB_STEP_SUMMARY"
           fi
+
+      # A vendor PR that goes RED just sits there. Nothing says so.
+      #
+      # That is exactly what happened: five vendor PRs (#237 to #241) stacked up
+      # red between 2026-07-07 and 2026-07-12 while the plugin consumed no
+      # knowledge for five days. They are opened with auto-merge, so when the
+      # checks fail they silently do not merge, and each night quietly adds
+      # another one to the pile. The pile IS the signal, and nobody was looking
+      # at it.
+      #
+      # This runs nightly (the workflow is already here), so it is the natural
+      # place to notice. One tracking issue, auto-closed when the queue drains.
+      - name: Raise the alarm if the vendor queue is blocked
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Best-effort: this must never fail the refresh itself.
+        run: |
+          set +e
+          open_prs=$(gh pr list --state open --label vendor --json number,title,createdAt --jq '.[] | [.number, .createdAt[0:10], .title] | @tsv' 2>/dev/null)
+          if [ -z "$open_prs" ]; then
+            for n in $(gh issue list --state open --label vendor-blocked --json number --jq '.[].number' 2>/dev/null); do
+              gh issue close "$n" --comment "✅ The vendor queue has drained: no open vendor PRs remain." 2>/dev/null
+            done
+            exit 0
+          fi
+
+          # A PR is only "stuck" if a check has actually FAILED, or it has
+          # conflicts. Do NOT use mergeStateStatus == BLOCKED: a PR whose checks
+          # are still running is also BLOCKED, and this step runs in the same
+          # workflow that just opened tonight's PR. That would fire a false alarm
+          # every single night, and a nightly false alarm is how a signal becomes
+          # noise and then gets ignored, which is the exact failure this whole
+          # change exists to prevent.
+          blocked=""
+          while IFS=$'\t' read -r num created title; do
+            [ -z "$num" ] && continue
+            failed=$(gh pr view "$num" --json statusCheckRollup \
+              --jq '[.statusCheckRollup[]? | select(.conclusion == "FAILURE" or .conclusion == "TIMED_OUT" or .conclusion == "CANCELLED")] | length' 2>/dev/null)
+            dirty=$(gh pr view "$num" --json mergeStateStatus --jq 'select(.mergeStateStatus == "DIRTY") | "conflicts"' 2>/dev/null)
+            reason=""
+            [ "${failed:-0}" -gt 0 ] 2>/dev/null && reason="${failed} failing check(s)"
+            [ -n "$dirty" ] && reason="${reason:+$reason, }merge conflicts"
+            if [ -n "$reason" ]; then
+              blocked="${blocked}- #${num} (opened ${created}): ${title} — ${reason}"$'\n'
+            fi
+          done <<< "$open_prs"
+
+          if [ -z "$blocked" ]; then
+            exit 0
+          fi
+
+          count=$(printf '%s' "$blocked" | grep -c '^- ')
+          gh label create vendor-blocked --color B60205 --description "Vendor refresh PRs are stuck; the plugin is not consuming knowledge" 2>/dev/null
+          body="**${count} vendor refresh PR(s) are stuck.** While they are, the plugin is consuming NO new knowledge: every substrate change is piling up on the wrong side of the pipe."$'\n\n'"${blocked}"$'\n'"This issue auto-closes when the queue drains."
+          existing=$(gh issue list --state open --label vendor-blocked --json number --jq '.[0].number // empty' 2>/dev/null)
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Still blocked (${count} PR(s))."$'\n\n'"${blocked}" 2>/dev/null
+          else
+            gh issue create --title "🔴 Vendor refresh is blocked: the plugin is not consuming knowledge" --label vendor-blocked --body "$body" 2>/dev/null
+          fi
+          exit 0
