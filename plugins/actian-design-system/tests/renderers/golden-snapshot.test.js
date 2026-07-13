@@ -446,6 +446,22 @@ var DS_FIXTURES = {
   // capture (opts.props is not yet consumed by appearance-render.js), so both
   // fixtures render the label "Fail" — the point of this golden is the color
   // swap (washed-out geometry -> real hex), not the text.
+  // ⚠️ RENDERS WITH NO ICON, AND THE GOLDEN RECORDS THAT. The glyph tag-status
+  // reaches for is `checkmark-outline`, which the 2026-07 Figma icon rework
+  // DELETED. Verified genuinely gone, not merely shadowed: unlike `calendar` and
+  // `search` — which were eaten by a slug collision and came back once knowledge
+  // gave icons their own namespace — NO component owns `checkmark-outline`, and
+  // tag-status's anatomy instance resolves to slug:undefined. The DS ships Tag
+  // Status pointing at an icon that does not exist.
+  //
+  // So an empty instance box is the CORRECT output for this icon set, and the
+  // golden says so rather than asserting a stale expectation. Deliberately NOT
+  // worked around with a curated icon override: that would mask the defect while
+  // pretending to fix it. Same call already made for Tag Status "Fail"
+  // (`misuse-outline`) — see CHANGELOG "Known broken upstream".
+  //
+  // When the glyph is restored in Figma, this golden FAILS. That is the point:
+  // re-baseline it WITH the icon and delete this note.
   tagStatusSuccess: {
     dsSlug: "tag-status",
     variant: "Status=Success",

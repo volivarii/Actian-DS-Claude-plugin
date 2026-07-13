@@ -45,23 +45,28 @@ are summarized at the release level.
     picks a slug **from** the vendored icon set.
 
 ### Known broken upstream (recorded, not hidden)
-- **Two icons are still unresolvable on knowledge v0.34.89, and the two failing checks are left RED
-  rather than re-baselined.** New evidence says the "the rework deleted six glyphs" story below is
-  only half right, so accepting the degraded render would bake in the wrong conclusion:
-  - **`calendar` is not deleted at all — the sync silently eats it.** The icon exists in Figma
-    (symbol `7378:5041`, on `DS Icons: replacement`). But the registry is keyed **by slug**, and the
-    Calendar *component* (page `✅ Calendar`, category `Action`) already owns the slug `calendar`, so
-    the icon is overwritten and never reaches the `Icons` category. `derive-icons-svg` then skips it
-    (`is category "Action", expected "Icons"`). This is almost certainly why the glyph used to be
-    named `calendar-2`: the old name existed to dodge the collision, and the rework renamed it onto
-    the collision. `renderIcon("calendar-2")` in `ds-html-map.js` (the `input-date` calendar
-    affordance) therefore has nothing to resolve. **Fix belongs upstream**, and knowledge has no
-    within-kit slug-collision tripwire — `detectSlugCollisions` reads the already-deduped
-    slug-keyed map, so it structurally cannot see this class of loss.
-  - **`checkmark-outline` looks RENAMED, not dropped** (`simple-check` exists in the new icon set),
-    which is why `golden(ds): tagStatusSuccess` now renders an empty instance box. If that is a
-    rename, the right fix is to follow it upstream and restore the glyph, **not** to re-baseline the
-    golden to an iconless tag. Left red pending that call.
+- **`calendar` and `search` are RESOLVED — the fix was the namespace, not a Figma rename.** An earlier
+  version of this note said the icons were lost and needed renaming upstream. They were not deleted at
+  all: the registry was **one flat slug-keyed map**, so the `calendar` GLYPH lost its slug to the
+  Calendar COMPONENT and simply vanished (so did `search`, to the Search component). Renaming in Figma
+  would only have postponed it — `link`, `table`, `settings` are all words an icon and a component can
+  reasonably both want. Knowledge gave icons **their own namespace** (knowledge #418/#420/#421), both
+  glyphs are back, and `renderIcon("calendar")` resolves: `input-date` has its calendar affordance
+  again. Recorded here because the earlier diagnosis in this file was **wrong**, and a changelog that
+  quietly drops a bad call is worse than one that corrects it.
+
+- **Tag Status "Success" renders no icon either, and its golden now records that too.**
+  Same defect, same anatomy: the glyph is `checkmark-outline`, which the 2026-07 Figma icon rework
+  **deleted**. Verified genuinely gone, not merely shadowed — unlike `calendar` and `search`, which
+  were eaten by a slug collision and came **back** once knowledge gave icons their own namespace
+  (knowledge #418), **no** component owns `checkmark-outline`, and tag-status’s anatomy instance
+  resolves to `slug: undefined`. **The DS ships Tag Status pointing at an icon that does not exist.**
+
+  Same call as "Fail" below: given an icon set without the glyph, an empty box is the correct output,
+  so the golden says so rather than asserting a stale expectation. Deliberately NOT papered over with
+  a curated icon override, which would mask the defect while pretending to fix it. **When the glyph is
+  restored in Figma this golden fails again** — which is the point: re-baseline it with the icon and
+  delete the note.
 
 - **Tag Status "Fail" renders no icon, and its golden now records that.** The glyph is
   `misuse-outline`, which the 2026-07 Figma icon rework **deleted**. This is not a renderer bug:
