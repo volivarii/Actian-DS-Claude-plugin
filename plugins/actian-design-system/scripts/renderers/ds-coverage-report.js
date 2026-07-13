@@ -8,10 +8,12 @@ var { loadAnatomy, passesRatioGate } = require(
 var { isRenderable, countBlankBoxes } = require(
   path.join(__dirname, "renderability.js"),
 );
-var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
-var { buildDsAnatomyDocMap } = require(
-  path.join(__dirname, "ds-anatomy-map.js"),
-);
+// ds-html-map.js and ds-anatomy-map.js are required LAZILY inside
+// measureBlankBoxes(), not at module level. coverage() is the light path (it
+// only reads anatomy docs), and render-authoring-table.js imports this module
+// for coverage() alone: hoisting the render stack to load time would make that
+// tool pull in the whole renderer for nothing. The CommonJS module cache makes
+// the in-function require free after the first call.
 
 // Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
 // matching passesRatioGate's own strict default; see its doc comment in
@@ -95,6 +97,10 @@ function authorableSlugs() {
 // emits. This is the number a PM actually sees on a generated flow.
 function measureBlankBoxes(opts) {
   opts = opts || {};
+  var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
+  var buildDsAnatomyDocMap = require(
+    path.join(__dirname, "ds-anatomy-map.js"),
+  ).buildDsAnatomyDocMap;
   var slugs = opts.slugs || authorableSlugs();
   var built = {};
   (dsMap.BUILT_SLUGS || []).forEach(function (s) {
@@ -151,7 +157,11 @@ module.exports = {
 };
 
 if (require.main === module) {
-  var BUILT_SLUGS = dsMap.BUILT_SLUGS;
+  // Same lazy require as measureBlankBoxes(): the render stack is only needed
+  // when this file runs as a CLI, never when it is imported for coverage().
+  var BUILT_SLUGS = require(
+    path.join(__dirname, "html-renderers", "ds-html-map.js"),
+  ).BUILT_SLUGS;
 
   var slugs = authorableSlugs();
   var rows = coverage(slugs, { builtSlugs: BUILT_SLUGS });
