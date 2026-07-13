@@ -19,6 +19,22 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+- **The HTML renderer now reports its own fidelity, and a CI gate holds the line.** The DS coverage
+  report gained a **blank-box count** (the empty grey placeholder boxes a generated flow actually shows
+  a reader: **136** today, across 25 of the 37 non-override slugs) and a **renderability verdict** read
+  from the anatomy doc itself. `tests/renderers/blank-box-budget.test.js` ratchets that count downward
+  and fails on a regression.
+
+  This exists because the tier table was measuring the wrong thing. `quality.ratio` is computed upstream
+  as `nodesNormalized / nodesTotal`, which scores whether the **Figma component was drawn with
+  auto-layout**. That is a hygiene score, not a fidelity score, and it is wrong in both directions:
+  `spinner` scores 0.83 and renders as five grey boxes, while `notification-dropdown` scores 0.50 with an
+  empty `degraded[]` list yet has 9 of its 9 instances unresolved. 13 anatomy-tier slugs are not actually
+  renderable. **No render behavior changed:** the report now tells the truth, and the anatomy floor is
+  retired by attrition as real leaves land, rather than by flipping a gate, which would demote 17 slugs to
+  chips before their replacements exist.
+
 ### Fixed
 - **Adapted to the 2026-07 Figma form-control rework** (knowledge sync #378), which is what has kept
   every vendor-refresh PR red since 2026-07-07. The DS renamed the selection axis on the form

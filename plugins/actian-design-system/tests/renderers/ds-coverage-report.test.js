@@ -60,3 +60,40 @@ describe("ds-coverage-report", function () {
     assert.strictEqual(rows[0].ratio, 0.4);
   });
 });
+
+describe("coverage(): renderability columns", function () {
+  var path = require("path");
+  var { coverage } = require(
+    path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "scripts",
+      "renderers",
+      "ds-coverage-report.js",
+    ),
+  );
+
+  it("marks an override row renderable:null (an override ignores the doc)", function () {
+    var rows = coverage(["button"], { builtSlugs: ["button"] });
+    assert.strictEqual(rows[0].tier, "override");
+    assert.strictEqual(rows[0].renderable, null);
+  });
+
+  it("reports renderable:false with a reason where the floor is faking it", function () {
+    var rows = coverage(["spinner"], { builtSlugs: [] });
+    assert.strictEqual(rows[0].renderable, false);
+    assert.match(rows[0].why, /root has no layout/);
+  });
+
+  it("keeps the ratio column so the two signals can be compared", function () {
+    var rows = coverage(["spinner"], { builtSlugs: [] });
+    assert.ok(rows[0].ratio >= 0.6, "spinner still passes the old ratio gate");
+    assert.strictEqual(rows[0].renderable, false, "but is not renderable");
+  });
+
+  it("reports renderable:true for a doc with real layout and resolvable children", function () {
+    var rows = coverage(["collapse-accordion"], { builtSlugs: [] });
+    assert.strictEqual(rows[0].renderable, true);
+  });
+});
