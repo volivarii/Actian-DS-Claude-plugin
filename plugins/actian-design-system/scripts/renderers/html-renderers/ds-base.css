@@ -1,5 +1,5 @@
 /* ds-base.css — hi-fi DS leaf styles. 100% bound to vendored --zen-* tokens.
- * SPIKE scope: button, input, checkbox-with-label. Catalog slice adds:
+ * SPIKE scope: button, input, checkbox. Catalog slice adds:
  * tag-default, badge, search, card-for-items + chrome (global-header,
  * side-nav). Geometry + token bindings
  * measured from the published Figma DS Kit (file l8biHxfarNi1I2RMvVxVOK, 2026-06-06).
@@ -176,7 +176,7 @@
   color: var(--zen-color-text-secondary);
 }
 
-/* ============ Checkbox with label ============ */
+/* ============ Checkbox ============ */
 .ds-checkbox {
   display: inline-flex;
   gap: var(--zen-spacing-2xs);
@@ -869,7 +869,7 @@
   align-items: center;
 }
 
-/* ============ Breadcrumbs (chrome) ============ */
+/* ============ Breadcrumb (chrome) ============ */
 .ds-breadcrumbs {
   display: inline-flex;
   align-items: center;

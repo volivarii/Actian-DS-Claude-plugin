@@ -15,7 +15,7 @@ title: "Side nav usage guidelines"
 
 * Don't use it for suite-level switching between products or apps: that is the [global header](global-header).
 
-* Don't use it to show the path back up from a detail page: that is [breadcrumbs](breadcrumbs) in the [page header](page-header).
+* Don't use it to show the path back up from a detail page: that is [breadcrumbs](breadcrumb) in the [page header](page-header).
 
 * Don't put actions in it (**Create data product**, **Export**): navigation only. Actions live in the page header or a [toolbar](toolbar).
 

@@ -3,7 +3,7 @@ title: "Page header usage guidelines"
 ---
 ## When to use
 
-* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumbs), and the page's primary actions.
+* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumb), and the page's primary actions.
 
 * Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).
 

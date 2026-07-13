@@ -24,7 +24,7 @@ Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
 ## Step 1 — Research (ONE parallel batch)
 
-Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `vendor/components/dist/guidelines/<slug>.json` — the merged per-component guideline doc; knowledge ships registry-key alias copies (e.g. `checkbox-with-label.json` → `checkbox`), so look up by the registry slug directly; absent for components with no guideline doc, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
+Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `vendor/components/dist/guidelines/<slug>.json` — the merged per-component guideline doc; knowledge ships registry-key alias copies (e.g. `dropdown-select-default.json` → `dropdown-select`), so look up by the registry slug directly; absent for components with no guideline doc, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
 
 ## Step 1.5 — Present card selection
 

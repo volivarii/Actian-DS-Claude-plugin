@@ -213,7 +213,7 @@ function run(slugs, opts) {
   }
 }
 
-var PILOT = ["button", "checkbox-with-label", "alert-banner"];
+var PILOT = ["button", "checkbox", "alert-banner"];
 
 // Validated CLI parser: flags are explicit; an unknown --flag is an error
 // (never silently a slug — a typo'd flag used to write a junk ledger row).

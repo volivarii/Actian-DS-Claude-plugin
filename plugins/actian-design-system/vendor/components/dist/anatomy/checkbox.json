@@ -1,8 +1,8 @@
 {
   "_schema_version": 1,
-  "slug": "checkbox-with-label",
+  "slug": "checkbox",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
@@ -194,7 +194,7 @@
             },
             "children": [
               {
-                "name": "Digram, Item types",
+                "name": "Digram",
                 "kind": "instance",
                 "slug": "digram-item-types",
                 "props": {
@@ -208,7 +208,7 @@
                 }
               },
               {
-                "name": "directory",
+                "name": "Icon",
                 "kind": "instance",
                 "unresolved": true,
                 "id": "19748:36914"
@@ -230,7 +230,7 @@
                     "letterSpacing": "0.2px"
                   }
                 },
-                "text": "Inline label for checkbox"
+                "text": "Label"
               }
             ]
           },
@@ -238,18 +238,52 @@
             "name": "Description",
             "kind": "text",
             "tokenRefs": [
-              "--zen-color-text-default"
+              "--zen-color-text-tertiary"
             ],
             "id": "19748:36342",
             "appearance": {
               "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "12px",
+                "color": "#ffffff",
+                "colorToken": "--zen-color-text-tertiary",
+                "size": "14px",
                 "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              }
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "Selection",
+                  "values": [
+                    "Checked",
+                    "Indeterminate"
+                  ],
+                  "text": {
+                    "color": "#50505d",
+                    "colorToken": "--zen-color-text-tertiary",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled",
+                    "Focus",
+                    "Hover",
+                    "Pressed"
+                  ],
+                  "text": {
+                    "color": "#50505d",
+                    "colorToken": "--zen-color-text-tertiary",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
             },
             "text": "Description"
           }

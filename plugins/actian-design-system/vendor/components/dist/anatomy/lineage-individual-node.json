@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -307,7 +307,7 @@
                 ],
                 "id": "14747:19912",
                 "appearance": {
-                  "background": "#098900",
+                  "background": "#047800",
                   "backgroundToken": "--zen-color-icon-success",
                   "border": {
                     "color": "#d3efcd",

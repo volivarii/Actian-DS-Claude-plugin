@@ -181,11 +181,16 @@ function buildChecks(c) {
           fixRx: /\d+ components \+ \d+/g,
         },
       ],
+      // Stale-phrasing denylist. Keep these to WORDING that is wrong regardless
+      // of the numbers ("WCAG 2.1 AA"), not to literal counts: a count denylist
+      // eventually collides with the truth. It just did — the DS Kit set count
+      // drifted 80 → 82 with knowledge v0.34.89, so "82 sets" and "82 / 33 / 11"
+      // are now exactly what sync-doc-counts.js derives and writes, and banning
+      // them fired the guard against the correct value. Removed for that reason;
+      // do not add new count literals here.
       notContains: [
         "WCAG 2.1 AA",
         "322 DS Kit",
-        "82 / 33 / 11",
-        "82 sets",
         "85 per-component",
         "41 auto-stub",
         "44 fully curated",

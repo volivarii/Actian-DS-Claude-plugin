@@ -75,7 +75,6 @@
 
 | Registry key | Guideline slug |
 |---|---|
-| checkbox-with-label | checkbox |
 | dropdown-select-default | dropdown-select |
 | tag-default | tag |
 

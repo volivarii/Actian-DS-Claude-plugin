@@ -48,7 +48,7 @@ You will receive:
     each carry a `status` and, where authored, a body; a domain with
     `status: inherited` or `not-started` has no body — treat it as "not
     component-specific". The brief skill resolves this doc by slug, including
-    registry-key aliases (e.g. `checkbox-with-label` → `checkbox`), so no
+    registry-key aliases (e.g. `dropdown-select-default` → `dropdown-select`), so no
     topic-file routing is needed here. Omitted when the component has no
     guideline doc at all (then it is a structural-only brief — research is
     even more load-bearing).

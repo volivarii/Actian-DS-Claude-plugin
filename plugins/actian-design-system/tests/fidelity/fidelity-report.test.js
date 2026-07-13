@@ -16,7 +16,7 @@ test("aggregate computes mean over SCORED rows + counts skipped", function () {
       gates: { pixel_diff: "fail", responsive_structural: "pass" },
     },
     {
-      slug: "checkbox-with-label",
+      slug: "checkbox",
       fidelity: { score: null },
       gates: {
         pixel_diff: "skip(no-oracle)",

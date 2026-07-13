@@ -9,7 +9,7 @@ describe("parseArgs", function () {
     var p = R.parseArgs(["--pilot"]);
     assert.deepStrictEqual(p.slugs, [
       "button",
-      "checkbox-with-label",
+      "checkbox",
       "alert-banner",
     ]);
     assert.strictEqual(p.write, true);
@@ -19,7 +19,7 @@ describe("parseArgs", function () {
     assert.strictEqual(p.write, false);
     assert.deepStrictEqual(p.slugs, [
       "button",
-      "checkbox-with-label",
+      "checkbox",
       "alert-banner",
     ]);
   });

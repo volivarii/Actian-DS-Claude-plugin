@@ -60,7 +60,7 @@ describe("resolve-a11y (real vendored substrate)", function () {
       "toggle",
       "segmented-control",
       "side-nav",
-      "breadcrumbs",
+      "breadcrumb",
       "table",
       "search",
       "stepper",

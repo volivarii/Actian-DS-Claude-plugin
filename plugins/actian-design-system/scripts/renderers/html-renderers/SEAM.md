@@ -3,7 +3,7 @@
 The render pipeline is one **tier-agnostic component-node spec** consumed by
 renderers. Today: two HTML render tiers behind one seam — the lo-fi **fatmarker**
 tier (`fm-html-map.js`) and the hi-fi **DS** tier (`ds-html-map.js`, Phase 0:
-button/input/checkbox-with-label) — plus a deterministic **Figma twin emitter**
+button/input/checkbox) — plus a deterministic **Figma twin emitter**
 (Sub-project B, `render-node-figma.js`).
 
 ## The contract

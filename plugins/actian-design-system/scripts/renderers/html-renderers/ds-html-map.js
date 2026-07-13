@@ -322,7 +322,7 @@
           );
         }
 
-        case "checkbox-with-label": {
+        case "checkbox": {
           var cbCls = "ds-checkbox";
           if (v.Selected === "Yes") cbCls += " ds-checkbox--checked";
           if (v.State === "Disabled") cbCls += " is-disabled";
@@ -742,7 +742,7 @@
           );
         }
 
-        case "breadcrumbs": {
+        case "breadcrumb": {
           var crumbItems = parseItems(props.Items, "Home, Section, Page");
           var crumbSep =
             '<span class="ds-breadcrumbs__sep">' +
@@ -1734,7 +1734,7 @@
   var BUILT_SLUGS = [
     "button",
     "text-input",
-    "checkbox-with-label",
+    "checkbox",
     "radio-button",
     "toggle",
     "tag-default",
@@ -1744,7 +1744,7 @@
     "global-header",
     "side-nav",
     "page-header",
-    "breadcrumbs",
+    "breadcrumb",
     "tabs",
     "table",
     "modal",

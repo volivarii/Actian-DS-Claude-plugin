@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-07-08T14:07:56.278Z",
-  "componentCount": 320,
+  "lastSynced": "2026-07-12T20:29:08.076Z",
+  "componentCount": 286,
   "components": {
     "account-dropdown": {
       "name": "Account dropdown",
@@ -122,20 +122,22 @@
     },
     "add": {
       "name": "add",
-      "key": "2b10108613a16fe36ada2420f992f0240b076804",
-      "nodeId": "7378:3994",
+      "key": "33ab1534db5a1d5619a29735d2a0ac87514819b9",
+      "nodeId": "7206:3772",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "add-circle": {
       "name": "add-circle",
@@ -143,13 +145,15 @@
       "nodeId": "14703:19709",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "adlsgen1": {
       "name": "adlsgen1",
@@ -157,13 +161,15 @@
       "nodeId": "8400:25193",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "adobe-analytics": {
       "name": "adobe-analytics",
@@ -171,13 +177,15 @@
       "nodeId": "8400:25195",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "ai": {
       "name": "ai",
@@ -185,13 +193,15 @@
       "nodeId": "17991:4240",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other"
+      "group": "Other",
+      "status": "in-progress"
     },
     "alert": {
       "name": "alert",
@@ -199,21 +209,23 @@
       "nodeId": "7207:2820",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "alert-banner": {
-      "name": "✍️ Alert-banner",
+      "name": "Alert-banner",
       "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
       "nodeId": "13732:3056",
       "importMethod": "set",
       "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
-      "page": "✍️ Alert (banner)",
+      "page": "✍️ Alert",
       "properties": {
         "Show Icon#14881:0": {
           "type": "BOOLEAN",
@@ -261,15 +273,17 @@
         }
       ],
       "documentationLinks": [],
+      "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Alert (banner)",
+      "group": "Alert",
+      "status": "in-progress",
       "variants": {
         "Type": [
-          "Primary",
+          "Info",
           "Success",
           "Warning",
-          "Danger"
+          "Error"
         ],
         "Orientation'": [
           "Horizontal",
@@ -277,19 +291,53 @@
         ]
       }
     },
-    "alert-circle": {
-      "name": "alert-circle",
-      "key": "750fb2b2080f030bcf753f1c2c18c811c5aeaa8a",
-      "nodeId": "14719:551",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
+    "alert-inline": {
+      "name": "Alert-inline",
+      "key": "14a9062ded019fd0aafa717a268cba3e402c4a3f",
+      "nodeId": "19746:32731",
+      "importMethod": "set",
+      "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
+      "page": "✍️ Alert",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "info-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "success-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "section": "Components",
+      "category": "Feedback",
+      "categorySlug": "feedback",
+      "group": "Alert",
+      "status": "in-progress",
+      "variants": {
+        "Type": [
+          "Warning",
+          "Danger",
+          "Success",
+          "Primary"
+        ],
+        "Orientation'": [
+          "Horizontal"
+        ]
+      }
     },
     "alteryx": {
       "name": "alteryx",
@@ -297,13 +345,15 @@
       "nodeId": "8400:25197",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "amazons3": {
       "name": "amazons3",
@@ -311,13 +361,15 @@
       "nodeId": "8400:25199",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "analytics": {
       "name": "analytics",
@@ -325,13 +377,15 @@
       "nodeId": "7378:3747",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "api": {
       "name": "api",
@@ -339,13 +393,15 @@
       "nodeId": "8400:25201",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "api-key": {
       "name": "api-key",
@@ -353,13 +409,15 @@
       "nodeId": "7378:3969",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "app-switcher-dropdown": {
       "name": "App switcher dropdown",
@@ -398,13 +456,15 @@
       "nodeId": "7378:5025",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "arrow": {
       "name": "arrow",
@@ -412,13 +472,15 @@
       "nodeId": "7207:2841",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -426,13 +488,15 @@
       "nodeId": "8504:23323",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -440,27 +504,15 @@
       "nodeId": "7207:2839",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "asleep": {
-      "name": "asleep",
-      "key": "c0411afed99b56a1af98f59d40aec05db7c5fb95",
-      "nodeId": "7310:2900",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Common",
+      "status": "in-progress"
     },
     "atlas": {
       "name": "atlas",
@@ -468,13 +520,15 @@
       "nodeId": "8400:25203",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "attachments": {
       "name": "Attachments",
@@ -482,13 +536,15 @@
       "nodeId": "18532:4651",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other"
+      "group": "Other",
+      "status": "in-progress"
     },
     "avatar": {
       "name": "Avatar",
@@ -526,27 +582,15 @@
       "nodeId": "8400:25205",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
-    },
-    "award-04": {
-      "name": "award-04",
-      "key": "9c4aea9aed18f57b7ed4bf55bc71d6910d2d0109",
-      "nodeId": "8655:10107",
-      "importMethod": "single",
-      "description": "award, medal, certification, certificate, badge",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "aws-glue-etl": {
       "name": "Aws-glue-etl",
@@ -554,13 +598,15 @@
       "nodeId": "7173:1782",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "awsredshift": {
       "name": "awsredshift",
@@ -568,13 +614,15 @@
       "nodeId": "8400:25209",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure": {
       "name": "Azure",
@@ -582,13 +630,15 @@
       "nodeId": "7173:1783",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-cosmosdb": {
       "name": "azure-cosmosdb",
@@ -596,13 +646,15 @@
       "nodeId": "8400:25211",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-datafactory": {
       "name": "azure-datafactory",
@@ -610,13 +662,15 @@
       "nodeId": "8400:25212",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-purview": {
       "name": "azure-purview",
@@ -624,13 +678,15 @@
       "nodeId": "8400:25214",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-synapse": {
       "name": "azure-synapse",
@@ -638,13 +694,15 @@
       "nodeId": "8400:25216",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "back": {
       "name": "back",
@@ -652,13 +710,15 @@
       "nodeId": "8504:23035",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "background-explore": {
       "name": "background-explore",
@@ -735,13 +795,15 @@
       "nodeId": "8400:25218",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "bin-type": {
       "name": "bin-type",
@@ -749,30 +811,34 @@
       "nodeId": "14292:5730",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "book-bookmark": {
       "name": "book-bookmark",
-      "key": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
-      "nodeId": "7378:5700",
+      "key": "b5e398041c92e0830c652775f440c06226403d04",
+      "nodeId": "7378:3702",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Navigation",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "book-edit": {
       "name": "book-edit",
@@ -780,13 +846,15 @@
       "nodeId": "8504:23324",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -794,21 +862,23 @@
       "nodeId": "8504:23295",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
-    "breadcrumbs": {
-      "name": "Breadcrumbs",
+    "breadcrumb": {
+      "name": "Breadcrumb",
       "key": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
       "nodeId": "13792:15247",
       "importMethod": "set",
       "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
-      "page": "✍️ Breadcrumbs",
+      "page": "✍️ Breadcrumb",
       "properties": {},
       "nestedComponents": [
         {
@@ -826,27 +896,13 @@
       "section": "Components",
       "category": "Navigation",
       "categorySlug": "navigation",
-      "group": "Breadcrumbs",
+      "group": "Breadcrumb",
       "status": "in-progress",
       "variants": {
         "Type": [
           "Default"
         ]
       }
-    },
-    "brightness-contrast": {
-      "name": "brightness-contrast",
-      "key": "f6cb9d9b6a1a428237a5d845543c565524cd4eb0",
-      "nodeId": "7537:1569",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Navigation"
     },
     "button": {
       "name": "Button",
@@ -968,20 +1024,6 @@
           "Year"
         ]
       }
-    },
-    "calendar-2": {
-      "name": "calendar 2",
-      "key": "1d990e9286ab35da2957194c28722e72873aec3b",
-      "nodeId": "7313:3194",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
     },
     "card-for-grouped-content": {
       "name": "Card for grouped content",
@@ -1142,13 +1184,15 @@
       "nodeId": "8400:25220",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -1156,13 +1200,15 @@
       "nodeId": "7439:4619",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "catalogs": {
       "name": "catalogs",
@@ -1170,41 +1216,15 @@
       "nodeId": "14115:8084",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
-    },
-    "chart-bar": {
-      "name": "chart--bar",
-      "key": "dde572f16c897c96ae7bc7a82532276fe87b7410",
-      "nodeId": "9246:14002",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Graph"
-    },
-    "chart-pie": {
-      "name": "chart--pie",
-      "key": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
-      "nodeId": "9246:14001",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "chat-with-ai-steward": {
       "name": "Chat with AI Steward",
@@ -1217,11 +1237,6 @@
       "nestedComponents": [
         {
           "slug": "button",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "expand",
           "role": null,
           "source": "child-instance"
         },
@@ -1253,13 +1268,13 @@
         ]
       }
     },
-    "checkbox-with-label": {
-      "name": "Checkbox with label",
+    "checkbox": {
+      "name": "Checkbox",
       "key": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
       "nodeId": "9478:17216",
       "importMethod": "set",
       "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
-      "page": "✅ Checkbox",
+      "page": "✍️ Checkbox",
       "properties": {
         "Show label#19716:0": {
           "type": "BOOLEAN",
@@ -1306,75 +1321,21 @@
         ]
       }
     },
-    "checkmark-outline": {
-      "name": "checkmark--outline",
-      "key": "e5b3de9a4f7a367b4ef924486daa999145e62f46",
-      "nodeId": "7310:2896",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
-    },
     "chevron-left": {
       "name": "chevron--left",
       "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
       "nodeId": "7207:2837",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "chevron-sort": {
-      "name": "chevron--sort",
-      "key": "5687e6bce59274d7ad7e3f2c17a3c2dabb78288d",
-      "nodeId": "7207:2836",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
-    "chevron-sort-down": {
-      "name": "chevron--sort--down",
-      "key": "666ef728fee0b8d31fd69757fdd75b2426abf2c6",
-      "nodeId": "7207:2833",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
-    "chevron-sort-up": {
-      "name": "chevron--sort--up",
-      "key": "749e5cda3c174a61f8dad42b2f9466b1f08325c4",
-      "nodeId": "7207:2835",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "chevron-up": {
       "name": "chevron--up",
@@ -1382,27 +1343,15 @@
       "nodeId": "7207:2842",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "circle-dash": {
-      "name": "circle-dash",
-      "key": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
-      "nodeId": "7310:2897",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Common",
+      "status": "in-progress"
     },
     "ckan": {
       "name": "ckan",
@@ -1410,13 +1359,15 @@
       "nodeId": "8400:25222",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "close": {
       "name": "close",
@@ -1424,27 +1375,15 @@
       "nodeId": "7293:24",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "cloud-upload": {
-      "name": "cloud--upload",
-      "key": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
-      "nodeId": "7908:5403",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "cognos": {
       "name": "cognos",
@@ -1452,13 +1391,15 @@
       "nodeId": "8400:25226",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cognos-bi": {
       "name": "cognos-bi",
@@ -1466,13 +1407,15 @@
       "nodeId": "8400:25224",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "collapse-accordion": {
       "name": "✍️ Collapse-accordion",
@@ -1575,13 +1518,15 @@
       "nodeId": "7378:5604",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "cosmosdb": {
       "name": "cosmosdb",
@@ -1589,13 +1534,15 @@
       "nodeId": "8400:25228",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "couchbase": {
       "name": "couchbase",
@@ -1603,13 +1550,15 @@
       "nodeId": "8400:25230",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "csv": {
       "name": "csv",
@@ -1617,13 +1566,15 @@
       "nodeId": "8400:25047",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "csv-custom-item": {
       "name": "csv-custom-item",
@@ -1631,13 +1582,15 @@
       "nodeId": "8400:25232",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cursor-arrow": {
       "name": "cursor-arrow",
@@ -1645,13 +1598,15 @@
       "nodeId": "8404:1905",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Cursor"
+      "group": "Cursor",
+      "status": "in-progress"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -1659,13 +1614,15 @@
       "nodeId": "8404:1949",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Cursor"
+      "group": "Cursor",
+      "status": "in-progress"
     },
     "dashboard": {
       "name": "dashboard",
@@ -1673,13 +1630,15 @@
       "nodeId": "7439:4602",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -1687,13 +1646,15 @@
       "nodeId": "13315:9277",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -1701,13 +1662,15 @@
       "nodeId": "8820:13520",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "data-intelligence-dev-logo": {
       "name": "Data Intelligence Dev Logo",
@@ -1737,13 +1700,15 @@
       "nodeId": "7294:705",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -1751,13 +1716,15 @@
       "nodeId": "8504:23087",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "data-structured": {
       "name": "data--structured",
@@ -1765,13 +1732,15 @@
       "nodeId": "8504:23301",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "database": {
       "name": "database",
@@ -1779,13 +1748,15 @@
       "nodeId": "7378:3700",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "database-check": {
       "name": "database-check",
@@ -1793,13 +1764,15 @@
       "nodeId": "8504:23088",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "databricks": {
       "name": "databricks",
@@ -1807,13 +1780,15 @@
       "nodeId": "8400:25049",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dataiku": {
       "name": "dataiku",
@@ -1821,13 +1796,15 @@
       "nodeId": "8400:25051",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dataset": {
       "name": "dataset",
@@ -1835,16 +1812,18 @@
       "nodeId": "8400:25053",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Connector",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "datasets": {
       "name": "Datasets",
@@ -1852,13 +1831,15 @@
       "nodeId": "18532:4652",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other"
+      "group": "Other",
+      "status": "in-progress"
     },
     "db2": {
       "name": "db2",
@@ -1866,13 +1847,15 @@
       "nodeId": "8400:25055",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "db2-database-1": {
       "name": "db2--database 1",
@@ -1880,13 +1863,15 @@
       "nodeId": "9907:9511",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dbt": {
       "name": "dbt",
@@ -1894,13 +1879,15 @@
       "nodeId": "8400:25057",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "denodo": {
       "name": "denodo",
@@ -1908,13 +1895,15 @@
       "nodeId": "8400:25059",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dictionnary": {
       "name": "dictionnary",
@@ -1922,13 +1911,15 @@
       "nodeId": "8400:25061",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "digram-item-types": {
       "name": "Digram, Item types",
@@ -2017,16 +2008,18 @@
       "nodeId": "7439:4618",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "disconnected": {
       "name": "disconnected",
@@ -2034,13 +2027,15 @@
       "nodeId": "7378:5601",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "discussion": {
       "name": "discussion",
@@ -2048,13 +2043,15 @@
       "nodeId": "7378:5054",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "dots": {
       "name": "dots",
@@ -2062,13 +2059,15 @@
       "nodeId": "7378:3729",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "download": {
       "name": "download",
@@ -2076,16 +2075,18 @@
       "nodeId": "7439:4645",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "drag": {
       "name": "drag",
@@ -2093,13 +2094,15 @@
       "nodeId": "7378:5050",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "drawer-side-panel": {
       "name": "Drawer, side panel",
@@ -2132,6 +2135,11 @@
         },
         {
           "slug": "tag-default",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "add",
           "role": null,
           "source": "child-instance"
         },
@@ -2277,6 +2285,11 @@
           "slug": "tag-interactive",
           "role": null,
           "source": "child-instance"
+        },
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
         }
       ],
       "documentationLinks": [],
@@ -2307,13 +2320,15 @@
       "nodeId": "7207:2827",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "elasticsearch": {
       "name": "elasticsearch",
@@ -2321,13 +2336,15 @@
       "nodeId": "8400:25063",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "empty-state": {
       "name": "Empty state",
@@ -2405,13 +2422,15 @@
       "nodeId": "7378:5468",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "error-state": {
       "name": "Error state",
@@ -2451,13 +2470,15 @@
       "nodeId": "8400:25065",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "event-time-type": {
       "name": "event--time-type",
@@ -2465,13 +2486,15 @@
       "nodeId": "8504:23298",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "exit": {
       "name": "exit",
@@ -2479,27 +2502,15 @@
       "nodeId": "7301:2777",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
-    },
-    "expand": {
-      "name": "expand",
-      "key": "b92ca711225ff8cc4b1068893831456c40e3bc3f",
-      "nodeId": "15563:24467",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Cursor"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "exploration": {
       "name": "exploration",
@@ -2507,13 +2518,15 @@
       "nodeId": "7294:702",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "export": {
       "name": "export",
@@ -2521,16 +2534,18 @@
       "nodeId": "7271:2697",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Graph",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "favorite": {
       "name": "favorite",
@@ -2538,13 +2553,15 @@
       "nodeId": "7378:3698",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -2552,13 +2569,15 @@
       "nodeId": "7378:3696",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "filter": {
       "name": "filter",
@@ -2566,13 +2585,15 @@
       "nodeId": "14335:17202",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "filter-text": {
       "name": "filter-text",
@@ -2580,13 +2601,15 @@
       "nodeId": "7378:5053",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "float-type": {
       "name": "float-type",
@@ -2594,13 +2617,15 @@
       "nodeId": "8504:23304",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "gcp": {
       "name": "GCP",
@@ -2608,13 +2633,15 @@
       "nodeId": "7692:5000",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "gcpcloudstorage": {
       "name": "gcpcloudstorage",
@@ -2622,13 +2649,15 @@
       "nodeId": "8400:25067",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "generic-jdbc": {
       "name": "generic-jdbc",
@@ -2636,13 +2665,15 @@
       "nodeId": "8400:25069",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "geo-point-type": {
       "name": "geo-point-type",
@@ -2650,13 +2681,15 @@
       "nodeId": "8504:23303",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "global-header": {
       "name": "Global header",
@@ -2740,17 +2773,19 @@
     },
     "glossary": {
       "name": "glossary",
-      "key": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
-      "nodeId": "10613:30347",
+      "key": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
+      "nodeId": "7378:5700",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "glossary-item-hierarchy-diagram": {
       "name": "Glossary item hierarchy diagram",
@@ -2809,13 +2844,15 @@
       "nodeId": "8400:25071",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "graph-merge": {
       "name": "graph-merge",
@@ -2823,13 +2860,15 @@
       "nodeId": "8576:4931",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "greenplum": {
       "name": "greenplum",
@@ -2837,13 +2876,15 @@
       "nodeId": "8400:25073",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "hbase": {
       "name": "hbase",
@@ -2851,13 +2892,15 @@
       "nodeId": "8400:25075",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "hdfs": {
       "name": "hdfs",
@@ -2865,13 +2908,15 @@
       "nodeId": "8400:25077",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "help-bubble": {
       "name": "help-bubble",
@@ -2879,13 +2924,15 @@
       "nodeId": "7207:2832",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "help-circle": {
       "name": "help-circle",
@@ -2893,41 +2940,15 @@
       "nodeId": "8504:23049",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "help-laptop": {
-      "name": "help-laptop",
-      "key": "54a1684fcc8cba3210f64e17f66d7ef3cbabc737",
-      "nodeId": "14691:457",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Misc"
-    },
-    "history": {
-      "name": "history",
-      "key": "aaf85298722d8df888197a9174f219b7848cc013",
-      "nodeId": "8742:13219",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "hive": {
       "name": "hive",
@@ -2935,13 +2956,15 @@
       "nodeId": "8400:25079",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "home": {
       "name": "home",
@@ -2949,27 +2972,15 @@
       "nodeId": "7378:5034",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
-    },
-    "icon-query-queue": {
-      "name": "Icon/query-queue",
-      "key": "dfc61677c57161b2031bdce8733cb4bf6fcfd6fa",
-      "nodeId": "7311:2825",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Details",
+      "status": "in-progress"
     },
     "identification-key": {
       "name": "Identification key",
@@ -3018,33 +3029,21 @@
         ]
       }
     },
-    "image": {
-      "name": "image",
-      "key": "b3f1a7f5ef3d50822c84ce0f6d745428607d9023",
-      "nodeId": "7908:5402",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
     "impala": {
       "name": "impala",
       "key": "509d80540cc3f4f98eaadecd7d3fce23156c0a3b",
       "nodeId": "8400:25081",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "influxdb": {
       "name": "influxdb",
@@ -3052,13 +3051,15 @@
       "nodeId": "8400:25083",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "info": {
       "name": "info",
@@ -3066,13 +3067,15 @@
       "nodeId": "7207:2838",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "info-filled": {
       "name": "info-filled",
@@ -3080,13 +3083,15 @@
       "nodeId": "7471:3918",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "informatica": {
       "name": "informatica",
@@ -3094,13 +3099,15 @@
       "nodeId": "8400:25085",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "input": {
       "name": "input",
@@ -3108,13 +3115,15 @@
       "nodeId": "8504:23028",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other"
+      "group": "Other",
+      "status": "in-progress"
     },
     "input-date": {
       "name": "Input, date",
@@ -3180,13 +3189,15 @@
       "nodeId": "18646:4476",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other"
+      "group": "Other",
+      "status": "in-progress"
     },
     "integer-type": {
       "name": "integer-type",
@@ -3194,13 +3205,15 @@
       "nodeId": "8504:23296",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "jdbc": {
       "name": "jdbc",
@@ -3208,13 +3221,15 @@
       "nodeId": "8400:25087",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "json": {
       "name": "json",
@@ -3222,13 +3237,15 @@
       "nodeId": "8400:25089",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "kafka": {
       "name": "kafka",
@@ -3236,13 +3253,15 @@
       "nodeId": "8400:25091",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "l-grid": {
       "name": "L grid",
@@ -3272,27 +3291,15 @@
       "nodeId": "8504:23326",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "layers-front-curator-indicator": {
-      "name": "layers-front (Curator indicator)",
-      "key": "e7e0adbbf7e0f8b9b3fc45c839f381b029859715",
-      "nodeId": "8820:13322",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Common",
+      "status": "in-progress"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -3300,13 +3307,15 @@
       "nodeId": "13315:9276",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "line-graph": {
       "name": "⛔️ Line graph",
@@ -3346,13 +3355,15 @@
       "nodeId": "7378:5706",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "lineage-connecting-line": {
       "name": "Lineage connecting line",
@@ -3562,13 +3573,15 @@
       "nodeId": "7378:5042",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -3576,13 +3589,15 @@
       "nodeId": "7622:5395",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -3590,13 +3605,15 @@
       "nodeId": "7378:5046",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "loader": {
       "name": "Loader",
@@ -3686,13 +3703,15 @@
       "nodeId": "7173:1784",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "looker": {
       "name": "looker",
@@ -3700,13 +3719,15 @@
       "nodeId": "8400:25097",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "m-grid": {
       "name": "M grid",
@@ -3729,33 +3750,21 @@
         ]
       }
     },
-    "mail": {
-      "name": "mail",
-      "key": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
-      "nodeId": "8012:1308",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
     "maintenance": {
       "name": "maintenance",
       "key": "71d837e04ce0a29b69d9e5c67362bbcf0b896e19",
       "nodeId": "7378:4004",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "maintenance-state": {
       "name": "Maintenance state",
@@ -3794,13 +3803,15 @@
       "nodeId": "7378:5048",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "mapr": {
       "name": "mapr",
@@ -3808,13 +3819,15 @@
       "nodeId": "8400:25099",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mariadb": {
       "name": "mariadb",
@@ -3822,13 +3835,15 @@
       "nodeId": "8400:25101",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "matillion": {
       "name": "matillion",
@@ -3836,41 +3851,15 @@
       "nodeId": "8400:25103",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
-    },
-    "maximize": {
-      "name": "maximize",
-      "key": "b06f115e9d2e0d3544b1b319cc96e501449e5d5f",
-      "nodeId": "8483:1558",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
-    "menu": {
-      "name": "menu",
-      "key": "f55f4bc6e00be7b6c3dabbc2e426c9660964a1d4",
-      "nodeId": "7893:4605",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "metamodel-widget": {
       "name": "Metamodel widget",
@@ -3918,44 +3907,15 @@
       "nodeId": "8400:25105",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
-    },
-    "minimize": {
-      "name": "minimize",
-      "key": "ed365ef9760849fa471fb84b4d7603c1052399bf",
-      "nodeId": "8298:5067",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Cursor",
-      "secondaryGroups": [
-        "Common"
-      ]
-    },
-    "misuse-outline": {
-      "name": "misuse--outline",
-      "key": "c7ecb9c454db552f8ca3630707c86a877e13e32c",
-      "nodeId": "8415:1389",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "modal": {
       "name": "Modal",
@@ -4007,7 +3967,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "checkbox-with-label",
+          "slug": "checkbox",
           "role": null,
           "source": "child-instance"
         },
@@ -4038,11 +3998,6 @@
         },
         {
           "slug": "list-numbers",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "task-list-multiple",
           "role": null,
           "source": "child-instance"
         },
@@ -4078,13 +4033,15 @@
       "nodeId": "8400:25107",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "move": {
       "name": "move",
@@ -4092,13 +4049,15 @@
       "nodeId": "7378:5154",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "ms-teams": {
       "name": "ms-teams",
@@ -4106,13 +4065,15 @@
       "nodeId": "8784:159680",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mysql": {
       "name": "mysql",
@@ -4120,13 +4081,15 @@
       "nodeId": "8400:25109",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "netezza": {
       "name": "netezza",
@@ -4134,13 +4097,15 @@
       "nodeId": "8400:25111",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "notification": {
       "name": "Notification",
@@ -4182,11 +4147,6 @@
           "slug": "button",
           "role": null,
           "source": "child-instance"
-        },
-        {
-          "slug": "checkmark-outline",
-          "role": null,
-          "source": "child-instance"
         }
       ],
       "documentationLinks": [],
@@ -4207,13 +4167,15 @@
       "nodeId": "8504:23300",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "open": {
       "name": "open",
@@ -4221,13 +4183,15 @@
       "nodeId": "7293:667",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "openapi": {
       "name": "openapi",
@@ -4235,13 +4199,15 @@
       "nodeId": "8400:25126",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "opendatagouv": {
       "name": "opendatagouv",
@@ -4249,13 +4215,15 @@
       "nodeId": "8400:25128",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "oracle": {
       "name": "oracle",
@@ -4263,13 +4231,15 @@
       "nodeId": "8400:25130",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "orc": {
       "name": "orc",
@@ -4277,13 +4247,15 @@
       "nodeId": "8400:25132",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "output": {
       "name": "output",
@@ -4291,13 +4263,15 @@
       "nodeId": "8504:23029",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "page-header": {
       "name": "Page header",
@@ -4364,6 +4338,11 @@
           "source": "child-instance"
         },
         {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
           "slug": "dots",
           "role": null,
           "source": "child-instance"
@@ -4389,13 +4368,15 @@
       "nodeId": "8400:25134",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "paragraph-justify": {
       "name": "paragraph-justify",
@@ -4403,13 +4384,15 @@
       "nodeId": "7378:5049",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "parquet": {
       "name": "parquet",
@@ -4417,27 +4400,15 @@
       "nodeId": "8400:25136",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
-    },
-    "pending": {
-      "name": "pending",
-      "key": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
-      "nodeId": "7996:5346",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "pii": {
       "name": "pii",
@@ -4445,13 +4416,15 @@
       "nodeId": "8517:23021",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "pin": {
       "name": "pin",
@@ -4459,13 +4432,15 @@
       "nodeId": "7378:5040",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "popover": {
       "name": "⛔️ Popover",
@@ -4488,11 +4463,6 @@
         },
         {
           "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "chevron-sort",
           "role": null,
           "source": "child-instance"
         },
@@ -4542,16 +4512,6 @@
           "source": "child-instance"
         },
         {
-          "slug": "checkmark-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "circle-dash",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
           "slug": "edit",
           "role": null,
           "source": "child-instance"
@@ -4591,13 +4551,15 @@
       "nodeId": "7173:1882",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "powerbi": {
       "name": "Powerbi",
@@ -4605,13 +4567,15 @@
       "nodeId": "7168:767",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "powerbireportserver": {
       "name": "powerbireportserver",
@@ -4619,13 +4583,15 @@
       "nodeId": "8400:25142",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "process": {
       "name": "process",
@@ -4633,16 +4599,18 @@
       "nodeId": "7378:5603",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Graph",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "process-csv": {
       "name": "process csv",
@@ -4650,13 +4618,15 @@
       "nodeId": "8400:25144",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "progress-bar-small": {
       "name": "Progress bar small",
@@ -4690,13 +4660,15 @@
       "nodeId": "8400:25146",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "radio-button": {
       "name": "Radio button",
@@ -4704,7 +4676,7 @@
       "nodeId": "9474:16884",
       "importMethod": "set",
       "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).",
-      "page": "✅ Radio button",
+      "page": "✍️ Radio button",
       "properties": {
         "Show Digram#19748:82": {
           "type": "BOOLEAN",
@@ -4746,19 +4718,69 @@
         ]
       }
     },
+    "radio-button-card": {
+      "name": "Radio button card",
+      "key": "897d587b486e30b303ba9f4169a4daccf179faff",
+      "nodeId": "19746:36001",
+      "importMethod": "set",
+      "description": "",
+      "page": "✍️ Radio button",
+      "properties": {
+        "Show Digram#19748:115": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Icon#19748:126": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Description#19748:137": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "digram-item-types",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Radio button",
+      "status": "in-progress",
+      "variants": {
+        "Selection": [
+          "Unselected",
+          "Selected"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Disabled"
+        ]
+      }
+    },
     "relation": {
       "name": "relation",
       "key": "328e40cf262d88c868275a408b432b445bf34888",
       "nodeId": "8587:44312",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -4766,13 +4788,15 @@
       "nodeId": "8504:23150",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -4780,13 +4804,15 @@
       "nodeId": "8504:23151",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "rich-text": {
       "name": "Rich text",
@@ -4809,33 +4835,21 @@
         ]
       }
     },
-    "rocket-1": {
-      "name": "rocket 1",
-      "key": "b781fde18c452c199f8b699ed092b26d683f9f45",
-      "nodeId": "9085:20152",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Navigation"
-    },
     "rotate-back": {
       "name": "rotate-back",
       "key": "e428e49c8dc1b6772d7b569e58fd6fa8a960b85f",
       "nodeId": "7378:5031",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "s-grid": {
       "name": "S grid",
@@ -4863,13 +4877,15 @@
       "nodeId": "8400:25148",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-dynamicsax": {
       "name": "safyr-dynamicsax",
@@ -4877,13 +4893,15 @@
       "nodeId": "8400:25150",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-ebs": {
       "name": "safyr-ebs",
@@ -4891,13 +4909,15 @@
       "nodeId": "8400:25152",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-jdedwards": {
       "name": "safyr-jdedwards",
@@ -4905,13 +4925,15 @@
       "nodeId": "8400:25154",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-peoplesoft": {
       "name": "safyr-peoplesoft",
@@ -4919,13 +4941,15 @@
       "nodeId": "8400:25156",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-salesforce": {
       "name": "safyr-salesforce",
@@ -4933,13 +4957,15 @@
       "nodeId": "8400:25158",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-sap-bw": {
       "name": "safyr-sap-bw",
@@ -4947,13 +4973,15 @@
       "nodeId": "8504:23906",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-siebel": {
       "name": "safyr-siebel",
@@ -4961,13 +4989,15 @@
       "nodeId": "8400:25162",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sas-database": {
       "name": "sas-database",
@@ -4975,13 +5005,15 @@
       "nodeId": "8400:25164",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "scanner": {
       "name": "scanner",
@@ -4989,13 +5021,15 @@
       "nodeId": "7378:3979",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "schema": {
       "name": "schema",
@@ -5003,13 +5037,15 @@
       "nodeId": "7378:5038",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "scroll-bar": {
       "name": "Scroll bar",
@@ -5213,6 +5249,11 @@
           "source": "child-instance"
         },
         {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
           "slug": "progress-bar-small",
           "role": null,
           "source": "child-instance"
@@ -5243,13 +5284,15 @@
       "nodeId": "7378:3968",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "segmented-control": {
       "name": "Segmented control",
@@ -5259,13 +5302,7 @@
       "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").",
       "page": "✅ Segmented control (Button group)",
       "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "view-table",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
+      "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
@@ -5283,13 +5320,15 @@
       "nodeId": "8576:4926",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "settings": {
       "name": "settings",
@@ -5297,13 +5336,15 @@
       "nodeId": "7378:4812",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -5311,13 +5352,15 @@
       "nodeId": "7378:3967",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "side-nav": {
       "name": "✍️ Side nav",
@@ -5349,17 +5392,17 @@
           "source": "child-instance"
         },
         {
+          "slug": "book-bookmark",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
           "slug": "download",
           "role": null,
           "source": "child-instance"
         },
         {
           "slug": "chevron-up",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "add",
           "role": null,
           "source": "child-instance"
         },
@@ -5446,27 +5489,31 @@
       "nodeId": "7271:6256",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "snowflake": {
       "name": "Snowflake",
-      "key": "14abdd5e317e35b558549d54270c9f7024dc64ed",
-      "nodeId": "8504:23447",
+      "key": "046781836dd3d72a9f1185981ebb28e0eab09bd9",
+      "nodeId": "7691:4999",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "soda": {
       "name": "soda",
@@ -5474,13 +5521,15 @@
       "nodeId": "8400:25188",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sparkdb": {
       "name": "sparkdb",
@@ -5488,13 +5537,15 @@
       "nodeId": "8400:25168",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "spinner": {
       "name": "Spinner",
@@ -5529,13 +5580,15 @@
       "nodeId": "8400:25170",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "splunk": {
       "name": "splunk",
@@ -5543,13 +5596,15 @@
       "nodeId": "8400:25172",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sqlserver": {
       "name": "sqlserver",
@@ -5557,13 +5612,15 @@
       "nodeId": "8400:25174",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "stepper": {
       "name": "Stepper",
@@ -5623,33 +5680,21 @@
         ]
       }
     },
-    "stop-outline": {
-      "name": "stop--outline",
-      "key": "aca6ed16c1e6d21fe112ab5619570e5a11f1d5e0",
-      "nodeId": "7310:2895",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
-    },
     "success-filled": {
       "name": "success-filled",
       "key": "d864426ee65112314a7925eaa9b5bd883a677100",
       "nodeId": "7378:5490",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "suggestion": {
       "name": "suggestion",
@@ -5657,13 +5702,15 @@
       "nodeId": "7279:3164",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "sybaseiq": {
       "name": "sybaseiq",
@@ -5671,13 +5718,15 @@
       "nodeId": "8400:25176",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "table": {
       "name": "✍️ Table",
@@ -5690,11 +5739,6 @@
       "nestedComponents": [
         {
           "slug": "segmented-control",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "view-table",
           "role": null,
           "source": "child-instance"
         },
@@ -5714,22 +5758,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "add",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "chevron-sort",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
           "slug": "avatar",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "checkmark-outline",
           "role": null,
           "source": "child-instance"
         },
@@ -5783,13 +5812,15 @@
       "nodeId": "7168:748",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "tabs": {
       "name": "Tabs",
@@ -5912,6 +5943,11 @@
       },
       "nestedComponents": [
         {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
           "slug": "arrow-down",
           "role": null,
           "source": "child-instance"
@@ -5989,6 +6025,11 @@
         }
       },
       "nestedComponents": [
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
         {
           "slug": "arrow-down",
           "role": null,
@@ -6086,57 +6127,7 @@
       "properties": {},
       "nestedComponents": [
         {
-          "slug": "misuse-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "warning-alt",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "checkmark-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
           "slug": "spinner",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "tools",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "calendar-2",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "icon-query-queue",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "stop-outline",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "asleep",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "circle-dash",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "pending",
           "role": null,
           "source": "child-instance"
         }
@@ -6169,13 +6160,15 @@
       "nodeId": "14691:426",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "talend": {
       "name": "talend",
@@ -6183,13 +6176,15 @@
       "nodeId": "8400:25180",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "target-type": {
       "name": "target-type",
@@ -6197,13 +6192,15 @@
       "nodeId": "8504:23302",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "task-list": {
       "name": "task-list",
@@ -6211,27 +6208,15 @@
       "nodeId": "8504:23375",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Property type"
-    },
-    "task-list-multiple": {
-      "name": "task-list-multiple",
-      "key": "fb486ea7bd5611848f79a84fd04ede0cc78869a9",
-      "nodeId": "8504:23376",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -6239,13 +6224,15 @@
       "nodeId": "8504:23325",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "teradata": {
       "name": "teradata",
@@ -6253,13 +6240,15 @@
       "nodeId": "8400:25182",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "text-file": {
       "name": "text-file",
@@ -6267,13 +6256,15 @@
       "nodeId": "7378:5045",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "text-input": {
       "name": "Text input",
@@ -6281,7 +6272,7 @@
       "nodeId": "7238:2487",
       "importMethod": "set",
       "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
-      "page": "✅ Text input",
+      "page": "✍️ Text input",
       "properties": {
         "Helper#458:9": {
           "type": "BOOLEAN",
@@ -6390,13 +6381,15 @@
       "nodeId": "8504:23299",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "thoughtspot": {
       "name": "thoughtspot",
@@ -6404,13 +6397,15 @@
       "nodeId": "8400:25184",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "thumbs-down": {
       "name": "thumbs-down",
@@ -6418,13 +6413,15 @@
       "nodeId": "10089:786",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -6432,13 +6429,15 @@
       "nodeId": "10089:787",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "tibco-datavirtualization": {
       "name": "tibco-datavirtualization",
@@ -6446,13 +6445,15 @@
       "nodeId": "8400:25186",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "toggle": {
       "name": "Toggle",
@@ -6460,28 +6461,18 @@
       "nodeId": "14000:4395",
       "importMethod": "set",
       "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
-      "page": "✅ Toggle control",
-      "properties": {
-        "Show Helper text#13981:32": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
+      "page": "✍️ Toggle control",
+      "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Toggle control",
-      "status": "in-progress",
       "variants": {
-        "Toggle location": [
-          "Left",
-          "Right"
+        "Toggle position": [
+          "On right (default)",
+          "On left"
         ],
-        "Selected": [
-          "No",
-          "Yes"
+        "Selection": [
+          "Off",
+          "On"
         ],
         "State": [
           "Default",
@@ -6559,20 +6550,6 @@
         ]
       }
     },
-    "tools": {
-      "name": "tools",
-      "key": "2a497ba6f8e5040d5654e86cdc32b90f51eb6849",
-      "nodeId": "7311:2826",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
-    },
     "tooltip": {
       "name": "⚠️ Tooltip",
       "key": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
@@ -6605,27 +6582,15 @@
       "nodeId": "7378:5056",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
-    },
-    "undo": {
-      "name": "undo",
-      "key": "c4b92f77c463b26299c2eaf52aff41973aaf4b21",
-      "nodeId": "7469:5248",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -6633,41 +6598,15 @@
       "nodeId": "8504:23297",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Field type"
-    },
-    "upload-file": {
-      "name": "upload-file",
-      "key": "ef39179dc6dda4a55166931b2f11f8b60460d58d",
-      "nodeId": "7439:4678",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Navigation"
-    },
-    "use-with-care": {
-      "name": "use-with-care",
-      "key": "946ad814c46b04b4a689b3d09f82bb572af76f36",
-      "nodeId": "14703:19805",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "user-add": {
       "name": "user-add",
@@ -6675,13 +6614,15 @@
       "nodeId": "7378:5027",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "user-group": {
       "name": "user-group",
@@ -6689,13 +6630,15 @@
       "nodeId": "7378:5131",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "user-info": {
       "name": "user-info",
@@ -6703,27 +6646,15 @@
       "nodeId": "8820:13334",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
-    },
-    "user-lock": {
-      "name": "user-lock",
-      "key": "1c3ea13966867002325327b01b9c5942ebe8d856",
-      "nodeId": "8820:13324",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "user-single": {
       "name": "user-single",
@@ -6731,13 +6662,15 @@
       "nodeId": "7378:5029",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "view": {
       "name": "view",
@@ -6745,27 +6678,15 @@
       "nodeId": "14697:19193",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Misc"
-    },
-    "view-card": {
-      "name": "view-card",
-      "key": "d1361c8bdc2347790fcedb0399598585fa4d7054",
-      "nodeId": "7622:5375",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "view-details": {
       "name": "view-details",
@@ -6773,41 +6694,15 @@
       "nodeId": "12222:5799",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Navigation"
-    },
-    "view-table": {
-      "name": "view-table",
-      "key": "bfc87e123e2bab1aec590bdfa5799649b37f756a",
-      "nodeId": "7622:5374",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Common"
-    },
-    "warning-alt": {
-      "name": "warning--alt",
-      "key": "675e323d57c331b8b9936f39687cf68450fd105b",
-      "nodeId": "7310:2892",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Status"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -6815,13 +6710,15 @@
       "nodeId": "14719:1075",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "whats-new-dropdown": {
       "name": "Whats new dropdown",
@@ -6834,6 +6731,11 @@
       "nestedComponents": [
         {
           "slug": "tag-default",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "add",
           "role": null,
           "source": "child-instance"
         },
@@ -6917,13 +6819,15 @@
       "nodeId": "8400:25191",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "xs-grid": {
       "name": "XS grid",
@@ -6979,13 +6883,15 @@
       "nodeId": "7378:5055",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -6993,13 +6899,15 @@
       "nodeId": "7378:5026",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -7007,13 +6915,15 @@
       "nodeId": "7378:5606",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -7021,13 +6931,15 @@
       "nodeId": "7378:5032",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
+      "page": "✍️ DS Icons: replacement",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     }
   }
 }

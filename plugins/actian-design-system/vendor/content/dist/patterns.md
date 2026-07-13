@@ -183,7 +183,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a binary setting that persists (for example, dark mode, notifications).
 
-**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**
+**Use a** **[checkbox](/components/form-input-selection/checkbox/)** **when:**
 
 * The user is selecting one or more items.
 

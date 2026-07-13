@@ -1,7 +1,7 @@
 "use strict";
 
 // ds-token-bindings.test.js — P1b binding-conformance gate (new 3 chrome leaves).
-// Makes K1's domains.tokens load-bearing for page-header / breadcrumbs / tabs:
+// Makes K1's domains.tokens load-bearing for page-header / breadcrumb / tabs:
 //   (a) every binding token resolves to a real --zen-* var in tokens.css
 //   (b) every binding token is used (var(--zen-<token>)) in that component's
 //       ds-base.css section — EXCEPT variant-alternative bindings in KNOWN_UNUSED.
@@ -22,7 +22,7 @@ var CSS = fs.readFileSync(
 // slug -> the component's root CSS selector (anchors the section lookup).
 var ROOT_CLASS = {
   "page-header": ".ds-page-header",
-  breadcrumbs: ".ds-breadcrumbs",
+  breadcrumb: ".ds-breadcrumbs",
   tabs: ".ds-tabs",
 };
 

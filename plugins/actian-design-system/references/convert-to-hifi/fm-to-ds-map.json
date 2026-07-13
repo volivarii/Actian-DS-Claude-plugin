@@ -180,7 +180,7 @@
       "dsKey": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd"
     },
     "fmCheckbox": {
-      "dsSlug": "checkbox-with-label",
+      "dsSlug": "checkbox",
       "defaultVariant": {
         "Selection": "Unchecked",
         "State": "Default"

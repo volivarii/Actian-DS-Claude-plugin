@@ -1,0 +1,140 @@
+{
+  "_schema_version": 1,
+  "slug": "alert-inline",
+  "kit": "dskit",
+  "synced_at": "2026-07-12T20:29:04.398Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "19746:32731",
+    "variant": "Type=Primary, Orientation'=Horizontal"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 3,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "Type=Primary, Orientation'=Horizontal",
+    "kind": "container",
+    "id": "19746:32732",
+    "appearance": {
+      "radius": "6px"
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs"
+    },
+    "children": [
+      {
+        "name": "info-filled",
+        "kind": "instance",
+        "slug": "info-filled",
+        "id": "19746:32735",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Danger"
+              ],
+              "slug": "error-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Success"
+              ],
+              "slug": "success-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Warning"
+              ],
+              "slug": "warning-filled"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Primary",
+        "kind": "text",
+        "id": "19746:32733",
+        "appearance": {
+          "text": {
+            "color": "#0f5fdc",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Danger"
+              ],
+              "text": {
+                "color": "#c12c11",
+                "colorToken": "--zen-color-text-error",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Success"
+              ],
+              "text": {
+                "color": "#047800",
+                "colorToken": "--zen-color-text-success",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Warning"
+              ],
+              "text": {
+                "color": "#83551f",
+                "colorToken": "--zen-color-text-warning",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
+        "text": "Primary"
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Type": "Primary",
+    "Orientation'": "Horizontal"
+  }
+}

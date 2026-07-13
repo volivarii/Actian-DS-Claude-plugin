@@ -1,0 +1,313 @@
+{
+  "_schema_version": 1,
+  "slug": "radio-button-card",
+  "kit": "dskit",
+  "synced_at": "2026-07-12T20:29:04.398Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "19746:36001",
+    "variant": "Selection=Unselected, State=Default"
+  },
+  "quality": {
+    "nodesTotal": 9,
+    "nodesNormalized": 7,
+    "ratio": 0.78,
+    "degraded": [
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE (variant Selection=Selected)"
+      },
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE (variant State=Hover)"
+      },
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE (variant State=Focus)"
+      },
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE (variant State=Pressed)"
+      },
+      {
+        "name": "Radio button",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ]
+  },
+  "root": {
+    "name": "Selection=Unselected, State=Default",
+    "kind": "container",
+    "tokenRefs": [
+      "--zen-border-subtle"
+    ],
+    "id": "13981:8374",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#e1e1e6",
+        "colorToken": "--zen-border-subtle",
+        "width": "1px"
+      },
+      "radius": "8px",
+      "variants": [
+        {
+          "prop": "State",
+          "values": [
+            "Disabled"
+          ],
+          "border": {
+            "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Focus"
+          ],
+          "background": "rgba(0, 0, 0, 0.05)",
+          "border": {
+            "color": "#0f5fdc",
+            "colorToken": "--zen-focus-ring-primary",
+            "width": "2px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Hover"
+          ],
+          "background": "rgba(0, 0, 0, 0.05)"
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Pressed"
+          ],
+          "background": "rgba(0, 0, 0, 0.1)"
+        }
+      ]
+    },
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "12px",
+        "right": "12px",
+        "bottom": "12px",
+        "left": "12px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-sm",
+        "right": "--zen-spacing-sm",
+        "bottom": "--zen-spacing-sm",
+        "left": "--zen-spacing-sm"
+      }
+    },
+    "children": [
+      {
+        "name": "Radio button + label",
+        "kind": "container",
+        "id": "19748:38721",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-2xs"
+        },
+        "children": [
+          {
+            "name": "Radio button",
+            "kind": "container",
+            "id": "19746:35748",
+            "appearance": {
+              "radius": "9999px"
+            },
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": 4380,
+              "y": 916,
+              "constraints": {
+                "vertical": "TOP",
+                "horizontal": "LEFT"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-icon-default"
+                ],
+                "id": "19782:8306",
+                "appearance": {
+                  "background": "#000000",
+                  "backgroundToken": "--zen-color-icon-default",
+                  "variants": [
+                    {
+                      "prop": "Selection",
+                      "values": [
+                        "Selected"
+                      ],
+                      "background": "#0f5fdc",
+                      "backgroundToken": "--zen-color-icon-primary"
+                    },
+                    {
+                      "prop": "State",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "background": "#7c7c8a",
+                      "backgroundToken": "--zen-color-icon-disabled"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Digram",
+            "kind": "instance",
+            "slug": "digram-item-types",
+            "props": {
+              "Item type": "Dataset",
+              "Size": "Small"
+            },
+            "id": "19748:38722",
+            "appearance": {
+              "background": "#cfeafd",
+              "radius": "4px",
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "background": "rgba(207, 234, 253, 0.5)"
+                }
+              ]
+            }
+          },
+          {
+            "name": "Icon",
+            "kind": "instance",
+            "unresolved": true,
+            "id": "19748:38723"
+          },
+          {
+            "name": "Label",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "19748:38724",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "name": "Description",
+        "kind": "container",
+        "id": "19797:26256",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "32px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Description",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-tertiary"
+            ],
+            "id": "19748:38725",
+            "appearance": {
+              "text": {
+                "color": "#50505d",
+                "colorToken": "--zen-color-text-tertiary",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            "text": "Description"
+          }
+        ]
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Selection": "Unselected",
+    "State": "Default"
+  }
+}

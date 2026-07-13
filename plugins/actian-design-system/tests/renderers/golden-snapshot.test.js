@@ -92,7 +92,7 @@ Object.keys(FIXTURES).forEach(function (name) {
   });
 });
 
-// Hi-fi DS tier goldens (Phase 0 scope: button, input, checkbox-with-label).
+// Hi-fi DS tier goldens (Phase 0 scope: button, input, checkbox).
 // Each fixture is a library:"ds" INSTANCE; renderDSComponent switches on dsSlug.
 var DS_FIXTURES = {
   buttonPrimary: {
@@ -154,17 +154,17 @@ var DS_FIXTURES = {
     props: { Label: "Email", "Placeholder text": "you@co" },
   },
   checkboxOff: {
-    dsSlug: "checkbox-with-label",
+    dsSlug: "checkbox",
     variant: "Selected=No",
     props: { Label: "Agree to terms" },
   },
   checkboxOn: {
-    dsSlug: "checkbox-with-label",
+    dsSlug: "checkbox",
     variant: "Selected=Yes",
     props: { Label: "Agree to terms" },
   },
   checkboxDisabled: {
-    dsSlug: "checkbox-with-label",
+    dsSlug: "checkbox",
     variant: "Selected=No, State=Disabled",
     props: { Label: "Agree to terms" },
   },
@@ -272,7 +272,7 @@ var DS_FIXTURES = {
     props: { Title: "Data Catalog", Description: "Browse and manage datasets" },
   },
   breadcrumbsPath: {
-    dsSlug: "breadcrumbs",
+    dsSlug: "breadcrumb",
     variant: "Type=Default",
     props: { Items: "Catalog, Datasets, Orders" },
   },

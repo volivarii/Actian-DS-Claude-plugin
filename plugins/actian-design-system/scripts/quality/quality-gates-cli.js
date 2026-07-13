@@ -18,7 +18,7 @@ var q = require("./quality-score.js");
 var PILOT = [
   // Original pilot trio
   "button",
-  "checkbox-with-label",
+  "checkbox",
   "alert-banner",
   // Hi-Fi Slice 1 (Task 4) override leaves — all tier:override in ds-html-map,
   // render correctly server-side (real switch-case, no window.__dsAnatomyDocs

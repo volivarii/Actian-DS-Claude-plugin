@@ -9,7 +9,7 @@ apps:
 components:
   - tabs
   - page-header
-  - breadcrumbs
+  - breadcrumb
   - side-nav
   - drawer-side-panel
 ---

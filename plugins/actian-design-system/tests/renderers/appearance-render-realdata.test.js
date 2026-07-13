@@ -100,7 +100,7 @@ var NO_ROOT_APPEARANCE = {
   "lineage-connecting-line": "a stroked path, no root surface",
 
   // Layout containers: transparent by design, children carry the paint.
-  breadcrumbs: "transparent row of links",
+  breadcrumb: "transparent row of links",
   "page-header": "transparent layout band",
   stepper: "transparent row of steps",
   table: "cells and rows carry the paint",
@@ -120,7 +120,7 @@ var NO_ROOT_APPEARANCE = {
   // entry should be deleted, not kept.
   "radio-button":
     "indicator is a child (2026-07 rework; VERIFY this was intended)",
-  "checkbox-with-label": "box is a child",
+  "checkbox": "box is a child",
   toggle: "track and knob are children",
   "text-input": "field box is a child",
   "input-date": "field box is a child",

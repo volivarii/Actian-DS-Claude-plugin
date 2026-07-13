@@ -337,11 +337,11 @@ describe("Transform-to-Hifi Tests", function () {
       assert.strictEqual(textInput.dsSlug, "text-input");
     });
 
-    it("transforms fmCheckbox child to dsCheckboxWithLabel", function () {
+    it("transforms fmCheckbox child to dsCheckbox", function () {
       var out = xformNodes([frame]);
       var checkbox = out[0].children[1];
-      assert.strictEqual(checkbox.ref, "dsCheckboxWithLabel");
-      assert.strictEqual(checkbox.dsSlug, "checkbox-with-label");
+      assert.strictEqual(checkbox.ref, "dsCheckbox");
+      assert.strictEqual(checkbox.dsSlug, "checkbox");
     });
 
     it("maps fmTextInput Show label prop to DS Label prop", function () {
