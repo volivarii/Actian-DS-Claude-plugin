@@ -64,11 +64,12 @@ ANATOMY_FILES.forEach(function (f) {
   collectSluggedNodes(doc.root, COLLECTED, docSlug);
 });
 
-var ICONS =
-  JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8")).icons || {};
+var ICONS_DOC = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
+var ICONS = ICONS_DOC.icons || {};
 var REGISTRY =
   JSON.parse(fs.readFileSync(PATHS.components.registries.dskit, "utf8"))
     .components || {};
+var appearanceRender = require("../../scripts/renderers/appearance-render.js");
 
 // Acceptance mirrors renderIconGlyph's real predicate (appearance-render.js):
 // an entry must be own-property present AND carry string viewBox + body, or
@@ -207,37 +208,87 @@ function isIconsCategoryComponent(entry) {
   return entry != null && entry.category === "Icons";
 }
 
-test("collision invariant: every icons.json/registry slug overlap resolves to an Icons-category component, never a different component", function () {
+// B4 — the collision invariant, restated.
+//
+// This gate used to assert that NO icons.json slug could belong to a non-icon
+// component. That premise is dead: knowledge now gives icons their own namespace
+// (knowledge #418), because a design system may legitimately ship a `calendar`
+// GLYPH and a `Calendar` COMPONENT, and forcing them to share one flat slug map
+// meant one of them silently vanished — the DS shipped with no calendar and no
+// search glyph for exactly that reason.
+//
+// So the overlap is now LEGAL. The ambiguity it warned about, however, is still
+// completely real, and this is the one place it can be caught:
+//
+//   renderIconGlyph resolves a component reference BY SLUG and checks the icon
+//   map first. global-header's anatomy nests `search` — meaning the whole Search
+//   FIELD — so left alone it would draw a tiny magnifier where an entire input
+//   belongs.
+//
+// The substrate declares the ambiguous slugs (icons.json `_meta.shadowed_by_component`,
+// knowledge #420), and the renderer must DEFER on them: an anatomy slug is resolved
+// against the component registry, and a shadowed icon is never in it, so for these
+// slugs an anatomy reference always means the component.
+//
+// The gate therefore moves from "this can never happen" to "when it happens, the
+// renderer does the right thing" — a behaviour assertion, which is strictly
+// stronger than the membership one it replaces.
+test("collision invariant: an icon slug shadowed by a NON-icon component renders the component, never the glyph", function () {
   var overlap = Object.keys(ICONS).filter(isRegistryComponent).sort();
-
-  // eslint-disable-next-line no-console
-  console.log(
-    "icons.json <-> registry overlap: " +
-      overlap.length +
-      " key(s): " +
-      overlap.join(", "),
-  );
-
-  var nonIconCollisions = overlap.filter(function (k) {
+  var shadowedInFact = overlap.filter(function (k) {
     return !isIconsCategoryComponent(REGISTRY[k]);
   });
+  var declared =
+    (ICONS_DOC._meta && ICONS_DOC._meta.shadowed_by_component) || [];
 
+  // 1. The substrate must DECLARE every ambiguity that actually exists. A missed
+  //    declaration is the dangerous case: the renderer would never know to defer.
   assert.deepEqual(
-    nonIconCollisions,
-    [],
-    "icons.json/registry slug collision(s) whose registry entry is NOT " +
-      'category "Icons": ' +
-      nonIconCollisions
-        .map(function (k) {
-          return (
-            k + " (category: " + (REGISTRY[k] && REGISTRY[k].category) + ")"
-          );
+    shadowedInFact.slice().sort(),
+    declared.slice().sort(),
+    "icons.json/registry slug overlap(s) on a NON-icon component that the " +
+      "substrate does not declare in _meta.shadowed_by_component: " +
+      shadowedInFact
+        .filter(function (k) {
+          return declared.indexOf(k) === -1;
         })
         .join(", ") +
-      " — renderIconGlyph resolves icons.json first, so this slug would " +
-      "render an icon glyph instead of the distinct non-icon component " +
-      "that actually owns it; this is the genuine renderer ambiguity this " +
-      "gate exists to catch",
+      " — renderIconGlyph checks icons.json first, so an undeclared one renders " +
+      "an icon glyph where the distinct non-icon component belongs",
+  );
+
+  // 2. And the renderer must actually DEFER on them. Assert the behaviour, not
+  //    just the data: a declaration nothing honours is worthless.
+  declared.forEach(function (slug) {
+    var out = appearanceRender.renderIconGlyph({ slug: slug }, null, {
+      iconMap: ICONS,
+      shadowedSlugs: declared,
+    });
+    assert.equal(
+      out,
+      null,
+      "`" +
+        slug +
+        "` is also a non-icon component (" +
+        (REGISTRY[slug] && REGISTRY[slug].name) +
+        "), so an anatomy reference means the COMPONENT — the renderer must fall " +
+        "through, not draw the glyph",
+    );
+  });
+
+  // 3. Guard the guard: an ordinary, unshadowed icon must still render. Otherwise
+  //    a bug that made renderIconGlyph return null for everything would pass (2).
+  var plain = Object.keys(ICONS).find(function (k) {
+    return declared.indexOf(k) === -1 && ICONS[k] && ICONS[k].body;
+  });
+  assert.ok(plain, "expected at least one unshadowed icon to test with");
+  assert.match(
+    appearanceRender.renderIconGlyph({ slug: plain }, null, {
+      iconMap: ICONS,
+      shadowedSlugs: declared,
+    }) || "",
+    /<svg/,
+    "an unshadowed icon must still render its glyph — otherwise this gate is vacuous",
   );
 });
 

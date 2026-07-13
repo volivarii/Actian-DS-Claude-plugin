@@ -1185,7 +1185,7 @@
               datePlaceholder +
               "</span>" +
               '<span class="ds-input-date__calendar" aria-hidden="true">' +
-              renderIcon("calendar-2") +
+              renderIcon("calendar") +
               "</span>" +
               "</div>"
             );
