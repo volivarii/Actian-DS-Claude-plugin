@@ -46,6 +46,18 @@ var { countBlankBoxes } = require(
 // message, which slugs regressed and why.
 var BUDGET = 136;
 
+// The number of authorable slugs that render a bare graceful-degradation chip
+// (ds-html-map.js's gracefulChip(), a `<span class="ds-component" ...>` with
+// no real anatomy). This is a SEPARATE ceiling from BUDGET, and it exists to
+// close a loophole: if the anatomy doc map partially collapses, slugs that
+// used to render real markup (and blank boxes) demote to chips instead. That
+// makes BUDGET look like it improved while the actual output got worse. This
+// ceiling also RATCHETS DOWN, never up, as slugs get real anatomy authored.
+//
+//   2026-07-13  4  baseline (glossary-item-hierarchy-diagram, lineage-connecting-line,
+//                  notification-dropdown, scroll-bar)
+var CHIP_BUDGET = 4;
+
 function authorableSlugs() {
   var mdPath = path.resolve(
     __dirname,
@@ -75,6 +87,7 @@ function renderAll() {
   var total = 0;
   var perSlug = {};
   var anyAnatomy = false;
+  var chipSlugs = [];
   slugs.forEach(function (slug) {
     if (built[slug]) return;
     var html = "";
@@ -91,6 +104,7 @@ function renderAll() {
       html = "";
     }
     if (html.indexOf('data-ds-slug="') !== -1) anyAnatomy = true;
+    if (html.indexOf('class="ds-component"') !== -1) chipSlugs.push(slug);
     var n = countBlankBoxes(html);
     perSlug[slug] = n;
     total += n;
@@ -100,6 +114,7 @@ function renderAll() {
     perSlug: perSlug,
     anyAnatomy: anyAnatomy,
     slugs: slugs,
+    chipSlugs: chipSlugs,
   };
 }
 
@@ -148,6 +163,40 @@ describe("blank-box budget", function () {
         "). " +
         "Worst offenders: " +
         worst,
+    );
+  });
+
+  it("SANITY: the blank-box detector is not silently reading zero", function () {
+    // We know today's total is 136, not 0. If countBlankBoxes ever drifts out
+    // of sync with the markup shape it's matching against, it can silently
+    // return 0 for everything, and the budget assertion above passes
+    // vacuously (0 <= BUDGET is always true). This control forces a failure
+    // in that case instead of a false green.
+    //
+    // Self-retiring: when the blank-box count legitimately reaches 0, the
+    // fidelity job is done. At that point delete this control AND the
+    // BUDGET assertion above deliberately, rather than letting either rot.
+    var r = renderAll();
+    assert.ok(
+      r.total > 0,
+      "expected a positive blank-box count (today's baseline is 136), got 0. " +
+        "This likely means countBlankBoxes stopped matching the emitted markup " +
+        "shape and is silently reading zero, not that the renderer got fixed.",
+    );
+  });
+
+  it("emits no more bare graceful-degradation chips than the chip budget", function () {
+    var r = renderAll();
+    assert.ok(
+      r.chipSlugs.length <= CHIP_BUDGET,
+      "bare-chip count regressed to " +
+        r.chipSlugs.length +
+        " (budget " +
+        CHIP_BUDGET +
+        "). A bare chip means the slug renders nothing real, so a lower " +
+        "blank-box total from this slug is a demotion, not an improvement. " +
+        "Chip slugs: " +
+        r.chipSlugs.join(", "),
     );
   });
 });
