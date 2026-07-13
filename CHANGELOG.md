@@ -45,6 +45,24 @@ are summarized at the release level.
     picks a slug **from** the vendored icon set.
 
 ### Known broken upstream (recorded, not hidden)
+- **Two icons are still unresolvable on knowledge v0.34.89, and the two failing checks are left RED
+  rather than re-baselined.** New evidence says the "the rework deleted six glyphs" story below is
+  only half right, so accepting the degraded render would bake in the wrong conclusion:
+  - **`calendar` is not deleted at all — the sync silently eats it.** The icon exists in Figma
+    (symbol `7378:5041`, on `DS Icons: replacement`). But the registry is keyed **by slug**, and the
+    Calendar *component* (page `✅ Calendar`, category `Action`) already owns the slug `calendar`, so
+    the icon is overwritten and never reaches the `Icons` category. `derive-icons-svg` then skips it
+    (`is category "Action", expected "Icons"`). This is almost certainly why the glyph used to be
+    named `calendar-2`: the old name existed to dodge the collision, and the rework renamed it onto
+    the collision. `renderIcon("calendar-2")` in `ds-html-map.js` (the `input-date` calendar
+    affordance) therefore has nothing to resolve. **Fix belongs upstream**, and knowledge has no
+    within-kit slug-collision tripwire — `detectSlugCollisions` reads the already-deduped
+    slug-keyed map, so it structurally cannot see this class of loss.
+  - **`checkmark-outline` looks RENAMED, not dropped** (`simple-check` exists in the new icon set),
+    which is why `golden(ds): tagStatusSuccess` now renders an empty instance box. If that is a
+    rename, the right fix is to follow it upstream and restore the glyph, **not** to re-baseline the
+    golden to an iconless tag. Left red pending that call.
+
 - **Tag Status "Fail" renders no icon, and its golden now records that.** The glyph is
   `misuse-outline`, which the 2026-07 Figma icon rework **deleted**. This is not a renderer bug:
   given an icon set without that glyph, an empty box is the correct output, so the golden says so
