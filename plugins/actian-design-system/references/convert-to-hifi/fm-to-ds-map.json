@@ -223,21 +223,21 @@
     "fmToggle": {
       "dsSlug": "toggle",
       "defaultVariant": {
-        "Toggle location": "Left",
+        "Toggle position": "On left",
         "State": "Default",
-        "Selected": "No"
+        "Selection": "Off"
       },
       "variantMap": {
         "State": {
-          "Off": "No",
-          "On": "Yes"
+          "Off": "Off",
+          "On": "On"
         },
         "Style": {
           "Default": "Default",
           "Disabled": "Disabled"
         }
       },
-      "notes": "FM 'State' (Off/On) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
+      "notes": "FM 'State' (Off/On) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma rework renamed DS 'Selected' (Yes/No) to 'Selection' (Off/On) and 'Toggle location' (Left/Right) to 'Toggle position' (On left / On right (default)); the FM-side values are unchanged.",
       "dsKey": "4e7793f094eed660e01d8f7c804f2391e72115d2"
     },
     "fmAppHeader": {
@@ -332,18 +332,18 @@
     "fmAlert": {
       "dsSlug": "alert-banner",
       "defaultVariant": {
-        "Type": "Primary",
+        "Type": "Info",
         "Orientation'": "Horizontal"
       },
       "variantMap": {
         "Type": {
-          "Primary": "Primary",
+          "Primary": "Info",
           "Success": "Success",
-          "Error": "Danger",
+          "Error": "Error",
           "Warning": "Warning"
         }
       },
-      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). FM Error maps to DS Danger.",
+      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). The 2026-07 Figma rework changed alert-banner's Type axis from Primary/Success/Warning/Danger to Info/Success/Warning/Error, so FM Primary now maps to DS Info and FM Error to DS Error (was Danger). The OLD vocabulary survives verbatim on the new alert-inline component; FM Alert stays pointed at the banner deliberately.",
       "dsKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b"
     },
     "fmToast": {
