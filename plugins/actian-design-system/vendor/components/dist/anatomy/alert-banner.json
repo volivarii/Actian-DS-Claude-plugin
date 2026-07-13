@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
-    "variant": "Type=Primary, Orientation'=Horizontal"
+    "variant": "Type=Info, Orientation'=Horizontal"
   },
   "quality": {
     "nodesTotal": 5,
@@ -15,21 +15,21 @@
     "degraded": []
   },
   "root": {
-    "name": "Type=Primary, Orientation'=Horizontal",
+    "name": "Type=Info, Orientation'=Horizontal",
     "kind": "container",
     "tokenRefs": [
       "--zen-color-bg-info"
     ],
     "id": "13732:3055",
     "appearance": {
-      "background": "#edf6ff",
+      "background": "#f7fdff",
       "backgroundToken": "--zen-color-bg-info",
       "radius": "6px",
       "variants": [
         {
           "prop": "Type",
           "values": [
-            "Danger"
+            "Error"
           ],
           "background": "#fff4ec",
           "backgroundToken": "--zen-color-bg-error"
@@ -79,21 +79,61 @@
       {
         "name": "Primary",
         "kind": "text",
-        "tokenRefs": [
-          "--zen-color-text-default"
-        ],
         "id": "13732:3031",
         "appearance": {
           "text": {
-            "color": "#000000",
-            "colorToken": "--zen-color-text-default",
+            "color": "#3c515a",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
             "letterSpacing": "0.2px"
-          }
+          },
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Error"
+              ],
+              "text": {
+                "color": "#c12c11",
+                "colorToken": "--zen-color-text-error",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Success"
+              ],
+              "text": {
+                "color": "#047800",
+                "colorToken": "--zen-color-text-success",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Warning"
+              ],
+              "text": {
+                "color": "#83551f",
+                "colorToken": "--zen-color-text-warning",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
         },
-        "text": "Primary"
+        "text": "Info"
       },
       {
         "name": "Button",
@@ -124,7 +164,7 @@
             {
               "prop": "Type",
               "values": [
-                "Danger"
+                "Error"
               ],
               "slug": "error-filled"
             },
@@ -167,7 +207,7 @@
     ]
   },
   "variantDefaults": {
-    "Type": "Primary",
+    "Type": "Info",
     "Orientation'": "Horizontal"
   }
 }

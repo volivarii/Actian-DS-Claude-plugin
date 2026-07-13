@@ -81,7 +81,7 @@
     },
     "registryAliases": {
       "type": "object",
-      "description": "Optional cross-namespace alias map (registry component key → components.guidelineDoc.byKey slug). Bridges the gap where a Figma/registry component key (e.g. 'checkbox-with-label') differs from the slug its guideline doc is authored under (e.g. 'checkbox'). Distinct from 'aliases', which renames keys within paths/collections. Hand-maintained; interim — see components/src/AUTHORING.md 'Slug naming'.",
+      "description": "Optional cross-namespace alias map (registry component key → components.guidelineDoc.byKey slug). Bridges the gap where a Figma/registry component key (e.g. 'dropdown-select-default') differs from the slug its guideline doc is authored under (e.g. 'dropdown-select'). Distinct from 'aliases', which renames keys within paths/collections. Hand-maintained; interim — an entry retires when Figma renames the component to match the slug, which is what removed the 'checkbox-with-label' bridge. See components/src/AUTHORING.md 'Slug naming'.",
       "additionalProperties": { "type": "string" },
       "examples": [{}]
     },

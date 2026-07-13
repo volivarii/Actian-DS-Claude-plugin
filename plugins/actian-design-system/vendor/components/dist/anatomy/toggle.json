@@ -2,34 +2,91 @@
   "_schema_version": 1,
   "slug": "toggle",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14000:4395",
-    "variant": "Toggle location=Left, Selected=No, State=Default"
+    "variant": "Toggle position=On left, Selection=Off, State=Default"
   },
   "quality": {
     "nodesTotal": 5,
-    "nodesNormalized": 4,
-    "ratio": 0.8,
-    "degraded": [],
-    "structuralVariants": [
+    "nodesNormalized": 3,
+    "ratio": 0.6,
+    "degraded": [
       {
-        "prop": "Toggle location",
-        "value": "Right",
-        "path": "0",
-        "reason": "kind:instance!=container"
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE"
       },
       {
-        "prop": "Toggle location",
-        "value": "Right",
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant Toggle position=On right (default))"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant Toggle position=On right (default))"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant Selection=On)"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant Selection=On)"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant State=Hover)"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant State=Hover)"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant State=Focus)"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant State=Focus)"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant State=Pressed)"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant State=Pressed)"
+      },
+      {
+        "name": "Toggle switch",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      },
+      {
+        "name": "Toggle base",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ],
+    "structuralVariants": [
+      {
+        "prop": "Toggle position",
+        "value": "On right (default)",
+        "path": "0",
+        "reason": "kind:container!=text"
+      },
+      {
+        "prop": "Toggle position",
+        "value": "On right (default)",
         "path": "1",
-        "reason": "kind:container!=instance"
+        "reason": "kind:text!=container"
       }
     ]
   },
   "root": {
-    "name": "Toggle location=Left, Selected=No, State=Default",
+    "name": "Toggle position=On left, Selection=Off, State=Default",
     "kind": "container",
     "id": "14000:4396",
     "layout": {
@@ -43,7 +100,7 @@
       },
       "align": {
         "main": "start",
-        "cross": "start"
+        "cross": "center"
       },
       "sizing": {
         "h": "hug",
@@ -53,14 +110,9 @@
     },
     "children": [
       {
-        "name": ".Toggle switch",
-        "kind": "instance",
-        "unresolved": true,
-        "props": {
-          "Selected": "No",
-          "State": "Default"
-        },
-        "id": "14000:4398",
+        "name": "Toggle switch",
+        "kind": "container",
+        "id": "19805:31919",
         "appearance": {
           "radius": "4px",
           "variants": [
@@ -91,139 +143,154 @@
               "background": "rgba(0, 0, 0, 0.1)"
             }
           ]
-        }
-      },
-      {
-        "name": "Text",
-        "kind": "container",
-        "id": "14175:15648",
-        "layout": {
-          "axis": "column",
-          "gap": "4px",
-          "padding": {
-            "top": "2px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "hug"
-          },
-          "gapToken": "--zen-spacing-2xs"
+        },
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6347,
+          "y": 1013,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
         },
         "children": [
           {
-            "name": "Label",
-            "kind": "text",
+            "name": "Toggle base",
+            "kind": "container",
             "tokenRefs": [
-              "--zen-color-text-default"
+              "--zen-color-icon-subtle"
             ],
-            "id": "14000:4399",
+            "id": "19805:31920",
             "appearance": {
+              "background": "#5c5c6c",
+              "backgroundToken": "--zen-color-icon-subtle",
+              "radius": "9999px",
+              "variants": [
+                {
+                  "prop": "Selection",
+                  "values": [
+                    "On"
+                  ],
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-icon-primary"
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "background": "#7c7c8a",
+                  "backgroundToken": "--zen-color-icon-disabled"
+                }
+              ]
+            },
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": 6349,
+              "y": 1017,
+              "constraints": {
+                "vertical": "TOP",
+                "horizontal": "LEFT"
+              }
+            },
+            "children": [
+              {
+                "name": "Toggle-Click",
+                "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-icon-reverse"
+                ],
+                "id": "19805:31921",
+                "appearance": {
+                  "background": "#ffffff",
+                  "backgroundToken": "--zen-color-icon-reverse",
+                  "variants": [
+                    {
+                      "prop": "State",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "background": "rgba(255, 255, 255, 0.5)"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Label",
+        "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
+        "id": "14000:4399",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "colorToken": "--zen-color-text-default",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "Selection",
+              "values": [
+                "On"
+              ],
               "text": {
                 "color": "#000000",
                 "colorToken": "--zen-color-text-default",
                 "size": "14px",
                 "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              },
-              "variants": [
-                {
-                  "prop": "Selected",
-                  "values": [
-                    "Yes"
-                  ],
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "18px",
-                    "letterSpacing": "0.14px"
-                  }
-                },
-                {
-                  "prop": "State",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "text": {
-                    "color": "#7c7c8a",
-                    "colorToken": "--zen-color-text-placeholder-subtle",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "18px",
-                    "letterSpacing": "0.14px"
-                  }
-                },
-                {
-                  "prop": "State",
-                  "values": [
-                    "Focus",
-                    "Hover",
-                    "Pressed"
-                  ],
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "18px",
-                    "letterSpacing": "0.14px"
-                  }
-                }
-              ]
+                "lineHeight": "18px",
+                "letterSpacing": "0.14px"
+              }
             },
-            "text": "Label"
-          },
-          {
-            "name": "Helper text",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "14000:4401",
-            "appearance": {
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#7c7c8a",
+                "colorToken": "--zen-color-text-placeholder-subtle",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "18px",
+                "letterSpacing": "0.14px"
+              }
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Focus",
+                "Hover",
+                "Pressed"
+              ],
               "text": {
                 "color": "#000000",
                 "colorToken": "--zen-color-text-default",
-                "size": "12px",
+                "size": "14px",
                 "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              },
-              "variants": [
-                {
-                  "prop": "State",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "text": {
-                    "color": "#7c7c8a",
-                    "colorToken": "--zen-color-text-placeholder-subtle",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                }
-              ]
-            },
-            "text": "Helper text"
-          }
-        ]
+                "lineHeight": "18px",
+                "letterSpacing": "0.14px"
+              }
+            }
+          ]
+        },
+        "text": "Label"
       }
     ]
   },
   "variantDefaults": {
-    "Toggle location": "Left",
-    "Selected": "No",
+    "Toggle position": "On left",
+    "Selection": "Off",
     "State": "Default"
   }
 }

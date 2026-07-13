@@ -38,7 +38,7 @@ foundations_refs:
 
 # Form (input & selection) — design rationale
 
-Components in this category share input/selection patterns. Members: `calendar`, `checkbox-with-label`, `dropdown-select-default`, `input`, `input-date`, `radio-button`, `rich-text`, `search`, `search-dropdown-menu`, `search-filters`, `toggle`.
+Components in this category share input/selection patterns. Members: `calendar`, `checkbox`, `dropdown-select-default`, `input`, `input-date`, `radio-button`, `rich-text`, `search`, `search-dropdown-menu`, `search-filters`, `toggle`.
 
 ## Reference patterns
 

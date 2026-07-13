@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-320 components.
+286 components.
 
 ---
 
@@ -28,7 +28,7 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 ### add
 
 - Single component (no variants)
-- Node: `7378:3994` | Key: `2b10108613a16fe36ada2420f992f0240b076804`
+- Node: `7206:3772` | Key: `33ab1534db5a1d5619a29735d2a0ac87514819b9`
 
 ### add-circle
 
@@ -55,18 +55,20 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 - Single component (no variants)
 - Node: `7207:2820` | Key: `3ef4d9930695bc99abbbf055d853f986227ae5c5`
 
-### ✍️ Alert-banner
+### Alert-banner
 
 Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
 
-- Variants: **Type:** `Primary` · `Success` · `Warning` · `Danger` | **Orientation':** `Horizontal` · `Vertical`
+- Variants: **Type:** `Info` · `Success` · `Warning` · `Error` | **Orientation':** `Horizontal` · `Vertical`
 - Boolean properties: `Show Icon#14881:0` (default: true) — set to `false` to hide · `Show close button#14881:5` (default: true) — set to `false` to hide · `Show action#14907:5` (default: true) — set to `false` to hide
 - Node: `13732:3056` | Key: `9717f500f425975f63c0eb2f9c1e434ff010f24b`
 
-### alert-circle
+### Alert-inline
 
-- Single component (no variants)
-- Node: `14719:551` | Key: `750fb2b2080f030bcf753f1c2c18c811c5aeaa8a`
+Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
+
+- Variants: **Type:** `Warning` · `Danger` · `Success` · `Primary` | **Orientation':** `Horizontal`
+- Node: `19746:32731` | Key: `14a9062ded019fd0aafa717a268cba3e402c4a3f`
 
 ### alteryx
 
@@ -124,11 +126,6 @@ Menu list item - can be edited by selecting individual list item and  selecting 
 - Single component (no variants)
 - Node: `7207:2839` | Key: `43009d0b38b304e97c5716c0a32ccc3951851872`
 
-### asleep
-
-- Single component (no variants)
-- Node: `7310:2900` | Key: `c0411afed99b56a1af98f59d40aec05db7c5fb95`
-
 ### atlas
 
 - Single component (no variants)
@@ -150,13 +147,6 @@ Visual representation of a user or entity. Use "Image" variant if a photo exists
 
 - Single component (no variants)
 - Node: `8400:25205` | Key: `0befe2863bac449e778bf81429105d046babd9b8`
-
-### award-04
-
-award, medal, certification, certificate, badge
-
-- Single component (no variants)
-- Node: `8655:10107` | Key: `9c4aea9aed18f57b7ed4bf55bc71d6910d2d0109`
 
 ### Aws-glue-etl
 
@@ -228,7 +218,7 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 ### book-bookmark
 
 - Single component (no variants)
-- Node: `7378:5700` | Key: `37bb27238ac422fd734919a3193c3c7564f1ce7c`
+- Node: `7378:3702` | Key: `b5e398041c92e0830c652775f440c06226403d04`
 
 ### book-edit
 
@@ -240,17 +230,12 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 - Single component (no variants)
 - Node: `8504:23295` | Key: `e3dffdffb222be75a098c850a0ad155e1ad47eef`
 
-### Breadcrumbs
+### Breadcrumb
 
 Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.
 
 - Variants: **Type:** `Default`
 - Node: `13792:15247` | Key: `72976d77668b8e085d716fc8c5bc0bd144cb7274`
-
-### brightness-contrast
-
-- Single component (no variants)
-- Node: `7537:1569` | Key: `f6cb9d9b6a1a428237a5d845543c565524cd4eb0`
 
 ### Button
 
@@ -271,11 +256,6 @@ Critical: "Use specifically for actions that result in data loss or permanent ch
 
 - Variants: **Type:** `Single date select` · `Date` · `Month` · `Single` | **Selection:** `Single` · `Range` · `Year`
 - Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
-
-### calendar 2
-
-- Single component (no variants)
-- Node: `7313:3194` | Key: `1d990e9286ab35da2957194c28722e72873aec3b`
 
 ### Card for grouped content
 
@@ -311,22 +291,12 @@ A flexible container for grouping related information. Use for dashboard summari
 - Single component (no variants)
 - Node: `14115:8084` | Key: `bf59f59271f2a5fb0945e406629aefeb72775468`
 
-### chart--bar
-
-- Single component (no variants)
-- Node: `9246:14002` | Key: `dde572f16c897c96ae7bc7a82532276fe87b7410`
-
-### chart--pie
-
-- Single component (no variants)
-- Node: `9246:14001` | Key: `a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5`
-
 ### Chat with AI Steward
 
 - Variants: **size:** `Default` · `Drawer` | **history:** `Closed` · `Open`
 - Node: `15464:24509` | Key: `8ba9d4d075ffab728d03d5bf771173f39d41e5ac`
 
-### Checkbox with label
+### Checkbox
 
 Used for binary choices (on/off) or when a user can select multiple options from a list of related items.
 
@@ -334,40 +304,15 @@ Used for binary choices (on/off) or when a user can select multiple options from
 - Boolean properties: `Show label#19716:0` (default: true) — set to `false` to hide
 - Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
 
-### checkmark--outline
-
-- Single component (no variants)
-- Node: `7310:2896` | Key: `e5b3de9a4f7a367b4ef924486daa999145e62f46`
-
 ### chevron--left
 
 - Single component (no variants)
 - Node: `7207:2837` | Key: `7940e22ca8c7fb72312b009bbc5d622c45dfc58f`
 
-### chevron--sort
-
-- Single component (no variants)
-- Node: `7207:2836` | Key: `5687e6bce59274d7ad7e3f2c17a3c2dabb78288d`
-
-### chevron--sort--down
-
-- Single component (no variants)
-- Node: `7207:2833` | Key: `666ef728fee0b8d31fd69757fdd75b2426abf2c6`
-
-### chevron--sort--up
-
-- Single component (no variants)
-- Node: `7207:2835` | Key: `749e5cda3c174a61f8dad42b2f9466b1f08325c4`
-
 ### chevron--up
 
 - Single component (no variants)
 - Node: `7207:2842` | Key: `5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4`
-
-### circle-dash
-
-- Single component (no variants)
-- Node: `7310:2897` | Key: `b317fa0913e7862fe3f7dbd2e0d8f5f49758c234`
 
 ### ckan
 
@@ -378,11 +323,6 @@ Used for binary choices (on/off) or when a user can select multiple options from
 
 - Single component (no variants)
 - Node: `7293:24` | Key: `09bac5a4cba0cbd89819dbe34afadc5db046f29d`
-
-### cloud--upload
-
-- Single component (no variants)
-- Node: `7908:5403` | Key: `3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f`
 
 ### cognos
 
@@ -642,11 +582,6 @@ A placeholder shown when a container has an error. Must include an illustration,
 - Single component (no variants)
 - Node: `7301:2777` | Key: `e0ea887336f377ba397b25d988a54cf79eec6e4e`
 
-### expand
-
-- Single component (no variants)
-- Node: `15563:24467` | Key: `b92ca711225ff8cc4b1068893831456c40e3bc3f`
-
 ### exploration
 
 - Single component (no variants)
@@ -712,7 +647,7 @@ The persistent top-level container for branding, primary site-wide navigation, a
 ### glossary
 
 - Single component (no variants)
-- Node: `10613:30347` | Key: `e47a036e8d2cce3968395f79cc96fdcc70bcf275`
+- Node: `7378:5700` | Key: `37bb27238ac422fd734919a3193c3c7564f1ce7c`
 
 ### Glossary item hierarchy diagram
 
@@ -754,16 +689,6 @@ The persistent top-level container for branding, primary site-wide navigation, a
 - Single component (no variants)
 - Node: `8504:23049` | Key: `2e8edce02b9198b99fe770fab00b636fb20d2f48`
 
-### help-laptop
-
-- Single component (no variants)
-- Node: `14691:457` | Key: `54a1684fcc8cba3210f64e17f66d7ef3cbabc737`
-
-### history
-
-- Single component (no variants)
-- Node: `8742:13219` | Key: `aaf85298722d8df888197a9174f219b7848cc013`
-
 ### hive
 
 - Single component (no variants)
@@ -773,11 +698,6 @@ The persistent top-level container for branding, primary site-wide navigation, a
 
 - Single component (no variants)
 - Node: `7378:5034` | Key: `4a8ee163ef4f785c846a3a71344af13b834e02f0`
-
-### Icon/query-queue
-
-- Single component (no variants)
-- Node: `7311:2825` | Key: `dfc61677c57161b2031bdce8733cb4bf6fcfd6fa`
 
 ### Identification key
 
@@ -790,11 +710,6 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 
 - Variants: **Type:** `Empty state large` · `Empty state medium` · `Empty state small` · `Error state` · `Maintenance` · `Success` · `Error state medium`
 - Node: `8837:9945` | Key: `00302ca7dc4298c719f19ca4766029909ecbeb9d`
-
-### image
-
-- Single component (no variants)
-- Node: `7908:5402` | Key: `b3f1a7f5ef3d50822c84ce0f6d745428607d9023`
 
 ### impala
 
@@ -868,11 +783,6 @@ Used for selecting a single date, a date range, or a specific point in time. Bes
 
 - Single component (no variants)
 - Node: `8504:23326` | Key: `548f9b5398eaff3804a4912550fc4c944881b465`
-
-### layers-front (Curator indicator)
-
-- Single component (no variants)
-- Node: `8820:13322` | Key: `e7e0adbbf7e0f8b9b3fc45c839f381b029859715`
 
 ### lifecycle-policy
 
@@ -966,11 +876,6 @@ Indicates a background process is active. Use Skeleton for page-level transition
 - Variants: **Property 1:** `Default` · `Sid nav collapsed`
 - Node: `12054:30576` | Key: `ed642e9bb87c7b5e1cdab020943ad2f999374a39`
 
-### mail
-
-- Single component (no variants)
-- Node: `8012:1308` | Key: `6db8438579e807864e92cd7f61d5dfe1db9dd841`
-
 ### maintenance
 
 - Single component (no variants)
@@ -1003,16 +908,6 @@ A placeholder shown when maintenance. Must include an illustration, a clear titl
 - Single component (no variants)
 - Node: `8400:25103` | Key: `573cc53c470e350189a4d086626ac5793c6930cf`
 
-### maximize
-
-- Single component (no variants)
-- Node: `8483:1558` | Key: `b06f115e9d2e0d3544b1b319cc96e501449e5d5f`
-
-### menu
-
-- Single component (no variants)
-- Node: `7893:4605` | Key: `f55f4bc6e00be7b6c3dabbc2e426c9660964a1d4`
-
 ### Metamodel widget
 
 - Variants: **Type:** `Dataset` · `Business Term` · `Data Process` · `Field` · `Visualisation`
@@ -1023,16 +918,6 @@ A placeholder shown when maintenance. Must include an illustration, a clear titl
 
 - Single component (no variants)
 - Node: `8400:25105` | Key: `5c6ddb092e57ebb317f35d12911c102a02e1e6d8`
-
-### minimize
-
-- Single component (no variants)
-- Node: `8298:5067` | Key: `ed365ef9760849fa471fb84b4d7603c1052399bf`
-
-### misuse--outline
-
-- Single component (no variants)
-- Node: `8415:1389` | Key: `c7ecb9c454db552f8ca3630707c86a877e13e32c`
 
 ### Modal
 
@@ -1135,11 +1020,6 @@ The title area of a specific page. Should include the Page Title, optional Bread
 - Single component (no variants)
 - Node: `8400:25136` | Key: `4f9256edece6ebcead263d5c3c0e55354febaefb`
 
-### pending
-
-- Single component (no variants)
-- Node: `7996:5346` | Key: `f312fc0c5b45f54eb9081e0b0878f346801af1a4`
-
 ### pii
 
 - Single component (no variants)
@@ -1202,6 +1082,11 @@ Used for mutually exclusive choices where the user must select exactly one optio
 - Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
 
+### Radio button card
+
+- Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
+- Node: `19746:36001` | Key: `897d587b486e30b303ba9f4169a4daccf179faff`
+
 ### relation
 
 - Single component (no variants)
@@ -1223,11 +1108,6 @@ A multi-line input field that allows for text formatting (bold, links, lists). U
 
 - Variants: **State:** `Expanded` · `Default`
 - Node: `9480:17723` | Key: `e904c7b5c3ef6d223d9743546484e5a99b7a7808`
-
-### rocket 1
-
-- Single component (no variants)
-- Node: `9085:20152` | Key: `b781fde18c452c199f8b699ed092b26d683f9f45`
 
 ### rotate-back
 
@@ -1370,7 +1250,7 @@ Vertical navigation for primary application modules. Use when the app has many t
 ### Snowflake
 
 - Single component (no variants)
-- Node: `8504:23447` | Key: `14abdd5e317e35b558549d54270c9f7024dc64ed`
+- Node: `7691:4999` | Key: `046781836dd3d72a9f1185981ebb28e0eab09bd9`
 
 ### soda
 
@@ -1419,11 +1299,6 @@ A persistent container at the bottom of the viewport used for high-priority glob
 
 - Variants: **Property 1:** `Default`
 - Node: `14747:9839` | Key: `de36372be7d1532ee37fbfc43238aed444f6e7c9`
-
-### stop--outline
-
-- Single component (no variants)
-- Node: `7310:2895` | Key: `aca6ed16c1e6d21fe112ab5619570e5a11f1d5e0`
 
 ### success-filled
 
@@ -1541,11 +1416,6 @@ Use for status. Can be interactive (removable) or static metadata.
 - Single component (no variants)
 - Node: `8504:23375` | Key: `371f35da773bc12bc441d4c36acd98ba8ac23e6e`
 
-### task-list-multiple
-
-- Single component (no variants)
-- Node: `8504:23376` | Key: `fb486ea7bd5611848f79a84fd04ede0cc78869a9`
-
 ### task-list-settings
 
 - Single component (no variants)
@@ -1600,8 +1470,7 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 Used for an immediate "on/off" state change that doesn't require a "Submit" button to take effect (e.g., System Settings).
 
-- Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
-- Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide
+- Variants: **Toggle position:** `On right (default)` · `On left` | **Selection:** `Off` · `On` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `14000:4395` | Key: `4e7793f094eed660e01d8f7c804f2391e72115d2`
 
 ### Toolbar
@@ -1609,11 +1478,6 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 - Variants: **Type:** `Single` · `Combined` · `Group` | **Orientation:** `Horizontal` · `Vertical`
 - Boolean properties: `Show View scale#14335:0` (default: true) — set to `false` to hide
 - Node: `14335:16907` | Key: `96683d78ad981aacc04a5b6c7c2b0f0f1d631516`
-
-### tools
-
-- Single component (no variants)
-- Node: `7311:2826` | Key: `2a497ba6f8e5040d5654e86cdc32b90f51eb6849`
 
 ### ⚠️ Tooltip
 
@@ -1628,25 +1492,10 @@ Flex width with maximum width of 320px.
 - Single component (no variants)
 - Node: `7378:5056` | Key: `09df4020b9f8d306843fca4159658c8ed4b5e323`
 
-### undo
-
-- Single component (no variants)
-- Node: `7469:5248` | Key: `c4b92f77c463b26299c2eaf52aff41973aaf4b21`
-
 ### unknown-type
 
 - Single component (no variants)
 - Node: `8504:23297` | Key: `b120c4277b392ad79c9b1bfc21015fc8d55453e5`
-
-### upload-file
-
-- Single component (no variants)
-- Node: `7439:4678` | Key: `ef39179dc6dda4a55166931b2f11f8b60460d58d`
-
-### use-with-care
-
-- Single component (no variants)
-- Node: `14703:19805` | Key: `946ad814c46b04b4a689b3d09f82bb572af76f36`
 
 ### user-add
 
@@ -1663,11 +1512,6 @@ Flex width with maximum width of 320px.
 - Single component (no variants)
 - Node: `8820:13334` | Key: `3b2848d77b98a22dfa31033342ae67f84dee3c0b`
 
-### user-lock
-
-- Single component (no variants)
-- Node: `8820:13324` | Key: `1c3ea13966867002325327b01b9c5942ebe8d856`
-
 ### user-single
 
 - Single component (no variants)
@@ -1678,25 +1522,10 @@ Flex width with maximum width of 320px.
 - Single component (no variants)
 - Node: `14697:19193` | Key: `4e86d04da3c537ed576f6ac221e8a1353b2b4475`
 
-### view-card
-
-- Single component (no variants)
-- Node: `7622:5375` | Key: `d1361c8bdc2347790fcedb0399598585fa4d7054`
-
 ### view-details
 
 - Single component (no variants)
 - Node: `12222:5799` | Key: `cf1033712c94e4f740ae4c8de3f907004dc9380f`
-
-### view-table
-
-- Single component (no variants)
-- Node: `7622:5374` | Key: `bfc87e123e2bab1aec590bdfa5799649b37f756a`
-
-### warning--alt
-
-- Single component (no variants)
-- Node: `7310:2892` | Key: `675e323d57c331b8b9936f39687cf68450fd105b`
 
 ### warning-filled
 

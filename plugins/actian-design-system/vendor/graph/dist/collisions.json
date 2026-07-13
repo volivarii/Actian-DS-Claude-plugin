@@ -33,38 +33,6 @@
       ]
     },
     {
-      "slug": "chart-bar",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "dde572f16c897c96ae7bc7a82532276fe87b7410",
-          "nodeId": "9246:14002"
-        },
-        {
-          "kit": "fmkit",
-          "key": "f688ec904baf1b330abbbf4fc6696a1ddaf87933",
-          "nodeId": "8:20852"
-        }
-      ]
-    },
-    {
-      "slug": "chart-pie",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
-          "nodeId": "9246:14001"
-        },
-        {
-          "kit": "fmkit",
-          "key": "d53df90928900dca8a0dece510ebad1335b52d63",
-          "nodeId": "8:20630"
-        }
-      ]
-    },
-    {
       "slug": "chevron-left",
       "resolved_to": "dskit",
       "candidates": [
@@ -93,22 +61,6 @@
           "kit": "fmkit",
           "key": "73975e9ee4c3a21b836ec6e03512cc0bc791e609",
           "nodeId": "8:20714"
-        }
-      ]
-    },
-    {
-      "slug": "cloud-upload",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
-          "nodeId": "7908:5403"
-        },
-        {
-          "kit": "fmkit",
-          "key": "ff0e585eac58907733beb4beb1dfa70864a5e0c5",
-          "nodeId": "8:20914"
         }
       ]
     },
@@ -193,22 +145,6 @@
       ]
     },
     {
-      "slug": "mail",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
-          "nodeId": "8012:1308"
-        },
-        {
-          "kit": "fmkit",
-          "key": "04a09a5c924eee871df579a56443bcaf8c92b893",
-          "nodeId": "8:20530"
-        }
-      ]
-    },
-    {
       "slug": "map",
       "resolved_to": "dskit",
       "candidates": [
@@ -221,22 +157,6 @@
           "kit": "fmkit",
           "key": "d6fcd844e966d5e0a61ff1226d1d208c0a9c14ef",
           "nodeId": "8:20908"
-        }
-      ]
-    },
-    {
-      "slug": "menu",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "f55f4bc6e00be7b6c3dabbc2e426c9660964a1d4",
-          "nodeId": "7893:4605"
-        },
-        {
-          "kit": "fmkit",
-          "key": "538cacc62e4f1edb74a5443fdc10ef57bf1d6fd4",
-          "nodeId": "8:20536"
         }
       ]
     },

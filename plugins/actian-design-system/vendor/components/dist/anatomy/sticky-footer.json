@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "sticky-footer",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:9839",
@@ -10,22 +10,22 @@
   },
   "quality": {
     "nodesTotal": 5,
-    "nodesNormalized": 4,
-    "ratio": 0.8,
+    "nodesNormalized": 5,
+    "ratio": 1,
     "degraded": []
   },
   "root": {
     "name": "Property 1=Default",
     "kind": "container",
     "tokenRefs": [
-      "--zen-border-default"
+      "--zen-border-disabled"
     ],
     "id": "8190:6001",
     "appearance": {
       "background": "#ffffff",
       "border": {
         "color": "#c7c7ce",
-        "colorToken": "--zen-border-default",
+        "colorToken": "--zen-border-disabled",
         "width": "1px"
       }
     },
@@ -55,19 +55,23 @@
     },
     "children": [
       {
-        "name": "Button/Critical secondary/Default/Default/Default",
+        "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
-          "Show trailing icon": true,
-          "Label": "Delete",
           "Show label": true,
-          "Show leading icon": false
+          "Label": "Delete",
+          "Show trailing icon": false,
+          "Show leading icon": false,
+          "Intent": "Critical",
+          "Emphasis": "Outlined",
+          "Size": "Default",
+          "State": "Default"
         },
         "id": "8190:5963",
         "appearance": {
           "border": {
-            "color": "#dc3514",
+            "color": "#c12c11",
             "width": "1px"
           },
           "radius": "9999px"

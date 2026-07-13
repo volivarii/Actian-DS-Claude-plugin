@@ -11,18 +11,20 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | Slug | Name | Status | Variant axes |
 |---|---|---|---|
 | `account-dropdown` | Account dropdown | **BUILT** | — |
+| `alert-banner` | Alert-banner | **BUILT** | Type / Orientation' |
+| `alert-inline` | Alert-inline | appearance | Type / Orientation' |
 | `app-switcher-dropdown` | App switcher dropdown | **BUILT** | — |
 | `avatar` | Avatar | appearance | State / Type |
 | `badge` | ✍️ Badge | **BUILT** | Type |
 | `bar-graph` | ⛔️ Bar graph | appearance | Property 1 |
-| `breadcrumbs` | Breadcrumbs | **BUILT** | Type |
+| `breadcrumb` | Breadcrumb | chip | Type |
 | `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
 | `calendar` | Calendar | **BUILT** | Type / Selection |
 | `card-for-grouped-content` | Card for grouped content | appearance | Property 1 |
 | `card-for-items` | Card for items | **BUILT** | Type / State |
 | `card-for-perimeter` | Card for perimeter | appearance | Property 1 |
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
-| `checkbox-with-label` | Checkbox with label | **BUILT** | Selection / State |
+| `checkbox` | Checkbox | appearance | Selection / State |
 | `collapse-accordion` | ✍️ Collapse-accordion | appearance | State |
 | `confirmation` | Confirmation | appearance | Size |
 | `digram-item-types` | Digram, Item types | appearance | Item type / Size |
@@ -47,11 +49,12 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `metamodel-widget` | Metamodel widget | appearance | Type |
 | `modal` | Modal | **BUILT** | Size & Type / Dev status |
 | `notification` | Notification | **BUILT** | Type |
-| `notification-dropdown` | Notification dropdown | appearance | Property 1 |
+| `notification-dropdown` | Notification dropdown | chip | Property 1 |
 | `page-header` | Page header | **BUILT** | Type |
 | `popover` | ⛔️ Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio-button` | Radio button | **BUILT** | Selection / State |
+| `radio-button-card` | Radio button card | appearance | Selection / State |
 | `rich-text` | Rich text | **BUILT** | State |
 | `scroll-bar` | Scroll bar | chip | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
@@ -74,7 +77,6 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `tag-stage` | ✍️ Tag, Stage | appearance | Color |
 | `tag-status` | ✍️ Tag, Status | appearance | Status |
 | `text-input` | Text input | **BUILT** | States |
-| `toggle` | Toggle | **BUILT** | Toggle location / Selected / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
 | `tooltip` | ⚠️ Tooltip | **BUILT** | Type |
 | `whats-new-dropdown` | Whats new dropdown | appearance | Property 1 |

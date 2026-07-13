@@ -104,7 +104,7 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 320 components (80 sets) | Roboto | Full design system, all tokens, 3 themes |
+| DS Kit | 286 components (82 sets) | Roboto | Full design system, all tokens, 3 themes |
 | FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 
@@ -164,7 +164,7 @@ feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
 content — a stub guideline, or no per-component doc at all (most of the
-catalog; 57 guideline docs cover 54 components + 3 registry-key aliases) —
+catalog; 56 guideline docs cover 54 components + 2 registry-key aliases) —
 lift these defaults into the brief grounding payload via
 `scripts/transformers/category-defaults-loader.js`.
 

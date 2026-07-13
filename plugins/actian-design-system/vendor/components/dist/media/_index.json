@@ -29,6 +29,16 @@
       ],
       "default": "components/dist/media/alert-banner/default.webp"
     },
+    "alert-inline": {
+      "preview": "components/dist/media/alert-inline/preview.webp",
+      "variations": [
+        "components/dist/media/alert-inline/variations-0.webp"
+      ],
+      "layout": [
+        "components/dist/media/alert-inline/layout-0.webp"
+      ],
+      "default": "components/dist/media/alert-inline/default.webp"
+    },
     "app-switcher-dropdown": {
       "preview": "components/dist/media/app-switcher-dropdown/preview.webp",
       "default": "components/dist/media/app-switcher-dropdown/default.webp"
@@ -59,6 +69,20 @@
     },
     "bar-graph": {
       "default": "components/dist/media/bar-graph/default.webp"
+    },
+    "breadcrumb": {
+      "preview": "components/dist/media/breadcrumb/preview.webp",
+      "parts": [
+        "components/dist/media/breadcrumb/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/breadcrumb/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/breadcrumb/behavior-0.webp",
+        "components/dist/media/breadcrumb/behavior-1.webp"
+      ],
+      "default": "components/dist/media/breadcrumb/default.webp"
     },
     "breadcrumbs": {
       "preview": "components/dist/media/breadcrumbs/preview.webp",
@@ -123,6 +147,20 @@
         "components/dist/media/chat-with-ai-steward/behavior-0.webp"
       ],
       "default": "components/dist/media/chat-with-ai-steward/default.webp"
+    },
+    "checkbox": {
+      "preview": "components/dist/media/checkbox/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox/spacing-0.webp",
+        "components/dist/media/checkbox/spacing-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/checkbox/behavior-0.webp"
+      ],
+      "default": "components/dist/media/checkbox/default.webp"
     },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
@@ -358,10 +396,33 @@
     },
     "radio-button": {
       "preview": "components/dist/media/radio-button/preview.webp",
+      "parts": [
+        "components/dist/media/radio-button/parts-0.webp",
+        "components/dist/media/radio-button/parts-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/radio-button/spacing-0.webp",
+        "components/dist/media/radio-button/spacing-1.webp"
+      ],
       "behavior": [
         "components/dist/media/radio-button/behavior-0.webp"
       ],
       "default": "components/dist/media/radio-button/default.webp"
+    },
+    "radio-button-card": {
+      "preview": "components/dist/media/radio-button-card/preview.webp",
+      "parts": [
+        "components/dist/media/radio-button-card/parts-0.webp",
+        "components/dist/media/radio-button-card/parts-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/radio-button-card/spacing-0.webp",
+        "components/dist/media/radio-button-card/spacing-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/radio-button-card/behavior-0.webp"
+      ],
+      "default": "components/dist/media/radio-button-card/default.webp"
     },
     "rich-text": {
       "preview": "components/dist/media/rich-text/preview.webp",
