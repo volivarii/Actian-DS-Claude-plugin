@@ -3,37 +3,15 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var fs = require("fs");
 
-var dsMap = require(
+var { measureBlankBoxes } = require(
   path.resolve(
     __dirname,
     "..",
     "..",
     "scripts",
     "renderers",
-    "html-renderers",
-    "ds-html-map.js",
-  ),
-);
-var { buildDsAnatomyDocMap } = require(
-  path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "scripts",
-    "renderers",
-    "ds-anatomy-map.js",
-  ),
-);
-var { countBlankBoxes } = require(
-  path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "scripts",
-    "renderers",
-    "renderability.js",
+    "ds-coverage-report.js",
   ),
 );
 
@@ -58,64 +36,14 @@ var BUDGET = 136;
 //                  notification-dropdown, scroll-bar)
 var CHIP_BUDGET = 4;
 
-function authorableSlugs() {
-  var mdPath = path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "references",
-    "generate-flow",
-    "ds-components-authoring.md",
-  );
-  var out = [];
-  fs.readFileSync(mdPath, "utf8")
-    .split("\n")
-    .forEach(function (line) {
-      var m = line.match(/^\|\s*`([^`]+)`/);
-      if (m) out.push(m[1]);
-    });
-  return out;
-}
-
+// measureBlankBoxes() re-parses the authoring markdown, rebuilds the doc map
+// over ~72 slugs, and re-renders 37 components: expensive to repeat, and
+// every assertion below wants the identical measurement anyway. Compute once
+// and share it instead of calling it fresh from each `it` block.
+var cached = null;
 function renderAll() {
-  var slugs = authorableSlugs();
-  dsMap.setAnatomyDocMap(buildDsAnatomyDocMap(slugs, {}));
-  var built = {};
-  dsMap.BUILT_SLUGS.forEach(function (s) {
-    built[s] = true;
-  });
-  var total = 0;
-  var perSlug = {};
-  var anyAnatomy = false;
-  var chipSlugs = [];
-  slugs.forEach(function (slug) {
-    if (built[slug]) return;
-    var html = "";
-    try {
-      html = String(
-        dsMap.renderDSComponent({
-          dsSlug: slug,
-          library: "ds",
-          props: {},
-          variant: "",
-        }),
-      );
-    } catch (e) {
-      html = "";
-    }
-    if (html.indexOf('data-ds-slug="') !== -1) anyAnatomy = true;
-    if (html.indexOf('class="ds-component"') !== -1) chipSlugs.push(slug);
-    var n = countBlankBoxes(html);
-    perSlug[slug] = n;
-    total += n;
-  });
-  return {
-    total: total,
-    perSlug: perSlug,
-    anyAnatomy: anyAnatomy,
-    slugs: slugs,
-    chipSlugs: chipSlugs,
-  };
+  if (!cached) cached = measureBlankBoxes();
+  return cached;
 }
 
 describe("blank-box budget", function () {

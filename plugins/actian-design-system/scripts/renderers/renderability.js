@@ -102,13 +102,23 @@
 
   // A BLANK BOX is an EMPTY placeholder div. ds-base.css paints these with
   // min-width/min-height var(--zen-size-md) and a neutral background so media
-  // leaves do not collapse to 0x0 — which is precisely what makes them read as
+  // leaves do not collapse to 0x0, which is precisely what makes them read as
   // grey boxes on screen. This is the metric a PM actually sees.
   //
   // Deliberately requires the element to be EMPTY (`></div>` immediately after
   // the open tag): a placeholder that got real content is not a blank box.
+  //
+  // "image" is intentionally absent: the anatomy classifier emits "icon" (and
+  // "vector"), never "image" (see appearance-render.js's C2 comment), so it
+  // never matched here. Kept out rather than kept as dead weight.
+  //
+  // /g means this regex carries mutable lastIndex state. Safe only because
+  // every caller uses String.prototype.match(), which resets lastIndex on
+  // each call. If a future caller reaches for .test() or .exec() instead,
+  // that call needs its own regex instance (or lastIndex reset first), or it
+  // will silently miss matches on the second and later calls.
   var BLANK_BOX =
-    /<div class="ds-appearance__(?:vector|image|icon|instance)"[^>]*><\/div>/g;
+    /<div class="ds-appearance__(?:vector|icon|instance)"[^>]*><\/div>/g;
 
   function countBlankBoxes(html) {
     if (typeof html !== "string" || !html) return 0;

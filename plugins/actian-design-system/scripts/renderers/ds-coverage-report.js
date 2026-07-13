@@ -1,10 +1,17 @@
 #!/usr/bin/env node
 "use strict";
+var fs = require("fs");
 var path = require("path");
 var { loadAnatomy, passesRatioGate } = require(
   path.join(__dirname, "anatomy-render.js"),
 );
-var { isRenderable } = require(path.join(__dirname, "renderability.js"));
+var { isRenderable, countBlankBoxes } = require(
+  path.join(__dirname, "renderability.js"),
+);
+var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
+var { buildDsAnatomyDocMap } = require(
+  path.join(__dirname, "ds-anatomy-map.js"),
+);
 
 // Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
 // matching passesRatioGate's own strict default; see its doc comment in
@@ -56,18 +63,11 @@ function coverage(slugs, opts) {
   });
 }
 
-module.exports = { coverage: coverage };
-
-if (require.main === module) {
-  var fs = require("fs");
-  var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
-  var BUILT_SLUGS = dsMap.BUILT_SLUGS;
-  var { buildDsAnatomyDocMap } = require(
-    path.join(__dirname, "ds-anatomy-map.js"),
-  );
-  var { countBlankBoxes } = require(path.join(__dirname, "renderability.js"));
-
-  // Parse authorable slugs from the markdown table in ds-components-authoring.md
+// Parse authorable slugs from the markdown table in ds-components-authoring.md.
+// This is the SINGLE parse of that table. Both the CLI report below and the CI
+// budget gate (tests/renderers/blank-box-budget.test.js) call this function,
+// so the two can never silently disagree on which slugs count as authorable.
+function authorableSlugs() {
   var mdPath = path.resolve(
     __dirname,
     "..",
@@ -77,42 +77,87 @@ if (require.main === module) {
     "ds-components-authoring.md",
   );
   var mdContent = fs.readFileSync(mdPath, "utf8");
-  var authorableSlugs = [];
+  var slugs = [];
   mdContent.split("\n").forEach(function (line) {
     var m = line.match(/^\|\s*`([^`]+)`/);
-    if (m) authorableSlugs.push(m[1]);
+    if (m) slugs.push(m[1]);
+  });
+  return slugs;
+}
+
+// Exported so the CI gate (tests/renderers/blank-box-budget.test.js) measures
+// the SAME thing this report prints, by construction rather than by
+// coincidence. Two independent measurers would be free to drift, and the gate
+// would then guard a number nobody is looking at.
+//
+// Renders every authorable slug through the REAL seam (the same doc map
+// assemble-flow-share builds) and counts the empty grey placeholder boxes it
+// emits. This is the number a PM actually sees on a generated flow.
+function measureBlankBoxes(opts) {
+  opts = opts || {};
+  var slugs = opts.slugs || authorableSlugs();
+  var built = {};
+  (dsMap.BUILT_SLUGS || []).forEach(function (s) {
+    built[s] = true;
   });
 
-  var rows = coverage(authorableSlugs, { builtSlugs: BUILT_SLUGS });
+  var total = 0;
+  var perSlug = {};
+  var anyAnatomy = false;
+  var chipSlugs = [];
 
-  // Render every authorable slug through the REAL seam (the same doc map
-  // assemble-flow-share builds) and count the empty grey placeholder boxes it
-  // emits. This is the number a PM actually sees on a generated flow.
-  dsMap.setAnatomyDocMap(buildDsAnatomyDocMap(authorableSlugs, {}));
-  var blanks = {};
-  var blankTotal = 0;
-  rows.forEach(function (r) {
-    if (r.tier === "override") {
-      blanks[r.slug] = 0;
-      return;
-    }
-    var html = "";
-    try {
-      html = String(
-        dsMap.renderDSComponent({
-          dsSlug: r.slug,
-          library: "ds",
-          props: {},
-          variant: "",
-        }),
-      );
-    } catch (e) {
-      html = "";
-    }
-    var n = countBlankBoxes(html);
-    blanks[r.slug] = n;
-    blankTotal += n;
-  });
+  dsMap.setAnatomyDocMap(buildDsAnatomyDocMap(slugs, {}));
+  try {
+    slugs.forEach(function (slug) {
+      if (built[slug]) return;
+      var html = "";
+      try {
+        html = String(
+          dsMap.renderDSComponent({
+            dsSlug: slug,
+            library: "ds",
+            props: {},
+            variant: "",
+          }),
+        );
+      } catch (e) {
+        html = "";
+      }
+      if (html.indexOf('data-ds-slug="') !== -1) anyAnatomy = true;
+      if (html.indexOf('class="ds-component"') !== -1) chipSlugs.push(slug);
+      var n = countBlankBoxes(html);
+      perSlug[slug] = n;
+      total += n;
+    });
+  } finally {
+    // Reset module-level state so it never leaks into a later assembly, same
+    // convention as assemble-flow-share.js's render loop.
+    dsMap.setAnatomyDocMap(null);
+  }
+
+  return {
+    slugs: slugs,
+    total: total,
+    perSlug: perSlug,
+    chipSlugs: chipSlugs,
+    anyAnatomy: anyAnatomy,
+  };
+}
+
+module.exports = {
+  coverage: coverage,
+  authorableSlugs: authorableSlugs,
+  measureBlankBoxes: measureBlankBoxes,
+};
+
+if (require.main === module) {
+  var BUILT_SLUGS = dsMap.BUILT_SLUGS;
+
+  var slugs = authorableSlugs();
+  var rows = coverage(slugs, { builtSlugs: BUILT_SLUGS });
+  var measured = measureBlankBoxes({ slugs: slugs });
+  var blanks = measured.perSlug;
+  var blankTotal = measured.total;
 
   // Print table
   var col1 = Math.max(
@@ -127,7 +172,6 @@ if (require.main === module) {
       : "slug".length,
   );
   var col2 = 8; // "degraded".length
-  var col3 = 5; // "ratio".length
 
   function pad(s, n) {
     return (
@@ -204,6 +248,4 @@ if (require.main === module) {
   console.log(
     "anatomy-tier but NOT renderable (the floor is faking these): " + fakingIt,
   );
-
-  process.exit(0);
 }
