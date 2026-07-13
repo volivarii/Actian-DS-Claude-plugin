@@ -104,7 +104,7 @@
   "Status": [
     "alert-circle",
     "asleep",
-    "calendar-2",
+    "calendar",
     "checkmark-outline",
     "circle-dash",
     "icon-query-queue",
@@ -141,7 +141,12 @@
     "task-list-multiple",
     "text-file"
   ],
-  "Cursor": ["cursor-arrow", "cursor-hand", "expand", "minimize"],
+  "Cursor": [
+    "cursor-arrow",
+    "cursor-hand",
+    "expand",
+    "minimize"
+  ],
   "Graph": [
     "chart-bar",
     "chart-pie",
