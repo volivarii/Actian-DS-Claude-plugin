@@ -1,14 +1,17 @@
 {
   "_meta": {
-    "description": "Page clean-name -> canonical category. Applied both in inferCategoryMap (on the Pages-panel canvas name) and as a fallback in transform-registry's per-component category lookup (on each component's own containing_frame.pageName), so an override still resolves when the canvas name and the component's reported page name diverge (e.g. the icons page shows 'DS Icons' in the panel while icon components report 'Icons'). Keys are clean-names (status emoji stripped) so they survive the emoji changing. `exclude` drops a page's components entirely (staging / not-ready). Self-retiring: delete an entry once Figma encodes the category natively and a re-sync restores it.",
+    "description": "Page clean-name -> canonical category. Applied both in inferCategoryMap (on the Pages-panel canvas name) and as a fallback in transform-registry's per-component category lookup (on each component's own containing_frame.pageName), so an override still resolves when the canvas name and the component's reported page name diverge. Keys are clean-names (status emoji stripped) so they survive the emoji changing. `exclude` drops a page's components entirely (staging / not-ready). Self-retiring: delete an entry once Figma encodes the category natively and a re-sync restores it.",
     "provenance": "manual-override",
     "added": "2026-07-08",
-    "remove_when": "Figma re-encodes these pages so the sync attributes their category natively; a re-sync then restores it and the entry can be deleted."
+    "remove_when": "Figma re-encodes these pages so the sync attributes their category natively; a re-sync then restores it and the entry can be deleted.",
+    "_history": "2026-07-12: 'DS Icons: replacement' was moved OUT of `exclude` and INTO `overrides`. It was excluded on 2026-07-08 as a staging page. Since then the 2026-07 icon rework MOVED the real icon library onto it: 201 of the 237 registry icon components are main components on that page today. Excluding it therefore deleted the entire Icons category (237 -> 0), which the category mass-loss tripwire correctly refused to publish, so the nightly Figma sync failed every night from 2026-07-10. Do NOT re-add it to `exclude` while the icons live there.",
+    "updated": "2026-07-12"
   },
   "overrides": {
     "Icons": "Icons",
     "DS Icons": "Icons",
-    "Alert (banner)": "Feedback"
+    "Alert (banner)": "Feedback",
+    "DS Icons: replacement": "Icons"
   },
-  "exclude": ["DS Icons: replacement"]
+  "exclude": []
 }

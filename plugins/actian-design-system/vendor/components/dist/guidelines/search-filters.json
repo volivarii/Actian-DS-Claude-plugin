@@ -336,7 +336,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
+                  "prose": "**Use a** **[checkbox](checkbox)** **when:**"
                 },
                 {
                   "bullets": [
@@ -604,5 +604,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T03:29:26+02:00"
+  "updated_at": "2026-07-12T11:29:30+02:00"
 }

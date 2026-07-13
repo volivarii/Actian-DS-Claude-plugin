@@ -440,7 +440,7 @@ test("formatForBrief — content card extracts prose from new {prose} and {bulle
 });
 
 test("transcribeContentGuidelines / isStubGuideline — registry-alias copy is handled like any other doc", function () {
-  // Knowledge ships registry-key alias copies, e.g. checkbox-with-label.json
+  // Knowledge ships registry-key alias copies, e.g. checkbox.json
   // carrying `_alias_of: "checkbox"`. The plugin loads it by slug like any
   // guideline doc; the extra `_alias_of` field must be harmlessly ignored.
   var aliasDoc = guidelineDoc("approved", [

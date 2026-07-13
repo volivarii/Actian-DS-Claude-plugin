@@ -495,8 +495,8 @@
       "@id": "component:add",
       "@type": "Component",
       "title": "add",
-      "figmaKey": "2b10108613a16fe36ada2420f992f0240b076804",
-      "figmaNodeId": "7378:3994"
+      "figmaKey": "33ab1534db5a1d5619a29735d2a0ac87514819b9",
+      "figmaNodeId": "7206:3772"
     },
     {
       "@id": "component:add-circle",
@@ -543,16 +543,16 @@
     {
       "@id": "component:alert-banner",
       "@type": "Component",
-      "title": "✍️ Alert-banner",
+      "title": "Alert-banner",
       "figmaKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
       "figmaNodeId": "13732:3056"
     },
     {
-      "@id": "component:alert-circle",
+      "@id": "component:alert-inline",
       "@type": "Component",
-      "title": "alert-circle",
-      "figmaKey": "750fb2b2080f030bcf753f1c2c18c811c5aeaa8a",
-      "figmaNodeId": "14719:551"
+      "title": "Alert-inline",
+      "figmaKey": "14a9062ded019fd0aafa717a268cba3e402c4a3f",
+      "figmaNodeId": "19746:32731"
     },
     {
       "@id": "component:alteryx",
@@ -751,13 +751,6 @@
       "figmaNodeId": "8:20880"
     },
     {
-      "@id": "component:asleep",
-      "@type": "Component",
-      "title": "asleep",
-      "figmaKey": "c0411afed99b56a1af98f59d40aec05db7c5fb95",
-      "figmaNodeId": "7310:2900"
-    },
-    {
       "@id": "component:at-symbol",
       "@type": "Component",
       "title": "at-symbol",
@@ -791,13 +784,6 @@
       "title": "avro",
       "figmaKey": "0befe2863bac449e778bf81429105d046babd9b8",
       "figmaNodeId": "8400:25205"
-    },
-    {
-      "@id": "component:award-04",
-      "@type": "Component",
-      "title": "award-04",
-      "figmaKey": "9c4aea9aed18f57b7ed4bf55bc71d6910d2d0109",
-      "figmaNodeId": "8655:10107"
     },
     {
       "@id": "component:aws-glue-etl",
@@ -943,8 +929,8 @@
       "@id": "component:book-bookmark",
       "@type": "Component",
       "title": "book-bookmark",
-      "figmaKey": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
-      "figmaNodeId": "7378:5700"
+      "figmaKey": "b5e398041c92e0830c652775f440c06226403d04",
+      "figmaNodeId": "7378:3702"
     },
     {
       "@id": "component:book-edit",
@@ -982,9 +968,9 @@
       "figmaNodeId": "8504:23295"
     },
     {
-      "@id": "component:breadcrumbs",
+      "@id": "component:breadcrumb",
       "@type": "Component",
-      "title": "Breadcrumbs",
+      "title": "Breadcrumb",
       "figmaKey": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
       "figmaNodeId": "13792:15247"
     },
@@ -994,13 +980,6 @@
       "title": "briefcase",
       "figmaKey": "ba24134a55744773e55c841ad48eacb6dd978664",
       "figmaNodeId": "8:20600"
-    },
-    {
-      "@id": "component:brightness-contrast",
-      "@type": "Component",
-      "title": "brightness-contrast",
-      "figmaKey": "f6cb9d9b6a1a428237a5d845543c565524cd4eb0",
-      "figmaNodeId": "7537:1569"
     },
     {
       "@id": "component:bulleted-list",
@@ -1036,13 +1015,6 @@
       "title": "Calendar",
       "figmaKey": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
       "figmaNodeId": "8211:6664"
-    },
-    {
-      "@id": "component:calendar-2",
-      "@type": "Component",
-      "title": "calendar 2",
-      "figmaKey": "1d990e9286ab35da2957194c28722e72873aec3b",
-      "figmaNodeId": "7313:3194"
     },
     {
       "@id": "component:camera",
@@ -1103,16 +1075,16 @@
     {
       "@id": "component:chart-bar",
       "@type": "Component",
-      "title": "chart--bar",
-      "figmaKey": "dde572f16c897c96ae7bc7a82532276fe87b7410",
-      "figmaNodeId": "9246:14002"
+      "title": "chart-bar",
+      "figmaKey": "f688ec904baf1b330abbbf4fc6696a1ddaf87933",
+      "figmaNodeId": "8:20852"
     },
     {
       "@id": "component:chart-pie",
       "@type": "Component",
-      "title": "chart--pie",
-      "figmaKey": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
-      "figmaNodeId": "9246:14001"
+      "title": "chart-pie",
+      "figmaKey": "d53df90928900dca8a0dece510ebad1335b52d63",
+      "figmaNodeId": "8:20630"
     },
     {
       "@id": "component:chart-square-bar",
@@ -1164,18 +1136,18 @@
       "figmaNodeId": "8:20570"
     },
     {
-      "@id": "component:checkbox-with-label",
+      "@id": "component:checkbox",
       "@type": "Component",
-      "title": "Checkbox with label",
+      "title": "Checkbox",
       "figmaKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
       "figmaNodeId": "9478:17216"
     },
     {
-      "@id": "component:checkmark-outline",
+      "@id": "component:checkbox-card",
       "@type": "Component",
-      "title": "checkmark--outline",
-      "figmaKey": "e5b3de9a4f7a367b4ef924486daa999145e62f46",
-      "figmaNodeId": "7310:2896"
+      "title": "Checkbox card",
+      "figmaKey": "f1c35d44a6be64cac73490c2851e38d5b5c1688a",
+      "figmaNodeId": "19983:23496"
     },
     {
       "@id": "component:chevron-double-down",
@@ -1227,27 +1199,6 @@
       "figmaNodeId": "8:20690"
     },
     {
-      "@id": "component:chevron-sort",
-      "@type": "Component",
-      "title": "chevron--sort",
-      "figmaKey": "5687e6bce59274d7ad7e3f2c17a3c2dabb78288d",
-      "figmaNodeId": "7207:2836"
-    },
-    {
-      "@id": "component:chevron-sort-down",
-      "@type": "Component",
-      "title": "chevron--sort--down",
-      "figmaKey": "666ef728fee0b8d31fd69757fdd75b2426abf2c6",
-      "figmaNodeId": "7207:2833"
-    },
-    {
-      "@id": "component:chevron-sort-up",
-      "@type": "Component",
-      "title": "chevron--sort--up",
-      "figmaKey": "749e5cda3c174a61f8dad42b2f9466b1f08325c4",
-      "figmaNodeId": "7207:2835"
-    },
-    {
       "@id": "component:chevron-up",
       "@type": "Component",
       "title": "chevron--up",
@@ -1260,13 +1211,6 @@
       "title": "chip",
       "figmaKey": "46e1d850eb03fab2ca309096473ec6a1827e554d",
       "figmaNodeId": "8:20770"
-    },
-    {
-      "@id": "component:circle-dash",
-      "@type": "Component",
-      "title": "circle-dash",
-      "figmaKey": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
-      "figmaNodeId": "7310:2897"
     },
     {
       "@id": "component:ckan",
@@ -1334,9 +1278,9 @@
     {
       "@id": "component:cloud-upload",
       "@type": "Component",
-      "title": "cloud--upload",
-      "figmaKey": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
-      "figmaNodeId": "7908:5403"
+      "title": "cloud-upload",
+      "figmaKey": "ff0e585eac58907733beb4beb1dfa70864a5e0c5",
+      "figmaNodeId": "8:20914"
     },
     {
       "@id": "component:code",
@@ -1913,13 +1857,6 @@
       "figmaNodeId": "7301:2777"
     },
     {
-      "@id": "component:expand",
-      "@type": "Component",
-      "title": "expand",
-      "figmaKey": "b92ca711225ff8cc4b1068893831456c40e3bc3f",
-      "figmaNodeId": "15563:24467"
-    },
-    {
       "@id": "component:exploration",
       "@type": "Component",
       "title": "exploration",
@@ -2399,8 +2336,8 @@
       "@id": "component:glossary",
       "@type": "Component",
       "title": "glossary",
-      "figmaKey": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
-      "figmaNodeId": "10613:30347"
+      "figmaKey": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
+      "figmaNodeId": "7378:5700"
     },
     {
       "@id": "component:glossary-item-hierarchy-diagram",
@@ -2487,20 +2424,6 @@
       "figmaNodeId": "8504:23049"
     },
     {
-      "@id": "component:help-laptop",
-      "@type": "Component",
-      "title": "help-laptop",
-      "figmaKey": "54a1684fcc8cba3210f64e17f66d7ef3cbabc737",
-      "figmaNodeId": "14691:457"
-    },
-    {
-      "@id": "component:history",
-      "@type": "Component",
-      "title": "history",
-      "figmaKey": "aaf85298722d8df888197a9174f219b7848cc013",
-      "figmaNodeId": "8742:13219"
-    },
-    {
       "@id": "component:hive",
       "@type": "Component",
       "title": "hive",
@@ -2520,13 +2443,6 @@
       "title": "icon-placeholder",
       "figmaKey": "ae4cb8ae57725689509e57001cfaf83a28ee1c85",
       "figmaNodeId": "9:1404"
-    },
-    {
-      "@id": "component:icon-query-queue",
-      "@type": "Component",
-      "title": "Icon/query-queue",
-      "figmaKey": "dfc61677c57161b2031bdce8733cb4bf6fcfd6fa",
-      "figmaNodeId": "7311:2825"
     },
     {
       "@id": "component:icon-user-remove",
@@ -2555,13 +2471,6 @@
       "title": "Illustration",
       "figmaKey": "00302ca7dc4298c719f19ca4766029909ecbeb9d",
       "figmaNodeId": "8837:9945"
-    },
-    {
-      "@id": "component:image",
-      "@type": "Component",
-      "title": "image",
-      "figmaKey": "b3f1a7f5ef3d50822c84ce0f6d745428607d9023",
-      "figmaNodeId": "7908:5402"
     },
     {
       "@id": "component:impala",
@@ -2695,13 +2604,6 @@
       "title": "layers-front",
       "figmaKey": "548f9b5398eaff3804a4912550fc4c944881b465",
       "figmaNodeId": "8504:23326"
-    },
-    {
-      "@id": "component:layers-front-curator-indicator",
-      "@type": "Component",
-      "title": "layers-front (Curator indicator)",
-      "figmaKey": "e7e0adbbf7e0f8b9b3fc45c839f381b029859715",
-      "figmaNodeId": "8820:13322"
     },
     {
       "@id": "component:library",
@@ -2868,8 +2770,8 @@
       "@id": "component:mail",
       "@type": "Component",
       "title": "mail",
-      "figmaKey": "6db8438579e807864e92cd7f61d5dfe1db9dd841",
-      "figmaNodeId": "8012:1308"
+      "figmaKey": "04a09a5c924eee871df579a56443bcaf8c92b893",
+      "figmaNodeId": "8:20530"
     },
     {
       "@id": "component:mail-open",
@@ -2921,18 +2823,11 @@
       "figmaNodeId": "8400:25103"
     },
     {
-      "@id": "component:maximize",
-      "@type": "Component",
-      "title": "maximize",
-      "figmaKey": "b06f115e9d2e0d3544b1b319cc96e501449e5d5f",
-      "figmaNodeId": "8483:1558"
-    },
-    {
       "@id": "component:menu",
       "@type": "Component",
       "title": "menu",
-      "figmaKey": "f55f4bc6e00be7b6c3dabbc2e426c9660964a1d4",
-      "figmaNodeId": "7893:4605"
+      "figmaKey": "538cacc62e4f1edb74a5443fdc10ef57bf1d6fd4",
+      "figmaNodeId": "8:20536"
     },
     {
       "@id": "component:menu-alt-1",
@@ -3180,13 +3075,6 @@
       "figmaNodeId": "8400:25105"
     },
     {
-      "@id": "component:minimize",
-      "@type": "Component",
-      "title": "minimize",
-      "figmaKey": "ed365ef9760849fa471fb84b4d7603c1052399bf",
-      "figmaNodeId": "8298:5067"
-    },
-    {
       "@id": "component:minus",
       "@type": "Component",
       "title": "minus",
@@ -3206,13 +3094,6 @@
       "title": "minus-sm",
       "figmaKey": "d2c2682f5311568aafb8437f33d2f471beeabf2f",
       "figmaNodeId": "8:20960"
-    },
-    {
-      "@id": "component:misuse-outline",
-      "@type": "Component",
-      "title": "misuse--outline",
-      "figmaKey": "c7ecb9c454db552f8ca3630707c86a877e13e32c",
-      "figmaNodeId": "8415:1389"
     },
     {
       "@id": "component:modal",
@@ -3416,13 +3297,6 @@
       "title": "pencil-alt",
       "figmaKey": "3cfe54d264adbf31a3073dff96c0f11972f3122a",
       "figmaNodeId": "8:20672"
-    },
-    {
-      "@id": "component:pending",
-      "@type": "Component",
-      "title": "pending",
-      "figmaKey": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
-      "figmaNodeId": "7996:5346"
     },
     {
       "@id": "component:phone",
@@ -3656,6 +3530,13 @@
       "figmaNodeId": "9474:16884"
     },
     {
+      "@id": "component:radio-button-card",
+      "@type": "Component",
+      "title": "Radio button card",
+      "figmaKey": "897d587b486e30b303ba9f4169a4daccf179faff",
+      "figmaNodeId": "19746:36001"
+    },
+    {
       "@id": "component:receipt-refund",
       "@type": "Component",
       "title": "receipt-refund",
@@ -3717,13 +3598,6 @@
       "title": "Rich text",
       "figmaKey": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
       "figmaNodeId": "9480:17723"
-    },
-    {
-      "@id": "component:rocket-1",
-      "@type": "Component",
-      "title": "rocket 1",
-      "figmaKey": "b781fde18c452c199f8b699ed092b26d683f9f45",
-      "figmaNodeId": "9085:20152"
     },
     {
       "@id": "component:rotate-back",
@@ -4002,8 +3876,8 @@
       "@id": "component:snowflake",
       "@type": "Component",
       "title": "Snowflake",
-      "figmaKey": "14abdd5e317e35b558549d54270c9f7024dc64ed",
-      "figmaNodeId": "8504:23447"
+      "figmaKey": "046781836dd3d72a9f1185981ebb28e0eab09bd9",
+      "figmaNodeId": "7691:4999"
     },
     {
       "@id": "component:soda",
@@ -4123,13 +3997,6 @@
       "title": "stop",
       "figmaKey": "cba9a1f592d6e9d6aa8325ed8849af595106b493",
       "figmaNodeId": "8:20868"
-    },
-    {
-      "@id": "component:stop-outline",
-      "@type": "Component",
-      "title": "stop--outline",
-      "figmaKey": "aca6ed16c1e6d21fe112ab5619570e5a11f1d5e0",
-      "figmaNodeId": "7310:2895"
     },
     {
       "@id": "component:strikethrough",
@@ -4300,13 +4167,6 @@
       "figmaNodeId": "8504:23375"
     },
     {
-      "@id": "component:task-list-multiple",
-      "@type": "Component",
-      "title": "task-list-multiple",
-      "figmaKey": "fb486ea7bd5611848f79a84fd04ede0cc78869a9",
-      "figmaNodeId": "8504:23376"
-    },
-    {
       "@id": "component:task-list-settings",
       "@type": "Component",
       "title": "task-list-settings",
@@ -4419,13 +4279,6 @@
       "figmaNodeId": "14335:16907"
     },
     {
-      "@id": "component:tools",
-      "@type": "Component",
-      "title": "tools",
-      "figmaKey": "2a497ba6f8e5040d5654e86cdc32b90f51eb6849",
-      "figmaNodeId": "7311:2826"
-    },
-    {
       "@id": "component:tooltip",
       "@type": "Component",
       "title": "⚠️ Tooltip",
@@ -4475,13 +4328,6 @@
       "figmaNodeId": "8:20990"
     },
     {
-      "@id": "component:undo",
-      "@type": "Component",
-      "title": "undo",
-      "figmaKey": "c4b92f77c463b26299c2eaf52aff41973aaf4b21",
-      "figmaNodeId": "7469:5248"
-    },
-    {
       "@id": "component:unknown-type",
       "@type": "Component",
       "title": "unknown-type",
@@ -4494,20 +4340,6 @@
       "title": "upload",
       "figmaKey": "beb7400c282a76227c3605ed1e27418203ea128e",
       "figmaNodeId": "8:20594"
-    },
-    {
-      "@id": "component:upload-file",
-      "@type": "Component",
-      "title": "upload-file",
-      "figmaKey": "ef39179dc6dda4a55166931b2f11f8b60460d58d",
-      "figmaNodeId": "7439:4678"
-    },
-    {
-      "@id": "component:use-with-care",
-      "@type": "Component",
-      "title": "use-with-care",
-      "figmaKey": "946ad814c46b04b4a689b3d09f82bb572af76f36",
-      "figmaNodeId": "14703:19805"
     },
     {
       "@id": "component:user",
@@ -4543,13 +4375,6 @@
       "title": "user-info",
       "figmaKey": "3b2848d77b98a22dfa31033342ae67f84dee3c0b",
       "figmaNodeId": "8820:13334"
-    },
-    {
-      "@id": "component:user-lock",
-      "@type": "Component",
-      "title": "user-lock",
-      "figmaKey": "1c3ea13966867002325327b01b9c5942ebe8d856",
-      "figmaNodeId": "8820:13324"
     },
     {
       "@id": "component:user-single",
@@ -4594,13 +4419,6 @@
       "figmaNodeId": "8:20664"
     },
     {
-      "@id": "component:view-card",
-      "@type": "Component",
-      "title": "view-card",
-      "figmaKey": "d1361c8bdc2347790fcedb0399598585fa4d7054",
-      "figmaNodeId": "7622:5375"
-    },
-    {
       "@id": "component:view-details",
       "@type": "Component",
       "title": "view-details",
@@ -4622,13 +4440,6 @@
       "figmaNodeId": "8:20640"
     },
     {
-      "@id": "component:view-table",
-      "@type": "Component",
-      "title": "view-table",
-      "figmaKey": "bfc87e123e2bab1aec590bdfa5799649b37f756a",
-      "figmaNodeId": "7622:5374"
-    },
-    {
       "@id": "component:volume-off",
       "@type": "Component",
       "title": "volume-off",
@@ -4641,13 +4452,6 @@
       "title": "volume-up",
       "figmaKey": "6006211edd13c5bb409837e4d8de3e291e247662",
       "figmaNodeId": "8:20680"
-    },
-    {
-      "@id": "component:warning-alt",
-      "@type": "Component",
-      "title": "warning--alt",
-      "figmaKey": "675e323d57c331b8b9936f39687cf68450fd105b",
-      "figmaNodeId": "7310:2892"
     },
     {
       "@id": "component:warning-filled",
@@ -6282,12 +6086,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:breadcrumbs",
+      "source": "component:breadcrumb",
       "target": "a11y:navigation",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/breadcrumbs/",
+        "source_file": "components/src/breadcrumb/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6334,7 +6138,7 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:checkbox-with-label",
+      "source": "component:checkbox",
       "target": "a11y:forms",
       "scope": "component",
       "confidence": "asserted",
@@ -6855,19 +6659,6 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:upload-file",
-      "target": "a11y:forms",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/upload-file/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "a11y_ref",
       "source": "component:whats-new-dropdown",
       "target": "a11y:dropdowns-menus-popovers",
       "scope": "component",
@@ -6960,6 +6751,30 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
+      "source": "component:alert-inline",
+      "target": "component:error-filled"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:alert-inline",
+      "target": "component:info-filled"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:alert-inline",
+      "target": "component:success-filled"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:alert-inline",
+      "target": "component:warning-filled"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
       "source": "component:app-switcher-dropdown",
       "target": "component:arrow-down"
     },
@@ -6990,13 +6805,13 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:breadcrumbs",
+      "source": "component:breadcrumb",
       "target": "component:digram-item-types"
     },
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:breadcrumbs",
+      "source": "component:breadcrumb",
       "target": "component:link"
     },
     {
@@ -7122,13 +6937,13 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:chat-with-ai-steward",
-      "target": "component:expand"
+      "source": "component:checkbox",
+      "target": "component:digram-item-types"
     },
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:checkbox-with-label",
+      "source": "component:checkbox-card",
       "target": "component:digram-item-types"
     },
     {
@@ -7154,6 +6969,12 @@
       "edgeType": "composed_of",
       "source": "component:confirmation",
       "target": "component:illustration"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:drawer-side-panel",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -7262,6 +7083,12 @@
       "edgeType": "composed_of",
       "source": "component:drawer-side-panel",
       "target": "component:view-details"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:dropdown-select-default",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -8095,7 +7922,7 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
-      "target": "component:checkbox-with-label"
+      "target": "component:checkbox"
     },
     {
       "@type": "Edge",
@@ -8155,12 +7982,6 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
-      "target": "component:task-list-multiple"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:modal",
       "target": "component:text-file"
     },
     {
@@ -8190,8 +8011,8 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:notification-dropdown",
-      "target": "component:checkmark-outline"
+      "source": "component:page-header",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -8287,24 +8108,6 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:popover",
-      "target": "component:checkmark-outline"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:popover",
-      "target": "component:chevron-sort"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:popover",
-      "target": "component:circle-dash"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:popover",
       "target": "component:close"
     },
     {
@@ -8382,6 +8185,12 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
+      "source": "component:radio-button-card",
+      "target": "component:digram-item-types"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
       "source": "component:search",
       "target": "component:arrow-down"
     },
@@ -8449,6 +8258,12 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:search-result-card",
+      "target": "component:add"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:search-result-card",
       "target": "component:arrow-down"
     },
     {
@@ -8496,18 +8311,6 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:segmented-control",
-      "target": "component:view-table"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:side-nav",
-      "target": "component:add"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
       "source": "component:side-nav",
       "target": "component:analytics"
     },
@@ -8528,6 +8331,12 @@
       "edgeType": "composed_of",
       "source": "component:side-nav",
       "target": "component:arrow-down"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:side-nav",
+      "target": "component:book-bookmark"
     },
     {
       "@type": "Edge",
@@ -8623,12 +8432,6 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:table",
-      "target": "component:add"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:table",
       "target": "component:arrow"
     },
     {
@@ -8653,19 +8456,7 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:table",
-      "target": "component:checkmark-outline"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:table",
       "target": "component:chevron-left"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:table",
-      "target": "component:chevron-sort"
     },
     {
       "@type": "Edge",
@@ -8706,12 +8497,6 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:table",
-      "target": "component:view-table"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
       "source": "component:tabs",
       "target": "component:avatar"
     },
@@ -8725,7 +8510,19 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:tag-default",
+      "target": "component:add"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:tag-default",
       "target": "component:arrow-down"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:tag-interactive",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -8743,67 +8540,7 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:tag-status",
-      "target": "component:asleep"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:calendar-2"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:checkmark-outline"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:circle-dash"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:icon-query-queue"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:misuse-outline"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:pending"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
       "target": "component:spinner"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:stop-outline"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:tools"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:tag-status",
-      "target": "component:warning-alt"
     },
     {
       "@type": "Edge",
@@ -8882,6 +8619,12 @@
       "edgeType": "composed_of",
       "source": "component:toolbar",
       "target": "component:zoom-to-fit"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:whats-new-dropdown",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -10828,8 +10571,8 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:alert-circle",
-      "target": "category:icons"
+      "source": "component:alert-inline",
+      "target": "category:feedback"
     },
     {
       "@type": "Edge",
@@ -10894,12 +10637,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:asleep",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:atlas",
       "target": "category:icons"
     },
@@ -10919,12 +10656,6 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:avro",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:award-04",
       "target": "category:icons"
     },
     {
@@ -11026,14 +10757,8 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:breadcrumbs",
+      "source": "component:breadcrumb",
       "target": "category:navigation"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:brightness-contrast",
-      "target": "category:icons"
     },
     {
       "@type": "Edge",
@@ -11046,12 +10771,6 @@
       "edgeType": "in_category",
       "source": "component:calendar",
       "target": "category:action"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:calendar-2",
-      "target": "category:icons"
     },
     {
       "@type": "Edge",
@@ -11092,32 +10811,20 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:chart-bar",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:chart-pie",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:chat-with-ai-steward",
       "target": "category:overlays"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:checkbox-with-label",
+      "source": "component:checkbox",
       "target": "category:form-input-selection"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:checkmark-outline",
-      "target": "category:icons"
+      "source": "component:checkbox-card",
+      "target": "category:form-input-selection"
     },
     {
       "@type": "Edge",
@@ -11128,31 +10835,7 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:chevron-sort",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:chevron-sort-down",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:chevron-sort-up",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:chevron-up",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:circle-dash",
       "target": "category:icons"
     },
     {
@@ -11165,12 +10848,6 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:close",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:cloud-upload",
       "target": "category:icons"
     },
     {
@@ -11464,12 +11141,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:expand",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:exploration",
       "target": "category:icons"
     },
@@ -11596,18 +11267,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:help-laptop",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:history",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:hive",
       "target": "category:icons"
     },
@@ -11615,12 +11274,6 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:home",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:icon-query-queue",
       "target": "category:icons"
     },
     {
@@ -11634,12 +11287,6 @@
       "edgeType": "in_category",
       "source": "component:illustration",
       "target": "category:illustrations-graphics"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:image",
-      "target": "category:icons"
     },
     {
       "@type": "Edge",
@@ -11723,12 +11370,6 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:layers-front",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:layers-front-curator-indicator",
       "target": "category:icons"
     },
     {
@@ -11830,12 +11471,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:mail",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:maintenance",
       "target": "category:icons"
     },
@@ -11872,18 +11507,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:maximize",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:menu",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:metamodel-widget",
       "target": "category:data-display"
     },
@@ -11891,18 +11514,6 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:microstrategy",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:minimize",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:misuse-outline",
       "target": "category:icons"
     },
     {
@@ -12022,12 +11633,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:pending",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:pii",
       "target": "category:icons"
     },
@@ -12094,6 +11699,12 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
+      "source": "component:radio-button-card",
+      "target": "category:form-input-selection"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_category",
       "source": "component:relation",
       "target": "category:icons"
     },
@@ -12114,12 +11725,6 @@
       "edgeType": "in_category",
       "source": "component:rich-text",
       "target": "category:form-input-selection"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:rocket-1",
-      "target": "category:icons"
     },
     {
       "@type": "Edge",
@@ -12328,12 +11933,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:stop-outline",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:success-filled",
       "target": "category:icons"
     },
@@ -12442,12 +12041,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:task-list-multiple",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:task-list-settings",
       "target": "category:icons"
     },
@@ -12514,12 +12107,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:tools",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:tooltip",
       "target": "category:overlays"
     },
@@ -12532,25 +12119,7 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:undo",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:unknown-type",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:upload-file",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:use-with-care",
       "target": "category:icons"
     },
     {
@@ -12574,12 +12143,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:user-lock",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:user-single",
       "target": "category:icons"
     },
@@ -12592,25 +12155,7 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:view-card",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:view-details",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:view-table",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:warning-alt",
       "target": "category:icons"
     },
     {
@@ -13315,7 +12860,7 @@
       "@type": "Edge",
       "edgeType": "related",
       "source": "content:forms",
-      "target": "component:checkbox-with-label"
+      "target": "component:checkbox"
     },
     {
       "@type": "Edge",
@@ -13423,7 +12968,7 @@
       "@type": "Edge",
       "edgeType": "related",
       "source": "content:validation-messages",
-      "target": "component:checkbox-with-label"
+      "target": "component:checkbox"
     },
     {
       "@type": "Edge",
@@ -13879,7 +13424,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:asset-detail-360",
-      "target": "component:breadcrumbs",
+      "target": "component:breadcrumb",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -13951,7 +13496,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:bulk-edit",
-      "target": "component:checkbox-with-label",
+      "target": "component:checkbox",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14203,7 +13748,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:filter-groups-form",
-      "target": "component:checkbox-with-label",
+      "target": "component:checkbox",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",

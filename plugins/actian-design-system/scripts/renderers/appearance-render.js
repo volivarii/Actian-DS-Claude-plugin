@@ -33,6 +33,32 @@
       })()) ||
     {};
 
+  // Slugs that a NON-icon component also answers to. `calendar` is the glyph AND
+  // the Calendar component; `search` is the glyph AND the Search field. Both are
+  // legal — knowledge gives icons their own namespace — but THIS path resolves a
+  // component reference BY SLUG, and it checks the icon map first.
+  //
+  // An anatomy slug is resolved against the component registry, and a shadowed
+  // icon is never in it, so here `search` ALWAYS means the Search component. Left
+  // alone, global-header (whose anatomy nests `search`) would render a tiny
+  // magnifier where an entire search input belongs.
+  //
+  // Same dual-source idiom as dsIcons: the browser gets it injected next to the
+  // geometry, because in a preview there is no registry to consult at all.
+  var dsIconsShadowed =
+    (typeof window !== "undefined" && window.dsIconsShadowedByComponent) ||
+    (typeof require !== "undefined" &&
+      (function () {
+        try {
+          var p = require("../lib/paths.js").components.icons.svg;
+          var doc = p ? require(p) : null;
+          return (doc && doc._meta && doc._meta.shadowed_by_component) || null;
+        } catch (e) {
+          return null;
+        }
+      })()) ||
+    [];
+
   function esc(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;")
@@ -193,6 +219,14 @@
         ? resolved.slug
         : node.slug;
     if (typeof slug !== "string" || !slug) return null;
+    // A slug a non-icon component also owns means the COMPONENT here (see
+    // dsIconsShadowed above). Fall through to the normal component/placeholder
+    // path rather than drawing the glyph — a magnifier is not a search field.
+    var shadowed =
+      opts && Object.prototype.hasOwnProperty.call(opts, "shadowedSlugs")
+        ? opts.shadowedSlugs
+        : dsIconsShadowed;
+    if (shadowed && shadowed.indexOf(slug) !== -1) return null;
     var iconMap =
       opts && Object.prototype.hasOwnProperty.call(opts, "iconMap")
         ? opts.iconMap
@@ -313,6 +347,11 @@
   exports.resolveNodeAppearance = resolveNodeAppearance;
   exports.renderAppearanceNode = renderAppearanceNode;
   exports.renderAppearanceComponent = renderAppearanceComponent;
+  // Exported for the collision gate (appearance-icon-orphan-gate.test.js), which
+  // asserts the BEHAVIOUR that a slug shadowed by a non-icon component falls
+  // through instead of drawing the glyph. Asserting the data alone would let a
+  // renderer that ignores the declaration pass.
+  exports.renderIconGlyph = renderIconGlyph;
 })(
   typeof module !== "undefined"
     ? module.exports

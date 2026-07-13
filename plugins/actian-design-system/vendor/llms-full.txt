@@ -1708,7 +1708,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a binary setting that persists (for example, dark mode, notifications).
 
-**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**
+**Use a** **[checkbox](checkbox)** **when:**
 
 * The user is selecting one or more items.
 
@@ -2167,7 +2167,7 @@ Wizards are guided multi-step flows that walk users through complex setup or con
 
 ### Navigation buttons
 
-Follow the [stepper button terminology guidelines](/components/navigation/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
+Follow the [stepper button terminology guidelines](stepper). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
 
 ### Do / Don't
 

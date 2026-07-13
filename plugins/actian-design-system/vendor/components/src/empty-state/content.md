@@ -11,7 +11,7 @@ Empty states appear when users have not yet created items, or when filters retur
 
 * When users have not yet created or uploaded items.
 
-* When [filters](/components/form-input-selection/search-filters/) result in no visible results.
+* When [filters](search-filters) result in no visible results.
 
 * To encourage engagement with a clear next action.
 

@@ -58,9 +58,18 @@ function buildDsIconsScript() {
   Object.keys(icons).forEach(function (slug) {
     geo[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
   });
+  // Slugs a NON-icon component also answers to (`calendar` is the glyph AND the
+  // Calendar component; `search` is the glyph AND the Search field). Ship the list
+  // with the geometry: the renderer runs in the BROWSER here, so it has no
+  // registry to consult and cannot work this out for itself. Without it, an
+  // anatomy that nests `search` — global-header does — resolves against the icon
+  // map and draws a magnifier where an entire search input belongs.
+  var shadowed = (doc._meta && doc._meta.shadowed_by_component) || [];
   return (
     "  <script>window.dsIcons = " +
     escapeJsonForScript(JSON.stringify(geo)) +
+    "; window.dsIconsShadowedByComponent = " +
+    escapeJsonForScript(JSON.stringify(shadowed)) +
     ";</script>"
   );
 }

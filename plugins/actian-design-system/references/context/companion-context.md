@@ -104,7 +104,7 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 320 components (80 sets) | Roboto | Full design system, all tokens, 3 themes |
+| DS Kit | 287 components (83 sets) | Roboto | Full design system, all tokens, 3 themes |
 | FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 
@@ -117,8 +117,8 @@ DS Kit components are grouped into 6 categories (synced from the design team's F
 | Category | Components | Examples |
 |---|---|---|
 | **Action** | 3 | button, link, sticky-footer |
-| **Form (input & selection)** | 11 | input, text-input, checkbox-with-label, radio-button, dropdown-select-default, search, toggle, calendar |
-| **Navigation** | 11 | breadcrumbs, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
+| **Form (input & selection)** | 11 | input, text-input, checkbox, radio-button, dropdown-select-default, search, toggle, calendar |
+| **Navigation** | 11 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
 | **Data Display** | 31 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
 | **Feedback** | 11 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
 | **Overlays** | 5 | modal, popover, tooltip, drawer-side-panel, chat-with-ai-steward |
@@ -164,7 +164,7 @@ feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
 content — a stub guideline, or no per-component doc at all (most of the
-catalog; 57 guideline docs cover 54 components + 3 registry-key aliases) —
+catalog; 56 guideline docs cover 54 components + 2 registry-key aliases) —
 lift these defaults into the brief grounding payload via
 `scripts/transformers/category-defaults-loader.js`.
 

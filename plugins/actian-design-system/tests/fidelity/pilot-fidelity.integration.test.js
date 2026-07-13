@@ -8,7 +8,7 @@ var RF = require("../../scripts/fidelity/run-fidelity");
 var PATHS = require("../../scripts/lib/paths");
 
 var chrome = R.resolveChrome();
-var PILOT = ["button", "checkbox-with-label", "alert-banner"];
+var PILOT = ["button", "checkbox", "alert-banner"];
 var haveOracles = PILOT.every(function (s) {
   return fs.existsSync(PATHS.components.mediaDefault(s));
 });

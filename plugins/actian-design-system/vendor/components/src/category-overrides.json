@@ -6,7 +6,7 @@
     "remove_when": "Figma member pages created under 'Form (input & selection)' and components' frames moved onto them; next sync then restores registry categories"
   },
   "overrides": {
-    "checkbox-with-label": "Form (input & selection)",
+    "checkbox": "Form (input & selection)",
     "dropdown-select-default": "Form (input & selection)",
     "input": "Form (input & selection)",
     "radio-button": "Form (input & selection)",

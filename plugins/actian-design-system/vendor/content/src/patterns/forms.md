@@ -5,7 +5,7 @@ nav_order: 14
 # category that benefit from form-level layout/labeling/copy guidance.
 # Skipped: search, search-dropdown-menu (search has its own pattern), and
 # calendar (date-picker is narrower). Jeff: edit/correct/extend.
-relatedComponents: [text-input, input-date, checkbox-with-label, radio-button, toggle, search-filters, segmented-control]
+relatedComponents: [text-input, input-date, checkbox, radio-button, toggle, search-filters, segmented-control]
 ---
 # Forms
 
@@ -176,7 +176,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a binary setting that persists (for example, dark mode, notifications).
 
-**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**
+**Use a** **[checkbox](checkbox)** **when:**
 
 * The user is selecting one or more items.
 

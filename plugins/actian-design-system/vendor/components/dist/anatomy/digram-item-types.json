@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-item-types",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-07-12T20:29:04.398Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14007:23209",
@@ -22,13 +22,6 @@
       "background": "#ffdacf",
       "radius": "4px",
       "variants": [
-        {
-          "prop": "Item type",
-          "values": [
-            "Custom 1"
-          ],
-          "backgroundToken": "--zen-color-error-50"
-        },
         {
           "prop": "Item type",
           "values": [
@@ -133,8 +126,7 @@
             "Glossary 1",
             "Use case"
           ],
-          "background": "#fff9e5",
-          "backgroundToken": "--zen-color-bg-warning"
+          "background": "#fff9e5"
         },
         {
           "prop": "Item type",
@@ -142,8 +134,7 @@
             "Glossary 2",
             "Glossary 5"
           ],
-          "background": "#ffebce",
-          "backgroundToken": "--zen-color-warning-50"
+          "background": "#ffebce"
         },
         {
           "prop": "Item type",
@@ -151,8 +142,7 @@
             "Glossary 3",
             "Glossary 4"
           ],
-          "background": "#fff4ec",
-          "backgroundToken": "--zen-color-bg-error"
+          "background": "#fff4ec"
         },
         {
           "prop": "Item type",
@@ -196,7 +186,7 @@
         "id": "14007:23211",
         "appearance": {
           "text": {
-            "color": "#dc3514",
+            "color": "#c12c11",
             "colorToken": "--zen-color-text-error",
             "size": "12px",
             "weight": 400,
@@ -440,8 +430,7 @@
                 "Use case"
               ],
               "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
+                "color": "#755d40",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -467,7 +456,7 @@
                 "Large"
               ],
               "text": {
-                "color": "#dc3514",
+                "color": "#c12c11",
                 "colorToken": "--zen-color-text-error",
                 "size": "16px",
                 "weight": 400,

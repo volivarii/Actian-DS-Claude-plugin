@@ -165,7 +165,7 @@ Find every empty state we use across DS Kit
 Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
 ```
 
-The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (320 DS Kit + 287 FM Kit + 28 Meta Kit components — 80 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
+The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (287 DS Kit + 287 FM Kit + 28 Meta Kit components — 83 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
 
@@ -226,8 +226,8 @@ The companion has always-loaded knowledge of:
 - **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 8 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 30 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
-- **Component inventory** — 320 DS Kit + 287 FM Kit + 28 Meta Kit components (80 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 57 per-component guideline docs (54 components + 3 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
+- **Component inventory** — 287 DS Kit + 287 FM Kit + 28 Meta Kit components (83 / 33 / 11 sets) — dynamically derived from synced registries
+- **Component guidelines** — 56 per-component guideline docs (54 components + 2 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
 It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
@@ -262,7 +262,7 @@ volivarii/actian-ds-knowledge CI (sync-from-figma + foundations-derive)
     |
 plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
     ├─ vendor/components/dist/registries/  -- DS Kit + FM Kit + Meta Kit registries
-    ├─ vendor/components/dist/guidelines/  -- 57 per-component guideline docs (54 components + 3 aliases)
+    ├─ vendor/components/dist/guidelines/  -- 56 per-component guideline docs (54 components + 2 aliases)
     ├─ vendor/foundations/            -- foundations.md + 8 derived JSONs
     ├─ vendor/tokens/                 -- DTCG + CSS custom properties
     ├─ vendor/{content,accessibility,presentation,app-context,fm-to-ds-map}/
@@ -275,7 +275,7 @@ Companion + skills read at runtime
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
 | **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 320 DS Kit components (80 sets) | Component briefs, audits, hifi conversion |
+| **DS Kit (hi-fi)** | Roboto | 287 DS Kit components (83 sets) | Component briefs, audits, hifi conversion |
 | **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.

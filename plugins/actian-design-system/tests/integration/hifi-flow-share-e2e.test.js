@@ -59,7 +59,7 @@ var HIFI_FLOW = {
         {
           type: "INSTANCE",
           library: "ds",
-          dsSlug: "checkbox-with-label",
+          dsSlug: "checkbox",
           variant: "Selected=Yes, State=Default",
           props: { Label: "Remember me" },
           name: "Remember checkbox",

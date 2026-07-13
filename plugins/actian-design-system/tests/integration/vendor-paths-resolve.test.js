@@ -184,10 +184,28 @@ const SCAN_EXT = new Set([".md", ".js", ".cjs", ".mjs"]);
 // justify each. Entry = exact ref string.
 const ALLOWLIST = new Set([]);
 
+// docs/superpowers/ is the archive of PLANS and SPECS — a historical record of
+// what we intended, written months ago, describing the vendor layout AS IT WAS AT
+// THE TIME. The agent never reads them at runtime; they are archaeology.
+//
+// Gating a historical document against the CURRENT vendor layout is a false alarm
+// by construction: every legitimate restructure of vendor/ retroactively "breaks"
+// documents that were correct when written, and the only ways out are to falsify
+// the record or to grow an allowlist forever. This gate exists to keep the prose
+// the agent actually reads drift-proof, so it now scans exactly that.
+//
+// This had been failing on plugin `main` (147 refs across 21 files), which is
+// worse than not having the gate: a permanently-red check is one nobody reads,
+// and the next REAL vendor-path drift would have landed in a check everyone had
+// already learned to ignore.
+//
+// docs/llms-overview.md is live prose and stays covered.
+const SKIP_DIRS = new Set(["node_modules", "superpowers"]);
+
 function walk(dir, files) {
   if (!fs.existsSync(dir)) return;
   for (const name of fs.readdirSync(dir)) {
-    if (name === "node_modules" || name.startsWith(".")) continue;
+    if (SKIP_DIRS.has(name) || name.startsWith(".")) continue;
     const full = path.join(dir, name);
     const stat = fs.statSync(full);
     if (stat.isDirectory()) walk(full, files);

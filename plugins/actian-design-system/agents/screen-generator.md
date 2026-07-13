@@ -227,7 +227,7 @@ The DS detail bar is higher than the FM deliberate-simplicity bar:
 
 ### Chrome rule (DS mode)
 
-Do **not** author `global-header` or `side-nav` INSTANCE nodes in screen content arrays. The renderer's DS chrome branch supplies them automatically when `meta.library:"ds"` is set. Author only feature-content INSTANCE nodes. `page-header` and `breadcrumbs` ARE authored in screen content (they are page-level feature chrome, not the global shell).
+Do **not** author `global-header` or `side-nav` INSTANCE nodes in screen content arrays. The renderer's DS chrome branch supplies them automatically when `meta.library:"ds"` is set. Author only feature-content INSTANCE nodes. `page-header` and `breadcrumb` ARE authored in screen content (they are page-level feature chrome, not the global shell).
 
 ## Output format
 

@@ -348,10 +348,10 @@ describe("ds-html-map: input", function () {
   });
 });
 
-describe("ds-html-map: checkbox-with-label", function () {
+describe("ds-html-map: checkbox", function () {
   it("Selected=No: NOT checked, label rendered", function () {
     var html = render({
-      dsSlug: "checkbox-with-label",
+      dsSlug: "checkbox",
       variant: "Selected=No, State=Default",
       props: { Label: "Agree" },
     });
@@ -364,7 +364,7 @@ describe("ds-html-map: checkbox-with-label", function () {
 
   it("Selected=Yes: checked", function () {
     var html = render({
-      dsSlug: "checkbox-with-label",
+      dsSlug: "checkbox",
       variant: "Selected=Yes",
       props: { Label: "Agree" },
     });
@@ -373,7 +373,7 @@ describe("ds-html-map: checkbox-with-label", function () {
 
   it("Disabled (State=Disabled): label carries is-disabled", function () {
     var html = render({
-      dsSlug: "checkbox-with-label",
+      dsSlug: "checkbox",
       variant: "Selected=No, State=Disabled",
       props: { Label: "Agree" },
     });
@@ -936,12 +936,12 @@ describe("ds-html-map: page-header (P1b)", function () {
   });
 });
 
-describe("ds-html-map: breadcrumbs (P1b)", function () {
+describe("ds-html-map: breadcrumb (P1b)", function () {
   function bc(items) {
     return render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "breadcrumbs",
+      dsSlug: "breadcrumb",
       props: { Items: items },
     });
   }
@@ -972,7 +972,7 @@ describe("ds-html-map: breadcrumbs (P1b)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "breadcrumbs",
+      dsSlug: "breadcrumb",
       props: {},
     });
     assert.equal(typeof html, "string");

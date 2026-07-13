@@ -7,7 +7,7 @@ apps:
   - studio
 components:
   - table
-  - checkbox-with-label
+  - checkbox
   - button
   - modal
 ---

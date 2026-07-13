@@ -36,6 +36,15 @@
       "description": "Map of component slug (kebab-case slugified name) to component entry.",
       "examples": [{ "button": { "name": "Button" } }]
     },
+    "icons": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/componentEntry" },
+      "description": "Map of icon slug to icon entry — the ICON NAMESPACE, separate from `components`. A design system may legitimately ship a `calendar` icon AND a `Calendar` component; they are different kinds of thing, and the sync tells them apart by page (an icon's category is 'Icons'). Sharing one flat slug-keyed map meant one of them lost, and the loser did not get renamed — it VANISHED (the calendar and search glyphs both did, 2026-07-13). Icons therefore also land here, where no component can take their slug. `components` is unchanged and still holds every uncontested icon too, so this addition is purely additive; the icon pipeline (export-icons-svg, derive-icons-svg) reads THIS map rather than filtering `components` by category.",
+      "examples": [
+        { "calendar": { "name": "calendar", "category": "Icons" } },
+        { "simple-check": { "name": "simple-check", "category": "Icons" } }
+      ]
+    },
     "templates": {
       "type": "object",
       "description": "Meta Kit hand-curated templates block. Preserved across sync runs (sync orchestrator's metakit branch carries this forward).",

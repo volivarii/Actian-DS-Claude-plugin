@@ -28,7 +28,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="avatar">Avatar</a>
   <a href="button">Buttons</a>
   <a href="badge">Badges</a>
-  <a href="breadcrumbs">Breadcrumbs</a>
+  <a href="breadcrumb">Breadcrumbs</a>
   <a href="calendar">Calendar</a>
   <a href="card">Cards</a>
   <a href="chat-with-ai-steward">Chat with AI Steward</a>
