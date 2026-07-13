@@ -400,7 +400,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox/)** **when:**"
+                  "prose": "**Use a** **[checkbox](checkbox)** **when:**"
                 },
                 {
                   "bullets": [

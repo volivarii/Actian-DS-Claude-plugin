@@ -1143,6 +1143,13 @@
       "figmaNodeId": "9478:17216"
     },
     {
+      "@id": "component:checkbox-card",
+      "@type": "Component",
+      "title": "Checkbox card",
+      "figmaKey": "f1c35d44a6be64cac73490c2851e38d5b5c1688a",
+      "figmaNodeId": "19983:23496"
+    },
+    {
       "@id": "component:chevron-double-down",
       "@type": "Component",
       "title": "chevron-double-down",
@@ -6936,6 +6943,12 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
+      "source": "component:checkbox-card",
+      "target": "component:digram-item-types"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
       "source": "component:collapse-accordion",
       "target": "component:arrow-down"
     },
@@ -10810,6 +10823,12 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
+      "source": "component:checkbox-card",
+      "target": "category:form-input-selection"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_category",
       "source": "component:chevron-left",
       "target": "category:icons"
     },
@@ -12077,12 +12096,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:toggle",
-      "target": "category:form-input-selection",
-      "provenance": {
-        "source_file": "components/src/category-overrides.json",
-        "deriver": "derive-graph.js",
-        "method": "collectComponentsAndCategories.override"
-      }
+      "target": "category:form-input-selection"
     },
     {
       "@type": "Edge",

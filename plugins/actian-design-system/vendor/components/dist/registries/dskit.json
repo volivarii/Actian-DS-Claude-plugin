@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-07-12T20:29:08.076Z",
-  "componentCount": 286,
+  "lastSynced": "2026-07-13T11:40:48.634Z",
+  "componentCount": 287,
   "components": {
     "account-dropdown": {
       "name": "Account dropdown",
@@ -1321,6 +1321,63 @@
         ]
       }
     },
+    "checkbox-card": {
+      "name": "Checkbox card",
+      "key": "f1c35d44a6be64cac73490c2851e38d5b5c1688a",
+      "nodeId": "19983:23496",
+      "importMethod": "set",
+      "description": "",
+      "page": "✍️ Checkbox",
+      "properties": {
+        "Show Digram#19748:115": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Icon#19748:126": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Slot/Description#19748:137": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Content#19983:16": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "digram-item-types",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Checkbox",
+      "status": "in-progress",
+      "variants": {
+        "Selection": [
+          "Unselected",
+          "Selected"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Disabled"
+        ]
+      }
+    },
     "chevron-left": {
       "name": "chevron--left",
       "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
@@ -2231,7 +2288,7 @@
       "key": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd",
       "nodeId": "13972:708",
       "importMethod": "set",
-      "description": "Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
+      "description": "Use when there are more than 7 options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
       "page": "✅ Dropdown",
       "properties": {
         "Show description#13978:0": {
@@ -4675,7 +4732,7 @@
       "key": "9ceb34116fd119a17b08b9b445a204de28f9d249",
       "nodeId": "9474:16884",
       "importMethod": "set",
-      "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).",
+      "description": "Used for mutually exclusive choices where the user must select exactly one option from a short list (2–7 items).",
       "page": "✍️ Radio button",
       "properties": {
         "Show Digram#19748:82": {
@@ -6461,10 +6518,15 @@
       "nodeId": "14000:4395",
       "importMethod": "set",
       "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
-      "page": "✍️ Toggle control",
+      "page": "✍️ Toggle",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Toggle",
+      "status": "in-progress",
       "variants": {
         "Toggle position": [
           "On right (default)",

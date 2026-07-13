@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-07-12T20:29:08.093Z",
+  "generatedAt": "2026-07-13T11:40:48.652Z",
   "categories": {
     "Action": {
       "components": [
@@ -78,6 +78,7 @@
     "Form (input & selection)": {
       "components": [
         "checkbox",
+        "checkbox-card",
         "dropdown-select-default",
         "radio-button",
         "radio-button-card",
@@ -85,9 +86,10 @@
         "search",
         "search-dropdown-menu",
         "search-filters",
-        "text-input"
+        "text-input",
+        "toggle"
       ],
-      "count": 9
+      "count": 11
     },
     "Icons": {
       "components": [
@@ -345,6 +347,6 @@
     }
   },
   "uncategorized": {
-    "count": 1
+    "count": 0
   }
 }

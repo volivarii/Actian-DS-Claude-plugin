@@ -1087,6 +1087,13 @@
       "figmaNodeId": "9478:17216"
     },
     {
+      "id": "component:checkbox-card",
+      "type": "component",
+      "title": "Checkbox card",
+      "figmaKey": "f1c35d44a6be64cac73490c2851e38d5b5c1688a",
+      "figmaNodeId": "19983:23496"
+    },
+    {
       "id": "component:chevron-double-down",
       "type": "component",
       "title": "chevron-double-down",
@@ -6761,6 +6768,11 @@
       "type": "composed_of"
     },
     {
+      "source": "component:checkbox-card",
+      "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
       "source": "component:collapse-accordion",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -10149,6 +10161,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:checkbox-card",
+      "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
       "source": "component:chevron-left",
       "target": "category:icons",
       "type": "in_category"
@@ -11206,12 +11223,7 @@
     {
       "source": "component:toggle",
       "target": "category:form-input-selection",
-      "type": "in_category",
-      "provenance": {
-        "source_file": "components/src/category-overrides.json",
-        "deriver": "derive-graph.js",
-        "method": "collectComponentsAndCategories.override"
-      }
+      "type": "in_category"
     },
     {
       "source": "component:toolbar",

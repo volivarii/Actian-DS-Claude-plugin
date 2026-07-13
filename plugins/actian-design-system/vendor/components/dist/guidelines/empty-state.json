@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Empty state\n\nEmpty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement.\n\n***\n\n## When to use\n\n* When users have not yet created or uploaded items.\n\n* When [filters](/components/form-input-selection/search-filters/) result in no visible results.\n\n* To encourage engagement with a clear next action.\n\nDo not use an empty state as a generic fallback without guiding the user toward a next action.\n\n## Style\n\n* Use a short, instructive headline (a noun phrase or imperative verb).\n\n* Follow with one concise sentence explaining what the user can do.\n\n* Provide one primary CTA.\n\n* Do not use \"No results found\" as a standalone message without guidance.\n\n## Do / Don't\n\n| Do                                                          | Don't                                       |\n| ----------------------------------------------------------- | ------------------------------------------- |\n| No items found / Add your first dataset to start exploring. | No results.                                 |\n| Nothing here yet / Create a connection to get started.      | There are no items to display at this time. |\n\n## Examples\n\n| Element | Example text                               |\n| ------- | ------------------------------------------ |\n| Title   | No items found                             |\n| Body    | Add your first dataset to start exploring. |\n| CTA     | Create dataset                             |",
+      "markdown": "# Empty state\n\nEmpty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement.\n\n***\n\n## When to use\n\n* When users have not yet created or uploaded items.\n\n* When [filters](search-filters) result in no visible results.\n\n* To encourage engagement with a clear next action.\n\nDo not use an empty state as a generic fallback without guiding the user toward a next action.\n\n## Style\n\n* Use a short, instructive headline (a noun phrase or imperative verb).\n\n* Follow with one concise sentence explaining what the user can do.\n\n* Provide one primary CTA.\n\n* Do not use \"No results found\" as a standalone message without guidance.\n\n## Do / Don't\n\n| Do                                                          | Don't                                       |\n| ----------------------------------------------------------- | ------------------------------------------- |\n| No items found / Add your first dataset to start exploring. | No results.                                 |\n| Nothing here yet / Create a connection to get started.      | There are no items to display at this time. |\n\n## Examples\n\n| Element | Example text                               |\n| ------- | ------------------------------------------ |\n| Title   | No items found                             |\n| Body    | Add your first dataset to start exploring. |\n| CTA     | Create dataset                             |",
       "sections": [
         {
           "heading": "",
@@ -35,7 +35,7 @@
             {
               "bullets": [
                 "When users have not yet created or uploaded items.",
-                "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
+                "When [filters](search-filters) result in no visible results.",
                 "To encourage engagement with a clear next action."
               ]
             },
@@ -188,5 +188,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T02:45:52+02:00"
+  "updated_at": "2026-07-13T14:04:14+02:00"
 }

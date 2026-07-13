@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-286 components.
+287 components.
 
 ---
 
@@ -304,6 +304,11 @@ Used for binary choices (on/off) or when a user can select multiple options from
 - Boolean properties: `Show label#19716:0` (default: true) — set to `false` to hide
 - Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
 
+### Checkbox card
+
+- Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
+- Node: `19983:23496` | Key: `f1c35d44a6be64cac73490c2851e38d5b5c1688a`
+
 ### chevron--left
 
 - Single component (no variants)
@@ -530,7 +535,7 @@ A container that slides from right side of the screen. Use for secondary tasks t
 
 ### Dropdown, Select, default
 
-Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
+Use when there are more than 7 options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
 
 - Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Disabled`
 - Boolean properties: `Show description#13978:0` (default: true) — set to `false` to hide · `Show asterisk #13978:8` (default: true) — set to `false` to hide · `Show info icon#13978:16` (default: true) — set to `false` to hide · `Show helper text#13978:24` (default: true) — set to `false` to hide · `Show Label#14292:0` (default: true) — set to `false` to hide
@@ -1077,7 +1082,7 @@ Visualizes the completion percentage of a task.  Use as a static visualization l
 
 ### Radio button
 
-Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).
+Used for mutually exclusive choices where the user must select exactly one option from a short list (2–7 items).
 
 - Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`

@@ -162,6 +162,20 @@
       ],
       "default": "components/dist/media/checkbox/default.webp"
     },
+    "checkbox-card": {
+      "preview": "components/dist/media/checkbox-card/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox-card/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox-card/spacing-0.webp",
+        "components/dist/media/checkbox-card/spacing-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/checkbox-card/behavior-0.webp"
+      ],
+      "default": "components/dist/media/checkbox-card/default.webp"
+    },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
       "parts": [

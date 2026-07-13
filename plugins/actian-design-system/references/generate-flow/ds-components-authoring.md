@@ -25,6 +25,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `card-for-perimeter` | Card for perimeter | appearance | Property 1 |
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
+| `checkbox-card` | Checkbox card | appearance | Selection / State |
 | `collapse-accordion` | ✍️ Collapse-accordion | appearance | State |
 | `confirmation` | Confirmation | appearance | Size |
 | `digram-item-types` | Digram, Item types | appearance | Item type / Size |
@@ -77,6 +78,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `tag-stage` | ✍️ Tag, Stage | appearance | Color |
 | `tag-status` | ✍️ Tag, Status | appearance | Status |
 | `text-input` | Text input | **BUILT** | States |
+| `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
 | `tooltip` | ⚠️ Tooltip | **BUILT** | Type |
 | `whats-new-dropdown` | Whats new dropdown | appearance | Property 1 |

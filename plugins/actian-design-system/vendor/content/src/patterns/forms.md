@@ -176,7 +176,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 * It is a binary setting that persists (for example, dark mode, notifications).
 
-**Use a** **[checkbox](/components/form-input-selection/checkbox/)** **when:**
+**Use a** **[checkbox](checkbox)** **when:**
 
 * The user is selecting one or more items.
 
