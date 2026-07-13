@@ -4,6 +4,7 @@ var path = require("path");
 var { loadAnatomy, passesRatioGate } = require(
   path.join(__dirname, "anatomy-render.js"),
 );
+var { isRenderable } = require(path.join(__dirname, "renderability.js"));
 
 // Strict mode (no opts): a missing/non-numeric ratio FAILS the gate here,
 // matching passesRatioGate's own strict default; see its doc comment in
@@ -17,15 +18,41 @@ function coverage(slugs, opts) {
     built[s] = true;
   });
   return (slugs || []).map(function (slug) {
-    if (built[slug]) return { slug: slug, tier: "override", ratio: null };
+    // An override does not consult the anatomy doc at all, so a renderability
+    // verdict is meaningless for it: report null, not false.
+    if (built[slug])
+      return {
+        slug: slug,
+        tier: "override",
+        ratio: null,
+        renderable: null,
+        why: "",
+      };
     var spec = loadAnatomy(slug, opts.anatomyLoader);
-    if (!spec || !spec.root) return { slug: slug, tier: "chip", ratio: null };
+    if (!spec || !spec.root)
+      return {
+        slug: slug,
+        tier: "chip",
+        ratio: null,
+        renderable: false,
+        why: "no anatomy doc",
+      };
     var ratio =
       spec.quality && typeof spec.quality.ratio === "number"
         ? spec.quality.ratio
         : null;
+    // tier still reflects what the RENDERER actually does today (the R2 ratio
+    // floor). renderable reflects the TRUTH. Reporting both side by side is
+    // the whole point: where they disagree, the floor is faking it.
     var tier = passesRatioGate(ratio, minRatio) ? "anatomy" : "degraded";
-    return { slug: slug, tier: tier, ratio: ratio };
+    var verdict = isRenderable(spec);
+    return {
+      slug: slug,
+      tier: tier,
+      ratio: ratio,
+      renderable: verdict.ok,
+      why: verdict.why,
+    };
   });
 }
 
@@ -33,9 +60,12 @@ module.exports = { coverage: coverage };
 
 if (require.main === module) {
   var fs = require("fs");
-  var BUILT_SLUGS = require(
-    path.join(__dirname, "html-renderers", "ds-html-map.js"),
-  ).BUILT_SLUGS;
+  var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
+  var BUILT_SLUGS = dsMap.BUILT_SLUGS;
+  var { buildDsAnatomyDocMap } = require(
+    path.join(__dirname, "ds-anatomy-map.js"),
+  );
+  var { countBlankBoxes } = require(path.join(__dirname, "renderability.js"));
 
   // Parse authorable slugs from the markdown table in ds-components-authoring.md
   var mdPath = path.resolve(
@@ -54,6 +84,35 @@ if (require.main === module) {
   });
 
   var rows = coverage(authorableSlugs, { builtSlugs: BUILT_SLUGS });
+
+  // Render every authorable slug through the REAL seam (the same doc map
+  // assemble-flow-share builds) and count the empty grey placeholder boxes it
+  // emits. This is the number a PM actually sees on a generated flow.
+  dsMap.setAnatomyDocMap(buildDsAnatomyDocMap(authorableSlugs, {}));
+  var blanks = {};
+  var blankTotal = 0;
+  rows.forEach(function (r) {
+    if (r.tier === "override") {
+      blanks[r.slug] = 0;
+      return;
+    }
+    var html = "";
+    try {
+      html = String(
+        dsMap.renderDSComponent({
+          dsSlug: r.slug,
+          library: "ds",
+          props: {},
+          variant: "",
+        }),
+      );
+    } catch (e) {
+      html = "";
+    }
+    var n = countBlankBoxes(html);
+    blanks[r.slug] = n;
+    blankTotal += n;
+  });
 
   // Print table
   var col1 = Math.max(
@@ -77,13 +136,46 @@ if (require.main === module) {
     );
   }
 
-  console.log(pad("slug", col1) + "  " + pad("tier", col2) + "  " + "ratio");
   console.log(
-    "-".repeat(col1) + "  " + "-".repeat(col2) + "  " + "-".repeat(6),
+    pad("slug", col1) +
+      "  " +
+      pad("tier", col2) +
+      "  " +
+      pad("ratio", 6) +
+      "  " +
+      pad("renders?", 9) +
+      "  " +
+      pad("blanks", 6) +
+      "  why",
+  );
+  console.log(
+    "-".repeat(col1) +
+      "  " +
+      "-".repeat(col2) +
+      "  " +
+      "-".repeat(6) +
+      "  " +
+      "-".repeat(9) +
+      "  " +
+      "-".repeat(6) +
+      "  ---",
   );
   rows.forEach(function (r) {
     var ratioStr = r.ratio != null ? r.ratio.toFixed(2) : "—";
-    console.log(pad(r.slug, col1) + "  " + pad(r.tier, col2) + "  " + ratioStr);
+    var rend = r.renderable == null ? "—" : r.renderable ? "yes" : "NO";
+    console.log(
+      pad(r.slug, col1) +
+        "  " +
+        pad(r.tier, col2) +
+        "  " +
+        pad(ratioStr, 6) +
+        "  " +
+        pad(rend, 9) +
+        "  " +
+        pad(String(blanks[r.slug] || 0), 6) +
+        "  " +
+        (r.why || ""),
+    );
   });
 
   // Counts summary
@@ -97,6 +189,21 @@ if (require.main === module) {
   console.log("degraded: " + counts.degraded);
   console.log("chip:     " + counts.chip);
   console.log("total:    " + rows.length);
+
+  var fakingIt = rows.filter(function (r) {
+    return r.tier === "anatomy" && r.renderable === false;
+  }).length;
+  console.log("\n--- Fidelity ---");
+  console.log("BLANK BOXES (total):      " + blankTotal);
+  console.log(
+    "slugs emitting blanks:    " +
+      rows.filter(function (r) {
+        return (blanks[r.slug] || 0) > 0;
+      }).length,
+  );
+  console.log(
+    "anatomy-tier but NOT renderable (the floor is faking these): " + fakingIt,
+  );
 
   process.exit(0);
 }
