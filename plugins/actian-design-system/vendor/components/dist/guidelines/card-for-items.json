@@ -1,0 +1,299 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/card/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "card",
+  "component": "Cards",
+  "meta": {
+    "category": "data-display",
+    "a11y_refs": [
+      {
+        "ref": "truncation-overflow"
+      }
+    ]
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Cards\n\nCards present information in compact, scannable formats and allow users to interact or navigate efficiently.\n\n***\n\n## Card - Item\n\n### When to use\n\n* On dashboards and detail pages where items need to be viewed or opened quickly.\n\n* To display individual items such as datasets, visualizations, or catalog entries in a clickable format.\n\n### Style\n\n* Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.\n\n* Include metadata (type, owner, last modified) using short labels.\n\n* Use sentence case throughout.\n\n### Behavior\n\n* The entire card is clickable and navigates to the item detail page.\n\n* Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu.\n\n***\n\n## Card - Selectable\n\n### When to use\n\n* When users need to choose between options by clicking anywhere on the card.\n\n* Use the large variant when additional context is needed (title, description, image, metadata).\n\n* Use the small variant when space is limited.\n\n* Cards can function as radio buttons (single select) or checkboxes (multi-select).\n\n### Style\n\n* Title: short noun phrase describing the option. Sentence case.\n\n* Description: one sentence maximum. Plain language.\n\n* Do not include instructional text inside a selectable card.\n\n***\n\n## Card - Topic\n\n### When to use\n\n* To represent curated groupings or domains, such as data topics.\n\n* As gateways to collections in Explorer.\n\n### Style\n\n* Use a noun or noun phrase as the topic title.\n\n* Keep the description to one sentence that explains the scope of the topic.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
+            }
+          ]
+        },
+        {
+          "heading": "Card - Item",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "On dashboards and detail pages where items need to be viewed or opened quickly.",
+                    "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
+                    "Include metadata (type, owner, last modified) using short labels.",
+                    "Use sentence case throughout."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "The entire card is clickable and navigates to the item detail page.",
+                    "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Card - Selectable",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When users need to choose between options by clicking anywhere on the card.",
+                    "Use the large variant when additional context is needed (title, description, image, metadata).",
+                    "Use the small variant when space is limited.",
+                    "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Title: short noun phrase describing the option. Sentence case.",
+                    "Description: one sentence maximum. Plain language.",
+                    "Do not include instructional text inside a selectable card."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Card - Topic",
+          "content": [],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To represent curated groupings or domains, such as data topics.",
+                    "As gateways to collections in Explorer."
+                  ]
+                }
+              ]
+            },
+            {
+              "subheading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use a noun or noun phrase as the topic title.",
+                    "Keep the description to one sentence that explains the scope of the topic."
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "draft",
+      "markdown": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card).\n\n## When to use\n\n* Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.\n\n* Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.\n\n* Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.\n\n* Use cards as gateways to collections, for example topic cards on the Explorer home.\n\n## When not to use\n\n* Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).\n\n* Don't use a card for a lone block of text on a page: plain page content needs no frame.\n\n* Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).\n\n* Don't nest cards inside cards; use the grouped-content card's slot for inner content instead.\n\n## Variant selection\n\n* **Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.\n\n* **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.\n\n* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio-button) (exactly one).\n\n* **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.\n\n* **View card:** saved views; do not reuse it for other entities.\n\n* **Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Make the whole item card one click target to the detail page | Scatter separate links inside the card body |\n| Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |\n| Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |\n| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |\n\n> Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card)."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.",
+                "Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.",
+                "Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.",
+                "Use cards as gateways to collections, for example topic cards on the Explorer home."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).",
+                "Don't use a card for a lone block of text on a page: plain page content needs no frame.",
+                "Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).",
+                "Don't nest cards inside cards; use the grouped-content card's slot for inner content instead."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "bullets": [
+                "**Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.",
+                "**Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.",
+                "**Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio-button) (exactly one).",
+                "**Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.",
+                "**View card:** saved views; do not reuse it for other entities.",
+                "**Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Make the whole item card one click target to the detail page",
+              "dont": "Scatter separate links inside the card body"
+            },
+            {
+              "do": "Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select)",
+              "dont": "Stack persistent buttons on every card in a grid"
+            },
+            {
+              "do": "Keep every card in a grid the same kind and size",
+              "dont": "Mix item cards and grouped-content cards in one grid"
+            },
+            {
+              "do": "Show two or three metadata lines (type, owner, last modified)",
+              "dont": "Cram the full attribute set onto the card face"
+            },
+            {
+              "note": "Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards."
+            }
+          ]
+        }
+      ]
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "spacing-md",
+          "property": "padding",
+          "context": "Card padding"
+        },
+        {
+          "token": "spacing-xs",
+          "property": "gap",
+          "context": "Inner stack gap"
+        },
+        {
+          "token": "color-bg-default",
+          "property": "background-color",
+          "context": "Fill (default)"
+        },
+        {
+          "token": "border-default",
+          "property": "border-color",
+          "context": "Border (default)"
+        },
+        {
+          "token": "border-radius-sm",
+          "property": "border-radius",
+          "context": "Corner rounding"
+        },
+        {
+          "token": "border-selected",
+          "context": "Border (selected)"
+        },
+        {
+          "token": "color-bg-selected",
+          "context": "Fill (selected)"
+        },
+        {
+          "token": "color-text-default",
+          "property": "color",
+          "context": "Title text"
+        },
+        {
+          "token": "color-text-tertiary",
+          "property": "color",
+          "context": "Body text"
+        },
+        {
+          "token": "font-family-text",
+          "property": "font-family",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-md",
+          "property": "font-size",
+          "context": "Title and body font size"
+        },
+        {
+          "token": "font-weight-semibold",
+          "property": "font-weight",
+          "context": "Title font weight"
+        },
+        {
+          "token": "font-weight-regular",
+          "property": "font-weight",
+          "context": "Body font weight"
+        },
+        {
+          "token": "font-lineheight-md",
+          "property": "line-height",
+          "context": "Title and body line height"
+        },
+        {
+          "token": "font-letterspacing-wide-2",
+          "property": "letter-spacing",
+          "context": "Title letter spacing"
+        }
+      ]
+    }
+  },
+  "updated_at": "2026-07-12T02:45:52+02:00",
+  "_alias_of": "card"
+}

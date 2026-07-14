@@ -42,6 +42,6 @@ The Actian DS is in a federated configuration (2026-05-09): the **knowledge laye
 - [CLAUDE.md (always-loaded plugin context)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/CLAUDE.md)
 - [Plugin architecture map](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/ARCHITECTURE.md)
 - [Knowledge repo README](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/README.md): federation status, repo layout, CI workflows
-- [Component guidelines (56 JSON files, all curated)](https://github.com/volivarii/actian-ds-knowledge/tree/main/components/guidelines): per-component guideline JSONs
+- [Component guidelines (66 JSON files, all curated)](https://github.com/volivarii/actian-ds-knowledge/tree/main/components/guidelines): per-component guideline JSONs
 - [Foundations subtree (8 JSON files)](https://github.com/volivarii/actian-ds-knowledge/tree/main/foundations): per-foundation JSON files derived from foundations.md
 - [Presentation guide](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/presentation/presentation-guide.md): generate-presentation skill content patterns
