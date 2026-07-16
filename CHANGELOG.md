@@ -20,7 +20,7 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Added
-- **The vendor snapshot can now exclude heavy sub-paths declared by the substrate.** `vendor-snapshot-core.js` reads an optional `vendor-exclude.json` from the knowledge repo root and skips those repo-relative paths when copying, even when their top-level directory is included. The substrate declares `components/render/src` (the 15 MB self-contained render seeds, a capture intermediate) so only the ~1 MB deduplicated render dist reaches the plugin, not the seeds.
+- **The vendor snapshot can now exclude heavy sub-paths declared by the substrate.** ([#252](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/252)) `vendor-snapshot-core.js` reads an optional `vendor-exclude.json` from the knowledge repo root and skips those repo-relative paths when copying, even when their top-level directory is included. The substrate declares `components/render/src` (the 15 MB self-contained render seeds, a capture intermediate) so only the ~1 MB deduplicated render dist reaches the plugin, not the seeds.
 - **Generalized the canonical-render capture from Button to the full 35-slug render set.**
   `plugins/actian-design-system/scripts/render/capture-seed.js` gained `captureMatrix(slug)`, a
   registry-driven generalization of the Button-only capture: it builds each slug's variant matrix from
