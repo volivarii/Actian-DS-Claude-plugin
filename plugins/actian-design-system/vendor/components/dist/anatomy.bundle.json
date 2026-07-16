@@ -7255,7 +7255,7 @@
       "_schema_version": 1,
       "slug": "digram-item-types",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-07-15T12:44:12.117Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14007:23209",
@@ -7332,7 +7332,8 @@
             {
               "prop": "Item type",
               "values": [
-                "Custom 5"
+                "Custom 5",
+                "Data product"
               ],
               "background": "#cadcf7"
             },
@@ -7350,13 +7351,6 @@
                 "Custom 9"
               ],
               "background": "#d3e7e0"
-            },
-            {
-              "prop": "Item type",
-              "values": [
-                "Data product"
-              ],
-              "background": "#e1e1e6"
             },
             {
               "prop": "Item type",
@@ -7384,18 +7378,30 @@
             {
               "prop": "Item type",
               "values": [
-                "Glossary 2",
-                "Glossary 5"
+                "Glossary 2"
               ],
               "background": "#ffebce"
             },
             {
               "prop": "Item type",
               "values": [
-                "Glossary 3",
+                "Glossary 3"
+              ],
+              "background": "#fffbef"
+            },
+            {
+              "prop": "Item type",
+              "values": [
                 "Glossary 4"
               ],
-              "background": "#fff4ec"
+              "background": "#feeddc"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Glossary 5"
+              ],
+              "background": "#fff5d5"
             },
             {
               "prop": "Item type",
@@ -15610,65 +15616,35 @@
       "_schema_version": 1,
       "slug": "modal",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-07-15T12:44:12.117Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14175:14426",
         "variant": "Size & Type=1200px, Dev status=🟢 Ready"
       },
       "quality": {
-        "nodesTotal": 10,
-        "nodesNormalized": 10,
+        "nodesTotal": 9,
+        "nodesNormalized": 9,
         "ratio": 1,
         "degraded": [],
         "structuralVariants": [
           {
             "prop": "Size & Type",
             "value": "450px confirm",
-            "path": "0",
-            "reason": "kind:container!=text"
-          },
-          {
-            "prop": "Size & Type",
-            "value": "450px confirm",
-            "path": "1",
-            "reason": "kind:container!=text"
+            "path": "",
+            "reason": "childCount:3!=5"
           },
           {
             "prop": "Size & Type",
             "value": "450px warning",
-            "path": "0",
-            "reason": "kind:container!=text"
-          },
-          {
-            "prop": "Size & Type",
-            "value": "450px warning",
-            "path": "1",
-            "reason": "kind:container!=text"
-          },
-          {
-            "prop": "Size & Type",
-            "value": "450px warning",
-            "path": "2",
-            "reason": "kind:instance!=text"
+            "path": "",
+            "reason": "childCount:3!=5"
           },
           {
             "prop": "Size & Type",
             "value": "700px create",
             "path": "1",
             "reason": "childCount:1!=5"
-          },
-          {
-            "prop": "Size & Type",
-            "value": "700px create",
-            "path": "2",
-            "reason": "kind:instance!=container"
-          },
-          {
-            "prop": "Size & Type",
-            "value": "700px create",
-            "path": "3",
-            "reason": "kind:container!=instance"
           },
           {
             "prop": "Size & Type",
@@ -15685,8 +15661,8 @@
           {
             "prop": "Size & Type",
             "value": "900px edit",
-            "path": "",
-            "reason": "childCount:4!=3"
+            "path": "1",
+            "reason": "childCount:1!=2"
           }
         ]
       },
@@ -15806,7 +15782,8 @@
                   "prop": "Size & Type",
                   "values": [
                     "700px setting",
-                    "900px create"
+                    "900px create",
+                    "900px edit"
                   ],
                   "background": null
                 }
@@ -15846,49 +15823,20 @@
                   "State": "Default"
                 },
                 "tokenRefs": [
-                  "--zen-border-default"
+                  "--zen-border-subtle"
                 ],
                 "id": "14226:20669",
                 "appearance": {
                   "background": "#ffffff",
                   "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-default",
+                    "color": "#e1e1e6",
+                    "colorToken": "--zen-border-subtle",
                     "width": "1px"
                   },
                   "radius": "6px"
                 }
               }
             ]
-          },
-          {
-            "name": "Button",
-            "kind": "instance",
-            "slug": "button",
-            "props": {
-              "Show leading icon": true,
-              "Show label": true,
-              "Show trailing icon": true,
-              "Label": "Button",
-              "Intent": "Default",
-              "Emphasis": "Icon-only",
-              "Size": "Small",
-              "State": "Default"
-            },
-            "id": "14226:20350",
-            "appearance": {
-              "radius": "9999px",
-              "variants": [
-                {
-                  "prop": "Size & Type",
-                  "values": [
-                    "450px confirm"
-                  ],
-                  "radius": null,
-                  "slug": "text-input"
-                }
-              ]
-            }
           },
           {
             "name": "Footer",
@@ -15902,17 +15850,7 @@
                 "color": "#c7c7ce",
                 "colorToken": "--zen-border-default",
                 "width": "1px"
-              },
-              "variants": [
-                {
-                  "prop": "Size & Type",
-                  "values": [
-                    "450px confirm",
-                    "450px warning"
-                  ],
-                  "border": null
-                }
-              ]
+              }
             },
             "layout": {
               "axis": "row",
@@ -15984,17 +15922,7 @@
                 "appearance": {
                   "background": "#0f5fdc",
                   "backgroundToken": "--zen-color-bg-primary",
-                  "radius": "9999px",
-                  "variants": [
-                    {
-                      "prop": "Size & Type",
-                      "values": [
-                        "450px warning"
-                      ],
-                      "background": "#c12c11",
-                      "backgroundToken": "--zen-color-icon-error"
-                    }
-                  ]
+                  "radius": "9999px"
                 }
               }
             ]
@@ -21061,7 +20989,7 @@
       "_schema_version": 1,
       "slug": "search-filters",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-07-14T09:01:55.070Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9660:49637",
@@ -21527,7 +21455,7 @@
                         },
                         "id": "14007:24293",
                         "appearance": {
-                          "background": "#e1e1e6",
+                          "background": "#cadcf7",
                           "radius": "4px"
                         }
                       },
@@ -24244,7 +24172,7 @@
       "_schema_version": 1,
       "slug": "side-nav",
       "kit": "dskit",
-      "synced_at": "2026-07-08T14:07:52.886Z",
+      "synced_at": "2026-07-14T09:01:55.070Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "13599:20120",
@@ -24353,7 +24281,10 @@
                   "Opened/Closed": "Closed",
                   "State": "Default"
                 },
-                "id": "13599:20123"
+                "id": "13599:20123",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "nav item",
@@ -24368,7 +24299,10 @@
                   "Opened/Closed": "Closed",
                   "State": "Default"
                 },
-                "id": "13599:20124"
+                "id": "13599:20124",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "nav item",
@@ -24383,7 +24317,10 @@
                   "Opened/Closed": "Closed",
                   "State": "Default"
                 },
-                "id": "13599:20125"
+                "id": "13599:20125",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "Divider",
@@ -24435,7 +24372,10 @@
                   "Opened/Closed": "Closed",
                   "State": "Default"
                 },
-                "id": "13599:20128"
+                "id": "13599:20128",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "nav item",
@@ -24450,7 +24390,10 @@
                   "Opened/Closed": "N/A",
                   "State": "Default"
                 },
-                "id": "13599:20129"
+                "id": "13599:20129",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "nav item",
@@ -24465,7 +24408,10 @@
                   "Opened/Closed": "N/A",
                   "State": "Default"
                 },
-                "id": "13599:20130"
+                "id": "13599:20130",
+                "appearance": {
+                  "radius": "6px"
+                }
               },
               {
                 "name": "nav item",
@@ -24480,7 +24426,10 @@
                   "Opened/Closed": "Closed",
                   "State": "Default"
                 },
-                "id": "13599:20131"
+                "id": "13599:20131",
+                "appearance": {
+                  "radius": "6px"
+                }
               }
             ]
           },
@@ -24523,6 +24472,7 @@
                 },
                 "id": "14115:17091",
                 "appearance": {
+                  "radius": "6px",
                   "variants": [
                     {
                       "prop": "View",
@@ -24549,6 +24499,7 @@
                 },
                 "id": "14115:17092",
                 "appearance": {
+                  "radius": "6px",
                   "variants": [
                     {
                       "prop": "View",
@@ -24575,6 +24526,7 @@
                 },
                 "id": "14115:17093",
                 "appearance": {
+                  "radius": "6px",
                   "variants": [
                     {
                       "prop": "View",
@@ -26895,24 +26847,18 @@
       "_schema_version": 1,
       "slug": "text-input",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-07-15T12:44:12.117Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7238:2487",
         "variant": "States=Default"
       },
       "quality": {
-        "nodesTotal": 10,
-        "nodesNormalized": 10,
-        "ratio": 1,
+        "nodesTotal": 9,
+        "nodesNormalized": 8,
+        "ratio": 0.89,
         "degraded": [],
         "structuralVariants": [
-          {
-            "prop": "States",
-            "value": "Active",
-            "path": "2",
-            "reason": "childCount:2!=3"
-          },
           {
             "prop": "States",
             "value": "Error",
@@ -26924,6 +26870,12 @@
             "value": "Read-only",
             "path": "",
             "reason": "childCount:4!=3"
+          },
+          {
+            "prop": "States",
+            "value": "Warning",
+            "path": "2.0",
+            "reason": "kind:instance!=container"
           },
           {
             "prop": "States",
@@ -27095,164 +27047,103 @@
             "text": "A description helps users to define and understand the purpose of the input."
           },
           {
-            "name": "Input field",
+            "name": "Slot for input/selection",
             "kind": "container",
-            "tokenRefs": [
-              "--zen-border-subtle"
-            ],
-            "id": "7243:2953",
-            "appearance": {
-              "background": "#ffffff",
-              "border": {
-                "color": "#e1e1e6",
-                "colorToken": "--zen-border-subtle",
-                "width": "1px"
-              },
-              "radius": "4px",
-              "variants": [
-                {
-                  "prop": "States",
-                  "values": [
-                    "Active"
-                  ],
-                  "border": {
-                    "color": "#0f5fdc",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "background": "#e1e1e6",
-                  "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-disabled",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Error"
-                  ],
-                  "border": {
-                    "color": "#c12c11",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Focus"
-                  ],
-                  "border": {
-                    "color": "#0f5fdc",
-                    "colorToken": "--zen-focus-ring-primary",
-                    "width": "2px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Hover"
-                  ],
-                  "background": "#fbfbff"
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Warning"
-                  ],
-                  "border": {
-                    "color": "#d27b00",
-                    "width": "1px"
-                  }
-                }
-              ]
-            },
+            "id": "20272:24425",
             "layout": {
-              "axis": "row",
+              "axis": "column",
               "gap": "8px",
               "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
               },
               "align": {
                 "main": "start",
-                "cross": "center"
+                "cross": "start"
               },
               "sizing": {
                 "h": "fill",
-                "v": "fixed"
-              },
-              "paddingTokens": {
-                "top": "--zen-spacing-xs",
-                "right": "--zen-spacing-xs",
-                "bottom": "--zen-spacing-xs",
-                "left": "--zen-spacing-xs"
+                "v": "hug"
               }
             },
             "children": [
               {
-                "name": "Input text",
-                "kind": "text",
+                "name": "Input field",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show buttons": true,
+                  "Show delete icon": false,
+                  "Show trailing icon": false,
+                  "State": "Default"
+                },
                 "tokenRefs": [
-                  "--zen-color-text-placeholder"
+                  "--zen-border-subtle"
                 ],
-                "id": "7243:2955",
+                "id": "20272:23157",
                 "appearance": {
-                  "text": {
-                    "color": "#5c5c6c",
-                    "colorToken": "--zen-color-text-placeholder",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
+                  "background": "#ffffff",
+                  "border": {
+                    "color": "#e1e1e6",
+                    "colorToken": "--zen-border-subtle",
+                    "width": "1px"
                   },
+                  "radius": "4px",
                   "variants": [
                     {
                       "prop": "States",
                       "values": [
-                        "Disabled"
+                        "Active"
                       ],
-                      "text": {
-                        "color": "#656574",
-                        "colorToken": "--zen-color-text-disabled",
-                        "size": "14px",
-                        "weight": 400,
-                        "lineHeight": "20px",
-                        "letterSpacing": "0.2px"
+                      "border": {
+                        "color": "#0f5fdc",
+                        "width": "1px"
                       }
                     },
                     {
                       "prop": "States",
                       "values": [
-                        "Error",
-                        "Filled",
-                        "Warning"
+                        "Disabled"
                       ],
-                      "text": {
-                        "color": "#000000",
-                        "colorToken": "--zen-color-text-default",
-                        "size": "14px",
-                        "weight": 400,
-                        "lineHeight": "20px",
-                        "letterSpacing": "0.2px"
+                      "background": "#e1e1e6",
+                      "border": {
+                        "color": "#c7c7ce",
+                        "colorToken": "--zen-border-disabled",
+                        "width": "1px"
                       }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Error"
+                      ],
+                      "border": {
+                        "color": "#c12c11",
+                        "width": "1px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Focus"
+                      ],
+                      "border": {
+                        "color": "#0f5fdc",
+                        "colorToken": "--zen-focus-ring-primary",
+                        "width": "2px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Hover"
+                      ],
+                      "background": "#fbfbff"
                     }
                   ]
-                },
-                "text": "Placeholder text"
-              },
-              {
-                "name": "close",
-                "kind": "instance",
-                "slug": "close",
-                "id": "9482:7474"
+                }
               }
             ]
           },

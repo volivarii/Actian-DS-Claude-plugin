@@ -75,8 +75,18 @@
 
 | Registry key | Guideline slug |
 |---|---|
+| card-for-grouped-content | card |
+| card-for-items | card |
+| card-for-perimeter | card |
 | dropdown-select-default | dropdown-select |
+| tag-catalog | tag |
+| tag-catalog-item-type | tag |
 | tag-default | tag |
+| tag-glossary-item-type | tag |
+| tag-interactive | tag |
+| tag-shared | tag |
+| tag-stage | tag |
+| tag-status | tag |
 
 ## Token render-grade
 

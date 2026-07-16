@@ -6125,6 +6125,45 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
+      "source": "component:card-for-grouped-content",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/card/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:card-for-items",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/card/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:card-for-perimeter",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/card/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
       "source": "component:chat-with-ai-steward",
       "target": "a11y:ai-output-suggestions",
       "scope": "component",
@@ -6594,7 +6633,98 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
+      "source": "component:tag-catalog",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-catalog-item-type",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
       "source": "component:tag-default",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-glossary-item-type",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-interactive",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-shared",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-stage",
+      "target": "a11y:truncation-overflow",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "a11y_ref",
+      "source": "component:tag-status",
       "target": "a11y:truncation-overflow",
       "scope": "component",
       "confidence": "asserted",
@@ -7916,6 +8046,12 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
+      "target": "component:arrow-down"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:modal",
       "target": "component:button"
     },
     {
@@ -8276,6 +8412,18 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:search-result-card",
+      "target": "component:checkbox"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:search-result-card",
+      "target": "component:digram-item-types"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:search-result-card",
       "target": "component:favorite"
     },
     {
@@ -8541,6 +8689,12 @@
       "edgeType": "composed_of",
       "source": "component:tag-status",
       "target": "component:spinner"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:text-input",
+      "target": "component:arrow-down"
     },
     {
       "@type": "Edge",
