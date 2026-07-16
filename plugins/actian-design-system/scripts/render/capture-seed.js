@@ -95,12 +95,20 @@ function findComponent(slug) {
   return null;
 }
 
-// Size and State (singular or plural) are secondary axes: they vary interaction,
-// not the component's identity. Matched case and pluralization insensitively so
-// real data ("States") is caught.
+// Size, State (singular or plural), and Breakpoint(s) are secondary axes: they
+// vary density/interaction/responsive width, not the component's identity, so
+// they should not become the card's matrix (a global-header shown at five
+// breakpoints is noise). Matched case and pluralization insensitively so real
+// data ("States", "Breakpoints") is caught.
 function isSecondaryAxis(name) {
-  return /^(size|states?)$/i.test(name);
+  return /^(size|states?|breakpoints?)$/i.test(name);
 }
+
+// When two axes tie on value count, prefer the one whose name reads as the
+// component's identity (Type/Variant/Emphasis/Intent/Kind/Style/Appearance)
+// over an incidental layout axis, so the matrix shows what distinguishes the
+// component. Falls through to alphabetical for a stable, re-vendor-proof pick.
+var IDENTITY_AXIS = /type|variant|emphasis|intent|kind|style|appearance/i;
 function stateAxisName(variants) {
   return (
     Object.keys(variants).find(function (a) {
@@ -168,7 +176,11 @@ function variantMatrix(slug) {
   // Primary axis = most values; deterministic name tie-break so the pick is stable
   // across registry re-vendors.
   primaryAxes.sort(function (a, b) {
-    return variants[b].length - variants[a].length || a.localeCompare(b);
+    return (
+      variants[b].length - variants[a].length ||
+      (IDENTITY_AXIS.test(b) ? 1 : 0) - (IDENTITY_AXIS.test(a) ? 1 : 0) ||
+      a.localeCompare(b)
+    );
   });
 
   var cells = [];
