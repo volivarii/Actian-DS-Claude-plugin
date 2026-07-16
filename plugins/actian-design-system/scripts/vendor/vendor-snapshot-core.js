@@ -356,7 +356,12 @@ function selectEntries(names, includeSet, excludeSet) {
 function vendorContent(extractedRepoRoot, vendorDir, excludeSet) {
   fs.mkdirSync(vendorDir, { recursive: true });
   var includeSet = readVendorInclude(extractedRepoRoot);
-  var excludeSet = readVendorExclude(extractedRepoRoot);
+  // Sub-path excludes (vendor-exclude.json) are a SEPARATE concept from the
+  // caller's top-level excludeSet parameter (config.excludeTopLevel, consulted
+  // by selectEntries in the legacy fallback branch below). Do not reuse the
+  // name "excludeSet" here: that would shadow the parameter and silently
+  // discard the caller's top-level exclusions before selectEntries reads them.
+  var subPathExcludeSet = readVendorExclude(extractedRepoRoot);
   if (includeSet) {
     process.stdout.write(
       "[vendor] inclusion mode — copying " +
@@ -380,7 +385,7 @@ function vendorContent(extractedRepoRoot, vendorDir, excludeSet) {
     var srcPath = path.join(extractedRepoRoot, name);
     var destPath = path.join(vendorDir, name);
     if (fs.statSync(srcPath).isDirectory()) {
-      copyDirectory(srcPath, destPath, name, excludeSet);
+      copyDirectory(srcPath, destPath, name, subPathExcludeSet);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
