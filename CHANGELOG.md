@@ -20,6 +20,14 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Added
+- **Seeded the canonical component render for the knowledge substrate (North Star slice 1).** ([#250](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/250)) A new
+  one-time bootstrap, `plugins/actian-design-system/scripts/render/capture-seed.js`, captures the
+  plugin's hand-authored Button render as a single self-contained, token-bound `@dsCard` document (the
+  full Intent x Emphasis variant matrix plus a disabled state) and writes it to
+  `actian-ds-knowledge/components/render/src/button.html`. This is the seed for the substrate-owned
+  canonical render library that all consumers (this plugin, the Claude Design bundle, docs) will read
+  from; slice 2 replaces the capture with a real derive-from-facts in the knowledge repo. See
+  `actian-ds-knowledge/docs/superpowers/plans/2026-07-16-canonical-component-chain-slice1.md`.
 - **The HTML renderer now reports its own fidelity, and a CI gate holds the line.** The DS coverage
   report gained a **blank-box count** (the empty grey placeholder boxes a generated flow actually shows
   a reader: **136** today, across 25 of the 37 non-override slugs) and a **renderability verdict** read
