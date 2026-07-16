@@ -7,11 +7,15 @@
 // derive-from-facts in the knowledge repo; this script is the bootstrap, not the
 // permanent producer.
 //
-// captureButtonMatrix() returns one self-contained HTML document whose first
-// line is the DesignSync `@dsCard` marker, containing one rendered Button per
-// (Intent x Emphasis) variant plus a disabled state, all sharing the single
-// inlined stylesheet (tokens + fonts + base + button CSS) that render-leaf
-// already assembles.
+// captureMatrix(slug) returns one self-contained HTML document whose first
+// line is the DesignSync `@dsCard` marker, containing one rendered instance of
+// the slug per registry-derived variant cell (see variantMatrix) plus a
+// disabled state where the registry offers one, all sharing the single
+// inlined stylesheet (tokens + fonts + base + component CSS) that render-leaf
+// already assembles. captureButtonMatrix() is captureMatrix("button"), kept
+// as a named alias for the original slice-1 bootstrap caller. RENDER_SLUGS is
+// the full 35-slug set (the html-renderers switch); the --all CLI mode
+// captures every one of them into a destination directory.
 "use strict";
 
 var path = require("node:path");
@@ -22,20 +26,45 @@ var HR = path.join(__dirname, "..", "renderers", "html-renderers");
 var dsMap = require(path.join(HR, "ds-html-map.js"));
 var PATHS = require("../lib/paths");
 
-// The Button taxonomy is Intent x Emphasis (knowledge v0.34.x). These six cells
-// exercise every emphasis class the renderer produces (primary, secondary,
-// tertiary, critical, critical-secondary) plus a disabled example. The variant
-// strings use the same `Key=Value` form parseVariant() reads from Figma.
-var MATRIX = [
-  { label: "Primary", variant: "Emphasis=Filled" },
-  { label: "Secondary", variant: "Emphasis=Outlined" },
-  { label: "Tertiary", variant: "Emphasis=Ghost" },
-  { label: "Critical", variant: "Intent=Critical, Emphasis=Filled" },
-  {
-    label: "Critical secondary",
-    variant: "Intent=Critical, Emphasis=Outlined",
-  },
-  { label: "Disabled", variant: "Emphasis=Filled, State=Disabled" },
+// The 35 render slugs are the `case "<slug>":` branches in
+// scripts/renderers/html-renderers/ds-html-map.js. This list drives the
+// --all CLI mode and is the seed set for the canonical render library bootstrap.
+var RENDER_SLUGS = [
+  "account-dropdown",
+  "alert-banner",
+  "app-switcher-dropdown",
+  "badge",
+  "breadcrumb",
+  "button",
+  "calendar",
+  "card-for-items",
+  "chat-with-ai-steward",
+  "checkbox",
+  "dropdown-select-default",
+  "empty-state",
+  "global-header",
+  "input-date",
+  "loader",
+  "modal",
+  "notification",
+  "page-header",
+  "popover",
+  "progress-bar-small",
+  "radio-button",
+  "rich-text",
+  "search",
+  "segmented-control",
+  "side-nav",
+  "stepper",
+  "sticky-footer",
+  "table",
+  "tabs",
+  "tag-default",
+  "tag-interactive",
+  "text-input",
+  "toggle",
+  "toolbar",
+  "tooltip",
 ];
 
 var _regCache = null;
@@ -144,14 +173,23 @@ function variantMatrix(slug) {
   return cells;
 }
 
-// Each cell stacks the rendered Button over a caption naming the variant. The
-// caption inherits the body text color at reduced opacity, so no color is
+// The @dsCard group comes from the component's registry category (falling
+// back to its group), so the seed lands under the same grouping DesignSync
+// already uses; "Components" is the last-resort default when a slug carries
+// neither (e.g. it is missing from all three registries).
+function groupFor(slug) {
+  var comp = findComponent(slug);
+  return (comp && (comp.category || comp.group)) || "Components";
+}
+
+// Each cell stacks the rendered component over a caption naming the variant.
+// The caption inherits the body text color at reduced opacity, so no color is
 // hardcoded and no token name is guessed.
-function renderCell(cell) {
+function renderCell(slug, cell) {
   var fragment = dsMap.renderDSComponent({
-    dsSlug: "button",
+    dsSlug: slug,
     variant: cell.variant,
-    props: { Label: cell.label },
+    props: cell.props || {},
   });
   return (
     '<div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">' +
@@ -163,34 +201,72 @@ function renderCell(cell) {
   );
 }
 
-function captureButtonMatrix() {
+// Generalized capture: builds the full variant matrix for any of the 35
+// render slugs into one self-contained @dsCard doc. Slice 1 seeded only
+// button by hand; this generalizes that bootstrap to the whole render set
+// using the registry-derived variantMatrix() instead of a hand-picked list.
+function captureMatrix(slug) {
   var grid =
     '<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">' +
-    MATRIX.map(renderCell).join("") +
+    variantMatrix(slug)
+      .map(function (cell) {
+        return renderCell(slug, cell);
+      })
+      .join("") +
     "</div>";
   // buildLeafHtml inlines the whole stylesheet and wraps the fragment in a
   // self-contained page. fullWidth lets the matrix use the viewport width.
-  var doc = leaf.buildLeafHtml("button", grid, { fullWidth: true });
-  return '<!-- @dsCard group="Components" -->\n' + doc;
+  var doc = leaf.buildLeafHtml(slug, grid, { fullWidth: true });
+  return '<!-- @dsCard group="' + groupFor(slug) + '" -->\n' + doc;
+}
+
+function captureButtonMatrix() {
+  return captureMatrix("button");
 }
 
 if (require.main === module) {
   var argv = process.argv.slice(2);
-  var wi = argv.indexOf("--write");
-  var html = captureButtonMatrix();
-  if (wi >= 0 && argv[wi + 1]) {
-    var out = path.resolve(argv[wi + 1]);
-    fs.mkdirSync(path.dirname(out), { recursive: true });
-    fs.writeFileSync(out, html);
-    process.stdout.write("wrote " + out + " (" + html.length + " bytes)\n");
+  var allIdx = argv.indexOf("--all");
+  if (allIdx >= 0 && argv[allIdx + 1]) {
+    var destDir = path.resolve(argv[allIdx + 1]);
+    fs.mkdirSync(destDir, { recursive: true });
+    var wrote = 0,
+      skipped = [];
+    RENDER_SLUGS.forEach(function (slug) {
+      try {
+        fs.writeFileSync(
+          path.join(destDir, slug + ".html"),
+          captureMatrix(slug),
+        );
+        wrote++;
+      } catch (e) {
+        skipped.push(slug + " (" + e.message + ")");
+      }
+    });
+    process.stdout.write("wrote " + wrote + " seed(s) -> " + destDir + "\n");
+    if (skipped.length)
+      process.stdout.write("skipped: " + skipped.join(", ") + "\n");
   } else {
-    process.stdout.write(html);
+    // existing single --write / stdout behavior, now slug-parameterized
+    var wi = argv.indexOf("--write");
+    var slug =
+      argv.indexOf("--slug") >= 0 ? argv[argv.indexOf("--slug") + 1] : "button";
+    var html = captureMatrix(slug);
+    if (wi >= 0 && argv[wi + 1]) {
+      var out = path.resolve(argv[wi + 1]);
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.writeFileSync(out, html);
+      process.stdout.write("wrote " + out + " (" + html.length + " bytes)\n");
+    } else {
+      process.stdout.write(html);
+    }
   }
 }
 
 module.exports = {
   captureButtonMatrix: captureButtonMatrix,
-  MATRIX: MATRIX,
+  captureMatrix: captureMatrix,
+  RENDER_SLUGS: RENDER_SLUGS,
   findComponent: findComponent,
   variantMatrix: variantMatrix,
 };

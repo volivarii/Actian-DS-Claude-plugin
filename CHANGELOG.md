@@ -20,6 +20,14 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Added
+- **Generalized the canonical-render capture from Button to the full 35-slug render set.**
+  `plugins/actian-design-system/scripts/render/capture-seed.js` gained `captureMatrix(slug)`, a
+  registry-driven generalization of the Button-only capture: it builds each slug's variant matrix from
+  the registry (via `variantMatrix`, from the slice-1 bootstrap) instead of a hand-picked list, and
+  derives its `@dsCard` group from the component's own registry category. `captureButtonMatrix()` is now
+  `captureMatrix("button")`. A new `RENDER_SLUGS` constant enumerates the 35 slugs the HTML renderer
+  supports, and a `--all <destDir>` CLI mode captures every one of them into a destination directory in
+  one pass (skipping and reporting any slug that throws), replacing the single-slug-only bootstrap CLI.
 - **Seeded the canonical component render for the knowledge substrate (North Star slice 1).** ([#250](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/250)) A new
   one-time bootstrap, `plugins/actian-design-system/scripts/render/capture-seed.js`, captures the
   plugin's hand-authored Button render as a single self-contained, token-bound `@dsCard` document (the

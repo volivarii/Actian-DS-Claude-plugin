@@ -3,7 +3,10 @@ var assert = require("node:assert/strict");
 var C = require("../../scripts/render/capture-seed.js");
 test("captureButtonMatrix: one self-contained @dsCard doc with all variants + a disabled state", function () {
   var html = C.captureButtonMatrix();
-  assert.match(html.split("\n")[0], /^<!-- @dsCard group="Components" -->/);
+  // group is now registry-derived (button's registry category is "Action",
+  // not the hardcoded "Components" the slice-1 bootstrap used); assert the
+  // @dsCard marker shape, not a specific category string.
+  assert.match(html.split("\n")[0], /^<!-- @dsCard group="[^"]+" -->/);
   assert.ok(
     !/src=|href=|@import/.test(html),
     "must be self-contained (no external refs)",
@@ -83,4 +86,22 @@ test("variantMatrix: a tie between two identity axes is broken deterministically
     }),
     "picks Selection over Toggle position",
   );
+});
+
+test("captureMatrix: renders a self-contained @dsCard doc for a non-button slug", function () {
+  var html = C.captureMatrix("toggle");
+  assert.match(html.split("\n")[0], /^<!-- @dsCard group="[^"]+" -->/);
+  assert.ok(!/\ssrc=|\shref=|@import/.test(html), "self-contained");
+  assert.ok(
+    html.indexOf("ds-toggle") >= 0 || html.indexOf("toggle") >= 0,
+    "renders the component",
+  );
+});
+
+test("captureButtonMatrix still works (alias) and keeps the Components group", function () {
+  var html = C.captureButtonMatrix();
+  assert.match(html.split("\n")[0], /^<!-- @dsCard group="/);
+  ["ds-button--primary", "ds-button--secondary"].forEach(function (c) {
+    assert.ok(html.indexOf(c) >= 0, "has " + c);
+  });
 });
