@@ -105,3 +105,9 @@ test("captureButtonMatrix still works (alias) and carries an @dsCard group", fun
     assert.ok(html.indexOf(c) >= 0, "has " + c);
   });
 });
+
+test("variantMatrix: button uses the curated override (keeps the Critical variants)", function () {
+  var cells = C.variantMatrix("button");
+  assert.ok(cells.some(function (c) { return /Intent=Critical/.test(c.variant); }), "Critical present");
+  assert.equal(cells.length, 6, "the six curated button cells");
+});

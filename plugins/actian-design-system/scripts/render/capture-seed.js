@@ -116,7 +116,47 @@ function disabledValue(values) {
   );
 }
 
+// Per-slug curated matrices. Button is the flagship: its Intent x Emphasis
+// richness (including the Critical variants) reads better than a single-axis
+// registry derivation, so it is authored here rather than derived. Kept in the
+// deriver so a re-run of --all reproduces it instead of clobbering it.
+var MATRIX_OVERRIDES = {
+  button: [
+    {
+      label: "Primary",
+      variant: "Emphasis=Filled",
+      props: { Label: "Primary" },
+    },
+    {
+      label: "Secondary",
+      variant: "Emphasis=Outlined",
+      props: { Label: "Secondary" },
+    },
+    {
+      label: "Tertiary",
+      variant: "Emphasis=Ghost",
+      props: { Label: "Tertiary" },
+    },
+    {
+      label: "Critical",
+      variant: "Intent=Critical, Emphasis=Filled",
+      props: { Label: "Critical" },
+    },
+    {
+      label: "Critical secondary",
+      variant: "Intent=Critical, Emphasis=Outlined",
+      props: { Label: "Critical secondary" },
+    },
+    {
+      label: "Disabled",
+      variant: "Emphasis=Filled, State=Disabled",
+      props: { Label: "Disabled" },
+    },
+  ],
+};
+
 function variantMatrix(slug) {
+  if (MATRIX_OVERRIDES[slug]) return MATRIX_OVERRIDES[slug];
   var comp = findComponent(slug);
   var variants = (comp && comp.variants) || {};
   var stateAxis = stateAxisName(variants);
