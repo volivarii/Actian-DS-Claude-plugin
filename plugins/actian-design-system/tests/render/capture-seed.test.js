@@ -98,7 +98,7 @@ test("captureMatrix: renders a self-contained @dsCard doc for a non-button slug"
   );
 });
 
-test("captureButtonMatrix still works (alias) and keeps the Components group", function () {
+test("captureButtonMatrix still works (alias) and carries an @dsCard group", function () {
   var html = C.captureButtonMatrix();
   assert.match(html.split("\n")[0], /^<!-- @dsCard group="/);
   ["ds-button--primary", "ds-button--secondary"].forEach(function (c) {
