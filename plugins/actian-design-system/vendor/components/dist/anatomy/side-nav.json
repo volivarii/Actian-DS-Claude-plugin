@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-14T09:01:55.070Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13599:20120",
@@ -111,7 +111,10 @@
               "Opened/Closed": "Closed",
               "State": "Default"
             },
-            "id": "13599:20123"
+            "id": "13599:20123",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "nav item",
@@ -126,7 +129,10 @@
               "Opened/Closed": "Closed",
               "State": "Default"
             },
-            "id": "13599:20124"
+            "id": "13599:20124",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "nav item",
@@ -141,7 +147,10 @@
               "Opened/Closed": "Closed",
               "State": "Default"
             },
-            "id": "13599:20125"
+            "id": "13599:20125",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "Divider",
@@ -193,7 +202,10 @@
               "Opened/Closed": "Closed",
               "State": "Default"
             },
-            "id": "13599:20128"
+            "id": "13599:20128",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "nav item",
@@ -208,7 +220,10 @@
               "Opened/Closed": "N/A",
               "State": "Default"
             },
-            "id": "13599:20129"
+            "id": "13599:20129",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "nav item",
@@ -223,7 +238,10 @@
               "Opened/Closed": "N/A",
               "State": "Default"
             },
-            "id": "13599:20130"
+            "id": "13599:20130",
+            "appearance": {
+              "radius": "6px"
+            }
           },
           {
             "name": "nav item",
@@ -238,7 +256,10 @@
               "Opened/Closed": "Closed",
               "State": "Default"
             },
-            "id": "13599:20131"
+            "id": "13599:20131",
+            "appearance": {
+              "radius": "6px"
+            }
           }
         ]
       },
@@ -281,6 +302,7 @@
             },
             "id": "14115:17091",
             "appearance": {
+              "radius": "6px",
               "variants": [
                 {
                   "prop": "View",
@@ -307,6 +329,7 @@
             },
             "id": "14115:17092",
             "appearance": {
+              "radius": "6px",
               "variants": [
                 {
                   "prop": "View",
@@ -333,6 +356,7 @@
             },
             "id": "14115:17093",
             "appearance": {
+              "radius": "6px",
               "variants": [
                 {
                   "prop": "View",

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-item-types",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-07-15T12:44:12.117Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14007:23209",
@@ -79,7 +79,8 @@
         {
           "prop": "Item type",
           "values": [
-            "Custom 5"
+            "Custom 5",
+            "Data product"
           ],
           "background": "#cadcf7"
         },
@@ -97,13 +98,6 @@
             "Custom 9"
           ],
           "background": "#d3e7e0"
-        },
-        {
-          "prop": "Item type",
-          "values": [
-            "Data product"
-          ],
-          "background": "#e1e1e6"
         },
         {
           "prop": "Item type",
@@ -131,18 +125,30 @@
         {
           "prop": "Item type",
           "values": [
-            "Glossary 2",
-            "Glossary 5"
+            "Glossary 2"
           ],
           "background": "#ffebce"
         },
         {
           "prop": "Item type",
           "values": [
-            "Glossary 3",
+            "Glossary 3"
+          ],
+          "background": "#fffbef"
+        },
+        {
+          "prop": "Item type",
+          "values": [
             "Glossary 4"
           ],
-          "background": "#fff4ec"
+          "background": "#feeddc"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Glossary 5"
+          ],
+          "background": "#fff5d5"
         },
         {
           "prop": "Item type",

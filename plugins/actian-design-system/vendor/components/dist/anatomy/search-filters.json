@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-filters",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-07-14T09:01:55.070Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9660:49637",
@@ -468,7 +468,7 @@
                     },
                     "id": "14007:24293",
                     "appearance": {
-                      "background": "#e1e1e6",
+                      "background": "#cadcf7",
                       "radius": "4px"
                     }
                   },

@@ -7699,6 +7699,11 @@
     },
     {
       "source": "component:modal",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:modal",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7999,6 +8004,16 @@
     },
     {
       "source": "component:search-result-card",
+      "target": "component:checkbox",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search-result-card",
+      "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search-result-card",
       "target": "component:favorite",
       "type": "composed_of"
     },
@@ -8220,6 +8235,11 @@
     {
       "source": "component:tag-status",
       "target": "component:spinner",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-input",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {

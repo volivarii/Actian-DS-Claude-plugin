@@ -8046,6 +8046,12 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
+      "target": "component:arrow-down"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:modal",
       "target": "component:button"
     },
     {
@@ -8406,6 +8412,18 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:search-result-card",
+      "target": "component:checkbox"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:search-result-card",
+      "target": "component:digram-item-types"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:search-result-card",
       "target": "component:favorite"
     },
     {
@@ -8671,6 +8689,12 @@
       "edgeType": "composed_of",
       "source": "component:tag-status",
       "target": "component:spinner"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:text-input",
+      "target": "component:arrow-down"
     },
     {
       "@type": "Edge",
