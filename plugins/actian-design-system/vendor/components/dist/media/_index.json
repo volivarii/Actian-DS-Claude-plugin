@@ -635,12 +635,6 @@
     },
     "text-input": {
       "preview": "components/dist/media/text-input/preview.webp",
-      "variations": [
-        "components/dist/media/text-input/variations-0.webp",
-        "components/dist/media/text-input/variations-1.webp",
-        "components/dist/media/text-input/variations-2.webp",
-        "components/dist/media/text-input/variations-3.webp"
-      ],
       "behavior": [
         "components/dist/media/text-input/behavior-0.webp"
       ],
@@ -648,9 +642,6 @@
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
-      "variations": [
-        "components/dist/media/toggle/variations-0.webp"
-      ],
       "behavior": [
         "components/dist/media/toggle/behavior-0.webp"
       ],

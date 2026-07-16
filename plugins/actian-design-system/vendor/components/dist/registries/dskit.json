@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-07-13T11:40:48.634Z",
+  "lastSynced": "2026-07-15T12:44:32.704Z",
   "componentCount": 287,
   "components": {
     "account-dropdown": {
@@ -1305,7 +1305,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Checkbox",
-      "status": "in-progress",
       "variants": {
         "Selection": [
           "Unchecked",
@@ -1319,7 +1318,8 @@
           "Pressed",
           "Disabled"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "checkbox-card": {
       "name": "Checkbox card",
@@ -1363,7 +1363,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Checkbox",
-      "status": "in-progress",
       "variants": {
         "Selection": [
           "Unselected",
@@ -1376,7 +1375,8 @@
           "Pressed",
           "Disabled"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "chevron-left": {
       "name": "chevron--left",
@@ -2350,10 +2350,6 @@
         }
       ],
       "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "categorySlug": "form-input-selection",
-      "group": "Dropdown",
       "variants": {
         "Type": [
           "Default",
@@ -2369,7 +2365,11 @@
           "Filled",
           "Disabled"
         ]
-      }
+      },
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "categorySlug": "form-input-selection",
+      "group": "Dropdown"
     },
     "edit": {
       "name": "edit",
@@ -4019,6 +4019,11 @@
           "source": "child-instance"
         },
         {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
           "slug": "digram-item-types",
           "role": null,
           "source": "child-instance"
@@ -4760,7 +4765,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Radio button",
-      "status": "in-progress",
       "variants": {
         "Selection": [
           "Unselected",
@@ -4773,7 +4777,8 @@
           "Pressed",
           "Disabled"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "radio-button-card": {
       "name": "Radio button card",
@@ -4808,7 +4813,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Radio button",
-      "status": "in-progress",
       "variants": {
         "Selection": [
           "Unselected",
@@ -4821,7 +4825,8 @@
           "Pressed",
           "Disabled"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "relation": {
       "name": "relation",
@@ -5297,6 +5302,16 @@
         },
         {
           "slug": "tag-catalog",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "checkbox",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "digram-item-types",
           "role": null,
           "source": "child-instance"
         },
@@ -6378,6 +6393,15 @@
         "Textfield buttons#14241:0": {
           "type": "BOOLEAN",
           "default": true
+        },
+        "Slot for input/selection#20272:10": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
         }
       },
       "nestedComponents": [
@@ -6388,6 +6412,11 @@
         },
         {
           "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
           "role": null,
           "source": "child-instance"
         },
@@ -6417,7 +6446,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Text input",
-      "status": "in-progress",
       "variants": {
         "States": [
           "Default",
@@ -6430,7 +6458,8 @@
           "Disabled",
           "Read-only"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "text-type": {
       "name": "text-type",
@@ -6526,7 +6555,6 @@
       "category": "Form (input & selection)",
       "categorySlug": "form-input-selection",
       "group": "Toggle",
-      "status": "in-progress",
       "variants": {
         "Toggle position": [
           "On right (default)",
@@ -6543,7 +6571,8 @@
           "Pressed",
           "Disabled"
         ]
-      }
+      },
+      "status": "in-progress"
     },
     "toolbar": {
       "name": "Toolbar",
@@ -7357,7 +7386,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Other",
+      "group": "Status",
       "status": "in-progress"
     },
     "safyr-dynamics365": {
