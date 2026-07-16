@@ -8,14 +8,48 @@ test("captureButtonMatrix: one self-contained @dsCard doc with all variants + a 
     !/src=|href=|@import/.test(html),
     "must be self-contained (no external refs)",
   );
-  ["ds-button--primary", "ds-button--secondary", "ds-button--tertiary", "ds-button--critical"].forEach(
-    function (c) {
-      assert.ok(html.indexOf(c) >= 0, "missing variant class " + c);
-    },
-  );
+  [
+    "ds-button--primary",
+    "ds-button--secondary",
+    "ds-button--tertiary",
+    "ds-button--critical",
+  ].forEach(function (c) {
+    assert.ok(html.indexOf(c) >= 0, "missing variant class " + c);
+  });
   assert.ok(/is-disabled|disabled/.test(html), "missing disabled state");
   assert.ok(
-    !/var\(--zen-[a-z0-9-]+\)(?![^{]*:)/.test(html) || html.indexOf("--zen-") >= 0,
+    !/var\(--zen-[a-z0-9-]+\)(?![^{]*:)/.test(html) ||
+      html.indexOf("--zen-") >= 0,
     "tokens present",
   );
+});
+
+test("variantMatrix: button derives cells from the registry primary axis + a disabled state", function () {
+  var cells = C.variantMatrix("button");
+  assert.ok(cells.length >= 2 && cells.length <= 6, "capped cell count");
+  // Emphasis is the richest non-Size/State axis (Filled/Outlined/Ghost/Icon-only).
+  assert.ok(
+    cells.some(function (c) {
+      return /Emphasis=Filled/.test(c.variant);
+    }),
+    "primary axis cell",
+  );
+  assert.ok(
+    cells.some(function (c) {
+      return /State=Disabled/.test(c.variant);
+    }),
+    "disabled state cell",
+  );
+  cells.forEach(function (c) {
+    assert.ok(
+      c.props && typeof c.props.Label === "string",
+      "each cell carries a Label prop",
+    );
+  });
+});
+
+test("variantMatrix: a slug with no registry variants falls back to a single default cell", function () {
+  var cells = C.variantMatrix("__nonexistent-slug__");
+  assert.equal(cells.length, 1);
+  assert.equal(cells[0].variant, "");
 });
