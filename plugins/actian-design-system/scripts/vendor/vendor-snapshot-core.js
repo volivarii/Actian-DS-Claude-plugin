@@ -284,15 +284,18 @@ function extractTarball(tarballPath, destDir) {
   return path.join(destDir, entries[0]);
 }
 
-function copyDirectory(src, dest) {
+function copyDirectory(src, dest, relBase, excludeSet) {
+  relBase = relBase || "";
   fs.mkdirSync(dest, { recursive: true });
   var entries = fs.readdirSync(src, { withFileTypes: true });
   for (var i = 0; i < entries.length; i++) {
     var entry = entries[i];
+    var rel = relBase ? relBase + "/" + entry.name : entry.name;
+    if (excludeSet && excludeSet.has(rel)) continue; // heavy intermediate: skip
     var srcPath = path.join(src, entry.name);
     var destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
-      copyDirectory(srcPath, destPath);
+      copyDirectory(srcPath, destPath, rel, excludeSet);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -321,6 +324,20 @@ function readVendorInclude(extractedRepoRoot) {
   return null;
 }
 
+// Repo-relative sub-paths the vendor must skip even when their top-level dir is
+// included. Returns a Set of forward-slash paths, or null if the file is absent.
+function readVendorExclude(extractedRepoRoot) {
+  var p = path.join(extractedRepoRoot, "vendor-exclude.json");
+  if (!fs.existsSync(p)) return null;
+  try {
+    var decl = JSON.parse(fs.readFileSync(p, "utf8"));
+    if (decl && Array.isArray(decl.exclude)) return new Set(decl.exclude);
+  } catch (e) {
+    /* malformed → no exclusions */
+  }
+  return null;
+}
+
 // Decide which top-level entries to vendor. Inclusion-first: if the substrate
 // declared an include-set, copy ONLY those (tooling is structurally absent).
 // Otherwise fall back to the legacy exclude-set.
@@ -339,6 +356,12 @@ function selectEntries(names, includeSet, excludeSet) {
 function vendorContent(extractedRepoRoot, vendorDir, excludeSet) {
   fs.mkdirSync(vendorDir, { recursive: true });
   var includeSet = readVendorInclude(extractedRepoRoot);
+  // Sub-path excludes (vendor-exclude.json) are a SEPARATE concept from the
+  // caller's top-level excludeSet parameter (config.excludeTopLevel, consulted
+  // by selectEntries in the legacy fallback branch below). Do not reuse the
+  // name "excludeSet" here: that would shadow the parameter and silently
+  // discard the caller's top-level exclusions before selectEntries reads them.
+  var subPathExcludeSet = readVendorExclude(extractedRepoRoot);
   if (includeSet) {
     process.stdout.write(
       "[vendor] inclusion mode — copying " +
@@ -362,7 +385,7 @@ function vendorContent(extractedRepoRoot, vendorDir, excludeSet) {
     var srcPath = path.join(extractedRepoRoot, name);
     var destPath = path.join(vendorDir, name);
     if (fs.statSync(srcPath).isDirectory()) {
-      copyDirectory(srcPath, destPath);
+      copyDirectory(srcPath, destPath, name, subPathExcludeSet);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -516,5 +539,7 @@ module.exports = {
   notifyIfNewerAvailable: notifyIfNewerAvailable,
   selectEntries: selectEntries,
   readVendorInclude: readVendorInclude,
+  readVendorExclude: readVendorExclude,
+  vendorContent: vendorContent,
   readVendoredJson: readVendoredJson,
 };
