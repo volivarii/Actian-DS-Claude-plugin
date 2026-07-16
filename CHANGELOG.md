@@ -20,7 +20,7 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Added
-- **Seeded the canonical component render for the knowledge substrate (North Star slice 1).** A new
+- **Seeded the canonical component render for the knowledge substrate (North Star slice 1).** ([#250](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/250)) A new
   one-time bootstrap, `plugins/actian-design-system/scripts/render/capture-seed.js`, captures the
   plugin's hand-authored Button render as a single self-contained, token-bound `@dsCard` document (the
   full Intent x Emphasis variant matrix plus a disabled state) and writes it to
