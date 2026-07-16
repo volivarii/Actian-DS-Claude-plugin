@@ -53,3 +53,34 @@ test("variantMatrix: a slug with no registry variants falls back to a single def
   assert.equal(cells.length, 1);
   assert.equal(cells[0].variant, "");
 });
+
+test("variantMatrix: text-input (axis named 'States') still yields a disabled cell", function () {
+  var cells = C.variantMatrix("text-input");
+  assert.ok(
+    cells.some(function (c) {
+      return /States=Disabled/.test(c.variant);
+    }),
+    "has a disabled cell",
+  );
+});
+
+test("variantMatrix: a state-only component (tag-interactive) shows its states, not a bare fallback", function () {
+  var cells = C.variantMatrix("tag-interactive");
+  assert.ok(cells.length > 1, "more than the single fallback cell");
+  assert.ok(
+    cells.some(function (c) {
+      return /disabled/i.test(c.variant);
+    }),
+    "includes a disabled state",
+  );
+});
+
+test("variantMatrix: a tie between two identity axes is broken deterministically (toggle -> Selection)", function () {
+  var cells = C.variantMatrix("toggle");
+  assert.ok(
+    cells.every(function (c) {
+      return /^Selection=/.test(c.variant) || c.variant === "";
+    }),
+    "picks Selection over Toggle position",
+  );
+});

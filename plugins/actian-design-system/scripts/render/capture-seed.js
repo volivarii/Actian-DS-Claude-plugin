@@ -38,14 +38,22 @@ var MATRIX = [
   { label: "Disabled", variant: "Emphasis=Filled, State=Disabled" },
 ];
 
+var _regCache = null;
 function readRegistry(kit) {
-  try {
-    return JSON.parse(
-      fs.readFileSync(PATHS.components.registries[kit], "utf8"),
-    );
-  } catch (e) {
-    return { components: {} };
+  if (!_regCache) _regCache = {};
+  if (_regCache[kit] === undefined) {
+    try {
+      _regCache[kit] = JSON.parse(
+        fs.readFileSync(PATHS.components.registries[kit], "utf8"),
+      );
+    } catch (e) {
+      process.stderr.write(
+        "capture-seed: registry read failed (" + kit + "): " + e.message + "\n",
+      );
+      _regCache[kit] = { components: {} };
+    }
   }
+  return _regCache[kit];
 }
 
 // A render slug may live in any kit; search ds -> meta -> fm.
@@ -58,40 +66,80 @@ function findComponent(slug) {
   return null;
 }
 
-var SECONDARY_AXES = { Size: 1, State: 1 };
+// Size and State (singular or plural) are secondary axes: they vary interaction,
+// not the component's identity. Matched case and pluralization insensitively so
+// real data ("States") is caught.
+function isSecondaryAxis(name) {
+  return /^(size|states?)$/i.test(name);
+}
+function stateAxisName(variants) {
+  return (
+    Object.keys(variants).find(function (a) {
+      return /^states?$/i.test(a);
+    }) || null
+  );
+}
+function disabledValue(values) {
+  return (
+    (values || []).find(function (v) {
+      return /disabled/i.test(v);
+    }) || null
+  );
+}
 
-// Derives a small variant matrix straight from the registry, so any of the 35
-// render slugs (not just Button) gets a representative set of cells without a
-// per-slug hand-authored MATRIX. Primary axis = the richest non-Size/State
-// axis; cells = one per primary-axis value (capped at 5) plus a disabled
-// state cell when the State axis offers one. Slugs with no usable variants
-// fall back to a single default cell so callers always get at least one.
 function variantMatrix(slug) {
   var comp = findComponent(slug);
   var variants = (comp && comp.variants) || {};
-  var axes = Object.keys(variants).filter(function (a) {
+  var stateAxis = stateAxisName(variants);
+  var primaryAxes = Object.keys(variants).filter(function (a) {
     return (
-      !SECONDARY_AXES[a] && Array.isArray(variants[a]) && variants[a].length
+      !isSecondaryAxis(a) && Array.isArray(variants[a]) && variants[a].length
     );
   });
-  if (!axes.length) {
+  // Primary axis = most values; deterministic name tie-break so the pick is stable
+  // across registry re-vendors.
+  primaryAxes.sort(function (a, b) {
+    return variants[b].length - variants[a].length || a.localeCompare(b);
+  });
+
+  var cells = [];
+  var primary = null;
+  if (primaryAxes.length) {
+    primary = primaryAxes[0];
+    cells = variants[primary].slice(0, 5).map(function (v) {
+      return { label: v, variant: primary + "=" + v, props: { Label: v } };
+    });
+  } else if (stateAxis) {
+    // No identity axis: the state axis is the component's only variance; show a few.
+    primary = stateAxis;
+    cells = variants[stateAxis].slice(0, 5).map(function (v) {
+      return { label: v, variant: stateAxis + "=" + v, props: { Label: v } };
+    });
+  }
+
+  if (!cells.length) {
     return [{ label: slug, variant: "", props: { Label: slug } }];
   }
-  // Primary axis = the non-Size/State axis with the most values.
-  axes.sort(function (a, b) {
-    return variants[b].length - variants[a].length;
-  });
-  var primary = axes[0];
-  var cells = variants[primary].slice(0, 5).map(function (v) {
-    return { label: v, variant: primary + "=" + v, props: { Label: v } };
-  });
-  // Add a disabled state cell when the State axis offers it.
-  if (variants.State && variants.State.indexOf("Disabled") >= 0) {
-    cells.push({
-      label: "Disabled",
-      variant: primary + "=" + variants[primary][0] + ", State=Disabled",
-      props: { Label: "Disabled" },
+
+  // Ensure a disabled example when the state axis offers one and none is shown yet.
+  // The state axis name is used verbatim (button uses "State", text-input "States"),
+  // because the renderer keys on the exact axis name.
+  if (stateAxis) {
+    var dv = disabledValue(variants[stateAxis]);
+    var alreadyDisabled = cells.some(function (c) {
+      return /disabled/i.test(c.variant);
     });
+    if (dv && !alreadyDisabled) {
+      var base =
+        primary && primary !== stateAxis
+          ? primary + "=" + variants[primary][0] + ", "
+          : "";
+      cells.push({
+        label: dv,
+        variant: base + stateAxis + "=" + dv,
+        props: { Label: dv },
+      });
+    }
   }
   return cells;
 }
