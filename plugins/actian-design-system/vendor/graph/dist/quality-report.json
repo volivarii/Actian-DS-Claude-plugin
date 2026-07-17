@@ -79,7 +79,7 @@
   {
     "dimension": "connectivity",
     "metric": "composition_edges",
-    "value": 332,
+    "value": 325,
     "timestamp": null,
     "severity": "info"
   },
