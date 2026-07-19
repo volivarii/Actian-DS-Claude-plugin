@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "radio-button",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-07-17T09:06:39.293Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9474:16884",
@@ -102,7 +102,7 @@
         "rawHint": {
           "layoutMode": "NONE",
           "x": 4368,
-          "y": 425,
+          "y": 498,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -249,7 +249,7 @@
                     }
                   ]
                 },
-                "text": "Label"
+                "text": "Option label"
               }
             ]
           },

@@ -1440,10 +1440,8 @@ Use for status. Can be interactive (removable) or static metadata.
 
 Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
 
-- Variants: **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
-- Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
-- **Required overrides:** `Label text#9633:0` (default `"Label"` is a placeholder), `Placeholder text#9633:34` (default `"Placeholder text"` is a placeholder)
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `Info icon#7242:0` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Description#7242:164` (default: true) — set to `false` to hide · `Textfield buttons#14241:0` (default: true) — set to `false` to hide
+- Variants: **States:** `Default` · `Warning` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
+- Boolean properties: `Show label group#20405:23` (default: true) — set to `false` to hide · `Show helper text#20405:35` (default: true) — set to `false` to hide · `Show buttons#20405:47` (default: true) — set to `false` to hide
 - Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
 
 ### text-type

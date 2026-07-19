@@ -1,0 +1,288 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedBy": "scripts/render/derive-canonical.js",
+  "cem": "custom-elements.json",
+  "css": "render.css",
+  "renders": [
+    {
+      "slug": "account-dropdown",
+      "tagName": "zen-account-dropdown",
+      "group": "Navigation",
+      "fragment": "fragments/account-dropdown.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "alert-banner",
+      "tagName": "zen-alert-banner",
+      "group": "Feedback",
+      "fragment": "fragments/alert-banner.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "app-switcher-dropdown",
+      "tagName": "zen-app-switcher-dropdown",
+      "group": "Navigation",
+      "fragment": "fragments/app-switcher-dropdown.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "badge",
+      "tagName": "zen-badge",
+      "group": "Data Display",
+      "fragment": "fragments/badge.html",
+      "tokensConsumed": 6,
+      "source": "captured"
+    },
+    {
+      "slug": "breadcrumb",
+      "tagName": "zen-breadcrumb",
+      "group": "Navigation",
+      "fragment": "fragments/breadcrumb.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "button",
+      "tagName": "zen-button",
+      "group": "Action",
+      "fragment": "fragments/button.html",
+      "tokensConsumed": 19,
+      "source": "captured"
+    },
+    {
+      "slug": "calendar",
+      "tagName": "zen-calendar",
+      "group": "Action",
+      "fragment": "fragments/calendar.html",
+      "tokensConsumed": 22,
+      "source": "captured"
+    },
+    {
+      "slug": "card-for-items",
+      "tagName": "zen-card-for-items",
+      "group": "Data Display",
+      "fragment": "fragments/card-for-items.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "chat-with-ai-steward",
+      "tagName": "zen-chat-with-ai-steward",
+      "group": "Overlays",
+      "fragment": "fragments/chat-with-ai-steward.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "checkbox",
+      "tagName": "zen-checkbox",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/checkbox.html",
+      "tokensConsumed": 13,
+      "source": "derived"
+    },
+    {
+      "slug": "dropdown-select-default",
+      "tagName": "zen-dropdown-select-default",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/dropdown-select-default.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "empty-state",
+      "tagName": "zen-empty-state",
+      "group": "Feedback",
+      "fragment": "fragments/empty-state.html",
+      "tokensConsumed": 10,
+      "source": "captured"
+    },
+    {
+      "slug": "global-header",
+      "tagName": "zen-global-header",
+      "group": "Navigation",
+      "fragment": "fragments/global-header.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "input-date",
+      "tagName": "zen-input-date",
+      "group": "Action",
+      "fragment": "fragments/input-date.html",
+      "tokensConsumed": 18,
+      "source": "captured"
+    },
+    {
+      "slug": "loader",
+      "tagName": "zen-loader",
+      "group": "Feedback",
+      "fragment": "fragments/loader.html",
+      "tokensConsumed": 9,
+      "source": "captured"
+    },
+    {
+      "slug": "modal",
+      "tagName": "zen-modal",
+      "group": "Overlays",
+      "fragment": "fragments/modal.html",
+      "tokensConsumed": 15,
+      "source": "captured"
+    },
+    {
+      "slug": "notification",
+      "tagName": "zen-notification",
+      "group": "Feedback",
+      "fragment": "fragments/notification.html",
+      "tokensConsumed": 14,
+      "source": "captured"
+    },
+    {
+      "slug": "page-header",
+      "tagName": "zen-page-header",
+      "group": "Data Display",
+      "fragment": "fragments/page-header.html",
+      "tokensConsumed": 17,
+      "source": "captured"
+    },
+    {
+      "slug": "popover",
+      "tagName": "zen-popover",
+      "group": "Overlays",
+      "fragment": "fragments/popover.html",
+      "tokensConsumed": 18,
+      "source": "captured"
+    },
+    {
+      "slug": "progress-bar-small",
+      "tagName": "zen-progress-bar-small",
+      "group": "Data Display",
+      "fragment": "fragments/progress-bar-small.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "radio-button",
+      "tagName": "zen-radio-button",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/radio-button.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "rich-text",
+      "tagName": "zen-rich-text",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/rich-text.html",
+      "tokensConsumed": 14,
+      "source": "captured"
+    },
+    {
+      "slug": "search",
+      "tagName": "zen-search",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/search.html",
+      "tokensConsumed": 13,
+      "source": "captured"
+    },
+    {
+      "slug": "segmented-control",
+      "tagName": "zen-segmented-control",
+      "group": "Data Display",
+      "fragment": "fragments/segmented-control.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "side-nav",
+      "tagName": "zen-side-nav",
+      "group": "Navigation",
+      "fragment": "fragments/side-nav.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "stepper",
+      "tagName": "zen-stepper",
+      "group": "Navigation",
+      "fragment": "fragments/stepper.html",
+      "tokensConsumed": 22,
+      "source": "captured"
+    },
+    {
+      "slug": "sticky-footer",
+      "tagName": "zen-sticky-footer",
+      "group": "Action",
+      "fragment": "fragments/sticky-footer.html",
+      "tokensConsumed": 6,
+      "source": "captured"
+    },
+    {
+      "slug": "table",
+      "tagName": "zen-table",
+      "group": "Data Display",
+      "fragment": "fragments/table.html",
+      "tokensConsumed": 8,
+      "source": "captured"
+    },
+    {
+      "slug": "tabs",
+      "tagName": "zen-tabs",
+      "group": "Navigation",
+      "fragment": "fragments/tabs.html",
+      "tokensConsumed": 14,
+      "source": "captured"
+    },
+    {
+      "slug": "tag-default",
+      "tagName": "zen-tag-default",
+      "group": "Data Display",
+      "fragment": "fragments/tag-default.html",
+      "tokensConsumed": 0,
+      "source": "derived"
+    },
+    {
+      "slug": "tag-interactive",
+      "tagName": "zen-tag-interactive",
+      "group": "Data Display",
+      "fragment": "fragments/tag-interactive.html",
+      "tokensConsumed": 19,
+      "source": "captured"
+    },
+    {
+      "slug": "text-input",
+      "tagName": "zen-text-input",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/text-input.html",
+      "tokensConsumed": 0,
+      "source": "captured"
+    },
+    {
+      "slug": "toggle",
+      "tagName": "zen-toggle",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/toggle.html",
+      "tokensConsumed": 14,
+      "source": "captured"
+    },
+    {
+      "slug": "toolbar",
+      "tagName": "zen-toolbar",
+      "group": "Data Display",
+      "fragment": "fragments/toolbar.html",
+      "tokensConsumed": 13,
+      "source": "captured"
+    },
+    {
+      "slug": "tooltip",
+      "tagName": "zen-tooltip",
+      "group": "Overlays",
+      "fragment": "fragments/tooltip.html",
+      "tokensConsumed": 11,
+      "source": "captured"
+    }
+  ]
+}

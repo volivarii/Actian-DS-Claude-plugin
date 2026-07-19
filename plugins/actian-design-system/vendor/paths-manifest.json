@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.100",
+  "knowledge_version": "0.34.106",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -592,6 +592,33 @@
       "generator": "scripts/sync/sync-from-figma.js",
       "description": "DS Kit text + effect styles (Figma REST sync)"
     },
+    "components.render.cem": {
+      "path": "components/render/dist/custom-elements.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/derive-canonical.js",
+      "description": "Custom Elements Manifest: attributes, parts, and css properties for every canonical render."
+    },
+    "components.render.css": {
+      "path": "components/render/dist/render.css",
+      "type": "css",
+      "origin": "ci",
+      "generator": "scripts/render/derive-canonical.js",
+      "description": "The shared canonical-render stylesheet, inlined once and combined with each component fragment."
+    },
+    "components.render.manifest": {
+      "path": "components/render/dist/render-manifest.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/derive-canonical.js",
+      "description": "Index of the canonical renders: slug, tagName, group, fragment file, tokens consumed."
+    },
+    "components.render.schema": {
+      "path": "components/render/schema/custom-elements-manifest.schema.json",
+      "type": "json",
+      "origin": "human",
+      "description": "The official Custom Elements Manifest JSON schema, used to validate the emitted CEM."
+    },
     "components.styles.effect": {
       "path": "components/dist/effect-styles.md",
       "type": "markdown",
@@ -758,6 +785,13 @@
       "generator": "scripts/tokens/derive-tokens.js",
       "description": "Generated semantic color layer (DTCG: alias $value + 3-theme hex expansion + Figma binding) — staging output of derive-tokens.js (P2)"
     },
+    "tokens.dtcg": {
+      "path": "tokens/dist/tokens.dtcg.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/derive-dtcg.js",
+      "description": "Portable DTCG token export derived from tokens.json with provenance and Figma keys stripped."
+    },
     "tokens.figmaBindingsRaw": {
       "path": "tokens/src/figma-bindings-raw.json",
       "type": "json",
@@ -867,6 +901,35 @@
       "type": "binary",
       "origin": "ci",
       "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Single-capture roles (capture:\"first\", e.g. `preview`) produce `<role>.webp`; multi-capture roles (capture:\"all\", e.g. `parts`, `variations`, `spacing`, `behavior`, `layout`) produce `<role>-0.webp`, `<role>-1.webp`, … ordered by Figma frame index. Frames are rendered by Figma as PNG and transcoded to WebP locally (the Figma REST API has no WebP format). Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
+    },
+    "components.render.fragments": {
+      "dir": "components/render/dist/fragments",
+      "pattern": "{slug}.html",
+      "type": "text",
+      "origin": "ci",
+      "description": "Per-component markup fragments, combined with components/render/dist/render.css by consumers."
+    },
+    "components.render.renderer": {
+      "dir": "components/render/renderer",
+      "pattern": "{name}",
+      "recursive": true,
+      "type": "text",
+      "origin": "human",
+      "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its styling source (ds-base.css, ds-fonts.css), and default-props.json. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1). render.css derives from the .css members; the gallery derives by running the .js over each component's variant matrix."
+    },
+    "components.render.src": {
+      "dir": "components/render/src",
+      "pattern": "{slug}.html",
+      "type": "text",
+      "origin": "ci",
+      "description": "Captured self-contained seed renders (the derive input). A capture intermediate, excluded from the vendor snapshot."
+    },
+    "components.render.usageNotes": {
+      "dir": "components/render/dist/usage-notes",
+      "pattern": "{slug}.md",
+      "type": "markdown",
+      "origin": "ci",
+      "description": "Per-component usage notes composed from the guideline domains (slice 2)."
     },
     "content.section": {
       "dir": "content/src",

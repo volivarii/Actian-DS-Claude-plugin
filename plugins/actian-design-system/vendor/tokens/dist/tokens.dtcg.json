@@ -1,0 +1,3844 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/design-tokens.schema.json",
+  "$description": "Actian Design System 2026 — Design Tokens (DTCG W3C format)",
+  "color": {
+    "primitive": {
+      "white": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.oklch": "oklch(1 0 89.9)"
+        }
+      },
+      "black": {
+        "$value": "#000000",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.oklch": "oklch(0 0 0)"
+        }
+      },
+      "green": {
+        "25": {
+          "$value": "#F3F6F3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0051 145.5)"
+          }
+        },
+        "50": {
+          "$value": "#D3EFCD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9227 0.0541 140.1)"
+          }
+        },
+        "100": {
+          "$value": "#B5DCAF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8546 0.0738 141.4)"
+          }
+        },
+        "200": {
+          "$value": "#92CC89",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7884 0.1103 141.2)"
+          }
+        },
+        "300": {
+          "$value": "#75B86B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7188 0.1277 141.2)"
+          }
+        },
+        "400": {
+          "$value": "#53A647",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6513 0.1548 141.2)"
+          }
+        },
+        "500": {
+          "$value": "#299315",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5811 0.182 141.1)"
+          }
+        },
+        "600": {
+          "$value": "#098900",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5467 0.1847 142.2)"
+          }
+        },
+        "700": {
+          "$value": "#047800",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4966 0.1682 142.3)"
+          }
+        },
+        "800": {
+          "$value": "#145F04",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4243 0.1368 141)"
+          }
+        },
+        "900": {
+          "$value": "#1A4B14",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3662 0.0998 141.5)"
+          }
+        }
+      },
+      "orange": {
+        "25": {
+          "$value": "#F7F4F2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9689 0.0042 56.4)"
+          }
+        },
+        "50": {
+          "$value": "#FFEBCE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9487 0.0438 77.2)"
+          }
+        },
+        "100": {
+          "$value": "#FFDDB6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9163 0.0634 70.7)"
+          }
+        },
+        "200": {
+          "$value": "#FFCD92",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8789 0.0941 70.7)"
+          }
+        },
+        "300": {
+          "$value": "#FFBE78",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8466 0.1148 67.3)"
+          }
+        },
+        "400": {
+          "$value": "#FFAF53",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8147 0.1417 67.1)"
+          }
+        },
+        "500": {
+          "$value": "#FC9F1D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7792 0.1657 67.1)"
+          }
+        },
+        "600": {
+          "$value": "#EF8D00",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7315 0.1662 63.5)"
+          }
+        },
+        "700": {
+          "$value": "#D27B00",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6632 0.1509 63.3)"
+          }
+        },
+        "800": {
+          "$value": "#A76605",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5691 0.1245 66.8)"
+          }
+        },
+        "900": {
+          "$value": "#83551F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4904 0.0916 66.6)"
+          }
+        }
+      },
+      "red": {
+        "25": {
+          "$value": "#F8F4F3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0045 34.3)"
+          }
+        },
+        "50": {
+          "$value": "#FFDACF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9164 0.0441 37.2)"
+          }
+        },
+        "100": {
+          "$value": "#FFC1B3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8634 0.0744 33)"
+          }
+        },
+        "200": {
+          "$value": "#FFA38F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8028 0.1138 32.9)"
+          }
+        },
+        "300": {
+          "$value": "#F88973",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7463 0.1397 32.3)"
+          }
+        },
+        "400": {
+          "$value": "#EF6B53",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6844 0.1681 32.1)"
+          }
+        },
+        "500": {
+          "$value": "#E6492D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6243 0.1982 32.4)"
+          }
+        },
+        "600": {
+          "$value": "#DC3514",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5867 0.2074 32.6)"
+          }
+        },
+        "700": {
+          "$value": "#C12C11",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5308 0.1888 32.2)"
+          }
+        },
+        "800": {
+          "$value": "#982A18",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4551 0.1488 32)"
+          }
+        },
+        "900": {
+          "$value": "#762A1C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3948 0.11 32.5)"
+          }
+        }
+      },
+      "grey": {
+        "25": {
+          "$value": "#F8F4F5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0045 360)"
+          }
+        },
+        "50": {
+          "$value": "#EBEBEB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9401 0 89.9)"
+          }
+        },
+        "100": {
+          "$value": "#DADADA",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8884 0 89.9)"
+          }
+        },
+        "200": {
+          "$value": "#C9C9C9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8359 0 89.9)"
+          }
+        },
+        "300": {
+          "$value": "#B9B9B9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7858 0 89.9)"
+          }
+        },
+        "400": {
+          "$value": "#A9A9A9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7348 0 89.9)"
+          }
+        },
+        "500": {
+          "$value": "#999999",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.683 0 89.9)"
+          }
+        },
+        "600": {
+          "$value": "#8D8D8D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6434 0 89.9)"
+          }
+        },
+        "700": {
+          "$value": "#7B7B7B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5829 0 89.9)"
+          }
+        },
+        "800": {
+          "$value": "#636363",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4997 0 89.9)"
+          }
+        },
+        "900": {
+          "$value": "#505050",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4313 0 89.9)"
+          }
+        }
+      },
+      "royal-blue": {
+        "25": {
+          "$value": "#F3F5F9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 264.5)"
+          }
+        },
+        "50": {
+          "$value": "#CBE3FF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.907 0.0462 252.3)"
+          }
+        },
+        "100": {
+          "$value": "#AACAFE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8339 0.0812 260)"
+          }
+        },
+        "200": {
+          "$value": "#82B0FD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7555 0.1222 260.3)"
+          }
+        },
+        "300": {
+          "$value": "#6296EF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6768 0.1437 260.5)"
+          }
+        },
+        "400": {
+          "$value": "#3D7CE6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6005 0.1735 260.2)"
+          }
+        },
+        "500": {
+          "$value": "#0F5FDC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5216 0.2044 260.3)"
+          }
+        },
+        "600": {
+          "$value": "#0053D7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.492 0.2138 261.1)"
+          }
+        },
+        "700": {
+          "$value": "#0047BC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4439 0.194 261.2)"
+          }
+        },
+        "800": {
+          "$value": "#033B92",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3809 0.1533 260.3)"
+          }
+        },
+        "900": {
+          "$value": "#0D316D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3277 0.1123 260.3)"
+          }
+        }
+      },
+      "blue": {
+        "25": {
+          "$value": "#F2F6F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9707 0.005 228.8)"
+          }
+        },
+        "50": {
+          "$value": "#CFEAFD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9232 0.0386 238.6)"
+          }
+        },
+        "100": {
+          "$value": "#B1D5EE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8552 0.0517 238.5)"
+          }
+        },
+        "200": {
+          "$value": "#8BC0E6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7845 0.0776 240.2)"
+          }
+        },
+        "300": {
+          "$value": "#6BACD7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7174 0.0916 238.8)"
+          }
+        },
+        "400": {
+          "$value": "#4598CB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6502 0.1106 238.7)"
+          }
+        },
+        "500": {
+          "$value": "#0283BE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5801 0.1298 238.8)"
+          }
+        },
+        "600": {
+          "$value": "#0079B6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5512 0.1296 241.5)"
+          }
+        },
+        "700": {
+          "$value": "#00699F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4985 0.1174 241.6)"
+          }
+        },
+        "800": {
+          "$value": "#00547D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4246 0.0964 239.5)"
+          }
+        },
+        "900": {
+          "$value": "#114361",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3659 0.0729 240)"
+          }
+        }
+      },
+      "turquoise": {
+        "25": {
+          "$value": "#F1F6F6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9694 0.0053 197.1)"
+          }
+        },
+        "50": {
+          "$value": "#D0EFED",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9292 0.0325 191.9)"
+          }
+        },
+        "100": {
+          "$value": "#B5DDDB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8685 0.0419 192.7)"
+          }
+        },
+        "200": {
+          "$value": "#90CECB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8086 0.0634 192.2)"
+          }
+        },
+        "300": {
+          "$value": "#72BCB9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7462 0.0742 192.4)"
+          }
+        },
+        "400": {
+          "$value": "#4AACA9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6859 0.0914 192.5)"
+          }
+        },
+        "500": {
+          "$value": "#049B98",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6234 0.1064 192.3)"
+          }
+        },
+        "600": {
+          "$value": "#00908E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5908 0.1012 193)"
+          }
+        },
+        "700": {
+          "$value": "#007E7B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5359 0.092 191.8)"
+          }
+        },
+        "800": {
+          "$value": "#006563",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.458 0.0786 192.4)"
+          }
+        },
+        "900": {
+          "$value": "#15504E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3939 0.0589 191.8)"
+          }
+        }
+      },
+      "purple": {
+        "25": {
+          "$value": "#F6F4F7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9695 0.0045 314.8)"
+          }
+        },
+        "50": {
+          "$value": "#F2E6F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9397 0.0271 314.7)"
+          }
+        },
+        "100": {
+          "$value": "#E3D3EC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8873 0.0379 313.6)"
+          }
+        },
+        "200": {
+          "$value": "#D7BFE4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8364 0.057 313.8)"
+          }
+        },
+        "300": {
+          "$value": "#C7ADD7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7837 0.065 312.5)"
+          }
+        },
+        "400": {
+          "$value": "#BA9ACC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7319 0.079 313.2)"
+          }
+        },
+        "500": {
+          "$value": "#AD88C1",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6817 0.0915 313.4)"
+          }
+        },
+        "600": {
+          "$value": "#A17AB6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6393 0.0975 313.4)"
+          }
+        },
+        "700": {
+          "$value": "#8C6A9F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.578 0.0881 313)"
+          }
+        },
+        "800": {
+          "$value": "#71567F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4967 0.0713 313.8)"
+          }
+        },
+        "900": {
+          "$value": "#5A4764",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4291 0.0525 313.8)"
+          }
+        }
+      },
+      "blue-grey": {
+        "25": {
+          "$value": "#F2F6F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9707 0.005 228.8)"
+          }
+        },
+        "50": {
+          "$value": "#DDE6EC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9199 0.0127 236.6)"
+          }
+        },
+        "100": {
+          "$value": "#C4D0D7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8505 0.0163 233.1)"
+          }
+        },
+        "200": {
+          "$value": "#AABCC4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7839 0.0229 226.2)"
+          }
+        },
+        "300": {
+          "$value": "#91A6B0",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7122 0.0277 228.1)"
+          }
+        },
+        "400": {
+          "$value": "#78929D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6436 0.0337 225.4)"
+          }
+        },
+        "500": {
+          "$value": "#607D8C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5727 0.0405 230.8)"
+          }
+        },
+        "600": {
+          "$value": "#547482",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5397 0.0427 226.8)"
+          }
+        },
+        "700": {
+          "$value": "#4A6470",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4871 0.0363 228)"
+          }
+        },
+        "800": {
+          "$value": "#3C515A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4211 0.0299 226.1)"
+          }
+        },
+        "900": {
+          "$value": "#323F47",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3593 0.022 235.2)"
+          }
+        }
+      },
+      "yellow": {
+        "25": {
+          "$value": "#F6F5F1",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0054 95.1)"
+          }
+        },
+        "50": {
+          "$value": "#FFF5D5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.043 92.7)"
+          }
+        },
+        "100": {
+          "$value": "#FEEDC3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9493 0.0574 88.6)"
+          }
+        },
+        "200": {
+          "$value": "#FFE6A5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9304 0.0866 89.4)"
+          }
+        },
+        "300": {
+          "$value": "#FCDF91",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9106 0.1021 89.8)"
+          }
+        },
+        "400": {
+          "$value": "#FBD776",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8901 0.1231 89.5)"
+          }
+        },
+        "500": {
+          "$value": "#FACF55",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8699 0.1453 89.4)"
+          }
+        },
+        "600": {
+          "$value": "#EABD34",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8163 0.1524 89.4)"
+          }
+        },
+        "700": {
+          "$value": "#CDA52C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7385 0.138 89.2)"
+          }
+        },
+        "800": {
+          "$value": "#A58732",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6354 0.1083 89.2)"
+          }
+        },
+        "900": {
+          "$value": "#836F37",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5484 0.0791 90)"
+          }
+        }
+      },
+      "olive-green": {
+        "25": {
+          "$value": "#F4F6F2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0057 128.5)"
+          }
+        },
+        "50": {
+          "$value": "#E1EACB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9221 0.0422 120.4)"
+          }
+        },
+        "100": {
+          "$value": "#CAD5AD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8542 0.055 120.1)"
+          }
+        },
+        "200": {
+          "$value": "#B2C186",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7848 0.0809 119.9)"
+          }
+        },
+        "300": {
+          "$value": "#9CAD67",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7178 0.0958 120)"
+          }
+        },
+        "400": {
+          "$value": "#879940",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6497 0.1167 119.3)"
+          }
+        },
+        "500": {
+          "$value": "#718601",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5825 0.1381 120.1)"
+          }
+        },
+        "600": {
+          "$value": "#677B00",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5471 0.1304 120.3)"
+          }
+        },
+        "700": {
+          "$value": "#5A6B00",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4959 0.1177 120)"
+          }
+        },
+        "800": {
+          "$value": "#475500",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4223 0.1003 120)"
+          }
+        },
+        "900": {
+          "$value": "#3A440F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3658 0.0753 119.6)"
+          }
+        }
+      },
+      "pacific-blue": {
+        "25": {
+          "$value": "#F3F5F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9695 0.0045 258.3)"
+          }
+        },
+        "50": {
+          "$value": "#CADCF7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8895 0.042 258.4)"
+          }
+        },
+        "100": {
+          "$value": "#A5BCDE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7893 0.0548 258)"
+          }
+        },
+        "200": {
+          "$value": "#7A9CCD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6862 0.0821 257.5)"
+          }
+        },
+        "300": {
+          "$value": "#577CB4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5829 0.0963 258.4)"
+          }
+        },
+        "400": {
+          "$value": "#315EA0",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4839 0.1176 258)"
+          }
+        },
+        "500": {
+          "$value": "#023E8A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3803 0.1386 258)"
+          }
+        },
+        "600": {
+          "$value": "#003786",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3606 0.1426 259.4)"
+          }
+        },
+        "700": {
+          "$value": "#002F75",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3269 0.1294 259.4)"
+          }
+        },
+        "800": {
+          "$value": "#00255A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.278 0.104 258.2)"
+          }
+        },
+        "900": {
+          "$value": "#041E42",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.2399 0.0755 257.2)"
+          }
+        }
+      },
+      "pomegranate-red": {
+        "25": {
+          "$value": "#F8F4F4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0043 17.2)"
+          }
+        },
+        "50": {
+          "$value": "#FFD6D8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9113 0.046 14.7)"
+          }
+        },
+        "100": {
+          "$value": "#EEB9BC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8342 0.0615 14.7)"
+          }
+        },
+        "200": {
+          "$value": "#E4979E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7549 0.0931 13.6)"
+          }
+        },
+        "300": {
+          "$value": "#D27A83",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6774 0.1099 13.9)"
+          }
+        },
+        "400": {
+          "$value": "#C25A67",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5991 0.1335 14.3)"
+          }
+        },
+        "500": {
+          "$value": "#B1374D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5214 0.1574 14)"
+          }
+        },
+        "600": {
+          "$value": "#A82743",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4878 0.1644 13.8)"
+          }
+        },
+        "700": {
+          "$value": "#932139",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4422 0.1488 14.2)"
+          }
+        },
+        "800": {
+          "$value": "#73202F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3801 0.1157 14.1)"
+          }
+        },
+        "900": {
+          "$value": "#591E27",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3284 0.087 14.1)"
+          }
+        }
+      },
+      "kickstart-purple": {
+        "25": {
+          "$value": "#F4F5F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0041 271.4)"
+          }
+        },
+        "50": {
+          "$value": "#E1E5FF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9268 0.0355 278.7)"
+          }
+        },
+        "100": {
+          "$value": "#CBD0F2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8646 0.0473 278.8)"
+          }
+        },
+        "200": {
+          "$value": "#B4BAEB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.801 0.0696 279.2)"
+          }
+        },
+        "300": {
+          "$value": "#9FA5DD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7375 0.0812 279.5)"
+          }
+        },
+        "400": {
+          "$value": "#8A90D3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6749 0.0991 279.5)"
+          }
+        },
+        "500": {
+          "$value": "#757BC8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6113 0.1162 279)"
+          }
+        },
+        "600": {
+          "$value": "#6A6FBF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5739 0.1221 279.1)"
+          }
+        },
+        "700": {
+          "$value": "#5C61A7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5209 0.1096 278.8)"
+          }
+        },
+        "800": {
+          "$value": "#4A4E84",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4459 0.0881 279)"
+          }
+        },
+        "900": {
+          "$value": "#3C4066",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3856 0.0647 278.3)"
+          }
+        }
+      },
+      "glint-green": {
+        "25": {
+          "$value": "#F4F6F2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9705 0.0057 128.5)"
+          }
+        },
+        "50": {
+          "$value": "#F4FBEE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9793 0.0186 130.2)"
+          }
+        },
+        "100": {
+          "$value": "#EFF9E8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0247 132.1)"
+          }
+        },
+        "200": {
+          "$value": "#E9F7DD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9588 0.0373 130.4)"
+          }
+        },
+        "300": {
+          "$value": "#E4F6D6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9514 0.0463 131.4)"
+          }
+        },
+        "400": {
+          "$value": "#DFF4CE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9418 0.0549 131.1)"
+          }
+        },
+        "500": {
+          "$value": "#DAF1C5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9299 0.063 130.1)"
+          }
+        },
+        "600": {
+          "$value": "#C6DFB2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8735 0.066 131.4)"
+          }
+        },
+        "700": {
+          "$value": "#AEC49B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7928 0.0612 130.7)"
+          }
+        },
+        "800": {
+          "$value": "#8E9F80",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6805 0.0483 131.1)"
+          }
+        },
+        "900": {
+          "$value": "#75806B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5846 0.0339 130)"
+          }
+        }
+      },
+      "clematis-purple": {
+        "25": {
+          "$value": "#F6F4F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 308.4)"
+          }
+        },
+        "50": {
+          "$value": "#E7E0EE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9163 0.0202 308.2)"
+          }
+        },
+        "100": {
+          "$value": "#D1C7D9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8432 0.0269 310.4)"
+          }
+        },
+        "200": {
+          "$value": "#BBAEC9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7703 0.0405 307.1)"
+          }
+        },
+        "300": {
+          "$value": "#A695B4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.695 0.0485 309.7)"
+          }
+        },
+        "400": {
+          "$value": "#907DA3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6205 0.0602 307.4)"
+          }
+        },
+        "500": {
+          "$value": "#7D6690",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5484 0.0692 309.1)"
+          }
+        },
+        "600": {
+          "$value": "#745C88",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5159 0.0733 308.9)"
+          }
+        },
+        "700": {
+          "$value": "#644F77",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4652 0.068 307.9)"
+          }
+        },
+        "800": {
+          "$value": "#4F405D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3991 0.0513 307.8)"
+          }
+        },
+        "900": {
+          "$value": "#3F3548",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3474 0.035 308.5)"
+          }
+        }
+      },
+      "mellow-melon-pink": {
+        "25": {
+          "$value": "#F8F4F4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9702 0.0043 17.2)"
+          }
+        },
+        "50": {
+          "$value": "#FFD5DD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9108 0.048 5.2)"
+          }
+        },
+        "100": {
+          "$value": "#FFB9C4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8534 0.0821 8.5)"
+          }
+        },
+        "200": {
+          "$value": "#FF96AA",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7879 0.1274 8.2)"
+          }
+        },
+        "300": {
+          "$value": "#FC7993",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7349 0.161 9.4)"
+          }
+        },
+        "400": {
+          "$value": "#F3557B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.671 0.1941 9.6)"
+          }
+        },
+        "500": {
+          "$value": "#E91E64",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6064 0.2299 9.3)"
+          }
+        },
+        "600": {
+          "$value": "#E00058",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.579 0.2315 10.7)"
+          }
+        },
+        "700": {
+          "$value": "#C4004C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5239 0.2094 10.7)"
+          }
+        },
+        "800": {
+          "$value": "#9A083E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.442 0.1724 9.4)"
+          }
+        },
+        "900": {
+          "$value": "#771A34",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3825 0.1273 9.4)"
+          }
+        }
+      },
+      "zima-blue": {
+        "25": {
+          "$value": "#F2F6F7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9704 0.0045 214.3)"
+          }
+        },
+        "50": {
+          "$value": "#D2F6FF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9503 0.0392 214.5)"
+          }
+        },
+        "100": {
+          "$value": "#BBEBFC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9121 0.0545 221.5)"
+          }
+        },
+        "200": {
+          "$value": "#99E3FC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8759 0.0809 221.2)"
+          }
+        },
+        "300": {
+          "$value": "#7FD8F5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8368 0.0946 221.1)"
+          }
+        },
+        "400": {
+          "$value": "#58CFF1",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8002 0.1157 219.9)"
+          }
+        },
+        "500": {
+          "$value": "#1BC4ED",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7605 0.1353 220.7)"
+          }
+        },
+        "600": {
+          "$value": "#00B6E1",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7202 0.1338 222.7)"
+          }
+        },
+        "700": {
+          "$value": "#009FC5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6518 0.1212 222.8)"
+          }
+        },
+        "800": {
+          "$value": "#00809D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5555 0.1019 221.1)"
+          }
+        },
+        "900": {
+          "$value": "#21677B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4798 0.0747 220.7)"
+          }
+        }
+      },
+      "singapore-orchid-purple": {
+        "25": {
+          "$value": "#F6F4F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0057 308.4)"
+          }
+        },
+        "50": {
+          "$value": "#EED7FF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9102 0.059 310.9)"
+          }
+        },
+        "100": {
+          "$value": "#D9BBFF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8407 0.0982 304.5)"
+          }
+        },
+        "200": {
+          "$value": "#C898FF",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7637 0.1507 304.5)"
+          }
+        },
+        "300": {
+          "$value": "#B47BFC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6957 0.1876 302.2)"
+          }
+        },
+        "400": {
+          "$value": "#A456F4",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6216 0.2273 303)"
+          }
+        },
+        "500": {
+          "$value": "#9321ED",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5473 0.2685 302.7)"
+          }
+        },
+        "600": {
+          "$value": "#8B00E8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5214 0.2753 302)"
+          }
+        },
+        "700": {
+          "$value": "#7900CB",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4717 0.249 302)"
+          }
+        },
+        "800": {
+          "$value": "#5F0C9E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3995 0.2017 302.5)"
+          }
+        },
+        "900": {
+          "$value": "#4A1A76",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3454 0.147 303)"
+          }
+        }
+      },
+      "dropped-brick-red": {
+        "25": {
+          "$value": "#F8F4F3",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.97 0.0045 34.3)"
+          }
+        },
+        "50": {
+          "$value": "#FFD7CA",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9096 0.0484 38.8)"
+          }
+        },
+        "100": {
+          "$value": "#F3BBA9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8381 0.0698 38.6)"
+          }
+        },
+        "200": {
+          "$value": "#EB9980",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7595 0.1054 37.7)"
+          }
+        },
+        "300": {
+          "$value": "#DA7C61",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6836 0.1237 36.9)"
+          }
+        },
+        "400": {
+          "$value": "#CB5D3B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6086 0.1485 37.7)"
+          }
+        },
+        "500": {
+          "$value": "#BA3800",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5292 0.1745 37.7)"
+          }
+        },
+        "600": {
+          "$value": "#B22700",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4986 0.1796 33.9)"
+          }
+        },
+        "700": {
+          "$value": "#9C2000",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4516 0.1636 33.7)"
+          }
+        },
+        "800": {
+          "$value": "#7B2000",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3888 0.1306 36.8)"
+          }
+        },
+        "900": {
+          "$value": "#5D1F0B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3321 0.0957 37.5)"
+          }
+        }
+      },
+      "viva-gold-orange": {
+        "25": {
+          "$value": "#F7F5F1",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9706 0.0057 84.6)"
+          }
+        },
+        "50": {
+          "$value": "#FEEDDC",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9551 0.0292 67.5)"
+          }
+        },
+        "100": {
+          "$value": "#F5E1CA",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9199 0.0377 71.2)"
+          }
+        },
+        "200": {
+          "$value": "#F2D4B2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8865 0.0561 70.5)"
+          }
+        },
+        "300": {
+          "$value": "#EBC8A0",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.853 0.0661 70.5)"
+          }
+        },
+        "400": {
+          "$value": "#E5BB8B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8179 0.0794 70.1)"
+          }
+        },
+        "500": {
+          "$value": "#E0AE74",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7838 0.0949 69.9)"
+          }
+        },
+        "600": {
+          "$value": "#D29F62",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7374 0.099 70.2)"
+          }
+        },
+        "700": {
+          "$value": "#B78A55",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6652 0.0889 69.8)"
+          }
+        },
+        "800": {
+          "$value": "#937148",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5726 0.0713 70.8)"
+          }
+        },
+        "900": {
+          "$value": "#755D40",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4951 0.0529 71.4)"
+          }
+        }
+      },
+      "shutters-green": {
+        "25": {
+          "$value": "#F5F6F2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9713 0.0054 117.9)"
+          }
+        },
+        "50": {
+          "$value": "#E2E4DD",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9154 0.0096 119.6)"
+          }
+        },
+        "100": {
+          "$value": "#C9CBC2",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.838 0.0125 116.9)"
+          }
+        },
+        "200": {
+          "$value": "#B0B4A7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.763 0.0187 120.8)"
+          }
+        },
+        "300": {
+          "$value": "#989D8E",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6876 0.0222 122)"
+          }
+        },
+        "400": {
+          "$value": "#818674",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6106 0.0271 119.8)"
+          }
+        },
+        "500": {
+          "$value": "#6B705C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5349 0.0308 118.9)"
+          }
+        },
+        "600": {
+          "$value": "#626752",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5032 0.0327 118.5)"
+          }
+        },
+        "700": {
+          "$value": "#555947",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4549 0.0287 117.7)"
+          }
+        },
+        "800": {
+          "$value": "#43473A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.39 0.0219 121.3)"
+          }
+        },
+        "900": {
+          "$value": "#37392F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3393 0.0172 116.5)"
+          }
+        }
+      },
+      "frosted-glass-green": {
+        "25": {
+          "$value": "#F2F6F5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9698 0.0044 179.7)"
+          }
+        },
+        "50": {
+          "$value": "#D3E7E0",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9111 0.0232 172.8)"
+          }
+        },
+        "100": {
+          "$value": "#B4CEC5",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8295 0.0306 172.7)"
+          }
+        },
+        "200": {
+          "$value": "#91B7A9",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7475 0.0457 170.6)"
+          }
+        },
+        "300": {
+          "$value": "#749F90",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6667 0.0518 171.1)"
+          }
+        },
+        "400": {
+          "$value": "#538877",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5844 0.0629 171.6)"
+          }
+        },
+        "500": {
+          "$value": "#30725F",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5035 0.0743 171.6)"
+          }
+        },
+        "600": {
+          "$value": "#216B57",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4767 0.0793 171.4)"
+          }
+        },
+        "700": {
+          "$value": "#1C5C4B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4292 0.0705 171.9)"
+          }
+        },
+        "800": {
+          "$value": "#1A493B",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3685 0.0569 170.6)"
+          }
+        },
+        "900": {
+          "$value": "#1B3930",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3181 0.0398 172.1)"
+          }
+        }
+      },
+      "cool-grey": {
+        "25": {
+          "$value": "#F5F5F8",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.971 0.004 286.3)"
+          }
+        },
+        "50": {
+          "$value": "#E1E1E6",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.9112 0.0067 286.3)"
+          }
+        },
+        "100": {
+          "$value": "#C7C7CE",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.8318 0.0097 286.2)"
+          }
+        },
+        "200": {
+          "$value": "#ADADB7",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.7507 0.0142 286.1)"
+          }
+        },
+        "300": {
+          "$value": "#9494A0",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.6704 0.0175 285.9)"
+          }
+        },
+        "400": {
+          "$value": "#7C7C8A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.591 0.0212 285.7)"
+          }
+        },
+        "500": {
+          "$value": "#656574",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.5121 0.0235 285.5)"
+          }
+        },
+        "600": {
+          "$value": "#5C5C6C",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4806 0.0255 285.4)"
+          }
+        },
+        "700": {
+          "$value": "#50505D",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.4361 0.0212 285.5)"
+          }
+        },
+        "800": {
+          "$value": "#40404A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3753 0.0169 285.6)"
+          }
+        },
+        "900": {
+          "$value": "#33333A",
+          "$type": "color",
+          "$extensions": {
+            "com.actian.oklch": "oklch(0.3239 0.0123 285.7)"
+          }
+        }
+      }
+    },
+    "primary": {
+      "25": {
+        "$value": "{color.primitive.royal-blue.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "50": {
+        "$value": "{color.primitive.royal-blue.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#CBE3FF",
+            "studio": "#CFEAFD",
+            "explorer": "#D0EFED"
+          }
+        }
+      },
+      "100": {
+        "$value": "{color.primitive.royal-blue.100}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#AACAFE",
+            "studio": "#B1D5EE",
+            "explorer": "#B5DDDB"
+          }
+        }
+      },
+      "200": {
+        "$value": "{color.primitive.royal-blue.200}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#82B0FD",
+            "studio": "#8BC0E6",
+            "explorer": "#90CECB"
+          }
+        }
+      },
+      "300": {
+        "$value": "{color.primitive.royal-blue.300}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#6296EF",
+            "studio": "#6BACD7",
+            "explorer": "#72BCB9"
+          }
+        }
+      },
+      "400": {
+        "$value": "{color.primitive.royal-blue.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#3D7CE6",
+            "studio": "#4598CB",
+            "explorer": "#4AACA9"
+          }
+        }
+      },
+      "500": {
+        "$value": "{color.primitive.royal-blue.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "600": {
+        "$value": "{color.primitive.royal-blue.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0053D7",
+            "studio": "#0079B6",
+            "explorer": "#00908E"
+          }
+        }
+      },
+      "700": {
+        "$value": "{color.primitive.royal-blue.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0047BC",
+            "studio": "#00699F",
+            "explorer": "#007E7B"
+          }
+        }
+      },
+      "800": {
+        "$value": "{color.primitive.royal-blue.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#033B92",
+            "studio": "#00547D",
+            "explorer": "#006563"
+          }
+        }
+      },
+      "900": {
+        "$value": "{color.primitive.royal-blue.900}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0D316D",
+            "studio": "#114361",
+            "explorer": "#15504E"
+          }
+        }
+      }
+    },
+    "neutral": {
+      "25": {
+        "$value": "{color.primitive.cool-grey.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F5F5F8",
+            "studio": "#F8F4F5",
+            "explorer": "#F8F4F5"
+          }
+        }
+      },
+      "50": {
+        "$value": "{color.primitive.cool-grey.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "100": {
+        "$value": "{color.primitive.cool-grey.100}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#C7C7CE",
+            "studio": "#DADADA",
+            "explorer": "#DADADA"
+          }
+        }
+      },
+      "200": {
+        "$value": "{color.primitive.cool-grey.200}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#ADADB7",
+            "studio": "#C9C9C9",
+            "explorer": "#C9C9C9"
+          }
+        }
+      },
+      "300": {
+        "$value": "{color.primitive.cool-grey.300}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#9494A0",
+            "studio": "#B9B9B9",
+            "explorer": "#B9B9B9"
+          }
+        }
+      },
+      "400": {
+        "$value": "{color.primitive.cool-grey.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "500": {
+        "$value": "{color.primitive.cool-grey.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "600": {
+        "$value": "{color.primitive.cool-grey.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "700": {
+        "$value": "{color.primitive.cool-grey.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#50505D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "800": {
+        "$value": "{color.primitive.cool-grey.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#40404A",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "900": {
+        "$value": "{color.primitive.cool-grey.900}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#33333A",
+            "studio": "#505050",
+            "explorer": "#505050"
+          }
+        }
+      }
+    },
+    "success": {
+      "25": {
+        "$value": "{color.primitive.green.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F6F3",
+            "studio": "#F3F6F3",
+            "explorer": "#F3F6F3"
+          }
+        }
+      },
+      "50": {
+        "$value": "{color.primitive.green.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#D3EFCD",
+            "studio": "#D3EFCD",
+            "explorer": "#D3EFCD"
+          }
+        }
+      },
+      "100": {
+        "$value": "{color.primitive.green.100}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#B5DCAF",
+            "studio": "#B5DCAF",
+            "explorer": "#B5DCAF"
+          }
+        }
+      },
+      "200": {
+        "$value": "{color.primitive.green.200}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#92CC89",
+            "studio": "#92CC89",
+            "explorer": "#92CC89"
+          }
+        }
+      },
+      "300": {
+        "$value": "{color.primitive.green.300}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#75B86B",
+            "studio": "#75B86B",
+            "explorer": "#75B86B"
+          }
+        }
+      },
+      "400": {
+        "$value": "{color.primitive.green.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#53A647",
+            "studio": "#53A647",
+            "explorer": "#53A647"
+          }
+        }
+      },
+      "500": {
+        "$value": "{color.primitive.green.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#299315",
+            "studio": "#299315",
+            "explorer": "#299315"
+          }
+        }
+      },
+      "600": {
+        "$value": "{color.primitive.green.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "700": {
+        "$value": "{color.primitive.green.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#047800",
+            "studio": "#047800",
+            "explorer": "#047800"
+          }
+        }
+      },
+      "800": {
+        "$value": "{color.primitive.green.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#145F04",
+            "studio": "#145F04",
+            "explorer": "#145F04"
+          }
+        }
+      },
+      "900": {
+        "$value": "{color.primitive.green.900}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#1A4B14",
+            "studio": "#1A4B14",
+            "explorer": "#1A4B14"
+          }
+        }
+      }
+    },
+    "warning": {
+      "25": {
+        "$value": "{color.primitive.orange.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F7F4F2",
+            "studio": "#F7F4F2",
+            "explorer": "#F7F4F2"
+          }
+        }
+      },
+      "50": {
+        "$value": "{color.primitive.orange.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFEBCE",
+            "studio": "#FFEBCE",
+            "explorer": "#FFEBCE"
+          }
+        }
+      },
+      "100": {
+        "$value": "{color.primitive.orange.100}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFDDB6",
+            "studio": "#FFDDB6",
+            "explorer": "#FFDDB6"
+          }
+        }
+      },
+      "200": {
+        "$value": "{color.primitive.orange.200}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFCD92",
+            "studio": "#FFCD92",
+            "explorer": "#FFCD92"
+          }
+        }
+      },
+      "300": {
+        "$value": "{color.primitive.orange.300}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFBE78",
+            "studio": "#FFBE78",
+            "explorer": "#FFBE78"
+          }
+        }
+      },
+      "400": {
+        "$value": "{color.primitive.orange.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFAF53",
+            "studio": "#FFAF53",
+            "explorer": "#FFAF53"
+          }
+        }
+      },
+      "500": {
+        "$value": "{color.primitive.orange.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FC9F1D",
+            "studio": "#FC9F1D",
+            "explorer": "#FC9F1D"
+          }
+        }
+      },
+      "600": {
+        "$value": "{color.primitive.orange.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      },
+      "700": {
+        "$value": "{color.primitive.orange.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#D27B00",
+            "studio": "#D27B00",
+            "explorer": "#D27B00"
+          }
+        }
+      },
+      "800": {
+        "$value": "{color.primitive.orange.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#A76605",
+            "studio": "#A76605",
+            "explorer": "#A76605"
+          }
+        }
+      },
+      "900": {
+        "$value": "{color.primitive.orange.900}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#83551F",
+            "studio": "#83551F",
+            "explorer": "#83551F"
+          }
+        }
+      }
+    },
+    "error": {
+      "25": {
+        "$value": "{color.primitive.red.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F8F4F3",
+            "studio": "#F8F4F3",
+            "explorer": "#F8F4F3"
+          }
+        }
+      },
+      "50": {
+        "$value": "{color.primitive.red.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFDACF",
+            "studio": "#FFDACF",
+            "explorer": "#FFDACF"
+          }
+        }
+      },
+      "100": {
+        "$value": "{color.primitive.red.100}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFC1B3",
+            "studio": "#FFC1B3",
+            "explorer": "#FFC1B3"
+          }
+        }
+      },
+      "200": {
+        "$value": "{color.primitive.red.200}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFA38F",
+            "studio": "#FFA38F",
+            "explorer": "#FFA38F"
+          }
+        }
+      },
+      "300": {
+        "$value": "{color.primitive.red.300}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F88973",
+            "studio": "#F88973",
+            "explorer": "#F88973"
+          }
+        }
+      },
+      "400": {
+        "$value": "{color.primitive.red.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#EF6B53",
+            "studio": "#EF6B53",
+            "explorer": "#EF6B53"
+          }
+        }
+      },
+      "500": {
+        "$value": "{color.primitive.red.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E6492D",
+            "studio": "#E6492D",
+            "explorer": "#E6492D"
+          }
+        }
+      },
+      "600": {
+        "$value": "{color.primitive.red.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "700": {
+        "$value": "{color.primitive.red.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#C12C11",
+            "studio": "#C12C11",
+            "explorer": "#C12C11"
+          }
+        }
+      },
+      "800": {
+        "$value": "{color.primitive.red.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#982A18",
+            "studio": "#982A18",
+            "explorer": "#982A18"
+          }
+        }
+      },
+      "900": {
+        "$value": "{color.primitive.red.900}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#762A1C",
+            "studio": "#762A1C",
+            "explorer": "#762A1C"
+          }
+        }
+      }
+    },
+    "text": {
+      "default": {
+        "$value": "{color.primitive.black}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "secondary": {
+        "$value": "{color.primitive.cool-grey.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#40404A",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "tertiary": {
+        "$value": "{color.primitive.cool-grey.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#50505D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "placeholder": {
+        "$value": "{color.primitive.cool-grey.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "placeholder-subtle": {
+        "$value": "{color.primitive.cool-grey.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "disabled": {
+        "$value": "{color.primitive.cool-grey.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "primary": {
+        "$value": "{color.primitive.royal-blue.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "error": {
+        "$value": "{color.primitive.red.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "warning": {
+        "$value": "{color.primitive.orange.800}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#A76605",
+            "studio": "#A76605",
+            "explorer": "#A76605"
+          }
+        }
+      },
+      "success": {
+        "$value": "{color.primitive.green.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "reverse": {
+        "$value": "{color.primitive.white}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      }
+    },
+    "bg": {
+      "default": {
+        "$value": "{color.primitive.white}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "{color.primitive.cool-grey.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F5F5F8",
+            "studio": "#F8F4F5",
+            "explorer": "#F8F4F5"
+          }
+        }
+      },
+      "muted": {
+        "$value": "{color.primitive.cool-grey.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "disabled": {
+        "$value": "{color.primitive.cool-grey.50}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#E1E1E6",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "selected": {
+        "$value": "{color.primitive.royal-blue.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "overlay": {
+        "$value": "#00000066",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#00000066",
+            "studio": "#00000066",
+            "explorer": "#00000066"
+          }
+        }
+      },
+      "primary": {
+        "$value": "{color.primitive.royal-blue.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "emphasis": {
+        "$value": "{color.primitive.royal-blue.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "success": {
+        "$value": "{color.primitive.green.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F6F3",
+            "studio": "#F3F6F3",
+            "explorer": "#F3F6F3"
+          }
+        }
+      },
+      "warning": {
+        "$value": "{color.primitive.orange.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F7F4F2",
+            "studio": "#F7F4F2",
+            "explorer": "#F7F4F2"
+          }
+        }
+      },
+      "error": {
+        "$value": "{color.primitive.red.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F8F4F3",
+            "studio": "#F8F4F3",
+            "explorer": "#F8F4F3"
+          }
+        }
+      },
+      "info": {
+        "$value": "{color.primitive.royal-blue.25}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#F3F5F9",
+            "studio": "#F2F6F8",
+            "explorer": "#F1F6F6"
+          }
+        }
+      },
+      "reverse": {
+        "$value": "{color.primitive.black}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      }
+    },
+    "icon": {
+      "default": {
+        "$value": "{color.primitive.black}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "subtle": {
+        "$value": "{color.primitive.cool-grey.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#5C5C6C",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "disabled": {
+        "$value": "{color.primitive.cool-grey.400}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#7C7C8A",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "primary": {
+        "$value": "{color.primitive.royal-blue.500}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#0F5FDC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "error": {
+        "$value": "{color.primitive.red.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "success": {
+        "$value": "{color.primitive.green.600}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "warning": {
+        "$value": "{color.primitive.orange.700}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#D27B00",
+            "studio": "#D27B00",
+            "explorer": "#D27B00"
+          }
+        }
+      },
+      "reverse": {
+        "$value": "{color.primitive.white}",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      }
+    },
+    "annotation": {
+      "annotation": {
+        "$value": "#D71D6D",
+        "$type": "color",
+        "$extensions": {
+          "com.actian.status": "figma-only",
+          "com.actian.themes": {
+            "actian": "#D71D6D",
+            "studio": "#D71D6D",
+            "explorer": "#D71D6D"
+          }
+        }
+      }
+    }
+  },
+  "spacing": {
+    "3xs": {
+      "$value": "2px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    },
+    "2xs": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xs": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "sm": {
+      "$value": "12px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "md": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "lg": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xl": {
+      "$value": "32px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "2xl": {
+      "$value": "48px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    },
+    "3xl": {
+      "$value": "64px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    }
+  },
+  "border": {
+    "radius": {
+      "2xs": {
+        "$value": "2px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "xs": {
+        "$value": "4px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "sm": {
+        "$value": "6px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "md": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "lg": {
+        "$value": "10px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "xl": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "full": {
+        "$value": "9999px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "width": {
+      "md": {
+        "$value": "1px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "lg": {
+        "$value": "2px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "default": {
+      "$value": "#C7C7CE",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.100}"
+        }
+      }
+    },
+    "subtle": {
+      "$value": "#E1E1E6",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.50}"
+        }
+      }
+    },
+    "disabled": {
+      "$value": "#C7C7CE",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.100}"
+        }
+      }
+    },
+    "primary": {
+      "$value": "#0F5FDC",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "selected": {
+      "$value": "#0F5FDC",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "error": {
+      "$value": "#DC3514",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.error.600}"
+        }
+      }
+    },
+    "warning": {
+      "$value": "#D27B00",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.warning.700}"
+        }
+      }
+    },
+    "success": {
+      "$value": "#098900",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.success.600}"
+        }
+      }
+    },
+    "info": {
+      "$value": "#0F5FDC",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "strong": {
+      "$value": "#40404A",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.neutral.800}"
+        }
+      }
+    },
+    "reverse": {
+      "$value": "#FFFFFF",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Proposed",
+        "com.actian.border": {
+          "width": "1px",
+          "style": "solid",
+          "color": "{color.primitive.white}"
+        }
+      }
+    }
+  },
+  "size": {
+    "height": {
+      "2xs": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "xs": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "sm": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "md": {
+        "$value": "40px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "lg": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "xl": {
+        "$value": "56px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "trigger": {
+      "min": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "min-mobile": {
+        "$value": "44px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "sx": {
+      "$value": "4px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "sm": {
+      "$value": "8px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "md": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "lg": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "xl": {
+      "$value": "32px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "2xl": {
+      "$value": "40px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    },
+    "3xl": {
+      "$value": "44px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "figma-only"
+      }
+    }
+  },
+  "breakpoint": {
+    "sm": {
+      "$value": "600px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "md": {
+      "$value": "840px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "lg": {
+      "$value": "1200px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xl": {
+      "$value": "1920px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    }
+  },
+  "focus-ring": {
+    "offset": {
+      "$value": "2px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "primary": {
+      "$value": "#0F5FDC",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.focusRing": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.primary.500}"
+        }
+      }
+    },
+    "error": {
+      "$value": "#DC3514",
+      "$type": "color",
+      "$extensions": {
+        "com.actian.status": "Shipped",
+        "com.actian.focusRing": {
+          "width": "2px",
+          "style": "solid",
+          "color": "{color.error.600}"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "text": {
+        "$value": "Roboto",
+        "$type": "fontFamily",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "brand": {
+        "$value": "AllRpungGothic",
+        "$type": "fontFamily",
+        "$extensions": {
+          "com.actian.status": "figma-only"
+        }
+      },
+      "mono": {
+        "$value": "Roboto Mono",
+        "$type": "fontFamily",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "weight": {
+      "regular": {
+        "$value": 400,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "medium": {
+        "$value": 500,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "semibold": {
+        "$value": 600,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "bold": {
+        "$value": 700,
+        "$type": "fontWeight",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "$value": "11px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "sm": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "md": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "lg": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "xl": {
+        "$value": "18px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "2xl": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "3xl": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "4xl": {
+        "$value": "30px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "letterspacing": {
+      "normal": {
+        "$value": "0px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "In Review"
+        }
+      },
+      "wide": {
+        "1": {
+          "$value": "0.1px",
+          "$type": "dimension",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "2": {
+          "$value": "0.2px",
+          "$type": "dimension",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "3": {
+          "$value": "0.3px",
+          "$type": "dimension",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        },
+        "4": {
+          "$value": "0.4px",
+          "$type": "dimension",
+          "$extensions": {
+            "com.actian.status": "In Review"
+          }
+        }
+      }
+    },
+    "lineheight": {
+      "xs": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "sm": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "md": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "lg": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "xl": {
+        "$value": "26px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "2xl": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    },
+    "text-styles": {
+      "heading-display": {
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.3xl}",
+          "letterSpacing": "{font.letterspacing.normal}",
+          "lineHeight": "{font.lineheight.2xl}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-prominent": {
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.xl}",
+          "letterSpacing": "{font.letterspacing.normal}",
+          "lineHeight": "{font.lineheight.xl}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-standard": {
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.lg}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-subtle": {
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "heading-micro": {
+        "$value": {
+          "fontWeight": "{font.weight.semibold}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-display": {
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.xl}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-prominent": {
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.lg}",
+          "letterSpacing": "{font.letterspacing.wide.1}",
+          "lineHeight": "{font.lineheight.lg}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-standard": {
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-subtle": {
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "body-micro": {
+        "$value": {
+          "fontWeight": "{font.weight.regular}",
+          "fontSize": "{font.size.xs}",
+          "letterSpacing": "{font.letterspacing.wide.4}",
+          "lineHeight": "{font.lineheight.xs}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-standard": {
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.md}",
+          "letterSpacing": "{font.letterspacing.wide.2}",
+          "lineHeight": "{font.lineheight.md}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-subtle": {
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.sm}",
+          "letterSpacing": "{font.letterspacing.wide.3}",
+          "lineHeight": "{font.lineheight.sm}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      },
+      "label-micro": {
+        "$value": {
+          "fontWeight": "{font.weight.medium}",
+          "fontSize": "{font.size.xs}",
+          "letterSpacing": "{font.letterspacing.wide.4}",
+          "lineHeight": "{font.lineheight.xs}"
+        },
+        "$type": "typography",
+        "$extensions": {
+          "com.actian.status": "Shipped"
+        }
+      }
+    }
+  },
+  "icon": {
+    "xs": {
+      "$value": "12px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    },
+    "sm": {
+      "$value": "16px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    },
+    "md": {
+      "$value": "20px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    },
+    "lg": {
+      "$value": "24px",
+      "$type": "dimension",
+      "$extensions": {
+        "com.actian.status": "Proposed"
+      }
+    }
+  },
+  "shadow": {
+    "xs": {
+      "$value": "0px 1px 3px 1px rgba(0, 0, 15, 0.06), 0px 1px 5px 0px rgba(0, 0, 18, 0.07)",
+      "$type": "shadow",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "sm": {
+      "$value": "0px 1px 7px 3px rgba(0, 0, 20, 0.08), 0px 1px 3px 1px rgba(0, 0, 31, 0.12)",
+      "$type": "shadow",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "md": {
+      "$value": "0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15)",
+      "$type": "shadow",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "lg": {
+      "$value": "0px 6px 10px 4px rgba(0, 0, 38, 0.15), 0px 2px 3px 0px rgba(0, 0, 77, 0.3)",
+      "$type": "shadow",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    },
+    "xl": {
+      "$value": "0px 8px 12px 6px rgba(0, 0, 38, 0.15), 0px 4px 4px 0px rgba(0, 0, 77, 0.3)",
+      "$type": "shadow",
+      "$extensions": {
+        "com.actian.status": "Shipped"
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$value": "100ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "fast": {
+        "$value": "200ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "base": {
+        "$value": "300ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "slow": {
+        "$value": "400ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "ease": {
+      "entrance": {
+        "$value": "ease-out",
+        "$type": "string",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "exit": {
+        "$value": "ease-in",
+        "$type": "string",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "standard": {
+        "$value": "ease-in-out",
+        "$type": "string",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    },
+    "delay": {
+      "stagger": {
+        "$value": "20ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "intent": {
+        "$value": "300ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      },
+      "long": {
+        "$value": "500ms",
+        "$type": "duration",
+        "$extensions": {
+          "com.actian.status": "Proposed"
+        }
+      }
+    }
+  }
+}

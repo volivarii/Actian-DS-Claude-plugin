@@ -1,0 +1,2359 @@
+/* ds-base.css — hi-fi DS leaf styles. 100% bound to vendored --zen-* tokens.
+ * SPIKE scope: button, input, checkbox. Catalog slice adds:
+ * tag-default, badge, search, card-for-items + chrome (global-header,
+ * side-nav). Geometry + token bindings
+ * measured from the published Figma DS Kit (file l8biHxfarNi1I2RMvVxVOK, 2026-06-06).
+ * Figma-var -> --zen-* alias notes: color-bg-primary->bg-emphasis,
+ * color-text-interactive->text-primary (text-link-* retired, knowledge #341;
+ * text-primary = interactive text now), color-border-primary->border-selected,
+ * size-icon-lg->size-lg, font-letterspacing-N->letterspacing-wide-N.
+ * color-text-default->text-default everywhere (body text is text-default,
+ * black; text-primary is reserved for interactive text, verified against the
+ * captured appearance values in the vendored anatomy docs). */
+
+/* ============ Button ============ */
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: var(--zen-size-xl); /* 32 */
+  padding: 0 var(--zen-spacing-sm); /* 12 */
+  border: 1px solid transparent;
+  border-radius: var(--zen-border-radius-full); /* pill */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+.ds-button__icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+}
+.ds-button__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-button--primary {
+  background: var(--zen-color-bg-emphasis);
+  color: var(--zen-color-text-reverse);
+}
+.ds-button--primary .ds-button__icon {
+  color: var(--zen-color-icon-reverse);
+}
+.ds-button--secondary {
+  background: transparent;
+  color: var(--zen-color-text-primary);
+  border-color: var(--zen-border-selected);
+}
+.ds-button--secondary .ds-button__icon {
+  color: var(--zen-color-icon-primary);
+}
+.ds-button--tertiary {
+  background: transparent;
+  color: var(--zen-color-text-default);
+}
+.ds-button--tertiary .ds-button__icon {
+  color: var(--zen-color-icon-default);
+}
+.ds-button--small {
+  height: var(--zen-size-lg);
+} /* 24 */
+.ds-button.is-disabled,
+.ds-button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/* Critical/destructive button. NOTE: approximate — bound to the canonical danger
+ * token; the exact Figma critical-button tokens are to be measured in P1. */
+.ds-button--critical {
+  background: var(--zen-color-text-error);
+  color: var(--zen-color-text-reverse);
+}
+.ds-button--critical .ds-button__icon {
+  color: var(--zen-color-icon-reverse);
+}
+/* Critical-secondary: outline treatment of the critical variant — transparent
+ * background, critical-colored text + border (same token set as --critical). */
+.ds-button--critical-secondary {
+  background: transparent;
+  color: var(--zen-color-text-error);
+  border-color: var(--zen-color-text-error);
+}
+.ds-button--critical-secondary .ds-button__icon {
+  color: var(--zen-color-text-error);
+}
+
+/* ============ Input (field group) ============ */
+.ds-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 320px;
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-field__label-row {
+  display: flex;
+  gap: var(--zen-spacing-2xs);
+  align-items: center;
+} /* 4 */
+.ds-field__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-field__req {
+  color: var(--zen-color-text-error);
+  font-weight: var(--zen-font-weight-medium);
+}
+.ds-field__info {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  color: var(--zen-color-icon-default);
+  opacity: 0.75;
+}
+.ds-field__desc {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-tertiary);
+}
+.ds-input {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: 40px;
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs); /* 4 */
+  box-sizing: border-box;
+}
+.ds-input__text {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-placeholder);
+}
+.ds-input__icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--zen-color-icon-default);
+}
+.ds-input__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-field.is-disabled {
+  opacity: 0.4;
+}
+.ds-field.is-disabled .ds-input {
+  cursor: not-allowed;
+}
+.ds-field__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Checkbox ============ */
+.ds-checkbox {
+  display: inline-flex;
+  gap: var(--zen-spacing-2xs);
+  align-items: center;
+  font-family: var(--zen-font-family-text);
+  cursor: pointer;
+}
+.ds-checkbox__box {
+  width: var(--zen-size-lg);
+  height: var(--zen-size-lg); /* 24 */
+  box-sizing: border-box;
+  border: var(--zen-border-width-lg) solid var(--zen-color-icon-default); /* 2px */
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.ds-checkbox--checked .ds-checkbox__box {
+  background: var(--zen-color-icon-primary);
+  border-color: var(--zen-color-icon-primary);
+}
+.ds-checkbox__check {
+  width: 14px;
+  height: 14px;
+  color: var(--zen-color-text-reverse);
+  display: none;
+}
+.ds-checkbox--checked .ds-checkbox__check {
+  display: block;
+}
+.ds-checkbox__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-checkbox.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============ Radio button ============ */
+.ds-radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* 8 */
+  font-family: var(--zen-font-family-text);
+  cursor: pointer;
+}
+.ds-radio__circle {
+  position: relative;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 18px; /* ring geometry (raw px, measured) */
+  height: 18px;
+  margin-top: 2px; /* align ring with label cap height */
+  border: var(--zen-border-width-lg) solid var(--zen-color-icon-default); /* 2px grey ring */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-reverse);
+}
+.ds-radio__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--zen-border-radius-full);
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.ds-radio--checked .ds-radio__circle {
+  background: var(--zen-color-icon-primary); /* blue disc (on) */
+  border-color: var(--zen-color-icon-primary);
+}
+.ds-radio--checked .ds-radio__dot {
+  display: block;
+  background: var(--zen-color-icon-primary); /* blue center */
+  box-shadow: 0 0 0 2px var(--zen-color-text-reverse); /* white ring between disc + dot */
+}
+.ds-radio__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-radio__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-radio__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+}
+/* Card format = bordered, padded container (matches the .ds-card idiom). */
+.ds-radio--card {
+  align-items: center;
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+}
+.ds-radio.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============ Toggle ============ */
+.ds-toggle {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* 8 */
+  font-family: var(--zen-font-family-text);
+  cursor: pointer;
+}
+/* Right-aligned location = full-width row: text left, switch far right. */
+.ds-toggle--right {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.ds-toggle--right .ds-toggle__switch {
+  order: 2;
+}
+.ds-toggle__switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px; /* track geometry (raw px, measured) */
+  height: 14px;
+  margin-top: 2px; /* align switch with label cap height */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-placeholder-subtle); /* off track */
+  transition: background 0.15s ease;
+}
+.ds-toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px; /* thumb geometry (raw px, measured) */
+  height: 10px;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-reverse); /* #fff (icon/reverse) */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* no zen shadow token for control-thumb; raw value pending tokenization */
+  transition: transform 0.15s ease;
+}
+.ds-toggle--on .ds-toggle__switch {
+  background: var(--zen-color-icon-primary); /* theme accent (on) */
+}
+.ds-toggle--on .ds-toggle__thumb {
+  transform: translateX(10px); /* 24 - 10 - 2 - 2 */
+}
+.ds-toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-toggle__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-toggle__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+}
+.ds-toggle.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============ Tag (default) ============ */
+/* Color variant axis renders the Default palette here; per-Color hue palette
+ * (<hue>/25 bg + <hue>/50 border) is deferred. */
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  height: var(--zen-size-lg); /* 24 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  border: 1px solid var(--zen-border-default); /* border-width-md (1) */
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-tertiary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.ds-tag__icon {
+  width: 14px; /* icon box geometry (raw px) */
+  height: 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-tag__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============ Badge ============ */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--zen-color-icon-error);
+  color: var(--zen-color-text-reverse);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  font-weight: var(--zen-font-weight-medium);
+  box-sizing: border-box;
+}
+.ds-badge--number {
+  min-width: 16px; /* count-pill geometry (raw px) */
+  height: 16px;
+  padding: 0 4px; /* count-pill geometry (raw px) */
+  border-radius: var(--zen-border-radius-full);
+}
+.ds-badge--dot {
+  width: 8px; /* dot geometry (raw px) */
+  height: 8px;
+  border-radius: var(--zen-border-radius-full);
+}
+
+/* ============ Search ============ */
+.ds-search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: var(--zen-size-xl); /* 32 */
+  padding: 0 var(--zen-spacing-sm); /* 12 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-search__icon {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-search__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-search__text {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+}
+.ds-search.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Card (for items — Catalog) ============ */
+.ds-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 280px; /* fixed card width (raw px — slice geometry) */
+  padding: var(--zen-spacing-md); /* 16 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-shadow: var(--zen-shadow-xs);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-card--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+}
+.ds-card__title {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-semibold);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default);
+}
+.ds-card__body {
+  margin: 0;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ds-card__eyebrow,
+.ds-card__cat {
+  align-self: flex-start;
+}
+
+/* ============ Global header (top app bar — chrome) ============ */
+/* Anatomy: 1440×64, flex space-between, padding 0 24px.              */
+/* Left = brand; Center = context + search; Right = actions cluster.  */
+.ds-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px; /* anatomy: measured header row (raw px) */
+  padding: 0 24px; /* anatomy: 24px horizontal gutter (raw px) */
+  background: var(--zen-color-bg-default);
+  border-bottom: 1px solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+  position: relative; /* for center absolute positioning */
+}
+
+/* --- Left: brand block (logo mark + app label) --- */
+.ds-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
+}
+.ds-header__logo {
+  width: 121px; /* anatomy: logo ~121×32 (raw px) */
+  height: 32px;
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-emphasis);
+}
+.ds-header__app {
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-default);
+}
+
+/* --- Center: context dropdown + search bar --- */
+/* Anatomy: absolutely centered, gap 16px between context and search. */
+.ds-header__center {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-md); /* 16 */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Context dropdown: stacked micro label + value in primary colour.   */
+/* anatomy: ~128px, label 11px + value primary-500 medium.            */
+.ds-header__context {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 128px; /* anatomy: context dropdown ~128px (raw px) */
+  cursor: pointer;
+  user-select: none;
+}
+.ds-header__context-label {
+  font-size: var(--zen-font-size-xs); /* 11px — anatomy micro label */
+  line-height: var(--zen-font-lineheight-xs); /* 14 */
+  color: var(--zen-color-text-secondary);
+  width: 100%;
+}
+.ds-header__context-value {
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-primary-500); /* studio azure */
+}
+
+/* Search bar: magnifier + input.                                      */
+/* anatomy: 568px, border, radius-sm, placeholder in text-secondary.  */
+.ds-header__search {
+  display: flex;
+  align-items: stretch;
+  width: 568px; /* anatomy: search bar width (raw px) */
+  max-width: 568px;
+  height: 36px; /* anatomy: search row height (raw px) */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  background: var(--zen-color-bg-default);
+}
+/* Left scope dropdown ("Default ▾") — anatomy: ~128px, divider on the right. */
+.ds-header__search-scope {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-shrink: 0;
+  padding: 0 var(--zen-spacing-md); /* 16 */
+  border-right: 1px solid var(--zen-border-default);
+  color: var(--zen-color-text-default);
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-scope-value {
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__search-scope svg {
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+/* Trailing tooltip/info affordance inside the field's right edge. */
+.ds-header__search-info {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-info svg {
+  width: 16px;
+  height: 16px;
+}
+.ds-header__search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--zen-color-text-secondary);
+  width: 20px; /* anatomy: icon 20px (raw px) */
+  height: 20px;
+}
+.ds-header__search-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.ds-header__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-default);
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-input::placeholder {
+  color: var(--zen-color-text-secondary);
+}
+
+/* --- Right: actions cluster --- */
+/* anatomy: gap 8px between groups, vertical dividers between groups.  */
+.ds-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Vertical divider between action groups.                             */
+.ds-header__divider {
+  display: inline-block;
+  width: 1px;
+  height: 20px; /* anatomy: divider height (raw px) */
+  background: var(--zen-border-default);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* Base action button (32px round): bell + apps + What's new text.    */
+/* anatomy: round buttons 32×32, icon 20px, no visible bg at rest.    */
+.ds-header__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; /* anatomy: action button 32px (raw px) */
+  min-width: 32px;
+  border-radius: var(--zen-border-radius-full);
+  border: none;
+  background: transparent;
+  color: var(--zen-color-text-default);
+  cursor: pointer;
+  padding: 0 var(--zen-spacing-2xs); /* 4 */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__action:hover {
+  background: var(--zen-color-bg-selected);
+}
+.ds-header__action svg {
+  width: 20px; /* anatomy: icon within action button 20px (raw px) */
+  height: 20px;
+}
+
+/* What's new: text-label action (no icon, wider hit-area).           */
+.ds-header__action--whatsnew {
+  white-space: nowrap;
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+
+/* Avatar: 32px round, turquoise background, initials.                */
+/* --zen-color-turquoise-50 (#d0efed) absent from vendored tokens →   */
+/* fallback: --zen-color-bg-selected (theme-aware; studio ≈ #cfeafd). */
+.ds-header__avatar {
+  width: 32px; /* anatomy: avatar 32×32 (raw px) */
+  height: 32px;
+  border-radius: var(--zen-border-radius-full);
+  background: var(
+    --zen-color-bg-selected
+  ); /* fallback: turquoise-50 not vendored */
+  color: var(--zen-color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--zen-font-size-sm); /* 12 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ============ Side nav (left rail — chrome) ============ */
+/* anatomy: 240×~896, flex-column, justify-content:space-between,
+   padding:16px (--zen-spacing-md), bg:--zen-color-bg-default,
+   border-right:1px solid --zen-border-default.
+   Groups mode (real Studio sidebar) uses ds-sidenav__top + ds-sidenav__bottom
+   to split the flex space. Legacy Items mode renders flat rows directly. */
+.ds-sidenav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* pushes bottom group down */
+  width: 240px; /* anatomy: expanded rail width (raw px) */
+  padding: var(--zen-spacing-md); /* anatomy: 16px container padding */
+  background: var(--zen-color-bg-default);
+  border-right: 1px solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+/* Top section (groups) — grows to fill available height */
+.ds-sidenav__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px between groups */
+  flex: 1 1 auto;
+}
+/* Bottom section (secondary items + collapse) */
+.ds-sidenav__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px */
+}
+/* Group container — anatomy: gap 4px between items within a group */
+.ds-sidenav__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px item gap */
+}
+/* Horizontal rule separator between groups and before collapse button.
+   anatomy: 1px line, --zen-border-default, 4px (--zen-spacing-2xs) vertical margin. */
+.ds-sidenav__separator {
+  height: 1px; /* raw px — hairline rule */
+  background: var(--zen-border-default);
+  margin: var(--zen-spacing-2xs) 0; /* 4px vertical rhythm */
+  flex-shrink: 0;
+}
+/* Nav item row — anatomy: height:32px, padding:4px 8px, gap:8px, icon:16px + label:14px */
+.ds-sidenav__item {
+  display: flex;
+  align-items: center;
+  height: 32px; /* anatomy: item row height (raw px) */
+  gap: var(--zen-spacing-xs); /* anatomy: 8px icon ↔ label gap */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* anatomy: 4px 8px */
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  color: var(--zen-color-text-default);
+  font-size: var(--zen-font-size-md); /* 14px */
+  line-height: var(--zen-font-lineheight-md); /* 20px */
+  font-weight: var(--zen-font-weight-regular);
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Icon slot — anatomy: 16px square, SVG currentColor. Legacy path renders an
+   empty span (no SVG) so we keep a small fixed box for visual alignment. */
+.ds-sidenav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* anatomy: icon size (raw px) */
+  height: 16px;
+  flex: 0 0 auto;
+  color: inherit; /* SVG currentColor picks up parent text color */
+}
+/* Active item — anatomy: --zen-color-primary-500 on text + icon; bg highlight */
+.ds-sidenav__item.is-active {
+  background: var(--zen-color-bg-selected);
+  color: var(
+    --zen-color-primary-500
+  ); /* anatomy: primary-500 on active label */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+}
+.ds-sidenav__item.is-active .ds-sidenav__icon {
+  color: var(--zen-color-primary-500); /* anatomy: primary-500 on active icon */
+}
+/* Collapse button — anatomy: 24px round, chevron-left, bottom-right of the rail */
+.ds-sidenav__collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* anatomy: collapse button diameter (raw px) */
+  height: 24px;
+  border-radius: var(--zen-border-radius-full); /* full circle */
+  border: 1px solid var(--zen-border-default);
+  background: var(--zen-color-bg-default);
+  cursor: pointer;
+  align-self: flex-end; /* bottom-right */
+  color: var(--zen-color-text-default);
+  padding: 0;
+}
+.ds-sidenav--collapsed {
+  width: 56px; /* collapsed rail width (raw px) */
+}
+.ds-sidenav--collapsed .ds-sidenav__label {
+  display: none;
+}
+
+/* ============ Page header (chrome) ============ */
+.ds-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--zen-spacing-md); /* 16 — title block ↔ actions */
+  /* lg top / xl horizontal / 0 bottom: top gap from the app header + a 32px
+   * horizontal inset that aligns the title with `.screen__content-area` (also
+   * 32). Bottom is 0 so the band→content gap is just the content-area's lg top
+   * padding (24) — matching the Figma content-frame `spacing: lg`. The DS Kit
+   * Figma page-header ships padding 0; its push counterpart carries the same
+   * lg/xl tokens via the screenTree content-frame recipe. */
+  padding: var(--zen-spacing-lg) var(--zen-spacing-xl) 0;
+  background: var(--zen-color-bg-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-page-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 — title/desc stack */
+  min-width: 0;
+}
+.ds-page-header__title {
+  margin: 0;
+  font-size: var(--zen-font-size-3xl);
+  font-weight: var(--zen-font-weight-semibold);
+  line-height: var(
+    --zen-font-lineheight-2xl
+  ); /* 32 — heading leading, intentionally > size tier */
+  letter-spacing: var(--zen-font-letterspacing-normal);
+  color: var(--zen-color-text-default);
+}
+.ds-page-header__desc {
+  margin: 0;
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-lg);
+  letter-spacing: var(--zen-font-letterspacing-wide-1);
+  color: var(--zen-color-text-secondary);
+}
+.ds-page-header__actions {
+  display: flex;
+  gap: var(--zen-spacing-xs); /* 8 — gap between action buttons */
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* ============ Breadcrumb (chrome) ============ */
+.ds-breadcrumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 — crumb/separator gap */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+}
+.ds-breadcrumbs__crumb {
+  color: var(--zen-color-text-primary);
+  font-weight: var(--zen-font-weight-regular);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ds-breadcrumbs__crumb--current {
+  color: var(--zen-color-text-default);
+  font-weight: var(--zen-font-weight-medium);
+  cursor: default;
+}
+.ds-breadcrumbs__sep {
+  width: 16px; /* separator icon box (raw px) */
+  height: 16px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-text-default);
+}
+.ds-breadcrumbs__sep svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============ Tabs (chrome) ============ */
+.ds-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: var(--zen-size-xl); /* 32 */
+  border-bottom: var(--zen-border-width-md) solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  margin: 0;
+  border: none;
+  border-bottom: var(--zen-border-width-md) solid transparent;
+  background: transparent;
+  color: var(--zen-color-text-default);
+  font-family: inherit;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.ds-tabs__tab:hover {
+  background: var(--zen-color-bg-selected);
+}
+.ds-tabs__tab.is-active {
+  color: var(--zen-color-text-primary);
+  font-weight: var(--zen-font-weight-semibold);
+  border-bottom-color: var(--zen-border-selected);
+}
+
+/* ============ Table (data grid — content leaf) ============ */
+/* Oracle: no media preview available; geometry judged from DS token families
+ * and common table anatomy (row-height ~40px, header ~36px, padding 10/12x16).
+ * Tokens bound by name to existing --zen-* families in ds-base.css. */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12px */
+  color: var(--zen-color-text-default);
+  background: var(--zen-color-bg-default);
+}
+.ds-table__head-row {
+  /* head row selector — no extra styling beyond the th cells */
+}
+.ds-table__th {
+  text-align: left;
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  color: var(--zen-color-text-secondary);
+  padding: 10px 16px; /* header row raw px: ~36px total row height */
+  border-bottom: 1px solid var(--zen-border-default);
+  white-space: nowrap;
+}
+.ds-table__td {
+  padding: 12px 16px; /* data row raw px: ~40px total row height */
+  border-bottom: 1px solid var(--zen-border-default);
+  color: var(--zen-color-text-default);
+  vertical-align: middle;
+}
+.ds-table__row:hover {
+  background: var(--zen-color-bg-subtle);
+}
+
+/* ============ Modal (overlay dialog) ============ */
+/* Oracle: vendor/components/dist/media/modal/preview.webp present.
+ * Geometry judged from DS token conventions + common modal anatomy
+ * (backdrop full-viewport, dialog max-width 700px default, padding 24px,
+ * shadow for elevation, radius sm). Tokens bound by name to --zen-* families. */
+.ds-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* scrim: no zen token for overlay tint; raw value documented */
+  z-index: 100;
+}
+.ds-modal {
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  box-shadow: var(--zen-shadow-xs);
+  padding: 24px; /* raw px: ~24px inner padding, DS-conventional for overlays */
+  max-width: 700px; /* default size from registry "700px setting" variant */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-md);
+  box-sizing: border-box;
+}
+.ds-modal__title {
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-modal__body {
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-secondary);
+  line-height: var(--zen-font-lineheight-lg);
+}
+.ds-modal__footer {
+  display: flex;
+  gap: var(--zen-spacing-sm);
+  justify-content: flex-end;
+  padding-top: var(--zen-spacing-sm);
+  border-top: 1px solid var(--zen-border-default);
+}
+
+/* ============ Empty state (zero-content placeholder) ============ */
+/* Oracle: vendor/components/dist/media/empty-state/preview.webp + layout-*.webp present.
+ * Anatomy: centered column, illustration (omitted — content-specific), headline,
+ * body copy, primary CTA button. Padding generous (48px/32px). */
+.ds-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--zen-spacing-md);
+  padding: 48px 32px; /* raw px: large empty-state variant anatomy */
+  font-family: var(--zen-font-family-text);
+}
+.ds-empty-state__headline {
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-empty-state__body {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-secondary);
+  line-height: var(--zen-font-lineheight-lg);
+  max-width: 480px; /* raw px: readable line length cap */
+  margin: 0;
+}
+.ds-empty-state__cta {
+  /* Extends .ds-button--primary; no additional overrides needed */
+}
+
+/* ============ Alert banner (page-level feedback) ============ */
+/* Oracle: vendor/components/dist/media/alert-banner/preview.webp + layout-0.webp present.
+ * Registry variant axis: Type = Primary | Success | Warning | Danger.
+ * Anatomy: full-width band, icon left, content (optional title + message) right.
+ * Colors: semantic bg-subtle base + status-colored left border accent (4px).
+ * Note: no --zen-color-bg-* per-status tokens exist yet; using bg-subtle + border accent. */
+.ds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-md);
+  border-radius: var(--zen-border-radius-xs);
+  background: var(--zen-color-bg-subtle);
+  border: 1px solid var(--zen-border-default);
+  border-left-width: 4px; /* raw px: status accent strip, DS-conventional */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+}
+.ds-alert--primary {
+  border-left-color: var(--zen-color-icon-primary);
+}
+.ds-alert--success {
+  border-left-color: var(
+    --zen-color-icon-primary
+  ); /* nearest available — no zen-success token */
+}
+.ds-alert--warning {
+  border-left-color: var(
+    --zen-color-icon-error
+  ); /* nearest warm token for caution */
+}
+.ds-alert--danger {
+  border-left-color: var(--zen-color-icon-error);
+}
+.ds-alert__icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  color: var(--zen-color-icon-default);
+  font-size: var(--zen-font-size-lg);
+}
+.ds-alert--primary .ds-alert__icon,
+.ds-alert--success .ds-alert__icon {
+  color: var(--zen-color-icon-primary);
+}
+.ds-alert--warning .ds-alert__icon,
+.ds-alert--danger .ds-alert__icon {
+  color: var(--zen-color-icon-error);
+}
+.ds-alert__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs);
+}
+.ds-alert__title {
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  margin: 0;
+}
+.ds-alert__message {
+  color: var(--zen-color-text-secondary);
+  margin: 0;
+  line-height: var(--zen-font-lineheight-lg);
+}
+
+/* ============ Chat with AI Steward (elevated overlay panel) ============ */
+/* Oracle: vendor/components/dist/media/chat-with-ai-steward/
+ *   preview.webp — ~420px floating panel, white bg, shadow-xl, radius-md
+ *   behavior-0.webp — Overlay=420px/Drawer=550px/Floating variants; leaf renders open panel
+ *   variations-0.webp — confirms floating/drawer layout geometry
+ * Shadow token: --zen-shadow-xl (overlay tier, from foundations elevation scale).
+ * Note: --zen-color-purple-* NOT present in vendored tokens.css;
+ *   sparkle accent uses --zen-color-icon-primary (nearest semantic match; flagged
+ *   for token-domain backfill when purple primitives land). */
+.ds-steward {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* raw px: DS-conventional inner gap, measured from oracle */
+  width: 320px; /* raw px: default overlay width (oracle: ~420px; 320px for static leaf rendering in flows context) */
+  padding: var(--zen-spacing-md); /* 16px */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(
+    --zen-border-radius-md
+  ); /* 8px, matches oracle rounded corners */
+  box-shadow: var(
+    --zen-shadow-xl
+  ); /* overlay elevation: 8px/12px shadow per tokens */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-steward__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+}
+.ds-steward__spark {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+.ds-steward__spark .ds-icon {
+  width: 16px; /* raw px: ai icon 16px per design guideline */
+  height: 16px;
+  color: var(
+    --zen-color-icon-primary
+  ); /* purple-500 not in tokens.css; nearest = icon-primary */
+}
+.ds-steward__title {
+  flex: 1;
+  line-height: var(--zen-font-lineheight-sm);
+}
+.ds-steward__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8px */
+}
+.ds-steward__insight {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-lg);
+}
+.ds-steward__source {
+  font-size: var(--zen-font-size-xs); /* 10px — secondary/meta label */
+  color: var(--zen-color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+}
+.ds-steward__source-link {
+  color: var(--zen-color-text-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.ds-steward__conf {
+  /* Extends .ds-badge--number; no additional overrides needed */
+}
+.ds-steward__actions {
+  display: flex;
+  gap: var(--zen-spacing-xs); /* 8px */
+  flex-wrap: wrap;
+}
+/* Generating (shimmer) state */
+.ds-steward__shimmer {
+  display: block;
+  height: 12px; /* raw px: shimmer bar height, DS-conventional skeleton */
+  border-radius: var(--zen-border-radius-xs); /* 4px */
+  background: linear-gradient(
+    90deg,
+    var(--zen-color-bg-subtle) 25%,
+    var(--zen-color-bg-emphasis) 50%,
+    var(--zen-color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: ds-shimmer 2000ms linear infinite; /* 2000ms per foundations spec (not yet tokenized) */
+}
+.ds-steward__shimmer--short {
+  width: 60%; /* raw px: shorter second skeleton bar, DS-conventional */
+}
+@keyframes ds-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-steward__shimmer {
+    animation: none;
+    background: var(--zen-color-bg-subtle);
+  }
+}
+.ds-steward__disclaimer {
+  font-size: var(--zen-font-size-xs); /* 10px */
+  color: var(--zen-color-text-secondary);
+  border-top: 1px solid var(--zen-border-default);
+  padding-top: var(--zen-spacing-xs); /* 8px */
+  line-height: var(--zen-font-lineheight-lg);
+}
+/* Drawer size modifier — 550px wide, full-height per anatomy (Figma 550×897) */
+.ds-steward--drawer {
+  width: 550px; /* raw px: Figma Drawer variant geometry; overlay base stays 320px on .ds-steward */
+  height: 100%; /* full side-panel height */
+  border-radius: 0; /* drawer variant: flush with edge, no rounded corners */
+}
+/* Header controls — "New chat" dropdown + icon button row */
+.ds-steward__newchat {
+  margin-left: var(--zen-spacing-xs); /* 8px gap from title */
+  font-size: var(--zen-font-size-xs); /* 10px — secondary action label */
+  font-weight: var(--zen-font-weight-medium);
+  color: var(--zen-color-text-secondary);
+  background: none;
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px top/bottom, xs(8px) sides */
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: var(--zen-font-lineheight-md);
+}
+.ds-steward__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  margin-left: auto; /* push controls to the right edge of the header */
+}
+.ds-steward__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* raw px: icon button size per anatomy */
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  color: var(--zen-color-icon-subtle);
+  cursor: pointer;
+}
+.ds-steward__control:hover {
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-icon-default);
+}
+.ds-steward__control svg {
+  width: 16px; /* raw px: icon within 24px control — DS-conventional 16px icon */
+  height: 16px;
+}
+/* Welcome state greeting */
+.ds-steward__greeting {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-lg);
+}
+/* Task-input footer — input row + context chip + Plan button */
+.ds-steward__taskinput {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+  padding: var(--zen-spacing-xs) 0; /* 8px top/bottom, flush sides */
+  border-top: 1px solid var(--zen-border-default);
+  flex-wrap: wrap;
+}
+.ds-steward__taskinput-field {
+  flex: 1;
+  min-width: 0; /* flex shrink below content */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4px 8px */
+  font-size: var(--zen-font-size-sm);
+  font-family: var(--zen-font-family-text);
+  color: var(--zen-color-text-default);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  outline: none;
+}
+.ds-steward__taskinput-field::placeholder {
+  color: var(--zen-color-text-placeholder-subtle);
+}
+.ds-steward__context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px + xs(8px) — compact pill */
+  font-size: var(--zen-font-size-xs); /* 10px — meta label */
+  color: var(--zen-color-text-secondary);
+  background: var(
+    --zen-color-bg-subtle
+  ); /* --zen-color-bg-subtle (#fbfbff) — nearest to Figma --color-bg-subtle */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-full); /* pill shape */
+  white-space: nowrap;
+}
+
+/* ============ Graceful fallback chip ============ */
+/* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
+ * a node that would otherwise throw. Keeps the fallback visible + on-brand. */
+.ds-component {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+  padding: var(--zen-spacing-3xs) var(--zen-spacing-xs);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-secondary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+}
+
+/* ============================================================= */
+/* Hi-Fi Slice 1 (Task 4): 8 transform-target leaves              */
+/* All bound to vendored --zen-* tokens; no hardcoded color.      */
+/* ============================================================= */
+
+/* ============ Notification (inline banner + action) ============ */
+/* Registry axis: Type = Default | Critical. Mirrors the .ds-alert idiom:
+ * icon left, message, optional action button right. Critical = error accent. */
+.ds-notification {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-left-width: 4px; /* raw px: status accent strip, DS-conventional */
+  border-left-color: var(--zen-color-icon-primary);
+  border-radius: var(--zen-border-radius-xs);
+  box-shadow: var(--zen-shadow-sm);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md);
+}
+.ds-notification--critical {
+  border-left-color: var(--zen-color-icon-error);
+}
+.ds-notification__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--zen-color-icon-primary);
+  font-size: var(--zen-font-size-lg);
+}
+.ds-notification--critical .ds-notification__icon {
+  color: var(--zen-color-icon-error);
+}
+.ds-notification__message {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-notification__action {
+  flex: none;
+}
+
+/* ============ Stepper (numbered status + title/body) ============ */
+/* Registry axis: State = Complete | Active | Default (Incomplete). */
+.ds-stepper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-sm);
+  font-family: var(--zen-font-family-text);
+}
+.ds-stepper__status {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: var(--zen-size-lg); /* 24 */
+  height: var(--zen-size-lg);
+  border-radius: var(--zen-border-radius-full);
+  border: var(--zen-border-width-lg) solid var(--zen-border-default);
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-semibold);
+  line-height: 1;
+}
+.ds-stepper--active .ds-stepper__status {
+  border-color: var(--zen-color-icon-primary);
+  background: var(--zen-color-icon-primary);
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper--complete .ds-stepper__status {
+  border-color: var(--zen-color-icon-primary);
+  background: var(--zen-color-icon-primary);
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper__check {
+  width: 14px; /* glyph box geometry (raw px) */
+  height: 14px;
+  display: inline-flex;
+  color: var(--zen-color-text-reverse);
+}
+.ds-stepper__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  padding-top: var(--zen-spacing-3xs);
+}
+.ds-stepper__title {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-stepper--active .ds-stepper__title {
+  color: var(--zen-color-text-default);
+  font-weight: var(--zen-font-weight-semibold);
+}
+.ds-stepper__body {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Tooltip (small text bubble) ============ */
+/* Registry axis: Type = Default. */
+.ds-tooltip {
+  position: relative;
+  display: inline-block;
+  max-width: 240px; /* raw px: tooltip bubble max width (slice geometry) */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  background: var(--zen-color-bg-reverse); /* dark bubble, light text */
+  color: var(--zen-color-text-reverse);
+  border-radius: var(--zen-border-radius-xs);
+  box-shadow: var(--zen-shadow-md);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+}
+.ds-tooltip__body {
+  display: block;
+}
+.ds-tooltip__arrow {
+  position: absolute;
+  left: var(--zen-spacing-sm);
+  bottom: -4px; /* raw px: caret tip offset */
+  width: 8px; /* raw px: caret geometry */
+  height: 8px;
+  background: var(--zen-color-bg-reverse);
+  transform: rotate(45deg);
+}
+
+/* ============ Input date (labeled date field + calendar btn) ============ */
+/* Registry axes: Type = Single date | Date range; States = Enabled | … */
+.ds-input-date {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 320px; /* matches .ds-field width */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-input-date__label-row {
+  display: flex;
+  gap: var(--zen-spacing-2xs);
+  align-items: center;
+}
+.ds-input-date__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-input-date__inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+}
+.ds-input-date__field {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  height: 40px; /* matches .ds-input height (raw px) */
+  padding: var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  box-sizing: border-box;
+}
+.ds-input-date__value {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-placeholder);
+}
+.ds-input-date__calendar {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-input-date__calendar svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-input-date__sep {
+  flex: 0 0 auto;
+  color: var(--zen-color-text-secondary);
+}
+.ds-input-date__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-input-date.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Rich text (editor toolbar shell) ============ */
+/* Registry axis: State = Default | Expanded. */
+.ds-rich-text {
+  display: flex;
+  flex-direction: column;
+  width: 480px; /* raw px: editor shell width (forms max-width convention) */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  background: var(--zen-color-bg-default);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-rich-text__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  border-bottom: 1px solid var(--zen-border-default);
+  background: var(--zen-color-bg-subtle);
+}
+.ds-rich-text__group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-rich-text__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--zen-size-xl); /* 32 */
+  height: var(--zen-size-xl);
+  padding: 0;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  font-size: var(--zen-font-size-lg);
+  cursor: pointer;
+}
+.ds-rich-text__btn:hover {
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-icon-primary);
+}
+.ds-rich-text__content {
+  min-height: 96px; /* raw px: collapsed editor body height */
+  padding: var(--zen-spacing-md);
+}
+.ds-rich-text--expanded .ds-rich-text__content {
+  min-height: 200px; /* raw px: expanded editor body height */
+}
+
+/* ============ Dropdown select (labeled select + helper) ============ */
+/* Registry axes: Type = Default | … ; State = Default | Disabled | … */
+.ds-dropdown-select {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 320px; /* matches .ds-field width */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-dropdown-select__label-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-3xs);
+}
+.ds-dropdown-select__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-dropdown-select__desc {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-dropdown-select__field {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  height: 40px; /* matches .ds-input height (raw px) */
+  padding: var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  box-sizing: border-box;
+}
+.ds-dropdown-select__value {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-dropdown-select__value--placeholder {
+  color: var(--zen-color-text-placeholder);
+}
+.ds-dropdown-select__chevron {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-dropdown-select__chevron svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-dropdown-select__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-dropdown-select.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Progress bar (small — track + fill + percent) ============ */
+/* Registry axes: Size = Default | Large; Completeness = 0% | 50% | 100%. */
+.ds-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  width: 240px; /* raw px: small progress width (slice geometry) */
+  font-family: var(--zen-font-family-text);
+}
+.ds-progress__track {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 4px; /* raw px: small track height */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-bg-subtle);
+  overflow: hidden;
+}
+.ds-progress--large .ds-progress__track {
+  height: 8px; /* raw px: large track height */
+}
+.ds-progress__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-icon-primary);
+}
+.ds-progress__percent {
+  flex: 0 0 auto;
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Tag interactive (chip w/ icons + remove) ============ */
+/* Registry axis: State = Default | Hovered | Selected | Disabled | … */
+.ds-tag-interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  height: var(--zen-size-lg); /* 24 */
+  padding: 0 var(--zen-spacing-2xs) 0 var(--zen-spacing-xs);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-tertiary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  box-sizing: border-box;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ds-tag-interactive--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+  color: var(--zen-color-text-default);
+}
+.ds-tag-interactive.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ds-tag-interactive__icon {
+  width: 14px; /* icon box geometry (raw px) */
+  height: 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-tag-interactive__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-tag-interactive__label {
+  display: inline-block;
+}
+.ds-tag-interactive__remove {
+  width: 16px; /* tap target geometry (raw px) */
+  height: 16px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: var(--zen-border-radius-full);
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ds-tag-interactive__remove:hover {
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-icon-error);
+}
+.ds-tag-interactive__remove svg {
+  width: 12px; /* glyph geometry (raw px) */
+  height: 12px;
+  display: block;
+}
+
+/* ============ Icon (real DS glyphs) ============ */
+/* Real DS icon glyphs (inlined from the vendored icon substrate via renderIcon). */
+.ds-icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+.ds-icon--rot180 {
+  transform: rotate(180deg);
+}
+
+/* ============ Appearance (structural floor for non-override slugs) === */
+/* appearance-render.js (Phase 1B) interprets a component's vendored part-tree
+   into structural HTML, VALUES-ONLY, for DS slugs with no hand-authored leaf,
+   emitting .ds-appearance* classes. This floor gives the wrapper sensible
+   hugging, the DS font + legible text, and a size + token-bound neutral fill
+   to the aria-hidden media slots (vector/image/icon), which otherwise render
+   0x0 and disappear. 100% --zen-* bound. (Group C retired the legacy
+   anatomy-render.js slug-to-HTML path and its .ds-anatomy__* rules; the bare
+   .ds-anatomy wrapper selector had no emitter either and was removed too.) */
+.ds-appearance {
+  display: inline-flex;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.ds-appearance__text {
+  color: var(--zen-color-text-default);
+  font-family: var(--zen-font-family-text);
+}
+/* Non-leaf structural nodes (container = a layout frame; instance = a nested
+   DS component reference embedded in the anatomy tree, e.g. a nested icon).
+   Containers always carry their own inline flex layout (flexStyle) when the
+   anatomy captured one, so this is just a box-model safety net; kept
+   consistent with the wrapper above (100% --zen-* bound, no dimension
+   opinion here — a container's size comes from its children/layout). */
+.ds-appearance__container {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.ds-appearance__vector,
+.ds-appearance__image,
+.ds-appearance__icon,
+.ds-appearance__instance {
+  display: inline-block;
+  flex: none;
+  min-width: var(--zen-size-md);
+  min-height: var(--zen-size-md);
+  background: var(--zen-color-neutral-100);
+  border-radius: var(--zen-border-radius-xs);
+}
+.ds-appearance__image {
+  min-width: var(--zen-size-lg);
+  min-height: var(--zen-size-lg);
+}
+
+/* ===================================================================== */
+/* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 1: overlays.  */
+/* ===================================================================== */
+
+/* ============ Popover (floating card overlay) ============ */
+/* Registry axis: Type = Interaction guide | Advanced search; prop Show info icon. */
+.ds-popover {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs);
+  max-width: 320px; /* raw px: popover card width */
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-popover--advanced-search {
+  max-width: 400px; /* raw px: wider advanced-search variant */
+}
+.ds-popover__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-popover__info {
+  width: 16px; /* raw px: info icon box */
+  height: 16px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-primary);
+}
+.ds-popover__info svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-popover__title {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-popover__body {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-popover__arrow {
+  position: absolute;
+  left: var(--zen-spacing-md);
+  bottom: -5px; /* raw px: caret tip offset */
+  width: 10px; /* raw px: caret geometry */
+  height: 10px;
+  background: var(--zen-color-bg-default);
+  border-left: 1px solid var(--zen-border-default);
+  border-bottom: 1px solid var(--zen-border-default);
+  transform: rotate(-45deg);
+}
+
+/* ============ Account menu (identity + item overlay) ============ */
+/* Single-import; nested help-bubble / arrow-down / exit baked into the component. */
+.ds-account-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px; /* raw px: menu overlay width */
+  padding: var(--zen-spacing-2xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-account-menu__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-3xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-bottom: 1px solid var(--zen-border-default);
+  margin-bottom: var(--zen-spacing-2xs);
+}
+.ds-account-menu__name {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-account-menu__email {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-account-menu__items {
+  display: flex;
+  flex-direction: column;
+}
+.ds-account-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-account-menu__icon {
+  width: 20px; /* raw px: item icon box */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-account-menu__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-account-menu__label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ============ App switcher (product grid + settings overlay) ============ */
+/* Single-import; nested settings / arrow-down baked into the component. */
+.ds-app-switcher {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* raw px: switcher overlay width */
+  padding: var(--zen-spacing-2xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-lg);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-app-switcher__apps {
+  display: flex;
+  flex-direction: column;
+}
+.ds-app-switcher__app {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-app-switcher__tile {
+  width: 24px; /* raw px: product tile */
+  height: 24px;
+  flex: 0 0 auto;
+  background: var(--zen-color-bg-subtle);
+  border-radius: var(--zen-border-radius-sm);
+}
+.ds-app-switcher__settings {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  margin-top: var(--zen-spacing-2xs);
+  border-top: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+.ds-app-switcher__icon {
+  width: 20px; /* raw px: settings icon box */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-app-switcher__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-app-switcher__label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* ===================================================================== */
+/* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 2: controls.  */
+/* ===================================================================== */
+
+/* ============ Segmented control (mutually-exclusive toggle) ============ */
+/* Registry axis: Type = Default. */
+.ds-segmented {
+  display: inline-flex;
+  align-items: stretch;
+  padding: var(--zen-spacing-3xs);
+  gap: var(--zen-spacing-3xs);
+  background: var(--zen-color-bg-subtle);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-segmented__item {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-xs);
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-segmented__item.is-active {
+  background: var(--zen-color-bg-default);
+  color: var(--zen-color-text-default);
+  box-shadow: var(--zen-shadow-sm);
+}
+
+/* ============ Toolbar (action bar) ============ */
+/* Registry axes: Type = Single | Combined | Group; Orientation = H | V. */
+.ds-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-toolbar--horizontal {
+  flex-direction: row;
+}
+.ds-toolbar--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+.ds-toolbar__group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-toolbar--vertical .ds-toolbar__group {
+  flex-direction: column;
+}
+.ds-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* raw px: icon button box */
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-toolbar__btn svg {
+  width: 20px; /* raw px: glyph box */
+  height: 20px;
+  display: block;
+}
+.ds-toolbar__scale {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+  padding-left: var(--zen-spacing-xs);
+  border-left: 1px solid var(--zen-border-default);
+}
+.ds-toolbar__scale-value {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+  min-width: 40px; /* raw px: stable percent column */
+  text-align: center;
+}
+
+/* ============ Sticky footer (persistent action bar) ============ */
+/* Registry axis: Property 1 = Default. Reuses .ds-button leaves. */
+.ds-sticky-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: var(--zen-spacing-sm) var(--zen-spacing-lg);
+  background: var(--zen-color-bg-default);
+  border-top: 1px solid var(--zen-border-default);
+  box-shadow: var(--zen-shadow-md);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-sticky-footer__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+}
+
+/* ===================================================================== */
+/* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 3: feedback.  */
+/* ===================================================================== */
+
+/* ============ Loader (indeterminate activity spinner) ============ */
+.ds-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  font-family: var(--zen-font-family-text);
+}
+.ds-loader__spinner {
+  width: 24px; /* raw px: spinner box */
+  height: 24px;
+  flex: 0 0 auto;
+  border: 2px solid var(--zen-color-bg-muted); /* raw px: ring weight */
+  border-top-color: var(--zen-color-icon-primary);
+  border-radius: var(--zen-border-radius-full);
+  animation: ds-spin 800ms linear infinite;
+}
+.ds-loader__label {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-loader__spinner {
+    animation: none;
+  }
+}
+
+/* ============ Calendar (static month grid) ============ */
+/* Registry axes: Type = Single date select | … ; Selection = Single | Range | Year. */
+.ds-calendar {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs);
+  width: 280px; /* raw px: month grid width */
+  padding: var(--zen-spacing-sm);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-md);
+  box-shadow: var(--zen-shadow-md);
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zen-spacing-xs);
+}
+.ds-calendar__month {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-calendar__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; /* raw px: nav button box */
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-calendar__nav svg {
+  width: 16px; /* raw px: chevron box */
+  height: 16px;
+  display: block;
+}
+.ds-calendar__weekdays,
+.ds-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--zen-spacing-3xs);
+}
+.ds-calendar__weekday {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px; /* raw px: weekday header row */
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-medium);
+  color: var(--zen-color-text-tertiary);
+}
+.ds-calendar__day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; /* raw px: day cell */
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--zen-border-radius-xs);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  color: var(--zen-color-text-secondary);
+  cursor: pointer;
+}
+.ds-calendar__day.is-blank {
+  visibility: hidden;
+}
+/* Band first, so the endpoints (which also carry is-range) win the strong fill below. */
+.ds-calendar__day.is-range {
+  background: var(--zen-color-bg-selected);
+  color: var(--zen-color-text-default);
+  border-radius: 0;
+}
+.ds-calendar__day.is-selected,
+.ds-calendar__day.is-range-start,
+.ds-calendar__day.is-range-end {
+  /* Brand fill: bg-emphasis is the canonical Figma color-bg-primary alias this
+     file standardizes on (see header note + .ds-button--primary), not bg-primary. */
+  background: var(--zen-color-bg-emphasis);
+  color: var(--zen-color-text-reverse);
+  font-weight: var(--zen-font-weight-medium);
+}
+.ds-calendar__day.is-range-start {
+  border-top-left-radius: var(--zen-border-radius-xs);
+  border-bottom-left-radius: var(--zen-border-radius-xs);
+}
+.ds-calendar__day.is-range-end {
+  border-top-right-radius: var(--zen-border-radius-xs);
+  border-bottom-right-radius: var(--zen-border-radius-xs);
+}
+
+/* ============ Tag (color variants, derived from facts) ============ */
+/* Renderer relocation phase 1b-alpha: these bind var(--token) only where the
+ * token round-trips to the appearance fact resolved value; otherwise the
+ * literal value ships (value-first, see scripts/render/derive-appearance.js
+ * bindColor). Derived from components/dist/anatomy/tag-default.json. */
+.ds-tag--gray {
+  background: #f7fdff;
+  border-color: #dde6ec;
+}
+.ds-tag--indigo {
+  background: #edf6ff;
+  border-color: var(--zen-color-primary-50);
+}
+.ds-tag--lime {
+  background: #f0ffec;
+  border-color: var(--zen-color-success-50);
+}
+.ds-tag--orange {
+  background: #fff4ec;
+  border-color: var(--zen-color-error-50);
+}
+.ds-tag--pink {
+  background: #fff5f6;
+  border-color: #ffd6d8;
+}
+.ds-tag--purple {
+  background: #fff9ff;
+  border-color: #f2e6f8;
+}
+.ds-tag--teal {
+  background: #ecffff;
+  border-color: #d0efed;
+}
+.ds-tag--yellow {
+  background: #fff9e5;
+  border-color: var(--zen-color-warning-100);
+}
+
+/* ============ Checkbox (indeterminate state) ============ */
+.ds-checkbox--indeterminate .ds-checkbox__box {
+  background: var(--zen-color-icon-primary);
+  border-color: var(--zen-color-icon-primary);
+}
+.ds-checkbox--indeterminate .ds-checkbox__check {
+  display: block;
+}

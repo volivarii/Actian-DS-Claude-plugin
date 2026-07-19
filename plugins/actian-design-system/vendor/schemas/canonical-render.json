@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian.com/ds/schemas/canonical-render.json",
+  "title": "Canonical Render Manifest",
+  "description": "Index of the substrate-owned canonical component renders emitted by scripts/render/derive-canonical.js into components/render/dist/. One entry per component render, alongside the Custom Elements Manifest that carries each component's contract. Consumers (the plugin, the Claude Design bundle, docs) read this manifest to discover the available renders.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "renders"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "Version of this manifest envelope shape, bumped when the manifest structure changes.",
+      "examples": ["1.0.0"]
+    },
+    "generatedBy": {
+      "type": "string",
+      "description": "Repo-relative path of the derive script that produced this manifest, for provenance.",
+      "examples": ["scripts/render/derive-canonical.js"]
+    },
+    "cem": {
+      "type": "string",
+      "description": "File name of the Custom Elements Manifest emitted alongside the renders in the same dist directory.",
+      "examples": ["custom-elements.json"]
+    },
+    "css": {
+      "type": "string",
+      "description": "File name of the shared stylesheet inlined once and combined with each fragment.",
+      "examples": ["render.css"]
+    },
+    "renders": {
+      "type": "array",
+      "description": "One entry per canonical component render present in the dist directory.",
+      "examples": [
+        [
+          {
+            "slug": "button",
+            "tagName": "zen-button",
+            "group": "Components",
+            "fragment": "fragments/button.html",
+            "tokensConsumed": 19,
+            "source": "captured"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "tagName", "group", "fragment", "source"],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "The component slug, taken from the seed file name without its extension.",
+            "examples": ["button"]
+          },
+          "tagName": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*-[a-z0-9-]+$",
+            "description": "The custom-element tag name for the component, following the zen-<slug> naming the engineering web components use.",
+            "examples": ["zen-button"]
+          },
+          "group": {
+            "type": "string",
+            "description": "The DesignSync @dsCard group the render belongs to, taken from the seed's marker comment.",
+            "examples": ["Components"]
+          },
+          "fragment": {
+            "type": "string",
+            "description": "Path (relative to the dist directory) of the component's markup fragment, combined with the shared css by consumers.",
+            "examples": ["fragments/button.html"]
+          },
+          "tokensConsumed": {
+            "type": "integer",
+            "description": "Count of distinct --zen-* design tokens the component's own CSS rules consume, mirrored in the component's CEM cssProperties.",
+            "examples": [19]
+          },
+          "source": {
+            "type": "string",
+            "enum": ["derived", "captured"],
+            "description": "How this render was produced: 'derived' from the resolved-appearance facts via a template, or 'captured' verbatim from the plugin seed (migration pending).",
+            "examples": ["derived"]
+          }
+        }
+      }
+    }
+  }
+}
