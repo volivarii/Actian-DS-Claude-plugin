@@ -1,7 +1,6 @@
 // scripts/fidelity/render-leaf.js
 "use strict";
 var fs = require("node:fs");
-var path = require("node:path");
 var cp = require("node:child_process");
 var url = require("node:url");
 

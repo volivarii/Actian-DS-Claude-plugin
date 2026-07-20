@@ -37,14 +37,8 @@ var MAP = path.join(
   "convert-to-hifi",
   "fm-to-ds-map.json",
 );
-var DS_HTML_MAP = path.join(
-  __dirname,
-  "..",
-  "..",
-  "scripts",
-  "renderers",
-  "html-renderers",
-  "ds-html-map.js",
+var DS_HTML_MAP = require("../../scripts/lib/renderer.js").modulePath(
+  "html-renderers/ds-html-map.js",
 );
 var ANATOMY_DIR = path.join(
   __dirname,

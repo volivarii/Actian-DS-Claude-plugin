@@ -122,7 +122,7 @@ const RETIRED_PATH_B_FNS = [
 
 test("Task A3: path-b sidecar readers are gone from anatomy-render.js", () => {
   const src = fs.readFileSync(
-    path.resolve(PLUGIN_ROOT, "scripts", "renderers", "anatomy-render.js"),
+    require("../../scripts/lib/renderer.js").modulePath("anatomy-render.js"),
     "utf8",
   );
   RETIRED_PATH_B_FNS.forEach((id) => {
