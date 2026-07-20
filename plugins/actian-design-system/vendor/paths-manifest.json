@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.110",
+  "knowledge_version": "0.34.111",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -917,13 +917,6 @@
       "type": "text",
       "origin": "human",
       "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its styling source (ds-base.css, ds-fonts.css), and default-props.json. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1). render.css derives from the .css members; the gallery derives by running the .js over each component's variant matrix."
-    },
-    "components.render.src": {
-      "dir": "components/render/src",
-      "pattern": "{slug}.html",
-      "type": "text",
-      "origin": "ci",
-      "description": "Captured self-contained seed renders (the derive input). A capture intermediate, excluded from the vendor snapshot."
     },
     "components.render.usageNotes": {
       "dir": "components/render/dist/usage-notes",

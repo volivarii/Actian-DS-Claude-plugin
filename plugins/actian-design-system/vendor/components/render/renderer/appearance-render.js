@@ -59,6 +59,24 @@
       })()) ||
     [];
 
+  // Relocation phase 3: an injection seam mirroring ds-html-map's setIcons.
+  // The dual-source default above cannot resolve from a vendored layout (its
+  // Node branch walks to a lib/paths that has no counterpart there) and is
+  // wrapped in try/catch, so without this a consumer silently renders blank
+  // glyphs. ds-html-map got this seam at phase 1a; this module was missed.
+  // Callers MUST reset with setIcons(null) / setShadowedSlugs(null) after
+  // rendering to avoid cross-render state leak (module-level mutable state,
+  // shared across renders). See scripts/render/derive-from-renderer.js's
+  // deriveFragment for the setIcons(map) / finally { setIcons(null) } pattern.
+  var injectedIcons = null;
+  var injectedShadowed = null;
+  function setIcons(map) {
+    injectedIcons = map || null;
+  }
+  function setShadowedSlugs(list) {
+    injectedShadowed = list || null;
+  }
+
   function esc(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;")
@@ -225,12 +243,12 @@
     var shadowed =
       opts && Object.prototype.hasOwnProperty.call(opts, "shadowedSlugs")
         ? opts.shadowedSlugs
-        : dsIconsShadowed;
+        : injectedShadowed || dsIconsShadowed;
     if (shadowed && shadowed.indexOf(slug) !== -1) return null;
     var iconMap =
       opts && Object.prototype.hasOwnProperty.call(opts, "iconMap")
         ? opts.iconMap
-        : dsIcons;
+        : injectedIcons || dsIcons;
     var icon = iconMap && iconMap[slug];
     if (
       !icon ||
@@ -327,7 +345,8 @@
   // doc = the parsed anatomy JSON ({ slug, root, variantDefaults, ... }).
   // opts.variant = the parsed axis object (from parseVariant at the seam).
   // opts.iconMap (F2, optional) = an injected icon-geometry map that
-  // overrides the module-level dsIcons default — see renderIconGlyph above.
+  // overrides both setIcons() and the module-level dsIcons default; see
+  // renderIconGlyph above. Precedence: opts.iconMap > setIcons() > dsIcons.
   function renderAppearanceComponent(doc, opts) {
     if (!doc || !doc.root || typeof doc.root !== "object") return "";
     opts = opts || {};
@@ -352,6 +371,8 @@
   // through instead of drawing the glyph. Asserting the data alone would let a
   // renderer that ignores the declaration pass.
   exports.renderIconGlyph = renderIconGlyph;
+  exports.setIcons = setIcons;
+  exports.setShadowedSlugs = setShadowedSlugs;
 })(
   typeof module !== "undefined"
     ? module.exports
