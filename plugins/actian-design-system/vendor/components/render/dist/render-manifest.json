@@ -10,7 +10,7 @@
       "group": "Navigation",
       "fragment": "fragments/account-dropdown.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "alert-banner",
@@ -18,7 +18,7 @@
       "group": "Feedback",
       "fragment": "fragments/alert-banner.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "app-switcher-dropdown",
@@ -26,7 +26,7 @@
       "group": "Navigation",
       "fragment": "fragments/app-switcher-dropdown.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "badge",
@@ -34,7 +34,7 @@
       "group": "Data Display",
       "fragment": "fragments/badge.html",
       "tokensConsumed": 6,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "breadcrumb",
@@ -42,7 +42,7 @@
       "group": "Navigation",
       "fragment": "fragments/breadcrumb.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "button",
@@ -50,7 +50,7 @@
       "group": "Action",
       "fragment": "fragments/button.html",
       "tokensConsumed": 19,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "calendar",
@@ -58,7 +58,7 @@
       "group": "Action",
       "fragment": "fragments/calendar.html",
       "tokensConsumed": 22,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "card-for-items",
@@ -66,7 +66,7 @@
       "group": "Data Display",
       "fragment": "fragments/card-for-items.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "chat-with-ai-steward",
@@ -74,7 +74,7 @@
       "group": "Overlays",
       "fragment": "fragments/chat-with-ai-steward.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "checkbox",
@@ -82,7 +82,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/checkbox.html",
       "tokensConsumed": 13,
-      "source": "derived"
+      "source": "rendered"
     },
     {
       "slug": "dropdown-select-default",
@@ -90,7 +90,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/dropdown-select-default.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "empty-state",
@@ -98,7 +98,7 @@
       "group": "Feedback",
       "fragment": "fragments/empty-state.html",
       "tokensConsumed": 10,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "global-header",
@@ -106,7 +106,7 @@
       "group": "Navigation",
       "fragment": "fragments/global-header.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "input-date",
@@ -114,7 +114,7 @@
       "group": "Action",
       "fragment": "fragments/input-date.html",
       "tokensConsumed": 18,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "loader",
@@ -122,7 +122,7 @@
       "group": "Feedback",
       "fragment": "fragments/loader.html",
       "tokensConsumed": 9,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "modal",
@@ -130,7 +130,7 @@
       "group": "Overlays",
       "fragment": "fragments/modal.html",
       "tokensConsumed": 15,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "notification",
@@ -138,7 +138,7 @@
       "group": "Feedback",
       "fragment": "fragments/notification.html",
       "tokensConsumed": 14,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "page-header",
@@ -146,7 +146,7 @@
       "group": "Data Display",
       "fragment": "fragments/page-header.html",
       "tokensConsumed": 17,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "popover",
@@ -154,7 +154,7 @@
       "group": "Overlays",
       "fragment": "fragments/popover.html",
       "tokensConsumed": 18,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "progress-bar-small",
@@ -162,7 +162,7 @@
       "group": "Data Display",
       "fragment": "fragments/progress-bar-small.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "radio-button",
@@ -170,7 +170,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/radio-button.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "rich-text",
@@ -178,7 +178,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/rich-text.html",
       "tokensConsumed": 14,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "search",
@@ -186,7 +186,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/search.html",
       "tokensConsumed": 13,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "segmented-control",
@@ -194,7 +194,7 @@
       "group": "Data Display",
       "fragment": "fragments/segmented-control.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "side-nav",
@@ -202,7 +202,7 @@
       "group": "Navigation",
       "fragment": "fragments/side-nav.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "stepper",
@@ -210,7 +210,7 @@
       "group": "Navigation",
       "fragment": "fragments/stepper.html",
       "tokensConsumed": 22,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "sticky-footer",
@@ -218,7 +218,7 @@
       "group": "Action",
       "fragment": "fragments/sticky-footer.html",
       "tokensConsumed": 6,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "table",
@@ -226,7 +226,7 @@
       "group": "Data Display",
       "fragment": "fragments/table.html",
       "tokensConsumed": 8,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "tabs",
@@ -234,7 +234,7 @@
       "group": "Navigation",
       "fragment": "fragments/tabs.html",
       "tokensConsumed": 14,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "tag-default",
@@ -242,7 +242,7 @@
       "group": "Data Display",
       "fragment": "fragments/tag-default.html",
       "tokensConsumed": 0,
-      "source": "derived"
+      "source": "rendered"
     },
     {
       "slug": "tag-interactive",
@@ -250,7 +250,7 @@
       "group": "Data Display",
       "fragment": "fragments/tag-interactive.html",
       "tokensConsumed": 19,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "text-input",
@@ -258,7 +258,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/text-input.html",
       "tokensConsumed": 0,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "toggle",
@@ -266,7 +266,7 @@
       "group": "Form (input & selection)",
       "fragment": "fragments/toggle.html",
       "tokensConsumed": 14,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "toolbar",
@@ -274,7 +274,7 @@
       "group": "Data Display",
       "fragment": "fragments/toolbar.html",
       "tokensConsumed": 13,
-      "source": "captured"
+      "source": "rendered"
     },
     {
       "slug": "tooltip",
@@ -282,7 +282,7 @@
       "group": "Overlays",
       "fragment": "fragments/tooltip.html",
       "tokensConsumed": 11,
-      "source": "captured"
+      "source": "rendered"
     }
   ]
 }

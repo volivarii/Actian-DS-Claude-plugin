@@ -359,7 +359,7 @@
 
         case "radio-button": {
           var rbCls = "ds-radio";
-          if (v.Selected === "Yes") rbCls += " ds-radio--checked";
+          if (v.Selection === "Selected") rbCls += " ds-radio--checked";
           if (v.Format === "Card format") rbCls += " ds-radio--card";
           if (v.State === "Disabled") rbCls += " is-disabled";
           var rbLabel = esc(props.Label || "Label");
@@ -385,7 +385,7 @@
 
         case "toggle": {
           var tgCls = "ds-toggle";
-          if (v.Selected === "Yes") tgCls += " ds-toggle--on";
+          if (v.Selection === "On") tgCls += " ds-toggle--on";
           if (v["Toggle location"] === "Right") tgCls += " ds-toggle--right";
           if (v.State === "Disabled") tgCls += " is-disabled";
           var tgLabel = esc(props.Label || "Label");

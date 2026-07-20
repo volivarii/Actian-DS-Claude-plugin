@@ -144,6 +144,26 @@ var MATRIX_OVERRIDES = {
       props: { Label: "Disabled" },
     },
   ],
+
+  // tag-default's Color axis has 9 values; the generic 5-cell cap would drop
+  // three colors. The color IS the component's identity here, so show them all.
+  // ds-base.css carries a .ds-tag--<color> rule for the 8 tinted colors; the
+  // renderer's tag-default case emits ds-tag--<color> from v.Color, so this
+  // override drives every color through the generic renderer (no template).
+  // "Default" has no --color rule and renders as the base gray .ds-tag.
+  "tag-default": [
+    "Pink",
+    "Purple",
+    "Indigo",
+    "Yellow",
+    "Lime",
+    "Teal",
+    "Orange",
+    "Gray",
+    "Default",
+  ].map(function (c) {
+    return { label: c, variant: "Color=" + c, props: { Label: c } };
+  }),
 };
 
 function variantMatrix(slug) {

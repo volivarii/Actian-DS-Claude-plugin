@@ -1440,8 +1440,8 @@ Use for status. Can be interactive (removable) or static metadata.
 
 Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the "type" attribute if applicable.
 
-- Variants: **States:** `Default` · `Warning` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
-- Boolean properties: `Show label group#20405:23` (default: true) — set to `false` to hide · `Show helper text#20405:35` (default: true) — set to `false` to hide · `Show buttons#20405:47` (default: true) — set to `false` to hide
+- Variants: **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
+- Boolean properties: `Show label#20405:23` (default: true) — set to `false` to hide · `Show helper text#20405:35` (default: true) — set to `false` to hide · `Show buttons#20405:47` (default: true) — set to `false` to hide
 - Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
 
 ### text-type
