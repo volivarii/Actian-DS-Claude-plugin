@@ -27,7 +27,8 @@ var fs = require("fs");
 var path = require("path");
 var PATHS = require("../lib/paths");
 var shared = require("./assemble-shared");
-var anatomyMapHelpers = require("./ds-anatomy-map");
+var rendererModule = require("../lib/renderer.js");
+var anatomyMapHelpers = rendererModule.dsAnatomyMap;
 var collectDsSlugs = anatomyMapHelpers.collectDsSlugs;
 var buildDsAnatomyDocMap = anatomyMapHelpers.buildDsAnatomyDocMap;
 
@@ -38,11 +39,6 @@ var buildDsAnatomyDocMap = anatomyMapHelpers.buildDsAnatomyDocMap;
 var TEMPLATES_DIR = shared.TEMPLATES_DIR;
 var RENDERERS_DIR = shared.RENDERERS_DIR;
 var FIGMA_TABLE_DIR = shared.FIGMA_TABLE_DIR;
-// appearance-style.js / appearance-render.js (Phase 1B) live alongside this
-// assembler in scripts/renderers/ — NOT scripts/renderers/html-renderers/
-// (RENDERERS_DIR), where the leaf HTML renderers (ds-html-map.js etc.) live.
-var SCRIPTS_RENDERERS_DIR = path.dirname(RENDERERS_DIR);
-
 var readFileChecked = shared.readFileChecked;
 var escapeJsonForScript = shared.escapeJsonForScript;
 
@@ -61,14 +57,14 @@ var TYPE_CONFIGS = {
       // ds-html-map.js's default: case checks for them (it degrades straight
       // to a graceful chip when either global is absent, so load order here
       // is load-bearing, not merely defensive).
-      path.join(SCRIPTS_RENDERERS_DIR, "appearance-style.js"),
-      path.join(SCRIPTS_RENDERERS_DIR, "appearance-render.js"),
+      rendererModule.modulePath("appearance-style.js"),
+      rendererModule.modulePath("appearance-render.js"),
       // ds-html-map.js (hi-fi DS leaf map) must load AFTER fm-html-map.js (it
       // reads window.fmHtmlMap) and BEFORE render-node.js (which reads
       // window.dsHtmlMap to route library:"ds" INSTANCE nodes). Order is
       // load-bearing: fm-html-map → appearance-style → appearance-render →
       // ds-html-map → render-node → flow-renderer.
-      path.join(RENDERERS_DIR, "ds-html-map.js"),
+      rendererModule.modulePath("html-renderers/ds-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
       // pick it up via window.renderNode (shared structural-node renderer).
       path.join(RENDERERS_DIR, "render-node.js"),

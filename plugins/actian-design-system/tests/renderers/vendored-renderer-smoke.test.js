@@ -21,6 +21,8 @@
 var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("node:fs");
+var path = require("node:path");
+var PATHS = require("../../scripts/lib/paths.js");
 var renderer = require("../../scripts/lib/renderer.js");
 
 // Drive variants from the vendored matrix rather than hardcoding them, so a
@@ -165,4 +167,64 @@ test("the icon map is the inner .icons, not the whole file", function () {
     "icon map still has the file wrapper's _meta key, so the whole file was " +
       "passed instead of the inner .icons map",
   );
+});
+
+// The anatomy counterpart of the icon gate, and the one that actually bit.
+// The vendored anatomy modules degrade lib/paths to null and their fs read is
+// try/catch'd, so without an injected loader EVERY slug returns null, which
+// reads as "this component has no anatomy" and renders a blank box. Honest in
+// knowledge, a lie in the plugin, where the anatomy is right there in vendor/.
+test("anatomy is injected: a known slug loads a real doc", function () {
+  var doc = renderer.anatomyLoader("button");
+  assert.ok(doc, "anatomyLoader returned null for button");
+  assert.ok(doc.root, "button anatomy has no root node");
+});
+
+test("loadAnatomy defaults to the bound loader, no argument required", function () {
+  var doc = renderer.anatomyRender.loadAnatomy("button");
+  assert.ok(
+    doc && doc.root,
+    "loadAnatomy('button') returned null: the loader is not bound, so every " +
+      "anatomy-driven render would silently degrade to a blank box",
+  );
+});
+
+test("buildDsAnatomyDocMap defaults the loader too", function () {
+  // It serves the ANATOMY tier, so it deliberately skips BUILT slugs (those
+  // have a hand-written renderer case). Feed it non-built slugs, chosen from
+  // the vendor tree rather than hardcoded so the test cannot rot.
+  var built = {};
+  renderer.dsHtmlMap.BUILT_SLUGS.forEach(function (s) {
+    built[s] = true;
+  });
+  var anatomyDir = path.dirname(PATHS.components.anatomy.byKey("button"));
+  var candidates = fs
+    .readdirSync(anatomyDir)
+    .filter(function (f) {
+      return f.endsWith(".json");
+    })
+    .map(function (f) {
+      return f.replace(/\.json$/, "");
+    })
+    .filter(function (slug) {
+      return !built[slug];
+    });
+  assert.ok(candidates.length, "no non-built slugs with anatomy to test");
+
+  var map = renderer.dsAnatomyMap.buildDsAnatomyDocMap(candidates);
+  assert.ok(
+    Object.keys(map).length > 0,
+    "buildDsAnatomyDocMap returned an EMPTY map for " +
+      candidates.length +
+      " non-built slugs: opts.anatomyLoader is not defaulted, so every " +
+      "anatomy-tier component would render as a blank box",
+  );
+});
+
+test("an explicitly passed loader still wins over the bound default", function () {
+  var sentinel = { root: { name: "SENTINEL" } };
+  var doc = renderer.anatomyRender.loadAnatomy("button", function () {
+    return sentinel;
+  });
+  assert.equal(doc, sentinel, "explicit loader must not be overridden");
 });

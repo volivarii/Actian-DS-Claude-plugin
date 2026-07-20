@@ -1167,7 +1167,7 @@ function checkRecipeAdherence(screen, findings) {
 var BUILT_DS_SLUGS = (function () {
   try {
     return (
-      require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS || []
+      require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || []
     );
   } catch (e) {
     return [];

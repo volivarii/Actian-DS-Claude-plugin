@@ -12,9 +12,7 @@
 var fs = require("fs");
 var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
-var BUILT_SLUGS = require(
-  path.join(__dirname, "html-renderers", "ds-html-map.js"),
-).BUILT_SLUGS;
+var BUILT_SLUGS = require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
 var coverage = require(path.join(__dirname, "ds-coverage-report.js")).coverage;
 
 var MD_PATH = path.resolve(

@@ -95,12 +95,69 @@ if (typeof dsHtmlMap.setIcons !== "function") {
 }
 dsHtmlMap.setIcons(icons);
 
+// --- Anatomy loader injection ---------------------------------------------
+// The SAME silent-failure shape as the icon injection above, and the one that
+// actually bit during the Task 6 repoint. The vendored anatomy-render.js and
+// ds-anatomy-map.js degrade their lib/paths require to `PATHS = null` (phase 1a
+// severed the coupling so knowledge, which has no lib/paths, can inject a
+// loader instead). Their default fs read is wrapped in try/catch, so a null
+// PATHS yields null = "this component has no anatomy" rather than an error.
+//
+// That is honest in knowledge. In the plugin it is a LIE: lib/paths exists and
+// the anatomy is right there in the vendor tree. Left unhandled, every
+// anatomy-driven render silently degrades to a blank box, which is what failed
+// the flow-share appearance tests and the blank-box budget.
+//
+// The seams (loadAnatomy's `loader` arg, buildDs*'s opts.anatomyLoader) require
+// every call site to remember to pass a loader. Relying on that is how this
+// broke in the first place, so bind the loader HERE and let call sites keep
+// their existing signatures: correct by default, not by discipline.
+function anatomyLoader(slug) {
+  try {
+    return JSON.parse(
+      fs.readFileSync(PATHS.components.anatomy.byKey(slug), "utf8"),
+    );
+  } catch (e) {
+    // Per-slug null is legitimate: not every component has an anatomy doc.
+    // A SYSTEMIC failure (wrong root, missing vendor) would null every slug,
+    // which the smoke test catches by asserting a known slug loads.
+    return null;
+  }
+}
+
+function withAnatomyLoader(opts) {
+  opts = opts || {};
+  if (typeof opts.anatomyLoader === "function") return opts;
+  var merged = Object.assign({}, opts);
+  merged.anatomyLoader = anatomyLoader;
+  return merged;
+}
+
+var boundAnatomyRender = Object.assign({}, anatomyRender, {
+  loadAnatomy: function (slug, loader) {
+    return anatomyRender.loadAnatomy(
+      slug,
+      typeof loader === "function" ? loader : anatomyLoader,
+    );
+  },
+});
+
+var boundDsAnatomyMap = Object.assign({}, dsAnatomyMap, {
+  buildDsAnatomyDocMap: function (slugs, opts) {
+    return dsAnatomyMap.buildDsAnatomyDocMap(slugs, withAnatomyLoader(opts));
+  },
+  buildDsVariantStyleMap: function (data, opts) {
+    return dsAnatomyMap.buildDsVariantStyleMap(data, withAnatomyLoader(opts));
+  },
+});
+
 module.exports = {
   dsHtmlMap: dsHtmlMap,
-  dsAnatomyMap: dsAnatomyMap,
+  dsAnatomyMap: boundDsAnatomyMap,
   appearanceRender: appearanceRender,
   appearanceStyle: appearanceStyle,
-  anatomyRender: anatomyRender,
+  anatomyRender: boundAnatomyRender,
+  anatomyLoader: anatomyLoader,
   matrix: matrix,
   defaultProps: defaultProps,
   icons: icons,
