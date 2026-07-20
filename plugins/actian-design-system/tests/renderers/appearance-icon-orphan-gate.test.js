@@ -69,7 +69,7 @@ var ICONS = ICONS_DOC.icons || {};
 var REGISTRY =
   JSON.parse(fs.readFileSync(PATHS.components.registries.dskit, "utf8"))
     .components || {};
-var appearanceRender = require("../../scripts/renderers/appearance-render.js");
+var appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
 
 // Acceptance mirrors renderIconGlyph's real predicate (appearance-render.js):
 // an entry must be own-property present AND carry string viewBox + body, or

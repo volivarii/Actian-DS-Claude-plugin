@@ -2,9 +2,9 @@ const { test } = require("node:test");
 const assert = require("node:assert");
 
 const assemble = require("../../scripts/renderers/assemble-flow-share.js");
-const anatomyRender = require("../../scripts/renderers/anatomy-render.js");
-const appearanceRender = require("../../scripts/renderers/appearance-render.js");
-const { parseVariant } = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+const anatomyRender = require("../../scripts/lib/renderer.js").anatomyRender;
+const appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
+const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
 // deliverable renders tag-default's per-variant colors from the appearance

@@ -29,7 +29,7 @@ var assert = require("node:assert");
 var {
   assembleFlowShare,
 } = require("../../scripts/renderers/assemble-flow-share.js");
-var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // Minimal flow doc: one screen, one DS tag-status instance at Status=Success.
 function fixture() {

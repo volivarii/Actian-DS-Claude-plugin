@@ -10,9 +10,8 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var gen = require("../../scripts/renderers/render-authoring-table.js");
-var BUILT_SLUGS = require(
-  "../../scripts/renderers/html-renderers/ds-html-map.js",
-).BUILT_SLUGS;
+var BUILT_SLUGS =
+  require("../../scripts/lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
 
 test("ds-components-authoring.md vocabulary table is in sync with registry + BUILT_SLUGS", function () {
   var md = fs.readFileSync(gen.MD_PATH, "utf8");

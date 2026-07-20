@@ -45,6 +45,9 @@ var appearanceRender = require(modulePath("appearance-render.js"));
 var appearanceStyle = require(modulePath("appearance-style.js"));
 var anatomyRender = require(modulePath("anatomy-render.js"));
 var matrix = require(modulePath("matrix.js"));
+var anatomyVariantKey = require(
+  modulePath("html-renderers/anatomy-variant-key.js"),
+);
 
 var defaultProps = JSON.parse(
   fs.readFileSync(modulePath("default-props.json"), "utf8"),
@@ -133,6 +136,43 @@ function withAnatomyLoader(opts) {
   return merged;
 }
 
+// --- appearance-render icon injection -------------------------------------
+// Third instance of the same silent class, and the narrowest. appearance-render
+// resolves icons INDEPENDENTLY of ds-html-map, via the same dual-source idiom
+// whose Node branch cannot resolve from the vendored layout, so its
+// module-level `dsIcons` is {} and `dsIconsShadowed` is []. It has per-call
+// seams (opts.iconMap, opts.shadowedSlugs) but NO module-level setter: phase 1a
+// added setIcons to ds-html-map and missed this module.
+//
+// That matters because ds-html-map's anatomy-tier branch calls
+// renderAppearanceComponent(doc, {variant, props}) with NO icon keys, so the
+// broken module default is what production gets. Measured: of 51 anatomy-tier
+// slugs, 2 (alert-inline, tag-stage) lose their glyph. Small, but a silent
+// visual regression in the server-side deliverable. The empty shadowed list is
+// the inverse risk: a slug a component owns could draw a glyph it should not.
+//
+// A copy will not do here (ds-html-map captured the exports object at its own
+// load), so default the two keys ON that object. Property lookup happens at
+// call time, so ds-html-map picks this up. hasOwnProperty semantics are
+// preserved, which keeps the "force the map absent" test branch working.
+//
+// WORKAROUND, and named as one. The durable fix is a setIcons seam on
+// appearance-render.js in knowledge, mirroring ds-html-map's. Logged as
+// follow-up; this keeps the plugin correct until that lands.
+var _renderAppearanceComponent = appearanceRender.renderAppearanceComponent;
+var shadowedSlugs =
+  (iconsFile._meta && iconsFile._meta.shadowed_by_component) || [];
+appearanceRender.renderAppearanceComponent = function (doc, opts) {
+  var merged = Object.assign({}, opts || {});
+  if (!Object.prototype.hasOwnProperty.call(merged, "iconMap")) {
+    merged.iconMap = icons;
+  }
+  if (!Object.prototype.hasOwnProperty.call(merged, "shadowedSlugs")) {
+    merged.shadowedSlugs = shadowedSlugs;
+  }
+  return _renderAppearanceComponent(doc, merged);
+};
+
 var boundAnatomyRender = Object.assign({}, anatomyRender, {
   loadAnatomy: function (slug, loader) {
     return anatomyRender.loadAnatomy(
@@ -159,6 +199,7 @@ module.exports = {
   anatomyRender: boundAnatomyRender,
   anatomyLoader: anatomyLoader,
   matrix: matrix,
+  anatomyVariantKey: anatomyVariantKey,
   defaultProps: defaultProps,
   icons: icons,
   cssPaths: {

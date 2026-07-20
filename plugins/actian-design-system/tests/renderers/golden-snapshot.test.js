@@ -4,8 +4,8 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 var fm = require("../../scripts/renderers/html-renderers/fm-html-map.js");
-var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
-var dsAnatomyMap = require("../../scripts/renderers/ds-anatomy-map.js");
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var dsAnatomyMap = require("../../scripts/lib/renderer.js").dsAnatomyMap;
 
 var GOLDEN_DIR = path.join(__dirname, "__goldens__");
 var UPDATE = process.env.UPDATE_GOLDENS === "1";
@@ -160,7 +160,7 @@ var DS_FIXTURES = {
   },
   checkboxOn: {
     dsSlug: "checkbox",
-    variant: "Selected=Yes",
+    variant: "Selection=Checked",
     props: { Label: "Agree to terms" },
   },
   checkboxDisabled: {
@@ -291,12 +291,12 @@ var DS_FIXTURES = {
   },
   toggleOn: {
     dsSlug: "toggle",
-    variant: "Toggle location=Left, Selected=Yes, State=Default",
+    variant: "Toggle location=Left, Selection=On, State=Default",
     props: { Label: "Email notifications" },
   },
   toggleRightWithHelper: {
     dsSlug: "toggle",
-    variant: "Toggle location=Right, Selected=Yes, State=Default",
+    variant: "Toggle location=Right, Selection=On, State=Default",
     props: { Label: "Auto-sync", "Helper text": "Sync every 5 minutes" },
   },
   toggleDisabled: {
@@ -313,12 +313,12 @@ var DS_FIXTURES = {
   },
   radioOn: {
     dsSlug: "radio-button",
-    variant: "Format=Default, Selected=Yes, State=Default",
+    variant: "Format=Default, Selection=Selected, State=Default",
     props: { Label: "Standard plan", "Helper text": "Best for small teams" },
   },
   radioCard: {
     dsSlug: "radio-button",
-    variant: "Format=Card format, Selected=Yes, State=Default",
+    variant: "Format=Card format, Selection=Selected, State=Default",
     props: { Label: "Premium", "Helper text": "Advanced features" },
   },
   radioDisabled: {

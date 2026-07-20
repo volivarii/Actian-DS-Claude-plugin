@@ -10,7 +10,7 @@
 var { describe, it, test } = require("node:test");
 var assert = require("node:assert");
 
-var { collectDsSlugs } = require("../../scripts/renderers/ds-anatomy-map.js");
+var { collectDsSlugs } = require("../../scripts/lib/renderer.js").dsAnatomyMap;
 
 describe("collectDsSlugs", function () {
   it("collects dsSlugs from real content-shaped screens (screens[].content)", function () {
@@ -57,7 +57,7 @@ describe("collectDsSlugs", function () {
   });
 });
 
-var anatomyMapMod = require("../../scripts/renderers/ds-anatomy-map.js");
+var anatomyMapMod = require("../../scripts/lib/renderer.js").dsAnatomyMap;
 
 test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes", () => {
   const data = {

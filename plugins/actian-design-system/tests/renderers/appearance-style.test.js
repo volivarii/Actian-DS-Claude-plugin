@@ -1,7 +1,7 @@
 "use strict";
 var test = require("node:test");
 var assert = require("node:assert/strict");
-var s = require("../../scripts/renderers/appearance-style.js");
+var s = require("../../scripts/lib/renderer.js").appearanceStyle;
 
 test("appearanceToDecls: background + border + radius", function () {
   var d = s.appearanceToDecls({

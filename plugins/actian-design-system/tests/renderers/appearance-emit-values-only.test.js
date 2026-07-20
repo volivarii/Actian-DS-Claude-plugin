@@ -28,8 +28,8 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
-var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
-var appearanceRender = require("../../scripts/renderers/appearance-render.js");
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
 var PATHS = require("../../scripts/lib/paths.js");
 
 var ANATOMY_DIR = path.join(__dirname, "../../vendor/components/dist/anatomy");

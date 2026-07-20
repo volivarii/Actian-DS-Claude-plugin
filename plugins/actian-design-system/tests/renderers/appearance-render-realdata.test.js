@@ -4,8 +4,8 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
-var r = require("../../scripts/renderers/appearance-render.js");
-var as = require("../../scripts/renderers/appearance-style.js");
+var r = require("../../scripts/lib/renderer.js").appearanceRender;
+var as = require("../../scripts/lib/renderer.js").appearanceStyle;
 
 var ANATOMY_DIR = path.join(__dirname, "../../vendor/components/dist/anatomy");
 

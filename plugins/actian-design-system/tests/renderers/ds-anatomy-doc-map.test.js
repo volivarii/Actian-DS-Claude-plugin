@@ -1,7 +1,7 @@
 "use strict";
 var test = require("node:test");
 var assert = require("node:assert/strict");
-var m = require("../../scripts/renderers/ds-anatomy-map.js");
+var m = require("../../scripts/lib/renderer.js").dsAnatomyMap;
 
 test("buildDsAnatomyDocMap: injectable loader, skips built slugs, drops rootless", function () {
   var loaded = {
