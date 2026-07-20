@@ -1622,7 +1622,7 @@
             {
               "name": "states",
               "type": {
-                "text": "Default | Warning | Hover | Focus | Active | Filled | Error | Disabled | Read-only"
+                "text": "Default | Hover | Focus | Active | Filled | Error | Warning | Disabled | Read-only"
               }
             }
           ],

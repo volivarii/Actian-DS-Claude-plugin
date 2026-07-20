@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.106",
+  "knowledge_version": "0.34.110",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -833,7 +833,8 @@
       "recursive": true,
       "type": "json",
       "origin": "ci",
-      "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection."
+      "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection. Descriptive only (resolvable: false): the layout is arbitrarily deep, so no single pattern addresses a member. If a consumer ever needs path-addressed access, switch to pattern '{name}'.",
+      "resolvable": false
     },
     "appContextSrc": {
       "dir": "app-context/src",
@@ -881,7 +882,7 @@
     },
     "components.icons.dist": {
       "dir": "components/dist/icons",
-      "pattern": "{name}.json",
+      "pattern": "{slug}.json",
       "type": "json",
       "origin": "ci",
       "description": "The icons dist directory. Holds the derived read-surface icons.json (documented explicitly as components.icons.svg) plus the auto-generated icons.degraded.json worklist: the slugs the icons sync phase could not normalize (reasons: bad-viewbox, multicolor, gradient-or-image-fill, render-failed, node-missing, empty), mirroring anatomy's quality.degraded honesty. `node-missing` is not a drawing problem. It means the registry advertises a component whose Figma node no longer exists (verified against /v1/files/:key/nodes), so the registry itself is stale. A collection (not a per-file path) so the degraded worklist is covered without requiring the file to pre-exist on a clean checkout."
@@ -950,9 +951,10 @@
       "dir": "foundations/dist",
       "pattern": "<topSlug>/.../<slug>.json",
       "recursive": true,
+      "resolvable": false,
       "type": "json",
       "origin": "ci",
-      "description": "Per-leaf foundations JSONs in hierarchical Pattern H layout. Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at foundations.bundle. Recursive: any file under foundations/dist/ is covered by this collection."
+      "description": "Per-leaf foundations JSONs in hierarchical Pattern H layout. Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at foundations.bundle. Recursive: any file under foundations/dist/ is covered by this collection. Descriptive only (resolvable: false): the layout is arbitrarily deep, so no single pattern addresses a member. If a consumer ever needs path-addressed access, switch to pattern '{name}'."
     }
   },
   "aliases": {},

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "radio-button",
   "kit": "dskit",
-  "synced_at": "2026-07-17T09:06:39.293Z",
+  "synced_at": "2026-07-19T17:22:47.008Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9474:16884",
@@ -147,7 +147,7 @@
         "id": "19803:30932",
         "layout": {
           "axis": "column",
-          "gap": "2px",
+          "gap": "4px",
           "padding": {
             "top": "2px",
             "right": "0px",
@@ -161,7 +161,8 @@
           "sizing": {
             "h": "hug",
             "v": "hug"
-          }
+          },
+          "gapToken": "--zen-spacing-2xs"
         },
         "children": [
           {

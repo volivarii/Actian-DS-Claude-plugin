@@ -75,8 +75,8 @@
           },
           "source": {
             "type": "string",
-            "enum": ["derived", "captured"],
-            "description": "How this render was produced: 'derived' from the resolved-appearance facts via a template, or 'captured' verbatim from the plugin seed (migration pending).",
+            "enum": ["derived", "rendered", "captured"],
+            "description": "How this render was produced: 'derived' from the resolved-appearance facts via a template, 'rendered' by running the relocated generic renderer over the component's variant matrix, or 'captured' verbatim from the plugin seed (migration pending).",
             "examples": ["derived"]
           }
         }
