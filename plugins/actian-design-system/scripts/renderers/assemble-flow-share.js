@@ -73,8 +73,9 @@ function assembleFlowShare(data) {
   // for the browser. Build it from the flow-data (content-shaped) and inject;
   // the loop below resets it in a finally so module state never leaks across
   // calls.
-  var dsHtmlMap = require("./html-renderers/ds-html-map.js");
-  var anatomyHelpers = require("./ds-anatomy-map.js");
+  var renderer = require("../lib/renderer.js");
+  var dsHtmlMap = renderer.dsHtmlMap;
+  var anatomyHelpers = renderer.dsAnatomyMap;
   var dsSlugs = anatomyHelpers.collectDsSlugs(data);
   // Phase 1B: anatomy DOC map (raw parsed docs, not pre-rendered HTML) for the
   // default: seam's appearance-aware render path — each instance's own variant

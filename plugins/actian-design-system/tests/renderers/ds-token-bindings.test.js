@@ -15,7 +15,7 @@ var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
 
 var CSS = fs.readFileSync(
-  path.join(__dirname, "../../scripts/renderers/html-renderers/ds-base.css"),
+  require("../../scripts/lib/renderer.js").cssPaths.base,
   "utf8",
 );
 

@@ -4,7 +4,7 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
-var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // dskit categories that are NOT authorable UI components (icons + brand assets).
 // The authorable UI surface = dskit minus these (≈76 components) — the real
@@ -37,14 +37,8 @@ var MAP = path.join(
   "convert-to-hifi",
   "fm-to-ds-map.json",
 );
-var DS_HTML_MAP = path.join(
-  __dirname,
-  "..",
-  "..",
-  "scripts",
-  "renderers",
-  "html-renderers",
-  "ds-html-map.js",
+var DS_HTML_MAP = require("../../scripts/lib/renderer.js").modulePath(
+  "html-renderers/ds-html-map.js",
 );
 var ANATOMY_DIR = path.join(
   __dirname,

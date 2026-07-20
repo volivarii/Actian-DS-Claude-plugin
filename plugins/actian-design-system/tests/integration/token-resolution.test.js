@@ -19,10 +19,12 @@ var CSS_FILES = [
   "brief-renderer.css",
   "presentation-renderer.css",
   "render-node.css",
-  "ds-base.css", // hi-fi DS tier — 100% --zen-* bound; gated here so any drift is caught.
 ].map(function (f) {
   return path.join(RDIR, f);
 });
+// hi-fi DS tier — 100% --zen-* bound; gated here so any drift is caught. Lives
+// in the vendored renderer since relocation phase 2.
+CSS_FILES.push(require("../../scripts/lib/renderer.js").cssPaths.base);
 
 // Renderer JS also hand-writes inline `var(--…)` (e.g. brief-renderer SVG/style
 // strings). The spec called for the gate to cover renderer CSS *and JS*; JS only
@@ -35,17 +37,33 @@ var JS_FILES = [
   "brief-renderer.js",
   "render-node-figma.js", // render-node-figma.js emits {r,g,b} literals (no var(--…) today); listed so any future token leak into the emitter is auto-caught.
   "render-node.js",
-  "ds-html-map.js", // hi-fi DS interpreter — scanned for any inline var(--…) references.
 ].map(function (f) {
   return path.join(RDIR, f);
 });
+// hi-fi DS interpreter — scanned for any inline var(--…) references. Vendored
+// since renderer-relocation phase 2.
+JS_FILES.push(
+  require("../../scripts/lib/renderer.js").modulePath(
+    "html-renderers/ds-html-map.js",
+  ),
+);
+
+// Strip /* block */ and // line comments before scanning. A var(--…) written
+// in PROSE is not a reference, and flagging it is a false alarm that pressures
+// the next person to weaken the gate. Knowledge's ds-base.css does exactly this
+// ("these bind var(--token) only where the token round-trips"), which is how the
+// blind spot surfaced at renderer-relocation phase 2.
+function stripComments(src) {
+  return src.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/(^|[^:])\/\/.*$/gm, "$1");
+}
 
 // Extract every referenced custom-property NAME from `var(--name` (ignoring fallback).
 function referencedVars(src) {
   var out = new Set();
   var re = /var\(\s*(--[a-zA-Z0-9-]+)/g,
     m;
-  while ((m = re.exec(src))) out.add(m[1]);
+  var scannable = stripComments(src);
+  while ((m = re.exec(scannable))) out.add(m[1]);
   return out;
 }
 // Extract every DEFINED custom-property NAME (`  --name: value;`).

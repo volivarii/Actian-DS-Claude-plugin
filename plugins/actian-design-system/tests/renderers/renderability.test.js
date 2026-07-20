@@ -7,9 +7,7 @@ var path = require("path");
 var R = require(
   path.resolve(__dirname, "..", "..", "scripts", "renderers", "renderability.js"),
 );
-var { loadAnatomy } = require(
-  path.resolve(__dirname, "..", "..", "scripts", "renderers", "anatomy-render.js"),
-);
+var { loadAnatomy } = require("../../scripts/lib/renderer.js").anatomyRender;
 
 describe("renderability.docStats", function () {
   it("returns a zeroed shape for a missing or malformed doc", function () {

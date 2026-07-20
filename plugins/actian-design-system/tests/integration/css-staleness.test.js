@@ -20,6 +20,8 @@ var path = require("path");
 // Helpers
 // ---------------------------------------------------------------------------
 
+var RENDERER = require("../../scripts/lib/renderer.js");
+
 var RENDERERS_DIR = path.join(
   __dirname,
   "..",
@@ -138,8 +140,11 @@ var PAIRS = [
   },
   {
     name: "DS",
-    js: [path.join(RENDERERS_DIR, "ds-html-map.js")],
-    css: [path.join(RENDERERS_DIR, "ds-base.css")],
+    // Vendored since renderer-relocation phase 2: knowledge owns the DS
+    // renderer and its styling source. The plugin's own flow chrome above
+    // still resolves from RENDERERS_DIR.
+    js: [RENDERER.modulePath("html-renderers/ds-html-map.js")],
+    css: [RENDERER.cssPaths.base],
   },
 ];
 

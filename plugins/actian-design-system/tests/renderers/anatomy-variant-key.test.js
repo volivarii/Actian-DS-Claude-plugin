@@ -3,7 +3,7 @@ const assert = require("node:assert");
 const {
   anatomyVariantKey,
   isDelegated,
-} = require("../../scripts/renderers/html-renderers/anatomy-variant-key.js");
+} = require("../../scripts/lib/renderer.js").anatomyVariantKey;
 
 test("anatomyVariantKey: sorts props deterministically", () => {
   assert.strictEqual(

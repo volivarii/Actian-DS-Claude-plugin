@@ -2,9 +2,8 @@
 "use strict";
 var fs = require("fs");
 var path = require("path");
-var { loadAnatomy, passesRatioGate } = require(
-  path.join(__dirname, "anatomy-render.js"),
-);
+var { loadAnatomy, passesRatioGate } =
+  require("../lib/renderer.js").anatomyRender;
 var { isRenderable, countBlankBoxes } = require(
   path.join(__dirname, "renderability.js"),
 );
@@ -97,10 +96,9 @@ function authorableSlugs() {
 // emits. This is the number a PM actually sees on a generated flow.
 function measureBlankBoxes(opts) {
   opts = opts || {};
-  var dsMap = require(path.join(__dirname, "html-renderers", "ds-html-map.js"));
-  var buildDsAnatomyDocMap = require(
-    path.join(__dirname, "ds-anatomy-map.js"),
-  ).buildDsAnatomyDocMap;
+  var renderer = require("../lib/renderer.js");
+  var dsMap = renderer.dsHtmlMap;
+  var buildDsAnatomyDocMap = renderer.dsAnatomyMap.buildDsAnatomyDocMap;
   var slugs = opts.slugs || authorableSlugs();
   var built = {};
   (dsMap.BUILT_SLUGS || []).forEach(function (s) {
@@ -159,9 +157,7 @@ module.exports = {
 if (require.main === module) {
   // Same lazy require as measureBlankBoxes(): the render stack is only needed
   // when this file runs as a CLI, never when it is imported for coverage().
-  var BUILT_SLUGS = require(
-    path.join(__dirname, "html-renderers", "ds-html-map.js"),
-  ).BUILT_SLUGS;
+  var BUILT_SLUGS = require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
 
   var slugs = authorableSlugs();
   var rows = coverage(slugs, { builtSlugs: BUILT_SLUGS });

@@ -10,7 +10,9 @@ var assert = require("node:assert");
 var fs = require("node:fs");
 var path = require("node:path");
 
-var MAP_PATH = path.join(__dirname, "../../scripts/renderers/html-renderers/ds-html-map.js");
+var MAP_PATH = require("../../scripts/lib/renderer.js").modulePath(
+  "html-renderers/ds-html-map.js",
+);
 var map = require(MAP_PATH);
 
 test("BUILT_SLUGS is exported and matches the switch cases", function () {

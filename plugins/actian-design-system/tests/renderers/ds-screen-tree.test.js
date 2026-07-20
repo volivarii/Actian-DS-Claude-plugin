@@ -382,7 +382,7 @@ test("screenTree — no header: root has no global-header child", function () {
 test("HTML golden — studio screen byte-identical after refactor", function () {
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-  var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+  var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
   var mockDoc = {
     addEventListener: function () {},
@@ -445,7 +445,7 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
 test("HTML golden — explorer screen byte-identical after refactor", function () {
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-  var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+  var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
   var mockDoc = {
     addEventListener: function () {},
     getElementById: function () {
@@ -489,7 +489,7 @@ test("HTML golden — explorer screen byte-identical after refactor", function (
 test("HTML golden — admin screen byte-identical after refactor", function () {
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-  var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+  var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
   var mockDoc = {
     addEventListener: function () {},
     getElementById: function () {
@@ -530,7 +530,7 @@ test("HTML golden — admin screen byte-identical after refactor", function () {
 test("HTML golden — no-sidebar screen byte-identical after refactor", function () {
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-  var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+  var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
   var mockDoc = {
     addEventListener: function () {},
     getElementById: function () {

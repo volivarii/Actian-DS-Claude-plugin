@@ -2,7 +2,7 @@
 "use strict";
 var test = require("node:test");
 var assert = require("node:assert/strict");
-var r = require("../../scripts/renderers/appearance-render.js");
+var r = require("../../scripts/lib/renderer.js").appearanceRender;
 
 var TAG_STATUS_DOC = {
   slug: "tag-status",

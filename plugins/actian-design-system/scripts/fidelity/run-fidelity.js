@@ -230,8 +230,7 @@ function parseArgs(argv) {
     else if (a) bare.push(a);
   });
   if (out.all) {
-    out.slugs =
-      require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS;
+    out.slugs = require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
   } else if (!out.slugs) {
     out.slugs = bare;
   }

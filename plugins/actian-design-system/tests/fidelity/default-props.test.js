@@ -1,8 +1,8 @@
 "use strict";
 var test = require("node:test");
 var assert = require("node:assert/strict");
-var props = require("../../scripts/fidelity/default-props.json");
-var BUILT = require("../../scripts/renderers/html-renderers/ds-html-map.js").BUILT_SLUGS;
+var props = require("../../scripts/lib/renderer.js").defaultProps;
+var BUILT = require("../../scripts/lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
 
 test("every default-props key is a built slug with a plain-object value", function () {
   Object.keys(props).forEach(function (slug) {

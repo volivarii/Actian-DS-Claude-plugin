@@ -19,6 +19,13 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+- **The plugin now renders DS components with the renderer vendored from knowledge, and keeps no copy of its own** (renderer-relocation phase 2). Nine files and ~4,900 lines are deleted; every consumer reaches the renderer through the new `scripts/lib/renderer.js` accessor, which is the only file that knows the renderer is vendored. That keeps `no-bare-vendor-paths` satisfied by construction rather than by allowlisting a dozen call sites. There is deliberately **no drift-guard**, because there is deliberately no copy to guard: the accessor requires the vendored modules directly, the same way `scripts/lib/paths.js` requires `vendor/clients/resolve-paths.js`. A guard test enforces the absence instead.
+  **This closes the two-renderer divergence.** Tag colours and checkbox state were fixed in knowledge's gallery at phase 1b and stayed broken in the plugin's own `generate-flow` output; they now render correctly here too.
+  Three silent-injection traps had to be handled, all the same shape: a vendored module resolves a fact source through a relative `lib/paths` walk that cannot resolve from the vendored layout, inside a `try`/`catch`, so it degrades to empty rather than failing. Icons via `setIcons`; the anatomy loader bound in the accessor so call sites are correct by default rather than by discipline; and `appearance-render`'s independent icon lookup, which had no module-level seam at all (measured: 2 of 51 anatomy-tier components lost their glyph). Each is covered by a mutation-verified test.
+  Also fixed, and worth calling out: the golden fixtures encoded the very bug phase 1b fixed. `Selected=Yes` is not a real Figma axis, so `checkboxOn`/`toggleOn`/`radioOn` only ever rendered checked because of the old renderer's buggy branch. Regenerating would have baked an *unchecked* render into a fixture named `checkboxOn`. The fixtures were pointed at the real `Selection` axis instead, after which 5 of 7 goldens matched byte-identically.
+
+
 ### Added
 - **The vendor snapshot can now exclude heavy sub-paths declared by the substrate.** ([#252](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/252)) `vendor-snapshot-core.js` reads an optional `vendor-exclude.json` from the knowledge repo root and skips those repo-relative paths when copying, even when their top-level directory is included. The substrate declares `components/render/src` (the 15 MB self-contained render seeds, a capture intermediate) so only the ~1 MB deduplicated render dist reaches the plugin, not the seeds.
 - **Generalized the canonical-render capture from Button to the full 35-slug render set.**

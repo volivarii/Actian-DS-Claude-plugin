@@ -12,16 +12,7 @@
 var { test } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var ar = require(
-  path.resolve(
-    __dirname,
-    "..",
-    "..",
-    "scripts",
-    "renderers",
-    "anatomy-render.js",
-  ),
-);
+var ar = require("../../scripts/lib/renderer.js").anatomyRender;
 
 test("loadAnatomy: delegates to an injected loader with the slug", () => {
   var seen = null;

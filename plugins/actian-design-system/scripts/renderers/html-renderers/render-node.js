@@ -43,7 +43,8 @@
   // `library: "ds"` render through this; everything else stays on the FM map.
   var dsMap =
     (typeof window !== "undefined" && window.dsHtmlMap) ||
-    (typeof require !== "undefined" && require("./ds-html-map")) ||
+    (typeof require !== "undefined" &&
+      require("../../lib/renderer.js").dsHtmlMap) ||
     {};
 
   // -------------------------------------------------------------------------

@@ -1,15 +1,12 @@
 // scripts/fidelity/render-leaf.js
 "use strict";
 var fs = require("node:fs");
-var path = require("node:path");
 var cp = require("node:child_process");
 var url = require("node:url");
 
-var HR = path.join(__dirname, "..", "renderers", "html-renderers");
-var dsMap = require(path.join(HR, "ds-html-map.js"));
-var dsAnatomyMap = require(
-  path.join(__dirname, "..", "renderers", "ds-anatomy-map.js"),
-);
+var renderer = require("../lib/renderer.js");
+var dsMap = renderer.dsHtmlMap;
+var dsAnatomyMap = renderer.dsAnatomyMap;
 var PATHS = require("../lib/paths");
 
 var _cssCache = null;
@@ -18,8 +15,8 @@ function readCss() {
     // tokens.css FIRST — it defines the :root `--zen-*` custom properties that
     // ds-base.css references. Without it leaves render unstyled/collapsed (blank).
     var tokens = fs.readFileSync(PATHS.tokens.css, "utf8");
-    var fonts = fs.readFileSync(path.join(HR, "ds-fonts.css"), "utf8");
-    var base = fs.readFileSync(path.join(HR, "ds-base.css"), "utf8");
+    var fonts = fs.readFileSync(renderer.cssPaths.fonts, "utf8");
+    var base = fs.readFileSync(renderer.cssPaths.base, "utf8");
     _cssCache = tokens + "\n" + fonts + "\n" + base;
   }
   return _cssCache;
@@ -28,9 +25,7 @@ function readCss() {
 var _defaultProps = null;
 function defaultProps() {
   if (_defaultProps === null) {
-    _defaultProps = JSON.parse(
-      fs.readFileSync(path.join(__dirname, "default-props.json"), "utf8"),
-    );
+    _defaultProps = renderer.defaultProps;
   }
   return _defaultProps;
 }

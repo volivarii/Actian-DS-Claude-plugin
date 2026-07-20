@@ -47,7 +47,8 @@
   // way; inert for lo-fi screens (the FM chrome path never touches it).
   var dsMap =
     (typeof window !== "undefined" && window.dsHtmlMap) ||
-    (typeof require !== "undefined" && require("./ds-html-map.js")) ||
+    (typeof require !== "undefined" &&
+      require("../../lib/renderer.js").dsHtmlMap) ||
     {};
 
   // DS screen-tree builder — single source of truth for chrome node shapes,

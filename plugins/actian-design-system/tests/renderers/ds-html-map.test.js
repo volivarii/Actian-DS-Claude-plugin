@@ -7,7 +7,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 var PATHS = require("../../scripts/lib/paths.js");
 var fs = require("fs");
 var path = require("path");
@@ -37,9 +37,8 @@ describe("ds-html-map: P1a precondition", function () {
 describe("ds-html-map: orphan-ref gate", function () {
   it("every renderIcon('slug') in ds-html-map resolves to a vendored icon", function () {
     var src = fs.readFileSync(
-      path.join(
-        __dirname,
-        "../../scripts/renderers/html-renderers/ds-html-map.js",
+      require("../../scripts/lib/renderer.js").modulePath(
+        "html-renderers/ds-html-map.js",
       ),
       "utf8",
     );
@@ -362,13 +361,13 @@ describe("ds-html-map: checkbox", function () {
     assert.ok(html.indexOf("Agree") !== -1, "label rendered");
   });
 
-  it("Selected=Yes: checked", function () {
+  it("Selection=Checked: checked", function () {
     var html = render({
       dsSlug: "checkbox",
-      variant: "Selected=Yes",
+      variant: "Selection=Checked",
       props: { Label: "Agree" },
     });
-    assert.ok(html.indexOf("ds-checkbox--checked") !== -1, "checked when Yes");
+    assert.ok(html.indexOf("ds-checkbox--checked") !== -1, "checked when Selection=Checked");
   });
 
   it("Disabled (State=Disabled): label carries is-disabled", function () {
@@ -391,7 +390,12 @@ describe("ds-html-map: tag-default", function () {
       variant: "Color=Default",
       props: { Label: "Active" },
     });
-    assert.ok(html.indexOf('<span class="ds-tag"') === 0, "starts with ds-tag");
+    // Phase 1b: the colour class is additive (ds-tag--default here), backed
+    // by a real .ds-tag--default rule in the vendored ds-base.css.
+    assert.ok(
+      html.indexOf('<span class="ds-tag ds-tag--default"') === 0,
+      "starts with ds-tag + its colour class",
+    );
     assert.ok(html.indexOf("Active") !== -1, "renders label");
     assert.ok(
       html.indexOf("ds-tag__icon") === -1,
@@ -1067,13 +1071,13 @@ describe("ds-html-map: toggle (P1c)", function () {
     assert.ok(html.indexOf("is-disabled") === -1, "not disabled by default");
   });
 
-  it("On (Selected=Yes): ds-toggle--on", function () {
-    var html = tg("Toggle location=Left, Selected=Yes, State=Default", {
+  it("On (Selection=On): ds-toggle--on", function () {
+    var html = tg("Toggle location=Left, Selection=On, State=Default", {
       Label: "On",
     });
     assert.ok(
       html.indexOf("ds-toggle ds-toggle--on") !== -1,
-      "has the on modifier when Selected=Yes",
+      "has the on modifier when Selection=On",
     );
   });
 
@@ -1098,7 +1102,7 @@ describe("ds-html-map: toggle (P1c)", function () {
   });
 
   it("renders helper text when Helper text set and Show Helper text not false", function () {
-    var html = tg("Toggle location=Left, Selected=Yes", {
+    var html = tg("Toggle location=Left, Selection=On", {
       Label: "Auto-sync",
       "Helper text": "Sync every 5 minutes",
     });
@@ -1110,7 +1114,7 @@ describe("ds-html-map: toggle (P1c)", function () {
   });
 
   it("suppresses helper text when Show Helper text is false", function () {
-    var html = tg("Toggle location=Left, Selected=Yes", {
+    var html = tg("Toggle location=Left, Selection=On", {
       Label: "Auto-sync",
       "Helper text": "Sync every 5 minutes",
       "Show Helper text": false,
@@ -1171,11 +1175,11 @@ describe("ds-html-map: radio-button (P1c)", function () {
     assert.ok(html.indexOf("is-disabled") === -1, "not disabled by default");
   });
 
-  it("Selected=Yes: ds-radio--checked", function () {
-    var html = rb("Format=Default, Selected=Yes", { Label: "Picked" });
+  it("Selection=Selected: ds-radio--checked", function () {
+    var html = rb("Format=Default, Selection=Selected", { Label: "Picked" });
     assert.ok(
       html.indexOf("ds-radio ds-radio--checked") !== -1,
-      "has the checked modifier when Selected=Yes",
+      "has the checked modifier when Selection=Selected",
     );
   });
 
@@ -1198,7 +1202,7 @@ describe("ds-html-map: radio-button (P1c)", function () {
   });
 
   it("renders helper text when Helper text set and Show Helper text not false", function () {
-    var html = rb("Format=Default, Selected=Yes", {
+    var html = rb("Format=Default, Selection=Selected", {
       Label: "Notify",
       "Helper text": "We'll email you",
     });
@@ -1207,7 +1211,7 @@ describe("ds-html-map: radio-button (P1c)", function () {
   });
 
   it("suppresses helper text when Show Helper text is false", function () {
-    var html = rb("Format=Default, Selected=Yes", {
+    var html = rb("Format=Default, Selection=Selected", {
       Label: "Notify",
       "Helper text": "We'll email you",
       "Show Helper text": false,
@@ -2994,7 +2998,10 @@ describe("ds-html-map: tag-default variant-style token injection", function () {
         variant: "Color=Pink",
         props: { Label: "Customer Orders" },
       });
-      assert.ok(html.includes('class="ds-tag"'), "hand-authored ds-tag span");
+      assert.ok(
+        html.includes('class="ds-tag ds-tag--pink"'),
+        "hand-authored ds-tag span, with its phase-1b colour class",
+      );
       assert.ok(html.includes("Customer Orders"), "label preserved");
       assert.ok(
         html.includes("background-color:var(--zen-pink)"),
@@ -3013,8 +3020,8 @@ describe("ds-html-map: tag-default variant-style token injection", function () {
       props: { Label: "Hi" },
     });
     assert.ok(
-      html.includes('class="ds-tag"') && html.includes("Hi"),
-      "plain ds-tag with label",
+      html.includes('class="ds-tag ds-tag--pink"') && html.includes("Hi"),
+      "plain ds-tag with label (colour class only, no injected style)",
     );
     assert.ok(!html.includes(" style="), "no injected style when map is empty");
   });

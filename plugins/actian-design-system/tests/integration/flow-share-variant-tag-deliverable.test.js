@@ -2,9 +2,9 @@ const { test } = require("node:test");
 const assert = require("node:assert");
 
 const assemble = require("../../scripts/renderers/assemble-flow-share.js");
-const anatomyRender = require("../../scripts/renderers/anatomy-render.js");
-const appearanceRender = require("../../scripts/renderers/appearance-render.js");
-const { parseVariant } = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+const anatomyRender = require("../../scripts/lib/renderer.js").anatomyRender;
+const appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
+const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
 // deliverable renders tag-default's per-variant colors from the appearance
@@ -25,6 +25,15 @@ const { parseVariant } = require("../../scripts/renderers/html-renderers/ds-html
 // against what assemble-flow-share actually renders. A dedicated regression
 // guard also asserts no ds-tag span ever injects a fallback-less
 // var(--token) (the exact shape of the bug this whole effort fixes).
+
+//
+// UPDATED at renderer-relocation phase 2. The plugin now renders through the
+// renderer knowledge owns, so tag-default additionally emits a `ds-tag--<color>`
+// class (phase 1b), backed by a real rule in the vendored ds-base.css. The
+// inline appearance VALUES are unchanged and still asserted below; the class is
+// additive. Every original guarantee is kept, and the new final assertion
+// checks the thing that was impossible before: the emitted colour class
+// actually resolves to a rule in the deliverable, rather than dangling.
 
 test("flow-share deliverable: tag-default renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
   const doc = anatomyRender.loadAnatomy("tag-default");
@@ -85,7 +94,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   const html = assemble.assembleFlowShare(flow);
 
   assert.ok(
-    html.includes('class="ds-tag"'),
+    html.includes('class="ds-tag ds-tag--'),
     "renders the hand-authored ds-tag span, not anatomy divs",
   );
   assert.ok(html.includes("Tag"), "Purple tag keeps its instance label");
@@ -94,7 +103,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // The colored variant's span carries an inline style sourced from the
   // appearance layer: real color VALUES, no token indirection to wash out.
   const purpleSpan =
-    '<span class="ds-tag" style="background:' +
+    '<span class="ds-tag ds-tag--purple" style="background:' +
     purple.background +
     ";border-color:" +
     purple.border.color +
@@ -108,7 +117,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // The DEFAULT variant equals the base appearance, so buildDsVariantStyleMap
   // emits no map entry for it: no injected style at all, ds-base.css owns
   // the default pill's background/border.
-  const defaultSpan = '<span class="ds-tag">Draft Items</span>';
+  const defaultSpan = '<span class="ds-tag ds-tag--default">Draft Items</span>';
   assert.ok(
     html.includes(defaultSpan),
     "Color=Default's ds-tag span must carry NO injected inline style (ds-base.css owns the default), got no match for: " +
@@ -118,7 +127,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // Regression guard: no ds-tag span, of any variant, may ever inject a
   // fallback-less var(--token) -- that bare-token shape is exactly what
   // rendered most tag-default variants transparent/collapsed under path b.
-  const tagSpanOpenTags = html.match(/<span class="ds-tag"[^>]*>/g) || [];
+  const tagSpanOpenTags = html.match(/<span class="ds-tag[^"]*"[^>]*>/g) || [];
   assert.ok(
     tagSpanOpenTags.length >= 2,
     "expected at least 2 ds-tag opening tags in the rendered flow, found " +
@@ -131,4 +140,13 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
       "ds-tag span must never inject a fallback-less var(--token): " + tag,
     );
   });
+
+  // Phase 2: the colour class must not dangle. Before the plugin consumed the
+  // vendored styling source it emitted ds-tag--purple with no backing rule,
+  // because the plugin's own ds-base.css predated phase 1b.
+  assert.ok(
+    /\.ds-tag--purple\s*\{/.test(html),
+    "the emitted ds-tag--purple class has no rule in the deliverable CSS: " +
+      "FLOW_CSS is not reading the vendored ds-base.css",
+  );
 });

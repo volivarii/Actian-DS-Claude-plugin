@@ -23,8 +23,8 @@ var {
 var {
   collectDsSlugs,
   buildDsAnatomyDocMap,
-} = require("../../scripts/renderers/ds-anatomy-map.js");
-var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+} = require("../../scripts/lib/renderer.js").dsAnatomyMap;
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // A non-override DS slug with usable vendored anatomy (quality.ratio >= 0.6).
 var ANATOMY_SLUG = "link";

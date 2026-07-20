@@ -75,7 +75,7 @@ const mockDocument = {
 // the mocked window — mirroring how the browser bundle inlines them.)
 const fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
 const renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-const dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+const dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
 const dsScreenTree = require("../../scripts/renderers/html-renderers/ds-screen-tree.js");
 const mockWindow = {
   fmHtmlMap: fmHtmlMap,
