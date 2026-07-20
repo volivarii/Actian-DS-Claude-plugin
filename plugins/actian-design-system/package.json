@@ -2,6 +2,6 @@
   "private": true,
   "scripts": {
     "test": "find tests -name '*.test.js' -type f -print0 | xargs -0 node --test",
-    "update-snapshots": "UPDATE_GOLDENS=1 node --test tests/renderers/golden-snapshot.test.js"
+    "update-snapshots": "UPDATE_GOLDENS=1 node --test tests/renderers/golden-snapshot.test.js tests/renderers/ds-screen-tree.test.js"
   }
 }

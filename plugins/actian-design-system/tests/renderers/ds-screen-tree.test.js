@@ -28,6 +28,42 @@ var path = require("path");
 var chromeTree = require("../../scripts/renderers/html-renderers/ds-screen-tree.js");
 
 // ---------------------------------------------------------------------------
+// Golden fixture + its regeneration seam
+// ---------------------------------------------------------------------------
+// The golden embeds inline SVG geometry from the vendored icons.json, so a
+// Figma glyph redraw legitimately invalidates it (a true signal, not a
+// regression). Without a regen path the only remediation was hand-editing
+// 25 KB of JSON, which is how this fixture jammed the vendor refresh queue for
+// three days in July 2026. Mirrors the seam in golden-snapshot.test.js.
+
+var GOLDEN_PATH = path.join(__dirname, "fixtures/ds-screen-chrome-golden.json");
+
+// Read from process.env at call time rather than caching at module load, so the
+// seam's own test can exercise both branches in one run.
+function readGolden() {
+  return JSON.parse(fs.readFileSync(GOLDEN_PATH, "utf8"));
+}
+
+function assertGolden(key, actual) {
+  if (process.env.UPDATE_GOLDENS === "1") {
+    var current = readGolden();
+    current[key] = actual;
+    // No trailing newline: matches how the fixture was originally captured, so
+    // a regeneration diff is confined to what actually changed rather than
+    // reformatting the whole file.
+    fs.writeFileSync(GOLDEN_PATH, JSON.stringify(current, null, 2));
+    return;
+  }
+  assert.equal(
+    actual,
+    readGolden()[key],
+    key +
+      " golden byte-identical (if a Figma glyph changed, re-capture with " +
+      "`npm run update-snapshots` and review the diff)",
+  );
+}
+
+// ---------------------------------------------------------------------------
 // (1) appProfile()
 // ---------------------------------------------------------------------------
 
@@ -328,13 +364,6 @@ test("screenTree — no header: root has no global-header child", function () {
 // flow-renderer.test.js) with dsScreenTree in the mock window.
 
 test("HTML golden — studio screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
-
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -394,16 +423,10 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
     ],
   });
 
-  assert.equal(actual, golden.studio, "studio golden byte-identical");
+  assertGolden("studio", actual);
 });
 
 test("HTML golden — explorer screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -444,16 +467,10 @@ test("HTML golden — explorer screen byte-identical after refactor", function (
     },
     pageHeader: { title: "Browse" },
   });
-  assert.equal(actual, golden.explorer, "explorer golden byte-identical");
+  assertGolden("explorer", actual);
 });
 
 test("HTML golden — admin screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -491,16 +508,10 @@ test("HTML golden — admin screen byte-identical after refactor", function () {
     sidebar: { items: ["Users", "Roles", "Settings"], activeItem: "Users" },
     pageHeader: { title: "Users", subtitle: "Manage permissions" },
   });
-  assert.equal(actual, golden.admin, "admin golden byte-identical");
+  assertGolden("admin", actual);
 });
 
 test("HTML golden — no-sidebar screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -537,5 +548,29 @@ test("HTML golden — no-sidebar screen byte-identical after refactor", function
     },
     pageHeader: { title: "Overview" },
   });
-  assert.equal(actual, golden.noSidebar, "noSidebar golden byte-identical");
+  assertGolden("noSidebar", actual);
+});
+
+// ---------------------------------------------------------------------------
+// (6) The regeneration seam itself
+// ---------------------------------------------------------------------------
+
+test("golden fixture has a regeneration path", function () {
+  var before = fs.readFileSync(GOLDEN_PATH, "utf8");
+  process.env.UPDATE_GOLDENS = "1";
+  var after;
+  try {
+    assertGolden("studio", "SENTINEL");
+    after = readGolden();
+  } finally {
+    // Restore before asserting so a failure can never leave the fixture
+    // corrupted for the rest of the suite.
+    fs.writeFileSync(GOLDEN_PATH, before);
+    delete process.env.UPDATE_GOLDENS;
+  }
+  assert.equal(
+    after.studio,
+    "SENTINEL",
+    "UPDATE_GOLDENS=1 must rewrite the fixture",
+  );
 });
