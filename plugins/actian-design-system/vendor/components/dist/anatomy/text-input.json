@@ -2,48 +2,36 @@
   "_schema_version": 1,
   "slug": "text-input",
   "kit": "dskit",
-  "synced_at": "2026-07-15T12:44:12.117Z",
+  "synced_at": "2026-07-17T09:06:39.293Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7238:2487",
     "variant": "States=Default"
   },
   "quality": {
-    "nodesTotal": 9,
-    "nodesNormalized": 8,
-    "ratio": 0.89,
+    "nodesTotal": 4,
+    "nodesNormalized": 1,
+    "ratio": 0.25,
     "degraded": [],
     "structuralVariants": [
       {
         "prop": "States",
-        "value": "Error",
-        "path": "3",
-        "reason": "kind:text!=container"
+        "value": "Active",
+        "path": "1",
+        "reason": "kind:instance!=container"
       },
       {
         "prop": "States",
         "value": "Read-only",
         "path": "",
-        "reason": "childCount:4!=3"
-      },
-      {
-        "prop": "States",
-        "value": "Warning",
-        "path": "2.0",
-        "reason": "kind:instance!=container"
-      },
-      {
-        "prop": "States",
-        "value": "Warning",
-        "path": "3",
-        "reason": "kind:text!=container"
+        "reason": "childCount:3!=2"
       }
     ]
   },
   "root": {
     "name": "States=Default",
     "kind": "container",
-    "id": "7243:2947",
+    "id": "20405:22421",
     "layout": {
       "axis": "column",
       "gap": "4px",
@@ -66,276 +54,104 @@
     "children": [
       {
         "name": "Label",
-        "kind": "container",
-        "id": "7243:2948",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          },
-          "gapToken": "--zen-spacing-2xs"
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Description text": "A description helps users to define and understand the purpose of the input.",
+          "* (Asterisk)": true,
+          "Label text": "Label",
+          "Label": true,
+          "Description": true,
+          "Info icon": true,
+          "State": "Default"
         },
-        "children": [
-          {
-            "name": "Label",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "7243:2949",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "14px",
-                "weight": 500,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              },
-              "variants": [
-                {
-                  "prop": "States",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "text": {
-                    "color": "#656574",
-                    "colorToken": "--zen-color-text-disabled",
-                    "size": "14px",
-                    "weight": 500,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
-                  }
-                }
-              ]
-            },
-            "text": "Label"
-          },
-          {
-            "name": "Required",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-error"
-            ],
-            "id": "7243:2950",
-            "appearance": {
-              "text": {
-                "color": "#c12c11",
-                "colorToken": "--zen-color-text-error",
-                "size": "14px",
-                "weight": 500,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              },
-              "variants": [
-                {
-                  "prop": "States",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "text": {
-                    "color": "#656574",
-                    "colorToken": "--zen-color-text-disabled",
-                    "size": "14px",
-                    "weight": 500,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
-                  }
-                }
-              ]
-            },
-            "text": "*"
-          },
-          {
-            "name": "info",
-            "kind": "instance",
-            "slug": "info",
-            "id": "7243:2951"
-          }
-        ]
+        "id": "20405:22403"
       },
       {
-        "name": "Description",
-        "kind": "text",
+        "name": "Field",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show clear button": false,
+          "Show leading icon": false,
+          "Show trailing icon": false,
+          "Size": "Default",
+          "State": "Default"
+        },
         "tokenRefs": [
-          "--zen-color-text-tertiary"
+          "--zen-border-subtle"
         ],
-        "id": "7243:3387",
+        "id": "20405:22404",
         "appearance": {
-          "text": {
-            "color": "#50505d",
-            "colorToken": "--zen-color-text-tertiary",
-            "size": "14px",
-            "weight": 400,
-            "lineHeight": "20px",
-            "letterSpacing": "0.2px"
+          "background": "#ffffff",
+          "border": {
+            "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
+            "width": "1px"
           },
+          "radius": "6px",
           "variants": [
             {
               "prop": "States",
               "values": [
                 "Disabled"
               ],
-              "text": {
-                "color": "#656574",
-                "colorToken": "--zen-color-text-disabled",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Error"
+              ],
+              "border": {
+                "color": "#c12c11",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Focus"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Hover"
+              ],
+              "background": "#fbfbff"
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Warning"
+              ],
+              "border": {
+                "color": "#d27b00",
+                "width": "1px"
               }
             }
           ]
-        },
-        "text": "A description helps users to define and understand the purpose of the input."
-      },
-      {
-        "name": "Slot for input/selection",
-        "kind": "container",
-        "id": "20272:24425",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Input field",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show buttons": true,
-              "Show delete icon": false,
-              "Show trailing icon": false,
-              "State": "Default"
-            },
-            "tokenRefs": [
-              "--zen-border-subtle"
-            ],
-            "id": "20272:23157",
-            "appearance": {
-              "background": "#ffffff",
-              "border": {
-                "color": "#e1e1e6",
-                "colorToken": "--zen-border-subtle",
-                "width": "1px"
-              },
-              "radius": "4px",
-              "variants": [
-                {
-                  "prop": "States",
-                  "values": [
-                    "Active"
-                  ],
-                  "border": {
-                    "color": "#0f5fdc",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "background": "#e1e1e6",
-                  "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-disabled",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Error"
-                  ],
-                  "border": {
-                    "color": "#c12c11",
-                    "width": "1px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Focus"
-                  ],
-                  "border": {
-                    "color": "#0f5fdc",
-                    "colorToken": "--zen-focus-ring-primary",
-                    "width": "2px"
-                  }
-                },
-                {
-                  "prop": "States",
-                  "values": [
-                    "Hover"
-                  ],
-                  "background": "#fbfbff"
-                }
-              ]
-            }
-          }
-        ]
+        }
       },
       {
         "name": "Helper text",
-        "kind": "text",
-        "tokenRefs": [
-          "--zen-color-text-secondary"
-        ],
-        "id": "7243:2958",
-        "appearance": {
-          "text": {
-            "color": "#40404a",
-            "colorToken": "--zen-color-text-secondary",
-            "size": "12px",
-            "weight": 400,
-            "lineHeight": "16px",
-            "letterSpacing": "0.3px"
-          },
-          "variants": [
-            {
-              "prop": "States",
-              "values": [
-                "Disabled"
-              ],
-              "text": {
-                "color": "#656574",
-                "colorToken": "--zen-color-text-disabled",
-                "size": "12px",
-                "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              }
-            }
-          ]
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Helper text"
         },
-        "text": "Helper text goes here"
+        "id": "20405:22405"
       }
     ]
   },

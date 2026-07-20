@@ -1,0 +1,1839 @@
+{
+  "schemaVersion": "1.0.0",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/account-dropdown.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "AccountDropdown",
+          "tagName": "zen-account-dropdown",
+          "description": "AccountDropdown component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/alert-banner.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "AlertBanner",
+          "tagName": "zen-alert-banner",
+          "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Info | Success | Warning | Error"
+              }
+            },
+            {
+              "name": "orientation'",
+              "type": {
+                "text": "Horizontal | Vertical"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/app-switcher-dropdown.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "AppSwitcherDropdown",
+          "tagName": "zen-app-switcher-dropdown",
+          "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/badge.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Badge",
+          "tagName": "zen-badge",
+          "description": "Small status or numerical indicator (e.g., \"Active\", \"New\", \"+5\"). Use for counts or short, non-interactive status labels.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Number | Dot"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-icon-error"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/breadcrumb.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Breadcrumb",
+          "tagName": "zen-breadcrumb",
+          "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/button.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ZenButton",
+          "tagName": "zen-button",
+          "description": "Actian Product Design System Button. Taxonomy is Intent x Emphasis: Intent adds Critical; Emphasis is Filled, Outlined, or Ghost.",
+          "attributes": [
+            {
+              "name": "intent",
+              "type": {
+                "text": "'default' | 'critical'"
+              },
+              "default": "default",
+              "description": "Semantic intent. Critical marks a destructive action."
+            },
+            {
+              "name": "emphasis",
+              "type": {
+                "text": "'filled' | 'outlined' | 'ghost'"
+              },
+              "default": "filled",
+              "description": "Visual emphasis. Filled is the primary treatment, Outlined the secondary, Ghost the least prominent."
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'medium' | 'small'"
+              },
+              "default": "medium",
+              "description": "Control height. Small is the compact density."
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the button is non-interactive."
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The button's label content."
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "label",
+              "description": "The button's text label."
+            },
+            {
+              "name": "icon",
+              "description": "A leading or trailing icon wrapper."
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-emphasis"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-icon-reverse"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-error"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-size-xl"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/calendar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Calendar",
+          "tagName": "zen-calendar",
+          "description": "Calendar component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Single date select | Date | Month | Single"
+              }
+            },
+            {
+              "name": "selection",
+              "type": {
+                "text": "Single | Range | Year"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-emphasis"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-shadow-md"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card-for-items.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CardForItems",
+          "tagName": "zen-card-for-items",
+          "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Catalog | Item | item type | Glossary type | Topic"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Selected"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/chat-with-ai-steward.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ChatWithAiSteward",
+          "tagName": "zen-chat-with-ai-steward",
+          "description": "ChatWithAiSteward component.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Default | Drawer"
+              }
+            },
+            {
+              "name": "history",
+              "type": {
+                "text": "Closed | Open"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/checkbox.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Checkbox",
+          "tagName": "zen-checkbox",
+          "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
+          "attributes": [
+            {
+              "name": "selection",
+              "type": {
+                "text": "Unchecked | Indeterminate | Checked"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-width-lg"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/dropdown-select-default.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DropdownSelectDefault",
+          "tagName": "zen-dropdown-select-default",
+          "description": "Use when there are more than 7 options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default | Search/Multiple | With avatar | Compact/Custom"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Active | Filled | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/empty-state.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "EmptyState",
+          "tagName": "zen-empty-state",
+          "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Large | Medium | Small"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/global-header.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "GlobalHeader",
+          "tagName": "zen-global-header",
+          "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).",
+          "attributes": [
+            {
+              "name": "app type",
+              "type": {
+                "text": "Explorer | Admin | Studio"
+              }
+            },
+            {
+              "name": "breakpoints",
+              "type": {
+                "text": "XL | L | M | S | XS"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/input-date.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "InputDate",
+          "tagName": "zen-input-date",
+          "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Single date | Date range"
+              }
+            },
+            {
+              "name": "states",
+              "type": {
+                "text": "Enabled | Hovered | Focused | Error | Disabled | Fille | Activ"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-placeholder"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/loader.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Loader",
+          "tagName": "zen-loader",
+          "description": "Indicates a background process is active. Use loader for large components or large section within a page",
+          "attributes": [
+            {
+              "name": "percent",
+              "type": {
+                "text": "99% | 10% | Percent3"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-muted"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/modal.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Modal",
+          "tagName": "zen-modal",
+          "description": "A centered dialog that blocks the main content. Use for critical \"Stop and Think\" actions, confirmations, or complex data entry that must be completed or cancelled before moving on.",
+          "attributes": [
+            {
+              "name": "size & type",
+              "type": {
+                "text": "700px setting | 1200px | 900px create | 900px edit | 700px create | 450px warning | 450px confirm"
+              }
+            },
+            {
+              "name": "dev status",
+              "type": {
+                "text": "🟢 Ready"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/notification.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Notification",
+          "tagName": "zen-notification",
+          "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default | Critical"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-error"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-shadow-sm"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/page-header.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "PageHeader",
+          "tagName": "zen-page-header",
+          "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default | Details page | Explorer home | Explorer detail"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-normal"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-1"
+            },
+            {
+              "name": "--zen-font-lineheight-2xl"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-size-3xl"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-lg"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xl"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/popover.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Popover",
+          "tagName": "zen-popover",
+          "description": "A non-modal floating container triggered by a click. Use for displaying a small menu or related content that doesn't fit in a tooltip. Stays open until a user clicks outside.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Interaction guide | Advanced search"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/progress-bar-small.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ProgressBarSmall",
+          "tagName": "zen-progress-bar-small",
+          "description": "Visualizes the completion percentage of a task.  Use as a static visualization like a bar graph to show the completeness.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Default | Large"
+              }
+            },
+            {
+              "name": "completeness",
+              "type": {
+                "text": "0% | 100% | 50%"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/radio-button.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "RadioButton",
+          "tagName": "zen-radio-button",
+          "description": "Used for mutually exclusive choices where the user must select exactly one option from a short list (2–7 items).",
+          "attributes": [
+            {
+              "name": "selection",
+              "type": {
+                "text": "Unselected | Selected"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/rich-text.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "RichText",
+          "tagName": "zen-rich-text",
+          "description": "A multi-line input field that allows for text formatting (bold, links, lists). Use for long-form content like descriptions or comments.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Expanded | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-size-xl"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/search.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Search",
+          "tagName": "zen-search",
+          "description": "A specialized text input designed to query a database or filter a page's content in real-time.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Explorer home | Global header | Inline"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Hovered | Focused | Filled | Active | Dsiabled | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-xl"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/segmented-control.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SegmentedControl",
+          "tagName": "zen-segmented-control",
+          "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/side-nav.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SideNav",
+          "tagName": "zen-side-nav",
+          "description": "Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Admin | Studio"
+              }
+            },
+            {
+              "name": "view",
+              "type": {
+                "text": "Collapsed | Expanded"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/stepper.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Stepper",
+          "tagName": "zen-stepper",
+          "description": "Use to guide a user through a linear process with defined steps (e.g., Onboarding). Indicates current, completed, and upcoming steps.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Complete | Active | Default | State5"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-width-lg"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/sticky-footer.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "StickyFooter",
+          "tagName": "zen-sticky-footer",
+          "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-shadow-md"
+            },
+            {
+              "name": "--zen-spacing-lg"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/table.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Table",
+          "tagName": "zen-table",
+          "description": "Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).\n\n\"If data is null, display the 'Empty State' illustration variant with a 'Create New' call to action.\"",
+          "attributes": [
+            {
+              "name": "built type",
+              "type": {
+                "text": "By columns | By rows"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tabs.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Tabs",
+          "tagName": "zen-tabs",
+          "description": "Use to switch between related views within the same context without navigating to a new page. Ideal for organizing content at the same level.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-border-width-md"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-xl"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-default.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagDefault",
+          "tagName": "zen-tag-default",
+          "description": "Use for categorizing or labeling items (e.g., \"Design\", \"In Progress\"). Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "color",
+              "type": {
+                "text": "Pink | Purple | Indigo | Yellow | Lime | Teal | Orange | Gray | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-interactive.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagInteractive",
+          "tagName": "zen-tag-interactive",
+          "description": "TagInteractive component.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Hovered | Pressed | Selected | Disabled | Focused | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-error"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/text-input.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextInput",
+          "tagName": "zen-text-input",
+          "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
+          "attributes": [
+            {
+              "name": "states",
+              "type": {
+                "text": "Default | Warning | Hover | Focus | Active | Filled | Error | Disabled | Read-only"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/toggle.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Toggle",
+          "tagName": "zen-toggle",
+          "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
+          "attributes": [
+            {
+              "name": "toggle position",
+              "type": {
+                "text": "On right (default) | On left"
+              }
+            },
+            {
+              "name": "selection",
+              "type": {
+                "text": "Off | On"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-placeholder-subtle"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/toolbar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Toolbar",
+          "tagName": "zen-toolbar",
+          "description": "Toolbar component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Single | Combined | Group"
+              }
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "Horizontal | Vertical"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tooltip.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Tooltip",
+          "tagName": "zen-tooltip",
+          "description": "Flex width with maximum width of 320px.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-reverse"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-shadow-md"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

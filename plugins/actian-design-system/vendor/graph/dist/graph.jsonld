@@ -8124,12 +8124,6 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
-      "target": "component:text-input"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:modal",
       "target": "component:toggle"
     },
     {
@@ -8327,6 +8321,12 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
+      "source": "component:radio-button-card",
+      "target": "component:radio-button"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
       "source": "component:search",
       "target": "component:arrow-down"
     },
@@ -8347,48 +8347,6 @@
       "edgeType": "composed_of",
       "source": "component:search-dropdown-menu",
       "target": "component:arrow-down"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:arrow-down"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:button"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:close"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:digram-item-types"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:info"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:search"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-filters",
-      "target": "component:tag-catalog-item-type"
     },
     {
       "@type": "Edge",

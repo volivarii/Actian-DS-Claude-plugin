@@ -28,6 +28,58 @@ var path = require("path");
 var chromeTree = require("../../scripts/renderers/html-renderers/ds-screen-tree.js");
 
 // ---------------------------------------------------------------------------
+// Golden fixture + its regeneration seam
+// ---------------------------------------------------------------------------
+// The golden embeds inline SVG geometry from the vendored icons.json, so a
+// Figma glyph redraw legitimately invalidates it (a true signal, not a
+// regression). Without a regen path the only remediation was hand-editing
+// 25 KB of JSON, which is how this fixture jammed the vendor refresh queue for
+// three days in July 2026. Mirrors the seam in golden-snapshot.test.js.
+
+var GOLDEN_PATH = path.join(__dirname, "fixtures/ds-screen-chrome-golden.json");
+
+function readGolden() {
+  return JSON.parse(fs.readFileSync(GOLDEN_PATH, "utf8"));
+}
+
+function writeGolden(key, actual) {
+  var current = readGolden();
+  current[key] = actual;
+  // No trailing newline: matches how the fixture was originally captured, so a
+  // regeneration diff is confined to what actually changed rather than
+  // reformatting the whole file.
+  fs.writeFileSync(GOLDEN_PATH, JSON.stringify(current, null, 2));
+}
+
+function assertGolden(key, actual) {
+  var golden = readGolden();
+  // Guard in BOTH modes. Without it a typo'd key would compare against
+  // undefined when asserting, and silently ADD a junk entry when regenerating,
+  // leaving the real golden stale with nothing to show for it.
+  assert.ok(
+    Object.prototype.hasOwnProperty.call(golden, key),
+    "no golden named '" +
+      key +
+      "' in " +
+      path.basename(GOLDEN_PATH) +
+      " (known keys: " +
+      Object.keys(golden).join(", ") +
+      ")",
+  );
+  if (process.env.UPDATE_GOLDENS === "1") {
+    writeGolden(key, actual);
+    return;
+  }
+  assert.equal(
+    actual,
+    golden[key],
+    key +
+      " golden byte-identical (if a Figma glyph changed, re-capture with " +
+      "`npm run update-snapshots` and review the diff)",
+  );
+}
+
+// ---------------------------------------------------------------------------
 // (1) appProfile()
 // ---------------------------------------------------------------------------
 
@@ -328,13 +380,6 @@ test("screenTree — no header: root has no global-header child", function () {
 // flow-renderer.test.js) with dsScreenTree in the mock window.
 
 test("HTML golden — studio screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
-
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -394,16 +439,10 @@ test("HTML golden — studio screen byte-identical after refactor", function () 
     ],
   });
 
-  assert.equal(actual, golden.studio, "studio golden byte-identical");
+  assertGolden("studio", actual);
 });
 
 test("HTML golden — explorer screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -444,16 +483,10 @@ test("HTML golden — explorer screen byte-identical after refactor", function (
     },
     pageHeader: { title: "Browse" },
   });
-  assert.equal(actual, golden.explorer, "explorer golden byte-identical");
+  assertGolden("explorer", actual);
 });
 
 test("HTML golden — admin screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -491,16 +524,10 @@ test("HTML golden — admin screen byte-identical after refactor", function () {
     sidebar: { items: ["Users", "Roles", "Settings"], activeItem: "Users" },
     pageHeader: { title: "Users", subtitle: "Manage permissions" },
   });
-  assert.equal(actual, golden.admin, "admin golden byte-identical");
+  assertGolden("admin", actual);
 });
 
 test("HTML golden — no-sidebar screen byte-identical after refactor", function () {
-  var golden = JSON.parse(
-    fs.readFileSync(
-      path.join(__dirname, "fixtures/ds-screen-chrome-golden.json"),
-      "utf8",
-    ),
-  );
   var fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
   var renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
   var dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
@@ -537,5 +564,53 @@ test("HTML golden — no-sidebar screen byte-identical after refactor", function
     },
     pageHeader: { title: "Overview" },
   });
-  assert.equal(actual, golden.noSidebar, "noSidebar golden byte-identical");
+  assertGolden("noSidebar", actual);
+});
+
+// ---------------------------------------------------------------------------
+// (6) The regeneration seam itself
+// ---------------------------------------------------------------------------
+
+// Exercises writeGolden directly rather than setting process.env.UPDATE_GOLDENS.
+// Mutating the env here would be globally visible: any golden assertion running
+// while it is set silently switches to write-mode and passes unconditionally,
+// which would quietly disarm the very drift detection this file exists for.
+// assertGolden's routing to writeGolden is a single readable line; the writer is
+// the part with behavior worth testing.
+test("golden fixture has a regeneration path", function () {
+  var before = fs.readFileSync(GOLDEN_PATH, "utf8");
+  var after;
+  try {
+    writeGolden("studio", "SENTINEL");
+    after = readGolden();
+  } finally {
+    // Restore before asserting so a failure can never leave the fixture
+    // corrupted for the rest of the suite.
+    fs.writeFileSync(GOLDEN_PATH, before);
+  }
+  assert.equal(
+    after && after.studio,
+    "SENTINEL",
+    "writeGolden must rewrite the fixture",
+  );
+});
+
+test("assertGolden rejects an unknown key instead of inventing one", function () {
+  var before = fs.readFileSync(GOLDEN_PATH, "utf8");
+  try {
+    assert.throws(
+      function () {
+        assertGolden("studioo", "anything");
+      },
+      /no golden named 'studioo'/,
+      "a typo'd key must fail loudly, not compare against undefined",
+    );
+  } finally {
+    fs.writeFileSync(GOLDEN_PATH, before);
+  }
+  assert.equal(
+    fs.readFileSync(GOLDEN_PATH, "utf8"),
+    before,
+    "a rejected key must not mutate the fixture",
+  );
 });

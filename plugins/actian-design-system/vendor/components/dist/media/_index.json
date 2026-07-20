@@ -642,9 +642,6 @@
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
-      "behavior": [
-        "components/dist/media/toggle/behavior-0.webp"
-      ],
       "default": "components/dist/media/toggle/default.webp"
     },
     "toolbar": {
