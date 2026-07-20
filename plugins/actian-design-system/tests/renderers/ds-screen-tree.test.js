@@ -38,25 +38,41 @@ var chromeTree = require("../../scripts/renderers/html-renderers/ds-screen-tree.
 
 var GOLDEN_PATH = path.join(__dirname, "fixtures/ds-screen-chrome-golden.json");
 
-// Read from process.env at call time rather than caching at module load, so the
-// seam's own test can exercise both branches in one run.
 function readGolden() {
   return JSON.parse(fs.readFileSync(GOLDEN_PATH, "utf8"));
 }
 
+function writeGolden(key, actual) {
+  var current = readGolden();
+  current[key] = actual;
+  // No trailing newline: matches how the fixture was originally captured, so a
+  // regeneration diff is confined to what actually changed rather than
+  // reformatting the whole file.
+  fs.writeFileSync(GOLDEN_PATH, JSON.stringify(current, null, 2));
+}
+
 function assertGolden(key, actual) {
+  var golden = readGolden();
+  // Guard in BOTH modes. Without it a typo'd key would compare against
+  // undefined when asserting, and silently ADD a junk entry when regenerating,
+  // leaving the real golden stale with nothing to show for it.
+  assert.ok(
+    Object.prototype.hasOwnProperty.call(golden, key),
+    "no golden named '" +
+      key +
+      "' in " +
+      path.basename(GOLDEN_PATH) +
+      " (known keys: " +
+      Object.keys(golden).join(", ") +
+      ")",
+  );
   if (process.env.UPDATE_GOLDENS === "1") {
-    var current = readGolden();
-    current[key] = actual;
-    // No trailing newline: matches how the fixture was originally captured, so
-    // a regeneration diff is confined to what actually changed rather than
-    // reformatting the whole file.
-    fs.writeFileSync(GOLDEN_PATH, JSON.stringify(current, null, 2));
+    writeGolden(key, actual);
     return;
   }
   assert.equal(
     actual,
-    readGolden()[key],
+    golden[key],
     key +
       " golden byte-identical (if a Figma glyph changed, re-capture with " +
       "`npm run update-snapshots` and review the diff)",
@@ -555,22 +571,46 @@ test("HTML golden — no-sidebar screen byte-identical after refactor", function
 // (6) The regeneration seam itself
 // ---------------------------------------------------------------------------
 
+// Exercises writeGolden directly rather than setting process.env.UPDATE_GOLDENS.
+// Mutating the env here would be globally visible: any golden assertion running
+// while it is set silently switches to write-mode and passes unconditionally,
+// which would quietly disarm the very drift detection this file exists for.
+// assertGolden's routing to writeGolden is a single readable line; the writer is
+// the part with behavior worth testing.
 test("golden fixture has a regeneration path", function () {
   var before = fs.readFileSync(GOLDEN_PATH, "utf8");
-  process.env.UPDATE_GOLDENS = "1";
   var after;
   try {
-    assertGolden("studio", "SENTINEL");
+    writeGolden("studio", "SENTINEL");
     after = readGolden();
   } finally {
     // Restore before asserting so a failure can never leave the fixture
     // corrupted for the rest of the suite.
     fs.writeFileSync(GOLDEN_PATH, before);
-    delete process.env.UPDATE_GOLDENS;
   }
   assert.equal(
-    after.studio,
+    after && after.studio,
     "SENTINEL",
-    "UPDATE_GOLDENS=1 must rewrite the fixture",
+    "writeGolden must rewrite the fixture",
+  );
+});
+
+test("assertGolden rejects an unknown key instead of inventing one", function () {
+  var before = fs.readFileSync(GOLDEN_PATH, "utf8");
+  try {
+    assert.throws(
+      function () {
+        assertGolden("studioo", "anything");
+      },
+      /no golden named 'studioo'/,
+      "a typo'd key must fail loudly, not compare against undefined",
+    );
+  } finally {
+    fs.writeFileSync(GOLDEN_PATH, before);
+  }
+  assert.equal(
+    fs.readFileSync(GOLDEN_PATH, "utf8"),
+    before,
+    "a rejected key must not mutate the fixture",
   );
 });
