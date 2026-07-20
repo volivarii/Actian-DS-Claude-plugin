@@ -140,16 +140,18 @@ function withAnatomyLoader(opts) {
 // Third instance of the same silent class, and the narrowest. appearance-render
 // resolves icons INDEPENDENTLY of ds-html-map, via the same dual-source idiom
 // whose Node branch cannot resolve from the vendored layout, so its
-// module-level `dsIcons` is {} and `dsIconsShadowed` is []. It has per-call
-// seams (opts.iconMap, opts.shadowedSlugs) but NO module-level setter: phase 1a
-// added setIcons to ds-html-map and missed this module.
+// module-level `dsIcons` is {} and `dsIconsShadowed` is []. Through phase 2 it
+// had per-call seams (opts.iconMap, opts.shadowedSlugs) and NO module-level
+// setter, because phase 1a added setIcons to ds-html-map and missed this module.
 //
 // That matters because ds-html-map's anatomy-tier branch calls
 // renderAppearanceComponent(doc, {variant, props}) with NO icon keys, so the
-// broken module default is what production gets. Measured: of 51 anatomy-tier
-// slugs, 2 (alert-inline, tag-stage) lose their glyph. Small, but a silent
-// visual regression in the server-side deliverable. The empty shadowed list is
-// the inverse risk: a slug a component owns could draw a glyph it should not.
+// broken module default is what production gets. Measured across the whole
+// anatomy tier: the injection is worth 17 glyphs on 9 of 86 components
+// (alert-banner, alert-inline, dropdown-select-default, global-header, popover,
+// search, tag-default, tag-interactive, tag-stage). Silent visual loss in the
+// server-side deliverable. The empty shadowed list is the inverse risk: a slug
+// a component owns could draw a glyph it should not.
 //
 // Until knowledge v0.34.111 this module had no module-level setter, so the
 // plugin wrapped renderAppearanceComponent and defaulted the two opts keys on
@@ -170,8 +172,9 @@ if (
   typeof appearanceRender.setShadowedSlugs !== "function"
 ) {
   throw new Error(
-    "renderer.js: the vendored appearance-render has no setIcons seam. The " +
-      "vendor snapshot predates renderer-relocation phase 3; refresh the vendor.",
+    "renderer.js: the vendored appearance-render is missing setIcons and/or " +
+      "setShadowedSlugs. The vendor snapshot predates knowledge v0.34.111 " +
+      "(renderer-relocation phase 3); refresh the vendor.",
   );
 }
 appearanceRender.setIcons(icons);

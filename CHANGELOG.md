@@ -20,16 +20,16 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Removed
-- **`capture-seed.js` and its test** (renderer-relocation phase 3). It captured the plugin's rendered
+- **`capture-seed.js` and its test** (renderer-relocation phase 3). ([#260](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/260)) It captured the plugin's rendered
   components into the 35 frozen seed files that knowledge used to build its gallery from. Knowledge
   retired those seeds at v0.34.111 (its gallery has been produced live by the relocated renderer since
   v0.34.107), so the capture had nothing left to write and no remaining caller. Note both halves of this
   file's history sit in this same unreleased window: it was generalized from Button to all 35 slugs
-  earlier here, and its matrix half already moved into the vendored renderer at phase 2, leaving only the
-  capture half to delete.
+  earlier here, and its matrix half is already gone (it moved into knowledge at phase 1a and reached this
+  repo through the vendored renderer at phase 2), leaving only the capture half to delete.
 
 ### Changed
-- **The `appearance-render` icon workaround is retired in favour of the module's own seam** (renderer-relocation phase 3).
+- **The `appearance-render` icon workaround is retired in favour of the module's own seam** (renderer-relocation phase 3). ([#260](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/260))
   Phase 2 had to monkey-patch the vendored `appearance-render` exports object, because phase 1a gave
   `ds-html-map` a `setIcons` seam and missed this module, which resolves icons independently through the
   same dual-source idiom whose Node branch cannot resolve from a vendored layout. That patch was labelled
@@ -37,10 +37,17 @@ are summarized at the release level.
   `setShadowedSlugs` seam at v0.34.111, so the wrapper is gone and the accessor calls the seam directly.
   A loud guard now throws if a future vendor snapshot lacks it, mirroring the existing `ds-html-map`
   check, rather than silently rendering blank glyphs.
-  Mutation-verified rather than assumed: rendering `alert-inline` and `tag-stage` through the real
-  `assemble-flow-share` path yields 2 icon glyphs with the injection and 0 without.
-  **This completes the renderer relocation.** There is now one renderer in the ecosystem, no frozen
-  seeds, and no labelled workaround.
+  Mutation-verified rather than assumed, because `renderDSComponent` never throws and a passing suite
+  proves nothing about whether glyphs render. Rendering `alert-inline` and `tag-stage` through the real
+  `assemble-flow-share` path yields 2 icon glyphs with the injection and 0 without. Measured across the
+  whole anatomy tier the injection is worth 17 glyphs on 9 of 86 components (`alert-banner`,
+  `alert-inline`, `dropdown-select-default`, `global-header`, `popover`, `search`, `tag-default`,
+  `tag-interactive`, `tag-stage`), and the seam produces byte-identical output to the wrapper it
+  replaces on all 86.
+  **This closes the renderer-relocation program's core: one renderer in the ecosystem, no frozen
+  seeds, no labelled workaround.** One item flagged at phase 2 stays open by design: `fm-html-map.js`
+  is a byte-identical, unguarded copy in both knowledge and this repo, and its ownership needs an
+  explicit decision rather than a default.
 - **The plugin now renders DS components with the renderer vendored from knowledge, and keeps no copy of its own** (renderer-relocation phase 2). Nine files and ~4,900 lines are deleted; every consumer reaches the renderer through the new `scripts/lib/renderer.js` accessor, which is the only file that knows the renderer is vendored. That keeps `no-bare-vendor-paths` satisfied by construction rather than by allowlisting a dozen call sites. There is deliberately **no drift-guard**, because there is deliberately no copy to guard: the accessor requires the vendored modules directly, the same way `scripts/lib/paths.js` requires `vendor/clients/resolve-paths.js`. A guard test enforces the absence instead.
   **This closes the two-renderer divergence.** Tag colours and checkbox state were fixed in knowledge's gallery at phase 1b and stayed broken in the plugin's own `generate-flow` output; they now render correctly here too.
   Three silent-injection traps had to be handled, all the same shape: a vendored module resolves a fact source through a relative `lib/paths` walk that cannot resolve from the vendored layout, inside a `try`/`catch`, so it degrades to empty rather than failing. Icons via `setIcons`; the anatomy loader bound in the accessor so call sites are correct by default rather than by discipline; and `appearance-render`'s independent icon lookup, which had no module-level seam at all (measured: 2 of 51 anatomy-tier components lost their glyph). Each is covered by a mutation-verified test.
