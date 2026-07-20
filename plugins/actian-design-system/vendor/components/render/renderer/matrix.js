@@ -229,9 +229,11 @@ function variantMatrix(slug) {
 }
 
 // The @dsCard group comes from the component's registry category (falling
-// back to its group), so the seed lands under the same grouping DesignSync
+// back to its group), so the card lands under the same grouping DesignSync
 // already uses; "Components" is the last-resort default when a slug carries
-// neither (e.g. it is missing from all three registries).
+// neither (e.g. it is missing from all three registries). That fallback is a
+// SILENT reclassification, so invariant 5 in tests/render/fragment-invariants.test.js
+// fails any RENDER_SLUGS slug that reaches it.
 function groupFor(slug) {
   var comp = findComponent(slug);
   return (comp && (comp.category || comp.group)) || "Components";
