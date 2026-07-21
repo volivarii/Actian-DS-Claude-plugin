@@ -40,6 +40,7 @@ function modulePath(relPath) {
 }
 
 var dsHtmlMap = require(modulePath("html-renderers/ds-html-map.js"));
+var fmHtmlMap = require(modulePath("html-renderers/fm-html-map.js"));
 var dsAnatomyMap = require(modulePath("ds-anatomy-map.js"));
 var appearanceRender = require(modulePath("appearance-render.js"));
 var appearanceStyle = require(modulePath("appearance-style.js"));
@@ -245,6 +246,7 @@ var boundDsAnatomyMap = Object.assign({}, dsAnatomyMap, {
 
 module.exports = {
   dsHtmlMap: dsHtmlMap,
+  fmHtmlMap: fmHtmlMap,
   dsAnatomyMap: boundDsAnatomyMap,
   appearanceRender: appearanceRender,
   appearanceStyle: appearanceStyle,
@@ -258,6 +260,7 @@ module.exports = {
   cssPaths: {
     fonts: modulePath("ds-fonts.css"),
     base: modulePath("ds-base.css"),
+    fmBase: modulePath("fm-base.css"),
   },
   modulePath: modulePath,
 };

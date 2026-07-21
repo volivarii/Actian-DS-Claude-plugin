@@ -56,6 +56,7 @@ test("every vendored renderer member resolves to a real file", function () {
   [
     "ds-base.css",
     "ds-fonts.css",
+    "fm-base.css",
     "default-props.json",
     "matrix.js",
     "anatomy-render.js",
@@ -64,6 +65,7 @@ test("every vendored renderer member resolves to a real file", function () {
     "ds-anatomy-map.js",
     "html-renderers/ds-html-map.js",
     "html-renderers/anatomy-variant-key.js",
+    "html-renderers/fm-html-map.js",
   ].forEach(function (name) {
     var resolved = renderer.modulePath(name);
     assert.ok(resolved, name + " resolved to null");
@@ -273,4 +275,36 @@ test("an explicitly passed loader still wins over the bound default", function (
     return sentinel;
   });
   assert.equal(doc, sentinel, "explicit loader must not be overridden");
+});
+
+test("the vendored renderer exposes the fm tier's entry point", function () {
+  assert.equal(typeof renderer.fmHtmlMap.renderFMComponent, "function");
+  assert.equal(typeof renderer.fmHtmlMap.esc, "function");
+});
+
+test("fm tier: a component renders real markup, not the graceful fallback", function () {
+  var html = renderer.fmHtmlMap.renderFMComponent({
+    type: "INSTANCE",
+    ref: "fmButton",
+    variant: "Type=Primary, Size=md",
+    props: { Label: "Save" },
+  });
+  assert.ok(
+    html.indexOf('class="fm-component"') === -1,
+    "fell back to the graceful chip for a mapped ref",
+  );
+  assert.match(
+    html,
+    /fm-button--primary/,
+    "expected the fm-button--primary class",
+  );
+});
+
+test("the fm styling source is vendored and self-contained", function () {
+  var css = fs.readFileSync(renderer.cssPaths.fmBase, "utf8");
+  assert.match(
+    css,
+    /--fm-brand/,
+    "fm-base.css missing its own custom-property palette",
+  );
 });
