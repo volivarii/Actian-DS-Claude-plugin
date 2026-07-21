@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.113",
+  "knowledge_version": "0.34.114",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -936,7 +936,7 @@
       "recursive": true,
       "type": "text",
       "origin": "human",
-      "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its styling source (ds-base.css, ds-fonts.css), and default-props.json. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1). render.css derives from the .css members; the gallery derives by running the .js over each component's variant matrix."
+      "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its hi-fi styling source (ds-base.css, ds-fonts.css), the lo-fi Fat Marker renderer JS and its self-contained styling source (html-renderers/fm-html-map.js, fm-base.css), and default-props.json. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1; the fm tier finished in the fm-relocation follow-up). render.css derives from the ds-tier .css members; the gallery derives by running the ds-tier .js over each component's variant matrix. fm-base.css and fm-html-map.js are carried for the plugin's own parametric fm-tier consumption; knowledge derives no fm gallery of its own."
     },
     "components.render.usageNotes": {
       "dir": "components/render/dist/usage-notes",
