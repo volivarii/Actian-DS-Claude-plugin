@@ -367,7 +367,10 @@ describe("ds-html-map: checkbox", function () {
       variant: "Selection=Checked",
       props: { Label: "Agree" },
     });
-    assert.ok(html.indexOf("ds-checkbox--checked") !== -1, "checked when Selection=Checked");
+    assert.ok(
+      html.indexOf("ds-checkbox--checked") !== -1,
+      "checked when Selection=Checked",
+    );
   });
 
   it("Disabled (State=Disabled): label carries is-disabled", function () {
@@ -1798,7 +1801,11 @@ describe("ds-html-map: empty-state (Task 9b)", function () {
     assert.ok(html.indexOf("Add item") !== -1, "CTA label present");
   });
 
-  it("renders no button when Cta prop is absent", function () {
+  it("always renders a two-button action row, falling back to defaults when Cta is absent", function () {
+    // Empty-state's contract changed in knowledge v0.34.112 (renderer-relocation
+    // graphics tier slice): the leaf now always shows a tertiary + primary action
+    // row with sensible fallback labels, rather than omitting the button entirely
+    // when Cta is unset. See actian-ds-knowledge#454.
     var html = render({
       type: "INSTANCE",
       library: "ds",
@@ -1806,9 +1813,19 @@ describe("ds-html-map: empty-state (Task 9b)", function () {
       props: { Headline: "Nothing here", Body: "No actions available." },
     });
     assert.ok(
-      html.indexOf("<button") === -1,
-      "no button rendered when Cta absent",
+      html.indexOf("ds-empty-state__actions") !== -1,
+      "action row present",
     );
+    assert.ok(
+      html.indexOf("ds-button--tertiary") !== -1,
+      "tertiary button present",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "primary button present",
+    );
+    assert.ok(html.indexOf("Learn more") !== -1, "tertiary fallback label");
+    assert.ok(html.indexOf("Create policy") !== -1, "primary fallback label");
   });
 
   it("uses fallback headline when Headline absent", function () {
