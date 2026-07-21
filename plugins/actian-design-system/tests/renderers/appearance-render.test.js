@@ -311,9 +311,17 @@ test("renderAppearanceNode: kind vector NEVER attempts slug resolution even if s
 });
 
 test("renderAppearanceComponent: default dsIcons resolution (no injected opts.iconMap) resolves a real vendored glyph end-to-end", function () {
-  // Exercises the production dual-source path (Node branch: guarded require
-  // of the vendored icons.json via PATHS.components.icons.svg) — proving the
-  // real wiring, not just the injectable test seam, resolves a glyph.
+  // THIS IS THE SOLE SENTINEL for the appearance-render icon injection in
+  // scripts/lib/renderer.js. Mutation-verified: remove that injection and this
+  // is the ONE test in the whole suite that fails.
+  //
+  // It does NOT exercise the module's own dual-source default, despite what an
+  // earlier version of this comment claimed. That default CANNOT resolve from
+  // the vendored layout (its Node branch walks to a lib/paths with no
+  // counterpart there) and it degrades to {} inside a try/catch, which is the
+  // exact silent failure the injection exists to close. This test requires the
+  // module through scripts/lib/renderer.js, so what it actually proves is that
+  // the plugin's injection is wired and resolves a real vendored glyph.
   //
   // The glyph is picked FROM the vendored set rather than hardcoded. This test
   // is about the resolution mechanism, not about any one icon; naming a slug

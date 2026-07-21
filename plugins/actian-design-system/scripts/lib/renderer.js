@@ -140,38 +140,45 @@ function withAnatomyLoader(opts) {
 // Third instance of the same silent class, and the narrowest. appearance-render
 // resolves icons INDEPENDENTLY of ds-html-map, via the same dual-source idiom
 // whose Node branch cannot resolve from the vendored layout, so its
-// module-level `dsIcons` is {} and `dsIconsShadowed` is []. It has per-call
-// seams (opts.iconMap, opts.shadowedSlugs) but NO module-level setter: phase 1a
-// added setIcons to ds-html-map and missed this module.
+// module-level `dsIcons` is {} and `dsIconsShadowed` is []. Through phase 2 it
+// had per-call seams (opts.iconMap, opts.shadowedSlugs) and NO module-level
+// setter, because phase 1a added setIcons to ds-html-map and missed this module.
 //
 // That matters because ds-html-map's anatomy-tier branch calls
 // renderAppearanceComponent(doc, {variant, props}) with NO icon keys, so the
-// broken module default is what production gets. Measured: of 51 anatomy-tier
-// slugs, 2 (alert-inline, tag-stage) lose their glyph. Small, but a silent
-// visual regression in the server-side deliverable. The empty shadowed list is
-// the inverse risk: a slug a component owns could draw a glyph it should not.
+// broken module default is what production gets. Measured across the whole
+// anatomy tier: the injection is worth 17 glyphs on 9 of 86 components
+// (alert-banner, alert-inline, dropdown-select-default, global-header, popover,
+// search, tag-default, tag-interactive, tag-stage). Silent visual loss in the
+// server-side deliverable. The empty shadowed list is the inverse risk: a slug
+// a component owns could draw a glyph it should not.
 //
-// A copy will not do here (ds-html-map captured the exports object at its own
-// load), so default the two keys ON that object. Property lookup happens at
-// call time, so ds-html-map picks this up. hasOwnProperty semantics are
-// preserved, which keeps the "force the map absent" test branch working.
+// Until knowledge v0.34.111 this module had no module-level setter, so the
+// plugin wrapped renderAppearanceComponent and defaulted the two opts keys on
+// the exports object, labelled a WORKAROUND. Relocation phase 3 added the
+// setIcons/setShadowedSlugs seam that ds-html-map got at phase 1a, so that
+// wrapper is retired here in favour of the module's own seam. The seam wins
+// over the broken module default and still yields to an explicit opts key, so
+// the "force the map absent" test branch keeps working.
 //
-// WORKAROUND, and named as one. The durable fix is a setIcons seam on
-// appearance-render.js in knowledge, mirroring ds-html-map's. Logged as
-// follow-up; this keeps the plugin correct until that lands.
-var _renderAppearanceComponent = appearanceRender.renderAppearanceComponent;
+// Permanent by design, for the same reason as the ds-html-map injection above:
+// the plugin injects ONE process-wide map that is the correct answer for every
+// render, and it has no lib/paths fallback to fall back to. Do not "fix" this
+// by adding a reset, which would blank every glyph.
 var shadowedSlugs =
   (iconsFile._meta && iconsFile._meta.shadowed_by_component) || [];
-appearanceRender.renderAppearanceComponent = function (doc, opts) {
-  var merged = Object.assign({}, opts || {});
-  if (!Object.prototype.hasOwnProperty.call(merged, "iconMap")) {
-    merged.iconMap = icons;
-  }
-  if (!Object.prototype.hasOwnProperty.call(merged, "shadowedSlugs")) {
-    merged.shadowedSlugs = shadowedSlugs;
-  }
-  return _renderAppearanceComponent(doc, merged);
-};
+if (
+  typeof appearanceRender.setIcons !== "function" ||
+  typeof appearanceRender.setShadowedSlugs !== "function"
+) {
+  throw new Error(
+    "renderer.js: the vendored appearance-render is missing setIcons and/or " +
+      "setShadowedSlugs. The vendor snapshot predates knowledge v0.34.111 " +
+      "(renderer-relocation phase 3); refresh the vendor.",
+  );
+}
+appearanceRender.setIcons(icons);
+appearanceRender.setShadowedSlugs(shadowedSlugs);
 
 var boundAnatomyRender = Object.assign({}, anatomyRender, {
   loadAnatomy: function (slug, loader) {
