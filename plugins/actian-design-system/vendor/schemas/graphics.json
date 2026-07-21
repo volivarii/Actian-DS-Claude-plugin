@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/graphics.json",
+  "title": "Derived graphics geometry (dist)",
+  "description": "Schema for components/dist/graphics/graphics.json: the derived, vendored color-preserving artwork read-surface produced by scripts/graphics/derive-graphics-svg.js. A sibling of icons.json for the artwork tier (brand illustrations, the pyramid mark, partner logos): each entry carries geometry (viewBox, body) and, unlike icons, keeps multicolor fills/strokes/gradients verbatim instead of normalizing to currentColor. graphics.minProperties:1 guards against an empty set shipping after a mass export loss.",
+  "type": "object",
+  "required": ["_schema_version", "graphics"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Provenance stamp on the CI-derived file. Documents the source script and generation metadata.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "scripts/graphics/derive-graphics-svg.js",
+          "do_not_edit": "Edit components/src/graphics-svg.json; CI regenerates this file."
+        }
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "auto_generated": {
+          "type": "boolean",
+          "description": "True when this file was produced by the derive script.",
+          "examples": [true]
+        },
+        "source": {
+          "type": "string",
+          "description": "Relative path (from repo root) of the script that generated this file.",
+          "examples": ["scripts/graphics/derive-graphics-svg.js"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "description": "Guidance string signalling that manual edits will be overwritten on next derive run.",
+          "examples": [
+            "Edit components/src/graphics-svg.json; CI regenerates this file."
+          ]
+        }
+      }
+    },
+    "graphics": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "description": "Map of artwork slug -> color-preserving SVG geometry. Each entry holds a viewBox and inner SVG body markup, arbitrary multicolor content (fills, strokes, gradients, internal fragment refs) preserved verbatim from the Figma export. minProperties:1 ensures the set is never empty.",
+      "examples": [
+        {
+          "actian-pyramid": {
+            "viewBox": "0 0 40 40",
+            "body": "<path fill=\"url(#gradient)\" d=\"M20 4 36 34H4Z\"/><defs><linearGradient id=\"gradient\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop stop-color=\"#0F5FDC\"/><stop offset=\"1\" stop-color=\"#1B7F3B\"/></linearGradient></defs>"
+          }
+        }
+      ],
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "required": ["viewBox", "body"],
+          "additionalProperties": true,
+          "properties": {
+            "viewBox": {
+              "type": "string",
+              "pattern": "^-?[0-9.]+ -?[0-9.]+ -?[0-9.]+ -?[0-9.]+$",
+              "description": "SVG viewBox: four space-separated numbers (minX minY width height)."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Inner SVG markup (paths/groups/gradients/defs), no root <svg>. Multicolor content is kept verbatim, not normalized to currentColor. Arbitrary SVG markup is allowed; an internal fragment reference (url(#id), href=\"#id\") is legal, only an external resource reference is rejected by scripts/validate/validate-graphics.js at derive time."
+            }
+          }
+        }
+      }
+    }
+  }
+}

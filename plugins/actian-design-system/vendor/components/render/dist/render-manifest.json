@@ -97,7 +97,7 @@
       "tagName": "zen-empty-state",
       "group": "Feedback",
       "fragment": "fragments/empty-state.html",
-      "tokensConsumed": 10,
+      "tokensConsumed": 11,
       "source": "rendered"
     },
     {
