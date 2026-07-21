@@ -10,6 +10,12 @@ hand-written and not a frozen snapshot.
 
 - `ds-base.css`: the leaf component styling (the `.ds-*` rules, `--zen-*` token surface).
 - `ds-fonts.css`: the offline font embeds.
+- `fm-base.css`: the Fat Marker (fm) tier's styling source, self-contained (its own
+  `--fm-*` custom properties, no `@font-face`, no token-system coupling). Unlike
+  `ds-base.css`/`ds-fonts.css`, `render.css` does NOT derive from it: knowledge
+  carries it so the plugin can vendor it back for its own fm-tier consumption
+  (generate-flow's lo-fi preview, component briefs), not to build an fm gallery
+  here.
 
 `render.css` is built as `tokens/tokens.css` + `ds-fonts.css` + `ds-base.css`, in that
 order (the same order the render read path uses). `tests/render/derive-canonical.test.js`
@@ -37,7 +43,13 @@ dependency injection:
   the assemble-time `{slug -> anatomyDoc}` / variant-style maps.
 - `html-renderers/anatomy-variant-key.js`: the delegated-slug/variant composite-key
   helper shared by the anatomy map and the html renderer.
-- `html-renderers/fm-html-map.js`: the Fat Marker wireframe renderer.
+- `html-renderers/fm-html-map.js`: the Fat Marker wireframe renderer. Landed here
+  as a side effect of relocating `ds-html-map.js`, which borrows 3 generic helpers
+  from it via a guarded require, before fm-html-map.js was a tracked tier in its
+  own right. `tests/render/fm-html-map.test.js` now exercises `renderFMComponent` directly,
+  and `fm-base.css` (above) is its styling counterpart. Knowledge derives no fm
+  gallery from either; the plugin's generate-flow and component-brief renderers
+  are the real consumers, and vendor both back.
 - `matrix.js`: the variant-matrix logic (`variantMatrix`, `findComponent`, `groupFor`,
   `RENDER_SLUGS`, `MATRIX_OVERRIDES`), ported from the plugin's capture driver. It is
   also the authority on WHICH slugs the gallery covers and which group each lands in.
