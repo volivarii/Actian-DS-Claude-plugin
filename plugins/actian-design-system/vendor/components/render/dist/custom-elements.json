@@ -550,6 +550,9 @@
             },
             {
               "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
             }
           ]
         }

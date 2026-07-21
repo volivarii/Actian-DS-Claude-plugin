@@ -519,7 +519,13 @@
   width: 121px; /* anatomy: logo ~121×32 (raw px) */
   height: 32px;
   border-radius: var(--zen-border-radius-sm); /* 6 */
-  background: var(--zen-color-bg-emphasis);
+  display: flex;
+  align-items: center;
+}
+.ds-header__logo svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
 }
 .ds-header__app {
   font-size: var(--zen-font-size-md); /* 14 */
@@ -1032,8 +1038,9 @@
 
 /* ============ Empty state (zero-content placeholder) ============ */
 /* Oracle: vendor/components/dist/media/empty-state/preview.webp + layout-*.webp present.
- * Anatomy: centered column, illustration (omitted — content-specific), headline,
- * body copy, primary CTA button. Padding generous (48px/32px). */
+ * Anatomy: centered column, illustration, headline, body copy, tertiary +
+ * primary action row. Padding generous (48px/32px). Illustration now sourced
+ * from the graphics tier (renderGraphic) rather than omitted. */
 .ds-empty-state {
   display: flex;
   flex-direction: column;
@@ -1043,6 +1050,14 @@
   gap: var(--zen-spacing-md);
   padding: 48px 32px; /* raw px: large empty-state variant anatomy */
   font-family: var(--zen-font-family-text);
+}
+.ds-empty-state__illustration {
+  max-width: 200px; /* raw px: sensible cap so the artwork doesn't dominate the card */
+  width: 100%;
+}
+.ds-empty-state__illustration svg {
+  width: 100%;
+  height: auto;
 }
 .ds-empty-state__headline {
   font-size: var(--zen-font-size-lg);
@@ -1059,8 +1074,14 @@
   max-width: 480px; /* raw px: readable line length cap */
   margin: 0;
 }
+.ds-empty-state__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zen-spacing-sm);
+}
 .ds-empty-state__cta {
-  /* Extends .ds-button--primary; no additional overrides needed */
+  /* Extends .ds-button--primary/.ds-button--tertiary; no additional overrides needed */
 }
 
 /* ============ Alert banner (page-level feedback) ============ */
