@@ -5,6 +5,7 @@ var fs = require("fs");
 var path = require("path");
 var cp = require("node:child_process");
 var PATHS = require("../../scripts/lib/paths.js");
+var RENDERER = require("../../scripts/lib/renderer.js");
 
 // Intentionally mirrors scripts/lib/shared-constants.js `slugToRef` so this gate
 // stays dependency-free (importing shared-constants pulls in registry-loading
@@ -28,15 +29,7 @@ test("every non-icon fm- component has a bespoke renderer case (or is allowliste
     fs.readFileSync(PATHS.components.registries.fmkit, "utf8"),
   );
   var src = fs.readFileSync(
-    path.join(
-      __dirname,
-      "..",
-      "..",
-      "scripts",
-      "renderers",
-      "html-renderers",
-      "fm-html-map.js",
-    ),
+    RENDERER.modulePath("html-renderers/fm-html-map.js"),
     "utf8",
   );
   var cases = new Set();
@@ -59,7 +52,7 @@ test("every non-icon fm- component has a bespoke renderer case (or is allowliste
 });
 
 test("the default fallback never emits a raw [ref] token", function () {
-  var fmMap = require("../../scripts/renderers/html-renderers/fm-html-map.js");
+  var fmMap = RENDERER.fmHtmlMap;
   var html = fmMap.renderFMComponent({
     type: "INSTANCE",
     ref: "fmAcademicCap",

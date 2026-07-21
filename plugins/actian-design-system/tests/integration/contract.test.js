@@ -30,6 +30,7 @@ var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var SCRIPTS_DIR = path.join(PLUGIN_ROOT, "scripts");
 var RENDERERS_DIR = path.join(SCRIPTS_DIR, "renderers", "html-renderers");
 var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
+var RENDERER = require(path.join(SCRIPTS_DIR, "lib", "renderer.js"));
 
 // ---------------------------------------------------------------------------
 // Part 1: CLI command contracts
@@ -155,14 +156,14 @@ describe("Contract Tests", function () {
       flow: {
         css: path.join(RENDERERS_DIR, "flow-renderer.css"),
         renderers: [
-          path.join(RENDERERS_DIR, "fm-html-map.js"),
+          RENDERER.modulePath("html-renderers/fm-html-map.js"),
           path.join(RENDERERS_DIR, "flow-renderer.js"),
         ],
       },
       brief: {
         css: path.join(RENDERERS_DIR, "brief-renderer.css"),
         renderers: [
-          path.join(RENDERERS_DIR, "fm-html-map.js"),
+          RENDERER.modulePath("html-renderers/fm-html-map.js"),
           path.join(RENDERERS_DIR, "brief-renderer.js"),
         ],
       },

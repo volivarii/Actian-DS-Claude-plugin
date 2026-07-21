@@ -1,13 +1,15 @@
 # Component-node seam contract
 
-> **Renderer relocation phase 2 (2026-07-20).** The hi-fi DS tier no longer
-> lives here. `ds-html-map.js`, `ds-base.css`, `ds-fonts.css`,
-> `anatomy-variant-key.js` and the appearance/anatomy interpreters moved to the
-> knowledge repo (`components/render/renderer/`) and are vendored back; the
-> plugin reaches them through `scripts/lib/renderer.js` and keeps no copy.
-> Paths named below for the DS tier are historical. What stays in this
-> directory is the fatmarker tier (`fm-html-map.js`), the structural renderers
-> (`render-node.js`, `flow-renderer.js`), and the Figma twin emitter.
+> **Renderer relocation phase 2 (2026-07-20) + fm relocation (2026-07-21).**
+> Neither the hi-fi DS tier nor the lo-fi fatmarker tier lives here anymore.
+> `ds-html-map.js`, `ds-base.css`, `ds-fonts.css`, `anatomy-variant-key.js`,
+> `fm-html-map.js`, `fm-base.css`, and the appearance/anatomy interpreters
+> moved to the knowledge repo (`components/render/renderer/`) and are
+> vendored back; the plugin reaches them through `scripts/lib/renderer.js`
+> and keeps no copy of either tier. Paths named below for both tiers are
+> historical. What stays in this directory is the structural renderers
+> (`render-node.js`, `flow-renderer.js`, `brief-renderer.js`,
+> `presentation-renderer.js`) and the Figma twin emitter.
 
 
 The render pipeline is one **tier-agnostic component-node spec** consumed by

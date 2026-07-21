@@ -14,7 +14,6 @@ var RDIR = path.join(
   "html-renderers",
 );
 var CSS_FILES = [
-  "fm-base.css",
   "flow-renderer.css",
   "brief-renderer.css",
   "presentation-renderer.css",
@@ -22,16 +21,17 @@ var CSS_FILES = [
 ].map(function (f) {
   return path.join(RDIR, f);
 });
-// hi-fi DS tier — 100% --zen-* bound; gated here so any drift is caught. Lives
-// in the vendored renderer since relocation phase 2.
+// hi-fi DS tier + fm tier - both 100% self-contained CSS, gated here so any
+// drift is caught. Both live in the vendored renderer (ds since relocation
+// phase 2, fm since the fm relocation).
 CSS_FILES.push(require("../../scripts/lib/renderer.js").cssPaths.base);
+CSS_FILES.push(require("../../scripts/lib/renderer.js").cssPaths.fmBase);
 
 // Renderer JS also hand-writes inline `var(--…)` (e.g. brief-renderer SVG/style
 // strings). The spec called for the gate to cover renderer CSS *and JS*; JS only
 // REFERENCES vars (it never DEFINES them), so these are scanned for references
 // against the CSS+tokens `defined` set.
 var JS_FILES = [
-  "fm-html-map.js",
   "flow-renderer.js",
   "presentation-renderer.js",
   "brief-renderer.js",
@@ -40,11 +40,17 @@ var JS_FILES = [
 ].map(function (f) {
   return path.join(RDIR, f);
 });
-// hi-fi DS interpreter — scanned for any inline var(--…) references. Vendored
-// since renderer-relocation phase 2.
+// hi-fi DS interpreter + fm interpreter - scanned for any inline var(--…)
+// references. Both vendored (ds since relocation phase 2, fm since the fm
+// relocation).
 JS_FILES.push(
   require("../../scripts/lib/renderer.js").modulePath(
     "html-renderers/ds-html-map.js",
+  ),
+);
+JS_FILES.push(
+  require("../../scripts/lib/renderer.js").modulePath(
+    "html-renderers/fm-html-map.js",
   ),
 );
 

@@ -7,7 +7,8 @@
 
   var fmMap =
     (typeof window !== "undefined" && window.fmHtmlMap) ||
-    (typeof require !== "undefined" && require("./fm-html-map")) ||
+    (typeof require !== "undefined" &&
+      require("../../lib/renderer.js").fmHtmlMap) ||
     {};
   var esc =
     fmMap.esc ||

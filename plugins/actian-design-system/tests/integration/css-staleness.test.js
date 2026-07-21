@@ -108,10 +108,10 @@ var PAIRS = [
     js: [
       path.join(RENDERERS_DIR, "flow-renderer.js"),
       path.join(RENDERERS_DIR, "render-node.js"),
-      path.join(RENDERERS_DIR, "fm-html-map.js"),
+      RENDERER.modulePath("html-renderers/fm-html-map.js"),
     ],
     css: [
-      path.join(RENDERERS_DIR, "fm-base.css"),
+      RENDERER.cssPaths.fmBase,
       path.join(RENDERERS_DIR, "render-node.css"),
       path.join(RENDERERS_DIR, "flow-renderer.css"),
     ],
@@ -120,10 +120,10 @@ var PAIRS = [
     name: "Brief",
     js: [
       path.join(RENDERERS_DIR, "brief-renderer.js"),
-      path.join(RENDERERS_DIR, "fm-html-map.js"),
+      RENDERER.modulePath("html-renderers/fm-html-map.js"),
     ],
     css: [
-      path.join(RENDERERS_DIR, "fm-base.css"),
+      RENDERER.cssPaths.fmBase,
       path.join(RENDERERS_DIR, "brief-renderer.css"),
     ],
   },

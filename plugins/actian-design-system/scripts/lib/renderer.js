@@ -1,24 +1,32 @@
 "use strict";
 
 /**
- * renderer.js — the single accessor for the vendored DS component renderer.
+ * renderer.js — the single accessor for the vendored DS component renderer
+ * and the vendored Fat Marker (fm) renderer.
  *
- * Knowledge owns the ONE renderer (components/render/renderer/); the plugin
- * vendors it and requires it directly, the same way scripts/lib/paths.js
+ * Knowledge owns both renderers (components/render/renderer/); the plugin
+ * vendors them and requires them directly, the same way scripts/lib/paths.js
  * requires vendor/clients/resolve-paths.js. There is deliberately NO
- * plugin-local copy and therefore no drift-guard: read-only runtime code
- * refreshed on every vendor pull has nothing to drift from, and the plugin's
- * old copy already differed from knowledge's on 4 of 9 files (knowledge moved
- * ahead in relocation phases 1a/1b), so a byte-identity guard could never have
- * been armed.
+ * plugin-local copy of either tier and therefore no drift-guard: read-only
+ * runtime code refreshed on every vendor pull has nothing to drift from, and
+ * the plugin's old ds-tier copy already differed from knowledge's on 4 of 9
+ * files (knowledge moved ahead in relocation phases 1a/1b), so a byte-
+ * identity guard could never have been armed.
  *
- * This file is the ONLY place that knows the renderer is vendored. Every
- * consumer goes through it, which keeps
+ * This file is the ONLY place that knows the renderer (either tier) is
+ * vendored. Every consumer goes through it, which keeps
  * tests/integration/no-bare-vendor-paths.test.js satisfied by construction
- * instead of allowlisting a dozen call sites.
+ * instead of allowlisting a dozen call sites, and is what makes the absence-
+ * enforcement in tests/integration/no-vendored-renderer-copy.test.js's
+ * FORBIDDEN list possible for both tiers.
  *
- * Renderer relocation phase 2. Spec:
+ * DS tier (dsHtmlMap, cssPaths.base, cssPaths.fonts): renderer relocation
+ * phase 2. Spec:
  * docs/superpowers/specs/2026-07-17-renderer-relocation-one-owner-design.md
+ *
+ * fm tier (fmHtmlMap, cssPaths.fmBase): fm-relocation Phase B (tasks 3-6).
+ * Spec (sibling knowledge repo):
+ * docs/superpowers/specs/2026-07-21-fm-relocation-design.md
  */
 
 var fs = require("fs");
@@ -40,6 +48,7 @@ function modulePath(relPath) {
 }
 
 var dsHtmlMap = require(modulePath("html-renderers/ds-html-map.js"));
+var fmHtmlMap = require(modulePath("html-renderers/fm-html-map.js"));
 var dsAnatomyMap = require(modulePath("ds-anatomy-map.js"));
 var appearanceRender = require(modulePath("appearance-render.js"));
 var appearanceStyle = require(modulePath("appearance-style.js"));
@@ -245,6 +254,7 @@ var boundDsAnatomyMap = Object.assign({}, dsAnatomyMap, {
 
 module.exports = {
   dsHtmlMap: dsHtmlMap,
+  fmHtmlMap: fmHtmlMap,
   dsAnatomyMap: boundDsAnatomyMap,
   appearanceRender: appearanceRender,
   appearanceStyle: appearanceStyle,
@@ -258,6 +268,7 @@ module.exports = {
   cssPaths: {
     fonts: modulePath("ds-fonts.css"),
     base: modulePath("ds-base.css"),
+    fmBase: modulePath("fm-base.css"),
   },
   modulePath: modulePath,
 };

@@ -67,7 +67,7 @@ const mockDocument = {
   },
 };
 
-const fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
+const fmHtmlMap = require("../../scripts/lib/renderer.js").fmHtmlMap;
 const mockWindow = { fmHtmlMap: fmHtmlMap };
 
 new Function("window", "document", rendererCode)(mockWindow, mockDocument);

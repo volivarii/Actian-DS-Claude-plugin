@@ -78,15 +78,15 @@ function buildDsIconsScript() {
 // Flow CSS list (single source of truth — shared by flow preview + flow-share)
 // ---------------------------------------------------------------------------
 
-// Two roots since renderer-relocation phase 2: ds-fonts.css and ds-base.css are
-// the styling source KNOWLEDGE owns (vendored back); the other three are the
-// plugin's own flow chrome. Cascade order is functional, not cosmetic: fonts
-// first, then the plugin chrome, then the DS leaf styles last so component
-// rules win. Do not reorder when editing.
+// Three roots since the fm relocation: ds-fonts.css, fm-base.css, and
+// ds-base.css are the styling source KNOWLEDGE owns (vendored back); the
+// other two are the plugin's own flow chrome. Cascade order is functional,
+// not cosmetic: fonts first, then the plugin chrome, then the DS leaf styles
+// last so component rules win. Do not reorder when editing.
 var rendererCss = require("../lib/renderer.js").cssPaths;
 var FLOW_CSS = [
   rendererCss.fonts, // embedded woff2 faces (offline) — MUST precede any use.
-  path.join(RENDERERS_DIR, "fm-base.css"),
+  rendererCss.fmBase,
   path.join(RENDERERS_DIR, "render-node.css"),
   path.join(RENDERERS_DIR, "flow-renderer.css"),
   rendererCss.base, // hi-fi DS tier; inert for lo-fi (only styles .ds-*).
