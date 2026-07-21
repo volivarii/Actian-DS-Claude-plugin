@@ -19,6 +19,9 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+- **The plugin's own generated output now shows real artwork for empty-state and the app header logo**, instead of an empty illustration slot or an empty header span. (_PR link added at open_) Knowledge shipped a color-preserving graphics tier at v0.34.112 ([actian-ds-knowledge#454](https://github.com/volivarii/actian-ds-knowledge/pull/454)), with a `setGraphics` seam on the vendored renderer mirroring the existing `setIcons` seam. That seam vendored in but nothing called it, so every `renderGraphic()` call silently returned an empty string and rendered blank, the same silent-failure shape the icon and anatomy injections already guard against. `scripts/lib/renderer.js` now reads the vendored `graphics.json` and calls `setGraphics()` once at module load, asserting its shape loudly rather than defaulting on a mismatch. Three new smoke tests mirror the existing icon-injection gates and are mutation-verified.
+
 ### Removed
 - **`capture-seed.js` and its test** (renderer-relocation phase 3). ([#260](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/260)) It captured the plugin's rendered
   components into the 35 frozen seed files that knowledge used to build its gallery from. Knowledge

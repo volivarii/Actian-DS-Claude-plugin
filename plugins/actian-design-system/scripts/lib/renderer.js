@@ -98,6 +98,51 @@ if (typeof dsHtmlMap.setIcons !== "function") {
 }
 dsHtmlMap.setIcons(icons);
 
+// --- Graphics injection -----------------------------------------------------
+// Same silent-failure shape as the icon injection above: renderGraphic()
+// resolves artwork via an injected module-level map (setGraphics), not a
+// require, so an unwired injection means every graphic renders BLANK with no
+// error (renderGraphic returns '' for an unresolved slug by design, same
+// contract as renderIcon). Knowledge added the setGraphics seam alongside
+// setIcons in the graphics-tier slice (v0.34.112, actian-ds-knowledge#454).
+//
+// Same deliberate deviation as icons: the seam's documented contract wants a
+// reset (setGraphics(null)) after each render, aimed at knowledge's derive,
+// which renders many slugs in one process. The plugin injects ONE
+// process-wide map that is the correct answer for every render, so the
+// injection is permanent by design; do not add a reset.
+//
+// Shape is asserted, NOT defaulted, for the same reason as icons: graphics.json
+// is {_schema_version, _meta, graphics}, and the map the renderer wants is the
+// inner .graphics. Falling back to the whole file would hand over an object
+// with no graphic entries, and renderGraphic silently blanks on a miss, which
+// is the exact failure this injection exists to prevent.
+var graphicsFile = JSON.parse(
+  fs.readFileSync(PATHS.components.graphics.svg, "utf8"),
+);
+var graphics = graphicsFile.graphics;
+if (
+  !graphics ||
+  typeof graphics !== "object" ||
+  Object.keys(graphics).length === 0
+) {
+  throw new Error(
+    "renderer.js: graphics.json has no usable '.graphics' map (found keys: " +
+      Object.keys(graphicsFile).join(", ") +
+      "). Passing the wrong shape to setGraphics blanks every graphic " +
+      "silently, so this fails loudly instead.",
+  );
+}
+
+if (typeof dsHtmlMap.setGraphics !== "function") {
+  throw new Error(
+    "renderer.js: the vendored ds-html-map has no setGraphics seam. The " +
+      "vendor snapshot predates the graphics-tier slice (v0.34.112); " +
+      "refresh the vendor.",
+  );
+}
+dsHtmlMap.setGraphics(graphics);
+
 // --- Anatomy loader injection ---------------------------------------------
 // The SAME silent-failure shape as the icon injection above, and the one that
 // actually bit during the Task 6 repoint. The vendored anatomy-render.js and
@@ -209,6 +254,7 @@ module.exports = {
   anatomyVariantKey: anatomyVariantKey,
   defaultProps: defaultProps,
   icons: icons,
+  graphics: graphics,
   cssPaths: {
     fonts: modulePath("ds-fonts.css"),
     base: modulePath("ds-base.css"),

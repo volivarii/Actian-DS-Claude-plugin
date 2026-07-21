@@ -141,7 +141,11 @@ test("the tag/checkbox divergence is closed in the plugin's own renderer", funct
 
 test("the styling source is the vendored one and carries the phase-1b rules", function () {
   var css = fs.readFileSync(renderer.cssPaths.base, "utf8");
-  assert.match(css, /\.ds-tag--pink/, "ds-base.css missing the tag colour rules");
+  assert.match(
+    css,
+    /\.ds-tag--pink/,
+    "ds-base.css missing the tag colour rules",
+  );
   assert.match(
     css,
     /\.ds-checkbox--indeterminate/,
@@ -166,6 +170,48 @@ test("the icon map is the inner .icons, not the whole file", function () {
     !Object.prototype.hasOwnProperty.call(renderer.icons, "_meta"),
     "icon map still has the file wrapper's _meta key, so the whole file was " +
       "passed instead of the inner .icons map",
+  );
+});
+
+// THE GATE for graphics, mirroring the icon gate above. Without the
+// injection, renderGraphic() returns '' for every slug (same silent-blank
+// contract as renderIcon), and empty-state "works" (still emits its
+// container, headline, body, and buttons) with no error anywhere else in
+// the suite.
+test("graphics are injected: empty-state emits real artwork path geometry", function () {
+  var html = render("empty-state", firstCell("empty-state"));
+  assertNotGracefulChip(html, "empty-state");
+  assert.match(html, /class="ds-graphic"/, "no ds-graphic svg in the output");
+  var paths = html.match(/ d="M[^"]{20,}"/g) || [];
+  assert.ok(
+    paths.length > 0,
+    "no substantial svg path data in the output: the illustration degraded " +
+      "to blank, which means the setGraphics injection is not wired",
+  );
+});
+
+test("the graphics map is non-empty and matches the vendored source", function () {
+  var count = Object.keys(renderer.graphics).length;
+  assert.ok(count > 0, "expected a populated graphics map, got " + count);
+});
+
+test("the graphics map is the inner .graphics, not the whole file", function () {
+  // Guards the shape assertion in renderer.js, same reasoning as the icon
+  // counterpart above: passing the whole graphics.json ({_schema_version,
+  // _meta, graphics}) yields a map with no graphic entries, and
+  // renderGraphic returns '' for an unknown slug without throwing, so every
+  // graphic would blank silently.
+  var sample = Object.keys(renderer.graphics)[0];
+  assert.ok(sample, "graphics map is empty");
+  assert.ok(
+    renderer.graphics[sample].viewBox && renderer.graphics[sample].body,
+    "graphics entries must carry viewBox + body; got " +
+      JSON.stringify(Object.keys(renderer.graphics[sample] || {})),
+  );
+  assert.ok(
+    !Object.prototype.hasOwnProperty.call(renderer.graphics, "_meta"),
+    "graphics map still has the file wrapper's _meta key, so the whole " +
+      "file was passed instead of the inner .graphics map",
   );
 });
 
