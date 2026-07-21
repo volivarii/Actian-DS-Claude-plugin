@@ -164,6 +164,24 @@ var MATRIX_OVERRIDES = {
   ].map(function (c) {
     return { label: c, variant: "Color=" + c, props: { Label: c } };
   }),
+
+  // Size is a secondary axis (filtered by isSecondaryAxis), so the generic
+  // derivation falls back to a single bare cell with no props. Curate one
+  // representative rich cell instead: default illustration, title, body, and
+  // both the tertiary + primary actions, so the gallery shows the component
+  // as designed rather than the stub default.
+  "empty-state": [
+    {
+      label: "Default",
+      variant: "Size=Large",
+      props: {
+        Headline: "No policies available",
+        Body: "Create policies to define how your platform operates.",
+        Cta: "Create policy",
+        Secondary: "Learn more",
+      },
+    },
+  ],
 };
 
 function variantMatrix(slug) {

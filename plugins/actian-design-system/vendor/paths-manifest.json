@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.111",
+  "knowledge_version": "0.34.113",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -145,6 +145,19 @@
       "type": "json",
       "origin": "human",
       "description": "Page clean-name -> canonical category overrides plus a staging-exclude list, consumed by scripts/transformers/transform-categories.js during the Figma sync when a page's own name does not encode its category (a WIP-renamed or self-hosting icons page). Applied first in inferCategoryMap; self-retiring after the Figma pages are reorganized and a re-sync restores the category. Provenance manual-override."
+    },
+    "components.graphics.src": {
+      "path": "components/src/graphics-svg.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Curated artwork SVG ({viewBox, body} per slug) layered over the Figma auto-export. Color-preserving (multicolor + gradients kept), unlike the monochrome icons source. Source for components.graphics.svg."
+    },
+    "components.graphics.svg": {
+      "path": "components/dist/graphics/graphics.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graphics/derive-graphics-svg.js",
+      "description": "Derived artwork read-surface: per-slug {viewBox, body}. Embedded by renderGraphic() in the render tier for illustrations and product logos. Separate namespace from icons.json to avoid the icon-vs-component slug collision."
     },
     "components.guidelineDoc.alert-banner": {
       "path": "components/dist/guidelines/alert-banner.json",
@@ -864,6 +877,13 @@
       "type": "json",
       "origin": "ci",
       "description": "Per-category defaults (Phase 2 v2). 6 categories: action, form-input-selection, navigation, data-display, feedback, overlays. See also bundle entry components.categoryDefaults.bundle for the roll-up. Renamed from components.categoryDefaults in v0.5.1 to honor leaf-XOR-namespace manifest convention."
+    },
+    "components.graphics.dist": {
+      "dir": "components/dist/graphics",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "ci",
+      "description": "The graphics dist directory: the derived graphics.json read-surface plus graphics.degraded.json (the worklist of artwork the export could not ship, reasons: raster-backed, empty, bad-viewbox, render-failed, node-missing). A collection so the worklist is covered without pre-existing on a clean checkout."
     },
     "components.guidelineDoc.byKey": {
       "dir": "components/dist/guidelines",

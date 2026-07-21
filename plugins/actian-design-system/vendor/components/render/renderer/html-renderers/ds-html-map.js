@@ -104,6 +104,28 @@
     injectedIcons = map || null;
   }
 
+  // Artwork tier (graphics.json) injection, mirroring the dsIcons seam above. The
+  // module-level default cannot resolve from a vendored layout, so a consumer
+  // injects the map (knowledge's derive, and the plugin via its accessor). A bare
+  // <svg class="ds-graphic"> so render.css can size it; unknown slug -> "" (never
+  // throws), same contract as renderIcon.
+  var injectedGraphics = null;
+  function setGraphics(map) {
+    injectedGraphics = map || null;
+  }
+  function renderGraphic(slug) {
+    var source = injectedGraphics || {};
+    var g = source && source[slug];
+    if (!g || !g.viewBox || !g.body) return "";
+    return (
+      '<svg class="ds-graphic" viewBox="' +
+      esc(g.viewBox) +
+      '" aria-hidden="true">' +
+      g.body +
+      "</svg>"
+    );
+  }
+
   // renderIcon(slug, {rotate}) -> bare <svg> carrying the ds-icon base class
   // (plus ds-icon--rotN when rotated). Unknown slug -> '' (never throws; the
   // orphan-ref gate prevents shipping one).
@@ -522,7 +544,9 @@
           // Left brand block: logo mark + app name label.
           var brandBlock =
             '<div class="ds-header__brand">' +
-            '<span class="ds-header__logo" aria-hidden="true"></span>' +
+            '<span class="ds-header__logo" aria-hidden="true">' +
+            renderGraphic(props.Logo || "actian-pyramid") +
+            "</span>" +
             '<span class="ds-header__app">' +
             headerApp +
             "</span>" +
@@ -900,23 +924,39 @@
         }
 
         case "empty-state": {
-          var esHeadline = esc(props.Headline || "Nothing here yet");
-          var esBody = props.Body
-            ? '<p class="ds-empty-state__body">' + esc(props.Body) + "</p>"
-            : "";
-          var esCta = props.Cta
-            ? '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
-              esc(props.Cta) +
-              "</button>"
-            : "";
+          var esIllus = renderGraphic(
+            props.Illustration || "illustration-empty-state",
+          );
+          var esTitle = esc(
+            props.Headline || props.Title || "No policies available",
+          );
+          var esBody = esc(
+            props.Body ||
+              "Create policies to define how your platform operates.",
+          );
+          var esPrimary = esc(props.Cta || props.Primary || "Create policy");
+          var esTertiary = esc(props.Secondary || "Learn more");
           return (
             '<div class="ds-empty-state">' +
+            (esIllus
+              ? '<div class="ds-empty-state__illustration">' +
+                esIllus +
+                "</div>"
+              : "") +
             '<p class="ds-empty-state__headline">' +
-            esHeadline +
+            esTitle +
             "</p>" +
+            '<p class="ds-empty-state__body">' +
             esBody +
-            esCta +
-            "</div>"
+            "</p>" +
+            '<div class="ds-empty-state__actions">' +
+            '<button class="ds-button ds-button--tertiary ds-empty-state__cta">' +
+            esTertiary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
+            esPrimary +
+            "</button>" +
+            "</div></div>"
           );
         }
 
@@ -1796,6 +1836,8 @@
   exports.setVariantStyleMap = setVariantStyleMap;
   exports.renderIcon = renderIcon;
   exports.setIcons = setIcons;
+  exports.renderGraphic = renderGraphic;
+  exports.setGraphics = setGraphics;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
   exports.normalizeProps = normalizeProps;
