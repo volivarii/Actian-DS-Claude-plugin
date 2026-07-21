@@ -29,6 +29,8 @@ var FORBIDDEN = [
   "scripts/renderers/html-renderers/ds-base.css",
   "scripts/renderers/html-renderers/ds-fonts.css",
   "scripts/fidelity/default-props.json",
+  "scripts/renderers/html-renderers/fm-html-map.js",
+  "scripts/renderers/html-renderers/fm-base.css",
 ];
 
 test("the plugin holds no local copy of the vendored renderer", function () {
