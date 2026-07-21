@@ -3,7 +3,7 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
-var fm = require("../../scripts/renderers/html-renderers/fm-html-map.js");
+var fm = require("../../scripts/lib/renderer.js").fmHtmlMap;
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 var dsAnatomyMap = require("../../scripts/lib/renderer.js").dsAnatomyMap;
 
