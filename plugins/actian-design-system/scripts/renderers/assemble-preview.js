@@ -50,7 +50,7 @@ var TYPE_CONFIGS = {
   flow: {
     css: shared.FLOW_CSS,
     renderers: [
-      path.join(RENDERERS_DIR, "fm-html-map.js"),
+      rendererModule.modulePath("html-renderers/fm-html-map.js"),
       // appearance-style.js / appearance-render.js (Phase 1B) must load
       // BEFORE ds-html-map.js — dependency order: style -> render -> map —
       // so window.appearanceStyle / window.appearanceRender exist when
@@ -79,11 +79,11 @@ var TYPE_CONFIGS = {
   },
   brief: {
     css: [
-      path.join(RENDERERS_DIR, "fm-base.css"),
+      rendererModule.modulePath("fm-base.css"),
       path.join(RENDERERS_DIR, "brief-renderer.css"),
     ],
     renderers: [
-      path.join(RENDERERS_DIR, "fm-html-map.js"),
+      rendererModule.modulePath("html-renderers/fm-html-map.js"),
       // renderTableHtml UMD must load BEFORE brief-renderer.js so the IIFE
       // can pick it up via window.renderTableHtml during card rendering.
       path.join(FIGMA_TABLE_DIR, "render-html.js"),

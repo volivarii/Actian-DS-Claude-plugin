@@ -26,7 +26,7 @@
 var path = require("path");
 var PATHS = require("../lib/paths");
 var shared = require("./assemble-shared");
-var esc = require("./html-renderers/fm-html-map.js").esc;
+var esc = require("../lib/renderer.js").fmHtmlMap.esc;
 
 var readFileChecked = shared.readFileChecked;
 var FLOW_CSS = shared.FLOW_CSS;
