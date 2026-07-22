@@ -3,7 +3,7 @@
   "knowledge_repo_version_range": "<1.0.0",
   "knowledge_repo_resolved_version": "v0.34.114",
   "knowledge_repo_resolved_sha": "aae0e015087016aa34e0d354ee5f558897cc81c1",
-  "vendored_at": "2026-07-21T18:33:27.301Z",
+  "vendored_at": "2026-07-22T11:05:43.453Z",
   "vendored_entries": [
     "ARCHITECTURE.md",
     "CONSUMING.md",
