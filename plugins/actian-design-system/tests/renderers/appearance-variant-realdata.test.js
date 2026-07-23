@@ -77,7 +77,11 @@ function findMatchableVariantPick(node) {
       if (!entry.values.length) continue;
       var deltaValue = pickDeltaValue(entry);
       if (deltaValue) {
-        return { prop: entry.prop, value: entry.values[0], deltaValue: deltaValue };
+        return {
+          prop: entry.prop,
+          value: entry.values[0],
+          deltaValue: deltaValue,
+        };
       }
     }
   }
@@ -113,14 +117,21 @@ function variantString(obj) {
     .join(", ");
 }
 
-// Real observed floor: 19 vendored non-BUILT_SLUGS docs carry variants[] data
-// anywhere in their tree; 18 of them have at least one matchable (non-null)
-// delta today (the 19th, lineage-grouped-node, has only a `border: null`
-// removal delta on its sole variants[] entry — a genuine structural-only
-// case, counted via the skip path below, not padded into the floor). Set at
-// the real number, not a rounder/looser one, so a real regression in
-// variant-matching or the deep-merge fails this immediately.
-var MIN_EXERCISED = 18;
+// Every candidate that has a matchable delta must be exercised — expressed
+// against the live population rather than as a fixed count.
+//
+// This was `MIN_EXERCISED = 18`, "the real number, not a rounder/looser one",
+// from when 19 non-BUILT_SLUGS docs carried variants[] data and 18 had a
+// matchable (non-null) delta. The per-slug assertions below are the real
+// checks; the count only proves the loop had subjects rather than skipping
+// everything. Gray-box-to-zero keeps converting these docs into BUILT slugs
+// (knowledge #472 left 8 candidates), so a fixed 18 now fails while all 8
+// remaining candidates verify correctly.
+//
+// candidateCount - skippedStructuralOnly is exactly what the original comment
+// meant by "the real number": every candidate carrying something literal to
+// match. It stays exact as the population shrinks, and it is stricter than a
+// floor because it tolerates no unexplained shortfall at all.
 
 test("appearance variant deltas resolve correctly on real vendored data (non-default variant)", function () {
   var slugFiles = fs.readdirSync(ANATOMY_DIR).filter(function (f) {
@@ -197,12 +208,20 @@ test("appearance variant deltas resolve correctly on real vendored data (non-def
     ds.setAnatomyDocMap(null);
   }
 
+  // A zero population would make the equality below hold trivially (0 === 0),
+  // so assert the loop actually had subjects. When gray-box-to-zero finishes
+  // this fires and this test needs retiring, which is a decision, not a pass.
   assert.ok(
-    exercised >= MIN_EXERCISED,
-    "expected at least " +
-      MIN_EXERCISED +
-      " non-BUILT_SLUGS docs with real variant deltas to render + verify " +
-      "correctly, got " +
+    candidateCount > 0,
+    "no non-BUILT_SLUGS docs carry variants[] data any more — this test has " +
+      "no subject left; retire or repoint it rather than letting it pass " +
+      "against an empty population",
+  );
+  assert.strictEqual(
+    exercised,
+    candidateCount - skippedStructuralOnly.length,
+    "every non-BUILT_SLUGS doc with a matchable variant delta must render + " +
+      "verify correctly, got " +
       exercised +
       " (candidates with variants[] data: " +
       candidateCount +

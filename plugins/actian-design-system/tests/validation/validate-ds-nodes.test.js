@@ -3,8 +3,8 @@
 
 // Task 3: DS-node validation tests
 // Covers unknown-ds-slug (hard error) + ds-slug-unbuilt (warning) + known-built (clean).
-// Warning-tier slug used: "avatar" — present in the vendored dskit registry,
-// not in BUILT_SLUGS (ds-html-map.js switch has no "avatar" case).
+// Warning-tier slug is resolved at run time from the vendored dskit registry
+// (present there, carrying anatomy, absent from BUILT_SLUGS).
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -13,6 +13,20 @@ var path = require("path");
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var validate = require(
   path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js"),
+);
+var PATHS = require(path.join(PLUGIN_ROOT, "scripts", "lib", "paths.js"));
+var ds = require(
+  path.join(PLUGIN_ROOT, "scripts", "lib", "renderer.js"),
+).dsHtmlMap;
+var { pickUnbuiltRegistrySlug } = require("../helpers/appearance-specimen.js");
+
+// Authorable-but-unbuilt specimen, resolved at run time. Hardcoding it means
+// re-pointing this test on every gray-box slice: it named "tooltip" until
+// Hi-Fi Slice 1 built tooltip, then "avatar" until knowledge #472 built that
+// too. The warning tier is the subject, not any particular slug.
+var UNBUILT_SLUG = pickUnbuiltRegistrySlug(
+  ds.BUILT_SLUGS,
+  PATHS.components.registries.dskit,
 );
 
 // Minimal valid flow fixture that passes all other checks:
@@ -97,13 +111,12 @@ describe("validate-ds-nodes: unknown-ds-slug", function () {
 
 // ---------------------------------------------------------------------------
 // Test 2: authorable-but-unbuilt dsSlug → WARNING (not an error)
-// Slug: "avatar" — confirmed in vendored dskit.json, not in BUILT_SLUGS.
-// (Was "tooltip" until Hi-Fi Slice 1 Task 4 promoted tooltip to a built leaf;
-//  swapped to a still-unbuilt registry slug to keep covering the warning tier.)
+// Specimen resolved at run time (see UNBUILT_SLUG above): present in the
+// vendored dskit registry, carrying anatomy, and absent from BUILT_SLUGS.
 // ---------------------------------------------------------------------------
-describe("validate-ds-nodes: ds-slug-unbuilt (avatar)", function () {
-  it("flags avatar with kind=ds-slug-unbuilt, severity=warning", function () {
-    var data = flowWith(dsNode("avatar"));
+describe("validate-ds-nodes: ds-slug-unbuilt", function () {
+  it("flags the unbuilt slug with kind=ds-slug-unbuilt, severity=warning", function () {
+    var data = flowWith(dsNode(UNBUILT_SLUG));
     var result = validate.validate(data, QUIET);
     var warns = result.findings.filter(function (f) {
       return f.kind === "ds-slug-unbuilt";
@@ -111,13 +124,13 @@ describe("validate-ds-nodes: ds-slug-unbuilt (avatar)", function () {
     assert.strictEqual(
       warns.length,
       1,
-      "expected exactly one ds-slug-unbuilt finding for avatar",
+      "expected exactly one ds-slug-unbuilt finding for " + UNBUILT_SLUG,
     );
     assert.strictEqual(warns[0].severity, "warning");
   });
 
-  it("avatar does NOT produce an error finding", function () {
-    var data = flowWith(dsNode("avatar"));
+  it("the unbuilt slug does NOT produce an error finding", function () {
+    var data = flowWith(dsNode(UNBUILT_SLUG));
     var result = validate.validate(data, QUIET);
     var errs = result.findings.filter(function (f) {
       return f.severity === "error" && f.kind !== "missing-justification";

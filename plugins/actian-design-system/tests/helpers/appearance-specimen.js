@@ -85,7 +85,10 @@ function pickSpecimen(builtSlugs, isUsable) {
 function firstResolvedBackground(node) {
   if (!node || typeof node !== "object") return null;
   var ap = node.appearance || {};
-  if (typeof ap.background === "string" && /^#[0-9a-fA-F]{3,8}$/.test(ap.background)) {
+  if (
+    typeof ap.background === "string" &&
+    /^#[0-9a-fA-F]{3,8}$/.test(ap.background)
+  ) {
     return ap.background;
   }
   var kids = node.children || [];
@@ -96,10 +99,37 @@ function firstResolvedBackground(node) {
   return null;
 }
 
+// A slug that is authorable (present in the vendored dskit registry) but has
+// no BUILT leaf, i.e. one that must still raise the ds-slug-unbuilt warning
+// tier. Same churn story as pickSpecimen: the validation test hardcoded
+// "tooltip", was hand-repointed to "avatar" when tooltip was built, and #472
+// built avatar too. Deterministic (sorted) so the chosen slug is stable.
+function pickUnbuiltRegistrySlug(builtSlugs, registryPath) {
+  var registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
+  var components = registry.components || registry;
+  // Intersect with the anatomy-backed set rather than walking raw registry
+  // keys: dskit also carries the ~200 icon entries, which are not authorable
+  // as DS component nodes and would be a bogus specimen for the warning tier.
+  var candidates = nonBuiltSlugs(builtSlugs)
+    .filter(function (slug) {
+      return slug in components;
+    })
+    .sort();
+  if (!candidates.length) {
+    throw new Error(
+      "every registry slug now has a BUILT leaf — the ds-slug-unbuilt warning " +
+        "tier has no subject left; retire or repoint that test rather than " +
+        "letting it assert against nothing",
+    );
+  }
+  return candidates[0];
+}
+
 module.exports = {
   ANATOMY_DIR: ANATOMY_DIR,
   loadAnatomyDocs: loadAnatomyDocs,
   nonBuiltSlugs: nonBuiltSlugs,
   pickSpecimen: pickSpecimen,
   firstResolvedBackground: firstResolvedBackground,
+  pickUnbuiltRegistrySlug: pickUnbuiltRegistrySlug,
 };
