@@ -138,12 +138,12 @@ describe("validate-ds-nodes: ds-slug-unbuilt", function () {
     assert.strictEqual(
       errs.length,
       0,
-      "avatar is in registry so must not produce any error",
+      UNBUILT_SLUG + " is in the registry so must not produce any error",
     );
   });
 
-  it("avatar does NOT trigger unknown-component", function () {
-    var data = flowWith(dsNode("avatar"));
+  it("the unbuilt slug does NOT trigger unknown-component", function () {
+    var data = flowWith(dsNode(UNBUILT_SLUG));
     var result = validate.validate(data, QUIET);
     var unknownComp = result.findings.filter(function (f) {
       return f.kind === "unknown-component";

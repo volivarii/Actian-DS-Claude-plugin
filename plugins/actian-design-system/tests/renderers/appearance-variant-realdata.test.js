@@ -4,8 +4,9 @@
 // appearance-emit-values-only.test.js, ds-coverage.test.js) only ever renders
 // a component at its captured DEFAULT/base variant — the vendored anatomy
 // doc's own `root.name` (which IS the default variant by construction). Only
-// flow-share-appearance.test.js exercises a single non-default pick
-// (tag-status Status=Success), for one slug.
+// flow-share-appearance.test.js exercises a single non-default pick, for one
+// slug (it named tag-status Status=Success until knowledge #472 built that
+// slug; its specimen is resolved at run time now).
 //
 // That leaves resolveNodeAppearance's variant-MATCH and deep-merge logic
 // (appearance-render.js) — including the C1 fix that deep-merges `border`/
@@ -117,16 +118,25 @@ function variantString(obj) {
     .join(", ");
 }
 
-// Every candidate that has a matchable delta must be exercised — expressed
-// against the live population rather than as a fixed count.
+// Most candidates must be genuinely exercised, as a SHARE of the live
+// population rather than a fixed count.
 //
 // This was `MIN_EXERCISED = 18`, "the real number, not a rounder/looser one",
 // from when 19 non-BUILT_SLUGS docs carried variants[] data and 18 had a
-// matchable (non-null) delta. The per-slug assertions below are the real
-// checks; the count only proves the loop had subjects rather than skipping
-// everything. Gray-box-to-zero keeps converting these docs into BUILT slugs
-// (knowledge #472 left 8 candidates), so a fixed 18 now fails while all 8
-// remaining candidates verify correctly.
+// matchable (non-null) delta. Gray-box-to-zero keeps converting those docs
+// into BUILT slugs (knowledge #472 left 8 candidates), so a fixed 18 fails
+// while all 8 remaining candidates verify correctly.
+//
+// Deliberately NOT `exercised === candidateCount - skippedStructuralOnly`:
+// those three counters are written by one pass of the same loop (a candidate
+// either lands in skippedStructuralOnly or increments exercised, and a failed
+// per-slug assert throws before the tally is read), so that equality holds by
+// construction and can never fail. It would look like a stricter check while
+// being a no-op — in particular it stays true if findMatchableVariantPick
+// regresses and starts misreading real deltas as structural-only, because
+// both counters move together. A share of candidateCount does catch exactly
+// that drift, since skippedStructuralOnly growing pushes the ratio down.
+var MIN_EXERCISED_SHARE = 0.94; // the original 18/19
 //
 // candidateCount - skippedStructuralOnly is exactly what the original comment
 // meant by "the real number": every candidate carrying something literal to
@@ -217,11 +227,13 @@ test("appearance variant deltas resolve correctly on real vendored data (non-def
       "no subject left; retire or repoint it rather than letting it pass " +
       "against an empty population",
   );
-  assert.strictEqual(
-    exercised,
-    candidateCount - skippedStructuralOnly.length,
-    "every non-BUILT_SLUGS doc with a matchable variant delta must render + " +
-      "verify correctly, got " +
+  assert.ok(
+    exercised >= Math.ceil(candidateCount * MIN_EXERCISED_SHARE),
+    "expected at least " +
+      Math.ceil(candidateCount * MIN_EXERCISED_SHARE) +
+      " (" +
+      Math.round(MIN_EXERCISED_SHARE * 100) +
+      "%) of the live candidates to render + verify correctly, got " +
       exercised +
       " (candidates with variants[] data: " +
       candidateCount +

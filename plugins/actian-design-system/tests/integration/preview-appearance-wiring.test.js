@@ -12,7 +12,7 @@
 // flow-renderer.
 //
 // Why this matters: ds-html-map.js's default: case (the seam that handles
-// non-BUILT_SLUGS, non-override slugs like tag-status) reads
+// non-BUILT_SLUGS, non-override slugs) reads
 // window.__dsAnatomyDocs first and calls
 // window.appearanceRender.renderAppearanceComponent(doc, ...). If a future
 // edit drops appearance-render.js from TYPE_CONFIGS.flow, or reorders it

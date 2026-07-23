@@ -23,10 +23,17 @@
 // doc, or it rendered empty) a direct gracefulChip(). There is no
 // anatomy-render.js / legacy slug-to-html anatomy-map fallback in between;
 // that two-hop path was retired in Group C. `data-ds-slug` is present on the
-// appearance output too, so the real unique markers are (1) the literal
-// `#f0ffec` hex value (appearance rendering emits resolved values, never a
-// `var(--...)` token reference) and (2) the `class="ds-appearance"` wrapper
-// class, which only renderAppearanceComponent emits.
+// appearance output too, so the unique marker is the `class="ds-appearance"`
+// wrapper, which only renderAppearanceComponent emits.
+//
+// The colour check is SCOPED to inside that wrapper. Page-wide it would be
+// worthless: the hardcoded specimen used to be tag-status, whose #f0ffec was
+// rare enough that a page-wide search meant something, but a run-time
+// specimen can legitimately resolve to a common colour (today it is
+// bar-graph at #ffffff, which appears 19 times in the assembled page's
+// inlined CSS and survives even a totally broken renderer). Anchoring on the
+// wrapper and asserting the emitted `background:` declaration keeps the
+// assertion about THIS component's render for any specimen.
 //
 // Repo style: node:test + node:assert (see flow-share-anatomy.test.js,
 // flow-share-a1-overrides.test.js).
@@ -76,13 +83,21 @@ function fixture() {
 describe("flow-share: appearance-doc rendering (Phase 1B, Task 6)", function () {
   it("renders the specimen from real vendored appearance, not a graceful chip", function () {
     var html = assembleFlowShare(fixture());
-    // Root background from the specimen's own vendored appearance doc:
+    // Root background from the specimen's own vendored appearance doc, checked
+    // INSIDE the appearance wrapper (see header: page-wide is meaningless).
+    var wrapperIdx = html.indexOf('class="ds-appearance');
     assert.ok(
-      new RegExp(EXPECTED_BG, "i").test(html),
-      "assembled HTML must carry " +
+      wrapperIdx !== -1,
+      "assembled HTML must contain an appearance wrapper for " + SLUG,
+    );
+    var wrapperRegion = html.slice(wrapperIdx, wrapperIdx + 1000);
+    assert.ok(
+      wrapperRegion.indexOf("background:" + EXPECTED_BG) !== -1,
+      "the appearance wrapper must emit " +
         SLUG +
         "'s real vendored root background " +
-        EXPECTED_BG,
+        EXPECTED_BG +
+        " (appearance rendering emits resolved values, never var(--...))",
     );
     assert.strictEqual(
       html.indexOf('data-slug="' + SLUG + '"'),
