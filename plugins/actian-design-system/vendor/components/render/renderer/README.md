@@ -28,7 +28,14 @@ Copied structure-preserving from the plugin, with its `lib/paths` coupling sever
 dependency injection:
 
 - `html-renderers/ds-html-map.js`: the entry point, `renderDSComponent`, plus the
-  injection seams `setIcons`, `setAnatomyDocMap`, and `setVariantStyleMap`.
+  injection seams `setIcons`, `setAnatomyDocMap`, and `setVariantStyleMap`. As of
+  2026-07-22, 6 more slugs joined the hand-authored set from the gray-box reduction
+  program: `digram-item-types`, `digram-topic`, `lineage-individual-node`,
+  `lineage-grouped-node`, `metamodel-widget` (components), and `loader-with-logo`
+  (graphic, composes the existing `loader`). `tests/render/ds-html-map.test.js`
+  covers these 6 directly in knowledge; the other 35 stay covered by the plugin's
+  own `tests/renderers/ds-html-map.test.js` against the vendored copy (a known,
+  intentionally deferred split; see the design spec's Risks section).
 - `appearance-render.js` / `appearance-style.js`: the resolved-appearance interpreter
   (facts to CSS declarations). `appearance-render.js` carries its own injection seams,
   `setIcons` and `setShadowedSlugs` (phase 3): it resolves icons independently of

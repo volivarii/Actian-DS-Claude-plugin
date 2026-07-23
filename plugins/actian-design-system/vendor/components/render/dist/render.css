@@ -893,6 +893,213 @@
   align-self: flex-start;
 }
 
+/* ============ Item type badge (digram-item-types) ============ */
+.ds-item-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--zen-size-lg); /* 24 */
+  height: var(--zen-size-lg); /* 24 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  border-radius: var(--zen-border-radius-full);
+  color: var(--zen-color-text-default);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-semibold);
+  box-sizing: border-box;
+}
+.ds-item-type--small {
+  min-width: var(--zen-size-md); /* 16 */
+  height: var(--zen-size-md);
+  font-size: var(--zen-font-size-xs);
+}
+
+/* ============ Topic badge (digram-topic) ============ */
+.ds-topic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--zen-size-lg); /* 24 */
+  height: var(--zen-size-lg);
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  border-radius: var(--zen-border-radius-full);
+  color: var(--zen-color-text-reverse, #fff);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-semibold);
+  box-sizing: border-box;
+}
+
+/* ============ Lineage individual node (lineage-individual-node) ============ */
+.ds-lineage-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4 8 */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-lineage-node--sub {
+  margin-left: var(--zen-spacing-lg); /* 24, nested indent */
+}
+.ds-lineage-node--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+}
+.ds-lineage-node--disabled {
+  opacity: 0.5;
+}
+.ds-lineage-node__label {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-default);
+  white-space: nowrap;
+}
+.ds-lineage-node__source,
+.ds-lineage-node__key {
+  width: 14px; /* icon box geometry (raw px), matches .ds-tag__icon */
+  height: 14px;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-lineage-node__source svg,
+.ds-lineage-node__key svg {
+  width: 100%;
+  height: 100%;
+}
+.ds-lineage-node__expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-lineage-node--expanded .ds-lineage-node__expand svg {
+  transform: rotate(180deg);
+}
+
+/* ============ Lineage grouped node (lineage-grouped-node) ============ */
+.ds-lineage-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-subtle);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-lineage-group__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-lineage-group__label {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  flex: 1 1 auto;
+}
+.ds-lineage-group__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-lineage-group--expanded .ds-lineage-group__toggle svg {
+  transform: rotate(180deg);
+}
+.ds-lineage-group__children {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  padding-left: var(--zen-spacing-md); /* 16, nested indent */
+}
+.ds-lineage-group__child {
+  align-self: flex-start; /* keep the inlined child row compact like a standalone lineage node, not stretched to the group column width */
+}
+
+/* ============ Metamodel widget (metamodel-widget) ============ */
+.ds-metamodel-widget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  border: 1.5px solid; /* color set inline per Type, see metamodelBorderStyle */
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: #ffffff;
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-metamodel-widget__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+}
+.ds-metamodel-widget__title {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-medium); /* 500, captured title weight */
+  color: var(--zen-color-text-default);
+}
+.ds-metamodel-widget__section {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-metamodel-widget__collapse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-metamodel-widget__section-body {
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  color: var(--zen-color-text-tertiary);
+}
+
+/* ============ Loader with logo (loader-with-logo), composes .ds-loader ============ */
+.ds-loader-with-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm); /* 12 */
+  font-family: var(--zen-font-family-text);
+}
+.ds-loader-with-logo__mark {
+  height: 24px; /* raw px: matches .ds-loader__spinner's box for visual balance */
+  display: inline-flex;
+  align-items: center;
+}
+.ds-loader-with-logo__mark svg {
+  height: 100%;
+  width: auto;
+}
+
 /* ============ Global header (top app bar — chrome) ============ */
 /* Anatomy: 1440×64, flex space-between, padding 0 24px.              */
 /* Left = brand; Center = context + search; Right = actions cluster.  */
@@ -2638,7 +2845,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ds-loader__spinner {
+  .ds-loader__spinner,
+  .ds-spinner__ring,
+  .ds-loading-skeleton__block {
     animation: none;
   }
 }
@@ -2783,6 +2992,116 @@
   border-color: var(--zen-color-warning-100);
 }
 
+/* ============ Tag (gray-box-to-zero family 2) ============ */
+/* tag-shared: static solid pill. Anatomy carries no colorToken/backgroundToken
+ * for this fill (unlike the .ds-tag--<color> block above), so it ships as a
+ * literal hex, value-first. Border == fill on purpose: it reads as a solid
+ * pill with no visible outline, distinct from base .ds-tag's contrasting
+ * border. Text color/geometry inherit from base .ds-tag verbatim. */
+.ds-tag--shared {
+  background: #cbe3ff;
+  border-color: #cbe3ff;
+}
+/* tag-catalog: icon+label pill. Fill/border match .ds-tag--teal's hexes, but
+ * text is --zen-color-text-default (not base .ds-tag's tertiary), so it needs
+ * its own rule rather than reusing --teal. Base .ds-tag/.ds-tag__icon already
+ * supply geometry -- only fill/border/text are new here. */
+.ds-tag--catalog {
+  background: #ecffff;
+  border-color: #d0efed;
+  color: var(--zen-color-text-default);
+}
+/* tag-stage: colored dot + label + trailing arrow. Reuses the 8
+ * .ds-tag--<color> container rules above verbatim; only the dot/icon
+ * descendants are new. Dot diameter (8px) is the one hand-chosen value --
+ * anatomy captures radius=20px (pill/circle) but not the diameter itself. */
+.ds-tag-stage {
+  /* Namespace hook only: geometry/color come entirely from .ds-tag (base)
+   * and .ds-tag--<color> (container fill/border); scopes the dot/icon
+   * descendant selectors below without re-declaring any of that. */
+}
+.ds-tag-stage__dot {
+  width: 8px; /* dot geometry (raw px), diameter not captured by anatomy */
+  height: 8px;
+  border-radius: 20px; /* captured radius */
+  flex: 0 0 auto;
+  background: #547482; /* gray/default dot fill, no token captured */
+}
+.ds-tag-stage__icon {
+  width: 14px; /* icon box geometry (raw px), matches .ds-tag__icon */
+  height: 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-tag-stage__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-tag--indigo .ds-tag-stage__dot {
+  background: var(--zen-color-primary-600); /* #0053d7 */
+}
+.ds-tag--lime .ds-tag-stage__dot {
+  background: var(--zen-color-success-600); /* #098900 */
+}
+.ds-tag--orange .ds-tag-stage__dot {
+  background: var(--zen-color-error-800); /* #982a18 */
+}
+.ds-tag--yellow .ds-tag-stage__dot {
+  background: var(--zen-color-warning-800); /* #a76605 */
+}
+.ds-tag--pink .ds-tag-stage__dot {
+  background: #b1374d; /* no captured token */
+}
+.ds-tag--purple .ds-tag-stage__dot {
+  background: #7900cb; /* no captured token */
+}
+.ds-tag--teal .ds-tag-stage__dot {
+  background: #00908e; /* no captured token */
+}
+/* tag-status: status pill, 11 Status values grouped into 5 color families
+ * by the captured anatomy itself (a per-value class would be dishonest).
+ * Reuses base .ds-tag geometry verbatim (same height/padding/radius/font/
+ * gap/text-color as tag-default); only the family fill/border pairs are
+ * new. No bare .ds-tag--status namespace class -- each family rule below
+ * carries a real visual delta, same no-op-eradication pattern as families
+ * 4/5. Value-first: several captured backgroundTokens do not round-trip
+ * against the frozen tokens.css snapshot (a known drift, see
+ * tag-glossary-item-type's warning-25 note), so those ship literal with a
+ * comment; borders that DO round-trip bind the token. */
+.ds-tag--status-error {
+  /* Fail. --zen-color-error-25 resolves to #f8f4f3 in tokens.css, not the
+   * captured #fff4ec -- literal. Border DOES round-trip (#ffdacf). */
+  background: #fff4ec;
+  border-color: var(--zen-color-error-50);
+}
+.ds-tag--status-info {
+  /* Loading, Maintenance, Queued, Scheduled. --zen-color-primary-25
+   * resolves to #f3f5f9 in tokens.css, not the captured #edf6ff (bg AND
+   * border share this value in the anatomy) -- both literal. */
+  background: #edf6ff;
+  border-color: #edf6ff;
+}
+.ds-tag--status-neutral {
+  /* Offline, Pending, Sleeping, Stopped. No captured backgroundToken for
+   * the fill. Border DOES round-trip (--zen-border-disabled = #c7c7ce). */
+  background: #e1e1e6;
+  border-color: var(--zen-border-disabled);
+}
+.ds-tag--status-success {
+  /* Success. --zen-color-success-25 resolves to #f3f6f3 in tokens.css, not
+   * the captured #f0ffec -- literal. Border DOES round-trip (#d3efcd). */
+  background: #f0ffec;
+  border-color: var(--zen-color-success-50);
+}
+.ds-tag--status-warning {
+  /* Warning. --zen-color-bg-warning resolves to #f7f4f2 in tokens.css, not
+   * the captured #fff9e5 -- literal. Border DOES round-trip (#ffebce). */
+  background: #fff9e5;
+  border-color: var(--zen-color-warning-50);
+}
+
 /* ============ Checkbox (indeterminate state) ============ */
 .ds-checkbox--indeterminate .ds-checkbox__box {
   background: var(--zen-color-icon-primary);
@@ -2790,4 +3109,1261 @@
 }
 .ds-checkbox--indeterminate .ds-checkbox__check {
   display: block;
+}
+
+/* ============ Error state (feedback: recoverable error) ============ */
+/* Anatomy: centered column, illustration, title+body text block, tertiary +
+ * primary action row -- a structural twin of empty-state, with its own
+ * ds-error-state__* classes (never reuse .ds-empty-state* here: the
+ * canonical CEM derive scans .ds-<slug> per slug, so a shared prefix would
+ * leave error-state without an honest token surface). Size=Medium (secondary
+ * axis) shrinks title/body type. Body binds --zen-color-text-default (not
+ * -secondary; differs from empty-state per the captured anatomy). Unlike
+ * maintenance-state/confirmation, the captured anatomy here did not include
+ * root padding -- only column layout, center cross-align, gap, and
+ * text-align -- so .ds-error-state intentionally omits `padding` and
+ * `justify-content: center`; do not add them to "match" the siblings. */
+.ds-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--zen-spacing-md);
+  font-family: var(--zen-font-family-text);
+}
+.ds-error-state__illustration {
+  max-width: 200px; /* raw px: sensible cap so the artwork doesn't dominate the card */
+  width: 100%;
+}
+.ds-error-state__illustration svg {
+  width: 100%;
+  height: auto;
+}
+.ds-error-state__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs);
+}
+.ds-error-state__title {
+  font-size: var(--zen-font-size-xl); /* anatomy Large: 18px */
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-xl); /* anatomy Large: 26px */
+  margin: 0;
+}
+.ds-error-state__body {
+  font-size: var(--zen-font-size-lg); /* anatomy Large: 16px */
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-lg); /* anatomy Large: 24px */
+  max-width: 480px; /* raw px: readable line length cap, mirrors empty-state */
+  margin: 0;
+}
+.ds-error-state--medium .ds-error-state__title {
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+}
+.ds-error-state--medium .ds-error-state__body {
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+}
+.ds-error-state__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zen-spacing-sm);
+}
+.ds-error-state__cta {
+  /* Extends .ds-button--primary/.ds-button--tertiary; no additional overrides needed */
+}
+
+/* ============ Maintenance state (feedback: scheduled downtime) ============ */
+/* Anatomy: structural + shape twin of empty-state (captured Figma page is
+ * literally "Empty state") -- centered column, illustration, headline, body,
+ * tertiary + primary action row. Dedicated ds-maintenance-state__* classes
+ * (not .ds-empty-state*) so the CEM derive has its own honest token surface.
+ * Only axis (Size=Large) is secondary; no modifier class needed. */
+.ds-maintenance-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--zen-spacing-md);
+  padding: 48px 32px; /* raw px: mirrors the empty-state large-variant anatomy */
+  font-family: var(--zen-font-family-text);
+}
+.ds-maintenance-state__illustration {
+  max-width: 200px; /* raw px: sensible cap so the artwork doesn't dominate the card */
+  width: 100%;
+}
+.ds-maintenance-state__illustration svg {
+  width: 100%;
+  height: auto;
+}
+.ds-maintenance-state__headline {
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-maintenance-state__body {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-lg);
+  max-width: 480px; /* raw px: readable line length cap, mirrors empty-state */
+  margin: 0;
+}
+.ds-maintenance-state__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zen-spacing-sm);
+}
+.ds-maintenance-state__cta {
+  /* Extends .ds-button--primary/.ds-button--tertiary; no additional overrides needed */
+}
+
+/* ============ Confirmation (feedback: success confirmation) ============ */
+/* Anatomy divergence note: the content guideline describes a destructive
+ * Delete/Cancel confirmation dialog, but the captured Figma anatomy for
+ * this slug is a SUCCESS-confirmation state (page "Empty state"), so this
+ * is built as a structural twin of empty-state -- centered column,
+ * illustration, title, body, tertiary + primary action row. Dedicated
+ * ds-confirmation__* classes (not .ds-empty-state*) so the CEM derive has
+ * its own honest token surface. Only axis (Size=Large) is secondary; no
+ * modifier class needed. Body binds --zen-color-text-default (not
+ * -secondary), per the captured anatomy. */
+.ds-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--zen-spacing-md);
+  padding: 48px 32px; /* raw px: mirrors the empty-state large-variant anatomy */
+  font-family: var(--zen-font-family-text);
+}
+.ds-confirmation__illustration {
+  max-width: 200px; /* raw px: sensible cap so the artwork doesn't dominate the card */
+  width: 100%;
+}
+.ds-confirmation__illustration svg {
+  width: 100%;
+  height: auto;
+}
+.ds-confirmation__title {
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-confirmation__body {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-default);
+  line-height: var(--zen-font-lineheight-lg);
+  max-width: 480px; /* raw px: readable line length cap, mirrors empty-state */
+  margin: 0;
+}
+.ds-confirmation__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zen-spacing-sm);
+}
+.ds-confirmation__cta {
+  /* Extends .ds-button--primary/.ds-button--tertiary; no additional overrides needed */
+}
+
+/* ============ Tag glossary item type (gray-box-to-zero family 2) ============ */
+/* Dedicated block, NOT base .ds-tag: the anatomy has no border and a
+ * different radius (4px vs .ds-tag's 6px), so reusing the base class would
+ * leak an unwanted border. Single fixed variant; the only prop is the
+ * "Show Counter" boolean gating __counter. Value-first: --zen-color-warning-25
+ * does not round-trip against the frozen tokens.css snapshot (resolves to
+ * #f7f4f2, not the captured #fff9e5), so the literal ships instead, same
+ * pattern as the sibling .ds-tag-catalog-item-type--use-case rule below. */
+.ds-tag-glossary-item-type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 0 8 */
+  border-radius: var(--zen-border-radius-xs); /* 4 */
+  background: #fff9e5; /* --zen-color-warning-25 does not round-trip (:root resolves to #f7f4f2) */
+  height: var(--zen-size-lg); /* 24, inherited-from-sibling .ds-tag geometry */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.ds-tag-glossary-item-type__label {
+  color: var(--zen-color-warning-900);
+}
+.ds-tag-glossary-item-type__counter {
+  color: var(--zen-color-text-default);
+}
+
+/* ============ Tag catalog item type (gray-box-to-zero family 2) ============ */
+/* Dedicated block, NOT base .ds-tag: the anatomy has no border, unlike
+ * .ds-tag's 1px border -- reusing the base class would leak one. 8 colored
+ * type pills; each modifier sets the root fill, and a scoped descendant rule
+ * sets __name's text color (mirrors tag-stage's per-color dot-fill
+ * precedent). __counter's color is fixed regardless of type. Value-first:
+ * Category/Field/Use case's text/bg tokens round-trip against the frozen
+ * tokens.css :root snapshot and bind; Dataset's tokens do NOT round-trip
+ * (primary-50/-800 resolve to #cbe3ff/#033b92 there, not the captured
+ * #cfeafd/#00547d) and ship literal; the remaining four types (Data
+ * process/product, Output port, Visualization) have no captured token at
+ * all and ship literal. */
+.ds-tag-catalog-item-type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8, captured gapToken */
+  padding: 0 var(--zen-spacing-xs); /* 0 8, captured paddingTokens */
+  border-radius: 4px; /* captured radius, no token */
+  height: 24px; /* inherited-from-sibling .ds-tag geometry (--zen-size-lg); not directly captured */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.ds-tag-catalog-item-type__name {
+  display: inline-block;
+}
+.ds-tag-catalog-item-type__counter {
+  color: #000000; /* no token captured */
+}
+.ds-tag-catalog-item-type--category {
+  background: var(--zen-color-error-50);
+}
+.ds-tag-catalog-item-type--category .ds-tag-catalog-item-type__name {
+  color: var(--zen-color-error-800);
+}
+.ds-tag-catalog-item-type--dataset {
+  background: #cfeafd; /* --zen-color-primary-50 does not round-trip (:root resolves to #cbe3ff) */
+}
+.ds-tag-catalog-item-type--dataset .ds-tag-catalog-item-type__name {
+  color: #00547d; /* --zen-color-primary-800 does not round-trip (:root resolves to #033b92) */
+}
+.ds-tag-catalog-item-type--data-process {
+  background: #ffd6d8; /* no captured token */
+}
+.ds-tag-catalog-item-type--data-process .ds-tag-catalog-item-type__name {
+  color: #932139; /* no captured token */
+}
+.ds-tag-catalog-item-type--data-product {
+  background: #e1e1e6; /* no captured token */
+}
+.ds-tag-catalog-item-type--data-product .ds-tag-catalog-item-type__name {
+  color: #40404a; /* no captured token */
+}
+.ds-tag-catalog-item-type--field {
+  background: var(--zen-color-success-50);
+}
+.ds-tag-catalog-item-type--field .ds-tag-catalog-item-type__name {
+  color: var(--zen-color-success-800);
+}
+.ds-tag-catalog-item-type--output-port {
+  background: #dde6ec; /* no captured token */
+}
+.ds-tag-catalog-item-type--output-port .ds-tag-catalog-item-type__name {
+  color: #3c515a; /* no captured token */
+}
+.ds-tag-catalog-item-type--use-case {
+  background: #fff9e5; /* --zen-color-warning-25 does not round-trip (:root resolves to #f7f4f2) */
+}
+.ds-tag-catalog-item-type--use-case .ds-tag-catalog-item-type__name {
+  color: var(--zen-color-text-default);
+}
+.ds-tag-catalog-item-type--visualization {
+  background: #eed7ff; /* no captured token */
+}
+.ds-tag-catalog-item-type--visualization .ds-tag-catalog-item-type__name {
+  color: #5f0c9e; /* no captured token */
+}
+
+/* ============ Card (for perimeter -- badge + name/counter + progress), gray-box-to-zero family 3 ============ */
+/* Single "Property 1=Default" variant -- no State/Size axis, no modifier
+ * classes. Anatomy root captures background+radius ONLY (no border, no
+ * shadow) -- honored verbatim, unlike .ds-card's bordered/shadowed shell.
+ * The item-type badge (.ds-item-type) and progress bar (.ds-progress*)
+ * reuse their existing rules verbatim; only the 5 classes below are new. */
+.ds-card-perimeter {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* captured align: cross=start */
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: var(--zen-spacing-sm); /* 12 */
+  background: var(--zen-color-bg-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-card-perimeter__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex: 1 1 0;
+  min-width: 0;
+}
+.ds-card-perimeter__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+}
+.ds-card-perimeter__name {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default);
+}
+.ds-card-perimeter__counter {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular); /* 400 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default);
+}
+
+/* ============ Card (for grouped content -- header + divider + slot), gray-box-to-zero family 3 ============ */
+/* Single "Property 1=Default" variant -- no State/Size axis, no modifier
+ * classes. bg/border/radius/shadow mirror .ds-card, but padding lives on
+ * __header/__slot, NOT the root (the anatomy's Slot carries the padding,
+ * not the card shell) -- so .ds-card-grouped itself is unpadded, unlike
+ * .ds-card's padded shell. */
+.ds-card-grouped {
+  display: flex;
+  flex-direction: column;
+  width: 280px; /* fixed card width, matches the .ds-card family (raw px) */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-shadow: var(--zen-shadow-xs);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-card-grouped__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(
+    --zen-spacing-md
+  ); /* 16 -- header instance is unresolved in the anatomy (no captured padding); matches the Slot's own padding for visual consistency */
+}
+.ds-card-grouped__title {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-semibold);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default); /* .ds-card__title ramp, verbatim */
+}
+.ds-card-grouped__info {
+  display: inline-flex;
+  width: 16px; /* icon box geometry (raw px) */
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--zen-color-text-tertiary);
+}
+.ds-card-grouped__info svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-card-grouped__divider {
+  height: 1px;
+  background: var(--zen-border-default); /* captured #c7c7ce, round-trips */
+}
+.ds-card-grouped__slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: var(--zen-spacing-md); /* 16 */
+}
+.ds-card-grouped__body {
+  margin: 0;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; /* .ds-card__body ramp, verbatim */
+}
+
+/* ============ Search result card (rich header/details/tags/glossary), gray-box-to-zero family 3 ============ */
+/* Identity axis App = Explorer (default) | Studio; State is secondary, only
+ * Selected/Focus map to a visible modifier. The fidelity oracle only
+ * captures App=Explorer/State=Default, so only that default is built with
+ * full fidelity; Studio's structural swaps are out of scope (see the
+ * renderer case comment) and App=Studio renders the base card with no root
+ * modifier -- there is no built CSS delta for it, so no --studio class is
+ * emitted (a modifier must carry a real visual delta, never a no-op
+ * namespace hook). Eyebrow/stage/catalog tags and the glossary item-type
+ * badge reuse EXISTING .ds-tag / .ds-tag-stage / .ds-tag--gray /
+ * .ds-tag--catalog / .ds-item-type rules verbatim -- only the
+ * ds-search-result-card* classes below are new. */
+.ds-search-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-subtle); /* captured #ebebeb */
+  border-radius: var(
+    --zen-border-radius-sm
+  ); /* 6, not captured on root -- chosen to match the .ds-card family */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-search-result-card--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+}
+.ds-search-result-card--focus {
+  border-color: var(--zen-focus-ring-primary); /* captured #049b98 */
+  border-width: 2px; /* captured Focus border width */
+}
+.ds-search-result-card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  width: 100%;
+}
+.ds-search-result-card__name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex: 1 1 0;
+  min-width: 0;
+}
+.ds-search-result-card__type {
+  background: var(--zen-color-error-50); /* captured #ffdacf */
+  border: none; /* anatomy captures no border for this eyebrow, unlike base .ds-tag's 1px border */
+  border-radius: var(--zen-border-radius-xs); /* 4 */
+  flex: 0 0 auto;
+}
+.ds-search-result-card__title {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-semibold); /* 600 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-search-result-card__tech {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular); /* 400 */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-search-result-card__stage {
+  flex: 0 0 auto;
+}
+.ds-search-result-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 100%;
+}
+.ds-search-result-card__catalog {
+  align-self: flex-start;
+}
+.ds-search-result-card__desc {
+  margin: 0;
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  color: var(--zen-color-text-default);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ds-search-result-card__props {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--zen-spacing-xs); /* 8 */
+}
+.ds-search-result-card__prop {
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  color: var(--zen-color-text-default);
+}
+.ds-search-result-card__glossary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  width: 100%;
+}
+.ds-search-result-card__glossary-label {
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  color: var(--zen-color-text-default);
+}
+
+/* ============ Notification dropdown (gray-box-to-zero family 4) ============ */
+/* Registry axis: Property 1 = Empty | List. Menu overlay mirroring
+ * .ds-account-menu's shell (border/shadow/radius elevation idiom, not
+ * captured by the anatomy -- borrowed from the sibling overlay per the
+ * family-4 build note). Root bg/radius/padding ARE captured (#ffffff, 4px,
+ * 4px top/bottom); item-row padding/gap and label color/type are also
+ * captured verbatim. --empty is a real delta, not a no-op: the Empty
+ * anatomy variant collapses to 3 nodes (vs List's 9), so the modifier
+ * centers a single short line in a compact box instead of a scrollable list. */
+.ds-notification-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* raw px: overlay width, borrowed from sibling overlays */
+  padding: var(--zen-spacing-2xs) 0; /* captured: 4px top/bottom, 0 left/right */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs); /* captured 4px */
+  box-shadow: var(--zen-shadow-lg); /* borrowed elevation idiom, not captured */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-notification-menu--empty {
+  align-items: center;
+  justify-content: center;
+  min-height: 80px; /* real delta: Empty collapses to a single centered line */
+  padding: var(--zen-spacing-md);
+}
+.ds-notification-menu__header {
+  padding: var(--zen-spacing-xs) var(--zen-spacing-sm);
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+  border-bottom: 1px solid var(--zen-border-default);
+  margin-bottom: var(--zen-spacing-2xs);
+}
+.ds-notification-menu__items {
+  display: flex;
+  flex-direction: column;
+}
+.ds-notification-menu__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* 8, captured */
+  padding: var(--zen-spacing-xs) var(--zen-spacing-xs) var(--zen-spacing-xs)
+    32px; /* captured 8 8 8 32 */
+  border-radius: var(--zen-border-radius-xs); /* captured 4 */
+}
+.ds-notification-menu__icon {
+  width: 16px; /* raw px: leading icon box */
+  height: 16px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-notification-menu__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-notification-menu__label {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+}
+.ds-notification-menu__empty {
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  text-align: center;
+}
+
+/* ============ Search dropdown menu (gray-box-to-zero family 4) ============ */
+/* Registry axis: Type = No result | Before typed | After typed | Explorer
+ * home. REFUTES the assigned "popover" reuse pattern (see the renderer case
+ * comment) -- a floating menu overlay, structurally closer to
+ * .ds-account-menu than .ds-popover. Root bg/radius/padding, heading
+ * color/type, and item row padding/color/type are all captured verbatim
+ * (quality.ratio 1). After typed IS the captured anatomy default and Before
+ * typed differs from it only via markup (heading label + items), no
+ * captured structural delta -- neither emits a root modifier class (a
+ * modifier must carry a real visual delta, never a no-op namespace hook;
+ * see the renderer case comment). --no-result and --explorer-home ARE real
+ * deltas and DO emit a modifier: No result collapses to a single centered
+ * text line (anatomy childCount 1, vs 5), and Explorer home is a wider menu
+ * (anatomy childCount 6, an extra section) -- both real, structurally-
+ * justified deltas, not decoration. */
+.ds-search-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px; /* raw px: overlay width, borrowed from sibling overlays */
+  padding: var(--zen-spacing-2xs) 0; /* captured: 4px top/bottom, 0 left/right */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* captured 6px */
+  box-shadow: var(--zen-shadow-lg); /* borrowed elevation idiom, not captured */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-search-menu--no-result {
+  align-items: center;
+  justify-content: center;
+  min-height: 64px; /* real delta: collapses to a single centered line */
+  padding: var(--zen-spacing-md);
+}
+.ds-search-menu--explorer-home {
+  min-width: 360px; /* real delta: anatomy captures an extra section (childCount 6) */
+}
+.ds-search-menu__group {
+  display: flex;
+  flex-direction: column;
+}
+.ds-search-menu__heading {
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* captured 4 8 */
+  color: var(--zen-color-text-secondary); /* captured #40404a */
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-medium);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+}
+.ds-search-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8, captured */
+  padding: 0 var(--zen-spacing-xs); /* captured 0 8 */
+}
+.ds-search-menu__thumb {
+  width: 20px; /* raw px: result thumbnail, no DS icon/graphic exists for the
+                  captured raster IMAGE fills -- neutral placeholder square,
+                  mirrors .ds-app-switcher__tile */
+  height: 20px;
+  flex: 0 0 auto;
+  background: var(--zen-color-bg-subtle);
+  border-radius: var(--zen-border-radius-xs); /* captured 4 */
+}
+.ds-search-menu__label {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+}
+.ds-search-menu__empty {
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  text-align: center;
+}
+
+/* ============ What's new dropdown (gray-box-to-zero family 4) ============ */
+/* Registry axis: Property 1 = Drilldown1 | Drilldown2 | Empty | List. Same
+ * static menu-overlay shape as account-dropdown/app-switcher-dropdown --
+ * shell mirrors .ds-account-menu's border/shadow/radius elevation idiom
+ * (not captured; borrowed per the family-4 build note). Root bg/radius,
+ * header padding/gap, __title, and __empty/__item/__detail text tokens are
+ * all captured verbatim (the Empty variant is the anatomy's only capture).
+ * Empty IS the captured default, so the base rule already matches it -- no
+ * root modifier class is emitted for it (a modifier must carry a real
+ * visual delta, never a no-op namespace hook; see the renderer case
+ * comment). --list and --drilldown ARE real deltas and DO emit a modifier:
+ * List needs a scrollable container once the item count grows past a
+ * handful, and Drilldown widens the panel to fit the longer detail
+ * paragraph plus the back affordance. */
+.ds-whatsnew {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px; /* captured-adjacent: matches .ds-account-menu's overlay width */
+  padding: var(--zen-spacing-2xs); /* 4 */
+  background: var(--zen-color-bg-default); /* captured #ffffff */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(
+    --zen-border-radius-md
+  ); /* 8, matches .ds-account-menu's elevation idiom */
+  box-shadow: var(--zen-shadow-lg); /* borrowed elevation idiom, not captured */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-whatsnew--list {
+  max-height: 360px; /* real delta: constrains + scrolls once the release list grows long */
+  overflow-y: auto;
+}
+.ds-whatsnew--drilldown {
+  min-width: 300px; /* real delta: the detail paragraph + back button need more room than the compact list/empty menu */
+}
+.ds-whatsnew__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8, captured */
+  padding: var(--zen-spacing-xs); /* 8, captured */
+  border-bottom: 1px solid var(--zen-border-default);
+  margin-bottom: var(--zen-spacing-2xs);
+}
+.ds-whatsnew__back {
+  width: 20px; /* raw px: back-affordance icon box */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-whatsnew__back svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-whatsnew__title {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-lg); /* 16, captured verbatim */
+  font-weight: var(--zen-font-weight-semibold); /* 600 */
+  line-height: var(--zen-font-lineheight-lg); /* 24, captured verbatim */
+  letter-spacing: var(
+    --zen-font-letterspacing-wide-1
+  ); /* 0.1px, captured verbatim */
+}
+.ds-whatsnew__items {
+  display: flex;
+  flex-direction: column;
+}
+.ds-whatsnew__item {
+  padding: var(
+    --zen-spacing-xs
+  ); /* 8, mirrors .ds-account-menu__item spacing */
+  border-radius: var(--zen-border-radius-xs);
+  color: var(--zen-color-text-secondary); /* captured #40404a */
+  font-size: var(--zen-font-size-md); /* 14, captured verbatim */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured verbatim */
+  letter-spacing: var(
+    --zen-font-letterspacing-wide-2
+  ); /* 0.2px, captured verbatim */
+}
+.ds-whatsnew__empty {
+  padding: var(--zen-spacing-xs); /* captured 8 8 8 8 */
+  color: var(--zen-color-text-secondary); /* captured #40404a */
+  font-size: var(--zen-font-size-md); /* 14, captured verbatim */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured verbatim */
+  letter-spacing: var(
+    --zen-font-letterspacing-wide-2
+  ); /* 0.2px, captured verbatim */
+}
+.ds-whatsnew__detail {
+  padding: var(--zen-spacing-xs);
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+}
+
+/* ============ Drawer, side panel (gray-box-to-zero family 4) ============ */
+/* Registry category: Overlays (group "Drawer (Side panel)") -- a sibling of
+ * .ds-modal/.ds-popover, NOT a dropdown, despite the family-4 assignment
+ * (see the renderer case comment). Mirrors .ds-modal's bordered-panel shell
+ * rather than the menu-overlay idiom used by the other 3 family-4 leaves.
+ * Root/header/title/tags/body/tabs geometry and text tokens are captured
+ * verbatim from the Studio anatomy (quality.ratio 1); only Explorer's
+ * chrome-accent modifier and the tab-strip/section copy are invented
+ * (registry exposes no content props for either -- see the case comment).
+ * The item-type badge (.ds-tag-catalog-item-type) and progress bar
+ * (.ds-progress*) reuse their EXISTING rules verbatim; only the classes
+ * below are new. */
+.ds-drawer {
+  display: flex;
+  flex-direction: column;
+  width: 420px; /* raw px: side-panel width -- anatomy sizing is fixed/fixed but captures no explicit px */
+  max-width: 100%;
+  background: var(--zen-color-bg-default); /* captured #ffffff */
+  border: 1px solid var(--zen-border-default); /* borrowed elevation idiom, mirrors .ds-modal; not captured */
+  border-radius: 0; /* captured: anatomy root carries no radius, unlike the family-4 menu overlays */
+  box-shadow: var(
+    --zen-shadow-xs
+  ); /* mirrors .ds-modal's elevation, not captured */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-drawer--explorer {
+  /* Real, minimal delta per spec guidance: only Explorer's childCount deltas
+   * were captured (no structural detail), so this is a chrome accent only
+   * -- not invented structure. */
+  border-top: 3px solid var(--zen-color-primary-500);
+}
+.ds-drawer__header {
+  display: flex;
+  align-items: center;
+  gap: var(
+    --zen-spacing-xs
+  ); /* captured 8, the "Back + Tag + Name" cluster's gap */
+  padding: var(--zen-spacing-md); /* captured 16 */
+}
+.ds-drawer__back {
+  width: 32px; /* raw px: pill icon-button box */
+  height: 32px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 9999px; /* captured */
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-drawer__back svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.ds-drawer__tags {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* captured 4 */
+  flex: 0 0 auto;
+}
+.ds-drawer__tag-shared {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--zen-spacing-xs); /* mirrors the sibling catalog-item-type pill's padding, 0 8 */
+  height: 24px; /* mirrors sibling tag pill geometry */
+  border-radius: 4px; /* captured */
+  background: var(
+    --zen-color-primary-700
+  ); /* captured #00699f on THIS drawer's own instance -- distinct from the separate tag-shared slug's own captured facts (#cbe3ff), so not reused */
+  border: 1px solid var(--zen-color-primary-700);
+  color: #ffffff; /* no captured token; a solid-fill pill needs a light label for contrast */
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.ds-drawer__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-xl); /* 18, captured verbatim */
+  font-weight: var(--zen-font-weight-semibold); /* 600 */
+  line-height: var(--zen-font-lineheight-xl); /* 26, captured verbatim */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-drawer__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* captured 8 */
+  flex: 0 0 auto;
+}
+.ds-drawer__actions button {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 9999px; /* captured */
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-drawer__actions svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+.ds-drawer__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* captured 4 */
+  padding: 0 var(--zen-spacing-md) var(--zen-spacing-md); /* captured 16; the header already carries the top inset */
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14, captured */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+}
+.ds-drawer__body p {
+  margin: 0;
+}
+.ds-drawer__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs);
+  padding-top: var(--zen-spacing-2xs);
+}
+.ds-drawer__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-3xs);
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14, captured */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+}
+.ds-drawer__tabs {
+  display: flex;
+  gap: var(
+    --zen-spacing-md
+  ); /* not captured (nested Tabs instance is opaque) -- a comfortable default */
+  padding: 0 var(--zen-spacing-md);
+  border-bottom: 1px solid var(--zen-border-default); /* captured #dadada */
+}
+.ds-drawer__tab {
+  padding: var(--zen-spacing-xs) 0;
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  font-weight: var(--zen-font-weight-medium);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.ds-drawer__tab.is-active {
+  color: var(--zen-color-text-default);
+  border-bottom-color: var(--zen-color-primary-500);
+}
+.ds-drawer__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* captured ~8 */
+  padding: var(--zen-spacing-md); /* captured 16 */
+}
+.ds-drawer__section-title {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-lg); /* 16, captured */
+  font-weight: var(--zen-font-weight-semibold); /* 600 */
+  line-height: var(--zen-font-lineheight-lg); /* 24, captured */
+}
+.ds-drawer__section-body {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14, captured */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+}
+
+/* ============ Spinner (indeterminate ring + on-dark modifier), gray-box-to-zero family 5 ============ */
+/* Registry axis: Color mode = On light bg | On dark bg. Complete (25/50/75/
+ * 100%) is the animation's own arc-fill cycle, not a chooseable variant
+ * (usage guideline), so it is ignored by the renderer. Near-clone of
+ * .ds-loader's ring idiom with its own BEM prefix + a dark-bg color
+ * modifier. REUSES the existing @keyframes ds-spin and the
+ * prefers-reduced-motion guard above (extended to include
+ * .ds-spinner__ring) -- no duplicate keyframes. */
+.ds-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs);
+  font-family: var(--zen-font-family-text);
+}
+.ds-spinner__ring {
+  width: 24px; /* raw px: spinner box, mirrors .ds-loader__spinner */
+  height: 24px;
+  flex: 0 0 auto;
+  border: 2px solid var(--zen-color-bg-muted); /* raw px: ring weight, captured Ellipse 8 #e1e1e6 */
+  border-top-color: var(
+    --zen-color-icon-primary
+  ); /* captured Ellipse 9-12 #0f5fdc */
+  border-radius: var(--zen-border-radius-full);
+  animation: ds-spin 800ms linear infinite;
+}
+.ds-spinner--on-dark .ds-spinner__ring {
+  border-color: var(
+    --zen-color-primary-300
+  ); /* captured Ellipse 8 On-dark track, #6296ef */
+  border-top-color: #fff; /* captured Ellipse 9-12 On-dark arc, #ffffff, no token */
+}
+.ds-spinner__label {
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* ============ Loading skeleton (shimmering placeholder blocks), gray-box-to-zero family 5 ============ */
+/* Registry axis: Transition = 1 | 2 (a shimmer-fill animation frame, not a
+ * structural identity axis -- guideline: "no type or size variants").
+ * Anatomy (ratio 0.75) captured 3 layers: Union (the block shape fill,
+ * token --zen-border-subtle), Background (a Transition-driven wash --
+ * mapped here to the container, see the is-transition-2 rule below) and
+ * Lens (a degraded GRADIENT_LINEAR shimmer sweep with no captured stops --
+ * approximated as a translating highlight gradient). VISUAL-ONLY per
+ * guideline: no text/copy inside any block. */
+.ds-loading-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs);
+  width: 240px; /* raw px: representative width, matches the .ds-progress track sibling convention */
+  padding: var(--zen-spacing-sm);
+  border-radius: var(--zen-border-radius-sm);
+  background: rgba(
+    225,
+    225,
+    230,
+    0.32
+  ); /* raw: captured "Background" node, Transition=1 default fill, no token */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-loading-skeleton.is-transition-2 {
+  background: #f8f8f8; /* raw hex: captured "Background" node, Transition=2 fill, no token */
+}
+.ds-loading-skeleton__block {
+  display: block;
+  height: 12px; /* raw px: representative row height, not captured */
+  border-radius: var(--zen-border-radius-sm);
+  background-color: var(--zen-border-subtle); /* captured Union fill, #e1e1e6 */
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  ); /* raw: shimmer sweep, the Lens node was a degraded GRADIENT_LINEAR with no captured stops */
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: ds-skeleton-shimmer 1500ms ease-in-out infinite;
+}
+.ds-loading-skeleton__block--title {
+  height: 16px; /* raw px: taller row for the title/heading line */
+}
+.ds-loading-skeleton__block--short {
+  width: 60%; /* raw: representative shorter trailing row */
+}
+@keyframes ds-skeleton-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 150% 0;
+  }
+}
+
+/* ============ Scroll bar (track + thumb rail), gray-box-to-zero family 5 ============ */
+/* Registry variants are a degenerate {"Property 1":["Default"]} placeholder
+ * -- no real identity axis. Orientation is a USAGE-doc concept (not a
+ * registry axis), exposed as a prop modifier defaulting vertical. Anatomy
+ * (ratio 0.5) captured only the thumb (--zen-color-icon-disabled, radius
+ * 4px); the track fill is an interpretation -- the anatomy container
+ * carries no background of its own. */
+.ds-scroll-bar {
+  position: relative;
+  width: 8px; /* raw px: rail thickness, not captured (container had no size) */
+  height: 120px; /* raw px: representative rail length, not captured */
+  border-radius: var(--zen-border-radius-full);
+  background: var(
+    --zen-color-bg-subtle
+  ); /* interpretation: anatomy captured no track fill */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.ds-scroll-bar--horizontal {
+  width: 120px;
+  height: 8px;
+}
+.ds-scroll-bar__thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border-radius: var(
+    --zen-border-radius-full
+  ); /* captured 4px on the source node; full-radius matches the sibling .ds-progress__fill convention */
+  background: var(--zen-color-icon-disabled); /* captured #7c7c8a */
+}
+.ds-scroll-bar--horizontal .ds-scroll-bar__thumb {
+  width: auto;
+  height: 100%;
+}
+
+/* ============ Link (inline text link with State modifiers), gray-box-to-zero family 5 ============ */
+/* Registry axis: State = Default | Hover | Focus | Pressed | Expanded |
+ * Visited | Disabled (secondary axis, no Intent/Emphasis identity).
+ * Anatomy ratio 1: text color/geometry captured for Default/Disabled/
+ * Visited; Hover/Focus/Pressed/Expanded are in structuralVariants (no
+ * isolated capture), so those modifiers are reasoned from the usage
+ * guideline text (hover underline; focus ring) rather than a captured
+ * hex. */
+.ds-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* captured 4 */
+  padding: var(--zen-spacing-2xs); /* captured 4, all sides */
+  border-radius: var(--zen-border-radius-sm); /* captured 6px */
+  color: #0f5fdc; /* raw hex: anatomy captured NO colorToken for Default -- not hand-guessed */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14, captured */
+  font-weight: var(--zen-font-weight-regular); /* 400, captured */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.ds-link--visited {
+  color: var(--zen-color-primary-800); /* captured #033b92 */
+}
+.ds-link--hover {
+  text-decoration: underline; /* guideline: underline on hover, not in structuralVariants capture */
+}
+.ds-link--focus {
+  outline: 2px solid var(--zen-color-primary-500);
+  outline-offset: 2px;
+}
+.ds-link--pressed {
+  color: var(
+    --zen-color-primary-800
+  ); /* pressed reuses the darker visited-family tone, not captured */
+}
+.ds-link--expanded {
+  text-decoration: underline; /* an expanded ("show more") toggle mirrors the hover affordance, not captured */
+}
+.ds-link.is-disabled {
+  color: var(--zen-color-text-disabled); /* captured #656574 */
+  cursor: not-allowed;
+}
+
+/* ============ Avatar (circular initials chip + group stacking), gray-box-to-zero family 5 ============ */
+/* Registry axes: Type = Default | One group | Two groups (identity); State
+ * is secondary (isSecondaryAxis) -- only State=Disabled is wired (dims the
+ * initials). Diameter was NOT captured: layoutMode NONE on every State
+ * variant, and Type=One group/Two groups have no isolated variant at all --
+ * 32px (--zen-size-xl) is a hand-reasoned default, modeled on the sibling
+ * .ds-item-type circular-chip idiom. Flagged here: raw px, not from
+ * anatomy. */
+.ds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(
+    --zen-size-xl
+  ); /* raw px, not from anatomy: hand-reasoned 32px diameter */
+  height: var(--zen-size-xl); /* raw px, not from anatomy */
+  border-radius: var(--zen-border-radius-full); /* captured 9999px */
+  background: var(--zen-color-primary-25); /* captured #edf6ff */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-avatar__initials {
+  color: var(--zen-color-text-default); /* captured #000000 */
+  font-size: var(--zen-font-size-md); /* 14, captured */
+  font-weight: var(--zen-font-weight-regular); /* 400, captured */
+  line-height: var(--zen-font-lineheight-md); /* 20, captured */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+}
+.ds-avatar--disabled .ds-avatar__initials {
+  color: var(
+    --zen-color-text-disabled
+  ); /* captured Initial node's Disabled variant, #656574 */
+}
+.ds-avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+.ds-avatar-group .ds-avatar {
+  margin-left: -8px; /* raw px: overlap stacking, not captured (group geometry hand-reasoned) */
+  border: 2px solid var(--zen-color-bg-default); /* raw px: separates the overlapping circles */
+}
+.ds-avatar-group .ds-avatar:first-child {
+  margin-left: 0;
+}
+.ds-avatar__overflow {
+  background: var(
+    --zen-color-bg-muted
+  ); /* raw: distinguishes the +N chip from a real initials avatar, no captured fact for this state */
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-semibold);
+}
+
+/* ============ Collapse accordion (header + toggle + revealed body), gray-box-to-zero family 5 ============ */
+/* Registry variant State=[Collapsed, "Expanede"] -- see the case comment
+ * for the literal registry typo. Anatomy (ratio 1) captures the Collapsed
+ * root + header (title + a trailing icon-only round Button, represented
+ * here as the chevron toggle); the Expanded body geometry is NOT captured
+ * (structuralVariants childCount:1!=2), so .ds-collapse-accordion__body is
+ * approximated from .ds-stepper__body's text tokens. */
+.ds-collapse-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* captured header gap, 8 */
+  width: 320px; /* raw px: representative width (anatomy sizing.h fixed, no px captured) */
+  max-width: 100%;
+  padding: var(--zen-spacing-md); /* captured 16 */
+  background: var(--zen-color-bg-default); /* captured #ffffff */
+  border: 1px solid var(--zen-border-default); /* not captured; mirrors the sibling static-leaf convention (.ds-lineage-node) */
+  border-radius: var(--zen-border-radius-sm);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-collapse-accordion--expanded {
+  border-color: var(
+    --zen-color-primary-500
+  ); /* real delta: accent border ties the revealed body to its header, not captured */
+}
+.ds-collapse-accordion__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* captured align.main: space-between */
+  gap: var(--zen-spacing-xs);
+}
+.ds-collapse-accordion__title {
+  font-size: var(--zen-font-size-lg); /* 16, captured */
+  font-weight: var(--zen-font-weight-semibold); /* 600, captured */
+  line-height: var(--zen-font-lineheight-lg); /* 24, captured */
+  letter-spacing: var(
+    --zen-font-letterspacing-wide-2
+  ); /* closest captured token (captured raw is 0.1px); same approximation .ds-stepper__title uses */
+  color: var(--zen-color-text-default); /* captured #000000 */
+}
+.ds-collapse-accordion__toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* raw px: mirrors the captured icon-only Button's round chrome box */
+  height: 32px;
+  border-radius: var(
+    --zen-border-radius-full
+  ); /* captured on the header's Button instance */
+  color: var(--zen-color-icon-default);
+}
+.ds-collapse-accordion__body {
+  color: var(
+    --zen-color-text-secondary
+  ); /* not captured; mirrors .ds-stepper__body */
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
 }

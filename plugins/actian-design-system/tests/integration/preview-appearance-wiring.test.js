@@ -12,7 +12,7 @@
 // flow-renderer.
 //
 // Why this matters: ds-html-map.js's default: case (the seam that handles
-// non-BUILT_SLUGS, non-override slugs like tag-status) reads
+// non-BUILT_SLUGS, non-override slugs) reads
 // window.__dsAnatomyDocs first and calls
 // window.appearanceRender.renderAppearanceComponent(doc, ...). If a future
 // edit drops appearance-render.js from TYPE_CONFIGS.flow, or reorders it
@@ -43,10 +43,26 @@ var SCRIPT = path.join(
   "assemble-preview.js",
 );
 
-// Minimal one-screen flow: a single DS tag-status instance at Status=Success.
-// tag-status is a non-override, non-BUILT_SLUGS slug (absent from
-// ds-html-map.js's BUILT_SLUGS list), so it is only ever reachable through
-// the default: seam this test is targeting.
+// Minimal one-screen flow: a single instance of a slug that is non-override
+// and non-BUILT (absent from ds-html-map.js's BUILT_SLUGS list), so it is only
+// ever reachable through the default: seam this test is targeting.
+//
+// Picked at run time rather than hardcoded. This fixture named tag-status
+// until knowledge #472 gave it a bespoke leaf, which correctly moved it off
+// the seam and left the test asserting against a slug that no longer reaches
+// it. See tests/helpers/appearance-specimen.js.
+var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var { pickSpecimen } = require("../helpers/appearance-specimen.js");
+
+var SPECIMEN = pickSpecimen(ds.BUILT_SLUGS, function (slug, doc) {
+  var bg =
+    doc && doc.root && doc.root.appearance && doc.root.appearance.background;
+  return typeof bg === "string" && /^#[0-9a-fA-F]{3,8}$/.test(bg);
+});
+var SLUG = SPECIMEN.slug;
+var EXPECTED_BG = SPECIMEN.doc.root.appearance.background;
+var VARIANT = (SPECIMEN.doc.root && SPECIMEN.doc.root.name) || "";
+
 function fixture() {
   return {
     meta: { feature: "Status Check", app: "Preview" },
@@ -58,8 +74,8 @@ function fixture() {
           {
             type: "INSTANCE",
             library: "ds",
-            dsSlug: "tag-status",
-            variant: "Status=Success",
+            dsSlug: SLUG,
+            variant: VARIANT,
             props: {},
           },
         ],
@@ -106,22 +122,26 @@ describe("assemble-preview --type flow: appearance renderer wiring (Phase 1B)", 
     assert.strictEqual(r.status, 0, "exits cleanly: " + r.stderr);
   });
 
-  it("embeds window.__dsAnatomyDocs with the tag-status doc's real Success color", function () {
+  it("embeds window.__dsAnatomyDocs with the specimen doc's real resolved color", function () {
     var docsIdx = r.html.indexOf("window.__dsAnatomyDocs");
     assert.ok(docsIdx !== -1, "html embeds window.__dsAnatomyDocs");
 
     // Scope the check to that specific <script> block, not the whole
-    // document (spec-data JSON elsewhere also mentions "tag-status").
+    // document (spec-data JSON elsewhere also mentions the slug).
     var blockEnd = r.html.indexOf("</script>", docsIdx);
     var block = r.html.substring(docsIdx, blockEnd);
 
     assert.ok(
-      block.indexOf('"tag-status":') !== -1,
-      "the doc map keys in on tag-status",
+      block.indexOf('"' + SLUG + '":') !== -1,
+      "the doc map keys in on " + SLUG,
     );
     assert.ok(
-      block.indexOf("#f0ffec") !== -1,
-      "the embedded doc carries the real vendored Success background #f0ffec (not just a slug reference)",
+      block.indexOf(EXPECTED_BG) !== -1,
+      "the embedded doc carries " +
+        SLUG +
+        "'s real vendored root background " +
+        EXPECTED_BG +
+        " (not just a slug reference)",
     );
   });
 

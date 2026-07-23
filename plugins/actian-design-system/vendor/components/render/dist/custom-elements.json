@@ -474,6 +474,112 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/confirmation.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Confirmation",
+          "tagName": "zen-confirmation",
+          "description": "A placeholder shown when success. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Large"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/digram-item-types.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DigramItemTypes",
+          "tagName": "zen-digram-item-types",
+          "description": "Works like tags but contains only 2 letters (initials of category name)",
+          "attributes": [
+            {
+              "name": "item type",
+              "type": {
+                "text": "Dataset | Data process | Data product | Field | Output port | Use case | Visualization | Category | Custom 1 | Custom 2 | Custom 3 | Custom 4 | Custom 5 | Custom 6 | Custom 7 | Custom 8 | Custom 9 | Custom 10 | Custom 11 | Custom 12 | Custom 13 | Custom 14 | Custom 16 | Glossary 1 | Glossary 2 | Glossary 3 | Glossary 4 | Glossary 5"
+              }
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "Small | Default | Large"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/digram-topic.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DigramTopic",
+          "tagName": "zen-digram-topic",
+          "description": "DigramTopic component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Light purple | Dark purple | Light blue | Dark blue | Light green | Dark green | Yellow | Orange | Red | Dark orange"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/dropdown-select-default.html",
       "declarations": [
         {
@@ -547,6 +653,69 @@
             },
             {
               "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/error-state.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ErrorState",
+          "tagName": "zen-error-state",
+          "description": "A placeholder shown when a container has an error. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Large | Medium"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-xl"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-xl"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-md"
@@ -673,6 +842,70 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/lineage-grouped-node.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LineageGroupedNode",
+          "tagName": "zen-lineage-grouped-node",
+          "description": "LineageGroupedNode component.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Expanded"
+              }
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "Main item | Sub item"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/lineage-individual-node.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LineageIndividualNode",
+          "tagName": "zen-lineage-individual-node",
+          "description": "LineageIndividualNode component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Main item | Sub item"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Selected | Disabled"
+              }
+            },
+            {
+              "name": "fields",
+              "type": {
+                "text": "Collapsed | Expanded"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/loader.html",
       "declarations": [
         {
@@ -714,6 +947,150 @@
             },
             {
               "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/loader-with-logo.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LoaderWithLogo",
+          "tagName": "zen-loader-with-logo",
+          "description": "Indicates a background process is active. Use loader with logo in transition between apps or logging in or out to reduce perceived wait time",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Actian Data Intelligence | Studio | Explorer | Admin"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/maintenance-state.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "MaintenanceState",
+          "tagName": "zen-maintenance-state",
+          "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "Large"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/metamodel-widget.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "MetamodelWidget",
+          "tagName": "zen-metamodel-widget",
+          "description": "MetamodelWidget component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Dataset | Business Term | Data Process | Field | Visualisation"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-xs"
@@ -860,6 +1237,29 @@
               "name": "--zen-spacing-sm"
             }
           ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/notification-dropdown.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NotificationDropdown",
+          "tagName": "zen-notification-dropdown",
+          "description": "NotificationDropdown component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Empty | List"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
         }
       ]
     },
@@ -1211,6 +1611,29 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/search-dropdown-menu.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SearchDropdownMenu",
+          "tagName": "zen-search-dropdown-menu",
+          "description": "SearchDropdownMenu component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "No result | Before typed | After typed | Explorer home"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/segmented-control.html",
       "declarations": [
         {
@@ -1509,6 +1932,86 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-catalog.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagCatalog",
+          "tagName": "zen-tag-catalog",
+          "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-catalog-item-type.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagCatalogItemType",
+          "tagName": "zen-tag-catalog-item-type",
+          "description": "Use for physical metamodel item types. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Category | Dataset | Data process | Data product | Field | Output port | Use case | Visualization"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-error-50"
+            },
+            {
+              "name": "--zen-color-error-800"
+            },
+            {
+              "name": "--zen-color-success-50"
+            },
+            {
+              "name": "--zen-color-success-800"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/tag-default.html",
       "declarations": [
         {
@@ -1527,6 +2030,60 @@
           ],
           "cssParts": [],
           "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-glossary-item-type.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagGlossaryItemType",
+          "tagName": "zen-tag-glossary-item-type",
+          "description": "Use for glossary item types. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-900"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1608,6 +2165,91 @@
               "name": "--zen-spacing-xs"
             }
           ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-shared.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagShared",
+          "tagName": "zen-tag-shared",
+          "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-stage.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagStage",
+          "tagName": "zen-tag-stage",
+          "description": "Use for data lifecycle stages. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "color",
+              "type": {
+                "text": "Orange | Indigo | Purple | Lime | Teal | Yellow | Pink | Gray"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-error-800"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-primary-600"
+            },
+            {
+              "name": "--zen-color-success-600"
+            },
+            {
+              "name": "--zen-color-warning-800"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-status.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagStatus",
+          "tagName": "zen-tag-status",
+          "description": "Use for status. Can be interactive (removable) or static metadata.",
+          "attributes": [
+            {
+              "name": "status",
+              "type": {
+                "text": "Fail | Warning | Loading | Maintenance | Scheduled | Queued | Stopped | Sleeping | Offline | Pending | Success"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
         }
       ]
     },
@@ -1830,6 +2472,527 @@
             },
             {
               "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card-for-perimeter.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CardForPerimeter",
+          "tagName": "zen-card-for-perimeter",
+          "description": "CardForPerimeter component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card-for-grouped-content.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CardForGroupedContent",
+          "tagName": "zen-card-for-grouped-content",
+          "description": "CardForGroupedContent component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/search-result-card.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SearchResultCard",
+          "tagName": "zen-search-result-card",
+          "description": "A specialized card variant optimized for scannability during a search. Highlights relevant metadata and matching keywords.",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Explorer | Studio"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Selected"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-error-50"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-focus-ring-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/whats-new-dropdown.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "WhatsNewDropdown",
+          "tagName": "zen-whats-new-dropdown",
+          "description": "WhatsNewDropdown component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Drilldown1 | Drilldown2 | Empty | List"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/drawer-side-panel.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DrawerSidePanel",
+          "tagName": "zen-drawer-side-panel",
+          "description": "A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Studio | Explorer"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/spinner.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Spinner",
+          "tagName": "zen-spinner",
+          "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
+          "attributes": [
+            {
+              "name": "color mode",
+              "type": {
+                "text": "On light bg | On dark bg"
+              }
+            },
+            {
+              "name": "complete",
+              "type": {
+                "text": "50% | 75% | 100% | 25%"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-muted"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-primary-300"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/loading-skeleton.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LoadingSkeleton",
+          "tagName": "zen-loading-skeleton",
+          "description": "Indicates a background process is active. Use Skeleton for page-level transitions to reduce perceived wait time.",
+          "attributes": [
+            {
+              "name": "transition",
+              "type": {
+                "text": "1 | 2"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/scroll-bar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ScrollBar",
+          "tagName": "zen-scroll-bar",
+          "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-disabled"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/link.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Link",
+          "tagName": "zen-link",
+          "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.\n\nUsed for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Expanded | Visited | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-primary-800"
+            },
+            {
+              "name": "--zen-color-text-disabled"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/avatar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Avatar",
+          "tagName": "zen-avatar",
+          "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hovered | Focused | Pressed | Disabled | Selected"
+              }
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "One group | Two groups | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-muted"
+            },
+            {
+              "name": "--zen-color-primary-25"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-disabled"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-xl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/collapse-accordion.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CollapseAccordion",
+          "tagName": "zen-collapse-accordion",
+          "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Collapsed | Expanede"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
             },
             {
               "name": "--zen-spacing-xs"

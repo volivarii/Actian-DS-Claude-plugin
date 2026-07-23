@@ -51,6 +51,16 @@ function extractClassesFromJS(jsPath) {
       if (!cls || /['+()`%]/.test(cls) || /^[A-Z]/.test(cls)) continue;
       // Skip variable names used in templates (e.g., alertType, btnSize)
       if (/^[a-z]+[A-Z]/.test(cls) && cls.indexOf("-") === -1) continue;
+      // Skip anything that could not be a CSS class name in the first place.
+      // The `class="([^"]*)"` capture above is line-agnostic, so a class
+      // attribute built with a multi-line ternary (e.g. ds-html-map's
+      // loading-skeleton block: `'<span class="ds-x' + (extra ? " " + extra
+      // : "") + '"...'`) captures across the newline and yields bare operator
+      // tokens like `?`. Those pass every filter above yet are not classes,
+      // so the gate reported a missing rule for `?`. Mirrors the identifier
+      // pattern extractClassesFromCSS already uses, keeping both sides of the
+      // comparison to the same notion of "a class name".
+      if (!/^[a-zA-Z][a-zA-Z0-9_-]*$/.test(cls)) continue;
       classes.add(cls);
     }
   }

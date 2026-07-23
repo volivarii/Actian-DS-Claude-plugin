@@ -27,7 +27,7 @@ function readRegistry(kit) {
   return _cache[kit];
 }
 
-// The 35 render slugs are the `case "<slug>":` branches in
+// The render slugs are the `case "<slug>":` branches in
 // scripts/renderers/html-renderers/ds-html-map.js. This list drives the
 // --all CLI mode and is the seed set for the canonical render library bootstrap.
 var RENDER_SLUGS = [
@@ -41,31 +41,62 @@ var RENDER_SLUGS = [
   "card-for-items",
   "chat-with-ai-steward",
   "checkbox",
+  "confirmation",
+  "digram-item-types",
+  "digram-topic",
   "dropdown-select-default",
   "empty-state",
+  "error-state",
   "global-header",
   "input-date",
+  "lineage-grouped-node",
+  "lineage-individual-node",
   "loader",
+  "loader-with-logo",
+  "maintenance-state",
+  "metamodel-widget",
   "modal",
   "notification",
+  "notification-dropdown",
   "page-header",
   "popover",
   "progress-bar-small",
   "radio-button",
   "rich-text",
   "search",
+  "search-dropdown-menu",
   "segmented-control",
   "side-nav",
   "stepper",
   "sticky-footer",
   "table",
   "tabs",
+  "tag-catalog",
+  "tag-catalog-item-type",
   "tag-default",
+  "tag-glossary-item-type",
   "tag-interactive",
+  "tag-shared",
+  "tag-stage",
+  "tag-status",
   "text-input",
   "toggle",
   "toolbar",
   "tooltip",
+  // Gray-box-to-zero, family 3 (card family).
+  "card-for-perimeter",
+  "card-for-grouped-content",
+  "search-result-card",
+  // Gray-box-to-zero, family 4 (dropdowns / overlays).
+  "whats-new-dropdown",
+  "drawer-side-panel",
+  // Gray-box-to-zero, family 5 (primitives).
+  "spinner",
+  "loading-skeleton",
+  "scroll-bar",
+  "link",
+  "avatar",
+  "collapse-accordion",
 ];
 
 // A render slug may live in any kit; search ds -> meta -> fm.
@@ -179,6 +210,403 @@ var MATRIX_OVERRIDES = {
         Body: "Create policies to define how your platform operates.",
         Cta: "Create policy",
         Secondary: "Learn more",
+      },
+    },
+  ],
+
+  // tag-stage's Color axis has 8 values; the generic 5-cell cap would drop
+  // three. Color is the component's identity here (drives both the
+  // container bg/border via the existing .ds-tag--<color> rules and the dot
+  // fill via the new per-color descendant rules), so show them all.
+  "tag-stage": [
+    "Orange",
+    "Indigo",
+    "Purple",
+    "Lime",
+    "Teal",
+    "Yellow",
+    "Pink",
+    "Gray",
+  ].map(function (c) {
+    return { label: c, variant: "Color=" + c, props: { Label: c } };
+  }),
+
+  // tag-status's Status axis has 11 values; the generic 5-cell cap would drop
+  // six. Every status is a distinct real-world state (not decorative), so
+  // show them all rather than an arbitrary subset.
+  "tag-status": [
+    "Fail",
+    "Warning",
+    "Loading",
+    "Maintenance",
+    "Scheduled",
+    "Queued",
+    "Stopped",
+    "Sleeping",
+    "Offline",
+    "Pending",
+    "Success",
+  ].map(function (s) {
+    return { label: s, variant: "Status=" + s, props: { Label: s } };
+  }),
+
+  // Property 1 is single-valued ("Default"), so the generic derivation would
+  // fall back to a single bare cell with no props and never show the
+  // "Show Counter" form. Curate one representative cell with the counter on.
+  "tag-glossary-item-type": [
+    {
+      label: "Default",
+      variant: "Property 1=Default",
+      props: { Label: "Glossary item", "Show Counter": true, Counter: "00" },
+    },
+  ],
+
+  // tag-catalog-item-type's Type axis has 8 values; the generic 5-cell cap
+  // would drop three. Type IS the component's identity (each value is a
+  // distinct colored pill), so show them all.
+  "tag-catalog-item-type": [
+    "Category",
+    "Dataset",
+    "Data process",
+    "Data product",
+    "Field",
+    "Output port",
+    "Use case",
+    "Visualization",
+  ].map(function (t) {
+    return { label: t, variant: "Type=" + t, props: { Label: t } };
+  }),
+
+  // Same rationale as empty-state above: Size is the only (secondary) axis,
+  // so curate one representative rich cell instead of the generic bare stub.
+  "maintenance-state": [
+    {
+      label: "Default",
+      variant: "Size=Large",
+      props: {
+        Headline: "Scheduled maintenance in progress until 12:00 PM EST",
+        Body: "Reports may be unavailable. Refresh or check back when the maintenance window is complete.",
+        Cta: "Create policy",
+        Secondary: "Learn more",
+      },
+    },
+  ],
+
+  // Same rationale as empty-state/maintenance-state above: Size is the only
+  // (secondary) axis, so curate one representative rich cell (the captured
+  // success-confirmation anatomy) instead of the generic bare stub.
+  confirmation: [
+    {
+      label: "Default",
+      variant: "Size=Large",
+      props: {
+        Title: "Success!",
+        Body: "The selected items will be imported into the catalog. You will be notified once the import is complete.",
+        Cta: "Open the catalog",
+        Secondary: "Learn more",
+      },
+    },
+  ],
+
+  // Same rationale as empty-state/maintenance-state/confirmation above: Size
+  // is the only (secondary) axis, so curate one representative rich cell
+  // instead of the generic bare stub.
+  "error-state": [
+    {
+      label: "Default",
+      variant: "Size=Large",
+      props: {
+        Title: "Something went wrong",
+        Body: "There was an error creating your item. Please try again in a moment.",
+        Cta: "Try again",
+        Secondary: "Go back",
+      },
+    },
+  ],
+
+  // Property 1 is single-valued ("Default"), so the generic derivation would
+  // fall back to a single bare cell with props:{Label:slug} -- the case
+  // reads Item type/Name/Counter/Completeness, not Label, so that stub would
+  // render an all-default card. Curate one representative rich cell instead
+  // (values mirror the captured anatomy sample).
+  "card-for-perimeter": [
+    {
+      label: "Default",
+      variant: "Property 1=Default",
+      props: {
+        "Item type": "Dataset",
+        "Item type initials": "DS",
+        Name: "Dataset",
+        Counter: "23",
+        Completeness: "50%",
+      },
+    },
+  ],
+
+  // Same rationale as card-for-perimeter above: Property 1 is single-valued
+  // ("Default"), so curate one representative rich cell (Title + Body)
+  // instead of the generic bare stub.
+  "card-for-grouped-content": [
+    {
+      label: "Default",
+      variant: "Property 1=Default",
+      props: {
+        Title: "Grouped content",
+        "Show info icon": true,
+        Body: "Group related fields, filters, or summary content under a single labeled section.",
+      },
+    },
+  ],
+
+  // App is the identity axis (Explorer/Studio), but this leaf reads its own
+  // Title/Type/Stage/Catalog/etc props, not Label -- the generic derivation
+  // would render an all-default card for each App value. Curate 2 cells
+  // instead, mirroring card-for-items' only-Selected-shown convention: the
+  // faithful default (App=Explorer, State=Default) plus State=Selected.
+  "search-result-card": [
+    {
+      label: "Default",
+      variant: "App=Explorer, State=Default",
+      props: {
+        Title: "Financial Summary EY2024",
+        "Tech name": "[Financial Summary EY2024]",
+        Type: "Category",
+        Stage: "Stage",
+        Catalog: "Catalog",
+        Description:
+          "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+        "Featured property 1": "Business Domain: IT",
+        "Featured property 2": "Source Application: App 120",
+        "Glossary label": "Vehicle",
+      },
+    },
+    {
+      label: "Selected",
+      variant: "App=Explorer, State=Selected",
+      props: {
+        Title: "Financial Summary EY2024",
+        "Tech name": "[Financial Summary EY2024]",
+        Type: "Category",
+        Stage: "Stage",
+        Catalog: "Catalog",
+        Description:
+          "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+        "Featured property 1": "Business Domain: IT",
+        "Featured property 2": "Source Application: App 120",
+        "Glossary label": "Vehicle",
+      },
+    },
+  ],
+
+  // Property 1 (Empty/List) is the identity axis, but this leaf reads
+  // Items/Header/Empty, not Label -- the generic derivation would render an
+  // all-default cell for each value. Curate both cells so the gallery shows
+  // the list AND the empty state.
+  "notification-dropdown": [
+    {
+      label: "List",
+      variant: "Property 1=List",
+      props: {
+        Header: "Notifications",
+        Items:
+          "New items inventoried from PowerBi Online V1 at 7/11/25 12:42 AM.,New items inventoried from PowerBi Online V1 at 7/6/25 12:42 AM.,New items inventoried from PowerBi Online V1 at 7/3/25 4:47 PM.",
+      },
+    },
+    {
+      label: "Empty",
+      variant: "Property 1=Empty",
+      props: { Header: "Notifications" },
+    },
+  ],
+
+  // Type (No result/Before typed/After typed/Explorer home) is the identity
+  // axis, but this leaf reads Heading/Results/Query, not Label -- curate 2
+  // representative cells (the captured After-typed default + No result,
+  // since that one swaps in an entirely different, text-only body).
+  "search-dropdown-menu": [
+    {
+      label: "After typed",
+      variant: "Type=After typed",
+      props: {
+        Heading: "Suggestions",
+        Results: "transmitting,transmitter,transmit,transparent",
+      },
+    },
+    {
+      label: "No result",
+      variant: "Type=No result",
+      props: { Query: "orders" },
+    },
+  ],
+
+  // Property 1 (Drilldown1/Drilldown2/Empty/List) is the identity axis, but
+  // this leaf reads Title/Items/EmptyLabel/Detail, not Label -- curate 3
+  // cells (List, Empty, Drilldown) so the gallery shows every wnMode branch.
+  "whats-new-dropdown": [
+    {
+      label: "List",
+      variant: "Property 1=List",
+      props: {
+        Title: "What's new",
+        Items:
+          "Added support for bulk dataset import.,Fixed an issue where filters were not preserved on page reload.",
+      },
+    },
+    {
+      label: "Empty",
+      variant: "Property 1=Empty",
+      props: { Title: "What's new", EmptyLabel: "No release updates" },
+    },
+    {
+      label: "Drilldown",
+      variant: "Property 1=Drilldown1",
+      props: {
+        Title: "Bulk dataset import",
+        Detail:
+          "Added support for bulk dataset import. You can now import multiple datasets from a single CSV manifest.",
+      },
+    },
+  ],
+
+  // App (Studio/Explorer) is the identity axis, but this leaf reads
+  // Name/Type/Show Back, not Label -- curate both cells so the gallery
+  // shows the faithful Studio default plus the minimal Explorer accent.
+  "drawer-side-panel": [
+    {
+      label: "Studio",
+      variant: "App=Studio",
+      props: { Name: "Financial Summary EY2024", Type: "Dataset" },
+    },
+    {
+      label: "Explorer",
+      variant: "App=Explorer",
+      props: { Name: "Financial Summary EY2024", Type: "Dataset" },
+    },
+  ],
+
+  // Complete (25/50/75/100%) has more values than Color mode, so the generic
+  // tie-break (most values wins) would pick Complete as primary -- but
+  // Complete is the ring animation's own arc-fill cycle, not a chooseable
+  // variant (usage guideline), and the case ignores it entirely. Curate the
+  // real identity axis (Color mode) instead so the gallery actually shows
+  // the on-dark modifier.
+  spinner: [
+    {
+      label: "On light bg",
+      variant: "Color mode=On light bg",
+      props: { Label: "Loading" },
+    },
+    {
+      label: "On dark bg",
+      variant: "Color mode=On dark bg",
+      props: { Label: "Loading" },
+    },
+  ],
+
+  // Property 1 is single-valued ("Default"); Orientation is a USAGE-doc
+  // concept driven entirely by a prop, not a registry axis, so the generic
+  // derivation would only ever show one (vertical) card. Curate both
+  // orientations so the gallery demonstrates the horizontal rail too.
+  "scroll-bar": [
+    {
+      label: "Vertical",
+      variant: "Property 1=Default",
+      props: { Label: "Content list" },
+    },
+    {
+      label: "Horizontal",
+      variant: "Property 1=Default",
+      props: { Label: "Content list", Orientation: "Horizontal" },
+    },
+  ],
+
+  // State is link's only axis and is secondary (isSecondaryAxis), so the
+  // generic derivation's 5-cap + name-derived Label would drop Visited (a
+  // captured, token-driven color) and show the state name itself as the
+  // clickable text ("Hover", "Pressed", ...). Curate all 7 with one
+  // consistent, realistic label so the gallery reads as real link text
+  // and every captured/reasoned state modifier is visible.
+  link: [
+    {
+      label: "Default",
+      variant: "State=Default",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Hover",
+      variant: "State=Hover",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Focus",
+      variant: "State=Focus",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Pressed",
+      variant: "State=Pressed",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Expanded",
+      variant: "State=Expanded",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Visited",
+      variant: "State=Visited",
+      props: { Label: "View details" },
+    },
+    {
+      label: "Disabled",
+      variant: "State=Disabled",
+      props: { Label: "View details" },
+    },
+  ],
+
+  // Type is the identity axis, but the generic derivation would feed
+  // props:{Label:<value>} which the case never reads (it reads
+  // Initials/Count) -- every card would silently fall back to the default
+  // "AV" initials and a Count of 3, never showing the +N overflow. Curate
+  // real initials + a Count>4 group so the overflow chip is visible, plus
+  // an explicit Disabled cell.
+  avatar: [
+    { label: "Default", variant: "Type=Default", props: { Initials: "CF" } },
+    {
+      label: "One group",
+      variant: "Type=One group",
+      props: { Initials: "CF", Count: "6" },
+    },
+    {
+      label: "Two groups",
+      variant: "Type=Two groups",
+      props: { Initials: "CF", Count: "3" },
+    },
+    {
+      label: "Disabled",
+      variant: "Type=Default, State=Disabled",
+      props: { Initials: "CF" },
+    },
+  ],
+
+  // State is a secondary axis (isSecondaryAxis), so the generic derivation
+  // would feed only props:{Label:"Collapsed"|"Expanede"} -- the case reads
+  // Title/Body, not Label, so both cards would render the same fallback
+  // title with no body. Curate two real cells (mirrors the empty-state
+  // override's rationale). The "Expanede" value is the literal registry
+  // typo -- see the case comment.
+  "collapse-accordion": [
+    {
+      label: "Collapsed",
+      variant: "State=Collapsed",
+      props: { Title: "Advanced settings" },
+    },
+    {
+      label: "Expanded",
+      variant: "State=Expanede",
+      props: {
+        Title: "Advanced settings",
+        Body: "Configure retention, encryption, and scheduling for this dataset.",
       },
     },
   ],

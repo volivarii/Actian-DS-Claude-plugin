@@ -16,6 +16,21 @@ function render(node) {
   return ds.renderDSComponent(node);
 }
 
+// Glyphs ds-html-map deliberately references before the asset exists.
+// knowledge's lineage-individual-node case calls renderIcon() for both and
+// documents that renderIcon degrades to "" for an unmapped slug, so the span
+// simply does not render until the real export lands. That is a considered
+// upstream decision, not a typo, and the orphan-ref gate below would
+// otherwise force the renderer to either drop the call or ship a fake icon.
+//
+// Named here rather than silently tolerated: each entry carries its tracking
+// issue, and the gate asserts the slug is STILL absent so the excuse expires
+// on its own. Delete an entry the moment its asset ships.
+var KNOWN_ABSENT_ICONS = {
+  powerbi: "actian-ds-knowledge#467",
+  "identification-key": "actian-ds-knowledge#467",
+};
+
 describe("ds-html-map: P1a precondition", function () {
   it("vendored icons.json has the slugs renderIcon needs", function () {
     var iconsPath = PATHS.components.icons.svg;
@@ -59,11 +74,29 @@ describe("ds-html-map: orphan-ref gate", function () {
         ")",
     );
     assert.deepEqual(
-      missing,
+      missing.filter(function (s) {
+        return !(s in KNOWN_ABSENT_ICONS);
+      }),
       [],
       "renderIcon slugs missing from vendored icons.json: " +
         missing.join(", "),
     );
+    // The excused slugs must still BE absent. Without this, an entry that
+    // finally lands upstream would sit here forever quietly excusing a glyph
+    // that no longer needs excusing, and the next genuinely-missing icon with
+    // the same name would ride in behind it. When the asset arrives this
+    // fails and tells you to delete the entry — the same "re-baseline and
+    // remove the note" convention the tag-status goldens already use.
+    Object.keys(KNOWN_ABSENT_ICONS).forEach(function (slug) {
+      assert.ok(
+        !(slug in known),
+        slug +
+          " is now present in vendored icons.json — drop it from " +
+          "KNOWN_ABSENT_ICONS (tracked: " +
+          KNOWN_ABSENT_ICONS[slug] +
+          ")",
+      );
+    });
   });
 });
 

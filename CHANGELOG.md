@@ -92,6 +92,22 @@ are summarized at the release level.
   chips before their replacements exist.
 
 ### Fixed
+- **Status tags in generated output now show their real label instead of always reading "Fail".**
+  ([#269](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/269)) Tag Status used to render
+  through the captured-appearance seam, which draws its text from the anatomy capture and never
+  consumed `props.Label`, so every status pill in a generated flow rendered the captured word
+  regardless of what the author asked for: a tag authored as "Active" came out as "Fail". Knowledge
+  v0.34.116 ([actian-ds-knowledge#472](https://github.com/volivarii/actian-ds-knowledge/pull/472))
+  gave `tag-status` a hand-authored render leaf that honours the prop, and the two goldens that had
+  been pinning the old behaviour are re-baselined to "Active" and "Failed". The pill stays
+  deliberately label-only: the 2026-07 Figma rework deleted both `checkmark-outline` and
+  `misuse-outline`, so knowledge renders no glyph rather than substituting a fake one (tracked
+  upstream in [actian-ds-knowledge#406](https://github.com/volivarii/actian-ds-knowledge/issues/406)).
+
+  That same vendor bump grew `BUILT_SLUGS` from 41 to 63, which broke 14 tests that had hardcoded a
+  specimen slug or an absolute population count. Both assumptions are now resolved at run time, so
+  future gray-box slices do not re-break them, and each guard fails loudly rather than passing
+  vacuously once its population reaches zero.
 - **Adapted to the 2026-07 Figma form-control rework** (knowledge sync #378), which is what has kept
   every vendor-refresh PR red since 2026-07-07. The DS renamed the selection axis on the form
   controls, and the Fat Marker to DS map still targeted the old values:

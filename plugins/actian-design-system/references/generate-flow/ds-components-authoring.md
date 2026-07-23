@@ -14,74 +14,74 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `alert-banner` | Alert-banner | **BUILT** | Type / Orientation' |
 | `alert-inline` | Alert-inline | appearance | Type / Orientation' |
 | `app-switcher-dropdown` | App switcher dropdown | **BUILT** | — |
-| `avatar` | Avatar | appearance | State / Type |
+| `avatar` | Avatar | **BUILT** | State / Type |
 | `badge` | ✍️ Badge | **BUILT** | Type |
 | `bar-graph` | ⛔️ Bar graph | appearance | Property 1 |
 | `breadcrumb` | Breadcrumb | **BUILT** | Type |
 | `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
 | `calendar` | Calendar | **BUILT** | Type / Selection |
-| `card-for-grouped-content` | Card for grouped content | appearance | Property 1 |
+| `card-for-grouped-content` | Card for grouped content | **BUILT** | Property 1 |
 | `card-for-items` | Card for items | **BUILT** | Type / State |
-| `card-for-perimeter` | Card for perimeter | appearance | Property 1 |
+| `card-for-perimeter` | Card for perimeter | **BUILT** | Property 1 |
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
 | `checkbox-card` | Checkbox card | appearance | Selection / State |
-| `collapse-accordion` | ✍️ Collapse-accordion | appearance | State |
-| `confirmation` | Confirmation | appearance | Size |
-| `digram-item-types` | Digram, Item types | appearance | Item type / Size |
-| `digram-topic` | Digram, Topic | appearance | Type |
-| `drawer-side-panel` | Drawer, side panel | appearance | App |
+| `collapse-accordion` | ✍️ Collapse-accordion | **BUILT** | State |
+| `confirmation` | Confirmation | **BUILT** | Size |
+| `digram-item-types` | Digram, Item types | **BUILT** | Item type / Size |
+| `digram-topic` | Digram, Topic | **BUILT** | Type |
+| `drawer-side-panel` | Drawer, side panel | **BUILT** | App |
 | `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
 | `empty-state` | Empty state | **BUILT** | Size |
-| `error-state` | Error state | appearance | Size |
+| `error-state` | Error state | **BUILT** | Size |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `glossary-item-hierarchy-diagram` | Glossary item hierarchy diagram | chip | Type |
 | `identification-key` | Identification key | appearance | Property 1 |
 | `input-date` | Input, date | **BUILT** | Type / States |
 | `line-graph` | ⛔️ Line graph | appearance | Property 1 |
 | `lineage-connecting-line` | Lineage connecting line | chip | Direction / State |
-| `lineage-grouped-node` | Lineage grouped node | appearance | State / Type |
-| `lineage-individual-node` | Lineage individual node | appearance | Type / State / Fields |
-| `link` | Link | appearance | State |
+| `lineage-grouped-node` | Lineage grouped node | **BUILT** | State / Type |
+| `lineage-individual-node` | Lineage individual node | **BUILT** | Type / State / Fields |
+| `link` | Link | **BUILT** | State |
 | `loader` | Loader | **BUILT** | Percent |
-| `loader-with-logo` | Loader with logo | appearance | App |
-| `loading-skeleton` | Loading skeleton | appearance | Transition |
-| `maintenance-state` | Maintenance state | appearance | Size |
-| `metamodel-widget` | Metamodel widget | appearance | Type |
+| `loader-with-logo` | Loader with logo | **BUILT** | App |
+| `loading-skeleton` | Loading skeleton | **BUILT** | Transition |
+| `maintenance-state` | Maintenance state | **BUILT** | Size |
+| `metamodel-widget` | Metamodel widget | **BUILT** | Type |
 | `modal` | Modal | **BUILT** | Size & Type / Dev status |
 | `notification` | Notification | **BUILT** | Type |
-| `notification-dropdown` | Notification dropdown | chip | Property 1 |
+| `notification-dropdown` | Notification dropdown | **BUILT** | Property 1 |
 | `page-header` | Page header | **BUILT** | Type |
 | `popover` | ⛔️ Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio-button` | Radio button | **BUILT** | Selection / State |
 | `radio-button-card` | Radio button card | appearance | Selection / State |
 | `rich-text` | Rich text | **BUILT** | State |
-| `scroll-bar` | Scroll bar | chip | Property 1 |
+| `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
-| `search-dropdown-menu` | Search dropdown menu | appearance | Type |
+| `search-dropdown-menu` | Search dropdown menu | **BUILT** | Type |
 | `search-filters` | Search filters | appearance | Type |
-| `search-result-card` | Search result card | appearance | App / State |
+| `search-result-card` | Search result card | **BUILT** | App / State |
 | `segmented-control` | Segmented control | **BUILT** | Type |
 | `side-nav` | ✍️ Side nav | **BUILT** | App / View |
-| `spinner` | Spinner | appearance | Color mode / Complete |
+| `spinner` | Spinner | **BUILT** | Color mode / Complete |
 | `stepper` | Stepper | **BUILT** | State |
 | `sticky-footer` | Sticky footer | **BUILT** | Property 1 |
 | `table` | ✍️ Table | **BUILT** | Built type |
 | `tabs` | Tabs | **BUILT** | Property 1 |
-| `tag-catalog` | ✍️ Tag, Catalog | appearance | Type |
-| `tag-catalog-item-type` | ✍️ Tag, Catalog item type | appearance | Type |
+| `tag-catalog` | ✍️ Tag, Catalog | **BUILT** | Type |
+| `tag-catalog-item-type` | ✍️ Tag, Catalog item type | **BUILT** | Type |
 | `tag-default` | ✍️ Tag, Default | **BUILT** | Color |
-| `tag-glossary-item-type` | ✍️ Tag, Glossary item type | appearance | Property 1 |
+| `tag-glossary-item-type` | ✍️ Tag, Glossary item type | **BUILT** | Property 1 |
 | `tag-interactive` | ✍️ Tag, Interactive | **BUILT** | State |
-| `tag-shared` | ✍️ Tag, Shared | appearance | Property 1 |
-| `tag-stage` | ✍️ Tag, Stage | appearance | Color |
-| `tag-status` | ✍️ Tag, Status | appearance | Status |
+| `tag-shared` | ✍️ Tag, Shared | **BUILT** | Property 1 |
+| `tag-stage` | ✍️ Tag, Stage | **BUILT** | Color |
+| `tag-status` | ✍️ Tag, Status | **BUILT** | Status |
 | `text-input` | Text input | **BUILT** | States |
 | `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
 | `tooltip` | ⚠️ Tooltip | **BUILT** | Type |
-| `whats-new-dropdown` | Whats new dropdown | appearance | Property 1 |
+| `whats-new-dropdown` | Whats new dropdown | **BUILT** | Property 1 |
 
 ## Built leaf props
 

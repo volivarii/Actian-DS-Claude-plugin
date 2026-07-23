@@ -4,22 +4,36 @@
 // captured-appearance renderer is actually WIRED into the canonical
 // generate-flow deliverable (assembleFlowShare, server-side Node render).
 //
-// tag-status is a non-override, non-BUILT_SLUGS slug, so it falls to the
+// The specimen is a non-override, non-BUILT_SLUGS slug, so it falls to the
 // default: case in ds-html-map.js — which (as of Task 6) must build the
 // anatomy DOC map (buildDsAnatomyDocMap) and inject it via
 // setAnatomyDocMap() BEFORE the render loop, so renderAppearanceComponent
-// picks the Success variant's real vendored background (#f0ffec) instead of
-// degrading straight to a graceful chip (data-slug).
+// picks the doc's real vendored background instead of degrading straight to a
+// graceful chip (data-slug).
+//
+// The specimen and its expected colour are both resolved at run time from the
+// substrate. This test used to hardcode tag-status / #f0ffec; knowledge #472
+// gave tag-status a bespoke ds-html-map leaf, which correctly shadows the
+// appearance path and left the assertion pointed at a slug that no longer
+// exercises it. Deriving both keeps the test about the WIRING, and matches the
+// standing rule to assert data-derived invariants over frozen snapshots.
 //
 // Current contract (post-Group-C): the default: case has exactly two
 // outcomes — an appearance doc renders via renderAppearanceComponent, or (no
 // doc, or it rendered empty) a direct gracefulChip(). There is no
 // anatomy-render.js / legacy slug-to-html anatomy-map fallback in between;
 // that two-hop path was retired in Group C. `data-ds-slug` is present on the
-// appearance output too, so the real unique markers are (1) the literal
-// `#f0ffec` hex value (appearance rendering emits resolved values, never a
-// `var(--...)` token reference) and (2) the `class="ds-appearance"` wrapper
-// class, which only renderAppearanceComponent emits.
+// appearance output too, so the unique marker is the `class="ds-appearance"`
+// wrapper, which only renderAppearanceComponent emits.
+//
+// The colour check is SCOPED to inside that wrapper. Page-wide it would be
+// worthless: the hardcoded specimen used to be tag-status, whose #f0ffec was
+// rare enough that a page-wide search meant something, but a run-time
+// specimen can legitimately resolve to a common colour (today it is
+// bar-graph at #ffffff, which appears 19 times in the assembled page's
+// inlined CSS and survives even a totally broken renderer). Anchoring on the
+// wrapper and asserting the emitted `background:` declaration keeps the
+// assertion about THIS component's render for any specimen.
 //
 // Repo style: node:test + node:assert (see flow-share-anatomy.test.js,
 // flow-share-a1-overrides.test.js).
@@ -30,8 +44,21 @@ var {
   assembleFlowShare,
 } = require("../../scripts/renderers/assemble-flow-share.js");
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var { pickSpecimen } = require("../helpers/appearance-specimen.js");
 
-// Minimal flow doc: one screen, one DS tag-status instance at Status=Success.
+// A slug still served by the appearance path whose ROOT carries a resolved
+// background — the root is what the default-variant render is guaranteed to
+// emit, so that hex is a sound oracle for "this came from the appearance doc".
+var SPECIMEN = pickSpecimen(ds.BUILT_SLUGS, function (slug, doc) {
+  var bg =
+    doc && doc.root && doc.root.appearance && doc.root.appearance.background;
+  return typeof bg === "string" && /^#[0-9a-fA-F]{3,8}$/.test(bg);
+});
+var SLUG = SPECIMEN.slug;
+var EXPECTED_BG = SPECIMEN.doc.root.appearance.background;
+var VARIANT = (SPECIMEN.doc.root && SPECIMEN.doc.root.name) || "";
+
+// Minimal flow doc: one screen, one DS instance of the chosen specimen.
 function fixture() {
   return {
     meta: { title: "t" },
@@ -43,8 +70,8 @@ function fixture() {
           {
             type: "INSTANCE",
             library: "ds",
-            dsSlug: "tag-status",
-            variant: "Status=Success",
+            dsSlug: SLUG,
+            variant: VARIANT,
             props: {},
           },
         ],
@@ -54,23 +81,34 @@ function fixture() {
 }
 
 describe("flow-share: appearance-doc rendering (Phase 1B, Task 6)", function () {
-  it("renders tag-status Status=Success from real vendored appearance, not a graceful chip", function () {
+  it("renders the specimen from real vendored appearance, not a graceful chip", function () {
     var html = assembleFlowShare(fixture());
-    // Success bg from the vendored tag-status appearance doc:
+    // Root background from the specimen's own vendored appearance doc, checked
+    // INSIDE the appearance wrapper (see header: page-wide is meaningless).
+    var wrapperIdx = html.indexOf('class="ds-appearance');
     assert.ok(
-      /#f0ffec/i.test(html),
-      "assembled HTML must carry the real vendored Success background #f0ffec",
+      wrapperIdx !== -1,
+      "assembled HTML must contain an appearance wrapper for " + SLUG,
+    );
+    var wrapperRegion = html.slice(wrapperIdx, wrapperIdx + 1000);
+    assert.ok(
+      wrapperRegion.indexOf("background:" + EXPECTED_BG) !== -1,
+      "the appearance wrapper must emit " +
+        SLUG +
+        "'s real vendored root background " +
+        EXPECTED_BG +
+        " (appearance rendering emits resolved values, never var(--...))",
     );
     assert.strictEqual(
-      html.indexOf('data-slug="tag-status"'),
+      html.indexOf('data-slug="' + SLUG + '"'),
       -1,
-      "tag-status must NOT fall back to a graceful chip",
+      SLUG + " must NOT fall back to a graceful chip",
     );
     // data-ds-slug alone isn't the unique marker (see the file header): it's
     // kept here as a sanity check that the seam emitted something DS-shaped,
     // not proof this is the appearance path specifically.
     assert.ok(
-      html.indexOf('data-ds-slug="tag-status"') !== -1,
+      html.indexOf('data-ds-slug="' + SLUG + '"') !== -1,
       "appearance renderer marker (data-ds-slug) must be present",
     );
     // The TRUE unique marker: only renderAppearanceComponent emits the
@@ -93,8 +131,8 @@ describe("flow-share: appearance-doc rendering (Phase 1B, Task 6)", function () 
     var html = ds.renderDSComponent({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "tag-status",
-      variant: "Status=Success",
+      dsSlug: SLUG,
+      variant: VARIANT,
       props: {},
     });
     if (prev !== undefined) global.window = prev;

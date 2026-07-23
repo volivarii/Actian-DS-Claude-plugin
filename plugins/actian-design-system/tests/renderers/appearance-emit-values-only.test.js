@@ -29,7 +29,8 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
-var appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
+var appearanceRender =
+  require("../../scripts/lib/renderer.js").appearanceRender;
 var PATHS = require("../../scripts/lib/paths.js");
 
 var ANATOMY_DIR = path.join(__dirname, "../../vendor/components/dist/anatomy");
@@ -45,13 +46,19 @@ var VAR_DEF = /(--[a-zA-Z0-9-]+)\s*:/g;
 // default: seam never reading _serverAnatomyDocs — would make every one of
 // these slugs fall straight through to gracefulChip() (`class="ds-component"`)
 // rather than a `ds-appearance` wrapper (there is no legacy anatomy-map
-// fallback left to catch it — Group C retired that two-hop path). Observed
-// today: 48/48 non-BUILT_SLUGS docs render via the
-// appearance path. MIN_APPEARANCE_RENDERED is set well below that (not at
-// it) so normal per-slug churn (a doc dropping its root appearance, a new
-// low-quality doc skipped by the R2 ratio floor) doesn't make this test
-// flaky, while a total collapse (0 rendered) still fails hard.
-var MIN_APPEARANCE_RENDERED = 40;
+// fallback left to catch it — Group C retired that two-hop path).
+//
+// Expressed as a SHARE of the live non-BUILT population, not an absolute
+// count. It was 40, chosen as comfortably below the 48/48 observed at the
+// time so that normal per-slug churn (a doc dropping its root appearance, a
+// new low-quality doc skipped by the R2 ratio floor) would not make this
+// flaky. But gray-box-to-zero is deliberately shrinking that population one
+// slice at a time (knowledge #472 took it to 23), so an absolute floor
+// eventually exceeds the whole population and fails while every remaining
+// slug renders perfectly — as it did here at 23/23. Lowering the number each
+// slice would be exactly the slow tolerance-widening we do not do; a share
+// keeps the original intent and stays true as the denominator falls.
+var MIN_APPEARANCE_SHARE = 0.83; // ~ the original 40/48 margin
 
 function definedVars(src) {
   var out = new Set(),
@@ -112,11 +119,24 @@ test("appearance emit: every var() carries a fallback and resolves in tokens.css
         "check the capture/publish join): " +
         unresolved.join(", "),
     );
+    // The share is meaningless against an empty population, and "0 of 0"
+    // would sail through as a pass. When gray-box-to-zero finishes there is
+    // no appearance path left to guard, and that must be a loud decision
+    // point rather than a silently vacuous assertion.
     assert.ok(
-      appearanceRenderedCount >= MIN_APPEARANCE_RENDERED,
+      nonBuiltSlugs.length > 0,
+      "no non-BUILT_SLUGS docs remain — the appearance path has no subject " +
+        "left to guard; retire or repoint this test rather than letting it " +
+        "pass against an empty population",
+    );
+    var floor = Math.ceil(nonBuiltSlugs.length * MIN_APPEARANCE_SHARE);
+    assert.ok(
+      appearanceRenderedCount >= floor,
       "expected at least " +
-        MIN_APPEARANCE_RENDERED +
-        " of " +
+        floor +
+        " (" +
+        Math.round(MIN_APPEARANCE_SHARE * 100) +
+        "%) of " +
         nonBuiltSlugs.length +
         " non-BUILT_SLUGS docs to render via the appearance path " +
         '(class="ds-appearance"), got ' +

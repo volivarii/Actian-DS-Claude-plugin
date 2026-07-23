@@ -146,6 +146,90 @@
     );
   }
 
+  // Captured resolved-appearance colors for digram-item-types' 27 "Item type"
+  // values (components/dist/anatomy/digram-item-types.json, root.appearance.variants).
+  // Same species of problem as tag-default's per-Color palette: many color
+  // variants driven by design-tool facts, not a small fixed brand set, but
+  // simpler than tag-default's build-time variant-style-map injection (no
+  // theme-swap requirement here), so this is a plain lookup table instead of
+  // a new injection seam. Custom 1 and Custom 15 have no captured entry;
+  // DIGRAM_ITEM_TYPE_COLORS falls back to "Category" for any unmapped value.
+  var DIGRAM_ITEM_TYPE_COLORS = {
+    Category: "#ffdacf",
+    Field: "#d3efcd",
+    "Custom 10": "#d3efcd",
+    "Custom 11": "#f9ffea",
+    "Custom 12": "#e1eacb",
+    "Custom 13": "#e1eacb",
+    "Custom 14": "#e1eacb",
+    "Custom 16": "#e2e4dd",
+    "Custom 2": "#ffd6d8",
+    "Data process": "#ffd6d8",
+    "Custom 3": "#dde6ec",
+    "Custom 6": "#dde6ec",
+    "Output port": "#dde6ec",
+    "Custom 4": "#e1e5ff",
+    "Custom 5": "#cadcf7",
+    "Data product": "#cadcf7",
+    "Custom 7": "#d0efed",
+    "Custom 8": "#d0efed",
+    "Custom 9": "#d3e7e0",
+    Dataset: "#cfeafd",
+    "Glossary 1": "#fff9e5",
+    "Use case": "#fff9e5",
+    "Glossary 2": "#ffebce",
+    "Glossary 3": "#fffbef",
+    "Glossary 4": "#feeddc",
+    "Glossary 5": "#fff5d5",
+    Visualization: "#eed7ff",
+  };
+  var DIGRAM_ITEM_TYPE_TOKENS = {
+    Field: "--zen-color-success-50",
+  };
+  function digramItemTypeStyle(itemType) {
+    var bg =
+      DIGRAM_ITEM_TYPE_COLORS[itemType] || DIGRAM_ITEM_TYPE_COLORS.Category;
+    var token = DIGRAM_ITEM_TYPE_TOKENS[itemType];
+    return token
+      ? "background:var(" + token + ", " + bg + ")"
+      : "background:" + bg;
+  }
+
+  // Captured resolved-appearance colors for digram-topic's 10 "Type" values
+  // (components/dist/anatomy/digram-topic.json, root.appearance + variants).
+  // "Light purple" is the variant default (no explicit variants entry; it's
+  // the root-level captured background).
+  var DIGRAM_TOPIC_COLORS = {
+    "Light purple": "#a17ab6",
+    "Dark blue": "#003786",
+    "Dark green": "#299315",
+    "Dark orange": "#b22700",
+    "Dark purple": "#8b00e8",
+    "Light blue": "#00b6e1",
+    "Light green": "#75b86b",
+    Orange: "#ef8d00",
+    Red: "#a82743",
+    Yellow: "#eabd34",
+  };
+
+  // Captured resolved-appearance border colors for metamodel-widget's 5 Type
+  // values (components/dist/anatomy/metamodel-widget.json, root.appearance +
+  // variants). Border width (1.5px) and radius (6px) are constant across every
+  // variant; only the color changes. "Dataset" is the variant default.
+  var METAMODEL_TYPE_BORDERS = {
+    Dataset: { color: "#0283be", token: "--zen-color-primary-500" },
+    "Business Term": { color: "#a76605", token: "--zen-color-warning-800" },
+    "Data Process": { color: "#a82743", token: null },
+    Field: { color: "#145f04", token: "--zen-color-success-800" },
+    Visualisation: { color: "#7900cb", token: null },
+  };
+  function metamodelBorderStyle(type) {
+    var b = METAMODEL_TYPE_BORDERS[type] || METAMODEL_TYPE_BORDERS.Dataset;
+    return b.token
+      ? "border-color:var(" + b.token + ", " + b.color + ")"
+      : "border-color:" + b.color;
+  }
+
   // Inline icon glyphs (geometry in raw px — viewBox coords, not design tokens).
   // The button/input/checkbox/tag/card glyphs now come from renderIcon() (real
   // vendored DS icons, orphan-ref gated). The search magnifier stays hardcoded
@@ -323,6 +407,37 @@
           );
         }
 
+        case "link": {
+          // Registry axis: State = Default | Hover | Focus | Pressed |
+          // Expanded | Visited | Disabled -- a secondary axis, link has no
+          // Intent/Emphasis/Type identity axis. Mirrors the button case's
+          // single-element structure with the element swapped to <a>; an
+          // <a> has no disabled attribute, so Disabled is conveyed via
+          // aria-disabled + the is-disabled class instead. No href, mirroring
+          // the breadcrumb case's <a> convention: this is a documentation/
+          // gallery render, not a live nav, and an href would trip the
+          // bundle's self-contained-card check the same way an <img src=>
+          // or <link href=> would.
+          var lnkState = v.State || "Default";
+          var lnkDisabled = lnkState === "Disabled";
+          var lnkCls = "ds-link";
+          if (lnkState === "Visited") lnkCls += " ds-link--visited";
+          if (lnkState === "Hover") lnkCls += " ds-link--hover";
+          if (lnkState === "Focus") lnkCls += " ds-link--focus";
+          if (lnkState === "Pressed") lnkCls += " ds-link--pressed";
+          if (lnkState === "Expanded") lnkCls += " ds-link--expanded";
+          if (lnkDisabled) lnkCls += " is-disabled";
+          return (
+            '<a class="' +
+            lnkCls +
+            '"' +
+            (lnkDisabled ? ' aria-disabled="true"' : "") +
+            ">" +
+            esc(props.Label || "Link") +
+            "</a>"
+          );
+        }
+
         case "text-input": {
           var inLabel = esc(props.Label || "Label");
           var inPlaceholder = esc(
@@ -479,6 +594,55 @@
           );
         }
 
+        case "avatar": {
+          // Registry axes: Type = Default | One group | Two groups
+          // (identity); State is secondary (isSecondaryAxis) -- only
+          // State=Disabled is wired here (dims the initials), mirroring
+          // the badge case's leaf simplicity. Type=One group / Two groups
+          // stack circles with a +N overflow when Count>4 (guideline:
+          // "Collapse into +N when a group exceeds four avatars"); this
+          // geometry is hand-reasoned -- anatomy captured only the single-
+          // circle Default leaf (layoutMode NONE, and the group Types have
+          // no isolated variant at all).
+          var avType = v.Type || "Default";
+          var avDisabled = v.State === "Disabled";
+          var avInitials = esc(props.Initials || "AV");
+          var avSingleCls =
+            "ds-avatar" + (avDisabled ? " ds-avatar--disabled" : "");
+          var avSingleHtml =
+            '<span class="' +
+            avSingleCls +
+            '"><span class="ds-avatar__initials">' +
+            avInitials +
+            "</span></span>";
+
+          if (avType === "One group" || avType === "Two groups") {
+            var avCountNum = parseInt(
+              String(props.Count || "3").replace(/[^0-9-]/g, ""),
+              10,
+            );
+            if (isNaN(avCountNum) || avCountNum < 1) avCountNum = 3;
+            var avShown = avCountNum > 4 ? 4 : avCountNum;
+            var avChildren = "";
+            for (var avI = 0; avI < avShown; avI++) {
+              avChildren += avSingleHtml;
+            }
+            if (avCountNum > 4) {
+              avChildren +=
+                '<span class="ds-avatar ds-avatar__overflow">+' +
+                (avCountNum - 4) +
+                "</span>";
+            }
+            var avGroupHtml =
+              '<div class="ds-avatar-group">' + avChildren + "</div>";
+            return avType === "Two groups"
+              ? avGroupHtml + avGroupHtml
+              : avGroupHtml;
+          }
+
+          return avSingleHtml;
+        }
+
         case "search": {
           var searchCls = "ds-search";
           // Accept the kit's typo "Dsiabled" as well as the canonical spelling.
@@ -521,6 +685,205 @@
             '<p class="ds-card__body">' +
             esc(props.Body || "") +
             "</p>" +
+            "</div>"
+          );
+        }
+
+        case "digram-item-types": {
+          var itItemType = v["Item type"] || "Category";
+          var itCls = "ds-item-type";
+          // "Default" is the bare state (no modifier, matches ds-item-type's own
+          // size rule); only a non-default Size (e.g. "Small") adds a modifier
+          // class, mirroring the Size handling convention used elsewhere in this
+          // file (compare the button case's `v.Size === "Small"` check above).
+          if (v.Size && v.Size !== "Default") {
+            itCls += " ds-item-type--" + v.Size.toLowerCase();
+          }
+          return (
+            '<span class="' +
+            itCls +
+            '" style="' +
+            digramItemTypeStyle(itItemType) +
+            '">' +
+            esc(props.Initials || props.Label || "") +
+            "</span>"
+          );
+        }
+
+        case "digram-topic": {
+          var dtType = v.Type || "Light purple";
+          var dtBg =
+            DIGRAM_TOPIC_COLORS[dtType] || DIGRAM_TOPIC_COLORS["Light purple"];
+          return (
+            '<span class="ds-topic" style="background:' +
+            dtBg +
+            '">' +
+            esc(props.Initials || props.Label || "") +
+            "</span>"
+          );
+        }
+
+        case "lineage-individual-node": {
+          var linCls = "ds-lineage-node";
+          if (v.Type === "Sub item") linCls += " ds-lineage-node--sub";
+          if (v.State === "Selected") linCls += " ds-lineage-node--selected";
+          if (v.State === "Disabled") linCls += " ds-lineage-node--disabled";
+          if (v.Fields === "Expanded") linCls += " ds-lineage-node--expanded";
+
+          var linItemType = v["Item type"] || "Category";
+          var linBadge =
+            '<span class="ds-item-type" style="' +
+            digramItemTypeStyle(linItemType) +
+            '">' +
+            esc(props["Item type initials"] || "") +
+            "</span>";
+
+          // powerbi/identification-key have no captured icon or graphic asset
+          // yet (components/dist/icons/icons.json / graphics/graphics.json);
+          // renderIcon degrades to "" for an unmapped slug, so these two
+          // spans simply don't render until the real assets land (a Figma
+          // export task tracked separately, not part of this component's
+          // own scope).
+          var linSourceIcon = renderIcon("powerbi");
+          var linKeyIcon = renderIcon("identification-key");
+          var linExpandIcon = renderIcon("chevron-up");
+
+          return (
+            '<div class="' +
+            linCls +
+            '">' +
+            linBadge +
+            '<span class="ds-lineage-node__label">' +
+            esc(props.Label || props.Title || "") +
+            "</span>" +
+            (linSourceIcon
+              ? '<span class="ds-lineage-node__source">' +
+                linSourceIcon +
+                "</span>"
+              : "") +
+            (linKeyIcon
+              ? '<span class="ds-lineage-node__key">' + linKeyIcon + "</span>"
+              : "") +
+            '<button class="ds-lineage-node__expand" aria-label="' +
+            (v.Fields === "Expanded" ? "Collapse" : "Expand") +
+            '">' +
+            linExpandIcon +
+            "</button>" +
+            "</div>"
+          );
+        }
+
+        case "lineage-grouped-node": {
+          var lgnCls = "ds-lineage-group";
+          if (v.State === "Expanded") lgnCls += " ds-lineage-group--expanded";
+
+          var lgnItemType = v["Item type"] || "Category";
+          var lgnBadge =
+            '<span class="ds-item-type" style="' +
+            digramItemTypeStyle(lgnItemType) +
+            '">' +
+            esc(props["Item type initials"] || "") +
+            "</span>";
+
+          // Inline lineage-individual-node's own markup for the one
+          // representative child row (don't recurse into
+          // renderDSComponent, matching card-for-items' precedent); real
+          // grouped children are assembled by the caller, this leaf just
+          // proves the group chrome renders.
+          var lgnChild =
+            '<div class="ds-lineage-node ds-lineage-group__child">' +
+            '<span class="ds-item-type" style="' +
+            digramItemTypeStyle(lgnItemType) +
+            '">' +
+            esc(props["Child initials"] || "") +
+            "</span>" +
+            '<span class="ds-lineage-node__label">' +
+            esc(props["Child label"] || "") +
+            "</span>" +
+            "</div>";
+
+          var lgnToggleIcon = renderIcon("chevron-up");
+
+          return (
+            '<div class="' +
+            lgnCls +
+            '">' +
+            '<div class="ds-lineage-group__header">' +
+            lgnBadge +
+            '<span class="ds-lineage-group__label">' +
+            esc(props.Label || props.Title || "") +
+            "</span>" +
+            '<button class="ds-lineage-group__toggle" aria-label="' +
+            (v.State === "Expanded" ? "Collapse group" : "Expand group") +
+            '">' +
+            lgnToggleIcon +
+            "</button>" +
+            "</div>" +
+            (v.State === "Expanded"
+              ? '<div class="ds-lineage-group__children">' + lgnChild + "</div>"
+              : "") +
+            "</div>"
+          );
+        }
+
+        case "metamodel-widget": {
+          var mwType = v.Type || "Dataset";
+          var mwItemType = v["Item type"] || "Category";
+          var mwBadge =
+            '<span class="ds-item-type" style="' +
+            digramItemTypeStyle(mwItemType) +
+            '">' +
+            esc(props["Item type initials"] || "") +
+            "</span>";
+          var mwSection = props["Show Section"]
+            ? '<div class="ds-metamodel-widget__section">' +
+              '<button class="ds-metamodel-widget__collapse" aria-label="Collapse section">' +
+              renderIcon("arrow-down") +
+              "</button>" +
+              '<div class="ds-metamodel-widget__section-body">' +
+              esc(props["Section body"] || "") +
+              "</div>" +
+              "</div>"
+            : "";
+          return (
+            '<div class="ds-metamodel-widget" style="' +
+            metamodelBorderStyle(mwType) +
+            '">' +
+            '<div class="ds-metamodel-widget__header">' +
+            mwBadge +
+            '<span class="ds-metamodel-widget__title">' +
+            esc(props.Title || props.Label || "") +
+            "</span>" +
+            "</div>" +
+            mwSection +
+            "</div>"
+          );
+        }
+
+        case "loader-with-logo": {
+          var LOADER_WITH_LOGO_APPS = {
+            "Actian Data Intelligence": "loader-logo-adi",
+            Studio: "loader-logo-studio",
+            Explorer: "loader-logo-explorer",
+            Admin: "loader-logo-admin",
+          };
+          var lwlApp = v.App || "Actian Data Intelligence";
+          var lwlLogoSlug =
+            LOADER_WITH_LOGO_APPS[lwlApp] ||
+            LOADER_WITH_LOGO_APPS["Actian Data Intelligence"];
+          var lwlLogo = renderGraphic(lwlLogoSlug);
+          var lwlLabel = props.Label
+            ? '<span class="ds-loader__label">' + esc(props.Label) + "</span>"
+            : "";
+          return (
+            '<div class="ds-loader-with-logo" role="status" aria-live="polite" aria-label="' +
+            esc(props.Label || "Loading") +
+            '">' +
+            (lwlLogo
+              ? '<span class="ds-loader-with-logo__mark">' + lwlLogo + "</span>"
+              : "") +
+            '<span class="ds-loader__spinner" aria-hidden="true"></span>' +
+            lwlLabel +
             "</div>"
           );
         }
@@ -1211,6 +1574,46 @@
           );
         }
 
+        case "collapse-accordion": {
+          // Registry variant State=[Collapsed, "Expanede"] -- "Expanede" is
+          // a literal registry typo (misspelling of "Expanded"); match via
+          // a prefix test so both the typo and a future-fixed spelling
+          // resolve. State is a secondary axis (isSecondaryAxis in
+          // matrix.js), so MATRIX_OVERRIDES["collapse-accordion"] supplies
+          // real Title/Body -- the generic derivation would only ever feed
+          // props:{Label:"Collapsed"|"Expanede"}. Missing chevron-down
+          // glyph (dskit.icons has no down variant): the collapsed chevron
+          // is chevron-up rotated 180deg, mirroring the button case's
+          // trailing-icon idiom.
+          var accExpanded =
+            String(v.State || "")
+              .toLowerCase()
+              .indexOf("expan") === 0;
+          var accCls =
+            "ds-collapse-accordion" +
+            (accExpanded ? " ds-collapse-accordion--expanded" : "");
+          var accBody = accExpanded
+            ? '<div class="ds-collapse-accordion__body">' +
+              esc(props.Body || "") +
+              "</div>"
+            : "";
+          return (
+            '<div class="' +
+            accCls +
+            '">' +
+            '<div class="ds-collapse-accordion__header">' +
+            '<span class="ds-collapse-accordion__title">' +
+            esc(props.Title || "Advanced settings") +
+            "</span>" +
+            '<span class="ds-collapse-accordion__toggle" aria-hidden="true">' +
+            renderIcon("chevron-up", accExpanded ? {} : { rotate: 180 }) +
+            "</span>" +
+            "</div>" +
+            accBody +
+            "</div>"
+          );
+        }
+
         case "tooltip": {
           // Registry axis: Type = Default. Anatomy: container[Type]{ text[Body] }
           // — a small text bubble. role=tooltip for assistive tech.
@@ -1402,6 +1805,63 @@
           );
         }
 
+        case "scroll-bar": {
+          // Registry variants are a degenerate {"Property 1":["Default"]}
+          // placeholder -- no real identity axis. Orientation is a USAGE-doc
+          // concept (not a registry axis), exposed as an optional prop
+          // modifier defaulting vertical. Position/Length are clamped to
+          // [0,100] with the same parse-and-clamp progress-bar-small uses.
+          // Label is an accessible name only -- guideline: "Scroll bars
+          // carry no copy" -- never rendered as visible text.
+          var sbHorizontal =
+            (props.Orientation || v.Orientation) === "Horizontal";
+          var sbCls =
+            "ds-scroll-bar" +
+            (sbHorizontal ? " ds-scroll-bar--horizontal" : "");
+
+          var sbPosRaw =
+            props.Position != null && props.Position !== ""
+              ? props.Position
+              : "0";
+          var sbPosNum = parseInt(
+            String(sbPosRaw || "0").replace(/[^0-9.-]/g, ""),
+            10,
+          );
+          if (isNaN(sbPosNum)) sbPosNum = 0;
+          if (sbPosNum < 0) sbPosNum = 0;
+          if (sbPosNum > 100) sbPosNum = 100;
+
+          var sbLenRaw =
+            props.Length != null && props.Length !== "" ? props.Length : "40";
+          var sbLenNum = parseInt(
+            String(sbLenRaw || "40").replace(/[^0-9.-]/g, ""),
+            10,
+          );
+          if (isNaN(sbLenNum)) sbLenNum = 40;
+          if (sbLenNum < 0) sbLenNum = 0;
+          if (sbLenNum > 100) sbLenNum = 100;
+
+          var sbStyle = sbHorizontal
+            ? "left:" + sbPosNum + "%;width:" + sbLenNum + "%"
+            : "top:" + sbPosNum + "%;height:" + sbLenNum + "%";
+
+          return (
+            '<div class="' +
+            sbCls +
+            '" role="scrollbar" aria-orientation="' +
+            (sbHorizontal ? "horizontal" : "vertical") +
+            '" aria-label="' +
+            esc(props.Label || "Scroll region") +
+            '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
+            sbPosNum +
+            '">' +
+            '<span class="ds-scroll-bar__thumb" style="' +
+            sbStyle +
+            '"></span>' +
+            "</div>"
+          );
+        }
+
         case "tag-interactive": {
           // Registry axis: State = Default | Hovered | Selected | Disabled | …
           // Anatomy: container[State]{ instance[Leading icon], text[Tag-Name],
@@ -1440,6 +1900,173 @@
         }
 
         // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays ----
+
+        // ---- Gray-box-to-zero, family 2 (tag family) ----
+
+        case "tag-shared": {
+          // Static solid pill: anatomy (Property 1=Default, the only value)
+          // has NO Color axis, NO icon child, and NO per-variant harvested
+          // style like tag-default's __dsVariantStyles injection -- a single
+          // fixed appearance, so a plain modifier class + one CSS rule is
+          // correct here (see ds-base.css .ds-tag--shared).
+          return (
+            '<span class="ds-tag ds-tag--shared">' +
+            esc(props.Label || "Shared") +
+            "</span>"
+          );
+        }
+
+        case "tag-catalog": {
+          // Icon + label pill: single variant (Type=Default), so unlike
+          // tag-default the leading directory icon is ALWAYS rendered (not
+          // gated on a "Leading icon show" prop) and no per-Color style-map
+          // injection is needed -- one modifier class covers the fill/text.
+          return (
+            '<span class="ds-tag ds-tag--catalog">' +
+            '<span class="ds-tag__icon">' +
+            renderIcon("directory") +
+            "</span>" +
+            esc(props.Label || "Catalog") +
+            "</span>"
+          );
+        }
+
+        case "tag-stage": {
+          // Colored dot + label + trailing arrow. Reuses the 8 existing
+          // .ds-tag--<color> container rules (ds-base.css ~2558) via the same
+          // v.Color -> ds-tag--<color> emit as tag-default; adds only the
+          // dot/icon descendants (ds-tag-stage__dot picks up its fill from a
+          // per-color descendant rule keyed off that same modifier class).
+          // ANATOMY OVER PROSE: the registry lists "Trailing icon" default
+          // false, but the captured default (Color=Gray) node includes the
+          // arrow as its last child, so it is rendered unconditionally here.
+          // Clamp Color against the known set BEFORE it touches the class
+          // attribute -- v.Color is user-supplied flow-data (from
+          // parseVariant); an unclamped value would break out of the class
+          // attribute and inject markup (XSS), same discipline as
+          // error-state's Size clamp and tag-catalog-item-type's Type clamp
+          // above. Unknown/hostile values append NO modifier (renders the
+          // base pill safely) rather than falling back to a default color.
+          var TAG_STAGE_COLORS = {
+            indigo: 1,
+            lime: 1,
+            orange: 1,
+            yellow: 1,
+            pink: 1,
+            purple: 1,
+            teal: 1,
+            gray: 1,
+          };
+          var tsColor = v.Color ? String(v.Color).toLowerCase() : "";
+          var tsCls = "ds-tag ds-tag-stage";
+          if (TAG_STAGE_COLORS[tsColor]) tsCls += " ds-tag--" + tsColor;
+          return (
+            '<span class="' +
+            tsCls +
+            '">' +
+            '<span class="ds-tag-stage__dot"></span>' +
+            esc(props.Label || "Stage") +
+            '<span class="ds-tag-stage__icon">' +
+            renderIcon("arrow-down") +
+            "</span>" +
+            "</span>"
+          );
+        }
+
+        case "tag-status": {
+          // Status pill: identity axis Status has 11 values, but the
+          // captured anatomy groups them into 5 color families -- a per-value
+          // class would be dishonest (the anatomy itself groups them), so
+          // this looks the Status up in a family map and emits ONE grouped
+          // modifier class. Reuses base .ds-tag geometry verbatim (identical
+          // height/padding/radius/font/gap/text-color to tag-default); only
+          // the 5 family color rules are new (ds-base.css). Pure-CSS family
+          // approach (no __dsVariantStyles injection, unlike tag-default).
+          var TAG_STATUS_FAMILY = {
+            fail: "error",
+            loading: "info",
+            maintenance: "info",
+            queued: "info",
+            scheduled: "info",
+            offline: "neutral",
+            pending: "neutral",
+            sleeping: "neutral",
+            stopped: "neutral",
+            success: "success",
+            warning: "warning",
+          };
+          var tsStatus = v.Status || "Fail";
+          var tsFamily = TAG_STATUS_FAMILY[tsStatus.toLowerCase()] || "error";
+          // Loading's leading spinner icon is absent from graphics.json;
+          // renderIcon degrades gracefully to "" and is intentionally not
+          // attempted here (label-only, per the spec).
+          return (
+            '<span class="ds-tag ds-tag--status-' +
+            tsFamily +
+            '">' +
+            esc(props.Label || tsStatus) +
+            "</span>"
+          );
+        }
+
+        case "tag-glossary-item-type": {
+          // Dedicated block (NOT base .ds-tag): the anatomy has no border
+          // and a different radius (4px vs .ds-tag's 6px), so reusing the
+          // base class would leak an unwanted border. Single fixed variant
+          // (Property 1=Default) -- no modifier class, no style-map
+          // injection; the only variance is the "Show Counter" boolean.
+          var tgitCounter = props["Show Counter"]
+            ? '<span class="ds-tag-glossary-item-type__counter">' +
+              esc(props.Counter || "00") +
+              "</span>"
+            : "";
+          return (
+            '<span class="ds-tag-glossary-item-type">' +
+            '<span class="ds-tag-glossary-item-type__label">' +
+            esc(props.Label || "Glossary item") +
+            "</span>" +
+            tgitCounter +
+            "</span>"
+          );
+        }
+
+        case "tag-catalog-item-type": {
+          // Dedicated block (NOT base .ds-tag): the anatomy has no border,
+          // unlike .ds-tag's 1px border -- reusing the base class would leak
+          // one. 8 colored type pills + an optional counter. Clamp the Type
+          // value against the known set BEFORE it touches the class
+          // attribute -- v.Type is user-supplied flow-data; an unclamped
+          // value would break out of the class attribute (XSS), same
+          // discipline as error-state's Size clamp above.
+          var TCIT_TYPE_SLUGS = {
+            category: "category",
+            dataset: "dataset",
+            "data process": "data-process",
+            "data product": "data-product",
+            field: "field",
+            "output port": "output-port",
+            "use case": "use-case",
+            visualization: "visualization",
+          };
+          var tcitTypeRaw = v.Type || "Category";
+          var tcitSlug =
+            TCIT_TYPE_SLUGS[tcitTypeRaw.toLowerCase()] || "category";
+          var tcitCounter = props["Show counter"]
+            ? '<span class="ds-tag-catalog-item-type__counter">' +
+              esc(props.Counter || "00") +
+              "</span>"
+            : "";
+          return (
+            '<span class="ds-tag-catalog-item-type ds-tag-catalog-item-type--' +
+            tcitSlug +
+            '">' +
+            '<span class="ds-tag-catalog-item-type__name">' +
+            esc(props.Label || tcitTypeRaw) +
+            "</span>" +
+            tcitCounter +
+            "</span>"
+          );
+        }
 
         case "popover": {
           // Registry axis: Type = Interaction guide | Advanced search; prop
@@ -1522,6 +2149,346 @@
             '<div class="ds-account-menu__items">' +
             acList +
             "</div>" +
+            "</div>"
+          );
+        }
+
+        case "notification-dropdown": {
+          // Registry axis: Property 1 = Empty | List. Menu overlay mirroring
+          // account-dropdown: header + a mapped list of notification rows.
+          // Compute the modifier class into a variable first (never inline a
+          // ternary in the class attribute -- the css-staleness extractor
+          // mis-parses that, see the segmented-control comment below).
+          var ndIsEmpty = v["Property 1"] === "Empty";
+          var ndCls =
+            "ds-notification-menu" +
+            (ndIsEmpty ? " ds-notification-menu--empty" : "");
+          var ndHeader = esc(props.Header || "Notifications");
+          var ndBody;
+          if (ndIsEmpty) {
+            ndBody =
+              '<div class="ds-notification-menu__empty">' +
+              esc(props.Empty || "You're all caught up.") +
+              "</div>";
+          } else {
+            var ndList = parseItems(
+              props.Items,
+              "New items inventoried from PowerBi Online V1 at 7/11/25 12:42 AM.,New items inventoried from PowerBi Online V1 at 7/6/25 12:42 AM.,New items inventoried from PowerBi Online V1 at 7/3/25 4:47 PM.",
+            )
+              .map(function (label) {
+                return (
+                  '<span class="ds-notification-menu__item" role="menuitem">' +
+                  '<span class="ds-notification-menu__icon" aria-hidden="true">' +
+                  renderIcon("info-filled") +
+                  "</span>" +
+                  '<span class="ds-notification-menu__label">' +
+                  esc(label) +
+                  "</span></span>"
+                );
+              })
+              .join("");
+            ndBody =
+              '<div class="ds-notification-menu__items">' + ndList + "</div>";
+          }
+          return (
+            '<div class="' +
+            ndCls +
+            '" role="menu" aria-label="Notifications">' +
+            '<div class="ds-notification-menu__header">' +
+            ndHeader +
+            "</div>" +
+            ndBody +
+            "</div>"
+          );
+        }
+
+        case "search-dropdown-menu": {
+          // Registry axis: Type = No result | Before typed | After typed |
+          // Explorer home. REFUTES the assigned "popover" reuse pattern
+          // (popover is role=dialog: info-icon+title+body+arrow, which does
+          // not fit) -- this is a floating menu overlay, mirroring
+          // account-dropdown's header+row-list shape. Class root is
+          // ds-search-menu (NOT ds-search -- that is the separate `search`
+          // field case above; kept distinct). Compute the modifier class
+          // into a variable first (never inline a ternary in the class
+          // attribute -- see the segmented-control comment below).
+          var sdmType = v.Type || "After typed";
+          var sdmMod;
+          if (sdmType === "No result") sdmMod = "no-result";
+          else if (sdmType === "Before typed") sdmMod = "before-typed";
+          else if (sdmType === "Explorer home") sdmMod = "explorer-home";
+          else sdmMod = "after-typed";
+          // Root modifier class is emitted ONLY for the two real CSS
+          // deltas (no-result collapses to a centered line; explorer-home
+          // widens the menu). after-typed IS the captured anatomy default
+          // and before-typed differs from it only via markup (heading text
+          // + row content) -- no CSS delta, so no modifier class (see
+          // ds-base.css). sdmMod still drives all content branching below.
+          var sdmCls =
+            sdmMod === "no-result" || sdmMod === "explorer-home"
+              ? "ds-search-menu ds-search-menu--" + sdmMod
+              : "ds-search-menu";
+          var sdmBody;
+          if (sdmMod === "no-result") {
+            sdmBody =
+              '<div class="ds-search-menu__empty">No matches for &quot;' +
+              esc(props.Query || "orders") +
+              "&quot;</div>";
+          } else {
+            var sdmHeadingDefault =
+              sdmMod === "before-typed" ? "Recent" : "Suggestions";
+            var sdmHeading = esc(props.Heading || sdmHeadingDefault);
+            var sdmRows = parseItems(
+              props.Results || props.Items,
+              "transmitting,transmitter,transmit,transparent",
+            )
+              .map(function (label) {
+                return (
+                  '<div class="ds-search-menu__item" role="menuitem">' +
+                  '<span class="ds-search-menu__thumb" aria-hidden="true"></span>' +
+                  '<span class="ds-search-menu__label">' +
+                  esc(label) +
+                  "</span></div>"
+                );
+              })
+              .join("");
+            sdmBody =
+              '<div class="ds-search-menu__group">' +
+              '<div class="ds-search-menu__heading">' +
+              sdmHeading +
+              "</div>" +
+              sdmRows +
+              "</div>";
+          }
+          return (
+            '<div class="' +
+            sdmCls +
+            '" role="menu" aria-label="Search results">' +
+            sdmBody +
+            "</div>"
+          );
+        }
+
+        case "whats-new-dropdown": {
+          // Registry axis: Property 1 = Drilldown1 | Drilldown2 | Empty |
+          // List. Static menu-overlay leaf, same shape as account-dropdown
+          // / app-switcher-dropdown -- mirror those. The guideline collapses
+          // Drilldown1+Drilldown2 into one "Drilldown" concept, so
+          // normalize both onto a single wnMode before it ever touches the
+          // class attribute (never inline a ternary in the class attribute
+          // literal -- the css-staleness extractor mis-parses that, see the
+          // segmented-control comment below).
+          var wnRaw = v["Property 1"] || "List";
+          var wnMode = /^Drilldown/.test(wnRaw)
+            ? "drilldown"
+            : String(wnRaw).toLowerCase();
+          if (wnMode !== "drilldown" && wnMode !== "empty") wnMode = "list";
+          // Root modifier class is emitted only for modes with a real CSS
+          // delta (list scrolls past a handful of items; drilldown widens
+          // the panel). empty IS the captured anatomy default -- the base
+          // rule already matches it, so no modifier class (see
+          // ds-base.css). wnMode still drives all content branching below.
+          var wnCls =
+            wnMode === "empty"
+              ? "ds-whatsnew"
+              : "ds-whatsnew ds-whatsnew--" + wnMode;
+          var wnBack =
+            wnMode === "drilldown"
+              ? '<button class="ds-whatsnew__back" type="button" aria-label="Back">' +
+                renderIcon("chevron-left") +
+                "</button>"
+              : "";
+          var wnHeader =
+            '<div class="ds-whatsnew__header">' +
+            wnBack +
+            '<span class="ds-whatsnew__title">' +
+            esc(props.Title || "What's new") +
+            "</span></div>";
+          var wnDefaultItems =
+            "Added support for bulk dataset import.,Fixed an issue where filters were not preserved on page reload.";
+          var wnBody;
+          if (wnMode === "list") {
+            var wnItems = parseItems(props.Items, wnDefaultItems)
+              .map(function (label) {
+                return (
+                  '<div class="ds-whatsnew__item" role="menuitem">' +
+                  esc(label) +
+                  "</div>"
+                );
+              })
+              .join("");
+            wnBody = '<div class="ds-whatsnew__items">' + wnItems + "</div>";
+          } else if (wnMode === "empty") {
+            wnBody =
+              '<div class="ds-whatsnew__empty">' +
+              esc(props.EmptyLabel || "No release updates") +
+              "</div>";
+          } else {
+            var wnFirstItem = parseItems(props.Items, wnDefaultItems)[0] || "";
+            wnBody =
+              '<div class="ds-whatsnew__detail">' +
+              esc(
+                props.Detail ||
+                  wnFirstItem ||
+                  "New items inventoried from PowerBI Online V1.",
+              ) +
+              "</div>";
+          }
+          return (
+            '<div class="' +
+            wnCls +
+            '" role="menu" aria-label="What\'s new">' +
+            wnHeader +
+            wnBody +
+            "</div>"
+          );
+        }
+
+        case "drawer-side-panel": {
+          // Registry axis: App = Studio | Explorer -- the only captured
+          // non-secondary axis. CORRECTS the pre-triage: this is an
+          // Overlays component (sibling of modal/popover), NOT a dropdown,
+          // despite the family-4 assignment; the originally-assigned
+          // "popover" reuse pattern is also refuted (popover is a tiny
+          // floating info card, not a fits-content detail panel). Mirror
+          // `modal` instead: same Overlays category, a bordered panel
+          // shell, role="dialog". Only the Studio anatomy tree was
+          // captured (quality.ratio 1); Explorer differences are recorded
+          // only as childCount deltas in structuralVariants, so the
+          // Explorer cell stays a MINIMAL chrome-accent modifier rather
+          // than invented structure (see the ds-base.css comment).
+          var drIsExplorer = v.App === "Explorer";
+          var drCls =
+            "ds-drawer" + (drIsExplorer ? " ds-drawer--explorer" : "");
+          var drName = esc(props.Name || "Name");
+
+          // "Show Back" is a default-TRUE registry boolean -> shown unless
+          // explicitly false (the file's default-true convention, cf.
+          // popover "Show info icon" / toolbar "Show View scale").
+          var drShowBack = props["Show Back"] !== false;
+          var drBack = drShowBack
+            ? '<button class="ds-drawer__back" type="button" aria-label="Back">' +
+              renderIcon("chevron-left") +
+              "</button>"
+            : "";
+
+          // Catalog-item-type badge: clamp Type against the known set
+          // before it touches the class attribute -- props.Type is
+          // user-supplied flow-data; an unclamped value would break out of
+          // the class attribute (XSS), same discipline as the
+          // tag-catalog-item-type case above. Reuses THAT case's EXISTING
+          // .ds-tag-catalog-item-type(--<slug>) classes verbatim (a static
+          // pill, not a recursive renderDSComponent call), same idiom as
+          // search-result-card's tag reuse.
+          var DR_TYPE_SLUGS = {
+            category: "category",
+            dataset: "dataset",
+            "data process": "data-process",
+            "data product": "data-product",
+            field: "field",
+            "output port": "output-port",
+            "use case": "use-case",
+            visualization: "visualization",
+          };
+          var drTypeRaw = props.Type || "Dataset";
+          var drTypeSlug =
+            DR_TYPE_SLUGS[String(drTypeRaw).toLowerCase()] || "dataset";
+          var drTags =
+            '<div class="ds-drawer__tags">' +
+            '<span class="ds-tag-catalog-item-type ds-tag-catalog-item-type--' +
+            drTypeSlug +
+            '"><span class="ds-tag-catalog-item-type__name">' +
+            esc(drTypeRaw) +
+            "</span></span>" +
+            '<span class="ds-drawer__tag-shared">Shared</span>' +
+            "</div>";
+
+          var drActions =
+            '<div class="ds-drawer__actions">' +
+            '<button type="button" aria-label="Add to favorites">' +
+            renderIcon("favorite") +
+            "</button>" +
+            '<button type="button" aria-label="Close">' +
+            renderIcon("close") +
+            "</button>" +
+            "</div>";
+
+          var drHeader =
+            '<div class="ds-drawer__header">' +
+            drBack +
+            drTags +
+            '<span class="ds-drawer__title">' +
+            drName +
+            "</span>" +
+            drActions +
+            "</div>";
+
+          // Body 1 + Body 2 merged (the anatomy splits identical metadata
+          // across two sibling containers): technical name,
+          // catalog/category/connection, and the Last updated / Fields /
+          // Completion meta row. The registry exposes no content props for
+          // these -- hardcoded faithful default copy from the captured
+          // Studio anatomy, same idiom as modal/card-for-grouped-content's
+          // default text. The progress bar reuses progress-bar-small's
+          // EXISTING .ds-progress/__track/__fill markup verbatim (already
+          // has ds-base.css rules) rather than recursing into
+          // renderDSComponent, same idiom as card-for-perimeter above.
+          var drBody =
+            '<div class="ds-drawer__body">' +
+            "<p>Technical name: able_agency</p>" +
+            "<p>Catalog: Finance / Category: 24/7 / Connection: Powerbi</p>" +
+            '<div class="ds-drawer__meta">' +
+            '<span class="ds-drawer__meta-item">Last updated<br>Dec 15, 2025</span>' +
+            '<span class="ds-drawer__meta-item">Fields<br>10 Fields</span>' +
+            '<span class="ds-drawer__meta-item">Completion' +
+            '<div class="ds-progress">' +
+            '<div class="ds-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">' +
+            '<span class="ds-progress__fill" style="width:50%"></span>' +
+            "</div></div>" +
+            "</span>" +
+            "</div>" +
+            "</div>";
+
+          // Static tab strip (do not recurse into the tabs component);
+          // registry exposes no tab-label content props, so hardcoded
+          // plausible defaults.
+          var drTabs =
+            '<div class="ds-drawer__tabs" role="tablist">' +
+            '<span class="ds-drawer__tab is-active" role="tab" aria-selected="true">Overview</span>' +
+            '<span class="ds-drawer__tab" role="tab" aria-selected="false">Lineage</span>' +
+            '<span class="ds-drawer__tab" role="tab" aria-selected="false">Quality</span>' +
+            "</div>";
+
+          // Body 3: three labeled sections captured in the Studio anatomy
+          // (Glossary items, Description, Source description). Registry
+          // exposes no content props -- hardcoded faithful default copy,
+          // same idiom as card-for-grouped-content's Body above. The
+          // glossary multi-select renders as a static, non-interactive
+          // placeholder (do not recurse into dropdown-select-default).
+          var drSections =
+            '<div class="ds-drawer__section">' +
+            '<div class="ds-drawer__section-title">Glossary items (2)</div>' +
+            '<div class="ds-drawer__section-body">Search or select glossary items</div>' +
+            "</div>" +
+            '<div class="ds-drawer__section">' +
+            '<div class="ds-drawer__section-title">Description</div>' +
+            '<div class="ds-drawer__section-body">A short description of this dataset, including its purpose and key characteristics.</div>' +
+            "</div>" +
+            '<div class="ds-drawer__section">' +
+            '<div class="ds-drawer__section-title">Source description</div>' +
+            '<div class="ds-drawer__section-body">A short description carried over from the source system.</div>' +
+            "</div>";
+
+          return (
+            '<div class="' +
+            drCls +
+            '" role="dialog" aria-label="' +
+            drName +
+            '">' +
+            drHeader +
+            drBody +
+            drTabs +
+            drSections +
             "</div>"
           );
         }
@@ -1679,6 +2646,58 @@
           );
         }
 
+        case "spinner": {
+          // Registry axes: Color mode = On light bg | On dark bg (identity);
+          // Complete = 25%|50%|75%|100% is the animation's own arc-fill
+          // cycle, not a chooseable variant (usage guideline), so it is
+          // ignored here. Near-clone of the "loader" case above with its own
+          // BEM prefix + a dark-bg color modifier.
+          var spDark = v["Color mode"] === "On dark bg";
+          var spCls = "ds-spinner" + (spDark ? " ds-spinner--on-dark" : "");
+          var spLabel = props.Label
+            ? '<span class="ds-spinner__label">' + esc(props.Label) + "</span>"
+            : "";
+          return (
+            '<div class="' +
+            spCls +
+            '" role="status" aria-live="polite" aria-label="' +
+            esc(props.Label || "Loading") +
+            '">' +
+            '<span class="ds-spinner__ring" aria-hidden="true"></span>' +
+            spLabel +
+            "</div>"
+          );
+        }
+
+        case "loading-skeleton": {
+          // Registry axis: Transition = 1 | 2 -- an animation/shimmer-fill
+          // frame, NOT a structural identity axis (guideline: "no type or
+          // size variants"). VISUAL-ONLY: guideline forbids any text/copy
+          // inside skeleton blocks, so every block is an empty aria-hidden
+          // span; the human-readable status lives only on the container's
+          // role/aria-busy/aria-label.
+          var lsTransition2 = String(v.Transition || "") === "2";
+          var lsCls =
+            "ds-loading-skeleton" + (lsTransition2 ? " is-transition-2" : "");
+          var lsBlock = function (extra) {
+            return (
+              '<span class="ds-loading-skeleton__block' +
+              (extra ? " " + extra : "") +
+              '" aria-hidden="true"></span>'
+            );
+          };
+          return (
+            '<div class="' +
+            lsCls +
+            '" role="status" aria-busy="true" aria-live="polite" aria-label="Loading">' +
+            lsBlock("ds-loading-skeleton__block--title") +
+            lsBlock() +
+            lsBlock() +
+            lsBlock("ds-loading-skeleton__block--short") +
+            "</div>"
+          );
+        }
+
         case "calendar": {
           // Registry axes: Type = Single date select | Date | Month | Single;
           // Selection = Single | Range | Year. A static month grid
@@ -1747,6 +2766,338 @@
             // a styled group of day buttons; selection carried via aria-pressed.
             '<div class="ds-calendar__grid">' +
             calCells.join("") +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "error-state": {
+          // Registry variant axis: Size (secondary) = Large | Medium. Clamp
+          // BEFORE it touches the class attribute -- v.Size is user-supplied
+          // flow-data; an unclamped value would break out of the class
+          // attribute and inject markup (XSS). Unknown/crafted values fall
+          // back to "large" (no modifier), same discipline as the
+          // alert-banner case's Type clamp above.
+          var errSizeRaw = (v.Size || "Large").toLowerCase();
+          var errSize = { large: 1, medium: 1 }[errSizeRaw]
+            ? errSizeRaw
+            : "large";
+          var errCls =
+            "ds-error-state" +
+            (errSize === "medium" ? " ds-error-state--medium" : "");
+          var errIllus = renderGraphic(
+            props.Illustration || "illustration-error-state",
+          );
+          var errTitle = esc(props.Title || "Something went wrong");
+          var errBody = esc(
+            props.Body ||
+              "There was an error creating your item. Please try again in a moment.",
+          );
+          var errPrimary = esc(props.Primary || props.Cta || "Try again");
+          var errSecondary = esc(props.Secondary || "Go back");
+          return (
+            '<div class="' +
+            errCls +
+            '">' +
+            (errIllus
+              ? '<div class="ds-error-state__illustration">' +
+                errIllus +
+                "</div>"
+              : "") +
+            '<div class="ds-error-state__text">' +
+            '<p class="ds-error-state__title">' +
+            errTitle +
+            "</p>" +
+            '<p class="ds-error-state__body">' +
+            errBody +
+            "</p>" +
+            "</div>" +
+            '<div class="ds-error-state__actions">' +
+            '<button class="ds-button ds-button--tertiary ds-error-state__cta">' +
+            errSecondary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary ds-error-state__cta">' +
+            errPrimary +
+            "</button>" +
+            "</div></div>"
+          );
+        }
+
+        case "maintenance-state": {
+          // Structural twin of empty-state (its captured anatomy page is
+          // literally "Empty state"); dedicated ds-maintenance-state__*
+          // classes rather than reusing .ds-empty-state* so the CEM derive
+          // has its own honest token surface for this slug. Only axis
+          // (Size=Large) is secondary, so there is no identity axis / no
+          // modifier class here.
+          var maintIllus = renderGraphic(
+            props.Illustration || "illustration-maintenance",
+          );
+          var maintHeadline = esc(
+            props.Headline ||
+              props.Title ||
+              "Scheduled maintenance in progress until 12:00 PM EST",
+          );
+          var maintBody = esc(
+            props.Body ||
+              "Reports may be unavailable. Refresh or check back when the maintenance window is complete.",
+          );
+          var maintPrimary = esc(props.Cta || props.Primary || "Create policy");
+          var maintTertiary = esc(props.Secondary || "Learn more");
+          return (
+            '<div class="ds-maintenance-state">' +
+            (maintIllus
+              ? '<div class="ds-maintenance-state__illustration">' +
+                maintIllus +
+                "</div>"
+              : "") +
+            '<p class="ds-maintenance-state__headline">' +
+            maintHeadline +
+            "</p>" +
+            '<p class="ds-maintenance-state__body">' +
+            maintBody +
+            "</p>" +
+            '<div class="ds-maintenance-state__actions">' +
+            '<button class="ds-button ds-button--tertiary ds-maintenance-state__cta">' +
+            maintTertiary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary ds-maintenance-state__cta">' +
+            maintPrimary +
+            "</button>" +
+            "</div></div>"
+          );
+        }
+
+        case "confirmation": {
+          // Content/anatomy divergence (see build notes): the guideline
+          // prose describes a destructive Delete/Cancel confirmation
+          // dialog, but the captured Figma anatomy for this slug is a
+          // SUCCESS-confirmation state (illustration Success + "Success!" +
+          // "Open the catalog" CTA, page "Empty state"). Built from the
+          // anatomy, not the modal prose. Structural twin of empty-state;
+          // dedicated ds-confirmation__* classes so the CEM derive has its
+          // own honest token surface for this slug.
+          var confIllus = renderGraphic(
+            props.Illustration || "illustration-success",
+          );
+          var confTitle = esc(props.Title || props.Headline || "Success!");
+          var confBody = esc(
+            props.Body ||
+              "The selected items will be imported into the catalog. You will be notified once the import is complete.",
+          );
+          var confPrimary = esc(
+            props.Cta || props.Primary || "Open the catalog",
+          );
+          var confSecondary = esc(props.Secondary || "Learn more");
+          return (
+            '<div class="ds-confirmation">' +
+            (confIllus
+              ? '<div class="ds-confirmation__illustration">' +
+                confIllus +
+                "</div>"
+              : "") +
+            '<p class="ds-confirmation__title">' +
+            confTitle +
+            "</p>" +
+            '<p class="ds-confirmation__body">' +
+            confBody +
+            "</p>" +
+            '<div class="ds-confirmation__actions">' +
+            '<button class="ds-button ds-button--tertiary ds-confirmation__cta">' +
+            confSecondary +
+            "</button>" +
+            '<button class="ds-button ds-button--primary ds-confirmation__cta">' +
+            confPrimary +
+            "</button>" +
+            "</div></div>"
+          );
+        }
+
+        // ---- Gray-box-to-zero, family 3 (card family) ----
+
+        case "card-for-perimeter": {
+          // Horizontal row card: item-type badge + name/counter + inline
+          // progress bar. Single "Property 1=Default" variant (no State/Size
+          // axis) -- one static appearance, no modifier classes. Inlines the
+          // existing digram-item-types badge (via digramItemTypeStyle) and
+          // the progress-bar-small track/fill/percent markup verbatim
+          // (both already have ds-base.css rules) rather than recursing into
+          // renderDSComponent, same idiom as card-for-items. Anatomy
+          // captures background+radius only for the root -- no border/
+          // shadow -- so none is added here.
+          var cfpItemType = props["Item type"] || "Dataset";
+          var cfpInitials = esc(
+            props["Item type initials"] || props.Initials || props.Label || "",
+          );
+          var cfpName = esc(props.Name || "Dataset");
+          var cfpCounter = esc(props.Counter || "23");
+          // Same clamp-to-[0,100] discipline as the progress-bar-small case
+          // above: Completeness is user-supplied flow-data, parsed defensively.
+          var cfpPct = parseInt(
+            String(props.Completeness || "50").replace(/[^0-9.-]/g, ""),
+            10,
+          );
+          if (isNaN(cfpPct)) cfpPct = 0;
+          if (cfpPct < 0) cfpPct = 0;
+          if (cfpPct > 100) cfpPct = 100;
+          return (
+            '<div class="ds-card-perimeter">' +
+            '<span class="ds-item-type" style="' +
+            digramItemTypeStyle(cfpItemType) +
+            '">' +
+            cfpInitials +
+            "</span>" +
+            '<div class="ds-card-perimeter__body">' +
+            '<div class="ds-card-perimeter__header">' +
+            '<span class="ds-card-perimeter__name">' +
+            cfpName +
+            "</span>" +
+            '<span class="ds-card-perimeter__counter">' +
+            cfpCounter +
+            "</span>" +
+            "</div>" +
+            '<div class="ds-progress">' +
+            '<div class="ds-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
+            cfpPct +
+            '">' +
+            '<span class="ds-progress__fill" style="width:' +
+            cfpPct +
+            '%"></span>' +
+            "</div>" +
+            '<span class="ds-progress__percent">' +
+            cfpPct +
+            "%</span>" +
+            "</div>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "card-for-grouped-content": {
+          // Vertical card: header (title + optional info icon) + divider +
+          // a content slot. Single "Property 1=Default" variant (no State/
+          // Size axis) -- one static appearance, no modifier classes. The
+          // header's inner instance is unresolved in the captured anatomy
+          // and the slot is empty, so the placeholder body takes the same
+          // posture card-for-items takes for its placeholder title/body.
+          var cgcTitle = esc(props.Title || "Grouped content");
+          var cgcInfo =
+            props["Show info icon"] !== false
+              ? '<span class="ds-card-grouped__info">' +
+                renderIcon("info") +
+                "</span>"
+              : "";
+          var cgcBody = esc(props.Body || "");
+          return (
+            '<div class="ds-card-grouped">' +
+            '<div class="ds-card-grouped__header">' +
+            '<span class="ds-card-grouped__title">' +
+            cgcTitle +
+            "</span>" +
+            cgcInfo +
+            "</div>" +
+            '<div class="ds-card-grouped__divider"></div>' +
+            '<div class="ds-card-grouped__slot">' +
+            '<p class="ds-card-grouped__body">' +
+            cgcBody +
+            "</p>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "search-result-card": {
+          // Rich result card. Identity axis App = Explorer (default) |
+          // Studio; State is a secondary axis, only Selected/Focus mapped
+          // to a visible modifier (Hover/Pressed are transient interaction
+          // states, not rendered statically -- same discipline as
+          // tag-interactive's Selected/Disabled-only handling above). The
+          // fidelity oracle only captures App=Explorer/State=Default, so
+          // that default stays faithful; Studio's structural swaps (button
+          // -> progress-bar-small, digram -> tag-default) are intentionally
+          // NOT built here, per the spec. App=Studio therefore renders the
+          // BASE card with no root modifier -- there is no built CSS delta
+          // for it, and a modifier class must not be emitted without one
+          // (no no-op namespace-hook markers; see ds-base.css). Inlines the
+          // eyebrow/stage/catalog tags and the glossary item-type badge
+          // reusing EXISTING shared classes (.ds-tag / .ds-tag-stage /
+          // .ds-tag--gray / .ds-tag--catalog / .ds-item-type) rather than
+          // recursing into renderDSComponent, same idiom as card-for-items.
+          var srcCls = "ds-search-result-card";
+          if (v.State === "Selected")
+            srcCls += " ds-search-result-card--selected";
+          if (v.State === "Focus") srcCls += " ds-search-result-card--focus";
+
+          var srcTitle = esc(props.Title || "Financial Summary EY2024");
+          var srcTech = esc(props["Tech name"] || "[Financial Summary EY2024]");
+          var srcType = esc(props.Type || "Category");
+          var srcStage = esc(props.Stage || "Stage");
+          var srcCatalog = esc(props.Catalog || "Catalog");
+          var srcDesc = esc(
+            props.Description ||
+              props.Body ||
+              "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+          );
+          var srcProp1 = esc(
+            props["Featured property 1"] || "Business Domain: IT",
+          );
+          var srcProp2 = esc(
+            props["Featured property 2"] || "Source Application: App 120",
+          );
+          var srcGlossaryLabel = esc(props["Glossary label"] || "Vehicle");
+          var srcGlossaryInitials = esc(props["Glossary initials"] || "VH");
+          // The captured anatomy's Glossary badge resolves to #fff9e5 --
+          // that is DIGRAM_ITEM_TYPE_COLORS["Glossary 1"] (also shared by
+          // "Use case"), NOT "Category" (#ffdacf); "Glossary 1" is the
+          // itemType that actually reproduces the captured color.
+          var srcGlossaryBadge = digramItemTypeStyle("Glossary 1");
+
+          return (
+            '<div class="' +
+            srcCls +
+            '">' +
+            '<div class="ds-search-result-card__header">' +
+            '<div class="ds-search-result-card__name">' +
+            '<span class="ds-tag ds-search-result-card__type">' +
+            srcType +
+            "</span>" +
+            '<span class="ds-search-result-card__title">' +
+            srcTitle +
+            "</span>" +
+            '<span class="ds-search-result-card__tech">' +
+            srcTech +
+            "</span>" +
+            "</div>" +
+            '<span class="ds-tag ds-tag-stage ds-tag--gray ds-search-result-card__stage">' +
+            '<span class="ds-tag-stage__dot"></span>' +
+            srcStage +
+            "</span>" +
+            "</div>" +
+            '<div class="ds-search-result-card__details">' +
+            '<span class="ds-tag ds-tag--catalog ds-search-result-card__catalog">' +
+            srcCatalog +
+            "</span>" +
+            '<p class="ds-search-result-card__desc">' +
+            srcDesc +
+            "</p>" +
+            '<div class="ds-search-result-card__props">' +
+            '<span class="ds-search-result-card__prop">' +
+            srcProp1 +
+            "</span>" +
+            '<span class="ds-search-result-card__prop">' +
+            srcProp2 +
+            "</span>" +
+            "</div>" +
+            '<div class="ds-search-result-card__glossary">' +
+            '<span class="ds-item-type" style="' +
+            srcGlossaryBadge +
+            '">' +
+            srcGlossaryInitials +
+            "</span>" +
+            '<span class="ds-search-result-card__glossary-label">' +
+            srcGlossaryLabel +
+            "</span>" +
+            "</div>" +
             "</div>" +
             "</div>"
           );
@@ -1829,6 +3180,39 @@
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date.
     "loader",
     "calendar",
+    "digram-item-types",
+    "digram-topic",
+    "lineage-individual-node",
+    "lineage-grouped-node",
+    "metamodel-widget",
+    "loader-with-logo",
+    // Gray-box-to-zero, family 1 (feedback states).
+    "confirmation",
+    "error-state",
+    "maintenance-state",
+    // Gray-box-to-zero, family 2 (tag family).
+    "tag-shared",
+    "tag-catalog",
+    "tag-stage",
+    "tag-status",
+    "tag-glossary-item-type",
+    "tag-catalog-item-type",
+    // Gray-box-to-zero, family 3 (card family).
+    "card-for-perimeter",
+    "card-for-grouped-content",
+    "search-result-card",
+    // Gray-box-to-zero, family 4 (dropdowns / overlays).
+    "notification-dropdown",
+    "search-dropdown-menu",
+    "whats-new-dropdown",
+    "drawer-side-panel",
+    // Gray-box-to-zero, family 5 (primitives).
+    "spinner",
+    "loading-skeleton",
+    "scroll-bar",
+    "link",
+    "avatar",
+    "collapse-accordion",
   ];
 
   exports.renderDSComponent = renderDSComponent;
