@@ -440,50 +440,35 @@ var DS_FIXTURES = {
       Confidence: "High",
     },
   },
-  // Phase 1B — appearance-driven default: seam (tag-status has no BUILT_SLUGS
-  // case, so renderDSComponent renders it per-instance from the captured
-  // appearance doc). variant selects the color; the doc's text is a static
-  // capture (opts.props is not yet consumed by appearance-render.js), so both
-  // fixtures render the label "Fail" — the point of this golden is the color
-  // swap (washed-out geometry -> real hex), not the text.
-  // ⚠️ RENDERS WITH NO ICON, AND THE GOLDEN RECORDS THAT. The glyph tag-status
-  // reaches for is `checkmark-outline`, which the 2026-07 Figma icon rework
-  // DELETED. Verified genuinely gone, not merely shadowed: unlike `calendar` and
-  // `search` — which were eaten by a slug collision and came back once knowledge
-  // gave icons their own namespace — NO component owns `checkmark-outline`, and
-  // tag-status's anatomy instance resolves to slug:undefined. The DS ships Tag
-  // Status pointing at an icon that does not exist.
+  // Re-baselined for knowledge v0.34.116: tag-status is now a BUILT slug with
+  // its own ds-html-map leaf, which correctly takes precedence over the
+  // appearance-doc default: seam these goldens used to exercise.
   //
-  // So an empty instance box is the CORRECT output for this icon set, and the
-  // golden says so rather than asserting a stale expectation. Deliberately NOT
-  // worked around with a curated icon override: that would mask the defect while
-  // pretending to fix it. Same call already made for Tag Status "Fail"
-  // (`misuse-outline`) — see CHANGELOG "Known broken upstream".
+  // The re-baseline FIXED a real defect these goldens were pinning. On the old
+  // appearance path the label came from the doc's static text capture
+  // (opts.props was never consumed by appearance-render.js), so BOTH fixtures
+  // rendered "Fail" — tagStatusSuccess asserted the text "Fail" while passing
+  // Label:"Active". The leaf honours the prop, so they now read "Active" and
+  // "Failed" respectively.
   //
-  // When the glyph is restored in Figma, this golden FAILS. That is the point:
-  // re-baseline it WITH the icon and delete this note.
+  // ⚠️ STILL RENDERS WITH NO ICON, AND THE GOLDENS STILL RECORD THAT, for a
+  // different reason than before. The old empty `ds-appearance__instance` box
+  // was the appearance path resolving a deleted glyph. The leaf is
+  // deliberately label-only: the 2026-07 Figma icon rework DELETED both
+  // `checkmark-outline` (Success) and `misuse-outline` (Fail), so knowledge
+  // renders no icon rather than shipping a fake one. Six dropped glyphs are
+  // NOT on the design team's own "REMOVED" note, so this looks like
+  // collateral. Tracked upstream (knowledge #406, and #405 names ghosts on
+  // every sync PR).
+  //
+  // When the glyphs are restored, knowledge should add them to the leaf and
+  // these goldens will fail. That is the point: re-baseline WITH the icon and
+  // delete this note.
   tagStatusSuccess: {
     dsSlug: "tag-status",
     variant: "Status=Success",
     props: { Label: "Active" },
   },
-  // ⚠️ KNOWN BROKEN UPSTREAM, and its golden records that on purpose.
-  //
-  // ds-tagStatusFail.html contains NO glyph. That is not a renderer bug: the
-  // Fail variant's icon is `misuse-outline`, and the 2026-07 Figma icon rework
-  // DELETED it. Given an icon set without that glyph, an empty box is the
-  // correct render, so the golden says so rather than asserting a stale
-  // expectation.
-  //
-  // The defect is real and must be fixed, it just is not ours to fix here:
-  // Tag Status "Fail" ships in the DS today pointing at an icon that does not
-  // exist. `misuse-outline` is one of six glyphs the rework dropped that are
-  // NOT on the design team's own "REMOVED" note, so it looks like collateral.
-  // Tracked upstream (knowledge #405 detects and names ghost components, and
-  // every sync PR now lists them).
-  //
-  // When the glyph is restored in Figma this golden will fail. That is the
-  // point: re-baseline it WITH the icon and delete this comment.
   tagStatusFail: {
     dsSlug: "tag-status",
     variant: "Status=Fail",

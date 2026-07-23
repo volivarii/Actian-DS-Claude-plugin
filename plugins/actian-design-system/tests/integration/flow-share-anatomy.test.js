@@ -20,14 +20,20 @@ var assert = require("node:assert");
 var {
   assembleFlowShare,
 } = require("../../scripts/renderers/assemble-flow-share.js");
-var {
-  collectDsSlugs,
-  buildDsAnatomyDocMap,
-} = require("../../scripts/lib/renderer.js").dsAnatomyMap;
+var { collectDsSlugs, buildDsAnatomyDocMap } =
+  require("../../scripts/lib/renderer.js").dsAnatomyMap;
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var { pickSpecimen } = require("../helpers/appearance-specimen.js");
 
 // A non-override DS slug with usable vendored anatomy (quality.ratio >= 0.6).
-var ANATOMY_SLUG = "link";
+// Picked at run time, not hardcoded: the slug is only a specimen for the
+// appearance-doc wiring, and gray-box-to-zero keeps converting specimens into
+// BUILT slugs (this test used to name "link", which knowledge #465 built).
+// See tests/helpers/appearance-specimen.js.
+var SPECIMEN = pickSpecimen(ds.BUILT_SLUGS, function (slug) {
+  return Boolean(buildDsAnatomyDocMap([slug])[slug]);
+});
+var ANATOMY_SLUG = SPECIMEN.slug;
 
 function fixture() {
   return {
