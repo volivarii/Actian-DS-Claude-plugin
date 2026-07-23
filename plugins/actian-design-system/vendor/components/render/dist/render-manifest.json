@@ -85,6 +85,30 @@
       "source": "rendered"
     },
     {
+      "slug": "confirmation",
+      "tagName": "zen-confirmation",
+      "group": "Feedback",
+      "fragment": "fragments/confirmation.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "digram-item-types",
+      "tagName": "zen-digram-item-types",
+      "group": "Data Display",
+      "fragment": "fragments/digram-item-types.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "digram-topic",
+      "tagName": "zen-digram-topic",
+      "group": "Data Display",
+      "fragment": "fragments/digram-topic.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
       "slug": "dropdown-select-default",
       "tagName": "zen-dropdown-select-default",
       "group": "Form (input & selection)",
@@ -98,6 +122,14 @@
       "group": "Feedback",
       "fragment": "fragments/empty-state.html",
       "tokensConsumed": 11,
+      "source": "rendered"
+    },
+    {
+      "slug": "error-state",
+      "tagName": "zen-error-state",
+      "group": "Feedback",
+      "fragment": "fragments/error-state.html",
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -117,11 +149,51 @@
       "source": "rendered"
     },
     {
+      "slug": "lineage-grouped-node",
+      "tagName": "zen-lineage-grouped-node",
+      "group": "Data Display",
+      "fragment": "fragments/lineage-grouped-node.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "lineage-individual-node",
+      "tagName": "zen-lineage-individual-node",
+      "group": "Data Display",
+      "fragment": "fragments/lineage-individual-node.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
       "slug": "loader",
       "tagName": "zen-loader",
       "group": "Feedback",
       "fragment": "fragments/loader.html",
       "tokensConsumed": 9,
+      "source": "rendered"
+    },
+    {
+      "slug": "loader-with-logo",
+      "tagName": "zen-loader-with-logo",
+      "group": "Feedback",
+      "fragment": "fragments/loader-with-logo.html",
+      "tokensConsumed": 2,
+      "source": "rendered"
+    },
+    {
+      "slug": "maintenance-state",
+      "tagName": "zen-maintenance-state",
+      "group": "Feedback",
+      "fragment": "fragments/maintenance-state.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "metamodel-widget",
+      "tagName": "zen-metamodel-widget",
+      "group": "Data Display",
+      "fragment": "fragments/metamodel-widget.html",
+      "tokensConsumed": 12,
       "source": "rendered"
     },
     {
@@ -138,6 +210,14 @@
       "group": "Feedback",
       "fragment": "fragments/notification.html",
       "tokensConsumed": 14,
+      "source": "rendered"
+    },
+    {
+      "slug": "notification-dropdown",
+      "tagName": "zen-notification-dropdown",
+      "group": "Navigation",
+      "fragment": "fragments/notification-dropdown.html",
+      "tokensConsumed": 0,
       "source": "rendered"
     },
     {
@@ -189,6 +269,14 @@
       "source": "rendered"
     },
     {
+      "slug": "search-dropdown-menu",
+      "tagName": "zen-search-dropdown-menu",
+      "group": "Form (input & selection)",
+      "fragment": "fragments/search-dropdown-menu.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
       "slug": "segmented-control",
       "tagName": "zen-segmented-control",
       "group": "Data Display",
@@ -237,6 +325,22 @@
       "source": "rendered"
     },
     {
+      "slug": "tag-catalog",
+      "tagName": "zen-tag-catalog",
+      "group": "Data Display",
+      "fragment": "fragments/tag-catalog.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "tag-catalog-item-type",
+      "tagName": "zen-tag-catalog-item-type",
+      "group": "Data Display",
+      "fragment": "fragments/tag-catalog-item-type.html",
+      "tokensConsumed": 11,
+      "source": "rendered"
+    },
+    {
       "slug": "tag-default",
       "tagName": "zen-tag-default",
       "group": "Data Display",
@@ -245,11 +349,43 @@
       "source": "rendered"
     },
     {
+      "slug": "tag-glossary-item-type",
+      "tagName": "zen-tag-glossary-item-type",
+      "group": "Data Display",
+      "fragment": "fragments/tag-glossary-item-type.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
       "slug": "tag-interactive",
       "tagName": "zen-tag-interactive",
       "group": "Data Display",
       "fragment": "fragments/tag-interactive.html",
       "tokensConsumed": 19,
+      "source": "rendered"
+    },
+    {
+      "slug": "tag-shared",
+      "tagName": "zen-tag-shared",
+      "group": "Data Display",
+      "fragment": "fragments/tag-shared.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "tag-stage",
+      "tagName": "zen-tag-stage",
+      "group": "Data Display",
+      "fragment": "fragments/tag-stage.html",
+      "tokensConsumed": 5,
+      "source": "rendered"
+    },
+    {
+      "slug": "tag-status",
+      "tagName": "zen-tag-status",
+      "group": "Data Display",
+      "fragment": "fragments/tag-status.html",
+      "tokensConsumed": 0,
       "source": "rendered"
     },
     {
@@ -282,6 +418,94 @@
       "group": "Overlays",
       "fragment": "fragments/tooltip.html",
       "tokensConsumed": 11,
+      "source": "rendered"
+    },
+    {
+      "slug": "card-for-perimeter",
+      "tagName": "zen-card-for-perimeter",
+      "group": "Data Display",
+      "fragment": "fragments/card-for-perimeter.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "card-for-grouped-content",
+      "tagName": "zen-card-for-grouped-content",
+      "group": "Data Display",
+      "fragment": "fragments/card-for-grouped-content.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "search-result-card",
+      "tagName": "zen-search-result-card",
+      "group": "Data Display",
+      "fragment": "fragments/search-result-card.html",
+      "tokensConsumed": 20,
+      "source": "rendered"
+    },
+    {
+      "slug": "whats-new-dropdown",
+      "tagName": "zen-whats-new-dropdown",
+      "group": "Navigation",
+      "fragment": "fragments/whats-new-dropdown.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "drawer-side-panel",
+      "tagName": "zen-drawer-side-panel",
+      "group": "Overlays",
+      "fragment": "fragments/drawer-side-panel.html",
+      "tokensConsumed": 0,
+      "source": "rendered"
+    },
+    {
+      "slug": "spinner",
+      "tagName": "zen-spinner",
+      "group": "Feedback",
+      "fragment": "fragments/spinner.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "loading-skeleton",
+      "tagName": "zen-loading-skeleton",
+      "group": "Feedback",
+      "fragment": "fragments/loading-skeleton.html",
+      "tokensConsumed": 5,
+      "source": "rendered"
+    },
+    {
+      "slug": "scroll-bar",
+      "tagName": "zen-scroll-bar",
+      "group": "Data Display",
+      "fragment": "fragments/scroll-bar.html",
+      "tokensConsumed": 3,
+      "source": "rendered"
+    },
+    {
+      "slug": "link",
+      "tagName": "zen-link",
+      "group": "Action",
+      "fragment": "fragments/link.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "avatar",
+      "tagName": "zen-avatar",
+      "group": "Data Display",
+      "fragment": "fragments/avatar.html",
+      "tokensConsumed": 15,
+      "source": "rendered"
+    },
+    {
+      "slug": "collapse-accordion",
+      "tagName": "zen-collapse-accordion",
+      "group": "Data Display",
+      "fragment": "fragments/collapse-accordion.html",
+      "tokensConsumed": 18,
       "source": "rendered"
     }
   ]
