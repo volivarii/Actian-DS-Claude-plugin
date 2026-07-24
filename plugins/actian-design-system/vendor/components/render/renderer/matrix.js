@@ -27,77 +27,47 @@ function readRegistry(kit) {
   return _cache[kit];
 }
 
-// The render slugs are the `case "<slug>":` branches in
-// scripts/renderers/html-renderers/ds-html-map.js. This list drives the
-// --all CLI mode and is the seed set for the canonical render library bootstrap.
-var RENDER_SLUGS = [
-  "account-dropdown",
-  "alert-banner",
-  "app-switcher-dropdown",
-  "badge",
-  "breadcrumb",
-  "button",
-  "calendar",
-  "card-for-items",
-  "chat-with-ai-steward",
-  "checkbox",
-  "confirmation",
-  "digram-item-types",
-  "digram-topic",
-  "dropdown-select-default",
-  "empty-state",
-  "error-state",
-  "global-header",
-  "input-date",
-  "lineage-grouped-node",
-  "lineage-individual-node",
-  "loader",
-  "loader-with-logo",
-  "maintenance-state",
-  "metamodel-widget",
-  "modal",
-  "notification",
-  "notification-dropdown",
-  "page-header",
-  "popover",
-  "progress-bar-small",
-  "radio-button",
-  "rich-text",
-  "search",
-  "search-dropdown-menu",
-  "segmented-control",
-  "side-nav",
-  "stepper",
-  "sticky-footer",
-  "table",
-  "tabs",
-  "tag-catalog",
-  "tag-catalog-item-type",
-  "tag-default",
-  "tag-glossary-item-type",
-  "tag-interactive",
-  "tag-shared",
-  "tag-stage",
-  "tag-status",
-  "text-input",
-  "toggle",
-  "toolbar",
-  "tooltip",
-  // Gray-box-to-zero, family 3 (card family).
-  "card-for-perimeter",
-  "card-for-grouped-content",
-  "search-result-card",
-  // Gray-box-to-zero, family 4 (dropdowns / overlays).
-  "whats-new-dropdown",
-  "drawer-side-panel",
-  // Gray-box-to-zero, family 5 (primitives).
-  "spinner",
-  "loading-skeleton",
-  "scroll-bar",
-  "link",
-  "avatar",
-  "collapse-accordion",
-];
+// The render slugs ARE the `case "<slug>":` branches in
+// html-renderers/ds-html-map.js, so they are read from that source rather
+// than restated here. This list drives the --all CLI mode and seeds the
+// canonical render library.
+//
+// This used to be a hand-maintained copy of the same 63 names, which meant
+// adding or renaming a component took three coordinated edits across two
+// files. #465 shipped a slug that never reached the canonical library for
+// exactly that reason: the case existed and this list did not list it.
+// Deriving removes that failure mode instead of testing for it. matrix.js is
+// node-only (it already requires fs/path above), so reading the sibling
+// source is safe here; ds-html-map.js itself is browser-capable and keeps its
+// own BUILT_SLUGS literal, which invariant 8 now checks AGAINST this derived
+// set rather than against a second hand-written list.
+var DS_MAP_PATH = path.resolve(
+  __dirname,
+  "html-renderers",
+  "ds-html-map.js",
+);
+function readRenderSlugs() {
+  var src = fs.readFileSync(DS_MAP_PATH, "utf8");
+  var out = [];
+  var seen = Object.create(null);
+  var re = /^[ \t]*case "([a-z0-9-]+)":/gm;
+  var m;
+  while ((m = re.exec(src)) !== null) {
+    if (!seen[m[1]]) {
+      seen[m[1]] = 1;
+      out.push(m[1]);
+    }
+  }
+  if (!out.length)
+    throw new Error(
+      "matrix.js: no `case \"<slug>\":` branches found in " +
+        DS_MAP_PATH +
+        " -- the render-slug derive found nothing, which would silently empty " +
+        "RENDER_SLUGS and skip every render. Check the switch or this parser.",
+    );
+  return out.sort();
+}
+var RENDER_SLUGS = readRenderSlugs();
 
 // A render slug may live in any kit; search ds -> meta -> fm.
 function findComponent(slug) {

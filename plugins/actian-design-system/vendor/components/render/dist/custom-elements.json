@@ -64,6 +64,81 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/avatar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Avatar",
+          "tagName": "zen-avatar",
+          "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hovered | Focused | Pressed | Disabled | Selected"
+              }
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "One group | Two groups | Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-muted"
+            },
+            {
+              "name": "--zen-color-primary-25"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-disabled"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-xl"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/badge.html",
       "declarations": [
         {
@@ -347,6 +422,29 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card-for-grouped-content.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CardForGroupedContent",
+          "tagName": "zen-card-for-grouped-content",
+          "description": "CardForGroupedContent component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/card-for-items.html",
       "declarations": [
         {
@@ -366,6 +464,29 @@
               "name": "state",
               "type": {
                 "text": "Default | Hover | Focus | Pressed | Selected"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card-for-perimeter.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CardForPerimeter",
+          "tagName": "zen-card-for-perimeter",
+          "description": "CardForPerimeter component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
               }
             }
           ],
@@ -474,6 +595,84 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/collapse-accordion.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CollapseAccordion",
+          "tagName": "zen-collapse-accordion",
+          "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Collapsed | Expanede"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/confirmation.html",
       "declarations": [
         {
@@ -570,6 +769,29 @@
               "name": "type",
               "type": {
                 "text": "Light purple | Dark purple | Light blue | Dark blue | Light green | Dark green | Yellow | Orange | Red | Dark orange"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/drawer-side-panel.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DrawerSidePanel",
+          "tagName": "zen-drawer-side-panel",
+          "description": "A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Studio | Explorer"
               }
             }
           ],
@@ -906,6 +1128,60 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/link.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Link",
+          "tagName": "zen-link",
+          "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.\n\nUsed for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Expanded | Visited | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-primary-800"
+            },
+            {
+              "name": "--zen-color-text-disabled"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/loader.html",
       "declarations": [
         {
@@ -980,6 +1256,45 @@
             },
             {
               "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/loading-skeleton.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LoadingSkeleton",
+          "tagName": "zen-loading-skeleton",
+          "description": "Indicates a background process is active. Use Skeleton for page-level transitions to reduce perceived wait time.",
+          "attributes": [
+            {
+              "name": "transition",
+              "type": {
+                "text": "1 | 2"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
             }
           ]
         }
@@ -1542,6 +1857,39 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/scroll-bar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ScrollBar",
+          "tagName": "zen-scroll-bar",
+          "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-disabled"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/search.html",
       "declarations": [
         {
@@ -1634,6 +1982,96 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/search-result-card.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SearchResultCard",
+          "tagName": "zen-search-result-card",
+          "description": "A specialized card variant optimized for scannability during a search. Highlights relevant metadata and matching keywords.",
+          "attributes": [
+            {
+              "name": "app",
+              "type": {
+                "text": "Explorer | Studio"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Selected"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-error-50"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-focus-ring-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/segmented-control.html",
       "declarations": [
         {
@@ -1681,6 +2119,66 @@
           ],
           "cssParts": [],
           "cssProperties": []
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/spinner.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Spinner",
+          "tagName": "zen-spinner",
+          "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
+          "attributes": [
+            {
+              "name": "color mode",
+              "type": {
+                "text": "On light bg | On dark bg"
+              }
+            },
+            {
+              "name": "complete",
+              "type": {
+                "text": "50% | 75% | 100% | 25%"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-muted"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-primary-300"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2482,142 +2980,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/card-for-perimeter.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "CardForPerimeter",
-          "tagName": "zen-card-for-perimeter",
-          "description": "CardForPerimeter component.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": []
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/card-for-grouped-content.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "CardForGroupedContent",
-          "tagName": "zen-card-for-grouped-content",
-          "description": "CardForGroupedContent component.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": []
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/search-result-card.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "SearchResultCard",
-          "tagName": "zen-search-result-card",
-          "description": "A specialized card variant optimized for scannability during a search. Highlights relevant metadata and matching keywords.",
-          "attributes": [
-            {
-              "name": "app",
-              "type": {
-                "text": "Explorer | Studio"
-              }
-            },
-            {
-              "name": "state",
-              "type": {
-                "text": "Default | Hover | Focus | Pressed | Selected"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-border-radius-xs"
-            },
-            {
-              "name": "--zen-border-selected"
-            },
-            {
-              "name": "--zen-border-subtle"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-bg-selected"
-            },
-            {
-              "name": "--zen-color-error-50"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-focus-ring-primary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-font-weight-semibold"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "components/render/dist/fragments/whats-new-dropdown.html",
       "declarations": [
         {
@@ -2636,368 +2998,6 @@
           ],
           "cssParts": [],
           "cssProperties": []
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/drawer-side-panel.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "DrawerSidePanel",
-          "tagName": "zen-drawer-side-panel",
-          "description": "A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.",
-          "attributes": [
-            {
-              "name": "app",
-              "type": {
-                "text": "Studio | Explorer"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": []
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/spinner.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "Spinner",
-          "tagName": "zen-spinner",
-          "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
-          "attributes": [
-            {
-              "name": "color mode",
-              "type": {
-                "text": "On light bg | On dark bg"
-              }
-            },
-            {
-              "name": "complete",
-              "type": {
-                "text": "50% | 75% | 100% | 25%"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-full"
-            },
-            {
-              "name": "--zen-color-bg-muted"
-            },
-            {
-              "name": "--zen-color-icon-primary"
-            },
-            {
-              "name": "--zen-color-primary-300"
-            },
-            {
-              "name": "--zen-color-text-secondary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/loading-skeleton.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "LoadingSkeleton",
-          "tagName": "zen-loading-skeleton",
-          "description": "Indicates a background process is active. Use Skeleton for page-level transitions to reduce perceived wait time.",
-          "attributes": [
-            {
-              "name": "transition",
-              "type": {
-                "text": "1 | 2"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-border-subtle"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-spacing-sm"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/scroll-bar.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "ScrollBar",
-          "tagName": "zen-scroll-bar",
-          "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-full"
-            },
-            {
-              "name": "--zen-color-bg-subtle"
-            },
-            {
-              "name": "--zen-color-icon-disabled"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/link.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "Link",
-          "tagName": "zen-link",
-          "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.\n\nUsed for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.",
-          "attributes": [
-            {
-              "name": "state",
-              "type": {
-                "text": "Default | Hover | Focus | Pressed | Expanded | Visited | Disabled"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-primary-500"
-            },
-            {
-              "name": "--zen-color-primary-800"
-            },
-            {
-              "name": "--zen-color-text-disabled"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/avatar.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "Avatar",
-          "tagName": "zen-avatar",
-          "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
-          "attributes": [
-            {
-              "name": "state",
-              "type": {
-                "text": "Default | Hovered | Focused | Pressed | Disabled | Selected"
-              }
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "One group | Two groups | Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-full"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-bg-muted"
-            },
-            {
-              "name": "--zen-color-primary-25"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-disabled"
-            },
-            {
-              "name": "--zen-color-text-secondary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-font-weight-semibold"
-            },
-            {
-              "name": "--zen-size-xl"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/collapse-accordion.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "CollapseAccordion",
-          "tagName": "zen-collapse-accordion",
-          "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
-          "attributes": [
-            {
-              "name": "state",
-              "type": {
-                "text": "Collapsed | Expanede"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-default"
-            },
-            {
-              "name": "--zen-border-radius-full"
-            },
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-primary-500"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-secondary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-lg"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-lg"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-semibold"
-            },
-            {
-              "name": "--zen-spacing-md"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
         }
       ]
     }
