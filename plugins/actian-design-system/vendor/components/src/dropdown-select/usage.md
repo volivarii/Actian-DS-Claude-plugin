@@ -13,7 +13,7 @@ title: "Dropdown / Select usage guidelines"
 
 ## When not to use
 
-* Don't hide two to five options behind a dropdown when they fit on screen: use a [radio button](radio-button) group so users can compare at a glance.
+* Don't hide two to five options behind a dropdown when they fit on screen: use a [radio button](radio) group so users can compare at a glance.
 
 * Don't make users scroll a very long list (countries, long dataset lists): use a [combo box](combo-box) so typing narrows the options.
 

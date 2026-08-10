@@ -199,7 +199,7 @@
       "dsKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6"
     },
     "fmRadioButton": {
-      "dsSlug": "radio-button",
+      "dsSlug": "radio",
       "defaultVariant": {
         "Selection": "Unselected",
         "State": "Default"
@@ -217,7 +217,7 @@
       "propertyMap": {
         "Show Label": null
       },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma form-control rework (knowledge sync #378) renamed Selected=[No,Yes] -> Selection=[Unselected,Selected] and DELETED the 'Format' axis (dropped from defaultVariant here) and the 'Show Helper text' property. FM's 'Show Label' therefore has no DS counterpart, so it maps to null (transform-to-hifi drops a null-mapped property). Do NOT simply delete the entry: an unmapped property is passed through VERBATIM, which would emit a DS prop named 'Show Label' that the radio no longer exposes. DS radio exposes Show Digram / Show Icon / Show Description instead.",
+      "notes": "FM 'State' (On/Off) maps to DS 'Selection' axis. FM 'Style' maps to DS 'State' axis. The 2026-07 Figma form-control rework (knowledge sync #378) renamed Selected=[No,Yes] -> Selection=[Unselected,Selected] and DELETED the 'Format' axis (dropped from defaultVariant here) and the 'Show Helper text' property. FM's 'Show Label' therefore has no DS counterpart, so it maps to null (transform-to-hifi drops a null-mapped property). Do NOT simply delete the entry: an unmapped property is passed through VERBATIM, which would emit a DS prop named 'Show Label' that the radio no longer exposes. DS radio exposes Show Digram / Show Icon / Show Description instead. The dsSlug was 'radio-button' until the 2026-07-23 breaking sync (knowledge v0.34.120) renamed the Figma component 'Radio button' -> 'Radio'; dsKey 9ceb3411 is unchanged across the rename, which is how we know it is the same component and not a replacement. The vendored renderer's case and anatomy doc moved with it, so this pointer was the only thing left behind.",
       "dsKey": "9ceb34116fd119a17b08b9b445a204de28f9d249"
     },
     "fmToggle": {

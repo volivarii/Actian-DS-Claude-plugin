@@ -8,6 +8,12 @@ var r = require("../../scripts/lib/renderer.js").appearanceRender;
 var as = require("../../scripts/lib/renderer.js").appearanceStyle;
 
 var ANATOMY_DIR = path.join(__dirname, "../../vendor/components/dist/anatomy");
+var REGISTRY = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "../../vendor/components/dist/registries/dskit.json"),
+    "utf8",
+  ),
+).components;
 
 function docs() {
   return fs
@@ -79,16 +85,25 @@ function subtreeYieldsDecls(node, variant) {
 // drop-out, and any threshold grants slack measured in whole components. An
 // allowlist has zero slack: a new drop-out fails BY NAME, and a human either
 // records why it is legitimate or fixes the substrate.
+// ...and it covers COMPONENTS-section slugs only. "The root carries paint" is a
+// component expectation. A product logo, an illustration or a Foundations page
+// entry has no root surface by construction: the paint is in its vector
+// children. Those used to be hand-listed here too (8 brand assets), which held
+// for as long as the anatomy phase captured 8 of them. The v0.34.122 bump
+// captured 104, so the hand-list became the failure: ~95 connector logos
+// (snowflake, tableau, db2, ...) plus the new Foundations pages reported as
+// having "LOST their root appearance", and the vendor PR stayed red.
+//
+// Exempting them by SECTION instead of by name is derived from the registry, so
+// the next batch of connector logos cannot red this gate, and the list below
+// keeps holding only what it is good at: per-component decisions. A slug absent
+// from the registry is deliberately NOT exempt, so a mystery doc still fails.
+function isComponentsSection(slug) {
+  var entry = REGISTRY[slug];
+  return !entry || entry.section === "Components";
+}
+
 var NO_ROOT_APPEARANCE = {
-  // Brand art and imagery: raster/vector assets, no styled root frame.
-  "actian-data-intelligence": "brand asset",
-  "actian-data-observability": "brand asset",
-  "actian-pyramid": "brand asset",
-  "data-intelligence-dev-logo": "brand asset",
-  "white-label-merck-favicon": "brand asset",
-  "zeenea-logo": "brand asset",
-  illustration: "illustration, not a styled component",
-  "background-explore": "decorative background art",
   "component-1": "unnamed Figma scratch component",
 
   // Motion / skeleton: the visible surface lives on animated children.
@@ -113,14 +128,14 @@ var NO_ROOT_APPEARANCE = {
   // variant-conditional deltas with no base value (see subtreeYieldsDecls
   // above): the visible box or indicator is a child.
   //
-  // radio-button JOINED this list in the 2026-07 Figma form-control rework
+  // radio JOINED this list in the 2026-07 Figma form-control rework
   // (knowledge sync #378), which is what made the old frozen count fail at 55.
   // Recorded here rather than papered over by a looser threshold. If the rework
   // was NOT meant to strip its root appearance, that is a substrate bug and this
-  // entry should be deleted, not kept.
-  "radio-button":
-    "indicator is a child (2026-07 rework; VERIFY this was intended)",
-  "checkbox": "box is a child",
+  // entry should be deleted, not kept. Keyed `radio-button` until the 2026-07-23
+  // sync renamed the Figma component to "Radio" (same dsKey).
+  radio: "indicator is a child (2026-07 rework; VERIFY this was intended)",
+  checkbox: "box is a child",
   toggle: "track and knob are children",
   "text-input": "field box is a child",
   "input-date": "field box is a child",
@@ -143,12 +158,13 @@ test("no anatomy doc silently loses its root appearance", function () {
     .sort();
 
   var unexpected = without.filter(function (s) {
-    return !NO_ROOT_APPEARANCE[s];
+    return isComponentsSection(s) && !NO_ROOT_APPEARANCE[s];
   });
   assert.deepEqual(
     unexpected,
     [],
-    "these slugs LOST their root appearance and are not in the allowlist: " +
+    "these COMPONENTS-section slugs LOST their root appearance and are not in " +
+      "the allowlist: " +
       unexpected.join(", ") +
       ". Either the substrate regressed, or the loss is legitimate and belongs " +
       "in NO_ROOT_APPEARANCE with a reason.",

@@ -13,9 +13,14 @@ test("defaultNodeForSlug reads anatomy variant + merges default-props", function
   assert.equal(node.props.Label, "Button");
 });
 
+// The specimen must be a REAL component that simply has no default-props entry.
+// It was `radio-button`, which the 2026-07-23 sync renamed to `radio`: the test
+// kept passing, but for the wrong reason (a slug that exists nowhere is unmapped
+// trivially), so it stopped covering the case it names. `radio` is still a real
+// Components-section slug with anatomy and no default-props entry.
 test("defaultNodeForSlug falls back to empty props for an unmapped slug", function () {
-  var node = H.defaultNodeForSlug("radio-button");
-  assert.equal(node.dsSlug, "radio-button");
+  var node = H.defaultNodeForSlug("radio");
+  assert.equal(node.dsSlug, "radio");
   assert.deepEqual(node.props, {});
 });
 

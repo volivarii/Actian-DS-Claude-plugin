@@ -56,7 +56,7 @@ describe("resolve-a11y (real vendored substrate)", function () {
       "modal",
       "tabs",
       "tooltip",
-      "radio-button",
+      "radio", // renamed from radio-button in the 2026-07-23 sync (same dsKey)
       "toggle",
       "segmented-control",
       "side-nav",

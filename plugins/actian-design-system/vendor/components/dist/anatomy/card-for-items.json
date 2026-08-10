@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-items",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7613:7853",
@@ -151,7 +151,7 @@
     },
     "children": [
       {
-        "name": "✍️ Tag, Catalog item type",
+        "name": "Tag, Catalog item type",
         "kind": "instance",
         "slug": "tag-catalog-item-type",
         "props": {
@@ -161,7 +161,7 @@
         "id": "7613:7709",
         "appearance": {
           "background": "#cfeafd",
-          "radius": "4px"
+          "radius": "6px"
         }
       },
       {
@@ -207,11 +207,11 @@
         },
         "children": [
           {
-            "name": "✍️ Tag, Catalog",
+            "name": "Tag, Catalog",
             "kind": "instance",
             "slug": "tag-catalog",
             "props": {
-              "Type": "Default"
+              "Property 1": "Default"
             },
             "id": "7613:7712",
             "appearance": {
@@ -220,7 +220,7 @@
                 "color": "#d0efed",
                 "width": "1px"
               },
-              "radius": "4px"
+              "radius": "6px"
             }
           }
         ]

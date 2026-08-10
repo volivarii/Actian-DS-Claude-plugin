@@ -3,7 +3,8 @@ const assert = require("node:assert");
 
 const assemble = require("../../scripts/renderers/assemble-flow-share.js");
 const anatomyRender = require("../../scripts/lib/renderer.js").anatomyRender;
-const appearanceRender = require("../../scripts/lib/renderer.js").appearanceRender;
+const appearanceRender =
+  require("../../scripts/lib/renderer.js").appearanceRender;
 const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
 // flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
@@ -34,35 +35,52 @@ const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 // additive. Every original guarantee is kept, and the new final assertion
 // checks the thing that was impossible before: the emitted colour class
 // actually resolves to a rule in the deliverable, rather than dangling.
+//
+// UPDATED again for the 2026-07-23 tag redesign (knowledge v0.34.120). Figma
+// removed the border from tags: tag-default's captured root appearance is now
+// `{background, radius}` and each of its 7 Color variants carries a background
+// only. The renderer and the vendored ds-base.css both followed correctly, and
+// this test was the only thing left demanding a border, which is what held the
+// v0.34.122 vendor PR red for 15 nights.
+//
+// The lesson is in the file header above: "real-data-first ... no hardcoded
+// hex". The colour VALUES honoured that, but the SHAPE around them
+// (background + border, always) did not, so a legitimate substrate change read
+// as a failure. The border is now asserted only when the appearance layer
+// carries one, and its absence is asserted too: if the substrate has no border,
+// the deliverable must not invent one. That turns the stale expectation into a
+// fidelity guard that can fail in both directions.
 
 test("flow-share deliverable: tag-default renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
   const doc = anatomyRender.loadAnatomy("tag-default");
-  assert.ok(doc && doc.root, "tag-default anatomy doc must load (precondition)");
+  assert.ok(
+    doc && doc.root,
+    "tag-default anatomy doc must load (precondition)",
+  );
 
   const purpleVariant = parseVariant("Color=Purple");
   const defaultVariant = parseVariant("Color=Default");
 
   const base = appearanceRender.resolveNodeAppearance(doc.root, null);
-  const purple = appearanceRender.resolveNodeAppearance(doc.root, purpleVariant);
+  const purple = appearanceRender.resolveNodeAppearance(
+    doc.root,
+    purpleVariant,
+  );
   const def = appearanceRender.resolveNodeAppearance(doc.root, defaultVariant);
 
   assert.ok(
-    purple && purple.background && purple.border && purple.border.color,
-    "Color=Purple must resolve a background + border color (precondition)",
+    purple && purple.background,
+    "Color=Purple must resolve a background (precondition)",
   );
-  assert.ok(
-    purple.background !== base.background || purple.border.color !== base.border.color,
+  assert.notStrictEqual(
+    purple.background,
+    base.background,
     "Color=Purple must differ from the base appearance (precondition: otherwise nothing to inject)",
   );
-  assert.strictEqual(
-    def.background,
-    base.background,
-    "Color=Default must equal the base appearance background (precondition: default renders via ds-base.css, no injection)",
-  );
-  assert.strictEqual(
-    def.border.color,
-    base.border.color,
-    "Color=Default must equal the base appearance border color (precondition)",
+  assert.deepStrictEqual(
+    def,
+    base,
+    "Color=Default must equal the base appearance (precondition: default renders via ds-base.css, no injection)",
   );
 
   const flow = {
@@ -98,21 +116,59 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
     "renders the hand-authored ds-tag span, not anatomy divs",
   );
   assert.ok(html.includes("Tag"), "Purple tag keeps its instance label");
-  assert.ok(html.includes("Draft Items"), "Default tag keeps its instance label");
+  assert.ok(
+    html.includes("Draft Items"),
+    "Default tag keeps its instance label",
+  );
 
   // The colored variant's span carries an inline style sourced from the
   // appearance layer: real color VALUES, no token indirection to wash out.
-  const purpleSpan =
-    '<span class="ds-tag ds-tag--purple" style="background:' +
-    purple.background +
-    ";border-color:" +
-    purple.border.color +
-    '">Tag</span>';
-  assert.ok(
-    html.includes(purpleSpan),
-    "Color=Purple's ds-tag span must render the appearance layer's real background + border-color values, got no match for: " +
-      purpleSpan,
+  // Asserted declaration-by-declaration against whatever the appearance layer
+  // actually captured, rather than against a fixed background+border shape:
+  // the 2026-07-23 tag redesign removed tag borders outright, and hardcoding
+  // the old shape is what turned a substrate change into a red vendor PR.
+  const purpleMatch = html.match(
+    /<span class="ds-tag ds-tag--purple" style="([^"]*)">Tag<\/span>/,
   );
+  assert.ok(
+    purpleMatch,
+    "Color=Purple must render a ds-tag--purple span with an injected inline style, got: " +
+      (html.match(/<span class="ds-tag[^>]*>/g) || []).join(" "),
+  );
+  const purpleDecls = purpleMatch[1]
+    .split(";")
+    .map(function (d) {
+      return d.trim();
+    })
+    .filter(Boolean);
+  assert.ok(
+    purpleDecls.includes("background:" + purple.background),
+    "Color=Purple's span must inject the appearance layer's real background value (" +
+      purple.background +
+      "), got: " +
+      purpleDecls.join(";"),
+  );
+  if (purple.border && purple.border.color) {
+    assert.ok(
+      purpleDecls.includes("border-color:" + purple.border.color),
+      "the appearance layer captured a border, so the span must inject its real value (" +
+        purple.border.color +
+        "), got: " +
+        purpleDecls.join(";"),
+    );
+  } else {
+    // Fidelity guard, and the reason this branch is an assertion rather than a
+    // skip: Figma draws no border on tags any more, so a border in the
+    // deliverable would be the renderer inventing one.
+    assert.ok(
+      !purpleDecls.some(function (d) {
+        return d.startsWith("border");
+      }),
+      "the appearance layer captured no border for tag-default, so the deliverable " +
+        "must not invent one, got: " +
+        purpleDecls.join(";"),
+    );
+  }
 
   // The DEFAULT variant equals the base appearance, so buildDsVariantStyleMap
   // emits no map entry for it: no injected style at all, ds-base.css owns

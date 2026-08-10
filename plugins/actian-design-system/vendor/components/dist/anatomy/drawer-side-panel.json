@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer-side-panel",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -169,21 +169,17 @@
                 },
                 "children": [
                   {
-                    "name": "✍️ Tag, Catalog item type",
+                    "name": "Tag, Catalog item type",
                     "kind": "instance",
                     "slug": "tag-catalog-item-type",
                     "props": {
                       "Show counter": false,
                       "Type": "Dataset"
                     },
-                    "tokenRefs": [
-                      "--zen-color-primary-50"
-                    ],
                     "id": "14292:1206",
                     "appearance": {
                       "background": "#cfeafd",
-                      "backgroundToken": "--zen-color-primary-50",
-                      "radius": "4px"
+                      "radius": "6px"
                     }
                   },
                   {
@@ -208,7 +204,7 @@
                         "colorToken": "--zen-color-primary-700",
                         "width": "1px"
                       },
-                      "radius": "4px"
+                      "radius": "6px"
                     }
                   }
                 ]

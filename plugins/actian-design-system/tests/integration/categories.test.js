@@ -5,7 +5,8 @@
 //
 // Asserts:
 //   1. categories.json structure is valid and matches the known shape.
-//   2. Every category name in categories.json is in KNOWN_CATEGORIES.
+//   2. Every COMPONENTS-section category is in the curated closed set, and
+//      every other category equals its Figma page clean-name.
 //   3. Every component slug listed in categories.json exists in the
 //      DS Kit registry.
 //   4. Every DS Kit registry entry with a `category` field is
@@ -44,20 +45,40 @@ const COMPONENTS_CATEGORIES = new Set([
 // from the Figma page clean-name. No defaults files exist for them yet
 // (category-defaults are scoped to the curated Components set above);
 // the category-defaults-loader test below skips these by design.
-const NON_COMPONENTS_CATEGORIES = new Set([
-  "Breakpoint, grid & structure",
-  "Content guidelines",
-  "Icons",
-  "Illustrations & graphics",
-  "Local components",
-  "Product logos",
-  "White-label services",
-]);
+//
+// There is deliberately NO closed list of them. There used to be
+// (NON_COMPONENTS_CATEGORIES), and it was a local invention: the knowledge repo
+// keeps no such list either, because outside the COMPONENTS section the category
+// simply IS the page clean-name. So every Foundations page the design team added
+// broke this gate for a reason that was never a defect, and on 2026-07-23 four
+// arrived at once ("Base: label, message, field, textfield buttons",
+// "Checkbox, checkbox card, checkbox group", "Radio, radio card, radio group",
+// "Text area, text input"), holding the v0.34.122 vendor PR red for 15 nights.
+// The old failure message compounded it by advising an update to
+// transform-categories.js, which for a Foundations page has nothing to update.
+//
+// What replaced it asserts the relation instead of the membership: a
+// non-COMPONENTS category must equal the clean page name of every component
+// filed under it. That still catches the drift this file exists to catch (a hand
+// edit to categories.json, or a vendor snapshot that pulled one file and not the
+// other, which would break the relation), and it cannot rot when Figma gains a
+// page. Verified against v0.34.122: 252/252 non-COMPONENTS members match, and
+// 0/71 COMPONENTS members do, since those categories are curated groupings
+// spanning many pages.
 
-const KNOWN_CATEGORIES = new Set([
-  ...COMPONENTS_CATEGORIES,
-  ...NON_COMPONENTS_CATEGORIES,
-]);
+// Mirrors LEADING_EMOJI_RE + extractStatus() in the knowledge repo's
+// scripts/transformers/component-status-emoji.js, which is what produces the
+// `category` value in the first place. Mirroring the rule (rather than
+// stripping any leading symbol) keeps the two in agreement even for a page
+// prefixed with an emoji outside the status map, e.g. "⚪️ Calendar": knowledge
+// leaves that one intact, and so does this.
+const LEADING_STATUS_EMOJI_RE = /^\s*(✅|✍️|⛔️|⚠️)\s+(.*?)\s*$/;
+
+function pageCleanName(page) {
+  const raw = String(page == null ? "" : page);
+  const m = LEADING_STATUS_EMOJI_RE.exec(raw);
+  return m ? m[2] : raw.trim();
+}
 
 function loadJSON(p) {
   return JSON.parse(require("fs").readFileSync(p, "utf8"));
@@ -77,14 +98,56 @@ test("categories.json — structure", () => {
   );
 });
 
-test("categories.json — every category is in KNOWN_CATEGORIES", () => {
+test("categories.json — COMPONENTS categories are the curated closed set; every other category is its page clean-name", () => {
   const c = loadJSON(PATHS.components.categories);
-  for (const name of Object.keys(c.categories)) {
-    assert.ok(
-      KNOWN_CATEGORIES.has(name),
-      `Unknown category '${name}'. Update KNOWN_CATEGORIES in tests/integration/categories.test.js AND knowledge repo's transform-categories.js if the design team intentionally added it.`,
-    );
+  const reg = loadJSON(PATHS.components.registries.dskit);
+
+  // Collected, not asserted one at a time: the old loop stopped at the first
+  // unknown name, so a run that reported one drifted category was hiding three
+  // more. A gate that reveals its findings one nightly at a time is a gate that
+  // takes four nights to read.
+  const unknownComponentsCategories = [];
+  const nameMismatches = [];
+
+  for (const [name, entry] of Object.entries(c.categories)) {
+    for (const slug of entry.components) {
+      const comp = reg.components[slug];
+      // A slug missing from the registry is a different defect, asserted by the
+      // "every listed slug exists in DS Kit registry" test below.
+      if (!comp) continue;
+
+      if (comp.section === "Components") {
+        if (!COMPONENTS_CATEGORIES.has(name)) {
+          unknownComponentsCategories.push(`${name} (via ${slug})`);
+        }
+        continue;
+      }
+
+      const expected = pageCleanName(comp.page);
+      if (expected !== name) {
+        nameMismatches.push(
+          `${slug}: category '${name}' != page clean-name '${expected}'`,
+        );
+      }
+    }
   }
+
+  assert.deepEqual(
+    [...new Set(unknownComponentsCategories)].sort(),
+    [],
+    "COMPONENTS-section components filed under a category outside the curated set. " +
+      "This one IS a decision: each curated category needs a *-defaults.json under " +
+      "vendor/components/dist/categories/, so add it here AND in the knowledge repo's " +
+      "transform-categories.js KNOWN_CATEGORIES, or fix the Figma page's category header",
+  );
+
+  assert.deepEqual(
+    nameMismatches.sort(),
+    [],
+    "outside the COMPONENTS section a category is defined as the Figma page clean-name, " +
+      "so a mismatch means categories.json and the registry disagree: a hand edit, or a " +
+      "vendor snapshot that pulled one file and not the other",
+  );
 });
 
 test("categories.json — every listed slug exists in DS Kit registry", () => {

@@ -1,0 +1,183 @@
+{
+  "_schema_version": 1,
+  "slug": "label",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "20353:18566",
+    "variant": "State=Default"
+  },
+  "quality": {
+    "nodesTotal": 6,
+    "nodesNormalized": 6,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "State=Default",
+    "kind": "container",
+    "id": "20353:18567",
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs"
+    },
+    "children": [
+      {
+        "name": "Label",
+        "kind": "container",
+        "id": "20353:18568",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-2xs"
+        },
+        "children": [
+          {
+            "name": "Label",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "20353:18569",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
+            "text": "Label"
+          },
+          {
+            "name": "Required",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-error"
+            ],
+            "id": "20353:18570",
+            "appearance": {
+              "text": {
+                "color": "#c12c11",
+                "colorToken": "--zen-color-text-error",
+                "size": "14px",
+                "weight": 500,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
+            "text": "*"
+          },
+          {
+            "name": "info",
+            "kind": "instance",
+            "slug": "info",
+            "id": "20353:18571"
+          }
+        ]
+      },
+      {
+        "name": "Description",
+        "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-tertiary"
+        ],
+        "id": "20353:18572",
+        "appearance": {
+          "text": {
+            "color": "#50505d",
+            "colorToken": "--zen-color-text-tertiary",
+            "size": "14px",
+            "weight": 400,
+            "lineHeight": "20px",
+            "letterSpacing": "0.2px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            }
+          ]
+        },
+        "text": "A description helps users to define and understand the purpose of the input."
+      }
+    ]
+  },
+  "variantDefaults": {
+    "State": "Default"
+  }
+}

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-catalog-item-type",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "11300:8312",
@@ -17,38 +17,31 @@
   "root": {
     "name": "Type=Category",
     "kind": "container",
-    "tokenRefs": [
-      "--zen-color-error-50"
-    ],
     "id": "11300:8305",
     "appearance": {
-      "background": "#ffdacf",
-      "backgroundToken": "--zen-color-error-50",
-      "radius": "4px",
+      "background": "#ffd7ca",
+      "radius": "6px",
       "variants": [
         {
           "prop": "Type",
           "values": [
             "Data process"
           ],
-          "background": "#ffd6d8",
-          "backgroundToken": null
+          "background": "#ffd6d8"
         },
         {
           "prop": "Type",
           "values": [
             "Data product"
           ],
-          "background": "#e1e1e6",
-          "backgroundToken": null
+          "background": "#cadcf7"
         },
         {
           "prop": "Type",
           "values": [
             "Dataset"
           ],
-          "background": "#cfeafd",
-          "backgroundToken": "--zen-color-primary-50"
+          "background": "#cfeafd"
         },
         {
           "prop": "Type",
@@ -63,24 +56,21 @@
           "values": [
             "Output port"
           ],
-          "background": "#dde6ec",
-          "backgroundToken": null
+          "background": "#f1fdff"
         },
         {
           "prop": "Type",
           "values": [
             "Use case"
           ],
-          "background": "#fff9e5",
-          "backgroundToken": "--zen-color-warning-25"
+          "background": "#fff5d5"
         },
         {
           "prop": "Type",
           "values": [
             "Visualization"
           ],
-          "background": "#eed7ff",
-          "backgroundToken": null
+          "background": "#eed7ff"
         }
       ]
     },
@@ -89,9 +79,9 @@
       "gap": "8px",
       "padding": {
         "top": "0px",
-        "right": "8px",
+        "right": "4px",
         "bottom": "0px",
-        "left": "8px"
+        "left": "4px"
       },
       "align": {
         "main": "start",
@@ -103,22 +93,18 @@
       },
       "gapToken": "--zen-spacing-xs",
       "paddingTokens": {
-        "right": "--zen-spacing-xs",
-        "left": "--zen-spacing-xs"
+        "right": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
       }
     },
     "children": [
       {
         "name": "Tag-Name",
         "kind": "text",
-        "tokenRefs": [
-          "--zen-color-error-800"
-        ],
         "id": "10520:5868",
         "appearance": {
           "text": {
-            "color": "#982a18",
-            "colorToken": "--zen-color-error-800",
+            "color": "#7b2000",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",
@@ -141,10 +127,11 @@
             {
               "prop": "Type",
               "values": [
-                "Data product"
+                "Data product",
+                "Output port"
               ],
               "text": {
-                "color": "#40404a",
+                "color": "#00255a",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -158,7 +145,6 @@
               ],
               "text": {
                 "color": "#00547d",
-                "colorToken": "--zen-color-primary-800",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",
@@ -173,19 +159,6 @@
               "text": {
                 "color": "#145f04",
                 "colorToken": "--zen-color-success-800",
-                "size": "12px",
-                "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              }
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Output port"
-              ],
-              "text": {
-                "color": "#3c515a",
                 "size": "12px",
                 "weight": 400,
                 "lineHeight": "16px",

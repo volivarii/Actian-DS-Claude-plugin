@@ -66,7 +66,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="page-header">Page header</a>
   <a href="popover">Popover</a>
   <a href="progress-bar-small">Progress bar</a>
-  <a href="radio-button">Radio button</a>
+  <a href="radio">Radio</a>
   <a href="related-content-panels">Related content panels</a>
   <a href="rich-text">Rich text</a>
   <a href="scroll-bar">Scroll bar</a>

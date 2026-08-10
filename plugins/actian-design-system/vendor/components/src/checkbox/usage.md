@@ -13,7 +13,7 @@ title: "Checkboxes usage guidelines"
 
 * Don't use a checkbox for a setting that takes effect the moment it is clicked: use a [toggle](toggle).
 
-* Don't use checkboxes when exactly one option must be chosen: use a [radio button](radio-button) group.
+* Don't use checkboxes when exactly one option must be chosen: use a [radio button](radio) group.
 
 * Don't stack a checkbox group past roughly seven options: use a [multi-select](multi-select).
 

@@ -1,0 +1,253 @@
+{
+  "_schema_version": 1,
+  "slug": "text-area",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "20411:25889",
+    "variant": "States=Default"
+  },
+  "quality": {
+    "nodesTotal": 6,
+    "nodesNormalized": 6,
+    "ratio": 1,
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "States",
+        "value": "Read-only",
+        "path": "",
+        "reason": "childCount:3!=2"
+      }
+    ]
+  },
+  "root": {
+    "name": "States=Default",
+    "kind": "container",
+    "id": "20411:25890",
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fill",
+        "v": "hug"
+      },
+      "gapToken": "--zen-spacing-2xs"
+    },
+    "children": [
+      {
+        "name": "Label",
+        "kind": "instance",
+        "slug": "label",
+        "props": {
+          "Description text": "A description helps users to define and understand the purpose of the input.",
+          "* (Asterisk)": true,
+          "Label text": "Label",
+          "Label": true,
+          "Description": true,
+          "Info icon": true,
+          "State": "Default"
+        },
+        "id": "20411:25891"
+      },
+      {
+        "name": "Field",
+        "kind": "instance",
+        "slug": "field",
+        "props": {
+          "Show clear button": false,
+          "Show leading icon": false,
+          "Show trailing icon": false,
+          "Size": "Default",
+          "State": "Default"
+        },
+        "tokenRefs": [
+          "--zen-border-subtle"
+        ],
+        "id": "20411:25892",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
+            "width": "1px"
+          },
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "States",
+              "values": [
+                "Active"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Disabled"
+              ],
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Error"
+              ],
+              "border": {
+                "color": "#c12c11",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Focus"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Hover"
+              ],
+              "background": "#fbfbff"
+            },
+            {
+              "prop": "States",
+              "values": [
+                "Warning"
+              ],
+              "border": {
+                "color": "#d27b00",
+                "width": "1px"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Helper text",
+        "kind": "container",
+        "id": "20428:26674",
+        "layout": {
+          "axis": "row",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Helper text",
+            "kind": "instance",
+            "slug": "message",
+            "props": {
+              "Type": "Helper text"
+            },
+            "id": "20411:25893"
+          },
+          {
+            "name": "Character count",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-secondary"
+            ],
+            "id": "20428:26675",
+            "appearance": {
+              "text": {
+                "color": "#40404a",
+                "colorToken": "--zen-color-text-secondary",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              },
+              "variants": [
+                {
+                  "prop": "States",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Error"
+                  ],
+                  "text": {
+                    "color": "#c12c11",
+                    "colorToken": "--zen-color-text-error",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "States",
+                  "values": [
+                    "Warning"
+                  ],
+                  "text": {
+                    "color": "#83551f",
+                    "colorToken": "--zen-color-text-warning",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                }
+              ]
+            },
+            "text": "0/1000"
+          }
+        ]
+      }
+    ]
+  },
+  "variantDefaults": {
+    "States": "Default"
+  }
+}

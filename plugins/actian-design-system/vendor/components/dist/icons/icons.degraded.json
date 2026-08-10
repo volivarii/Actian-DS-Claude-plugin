@@ -4,10 +4,6 @@
   },
   "degraded": [
     {
-      "slug": "attachments",
-      "reason": "multicolor"
-    },
-    {
       "slug": "cursor-arrow",
       "reason": "gradient-or-image-fill"
     },
@@ -16,15 +12,11 @@
       "reason": "gradient-or-image-fill"
     },
     {
-      "slug": "datasets",
-      "reason": "multicolor"
+      "slug": "data-product-input-port",
+      "reason": "gradient-or-image-fill"
     },
     {
-      "slug": "glossary",
-      "reason": "multicolor"
-    },
-    {
-      "slug": "lifecycle-policy",
+      "slug": "double-check",
       "reason": "gradient-or-image-fill"
     }
   ]

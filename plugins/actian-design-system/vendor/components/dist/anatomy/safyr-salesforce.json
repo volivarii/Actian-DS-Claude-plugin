@@ -1,0 +1,154 @@
+{
+  "_schema_version": 1,
+  "slug": "safyr-salesforce",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25158"
+  },
+  "quality": {
+    "nodesTotal": 9,
+    "nodesNormalized": 4,
+    "ratio": 0.44,
+    "degraded": [
+      {
+        "name": "safyr-salesforce",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Salesforce.com_logo 1",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Mask group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "safyr-salesforce",
+    "kind": "container",
+    "id": "8400:25158",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 2621,
+      "y": 1455,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Salesforce.com_logo 1",
+        "kind": "container",
+        "id": "9963:5227",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 2623,
+          "y": 1460.003662109375,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "CENTER"
+          }
+        },
+        "children": [
+          {
+            "name": "Group",
+            "kind": "container",
+            "id": "9963:5228",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": 2623.00439453125,
+              "y": 1460.040283203125,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Mask group",
+                "kind": "container",
+                "id": "9963:5232",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": 2623.00439453125,
+                  "y": 1460.040283203125,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Group",
+                    "kind": "container",
+                    "id": "9963:5230",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 2623.00439453125,
+                      "y": 1460.040283203125,
+                      "constraints": {
+                        "vertical": "SCALE",
+                        "horizontal": "SCALE"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Vector",
+                        "kind": "vector",
+                        "id": "9963:5231",
+                        "appearance": {
+                          "background": "#ffffff"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector",
+                    "id": "9963:5229",
+                    "appearance": {
+                      "background": "#00a1e0"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Vector",
+                "kind": "vector",
+                "id": "9963:5233",
+                "appearance": {
+                  "background": "#fffffe"
+                }
+              },
+              {
+                "name": "Vector",
+                "kind": "vector",
+                "id": "9963:5234",
+                "appearance": {
+                  "background": "#fffffe"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

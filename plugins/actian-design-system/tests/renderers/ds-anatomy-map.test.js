@@ -139,12 +139,17 @@ function flowWith(variants) {
   };
 }
 
-it("tag-default variant style is appearance-sourced: per-color bg + border, no bare unresolved token", function () {
+it("tag-default variant style is appearance-sourced: per-color paint, no bare unresolved token", function () {
   var map = anatomyMapMod.buildDsVariantStyleMap(flowWith(["Color=Purple"]));
   var style = map["tag-default|Color=Purple"];
   assert.ok(style, "Purple entry present");
   assert.match(style, /background:/);
-  assert.match(style, /border-color:/);
+  // No border assertion: the 2026-07-23 tag redesign removed tag borders, so
+  // tag-default's captured appearance is background-only and the renderer
+  // correctly emits no border-color. Demanding one asserted the old Figma, not
+  // the appearance layer this test is about. The per-variant fidelity guard
+  // (border present iff the substrate captured one) lives in
+  // flow-share-variant-tag-deliverable.test.js, where the deliverable is built.
   // regression guard: the washout bug was bare var(--token) with NO fallback.
   // Every var() the appearance path emits carries a value fallback.
   var bareVar = /var\(\s*--[A-Za-z0-9-]+\s*\)/; // no comma => no fallback

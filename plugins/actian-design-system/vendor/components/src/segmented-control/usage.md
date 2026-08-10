@@ -11,7 +11,7 @@ title: "Segmented control usage guidelines"
 
 ## When not to use
 
-* Don't use it inside a form where the choice applies on submit: use a [radio button](radio-button) group.
+* Don't use it inside a form where the choice applies on submit: use a [radio button](radio) group.
 
 * Don't use it for peer views of different content on one object (**Overview**, **Lineage**, **Settings**): use [tabs](tabs). A segmented control re-displays one content set; tabs move between distinct ones.
 

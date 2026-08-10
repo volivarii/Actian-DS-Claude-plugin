@@ -17,6 +17,54 @@
       ]
     },
     {
+      "slug": "arrow-left",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
+          "nodeId": "7207:2837"
+        },
+        {
+          "kit": "fmkit",
+          "key": "3868ffb411d9a9f0fd00230eeb1482b428522ea5",
+          "nodeId": "8:20612"
+        }
+      ]
+    },
+    {
+      "slug": "ban",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "ed6f4c8c30c74c30a2310ce0b9dc7e4f7e92bb7e",
+          "nodeId": "20395:1492"
+        },
+        {
+          "kit": "fmkit",
+          "key": "83d9725faef668ffd72618135296bc1515c093c0",
+          "nodeId": "8:20836"
+        }
+      ]
+    },
+    {
+      "slug": "book-open",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "330720794f58865f5b9442d1723b16b97412a2bb",
+          "nodeId": "20391:2184"
+        },
+        {
+          "kit": "fmkit",
+          "key": "276871b2bbde45a48c74c148de0cb25333136f97",
+          "nodeId": "8:20792"
+        }
+      ]
+    },
+    {
       "slug": "calendar",
       "resolved_to": "dskit",
       "candidates": [
@@ -33,34 +81,18 @@
       ]
     },
     {
-      "slug": "chevron-left",
+      "slug": "code",
       "resolved_to": "dskit",
       "candidates": [
         {
           "kit": "dskit",
-          "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
-          "nodeId": "7207:2837"
+          "key": "9241c4402fbab4d4f2287f80c7e9b9ba162c121c",
+          "nodeId": "20633:38"
         },
         {
           "kit": "fmkit",
-          "key": "6d33856c56d2a74fc8f0d304183ed3c874b9bae4",
-          "nodeId": "8:20738"
-        }
-      ]
-    },
-    {
-      "slug": "chevron-up",
-      "resolved_to": "dskit",
-      "candidates": [
-        {
-          "kit": "dskit",
-          "key": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
-          "nodeId": "7207:2842"
-        },
-        {
-          "kit": "fmkit",
-          "key": "73975e9ee4c3a21b836ec6e03512cc0bc791e609",
-          "nodeId": "8:20714"
+          "key": "1b6b8613ee1a71484eacf1e759dd261dbe64c0ac",
+          "nodeId": "8:20794"
         }
       ]
     },
@@ -102,13 +134,29 @@
       "candidates": [
         {
           "kit": "dskit",
-          "key": "ce37c828e8be322438e3530c7680d1eee95af253",
-          "nodeId": "14335:17202"
+          "key": "97b5c840e2d4d73de5f5f3665be7db425b980d10",
+          "nodeId": "20619:44964"
         },
         {
           "kit": "fmkit",
           "key": "0449b597665bda8f401595df36232b6e7665a28a",
           "nodeId": "8:20682"
+        }
+      ]
+    },
+    {
+      "slug": "folder",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "c97a2b5506aafe95c2e4964752e4522b247e609b",
+          "nodeId": "8189:4595"
+        },
+        {
+          "kit": "fmkit",
+          "key": "6dc4c220719f73ba6f9e3e558899c5135afb67eb",
+          "nodeId": "8:20800"
         }
       ]
     },
@@ -161,6 +209,38 @@
       ]
     },
     {
+      "slug": "phone",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "2987f3bfc9d71ee4e11d1a889d961b21f361085e",
+          "nodeId": "20633:49"
+        },
+        {
+          "kit": "fmkit",
+          "key": "a9d8039e980e4fef6e24ca115ada800f4ebaa655",
+          "nodeId": "8:20698"
+        }
+      ]
+    },
+    {
+      "slug": "reply",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "f311e34a262cf841272a8ded336967e6a67bd466",
+          "nodeId": "20633:52"
+        },
+        {
+          "kit": "fmkit",
+          "key": "946d9c93fd7923efcc6eaaa18961694987c39387",
+          "nodeId": "8:20816"
+        }
+      ]
+    },
+    {
       "slug": "search",
       "resolved_to": "dskit",
       "candidates": [
@@ -173,6 +253,22 @@
           "kit": "fmkit",
           "key": "701934d562bb22fd53b60a54ad8d7e9465d93daa",
           "nodeId": "8:20734"
+        }
+      ]
+    },
+    {
+      "slug": "share",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "2de96d18724ed01071aa4b8eb2e075e6dd82032b",
+          "nodeId": "20633:54"
+        },
+        {
+          "kit": "fmkit",
+          "key": "61b8b92570b98b9c08e2daf68574bb37137f6d68",
+          "nodeId": "8:20608"
         }
       ]
     },
@@ -205,6 +301,22 @@
           "kit": "fmkit",
           "key": "74e59094d4c999fad9159ed3514d0332be4775e6",
           "nodeId": "8:20730"
+        }
+      ]
+    },
+    {
+      "slug": "user",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "9f8408ee896a42a49250a4b0985014282da78e4e",
+          "nodeId": "20633:57"
+        },
+        {
+          "kit": "fmkit",
+          "key": "92c15b8b5d3339b3c4b9dbdb6348ffd192b11ce8",
+          "nodeId": "8:20556"
         }
       ]
     },
