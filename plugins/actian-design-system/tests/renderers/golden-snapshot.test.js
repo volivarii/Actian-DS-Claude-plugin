@@ -250,8 +250,8 @@ var DS_FIXTURES = {
         {
           items: [
             { label: "Dashboard", icon: "dashboard" },
-            { label: "Catalog", icon: "directory" },
-            { label: "Topics", icon: "dots" },
+            { label: "Catalog", icon: "catalog" },
+            { label: "Topics", icon: "more" },
           ],
         },
         {
@@ -307,22 +307,22 @@ var DS_FIXTURES = {
   // P1c forms — radio-button (sibling of checkbox; built from the checkbox
   // structure + the media oracle, Default + Card formats).
   radioOff: {
-    dsSlug: "radio-button",
+    dsSlug: "radio",
     variant: "Format=Default, Selected=No, State=Default",
     props: { Label: "Standard plan" },
   },
   radioOn: {
-    dsSlug: "radio-button",
+    dsSlug: "radio",
     variant: "Format=Default, Selection=Selected, State=Default",
     props: { Label: "Standard plan", "Helper text": "Best for small teams" },
   },
   radioCard: {
-    dsSlug: "radio-button",
+    dsSlug: "radio",
     variant: "Format=Card format, Selection=Selected, State=Default",
     props: { Label: "Premium", "Helper text": "Advanced features" },
   },
   radioDisabled: {
-    dsSlug: "radio-button",
+    dsSlug: "radio",
     variant: "Format=Default, Selected=No, State=Disabled",
     props: { Label: "Standard plan" },
   },

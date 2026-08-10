@@ -153,14 +153,14 @@ never author `dsSlug: "input"`.)
 - `variant.State`: `Default` | `Hovered` | `Disabled` (default: `Default`)
 - `props.Label`: checkbox label text
 
-### `radio-button`
+### `radio`
 
 ```json
 {
   "type": "INSTANCE",
   "library": "ds",
-  "dsSlug": "radio-button",
-  "variant": "Format=Default, Selected=No, State=Default",
+  "dsSlug": "radio",
+  "variant": "Selection=Unselected, State=Default",
   "props": {
     "Label": "Weekly",
     "Helper text": "Runs every Monday at 9 AM",
@@ -169,10 +169,17 @@ never author `dsSlug: "input"`.)
 }
 ```
 
-- `variant.Format`: `Default` | `Card format` (default: `Default`)
-- `variant.Selected`: `Yes` | `No` (default: `No`)
-- `variant.State`: `Default` | `Hovered` | `Disabled` (default: `Default`)
+- `variant.Selection`: `Unselected` | `Selected` (default: `Unselected`)
+- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Disabled` (default: `Default`)
 - `props.Label`: radio option text
+
+The slug was `radio-button` and the axes were `Format` / `Selected` until the 2026-07-23
+breaking sync: Figma renamed the component to "Radio" (same `dsKey`) and the earlier
+form-control rework had already deleted the `Format` axis and renamed `Selected` to
+`Selection`. Authoring the old names now yields a fallback chip instead of a radio.
+`props.Label` / `Helper text` are what the HTML leaf renderer consumes; on the Figma side the
+component exposes `Show glyph` and `Show description` instead, so do not treat this props list
+as the Figma property contract.
 - `props["Helper text"]`: sub-label text (only shown when `Show Helper text` is truthy)
 - `props["Show Helper text"]`: `true` | `false` (default: `false`)
 

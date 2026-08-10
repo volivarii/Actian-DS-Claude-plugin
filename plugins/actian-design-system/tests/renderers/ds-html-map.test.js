@@ -32,7 +32,15 @@ var KNOWN_ABSENT_ICONS = {
 };
 
 describe("ds-html-map: P1a precondition", function () {
-  it("vendored icons.json has the slugs renderIcon needs", function () {
+  // WHICH slugs must exist is not asserted here, deliberately. The
+  // "orphan-ref gate" below derives that set from every renderIcon('slug') call
+  // in the renderer source, so it is always the real requirement. This one used
+  // to hardcode ["add", "chevron-up", "simple-check", "directory"] alongside it,
+  // and the 2026-07-23 sync deleted `chevron-up` and renamed `directory` ->
+  // `catalog` (same dsKey), reddening a duplicate of a check that was already
+  // passing. What is left is the part that cannot rot: the manifest path
+  // resolves, the file parses, and it is not empty.
+  it("vendored icons.json resolves, parses, and is non-empty", function () {
     var iconsPath = PATHS.components.icons.svg;
     assert.ok(
       iconsPath,
@@ -40,12 +48,13 @@ describe("ds-html-map: P1a precondition", function () {
     );
     var doc = JSON.parse(fs.readFileSync(iconsPath, "utf8"));
     var slugs = Object.keys(doc.icons || {});
-    ["add", "chevron-up", "simple-check", "directory"].forEach(function (s) {
-      assert.ok(
-        slugs.indexOf(s) !== -1,
-        "vendored icons.json missing required slug: " + s,
-      );
-    });
+    // No fixed count: the icon set grows and shrinks with Figma (107 -> 140 in
+    // this very bump). An empty map is the failure that matters, because every
+    // renderIcon call would then silently return "".
+    assert.ok(
+      slugs.length > 0,
+      "vendored icons.json carries no icons: renderIcon would silently emit nothing",
+    );
   });
 });
 
@@ -116,11 +125,17 @@ describe("ds-html-map: renderIcon", function () {
     );
   });
   it("rotate adds the rotation class", function () {
+    // Any real icon will do: the subject is the rotation class, not the glyph.
+    // This used to name `chevron-up`, which Figma deleted in the 2026-07-23
+    // sync, so the test went red over a slug it never cared about.
+    var anyIconSlug = Object.keys(
+      JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8")).icons,
+    ).sort()[0];
     assert.ok(
       /class="ds-icon ds-icon--rot180"/.test(
-        ds.renderIcon("chevron-up", { rotate: 180 }),
+        ds.renderIcon(anyIconSlug, { rotate: 180 }),
       ),
-      "rot180 class",
+      "rot180 class (specimen: " + anyIconSlug + ")",
     );
   });
   it("unknown slug returns empty string (never throws)", function () {
@@ -1183,12 +1198,18 @@ describe("ds-html-map: toggle (P1c)", function () {
   });
 });
 
-describe("ds-html-map: radio-button (P1c)", function () {
+// Slug renamed radio-button -> radio by the 2026-07-23 breaking sync (same
+// Figma dsKey). The `Format=` / `Selected=` variant strings below are kept
+// deliberately: Figma deleted the Format axis and renamed Selected -> Selection,
+// but the vendored renderer's `case "radio"` still branches on both, so these
+// cases cover live code. That renderer-vs-substrate gap belongs to the knowledge
+// repo (it owns the renderer now), not here.
+describe("ds-html-map: radio (P1c)", function () {
   function rb(variant, props) {
     return render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "radio-button",
+      dsSlug: "radio",
       variant: variant,
       props: props || {},
     });
@@ -1345,7 +1366,7 @@ describe("ds-html-map: side-nav — Task 3 grouped Studio sidebar", function () 
           {
             items: [
               { label: "Dashboard", icon: "dashboard" },
-              { label: "Catalog", icon: "directory" },
+              { label: "Catalog", icon: "catalog" },
               { label: "Topics", icon: "more" },
             ],
           },
@@ -1413,7 +1434,7 @@ describe("ds-html-map: side-nav — Task 3 grouped Studio sidebar", function () 
           {
             items: [
               { label: "Dashboard", icon: "dashboard" },
-              { label: "Catalog", icon: "directory" },
+              { label: "Catalog", icon: "catalog" },
             ],
           },
         ]),

@@ -19,6 +19,61 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+- **The nightly vendor snapshot flows again, and four of the gates that blocked it no longer rot on
+  normal Figma activity.** ([#PR](_PR link added at open_)) The knowledge v0.34.122 refresh PR had
+  been red every night since 2026-07-25 (15 consecutive runs), so `main` stayed pinned at v0.34.117,
+  five versions behind, while the nightly kept force-pushing the same branch. 36 tests were failing.
+  Every one traced to the 2026-07-23 breaking sync, and none was a defect in the substrate:
+  - **`radio-button` was renamed `radio`** in Figma (same `dsKey` 9ceb3411, so the same component).
+    Knowledge moved its renderer case, anatomy doc and guideline; the plugin's
+    `references/convert-to-hifi/fm-to-ds-map.json` still pointed at the old slug, which made the
+    conversion map reach a component with no renderer, and every `radio*` golden render a fallback
+    chip. Repointed, plus the stale authoring example in
+    `references/generate-flow/ds-components-authoring.md` (which also still documented the `Format`
+    and `Selected` axes that the earlier form-control rework deleted) and the category list in
+    `references/context/companion-context.md`.
+  - **Tags lost their border.** `tag-default`'s captured appearance is now `{background, radius}` and
+    each Color variant carries a background only. The renderer and the vendored `ds-base.css` both
+    followed correctly; two tests still demanded a border. They now assert against whatever the
+    appearance layer carries, and the deliverable test additionally asserts the *absence*: with no
+    captured border, the rendered span must not invent one. Mutation-verified in both directions.
+  - **Four new Foundations pages arrived at once** ("Base: label, message, field, textfield buttons",
+    "Checkbox, checkbox card, checkbox group", "Radio, radio card, radio group", "Text area, text
+    input"). `categories.test.js` checked category names against a hand-kept
+    `NON_COMPONENTS_CATEGORIES` list that the knowledge repo does not itself keep: outside the
+    COMPONENTS section a category simply *is* the Figma page clean-name. It now asserts that relation
+    instead of list membership (verified 252/252 non-COMPONENTS members match, 0/71 COMPONENTS ones
+    do, since those are curated groupings), keeps the closed set only where it encodes a real decision
+    (a curated category needs a `*-defaults.json`), and reports every violation at once rather than
+    stopping at the first, which had been hiding three of the four.
+  - **The anatomy phase captured 104 appearance-less docs instead of 8.** `NO_ROOT_APPEARANCE`
+    hand-listed 8 brand assets, so ~95 connector logos (snowflake, tableau, db2, ...) plus the new
+    Foundations pages were reported as having "LOST their root appearance". Logos and illustrations
+    have no root paint by construction, so they are now exempt by registry *section*, derived, while
+    the curated list keeps holding only per-component decisions. A slug absent from the registry is
+    still not exempt, so a mystery doc keeps failing.
+  - **Icon renames** (`chevron-up` deleted, `chevron-left`→`arrow-left`, `directory`→`catalog`,
+    `ai`→`stars-filled`, `dots`→`more`, all by `dsKey`). Knowledge had already migrated its renderer;
+    13 goldens and two test fixtures still encoded the old glyphs. Regenerated after confirming every
+    diff is confined to glyph geometry and the retired `ds-icon--rot180` rotation hack (`chevron-up`
+    rotated 180° is now a real `arrow-down` glyph), with no fallback chips and no empty `<svg>`. The
+    renamed icons are drawn on a 48-unit artboard rather than 24; `.ds-icon` sizes at `1em`, so that
+    is visually neutral.
+  - A hardcoded `["add", "chevron-up", "simple-check", "directory"]` precondition duplicated the
+    orphan-ref gate that already derives required icons from the renderer source. Reduced to the part
+    that cannot rot: the manifest resolves, parses, and is non-empty.
+
+  Also repointed `tests/fidelity/render-leaf.test.js`, whose "unmapped slug" specimen was
+  `radio-button`: it kept passing, but a slug that exists nowhere is unmapped trivially, so the case
+  it names stopped being covered. `radio` is still a real Components-section slug with anatomy and no
+  default-props entry.
+
+  1957/1957 tests pass. Two follow-ups belong upstream, not here: the vendored renderer's `radio`
+  case still branches on the deleted `Format` axis and on `Helper text` props the component no longer
+  exposes, and `radio`'s root appearance is still variant-conditional-only from the 2026-07 rework
+  (allowlisted with a VERIFY note since then).
+
 ### Added
 - **The plugin's Fat Marker (fm) renderer is now vendored from knowledge, matching the ds-tier's own setup**, instead of a plugin-local copy that could silently drift. ([#PR](_PR link added at open_)) `fm-html-map.js` was already knowledge's dead-weight dependency of `ds-html-map.js` (relocation phase 1a); `fm-base.css` never moved at all. `scripts/lib/renderer.js` now exports `fmHtmlMap` and `cssPaths.fmBase`, mirroring the existing `dsHtmlMap`/`cssPaths.base` exports exactly (no injection needed: `fm-html-map.js` has no `lib/paths` coupling to sever, unlike the icon/anatomy/graphics seams). All 7 real production consumers and 9 test files repointed; the plugin's local `scripts/renderers/html-renderers/fm-html-map.js` and `fm-base.css` are deleted.
 - **The plugin's own generated output now shows real artwork for empty-state and the app header logo**, instead of an empty illustration slot or an empty header span. ([#264](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/264)) Knowledge shipped a color-preserving graphics tier at v0.34.112 ([actian-ds-knowledge#454](https://github.com/volivarii/actian-ds-knowledge/pull/454)), with a `setGraphics` seam on the vendored renderer mirroring the existing `setIcons` seam. That seam vendored in but nothing called it, so every `renderGraphic()` call silently returned an empty string and rendered blank, the same silent-failure shape the icon and anatomy injections already guard against. `scripts/lib/renderer.js` now reads the vendored `graphics.json` and calls `setGraphics()` once at module load, asserting its shape loudly rather than defaulting on a mismatch. Three new smoke tests mirror the existing icon-injection gates and are mutation-verified.

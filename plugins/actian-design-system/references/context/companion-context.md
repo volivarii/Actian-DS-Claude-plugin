@@ -117,7 +117,7 @@ DS Kit components are grouped into 6 categories (synced from the design team's F
 | Category | Components | Examples |
 |---|---|---|
 | **Action** | 3 | button, link, sticky-footer |
-| **Form (input & selection)** | 11 | input, text-input, checkbox, radio-button, dropdown-select-default, search, toggle, calendar |
+| **Form (input & selection)** | 11 | input, text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
 | **Navigation** | 11 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
 | **Data Display** | 31 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
 | **Feedback** | 11 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
