@@ -19,6 +19,12 @@
     "actian-pyramid": {
       "default": "components/dist/media/actian-pyramid/default.webp"
     },
+    "adlsgen1": {
+      "default": "components/dist/media/adlsgen1/default.webp"
+    },
+    "adobe-analytics": {
+      "default": "components/dist/media/adobe-analytics/default.webp"
+    },
     "alert-banner": {
       "preview": "components/dist/media/alert-banner/preview.webp",
       "variations": [
@@ -39,9 +45,21 @@
       ],
       "default": "components/dist/media/alert-inline/default.webp"
     },
+    "alteryx": {
+      "default": "components/dist/media/alteryx/default.webp"
+    },
+    "amazons3": {
+      "default": "components/dist/media/amazons3/default.webp"
+    },
+    "api": {
+      "default": "components/dist/media/api/default.webp"
+    },
     "app-switcher-dropdown": {
       "preview": "components/dist/media/app-switcher-dropdown/preview.webp",
       "default": "components/dist/media/app-switcher-dropdown/default.webp"
+    },
+    "atlas": {
+      "default": "components/dist/media/atlas/default.webp"
     },
     "avatar": {
       "preview": "components/dist/media/avatar/preview.webp",
@@ -49,6 +67,30 @@
         "components/dist/media/avatar/behavior-0.webp"
       ],
       "default": "components/dist/media/avatar/default.webp"
+    },
+    "avro": {
+      "default": "components/dist/media/avro/default.webp"
+    },
+    "aws-glue-etl": {
+      "default": "components/dist/media/aws-glue-etl/default.webp"
+    },
+    "awsredshift": {
+      "default": "components/dist/media/awsredshift/default.webp"
+    },
+    "azure": {
+      "default": "components/dist/media/azure/default.webp"
+    },
+    "azure-cosmosdb": {
+      "default": "components/dist/media/azure-cosmosdb/default.webp"
+    },
+    "azure-datafactory": {
+      "default": "components/dist/media/azure-datafactory/default.webp"
+    },
+    "azure-purview": {
+      "default": "components/dist/media/azure-purview/default.webp"
+    },
+    "azure-synapse": {
+      "default": "components/dist/media/azure-synapse/default.webp"
     },
     "background-explore": {
       "default": "components/dist/media/background-explore/default.webp"
@@ -69,6 +111,9 @@
     },
     "bar-graph": {
       "default": "components/dist/media/bar-graph/default.webp"
+    },
+    "bigquery": {
+      "default": "components/dist/media/bigquery/default.webp"
     },
     "breadcrumb": {
       "preview": "components/dist/media/breadcrumb/preview.webp",
@@ -135,6 +180,9 @@
       "preview": "components/dist/media/card-for-perimeter/preview.webp",
       "default": "components/dist/media/card-for-perimeter/default.webp"
     },
+    "cassandra": {
+      "default": "components/dist/media/cassandra/default.webp"
+    },
     "chat-with-ai-steward": {
       "preview": "components/dist/media/chat-with-ai-steward/preview.webp",
       "parts": [
@@ -150,31 +198,14 @@
     },
     "checkbox": {
       "preview": "components/dist/media/checkbox/preview.webp",
-      "parts": [
-        "components/dist/media/checkbox/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/checkbox/spacing-0.webp",
-        "components/dist/media/checkbox/spacing-1.webp"
-      ],
-      "behavior": [
-        "components/dist/media/checkbox/behavior-0.webp"
-      ],
       "default": "components/dist/media/checkbox/default.webp"
     },
     "checkbox-card": {
       "preview": "components/dist/media/checkbox-card/preview.webp",
-      "parts": [
-        "components/dist/media/checkbox-card/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/checkbox-card/spacing-0.webp",
-        "components/dist/media/checkbox-card/spacing-1.webp"
-      ],
-      "behavior": [
-        "components/dist/media/checkbox-card/behavior-0.webp"
-      ],
       "default": "components/dist/media/checkbox-card/default.webp"
+    },
+    "checkbox-group": {
+      "default": "components/dist/media/checkbox-group/default.webp"
     },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
@@ -186,6 +217,15 @@
         "components/dist/media/checkbox-with-label/spacing-1.webp"
       ],
       "default": "components/dist/media/checkbox-with-label/default.webp"
+    },
+    "ckan": {
+      "default": "components/dist/media/ckan/default.webp"
+    },
+    "cognos": {
+      "default": "components/dist/media/cognos/default.webp"
+    },
+    "cognos-bi": {
+      "default": "components/dist/media/cognos-bi/default.webp"
     },
     "collapse-accordion": {
       "preview": "components/dist/media/collapse-accordion/preview.webp",
@@ -213,8 +253,44 @@
       ],
       "default": "components/dist/media/confirmation/default.webp"
     },
+    "cosmosdb": {
+      "default": "components/dist/media/cosmosdb/default.webp"
+    },
+    "couchbase": {
+      "default": "components/dist/media/couchbase/default.webp"
+    },
+    "csv": {
+      "default": "components/dist/media/csv/default.webp"
+    },
+    "csv-custom-item": {
+      "default": "components/dist/media/csv-custom-item/default.webp"
+    },
     "data-intelligence-dev-logo": {
       "default": "components/dist/media/data-intelligence-dev-logo/default.webp"
+    },
+    "databricks": {
+      "default": "components/dist/media/databricks/default.webp"
+    },
+    "dataiku": {
+      "default": "components/dist/media/dataiku/default.webp"
+    },
+    "dataset": {
+      "default": "components/dist/media/dataset/default.webp"
+    },
+    "db2": {
+      "default": "components/dist/media/db2/default.webp"
+    },
+    "db2-database-1": {
+      "default": "components/dist/media/db2-database-1/default.webp"
+    },
+    "dbt": {
+      "default": "components/dist/media/dbt/default.webp"
+    },
+    "denodo": {
+      "default": "components/dist/media/denodo/default.webp"
+    },
+    "dictionnary": {
+      "default": "components/dist/media/dictionnary/default.webp"
     },
     "digram-item-types": {
       "preview": "components/dist/media/digram-item-types/preview.webp",
@@ -231,6 +307,9 @@
     "dropdown-select-default": {
       "preview": "components/dist/media/dropdown-select-default/preview.webp",
       "default": "components/dist/media/dropdown-select-default/default.webp"
+    },
+    "elasticsearch": {
+      "default": "components/dist/media/elasticsearch/default.webp"
     },
     "empty-state": {
       "preview": "components/dist/media/empty-state/preview.webp",
@@ -264,6 +343,31 @@
       ],
       "default": "components/dist/media/error-state/default.webp"
     },
+    "erwin-data-modeler": {
+      "default": "components/dist/media/erwin-data-modeler/default.webp"
+    },
+    "field": {
+      "preview": "components/dist/media/field/preview.webp",
+      "parts": [
+        "components/dist/media/field/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/field/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/field/behavior-0.webp"
+      ],
+      "default": "components/dist/media/field/default.webp"
+    },
+    "gcp": {
+      "default": "components/dist/media/gcp/default.webp"
+    },
+    "gcpcloudstorage": {
+      "default": "components/dist/media/gcpcloudstorage/default.webp"
+    },
+    "generic-jdbc": {
+      "default": "components/dist/media/generic-jdbc/default.webp"
+    },
     "global-header": {
       "preview": "components/dist/media/global-header/preview.webp",
       "default": "components/dist/media/global-header/default.webp"
@@ -271,6 +375,21 @@
     "glossary-item-hierarchy-diagram": {
       "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.webp",
       "default": "components/dist/media/glossary-item-hierarchy-diagram/default.webp"
+    },
+    "google-cloud": {
+      "default": "components/dist/media/google-cloud/default.webp"
+    },
+    "greenplum": {
+      "default": "components/dist/media/greenplum/default.webp"
+    },
+    "hbase": {
+      "default": "components/dist/media/hbase/default.webp"
+    },
+    "hdfs": {
+      "default": "components/dist/media/hdfs/default.webp"
+    },
+    "hive": {
+      "default": "components/dist/media/hive/default.webp"
     },
     "identification-key": {
       "preview": "components/dist/media/identification-key/preview.webp",
@@ -291,6 +410,15 @@
     "illustration": {
       "default": "components/dist/media/illustration/default.webp"
     },
+    "impala": {
+      "default": "components/dist/media/impala/default.webp"
+    },
+    "influxdb": {
+      "default": "components/dist/media/influxdb/default.webp"
+    },
+    "informatica": {
+      "default": "components/dist/media/informatica/default.webp"
+    },
     "input": {
       "preview": "components/dist/media/input/preview.webp",
       "parts": [
@@ -306,8 +434,30 @@
       "preview": "components/dist/media/input-date/preview.webp",
       "default": "components/dist/media/input-date/default.webp"
     },
+    "jdbc": {
+      "default": "components/dist/media/jdbc/default.webp"
+    },
+    "json": {
+      "default": "components/dist/media/json/default.webp"
+    },
+    "kafka": {
+      "default": "components/dist/media/kafka/default.webp"
+    },
     "l-grid": {
       "default": "components/dist/media/l-grid/default.webp"
+    },
+    "label": {
+      "preview": "components/dist/media/label/preview.webp",
+      "parts": [
+        "components/dist/media/label/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/label/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/label/behavior-0.webp"
+      ],
+      "default": "components/dist/media/label/default.webp"
     },
     "line-graph": {
       "default": "components/dist/media/line-graph/default.webp"
@@ -358,6 +508,12 @@
       "preview": "components/dist/media/loading-skeleton/preview.webp",
       "default": "components/dist/media/loading-skeleton/default.webp"
     },
+    "local-filesystem": {
+      "default": "components/dist/media/local-filesystem/default.webp"
+    },
+    "looker": {
+      "default": "components/dist/media/looker/default.webp"
+    },
     "m-grid": {
       "default": "components/dist/media/m-grid/default.webp"
     },
@@ -377,13 +533,50 @@
       ],
       "default": "components/dist/media/maintenance-state/default.webp"
     },
+    "mapr": {
+      "default": "components/dist/media/mapr/default.webp"
+    },
+    "mariadb": {
+      "default": "components/dist/media/mariadb/default.webp"
+    },
+    "matillion": {
+      "default": "components/dist/media/matillion/default.webp"
+    },
+    "message": {
+      "preview": "components/dist/media/message/preview.webp",
+      "parts": [
+        "components/dist/media/message/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/message/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/message/behavior-0.webp"
+      ],
+      "default": "components/dist/media/message/default.webp"
+    },
     "metamodel-widget": {
       "preview": "components/dist/media/metamodel-widget/preview.webp",
       "default": "components/dist/media/metamodel-widget/default.webp"
     },
+    "microstrategy": {
+      "default": "components/dist/media/microstrategy/default.webp"
+    },
     "modal": {
       "preview": "components/dist/media/modal/preview.webp",
       "default": "components/dist/media/modal/default.webp"
+    },
+    "mongodb": {
+      "default": "components/dist/media/mongodb/default.webp"
+    },
+    "ms-teams": {
+      "default": "components/dist/media/ms-teams/default.webp"
+    },
+    "mysql": {
+      "default": "components/dist/media/mysql/default.webp"
+    },
+    "netezza": {
+      "default": "components/dist/media/netezza/default.webp"
     },
     "notes-feedback": {
       "default": "components/dist/media/notes-feedback/default.webp"
@@ -396,17 +589,53 @@
       "preview": "components/dist/media/notification-dropdown/preview.webp",
       "default": "components/dist/media/notification-dropdown/default.webp"
     },
+    "openapi": {
+      "default": "components/dist/media/openapi/default.webp"
+    },
+    "opendatagouv": {
+      "default": "components/dist/media/opendatagouv/default.webp"
+    },
+    "oracle": {
+      "default": "components/dist/media/oracle/default.webp"
+    },
+    "orc": {
+      "default": "components/dist/media/orc/default.webp"
+    },
     "page-header": {
       "preview": "components/dist/media/page-header/preview.webp",
       "default": "components/dist/media/page-header/default.webp"
+    },
+    "palantir": {
+      "default": "components/dist/media/palantir/default.webp"
+    },
+    "parquet": {
+      "default": "components/dist/media/parquet/default.webp"
     },
     "popover": {
       "preview": "components/dist/media/popover/preview.webp",
       "default": "components/dist/media/popover/default.webp"
     },
+    "postgresql": {
+      "default": "components/dist/media/postgresql/default.webp"
+    },
+    "powerbi": {
+      "default": "components/dist/media/powerbi/default.webp"
+    },
+    "powerbireportserver": {
+      "default": "components/dist/media/powerbireportserver/default.webp"
+    },
+    "process-csv": {
+      "default": "components/dist/media/process-csv/default.webp"
+    },
     "progress-bar-small": {
       "preview": "components/dist/media/progress-bar-small/preview.webp",
       "default": "components/dist/media/progress-bar-small/default.webp"
+    },
+    "qlik-sense": {
+      "default": "components/dist/media/qlik-sense/default.webp"
+    },
+    "radio": {
+      "default": "components/dist/media/radio/default.webp"
     },
     "radio-button": {
       "preview": "components/dist/media/radio-button/preview.webp",
@@ -438,12 +667,42 @@
       ],
       "default": "components/dist/media/radio-button-card/default.webp"
     },
+    "radio-group": {
+      "default": "components/dist/media/radio-group/default.webp"
+    },
     "rich-text": {
       "preview": "components/dist/media/rich-text/preview.webp",
       "default": "components/dist/media/rich-text/default.webp"
     },
     "s-grid": {
       "default": "components/dist/media/s-grid/default.webp"
+    },
+    "safyr-dynamics365": {
+      "default": "components/dist/media/safyr-dynamics365/default.webp"
+    },
+    "safyr-dynamicsax": {
+      "default": "components/dist/media/safyr-dynamicsax/default.webp"
+    },
+    "safyr-ebs": {
+      "default": "components/dist/media/safyr-ebs/default.webp"
+    },
+    "safyr-jdedwards": {
+      "default": "components/dist/media/safyr-jdedwards/default.webp"
+    },
+    "safyr-peoplesoft": {
+      "default": "components/dist/media/safyr-peoplesoft/default.webp"
+    },
+    "safyr-salesforce": {
+      "default": "components/dist/media/safyr-salesforce/default.webp"
+    },
+    "safyr-sap-bw": {
+      "default": "components/dist/media/safyr-sap-bw/default.webp"
+    },
+    "safyr-siebel": {
+      "default": "components/dist/media/safyr-siebel/default.webp"
+    },
+    "sas-database": {
+      "default": "components/dist/media/sas-database/default.webp"
     },
     "scroll-bar": {
       "preview": "components/dist/media/scroll-bar/preview.webp",
@@ -483,9 +742,27 @@
       ],
       "default": "components/dist/media/side-nav/default.webp"
     },
+    "snowflake": {
+      "default": "components/dist/media/snowflake/default.webp"
+    },
+    "soda": {
+      "default": "components/dist/media/soda/default.webp"
+    },
+    "sparkdb": {
+      "default": "components/dist/media/sparkdb/default.webp"
+    },
     "spinner": {
       "preview": "components/dist/media/spinner/preview.webp",
       "default": "components/dist/media/spinner/default.webp"
+    },
+    "spline": {
+      "default": "components/dist/media/spline/default.webp"
+    },
+    "splunk": {
+      "default": "components/dist/media/splunk/default.webp"
+    },
+    "sqlserver": {
+      "default": "components/dist/media/sqlserver/default.webp"
     },
     "stepper": {
       "preview": "components/dist/media/stepper/preview.webp",
@@ -498,8 +775,14 @@
       ],
       "default": "components/dist/media/sticky-footer/default.webp"
     },
+    "sybaseiq": {
+      "default": "components/dist/media/sybaseiq/default.webp"
+    },
     "table": {
       "default": "components/dist/media/table/default.webp"
+    },
+    "tableau": {
+      "default": "components/dist/media/tableau/default.webp"
     },
     "tabs": {
       "preview": "components/dist/media/tabs/preview.webp",
@@ -633,12 +916,37 @@
       ],
       "default": "components/dist/media/tag-status/default.webp"
     },
+    "talend": {
+      "default": "components/dist/media/talend/default.webp"
+    },
+    "teradata": {
+      "default": "components/dist/media/teradata/default.webp"
+    },
+    "text-area": {
+      "default": "components/dist/media/text-area/default.webp"
+    },
     "text-input": {
       "preview": "components/dist/media/text-input/preview.webp",
-      "behavior": [
-        "components/dist/media/text-input/behavior-0.webp"
-      ],
       "default": "components/dist/media/text-input/default.webp"
+    },
+    "textfield-buttons": {
+      "preview": "components/dist/media/textfield-buttons/preview.webp",
+      "parts": [
+        "components/dist/media/textfield-buttons/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/textfield-buttons/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/textfield-buttons/behavior-0.webp"
+      ],
+      "default": "components/dist/media/textfield-buttons/default.webp"
+    },
+    "thoughtspot": {
+      "default": "components/dist/media/thoughtspot/default.webp"
+    },
+    "tibco-datavirtualization": {
+      "default": "components/dist/media/tibco-datavirtualization/default.webp"
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
@@ -674,6 +982,9 @@
     },
     "xl-grid": {
       "default": "components/dist/media/xl-grid/default.webp"
+    },
+    "xml": {
+      "default": "components/dist/media/xml/default.webp"
     },
     "xs-grid": {
       "default": "components/dist/media/xs-grid/default.webp"

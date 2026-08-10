@@ -36,7 +36,7 @@
 | Page header | approved | draft | not started | not started | approved |
 | Popover | approved | draft | inherited | inherited | not started |
 | Progress bar | approved | draft | inherited | inherited | not started |
-| Radio button | approved | draft | inherited | inherited | not started |
+| Radio | approved | draft | inherited | inherited | not started |
 | Rich text | approved | draft | inherited | inherited | not started |
 | Scroll bar | approved | draft | inherited | inherited | not started |
 | Search | approved | draft | inherited | inherited | approved |

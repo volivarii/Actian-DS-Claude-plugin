@@ -9,7 +9,7 @@
     "checkbox": "Form (input & selection)",
     "dropdown-select-default": "Form (input & selection)",
     "input": "Form (input & selection)",
-    "radio-button": "Form (input & selection)",
+    "radio": "Form (input & selection)",
     "search": "Form (input & selection)",
     "search-dropdown-menu": "Form (input & selection)",
     "toggle": "Form (input & selection)"

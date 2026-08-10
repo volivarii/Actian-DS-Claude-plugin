@@ -1,0 +1,252 @@
+{
+  "_schema_version": 1,
+  "slug": "field",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "20353:18650",
+    "variant": "Size=Default, State=Default"
+  },
+  "quality": {
+    "nodesTotal": 6,
+    "nodesNormalized": 5,
+    "ratio": 0.83,
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Read-only",
+        "path": "",
+        "reason": "childCount:4!=1"
+      }
+    ]
+  },
+  "root": {
+    "name": "Size=Default, State=Default",
+    "kind": "container",
+    "tokenRefs": [
+      "--zen-border-subtle"
+    ],
+    "id": "20353:18651",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#e1e1e6",
+        "colorToken": "--zen-border-subtle",
+        "width": "1px"
+      },
+      "radius": "6px",
+      "variants": [
+        {
+          "prop": "State",
+          "values": [
+            "Active"
+          ],
+          "border": {
+            "color": "#0f5fdc",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Disabled"
+          ],
+          "background": "#e1e1e6",
+          "border": {
+            "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Error"
+          ],
+          "border": {
+            "color": "#c12c11",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Focus"
+          ],
+          "border": {
+            "color": "#0f5fdc",
+            "colorToken": "--zen-focus-ring-primary",
+            "width": "2px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Hover"
+          ],
+          "background": "#fbfbff"
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Read-only"
+          ],
+          "background": null,
+          "border": null
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Warning"
+          ],
+          "border": {
+            "color": "#d27b00",
+            "width": "1px"
+          }
+        }
+      ]
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "4px",
+      "padding": {
+        "top": "8px",
+        "right": "8px",
+        "bottom": "8px",
+        "left": "8px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "right": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
+      }
+    },
+    "children": [
+      {
+        "name": "Leading icon",
+        "kind": "instance",
+        "unresolved": true,
+        "id": "20353:18860"
+      },
+      {
+        "name": "Slot",
+        "kind": "container",
+        "id": "20537:49162",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "fixed"
+          },
+          "gapToken": "--zen-spacing-2xs"
+        },
+        "children": [
+          {
+            "name": "Input text",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-placeholder"
+            ],
+            "id": "20353:18652",
+            "appearance": {
+              "text": {
+                "color": "#5c5c6c",
+                "colorToken": "--zen-color-text-placeholder",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Active",
+                    "Error",
+                    "Filled",
+                    "Warning"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                }
+              ]
+            },
+            "text": "Placeholder text"
+          }
+        ]
+      },
+      {
+        "name": "Clear button",
+        "kind": "instance",
+        "slug": "button",
+        "props": {
+          "Show leading icon": true,
+          "Show label": true,
+          "Show trailing icon": true,
+          "Label": "Button",
+          "Intent": "Default",
+          "Emphasis": "Icon-only",
+          "Size": "Small",
+          "State": "Default"
+        },
+        "id": "20353:18653",
+        "appearance": {
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": "Trailing icon",
+        "kind": "instance",
+        "slug": "arrow-down",
+        "id": "20353:18654"
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Size": "Default",
+    "State": "Default"
+  }
+}

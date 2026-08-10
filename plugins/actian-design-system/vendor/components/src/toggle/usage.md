@@ -13,11 +13,11 @@ title: "Toggle control usage guidelines"
 
 * Don't use a toggle inside a form that submits; if the change waits for a save action, use a [checkbox](checkbox).
 
-* Don't use a toggle to pick one of several exclusive options: use a [radio button](radio-button) group, or a [segmented control](segmented-control) for immediate view changes.
+* Don't use a toggle to pick one of several exclusive options: use a [radio button](radio) group, or a [segmented control](segmented-control) for immediate view changes.
 
 * Don't use a toggle to trigger an action such as starting an import: use a [button](button).
 
-* Don't use a toggle when the off state is ambiguous; if users can't predict what off means, use a [radio button](radio-button) pair with explicit labels instead.
+* Don't use a toggle when the off state is ambiguous; if users can't predict what off means, use a [radio button](radio) pair with explicit labels instead.
 
 ## Variant selection
 

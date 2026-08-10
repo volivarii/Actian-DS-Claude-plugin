@@ -7,7 +7,6 @@ apps:
   - explorer
 components:
   - search
-  - search-filters
   - card-for-items
   - global-header
 ---

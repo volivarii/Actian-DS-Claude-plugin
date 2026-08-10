@@ -11,7 +11,7 @@ title: "Multi-select usage guidelines"
 
 ## When not to use
 
-* Don't use it when exactly one value is valid: use a [dropdown / select](dropdown-select) or a [radio button](radio-button) group.
+* Don't use it when exactly one value is valid: use a [dropdown / select](dropdown-select) or a [radio button](radio) group.
 
 * Don't use it for up to roughly seven options that fit on screen: use a [checkbox](checkbox) group so users can compare every option at a glance.
 

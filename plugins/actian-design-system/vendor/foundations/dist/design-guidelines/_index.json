@@ -57,6 +57,11 @@
       "id": "design-guidelines/placeholder-text",
       "title": "Placeholder Text",
       "order": 9
+    },
+    {
+      "id": "design-guidelines/mouse-cursor",
+      "title": "Mouse cursor",
+      "order": 10
     }
   ],
   "_meta": {

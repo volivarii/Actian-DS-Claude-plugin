@@ -54,13 +54,12 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `page-header` | Page header | **BUILT** | Type |
 | `popover` | ⛔️ Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
-| `radio-button` | Radio button | **BUILT** | Selection / State |
+| `radio` | Radio | **BUILT** | Selection / State |
 | `radio-button-card` | Radio button card | appearance | Selection / State |
 | `rich-text` | Rich text | **BUILT** | State |
 | `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
 | `search-dropdown-menu` | Search dropdown menu | **BUILT** | Type |
-| `search-filters` | Search filters | appearance | Type |
 | `search-result-card` | Search result card | **BUILT** | App / State |
 | `segmented-control` | Segmented control | **BUILT** | Type |
 | `side-nav` | ✍️ Side nav | **BUILT** | App / View |
@@ -69,14 +68,14 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `sticky-footer` | Sticky footer | **BUILT** | Property 1 |
 | `table` | ✍️ Table | **BUILT** | Built type |
 | `tabs` | Tabs | **BUILT** | Property 1 |
-| `tag-catalog` | ✍️ Tag, Catalog | **BUILT** | Type |
-| `tag-catalog-item-type` | ✍️ Tag, Catalog item type | **BUILT** | Type |
-| `tag-default` | ✍️ Tag, Default | **BUILT** | Color |
-| `tag-glossary-item-type` | ✍️ Tag, Glossary item type | **BUILT** | Property 1 |
-| `tag-interactive` | ✍️ Tag, Interactive | **BUILT** | State |
-| `tag-shared` | ✍️ Tag, Shared | **BUILT** | Property 1 |
-| `tag-stage` | ✍️ Tag, Stage | **BUILT** | Color |
-| `tag-status` | ✍️ Tag, Status | **BUILT** | Status |
+| `tag-catalog` | Tag, Catalog | **BUILT** | Property 1 |
+| `tag-catalog-item-type` | Tag, Catalog item type | **BUILT** | Type |
+| `tag-default` | Tag, Default | **BUILT** | Color |
+| `tag-glossary-item-type` | Tag, Glossary item type | **BUILT** | Property 1 |
+| `tag-interactive` | Tag, Interactive | **BUILT** | State |
+| `tag-shared` | Tag, Shared | **BUILT** | Property 1 |
+| `tag-stage` | Tag, Stage | **BUILT** | Color |
+| `tag-status` | Tag, Status | **BUILT** | Status |
 | `text-input` | Text input | **BUILT** | States |
 | `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |

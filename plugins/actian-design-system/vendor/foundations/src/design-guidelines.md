@@ -2,13 +2,14 @@
 # P8 transversal refs — file-scoped (Option A). Union across §3.1 Color Usage,
 # §3.2 Typography, §3.3 Spacing, §3.5 Brightness Filter Convention.
 a11y_refs:
-  - { ref: color-contrast, note: §3.1 semantic-over-primitive rule preserves contrast under theming }
-  - { ref: typography, note: §3.2 typography rules }
-  - { ref: touch-pointer, note: §3.3 spacing scale underpins hit-target sizing }
-  - { ref: focus-keyboard, note: §3.5 brightness filter is the only token-bound interactive state }
+  - {ref: color-contrast, note: §3.1 semantic-over-primitive rule preserves contrast under theming}
+  - {ref: typography, note: §3.2 typography rules}
+  - {ref: touch-pointer, note: §3.3 spacing scale underpins hit-target sizing}
+  - {ref: focus-keyboard, note: §3.5 brightness filter is the only token-bound interactive state}
 motion_refs:
-  - { ref: state-transitions, note: §3.5 hover/focus/active brightness transitions stay within the 100-200ms band }
+  - {ref: state-transitions, note: §3.5 hover/focus/active brightness transitions stay within the 100-200ms band}
 ---
+
 ## 3. Design Guidelines {#design-guidelines}
 
 ### 3.1 Color Usage Rules
@@ -194,3 +195,10 @@ Use `--zen-border-default` for standard container borders (cards, panels, inputs
 ### 3.9 Placeholder Text
 
 Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the standard placeholder (grey-600). `--zen-color-text-placeholder-subtle` (grey-400) is used in search fields where less visual weight is appropriate.
+
+### 3.10 Mouse cursor
+
+The pointer (hand) cursor is reserved for links only. Buttons, dropdown buttons, and tags use the default cursor.
+Because buttons and tags do not use the pointer cursor, interactivity must be communicated through a clear hover state: ensure sufficient color contrast between the default and hover states so the change is easily perceptible. A brightness filter is acceptable for generating the hover state, provided the result is clearly distinct and still passes required contrast ratios.
+
+

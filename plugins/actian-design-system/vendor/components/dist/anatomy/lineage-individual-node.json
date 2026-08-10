@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -367,7 +367,7 @@
             },
             "children": [
               {
-                "name": "✍️ Tag, Default",
+                "name": "Tag, Default",
                 "kind": "instance",
                 "slug": "tag-default",
                 "props": {
@@ -378,12 +378,8 @@
                 },
                 "id": "14747:19915",
                 "appearance": {
-                  "background": "#fbfbff",
-                  "border": {
-                    "color": "#e1e1e6",
-                    "width": "1px"
-                  },
-                  "radius": "4px"
+                  "background": "#dde6ec",
+                  "radius": "6px"
                 }
               }
             ]

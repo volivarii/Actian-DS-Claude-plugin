@@ -341,9 +341,21 @@
       "provenance": "figma-dskit"
     },
     {
+      "id": "category:base-label-message-field-textfield-buttons",
+      "type": "category",
+      "title": "Base: label, message, field, textfield buttons",
+      "provenance": "figma-dskit"
+    },
+    {
       "id": "category:breakpoint-grid-structure",
       "type": "category",
       "title": "Breakpoint, grid & structure",
+      "provenance": "figma-dskit"
+    },
+    {
+      "id": "category:checkbox-checkbox-card-checkbox-group",
+      "type": "category",
+      "title": "Checkbox, checkbox card, checkbox group",
       "provenance": "figma-dskit"
     },
     {
@@ -392,6 +404,18 @@
       "id": "category:product-logos",
       "type": "category",
       "title": "Product logos",
+      "provenance": "figma-dskit"
+    },
+    {
+      "id": "category:radio-radio-card-radio-group",
+      "type": "category",
+      "title": "Radio, radio card, radio group",
+      "provenance": "figma-dskit"
+    },
+    {
+      "id": "category:text-area-text-input",
+      "type": "category",
+      "title": "Text area, text input",
       "provenance": "figma-dskit"
     },
     {
@@ -469,13 +493,6 @@
       "title": "adobe-analytics",
       "figmaKey": "dbbd381b0a1be15cf5f3c68aa1348c5fda1fbb1c",
       "figmaNodeId": "8400:25195"
-    },
-    {
-      "id": "component:ai",
-      "type": "component",
-      "title": "ai",
-      "figmaKey": "7afdab93e1015a122408dc9aff0a95c07b6a15d8",
-      "figmaNodeId": "17991:4240"
     },
     {
       "id": "component:alert",
@@ -614,8 +631,8 @@
       "id": "component:arrow-left",
       "type": "component",
       "title": "arrow-left",
-      "figmaKey": "3868ffb411d9a9f0fd00230eeb1482b428522ea5",
-      "figmaNodeId": "8:20612"
+      "figmaKey": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
+      "figmaNodeId": "7207:2837"
     },
     {
       "id": "component:arrow-narrow-down",
@@ -817,8 +834,8 @@
       "id": "component:ban",
       "type": "component",
       "title": "ban",
-      "figmaKey": "83d9725faef668ffd72618135296bc1515c093c0",
-      "figmaNodeId": "8:20836"
+      "figmaKey": "ed6f4c8c30c74c30a2310ce0b9dc7e4f7e92bb7e",
+      "figmaNodeId": "20395:1492"
     },
     {
       "id": "component:bar-graph",
@@ -887,8 +904,22 @@
       "id": "component:book-open",
       "type": "component",
       "title": "book-open",
-      "figmaKey": "276871b2bbde45a48c74c148de0cb25333136f97",
-      "figmaNodeId": "8:20792"
+      "figmaKey": "330720794f58865f5b9442d1723b16b97412a2bb",
+      "figmaNodeId": "20391:2184"
+    },
+    {
+      "id": "component:book-pages",
+      "type": "component",
+      "title": "book-pages",
+      "figmaKey": "c696827d70c44179ee4bfd2e7c84b17c37df479d",
+      "figmaNodeId": "20395:1539"
+    },
+    {
+      "id": "component:book-text",
+      "type": "component",
+      "title": "book-text",
+      "figmaKey": "aff52ad8b0869b5d8085bfc6c109eb84d234b136",
+      "figmaNodeId": "20633:35"
     },
     {
       "id": "component:bookmark",
@@ -931,6 +962,13 @@
       "title": "bulleted list",
       "figmaKey": "e5d8d72ccf18ca6435a4db948e8ef295f50ffe64",
       "figmaNodeId": "8:21000"
+    },
+    {
+      "id": "component:business-contract-give",
+      "type": "component",
+      "title": "business-contract-give",
+      "figmaKey": "3585b5b0d4fc9aa35714b45bd8ca50038ff791ec",
+      "figmaNodeId": "20633:36"
     },
     {
       "id": "component:button",
@@ -996,11 +1034,25 @@
       "figmaNodeId": "8:20742"
     },
     {
+      "id": "component:cash-briefcase",
+      "type": "component",
+      "title": "cash-briefcase",
+      "figmaKey": "9ad5d31f59b6964090f69faad7c5dad9b8b43808",
+      "figmaNodeId": "20633:37"
+    },
+    {
       "id": "component:cassandra",
       "type": "component",
       "title": "cassandra",
       "figmaKey": "64f0499f24c5111550584447b3de34a9c84a87ae",
       "figmaNodeId": "8400:25220"
+    },
+    {
+      "id": "component:catalog",
+      "type": "component",
+      "title": "catalog",
+      "figmaKey": "64b2045e4c431df3c913363c7ae6d98bc44434d6",
+      "figmaNodeId": "7439:4618"
     },
     {
       "id": "component:catalog-design",
@@ -1094,6 +1146,13 @@
       "figmaNodeId": "19983:23496"
     },
     {
+      "id": "component:checkbox-group",
+      "type": "component",
+      "title": "Checkbox group",
+      "figmaKey": "bbe2ee4838154bc45a00ff4597a880884f898ead",
+      "figmaNodeId": "20428:27850"
+    },
+    {
       "id": "component:chevron-double-down",
       "type": "component",
       "title": "chevron-double-down",
@@ -1131,9 +1190,9 @@
     {
       "id": "component:chevron-left",
       "type": "component",
-      "title": "chevron--left",
-      "figmaKey": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
-      "figmaNodeId": "7207:2837"
+      "title": "chevron-left",
+      "figmaKey": "6d33856c56d2a74fc8f0d304183ed3c874b9bae4",
+      "figmaNodeId": "8:20738"
     },
     {
       "id": "component:chevron-right",
@@ -1145,9 +1204,9 @@
     {
       "id": "component:chevron-up",
       "type": "component",
-      "title": "chevron--up",
-      "figmaKey": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
-      "figmaNodeId": "7207:2842"
+      "title": "chevron-up",
+      "figmaKey": "73975e9ee4c3a21b836ec6e03512cc0bc791e609",
+      "figmaNodeId": "8:20714"
     },
     {
       "id": "component:chip",
@@ -1230,8 +1289,8 @@
       "id": "component:code",
       "type": "component",
       "title": "code",
-      "figmaKey": "1b6b8613ee1a71484eacf1e759dd261dbe64c0ac",
-      "figmaNodeId": "8:20794"
+      "figmaKey": "9241c4402fbab4d4f2287f80c7e9b9ba162c121c",
+      "figmaNodeId": "20633:38"
     },
     {
       "id": "component:cog",
@@ -1253,6 +1312,13 @@
       "title": "cognos-bi",
       "figmaKey": "ee8c45ab057d92ce74a177352d4a9efbd18c6aec",
       "figmaNodeId": "8400:25224"
+    },
+    {
+      "id": "component:collapse",
+      "type": "component",
+      "title": "collapse",
+      "figmaKey": "1530594f58087b425da1de80ce555a12afd24deb",
+      "figmaNodeId": "20633:62"
     },
     {
       "id": "component:collapse-accordion",
@@ -1451,18 +1517,18 @@
       "figmaNodeId": "7294:705"
     },
     {
+      "id": "component:data-product-input-port",
+      "type": "component",
+      "title": "data-product-input-port",
+      "figmaKey": "d98d310de8453ec6b7dd90e9a6ed339e4155d8b0",
+      "figmaNodeId": "18646:4476"
+    },
+    {
       "id": "component:data-product-output-port",
       "type": "component",
       "title": "data-product-output-port",
       "figmaKey": "f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f",
       "figmaNodeId": "8504:23087"
-    },
-    {
-      "id": "component:data-structured",
-      "type": "component",
-      "title": "data--structured",
-      "figmaKey": "b5370a64062dc0d1ed1f42a936ef87023738f284",
-      "figmaNodeId": "8504:23301"
     },
     {
       "id": "component:database",
@@ -1500,11 +1566,11 @@
       "figmaNodeId": "8400:25053"
     },
     {
-      "id": "component:datasets",
+      "id": "component:date",
       "type": "component",
-      "title": "Datasets",
-      "figmaKey": "119f67e361c3421c5d2b3ad53ffd2df7f253de4c",
-      "figmaNodeId": "18532:4652"
+      "title": "date",
+      "figmaKey": "decde3b78f16d02045516de4e4d8255d67d73cfc",
+      "figmaNodeId": "7378:5221"
     },
     {
       "id": "component:db2",
@@ -1577,13 +1643,6 @@
       "figmaNodeId": "14128:3800"
     },
     {
-      "id": "component:directory",
-      "type": "component",
-      "title": "directory",
-      "figmaKey": "64b2045e4c431df3c913363c7ae6d98bc44434d6",
-      "figmaNodeId": "7439:4618"
-    },
-    {
       "id": "component:disconnected",
       "type": "component",
       "title": "disconnected",
@@ -1654,13 +1713,6 @@
       "figmaNodeId": "8:20896"
     },
     {
-      "id": "component:dots",
-      "type": "component",
-      "title": "dots",
-      "figmaKey": "d4bf02099fcf80e9f1956149da15460fe1ae13a7",
-      "figmaNodeId": "7378:3729"
-    },
-    {
       "id": "component:dots-circle-horizontal",
       "type": "component",
       "title": "dots-circle-horizontal",
@@ -1680,6 +1732,13 @@
       "title": "dots-vertical",
       "figmaKey": "40f7f83bf5da3d1199eb154ecf625eacf9ffe769",
       "figmaNodeId": "8:20572"
+    },
+    {
+      "id": "component:double-check",
+      "type": "component",
+      "title": "double-check",
+      "figmaKey": "3e7de977fb1d6268d35a6b15f5f86870c5b16eb7",
+      "figmaNodeId": "20633:39"
     },
     {
       "id": "component:download",
@@ -1752,6 +1811,13 @@
       "figmaNodeId": "9230:22073"
     },
     {
+      "id": "component:error",
+      "type": "component",
+      "title": "error",
+      "figmaKey": "abf720fc0527a9c3341e3eb76f381d5d8a935e31",
+      "figmaNodeId": "20633:40"
+    },
+    {
       "id": "component:error-filled",
       "type": "component",
       "title": "error-filled",
@@ -1773,13 +1839,6 @@
       "figmaNodeId": "8400:25065"
     },
     {
-      "id": "component:event-time-type",
-      "type": "component",
-      "title": "event--time-type",
-      "figmaKey": "d056a594413fcd44887aca52b86d9df25f0cbd0c",
-      "figmaNodeId": "8504:23298"
-    },
-    {
       "id": "component:exclamation",
       "type": "component",
       "title": "exclamation",
@@ -1799,6 +1858,13 @@
       "title": "exit",
       "figmaKey": "e0ea887336f377ba397b25d988a54cf79eec6e4e",
       "figmaNodeId": "7301:2777"
+    },
+    {
+      "id": "component:expand",
+      "type": "component",
+      "title": "expand",
+      "figmaKey": "1ef2bea34b02a5fd472ea139006e2245783e28cf",
+      "figmaNodeId": "20633:61"
     },
     {
       "id": "component:exploration",
@@ -1857,6 +1923,41 @@
       "figmaNodeId": "7378:3696"
     },
     {
+      "id": "component:field",
+      "type": "component",
+      "title": "Field",
+      "figmaKey": "8643b848a0145883056cc45521b903b2a18fb922",
+      "figmaNodeId": "20353:18650"
+    },
+    {
+      "id": "component:file-cash",
+      "type": "component",
+      "title": "file-cash",
+      "figmaKey": "d43c304fff438798a08982ddd26ae5444fec84a0",
+      "figmaNodeId": "20633:41"
+    },
+    {
+      "id": "component:file-check",
+      "type": "component",
+      "title": "file-check",
+      "figmaKey": "61abaa129c05a541ecf4fb31980f9c9809f54b60",
+      "figmaNodeId": "20633:42"
+    },
+    {
+      "id": "component:file-info",
+      "type": "component",
+      "title": "file-info",
+      "figmaKey": "4229c3369efce6fbd4f1d5938c303cad6beb8c03",
+      "figmaNodeId": "20633:43"
+    },
+    {
+      "id": "component:file-stack",
+      "type": "component",
+      "title": "file-stack",
+      "figmaKey": "7bd7821d71f5e60fea68fc5990612e3ac056b223",
+      "figmaNodeId": "20633:44"
+    },
+    {
       "id": "component:film",
       "type": "component",
       "title": "film",
@@ -1867,8 +1968,8 @@
       "id": "component:filter",
       "type": "component",
       "title": "filter",
-      "figmaKey": "ce37c828e8be322438e3530c7680d1eee95af253",
-      "figmaNodeId": "14335:17202"
+      "figmaKey": "97b5c840e2d4d73de5f5f3665be7db425b980d10",
+      "figmaNodeId": "20619:44964"
     },
     {
       "id": "component:filter-text",
@@ -2189,8 +2290,8 @@
       "id": "component:folder",
       "type": "component",
       "title": "folder",
-      "figmaKey": "6dc4c220719f73ba6f9e3e558899c5135afb67eb",
-      "figmaNodeId": "8:20800"
+      "figmaKey": "c97a2b5506aafe95c2e4964752e4522b247e609b",
+      "figmaNodeId": "8189:4595"
     },
     {
       "id": "component:folder-add",
@@ -2280,8 +2381,8 @@
       "id": "component:glossary",
       "type": "component",
       "title": "glossary",
-      "figmaKey": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
-      "figmaNodeId": "7378:5700"
+      "figmaKey": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
+      "figmaNodeId": "10613:30347"
     },
     {
       "id": "component:glossary-item-hierarchy-diagram",
@@ -2368,6 +2469,13 @@
       "figmaNodeId": "8504:23049"
     },
     {
+      "id": "component:hierarchy",
+      "type": "component",
+      "title": "hierarchy",
+      "figmaKey": "4812156c670d9d6cb93a91f9f39910a9d09c73fb",
+      "figmaNodeId": "20633:45"
+    },
+    {
       "id": "component:hive",
       "type": "component",
       "title": "hive",
@@ -2394,6 +2502,13 @@
       "title": "icon-user-remove",
       "figmaKey": "17b417685386f77cfff735af376f190c86e5a558",
       "figmaNodeId": "8:20804"
+    },
+    {
+      "id": "component:idea",
+      "type": "component",
+      "title": "idea",
+      "figmaKey": "34c17abed901ebcf66101b581c552290996fcbf3",
+      "figmaNodeId": "20633:46"
     },
     {
       "id": "component:identification",
@@ -2487,18 +2602,18 @@
       "figmaNodeId": "8194:7305"
     },
     {
-      "id": "component:input-ports",
-      "type": "component",
-      "title": "Input-ports",
-      "figmaKey": "d98d310de8453ec6b7dd90e9a6ed339e4155d8b0",
-      "figmaNodeId": "18646:4476"
-    },
-    {
       "id": "component:integer-type",
       "type": "component",
       "title": "integer-type",
       "figmaKey": "8b6d13a33e18de3483b3b330d23abc5e69aefe56",
       "figmaNodeId": "8504:23296"
+    },
+    {
+      "id": "component:invoice",
+      "type": "component",
+      "title": "invoice",
+      "figmaKey": "e2d43e3c5149857e6602c4364355d019fa1e5765",
+      "figmaNodeId": "20633:47"
     },
     {
       "id": "component:italic",
@@ -2541,6 +2656,13 @@
       "title": "L grid",
       "figmaKey": "8601f7461f9b21847400f69ebb63d7f591119987",
       "figmaNodeId": "12054:30598"
+    },
+    {
+      "id": "component:label",
+      "type": "component",
+      "title": "Label",
+      "figmaKey": "648718231240b9c1c7296f15fb6cad2090fc83f2",
+      "figmaNodeId": "20353:18566"
     },
     {
       "id": "component:layers-front",
@@ -2802,6 +2924,13 @@
       "figmaNodeId": "8:20628"
     },
     {
+      "id": "component:message",
+      "type": "component",
+      "title": "Message",
+      "figmaKey": "15ac4db6a89896982ac8453535ca301aa30305eb",
+      "figmaNodeId": "20353:18848"
+    },
+    {
       "id": "component:meta-chrome-accessibility-card",
       "type": "component",
       "title": "Meta / Chrome / Accessibility Card",
@@ -3061,6 +3190,13 @@
       "figmaNodeId": "8:20782"
     },
     {
+      "id": "component:more",
+      "type": "component",
+      "title": "more",
+      "figmaKey": "d4bf02099fcf80e9f1956149da15460fe1ae13a7",
+      "figmaNodeId": "7378:3729"
+    },
+    {
       "id": "component:move",
       "type": "component",
       "title": "move",
@@ -3117,9 +3253,16 @@
       "figmaNodeId": "9114:15379"
     },
     {
-      "id": "component:null-sign",
+      "id": "component:notifications-setting",
       "type": "component",
-      "title": "null-sign",
+      "title": "notifications-setting",
+      "figmaKey": "308669714c6b34194a46be8f1b226b4129b775cb",
+      "figmaNodeId": "20633:48"
+    },
+    {
+      "id": "component:null-type",
+      "type": "component",
+      "title": "null-type",
       "figmaKey": "585087e1ea2d421dcaec6ac1db468c8f502ad6d2",
       "figmaNodeId": "8504:23300"
     },
@@ -3246,8 +3389,8 @@
       "id": "component:phone",
       "type": "component",
       "title": "phone",
-      "figmaKey": "a9d8039e980e4fef6e24ca115ada800f4ebaa655",
-      "figmaNodeId": "8:20698"
+      "figmaKey": "2987f3bfc9d71ee4e11d1a889d961b21f361085e",
+      "figmaNodeId": "20633:49"
     },
     {
       "id": "component:phone-incoming",
@@ -3421,8 +3564,8 @@
       "id": "component:process",
       "type": "component",
       "title": "process",
-      "figmaKey": "dc941ab8d4a5da501b15ec3ebba7f97cce7c4cc4",
-      "figmaNodeId": "7378:5603"
+      "figmaKey": "edc02bc5216a1b8970bf42c0192dbac253613d8d",
+      "figmaNodeId": "14703:19645"
     },
     {
       "id": "component:process-csv",
@@ -3430,6 +3573,13 @@
       "title": "process csv",
       "figmaKey": "115c254d8901c11f5dfc8c8575e0a483cb798d51",
       "figmaNodeId": "8400:25144"
+    },
+    {
+      "id": "component:products-briefcase",
+      "type": "component",
+      "title": "products-briefcase",
+      "figmaKey": "4efb817fcfdf0543846267625e7a8dbf45ae651d",
+      "figmaNodeId": "20633:50"
     },
     {
       "id": "component:progress-bar-small",
@@ -3467,9 +3617,9 @@
       "figmaNodeId": "8:20538"
     },
     {
-      "id": "component:radio-button",
+      "id": "component:radio",
       "type": "component",
-      "title": "Radio button",
+      "title": "Radio",
       "figmaKey": "9ceb34116fd119a17b08b9b445a204de28f9d249",
       "figmaNodeId": "9474:16884"
     },
@@ -3479,6 +3629,20 @@
       "title": "Radio button card",
       "figmaKey": "897d587b486e30b303ba9f4169a4daccf179faff",
       "figmaNodeId": "19746:36001"
+    },
+    {
+      "id": "component:radio-group",
+      "type": "component",
+      "title": "Radio group",
+      "figmaKey": "5b8b91cfad6d11d95a9b7f4332c49a6dc1779740",
+      "figmaNodeId": "20428:26750"
+    },
+    {
+      "id": "component:read-search",
+      "type": "component",
+      "title": "read-search",
+      "figmaKey": "1222cc69a63b1887b0c24bc533b71addd718c013",
+      "figmaNodeId": "20633:51"
     },
     {
       "id": "component:receipt-refund",
@@ -3523,11 +3687,18 @@
       "figmaNodeId": "8504:23151"
     },
     {
+      "id": "component:remove-circle",
+      "type": "component",
+      "title": "remove-circle",
+      "figmaKey": "cfe2607b9be9de7b238470e5372d0cc3a6d60dbd",
+      "figmaNodeId": "20633:59"
+    },
+    {
       "id": "component:reply",
       "type": "component",
       "title": "reply",
-      "figmaKey": "946d9c93fd7923efcc6eaaa18961694987c39387",
-      "figmaNodeId": "8:20816"
+      "figmaKey": "f311e34a262cf841272a8ded336967e6a67bd466",
+      "figmaNodeId": "20633:52"
     },
     {
       "id": "component:rewind",
@@ -3698,13 +3869,6 @@
       "figmaNodeId": "8756:9994"
     },
     {
-      "id": "component:search-filters",
-      "type": "component",
-      "title": "Search filters",
-      "figmaKey": "919ddc42563055f1d9f34b662fb806eb66763980",
-      "figmaNodeId": "9660:49637"
-    },
-    {
       "id": "component:search-result-card",
       "type": "component",
       "title": "Search result card",
@@ -3747,6 +3911,13 @@
       "figmaNodeId": "8576:4926"
     },
     {
+      "id": "component:server-warning",
+      "type": "component",
+      "title": "server-warning",
+      "figmaKey": "ffa8798d9b0a3d22602ed2d39fcb551af4c01992",
+      "figmaNodeId": "20633:53"
+    },
+    {
       "id": "component:settings",
       "type": "component",
       "title": "settings",
@@ -3757,8 +3928,8 @@
       "id": "component:share",
       "type": "component",
       "title": "share",
-      "figmaKey": "61b8b92570b98b9c08e2daf68574bb37137f6d68",
-      "figmaNodeId": "8:20608"
+      "figmaKey": "2de96d18724ed01071aa4b8eb2e075e6dd82032b",
+      "figmaNodeId": "20633:54"
     },
     {
       "id": "component:shield-check",
@@ -3901,6 +4072,20 @@
       "figmaNodeId": "8:20856"
     },
     {
+      "id": "component:stars",
+      "type": "component",
+      "title": "stars",
+      "figmaKey": "60c5ecacc5df6c540b28259505b862a49140cf61",
+      "figmaNodeId": "20633:55"
+    },
+    {
+      "id": "component:stars-filled",
+      "type": "component",
+      "title": "stars-filled",
+      "figmaKey": "7afdab93e1015a122408dc9aff0a95c07b6a15d8",
+      "figmaNodeId": "17991:4240"
+    },
+    {
       "id": "component:status-offline",
       "type": "component",
       "title": "status-offline",
@@ -3948,6 +4133,20 @@
       "title": "strikethrough",
       "figmaKey": "c057531cbb378582472a00ec853ce195a67653fa",
       "figmaNodeId": "8:20996"
+    },
+    {
+      "id": "component:struct-type",
+      "type": "component",
+      "title": "struct-type",
+      "figmaKey": "b5370a64062dc0d1ed1f42a936ef87023738f284",
+      "figmaNodeId": "8504:23301"
+    },
+    {
+      "id": "component:success",
+      "type": "component",
+      "title": "success",
+      "figmaKey": "3aa7e60ad6a9d1d99afa487829d5434fc144b5d6",
+      "figmaNodeId": "20633:60"
     },
     {
       "id": "component:success-filled",
@@ -4029,56 +4228,56 @@
     {
       "id": "component:tag-catalog",
       "type": "component",
-      "title": "✍️ Tag, Catalog",
+      "title": "Tag, Catalog",
       "figmaKey": "a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2",
       "figmaNodeId": "13812:22309"
     },
     {
       "id": "component:tag-catalog-item-type",
       "type": "component",
-      "title": "✍️ Tag, Catalog item type",
+      "title": "Tag, Catalog item type",
       "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
       "figmaNodeId": "11300:8312"
     },
     {
       "id": "component:tag-default",
       "type": "component",
-      "title": "✍️ Tag, Default",
+      "title": "Tag, Default",
       "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
       "figmaNodeId": "7257:3037"
     },
     {
       "id": "component:tag-glossary-item-type",
       "type": "component",
-      "title": "✍️ Tag, Glossary item type",
+      "title": "Tag, Glossary item type",
       "figmaKey": "639773a27d790a489c5e115360b64c7d05a45ac3",
       "figmaNodeId": "13812:22308"
     },
     {
       "id": "component:tag-interactive",
       "type": "component",
-      "title": "✍️ Tag, Interactive",
+      "title": "Tag, Interactive",
       "figmaKey": "19d8ed0dd3f5dc406017130026a6229f121f169d",
       "figmaNodeId": "13845:33759"
     },
     {
       "id": "component:tag-shared",
       "type": "component",
-      "title": "✍️ Tag, Shared",
+      "title": "Tag, Shared",
       "figmaKey": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
       "figmaNodeId": "13812:22307"
     },
     {
       "id": "component:tag-stage",
       "type": "component",
-      "title": "✍️ Tag, Stage",
+      "title": "Tag, Stage",
       "figmaKey": "2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc",
       "figmaNodeId": "8655:10279"
     },
     {
       "id": "component:tag-status",
       "type": "component",
-      "title": "✍️ Tag, Status",
+      "title": "Tag, Status",
       "figmaKey": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
       "figmaNodeId": "7257:3705"
     },
@@ -4139,6 +4338,13 @@
       "figmaNodeId": "8:20854"
     },
     {
+      "id": "component:text-area",
+      "type": "component",
+      "title": "Text area",
+      "figmaKey": "2c8abf1e25cc458a79e2a3a21a643c1311e79eae",
+      "figmaNodeId": "20411:25889"
+    },
+    {
       "id": "component:text-file",
       "type": "component",
       "title": "text-file",
@@ -4158,6 +4364,13 @@
       "title": "text-type",
       "figmaKey": "2cd429a5df61f046748fc20c9e22aea14db8f9c0",
       "figmaNodeId": "8504:23299"
+    },
+    {
+      "id": "component:textfield-buttons",
+      "type": "component",
+      "title": "Textfield buttons",
+      "figmaKey": "701b1f6d93b336acb724a3496f7f0e33d1301c4f",
+      "figmaNodeId": "14241:37663"
     },
     {
       "id": "component:thoughtspot",
@@ -4207,6 +4420,13 @@
       "title": "ticket",
       "figmaKey": "c57db96f5421ca91883911eae635663c3fba3fa2",
       "figmaNodeId": "8:20598"
+    },
+    {
+      "id": "component:time-type",
+      "type": "component",
+      "title": "time-type",
+      "figmaKey": "d056a594413fcd44887aca52b86d9df25f0cbd0c",
+      "figmaNodeId": "8504:23298"
     },
     {
       "id": "component:toggle",
@@ -4289,8 +4509,8 @@
       "id": "component:user",
       "type": "component",
       "title": "user",
-      "figmaKey": "92c15b8b5d3339b3c4b9dbdb6348ffd192b11ce8",
-      "figmaNodeId": "8:20556"
+      "figmaKey": "9f8408ee896a42a49250a4b0985014282da78e4e",
+      "figmaNodeId": "20633:57"
     },
     {
       "id": "component:user-add",
@@ -4396,6 +4616,13 @@
       "title": "volume-up",
       "figmaKey": "6006211edd13c5bb409837e4d8de3e291e247662",
       "figmaNodeId": "8:20680"
+    },
+    {
+      "id": "component:warning",
+      "type": "component",
+      "title": "warning",
+      "figmaKey": "77fb8f21eaa89ed7b047124dfb3c129d872a4f09",
+      "figmaNodeId": "20633:58"
     },
     {
       "id": "component:warning-filled",
@@ -4909,6 +5136,11 @@
       "id": "foundation:design-guidelines/focus-ring-rules",
       "type": "foundation_section",
       "title": "Focus Ring Rules"
+    },
+    {
+      "id": "foundation:design-guidelines/mouse-cursor",
+      "type": "foundation_section",
+      "title": "Mouse cursor"
     },
     {
       "id": "foundation:design-guidelines/placeholder-text",
@@ -6325,13 +6557,13 @@
       }
     },
     {
-      "source": "component:radio-button",
+      "source": "component:radio",
       "target": "a11y:forms",
       "type": "a11y_ref",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/radio-button/",
+        "source_file": "components/src/radio/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6380,18 +6612,6 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/search-dropdown-menu/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:search-filters",
-      "target": "a11y:forms",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/search-filters/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6699,6 +6919,16 @@
     },
     {
       "source": "component:alert-banner",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:alert-banner",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:alert-banner",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -6769,7 +6999,7 @@
     },
     {
       "source": "component:bar-graph",
-      "target": "component:dots",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -6780,6 +7010,16 @@
     {
       "source": "component:breadcrumb",
       "target": "component:link",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:button",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:button",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -6799,12 +7039,17 @@
     },
     {
       "source": "component:calendar",
-      "target": "component:chevron-left",
+      "target": "component:arrow-left",
       "type": "composed_of"
     },
     {
-      "source": "component:calendar",
-      "target": "component:chevron-up",
+      "source": "component:card-for-grouped-content",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:card-for-grouped-content",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -6835,6 +7080,11 @@
     {
       "source": "component:card-for-items",
       "target": "component:favorite",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:card-for-items",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -6874,11 +7124,6 @@
     },
     {
       "source": "component:chat-with-ai-steward",
-      "target": "component:chevron-up",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
       "target": "component:close",
       "type": "composed_of"
     },
@@ -6893,6 +7138,41 @@
       "type": "composed_of"
     },
     {
+      "source": "component:checkbox-card",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:checkbox",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:info",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:label",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:checkbox-group",
+      "target": "component:message",
+      "type": "composed_of"
+    },
+    {
       "source": "component:collapse-accordion",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -6900,6 +7180,16 @@
     {
       "source": "component:collapse-accordion",
       "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:confirmation",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:confirmation",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -6924,17 +7214,17 @@
     },
     {
       "source": "component:drawer-side-panel",
+      "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer-side-panel",
       "target": "component:avatar",
       "type": "composed_of"
     },
     {
       "source": "component:drawer-side-panel",
       "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
-      "target": "component:chevron-left",
       "type": "composed_of"
     },
     {
@@ -6984,6 +7274,11 @@
     },
     {
       "source": "component:drawer-side-panel",
+      "target": "component:stars-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer-side-panel",
       "target": "component:tabs",
       "type": "composed_of"
     },
@@ -7024,11 +7319,6 @@
     },
     {
       "source": "component:dropdown-select-default",
-      "target": "component:chevron-up",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:dropdown-select-default",
       "target": "component:close",
       "type": "composed_of"
     },
@@ -7044,6 +7334,16 @@
     },
     {
       "source": "component:empty-state",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:empty-state",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:empty-state",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7054,12 +7354,37 @@
     },
     {
       "source": "component:error-state",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:error-state",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:error-state",
       "target": "component:button",
       "type": "composed_of"
     },
     {
       "source": "component:error-state",
       "target": "component:illustration",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:field",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:field",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:field",
+      "target": "component:close",
       "type": "composed_of"
     },
     {
@@ -7524,7 +7849,17 @@
     },
     {
       "source": "component:global-header",
+      "target": "component:stars",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:global-header",
       "target": "component:zeenea-logo",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:glossary-item-hierarchy-diagram",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -7568,18 +7903,28 @@
       "type": "composed_of"
     },
     {
+      "source": "component:label",
+      "target": "component:info",
+      "type": "composed_of"
+    },
+    {
       "source": "component:line-graph",
       "target": "component:button",
       "type": "composed_of"
     },
     {
       "source": "component:line-graph",
-      "target": "component:dots",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
       "source": "component:lineage-connecting-line",
       "target": "component:tableau",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage-grouped-node",
+      "target": "component:add",
       "type": "composed_of"
     },
     {
@@ -7590,11 +7935,6 @@
     {
       "source": "component:lineage-grouped-node",
       "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-grouped-node",
-      "target": "component:chevron-up",
       "type": "composed_of"
     },
     {
@@ -7619,17 +7959,17 @@
     },
     {
       "source": "component:lineage-individual-node",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage-individual-node",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
       "source": "component:lineage-individual-node",
       "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:chevron-up",
       "type": "composed_of"
     },
     {
@@ -7674,12 +8014,42 @@
     },
     {
       "source": "component:maintenance-state",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:maintenance-state",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:maintenance-state",
       "target": "component:button",
       "type": "composed_of"
     },
     {
       "source": "component:maintenance-state",
       "target": "component:illustration",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:message",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:message",
+      "target": "component:info-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:message",
+      "target": "component:success-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:message",
+      "target": "component:warning-filled",
       "type": "composed_of"
     },
     {
@@ -7695,6 +8065,11 @@
     {
       "source": "component:metamodel-widget",
       "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:modal",
+      "target": "component:add",
       "type": "composed_of"
     },
     {
@@ -7715,6 +8090,11 @@
     {
       "source": "component:modal",
       "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:modal",
+      "target": "component:date",
       "type": "composed_of"
     },
     {
@@ -7744,7 +8124,7 @@
     },
     {
       "source": "component:modal",
-      "target": "component:radio-button",
+      "target": "component:radio",
       "type": "composed_of"
     },
     {
@@ -7769,7 +8149,27 @@
     },
     {
       "source": "component:notification",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:notification",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:notification",
       "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:notification-dropdown",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:notification-dropdown",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -7794,12 +8194,17 @@
     },
     {
       "source": "component:page-header",
-      "target": "component:dots",
+      "target": "component:favorite",
       "type": "composed_of"
     },
     {
       "source": "component:page-header",
-      "target": "component:favorite",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:page-header",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -7844,6 +8249,11 @@
     },
     {
       "source": "component:popover",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:popover",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
@@ -7869,11 +8279,6 @@
     },
     {
       "source": "component:popover",
-      "target": "component:dots",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:popover",
       "target": "component:edit",
       "type": "composed_of"
     },
@@ -7890,6 +8295,11 @@
     {
       "source": "component:popover",
       "target": "component:link",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:popover",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -7918,7 +8328,7 @@
       "type": "composed_of"
     },
     {
-      "source": "component:radio-button",
+      "source": "component:radio",
       "target": "component:digram-item-types",
       "type": "composed_of"
     },
@@ -7929,7 +8339,32 @@
     },
     {
       "source": "component:radio-button-card",
-      "target": "component:radio-button",
+      "target": "component:radio",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "component:info",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "component:label",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "component:message",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "component:radio",
       "type": "composed_of"
     },
     {
@@ -7945,6 +8380,16 @@
     {
       "source": "component:search",
       "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search",
+      "target": "component:stars",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search",
+      "target": "component:stars-filled",
       "type": "composed_of"
     },
     {
@@ -7980,6 +8425,11 @@
     {
       "source": "component:search-result-card",
       "target": "component:favorite",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search-result-card",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -8029,6 +8479,11 @@
     },
     {
       "source": "component:side-nav",
+      "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:side-nav",
       "target": "component:book-bookmark",
       "type": "composed_of"
     },
@@ -8039,17 +8494,12 @@
     },
     {
       "source": "component:side-nav",
+      "target": "component:catalog",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:side-nav",
       "target": "component:catalog-design",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:side-nav",
-      "target": "component:chevron-left",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:side-nav",
-      "target": "component:chevron-up",
       "type": "composed_of"
     },
     {
@@ -8065,11 +8515,6 @@
     {
       "source": "component:side-nav",
       "target": "component:database",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:side-nav",
-      "target": "component:directory",
       "type": "composed_of"
     },
     {
@@ -8104,6 +8549,16 @@
     },
     {
       "source": "component:sticky-footer",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:sticky-footer",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:sticky-footer",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -8119,6 +8574,11 @@
     },
     {
       "source": "component:table",
+      "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:table",
       "target": "component:avatar",
       "type": "composed_of"
     },
@@ -8129,22 +8589,12 @@
     },
     {
       "source": "component:table",
-      "target": "component:chevron-left",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:table",
-      "target": "component:dots",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:table",
       "target": "component:edit",
       "type": "composed_of"
     },
     {
       "source": "component:table",
-      "target": "component:filter",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -8155,6 +8605,11 @@
     {
       "source": "component:table",
       "target": "component:segmented-control",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:table",
+      "target": "component:stars-filled",
       "type": "composed_of"
     },
     {
@@ -8170,6 +8625,11 @@
     {
       "source": "component:tabs",
       "target": "component:home",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-catalog",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -8199,7 +8659,57 @@
     },
     {
       "source": "component:tag-status",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-status",
       "target": "component:spinner",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:field",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:info",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:label",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:message",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-area",
+      "target": "component:warning-filled",
       "type": "composed_of"
     },
     {
@@ -8224,7 +8734,22 @@
     },
     {
       "source": "component:text-input",
+      "target": "component:field",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-input",
       "target": "component:info",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-input",
+      "target": "component:label",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-input",
+      "target": "component:message",
       "type": "composed_of"
     },
     {
@@ -8234,17 +8759,32 @@
     },
     {
       "source": "component:text-input",
+      "target": "component:textfield-buttons",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:text-input",
       "target": "component:warning-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:textfield-buttons",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:textfield-buttons",
+      "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:textfield-buttons",
+      "target": "component:simple-check",
       "type": "composed_of"
     },
     {
       "source": "component:toolbar",
       "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:toolbar",
-      "target": "component:filter",
       "type": "composed_of"
     },
     {
@@ -8284,7 +8824,7 @@
     },
     {
       "source": "component:whats-new-dropdown",
-      "target": "component:chevron-left",
+      "target": "component:arrow-left",
       "type": "composed_of"
     },
     {
@@ -10032,17 +10572,12 @@
     },
     {
       "source": "component:adlsgen1",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:adobe-analytics",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:ai",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10062,12 +10597,12 @@
     },
     {
       "source": "component:alteryx",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:amazons3",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10077,7 +10612,7 @@
     },
     {
       "source": "component:api",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10111,8 +10646,13 @@
       "type": "in_category"
     },
     {
-      "source": "component:atlas",
+      "source": "component:arrow-left",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:atlas",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10127,42 +10667,42 @@
     },
     {
       "source": "component:avro",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:aws-glue-etl",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:awsredshift",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-cosmosdb",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-datafactory",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-purview",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-synapse",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10181,13 +10721,18 @@
       "type": "in_category"
     },
     {
+      "source": "component:ban",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:bar-graph",
       "target": "category:data-display",
       "type": "in_category"
     },
     {
       "source": "component:bigquery",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10206,6 +10751,21 @@
       "type": "in_category"
     },
     {
+      "source": "component:book-open",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:book-pages",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:book-text",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:boolean-type",
       "target": "category:icons",
       "type": "in_category"
@@ -10213,6 +10773,11 @@
     {
       "source": "component:breadcrumb",
       "target": "category:navigation",
+      "type": "in_category"
+    },
+    {
+      "source": "component:business-contract-give",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -10241,7 +10806,17 @@
       "type": "in_category"
     },
     {
+      "source": "component:cash-briefcase",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:cassandra",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:catalog",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10271,18 +10846,13 @@
       "type": "in_category"
     },
     {
-      "source": "component:chevron-left",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:chevron-up",
-      "target": "category:icons",
+      "source": "component:checkbox-group",
+      "target": "category:checkbox-checkbox-card-checkbox-group",
       "type": "in_category"
     },
     {
       "source": "component:ckan",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10291,12 +10861,22 @@
       "type": "in_category"
     },
     {
-      "source": "component:cognos",
+      "source": "component:code",
       "target": "category:icons",
       "type": "in_category"
     },
     {
+      "source": "component:cognos",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
       "source": "component:cognos-bi",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:collapse",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10322,22 +10902,22 @@
     },
     {
       "source": "component:cosmosdb",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:couchbase",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:csv",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:csv-custom-item",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10376,12 +10956,12 @@
       "type": "in_category"
     },
     {
-      "source": "component:data-product-output-port",
+      "source": "component:data-product-input-port",
       "target": "category:icons",
       "type": "in_category"
     },
     {
-      "source": "component:data-structured",
+      "source": "component:data-product-output-port",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10397,47 +10977,47 @@
     },
     {
       "source": "component:databricks",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:dataiku",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:dataset",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
-      "source": "component:datasets",
+      "source": "component:date",
       "target": "category:icons",
       "type": "in_category"
     },
     {
       "source": "component:db2",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:db2-database-1",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:dbt",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:denodo",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:dictionnary",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10451,11 +11031,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:directory",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
       "source": "component:disconnected",
       "target": "category:icons",
       "type": "in_category"
@@ -10466,7 +11041,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:dots",
+      "source": "component:double-check",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10497,12 +11072,17 @@
     },
     {
       "source": "component:elasticsearch",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:empty-state",
       "target": "category:feedback",
+      "type": "in_category"
+    },
+    {
+      "source": "component:error",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -10517,16 +11097,16 @@
     },
     {
       "source": "component:erwin-data-modeler",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:event-time-type",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:exit",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:expand",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10551,6 +11131,31 @@
       "type": "in_category"
     },
     {
+      "source": "component:field",
+      "target": "category:base-label-message-field-textfield-buttons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:file-cash",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:file-check",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:file-info",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:file-stack",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:filter",
       "target": "category:icons",
       "type": "in_category"
@@ -10566,18 +11171,23 @@
       "type": "in_category"
     },
     {
-      "source": "component:gcp",
+      "source": "component:folder",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:gcp",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:gcpcloudstorage",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:generic-jdbc",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10602,7 +11212,7 @@
     },
     {
       "source": "component:google-cloud",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10612,17 +11222,17 @@
     },
     {
       "source": "component:greenplum",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:hbase",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:hdfs",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10636,12 +11246,22 @@
       "type": "in_category"
     },
     {
-      "source": "component:hive",
+      "source": "component:hierarchy",
       "target": "category:icons",
       "type": "in_category"
     },
     {
+      "source": "component:hive",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
       "source": "component:home",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:idea",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10657,12 +11277,12 @@
     },
     {
       "source": "component:impala",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:influxdb",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10677,7 +11297,7 @@
     },
     {
       "source": "component:informatica",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10691,33 +11311,38 @@
       "type": "in_category"
     },
     {
-      "source": "component:input-ports",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
       "source": "component:integer-type",
       "target": "category:icons",
       "type": "in_category"
     },
     {
-      "source": "component:jdbc",
+      "source": "component:invoice",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:jdbc",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:json",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:kafka",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:l-grid",
       "target": "category:breakpoint-grid-structure",
+      "type": "in_category"
+    },
+    {
+      "source": "component:label",
+      "target": "category:base-label-message-field-textfield-buttons",
       "type": "in_category"
     },
     {
@@ -10792,12 +11417,12 @@
     },
     {
       "source": "component:local-filesystem",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:looker",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10822,17 +11447,22 @@
     },
     {
       "source": "component:mapr",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:mariadb",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:matillion",
-      "target": "category:icons",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:message",
+      "target": "category:base-label-message-field-textfield-buttons",
       "type": "in_category"
     },
     {
@@ -10842,7 +11472,7 @@
     },
     {
       "source": "component:microstrategy",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10852,6 +11482,11 @@
     },
     {
       "source": "component:mongodb",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:more",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10862,17 +11497,17 @@
     },
     {
       "source": "component:ms-teams",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:mysql",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:netezza",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10886,7 +11521,12 @@
       "type": "in_category"
     },
     {
-      "source": "component:null-sign",
+      "source": "component:notifications-setting",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:null-type",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10897,22 +11537,22 @@
     },
     {
       "source": "component:openapi",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:opendatagouv",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:oracle",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:orc",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10927,7 +11567,7 @@
     },
     {
       "source": "component:palantir",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10937,6 +11577,11 @@
     },
     {
       "source": "component:parquet",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:phone",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10957,17 +11602,17 @@
     },
     {
       "source": "component:postgresql",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:powerbi",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:powerbireportserver",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -10977,6 +11622,11 @@
     },
     {
       "source": "component:process-csv",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:products-briefcase",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10987,17 +11637,27 @@
     },
     {
       "source": "component:qlik-sense",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
-      "source": "component:radio-button",
+      "source": "component:radio",
       "target": "category:form-input-selection",
       "type": "in_category"
     },
     {
       "source": "component:radio-button-card",
       "target": "category:form-input-selection",
+      "type": "in_category"
+    },
+    {
+      "source": "component:radio-group",
+      "target": "category:radio-radio-card-radio-group",
+      "type": "in_category"
+    },
+    {
+      "source": "component:read-search",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -11012,6 +11672,16 @@
     },
     {
       "source": "component:relation-outgoing",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:remove-circle",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:reply",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11032,47 +11702,47 @@
     },
     {
       "source": "component:safyr-dynamics365",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-dynamicsax",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-ebs",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-jdedwards",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-peoplesoft",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-salesforce",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-sap-bw",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-siebel",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:sas-database",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11101,11 +11771,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:search-filters",
-      "target": "category:form-input-selection",
-      "type": "in_category"
-    },
-    {
       "source": "component:search-result-card",
       "target": "category:data-display",
       "type": "in_category"
@@ -11126,7 +11791,17 @@
       "type": "in_category"
     },
     {
+      "source": "component:server-warning",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:settings",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:share",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11147,17 +11822,17 @@
     },
     {
       "source": "component:snowflake",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:soda",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:sparkdb",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11167,16 +11842,26 @@
     },
     {
       "source": "component:spline",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:splunk",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
       "source": "component:sqlserver",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:stars",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:stars-filled",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11191,6 +11876,16 @@
       "type": "in_category"
     },
     {
+      "source": "component:struct-type",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:success",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:success-filled",
       "target": "category:icons",
       "type": "in_category"
@@ -11202,7 +11897,7 @@
     },
     {
       "source": "component:sybaseiq",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11212,7 +11907,7 @@
     },
     {
       "source": "component:tableau",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11267,7 +11962,7 @@
     },
     {
       "source": "component:talend",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11287,7 +11982,12 @@
     },
     {
       "source": "component:teradata",
-      "target": "category:icons",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:text-area",
+      "target": "category:text-area-text-input",
       "type": "in_category"
     },
     {
@@ -11306,8 +12006,13 @@
       "type": "in_category"
     },
     {
+      "source": "component:textfield-buttons",
+      "target": "category:base-label-message-field-textfield-buttons",
+      "type": "in_category"
+    },
+    {
       "source": "component:thoughtspot",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11322,6 +12027,11 @@
     },
     {
       "source": "component:tibco-datavirtualization",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:time-type",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11347,6 +12057,11 @@
     },
     {
       "source": "component:unknown-type",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:user",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11381,6 +12096,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:warning",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:warning-filled",
       "target": "category:icons",
       "type": "in_category"
@@ -11402,7 +12122,7 @@
     },
     {
       "source": "component:xml",
-      "target": "category:icons",
+      "target": "category:product-logos",
       "type": "in_category"
     },
     {
@@ -11771,6 +12491,11 @@
     },
     {
       "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/mouse-cursor",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
       "target": "foundation:design-guidelines/placeholder-text",
       "type": "narrower"
     },
@@ -11991,12 +12716,7 @@
     },
     {
       "source": "content:forms",
-      "target": "component:radio-button",
-      "type": "related"
-    },
-    {
-      "source": "content:forms",
-      "target": "component:search-filters",
+      "target": "component:radio",
       "type": "related"
     },
     {
@@ -12081,7 +12801,7 @@
     },
     {
       "source": "content:validation-messages",
-      "target": "component:radio-button",
+      "target": "component:radio",
       "type": "related"
     },
     {
@@ -12750,17 +13470,6 @@
     },
     {
       "source": "pattern:federated-catalog",
-      "target": "component:search-filters",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:federated-catalog",
       "target": "component:table",
       "type": "uses_component",
       "confidence": "asserted",
@@ -12991,17 +13700,6 @@
       }
     },
     {
-      "source": "pattern:marketplace-browsing",
-      "target": "component:search-filters",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
       "source": "pattern:metamodel-designer",
       "target": "component:button",
       "type": "uses_component",
@@ -13092,17 +13790,6 @@
     {
       "source": "pattern:search-filtered-table",
       "target": "component:search",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:search-filtered-table",
-      "target": "component:search-filters",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

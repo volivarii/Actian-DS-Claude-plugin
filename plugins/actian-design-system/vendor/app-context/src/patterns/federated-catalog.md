@@ -7,7 +7,6 @@ apps:
   - administration
 components:
   - search
-  - search-filters
   - table
 ---
 Multi-catalog federation with scoped permissions and cross-catalog search.

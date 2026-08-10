@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.117",
+  "knowledge_version": "0.34.122",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -397,12 +397,12 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'progress-bar-small' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.radio-button": {
-      "path": "components/dist/guidelines/radio-button.json",
+    "components.guidelineDoc.radio": {
+      "path": "components/dist/guidelines/radio.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'radio-button' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'radio' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.rich-text": {
       "path": "components/dist/guidelines/rich-text.json",
@@ -618,6 +618,13 @@
       "origin": "ci",
       "generator": "scripts/render/derive-canonical.js",
       "description": "The shared canonical-render stylesheet, inlined once and combined with each component fragment."
+    },
+    "components.render.fidelityReport": {
+      "path": "components/render/dist/fidelity-report.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/fidelity-check.js",
+      "description": "Per-slug render fidelity measurement: every color declaration in each render's owned CSS classified as verified, verifiedViaTokenName, mismatch, unverifiable, or overridden against the Figma appearance capture. verifiedViaTokenName is a declaration whose binding agrees with the token the capture names but whose resolved hex differs (a stale token snapshot or theme-mode artifact, not a CSS defect); its per-occurrence detail lives in tokenNameAgreements. Carries two honest numbers: verifiedFidelity (the share of the checkable set -- verified plus verifiedViaTokenName plus mismatch -- that verified via a direct hex match) and oracleCoverage (how much of what the renders paint the capture can speak to at all, including verifiedViaTokenName). oracleCoverage is the roadmap input that sizes the Figma capture work per component. Also carries a blind list: slugs with zero verified, zero mismatch, and zero verifiedViaTokenName, where the capture can say nothing at all."
     },
     "components.render.manifest": {
       "path": "components/render/dist/render-manifest.json",

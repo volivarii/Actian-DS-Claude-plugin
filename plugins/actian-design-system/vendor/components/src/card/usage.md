@@ -29,7 +29,7 @@ This guideline covers the card family: card for items, card for grouped content,
 
 * **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.
 
-* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio-button) (exactly one).
+* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio) (exactly one).
 
 * **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.
 

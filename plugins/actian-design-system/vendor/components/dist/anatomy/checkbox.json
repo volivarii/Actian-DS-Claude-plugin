@@ -2,16 +2,16 @@
   "_schema_version": 1,
   "slug": "checkbox",
   "kit": "dskit",
-  "synced_at": "2026-07-19T17:22:47.008Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
     "variant": "Selection=Unchecked, State=Default"
   },
   "quality": {
-    "nodesTotal": 9,
+    "nodesTotal": 8,
     "nodesNormalized": 7,
-    "ratio": 0.78,
+    "ratio": 0.88,
     "degraded": [
       {
         "name": "Checkbox",
@@ -195,7 +195,7 @@
             },
             "children": [
               {
-                "name": "Digram",
+                "name": "Digram, icon, product logo",
                 "kind": "instance",
                 "slug": "digram-item-types",
                 "props": {
@@ -207,12 +207,6 @@
                   "background": "#cfeafd",
                   "radius": "4px"
                 }
-              },
-              {
-                "name": "Icon",
-                "kind": "instance",
-                "unresolved": true,
-                "id": "19748:36914"
               },
               {
                 "name": "Label",

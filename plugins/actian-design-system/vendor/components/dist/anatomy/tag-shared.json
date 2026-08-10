@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-shared",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13812:22307",
@@ -19,21 +19,21 @@
     "kind": "container",
     "id": "8643:7703",
     "appearance": {
-      "background": "#cbe3ff",
+      "background": "#dde6ec",
       "border": {
-        "color": "#cbe3ff",
+        "color": "#dde6ec",
         "width": "1px"
       },
-      "radius": "4px"
+      "radius": "6px"
     },
     "layout": {
       "axis": "row",
       "gap": "0px",
       "padding": {
         "top": "0px",
-        "right": "8px",
+        "right": "4px",
         "bottom": "0px",
-        "left": "8px"
+        "left": "4px"
       },
       "align": {
         "main": "center",
@@ -44,8 +44,8 @@
         "v": "fixed"
       },
       "paddingTokens": {
-        "right": "--zen-spacing-xs",
-        "left": "--zen-spacing-xs"
+        "right": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
       }
     },
     "children": [
@@ -53,13 +53,13 @@
         "name": "Shared",
         "kind": "text",
         "tokenRefs": [
-          "--zen-color-text-tertiary"
+          "--zen-color-text-default"
         ],
         "id": "8643:7702",
         "appearance": {
           "text": {
-            "color": "#50505d",
-            "colorToken": "--zen-color-text-tertiary",
+            "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "12px",
             "weight": 400,
             "lineHeight": "16px",

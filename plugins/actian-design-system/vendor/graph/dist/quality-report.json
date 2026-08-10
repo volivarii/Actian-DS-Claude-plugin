@@ -51,21 +51,21 @@
   {
     "dimension": "connectivity",
     "metric": "orphan_nodes",
-    "value": 276,
+    "value": 268,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "connectivity",
     "metric": "components_without_category",
-    "value": 298,
+    "value": 291,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "connectivity",
     "metric": "categories_without_a11y",
-    "value": 5,
+    "value": 9,
     "timestamp": null,
     "severity": "info"
   },
@@ -79,21 +79,21 @@
   {
     "dimension": "connectivity",
     "metric": "composition_edges",
-    "value": 325,
+    "value": 389,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "connectivity",
     "metric": "pattern_component_edges",
-    "value": 93,
+    "value": 90,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "identity",
     "metric": "slug_collisions",
-    "value": 17,
+    "value": 24,
     "timestamp": null,
     "severity": "info"
   }
