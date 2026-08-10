@@ -1,0 +1,91 @@
+{
+  "_schema_version": 1,
+  "slug": "gcp",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7692:5000"
+  },
+  "quality": {
+    "nodesTotal": 6,
+    "nodesNormalized": 4,
+    "ratio": 0.67,
+    "degraded": [
+      {
+        "name": "GCP",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "GCP",
+    "kind": "container",
+    "id": "7692:5000",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 2293,
+      "y": 1791,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Group",
+        "kind": "container",
+        "id": "7641:5810",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 2295,
+          "y": 1795,
+          "constraints": {
+            "vertical": "CENTER",
+            "horizontal": "CENTER"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector",
+            "id": "7641:5811",
+            "appearance": {
+              "background": "#ea4335"
+            }
+          },
+          {
+            "name": "Vector",
+            "kind": "vector",
+            "id": "7641:5812",
+            "appearance": {
+              "background": "#4285f4"
+            }
+          },
+          {
+            "name": "Vector",
+            "kind": "vector",
+            "id": "7641:5813",
+            "appearance": {
+              "background": "#34a853"
+            }
+          },
+          {
+            "name": "Vector",
+            "kind": "vector",
+            "id": "7641:5814",
+            "appearance": {
+              "background": "#fbbc05"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

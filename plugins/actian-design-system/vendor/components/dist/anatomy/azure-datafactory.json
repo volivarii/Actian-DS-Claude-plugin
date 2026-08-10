@@ -1,0 +1,47 @@
+{
+  "_schema_version": 1,
+  "slug": "azure-datafactory",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25212"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "azure-datafactory",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "azure-datafactory",
+        "reason": "non-solid-fill:IMAGE"
+      }
+    ]
+  },
+  "root": {
+    "name": "azure-datafactory",
+    "kind": "container",
+    "id": "8400:25212",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 2293,
+      "y": 615,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "azure-datafactory",
+        "kind": "vector",
+        "id": "8400:25213"
+      }
+    ]
+  }
+}

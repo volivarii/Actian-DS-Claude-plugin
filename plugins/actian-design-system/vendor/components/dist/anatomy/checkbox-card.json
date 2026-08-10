@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox-card",
   "kit": "dskit",
-  "synced_at": "2026-07-19T17:22:47.008Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "19983:23496",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 11,
-    "nodesNormalized": 9,
-    "ratio": 0.82,
+    "nodesNormalized": 10,
+    "ratio": 0.91,
     "degraded": [
       {
         "name": "Checkbox",
@@ -86,10 +86,10 @@
       "axis": "column",
       "gap": "8px",
       "padding": {
-        "top": "12px",
-        "right": "12px",
-        "bottom": "12px",
-        "left": "12px"
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
       },
       "align": {
         "main": "start",
@@ -101,10 +101,10 @@
       },
       "gapToken": "--zen-spacing-xs",
       "paddingTokens": {
-        "top": "--zen-spacing-sm",
-        "right": "--zen-spacing-sm",
-        "bottom": "--zen-spacing-sm",
-        "left": "--zen-spacing-sm"
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-md",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-md"
       }
     },
     "children": [
@@ -157,8 +157,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 6011,
-              "y": 1031,
+              "x": 6015,
+              "y": 1035,
               "constraints": {
                 "vertical": "TOP",
                 "horizontal": "LEFT"
@@ -271,7 +271,7 @@
                   {
                     "name": "Icon",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "folder",
                     "id": "19983:23502"
                   },
                   {

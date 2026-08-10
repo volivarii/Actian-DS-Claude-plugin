@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-result-card",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-07-23T09:22:37.724Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12932:3259",
@@ -172,21 +172,17 @@
             },
             "children": [
               {
-                "name": "✍️ Tag, Catalog item type",
+                "name": "Tag, Catalog item type",
                 "kind": "instance",
                 "slug": "tag-catalog-item-type",
                 "props": {
                   "Show counter": false,
                   "Type": "Category"
                 },
-                "tokenRefs": [
-                  "--zen-color-error-50"
-                ],
                 "id": "12932:3266",
                 "appearance": {
-                  "background": "#ffdacf",
-                  "backgroundToken": "--zen-color-error-50",
-                  "radius": "4px"
+                  "background": "#ffd7ca",
+                  "radius": "6px"
                 }
               },
               {
@@ -230,7 +226,7 @@
             ]
           },
           {
-            "name": "✍️ Tag, Stage",
+            "name": "Tag, Stage",
             "kind": "instance",
             "slug": "tag-stage",
             "props": {
@@ -238,14 +234,14 @@
               "Trailing icon": false,
               "Color": "Gray"
             },
+            "tokenRefs": [
+              "--zen-color-neutral-50"
+            ],
             "id": "14968:1199",
             "appearance": {
-              "background": "#f7fdff",
-              "border": {
-                "color": "#dde6ec",
-                "width": "1px"
-              },
-              "radius": "4px"
+              "background": "#ebebeb",
+              "backgroundToken": "--zen-color-neutral-50",
+              "radius": "6px"
             }
           },
           {
@@ -327,20 +323,16 @@
             },
             "children": [
               {
-                "name": "✍️ Tag, Catalog",
+                "name": "Tag, Catalog",
                 "kind": "instance",
                 "slug": "tag-catalog",
                 "props": {
-                  "Type": "Default"
+                  "Property 1": "Default"
                 },
                 "id": "12932:3273",
                 "appearance": {
-                  "background": "#ecffff",
-                  "border": {
-                    "color": "#d0efed",
-                    "width": "1px"
-                  },
-                  "radius": "4px"
+                  "background": "#d0efed",
+                  "radius": "6px"
                 }
               }
             ]
@@ -468,7 +460,6 @@
                       "values": [
                         "Studio"
                       ],
-                      "radius": "4px",
                       "border": {
                         "color": "#fff9e5",
                         "colorToken": "--zen-color-warning-25",

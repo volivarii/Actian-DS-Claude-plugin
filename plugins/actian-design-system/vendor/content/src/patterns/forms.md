@@ -5,7 +5,7 @@ nav_order: 14
 # category that benefit from form-level layout/labeling/copy guidance.
 # Skipped: search, search-dropdown-menu (search has its own pattern), and
 # calendar (date-picker is narrower). Jeff: edit/correct/extend.
-relatedComponents: [text-input, input-date, checkbox, radio-button, toggle, search-filters, segmented-control]
+relatedComponents: [text-input, input-date, checkbox, radio, toggle, segmented-control]
 ---
 # Forms
 

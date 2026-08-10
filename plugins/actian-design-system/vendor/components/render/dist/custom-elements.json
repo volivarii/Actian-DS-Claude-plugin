@@ -13,7 +13,68 @@
           "description": "AccountDropdown component.",
           "attributes": [],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -42,7 +103,56 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-error"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -58,7 +168,56 @@
           "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
           "attributes": [],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -198,7 +357,35 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
         }
       ]
     },
@@ -271,6 +458,9 @@
             },
             {
               "name": "--zen-color-bg-emphasis"
+            },
+            {
+              "name": "--zen-color-error-700"
             },
             {
               "name": "--zen-color-icon-default"
@@ -439,7 +629,50 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -468,7 +701,56 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -491,7 +773,44 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -520,7 +839,92 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-emphasis"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-icon-subtle"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-placeholder-subtle"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-size-xs"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-xl"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -750,7 +1154,38 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-size-xs"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-size-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -773,7 +1208,32 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -796,7 +1256,86 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-primary-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-lineheight-xl"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-size-xl"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-xs"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -825,7 +1364,62 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-placeholder"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -974,7 +1568,65 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-xs"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-size-xs"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1087,7 +1739,44 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1122,7 +1811,47 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-lg"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1574,7 +2303,59 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1756,19 +2537,50 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/radio-button.html",
+      "path": "components/render/dist/fragments/radio.html",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
-          "name": "RadioButton",
-          "tagName": "zen-radio-button",
+          "name": "Radio",
+          "tagName": "zen-radio",
           "description": "Used for mutually exclusive choices where the user must select exactly one option from a short list (2–7 items).",
           "attributes": [
             {
@@ -1785,7 +2597,68 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-width-lg"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-icon-primary"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -1976,7 +2849,68 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2089,7 +3023,56 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-primary-25"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-shadow-sm"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-3xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
         }
       ]
     },
@@ -2118,7 +3101,53 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-bg-selected"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2440,14 +3469,54 @@
           "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
           "attributes": [
             {
-              "name": "type",
+              "name": "property 1",
               "type": {
                 "text": "Default"
               }
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-700"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2465,18 +3534,12 @@
             {
               "name": "type",
               "type": {
-                "text": "Category | Dataset | Data process | Data product | Field | Output port | Use case | Visualization"
+                "text": "Dataset | Data process | Data product | Field | Output port | Use case | Visualization | Category"
               }
             }
           ],
           "cssParts": [],
           "cssProperties": [
-            {
-              "name": "--zen-color-error-50"
-            },
-            {
-              "name": "--zen-color-error-800"
-            },
             {
               "name": "--zen-color-success-50"
             },
@@ -2527,7 +3590,47 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-700"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2599,7 +3702,7 @@
             {
               "name": "state",
               "type": {
-                "text": "Hovered | Pressed | Selected | Disabled | Focused | Default"
+                "text": "Hovered | Pressed | Expanded | Disabled | Focused | Default"
               }
             }
           ],
@@ -2685,7 +3788,47 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-700"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2703,26 +3846,62 @@
             {
               "name": "color",
               "type": {
-                "text": "Orange | Indigo | Purple | Lime | Teal | Yellow | Pink | Gray"
+                "text": "Orange | Indigo | Purple | Lime | Teal | Yellow | Gray | Pink"
               }
             }
           ],
           "cssParts": [],
           "cssProperties": [
             {
-              "name": "--zen-color-error-800"
+              "name": "--zen-border-radius-sm"
             },
             {
               "name": "--zen-color-icon-default"
             },
             {
-              "name": "--zen-color-primary-600"
+              "name": "--zen-color-neutral-50"
             },
             {
-              "name": "--zen-color-success-600"
+              "name": "--zen-color-success-50"
             },
             {
-              "name": "--zen-color-warning-800"
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-color-warning-50"
+            },
+            {
+              "name": "--zen-color-warning-700"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
             }
           ]
         }
@@ -2742,12 +3921,52 @@
             {
               "name": "status",
               "type": {
-                "text": "Fail | Warning | Loading | Maintenance | Scheduled | Queued | Stopped | Sleeping | Offline | Pending | Success"
+                "text": "Warning | Loading | Pending | Success | Fail"
               }
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-700"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2770,7 +3989,56 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-error"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     },
@@ -2997,7 +4265,62 @@
             }
           ],
           "cssParts": [],
-          "cssProperties": []
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-md"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-1"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-shadow-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
         }
       ]
     }

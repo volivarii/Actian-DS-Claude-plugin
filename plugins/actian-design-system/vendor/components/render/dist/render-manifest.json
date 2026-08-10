@@ -9,7 +9,7 @@
       "tagName": "zen-account-dropdown",
       "group": "Navigation",
       "fragment": "fragments/account-dropdown.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 20,
       "source": "rendered"
     },
     {
@@ -17,7 +17,7 @@
       "tagName": "zen-alert-banner",
       "group": "Feedback",
       "fragment": "fragments/alert-banner.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -25,7 +25,7 @@
       "tagName": "zen-app-switcher-dropdown",
       "group": "Navigation",
       "fragment": "fragments/app-switcher-dropdown.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -49,7 +49,7 @@
       "tagName": "zen-breadcrumb",
       "group": "Navigation",
       "fragment": "fragments/breadcrumb.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 9,
       "source": "rendered"
     },
     {
@@ -57,7 +57,7 @@
       "tagName": "zen-button",
       "group": "Action",
       "fragment": "fragments/button.html",
-      "tokensConsumed": 19,
+      "tokensConsumed": 20,
       "source": "rendered"
     },
     {
@@ -73,7 +73,7 @@
       "tagName": "zen-card-for-grouped-content",
       "group": "Data Display",
       "fragment": "fragments/card-for-grouped-content.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 14,
       "source": "rendered"
     },
     {
@@ -81,7 +81,7 @@
       "tagName": "zen-card-for-items",
       "group": "Data Display",
       "fragment": "fragments/card-for-items.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -89,7 +89,7 @@
       "tagName": "zen-card-for-perimeter",
       "group": "Data Display",
       "fragment": "fragments/card-for-perimeter.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 12,
       "source": "rendered"
     },
     {
@@ -97,7 +97,7 @@
       "tagName": "zen-chat-with-ai-steward",
       "group": "Overlays",
       "fragment": "fragments/chat-with-ai-steward.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 28,
       "source": "rendered"
     },
     {
@@ -129,7 +129,7 @@
       "tagName": "zen-digram-item-types",
       "group": "Data Display",
       "fragment": "fragments/digram-item-types.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 10,
       "source": "rendered"
     },
     {
@@ -137,7 +137,7 @@
       "tagName": "zen-digram-topic",
       "group": "Data Display",
       "fragment": "fragments/digram-topic.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 8,
       "source": "rendered"
     },
     {
@@ -145,7 +145,7 @@
       "tagName": "zen-drawer-side-panel",
       "group": "Overlays",
       "fragment": "fragments/drawer-side-panel.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 26,
       "source": "rendered"
     },
     {
@@ -153,7 +153,7 @@
       "tagName": "zen-dropdown-select-default",
       "group": "Form (input & selection)",
       "fragment": "fragments/dropdown-select-default.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 18,
       "source": "rendered"
     },
     {
@@ -177,7 +177,7 @@
       "tagName": "zen-global-header",
       "group": "Navigation",
       "fragment": "fragments/global-header.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 19,
       "source": "rendered"
     },
     {
@@ -193,7 +193,7 @@
       "tagName": "zen-lineage-grouped-node",
       "group": "Data Display",
       "fragment": "fragments/lineage-grouped-node.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 12,
       "source": "rendered"
     },
     {
@@ -201,7 +201,7 @@
       "tagName": "zen-lineage-individual-node",
       "group": "Data Display",
       "fragment": "fragments/lineage-individual-node.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -273,7 +273,7 @@
       "tagName": "zen-notification-dropdown",
       "group": "Navigation",
       "fragment": "fragments/notification-dropdown.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 17,
       "source": "rendered"
     },
     {
@@ -297,15 +297,15 @@
       "tagName": "zen-progress-bar-small",
       "group": "Data Display",
       "fragment": "fragments/progress-bar-small.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 10,
       "source": "rendered"
     },
     {
-      "slug": "radio-button",
-      "tagName": "zen-radio-button",
+      "slug": "radio",
+      "tagName": "zen-radio",
       "group": "Form (input & selection)",
-      "fragment": "fragments/radio-button.html",
-      "tokensConsumed": 0,
+      "fragment": "fragments/radio.html",
+      "tokensConsumed": 20,
       "source": "rendered"
     },
     {
@@ -337,7 +337,7 @@
       "tagName": "zen-search-dropdown-menu",
       "group": "Form (input & selection)",
       "fragment": "fragments/search-dropdown-menu.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 20,
       "source": "rendered"
     },
     {
@@ -353,7 +353,7 @@
       "tagName": "zen-segmented-control",
       "group": "Data Display",
       "fragment": "fragments/segmented-control.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -361,7 +361,7 @@
       "tagName": "zen-side-nav",
       "group": "Navigation",
       "fragment": "fragments/side-nav.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 15,
       "source": "rendered"
     },
     {
@@ -409,7 +409,7 @@
       "tagName": "zen-tag-catalog",
       "group": "Data Display",
       "fragment": "fragments/tag-catalog.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -417,7 +417,7 @@
       "tagName": "zen-tag-catalog-item-type",
       "group": "Data Display",
       "fragment": "fragments/tag-catalog-item-type.html",
-      "tokensConsumed": 11,
+      "tokensConsumed": 9,
       "source": "rendered"
     },
     {
@@ -425,7 +425,7 @@
       "tagName": "zen-tag-default",
       "group": "Data Display",
       "fragment": "fragments/tag-default.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -449,7 +449,7 @@
       "tagName": "zen-tag-shared",
       "group": "Data Display",
       "fragment": "fragments/tag-shared.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -457,7 +457,7 @@
       "tagName": "zen-tag-stage",
       "group": "Data Display",
       "fragment": "fragments/tag-stage.html",
-      "tokensConsumed": 5,
+      "tokensConsumed": 17,
       "source": "rendered"
     },
     {
@@ -465,7 +465,7 @@
       "tagName": "zen-tag-status",
       "group": "Data Display",
       "fragment": "fragments/tag-status.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -473,7 +473,7 @@
       "tagName": "zen-text-input",
       "group": "Form (input & selection)",
       "fragment": "fragments/text-input.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -505,7 +505,7 @@
       "tagName": "zen-whats-new-dropdown",
       "group": "Navigation",
       "fragment": "fragments/whats-new-dropdown.html",
-      "tokensConsumed": 0,
+      "tokensConsumed": 18,
       "source": "rendered"
     }
   ]

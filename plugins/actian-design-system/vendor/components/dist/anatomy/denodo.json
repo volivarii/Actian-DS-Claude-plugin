@@ -1,0 +1,47 @@
+{
+  "_schema_version": 1,
+  "slug": "denodo",
+  "kit": "dskit",
+  "synced_at": "2026-07-23T09:22:37.724Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25059"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "denodo",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "denodo",
+        "reason": "non-solid-fill:IMAGE"
+      }
+    ]
+  },
+  "root": {
+    "name": "denodo",
+    "kind": "container",
+    "id": "8400:25059",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 2293,
+      "y": 1567,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "denodo",
+        "kind": "vector",
+        "id": "8400:25060"
+      }
+    ]
+  }
+}
