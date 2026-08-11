@@ -20,6 +20,27 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Fixed
+- **The blank-box gate was carrying 91 boxes of silent headroom, so the gray-box programme's real
+  progress was invisible inside the gate built to track it.** ([#PR](_PR link added at open_)) The gate
+  shipped on 2026-07-13 with two literals in its test file, `BUDGET = 136` and `CHIP_BUDGET = 4`, both
+  documented as ceilings that "RATCHET DOWN". Neither was ever lowered. Measured on 2026-08-11 the
+  renderer emits **45 boxes and 2 chips**, so output could have tripled and still passed CI, while the
+  drop from 136 to 45 appeared nowhere.
+
+  A hand-maintained number standing in for a fact the data already knows is the same defect class as the
+  hand-kept lists behind the 2026-07-25 outage. The baseline is now a generated per-slug record,
+  `tests/renderers/blank-box-baseline.json`, written by
+  `node scripts/renderers/ds-coverage-report.js --write-baseline`, and the rule is exact equality rather
+  than a ceiling. A regression becomes a reviewable diff line (`bar-graph: 25 -> 30`), which is louder
+  than a total creeping from 136 to 137, and an improvement also fails until it is banked, which is what
+  stops the number going stale a second time. A regression is deliberately **not** offered the
+  regenerate command, since that is how one would get laundered into a green check.
+
+  Per-slug rather than a total, because the total hides the shape of the remaining work: **42 of the 45
+  boxes are two chart components** (`bar-graph` 25, `line-graph` 17), with `checkbox-card` at 2 and
+  `radio-button-card` at 1 accounting for the rest. Mutation-verified in three directions: a regression,
+  an unbanked improvement, and a chip demotion each red the gate with the right classification.
+
 - **The nightly vendor snapshot flows again, and four of the gates that blocked it no longer rot on
   normal Figma activity.** ([#PR](_PR link added at open_)) The knowledge v0.34.122 refresh PR had
   been red every night since 2026-07-25 (15 consecutive runs), so `main` stayed pinned at v0.34.117,

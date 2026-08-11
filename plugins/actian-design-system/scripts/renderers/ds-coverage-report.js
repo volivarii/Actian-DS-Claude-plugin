@@ -148,16 +148,143 @@ function measureBlankBoxes(opts) {
   };
 }
 
+// Compare a measurement against the committed baseline record.
+//
+// The rule is exact equality, not a ceiling. The two literal ceilings this
+// replaces (BUDGET = 136, CHIP_BUDGET = 4, both dated 2026-07-13) were never
+// ratcheted, so by 2026-08-11 they allowed 136 boxes against an actual 45: the
+// gate would have passed a tripling of the output, and the programme's real
+// progress was invisible inside it. Equality against a generated per-slug
+// record cannot drift that way, and it turns a regression into a reviewable
+// diff line (25 became 30) instead of a total creeping by one.
+//
+// Every difference is classified rather than merely counted, because
+// "the number moved" is the advice that launders a regression: an improvement
+// and a regression need opposite responses, and a rename needs a third one.
+function compareBlankBoxes(baselineRecord, measured) {
+  var base = (baselineRecord && baselineRecord.perSlug) || {};
+  var now = (measured && measured.perSlug) || {};
+  var baseChips = ((baselineRecord && baselineRecord.chipSlugs) || []).slice();
+  var nowChips = ((measured && measured.chipSlugs) || []).slice();
+
+  var regressions = [];
+  var improvements = [];
+  var unlisted = [];
+  var disappeared = [];
+
+  Object.keys(base).forEach(function (slug) {
+    if (!Object.prototype.hasOwnProperty.call(now, slug)) {
+      disappeared.push({ slug: slug, from: base[slug] });
+      return;
+    }
+    if (now[slug] > base[slug]) {
+      regressions.push({ slug: slug, from: base[slug], to: now[slug] });
+    } else if (now[slug] < base[slug]) {
+      improvements.push({ slug: slug, from: base[slug], to: now[slug] });
+    }
+  });
+  Object.keys(now).forEach(function (slug) {
+    if (!Object.prototype.hasOwnProperty.call(base, slug)) {
+      unlisted.push({ slug: slug, to: now[slug] });
+    }
+  });
+
+  var newChips = nowChips.filter(function (s) {
+    return baseChips.indexOf(s) === -1;
+  });
+  var retiredChips = baseChips.filter(function (s) {
+    return nowChips.indexOf(s) === -1;
+  });
+
+  function sum(o) {
+    return Object.keys(o).reduce(function (t, k) {
+      return t + o[k];
+    }, 0);
+  }
+
+  return {
+    clean:
+      regressions.length === 0 &&
+      improvements.length === 0 &&
+      unlisted.length === 0 &&
+      disappeared.length === 0 &&
+      newChips.length === 0 &&
+      retiredChips.length === 0,
+    regressions: regressions,
+    improvements: improvements,
+    unlisted: unlisted,
+    disappeared: disappeared,
+    newChips: newChips,
+    retiredChips: retiredChips,
+    totalFrom: sum(base),
+    totalTo: sum(now),
+  };
+}
+
 module.exports = {
   coverage: coverage,
   authorableSlugs: authorableSlugs,
   measureBlankBoxes: measureBlankBoxes,
+  compareBlankBoxes: compareBlankBoxes,
 };
 
 if (require.main === module) {
   // Same lazy require as measureBlankBoxes(): the render stack is only needed
   // when this file runs as a CLI, never when it is imported for coverage().
   var BUILT_SLUGS = require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
+
+  // `--write-baseline` records what the renderer emits right now, which is how
+  // an improvement is banked. The gate compares against this file, so the file
+  // is the only place the number lives: nothing restates it in a test.
+  if (process.argv.indexOf("--write-baseline") !== -1) {
+    var fsW = require("fs");
+    var pathW = require("path");
+    var m = measureBlankBoxes();
+    var out = pathW.resolve(
+      __dirname,
+      "..",
+      "..",
+      "tests",
+      "renderers",
+      "blank-box-baseline.json",
+    );
+    var ordered = {};
+    Object.keys(m.perSlug)
+      .sort()
+      .forEach(function (k) {
+        ordered[k] = m.perSlug[k];
+      });
+    fsW.writeFileSync(
+      out,
+      JSON.stringify(
+        {
+          _meta: {
+            auto_generated: true,
+            source: "scripts/renderers/ds-coverage-report.js --write-baseline",
+            do_not_edit:
+              "Regenerate with `node scripts/renderers/ds-coverage-report.js --write-baseline`. Hand-editing this file is how the old pinned ceilings went stale.",
+          },
+          total: m.total,
+          perSlug: ordered,
+          chipSlugs: m.chipSlugs.slice().sort(),
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+    process.stdout.write(
+      "wrote " +
+        out +
+        ": " +
+        m.total +
+        " blank boxes across " +
+        Object.keys(m.perSlug).length +
+        " unbuilt slugs, " +
+        m.chipSlugs.length +
+        " chip(s)\n",
+    );
+    process.exit(0);
+  }
 
   var slugs = authorableSlugs();
   var rows = coverage(slugs, { builtSlugs: BUILT_SLUGS });
