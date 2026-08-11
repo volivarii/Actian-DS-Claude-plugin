@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Fixed
 - **The blank-box gate was carrying 91 boxes of silent headroom, so the gray-box programme's real
-  progress was invisible inside the gate built to track it.** ([#PR](_PR link added at open_)) The gate
+  progress was invisible inside the gate built to track it.** ([#277](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/277)) The gate
   shipped on 2026-07-13 with two literals in its test file, `BUDGET = 136` and `CHIP_BUDGET = 4`, both
   documented as ceilings that "RATCHET DOWN". Neither was ever lowered. Measured on 2026-08-11 the
   renderer emits **45 boxes and 2 chips**, so output could have tripled and still passed CI, while the
