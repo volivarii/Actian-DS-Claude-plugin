@@ -20,6 +20,24 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Fixed
+- **The vendor-queue alarm could not clear itself, so it spent eight days reporting a queue that had
+  already drained.** ([#PR](_PR link added at open_)) Issue #272 said "the plugin is not consuming
+  knowledge" from 2026-08-03 to 2026-08-11, and its own body promised "this issue auto-closes when the
+  queue drains". It could not: the only close path required **zero** open vendor PRs, and this same
+  workflow opens tonight's vendor PR moments before the alarm step runs, so the queue is almost never
+  empty at that point. The healthy-queue path simply exited, leaving the alarm lit after the refresh
+  had resumed.
+
+  An alarm that cannot clear itself is worse than no alarm, because it trains the reader to ignore the
+  label, which is the exact failure the queue alarm was written to prevent. It now clears on **both**
+  not-stuck paths: an empty queue, and a queue whose open PRs are all healthy.
+
+  The step was inline shell in `vendor-snapshot.yml`, which is why nothing tested it and why the defect
+  survived. It now lives in `.github/scripts/vendor-queue-alarm.sh` and all four of its branches are
+  exercised against a stubbed `gh` in `tests/vendor/vendor-queue-alarm.test.js`, mutation-verified:
+  removing the new clear reds exactly the one test that covers it. The long explanation of the original
+  incident moved into the script header rather than being restated in the workflow.
+
 - **The nightly vendor snapshot flows again, and four of the gates that blocked it no longer rot on
   normal Figma activity.** ([#PR](_PR link added at open_)) The knowledge v0.34.122 refresh PR had
   been red every night since 2026-07-25 (15 consecutive runs), so `main` stayed pinned at v0.34.117,
