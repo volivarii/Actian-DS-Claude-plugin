@@ -247,4 +247,11 @@ jobs:
         # Best-effort by contract: it must never fail the refresh itself. Kept in
         # a script, not inline, so its branches are testable:
         # plugins/actian-design-system/tests/vendor/vendor-queue-alarm.test.js
-        run: .github/scripts/vendor-queue-alarm.sh
+        #
+        # `bash <path> || true` and not a bare path: GitHub runs a `run:` under
+        # `bash -e`, so a lost exec bit (a Windows checkout, a rebase, a future
+        # move of the file) would fail this step and with it a workflow whose real
+        # job, vendoring knowledge, had already succeeded. The inline version
+        # could not fail that way, and this contract must not weaken just because
+        # the code moved.
+        run: bash .github/scripts/vendor-queue-alarm.sh || true

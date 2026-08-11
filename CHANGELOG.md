@@ -30,7 +30,20 @@ are summarized at the release level.
 
   An alarm that cannot clear itself is worse than no alarm, because it trains the reader to ignore the
   label, which is the exact failure the queue alarm was written to prevent. It now clears on **both**
-  not-stuck paths: an empty queue, and a queue whose open PRs are all healthy.
+  not-stuck paths: an empty queue, and a queue whose open PRs all positively report healthy.
+
+  **The first version of that fix was worse than the bug**, and an independent review caught it. It read
+  "gh told me nothing is stuck" and "gh could not tell me" as the same state, so an expired token or a
+  rate limit would have **closed a real alarm** claiming the plugin was consuming knowledge again, on a
+  repo that had just lost 11 nights to an expired PAT. A silent no-op became an affirmative false
+  all-clear. The script is now explicitly three-state: `stuck` raises or updates the alarm, `healthy`
+  clears it, and **`unknown` touches nothing and says why**. Only a positive success reading clears, so a
+  failed `gh` call, a PR whose checks have not reported, and a PR with no checks at all are all unknown.
+  Checks are read as `.conclusion // .state` so a red legacy commit status counts, and the close is
+  scoped to the alarm's own title rather than to everything wearing the label, since the healthy path is
+  now the frequently taken one and a human's issue could wear it too. The workflow invokes the script as
+  `bash <path> || true`, because a `run:` runs under `bash -e` and a lost exec bit must not fail a
+  refresh whose real work succeeded.
 
   The step was inline shell in `vendor-snapshot.yml`, which is why nothing tested it and why the defect
   survived. It now lives in `.github/scripts/vendor-queue-alarm.sh` and all four of its branches are
