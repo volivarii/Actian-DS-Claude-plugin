@@ -41,6 +41,24 @@ are summarized at the release level.
   `radio-button-card` at 1 accounting for the rest. Mutation-verified in three directions: a regression,
   an unbanked improvement, and a chip demotion each red the gate with the right classification.
 
+  An independent review then found that swapping a crude total for a name-keyed record gave up three
+  things the crude number had, all now restored. **The total bound is back alongside the per-slug
+  detail**, because it is the one assertion that does not depend on slug identity: keying only on names
+  let a box-count increase hide inside a rename (`radio-button-card` 1 becomes `radio-card` 8 was
+  classified as zero regressions, and the held knowledge tag sync performs exactly that rename) and let
+  a newly authorable unbuilt slug raise the count with nothing objecting. **`--write-baseline` now
+  refuses** while any slug has regressed or demoted to a chip, since the failure messages print that
+  command and an author following it would otherwise bank a regression riding along in the same change,
+  which is the laundering path the pinned ceilings could not take quietly. And **a bare chip that gains
+  real anatomy is classified as a promotion, not a regression**: it went from rendering nothing real to
+  rendering something, so the old classification had the one assertion that refuses to be banked
+  blocking a genuine improvement and telling the author to revert it.
+
+  Two smaller ones from the same pass: the false-zero control was gated on the baseline's own `total`,
+  a value the bank command can zero, so it is now a structural assertion about the detector against
+  synthetic markup that cannot be banked away or go stale; and the record's `total` is checked against
+  its own `perSlug` sum, so a hand edit cannot leave the two halves disagreeing in silence.
+
 - **The nightly vendor snapshot flows again, and four of the gates that blocked it no longer rot on
   normal Figma activity.** ([#PR](_PR link added at open_)) The knowledge v0.34.122 refresh PR had
   been red every night since 2026-07-25 (15 consecutive runs), so `main` stayed pinned at v0.34.117,

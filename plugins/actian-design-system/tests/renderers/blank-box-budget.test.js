@@ -41,6 +41,9 @@ var { measureBlankBoxes, compareBlankBoxes } = require(
 // The count is deliberately per slug. Today 42 of the 45 boxes are two chart
 // components (bar-graph 25, line-graph 17), which a single total hides.
 var BASELINE = require("./blank-box-baseline.json");
+var { countBlankBoxes } = require(
+  path.resolve(__dirname, "..", "..", "scripts", "renderers", "renderability.js"),
+);
 
 // measureBlankBoxes() re-parses the authoring markdown, rebuilds the doc map
 // over ~72 slugs, and re-renders the unbuilt ones: expensive to repeat, and
@@ -53,11 +56,16 @@ function renderAll() {
 }
 
 function ratchetHint() {
+  // Written as a cd + relative path on purpose: the bare invocation printed by
+  // the first version failed when pasted from the repository root, and the one
+  // instruction a failure gives has to work as written.
   return (
     "\n\nIf this change is correct, bank it:\n" +
-    "  node scripts/renderers/ds-coverage-report.js --write-baseline\n" +
-    "and commit tests/renderers/blank-box-baseline.json, so the diff records " +
-    "which slugs moved and in which direction."
+    "  cd plugins/actian-design-system && \\\n" +
+    "    node scripts/renderers/ds-coverage-report.js --write-baseline\n" +
+    "then commit tests/renderers/blank-box-baseline.json, so the diff records " +
+    "which slugs moved and in which direction. It refuses to write while any " +
+    "slug has regressed or demoted to a chip."
   );
 }
 
@@ -127,6 +135,16 @@ describe("blank-box budget", function () {
             .join("\n"),
       );
     }
+    if (d.chipPromotions.length) {
+      parts.push(
+        "PROMOTED from a bare chip to real markup (progress, record it):\n" +
+          d.chipPromotions
+            .map(function (x) {
+              return "  " + x.slug + ": " + x.from + " -> " + x.to;
+            })
+            .join("\n"),
+      );
+    }
     if (d.disappeared.length) {
       parts.push(
         "GONE FROM THE OUTPUT (removed, renamed, or newly built):\n" +
@@ -150,24 +168,67 @@ describe("blank-box budget", function () {
     );
   });
 
-  it("SANITY: the blank-box detector is not silently reading zero", function () {
-    // If countBlankBoxes drifts out of sync with the markup shape it matches
-    // against, it can silently return 0 for everything, and a comparison
-    // against a baseline of zeroes would pass vacuously. The expectation is
-    // derived from the record rather than written here as prose, so it cannot
-    // go stale, and it self-retires: when the real count legitimately reaches
-    // 0 the recorded total is 0 too and this control stops asserting.
-    var r = renderAll();
-    if (BASELINE.total > 0) {
-      assert.ok(
-        r.total > 0,
-        "the baseline records " +
-          BASELINE.total +
-          " blank boxes but this run measured 0. That is far more likely to " +
-          "mean countBlankBoxes stopped matching the emitted markup shape " +
-          "than that the renderer was fixed.",
-      );
-    }
+  it("SANITY: the blank-box detector still recognises a blank box", function () {
+    // The false-zero control used to be `r.total > 0`, then briefly
+    // `BASELINE.total > 0` gating that same check. A review found the second
+    // form self-disarming: BASELINE.total is written by the very bank command
+    // the sibling failures print, so banking one broken measurement would zero
+    // it and skip this control for good.
+    //
+    // Assert the detector against markup instead of against the corpus. This
+    // cannot be banked away, cannot go stale, and does not need retiring when
+    // the real count legitimately reaches zero.
+    var blank = '<div class="ds-appearance__vector" style="width:8px"></div>';
+    assert.equal(countBlankBoxes(blank), 1, "a blank vector box must count");
+    assert.equal(
+      countBlankBoxes('<div class="ds-appearance__vector">real content</div>'),
+      0,
+      "a box with content in it is not blank",
+    );
+    assert.equal(countBlankBoxes(blank + blank), 2, "counts every occurrence");
+  });
+
+  it("the committed baseline is internally consistent", function () {
+    // total is a separate field from perSlug, so a hand edit or a bad merge can
+    // leave the two halves of the record disagreeing with each other while
+    // nothing says so.
+    var summed = Object.keys(BASELINE.perSlug).reduce(function (t, k) {
+      return t + BASELINE.perSlug[k];
+    }, 0);
+    assert.equal(
+      BASELINE.total,
+      summed,
+      "blank-box-baseline.json's total does not match its own perSlug sum, so " +
+        "it was edited by hand rather than regenerated",
+    );
+  });
+
+  it("the total number of blank boxes never rises, whatever the slugs are called", function () {
+    // The rename-immune bound. The crude ceiling this replaced could not be
+    // dodged by renaming a slug; a name-keyed comparison can be, and the held
+    // knowledge tag sync renames radio-button-card to radio-card. A newly
+    // authorable unbuilt slug lands here too.
+    var d = compareBlankBoxes(BASELINE, renderAll());
+    assert.equal(
+      d.totalRose,
+      false,
+      "blank boxes rose from " +
+        d.totalFrom +
+        " to " +
+        d.totalTo +
+        ". Contributors:\n" +
+        d.regressions
+          .concat(d.unlisted.map(function (u) {
+            return { slug: u.slug + " (new)", from: 0, to: u.to };
+          }))
+          .map(function (x) {
+            return "  " + x.slug + ": " + x.from + " -> " + x.to;
+          })
+          .join("\n") +
+        "\nA slug rename cannot hide inside this assertion, which is why it is " +
+        "kept alongside the per-slug ones." +
+        ratchetHint(),
+    );
   });
 
   it("emits no new bare graceful-degradation chips", function () {

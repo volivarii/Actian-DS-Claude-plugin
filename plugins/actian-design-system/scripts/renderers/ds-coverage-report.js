@@ -171,6 +171,7 @@ function compareBlankBoxes(baselineRecord, measured) {
   var improvements = [];
   var unlisted = [];
   var disappeared = [];
+  var chipPromotions = [];
 
   Object.keys(base).forEach(function (slug) {
     if (!Object.prototype.hasOwnProperty.call(now, slug)) {
@@ -178,7 +179,17 @@ function compareBlankBoxes(baselineRecord, measured) {
       return;
     }
     if (now[slug] > base[slug]) {
-      regressions.push({ slug: slug, from: base[slug], to: now[slug] });
+      // A slug that WAS a bare chip and is not one any more went from
+      // rendering nothing real to rendering something real, so its boxes went
+      // up because it started rendering at all. That is a promotion, not a
+      // regression. Classifying it as a regression made the one assertion that
+      // refuses to be banked block a genuine improvement and instruct the
+      // author to revert it.
+      if (baseChips.indexOf(slug) !== -1 && nowChips.indexOf(slug) === -1) {
+        chipPromotions.push({ slug: slug, from: base[slug], to: now[slug] });
+      } else {
+        regressions.push({ slug: slug, from: base[slug], to: now[slug] });
+      }
     } else if (now[slug] < base[slug]) {
       improvements.push({ slug: slug, from: base[slug], to: now[slug] });
     }
@@ -202,6 +213,9 @@ function compareBlankBoxes(baselineRecord, measured) {
     }, 0);
   }
 
+  var totalFrom = sum(base);
+  var totalTo = sum(now);
+
   return {
     clean:
       regressions.length === 0 &&
@@ -209,16 +223,56 @@ function compareBlankBoxes(baselineRecord, measured) {
       unlisted.length === 0 &&
       disappeared.length === 0 &&
       newChips.length === 0 &&
-      retiredChips.length === 0,
+      retiredChips.length === 0 &&
+      chipPromotions.length === 0,
     regressions: regressions,
     improvements: improvements,
     unlisted: unlisted,
     disappeared: disappeared,
     newChips: newChips,
     retiredChips: retiredChips,
-    totalFrom: sum(base),
-    totalTo: sum(now),
+    chipPromotions: chipPromotions,
+    totalFrom: totalFrom,
+    totalTo: totalTo,
+    // Reported on its own because it is the one bound that does NOT depend on
+    // slug identity. The ceiling this comparison replaced was crude but
+    // rename-immune; keying only on names let a box-count increase hide inside
+    // a rename (radio-button-card 1 -> radio-card 8 classified as zero
+    // regressions) and let a newly authorable unbuilt slug raise the count with
+    // nothing objecting.
+    totalRose: totalTo > totalFrom,
   };
+}
+
+// Which differences may be written into the baseline, and which must be fixed.
+//
+// The drift failure prints the bank command, so without a refusal an author
+// following that instruction banks any regression or chip demotion that happens
+// to ride along in the same change. The hand-edited ceilings this replaced could
+// not be raised silently: someone had to type a bigger number and say why.
+function bankable(diff) {
+  if (diff.regressions.length) {
+    return {
+      ok: false,
+      why:
+        "these slugs regressed and must be fixed, not recorded: " +
+        diff.regressions
+          .map(function (r) {
+            return r.slug + " " + r.from + " -> " + r.to;
+          })
+          .join(", "),
+    };
+  }
+  if (diff.newChips.length) {
+    return {
+      ok: false,
+      why:
+        "these slugs demoted to a bare chip and render nothing real, so this is " +
+        "not a state to record: " +
+        diff.newChips.join(", "),
+    };
+  }
+  return { ok: true, why: "" };
 }
 
 module.exports = {
@@ -226,6 +280,7 @@ module.exports = {
   authorableSlugs: authorableSlugs,
   measureBlankBoxes: measureBlankBoxes,
   compareBlankBoxes: compareBlankBoxes,
+  bankable: bankable,
 };
 
 if (require.main === module) {
@@ -248,6 +303,34 @@ if (require.main === module) {
       "renderers",
       "blank-box-baseline.json",
     );
+
+    // REFUSE to bank a regression.
+    //
+    // The gate's failure messages print this command, so without a refusal an
+    // author following that instruction would write any regression or chip
+    // demotion riding along in the same change into the record as the new
+    // truth. The hand-edited ceilings this replaced could not be raised
+    // silently: someone had to type a bigger number. A review found that
+    // banking freely gave back exactly the laundering path the change removed.
+    var current = null;
+    try {
+      current = JSON.parse(fsW.readFileSync(out, "utf8"));
+    } catch (e) {
+      current = null;
+    }
+    if (current) {
+      var verdict = bankable(compareBlankBoxes(current, m));
+      if (!verdict.ok) {
+        process.stderr.write(
+          "REFUSING to write the baseline: " +
+            verdict.why +
+            "\n\nFix the renderer. Recording this would make the regression the " +
+            "new normal, which is what the pinned ceilings could not do quietly " +
+            "either.\n",
+        );
+        process.exit(1);
+      }
+    }
     var ordered = {};
     Object.keys(m.perSlug)
       .sort()
