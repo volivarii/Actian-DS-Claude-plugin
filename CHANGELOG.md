@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Fixed
 - **The vendor-queue alarm could not clear itself, so it spent eight days reporting a queue that had
-  already drained.** ([#PR](_PR link added at open_)) Issue #272 said "the plugin is not consuming
+  already drained.** ([#276](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/276)) Issue #272 said "the plugin is not consuming
   knowledge" from 2026-08-03 to 2026-08-11, and its own body promised "this issue auto-closes when the
   queue drains". It could not: the only close path required **zero** open vendor PRs, and this same
   workflow opens tonight's vendor PR moments before the alarm step runs, so the queue is almost never
