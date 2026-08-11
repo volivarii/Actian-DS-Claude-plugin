@@ -20,6 +20,45 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Fixed
+- **The blank-box gate was carrying 91 boxes of silent headroom, so the gray-box programme's real
+  progress was invisible inside the gate built to track it.** ([#277](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/277)) The gate
+  shipped on 2026-07-13 with two literals in its test file, `BUDGET = 136` and `CHIP_BUDGET = 4`, both
+  documented as ceilings that "RATCHET DOWN". Neither was ever lowered. Measured on 2026-08-11 the
+  renderer emits **45 boxes and 2 chips**, so output could have tripled and still passed CI, while the
+  drop from 136 to 45 appeared nowhere.
+
+  A hand-maintained number standing in for a fact the data already knows is the same defect class as the
+  hand-kept lists behind the 2026-07-25 outage. The baseline is now a generated per-slug record,
+  `tests/renderers/blank-box-baseline.json`, written by
+  `node scripts/renderers/ds-coverage-report.js --write-baseline`, and the rule is exact equality rather
+  than a ceiling. A regression becomes a reviewable diff line (`bar-graph: 25 -> 30`), which is louder
+  than a total creeping from 136 to 137, and an improvement also fails until it is banked, which is what
+  stops the number going stale a second time. A regression is deliberately **not** offered the
+  regenerate command, since that is how one would get laundered into a green check.
+
+  Per-slug rather than a total, because the total hides the shape of the remaining work: **42 of the 45
+  boxes are two chart components** (`bar-graph` 25, `line-graph` 17), with `checkbox-card` at 2 and
+  `radio-button-card` at 1 accounting for the rest. Mutation-verified in three directions: a regression,
+  an unbanked improvement, and a chip demotion each red the gate with the right classification.
+
+  An independent review then found that swapping a crude total for a name-keyed record gave up three
+  things the crude number had, all now restored. **The total bound is back alongside the per-slug
+  detail**, because it is the one assertion that does not depend on slug identity: keying only on names
+  let a box-count increase hide inside a rename (`radio-button-card` 1 becomes `radio-card` 8 was
+  classified as zero regressions, and the held knowledge tag sync performs exactly that rename) and let
+  a newly authorable unbuilt slug raise the count with nothing objecting. **`--write-baseline` now
+  refuses** while any slug has regressed or demoted to a chip, since the failure messages print that
+  command and an author following it would otherwise bank a regression riding along in the same change,
+  which is the laundering path the pinned ceilings could not take quietly. And **a bare chip that gains
+  real anatomy is classified as a promotion, not a regression**: it went from rendering nothing real to
+  rendering something, so the old classification had the one assertion that refuses to be banked
+  blocking a genuine improvement and telling the author to revert it.
+
+  Two smaller ones from the same pass: the false-zero control was gated on the baseline's own `total`,
+  a value the bank command can zero, so it is now a structural assertion about the detector against
+  synthetic markup that cannot be banked away or go stale; and the record's `total` is checked against
+  its own `perSlug` sum, so a hand edit cannot leave the two halves disagreeing in silence.
+
 - **The vendor-queue alarm could not clear itself, so it spent eight days reporting a queue that had
   already drained.** ([#276](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/276)) Issue #272 said "the plugin is not consuming
   knowledge" from 2026-08-03 to 2026-08-11, and its own body promised "this issue auto-closes when the
