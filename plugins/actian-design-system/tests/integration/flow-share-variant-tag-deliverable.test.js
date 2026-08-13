@@ -6,6 +6,7 @@ const anatomyRender = require("../../scripts/lib/renderer.js").anatomyRender;
 const appearanceRender =
   require("../../scripts/lib/renderer.js").appearanceRender;
 const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
+const specimen = require("../helpers/appearance-specimen.js");
 
 // flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
 // deliverable renders tag-default's per-variant colors from the appearance
@@ -123,12 +124,18 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // The class modifiers the deliverable's ds-tag spans are expected to carry:
   // derived from the SAME values picked above, not a second hardcoded name,
   // so each tracks whichever value its source actually returned.
-  const coloredClassSuffix = String(
+  //
+  // Uses the shared helper rather than re-deriving with .toLowerCase(): the
+  // renderer's transform also collapses whitespace to dashes, so a value with a
+  // space in it (nothing on today's axis, but "Card format" exists on radio's)
+  // would have produced a suffix this file predicted wrongly while
+  // appearance-specimen.js predicted it correctly. One transform, one copy.
+  const coloredClassSuffix = specimen.variantClassSuffix(
     coloredVariantString.split("=")[1],
-  ).toLowerCase();
-  const defaultClassSuffix = String(
+  );
+  const defaultClassSuffix = specimen.variantClassSuffix(
     defaultVariantString.split("=")[1],
-  ).toLowerCase();
+  );
 
   const defaultVariant = parseVariant(defaultVariantString);
 
@@ -195,21 +202,27 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // the old shape is what turned a substrate change into a red vendor PR.
   // The class suffix is the derived value (coloredClassSuffix), not a
   // hardcoded color name -- see the #275 header note.
-  // The leading icon span is OPTIONAL between the pill's opening tag and its
-  // label. It is not noise to be tolerated: the 2026-08-12 fold-in made
-  // `Leading icon show` a default-TRUE registry boolean (the capture's default
-  // variant does carry the icon child), so most Types now render one, while
-  // Type=Shared's capture records childCount 2!=1 and renders none. This regex
-  // previously demanded the label IMMEDIATELY after the opening tag, which
-  // silently encoded "tags have no icon" and went red when they gained one.
-  // Both shapes are correct output, so both are accepted here; WHICH one a
-  // given Type emits is asserted in ds-html-map.test.js against the props,
-  // where the icon is the subject rather than incidental.
+  // The leading icon span is REQUIRED, not tolerated. This regex used to demand
+  // the label immediately after the opening tag, which silently encoded "tags
+  // have no icon" and went red when the fold-in made `Leading icon show` a
+  // default-TRUE registry boolean.
+  //
+  // On THIS path the icon is unconditional, so requiring it is the strict
+  // reading rather than a lax one. The leaf emits the icon for every Type unless
+  // the prop is explicitly false, and the flow nodes below pass only a Label.
+  // The capture-driven suppression that DOES hide it for Type=Shared
+  // (quality.structuralVariants, childCount 2!=1) lives in knowledge's
+  // matrix.js and injects the prop into MATRIX cells only; assemble-flow-share
+  // never consults the matrix, so that suppression does not reach the
+  // deliverable. knowledge's matrix.js states this as a known limit in its own
+  // Scope note: "a hand-authored flow node that names Type=Shared and passes no
+  // props still reaches the renderer's default-true branch". See the report note
+  // on that gap; it is a substrate limit, not something to paper over here.
   const coloredMatch = html.match(
     new RegExp(
       '<span class="ds-tag ds-tag--' +
         coloredClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
-        '" style="([^"]*)">(?:<span class="ds-tag__icon">[\\s\\S]*?</span>)?Tag</span>',
+        '" style="([^"]*)"><span class="ds-tag__icon">[\\s\\S]*?</span>Tag</span>',
     ),
   );
   assert.ok(
@@ -266,7 +279,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
     new RegExp(
       '<span class="ds-tag ds-tag--' +
         defaultClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
-        '"([^>]*)>(?:<span class="ds-tag__icon">[\\s\\S]*?</span>)?Draft Items</span>',
+        '"([^>]*)><span class="ds-tag__icon">[\\s\\S]*?</span>Draft Items</span>',
     ),
   );
   assert.ok(

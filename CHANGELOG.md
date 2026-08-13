@@ -22,11 +22,12 @@ are summarized at the release level.
 ### Fixed
 - **A breaking design-system change folded five tag components into one, and every one of the 15 failures
   it caused was in what the plugin's tests CLAIMED, not in what the renderer does.**
-  ([#PR](_PR link added at open_)) knowledge v0.34.125 replaced `tag-default`'s `Color` axis with a
+  ([#PR](_PR link added at open_)) knowledge **v0.34.124** replaced `tag-default`'s `Color` axis with a
   14-value `Type` axis (`Default`, `Catalog`, `Shared`, `Stage-1..8`, `Status-error`/`-warning`/`-success`),
-  deleted `tag-catalog`, `tag-shared`, `tag-stage`, `tag-status` and `tag-glossary-item-type`, renamed
-  `tag-catalog-item-type` to `tag-item-type` and `radio-button-card` to `radio-card`, and dropped the
-  ruleless `ds-tag--with-icon` modifier at both of its emit sites. No renderer or CSS code changed here:
+  deleted `tag-catalog`, `tag-shared`, `tag-stage`, `tag-status` and `tag-glossary-item-type`, and renamed
+  `tag-catalog-item-type` to `tag-item-type` and `radio-button-card` to `radio-card`. **v0.34.125** then
+  dropped the ruleless `ds-tag--with-icon` modifier at both of its emit sites (knowledge #527). The
+  vendored snapshot moves to v0.34.125, so this catch-up covers both. No renderer or CSS code changed here:
   since the relocation the plugin consumes knowledge's renderer from `vendor/`, so the only thing that
   could disagree was the test suite, and it did in nine places.
 
@@ -55,10 +56,19 @@ are summarized at the release level.
   they always should have had. All 13 tag backgrounds were checked rather than diffed: black text on every
   one clears AAA, worst `Type=Shared` `#cbe3ff` at 15.97.
 
-  **And two hand-maintained records moved for real reasons.** The blank-box baseline goes 45 to 44
-  (`radio-button-card: 1` to `radio-card: 1`, a rename, plus `checkbox-card: 2` to `1`, an improvement);
-  it was banked rather than regenerated on faith, and the writer refuses while any slug has regressed, so
-  the write is itself the evidence. README's doc-count denylist banned `"322 DS Kit"` from when DS Kit grew
+  **And two hand-maintained records moved for real reasons.** The blank-box baseline goes 45 to 44:
+  `radio-button-card: 1` to `radio-card: 1`, a rename, plus `checkbox-card: 2` to `1`, which is **not an
+  improvement**. That component's vendored anatomy collapsed from 11 nodes to 3 in the same sync
+  (`Content`, `Option label, digram, icon`, `Digram`, `Icon`, `Label`, `Description` and `Vector` all
+  gone, with `radio-card` showing the matching `Description` to `Slot` redesign), so the box did not get
+  fixed, its subject disappeared. It is banked as a shrunken subject, because calling it progress is the
+  fossil-measurement pattern this repo has already been burned by.
+
+  Worth recording about the gate itself: `bankable()` refuses only on `regressions` and chip demotions. A
+  rename is classified `disappeared` plus `unlisted`, neither of which it checks, so a successful write is
+  **not** evidence that a renamed slug's count is unchanged. It does hold here (1 equals 1, total 45 to 44,
+  nothing up), but that was established by reading the diff, not by the writer agreeing to run.
+  README's doc-count denylist banned `"322 DS Kit"` from when DS Kit grew
   past 322; the fold-in deleted five components, DS Kit came back down to 322, and the guard called the
   correct figure stale. That is the second time that list has fired against the truth, and the new part is
   the direction: a count denylist can be re-entered from below, so both remaining count literals are gone.

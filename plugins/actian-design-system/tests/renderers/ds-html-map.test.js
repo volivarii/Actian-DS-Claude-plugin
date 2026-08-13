@@ -508,6 +508,13 @@ describe("ds-html-map: tag-default", function () {
         " in the capture, so it must carry its own modifier, got: " +
         html.slice(0, 80),
     );
+    // The title says "keeps the icon", so assert it. This previously asserted
+    // only the with-icon modifier's absence, which is a different claim: a leaf
+    // that dropped the icon span entirely would have passed under that title.
+    assert.ok(
+      html.indexOf('<span class="ds-tag__icon">') !== -1,
+      "a painted Type still gets its leading icon, got: " + html.slice(0, 120),
+    );
     assert.ok(
       html.indexOf("ds-tag--with-icon") === -1,
       "no ruleless with-icon modifier",
