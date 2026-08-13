@@ -169,15 +169,25 @@ var DS_FIXTURES = {
     props: { Label: "Agree to terms" },
   },
   // Catalog-slice content components.
+  // tag-default's Color axis was retired on 2026-08-12 for a 14-value Type
+  // axis. Left as "Color=Default" these two kept rendering, because the leaf
+  // shape-clamps an unknown axis rather than throwing: the pill came out with
+  // NO modifier class at all and the golden would have gone on recording that
+  // as if it were the component. Both now name live Type values.
   tagDefault: {
     dsSlug: "tag-default",
-    variant: "Color=Default",
+    variant: "Type=Default",
     props: { Label: "Active" },
   },
+  // Still the icon-bearing counterpart, but the icon is no longer opted into:
+  // `Leading icon show` is a default-TRUE registry boolean, so passing it
+  // explicitly proved nothing the default did not already do. Type=Catalog is
+  // what carries a fact now, because the leaf swaps the GLYPH per Type
+  // (folder here, `add` for tagDefault above), so the pair pins the swap.
   tagWithIcon: {
     dsSlug: "tag-default",
-    variant: "Color=Default",
-    props: { Label: "Catalog", "Leading icon show": true },
+    variant: "Type=Catalog",
+    props: { Label: "Catalog" },
   },
   badgeNumber: {
     dsSlug: "badge",
@@ -440,38 +450,33 @@ var DS_FIXTURES = {
       Confidence: "High",
     },
   },
-  // Re-baselined for knowledge v0.34.116: tag-status is now a BUILT slug with
-  // its own ds-html-map leaf, which correctly takes precedence over the
-  // appearance-doc default: seam these goldens used to exercise.
+  // The tag-status COMPONENT was deleted on 2026-08-12 and folded into
+  // tag-default's Type axis, so these two are repointed onto their successor
+  // values (Status=Success -> Type=Status-success, Status=Fail ->
+  // Type=Status-error, which is what Figma now calls the failure value).
   //
-  // The re-baseline FIXED a real defect these goldens were pinning. On the old
-  // appearance path the label came from the doc's static text capture
-  // (opts.props was never consumed by appearance-render.js), so BOTH fixtures
-  // rendered "Fail" — tagStatusSuccess asserted the text "Fail" while passing
-  // Label:"Active". The leaf honours the prop, so they now read "Active" and
-  // "Failed" respectively.
+  // Left alone they would not have errored: the slug simply stops resolving,
+  // buildDsAnatomyDocMap returns {} and renderDSComponent falls to
+  // gracefulChip(), so the goldens would have quietly re-baselined onto a bare
+  // <span class="ds-component"> chip. That is why the fixtures move rather than
+  // the golden files being regenerated.
   //
-  // ⚠️ STILL RENDERS WITH NO ICON, AND THE GOLDENS STILL RECORD THAT, for a
-  // different reason than before. The old empty `ds-appearance__instance` box
-  // was the appearance path resolving a deleted glyph. The leaf is
-  // deliberately label-only: the 2026-07 Figma icon rework DELETED both
-  // `checkmark-outline` (Success) and `misuse-outline` (Fail), so knowledge
-  // renders no icon rather than shipping a fake one. Six dropped glyphs are
-  // NOT on the design team's own "REMOVED" note, so this looks like
-  // collateral. Tracked upstream (knowledge #406, and #405 names ghosts on
-  // every sync PR).
-  //
-  // When the glyphs are restored, knowledge should add them to the leaf and
-  // these goldens will fail. That is the point: re-baseline WITH the icon and
-  // delete this note.
+  // ✅ THE MISSING-ICON DEFECT THE OLD NOTE HERE TRACKED IS FIXED, and these
+  // goldens now record the icons. The previous note said knowledge rendered
+  // these label-only because the 2026-07 icon rework deleted `checkmark-outline`
+  // (Success) and `misuse-outline` (Fail), and it asked for a re-baseline WITH
+  // the icon once glyphs existed. The fold-in supplied different, live glyphs
+  // (`success-filled` and `error-filled`) via the leaf's per-Type icon map, so
+  // both pills now carry real path geometry. knowledge #406 covers the six
+  // dropped glyphs generally and stays open; it no longer blocks these two.
   tagStatusSuccess: {
-    dsSlug: "tag-status",
-    variant: "Status=Success",
+    dsSlug: "tag-default",
+    variant: "Type=Status-success",
     props: { Label: "Active" },
   },
   tagStatusFail: {
-    dsSlug: "tag-status",
-    variant: "Status=Fail",
+    dsSlug: "tag-default",
+    variant: "Type=Status-error",
     props: { Label: "Failed" },
   },
 };
