@@ -59,7 +59,8 @@ are summarized at the release level.
   **And two hand-maintained records moved for real reasons.** The blank-box baseline goes 45 to 44:
   `radio-button-card: 1` to `radio-card: 1`, a rename, plus `checkbox-card: 2` to `1`, which is **not an
   improvement**. That component's vendored anatomy collapsed from 11 nodes to 3 in the same sync
-  (`Content`, `Option label, digram, icon`, `Digram`, `Icon`, `Label`, `Description` and `Vector` all
+  (`Checkbox, content`, `Content`, `Option label, digram, icon`, `Digram`, `Icon`, `Label`,
+  `Description` and `Vector` all
   gone, with `radio-card` showing the matching `Description` to `Slot` redesign), so the box did not get
   fixed, its subject disappeared. It is banked as a shrunken subject, because calling it progress is the
   fossil-measurement pattern this repo has already been burned by.
