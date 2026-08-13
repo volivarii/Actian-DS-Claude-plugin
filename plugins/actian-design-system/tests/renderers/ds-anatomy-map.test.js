@@ -58,6 +58,8 @@ describe("collectDsSlugs", function () {
 });
 
 var anatomyMapMod = require("../../scripts/lib/renderer.js").dsAnatomyMap;
+var renderer = require("../../scripts/lib/renderer.js");
+var specimen = require("../helpers/appearance-specimen.js");
 
 test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes", () => {
   const data = {
@@ -140,10 +142,31 @@ function flowWith(variants) {
 }
 
 it("tag-default variant style is appearance-sourced: per-color paint, no bare unresolved token", function () {
-  var map = anatomyMapMod.buildDsVariantStyleMap(flowWith(["Color=Purple"]));
-  var style = map["tag-default|Color=Purple"];
-  assert.ok(style, "Purple entry present");
+  // The specimen is DERIVED. This named "Color=Purple" until the 2026-08-12
+  // fold-in retired tag-default's Color axis, after which the key resolved to
+  // nothing and the assertion read "Purple entry present" against a substrate
+  // that has no Purple. Naming a Type value instead would rot the same way, so
+  // the axis and the value come off the anatomy doc buildDsVariantStyleMap
+  // itself reads. See tests/helpers/appearance-specimen.js.
+  var painted = specimen.pickPaintedVariant(
+    renderer.anatomyLoader("tag-default"),
+    "tag-default",
+  );
+  var map = anatomyMapMod.buildDsVariantStyleMap(
+    flowWith([painted.variantString]),
+  );
+  var style = map["tag-default|" + painted.variantString];
+  assert.ok(style, painted.variantString + " entry present");
   assert.match(style, /background:/);
+  // The paint is the capture's own value, not merely "some background".
+  assert.ok(
+    style.indexOf("background:" + painted.background) !== -1,
+    painted.variantString +
+      " must inject the captured background " +
+      painted.background +
+      ", got: " +
+      style,
+  );
   // No border assertion: the 2026-07-23 tag redesign removed tag borders, so
   // tag-default's captured appearance is background-only and the renderer
   // correctly emits no border-color. Demanding one asserted the old Figma, not

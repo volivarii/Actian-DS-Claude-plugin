@@ -8,6 +8,8 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var renderer = require("../../scripts/lib/renderer.js");
+var specimen = require("../helpers/appearance-specimen.js");
 var PATHS = require("../../scripts/lib/paths.js");
 var fs = require("fs");
 var path = require("path");
@@ -435,51 +437,105 @@ describe("ds-html-map: checkbox", function () {
 });
 
 describe("ds-html-map: tag-default", function () {
-  it("default (no icon): ds-tag pill with esc'd Label, no icon span", function () {
+  // The axis and its values are DERIVED from the anatomy doc, never named.
+  // These tests drove "Color=Default" until the 2026-08-12 fold-in retired the
+  // Color axis for a 14-value Type axis. That failed loudly here, but the
+  // quieter half is the lesson: with an unknown axis the renderer emits a bare
+  // `<span class="ds-tag">` with NO modifier at all, and every substring
+  // assertion below except the class one would still have passed. See
+  // tests/helpers/appearance-specimen.js.
+  var tagDoc = renderer.anatomyLoader("tag-default");
+  var tagDefault = specimen.defaultVariantString(tagDoc, "tag-default");
+  var tagPainted = specimen.pickPaintedVariant(tagDoc, "tag-default");
+
+  it("default: ds-tag pill, its modifier class, esc'd Label, and the default-true leading icon", function () {
     var html = render({
       dsSlug: "tag-default",
-      variant: "Color=Default",
+      variant: tagDefault.variantString,
       props: { Label: "Active" },
     });
-    // Phase 1b: the colour class is additive (ds-tag--default here), backed
-    // by a real .ds-tag--default rule in the vendored ds-base.css.
     assert.ok(
-      html.indexOf('<span class="ds-tag ds-tag--default"') === 0,
-      "starts with ds-tag + its colour class",
+      html.indexOf('<span class="ds-tag ds-tag--' + tagDefault.classSuffix) ===
+        0,
+      "starts with ds-tag + its type class, got: " + html.slice(0, 80),
     );
     assert.ok(html.indexOf("Active") !== -1, "renders label");
+    // `Leading icon show` is a default-TRUE registry boolean and the captured
+    // default variant carries the icon child, so a caller that passes only a
+    // Label must still get the icon. Reading that prop truthily (the old
+    // behaviour, which this test encoded) dropped the icon from every gallery
+    // cell and every flow instance.
+    assert.ok(
+      html.indexOf('<span class="ds-tag__icon">') !== -1,
+      "leading icon shows by default, got: " + html.slice(0, 120),
+    );
+    assert.ok(/ d="M[^"]{20,}"/.test(html), "icon has real path geometry");
+  });
+
+  it("Leading icon show=false: drops the icon span, and no ruleless with-icon modifier is ever emitted", function () {
+    var html = render({
+      dsSlug: "tag-default",
+      variant: tagDefault.variantString,
+      props: { Label: "Bare", "Leading icon show": false },
+    });
     assert.ok(
       html.indexOf("ds-tag__icon") === -1,
-      "no icon span when Leading icon show falsy",
+      "no icon span when the prop is explicitly false",
     );
+    assert.ok(html.indexOf("Bare") !== -1, "renders label");
+    // Regression guard for the modifier knowledge dropped in the same fold-in:
+    // `ds-tag--with-icon` had no ds-base.css rule, so it painted nothing and
+    // only restated that the icon span exists. It must not come back on either
+    // branch, so both branches assert its absence.
     assert.ok(
       html.indexOf("ds-tag--with-icon") === -1,
-      "no with-icon modifier when icon off",
+      "no ruleless with-icon modifier",
     );
   });
 
-  it("Leading icon show: renders the folder icon span + with-icon modifier", function () {
+  it("a painted Type emits its own modifier class and keeps the icon", function () {
     var html = render({
       dsSlug: "tag-default",
-      variant: "Color=Default",
-      props: { Label: "Folder", "Leading icon show": true },
+      variant: tagPainted.variantString,
+      props: { Label: "Painted" },
     });
     assert.ok(
-      html.indexOf("ds-tag ds-tag--with-icon") !== -1,
-      "has with-icon modifier",
+      html.indexOf('<span class="ds-tag ds-tag--' + tagPainted.classSuffix) ===
+        0,
+      tagPainted.variantString +
+        " is painted " +
+        tagPainted.background +
+        " in the capture, so it must carry its own modifier, got: " +
+        html.slice(0, 80),
     );
     assert.ok(
-      html.indexOf('<span class="ds-tag__icon">') !== -1,
-      "has icon span",
+      html.indexOf("ds-tag--with-icon") === -1,
+      "no ruleless with-icon modifier",
     );
-    assert.ok(html.indexOf("<svg") !== -1, "has inline svg");
-    assert.ok(html.indexOf("Folder") !== -1, "renders label");
+  });
+
+  it("an unknown axis value emits no fabricated modifier", function () {
+    // The renderer SHAPE-clamps v.Type rather than checking it against a list
+    // of published values. A well-shaped but unpublished value must therefore
+    // render as the base pill, never as a guessed colour, and must never break
+    // out of the class attribute.
+    var html = render({
+      dsSlug: "tag-default",
+      variant: tagPainted.prop + '="><script>alert(1)</script>',
+      props: { Label: "Hostile" },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "no raw injection into class");
+    assert.ok(
+      /^<span class="ds-tag(?: ds-tag--[a-z0-9-]+)?"/.test(html),
+      "class attribute holds only well-shaped modifiers, got: " +
+        html.slice(0, 120),
+    );
   });
 
   it("escapes a hostile Label", function () {
     var html = render({
       dsSlug: "tag-default",
-      variant: "Color=Default",
+      variant: tagDefault.variantString,
       props: { Label: "<img src=x onerror=1>" },
     });
     assert.ok(html.indexOf("&lt;img") !== -1, "label escaped");
@@ -614,9 +670,18 @@ describe("ds-html-map: card-for-items (DS-native only)", function () {
       html.indexOf("ds-tag ds-card__eyebrow") !== -1,
       "eyebrow reuses ds-tag",
     );
+    // `ds-tag--with-icon` was dropped from BOTH emit sites in the 2026-08-12
+    // fold-in: it had no ds-base.css rule, so it painted nothing and only
+    // restated that the icon span below exists. The icon span IS the fact, so
+    // it is what this asserts; the modifier's absence is asserted too, so the
+    // no-op class cannot quietly come back.
     assert.ok(
-      html.indexOf("ds-tag ds-tag--with-icon ds-card__cat") !== -1,
-      "category reuses ds-tag w/ icon",
+      html.indexOf("ds-tag ds-card__cat") !== -1,
+      "category reuses ds-tag",
+    );
+    assert.ok(
+      html.indexOf("ds-tag--with-icon") === -1,
+      "no ruleless with-icon modifier",
     );
     assert.ok(html.indexOf("ds-tag__icon") !== -1, "category folder icon");
     assert.ok(html.indexOf("ds-card__title") !== -1, "has title");
@@ -3059,25 +3124,36 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
 // (label + icon) and INJECTS the harvested variant token style as an inline
 // style attr, instead of being replaced by anatomy HTML.
 describe("ds-html-map: tag-default variant-style token injection", function () {
+  // Composite key + class suffix both derived from the live axis; this named
+  // "Color=Pink" on both sides, so after the fold-in the map key matched
+  // nothing AND the expected class was gone. The injected STYLE VALUE stays a
+  // literal on purpose: it is the test's own sentinel, not a substrate fact,
+  // and it must be recognisable in the output to prove it survived the trip.
+  var injectPainted = specimen.pickPaintedVariant(
+    renderer.anatomyLoader("tag-default"),
+    "tag-default",
+  );
+  var SENTINEL = "background-color:rgb(1, 2, 3)";
+
   it("renderDSComponent: tag-default injects the variant style onto the ds-tag span, keeping the label", function () {
-    ds.setVariantStyleMap({
-      "tag-default|Color=Pink": "background-color:var(--zen-pink)",
-    });
+    var map = {};
+    map["tag-default|" + injectPainted.variantString] = SENTINEL;
+    ds.setVariantStyleMap(map);
     try {
       var html = render({
         dsSlug: "tag-default",
-        variant: "Color=Pink",
+        variant: injectPainted.variantString,
         props: { Label: "Customer Orders" },
       });
       assert.ok(
-        html.includes('class="ds-tag ds-tag--pink"'),
-        "hand-authored ds-tag span, with its phase-1b colour class",
+        html.includes(
+          'class="ds-tag ds-tag--' + injectPainted.classSuffix + '"',
+        ),
+        "hand-authored ds-tag span, with its phase-1b colour class, got: " +
+          html.slice(0, 120),
       );
       assert.ok(html.includes("Customer Orders"), "label preserved");
-      assert.ok(
-        html.includes("background-color:var(--zen-pink)"),
-        "variant style injected",
-      );
+      assert.ok(html.includes(SENTINEL), "variant style injected");
     } finally {
       ds.setVariantStyleMap(null);
     }
@@ -3087,12 +3163,15 @@ describe("ds-html-map: tag-default variant-style token injection", function () {
     ds.setVariantStyleMap(null);
     var html = render({
       dsSlug: "tag-default",
-      variant: "Color=Pink",
+      variant: injectPainted.variantString,
       props: { Label: "Hi" },
     });
     assert.ok(
-      html.includes('class="ds-tag ds-tag--pink"') && html.includes("Hi"),
-      "plain ds-tag with label (colour class only, no injected style)",
+      html.includes(
+        'class="ds-tag ds-tag--' + injectPainted.classSuffix + '"',
+      ) && html.includes("Hi"),
+      "plain ds-tag with label (colour class only, no injected style), got: " +
+        html.slice(0, 120),
     );
     assert.ok(!html.includes(" style="), "no injected style when map is empty");
   });

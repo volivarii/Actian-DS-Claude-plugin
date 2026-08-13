@@ -24,6 +24,7 @@ var fs = require("node:fs");
 var path = require("node:path");
 var PATHS = require("../../scripts/lib/paths.js");
 var renderer = require("../../scripts/lib/renderer.js");
+var specimen = require("../helpers/appearance-specimen.js");
 
 // Drive variants from the vendored matrix rather than hardcoding them, so a
 // registry change cannot leave this test asserting against variants that no
@@ -118,15 +119,37 @@ test("the icon map is non-empty and matches the vendored source", function () {
 // closes that divergence in the plugin's OWN output (spec success criterion 3),
 // so pin it here rather than discovering it after the repoint.
 test("the tag/checkbox divergence is closed in the plugin's own renderer", function () {
+  // The specimen is DERIVED, not named. This asserted `Color=Pink` until the
+  // 2026-08-12 fold-in retired tag-default's whole Color axis, at which point
+  // the filter matched no cell and the test failed for a reason that was not a
+  // regression. specimen.pickPaintedVariant reads the axis and the value off
+  // the anatomy doc, so it is correct whether the axis is Color, Type, or
+  // whatever the next redesign calls it.
+  var tagDoc = renderer.anatomyLoader("tag-default");
+  assert.ok(
+    tagDoc && tagDoc.root,
+    "tag-default anatomy must load (precondition)",
+  );
+  var painted = specimen.pickPaintedVariant(tagDoc, "tag-default");
+
   var tagCells = renderer.matrix.variantMatrix("tag-default");
-  var pink = tagCells.filter(function (c) {
-    return /Color=Pink/.test(c.variant);
+  var cell = tagCells.filter(function (c) {
+    return c.variant === painted.variantString;
   })[0];
-  assert.ok(pink, "tag-default matrix has no Pink cell");
+  assert.ok(
+    cell,
+    "the matrix has no cell for the painted variant " +
+      painted.variantString +
+      "; the anatomy and the matrix disagree about the axis",
+  );
   assert.match(
-    render("tag-default", pink),
-    /ds-tag--pink/,
-    "tag-default must emit its colour class, not render as base grey",
+    render("tag-default", cell),
+    new RegExp("ds-tag--" + painted.classSuffix + "\\b"),
+    painted.variantString +
+      " is painted " +
+      painted.background +
+      " in the capture, so it must emit its own modifier class rather than " +
+      "render as the base pill",
   );
 
   var cbCells = renderer.matrix.variantMatrix("checkbox");
@@ -143,11 +166,36 @@ test("the tag/checkbox divergence is closed in the plugin's own renderer", funct
 
 test("the styling source is the vendored one and carries the phase-1b rules", function () {
   var css = fs.readFileSync(renderer.cssPaths.base, "utf8");
-  assert.match(
-    css,
-    /\.ds-tag--pink/,
-    "ds-base.css missing the tag colour rules",
+
+  // Was `assert.match(css, /\.ds-tag--pink/)`. One hardcoded hue proved only
+  // that ONE rule survived the vendor copy, and it went stale the moment the
+  // hue did. Asserting the whole captured set instead is both derived and a
+  // strictly stronger gate: every Type the capture paints differently from the
+  // base must have a rule here, or that Type ships a modifier class that
+  // paints nothing and the pill renders as base grey in the deliverable.
+  //
+  // The converse is deliberately NOT asserted. Type=Default and Type=Stage-1
+  // carry no captured delta (Stage-1 has no appearance group at all), so they
+  // emit a modifier with no rule behind it on purpose; demanding a rule for
+  // them would be demanding an invented hue.
+  var tagDoc = renderer.anatomyLoader("tag-default");
+  var paints = specimen.capturedVariantPaints(tagDoc);
+  assert.ok(
+    paints.length,
+    "tag-default's capture paints no variant at all, so this assertion has " +
+      "no subject; retire or repoint it rather than passing vacuously",
   );
+  var unruled = paints.filter(function (p) {
+    return !new RegExp("\\.ds-tag--" + p.classSuffix + "\\s*\\{").test(css);
+  });
+  assert.deepEqual(
+    unruled.map(function (p) {
+      return p.variantString + " (" + p.background + ")";
+    }),
+    [],
+    "ds-base.css is missing a .ds-tag--<type> rule for these captured paints",
+  );
+
   assert.match(
     css,
     /\.ds-checkbox--indeterminate/,

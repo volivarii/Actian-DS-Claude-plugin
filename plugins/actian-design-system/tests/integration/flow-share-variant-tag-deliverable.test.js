@@ -195,11 +195,21 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // the old shape is what turned a substrate change into a red vendor PR.
   // The class suffix is the derived value (coloredClassSuffix), not a
   // hardcoded color name -- see the #275 header note.
+  // The leading icon span is OPTIONAL between the pill's opening tag and its
+  // label. It is not noise to be tolerated: the 2026-08-12 fold-in made
+  // `Leading icon show` a default-TRUE registry boolean (the capture's default
+  // variant does carry the icon child), so most Types now render one, while
+  // Type=Shared's capture records childCount 2!=1 and renders none. This regex
+  // previously demanded the label IMMEDIATELY after the opening tag, which
+  // silently encoded "tags have no icon" and went red when they gained one.
+  // Both shapes are correct output, so both are accepted here; WHICH one a
+  // given Type emits is asserted in ds-html-map.test.js against the props,
+  // where the icon is the subject rather than incidental.
   const coloredMatch = html.match(
     new RegExp(
       '<span class="ds-tag ds-tag--' +
         coloredClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
-        '" style="([^"]*)">Tag</span>',
+        '" style="([^"]*)">(?:<span class="ds-tag__icon">[\\s\\S]*?</span>)?Tag</span>',
     ),
   );
   assert.ok(
@@ -245,11 +255,30 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // The DEFAULT variant equals the base appearance, so buildDsVariantStyleMap
   // emits no map entry for it: no injected style at all, ds-base.css owns
   // the default pill's background/border.
-  const defaultSpan = `<span class="ds-tag ds-tag--${defaultClassSuffix}">Draft Items</span>`;
+  //
+  // Asserted as "the opening tag carries no attribute beyond its class",
+  // rather than as a whole-span string equality. The old equality also pinned
+  // the pill's CHILDREN, so when the fold-in made the leading icon default-true
+  // this failed claiming an injected style that was never there. Capturing the
+  // attribute tail keeps the real subject (no style attr) and stops the
+  // assertion from doubling as an accidental icon golden.
+  const defaultMatch = html.match(
+    new RegExp(
+      '<span class="ds-tag ds-tag--' +
+        defaultClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+        '"([^>]*)>(?:<span class="ds-tag__icon">[\\s\\S]*?</span>)?Draft Items</span>',
+    ),
+  );
   assert.ok(
-    html.includes(defaultSpan),
-    `${defaultVariantString}'s ds-tag span must carry NO injected inline style (ds-base.css owns the default), got no match for: ` +
-      defaultSpan,
+    defaultMatch,
+    `${defaultVariantString} must render a ds-tag--${defaultClassSuffix} span labelled "Draft Items", got: ` +
+      (html.match(/<span class="ds-tag[^>]*>/g) || []).join(" "),
+  );
+  assert.strictEqual(
+    defaultMatch[1],
+    "",
+    `${defaultVariantString}'s ds-tag span must carry NO injected inline style (ds-base.css owns the default), got attributes: ` +
+      defaultMatch[1],
   );
 
   // Regression guard: no ds-tag span, of any variant, may ever inject a
