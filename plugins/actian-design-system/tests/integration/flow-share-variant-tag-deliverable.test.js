@@ -50,6 +50,55 @@ const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 // carries one, and its absence is asserted too: if the substrate has no border,
 // the deliverable must not invent one. That turns the stale expectation into a
 // fidelity guard that can fail in both directions.
+//
+// #275 (2026-08-12): the SPECIMEN itself rotted the same way a hardcoded slug
+// does in tests/helpers/appearance-specimen.js. This test drove
+// parseVariant("Color=Purple"); the 2026-08-12 fold-in (knowledge v0.34.124)
+// replaced tag-default's `Color` axis (7 values) with a `Type` axis (14
+// values: Default, Catalog, Shared, Stage-1..8, Status-error/-warning/
+// -success), so "Color=Purple" resolves to nothing against the new data --
+// no matching entry in appearance.variants, so resolveNodeAppearance returns
+// the base unchanged, and the "must differ from the base appearance"
+// precondition below fails. pickColoredVariant() below applies
+// appearance-specimen.js's pattern to this problem instead: read the axis
+// name and a value straight off the anatomy doc's own appearance.variants
+// array (the same structure resolveNodeAppearance itself walks), and pick
+// whichever entry's resolved background actually differs from the base. No
+// axis name or value is named here, so it is correct whether the doc's axis
+// is `Color`, `Type`, or something else entirely next time it is redesigned.
+
+// Pick a `<prop>=<value>` variant string straight from tag-default's own
+// anatomy doc rather than naming one. Mirrors pickSpecimen() in
+// tests/helpers/appearance-specimen.js: walk real candidates in a
+// deterministic order (the array order the anatomy doc itself carries) and
+// return the first one that satisfies the caller's predicate, throwing
+// loudly -- not silently returning the base -- if none do.
+function pickColoredVariant(doc, base) {
+  const deltas = (doc.root.appearance && doc.root.appearance.variants) || [];
+  for (const entry of deltas) {
+    if (!entry || !entry.prop || !Array.isArray(entry.values)) continue;
+    for (const value of entry.values) {
+      const variantString = `${entry.prop}=${value}`;
+      const resolved = appearanceRender.resolveNodeAppearance(
+        doc.root,
+        parseVariant(variantString),
+      );
+      if (
+        resolved &&
+        resolved.background &&
+        resolved.background !== base.background
+      ) {
+        return { variantString, appearance: resolved };
+      }
+    }
+  }
+  throw new Error(
+    "tag-default's anatomy doc carries no appearance.variants entry whose " +
+      "background differs from the base -- this test has no colored " +
+      "specimen left; retire or repoint it rather than letting it pass " +
+      "vacuously against an empty/uniform population",
+  );
+}
 
 test("flow-share deliverable: tag-default renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
   const doc = anatomyRender.loadAnatomy("tag-default");
@@ -58,29 +107,46 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
     "tag-default anatomy doc must load (precondition)",
   );
 
-  const purpleVariant = parseVariant("Color=Purple");
-  const defaultVariant = parseVariant("Color=Default");
-
   const base = appearanceRender.resolveNodeAppearance(doc.root, null);
-  const purple = appearanceRender.resolveNodeAppearance(
-    doc.root,
-    purpleVariant,
+
+  // The axis + value are derived, never named (see pickColoredVariant above
+  // and the #275 header note). "Default" is read from the doc's own
+  // variantDefaults rather than assumed, for the same reason.
+  const { variantString: coloredVariantString, appearance: colored } =
+    pickColoredVariant(doc, base);
+  const [axisProp] = Object.keys(doc.variantDefaults || {});
+  assert.ok(
+    axisProp,
+    "tag-default's anatomy doc must declare variantDefaults (precondition)",
   );
+  const defaultVariantString = `${axisProp}=${doc.variantDefaults[axisProp]}`;
+  // The class modifiers the deliverable's ds-tag spans are expected to carry:
+  // derived from the SAME values picked above, not a second hardcoded name,
+  // so each tracks whichever value its source actually returned.
+  const coloredClassSuffix = String(
+    coloredVariantString.split("=")[1],
+  ).toLowerCase();
+  const defaultClassSuffix = String(
+    defaultVariantString.split("=")[1],
+  ).toLowerCase();
+
+  const defaultVariant = parseVariant(defaultVariantString);
+
   const def = appearanceRender.resolveNodeAppearance(doc.root, defaultVariant);
 
   assert.ok(
-    purple && purple.background,
-    "Color=Purple must resolve a background (precondition)",
+    colored && colored.background,
+    `${coloredVariantString} must resolve a background (precondition)`,
   );
   assert.notStrictEqual(
-    purple.background,
+    colored.background,
     base.background,
-    "Color=Purple must differ from the base appearance (precondition: otherwise nothing to inject)",
+    `${coloredVariantString} must differ from the base appearance (precondition: otherwise nothing to inject)`,
   );
   assert.deepStrictEqual(
     def,
     base,
-    "Color=Default must equal the base appearance (precondition: default renders via ds-base.css, no injection)",
+    `${defaultVariantString} must equal the base appearance (precondition: default renders via ds-base.css, no injection)`,
   );
 
   const flow = {
@@ -93,14 +159,14 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
             type: "INSTANCE",
             library: "ds",
             dsSlug: "tag-default",
-            variant: "Color=Purple",
+            variant: coloredVariantString,
             props: { Label: "Tag" },
           },
           {
             type: "INSTANCE",
             library: "ds",
             dsSlug: "tag-default",
-            variant: "Color=Default",
+            variant: defaultVariantString,
             props: { Label: "Draft Items" },
           },
         ],
@@ -115,10 +181,10 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
     html.includes('class="ds-tag ds-tag--'),
     "renders the hand-authored ds-tag span, not anatomy divs",
   );
-  assert.ok(html.includes("Tag"), "Purple tag keeps its instance label");
+  assert.ok(html.includes("Tag"), "colored tag keeps its instance label");
   assert.ok(
     html.includes("Draft Items"),
-    "Default tag keeps its instance label",
+    "default tag keeps its instance label",
   );
 
   // The colored variant's span carries an inline style sourced from the
@@ -127,56 +193,62 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   // actually captured, rather than against a fixed background+border shape:
   // the 2026-07-23 tag redesign removed tag borders outright, and hardcoding
   // the old shape is what turned a substrate change into a red vendor PR.
-  const purpleMatch = html.match(
-    /<span class="ds-tag ds-tag--purple" style="([^"]*)">Tag<\/span>/,
+  // The class suffix is the derived value (coloredClassSuffix), not a
+  // hardcoded color name -- see the #275 header note.
+  const coloredMatch = html.match(
+    new RegExp(
+      '<span class="ds-tag ds-tag--' +
+        coloredClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+        '" style="([^"]*)">Tag</span>',
+    ),
   );
   assert.ok(
-    purpleMatch,
-    "Color=Purple must render a ds-tag--purple span with an injected inline style, got: " +
+    coloredMatch,
+    `${coloredVariantString} must render a ds-tag--${coloredClassSuffix} span with an injected inline style, got: ` +
       (html.match(/<span class="ds-tag[^>]*>/g) || []).join(" "),
   );
-  const purpleDecls = purpleMatch[1]
+  const coloredDecls = coloredMatch[1]
     .split(";")
     .map(function (d) {
       return d.trim();
     })
     .filter(Boolean);
   assert.ok(
-    purpleDecls.includes("background:" + purple.background),
-    "Color=Purple's span must inject the appearance layer's real background value (" +
-      purple.background +
+    coloredDecls.includes("background:" + colored.background),
+    `${coloredVariantString}'s span must inject the appearance layer's real background value (` +
+      colored.background +
       "), got: " +
-      purpleDecls.join(";"),
+      coloredDecls.join(";"),
   );
-  if (purple.border && purple.border.color) {
+  if (colored.border && colored.border.color) {
     assert.ok(
-      purpleDecls.includes("border-color:" + purple.border.color),
+      coloredDecls.includes("border-color:" + colored.border.color),
       "the appearance layer captured a border, so the span must inject its real value (" +
-        purple.border.color +
+        colored.border.color +
         "), got: " +
-        purpleDecls.join(";"),
+        coloredDecls.join(";"),
     );
   } else {
     // Fidelity guard, and the reason this branch is an assertion rather than a
     // skip: Figma draws no border on tags any more, so a border in the
     // deliverable would be the renderer inventing one.
     assert.ok(
-      !purpleDecls.some(function (d) {
+      !coloredDecls.some(function (d) {
         return d.startsWith("border");
       }),
       "the appearance layer captured no border for tag-default, so the deliverable " +
         "must not invent one, got: " +
-        purpleDecls.join(";"),
+        coloredDecls.join(";"),
     );
   }
 
   // The DEFAULT variant equals the base appearance, so buildDsVariantStyleMap
   // emits no map entry for it: no injected style at all, ds-base.css owns
   // the default pill's background/border.
-  const defaultSpan = '<span class="ds-tag ds-tag--default">Draft Items</span>';
+  const defaultSpan = `<span class="ds-tag ds-tag--${defaultClassSuffix}">Draft Items</span>`;
   assert.ok(
     html.includes(defaultSpan),
-    "Color=Default's ds-tag span must carry NO injected inline style (ds-base.css owns the default), got no match for: " +
+    `${defaultVariantString}'s ds-tag span must carry NO injected inline style (ds-base.css owns the default), got no match for: ` +
       defaultSpan,
   );
 
@@ -198,11 +270,15 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   });
 
   // Phase 2: the colour class must not dangle. Before the plugin consumed the
-  // vendored styling source it emitted ds-tag--purple with no backing rule,
-  // because the plugin's own ds-base.css predated phase 1b.
+  // vendored styling source it emitted a color modifier class with no
+  // backing rule, because the plugin's own ds-base.css predated phase 1b.
   assert.ok(
-    /\.ds-tag--purple\s*\{/.test(html),
-    "the emitted ds-tag--purple class has no rule in the deliverable CSS: " +
+    new RegExp(
+      "\\.ds-tag--" +
+        coloredClassSuffix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+        "\\s*\\{",
+    ).test(html),
+    `the emitted ds-tag--${coloredClassSuffix} class has no rule in the deliverable CSS: ` +
       "FLOW_CSS is not reading the vendored ds-base.css",
   );
 });
