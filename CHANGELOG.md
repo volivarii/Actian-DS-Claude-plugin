@@ -20,6 +20,31 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Fixed
+- **Two tests hardcoded facts that a Figma redesign was about to invalidate, and one of them would have
+  kept passing while asserting nothing.** ([#280](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/280)) Both were filed as
+  #275 when they were found by running the next sync locally rather than by CI, and both went live when
+  the knowledge repo merged its tag fold-in (knowledge #522, v0.34.124).
+
+  `categories.test.js` asserted that a non-COMPONENTS category equals its Figma page clean-name,
+  verified 252/252 when it shipped. That is not an invariant: knowledge's `preserveKnownCategories`
+  deliberately carries a component's last-known category forward when Figma's page attribution churns,
+  which decouples the two by design. The assertion was also redundant, because the relation that does
+  hold, `categories.json` against `registry.category`, is already asserted a few tests further down.
+  The page-name half is gone; the curated closed-set half, which encodes a real decision, stays.
+
+  The tag deliverable test drove `parseVariant("Color=Purple")`. The fold-in replaced `tag-default`'s
+  `Color` axis with a `Type` axis, so that resolves to nothing, the variant appearance silently equals
+  the base, and the test's own precondition stops meaning anything while still reporting green. It now
+  picks its specimen at run time from whatever axis the anatomy publishes, naming neither `Color` nor
+  `Type`, the way `tests/helpers/appearance-specimen.js` picks a slug instead of naming one. Verified
+  on both snapshots (it selects `Color=Indigo` on the vendored v0.34.122 and `Type=Catalog` on
+  v0.34.124), and it can no longer pass vacuously: an empty axis, a missing axis, or a first value
+  matching the base all raise rather than skip.
+
+  The lesson is the one already written into `tests/helpers/appearance-specimen.js`: a test that names
+  a specimen rots the moment the design system reorganizes, and it rots quietly, because the assertion
+  survives while its subject disappears.
+
 - **The blank-box gate was carrying 91 boxes of silent headroom, so the gray-box programme's real
   progress was invisible inside the gate built to track it.** ([#277](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/277)) The gate
   shipped on 2026-07-13 with two literals in its test file, `BUDGET = 136` and `CHIP_BUDGET = 4`, both
