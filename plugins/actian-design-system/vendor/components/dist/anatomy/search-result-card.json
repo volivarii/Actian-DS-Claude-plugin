@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-result-card",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12932:3259",
@@ -172,17 +172,18 @@
             },
             "children": [
               {
-                "name": "Tag, Catalog item type",
+                "name": "Tag, Item type",
                 "kind": "instance",
-                "slug": "tag-catalog-item-type",
+                "slug": "tag-item-type",
                 "props": {
+                  "Show Counter": false,
                   "Show counter": false,
-                  "Type": "Category"
+                  "Property 1": "Category"
                 },
                 "id": "12932:3266",
                 "appearance": {
                   "background": "#ffd7ca",
-                  "radius": "6px"
+                  "radius": "4px"
                 }
               },
               {
@@ -226,22 +227,26 @@
             ]
           },
           {
-            "name": "Tag, Stage",
+            "name": "Tag, Default",
             "kind": "instance",
-            "slug": "tag-stage",
+            "slug": "tag-default",
             "props": {
-              "Leading icon": true,
-              "Trailing icon": false,
-              "Color": "Gray"
+              "Leading icon show": true,
+              "Label": "Default",
+              "Type": "Stage-1"
             },
             "tokenRefs": [
               "--zen-color-neutral-50"
             ],
             "id": "14968:1199",
             "appearance": {
-              "background": "#ebebeb",
-              "backgroundToken": "--zen-color-neutral-50",
-              "radius": "6px"
+              "background": "#fcfcfc",
+              "border": {
+                "color": "#ebebeb",
+                "colorToken": "--zen-color-neutral-50",
+                "width": "1px"
+              },
+              "radius": "4px"
             }
           },
           {
@@ -249,9 +254,9 @@
             "kind": "instance",
             "slug": "button",
             "props": {
-              "Show leading icon": true,
-              "Show label": true,
               "Show trailing icon": true,
+              "Show label": true,
+              "Show leading icon": true,
               "Label": "Button",
               "Intent": "Default",
               "Emphasis": "Icon-only",
@@ -323,16 +328,22 @@
             },
             "children": [
               {
-                "name": "Tag, Catalog",
+                "name": "Tag, Default",
                 "kind": "instance",
-                "slug": "tag-catalog",
+                "slug": "tag-default",
                 "props": {
-                  "Property 1": "Default"
+                  "Leading icon show": true,
+                  "Label": "Default",
+                  "Type": "Catalog"
                 },
                 "id": "12932:3273",
                 "appearance": {
-                  "background": "#d0efed",
-                  "radius": "6px"
+                  "background": "#ecffff",
+                  "border": {
+                    "color": "#d0efed",
+                    "width": "1px"
+                  },
+                  "radius": "4px"
                 }
               }
             ]
@@ -460,6 +471,7 @@
                       "values": [
                         "Studio"
                       ],
+                      "radius": "4px",
                       "border": {
                         "color": "#fff9e5",
                         "colorToken": "--zen-color-warning-25",

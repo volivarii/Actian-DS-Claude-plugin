@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tooltip",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7038:351",
@@ -22,7 +22,7 @@
     ],
     "id": "7036:1360",
     "appearance": {
-      "background": "#000000",
+      "background": "#33333a",
       "backgroundToken": "--zen-color-bg-reverse",
       "radius": "4px"
     },
@@ -42,6 +42,13 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "right": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
       }
     },
     "children": [

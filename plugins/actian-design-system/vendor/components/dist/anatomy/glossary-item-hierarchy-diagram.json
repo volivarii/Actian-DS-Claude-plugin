@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:30242",
@@ -119,8 +119,8 @@
             "props": {
               "Show label": true,
               "Show trailing icon": false,
-              "Label": "Switch to list view",
               "Show leading icon": false,
+              "Label": "Switch to list view",
               "Intent": "Default",
               "Emphasis": "Ghost",
               "Size": "Small",

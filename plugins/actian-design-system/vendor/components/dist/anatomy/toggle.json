@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "toggle",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14000:4395",
@@ -222,7 +222,7 @@
         ]
       },
       {
-        "name": "Label",
+        "name": "Option label",
         "kind": "text",
         "tokenRefs": [
           "--zen-color-text-default"
@@ -284,7 +284,7 @@
             }
           ]
         },
-        "text": "Label"
+        "text": "Option label"
       }
     ]
   },

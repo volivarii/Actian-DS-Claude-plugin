@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-323 components.
+322 components.
 
 ---
 
@@ -15,6 +15,16 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 - Variants: **Type:** `Explorer` · `Data Intelligence` · `Studio` · `Admin` | **Orientation:** `Horizontal` · `Vertical`
 - Node: `7764:7617` | Key: `2e53061b856da7a42b2328279d16718d252e0780`
 
+### Actian Data Intelligence/Explorer/Horizontal
+
+- Single component (no variants)
+- Node: `21084:2319` | Key: `5991f7a4d3d14619cdd1b3cc74a15e527c4e1e86`
+
+### Actian Data Intelligence/Studio/Horizontal
+
+- Single component (no variants)
+- Node: `21084:2357` | Key: `3ceea2a2eab77590e57a33320e4f6cf1ae171b60`
+
 ### Actian Data Observability
 
 - Variants: **Color:** `Full colo` · `White` | **Layout:** `Vertical` · `Horizontal`
@@ -22,7 +32,7 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 
 ### Actian pyramid
 
-- Variants: **Color:** `Full color` · `White`
+- Variants: **Color:** `Full color` · `White` · `Color3` · `Color4`
 - Node: `7764:7688` | Key: `84e6abe2e5b7dbe96a859397f557249922560413`
 
 ### add
@@ -125,6 +135,11 @@ Menu list item - can be edited by selecting individual list item and  selecting 
 
 - Single component (no variants)
 - Node: `7207:2837` | Key: `7940e22ca8c7fb72312b009bbc5d622c45dfc58f`
+
+### arrow-up
+
+- Single component (no variants)
+- Node: `7207:2842` | Key: `5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4`
 
 ### atlas
 
@@ -252,7 +267,7 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 
 ### Breadcrumb
 
-Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.
+This component is built as a custom component by Index-0 and is not officially in the engineering design system library.
 
 - Variants: **Type:** `Default`
 - Node: `13792:15247` | Key: `72976d77668b8e085d716fc8c5bc0bd144cb7274`
@@ -341,7 +356,7 @@ Used for binary choices (on/off) or when a user can select multiple options from
 
 ### Checkbox card
 
-- Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
+- Variants: **Selection:** `Unselected` · `Selected` · `Indeterminate` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `19983:23496` | Key: `f1c35d44a6be64cac73490c2851e38d5b5c1688a`
 
 ### Checkbox group
@@ -495,6 +510,11 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 - Single component (no variants)
 - Node: `8400:25053` | Key: `080e8e3e95430d11d6aaec7537143d437b0dbd75`
+
+### Datasets
+
+- Single component (no variants)
+- Node: `18532:4652` | Key: `119f67e361c3421c5d2b3ad53ffd2df7f253de4c`
 
 ### date
 
@@ -1205,7 +1225,7 @@ Used for mutually exclusive choices where the user must select exactly one optio
 - Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
 
-### Radio button card
+### Radio card
 
 - Variants: **Selection:** `Unselected` · `Selected` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Node: `19746:36001` | Key: `897d587b486e30b303ba9f4169a4daccf179faff`
@@ -1506,64 +1526,29 @@ Use to switch between related views within the same context without navigating t
 - Boolean properties: `Show Avatar#14797:0` (default: true) — set to `false` to hide
 - Node: `14747:14818` | Key: `dbd33845613381780e5364600815d9bc983d5230`
 
-### Tag, Catalog
-
-Use for catalog types. Can be interactive (removable) or static metadata.
-
-- Variants: **Property 1:** `Default`
-- Node: `13812:22309` | Key: `a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2`
-
-### Tag, Catalog item type
-
-Use for physical metamodel item types. Can be interactive (removable) or static metadata.
-
-- Variants: **Type:** `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization` · `Category`
-- Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
-
 ### Tag, Default
 
-Use for categorizing or labeling items (e.g., "Design", "In Progress"). Can be interactive (removable) or static metadata.
+This is read-only tag
 
-- Variants: **Color:** `Pink` · `Purple` · `Indigo` · `Yellow` · `Lime` · `Teal` · `Orange` · `Gray` · `Default`
+- Variants: **Type:** `Default` · `Catalog` · `Shared` · `Stage-1` · `Stage-2` · `Stage-3` · `Stage-4` · `Stage-5` · `Stage-6` · `Stage-7` · `Stage-8` · `Status-error` · `Status-warning` · `Status-success`
 - Text overrides: `Label#257:0`
-- **Required overrides:** `Label#257:0` (default `"Label"` is a placeholder)
 - Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
 - Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
 
-### Tag, Glossary item type
-
-Use for glossary item types. Can be interactive (removable) or static metadata.
-
-- Variants: **Property 1:** `Default`
-- Node: `13812:22308` | Key: `639773a27d790a489c5e115360b64c7d05a45ac3`
-
 ### Tag, Interactive
 
-- Variants: **State:** `Hovered` · `Pressed` · `Expanded` · `Disabled` · `Focused` · `Default`
-- Boolean properties: `Trailing icon show#13846:28` (default: true) — set to `false` to hide
+Interacitve tag
+
+- Variants: **State:** `Default` · `Disabled` · `Focus` · `Hover` · `Pressed` | **Type:** `Dismissible` · `Selectable` · `Dropdown-expanded` · `Dropdown` · `Selectable-selected`
+- Boolean properties: `Show trailing icon#21264:8` (default: true) — set to `false` to hide · `Show leading icon#21264:24` (default: true) — set to `false` to hide
 - Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
 
-### Tag, Shared
+### Tag, Item type
 
-Use for indicating something is recently updated. Can be interactive (removable) or static metadata.
+This is read-only tag. Use for item types.
 
-- Variants: **Property 1:** `Default`
-- Node: `13812:22307` | Key: `7a867b11eaec8c2cffd3a7cd21da62f66516e771`
-
-### Tag, Stage
-
-Use for data lifecycle stages. Can be interactive (removable) or static metadata.
-
-- Variants: **Color:** `Orange` · `Indigo` · `Purple` · `Lime` · `Teal` · `Yellow` · `Gray` · `Pink`
-- Boolean properties: `Leading icon#13844:7` (default: true) — set to `false` to hide
-- Node: `8655:10279` | Key: `2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc`
-
-### Tag, Status
-
-Use for status. Can be interactive (removable) or static metadata.
-
-- Variants: **Status:** `Warning` · `Loading` · `Pending` · `Success` · `Fail`
-- Node: `7257:3705` | Key: `1663e13e4fe1648aeef7bf6978f7faeea14a4c17`
+- Variants: **Property 1:** `Glossary-1` · `Glossary-2` · `Glossary-3` · `Glossary-4` · `Glossary-5` · `Category` · `Custom-1` · `Custom-2` · `Custom-3` · `Custom-4` · `Custom-5` · `Custom-6` · `Custom-7` · `Custom-8` · `Custom-9` · `Custom-10` · `Custom-11` · `Custom-12` · `Custom-13` · `Custom-14` · `Custom-15` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
+- Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
 
 ### tags-add
 
@@ -1664,7 +1649,7 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 - Boolean properties: `Show View scale#14335:0` (default: true) — set to `false` to hide
 - Node: `14335:16907` | Key: `96683d78ad981aacc04a5b6c7c2b0f0f1d631516`
 
-### ⚠️ Tooltip
+### Tooltip
 
 Flex width with maximum width of 320px.
 

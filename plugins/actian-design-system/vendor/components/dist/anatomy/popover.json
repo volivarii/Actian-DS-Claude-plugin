@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -276,8 +276,8 @@
                     "props": {
                       "Show Button 3": true,
                       "Show Button 1": true,
-                      "Show Button 2": true,
                       "Show Avatar": false,
+                      "Show Button 2": true,
                       "Show Sort": false,
                       "Type": "Header"
                     },
@@ -299,8 +299,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -323,8 +323,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -347,8 +347,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -371,8 +371,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -395,8 +395,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -419,8 +419,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -443,8 +443,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -467,8 +467,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -518,8 +518,8 @@
                     "props": {
                       "Show Button 3": true,
                       "Show Button 1": true,
-                      "Show Button 2": true,
                       "Show Avatar": false,
+                      "Show Button 2": true,
                       "Show Sort": false,
                       "Type": "Header"
                     },
@@ -788,8 +788,8 @@
                     "props": {
                       "Show Sort": false,
                       "Show Avatar": false,
-                      "Show Button 3": true,
                       "Show Button 2": true,
+                      "Show Button 3": true,
                       "Show Button 1": true,
                       "Type": "Action"
                     },
@@ -810,8 +810,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -957,8 +957,8 @@
                     "props": {
                       "Show Sort": false,
                       "Show Avatar": false,
-                      "Show Button 3": true,
                       "Show Button 2": true,
+                      "Show Button 3": true,
                       "Show Button 1": true,
                       "Type": "Action"
                     },
@@ -1035,9 +1035,9 @@
                             "kind": "instance",
                             "slug": "button",
                             "props": {
-                              "Show leading icon": true,
-                              "Show label": true,
                               "Show trailing icon": true,
+                              "Show label": true,
+                              "Show leading icon": true,
                               "Label": "Button",
                               "Intent": "Default",
                               "Emphasis": "Icon-only",
@@ -1073,9 +1073,9 @@
                             "kind": "instance",
                             "slug": "button",
                             "props": {
-                              "Show leading icon": true,
-                              "Show label": true,
                               "Show trailing icon": true,
+                              "Show label": true,
+                              "Show leading icon": true,
                               "Label": "Button",
                               "Intent": "Default",
                               "Emphasis": "Icon-only",
@@ -1123,8 +1123,8 @@
                     "props": {
                       "Show Button 3": true,
                       "Show Button 1": true,
-                      "Show Button 2": true,
                       "Show Avatar": false,
+                      "Show Button 2": true,
                       "Show Sort": false,
                       "Type": "Header"
                     },
@@ -1146,8 +1146,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1170,8 +1170,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1194,8 +1194,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1218,8 +1218,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1242,8 +1242,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1266,8 +1266,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1290,8 +1290,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1314,8 +1314,8 @@
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Show Button 2": true,
                       "Show Button 3": true,
+                      "Show Button 2": true,
                       "Show Button 1": true,
                       "Show Sort": false,
                       "Show Avatar": false,
@@ -1459,8 +1459,8 @@
             "props": {
               "Show label": true,
               "Show trailing icon": false,
-              "Label": "Replay lineage tour",
               "Show leading icon": false,
+              "Label": "Replay lineage tour",
               "Intent": "Default",
               "Emphasis": "Ghost",
               "Size": "Small",

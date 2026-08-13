@@ -4,7 +4,7 @@ nav_order: 35
 ---
 # Tags
 
-Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.
+Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.
 
 ***
 

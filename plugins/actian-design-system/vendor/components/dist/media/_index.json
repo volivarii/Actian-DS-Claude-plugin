@@ -652,21 +652,6 @@
       ],
       "default": "components/dist/media/radio-button/default.webp"
     },
-    "radio-button-card": {
-      "preview": "components/dist/media/radio-button-card/preview.webp",
-      "parts": [
-        "components/dist/media/radio-button-card/parts-0.webp",
-        "components/dist/media/radio-button-card/parts-1.webp"
-      ],
-      "spacing": [
-        "components/dist/media/radio-button-card/spacing-0.webp",
-        "components/dist/media/radio-button-card/spacing-1.webp"
-      ],
-      "behavior": [
-        "components/dist/media/radio-button-card/behavior-0.webp"
-      ],
-      "default": "components/dist/media/radio-button-card/default.webp"
-    },
     "radio-group": {
       "default": "components/dist/media/radio-group/default.webp"
     },
@@ -788,38 +773,6 @@
       "preview": "components/dist/media/tabs/preview.webp",
       "default": "components/dist/media/tabs/default.webp"
     },
-    "tag-catalog": {
-      "preview": "components/dist/media/tag-catalog/preview.webp",
-      "parts": [
-        "components/dist/media/tag-catalog/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-catalog/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-catalog/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-catalog/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-catalog/default.webp"
-    },
-    "tag-catalog-item-type": {
-      "preview": "components/dist/media/tag-catalog-item-type/preview.webp",
-      "parts": [
-        "components/dist/media/tag-catalog-item-type/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-catalog-item-type/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-catalog-item-type/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-catalog-item-type/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-catalog-item-type/default.webp"
-    },
     "tag-default": {
       "preview": "components/dist/media/tag-default/preview.webp",
       "parts": [
@@ -836,22 +789,6 @@
       ],
       "default": "components/dist/media/tag-default/default.webp"
     },
-    "tag-glossary-item-type": {
-      "preview": "components/dist/media/tag-glossary-item-type/preview.webp",
-      "parts": [
-        "components/dist/media/tag-glossary-item-type/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-glossary-item-type/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-glossary-item-type/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-glossary-item-type/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-glossary-item-type/default.webp"
-    },
     "tag-interactive": {
       "preview": "components/dist/media/tag-interactive/preview.webp",
       "parts": [
@@ -867,54 +804,6 @@
         "components/dist/media/tag-interactive/layout-0.webp"
       ],
       "default": "components/dist/media/tag-interactive/default.webp"
-    },
-    "tag-shared": {
-      "preview": "components/dist/media/tag-shared/preview.webp",
-      "parts": [
-        "components/dist/media/tag-shared/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-shared/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-shared/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-shared/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-shared/default.webp"
-    },
-    "tag-stage": {
-      "preview": "components/dist/media/tag-stage/preview.webp",
-      "parts": [
-        "components/dist/media/tag-stage/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-stage/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-stage/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-stage/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-stage/default.webp"
-    },
-    "tag-status": {
-      "preview": "components/dist/media/tag-status/preview.webp",
-      "parts": [
-        "components/dist/media/tag-status/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-status/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-status/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-status/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-status/default.webp"
     },
     "talend": {
       "default": "components/dist/media/talend/default.webp"

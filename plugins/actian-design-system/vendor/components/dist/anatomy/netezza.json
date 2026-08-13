@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "netezza",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8400:25111"
@@ -29,8 +29,8 @@
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": 2621,
-      "y": 447,
+      "x": -620,
+      "y": 1283,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer-side-panel",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -131,8 +131,8 @@
                 "slug": "button",
                 "props": {
                   "Show label": true,
-                  "Label": "Button",
                   "Show leading icon": true,
+                  "Label": "Button",
                   "Show trailing icon": true,
                   "Intent": "Default",
                   "Emphasis": "Icon-only",
@@ -169,17 +169,18 @@
                 },
                 "children": [
                   {
-                    "name": "Tag, Catalog item type",
+                    "name": "Tag, Item type",
                     "kind": "instance",
-                    "slug": "tag-catalog-item-type",
+                    "slug": "tag-item-type",
                     "props": {
+                      "Show Counter": false,
                       "Show counter": false,
-                      "Type": "Dataset"
+                      "Property 1": "Dataset"
                     },
                     "id": "14292:1206",
                     "appearance": {
                       "background": "#cfeafd",
-                      "radius": "6px"
+                      "radius": "4px"
                     }
                   },
                   {
@@ -188,9 +189,8 @@
                     "slug": "tag-default",
                     "props": {
                       "Leading icon show": false,
-                      "Trailing icon show": false,
                       "Label": "Shared",
-                      "Color": "Default"
+                      "Type": "Default"
                     },
                     "tokenRefs": [
                       "--zen-color-primary-700"
@@ -204,7 +204,7 @@
                         "colorToken": "--zen-color-primary-700",
                         "width": "1px"
                       },
-                      "radius": "6px"
+                      "radius": "4px"
                     }
                   }
                 ]
@@ -259,8 +259,8 @@
                 "slug": "button",
                 "props": {
                   "Show label": true,
-                  "Label": "Button",
                   "Show leading icon": true,
+                  "Label": "Button",
                   "Show trailing icon": true,
                   "Intent": "Default",
                   "Emphasis": "Icon-only",
@@ -278,8 +278,8 @@
                 "slug": "button",
                 "props": {
                   "Show label": true,
-                  "Label": "Button",
                   "Show leading icon": true,
+                  "Label": "Button",
                   "Show trailing icon": true,
                   "Intent": "Default",
                   "Emphasis": "Icon-only",
@@ -721,8 +721,8 @@
                 "slug": "dropdown-select-default",
                 "props": {
                   "Show Label": false,
-                  "Show helper text": false,
                   "Show info icon": false,
+                  "Show helper text": false,
                   "Show asterisk ": false,
                   "Show description": false,
                   "Type": "Search/Multiple",

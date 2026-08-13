@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-07-14T09:01:55.070Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13599:20120",
@@ -104,8 +104,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Dashboard",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -122,8 +122,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Catalog",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -140,8 +140,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Topics",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -195,8 +195,8 @@
             "unresolved": true,
             "props": {
               "Icon right": true,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Import",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -213,9 +213,9 @@
             "unresolved": true,
             "props": {
               "Icon right": true,
+              "Name": "Select a connection",
               "Icon left": true,
               "Label": true,
-              "Name": "Select a connection",
               "Level": "Sub",
               "Opened/Closed": "N/A",
               "State": "Default"
@@ -231,9 +231,9 @@
             "unresolved": true,
             "props": {
               "Icon right": true,
+              "Name": "Select a file",
               "Icon left": true,
               "Label": true,
-              "Name": "Select a file",
               "Level": "Sub",
               "Opened/Closed": "N/A",
               "State": "Default"
@@ -249,8 +249,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "New item",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -293,8 +293,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Access request",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -320,8 +320,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Catalog design",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -347,8 +347,8 @@
             "unresolved": true,
             "props": {
               "Icon right": false,
-              "Label": true,
               "Icon left": true,
+              "Label": true,
               "Name": "Analytics",
               "Level": "Top",
               "Opened/Closed": "Closed",
@@ -410,9 +410,9 @@
             "kind": "instance",
             "slug": "button",
             "props": {
-              "Show leading icon": true,
-              "Show label": true,
               "Show trailing icon": true,
+              "Show label": true,
+              "Show leading icon": true,
               "Label": "Button",
               "Intent": "Default",
               "Emphasis": "Icon-only",

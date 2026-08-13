@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "gcp",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7692:5000"
@@ -29,8 +29,8 @@
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": 2293,
-      "y": 1791,
+      "x": -948,
+      "y": 2627,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -44,8 +44,8 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 2295,
-          "y": 1795,
+          "x": -946,
+          "y": 2631,
           "constraints": {
             "vertical": "CENTER",
             "horizontal": "CENTER"

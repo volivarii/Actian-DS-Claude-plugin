@@ -225,7 +225,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 
 ***
 
-### Radio button card format
+### Radio card format
 
 Use card-format radio buttons instead of traditional radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.
 

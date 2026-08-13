@@ -1,0 +1,541 @@
+{
+  "_schema_version": 1,
+  "slug": "tag-item-type",
+  "kit": "dskit",
+  "synced_at": "2026-08-12T12:00:22.180Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "11300:8312",
+    "variant": "Property 1=Glossary-1"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 3,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "Property 1=Glossary-1",
+    "kind": "container",
+    "id": "11300:8551",
+    "appearance": {
+      "background": "#ffebce",
+      "radius": "4px",
+      "variants": [
+        {
+          "prop": "Property 1",
+          "values": [
+            "Category"
+          ],
+          "background": "#ffd7ca"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-1"
+          ],
+          "background": "#ffd5dd"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-10",
+            "Custom-12",
+            "Custom-13"
+          ],
+          "background": "#d3efcd"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-11"
+          ],
+          "background": "#f0ffec"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-14"
+          ],
+          "background": "#e1eacb"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-15"
+          ],
+          "background": "#e2e4dd"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-2",
+            "Data process"
+          ],
+          "background": "#ffd6d8"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-3"
+          ],
+          "background": "#e7e0ee"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-4"
+          ],
+          "background": "#e1e5ff"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-5",
+            "Data product"
+          ],
+          "background": "#cadcf7"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-6"
+          ],
+          "background": "#dde6ec"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-7",
+            "Custom-9"
+          ],
+          "background": "#d0efed"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Custom-8"
+          ],
+          "background": "#ecffff"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Dataset"
+          ],
+          "background": "#cfeafd"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Field"
+          ],
+          "background": "#d3efcd",
+          "backgroundToken": "--zen-color-success-50"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Glossary-2",
+            "Glossary-4"
+          ],
+          "background": "#ffddb6"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Glossary-3",
+            "Glossary-5"
+          ],
+          "background": "#ffcd92"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Output port"
+          ],
+          "background": "#f1fdff"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Use case"
+          ],
+          "background": "#fff5d5"
+        },
+        {
+          "prop": "Property 1",
+          "values": [
+            "Visualization"
+          ],
+          "background": "#eed7ff"
+        }
+      ]
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "4px",
+        "bottom": "0px",
+        "left": "4px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
+      }
+    },
+    "children": [
+      {
+        "name": "Tag-Name",
+        "kind": "text",
+        "id": "11300:8381",
+        "appearance": {
+          "text": {
+            "color": "#9c2000",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "Property 1",
+              "values": [
+                "Category",
+                "Glossary-2"
+              ],
+              "text": {
+                "color": "#7b2000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-1"
+              ],
+              "text": {
+                "color": "#771a34",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-10"
+              ],
+              "text": {
+                "color": "#047800",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-11",
+                "Custom-13"
+              ],
+              "text": {
+                "color": "#1a4b14",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-12"
+              ],
+              "text": {
+                "color": "#145f04",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-14"
+              ],
+              "text": {
+                "color": "#5a6b00",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-15"
+              ],
+              "text": {
+                "color": "#555947",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-2",
+                "Data process"
+              ],
+              "text": {
+                "color": "#932139",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-3"
+              ],
+              "text": {
+                "color": "#644f77",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-4"
+              ],
+              "text": {
+                "color": "#5c61a7",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-5"
+              ],
+              "text": {
+                "color": "#002f75",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-6"
+              ],
+              "text": {
+                "color": "#4a6470",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-7"
+              ],
+              "text": {
+                "color": "#006563",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-8"
+              ],
+              "text": {
+                "color": "#007e7b",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Custom-9"
+              ],
+              "text": {
+                "color": "#15504e",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Data product",
+                "Output port"
+              ],
+              "text": {
+                "color": "#00255a",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Dataset"
+              ],
+              "text": {
+                "color": "#00547d",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Field"
+              ],
+              "text": {
+                "color": "#145f04",
+                "colorToken": "--zen-color-success-800",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Glossary-3"
+              ],
+              "text": {
+                "color": "#5d1f0b",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Glossary-4"
+              ],
+              "text": {
+                "color": "#83551f",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Glossary-5"
+              ],
+              "text": {
+                "color": "#591e27",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Use case"
+              ],
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Visualization"
+              ],
+              "text": {
+                "color": "#5f0c9e",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
+        "text": "Glossary 1"
+      },
+      {
+        "name": "Counter",
+        "kind": "text",
+        "id": "14128:3421",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          }
+        },
+        "text": "00"
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Property 1": "Glossary-1"
+  }
+}
