@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "input-date",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8194:7305",
@@ -323,8 +323,8 @@
             "slug": "button",
             "props": {
               "Show label": true,
-              "Label": "Button",
               "Show leading icon": true,
+              "Label": "Button",
               "Show trailing icon": true,
               "Intent": "Default",
               "Emphasis": "Icon-only",

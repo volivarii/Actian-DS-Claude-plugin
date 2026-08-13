@@ -347,7 +347,7 @@
           "customElement": true,
           "name": "Breadcrumb",
           "tagName": "zen-breadcrumb",
-          "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
+          "description": "This component is built as a custom component by Index-0 and is not officially in the engineering design system library.",
           "attributes": [
             {
               "name": "type",
@@ -3459,120 +3459,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-catalog.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagCatalog",
-          "tagName": "zen-tag-catalog",
-          "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-success-700"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-warning-700"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-catalog-item-type.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagCatalogItemType",
-          "tagName": "zen-tag-catalog-item-type",
-          "description": "Use for physical metamodel item types. Can be interactive (removable) or static metadata.",
-          "attributes": [
-            {
-              "name": "type",
-              "type": {
-                "text": "Dataset | Data process | Data product | Field | Output port | Use case | Visualization | Category"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-color-success-50"
-            },
-            {
-              "name": "--zen-color-success-800"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "components/render/dist/fragments/tag-default.html",
       "declarations": [
         {
@@ -3580,75 +3466,12 @@
           "customElement": true,
           "name": "TagDefault",
           "tagName": "zen-tag-default",
-          "description": "Use for categorizing or labeling items (e.g., \"Design\", \"In Progress\"). Can be interactive (removable) or static metadata.",
+          "description": "This is read-only tag",
           "attributes": [
             {
-              "name": "color",
+              "name": "type",
               "type": {
-                "text": "Pink | Purple | Indigo | Yellow | Lime | Teal | Orange | Gray | Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-success-700"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-warning-700"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-glossary-item-type.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagGlossaryItemType",
-          "tagName": "zen-tag-glossary-item-type",
-          "description": "Use for glossary item types. Can be interactive (removable) or static metadata.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
+                "text": "Default | Catalog | Shared | Stage-1 | Stage-2 | Stage-3 | Stage-4 | Stage-5 | Stage-6 | Stage-7 | Stage-8 | Status-error | Status-warning | Status-success"
               }
             }
           ],
@@ -3658,10 +3481,22 @@
               "name": "--zen-border-radius-xs"
             },
             {
+              "name": "--zen-color-error-50"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-neutral-50"
+            },
+            {
+              "name": "--zen-color-success-50"
+            },
+            {
               "name": "--zen-color-text-default"
             },
             {
-              "name": "--zen-color-warning-900"
+              "name": "--zen-color-warning-50"
             },
             {
               "name": "--zen-font-family-text"
@@ -3680,6 +3515,9 @@
             },
             {
               "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-xs"
@@ -3697,12 +3535,18 @@
           "customElement": true,
           "name": "TagInteractive",
           "tagName": "zen-tag-interactive",
-          "description": "TagInteractive component.",
+          "description": "Interacitve tag",
           "attributes": [
             {
               "name": "state",
               "type": {
-                "text": "Hovered | Pressed | Expanded | Disabled | Focused | Default"
+                "text": "Default | Disabled | Focus | Hover | Pressed"
+              }
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "Dismissible | Selectable | Dropdown-expanded | Dropdown | Selectable-selected"
               }
             }
           ],
@@ -3771,113 +3615,32 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-shared.html",
+      "path": "components/render/dist/fragments/tag-item-type.html",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
-          "name": "TagShared",
-          "tagName": "zen-tag-shared",
-          "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
+          "name": "TagItemType",
+          "tagName": "zen-tag-item-type",
+          "description": "This is read-only tag. Use for item types.",
           "attributes": [
             {
               "name": "property 1",
               "type": {
-                "text": "Default"
+                "text": "Glossary-1 | Glossary-2 | Glossary-3 | Glossary-4 | Glossary-5 | Category | Custom-1 | Custom-2 | Custom-3 | Custom-4 | Custom-5 | Custom-6 | Custom-7 | Custom-8 | Custom-9 | Custom-10 | Custom-11 | Custom-12 | Custom-13 | Custom-14 | Custom-15 | Dataset | Data process | Data product | Field | Output port | Use case | Visualization"
               }
             }
           ],
           "cssParts": [],
           "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-success-700"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-warning-700"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-stage.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagStage",
-          "tagName": "zen-tag-stage",
-          "description": "Use for data lifecycle stages. Can be interactive (removable) or static metadata.",
-          "attributes": [
-            {
-              "name": "color",
-              "type": {
-                "text": "Orange | Indigo | Purple | Lime | Teal | Yellow | Gray | Pink"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-neutral-50"
-            },
             {
               "name": "--zen-color-success-50"
             },
             {
-              "name": "--zen-color-success-700"
+              "name": "--zen-color-success-800"
             },
             {
               "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-tertiary"
-            },
-            {
-              "name": "--zen-color-warning-50"
-            },
-            {
-              "name": "--zen-color-warning-700"
             },
             {
               "name": "--zen-font-family-text"
@@ -3893,75 +3656,6 @@
             },
             {
               "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-status.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagStatus",
-          "tagName": "zen-tag-status",
-          "description": "Use for status. Can be interactive (removable) or static metadata.",
-          "attributes": [
-            {
-              "name": "status",
-              "type": {
-                "text": "Warning | Loading | Pending | Success | Fail"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-success-700"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-warning-700"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-xs"

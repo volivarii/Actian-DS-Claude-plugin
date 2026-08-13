@@ -10,6 +10,6 @@ components:
   - button
   - dropdown-select-default
   - text-input
-  - tag-status
+  - tag-default
 ---
 Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval.

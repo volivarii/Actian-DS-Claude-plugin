@@ -55,7 +55,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `popover` | ⛔️ Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio` | Radio | **BUILT** | Selection / State |
-| `radio-button-card` | Radio button card | appearance | Selection / State |
+| `radio-card` | Radio card | appearance | Selection / State |
 | `rich-text` | Rich text | **BUILT** | State |
 | `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
@@ -68,18 +68,13 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `sticky-footer` | Sticky footer | **BUILT** | Property 1 |
 | `table` | ✍️ Table | **BUILT** | Built type |
 | `tabs` | Tabs | **BUILT** | Property 1 |
-| `tag-catalog` | Tag, Catalog | **BUILT** | Property 1 |
-| `tag-catalog-item-type` | Tag, Catalog item type | **BUILT** | Type |
-| `tag-default` | Tag, Default | **BUILT** | Color |
-| `tag-glossary-item-type` | Tag, Glossary item type | **BUILT** | Property 1 |
-| `tag-interactive` | Tag, Interactive | **BUILT** | State |
-| `tag-shared` | Tag, Shared | **BUILT** | Property 1 |
-| `tag-stage` | Tag, Stage | **BUILT** | Color |
-| `tag-status` | Tag, Status | **BUILT** | Status |
+| `tag-default` | Tag, Default | **BUILT** | Type |
+| `tag-interactive` | Tag, Interactive | **BUILT** | State / Type |
+| `tag-item-type` | Tag, Item type | **BUILT** | Property 1 |
 | `text-input` | Text input | **BUILT** | States |
 | `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
-| `tooltip` | ⚠️ Tooltip | **BUILT** | Type |
+| `tooltip` | Tooltip | **BUILT** | Type |
 | `whats-new-dropdown` | Whats new dropdown | **BUILT** | Property 1 |
 
 ## Built leaf props

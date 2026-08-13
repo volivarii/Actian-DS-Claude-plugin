@@ -87,14 +87,17 @@ var RENDER_SLUGS = readRenderSlugs();
 // forbids). It is cited as the reason the map is hand-declared, not as a
 // slug that needs one of its own.
 //
-// `tag-stage` is the one slug owning two prefixes: it emits
-// `class="ds-tag ds-tag-stage ds-tag--orange ds-tag-stage--orange"`, so it
-// draws from the shared tag base AND its own stage rules -- the
-// `ds-tag-stage--<color>` modifier is what lets it override the shared
-// `ds-tag--<color>` border for itself alone. `.ds-tag` is also the one
-// prefix claimed by more than one slug (the five tag-family members), which
-// the fidelity classifier treats as a family scope rather than any single
-// member's.
+// As of the 2026-08-12 fold-in, NO slug owns two prefixes and no prefix is
+// claimed by more than one slug. `tag-stage` used to be both: it emitted
+// `class="ds-tag ds-tag-stage ds-tag--orange ds-tag-stage--orange"` so its own
+// scoped modifier could override the shared hue for itself alone, and `.ds-tag`
+// was claimed by five tag-family members at once. Figma folded all five into
+// tag-default's single `Type` axis, so `.ds-tag` now has exactly one owner and
+// the family-scope handling in the fidelity classifier (shared-base-no-single-
+// subject, the subjectKey cascade collapse) has no subject in this corpus --
+// tests/render/css-owners.test.js enumerates that population so it can never be
+// checked vacuously, and tests/render/fidelity-check.test.js proves those
+// properties on a fixture instead.
 var CSS_OWNERS = {
   "account-dropdown": ["ds-account-menu"],
   "alert-banner": ["ds-alert"],
@@ -116,11 +119,7 @@ var CSS_OWNERS = {
   "search-dropdown-menu": ["ds-search-menu"],
   "segmented-control": ["ds-segmented"],
   "side-nav": ["ds-sidenav"],
-  "tag-catalog": ["ds-tag"],
   "tag-default": ["ds-tag"],
-  "tag-shared": ["ds-tag"],
-  "tag-stage": ["ds-tag", "ds-tag-stage"],
-  "tag-status": ["ds-tag"],
   "text-input": ["ds-field"],
   "whats-new-dropdown": ["ds-whatsnew"],
 };
@@ -137,6 +136,123 @@ function findComponent(slug) {
     if (reg.components && reg.components[slug]) return reg.components[slug];
   }
   return null;
+}
+
+// Every value of a slug's single published identity axis, as matrix cells.
+//
+// The one thing MATRIX_OVERRIDES is used for that is NOT curation: "show the
+// whole identity axis, not the generic 5-cell cap". Written out, that override
+// is a hand-copy of the registry's own value list, and both tag overrides that
+// used to be written out went stale the moment Figma renamed their axis --
+// still green, still rendering cells for a deleted axis, because a curated
+// override is authoritative for the gallery by design. Derived here so the copy
+// does not exist.
+//
+// Deliberately narrow: it requires exactly ONE variant axis, so a slug whose
+// gallery needs a real choice between axes (button's Intent x Emphasis) cannot
+// reach it by accident and keeps its hand-authored cells. A slug that stops
+// meeting that precondition returns [] and falls through to the generic path,
+// which caps at 5 -- fewer cells, never fabricated ones.
+function allIdentityValueCells(slug) {
+  var comp = findComponent(slug);
+  var variants = (comp && comp.variants) || {};
+  var axes = Object.keys(variants).filter(function (a) {
+    return Array.isArray(variants[a]) && variants[a].length;
+  });
+  if (axes.length !== 1) return [];
+  var axis = axes[0];
+  var reduced = structurallyReducedProps(slug);
+  return variants[axis].map(function (value) {
+    var props = { Label: value };
+    // A variant the capture reports as having FEWER children than the canonical
+    // node is missing one, and the renderer must not draw it. See
+    // structurallyReducedProps for why this is read rather than hardcoded.
+    Object.keys(reduced[value] || {}).forEach(function (k) {
+      props[k] = reduced[value][k];
+    });
+    return {
+      label: value,
+      variant: axis + "=" + value,
+      props: props,
+    };
+  });
+}
+
+// Per-variant prop overrides for the values the CAPTURE reports as structurally
+// reduced: `quality.structuralVariants` entries whose reason is a child-count
+// shortfall (`childCount:<canonical>!=<actual>`, actual < canonical).
+//
+// Why this exists at all. tag-default's Type=Shared has 1 child where the
+// canonical node has 2, and the missing one is the leading icon: the pre-sync
+// tag-shared capture had exactly one child (`Shared`, a text node) and the
+// retired tag-shared case rendered label-only. The 2026-08-12 fold-in gave the
+// renderer a default-TRUE "Leading icon show", so Shared started rendering a "+"
+// glyph the design system does not contain. THE FIDELITY GATE CANNOT SEE THIS:
+// it compares colours, and a spurious icon span carries none, so `mismatch`
+// stays 0 through it forever. Measurement was never going to catch it.
+//
+// Read, not hardcoded, on two counts:
+//  - WHICH values: from `quality.structuralVariants`. Shared is the only flagged
+//    value today, so an `if (type === "shared")` would look identical right now
+//    and diverge in silence the moment Figma flags another.
+//  - WHICH prop: the registry's own default-TRUE BOOLEAN props, by their real
+//    keys (`Leading icon show#7276:0`), which the renderer's normalizeProps
+//    aliases to the base name a case reads. So no prop name is typed here either.
+//
+// Applied ONLY when the mapping is unambiguous -- the shortfall must equal the
+// number of default-true booleans (1 = 1 today). A component with two optional
+// children and a shortfall of one does not say WHICH is absent, and turning both
+// off would be a confident wrong answer. That precondition is asserted by
+// tests/render/ds-html-map.test.js ("a Type the capture flags as structurally
+// reduced renders no leading icon"), so it reds there rather than silently
+// mis-suppressing here.
+//
+// Scope, stated because it is a real limit and not a hidden one: this drives the
+// variant MATRIX, so it covers every matrix-rendered surface -- the canonical
+// render, the gallery, the fragments the docs site ships, and the producer index
+// the fidelity gate builds. A hand-authored flow node that names Type=Shared and
+// passes no props still reaches the renderer's default-true branch; fixing that
+// needs the capture at render time, which this fs-free, browser-capable renderer
+// only has through an injected seam that no caller fills today (an unfilled seam
+// would put the glyph straight back, silently).
+var ANATOMY_DIR = path.resolve(__dirname, "..", "..", "dist", "anatomy");
+var _anatomyCache = {};
+function readAnatomy(slug) {
+  if (slug in _anatomyCache) return _anatomyCache[slug];
+  try {
+    _anatomyCache[slug] = JSON.parse(
+      fs.readFileSync(path.join(ANATOMY_DIR, slug + ".json"), "utf8"),
+    );
+  } catch (e) {
+    _anatomyCache[slug] = null;
+  }
+  return _anatomyCache[slug];
+}
+
+function structurallyReducedProps(slug) {
+  var anatomy = readAnatomy(slug);
+  var flags = ((anatomy && anatomy.quality) || {}).structuralVariants || [];
+  if (!flags.length) return {};
+  var comp = findComponent(slug);
+  var defaultTrueBooleans = Object.keys((comp && comp.properties) || {}).filter(
+    function (k) {
+      var p = comp.properties[k];
+      return p && p.type === "BOOLEAN" && p.default === true;
+    },
+  );
+  var out = {};
+  flags.forEach(function (entry) {
+    var m = /^childCount:(\d+)!=(\d+)$/.exec(String(entry.reason || ""));
+    if (!m) return;
+    var shortfall = Number(m[1]) - Number(m[2]);
+    if (shortfall <= 0) return;
+    if (defaultTrueBooleans.length !== shortfall) return;
+    out[entry.value] = out[entry.value] || {};
+    defaultTrueBooleans.forEach(function (k) {
+      out[entry.value][k] = false;
+    });
+  });
+  return out;
 }
 
 // Size, State (singular or plural), and Breakpoint(s) are secondary axes: they
@@ -206,25 +322,15 @@ var MATRIX_OVERRIDES = {
     },
   ],
 
-  // tag-default's Color axis has 9 values; the generic 5-cell cap would drop
-  // three colors. The color IS the component's identity here, so show them all.
-  // ds-base.css carries a .ds-tag--<color> rule for the 8 tinted colors; the
-  // renderer's tag-default case emits ds-tag--<color> from v.Color, so this
-  // override drives every color through the generic renderer (no template).
-  // "Default" has no --color rule and renders as the base gray .ds-tag.
-  "tag-default": [
-    "Pink",
-    "Purple",
-    "Indigo",
-    "Yellow",
-    "Lime",
-    "Teal",
-    "Orange",
-    "Gray",
-    "Default",
-  ].map(function (c) {
-    return { label: c, variant: "Color=" + c, props: { Label: c } };
-  }),
+  // tag-default's identity axis has more than 5 values, so the generic cap
+  // would drop most of them; the axis IS the component's identity here, so show
+  // every value. DERIVED, not listed: this used to spell out nine Color names,
+  // and the 2026-08-12 fold-in replaced Color with a 14-value Type axis --
+  // leaving the override rendering nine cells for an axis Figma had deleted,
+  // which is the fabrication invariant 10 exists to catch. Deriving removes the
+  // failure mode instead of testing for it (invariant 10 keeps guarding the
+  // overrides that really are curated, below).
+  "tag-default": allIdentityValueCells("tag-default"),
 
   // Size is a secondary axis (filtered by isSecondaryAxis), so the generic
   // derivation falls back to a single bare cell with no props. Curate one
@@ -244,64 +350,14 @@ var MATRIX_OVERRIDES = {
     },
   ],
 
-  // tag-stage's Color axis has 8 values; the generic 5-cell cap would drop
-  // three. Color is the component's identity here (drives both the
-  // container bg/border via the existing .ds-tag--<color> rules and the dot
-  // fill via the new per-color descendant rules), so show them all.
-  "tag-stage": [
-    "Orange",
-    "Indigo",
-    "Purple",
-    "Lime",
-    "Teal",
-    "Yellow",
-    "Pink",
-    "Gray",
-  ].map(function (c) {
-    return { label: c, variant: "Color=" + c, props: { Label: c } };
-  }),
-
-  // tag-status's Status axis carried 11 values until the 2026-07-23 Figma sync
-  // cut it to 5. This list is the registry's current set, and invariant 10 in
-  // tests/render/fragment-invariants.test.js fails the build if it names a
-  // value the registry does not have: the six dropped values (Maintenance,
-  // Scheduled, Queued, Stopped, Sleeping, Offline) kept rendering here after
-  // they disappeared upstream, so the gallery drew six components the design
-  // system no longer contains. Whether that upstream removal was deliberate is
-  // tracked in issue #496; rendering them regardless is not the way to keep the
-  // question open.
-  "tag-status": ["Fail", "Warning", "Loading", "Pending", "Success"].map(
-    function (s) {
-      return { label: s, variant: "Status=" + s, props: { Label: s } };
-    },
-  ),
-
-  // Property 1 is single-valued ("Default"), so the generic derivation would
-  // fall back to a single bare cell with no props and never show the
-  // "Show Counter" form. Curate one representative cell with the counter on.
-  "tag-glossary-item-type": [
-    {
-      label: "Default",
-      variant: "Property 1=Default",
-      props: { Label: "Glossary item", "Show Counter": true, Counter: "00" },
-    },
-  ],
-
-  // tag-catalog-item-type's Type axis has 8 values; the generic 5-cell cap
-  // would drop three. Type IS the component's identity (each value is a
-  // distinct colored pill), so show them all.
-  "tag-catalog-item-type": [
-    "Category",
-    "Dataset",
-    "Data process",
-    "Data product",
-    "Field",
-    "Output port",
-    "Use case",
-    "Visualization",
-  ].map(function (t) {
-    return { label: t, variant: "Type=" + t, props: { Label: t } };
-  }),
+  // Same rationale, same derive, as tag-default above. tag-stage, tag-status
+  // and tag-glossary-item-type had overrides here until the 2026-08-12 sync
+  // retired all three into tag-default's Type axis; tag-catalog-item-type's
+  // eight hand-listed `Type=` values went with the rename, since the renamed
+  // component publishes 28 values on a `Property 1` axis instead. Every value
+  // is a distinct colored pill, i.e. the component's identity, so the whole
+  // axis is shown.
+  "tag-item-type": allIdentityValueCells("tag-item-type"),
 
   // Same rationale as empty-state above: Size is the only (secondary) axis,
   // so curate one representative rich cell instead of the generic bare stub.
@@ -639,7 +695,13 @@ var MATRIX_OVERRIDES = {
 };
 
 function variantMatrix(slug) {
-  if (MATRIX_OVERRIDES[slug]) return MATRIX_OVERRIDES[slug];
+  // `.length` and not just presence: allIdentityValueCells returns [] when its
+  // precondition stops holding (a slug that gained a second axis), and an empty
+  // override taken as authoritative would render a card with ZERO cells --
+  // invisible in a gallery, and a silent loss of the whole component. Falling
+  // through to the generic path yields fewer cells, never no cells.
+  if (MATRIX_OVERRIDES[slug] && MATRIX_OVERRIDES[slug].length)
+    return MATRIX_OVERRIDES[slug];
   var comp = findComponent(slug);
   var variants = (comp && comp.variants) || {};
   var stateAxis = stateAxisName(variants);

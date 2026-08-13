@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-07-23T09:22:51.754Z",
+  "generatedAt": "2026-08-12T11:37:59.192Z",
   "categories": {
     "Action": {
       "components": [
@@ -58,21 +58,15 @@
         "metamodel-widget",
         "page-header",
         "progress-bar-small",
-        "scroll-bar",
         "search-result-card",
         "segmented-control",
         "table",
-        "tag-catalog",
-        "tag-catalog-item-type",
         "tag-default",
-        "tag-glossary-item-type",
         "tag-interactive",
-        "tag-shared",
-        "tag-stage",
-        "tag-status",
+        "tag-item-type",
         "toolbar"
       ],
-      "count": 31
+      "count": 25
     },
     "Feedback": {
       "components": [
@@ -96,7 +90,7 @@
         "checkbox-card",
         "dropdown-select-default",
         "radio",
-        "radio-button-card",
+        "radio-card",
         "rich-text",
         "search",
         "search-dropdown-menu",
@@ -117,6 +111,7 @@
         "arrow-alt",
         "arrow-down",
         "arrow-left",
+        "arrow-up",
         "attachments",
         "back",
         "ban",
@@ -146,6 +141,7 @@
         "data-product-output-port",
         "database",
         "database-check",
+        "datasets",
         "date",
         "disconnected",
         "discussion",
@@ -249,7 +245,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 141
+      "count": 143
     },
     "Illustrations & graphics": {
       "components": [
@@ -265,12 +261,13 @@
         "breadcrumb",
         "global-header",
         "notification-dropdown",
+        "scroll-bar",
         "side-nav",
         "stepper",
         "tabs",
         "whats-new-dropdown"
       ],
-      "count": 9
+      "count": 10
     },
     "Overlays": {
       "components": [
@@ -285,6 +282,8 @@
     "Product logos": {
       "components": [
         "actian-data-intelligence",
+        "actian-data-intelligence-explorer-horizontal",
+        "actian-data-intelligence-studio-horizontal",
         "actian-data-observability",
         "actian-pyramid",
         "adlsgen1",
@@ -381,7 +380,7 @@
         "xml",
         "zeenea-logo"
       ],
-      "count": 96
+      "count": 98
     },
     "Radio, radio card, radio group": {
       "components": [

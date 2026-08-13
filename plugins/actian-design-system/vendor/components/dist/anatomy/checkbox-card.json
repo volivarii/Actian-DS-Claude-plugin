@@ -2,42 +2,17 @@
   "_schema_version": 1,
   "slug": "checkbox-card",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "19983:23496",
     "variant": "Selection=Unselected, State=Default"
   },
   "quality": {
-    "nodesTotal": 11,
-    "nodesNormalized": 10,
-    "ratio": 0.91,
-    "degraded": [
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE (variant Selection=Selected)"
-      },
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE (variant State=Hover)"
-      },
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE (variant State=Focus)"
-      },
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE (variant State=Pressed)"
-      },
-      {
-        "name": "Checkbox",
-        "reason": "layoutMode:NONE (variant State=Disabled)"
-      }
-    ]
+    "nodesTotal": 3,
+    "nodesNormalized": 3,
+    "ratio": 1,
+    "degraded": []
   },
   "root": {
     "name": "Selection=Unselected, State=Default",
@@ -53,7 +28,7 @@
         "colorToken": "--zen-border-subtle",
         "width": "1px"
       },
-      "radius": "8px",
+      "radius": "6px",
       "variants": [
         {
           "prop": "State",
@@ -109,230 +84,17 @@
     },
     "children": [
       {
-        "name": "Checkbox, content",
-        "kind": "container",
-        "id": "20601:60646",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          },
-          "gapToken": "--zen-spacing-2xs"
+        "name": "Checkbox",
+        "kind": "instance",
+        "slug": "checkbox",
+        "props": {
+          "Show description": false,
+          "Show glyph": false,
+          "Show label": true,
+          "Selection": "Unchecked",
+          "State": "Default"
         },
-        "children": [
-          {
-            "name": "Checkbox",
-            "kind": "container",
-            "id": "19983:23499",
-            "appearance": {
-              "radius": "9999px",
-              "variants": [
-                {
-                  "prop": "State",
-                  "values": [
-                    "Focus"
-                  ],
-                  "background": "rgba(0, 0, 0, 0.05)",
-                  "radius": "6px",
-                  "border": {
-                    "color": "#0f5fdc",
-                    "colorToken": "--zen-focus-ring-primary",
-                    "width": "2px"
-                  }
-                }
-              ]
-            },
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": 6015,
-              "y": 1035,
-              "constraints": {
-                "vertical": "TOP",
-                "horizontal": "LEFT"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "tokenRefs": [
-                  "--zen-color-icon-default"
-                ],
-                "id": "19983:23838",
-                "appearance": {
-                  "background": "#000000",
-                  "backgroundToken": "--zen-color-icon-default",
-                  "variants": [
-                    {
-                      "prop": "Selection",
-                      "values": [
-                        "Selected"
-                      ],
-                      "background": "#0f5fdc",
-                      "backgroundToken": "--zen-color-icon-primary"
-                    },
-                    {
-                      "prop": "State",
-                      "values": [
-                        "Disabled"
-                      ],
-                      "background": "#7c7c8a",
-                      "backgroundToken": "--zen-color-icon-disabled"
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "name": "Content",
-            "kind": "container",
-            "id": "20601:60420",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "2px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              },
-              "gapToken": "--zen-spacing-2xs"
-            },
-            "children": [
-              {
-                "name": "Option label, digram, icon",
-                "kind": "container",
-                "id": "20599:60248",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  },
-                  "gapToken": "--zen-spacing-2xs"
-                },
-                "children": [
-                  {
-                    "name": "Digram",
-                    "kind": "instance",
-                    "slug": "digram-item-types",
-                    "props": {
-                      "Item type": "Dataset",
-                      "Size": "Small"
-                    },
-                    "id": "19983:23501",
-                    "appearance": {
-                      "background": "#cfeafd",
-                      "radius": "4px",
-                      "variants": [
-                        {
-                          "prop": "State",
-                          "values": [
-                            "Disabled"
-                          ],
-                          "background": "rgba(207, 234, 253, 0.5)"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "name": "Icon",
-                    "kind": "instance",
-                    "slug": "folder",
-                    "id": "19983:23502"
-                  },
-                  {
-                    "name": "Label",
-                    "kind": "text",
-                    "tokenRefs": [
-                      "--zen-color-text-default"
-                    ],
-                    "id": "19983:23503",
-                    "appearance": {
-                      "text": {
-                        "color": "#000000",
-                        "colorToken": "--zen-color-text-default",
-                        "size": "14px",
-                        "weight": 400,
-                        "lineHeight": "20px",
-                        "letterSpacing": "0.2px"
-                      },
-                      "variants": [
-                        {
-                          "prop": "State",
-                          "values": [
-                            "Disabled"
-                          ],
-                          "text": {
-                            "color": "#656574",
-                            "colorToken": "--zen-color-text-disabled",
-                            "size": "14px",
-                            "weight": 400,
-                            "lineHeight": "20px",
-                            "letterSpacing": "0.2px"
-                          }
-                        }
-                      ]
-                    },
-                    "text": "Option label"
-                  }
-                ]
-              },
-              {
-                "name": "Description",
-                "kind": "text",
-                "tokenRefs": [
-                  "--zen-color-text-tertiary"
-                ],
-                "id": "19983:23505",
-                "appearance": {
-                  "text": {
-                    "color": "#50505d",
-                    "colorToken": "--zen-color-text-tertiary",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
-                  }
-                },
-                "text": "Description"
-              }
-            ]
-          }
-        ]
+        "id": "21016:25617"
       },
       {
         "name": "Dynamic content",

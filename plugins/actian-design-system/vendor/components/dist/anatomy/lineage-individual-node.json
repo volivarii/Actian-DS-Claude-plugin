@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -372,14 +372,21 @@
                 "slug": "tag-default",
                 "props": {
                   "Leading icon show": true,
-                  "Trailing icon show": false,
                   "Label": "powerbi",
-                  "Color": "Default"
+                  "Type": "Default"
                 },
+                "tokenRefs": [
+                  "--zen-color-neutral-50"
+                ],
                 "id": "14747:19915",
                 "appearance": {
-                  "background": "#dde6ec",
-                  "radius": "6px"
+                  "background": "#fbfbff",
+                  "border": {
+                    "color": "#e1e1e6",
+                    "colorToken": "--zen-color-neutral-50",
+                    "width": "1px"
+                  },
+                  "radius": "4px"
                 }
               }
             ]
@@ -430,8 +437,8 @@
                 "props": {
                   "Show label": true,
                   "Show trailing icon": false,
-                  "Label": "4 fields",
                   "Show leading icon": false,
+                  "Label": "4 fields",
                   "Intent": "Default",
                   "Emphasis": "Ghost",
                   "Size": "Small",

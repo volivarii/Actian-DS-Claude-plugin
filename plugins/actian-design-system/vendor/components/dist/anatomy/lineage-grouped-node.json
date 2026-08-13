@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-grouped-node",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15634:17895",
@@ -202,8 +202,8 @@
                 "props": {
                   "Show label": true,
                   "Show trailing icon": true,
-                  "Label": "2 datasets",
                   "Show leading icon": false,
+                  "Label": "2 datasets",
                   "Intent": "Default",
                   "Emphasis": "Ghost",
                   "Size": "Small",

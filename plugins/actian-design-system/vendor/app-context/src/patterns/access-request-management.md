@@ -8,7 +8,7 @@ apps:
 components:
   - table
   - tabs
-  - tag-status
+  - tag-default
   - button
 ---
 Table with Requester, Item, Status, Actions. Status tabs: Pending / Done.

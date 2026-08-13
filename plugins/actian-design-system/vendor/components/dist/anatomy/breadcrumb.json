@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "breadcrumb",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13792:15247",
@@ -44,7 +44,8 @@
         "unresolved": true,
         "props": {
           "Show digram": false,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "13792:15217"
       },
@@ -54,7 +55,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "13792:15244"
       },
@@ -64,7 +66,8 @@
         "unresolved": true,
         "props": {
           "Show digram": false,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "19230:22906"
       },
@@ -74,7 +77,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "19230:22902"
       },
@@ -84,7 +88,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "13792:15242"
       },
@@ -94,7 +99,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "19156:14844"
       },
@@ -104,7 +110,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "19156:14840"
       },
@@ -114,7 +121,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "13792:15218"
       },
@@ -124,7 +132,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "19230:22854"
       },
@@ -134,7 +143,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "19230:22866"
       },
@@ -144,7 +154,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "19230:22874"
       },
@@ -154,7 +165,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "19230:22898"
       },
@@ -164,7 +176,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Link"
+          "Type": "Link",
+          "State": "Default"
         },
         "id": "19230:22886"
       },
@@ -174,7 +187,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Separator"
+          "Type": "Separator",
+          "State": "Default"
         },
         "id": "19230:22870"
       },
@@ -184,7 +198,8 @@
         "unresolved": true,
         "props": {
           "Show digram": true,
-          "Type": "Current page"
+          "Type": "Current page",
+          "State": "Default"
         },
         "id": "13792:15219"
       }

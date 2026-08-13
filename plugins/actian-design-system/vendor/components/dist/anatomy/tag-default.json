@@ -2,74 +2,169 @@
   "_schema_version": 1,
   "slug": "tag-default",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3037",
-    "variant": "Color=Default"
+    "variant": "Type=Default"
   },
   "quality": {
-    "nodesTotal": 4,
-    "nodesNormalized": 4,
+    "nodesTotal": 3,
+    "nodesNormalized": 3,
     "ratio": 1,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Type",
+        "value": "Shared",
+        "path": "",
+        "reason": "childCount:2!=1"
+      }
+    ]
   },
   "root": {
-    "name": "Color=Default",
+    "name": "Type=Default",
     "kind": "container",
+    "tokenRefs": [
+      "--zen-color-neutral-50"
+    ],
     "id": "7257:3040",
     "appearance": {
-      "background": "#dde6ec",
-      "radius": "6px",
+      "background": "#fbfbff",
+      "border": {
+        "color": "#e1e1e6",
+        "colorToken": "--zen-color-neutral-50",
+        "width": "1px"
+      },
+      "radius": "4px",
       "variants": [
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Indigo"
+            "Catalog",
+            "Stage-5"
           ],
-          "background": "#cfeafd"
+          "background": "#ecffff",
+          "border": {
+            "color": "#d0efed",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Lime"
+            "Shared"
           ],
-          "background": "#d3e7e0"
+          "background": "#cbe3ff",
+          "border": {
+            "color": "#cbe3ff",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Orange"
+            "Stage-2"
           ],
-          "background": "#ffd7ca"
+          "background": "#fffbef",
+          "border": {
+            "color": "#feeddc",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Pink"
+            "Stage-3"
           ],
-          "background": "#ffd6d8"
+          "background": "#fff9e5",
+          "border": {
+            "color": "#ffebce",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Purple"
+            "Stage-4"
           ],
-          "background": "#f2e6f8"
+          "background": "#fff5f6",
+          "border": {
+            "color": "#ffd6d8",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Teal"
+            "Stage-6"
           ],
-          "background": "#d0efed"
+          "background": "#ecffff",
+          "border": {
+            "color": "#cfeafd",
+            "width": "1px"
+          }
         },
         {
-          "prop": "Color",
+          "prop": "Type",
           "values": [
-            "Yellow"
+            "Stage-7"
           ],
-          "background": "#feeddc"
+          "background": "#fff9ff",
+          "border": {
+            "color": "#f2e6f8",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Stage-8"
+          ],
+          "background": "#f0ffec",
+          "border": {
+            "color": "#d3efcd",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Status-error"
+          ],
+          "background": "#fff4ec",
+          "backgroundToken": "--zen-color-bg-error",
+          "border": {
+            "color": "#ffdacf",
+            "colorToken": "--zen-color-error-50",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Status-success"
+          ],
+          "background": "#f0ffec",
+          "backgroundToken": "--zen-color-bg-success",
+          "border": {
+            "color": "#d3efcd",
+            "colorToken": "--zen-color-success-50",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Status-warning"
+          ],
+          "background": "#fff9e5",
+          "backgroundToken": "--zen-color-bg-warning",
+          "border": {
+            "color": "#ffebce",
+            "colorToken": "--zen-color-warning-50",
+            "width": "1px"
+          }
         }
       ]
     },
@@ -101,7 +196,39 @@
         "name": "add",
         "kind": "instance",
         "slug": "add",
-        "id": "7276:2951"
+        "id": "7276:2951",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Catalog"
+              ],
+              "slug": "folder"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Status-error"
+              ],
+              "slug": "error-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Status-success"
+              ],
+              "slug": "success-filled"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Status-warning"
+              ],
+              "slug": "warning-filled"
+            }
+          ]
+        }
       },
       {
         "name": "Tag-Name",
@@ -120,17 +247,11 @@
             "letterSpacing": "0.3px"
           }
         },
-        "text": "Label"
-      },
-      {
-        "name": "arrow-down",
-        "kind": "instance",
-        "slug": "arrow-down",
-        "id": "13812:20936"
+        "text": "Default"
       }
     ]
   },
   "variantDefaults": {
-    "Color": "Default"
+    "Type": "Default"
   }
 }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-items",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7613:7853",
@@ -151,17 +151,18 @@
     },
     "children": [
       {
-        "name": "Tag, Catalog item type",
+        "name": "Tag, Item type",
         "kind": "instance",
-        "slug": "tag-catalog-item-type",
+        "slug": "tag-item-type",
         "props": {
+          "Show Counter": false,
           "Show counter": false,
-          "Type": "Dataset"
+          "Property 1": "Dataset"
         },
         "id": "7613:7709",
         "appearance": {
           "background": "#cfeafd",
-          "radius": "6px"
+          "radius": "4px"
         }
       },
       {
@@ -207,11 +208,13 @@
         },
         "children": [
           {
-            "name": "Tag, Catalog",
+            "name": "Tag, Default",
             "kind": "instance",
-            "slug": "tag-catalog",
+            "slug": "tag-default",
             "props": {
-              "Property 1": "Default"
+              "Leading icon show": true,
+              "Label": "Default",
+              "Type": "Catalog"
             },
             "id": "7613:7712",
             "appearance": {
@@ -220,7 +223,7 @@
                 "color": "#d0efed",
                 "width": "1px"
               },
-              "radius": "6px"
+              "radius": "4px"
             }
           }
         ]

@@ -1130,7 +1130,7 @@
         "components": [
           "table",
           "tabs",
-          "tag-status",
+          "tag-default",
           "button"
         ],
         "description": "Table with Requester, Item, Status, Actions. Status tabs: Pending / Done."
@@ -1145,7 +1145,7 @@
           "button",
           "dropdown-select-default",
           "text-input",
-          "tag-status"
+          "tag-default"
         ],
         "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval."
       },
@@ -1442,7 +1442,7 @@
           "button",
           "confirmation",
           "text-input",
-          "tag-status"
+          "tag-default"
         ],
         "description": "Explorer users submit suggestions, curators review (accept/decline with comment)."
       },

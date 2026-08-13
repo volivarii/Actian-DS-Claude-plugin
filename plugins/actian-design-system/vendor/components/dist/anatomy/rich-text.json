@@ -2,16 +2,16 @@
   "_schema_version": 1,
   "slug": "rich-text",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9480:17723",
     "variant": "State=Default"
   },
   "quality": {
-    "nodesTotal": 58,
+    "nodesTotal": 56,
     "nodesNormalized": 30,
-    "ratio": 0.52,
+    "ratio": 0.54,
     "degraded": [
       {
         "name": "svg.fr-svg",
@@ -116,22 +116,6 @@
       {
         "name": "Frame",
         "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "More",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE (variant State=Expanded)"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE (variant State=Expanded)"
       },
       {
         "name": "svg.fr-svg",
@@ -1215,50 +1199,10 @@
                 ]
               },
               {
-                "name": "More",
-                "kind": "container",
-                "id": "9480:18780",
-                "normalizable": false,
-                "rawHint": {
-                  "layoutMode": "NONE",
-                  "x": 5545,
-                  "y": 757,
-                  "constraints": {
-                    "vertical": "TOP",
-                    "horizontal": "LEFT"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Frame",
-                    "kind": "container",
-                    "id": "9480:18781",
-                    "normalizable": false,
-                    "rawHint": {
-                      "layoutMode": "NONE",
-                      "x": 5545,
-                      "y": 757,
-                      "constraints": {
-                        "vertical": "TOP",
-                        "horizontal": "CENTER"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Vector",
-                        "kind": "vector",
-                        "tokenRefs": [
-                          "--zen-color-icon-default"
-                        ],
-                        "id": "9480:18782",
-                        "appearance": {
-                          "background": "#000000",
-                          "backgroundToken": "--zen-color-icon-default"
-                        }
-                      }
-                    ]
-                  }
-                ]
+                "name": "more",
+                "kind": "instance",
+                "slug": "more",
+                "id": "20948:68551"
               }
             ],
             "appearance": {

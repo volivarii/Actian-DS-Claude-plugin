@@ -10,6 +10,6 @@ components:
   - button
   - confirmation
   - text-input
-  - tag-status
+  - tag-default
 ---
 Explorer users submit suggestions, curators review (accept/decline with comment).

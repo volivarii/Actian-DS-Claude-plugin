@@ -359,20 +359,38 @@
 }
 
 /* ============ Tag (default) ============ */
-/* Re-grounded against the 2026-07-23 capture, which carries a tag redesign:
- * the old pale-fill-plus-tinted-border treatment became a single flat fill,
- * and the fill IS the tint the border used to carry (Pink was bg #fff5f6 /
- * border #ffd6d8, it is now bg #ffd6d8 with no border, and the same holds
- * for every hue). So the base rule drops its border outright, and the label
- * moves from text-tertiary to text-default. */
+/* Re-grounded against the 2026-08-12 capture, which folded five tag-family
+ * components into this one (see the Type-variant block further down). The base
+ * rule is Type=Default, the capture's own default variant:
+ *
+ *   background #fbfbff, border 1px --zen-color-neutral-50 (#e1e1e6), radius 4px
+ *
+ * All three moved. The previous fill (#dde6ec) was Color=Default's, and Color no
+ * longer exists as an axis -- that hex appears nowhere in tag-default's new
+ * capture, so leaving it would paint the most-used tag in the system a colour
+ * the design system does not contain. The 2026-07-23 pass had also dropped the
+ * border outright ("the fill IS the tint the border used to carry"); the
+ * redesign put a neutral border back and moved the fill to near-white.
+ *
+ * Confirmed by a SECOND, independent capture rather than by this one alone:
+ * search-result-card's anatomy records its own stage pill (a tag-default
+ * instance) at bg #fcfcfc / border #ebebeb / radius 4px -- the same shape, with
+ * --zen-color-neutral-50 resolved in that card's theme mode. Padding, height and
+ * the text colour are unchanged by the fold-in.
+ *
+ * Not checkable either way: the fidelity classifier files a base rule under a
+ * capture whose root is a variant instance as `root-is-variant-instance`, so
+ * these three declarations are honestly unverifiable and this re-grounding buys
+ * no coverage. It is here because the value was wrong, not to move a number. */
 .ds-tag {
   display: inline-flex;
   align-items: center;
-  gap: var(--zen-spacing-2xs); /* 4 */
+  gap: var(--zen-spacing-2xs); /* 4, captured gapToken */
   height: var(--zen-size-lg); /* 24 */
-  padding: 0 var(--zen-spacing-xs); /* 8 */
-  border-radius: var(--zen-border-radius-sm); /* 6 */
-  background: #dde6ec; /* Color=Default fill, no token captured */
+  padding: 0 var(--zen-spacing-xs); /* 8, captured paddingTokens */
+  border-radius: var(--zen-border-radius-xs); /* 4, captured radius */
+  background: #fbfbff; /* Type=Default fill, no token captured */
+  border: 1px solid var(--zen-color-neutral-50); /* captured #e1e1e6 */
   color: var(--zen-color-text-default);
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-sm); /* 12 */
@@ -496,6 +514,16 @@
 .ds-card__eyebrow,
 .ds-card__cat {
   align-self: flex-start;
+}
+/* Base .ds-tag regained a 1px neutral border in the 2026-08-12 fold-in, and
+ * this card's own capture records its eyebrow (a "Tag, Item type" instance,
+ * bg #cfeafd, radius 4px) with NO border -- so it opts out, exactly as
+ * .ds-search-result-card__type already does for the same reason. Only the
+ * border is corrected here: the eyebrow's captured FILL and the category
+ * pill's (#ecffff / #d0efed, i.e. Type=Catalog) are a card-for-items fidelity
+ * gap that predates this change and is not resolved by it. */
+.ds-card__eyebrow {
+  border: none;
 }
 
 /* ============ Item type badge (digram-item-types) ============ */
@@ -2567,169 +2595,116 @@
   border-bottom-right-radius: var(--zen-border-radius-xs);
 }
 
-/* ============ Tag (color variants, derived from facts) ============ */
-/* Renderer relocation phase 1b-alpha: these bind var(--token) only where the
- * token round-trips to the appearance fact resolved value; otherwise the
- * literal value ships (value-first, see scripts/render/derive-appearance.js
- * bindColor). Derived from components/dist/anatomy/tag-default.json. */
-/* Fill only: the redesign removed the border from every hue (see .ds-tag).
- * Gray deliberately has NO rule here. It is still a live tag-default Color
- * (the registry lists it, and the capture is undegraded), but it now resolves
- * to the same #dde6ec as Color=Default, which is why it carries no delta in
- * the anatomy and why a dedicated rule would be a no-op. tag-stage's Gray is
- * a different colour and gets its own scoped rule further down. */
-.ds-tag--indigo {
-  background: #cfeafd;
+/* ============ Tag (Type variants, derived from facts) ============ */
+/* Derived from components/dist/anatomy/tag-default.json's per-Type appearance
+ * groups. Renderer relocation phase 1b-alpha's binding rule still applies:
+ * bind var(--token) only where the token round-trips to the appearance fact's
+ * resolved value, otherwise the literal ships (value-first, see
+ * scripts/render/derive-appearance.js bindColor).
+ *
+ * The 2026-08-12 breaking sync folded five tag-family components into this one:
+ * the Color axis (indigo/lime/orange/pink/purple/teal/yellow + an unruled Gray)
+ * is GONE, and a single Type axis carries Default | Catalog | Shared |
+ * Stage-1..8 | Status-error/-warning/-success. The eight .ds-tag--<hue> rules
+ * are therefore deleted rather than recoloured: two of them (Lime #d3e7e0,
+ * Orange #ffd7ca) painted values the new capture does not contain anywhere, and
+ * editing a hex to make a measurement agree is the move that shipped the
+ * white-on-white segmented control. The axis Figma removed is removed; the
+ * values below come from the capture.
+ *
+ * TWO VALUES DELIBERATELY CARRY NO RULE:
+ *  - Type=Default is the base pill (see .ds-tag above), so a rule here would be
+ *    a no-op restating it.
+ *  - Type=Stage-1 has NO appearance group in the capture at all, so per the
+ *    capture it renders exactly as Default. No hue is invented for it.
+ * Both still emit their modifier class from the renderer; it simply matches
+ * nothing here, which is the honest reading of a capture that records no delta.
+ *
+ * Catalog and Stage-5 share one captured group, and so does Stage-8 with
+ * Status-success (and Stage-3 with Status-warning) on the background alone.
+ * They are written as SEPARATE rules, never grouped selectors: fidelity-classify
+ * buckets a selector naming two different modifier values as unattributable
+ * ("no way to pick one without guessing which capture to compare against"), so
+ * grouping them would drop every one of these declarations out of the
+ * measurement while looking tidier. */
+.ds-tag--catalog {
+  background: #ecffff;
+  border-color: #d0efed;
 }
-.ds-tag--lime {
-  background: #d3e7e0; /* captured tag-default Lime; tag-stage overrides below */
+.ds-tag--shared {
+  background: #cbe3ff;
+  border-color: #cbe3ff;
 }
-.ds-tag--orange {
-  background: #ffd7ca; /* captured tag-default Orange; tag-stage overrides below */
+.ds-tag--stage-2 {
+  background: #fffbef;
+  border-color: #feeddc;
 }
-.ds-tag--pink {
-  background: #ffd6d8;
+.ds-tag--stage-3 {
+  background: #fff9e5;
+  border-color: #ffebce;
 }
-.ds-tag--purple {
-  background: #f2e6f8;
+.ds-tag--stage-4 {
+  background: #fff5f6;
+  border-color: #ffd6d8;
 }
-.ds-tag--teal {
-  background: #d0efed;
+.ds-tag--stage-5 {
+  background: #ecffff;
+  border-color: #d0efed;
 }
-.ds-tag--yellow {
-  background: #feeddc;
+.ds-tag--stage-6 {
+  background: #ecffff;
+  border-color: #cfeafd;
+}
+.ds-tag--stage-7 {
+  background: #fff9ff;
+  border-color: #f2e6f8;
+}
+.ds-tag--stage-8 {
+  background: #f0ffec;
+  border-color: #d3efcd;
+}
+/* The three Status values are the only Types whose capture names the Figma
+ * variable it painted with. Their BORDER tokens round-trip against the frozen
+ * tokens.css snapshot and bind; their BACKGROUND tokens do not (--zen-color-bg-
+ * error/-success/-warning resolve to #f8f4f3/#f3f6f3/#f7f4f2 there, not the
+ * captured fills), so those ship literal, value-first. */
+.ds-tag--status-error {
+  background: #fff4ec; /* captured --zen-color-bg-error does not round-trip */
+  border-color: var(--zen-color-error-50);
+}
+.ds-tag--status-success {
+  background: #f0ffec; /* captured --zen-color-bg-success does not round-trip */
+  border-color: var(--zen-color-success-50);
+}
+.ds-tag--status-warning {
+  background: #fff9e5; /* captured --zen-color-bg-warning does not round-trip */
+  border-color: var(--zen-color-warning-50);
 }
 
-/* ============ Tag (gray-box-to-zero family 2) ============ */
-/* tag-shared: static solid pill. Anatomy carries no colorToken/backgroundToken
- * for this fill (unlike the .ds-tag--<color> block above), so it ships as a
- * literal hex, value-first. Border == fill on purpose: it reads as a solid
- * pill with no visible outline, distinct from base .ds-tag's contrasting
- * border. Text color/geometry inherit from base .ds-tag verbatim. */
-.ds-tag--shared {
-  background: #dde6ec;
-  border: 1px solid #dde6ec;
-}
-/* tag-catalog: icon+label pill. Its fill now matches .ds-tag--teal exactly
- * (#d0efed) and its label colour matches the re-grounded base, so only the
- * fill is left to declare -- the border and the text-default override both
- * became no-ops against the new capture and are gone. */
-.ds-tag--catalog {
-  background: #d0efed;
-}
-/* tag-stage: colored dot + label + trailing arrow. Reuses the 8
- * .ds-tag--<color> container rules above for 6 of its 8 colors; only the
- * dot/icon descendants and the two overrides below are new. Dot diameter
- * (8px) is the one hand-chosen value -- anatomy captures radius=20px
- * (pill/circle) but not the diameter itself. */
+/* ============ Tag (stage pill, reused by search-result-card) ============ */
+/* The tag-stage COMPONENT retired into tag-default's Type axis on 2026-08-12,
+ * but these two classes survive it: search-result-card's own markup emits
+ * `.ds-tag .ds-tag-stage` + `.ds-tag-stage__dot` for its stage pill, so
+ * deleting them would silently drop that card's dot.
+ *
+ * What went with the component: `.ds-tag-stage__icon` (+ svg) -- only
+ * tag-stage's own case emitted the trailing arrow; `.ds-tag-stage--gray/-lime/
+ * -orange` -- only tag-stage emitted the paired stage-scoped hue modifier; and
+ * the seven `.ds-tag--<hue> .ds-tag-stage__dot` per-hue dot fills, whose
+ * left-hand hue classes no longer exist. Dot diameter (8px) is the one
+ * hand-chosen value: the anatomy captured radius=20px (pill/circle) but not the
+ * diameter. */
 .ds-tag-stage {
-  /* Namespace hook only: geometry/color come from .ds-tag (base) and
-   * .ds-tag--<color> (container fill/border), plus the .ds-tag-stage--<color>
-   * overrides below where tag-stage's own capture differs; scopes the dot/icon
-   * descendant selectors below without re-declaring any of that. */
+  /* Namespace hook only: geometry and colour come from .ds-tag (base) and the
+   * .ds-tag--<type> rules above; this scopes the dot selector below without
+   * re-declaring any of it. */
 }
-/* tag-stage's own Color scale, for the values where its capture disagrees with
- * tag-default's. Figma publishes a Color axis on BOTH components and they
- * agree on six of eight border tints; Orange and Yellow differ by one ramp
- * step, in opposite directions:
- *
- *   tag-default  Orange -> error-50 #ffdacf   Yellow -> warning-100 #ffddb6
- *   tag-stage    Orange -> error-100 #ffc1b3  Yellow -> warning-50  #ffebce
- *
- * Backgrounds and the other six borders are identical in both captures, so
- * only these two declarations are restated. Editing the shared
- * .ds-tag--orange / .ds-tag--yellow rules instead would fix tag-stage by
- * breaking tag-default; these come after them in source order, at equal
- * specificity, so the cascade gives tag-stage its own value while every other
- * .ds-tag consumer keeps tag-default's. */
-/* tag-stage's own colour scale. Figma gives tag-default and tag-stage DIFFERENT
- * fills for the same colour name, so the shared .ds-tag--<colour> rules above
- * cannot serve both. Only the colours that actually differ appear here; the rest
- * inherit the shared rule. The 2026-07-23 sync retired tag borders entirely
- * (both captures now record border: null), so the border-color overrides that
- * used to live here are gone with them. */
 .ds-tag-stage__dot {
   width: 8px; /* dot geometry (raw px), diameter not captured by anatomy */
   height: 8px;
   border-radius: 20px; /* captured radius */
   flex: 0 0 auto;
-  background: var(--zen-color-text-tertiary); /* #50505d, Gray/default dot */
-}
-.ds-tag-stage__icon {
-  width: 14px; /* icon box geometry (raw px), matches .ds-tag__icon */
-  height: 14px;
-  flex: 0 0 auto;
-  display: inline-flex;
-  color: var(--zen-color-icon-default);
-}
-.ds-tag-stage__icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-/* tag-stage's own hue fills diverged from tag-default's in this redesign:
- * Lime and Orange no longer share a value, so the two rules below override
- * the shared .ds-tag--<hue> fill for stage pills only. The other five hues
- * still match tag-default exactly and are left to the shared rules. */
-.ds-tag-stage--gray {
-  background: var(--zen-color-neutral-50); /* #e1e1e6, not tag-default #dde6ec */
-}
-.ds-tag-stage--lime {
-  background: var(--zen-color-success-50); /* #d3efcd, not tag-default #d3e7e0 */
-}
-.ds-tag-stage--orange {
-  background: var(--zen-color-warning-50); /* #ffebce, not tag-default #ffd7ca */
-}
-.ds-tag--indigo .ds-tag-stage__dot {
-  background: #00699f; /* no captured token */
-}
-.ds-tag--lime .ds-tag-stage__dot {
-  background: var(--zen-color-success-700); /* #047800 */
-}
-.ds-tag--orange .ds-tag-stage__dot {
-  background: var(--zen-color-warning-700); /* #d27b00 */
-}
-.ds-tag--yellow .ds-tag-stage__dot {
-  background: #b78a55; /* no captured token */
-}
-.ds-tag--pink .ds-tag-stage__dot {
-  background: #932139; /* no captured token */
-}
-.ds-tag--purple .ds-tag-stage__dot {
-  background: #7900cb; /* no captured token */
-}
-.ds-tag--teal .ds-tag-stage__dot {
-  background: #007e7b; /* no captured token */
-}
-/* tag-status: status pill. The 2026-07-23 capture cut the Status axis from
- * 11 values in 5 colour families to 5 values in 4: Maintenance, Queued,
- * Scheduled, Offline, Sleeping and Stopped are gone, Pending moved from the
- * neutral group into info, and the neutral family has no fill left at all.
- * The .ds-tag--status-neutral rule is therefore deleted rather than kept
- * against a fabricated colour -- see the note on PR #475, this is an
- * upstream API change that needs a call, not a silently-invented swatch.
- * Borders are gone here too, in line with the rest of the family.
- * Value-first: the captured backgroundTokens still do not round-trip
- * against the frozen tokens.css snapshot, so each fill ships literal. */
-.ds-tag--status-error {
-  /* Fail. Captured --zen-color-bg-error, which tokens.css resolves to
-   * #f8f4f3 rather than the captured #fff4ec -- literal. */
-  background: #fff4ec;
-}
-.ds-tag--status-info {
-  /* Loading, Pending. Captured --zen-color-bg-info, which tokens.css
-   * resolves elsewhere than the captured #f7fdff -- literal. */
-  background: #f7fdff;
-}
-.ds-tag--status-success {
-  /* Success. Captured --zen-color-bg-success, resolves elsewhere in
-   * tokens.css than the captured #f0ffec -- literal. */
-  background: #f0ffec;
-}
-.ds-tag--status-warning {
-  /* Warning. Captured --zen-color-bg-warning resolves to #f7f4f2 in
-   * tokens.css, not the captured #fff9e5 -- literal. */
-  background: #fff9e5;
+  background: var(--zen-color-text-tertiary); /* #50505d, default dot */
 }
 
 /* ============ Checkbox (indeterminate state) ============ */
@@ -2909,55 +2884,36 @@
   /* Extends .ds-button--primary/.ds-button--tertiary; no additional overrides needed */
 }
 
-/* ============ Tag glossary item type (gray-box-to-zero family 2) ============ */
-/* Dedicated block, NOT base .ds-tag: the anatomy has no border and a
- * different radius (4px vs .ds-tag's 6px), so reusing the base class would
- * leak an unwanted border. Single fixed variant; the only prop is the
- * "Show Counter" boolean gating __counter. Value-first: --zen-color-warning-25
- * does not round-trip against the frozen tokens.css snapshot (resolves to
- * #f7f4f2, not the captured #fff9e5), so the literal ships instead, same
- * pattern as the sibling .ds-tag-catalog-item-type--use-case rule below. */
-.ds-tag-glossary-item-type {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--zen-spacing-xs); /* 8 */
-  padding: 0 var(--zen-spacing-xs); /* 0 8 */
-  border-radius: var(--zen-border-radius-xs); /* 4 */
-  background: #fff9e5; /* --zen-color-warning-25 does not round-trip (:root resolves to #f7f4f2) */
-  height: var(--zen-size-lg); /* 24, inherited-from-sibling .ds-tag geometry */
-  font-family: var(--zen-font-family-text);
-  font-size: var(--zen-font-size-sm); /* 12 */
-  line-height: var(--zen-font-lineheight-sm); /* 16 */
-  font-weight: var(--zen-font-weight-regular);
-  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
-  box-sizing: border-box;
-  white-space: nowrap;
-}
-.ds-tag-glossary-item-type__label {
-  color: var(--zen-color-warning-900);
-}
-.ds-tag-glossary-item-type__counter {
-  color: var(--zen-color-text-default);
-}
-
-/* ============ Tag catalog item type (gray-box-to-zero family 2) ============ */
-/* Dedicated block, NOT base .ds-tag: the anatomy has no border, unlike
- * .ds-tag's 1px border -- reusing the base class would leak one. 8 colored
- * type pills; each modifier sets the root fill, and a scoped descendant rule
- * sets __name's text color (mirrors tag-stage's per-color dot-fill
- * precedent). __counter's color is fixed regardless of type. Value-first:
- * Category/Field/Use case's text/bg tokens round-trip against the frozen
- * tokens.css :root snapshot and bind; Dataset's tokens do NOT round-trip
- * (primary-50/-800 resolve to #cbe3ff/#033b92 there, not the captured
- * #cfeafd/#00547d) and ship literal; the remaining four types (Data
- * process/product, Output port, Visualization) have no captured token at
- * all and ship literal. */
-.ds-tag-catalog-item-type {
+/* ============ Tag item type (renamed + folded in, 2026-08-12) ============ */
+/* Renamed from .ds-tag-catalog-item-type: Figma's "Tag, Catalog item type"
+ * became "Tag, Item type" and ABSORBED the retired tag-glossary-item-type, so
+ * the axis moved from `Type` (8 catalog values) to `Property 1` (28 values --
+ * Glossary-1..5, Category, Custom-1..15, and the six data-catalog names). The
+ * dedicated .ds-tag-glossary-item-type block that used to sit above this one is
+ * gone with its component; the treatment it carried is Glossary-1..5 below.
+ *
+ * Every value below is DERIVED from that value's own appearance group in
+ * components/dist/anatomy/tag-item-type.json -- the fill from the root, the
+ * label colour from the Tag-Name child. The eight catalog values' fills are
+ * byte-identical to what this block already carried before the rename, which is
+ * the independent confirmation that the fold-in preserved their treatment rather
+ * than restyling it.
+ *
+ * Property 1=Glossary-1 is the captured DEFAULT, so its fill and label colour
+ * are the base rule's and it carries no modifier rule of its own (a rule for it
+ * would be a no-op restating the base). Value-first binding as elsewhere: only
+ * Field's success-50/-800 and Use case's text-default round-trip against the
+ * frozen tokens.css snapshot; the rest ship literal.
+ *
+ * Dedicated block, NOT base .ds-tag: the anatomy captures no border here,
+ * unlike .ds-tag's 1px border -- reusing the base class would leak one. */
+.ds-tag-item-type {
   display: inline-flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8, captured gapToken */
   padding: 0 var(--zen-spacing-xs); /* 0 8, captured paddingTokens */
   border-radius: 4px; /* captured radius, no token */
+  background: #ffebce; /* Property 1=Glossary-1 (the captured default) */
   height: 24px; /* inherited-from-sibling .ds-tag geometry (--zen-size-lg); not directly captured */
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-sm); /* 12 */
@@ -2967,58 +2923,174 @@
   box-sizing: border-box;
   white-space: nowrap;
 }
-.ds-tag-catalog-item-type__name {
+.ds-tag-item-type__name {
   display: inline-block;
+  color: #9c2000; /* Property 1=Glossary-1's captured label colour */
 }
-.ds-tag-catalog-item-type__counter {
+.ds-tag-item-type__counter {
   color: #000000; /* no token captured */
 }
-.ds-tag-catalog-item-type--category {
-  background: #ffd7ca; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--category {
+  background: #ffd7ca; /* no captured token */
 }
-.ds-tag-catalog-item-type--category .ds-tag-catalog-item-type__name {
-  color: #7b2000; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--custom-1 {
+  background: #ffd5dd; /* no captured token */
 }
-.ds-tag-catalog-item-type--dataset {
-  background: #cfeafd; /* --zen-color-primary-50 does not round-trip (:root resolves to #cbe3ff) */
-}
-.ds-tag-catalog-item-type--dataset .ds-tag-catalog-item-type__name {
-  color: #00547d; /* --zen-color-primary-800 does not round-trip (:root resolves to #033b92) */
-}
-.ds-tag-catalog-item-type--data-process {
+.ds-tag-item-type--custom-2 {
   background: #ffd6d8; /* no captured token */
 }
-.ds-tag-catalog-item-type--data-process .ds-tag-catalog-item-type__name {
-  color: #932139; /* no captured token */
+.ds-tag-item-type--custom-3 {
+  background: #e7e0ee; /* no captured token */
 }
-.ds-tag-catalog-item-type--data-product {
-  background: #cadcf7; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--custom-4 {
+  background: #e1e5ff; /* no captured token */
 }
-.ds-tag-catalog-item-type--data-product .ds-tag-catalog-item-type__name {
-  color: #00255a; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--custom-5 {
+  background: #cadcf7; /* no captured token */
 }
-.ds-tag-catalog-item-type--field {
+.ds-tag-item-type--custom-6 {
+  background: #dde6ec; /* no captured token */
+}
+.ds-tag-item-type--custom-7 {
+  background: #d0efed; /* no captured token */
+}
+.ds-tag-item-type--custom-8 {
+  background: #ecffff; /* no captured token */
+}
+.ds-tag-item-type--custom-9 {
+  background: #d0efed; /* no captured token */
+}
+.ds-tag-item-type--custom-10 {
+  background: #d3efcd; /* no captured token */
+}
+.ds-tag-item-type--custom-11 {
+  background: #f0ffec; /* no captured token */
+}
+.ds-tag-item-type--custom-12 {
+  background: #d3efcd; /* no captured token */
+}
+.ds-tag-item-type--custom-13 {
+  background: #d3efcd; /* no captured token */
+}
+.ds-tag-item-type--custom-14 {
+  background: #e1eacb; /* no captured token */
+}
+.ds-tag-item-type--custom-15 {
+  background: #e2e4dd; /* no captured token */
+}
+.ds-tag-item-type--data-process {
+  background: #ffd6d8; /* no captured token */
+}
+.ds-tag-item-type--data-product {
+  background: #cadcf7; /* no captured token */
+}
+.ds-tag-item-type--dataset {
+  background: #cfeafd; /* no captured token */
+}
+.ds-tag-item-type--field {
   background: var(--zen-color-success-50);
 }
-.ds-tag-catalog-item-type--field .ds-tag-catalog-item-type__name {
-  color: var(--zen-color-success-800);
+.ds-tag-item-type--glossary-2 {
+  background: #ffddb6; /* no captured token */
 }
-.ds-tag-catalog-item-type--output-port {
-  background: #f1fdff; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--glossary-3 {
+  background: #ffcd92; /* no captured token */
 }
-.ds-tag-catalog-item-type--output-port .ds-tag-catalog-item-type__name {
-  color: #00255a; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--glossary-4 {
+  background: #ffddb6; /* no captured token */
 }
-.ds-tag-catalog-item-type--use-case {
-  background: #fff5d5; /* captured 2026-07-23; no token resolves to this value */
+.ds-tag-item-type--glossary-5 {
+  background: #ffcd92; /* no captured token */
 }
-.ds-tag-catalog-item-type--use-case .ds-tag-catalog-item-type__name {
-  color: var(--zen-color-text-default);
+.ds-tag-item-type--output-port {
+  background: #f1fdff; /* no captured token */
 }
-.ds-tag-catalog-item-type--visualization {
+.ds-tag-item-type--use-case {
+  background: #fff5d5; /* no captured token */
+}
+.ds-tag-item-type--visualization {
   background: #eed7ff; /* no captured token */
 }
-.ds-tag-catalog-item-type--visualization .ds-tag-catalog-item-type__name {
+
+.ds-tag-item-type--category .ds-tag-item-type__name {
+  color: #7b2000; /* no captured token */
+}
+.ds-tag-item-type--custom-1 .ds-tag-item-type__name {
+  color: #771a34; /* no captured token */
+}
+.ds-tag-item-type--custom-2 .ds-tag-item-type__name {
+  color: #932139; /* no captured token */
+}
+.ds-tag-item-type--custom-3 .ds-tag-item-type__name {
+  color: #644f77; /* no captured token */
+}
+.ds-tag-item-type--custom-4 .ds-tag-item-type__name {
+  color: #5c61a7; /* no captured token */
+}
+.ds-tag-item-type--custom-5 .ds-tag-item-type__name {
+  color: #002f75; /* no captured token */
+}
+.ds-tag-item-type--custom-6 .ds-tag-item-type__name {
+  color: #4a6470; /* no captured token */
+}
+.ds-tag-item-type--custom-7 .ds-tag-item-type__name {
+  color: #006563; /* no captured token */
+}
+.ds-tag-item-type--custom-8 .ds-tag-item-type__name {
+  color: #007e7b; /* no captured token */
+}
+.ds-tag-item-type--custom-9 .ds-tag-item-type__name {
+  color: #15504e; /* no captured token */
+}
+.ds-tag-item-type--custom-10 .ds-tag-item-type__name {
+  color: #047800; /* no captured token */
+}
+.ds-tag-item-type--custom-11 .ds-tag-item-type__name {
+  color: #1a4b14; /* no captured token */
+}
+.ds-tag-item-type--custom-12 .ds-tag-item-type__name {
+  color: #145f04; /* no captured token */
+}
+.ds-tag-item-type--custom-13 .ds-tag-item-type__name {
+  color: #1a4b14; /* no captured token */
+}
+.ds-tag-item-type--custom-14 .ds-tag-item-type__name {
+  color: #5a6b00; /* no captured token */
+}
+.ds-tag-item-type--custom-15 .ds-tag-item-type__name {
+  color: #555947; /* no captured token */
+}
+.ds-tag-item-type--data-process .ds-tag-item-type__name {
+  color: #932139; /* no captured token */
+}
+.ds-tag-item-type--data-product .ds-tag-item-type__name {
+  color: #00255a; /* no captured token */
+}
+.ds-tag-item-type--dataset .ds-tag-item-type__name {
+  color: #00547d; /* no captured token */
+}
+.ds-tag-item-type--field .ds-tag-item-type__name {
+  color: var(--zen-color-success-800);
+}
+.ds-tag-item-type--glossary-2 .ds-tag-item-type__name {
+  color: #7b2000; /* no captured token */
+}
+.ds-tag-item-type--glossary-3 .ds-tag-item-type__name {
+  color: #5d1f0b; /* no captured token */
+}
+.ds-tag-item-type--glossary-4 .ds-tag-item-type__name {
+  color: #83551f; /* no captured token */
+}
+.ds-tag-item-type--glossary-5 .ds-tag-item-type__name {
+  color: #591e27; /* no captured token */
+}
+.ds-tag-item-type--output-port .ds-tag-item-type__name {
+  color: #00255a; /* no captured token */
+}
+.ds-tag-item-type--use-case .ds-tag-item-type__name {
+  color: var(--zen-color-text-default);
+}
+.ds-tag-item-type--visualization .ds-tag-item-type__name {
   color: #5f0c9e; /* no captured token */
 }
 
@@ -3143,9 +3215,11 @@
  * modifier -- there is no built CSS delta for it, so no --studio class is
  * emitted (a modifier must carry a real visual delta, never a no-op
  * namespace hook). Eyebrow/stage/catalog tags and the glossary item-type
- * badge reuse EXISTING .ds-tag / .ds-tag-stage / .ds-tag--gray /
- * .ds-tag--catalog / .ds-item-type rules verbatim -- only the
- * ds-search-result-card* classes below are new. */
+ * badge reuse EXISTING .ds-tag / .ds-tag-stage / .ds-tag--catalog /
+ * .ds-item-type rules verbatim -- only the
+ * ds-search-result-card* classes below are new. (The stage pill's
+ * .ds-tag--gray dropped out with tag-default's Color axis on 2026-08-12; Gray
+ * never had a rule of its own, so nothing it painted was lost.) */
 .ds-search-result-card {
   display: flex;
   flex-direction: column;
@@ -3526,7 +3600,7 @@
  * verbatim from the Studio anatomy (quality.ratio 1); only Explorer's
  * chrome-accent modifier and the tab-strip/section copy are invented
  * (registry exposes no content props for either -- see the case comment).
- * The item-type badge (.ds-tag-catalog-item-type) and progress bar
+ * The item-type badge (.ds-tag-item-type) and progress bar
  * (.ds-progress*) reuse their EXISTING rules verbatim; only the classes
  * below are new. */
 .ds-drawer {
