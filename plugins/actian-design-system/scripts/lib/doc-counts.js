@@ -188,13 +188,24 @@ function buildChecks(c) {
       // are now exactly what sync-doc-counts.js derives and writes, and banning
       // them fired the guard against the correct value. Removed for that reason;
       // do not add new count literals here.
-      notContains: [
-        "WCAG 2.1 AA",
-        "322 DS Kit",
-        "85 per-component",
-        "41 auto-stub",
-        "44 fully curated",
-      ],
+      //
+      // AND IT DID IT AGAIN, in the direction the note above did not anticipate.
+      // "322 DS Kit" was banned when DS Kit grew past 322. The 2026-08-12 tag
+      // fold-in deleted five components and DS Kit came back DOWN to 322, so
+      // sync-doc-counts.js wrote the correct value into README.md and this guard
+      // immediately called it stale. A count denylist does not just go stale, it
+      // can be re-entered from below.
+      //
+      // Both pure count literals are gone now. Neither cost any coverage: the
+      // `contains` list above already asserts the DERIVED value for each, with a
+      // fixRx that matches the same shape ("N DS Kit + N FM Kit + N Meta Kit",
+      // "N per-component guideline docs"), so a stale number of either shape is
+      // still caught, by the side of the check that reads ground truth.
+      //
+      // The two entries kept are not count assertions. Their stale claim is the
+      // WORDING: the snapshot ships no auto-stubs at all, and "fully curated" as
+      // a partial-coverage caveat is wrong regardless of how many docs there are.
+      notContains: ["WCAG 2.1 AA", "41 auto-stub", "44 fully curated"],
     },
     {
       file: ".claude-plugin/marketplace.json",
