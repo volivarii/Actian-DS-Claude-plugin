@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "text-input",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7238:2487",
@@ -58,11 +58,11 @@
         "slug": "label",
         "props": {
           "Description text": "A description helps users to define and understand the purpose of the input.",
-          "* (Asterisk)": true,
           "Label text": "Label",
-          "Label": true,
+          "* (Asterisk)": true,
           "Description": true,
           "Info icon": true,
+          "Label": true,
           "State": "Default"
         },
         "id": "20405:22403"

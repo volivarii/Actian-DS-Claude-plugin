@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "notification",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13868:11595",
@@ -22,7 +22,7 @@
     ],
     "id": "13868:11596",
     "appearance": {
-      "background": "#000000",
+      "background": "#33333a",
       "backgroundToken": "--zen-color-bg-reverse",
       "radius": "4px",
       "variants": [
@@ -79,10 +79,10 @@
         "kind": "instance",
         "slug": "button",
         "props": {
-          "Label": "Close",
           "Show label": true,
           "Show trailing icon": false,
           "Show leading icon": false,
+          "Label": "Close",
           "Intent": "Default",
           "Emphasis": "Ghost",
           "Size": "Default",

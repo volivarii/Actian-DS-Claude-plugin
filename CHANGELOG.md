@@ -20,6 +20,61 @@ are summarized at the release level.
 ## [Unreleased]
 
 ### Fixed
+- **A breaking design-system change folded five tag components into one, and every one of the 15 failures
+  it caused was in what the plugin's tests CLAIMED, not in what the renderer does.**
+  ([#PR](_PR link added at open_)) knowledge **v0.34.124** replaced `tag-default`'s `Color` axis with a
+  14-value `Type` axis (`Default`, `Catalog`, `Shared`, `Stage-1..8`, `Status-error`/`-warning`/`-success`),
+  deleted `tag-catalog`, `tag-shared`, `tag-stage`, `tag-status` and `tag-glossary-item-type`, and renamed
+  `tag-catalog-item-type` to `tag-item-type` and `radio-button-card` to `radio-card`. **v0.34.125** then
+  dropped the ruleless `ds-tag--with-icon` modifier at both of its emit sites (knowledge #527). The
+  vendored snapshot moves to v0.34.125, so this catch-up covers both. No renderer or CSS code changed here:
+  since the relocation the plugin consumes knowledge's renderer from `vendor/`, so the only thing that
+  could disagree was the test suite, and it did in nine places.
+
+  **The loud failures were the safe half.** An unknown axis does not throw: the leaf shape-clamps
+  `v.Type`, so `"Color=Default"` rendered a bare `<span class="ds-tag">` with no modifier class at all,
+  and every substring assertion except the class one still passed. Two tests were reading a pill that had
+  silently lost its paint, and two golden fixtures were pointing at a slug that no longer exists, where a
+  blind `UPDATE_GOLDENS=1` would have banked a `gracefulChip()` fallback and called it a tag. Specimens
+  are now derived from the anatomy doc the renderer itself reads, via four additions to
+  `tests/helpers/appearance-specimen.js`, so no test names `Color` or `Type`.
+
+  **Two gates came back stronger rather than merely unstuck.** The `ds-base.css` check asserted one
+  hardcoded hue (`.ds-tag--pink`); it now asserts that every `Type` the capture paints differently from
+  the base has a rule, all 12 of them, and names any that do not. It is verified non-tautological by
+  mutation. Its converse is deliberately not asserted, because `Type=Default` and `Type=Stage-1` carry no
+  captured delta and inventing a hue for them is the move that shipped a white-on-white segmented control.
+  The deliverable test pinned a whole span string, which made it an accidental icon golden that broke when
+  the leading icon became default-true; it now captures the opening tag's attribute tail, which is its
+  real subject.
+
+  **A real defect closed on the way through.** `tag-status`'s goldens recorded label-only pills because
+  the 2026-07 icon rework deleted `checkmark-outline` and `misuse-outline`, and the note in the file asked
+  for a re-baseline with the icon once glyphs existed. The fold-in supplies live `success-filled` and
+  `error-filled` glyphs, so both now carry real geometry. Separately, the leading icon is default-TRUE and
+  the captured default variant carries the icon child, so tags rendered from a bare `Label` gain the icon
+  they always should have had. All 13 tag backgrounds were checked rather than diffed: black text on every
+  one clears AAA, worst `Type=Shared` `#cbe3ff` at 15.97.
+
+  **And two hand-maintained records moved for real reasons.** The blank-box baseline goes 45 to 44:
+  `radio-button-card: 1` to `radio-card: 1`, a rename, plus `checkbox-card: 2` to `1`, which is **not an
+  improvement**. That component's vendored anatomy collapsed from 11 nodes to 3 in the same sync
+  (`Checkbox, content`, `Content`, `Option label, digram, icon`, `Digram`, `Icon`, `Label`,
+  `Description` and `Vector` all
+  gone, with `radio-card` showing the matching `Description` to `Slot` redesign), so the box did not get
+  fixed, its subject disappeared. It is banked as a shrunken subject, because calling it progress is the
+  fossil-measurement pattern this repo has already been burned by.
+
+  Worth recording about the gate itself: `bankable()` refuses only on `regressions` and chip demotions. A
+  rename is classified `disappeared` plus `unlisted`, neither of which it checks, so a successful write is
+  **not** evidence that a renamed slug's count is unchanged. It does hold here (1 equals 1, total 45 to 44,
+  nothing up), but that was established by reading the diff, not by the writer agreeing to run.
+  README's doc-count denylist banned `"322 DS Kit"` from when DS Kit grew
+  past 322; the fold-in deleted five components, DS Kit came back down to 322, and the guard called the
+  correct figure stale. That is the second time that list has fired against the truth, and the new part is
+  the direction: a count denylist can be re-entered from below, so both remaining count literals are gone.
+  The `contains` side already asserts the derived value for each.
+
 - **Two tests hardcoded facts that a Figma redesign was about to invalidate, and one of them would have
   kept passing while asserting nothing.** ([#280](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/280)) Both were filed as
   #275 when they were found by running the next sync locally rather than by CI, and both went live when

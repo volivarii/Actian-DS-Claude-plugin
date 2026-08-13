@@ -33,6 +33,22 @@
       ]
     },
     {
+      "slug": "arrow-up",
+      "resolved_to": "dskit",
+      "candidates": [
+        {
+          "kit": "dskit",
+          "key": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
+          "nodeId": "7207:2842"
+        },
+        {
+          "kit": "fmkit",
+          "key": "de570a3d693466f8314750901d629799f27d2eb6",
+          "nodeId": "8:20544"
+        }
+      ]
+    },
+    {
       "slug": "ban",
       "resolved_to": "dskit",
       "candidates": [

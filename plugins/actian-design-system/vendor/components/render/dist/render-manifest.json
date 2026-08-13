@@ -319,7 +319,7 @@
     {
       "slug": "scroll-bar",
       "tagName": "zen-scroll-bar",
-      "group": "Data Display",
+      "group": "Navigation",
       "fragment": "fragments/scroll-bar.html",
       "tokensConsumed": 3,
       "source": "rendered"
@@ -405,35 +405,11 @@
       "source": "rendered"
     },
     {
-      "slug": "tag-catalog",
-      "tagName": "zen-tag-catalog",
-      "group": "Data Display",
-      "fragment": "fragments/tag-catalog.html",
-      "tokensConsumed": 13,
-      "source": "rendered"
-    },
-    {
-      "slug": "tag-catalog-item-type",
-      "tagName": "zen-tag-catalog-item-type",
-      "group": "Data Display",
-      "fragment": "fragments/tag-catalog-item-type.html",
-      "tokensConsumed": 9,
-      "source": "rendered"
-    },
-    {
       "slug": "tag-default",
       "tagName": "zen-tag-default",
       "group": "Data Display",
       "fragment": "fragments/tag-default.html",
-      "tokensConsumed": 13,
-      "source": "rendered"
-    },
-    {
-      "slug": "tag-glossary-item-type",
-      "tagName": "zen-tag-glossary-item-type",
-      "group": "Data Display",
-      "fragment": "fragments/tag-glossary-item-type.html",
-      "tokensConsumed": 10,
+      "tokensConsumed": 15,
       "source": "rendered"
     },
     {
@@ -445,27 +421,11 @@
       "source": "rendered"
     },
     {
-      "slug": "tag-shared",
-      "tagName": "zen-tag-shared",
+      "slug": "tag-item-type",
+      "tagName": "zen-tag-item-type",
       "group": "Data Display",
-      "fragment": "fragments/tag-shared.html",
-      "tokensConsumed": 13,
-      "source": "rendered"
-    },
-    {
-      "slug": "tag-stage",
-      "tagName": "zen-tag-stage",
-      "group": "Data Display",
-      "fragment": "fragments/tag-stage.html",
-      "tokensConsumed": 17,
-      "source": "rendered"
-    },
-    {
-      "slug": "tag-status",
-      "tagName": "zen-tag-status",
-      "group": "Data Display",
-      "fragment": "fragments/tag-status.html",
-      "tokensConsumed": 13,
+      "fragment": "fragments/tag-item-type.html",
+      "tokensConsumed": 9,
       "source": "rendered"
     },
     {

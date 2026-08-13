@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -79,59 +79,19 @@
       {
         "name": "Primary",
         "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
         "id": "13732:3031",
         "appearance": {
           "text": {
-            "color": "#3c515a",
+            "color": "#000000",
+            "colorToken": "--zen-color-text-default",
             "size": "14px",
             "weight": 400,
             "lineHeight": "20px",
             "letterSpacing": "0.2px"
-          },
-          "variants": [
-            {
-              "prop": "Type",
-              "values": [
-                "Error"
-              ],
-              "text": {
-                "color": "#c12c11",
-                "colorToken": "--zen-color-text-error",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Success"
-              ],
-              "text": {
-                "color": "#047800",
-                "colorToken": "--zen-color-text-success",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Warning"
-              ],
-              "text": {
-                "color": "#83551f",
-                "colorToken": "--zen-color-text-warning",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            }
-          ]
+          }
         },
         "text": "Info"
       },
@@ -142,8 +102,8 @@
         "props": {
           "Show label": true,
           "Show trailing icon": false,
-          "Label": "Button",
           "Show leading icon": false,
+          "Label": "Button",
           "Intent": "Default",
           "Emphasis": "Ghost",
           "Size": "Small",
@@ -190,9 +150,9 @@
         "kind": "instance",
         "slug": "button",
         "props": {
-          "Show leading icon": true,
-          "Show label": true,
           "Show trailing icon": true,
+          "Show label": true,
+          "Show leading icon": true,
           "Label": "Button",
           "Intent": "Default",
           "Emphasis": "Icon-only",

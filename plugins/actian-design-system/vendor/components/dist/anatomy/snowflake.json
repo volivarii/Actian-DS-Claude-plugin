@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "snowflake",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7691:4999"
@@ -37,8 +37,8 @@
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": 2293,
-      "y": 223,
+      "x": -948,
+      "y": 1059,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -52,8 +52,8 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 2294,
-          "y": 228,
+          "x": -947,
+          "y": 1064,
           "constraints": {
             "vertical": "CENTER",
             "horizontal": "CENTER"
@@ -75,8 +75,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 2294,
-              "y": 236.0874481201172,
+              "x": -947,
+              "y": 1072.08740234375,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -116,8 +116,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 2294,
-              "y": 236.0874481201172,
+              "x": -947,
+              "y": 1072.08740234375,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"

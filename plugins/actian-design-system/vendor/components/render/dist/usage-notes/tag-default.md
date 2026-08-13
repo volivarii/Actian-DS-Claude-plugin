@@ -1,6 +1,6 @@
 # Tags: usage notes
 
-Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.
+Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.
 
 ## When to use
 - To categorize or label items with metadata values such as topics, types, or user-defined attributes.
@@ -21,6 +21,6 @@ Tags categorize or label items with metadata values such as topics, types, or us
 - Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.
 
 ## Category guidance (inherited: design, behavior)
-This category is intentionally broad: charts, tables, cards, badges, and graph primitives all share "show me data" semantics. The anatomy is therefore high-level — `Primary content` is the load-bearing slot that each member specializes (a chart's plot area, a table's row, a badge's label). `Density` is the dominant variant axis because data-rich screens optimize differently for analyst vs operator contexts. Confidence on `anatomy` is `low` because 31 members will surface category-fit issues that aren't visible from a cross-DS lift alone.
+This category is intentionally broad: charts, tables, cards, badges, and graph primitives all share "show me data" semantics. The anatomy is therefore high-level — `Primary content` is the load-bearing slot that each member specializes (a chart's plot area, a table's row, a badge's label). `Density` is the dominant variant axis because data-rich screens optimize differently for analyst vs operator contexts. Confidence on `anatomy` is `low` because a category this size will surface category-fit issues that aren't visible from a cross-DS lift alone.
 
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

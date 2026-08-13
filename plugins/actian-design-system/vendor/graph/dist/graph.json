@@ -446,6 +446,20 @@
       "figmaNodeId": "7764:7617"
     },
     {
+      "id": "component:actian-data-intelligence-explorer-horizontal",
+      "type": "component",
+      "title": "Actian Data Intelligence/Explorer/Horizontal",
+      "figmaKey": "5991f7a4d3d14619cdd1b3cc74a15e527c4e1e86",
+      "figmaNodeId": "21084:2319"
+    },
+    {
+      "id": "component:actian-data-intelligence-studio-horizontal",
+      "type": "component",
+      "title": "Actian Data Intelligence/Studio/Horizontal",
+      "figmaKey": "3ceea2a2eab77590e57a33320e4f6cf1ae171b60",
+      "figmaNodeId": "21084:2357"
+    },
+    {
       "id": "component:actian-data-observability",
       "type": "component",
       "title": "Actian Data Observability",
@@ -701,8 +715,8 @@
       "id": "component:arrow-up",
       "type": "component",
       "title": "arrow-up",
-      "figmaKey": "de570a3d693466f8314750901d629799f27d2eb6",
-      "figmaNodeId": "8:20544"
+      "figmaKey": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
+      "figmaNodeId": "7207:2842"
     },
     {
       "id": "component:arrows-expand",
@@ -1564,6 +1578,13 @@
       "title": "dataset",
       "figmaKey": "080e8e3e95430d11d6aaec7537143d437b0dbd75",
       "figmaNodeId": "8400:25053"
+    },
+    {
+      "id": "component:datasets",
+      "type": "component",
+      "title": "Datasets",
+      "figmaKey": "119f67e361c3421c5d2b3ad53ffd2df7f253de4c",
+      "figmaNodeId": "18532:4652"
     },
     {
       "id": "component:date",
@@ -3624,9 +3645,9 @@
       "figmaNodeId": "9474:16884"
     },
     {
-      "id": "component:radio-button-card",
+      "id": "component:radio-card",
       "type": "component",
-      "title": "Radio button card",
+      "title": "Radio card",
       "figmaKey": "897d587b486e30b303ba9f4169a4daccf179faff",
       "figmaNodeId": "19746:36001"
     },
@@ -4226,32 +4247,11 @@
       "figmaNodeId": "8:20674"
     },
     {
-      "id": "component:tag-catalog",
-      "type": "component",
-      "title": "Tag, Catalog",
-      "figmaKey": "a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2",
-      "figmaNodeId": "13812:22309"
-    },
-    {
-      "id": "component:tag-catalog-item-type",
-      "type": "component",
-      "title": "Tag, Catalog item type",
-      "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
-      "figmaNodeId": "11300:8312"
-    },
-    {
       "id": "component:tag-default",
       "type": "component",
       "title": "Tag, Default",
       "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
       "figmaNodeId": "7257:3037"
-    },
-    {
-      "id": "component:tag-glossary-item-type",
-      "type": "component",
-      "title": "Tag, Glossary item type",
-      "figmaKey": "639773a27d790a489c5e115360b64c7d05a45ac3",
-      "figmaNodeId": "13812:22308"
     },
     {
       "id": "component:tag-interactive",
@@ -4261,25 +4261,11 @@
       "figmaNodeId": "13845:33759"
     },
     {
-      "id": "component:tag-shared",
+      "id": "component:tag-item-type",
       "type": "component",
-      "title": "Tag, Shared",
-      "figmaKey": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
-      "figmaNodeId": "13812:22307"
-    },
-    {
-      "id": "component:tag-stage",
-      "type": "component",
-      "title": "Tag, Stage",
-      "figmaKey": "2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc",
-      "figmaNodeId": "8655:10279"
-    },
-    {
-      "id": "component:tag-status",
-      "type": "component",
-      "title": "Tag, Status",
-      "figmaKey": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
-      "figmaNodeId": "7257:3705"
+      "title": "Tag, Item type",
+      "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
+      "figmaNodeId": "11300:8312"
     },
     {
       "id": "component:tags-add",
@@ -4445,7 +4431,7 @@
     {
       "id": "component:tooltip",
       "type": "component",
-      "title": "⚠️ Tooltip",
+      "title": "Tooltip",
       "figmaKey": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
       "figmaNodeId": "7038:351"
     },
@@ -6725,43 +6711,7 @@
       }
     },
     {
-      "source": "component:tag-catalog",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-catalog-item-type",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:tag-default",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-glossary-item-type",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
       "scope": "component",
@@ -6785,31 +6735,7 @@
       }
     },
     {
-      "source": "component:tag-shared",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-stage",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-status",
+      "source": "component:tag-item-type",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
       "scope": "component",
@@ -6958,26 +6884,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:alert-inline",
-      "target": "component:error-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:alert-inline",
-      "target": "component:info-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:alert-inline",
-      "target": "component:success-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:alert-inline",
-      "target": "component:warning-filled",
-      "type": "composed_of"
-    },
-    {
       "source": "component:app-switcher-dropdown",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -7043,6 +6949,11 @@
       "type": "composed_of"
     },
     {
+      "source": "component:calendar",
+      "target": "component:arrow-up",
+      "type": "composed_of"
+    },
+    {
       "source": "component:card-for-grouped-content",
       "target": "component:add",
       "type": "composed_of"
@@ -7060,11 +6971,6 @@
     {
       "source": "component:card-for-grouped-content",
       "target": "component:help-circle",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -7089,22 +6995,12 @@
     },
     {
       "source": "component:card-for-items",
-      "target": "component:tag-catalog",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:tag-catalog-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
       "target": "component:tag-default",
       "type": "composed_of"
     },
     {
       "source": "component:card-for-items",
-      "target": "component:tag-glossary-item-type",
+      "target": "component:tag-item-type",
       "type": "composed_of"
     },
     {
@@ -7119,6 +7015,21 @@
     },
     {
       "source": "component:chat-with-ai-steward",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:chat-with-ai-steward",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:chat-with-ai-steward",
+      "target": "component:arrow-up",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:chat-with-ai-steward",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7128,18 +7039,28 @@
       "type": "composed_of"
     },
     {
+      "source": "component:chat-with-ai-steward",
+      "target": "component:collapse",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:chat-with-ai-steward",
+      "target": "component:expand",
+      "type": "composed_of"
+    },
+    {
       "source": "component:checkbox",
       "target": "component:digram-item-types",
       "type": "composed_of"
     },
     {
       "source": "component:checkbox-card",
-      "target": "component:digram-item-types",
+      "target": "component:checkbox",
       "type": "composed_of"
     },
     {
       "source": "component:checkbox-card",
-      "target": "component:folder",
+      "target": "component:digram-item-types",
       "type": "composed_of"
     },
     {
@@ -7175,6 +7096,11 @@
     {
       "source": "component:collapse-accordion",
       "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:collapse-accordion",
+      "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
@@ -7244,6 +7170,11 @@
     },
     {
       "source": "component:drawer-side-panel",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer-side-panel",
       "target": "component:home",
       "type": "composed_of"
     },
@@ -7284,11 +7215,6 @@
     },
     {
       "source": "component:drawer-side-panel",
-      "target": "component:tag-catalog-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
       "target": "component:tag-default",
       "type": "composed_of"
     },
@@ -7299,17 +7225,22 @@
     },
     {
       "source": "component:drawer-side-panel",
+      "target": "component:tag-item-type",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer-side-panel",
       "target": "component:view-details",
       "type": "composed_of"
     },
     {
       "source": "component:dropdown-select-default",
-      "target": "component:add",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
       "source": "component:dropdown-select-default",
-      "target": "component:arrow-down",
+      "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
@@ -7320,6 +7251,11 @@
     {
       "source": "component:dropdown-select-default",
       "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:dropdown-select-default",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -7869,7 +7805,17 @@
     },
     {
       "source": "component:glossary-item-hierarchy-diagram",
+      "target": "component:export",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:glossary-item-hierarchy-diagram",
       "target": "component:list-bullets",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:glossary-item-hierarchy-diagram",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -7934,6 +7880,11 @@
     },
     {
       "source": "component:lineage-grouped-node",
+      "target": "component:arrow-up",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage-grouped-node",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7965,6 +7916,11 @@
     {
       "source": "component:lineage-individual-node",
       "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage-individual-node",
+      "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
@@ -8119,6 +8075,11 @@
     },
     {
       "source": "component:modal",
+      "target": "component:more",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:modal",
       "target": "component:paragraph-justify",
       "type": "composed_of"
     },
@@ -8164,17 +8125,7 @@
     },
     {
       "source": "component:notification-dropdown",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:notification-dropdown",
       "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:notification-dropdown",
-      "target": "component:button",
       "type": "composed_of"
     },
     {
@@ -8229,17 +8180,12 @@
     },
     {
       "source": "component:page-header",
-      "target": "component:tag-catalog",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:page-header",
-      "target": "component:tag-catalog-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:page-header",
       "target": "component:tag-default",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:page-header",
+      "target": "component:tag-item-type",
       "type": "composed_of"
     },
     {
@@ -8304,7 +8250,12 @@
     },
     {
       "source": "component:popover",
-      "target": "component:tag-status",
+      "target": "component:success-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:popover",
+      "target": "component:tag-default",
       "type": "composed_of"
     },
     {
@@ -8333,12 +8284,12 @@
       "type": "composed_of"
     },
     {
-      "source": "component:radio-button-card",
+      "source": "component:radio-card",
       "target": "component:digram-item-types",
       "type": "composed_of"
     },
     {
-      "source": "component:radio-button-card",
+      "source": "component:radio-card",
       "target": "component:radio",
       "type": "composed_of"
     },
@@ -8365,6 +8316,11 @@
     {
       "source": "component:radio-group",
       "target": "component:radio",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:rich-text",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
@@ -8404,11 +8360,6 @@
     },
     {
       "source": "component:search-result-card",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:search-result-card",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -8439,22 +8390,17 @@
     },
     {
       "source": "component:search-result-card",
-      "target": "component:tag-catalog",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:search-result-card",
-      "target": "component:tag-catalog-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:search-result-card",
       "target": "component:tag-default",
       "type": "composed_of"
     },
     {
       "source": "component:search-result-card",
-      "target": "component:tag-stage",
+      "target": "component:tag-item-type",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:side-nav",
+      "target": "component:add",
       "type": "composed_of"
     },
     {
@@ -8480,6 +8426,11 @@
     {
       "source": "component:side-nav",
       "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:side-nav",
+      "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
@@ -8564,6 +8515,11 @@
     },
     {
       "source": "component:table",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:table",
       "target": "component:arrow",
       "type": "composed_of"
     },
@@ -8585,6 +8541,11 @@
     {
       "source": "component:table",
       "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:table",
+      "target": "component:download",
       "type": "composed_of"
     },
     {
@@ -8628,23 +8589,28 @@
       "type": "composed_of"
     },
     {
-      "source": "component:tag-catalog",
+      "source": "component:tag-default",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-default",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-default",
       "target": "component:folder",
       "type": "composed_of"
     },
     {
       "source": "component:tag-default",
-      "target": "component:add",
+      "target": "component:success-filled",
       "type": "composed_of"
     },
     {
       "source": "component:tag-default",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-interactive",
-      "target": "component:add",
+      "target": "component:warning-filled",
       "type": "composed_of"
     },
     {
@@ -8653,18 +8619,23 @@
       "type": "composed_of"
     },
     {
-      "source": "component:tag-stage",
-      "target": "component:arrow-down",
+      "source": "component:tag-interactive",
+      "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
-      "source": "component:tag-status",
-      "target": "component:error-filled",
+      "source": "component:tag-interactive",
+      "target": "component:close",
       "type": "composed_of"
     },
     {
-      "source": "component:tag-status",
-      "target": "component:spinner",
+      "source": "component:tag-interactive",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-interactive",
+      "target": "component:simple-check",
       "type": "composed_of"
     },
     {
@@ -8789,6 +8760,16 @@
     },
     {
       "source": "component:toolbar",
+      "target": "component:export",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:toolbar",
+      "target": "component:filter",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:toolbar",
       "target": "component:map",
       "type": "composed_of"
     },
@@ -8830,11 +8811,6 @@
     {
       "source": "component:whats-new-dropdown",
       "target": "component:link",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:whats-new-dropdown",
-      "target": "component:tag-default",
       "type": "composed_of"
     },
     {
@@ -10551,6 +10527,16 @@
       "type": "in_category"
     },
     {
+      "source": "component:actian-data-intelligence-explorer-horizontal",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:actian-data-intelligence-studio-horizontal",
+      "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
       "source": "component:actian-data-observability",
       "target": "category:product-logos",
       "type": "in_category"
@@ -10647,6 +10633,11 @@
     },
     {
       "source": "component:arrow-left",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:arrow-up",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -10988,6 +10979,11 @@
     {
       "source": "component:dataset",
       "target": "category:product-logos",
+      "type": "in_category"
+    },
+    {
+      "source": "component:datasets",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -11646,7 +11642,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:radio-button-card",
+      "source": "component:radio-card",
       "target": "category:form-input-selection",
       "type": "in_category"
     },
@@ -11757,7 +11753,7 @@
     },
     {
       "source": "component:scroll-bar",
-      "target": "category:data-display",
+      "target": "category:navigation",
       "type": "in_category"
     },
     {
@@ -11916,22 +11912,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:tag-catalog",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-catalog-item-type",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
       "source": "component:tag-default",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-glossary-item-type",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -11941,17 +11922,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:tag-shared",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-stage",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-status",
+      "source": "component:tag-item-type",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -13041,7 +13012,7 @@
     },
     {
       "source": "pattern:access-request-management",
-      "target": "component:tag-status",
+      "target": "component:tag-default",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13074,7 +13045,7 @@
     },
     {
       "source": "pattern:access-request-workflow",
-      "target": "component:tag-status",
+      "target": "component:tag-default",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13866,7 +13837,7 @@
     },
     {
       "source": "pattern:suggestion-workflow",
-      "target": "component:tag-status",
+      "target": "component:tag-default",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

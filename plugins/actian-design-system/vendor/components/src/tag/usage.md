@@ -1,7 +1,7 @@
 ---
 title: "Tags usage guidelines"
 ---
-This guideline covers the tag family: default, status, stage, catalog, catalog item type, glossary item type, shared, and interactive tags.
+This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.
 
 ## When to use
 
@@ -23,15 +23,15 @@ This guideline covers the tag family: default, status, stage, catalog, catalog i
 
 ## Variant selection
 
-* **Default:** user-defined or topic labels. The color axis (pink through gray) differentiates neighboring tags; color carries no meaning here.
+* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.
 
-* **Status:** operational status of a running asset (for example **Success**, **Fail**, **Warning**, **Scheduled**, **Stopped**). Use the platform status vocabulary; never coin a new status word per screen.
+* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.
 
-* **Stage:** data lifecycle stages, colored per stage consistently across the platform.
+* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.
 
-* **Catalog, catalog item type, glossary item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.
+* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.
 
-* **Shared:** flags an item as recently updated; apply it automatically, not by hand.
+* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.
 
 * **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.
 

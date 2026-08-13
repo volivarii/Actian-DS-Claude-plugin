@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "confirmation",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-12T12:00:22.180Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13871:32310",
@@ -138,10 +138,10 @@
             "kind": "instance",
             "slug": "button",
             "props": {
-              "Label": "Learn more",
               "Show label": true,
               "Show trailing icon": false,
               "Show leading icon": false,
+              "Label": "Learn more",
               "Intent": "Default",
               "Emphasis": "Ghost",
               "Size": "Default",
@@ -157,10 +157,10 @@
             "kind": "instance",
             "slug": "button",
             "props": {
-              "Label": "Open the catalog",
-              "Show label": true,
               "Show trailing icon": false,
+              "Show label": true,
               "Show leading icon": false,
+              "Label": "Open the catalog",
               "Intent": "Default",
               "Emphasis": "Filled",
               "Size": "Default",

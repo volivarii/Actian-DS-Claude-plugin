@@ -125,6 +125,90 @@ function pickUnbuiltRegistrySlug(builtSlugs, registryPath) {
   return candidates[0];
 }
 
+// ---------------------------------------------------------------------------
+// Variant-axis specimens.
+//
+// Same rot story as pickSpecimen above, one level down: several tests needed a
+// tag-default variant that actually PAINTS something, and named one
+// ("Color=Pink", "Color=Purple"). The 2026-08-12 fold-in replaced the whole
+// Color axis with a 14-value Type axis, so those names resolved to nothing and
+// the tests failed for a reason that was not a regression. Naming a Type value
+// instead would only buy time until the next redesign, so the axis AND the
+// value are read off the anatomy doc the renderer itself reads.
+
+// The renderer's own modifier-suffix transform (ds-html-map.js, tag-default:
+// `String(v.Type).toLowerCase().replace(/\s+/g, "-")`). Mirrored once here so
+// every test that predicts a `ds-<block>--<value>` class agrees, instead of
+// each re-deriving it slightly differently.
+function variantClassSuffix(value) {
+  return String(value).toLowerCase().replace(/\s+/g, "-");
+}
+
+// Every { prop, value } the doc's root appearance paints DIFFERENTLY from the
+// base, in the doc's own array order (deterministic).
+//
+// These are exactly the values a per-variant CSS rule must exist for: a value
+// with no entry here has no captured delta, so it renders as the base pill and
+// a rule for it would be invention. Callers get the captured background/border
+// alongside, so an assertion can check the real value rather than just the
+// class name.
+function capturedVariantPaints(doc) {
+  var root = (doc && doc.root) || {};
+  var base = root.appearance || {};
+  var out = [];
+  (base.variants || []).forEach(function (entry) {
+    if (!entry || !entry.prop || !Array.isArray(entry.values)) return;
+    if (!entry.background || entry.background === base.background) return;
+    entry.values.forEach(function (value) {
+      out.push({
+        prop: entry.prop,
+        value: value,
+        variantString: entry.prop + "=" + value,
+        classSuffix: variantClassSuffix(value),
+        background: entry.background,
+        border: entry.border || null,
+      });
+    });
+  });
+  return out;
+}
+
+// The first captured paint, asserted non-empty. Throws rather than returning
+// null so a doc that stops painting anything fails loudly instead of letting
+// the caller assert against nothing (the pickSpecimen contract).
+function pickPaintedVariant(doc, slug) {
+  var paints = capturedVariantPaints(doc);
+  if (!paints.length) {
+    throw new Error(
+      (slug || "the anatomy doc") +
+        " carries no appearance.variants entry that paints a background " +
+        "differing from the base, so there is no painted specimen left; " +
+        "retire or repoint the test rather than letting it pass vacuously",
+    );
+  }
+  return paints[0];
+}
+
+// A variant string for the doc's OWN declared default, read from
+// variantDefaults rather than assumed to be called "Default".
+function defaultVariantString(doc, slug) {
+  var defaults = (doc && doc.variantDefaults) || {};
+  var prop = Object.keys(defaults)[0];
+  if (!prop) {
+    throw new Error(
+      (slug || "the anatomy doc") +
+        " declares no variantDefaults, so its default variant cannot be " +
+        "derived (precondition)",
+    );
+  }
+  return {
+    prop: prop,
+    value: defaults[prop],
+    variantString: prop + "=" + defaults[prop],
+    classSuffix: variantClassSuffix(defaults[prop]),
+  };
+}
+
 module.exports = {
   ANATOMY_DIR: ANATOMY_DIR,
   loadAnatomyDocs: loadAnatomyDocs,
@@ -132,4 +216,8 @@ module.exports = {
   pickSpecimen: pickSpecimen,
   firstResolvedBackground: firstResolvedBackground,
   pickUnbuiltRegistrySlug: pickUnbuiltRegistrySlug,
+  variantClassSuffix: variantClassSuffix,
+  capturedVariantPaints: capturedVariantPaints,
+  pickPaintedVariant: pickPaintedVariant,
+  defaultVariantString: defaultVariantString,
 };

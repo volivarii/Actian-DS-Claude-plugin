@@ -547,19 +547,85 @@
         }
 
         case "tag-default": {
-          // Token-injection (not anatomy replacement): the hand-authored
-          // .ds-tag template (label + icon) stays intact; the harvested
-          // per-Color root token style is injected as an inline style attr so
-          // variant colors render correctly WITHOUT dropping the instance
-          // label. See buildDsVariantStyleMap (appearance-sourced).
+          // The 2026-08-12 breaking sync folded tag-shared, tag-catalog,
+          // tag-stage, tag-status and tag-glossary-item-type INTO this
+          // component: the Color axis is gone and a single `Type` axis carries
+          // Default | Catalog | Shared | Stage-1..8 | Status-error/-warning/
+          // -success. So the modifier below is keyed off v.Type, and each
+          // value's fill/border lives in one .ds-tag--<type> rule in
+          // ds-base.css, derived from the capture's own per-Type appearance
+          // groups (components/dist/anatomy/tag-default.json).
+          //
+          // TWO CAPTURE FACTS CARRIED, NOT PAPERED OVER. Both are values whose
+          // modifier class is emitted with NO ds-base.css rule behind it, so
+          // they render as the base pill:
+          //  - Type=Default IS the base pill's own paint (the capture's default
+          //    variant), so a rule for it would be a no-op restating .ds-tag.
+          //  - Type=Stage-1 has NO appearance group in the capture at all, so
+          //    per the capture it renders exactly as Default. That is the
+          //    honest reading; inventing a Stage-1 hue to fill the gap is not.
+          //
+          // Token-injection (not anatomy replacement) still applies: the
+          // hand-authored .ds-tag template (label + icon) stays intact and the
+          // harvested per-variant root style is injected as an inline style
+          // attr so a flow instance's own variant colors render without
+          // dropping the instance label. See buildDsVariantStyleMap
+          // (appearance-sourced); the composite key already carries whatever
+          // axis the variant names, so the axis change needs nothing there.
           var tagCls = "ds-tag";
-          var tagIcon = "";
-          if (props["Leading icon show"]) {
-            tagCls += " ds-tag--with-icon";
-            tagIcon =
-              '<span class="ds-tag__icon">' + renderIcon("catalog") + "</span>";
+          // SHAPE clamp, not a value list: v.Type is user-supplied flow-data
+          // (via parseVariant), and an unclamped value would break out of the
+          // class attribute and inject markup (XSS) -- the same discipline the
+          // retired tag-stage/tag-catalog-item-type cases applied to their own
+          // axes. A shape clamp is used rather than a hardcoded set of the 14
+          // published values because such a list is a second copy of a
+          // registry fact, and every copy of an axis in this file has gone
+          // stale at least once. An unknown-but-well-shaped value emits a
+          // modifier no rule matches, so it renders as the base pill -- the
+          // same outcome as Default and Stage-1, and never a fabricated colour.
+          // Emitted uniformly for every value for the same reason: singling out
+          // "default" here would hardcode which value the capture happens to
+          // call its default today.
+          var tagType = v.Type
+            ? String(v.Type).toLowerCase().replace(/\s+/g, "-")
+            : "";
+          if (tagType && /^[a-z0-9-]+$/.test(tagType)) {
+            tagCls += " ds-tag--" + tagType;
           }
-          if (v.Color) tagCls += " ds-tag--" + v.Color.toLowerCase();
+          // Leading icon: a default-TRUE registry boolean (Leading icon
+          // show#7276:0), and the captured default variant does carry the icon
+          // child, so it is shown unless explicitly false -- the file's
+          // default-true convention (cf. radio / toggle / tag-interactive:
+          // `props[x] !== false`). This read `props["Leading icon show"]`
+          // truthily before, so every gallery cell (which passes only a Label)
+          // rendered without the icon the capture says the component has.
+          //
+          // WHICH icon is a capture fact too: the anatomy's leading-icon child
+          // swaps slug per Type (folder for Catalog, error-/success-/
+          // warning-filled for the Status values, its own `add` otherwise).
+          var TAG_TYPE_ICONS = {
+            catalog: "folder",
+            "status-error": "error-filled",
+            "status-success": "success-filled",
+            "status-warning": "warning-filled",
+          };
+          var tagIcon = "";
+          if (props["Leading icon show"] !== false) {
+            // NO `ds-tag--with-icon` root modifier here. Unlike the ruleless
+            // .ds-tag--default / --stage-1 modifiers noted above, which name
+            // real published Type values and so each carry a capture fact, that
+            // one named no axis value at all: it had no ds-base.css rule, so it
+            // painted nothing, and it only restated that the .ds-tag__icon span
+            // below exists. That is the no-op namespace hook this file refuses
+            // elsewhere (see search-result-card's App=Studio note, and the
+            // .ds-tag--gray drop in the same fold-in). It was not free either:
+            // a consumer matches rendered tag HTML exactly, and the class broke
+            // that match while meaning nothing.
+            tagIcon =
+              '<span class="ds-tag__icon">' +
+              renderIcon(TAG_TYPE_ICONS[tagType] || "add") +
+              "</span>";
+          }
           var _styleMap =
             (typeof window !== "undefined" && window.__dsVariantStyles) ||
             _serverVariantStyleMap ||
@@ -674,7 +740,10 @@
             '<div class="ds-card__title">' +
             esc(props.Title || "Title") +
             "</div>" +
-            '<span class="ds-tag ds-tag--with-icon ds-card__cat">' +
+            // Category pill: .ds-tag base + the card's own slot class. No
+            // `ds-tag--with-icon` marker, retired repo-wide as a ruleless no-op
+            // (see the tag-default case); the .ds-tag__icon span is the fact.
+            '<span class="ds-tag ds-card__cat">' +
             '<span class="ds-tag__icon">' +
             renderIcon("catalog") +
             "</span>" +
@@ -1899,186 +1968,69 @@
           );
         }
 
-        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays ----
+        // ---- Tag family: the 2026-08-12 fold-in ----
+        //
+        // tag-shared, tag-catalog, tag-stage, tag-status and
+        // tag-glossary-item-type were RETIRED upstream: Figma folded their
+        // treatments into "Tag, Default"'s new single `Type` axis (see the
+        // tag-default case above) and into "Tag, Item type" below. Their cases
+        // are gone rather than left rendering plausible markup for components
+        // the design system no longer publishes -- a stale case is invisible,
+        // because its output cannot be told apart from a real component's.
+        //
+        // .ds-tag--shared / .ds-tag--catalog / .ds-tag--status-* survive in
+        // ds-base.css, but as tag-default Type modifiers now, re-grounded
+        // against the fold-in capture. .ds-tag-stage and .ds-tag-stage__dot
+        // also survive: search-result-card reuses them for its stage pill.
 
-        // ---- Gray-box-to-zero, family 2 (tag family) ----
-
-        case "tag-shared": {
-          // Static solid pill: anatomy (Property 1=Default, the only value)
-          // has NO Color axis, NO icon child, and NO per-variant harvested
-          // style like tag-default's __dsVariantStyles injection -- a single
-          // fixed appearance, so a plain modifier class + one CSS rule is
-          // correct here (see ds-base.css .ds-tag--shared).
-          return (
-            '<span class="ds-tag ds-tag--shared">' +
-            esc(props.Label || "Shared") +
-            "</span>"
-          );
-        }
-
-        case "tag-catalog": {
-          // Icon + label pill: single variant (Type=Default), so unlike
-          // tag-default the leading directory icon is ALWAYS rendered (not
-          // gated on a "Leading icon show" prop) and no per-Color style-map
-          // injection is needed -- one modifier class covers the fill/text.
-          return (
-            '<span class="ds-tag ds-tag--catalog">' +
-            '<span class="ds-tag__icon">' +
-            renderIcon("catalog") +
-            "</span>" +
-            esc(props.Label || "Catalog") +
-            "</span>"
-          );
-        }
-
-        case "tag-stage": {
-          // Colored dot + label + trailing arrow. Reuses the 8 existing
-          // .ds-tag--<color> container rules (ds-base.css ~2558) via the same
-          // v.Color -> ds-tag--<color> emit as tag-default; adds only the
-          // dot/icon descendants (ds-tag-stage__dot picks up its fill from a
-          // per-color descendant rule keyed off that same modifier class).
-          // ANATOMY OVER PROSE: the registry lists "Trailing icon" default
-          // false, but the captured default (Color=Gray) node includes the
-          // arrow as its last child, so it is rendered unconditionally here.
-          // Clamp Color against the known set BEFORE it touches the class
-          // attribute -- v.Color is user-supplied flow-data (from
-          // parseVariant); an unclamped value would break out of the class
-          // attribute and inject markup (XSS), same discipline as
-          // error-state's Size clamp and tag-catalog-item-type's Type clamp
-          // above. Unknown/hostile values append NO modifier (renders the
-          // base pill safely) rather than falling back to a default color.
-          var TAG_STAGE_COLORS = {
-            indigo: 1,
-            lime: 1,
-            orange: 1,
-            yellow: 1,
-            pink: 1,
-            purple: 1,
-            teal: 1,
-            gray: 1,
-          };
-          var tsColor = v.Color ? String(v.Color).toLowerCase() : "";
-          var tsCls = "ds-tag ds-tag-stage";
-          // Both modifiers, always: the shared .ds-tag--<color> carries the
-          // fill and the tint the two tag components agree on, and the
-          // stage-scoped .ds-tag-stage--<color> overrides it where tag-stage's
-          // own capture differs (Orange and Yellow borders today, ds-base.css).
-          // Emitted for every color rather than only the two that currently
-          // differ: a hand-kept list of "colors that need the override" is one
-          // more fact restated in a second place, and it would go stale the
-          // next time a capture moves.
-          if (TAG_STAGE_COLORS[tsColor])
-            tsCls += " ds-tag--" + tsColor + " ds-tag-stage--" + tsColor;
-          return (
-            '<span class="' +
-            tsCls +
-            '">' +
-            '<span class="ds-tag-stage__dot"></span>' +
-            esc(props.Label || "Stage") +
-            '<span class="ds-tag-stage__icon">' +
-            renderIcon("arrow-down") +
-            "</span>" +
-            "</span>"
-          );
-        }
-
-        case "tag-status": {
-          // Status pill: the Status axis groups into colour families in the
-          // captured anatomy itself, so this looks Status up in a family map
-          // and emits ONE grouped modifier rather than a per-value class.
-          // Reuses base .ds-tag geometry verbatim; only the family fills are
-          // new (ds-base.css). Pure-CSS (no __dsVariantStyles injection).
+        case "tag-item-type": {
+          // Renamed from tag-catalog-item-type by the 2026-08-12 sync, which
+          // also absorbed the retired tag-glossary-item-type: the axis moved
+          // from `Type` (8 catalog values) to `Property 1` (28 values --
+          // Glossary-1..5, Category, Custom-1..15, and the six data-catalog
+          // names). Reading v.Type here after the rename would clamp every
+          // instance to "category" and paint 28 published values one colour,
+          // so the axis is read as the registry publishes it.
           //
-          // The 2026-07-23 capture cut the axis from 11 values in 5 families
-          // to 5 values in 4: Maintenance, Queued, Scheduled, Offline,
-          // Sleeping and Stopped no longer exist, Pending moved into info,
-          // and the neutral family lost its fill entirely.
-          //
-          // A Status this map does not know now renders with NO family
-          // modifier, falling back to base .ds-tag's own captured fill. That
-          // is deliberately not the old `|| "error"` default: painting a
-          // retired value red asserts a failure the DS never described,
-          // whereas the base fill is a real captured colour and reads as the
-          // neutral the retired family used to provide.
-          var TAG_STATUS_FAMILY = {
-            fail: "error",
-            loading: "info",
-            pending: "info",
-            success: "success",
-            warning: "warning",
-          };
-          var tsStatus = v.Status || "Fail";
-          var tsFamily = TAG_STATUS_FAMILY[tsStatus.toLowerCase()] || "";
-          // Loading's leading spinner icon is absent from graphics.json;
-          // renderIcon degrades gracefully to "" and is intentionally not
-          // attempted here (label-only, per the spec).
-          return (
-            '<span class="ds-tag' +
-            (tsFamily ? " ds-tag--status-" + tsFamily : "") +
-            '">' +
-            esc(props.Label || tsStatus) +
-            "</span>"
-          );
-        }
-
-        case "tag-glossary-item-type": {
-          // Dedicated block (NOT base .ds-tag): the anatomy has no border
-          // and a different radius (4px vs .ds-tag's 6px), so reusing the
-          // base class would leak an unwanted border. Single fixed variant
-          // (Property 1=Default) -- no modifier class, no style-map
-          // injection; the only variance is the "Show Counter" boolean.
-          var tgitCounter = props["Show Counter"]
-            ? '<span class="ds-tag-glossary-item-type__counter">' +
-              esc(props.Counter || "00") +
-              "</span>"
-            : "";
-          return (
-            '<span class="ds-tag-glossary-item-type">' +
-            '<span class="ds-tag-glossary-item-type__label">' +
-            esc(props.Label || "Glossary item") +
-            "</span>" +
-            tgitCounter +
-            "</span>"
-          );
-        }
-
-        case "tag-catalog-item-type": {
           // Dedicated block (NOT base .ds-tag): the anatomy has no border,
           // unlike .ds-tag's 1px border -- reusing the base class would leak
-          // one. 8 colored type pills + an optional counter. Clamp the Type
-          // value against the known set BEFORE it touches the class
-          // attribute -- v.Type is user-supplied flow-data; an unclamped
-          // value would break out of the class attribute (XSS), same
-          // discipline as error-state's Size clamp above.
-          var TCIT_TYPE_SLUGS = {
-            category: "category",
-            dataset: "dataset",
-            "data process": "data-process",
-            "data product": "data-product",
-            field: "field",
-            "output port": "output-port",
-            "use case": "use-case",
-            visualization: "visualization",
-          };
-          var tcitTypeRaw = v.Type || "Category";
-          var tcitSlug =
-            TCIT_TYPE_SLUGS[tcitTypeRaw.toLowerCase()] || "category";
-          var tcitCounter = props["Show counter"]
-            ? '<span class="ds-tag-catalog-item-type__counter">' +
-              esc(props.Counter || "00") +
-              "</span>"
-            : "";
+          // one. Each value's fill and its label colour come from that value's
+          // own appearance group in components/dist/anatomy/tag-item-type.json.
+          //
+          // Shape clamp, not a value list, for the same reason as tag-default
+          // above: v["Property 1"] is user-supplied flow-data and an unclamped
+          // value would break out of the class attribute (XSS), while a
+          // hardcoded copy of a 28-value axis is exactly the restatement that
+          // went stale here once already.
+          var titRaw = v["Property 1"] || "";
+          var titSlug = String(titRaw).toLowerCase().replace(/\s+/g, "-");
+          var titCls = "ds-tag-item-type";
+          if (titSlug && /^[a-z0-9-]+$/.test(titSlug)) {
+            titCls += " ds-tag-item-type--" + titSlug;
+          }
+          // Two spellings of the same boolean exist in the registry
+          // ("Show counter#14128:0" and "Show Counter#21221:38", both default
+          // false) -- the glossary component's own prop name survived the
+          // fold-in beside the catalog one. Honour either.
+          var titCounter =
+            props["Show counter"] || props["Show Counter"]
+              ? '<span class="ds-tag-item-type__counter">' +
+                esc(props.Counter || "00") +
+                "</span>"
+              : "";
           return (
-            '<span class="ds-tag-catalog-item-type ds-tag-catalog-item-type--' +
-            tcitSlug +
+            '<span class="' +
+            titCls +
             '">' +
-            '<span class="ds-tag-catalog-item-type__name">' +
-            esc(props.Label || tcitTypeRaw) +
+            '<span class="ds-tag-item-type__name">' +
+            esc(props.Label || titRaw) +
             "</span>" +
-            tcitCounter +
+            titCounter +
             "</span>"
           );
         }
+
+        // ---- Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays ----
 
         case "popover": {
           // Registry axis: Type = Interaction guide | Advanced search; prop
@@ -2384,14 +2336,17 @@
               "</button>"
             : "";
 
-          // Catalog-item-type badge: clamp Type against the known set
+          // Item-type badge: clamp Type against the known set
           // before it touches the class attribute -- props.Type is
           // user-supplied flow-data; an unclamped value would break out of
           // the class attribute (XSS), same discipline as the
-          // tag-catalog-item-type case above. Reuses THAT case's EXISTING
-          // .ds-tag-catalog-item-type(--<slug>) classes verbatim (a static
+          // tag-item-type case above. Reuses THAT case's EXISTING
+          // .ds-tag-item-type(--<slug>) classes verbatim (a static
           // pill, not a recursive renderDSComponent call), same idiom as
-          // search-result-card's tag reuse.
+          // search-result-card's tag reuse. The class names followed the
+          // 2026-08-12 rename of tag-catalog-item-type -> tag-item-type; the
+          // eight values below are this drawer's own captured badge set, which
+          // is a subset of the renamed component's 28-value axis.
           var DR_TYPE_SLUGS = {
             category: "category",
             dataset: "dataset",
@@ -2407,9 +2362,9 @@
             DR_TYPE_SLUGS[String(drTypeRaw).toLowerCase()] || "dataset";
           var drTags =
             '<div class="ds-drawer__tags">' +
-            '<span class="ds-tag-catalog-item-type ds-tag-catalog-item-type--' +
+            '<span class="ds-tag-item-type ds-tag-item-type--' +
             drTypeSlug +
-            '"><span class="ds-tag-catalog-item-type__name">' +
+            '"><span class="ds-tag-item-type__name">' +
             esc(drTypeRaw) +
             "</span></span>" +
             '<span class="ds-drawer__tag-shared">Shared</span>' +
@@ -3033,8 +2988,19 @@
           // (no no-op namespace-hook markers; see ds-base.css). Inlines the
           // eyebrow/stage/catalog tags and the glossary item-type badge
           // reusing EXISTING shared classes (.ds-tag / .ds-tag-stage /
-          // .ds-tag--gray / .ds-tag--catalog / .ds-item-type) rather than
+          // .ds-tag--catalog / .ds-item-type) rather than
           // recursing into renderDSComponent, same idiom as card-for-items.
+          // The stage pill carried a `.ds-tag--gray` modifier until the
+          // 2026-08-12 fold-in retired tag-default's Color axis; Gray was
+          // never a value with a rule of its own (it equalled Color=Default),
+          // so the class named a value the design system no longer has and
+          // painted nothing. Dropped rather than left dangling. This card's
+          // OWN capture agrees with where that leaves the pill: its stage
+          // child is a tag-default instance captured at bg #fcfcfc / border
+          // #ebebeb (--zen-color-neutral-50) / radius 4px, which is base
+          // .ds-tag's re-grounded Type=Default paint in this card's theme
+          // mode, and its catalog child is captured at #ecffff / #d0efed,
+          // which is exactly Type=Catalog.
           var srcCls = "ds-search-result-card";
           if (v.State === "Selected")
             srcCls += " ds-search-result-card--selected";
@@ -3080,7 +3046,7 @@
             srcTech +
             "</span>" +
             "</div>" +
-            '<span class="ds-tag ds-tag-stage ds-tag--gray ds-search-result-card__stage">' +
+            '<span class="ds-tag ds-tag-stage ds-search-result-card__stage">' +
             '<span class="ds-tag-stage__dot"></span>' +
             srcStage +
             "</span>" +
@@ -3202,13 +3168,11 @@
     "confirmation",
     "error-state",
     "maintenance-state",
-    // Gray-box-to-zero, family 2 (tag family).
-    "tag-shared",
-    "tag-catalog",
-    "tag-stage",
-    "tag-status",
-    "tag-glossary-item-type",
-    "tag-catalog-item-type",
+    // Gray-box-to-zero, family 2 (tag family). The 2026-08-12 sync folded
+    // tag-shared, tag-catalog, tag-stage, tag-status and
+    // tag-glossary-item-type into tag-default's Type axis and renamed
+    // tag-catalog-item-type, so one entry is left where six were.
+    "tag-item-type",
     // Gray-box-to-zero, family 3 (card family).
     "card-for-perimeter",
     "card-for-grouped-content",
