@@ -63,7 +63,7 @@
     {
       "slug": "calendar",
       "tagName": "zen-calendar",
-      "group": "Action",
+      "group": "Form",
       "fragment": "fragments/calendar.html",
       "tokensConsumed": 22,
       "source": "rendered"
@@ -103,7 +103,7 @@
     {
       "slug": "checkbox",
       "tagName": "zen-checkbox",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/checkbox.html",
       "tokensConsumed": 13,
       "source": "rendered"
@@ -151,7 +151,7 @@
     {
       "slug": "dropdown-select-default",
       "tagName": "zen-dropdown-select-default",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/dropdown-select-default.html",
       "tokensConsumed": 18,
       "source": "rendered"
@@ -183,7 +183,7 @@
     {
       "slug": "input-date",
       "tagName": "zen-input-date",
-      "group": "Action",
+      "group": "Form",
       "fragment": "fragments/input-date.html",
       "tokensConsumed": 18,
       "source": "rendered"
@@ -303,7 +303,7 @@
     {
       "slug": "radio",
       "tagName": "zen-radio",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/radio.html",
       "tokensConsumed": 20,
       "source": "rendered"
@@ -311,7 +311,7 @@
     {
       "slug": "rich-text",
       "tagName": "zen-rich-text",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/rich-text.html",
       "tokensConsumed": 14,
       "source": "rendered"
@@ -327,7 +327,7 @@
     {
       "slug": "search",
       "tagName": "zen-search",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/search.html",
       "tokensConsumed": 13,
       "source": "rendered"
@@ -335,7 +335,7 @@
     {
       "slug": "search-dropdown-menu",
       "tagName": "zen-search-dropdown-menu",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/search-dropdown-menu.html",
       "tokensConsumed": 20,
       "source": "rendered"
@@ -431,7 +431,7 @@
     {
       "slug": "text-input",
       "tagName": "zen-text-input",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/text-input.html",
       "tokensConsumed": 16,
       "source": "rendered"
@@ -439,7 +439,7 @@
     {
       "slug": "toggle",
       "tagName": "zen-toggle",
-      "group": "Form (input & selection)",
+      "group": "Form",
       "fragment": "fragments/toggle.html",
       "tokensConsumed": 14,
       "source": "rendered"

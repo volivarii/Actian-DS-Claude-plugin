@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
 _schema_version: 2
 slug: form-input-selection
-label: Form (input & selection)
+label: Form
 authoring_status: engineer-seed
 confidence:
   anatomy: medium
@@ -36,7 +36,7 @@ foundations_refs:
   - { ref: design-guidelines }
 ---
 
-# Form (input & selection) — design rationale
+# Form — design rationale
 
 Components in this category share input/selection patterns. Members: `calendar`, `checkbox`, `dropdown-select-default`, `input`, `input-date`, `radio`, `rich-text`, `search`, `search-dropdown-menu`, `search-filters`, `toggle`.
 

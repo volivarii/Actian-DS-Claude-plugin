@@ -341,21 +341,9 @@
       "provenance": "figma-dskit"
     },
     {
-      "id": "category:base-label-message-field-textfield-buttons",
-      "type": "category",
-      "title": "Base: label, message, field, textfield buttons",
-      "provenance": "figma-dskit"
-    },
-    {
       "id": "category:breakpoint-grid-structure",
       "type": "category",
       "title": "Breakpoint, grid & structure",
-      "provenance": "figma-dskit"
-    },
-    {
-      "id": "category:checkbox-checkbox-card-checkbox-group",
-      "type": "category",
-      "title": "Checkbox, checkbox card, checkbox group",
       "provenance": "figma-dskit"
     },
     {
@@ -371,9 +359,9 @@
       "provenance": "figma-dskit"
     },
     {
-      "id": "category:form-input-selection",
+      "id": "category:form",
       "type": "category",
-      "title": "Form (input & selection)",
+      "title": "Form",
       "provenance": "figma-dskit"
     },
     {
@@ -404,18 +392,6 @@
       "id": "category:product-logos",
       "type": "category",
       "title": "Product logos",
-      "provenance": "figma-dskit"
-    },
-    {
-      "id": "category:radio-radio-card-radio-group",
-      "type": "category",
-      "title": "Radio, radio card, radio group",
-      "provenance": "figma-dskit"
-    },
-    {
-      "id": "category:text-area-text-input",
-      "type": "category",
-      "title": "Text area, text input",
       "provenance": "figma-dskit"
     },
     {
@@ -6020,7 +5996,7 @@
       "note": "respect prefers-reduced-motion — disable entrance pulse + slide"
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:alerts-toasts-banners",
       "type": "a11y_ref",
       "scope": "category",
@@ -6032,7 +6008,7 @@
       }
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:aria-labels",
       "type": "a11y_ref",
       "scope": "category",
@@ -6044,7 +6020,7 @@
       }
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:color-contrast",
       "type": "a11y_ref",
       "scope": "category",
@@ -6056,7 +6032,7 @@
       }
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:focus-keyboard",
       "type": "a11y_ref",
       "scope": "category",
@@ -6068,7 +6044,7 @@
       }
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:forms",
       "type": "a11y_ref",
       "scope": "category",
@@ -6081,7 +6057,7 @@
       "note": "every control needs a programmatically-associated label + accessible error message"
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:states",
       "type": "a11y_ref",
       "scope": "category",
@@ -9419,7 +9395,7 @@
       "note": "spacing and motion-timing tokens"
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "foundation:design-guidelines",
       "type": "foundations_ref",
       "scope": "category",
@@ -9431,7 +9407,7 @@
       }
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "foundation:tokens",
       "type": "foundations_ref",
       "scope": "category",
@@ -10778,7 +10754,7 @@
     },
     {
       "source": "component:calendar",
-      "target": "category:action",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -10828,17 +10804,17 @@
     },
     {
       "source": "component:checkbox",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
       "source": "component:checkbox-card",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
       "source": "component:checkbox-group",
-      "target": "category:checkbox-checkbox-card-checkbox-group",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11058,7 +11034,7 @@
     },
     {
       "source": "component:dropdown-select-default",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11128,7 +11104,7 @@
     },
     {
       "source": "component:field",
-      "target": "category:base-label-message-field-textfield-buttons",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11303,7 +11279,7 @@
     },
     {
       "source": "component:input-date",
-      "target": "category:action",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11338,7 +11314,7 @@
     },
     {
       "source": "component:label",
-      "target": "category:base-label-message-field-textfield-buttons",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11458,7 +11434,7 @@
     },
     {
       "source": "component:message",
-      "target": "category:base-label-message-field-textfield-buttons",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11638,17 +11614,17 @@
     },
     {
       "source": "component:radio",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
       "source": "component:radio-card",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
       "source": "component:radio-group",
-      "target": "category:radio-radio-card-radio-group",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11683,7 +11659,7 @@
     },
     {
       "source": "component:rich-text",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11758,12 +11734,12 @@
     },
     {
       "source": "component:search",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
       "source": "component:search-dropdown-menu",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11958,7 +11934,7 @@
     },
     {
       "source": "component:text-area",
-      "target": "category:text-area-text-input",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11968,7 +11944,7 @@
     },
     {
       "source": "component:text-input",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11978,7 +11954,7 @@
     },
     {
       "source": "component:textfield-buttons",
-      "target": "category:base-label-message-field-textfield-buttons",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -12008,7 +11984,7 @@
     },
     {
       "source": "component:toggle",
-      "target": "category:form-input-selection",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -12218,7 +12194,7 @@
       "note": "transient feedback follows the toast enter/exit timing curve"
     },
     {
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "motion:state-transitions",
       "type": "motion_ref",
       "scope": "category",

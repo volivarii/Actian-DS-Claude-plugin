@@ -26,6 +26,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
 | `checkbox-card` | Checkbox card | appearance | Selection / State |
+| `checkbox-group` | Checkbox group | appearance | Orientation |
 | `collapse-accordion` | ✍️ Collapse-accordion | **BUILT** | State |
 | `confirmation` | Confirmation | **BUILT** | Size |
 | `digram-item-types` | Digram, Item types | **BUILT** | Item type / Size |
@@ -34,10 +35,12 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
 | `empty-state` | Empty state | **BUILT** | Size |
 | `error-state` | Error state | **BUILT** | Size |
+| `field` | Field | appearance | Size / State |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `glossary-item-hierarchy-diagram` | Glossary item hierarchy diagram | chip | Type |
 | `identification-key` | Identification key | appearance | Property 1 |
 | `input-date` | Input, date | **BUILT** | Type / States |
+| `label` | Label | appearance | State |
 | `line-graph` | ⛔️ Line graph | appearance | Property 1 |
 | `lineage-connecting-line` | Lineage connecting line | chip | Direction / State |
 | `lineage-grouped-node` | Lineage grouped node | **BUILT** | State / Type |
@@ -47,6 +50,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `loader-with-logo` | Loader with logo | **BUILT** | App |
 | `loading-skeleton` | Loading skeleton | **BUILT** | Transition |
 | `maintenance-state` | Maintenance state | **BUILT** | Size |
+| `message` | Message | appearance | Type |
 | `metamodel-widget` | Metamodel widget | **BUILT** | Type |
 | `modal` | Modal | **BUILT** | Size & Type / Dev status |
 | `notification` | Notification | **BUILT** | Type |
@@ -56,6 +60,7 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio` | Radio | **BUILT** | Selection / State |
 | `radio-card` | Radio card | appearance | Selection / State |
+| `radio-group` | Radio group | appearance | Orientation |
 | `rich-text` | Rich text | **BUILT** | State |
 | `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
@@ -71,7 +76,9 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `tag-default` | Tag, Default | **BUILT** | Type |
 | `tag-interactive` | Tag, Interactive | **BUILT** | State / Type |
 | `tag-item-type` | Tag, Item type | **BUILT** | Property 1 |
+| `text-area` | Text area | appearance | States |
 | `text-input` | Text input | **BUILT** | States |
+| `textfield-buttons` | Textfield buttons | appearance | Property 1 |
 | `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
 | `tooltip` | Tooltip | **BUILT** | Type |
