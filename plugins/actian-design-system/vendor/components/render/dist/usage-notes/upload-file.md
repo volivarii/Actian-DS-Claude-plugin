@@ -19,4 +19,7 @@ Upload components allow users to add files to the platform. They appear in datas
 - File type restrictions: list accepted formats explicitly. For example, "Accepts `.csv`, `.json`, and `.xlsx` files."
 - File size limit: state the limit in plain language. For example, "Maximum file size: 50 MB."
 
+## Category guidance (inherited: design, behavior)
+Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
+
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

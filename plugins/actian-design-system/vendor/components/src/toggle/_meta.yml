@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Toggle control"
-category: form-input-selection
+category: form
 a11y_refs:
   - { ref: forms }
 domains:

@@ -13,4 +13,7 @@ Text inputs allow users to enter freeform text. They are used for naming, descri
 - Don't use it for multi-line or formatted content such as data product descriptions: use rich text.
 - Don't use it for dates: use the date input.
 
+## Category guidance (inherited: behavior)
+Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
+
 > Note: includes guidance not yet ratified: DRAFT (usage, design); INHERITED from category (behavior).

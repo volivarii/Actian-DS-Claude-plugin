@@ -20,4 +20,7 @@ Dropdowns and select menus allow users to choose one option from a list. They ar
 - Use sentence case for all menu items.
 - Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.
 
+## Category guidance (inherited: design, behavior)
+Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
+
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

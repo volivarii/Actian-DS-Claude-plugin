@@ -1193,7 +1193,7 @@
       "slug": "calendar",
       "component": "Calendar",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -1349,7 +1349,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -2775,7 +2775,7 @@
       "slug": "checkbox",
       "component": "Checkboxes",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -3664,7 +3664,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "collapse-accordion": {
       "_schema_version": 1,
@@ -3839,7 +3839,7 @@
       "slug": "combo-box",
       "component": "Combo box",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -3996,7 +3996,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "confirmation": {
       "_schema_version": 1,
@@ -4449,7 +4449,7 @@
       "slug": "dropdown-select",
       "component": "Dropdown / Select",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -4595,7 +4595,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "dropdown-select-default": {
       "_schema_version": 1,
@@ -4607,7 +4607,7 @@
       "slug": "dropdown-select",
       "component": "Dropdown / Select",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -4753,7 +4753,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00",
+      "updated_at": "2026-08-14T15:49:03+02:00",
       "_alias_of": "dropdown-select"
     },
     "empty-state": {
@@ -5687,7 +5687,7 @@
       "slug": "input-date",
       "component": "Date input",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "related": [
           "calendar",
           "text-input"
@@ -6473,7 +6473,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "link": {
       "_schema_version": 1,
@@ -7578,7 +7578,7 @@
       "slug": "multi-select",
       "component": "Multi-select",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -7741,7 +7741,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "notification": {
       "_schema_version": 1,
@@ -8797,7 +8797,7 @@
       "slug": "radio",
       "component": "Radio",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -9582,7 +9582,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "rich-text": {
       "_schema_version": 1,
@@ -9594,7 +9594,7 @@
       "slug": "rich-text",
       "component": "Rich text",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -9742,7 +9742,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "scroll-bar": {
       "_schema_version": 1,
@@ -9903,7 +9903,7 @@
       "slug": "search",
       "component": "Search",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -10140,7 +10140,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "search-dropdown-menu": {
       "_schema_version": 1,
@@ -10152,7 +10152,7 @@
       "slug": "search-dropdown-menu",
       "component": "Search dropdown menu",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "dropdowns-menus-popovers"
@@ -10313,7 +10313,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
@@ -10325,7 +10325,7 @@
       "slug": "search-filters",
       "component": "Filters",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -10471,7 +10471,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "search-result-card": {
       "_schema_version": 1,
@@ -10639,7 +10639,7 @@
       "slug": "segmented-control",
       "component": "Segmented control",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "tabs"
@@ -11235,7 +11235,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "side-nav": {
       "_schema_version": 1,
@@ -13613,7 +13613,7 @@
       "slug": "text-input",
       "component": "Text input",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -14497,7 +14497,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T02:45:52+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "toggle": {
       "_schema_version": 1,
@@ -14509,7 +14509,7 @@
       "slug": "toggle",
       "component": "Toggle control",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -15275,7 +15275,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "toolbar": {
       "_schema_version": 1,
@@ -15592,7 +15592,7 @@
       "slug": "upload-file",
       "component": "Upload file",
       "meta": {
-        "category": "form-input-selection",
+        "category": "form",
         "a11y_refs": [
           {
             "ref": "forms"
@@ -15750,7 +15750,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-14T15:49:03+02:00"
     },
     "whats-new-dropdown": {
       "_schema_version": 1,
