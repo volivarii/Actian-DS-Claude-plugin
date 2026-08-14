@@ -250,6 +250,15 @@ function compareBlankBoxes(baselineRecord, measured) {
 // following that instruction banks any regression or chip demotion that happens
 // to ride along in the same change. The hand-edited ceilings this replaced could
 // not be raised silently: someone had to type a bigger number and say why.
+
+// The escape hatch is deliberately reason-bearing: a bare flag accepts nothing,
+// matching how the substrate's own coverage floor handles a deliberate loss.
+function accepted() {
+  return process.argv.some(function (a) {
+    return /^--accept-new-blanks=.+/.test(a);
+  });
+}
+
 function bankable(diff) {
   if (diff.regressions.length) {
     return {
@@ -270,6 +279,30 @@ function bankable(diff) {
         "these slugs demoted to a bare chip and render nothing real, so this is " +
         "not a state to record: " +
         diff.newChips.join(", "),
+    };
+  }
+  // A slug the baseline has never seen arrives through `unlisted`, which this
+  // check used to ignore entirely: a brand-new slug could appear with any number
+  // of blank boxes and bank silently, while the failure message told the author
+  // to run exactly this command. That is the laundering path one level out from
+  // the regression path already closed here. Newcomers that render nothing blank
+  // are waved through, because those are pure additions.
+  var blankNewcomers = diff.unlisted.filter(function (u) {
+    return u.to > 0;
+  });
+  if (blankNewcomers.length && !accepted()) {
+    return {
+      ok: false,
+      why:
+        "these slugs are new to the baseline and arrive already emitting blank " +
+        "boxes, so recording them banks work that was never done: " +
+        blankNewcomers
+          .map(function (u) {
+            return u.slug + " (" + u.to + ")";
+          })
+          .join(", ") +
+        ". If they were always blank and merely out of scope until now, say so " +
+        "with --accept-new-blanks=\"<why>\".",
     };
   }
   return { ok: true, why: "" };

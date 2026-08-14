@@ -42,10 +42,14 @@ are summarized at the release level.
   anatomy is byte-identical across the version range; the taxonomy repair moved them from
   `Foundations` into `Components`, so the gate examined them for the first time. Allowlisted per slug
   with a reason matching what each capture actually shows.
-- **The blank-box baseline moved 44 to 61, banked with its reason.** Nothing regressed. The 17 new
-  blanks are those same five form-base components, always blank and merely out of scope until the
-  substrate filed them as components. This resizes the gray-box picture from *"42 of 45 boxes are the
-  two charts"* to **42 of 61**, with 17 in form-base components the count could not previously see.
+- **The blank-box baseline moved 44 to 61, banked with its reason.** Nothing regressed: all 8
+  pre-existing per-slug entries are unchanged. The baseline gained **7** slugs, of which five arrive
+  with blanks (`checkbox-group` 5, `radio-group` 5, `text-area` 3, `field` 2, `textfield-buttons` 2)
+  and two at zero (`label`, `message`). They overlap only partly with the five allowlisted above, so
+  they are not "the same five". All seven were always blank and merely out of scope until the
+  taxonomy repair filed them as components; their anatomy is byte-identical across the whole version
+  range. This resizes the gray-box picture from *"42 of 45 boxes are the two charts"* to **42 of 61**,
+  with 17 in form-base components the count could not previously see.
 
 
 ### Fixed

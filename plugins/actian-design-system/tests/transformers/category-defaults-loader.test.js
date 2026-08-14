@@ -13,6 +13,26 @@ var loader = require("../../scripts/transformers/category-defaults-loader.js");
 // return a defaults object" is the real signal that the vendor needs a
 // refresh via scripts/vendor/vendor-snapshot.js --range.
 
+
+// The shipped category slugs, read from the vendored dist rather than restated.
+function shippedCategorySlugs() {
+  var fs = require("fs");
+  var path = require("path");
+  var PATHS = require("../../scripts/lib/paths.js");
+  var dir = path.dirname(PATHS.components.categoryDefaults.byKey("action"));
+  var slugs = fs
+    .readdirSync(dir)
+    .filter(function (f) {
+      return /-defaults\.json$/.test(f);
+    })
+    .map(function (f) {
+      return f.replace(/-defaults\.json$/, "");
+    })
+    .sort();
+  assert.ok(slugs.length, "the vendored dist ships category defaults at all");
+  return slugs;
+}
+
 test.beforeEach(function () {
   loader._resetCache();
 });
@@ -154,14 +174,11 @@ test("resolveAccessibilityRef — null input returns null", function () {
 // --- All category-MD motion_refs + accessibility refs resolve end-to-end ---
 
 test("category defaults — every motion_refs.ref resolves against motion.json", function () {
-  var slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's 1 motion ref and 6 a11y refs
+  // stopped being verified and every one of these gates stayed green.
+  var slugs = shippedCategorySlugs();
   var unresolved = [];
   slugs.forEach(function (catSlug) {
     var d = loader.loadDefaultsForCategory(catSlug);
@@ -180,14 +197,11 @@ test("category defaults — every motion_refs.ref resolves against motion.json",
 });
 
 test("category defaults — every accessibility.ref resolves against a11y-index", function () {
-  var slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's 1 motion ref and 6 a11y refs
+  // stopped being verified and every one of these gates stayed green.
+  var slugs = shippedCategorySlugs();
   var unresolved = [];
   slugs.forEach(function (catSlug) {
     var d = loader.loadDefaultsForCategory(catSlug);

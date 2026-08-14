@@ -96,6 +96,22 @@ function loadJSON(p) {
   return JSON.parse(require("fs").readFileSync(p, "utf8"));
 }
 
+// The shipped category slugs, read from the vendored dist. Written out, this list
+// went stale on knowledge #541's rename and quietly stopped covering a category.
+function shippedCategorySlugs() {
+  const fs = require("fs");
+  const path = require("path");
+  const dir = path.dirname(PATHS.components.categoryDefaults.byKey("action"));
+  const slugs = fs
+    .readdirSync(dir)
+    .filter((f) => /-defaults\.json$/.test(f))
+    .map((f) => f.replace(/-defaults\.json$/, ""))
+    .sort();
+  assert.ok(slugs.length, "the vendored dist ships category defaults at all");
+  return slugs;
+}
+
+
 test("categories.json — structure", () => {
   const c = loadJSON(PATHS.components.categories);
   assert.equal(c.library, "ds", "categories.json is DS-Kit-only");
@@ -272,14 +288,11 @@ test("category-defaults — bundle file exists at registered manifest path", () 
 
 test("category-defaults — every motion_refs slug resolves against tokens/motion.json", () => {
   loader._resetCache();
-  const slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's refs stopped being verified by
+  // any of these gates and all of them stayed green.
+  const slugs = shippedCategorySlugs();
   const unresolved = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
@@ -299,14 +312,11 @@ test("category-defaults — every motion_refs slug resolves against tokens/motio
 
 test("category-defaults — every accessibility ref slug resolves against a11y-index.json", () => {
   loader._resetCache();
-  const slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's refs stopped being verified by
+  // any of these gates and all of them stayed green.
+  const slugs = shippedCategorySlugs();
   const unresolved = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
