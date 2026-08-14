@@ -21,22 +21,37 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const PATHS = require("../../scripts/lib/paths");
 
-// Source of truth for the closed set of categories. Mirrors
-// KNOWN_CATEGORIES in the knowledge repo's
-// scripts/transformers/transform-categories.js. Keep in sync when the
-// design team adds a new category in Figma.
+// The closed set of COMPONENTS-section categories, DERIVED from the
+// substrate rather than restated here. The rule this gate encodes is
+// "a Components-section category must have a curated *-defaults.json",
+// and each of those files declares its own display `label`, so the set
+// is exactly those labels.
 //
-// COMPONENTS-section categories — these have curated *-defaults.json
-// files under vendor/components/dist/categories/. The
-// category-defaults-loader test enforces that mapping.
-const COMPONENTS_CATEGORIES = new Set([
-  "Action",
-  "Form (input & selection)",
-  "Navigation",
-  "Data Display",
-  "Feedback",
-  "Overlays",
-]);
+// It used to be a hand-written list carrying "Form (input & selection)".
+// When the design team renamed that Figma page to "Form" (knowledge
+// #534, taxonomy 15 categories to 11), the substrate shipped the new
+// label and this consumer kept asserting the old one, so an ordinary
+// rename read as drift. That is the same failure the vocabulary table
+// above was generated to remove, and the same one that cost three repos
+// two weeks in July: a consumer restating by hand a fact the producer
+// already owns. Derived, a rename now flows through and only a genuinely
+// new category (one with no defaults file) still stops the build, which
+// is the decision this gate exists to force.
+function componentsCategories() {
+  const fs = require("fs");
+  const path = require("path");
+  const dir = path.dirname(PATHS.components.categoryDefaults.action);
+  return new Set(
+    fs
+      .readdirSync(dir)
+      .filter((f) => /-defaults\.json$/.test(f))
+      .map(
+        (f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")).label,
+      )
+      .filter(Boolean),
+  );
+}
+const COMPONENTS_CATEGORIES = componentsCategories();
 
 // ζ.2 (knowledge v0.7.0+, 2026-05-13) — `category` is now populated for
 // items outside the COMPONENTS section too: Foundations pages (icons,

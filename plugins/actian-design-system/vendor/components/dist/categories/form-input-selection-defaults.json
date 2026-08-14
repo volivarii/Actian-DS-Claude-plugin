@@ -6,7 +6,7 @@
   },
   "_schema_version": 2,
   "slug": "form-input-selection",
-  "label": "Form (input & selection)",
+  "label": "Form",
   "authoring_status": "engineer-seed",
   "confidence": {
     "anatomy": "medium",

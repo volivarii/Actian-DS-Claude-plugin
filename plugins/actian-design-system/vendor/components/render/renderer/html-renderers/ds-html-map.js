@@ -1391,23 +1391,40 @@
         }
 
         case "alert-banner": {
-          // Registry variant axis: Type = Primary | Success | Warning | Danger
-          // Primary → info-filled icon, role=status
-          // Success → success-filled icon, role=status
-          // Warning → warning-filled icon, role=status
-          // Danger  → error-filled icon,   role=alert
+          // Two vocabularies meet here, so the mapping is deliberate:
+          //   Figma publishes  Type = Info | Success | Warning | Error
+          //   the stylesheet defines .ds-alert--primary|success|warning|danger
+          // primary → info-filled icon, role=status
+          // success → success-filled icon, role=status
+          // warning → warning-filled icon, role=status
+          // danger  → error-filled icon,   role=alert
           var alertIconMap = {
             primary: "info-filled",
             success: "success-filled",
             warning: "warning-filled",
             danger: "error-filled",
           };
+          // The published vocabulary mapped onto the styled one. Without this,
+          // `Error` missed the lookup and hit the clamp below, so an error alert
+          // shipped with the info colour, the info glyph and role="status": a
+          // silent a11y defect, because a clamp reads exactly like a default.
+          //
+          // Both spellings keep resolving because v.Type is flow data, not only
+          // registry data: a flow authored against the older Primary/Danger
+          // spelling (which the registry still publishes for `alert-inline`, a
+          // component with no branch here) would otherwise degrade the same
+          // silent way. Retiring the aliases needs those authored flows checked,
+          // not just the registry.
+          var alertTypeAlias = { info: "primary", error: "danger" };
           // Clamp Type to the known enum BEFORE it reaches the class attribute —
           // v.Type is user-supplied flow-data; an unclamped value would break out
           // of the class attribute and inject markup (XSS). Unknown/crafted values
-          // fall back to "primary".
-          var alertTypeRaw = (v.Type || "Primary").toLowerCase();
-          var alertType = alertIconMap[alertTypeRaw] ? alertTypeRaw : "primary";
+          // fall back to "primary". Aliasing widens the vocabulary, never the clamp.
+          // "Info" and not "Primary": both alias to the same treatment, but Info
+          // is the value the registry actually publishes for this component.
+          var alertTypeRaw = (v.Type || "Info").toLowerCase();
+          var alertTypeKey = alertTypeAlias[alertTypeRaw] || alertTypeRaw;
+          var alertType = alertIconMap[alertTypeKey] ? alertTypeKey : "primary";
           var alertIconSlug = alertIconMap[alertType];
           var alertRole = alertType === "danger" ? "alert" : "status";
           var alertCls = "ds-alert ds-alert--" + alertType;

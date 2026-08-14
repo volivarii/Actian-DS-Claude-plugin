@@ -1,0 +1,1902 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/render/renderer/html-renderers/ds-html-map.js + components/dist/registries/*.json",
+    "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten."
+  },
+  "schemaVersion": "1.0.0",
+  "generatedBy": "scripts/render/derive-contract.js",
+  "slugs": {
+    "account-dropdown": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Email"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Name",
+          "default": "Account user"
+        }
+      ],
+      "variants": {}
+    },
+    "alert-banner": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Message"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Info",
+            "Success",
+            "Warning",
+            "Error"
+          ],
+          "rendersAs": {}
+        },
+        "Orientation'": {
+          "values": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "rendersAs": {
+            "Vertical": "Horizontal"
+          }
+        }
+      }
+    },
+    "app-switcher-dropdown": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Items"
+        }
+      ],
+      "variants": {}
+    },
+    "avatar": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Count",
+          "default": "3"
+        },
+        {
+          "name": "Initials",
+          "default": "AV"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Default",
+            "Hovered",
+            "Focused",
+            "Pressed",
+            "Disabled",
+            "Selected"
+          ],
+          "rendersAs": {
+            "Hovered": "Default",
+            "Focused": "Default",
+            "Pressed": "Default",
+            "Selected": "Default"
+          }
+        },
+        "Type": {
+          "values": [
+            "One group",
+            "Two groups",
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "badge": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Label"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Number",
+            "Dot"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "breadcrumb": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Items"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "button": {
+      "group": "Action",
+      "props": [
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Leading icon show"
+        },
+        {
+          "name": "Trailing icon show"
+        }
+      ],
+      "variants": {
+        "Intent": {
+          "values": [
+            "Default",
+            "Critical"
+          ],
+          "rendersAs": {}
+        },
+        "Emphasis": {
+          "values": [
+            "Filled",
+            "Outlined",
+            "Ghost",
+            "Icon-only"
+          ],
+          "rendersAs": {
+            "Icon-only": "Filled"
+          }
+        },
+        "Size": {
+          "values": [
+            "Default",
+            "Small"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Expanded",
+            "Disabled",
+            "Loading"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Pressed": "Default",
+            "Expanded": "Default",
+            "Loading": "Default"
+          }
+        }
+      }
+    },
+    "calendar": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Month",
+          "default": "June 2026"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Single date select",
+            "Date",
+            "Month",
+            "Single"
+          ],
+          "rendersAs": {
+            "Date": "Single date select",
+            "Month": "Single date select",
+            "Single": "Single date select"
+          }
+        },
+        "Selection": {
+          "values": [
+            "Single",
+            "Range",
+            "Year"
+          ],
+          "rendersAs": {
+            "Year": "Single"
+          }
+        }
+      }
+    },
+    "card-for-grouped-content": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Show info icon"
+        },
+        {
+          "name": "Title",
+          "default": "Grouped content"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "card-for-items": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Category",
+          "default": "Catalog"
+        },
+        {
+          "name": "Eyebrow",
+          "default": "Dataset"
+        },
+        {
+          "name": "Title",
+          "default": "Title"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Catalog",
+            "Item",
+            "item type",
+            "Glossary type",
+            "Topic"
+          ],
+          "rendersAs": {
+            "Item": "Catalog",
+            "item type": "Catalog",
+            "Glossary type": "Catalog",
+            "Topic": "Catalog"
+          }
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Selected"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "card-for-perimeter": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Completeness",
+          "default": "50"
+        },
+        {
+          "name": "Counter",
+          "default": "23"
+        },
+        {
+          "name": "Initials"
+        },
+        {
+          "name": "Item type",
+          "default": "Dataset"
+        },
+        {
+          "name": "Item type initials"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Name",
+          "default": "Dataset"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "chat-with-ai-steward": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Confidence"
+        },
+        {
+          "name": "Context"
+        },
+        {
+          "name": "Greeting"
+        },
+        {
+          "name": "Insight"
+        },
+        {
+          "name": "Source"
+        },
+        {
+          "name": "State"
+        },
+        {
+          "name": "Title",
+          "default": "AI Steward"
+        }
+      ],
+      "variants": {
+        "size": {
+          "values": [
+            "Default",
+            "Drawer"
+          ],
+          "rendersAs": {}
+        },
+        "history": {
+          "values": [
+            "Closed",
+            "Open"
+          ],
+          "rendersAs": {
+            "Open": "Closed"
+          }
+        }
+      }
+    },
+    "checkbox": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Label"
+        }
+      ],
+      "variants": {
+        "Selection": {
+          "values": [
+            "Unchecked",
+            "Indeterminate",
+            "Checked"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "collapse-accordion": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Title",
+          "default": "Advanced settings"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Collapsed",
+            "Expanede"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "confirmation": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Body",
+          "default": "The selected items will be imported into the catalog. You will be notified once the import is complete."
+        },
+        {
+          "name": "Cta",
+          "default": "Open the catalog"
+        },
+        {
+          "name": "Headline"
+        },
+        {
+          "name": "Illustration",
+          "default": "illustration-success"
+        },
+        {
+          "name": "Primary"
+        },
+        {
+          "name": "Secondary",
+          "default": "Learn more"
+        },
+        {
+          "name": "Title",
+          "default": "Success!"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Large"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "digram-item-types": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Initials"
+        },
+        {
+          "name": "Label"
+        }
+      ],
+      "variants": {
+        "Item type": {
+          "values": [
+            "Dataset",
+            "Data process",
+            "Data product",
+            "Field",
+            "Output port",
+            "Use case",
+            "Visualization",
+            "Category",
+            "Custom 1",
+            "Custom 2",
+            "Custom 3",
+            "Custom 4",
+            "Custom 5",
+            "Custom 6",
+            "Custom 7",
+            "Custom 8",
+            "Custom 9",
+            "Custom 10",
+            "Custom 11",
+            "Custom 12",
+            "Custom 13",
+            "Custom 14",
+            "Custom 16",
+            "Glossary 1",
+            "Glossary 2",
+            "Glossary 3",
+            "Glossary 4",
+            "Glossary 5"
+          ],
+          "rendersAs": {
+            "Custom 1": "Category",
+            "Custom 2": "Data process",
+            "Custom 3": "Output port",
+            "Custom 5": "Data product",
+            "Custom 6": "Output port",
+            "Custom 8": "Custom 7",
+            "Custom 13": "Custom 12",
+            "Custom 14": "Custom 12",
+            "Glossary 1": "Use case"
+          }
+        },
+        "Size": {
+          "values": [
+            "Small",
+            "Default",
+            "Large"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "digram-topic": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Initials"
+        },
+        {
+          "name": "Label"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Light purple",
+            "Dark purple",
+            "Light blue",
+            "Dark blue",
+            "Light green",
+            "Dark green",
+            "Yellow",
+            "Orange",
+            "Red",
+            "Dark orange"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "drawer-side-panel": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Name",
+          "default": "Name"
+        },
+        {
+          "name": "Show Back"
+        },
+        {
+          "name": "Type",
+          "default": "Dataset"
+        }
+      ],
+      "variants": {
+        "App": {
+          "values": [
+            "Studio",
+            "Explorer"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "dropdown-select-default": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Description"
+        },
+        {
+          "name": "Helper"
+        },
+        {
+          "name": "Label",
+          "default": "Label"
+        },
+        {
+          "name": "Placeholder",
+          "default": "Select…"
+        },
+        {
+          "name": "Value"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default",
+            "Search/Multiple",
+            "With avatar",
+            "Compact/Custom"
+          ],
+          "rendersAs": {
+            "Search/Multiple": "Default",
+            "With avatar": "Default",
+            "Compact/Custom": "Default"
+          }
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Active",
+            "Filled",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Active": "Default",
+            "Filled": "Default"
+          }
+        }
+      }
+    },
+    "empty-state": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Body",
+          "default": "Create policies to define how your platform operates."
+        },
+        {
+          "name": "Cta",
+          "default": "Create policy"
+        },
+        {
+          "name": "Headline",
+          "default": "No policies available"
+        },
+        {
+          "name": "Illustration",
+          "default": "illustration-empty-state"
+        },
+        {
+          "name": "Primary"
+        },
+        {
+          "name": "Secondary",
+          "default": "Learn more"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Large",
+            "Medium",
+            "Small"
+          ],
+          "rendersAs": {
+            "Medium": "Large",
+            "Small": "Large"
+          }
+        }
+      }
+    },
+    "error-state": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Body",
+          "default": "There was an error creating your item. Please try again in a moment."
+        },
+        {
+          "name": "Cta"
+        },
+        {
+          "name": "Illustration",
+          "default": "illustration-error-state"
+        },
+        {
+          "name": "Primary",
+          "default": "Try again"
+        },
+        {
+          "name": "Secondary",
+          "default": "Go back"
+        },
+        {
+          "name": "Title",
+          "default": "Something went wrong"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Large",
+            "Medium"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "global-header": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Account",
+          "default": "AU"
+        },
+        {
+          "name": "App"
+        },
+        {
+          "name": "Context",
+          "default": "Catalog"
+        },
+        {
+          "name": "ContextValue",
+          "default": "Default"
+        },
+        {
+          "name": "Logo",
+          "default": "actian-pyramid"
+        },
+        {
+          "name": "Search"
+        }
+      ],
+      "variants": {
+        "App type": {
+          "values": [
+            "Explorer",
+            "Admin",
+            "Studio"
+          ],
+          "rendersAs": {}
+        },
+        "Breakpoints": {
+          "values": [
+            "XL",
+            "L",
+            "M",
+            "S",
+            "XS"
+          ],
+          "rendersAs": {
+            "L": "XL",
+            "M": "XL",
+            "S": "XL",
+            "XS": "XL"
+          }
+        }
+      }
+    },
+    "input-date": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper"
+        },
+        {
+          "name": "Label",
+          "default": "Date"
+        },
+        {
+          "name": "Placeholder text",
+          "default": "MM/DD/YYYY"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Single date",
+            "Date range"
+          ],
+          "rendersAs": {}
+        },
+        "States": {
+          "values": [
+            "Enabled",
+            "Hovered",
+            "Focused",
+            "Error",
+            "Disabled",
+            "Fille",
+            "Activ"
+          ],
+          "rendersAs": {
+            "Hovered": "Enabled",
+            "Focused": "Enabled",
+            "Error": "Enabled",
+            "Fille": "Enabled",
+            "Activ": "Enabled"
+          }
+        }
+      }
+    },
+    "lineage-grouped-node": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Child initials"
+        },
+        {
+          "name": "Child label"
+        },
+        {
+          "name": "Item type initials"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Default",
+            "Expanded"
+          ],
+          "rendersAs": {}
+        },
+        "Type": {
+          "values": [
+            "Main item",
+            "Sub item"
+          ],
+          "rendersAs": {
+            "Sub item": "Main item"
+          }
+        }
+      }
+    },
+    "lineage-individual-node": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Item type initials"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Main item",
+            "Sub item"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Selected",
+            "Disabled"
+          ],
+          "rendersAs": {}
+        },
+        "Fields": {
+          "values": [
+            "Collapsed",
+            "Expanded"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "link": {
+      "group": "Action",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Link"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Expanded",
+            "Visited",
+            "Disabled"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "loader": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Loading"
+        }
+      ],
+      "variants": {
+        "Percent": {
+          "values": [
+            "99%",
+            "10%",
+            "Percent3"
+          ],
+          "rendersAs": {
+            "10%": "99%",
+            "Percent3": "99%"
+          }
+        }
+      }
+    },
+    "loader-with-logo": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Loading"
+        }
+      ],
+      "variants": {
+        "App": {
+          "values": [
+            "Actian Data Intelligence",
+            "Studio",
+            "Explorer",
+            "Admin"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "loading-skeleton": {
+      "group": "Feedback",
+      "props": [],
+      "variants": {
+        "Transition": {
+          "values": [
+            "1",
+            "2"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "maintenance-state": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Body",
+          "default": "Reports may be unavailable. Refresh or check back when the maintenance window is complete."
+        },
+        {
+          "name": "Cta",
+          "default": "Create policy"
+        },
+        {
+          "name": "Headline",
+          "default": "Scheduled maintenance in progress until 12:00 PM EST"
+        },
+        {
+          "name": "Illustration",
+          "default": "illustration-maintenance"
+        },
+        {
+          "name": "Primary"
+        },
+        {
+          "name": "Secondary",
+          "default": "Learn more"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Large"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "metamodel-widget": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Item type initials"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Section body"
+        },
+        {
+          "name": "Show Section"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Dataset",
+            "Business Term",
+            "Data Process",
+            "Field",
+            "Visualisation"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "modal": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Actions"
+        },
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Title",
+          "default": "Dialog"
+        }
+      ],
+      "variants": {
+        "Size & Type": {
+          "values": [
+            "700px setting",
+            "1200px",
+            "900px create",
+            "900px edit",
+            "700px create",
+            "450px warning",
+            "450px confirm"
+          ],
+          "rendersAs": {
+            "1200px": "700px setting",
+            "900px create": "700px setting",
+            "900px edit": "700px setting",
+            "700px create": "700px setting",
+            "450px warning": "700px setting",
+            "450px confirm": "700px setting"
+          }
+        },
+        "Dev status": {
+          "values": [
+            "🟢 Ready"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "notification": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Action"
+        },
+        {
+          "name": "Message"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default",
+            "Critical"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "notification-dropdown": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Empty",
+          "default": "You're all caught up."
+        },
+        {
+          "name": "Header",
+          "default": "Notifications"
+        },
+        {
+          "name": "Items"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Empty",
+            "List"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "page-header": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Actions"
+        },
+        {
+          "name": "Description"
+        },
+        {
+          "name": "Title",
+          "default": "Page title"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default",
+            "Details page",
+            "Explorer home",
+            "Explorer detail"
+          ],
+          "rendersAs": {
+            "Details page": "Default",
+            "Explorer home": "Default",
+            "Explorer detail": "Default"
+          }
+        }
+      }
+    },
+    "popover": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Show info icon"
+        },
+        {
+          "name": "Title",
+          "default": "Popover"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Interaction guide",
+            "Advanced search"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "progress-bar-small": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Percent"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Default",
+            "Large"
+          ],
+          "rendersAs": {}
+        },
+        "Completeness": {
+          "values": [
+            "0%",
+            "100%",
+            "50%"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "radio": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper text"
+        },
+        {
+          "name": "Label",
+          "default": "Label"
+        },
+        {
+          "name": "Show Helper text"
+        }
+      ],
+      "variants": {
+        "Selection": {
+          "values": [
+            "Unselected",
+            "Selected"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "rich-text": {
+      "group": "Form",
+      "props": [],
+      "variants": {
+        "State": {
+          "values": [
+            "Expanded",
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "scroll-bar": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Scroll region"
+        },
+        {
+          "name": "Length"
+        },
+        {
+          "name": "Orientation"
+        },
+        {
+          "name": "Position"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "search": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Placeholder text",
+          "default": "Search"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Explorer home",
+            "Global header",
+            "Inline"
+          ],
+          "rendersAs": {
+            "Global header": "Explorer home",
+            "Inline": "Explorer home"
+          }
+        },
+        "State": {
+          "values": [
+            "Hovered",
+            "Focused",
+            "Filled",
+            "Active",
+            "Dsiabled",
+            "Default"
+          ],
+          "rendersAs": {
+            "Focused": "Hovered",
+            "Filled": "Hovered",
+            "Active": "Hovered",
+            "Default": "Hovered"
+          }
+        }
+      }
+    },
+    "search-dropdown-menu": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Heading"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Query",
+          "default": "orders"
+        },
+        {
+          "name": "Results"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "No result",
+            "Before typed",
+            "After typed",
+            "Explorer home"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "search-result-card": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Catalog",
+          "default": "Catalog"
+        },
+        {
+          "name": "Description",
+          "default": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers."
+        },
+        {
+          "name": "Featured property 1",
+          "default": "Business Domain: IT"
+        },
+        {
+          "name": "Featured property 2",
+          "default": "Source Application: App 120"
+        },
+        {
+          "name": "Glossary initials",
+          "default": "VH"
+        },
+        {
+          "name": "Glossary label",
+          "default": "Vehicle"
+        },
+        {
+          "name": "Stage",
+          "default": "Stage"
+        },
+        {
+          "name": "Tech name",
+          "default": "[Financial Summary EY2024]"
+        },
+        {
+          "name": "Title",
+          "default": "Financial Summary EY2024"
+        },
+        {
+          "name": "Type",
+          "default": "Category"
+        }
+      ],
+      "variants": {
+        "App": {
+          "values": [
+            "Explorer",
+            "Studio"
+          ],
+          "rendersAs": {
+            "Studio": "Explorer"
+          }
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Selected"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "segmented-control": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Active"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Segments"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "side-nav": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Active"
+        },
+        {
+          "name": "Groups"
+        },
+        {
+          "name": "Items"
+        }
+      ],
+      "variants": {
+        "App": {
+          "values": [
+            "Admin",
+            "Studio"
+          ],
+          "rendersAs": {
+            "Studio": "Admin"
+          }
+        },
+        "View": {
+          "values": [
+            "Collapsed",
+            "Expanded"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "spinner": {
+      "group": "Feedback",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Loading"
+        }
+      ],
+      "variants": {
+        "Color mode": {
+          "values": [
+            "On light bg",
+            "On dark bg"
+          ],
+          "rendersAs": {}
+        },
+        "Complete": {
+          "values": [
+            "50%",
+            "75%",
+            "100%",
+            "25%"
+          ],
+          "rendersAs": {
+            "75%": "50%",
+            "100%": "50%",
+            "25%": "50%"
+          }
+        }
+      }
+    },
+    "stepper": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Body"
+        },
+        {
+          "name": "Step"
+        },
+        {
+          "name": "Title"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Complete",
+            "Active",
+            "Default",
+            "State5"
+          ],
+          "rendersAs": {
+            "State5": "Default"
+          }
+        }
+      }
+    },
+    "sticky-footer": {
+      "group": "Action",
+      "props": [
+        {
+          "name": "Primary",
+          "default": "Save"
+        },
+        {
+          "name": "Secondary",
+          "default": "Cancel"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "table": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Columns"
+        },
+        {
+          "name": "Rows"
+        }
+      ],
+      "variants": {
+        "Built type": {
+          "values": [
+            "By columns",
+            "By rows"
+          ],
+          "rendersAs": {
+            "By rows": "By columns"
+          }
+        }
+      }
+    },
+    "tabs": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Active"
+        },
+        {
+          "name": "Items"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "tag-default": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Leading icon show"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default",
+            "Catalog",
+            "Shared",
+            "Stage-1",
+            "Stage-2",
+            "Stage-3",
+            "Stage-4",
+            "Stage-5",
+            "Stage-6",
+            "Stage-7",
+            "Stage-8",
+            "Status-error",
+            "Status-warning",
+            "Status-success"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "tag-interactive": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Leading icon show"
+        },
+        {
+          "name": "Trailing icon show"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Default",
+            "Disabled",
+            "Focus",
+            "Hover",
+            "Pressed"
+          ],
+          "rendersAs": {
+            "Focus": "Default",
+            "Hover": "Default",
+            "Pressed": "Default"
+          }
+        },
+        "Type": {
+          "values": [
+            "Dismissible",
+            "Selectable",
+            "Dropdown-expanded",
+            "Dropdown",
+            "Selectable-selected"
+          ],
+          "rendersAs": {
+            "Selectable": "Dismissible",
+            "Dropdown-expanded": "Dismissible",
+            "Dropdown": "Dismissible",
+            "Selectable-selected": "Dismissible"
+          }
+        }
+      }
+    },
+    "tag-item-type": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Counter",
+          "default": "00"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Show Counter"
+        },
+        {
+          "name": "Show counter"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Glossary-1",
+            "Glossary-2",
+            "Glossary-3",
+            "Glossary-4",
+            "Glossary-5",
+            "Category",
+            "Custom-1",
+            "Custom-2",
+            "Custom-3",
+            "Custom-4",
+            "Custom-5",
+            "Custom-6",
+            "Custom-7",
+            "Custom-8",
+            "Custom-9",
+            "Custom-10",
+            "Custom-11",
+            "Custom-12",
+            "Custom-13",
+            "Custom-14",
+            "Custom-15",
+            "Dataset",
+            "Data process",
+            "Data product",
+            "Field",
+            "Output port",
+            "Use case",
+            "Visualization"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "text-input": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Label",
+          "default": "Label"
+        },
+        {
+          "name": "Placeholder text",
+          "default": "Placeholder text"
+        },
+        {
+          "name": "Trailing icon"
+        }
+      ],
+      "variants": {
+        "States": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Active",
+            "Filled",
+            "Error",
+            "Warning",
+            "Disabled",
+            "Read-only"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Active": "Default",
+            "Filled": "Default",
+            "Error": "Default",
+            "Warning": "Default",
+            "Read-only": "Default"
+          }
+        }
+      }
+    },
+    "toggle": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper text"
+        },
+        {
+          "name": "Label",
+          "default": "Label"
+        },
+        {
+          "name": "Show Helper text"
+        }
+      ],
+      "variants": {
+        "Toggle position": {
+          "values": [
+            "On right (default)",
+            "On left"
+          ],
+          "rendersAs": {
+            "On left": "On right (default)"
+          }
+        },
+        "Selection": {
+          "values": [
+            "Off",
+            "On"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Hover": "Default",
+            "Focus": "Default",
+            "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "toolbar": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Show View scale"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Single",
+            "Combined",
+            "Group"
+          ],
+          "rendersAs": {
+            "Combined": "Single",
+            "Group": "Single"
+          }
+        },
+        "Orientation": {
+          "values": [
+            "Horizontal",
+            "Vertical"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "tooltip": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Body"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "whats-new-dropdown": {
+      "group": "Navigation",
+      "props": [
+        {
+          "name": "Detail"
+        },
+        {
+          "name": "EmptyLabel",
+          "default": "No release updates"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Title",
+          "default": "What's new"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Drilldown1",
+            "Drilldown2",
+            "Empty",
+            "List"
+          ],
+          "rendersAs": {
+            "Drilldown2": "Drilldown1"
+          }
+        }
+      }
+    }
+  }
+}
