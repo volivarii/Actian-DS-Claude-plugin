@@ -19,10 +19,31 @@ test.beforeEach(function () {
 
 // --- loadDefaultsForCategory ---
 
+// Taken from the vendored dist rather than written out. These read the real
+// snapshot, so a named category strands them on the next rename: this file said
+// `form-input-selection` until knowledge #541 renamed it, the fourth hand-written
+// copy of that one slug to go stale in a week.
+function liveCategories() {
+  var fs = require("fs");
+  var path = require("path");
+  var PATHS = require("../../scripts/lib/paths.js");
+  var dir = path.dirname(PATHS.components.categoryDefaults.byKey("action"));
+  return fs
+    .readdirSync(dir)
+    .filter(function (f) {
+      return /-defaults\.json$/.test(f);
+    })
+    .map(function (f) {
+      return JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+    });
+}
+
 test("loadDefaultsForCategory — known category returns parsed dist JSON", function () {
-  var defaults = loader.loadDefaultsForCategory("form-input-selection");
+  var live = liveCategories()[0];
+  assert.ok(live, "the vendored dist ships at least one category defaults file");
+  var defaults = loader.loadDefaultsForCategory(live.slug);
   assert.ok(defaults, "must return a defaults object");
-  assert.equal(defaults.slug, "form-input-selection");
+  assert.equal(defaults.slug, live.slug);
   assert.equal(defaults._schema_version, 2);
   assert.ok(defaults.anatomy);
   assert.ok(defaults.variants);
@@ -32,16 +53,21 @@ test("loadDefaultsForCategory — known category returns parsed dist JSON", func
 
 test("loadDefaultsForCategory — consumes categorySlug verbatim; a raw label no longer resolves", function () {
   // Move 3: the loader takes the registry's canonical categorySlug
-  // (= slugify(category), knowledge #189) directly — it no longer
-  // re-derives a slug from a human label. A non-slug label returns null.
-  assert.equal(
-    loader.loadDefaultsForCategory("form-input-selection").slug,
-    "form-input-selection",
+  // (= slugify(category), knowledge #189) directly, and does not re-derive a
+  // slug from a human label. Demonstrated on a category whose label differs
+  // from its slug by more than case, so the assertion cannot pass by accident.
+  var differing = liveCategories().filter(function (c) {
+    return c.label && c.slug && c.label.toLowerCase() !== c.slug;
+  })[0];
+  assert.ok(
+    differing,
+    "at least one shipped category has a label that is not its slug",
   );
   assert.equal(
-    loader.loadDefaultsForCategory("Form (input & selection)"),
-    null,
+    loader.loadDefaultsForCategory(differing.slug).slug,
+    differing.slug,
   );
+  assert.equal(loader.loadDefaultsForCategory(differing.label), null);
 });
 
 test("loadDefaultsForCategory — unknown slug returns null", function () {

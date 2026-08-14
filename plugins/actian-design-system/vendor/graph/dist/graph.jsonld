@@ -6071,7 +6071,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6084,7 +6084,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6097,7 +6097,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6110,7 +6110,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6123,7 +6123,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       },
@@ -6137,7 +6137,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -9985,7 +9985,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "foundations_refs.sectionRefs"
       }
@@ -9998,7 +9998,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "foundations_refs.sectionRefs"
       },
@@ -13212,7 +13212,7 @@
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "motion_refs.patternRefs"
       },

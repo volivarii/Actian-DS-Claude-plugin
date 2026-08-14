@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.129",
+  "knowledge_version": "0.34.131",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -113,12 +113,12 @@
       "generator": "scripts/categories/derive-categories.js",
       "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'feedback' category. Consumed by the component-brief skill for stub components."
     },
-    "components.categoryDefaults.form-input-selection": {
-      "path": "components/dist/categories/form-input-selection-defaults.json",
+    "components.categoryDefaults.form": {
+      "path": "components/dist/categories/form-defaults.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/categories/derive-categories.js",
-      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'form-input-selection' category. Consumed by the component-brief skill for stub components."
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'form' category. Consumed by the component-brief skill for stub components."
     },
     "components.categoryDefaults.navigation": {
       "path": "components/dist/categories/navigation-defaults.json",

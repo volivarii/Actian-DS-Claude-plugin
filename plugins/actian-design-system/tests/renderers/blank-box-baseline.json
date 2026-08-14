@@ -4,16 +4,23 @@
     "source": "scripts/renderers/ds-coverage-report.js --write-baseline",
     "do_not_edit": "Regenerate with `node scripts/renderers/ds-coverage-report.js --write-baseline`. Hand-editing this file is how the old pinned ceilings went stale."
   },
-  "total": 44,
+  "total": 61,
   "perSlug": {
     "alert-inline": 0,
     "bar-graph": 25,
     "checkbox-card": 1,
+    "checkbox-group": 5,
+    "field": 2,
     "glossary-item-hierarchy-diagram": 0,
     "identification-key": 0,
+    "label": 0,
     "line-graph": 17,
     "lineage-connecting-line": 0,
-    "radio-card": 1
+    "message": 0,
+    "radio-card": 1,
+    "radio-group": 5,
+    "text-area": 3,
+    "textfield-buttons": 2
   },
   "chipSlugs": [
     "glossary-item-hierarchy-diagram",

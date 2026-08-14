@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
 _schema_version: 2
-slug: form-input-selection
+slug: form
 label: Form
 authoring_status: engineer-seed
 confidence:

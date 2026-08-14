@@ -22,7 +22,4 @@ A combo box combines a text input with a dropdown list, allowing users to either
 - Keep option labels consistent in format and sentence case.
 - Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched.
 
-## Category guidance (inherited: design, behavior)
-Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
-
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
