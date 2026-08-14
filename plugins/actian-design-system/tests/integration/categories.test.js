@@ -40,7 +40,12 @@ const PATHS = require("../../scripts/lib/paths");
 function componentsCategories() {
   const fs = require("fs");
   const path = require("path");
-  const dir = path.dirname(PATHS.components.categoryDefaults.action);
+  // Located through the collection rather than through one member: deriving the
+  // directory from `.action` would make this line the one thing that breaks if
+  // `action` were ever renamed, in a test that exists because a category rename
+  // broke something else.
+  const byKey = PATHS.components.categoryDefaults.byKey;
+  const dir = path.dirname(byKey("action"));
   return new Set(
     fs
       .readdirSync(dir)

@@ -110,18 +110,27 @@ test("no prose in the file contradicts the contract about what is renderable", f
   // 58. Any count asserted about renderable slugs must now match the contract.
   var md = fs.readFileSync(gen.MD_PATH, "utf8");
   var total = Object.keys(contract().slugs).length;
-  var re = /(\d+)\s+slugs?\s+have\s+real\s+HTML\s+leaf\s+renderers/g;
+  // `\D*` spans the generator's own wording ("All 58 slugs BELOW have real HTML
+  // leaf renderers"), which the first version of this pattern could not match at
+  // all: it found zero occurrences, the loop never ran, and the test passed
+  // against every phrasing including the retired one it was written to catch.
+  var re = /(\d+)\s+slugs?\D{0,12}have\s+real\s+HTML\s+leaf\s+renderers/g;
+  var claims = [];
   var m;
-  while ((m = re.exec(md)) !== null) {
+  while ((m = re.exec(md)) !== null) claims.push(Number(m[1]));
+  // Non-vacuity first. A silent zero here is the whole failure mode.
+  assert.ok(
+    claims.length > 0,
+    "no sentence in the file states how many slugs are renderable, so this " +
+      "check examined nothing. The generated preamble should carry that claim.",
+  );
+  claims.forEach(function (claimed) {
     assert.equal(
-      Number(m[1]),
+      claimed,
       total,
-      "the file claims " +
-        m[1] +
-        " renderable slugs; the contract publishes " +
-        total,
+      "the file claims " + claimed + " renderable slugs; the contract publishes " + total,
     );
-  }
+  });
 });
 
 test("the generated block is delimited, so hand-authored guidance survives regeneration", function () {

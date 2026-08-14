@@ -139,6 +139,25 @@ var NO_ROOT_APPEARANCE = {
   toggle: "track and knob are children",
   "text-input": "field box is a child",
   "input-date": "field box is a child",
+
+  // These five were section:"Foundations" until the 2026-08 taxonomy repair
+  // (knowledge #534 to #536) moved them from Figma PAGE-NAME categories
+  // ("Base: label, message, field, textfield buttons") into section:"Components"
+  // / category:"Form". Their anatomy is BYTE-IDENTICAL across that change, so
+  // nothing was lost: this gate simply began examining them for the first time.
+  // Each was checked individually rather than waved through as a family, and
+  // each has the same shape as its already-listed siblings above.
+  label: "text child carries the paint (root has none; Description child does)",
+  "text-area": "field box is a child, same as text-input",
+  message: "icon and text children carry the paint",
+  // These two are layout wrappers around a SLOT ("Slot for input, selection"),
+  // so nothing in the captured subtree paints at all, not the root and not any
+  // of its 6 descendants. Same profile as the already-listed breadcrumb (15
+  // descendants, 0 paint) and table (11, 0). Stated as what the capture shows
+  // rather than as "the input child paints", which would send a future reader
+  // hunting for a painting child that is not there.
+  "checkbox-group": "layout wrapper around a slot; nothing in the subtree paints",
+  "radio-group": "layout wrapper around a slot; nothing in the subtree paints",
 };
 
 test("no anatomy doc silently loses its root appearance", function () {

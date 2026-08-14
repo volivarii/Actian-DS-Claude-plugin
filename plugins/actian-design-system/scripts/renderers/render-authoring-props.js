@@ -52,7 +52,14 @@ function readContract() {
 // `A|B` is not far-fetched. Escaped rather than stripped, so the reader still
 // sees what the renderer actually keys on.
 function cell(s) {
-  return String(s).replace(/\|/g, "\\|");
+  return (
+    String(s)
+      .replace(/\|/g, "\\|")
+      // A newline ends the row, silently truncating the table from that point.
+      // Reachable since the substrate's own unescape started resolving \n, so a
+      // renderer default authored as "a\nb" now arrives here as two lines.
+      .replace(/\r?\n/g, "<br>")
+  );
 }
 
 function propsCell(props) {
@@ -149,6 +156,23 @@ function replaceProps(md, rows) {
         BEGIN +
         " ... " +
         END,
+    );
+  }
+  // Exactly one pair, checked. indexOf takes the FIRST end marker, so deleting
+  // the real one while any later one exists would silently replace everything
+  // down to it, eating the hand-authored worked examples with no error. A second
+  // generated block in this file is the realistic way that arrives.
+  var beginCount = md.split(BEGIN).length - 1;
+  var endCount = md.split(END).length - 1;
+  if (beginCount !== 1 || endCount !== 1) {
+    throw new Error(
+      "expected exactly one generated-props marker pair in " +
+        MD_PATH +
+        ", found " +
+        beginCount +
+        " begin and " +
+        endCount +
+        " end. Refusing to guess which block to replace.",
     );
   }
   var slugs = readContract().slugs;
