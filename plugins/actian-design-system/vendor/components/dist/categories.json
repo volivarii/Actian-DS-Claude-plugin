@@ -1,26 +1,15 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-08-12T11:37:59.192Z",
+  "generatedAt": "2026-08-13T18:14:08.233Z",
   "categories": {
     "Action": {
       "components": [
         "button",
-        "calendar",
-        "input-date",
         "link",
         "sticky-footer"
       ],
-      "count": 5
-    },
-    "Base: label, message, field, textfield buttons": {
-      "components": [
-        "field",
-        "label",
-        "message",
-        "textfield-buttons"
-      ],
-      "count": 4
+      "count": 3
     },
     "Breakpoint, grid & structure": {
       "components": [
@@ -31,12 +20,6 @@
         "xs-grid"
       ],
       "count": 5
-    },
-    "Checkbox, checkbox card, checkbox group": {
-      "components": [
-        "checkbox-group"
-      ],
-      "count": 1
     },
     "Data Display": {
       "components": [
@@ -84,20 +67,29 @@
       ],
       "count": 11
     },
-    "Form (input & selection)": {
+    "Form": {
       "components": [
+        "calendar",
         "checkbox",
         "checkbox-card",
+        "checkbox-group",
         "dropdown-select-default",
+        "field",
+        "input-date",
+        "label",
+        "message",
         "radio",
         "radio-card",
+        "radio-group",
         "rich-text",
         "search",
         "search-dropdown-menu",
+        "text-area",
         "text-input",
+        "textfield-buttons",
         "toggle"
       ],
-      "count": 10
+      "count": 19
     },
     "Icons": {
       "components": [
@@ -381,18 +373,6 @@
         "zeenea-logo"
       ],
       "count": 98
-    },
-    "Radio, radio card, radio group": {
-      "components": [
-        "radio-group"
-      ],
-      "count": 1
-    },
-    "Text area, text input": {
-      "components": [
-        "text-area"
-      ],
-      "count": 1
     },
     "White-label services": {
       "components": [

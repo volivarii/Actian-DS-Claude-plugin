@@ -15,7 +15,4 @@ Search allows users to find assets quickly. Placeholder text should provide a hi
 - Don't use it as the only way to narrow a result set by structured attributes (owner, status, type): pair it with filters instead of teaching users keyword tricks.
 - Don't embed a search field for a list short enough to scan; a dozen visible items need no query box.
 
-## Category guidance (inherited: design, behavior)
-Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
-
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

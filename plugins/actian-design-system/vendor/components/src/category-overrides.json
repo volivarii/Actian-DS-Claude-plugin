@@ -3,15 +3,9 @@
     "description": "Curated slug -> category display-name overrides, consulted by scripts/graph/derive-graph.js ONLY when a registry component carries no category (e.g. its Figma frames sit directly on a category-header page, which the sync cannot attribute). The registry always wins when it carries a category, so each entry self-retires once the Figma pages are reorganized and a re-sync restores the category. Delete entries as they retire.",
     "provenance": "manual-override",
     "added": "2026-07-02",
-    "remove_when": "Figma member pages created under 'Form (input & selection)' and components' frames moved onto them; next sync then restores registry categories"
+    "remove_when": "Figma member pages created under the Form header and components' frames moved onto them; next sync then restores registry categories",
+    "retired": "2026-08-13",
+    "_history": "2026-08-13: all 7 entries RETIRED on exactly the condition remove_when named. Figma created the member pages under its 'Form' header, and the sync now attributes checkbox, dropdown-select-default, radio, search, search-dropdown-menu and toggle natively as 'Form'. Two things this exposed: the entries had been inert for a while (the registry always wins), and 'input' had gone stale in a way nothing would have caught, pinning to a form category a slug the registry publishes as an ICON. Kept as an empty map rather than deleting the file, because derive-graph.js reads it and an empty override set is the honest expression of 'nothing needs curating today'."
   },
-  "overrides": {
-    "checkbox": "Form (input & selection)",
-    "dropdown-select-default": "Form (input & selection)",
-    "input": "Form (input & selection)",
-    "radio": "Form (input & selection)",
-    "search": "Form (input & selection)",
-    "search-dropdown-menu": "Form (input & selection)",
-    "toggle": "Form (input & selection)"
-  }
+  "overrides": {}
 }

@@ -21,22 +21,42 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const PATHS = require("../../scripts/lib/paths");
 
-// Source of truth for the closed set of categories. Mirrors
-// KNOWN_CATEGORIES in the knowledge repo's
-// scripts/transformers/transform-categories.js. Keep in sync when the
-// design team adds a new category in Figma.
+// The closed set of COMPONENTS-section categories, DERIVED from the
+// substrate rather than restated here. The rule this gate encodes is
+// "a Components-section category must have a curated *-defaults.json",
+// and each of those files declares its own display `label`, so the set
+// is exactly those labels.
 //
-// COMPONENTS-section categories — these have curated *-defaults.json
-// files under vendor/components/dist/categories/. The
-// category-defaults-loader test enforces that mapping.
-const COMPONENTS_CATEGORIES = new Set([
-  "Action",
-  "Form (input & selection)",
-  "Navigation",
-  "Data Display",
-  "Feedback",
-  "Overlays",
-]);
+// It used to be a hand-written list carrying "Form (input & selection)".
+// When the design team renamed that Figma page to "Form" (knowledge
+// #534, taxonomy 15 categories to 11), the substrate shipped the new
+// label and this consumer kept asserting the old one, so an ordinary
+// rename read as drift. That is the same failure the vocabulary table
+// above was generated to remove, and the same one that cost three repos
+// two weeks in July: a consumer restating by hand a fact the producer
+// already owns. Derived, a rename now flows through and only a genuinely
+// new category (one with no defaults file) still stops the build, which
+// is the decision this gate exists to force.
+function componentsCategories() {
+  const fs = require("fs");
+  const path = require("path");
+  // Located through the collection rather than through one member: deriving the
+  // directory from `.action` would make this line the one thing that breaks if
+  // `action` were ever renamed, in a test that exists because a category rename
+  // broke something else.
+  const byKey = PATHS.components.categoryDefaults.byKey;
+  const dir = path.dirname(byKey("action"));
+  return new Set(
+    fs
+      .readdirSync(dir)
+      .filter((f) => /-defaults\.json$/.test(f))
+      .map(
+        (f) => JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")).label,
+      )
+      .filter(Boolean),
+  );
+}
+const COMPONENTS_CATEGORIES = componentsCategories();
 
 // ζ.2 (knowledge v0.7.0+, 2026-05-13) — `category` is now populated for
 // items outside the COMPONENTS section too: Foundations pages (icons,
@@ -75,6 +95,22 @@ const COMPONENTS_CATEGORIES = new Set([
 function loadJSON(p) {
   return JSON.parse(require("fs").readFileSync(p, "utf8"));
 }
+
+// The shipped category slugs, read from the vendored dist. Written out, this list
+// went stale on knowledge #541's rename and quietly stopped covering a category.
+function shippedCategorySlugs() {
+  const fs = require("fs");
+  const path = require("path");
+  const dir = path.dirname(PATHS.components.categoryDefaults.byKey("action"));
+  const slugs = fs
+    .readdirSync(dir)
+    .filter((f) => /-defaults\.json$/.test(f))
+    .map((f) => f.replace(/-defaults\.json$/, ""))
+    .sort();
+  assert.ok(slugs.length, "the vendored dist ships category defaults at all");
+  return slugs;
+}
+
 
 test("categories.json — structure", () => {
   const c = loadJSON(PATHS.components.categories);
@@ -200,15 +236,21 @@ test("categories.json — counts reconcile with registry", () => {
 
 const loader = require("../../scripts/transformers/category-defaults-loader.js");
 
-test("category-defaults — all 6 dist files exist", () => {
-  const slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+test("category-defaults: every shipped defaults file loads through the loader", () => {
+  // The slugs were written out here and still said `form-input-selection` after
+  // knowledge #541 renamed it, which is the third hand-written copy of this same
+  // list to go stale in one week. Read from the dist instead: the invariant that
+  // matters is that everything shipped can be loaded, not that six specific names
+  // are present.
+  const fs = require("fs");
+  const path = require("path");
+  const dir = path.dirname(PATHS.components.categoryDefaults.byKey("action"));
+  const slugs = fs
+    .readdirSync(dir)
+    .filter((f) => /-defaults\.json$/.test(f))
+    .map((f) => f.replace(/-defaults\.json$/, ""))
+    .sort();
+  assert.ok(slugs.length, "the vendored dist ships category defaults at all");
   const missing = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
@@ -246,14 +288,11 @@ test("category-defaults — bundle file exists at registered manifest path", () 
 
 test("category-defaults — every motion_refs slug resolves against tokens/motion.json", () => {
   loader._resetCache();
-  const slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's refs stopped being verified by
+  // any of these gates and all of them stayed green.
+  const slugs = shippedCategorySlugs();
   const unresolved = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
@@ -273,14 +312,11 @@ test("category-defaults — every motion_refs slug resolves against tokens/motio
 
 test("category-defaults — every accessibility ref slug resolves against a11y-index.json", () => {
   loader._resetCache();
-  const slugs = [
-    "action",
-    "form-input-selection",
-    "navigation",
-    "data-display",
-    "feedback",
-    "overlays",
-  ];
+  // Read from the dist, not written out. These loops iterate against the REAL
+  // vendored files, so a retired name does not fail here, it makes the inner
+  // loop body never execute: the Form category's refs stopped being verified by
+  // any of these gates and all of them stayed green.
+  const slugs = shippedCategorySlugs();
   const unresolved = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);

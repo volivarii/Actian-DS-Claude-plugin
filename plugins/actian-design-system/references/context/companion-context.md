@@ -159,7 +159,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 The knowledge repo ships per-category structural defaults at
 `vendor/components/dist/categories/<slug>-defaults.json` (one file per
-category: action, form-input-selection, navigation, data-display,
+category: action, form, navigation, data-display,
 feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
@@ -181,7 +181,7 @@ refine via PRs that flip the field to `team-reviewed` or
 
 1. `ctx.category` is read directly from the dskit registry's
    `categorySlug` field (the substrate-canonical slug, = slugify(category),
-   e.g. "form-input-selection"; knowledge #189) — no plugin-side
+   e.g. "form"; knowledge #189) — no plugin-side
    re-derivation from the label.
 2. `ctx.categoryDefaults` is loaded via
    `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.

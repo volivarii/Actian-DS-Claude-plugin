@@ -19,6 +19,39 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **The built-leaf props reference is generated from the substrate's render contract, so the screen
+  generator finally knows what to call each component's content.** The vocabulary table was already
+  generated and already correct at 58 BUILT slugs; the section beneath it was not. Its prose said
+  *"the following 19 slugs have real HTML leaf renderers"*, contradicting the table directly above
+  it, and it described **45** `(slug, prop)` bindings against the **177** the renderer exposes. So a
+  component could be known-renderable while none of its content had a documented name, and that
+  failure is silent by construction: a prop the renderer does not read is not an error, it renders an
+  empty slot. The section now covers all 58 slugs with each prop's fallback, every variant axis with
+  its values, and the values the renderer draws identically to another (`side-nav` now warns that
+  `Studio` renders as `Admin`). Hand-authored worked examples stay hand-authored below the block: the
+  contract says what is accepted, a person still says what is good.
+
+### Fixed
+
+- **Four hand-written copies of one retired category slug, across three repos.** `form-input-selection`
+  was renamed to `form` upstream (knowledge #541) after the Figma page was retitled. Each copy read
+  the real vendored dist, so each would strand on the rename. All now read the shipped dist.
+- **Five components were reported as having lost their root appearance and had lost nothing.** Their
+  anatomy is byte-identical across the version range; the taxonomy repair moved them from
+  `Foundations` into `Components`, so the gate examined them for the first time. Allowlisted per slug
+  with a reason matching what each capture actually shows.
+- **The blank-box baseline moved 44 to 61, banked with its reason.** Nothing regressed: all 8
+  pre-existing per-slug entries are unchanged. The baseline gained **7** slugs, of which five arrive
+  with blanks (`checkbox-group` 5, `radio-group` 5, `text-area` 3, `field` 2, `textfield-buttons` 2)
+  and two at zero (`label`, `message`). They overlap only partly with the five allowlisted above, so
+  they are not "the same five". All seven were always blank and merely out of scope until the
+  taxonomy repair filed them as components; their anatomy is byte-identical across the whole version
+  range. This resizes the gray-box picture from *"42 of 45 boxes are the two charts"* to **42 of 61**,
+  with 17 in form-base components the count could not previously see.
+
+
 ### Fixed
 - **A breaking design-system change folded five tag components into one, and every one of the 15 failures
   it caused was in what the plugin's tests CLAIMED, not in what the renderer does.**

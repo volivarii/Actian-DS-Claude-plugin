@@ -397,21 +397,9 @@
       "provenance": "figma-dskit"
     },
     {
-      "@id": "category:base-label-message-field-textfield-buttons",
-      "@type": "Category",
-      "title": "Base: label, message, field, textfield buttons",
-      "provenance": "figma-dskit"
-    },
-    {
       "@id": "category:breakpoint-grid-structure",
       "@type": "Category",
       "title": "Breakpoint, grid & structure",
-      "provenance": "figma-dskit"
-    },
-    {
-      "@id": "category:checkbox-checkbox-card-checkbox-group",
-      "@type": "Category",
-      "title": "Checkbox, checkbox card, checkbox group",
       "provenance": "figma-dskit"
     },
     {
@@ -427,9 +415,9 @@
       "provenance": "figma-dskit"
     },
     {
-      "@id": "category:form-input-selection",
+      "@id": "category:form",
       "@type": "Category",
-      "title": "Form (input & selection)",
+      "title": "Form",
       "provenance": "figma-dskit"
     },
     {
@@ -460,18 +448,6 @@
       "@id": "category:product-logos",
       "@type": "Category",
       "title": "Product logos",
-      "provenance": "figma-dskit"
-    },
-    {
-      "@id": "category:radio-radio-card-radio-group",
-      "@type": "Category",
-      "title": "Radio, radio card, radio group",
-      "provenance": "figma-dskit"
-    },
-    {
-      "@id": "category:text-area-text-input",
-      "@type": "Category",
-      "title": "Text area, text input",
       "provenance": "figma-dskit"
     },
     {
@@ -6090,12 +6066,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:alerts-toasts-banners",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6103,12 +6079,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:aria-labels",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6116,12 +6092,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:color-contrast",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6129,12 +6105,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:focus-keyboard",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -6142,12 +6118,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:forms",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       },
@@ -6156,12 +6132,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "a11y:states",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "a11y_refs.requirementRefs"
       }
@@ -10004,12 +9980,12 @@
     {
       "@type": "Edge",
       "edgeType": "foundations_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "foundation:design-guidelines",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "foundations_refs.sectionRefs"
       }
@@ -10017,12 +9993,12 @@
     {
       "@type": "Edge",
       "edgeType": "foundations_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "foundation:tokens",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "foundations_refs.sectionRefs"
       },
@@ -11514,7 +11490,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:calendar",
-      "target": "category:action"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -11574,19 +11550,19 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:checkbox",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:checkbox-card",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:checkbox-group",
-      "target": "category:checkbox-checkbox-card-checkbox-group"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -11850,7 +11826,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:dropdown-select-default",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -11934,7 +11910,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:field",
-      "target": "category:base-label-message-field-textfield-buttons"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12144,7 +12120,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:input-date",
-      "target": "category:action"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12186,7 +12162,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:label",
-      "target": "category:base-label-message-field-textfield-buttons"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12330,7 +12306,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:message",
-      "target": "category:base-label-message-field-textfield-buttons"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12546,19 +12522,19 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:radio",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:radio-card",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:radio-group",
-      "target": "category:radio-radio-card-radio-group"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12600,7 +12576,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:rich-text",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12690,13 +12666,13 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:search",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:search-dropdown-menu",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12930,7 +12906,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:text-area",
-      "target": "category:text-area-text-input"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12942,7 +12918,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:text-input",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12954,7 +12930,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:textfield-buttons",
-      "target": "category:base-label-message-field-textfield-buttons"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -12990,7 +12966,7 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:toggle",
-      "target": "category:form-input-selection"
+      "target": "category:form"
     },
     {
       "@type": "Edge",
@@ -13231,12 +13207,12 @@
     {
       "@type": "Edge",
       "edgeType": "motion_ref",
-      "source": "category:form-input-selection",
+      "source": "category:form",
       "target": "motion:state-transitions",
       "scope": "category",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/categories/form-input-selection.md",
+        "source_file": "components/src/categories/form.md",
         "deriver": "derive-graph.js",
         "method": "motion_refs.patternRefs"
       },

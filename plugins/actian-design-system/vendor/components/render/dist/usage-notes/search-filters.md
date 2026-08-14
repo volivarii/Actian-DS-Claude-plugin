@@ -23,7 +23,4 @@ Filters allow users to refine visible data by applying structured criteria. They
 - Show the active filter count when filters are collapsed. For example, `Filters (3)`.
 - Use consistent terminology across all filter controls in the same view.
 
-## Category guidance (inherited: design, behavior)
-Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
-
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
