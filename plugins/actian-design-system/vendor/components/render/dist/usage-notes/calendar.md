@@ -19,4 +19,7 @@ The calendar lets users pick a date or date range from a visual month view. It a
 - Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, "Jun 28, 2026".
 - For a range, label both ends clearly as "Start date" and "End date".
 
+## Category guidance (inherited: design, behavior)
+Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
+
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

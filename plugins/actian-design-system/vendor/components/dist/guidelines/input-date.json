@@ -8,7 +8,7 @@
   "slug": "input-date",
   "component": "Date input",
   "meta": {
-    "category": "form-input-selection",
+    "category": "form",
     "related": [
       "calendar",
       "text-input"
@@ -794,5 +794,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T11:29:30+02:00"
+  "updated_at": "2026-08-14T15:49:03+02:00"
 }

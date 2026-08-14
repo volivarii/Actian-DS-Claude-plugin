@@ -8,7 +8,7 @@
   "slug": "toggle",
   "component": "Toggle control",
   "meta": {
-    "category": "form-input-selection",
+    "category": "form",
     "a11y_refs": [
       {
         "ref": "forms"
@@ -774,5 +774,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-23T16:24:56+02:00"
+  "updated_at": "2026-08-14T15:49:03+02:00"
 }

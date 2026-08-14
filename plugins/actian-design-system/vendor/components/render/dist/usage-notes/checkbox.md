@@ -23,4 +23,7 @@ Checkboxes let users select one or more options from a list. They are used for c
 - Keep labels parallel in style and length for readability.
 - Avoid jargon and abbreviations.
 
+## Category guidance (inherited: design, behavior)
+Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
+
 > Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).

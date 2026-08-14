@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Date input"
-category: form-input-selection
+category: form
 related: [calendar, text-input]
 a11y_refs:
   - { ref: forms }
