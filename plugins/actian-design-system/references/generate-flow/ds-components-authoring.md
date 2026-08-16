@@ -99,7 +99,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | Slug | Props (fallback) | Variant axes | Renders the same as |
 |---|---|---|---|
 | `account-dropdown` | `Email`, `Items`, `Name` ("Account user") | none | none |
-| `alert-banner` | `Message`, `Title` | `Type` = Info / Success / Warning / Error<br>`Orientation'` = Horizontal / Vertical | Vertical = Horizontal |
+| `alert-banner` | `Message` ("Info"), `Title` | `Type` = Info / Success / Warning / Error<br>`Orientation'` = Horizontal / Vertical | Vertical = Horizontal |
 | `app-switcher-dropdown` | `Items` | none | none |
 | `avatar` | `Count` ("3"), `Initials` ("AV") | `State` = Default / Hovered / Focused / Pressed / Disabled / Selected<br>`Type` = One group / Two groups / Default | Hovered = Default<br>Focused = Default<br>Pressed = Default<br>Selected = Default |
 | `badge` | `Label` | `Type` = Number / Dot | none |
@@ -107,9 +107,9 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `button` | `Label`, `Leading icon show`, `Trailing icon show` | `Intent` = Default / Critical<br>`Emphasis` = Filled / Outlined / Ghost / Icon-only<br>`Size` = Default / Small<br>`State` = Default / Hover / Focus / Pressed / Expanded / Disabled / Loading | Icon-only = Filled<br>Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default<br>Loading = Default |
 | `calendar` | `Month` ("June 2026") | `Type` = Single date select / Date / Month / Single<br>`Selection` = Single / Range / Year | Date = Single date select<br>Month = Single date select<br>Single = Single date select<br>Year = Single |
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
-| `card-for-items` | `Body`, `Category` ("Catalog"), `Eyebrow` ("Dataset"), `Title` ("Title") | `Type` = Catalog / Item / item type / Glossary type / Topic<br>`State` = Default / Hover / Focus / Pressed / Selected | Item = Catalog<br>item type = Catalog<br>Glossary type = Catalog<br>Topic = Catalog<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `card-for-items` | `Body` ("Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."), `Category` ("Catalog"), `Eyebrow` ("Dataset"), `Title` ("Title") | `Type` = Catalog / Item / item type / Glossary type / Topic<br>`State` = Default / Hover / Focus / Pressed / Selected | Item = Catalog<br>item type = Catalog<br>Glossary type = Catalog<br>Topic = Catalog<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
-| `chat-with-ai-steward` | `Confidence`, `Context`, `Greeting`, `Insight`, `Source`, `State`, `Title` ("AI Steward") | `size` = Default / Drawer<br>`history` = Closed / Open | Open = Closed |
+| `chat-with-ai-steward` | `Confidence`, `Context`, `Greeting`, `Insight` ("This dataset has three upstream sources and feeds two published reports. Review its lineage before changing the schema."), `Source`, `State`, `Title` ("AI Steward") | `size` = Default / Drawer<br>`history` = Closed / Open | Open = Closed |
 | `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `collapse-accordion` | `Body`, `Title` ("Advanced settings") | `State` = Collapsed / Expanede | none |
 | `confirmation` | `Body` ("The selected items will be imported into the catalog. You will be notified once the import is complete."), `Cta` ("Open the catalog"), `Headline`, `Illustration` ("illustration-success"), `Primary`, `Secondary` ("Learn more"), `Title` ("Success!") | `Size` = Large | none |
@@ -121,8 +121,8 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
 | `global-header` | `Account` ("AU"), `App`, `Context` ("Catalog"), `ContextValue` ("Default"), `Logo` ("actian-pyramid"), `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L / M / S / XS | L = XL<br>M = XL<br>S = XL<br>XS = XL |
 | `input-date` | `Helper`, `Label` ("Date"), `Placeholder text` ("MM/DD/YYYY") | `Type` = Single date / Date range<br>`States` = Enabled / Hovered / Focused / Error / Disabled / Fille / Activ | Hovered = Enabled<br>Focused = Enabled<br>Error = Enabled<br>Fille = Enabled<br>Activ = Enabled |
-| `lineage-grouped-node` | `Child initials`, `Child label`, `Item type initials`, `Label`, `Title` | `State` = Default / Expanded<br>`Type` = Main item / Sub item | Sub item = Main item |
-| `lineage-individual-node` | `Item type initials`, `Label`, `Title` | `Type` = Main item / Sub item<br>`State` = Default / Selected / Disabled<br>`Fields` = Collapsed / Expanded | none |
+| `lineage-grouped-node` | `Child initials`, `Child label`, `Item type initials` ("DS"), `Label`, `Title` | `State` = Default / Expanded<br>`Type` = Main item / Sub item | Sub item = Main item |
+| `lineage-individual-node` | `Item type initials` ("PB"), `Label`, `Title` | `Type` = Main item / Sub item<br>`State` = Default / Selected / Disabled<br>`Fields` = Collapsed / Expanded | none |
 | `link` | `Label` ("Link") | `State` = Default / Hover / Focus / Pressed / Expanded / Visited / Disabled | none |
 | `loader` | `Label` ("Loading") | `Percent` = 99% / 10% / Percent3 | 10% = 99%<br>Percent3 = 99% |
 | `loader-with-logo` | `Label` ("Loading") | `App` = Actian Data Intelligence / Studio / Explorer / Admin | none |
@@ -130,7 +130,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `maintenance-state` | `Body` ("Reports may be unavailable. Refresh or check back when the maintenance window is complete."), `Cta` ("Create policy"), `Headline` ("Scheduled maintenance in progress until 12:00 PM EST"), `Illustration` ("illustration-maintenance"), `Primary`, `Secondary` ("Learn more"), `Title` | `Size` = Large | none |
 | `metamodel-widget` | `Item type initials`, `Label`, `Section body`, `Show Section`, `Title` | `Type` = Dataset / Business Term / Data Process / Field / Visualisation | none |
 | `modal` | `Actions`, `Body`, `Title` ("Dialog") | `Size & Type` = 700px setting / 1200px / 900px create / 900px edit / 700px create / 450px warning / 450px confirm<br>`Dev status` = 🟢 Ready | 1200px = 700px setting<br>900px create = 700px setting<br>900px edit = 700px setting<br>700px create = 700px setting<br>450px warning = 700px setting<br>450px confirm = 700px setting |
-| `notification` | `Action`, `Message` | `Type` = Default / Critical | none |
+| `notification` | `Action`, `Message` ("Item deleted") | `Type` = Default / Critical | none |
 | `notification-dropdown` | `Empty` ("You're all caught up."), `Header` ("Notifications"), `Items` | `Property 1` = Empty / List | none |
 | `page-header` | `Actions`, `Description`, `Title` ("Page title") | `Type` = Default / Details page / Explorer home / Explorer detail | Details page = Default<br>Explorer home = Default<br>Explorer detail = Default |
 | `popover` | `Body`, `Show info icon`, `Title` ("Popover") | `Type` = Interaction guide / Advanced search | none |
@@ -144,7 +144,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `segmented-control` | `Active`, `Items`, `Segments` | `Type` = Default | none |
 | `side-nav` | `Active`, `Groups`, `Items` | `App` = Admin / Studio<br>`View` = Collapsed / Expanded | Studio = Admin |
 | `spinner` | `Label` ("Loading") | `Color mode` = On light bg / On dark bg<br>`Complete` = 50% / 75% / 100% / 25% | 75% = 50%<br>100% = 50%<br>25% = 50% |
-| `stepper` | `Body`, `Step`, `Title` | `State` = Complete / Active / Default / State5 | State5 = Default |
+| `stepper` | `Body`, `Step` ("1"), `Title` ("Connect source") | `State` = Complete / Active / Default / State5 | State5 = Default |
 | `sticky-footer` | `Primary` ("Save"), `Secondary` ("Cancel") | `Property 1` = Default | none |
 | `table` | `Columns`, `Rows` | `Built type` = By columns / By rows | By rows = By columns |
 | `tabs` | `Active`, `Items` | `Property 1` = Default | none |
@@ -154,7 +154,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `text-input` | `Label` ("Label"), `Placeholder text` ("Placeholder text"), `Trailing icon` | `States` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default<br>Warning = Default<br>Read-only = Default |
 | `toggle` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Toggle position` = On right (default) / On left<br>`Selection` = Off / On<br>`State` = Default / Hover / Focus / Pressed / Disabled | On left = On right (default)<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `toolbar` | `Show View scale` | `Type` = Single / Combined / Group<br>`Orientation` = Horizontal / Vertical | Combined = Single<br>Group = Single |
-| `tooltip` | `Body` | `Type` = Default | none |
+| `tooltip` | `Body` ("Body line text lorem ipsum dolor sit amet, consectetur") | `Type` = Default | none |
 | `whats-new-dropdown` | `Detail`, `EmptyLabel` ("No release updates"), `Items`, `Title` ("What's new") | `Property 1` = Drilldown1 / Drilldown2 / Empty / List | Drilldown2 = Drilldown1 |
 
 <!-- END GENERATED props -->

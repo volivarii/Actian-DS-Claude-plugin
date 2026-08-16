@@ -289,6 +289,25 @@ function disabledValue(values) {
 // registry derivation, so it is authored here rather than derived. Kept in the
 // deriver so a re-run of --all reproduces it instead of clobbering it.
 var MATRIX_OVERRIDES = {
+  // The capture holds one text node reading "Info" on the default variant
+  // (Type=Info), so in the design file the message mirrors the type name.
+  // Anatomy captures only the default variant, so the same rule is applied to
+  // the other three rather than repeating one message across four cells.
+  "alert-banner": [
+    { label: "Info", variant: "Type=Info", props: { Message: "Info" } },
+    {
+      label: "Success",
+      variant: "Type=Success",
+      props: { Message: "Success" },
+    },
+    {
+      label: "Warning",
+      variant: "Type=Warning",
+      props: { Message: "Warning" },
+    },
+    { label: "Error", variant: "Type=Error", props: { Message: "Error" } },
+  ],
+
   button: [
     {
       label: "Primary",
@@ -694,6 +713,122 @@ var MATRIX_OVERRIDES = {
   ],
 };
 
+// Specimen content for the gallery: per slug, the props every one of its matrix
+// cells should carry.
+//
+// THE LAYER SEPARATION, which is why this map exists here and not in the
+// renderer. ds-html-map.js says what a component DOES with the props it is
+// given, and part of that answer is that an optional part is absent when its
+// prop is: a page-header with no description is a real page-header, and a
+// caller generating a screen must be able to ask for one. matrix.js says what
+// the GALLERY should SHOW, and an empty description slot is a poor specimen.
+// Two different questions. #543 answered the second one inside the renderer, by
+// turning thirteen optional slots into unconditional elements with literal
+// fallbacks, and in doing so answered the first one wrongly: every generated
+// page-header grew a "Support text", every toggle a "Description", every date
+// input a "Use MM/DD/YYYY.", with no way to turn them off. The strings below
+// are those, moved to the layer that actually wanted them.
+//
+// #544 moved twelve. The thirteenth, chat-with-ai-steward's context chip, went
+// on shipping in the renderer because it wore a different shape (a variable
+// initialised to the literal, not a `props.X ? el : ""` conditional), and the
+// omission test that guards this map ITERATES this map, so a slot missing here
+// was a slot nothing checked. The guard that needs no list is
+// tests/render/sparse-render-ratchet.test.js: it renders every slug with no
+// props at all and fails when one starts producing parts it did not before.
+//
+// Provenance travels with the value, in the words it had in the renderer:
+// `capture:` quotes components/dist/anatomy/<slug>.json, `authored:` means the
+// capture holds no such string, `substituted:` means it holds one that must not
+// ship.
+//
+// NOT MATRIX_OVERRIDES. An override REPLACES a slug's whole cell list, so
+// reaching for one to add a single prop would silently change which variant
+// values the gallery renders. These props are MERGED into whatever cells
+// variantMatrix derives, and they LOSE to a prop the cell already sets.
+var SPECIMEN_PROPS = {
+  // capture: anatomy/radio.json text layer "Description"
+  radio: { "Helper text": "Description" },
+
+  // authored: toggle has no helper layer in the capture; mirrors radio's
+  // captured "Description" so the two form controls read consistently
+  toggle: { "Helper text": "Description" },
+
+  // capture: anatomy/page-header.json layer "Suppot text" [sic] reads "Support text"
+  "page-header": { Description: "Support text" },
+
+  // authored: the capture holds a title ("Edit description") and a Body
+  // container, but that container holds only a nested "Rich text" instance with
+  // no text to extract, so there is no captured string
+  modal: {
+    Body: "Update the description so teammates know what this connection is for.",
+  },
+
+  // capture: anatomy/notification.json nested button label "Close"
+  notification: { Action: "Close" },
+
+  // capture: anatomy/stepper.json layer "Body" reads "Optional body"
+  stepper: { Body: "Optional body" },
+
+  // authored: the capture holds "Date", "*" and "mm/dd/yyyy" but no helper layer
+  "input-date": { Helper: "Use MM/DD/YYYY." },
+
+  "dropdown-select-default": {
+    // capture: anatomy/dropdown-select-default.json layer "description"
+    Description:
+      "A description helps users to define and understand the purpose of the input.",
+    // capture: anatomy/dropdown-select-default.json layer "helper text"
+    Helper: "Helper text goes here",
+  },
+
+  popover: {
+    // capture: anatomy/popover.json layer "Header"
+    Title: "Interaction guide",
+    // capture: anatomy/popover.json layer "description"; the capture holds two
+    // sentences joined by U+2028 line separator characters, normalised here to a
+    // single space so no raw line separator reaches the rendered markup
+    Body: "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline. Learn how to navigate data lineage using mouse and keyboard controls.",
+  },
+
+  // authored: anatomy/chat-with-ai-steward.json holds zero text nodes, so the
+  // context chip has no captured string. It names the asset the steward session
+  // is scoped to, which is what the Figma preview shows the chip doing. The
+  // renderer accepts this bare-string form and the object form {type, name}
+  // alike; the gallery uses the string.
+  "chat-with-ai-steward": { Context: "Dataset Customer Orders" },
+
+  // substituted, not captured: anatomy/account-dropdown.json holds what reads as
+  // a real person's name and address at an external domain. Shipping that as
+  // specimen content in a customer-facing bundle is not acceptable, so the
+  // structure is kept and the address replaced.
+  "account-dropdown": { Email: "account.user@example.com" },
+};
+
+// Merge, never replace, and never in place: a cell's own prop wins, and the
+// returned cells are fresh objects so a caller that mutates what it gets back
+// cannot reach into MATRIX_OVERRIDES. Applied on every exit of variantMatrix,
+// including the override and single-stub paths, so "the gallery shows this
+// content" holds for a slug however its cells were arrived at.
+function withSpecimenProps(slug, cells) {
+  var specimen = SPECIMEN_PROPS[slug];
+  if (!specimen) return cells;
+  return cells.map(function (cell) {
+    var props = {};
+    Object.keys(specimen).forEach(function (k) {
+      props[k] = specimen[k];
+    });
+    Object.keys(cell.props || {}).forEach(function (k) {
+      props[k] = cell.props[k];
+    });
+    var out = {};
+    Object.keys(cell).forEach(function (k) {
+      out[k] = cell[k];
+    });
+    out.props = props;
+    return out;
+  });
+}
+
 function variantMatrix(slug) {
   // `.length` and not just presence: allIdentityValueCells returns [] when its
   // precondition stops holding (a slug that gained a second axis), and an empty
@@ -701,7 +836,7 @@ function variantMatrix(slug) {
   // invisible in a gallery, and a silent loss of the whole component. Falling
   // through to the generic path yields fewer cells, never no cells.
   if (MATRIX_OVERRIDES[slug] && MATRIX_OVERRIDES[slug].length)
-    return MATRIX_OVERRIDES[slug];
+    return withSpecimenProps(slug, MATRIX_OVERRIDES[slug]);
   var comp = findComponent(slug);
   var variants = (comp && comp.variants) || {};
   var stateAxis = stateAxisName(variants);
@@ -736,7 +871,9 @@ function variantMatrix(slug) {
   }
 
   if (!cells.length) {
-    return [{ label: slug, variant: "", props: { Label: slug } }];
+    return withSpecimenProps(slug, [
+      { label: slug, variant: "", props: { Label: slug } },
+    ]);
   }
 
   // Ensure a disabled example when the state axis offers one and none is shown yet.
@@ -759,7 +896,7 @@ function variantMatrix(slug) {
       });
     }
   }
-  return cells;
+  return withSpecimenProps(slug, cells);
 }
 
 // The @dsCard group comes from the component's registry category (falling
@@ -779,6 +916,7 @@ module.exports = {
   groupFor: groupFor,
   RENDER_SLUGS: RENDER_SLUGS,
   MATRIX_OVERRIDES: MATRIX_OVERRIDES,
+  SPECIMEN_PROPS: SPECIMEN_PROPS,
   CSS_OWNERS: CSS_OWNERS,
   ownedPrefixes: ownedPrefixes,
 };
