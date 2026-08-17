@@ -27,7 +27,8 @@
       "group": "Feedback",
       "props": [
         {
-          "name": "Message"
+          "name": "Message",
+          "default": "Info"
         },
         {
           "name": "Title"
@@ -255,7 +256,8 @@
       "group": "Data Display",
       "props": [
         {
-          "name": "Body"
+          "name": "Body",
+          "default": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
         },
         {
           "name": "Category",
@@ -353,7 +355,8 @@
           "name": "Greeting"
         },
         {
-          "name": "Insight"
+          "name": "Insight",
+          "default": "This dataset has three upstream sources and feeds two published reports. Review its lineage before changing the schema."
         },
         {
           "name": "Source"
@@ -834,7 +837,8 @@
           "name": "Child label"
         },
         {
-          "name": "Item type initials"
+          "name": "Item type initials",
+          "default": "DS"
         },
         {
           "name": "Label"
@@ -866,7 +870,8 @@
       "group": "Data Display",
       "props": [
         {
-          "name": "Item type initials"
+          "name": "Item type initials",
+          "default": "PB"
         },
         {
           "name": "Label"
@@ -1098,7 +1103,8 @@
           "name": "Action"
         },
         {
-          "name": "Message"
+          "name": "Message",
+          "default": "Item deleted"
         }
       ],
       "variants": {
@@ -1523,10 +1529,12 @@
           "name": "Body"
         },
         {
-          "name": "Step"
+          "name": "Step",
+          "default": "1"
         },
         {
-          "name": "Title"
+          "name": "Title",
+          "default": "Connect source"
         }
       ],
       "variants": {
@@ -1854,7 +1862,8 @@
       "group": "Overlays",
       "props": [
         {
-          "name": "Body"
+          "name": "Body",
+          "default": "Body line text lorem ipsum dolor sit amet, consectetur"
         }
       ],
       "variants": {

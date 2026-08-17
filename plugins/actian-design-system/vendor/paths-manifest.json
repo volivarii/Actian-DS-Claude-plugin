@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.132",
+  "knowledge_version": "0.34.135",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -646,6 +646,13 @@
       "origin": "human",
       "description": "The official Custom Elements Manifest JSON schema, used to validate the emitted CEM."
     },
+    "components.render.sparse": {
+      "path": "components/render/dist/sparse-render.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/derive-sparse-render.js",
+      "description": "What each component renders when the caller supplies NO props, measured two ways. bySlug: per slug, the number of elements carrying visible text in a render with an empty prop bag, which catches a fallback that adds a NEW text-bearing element. inventedSlots: the (slug, prop) pairs where supplying the prop REMOVES content from the markup, which catches the shapes a count cannot see (a literal appended inside an element that already carries text, one carried by an attribute, one inside an svg). Both measured by rendering, never read from the source, so within their scope the fallback can be written any way at all. That scope is published here rather than assumed: totals.pairsProbed against totals.pairsInContract says how many contract pairs were actually reachable with a sentinel, and totals.cellsRendered against totals.matrixCells says how little of the variant matrix a one-cell-per-slug render covers. Three kinds of invented content therefore do not move either number: a fallback behind another variant or State, a prop the contract's regex cannot see, and a listed prop whose value never reaches the markup. The ratchet in tests/render/sparse-render-ratchet.test.js fails when a count rises or the set grows against this artifact as it stood at the merge base, which is how the render tier keeps the property that a component must not invent content the caller did not ask for: a fallback removes the caller's ability to render the component without it, and the same renderer draws real product screens downstream. Neither measure is a target to drive to zero (44 of 58 slugs render some structural copy of their own, and 99 props have a designed fallback); only the direction is a defect."
+    },
     "components.styles.effect": {
       "path": "components/dist/effect-styles.md",
       "type": "markdown",
@@ -950,7 +957,7 @@
       "recursive": true,
       "type": "text",
       "origin": "human",
-      "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its hi-fi styling source (ds-base.css, ds-fonts.css), the lo-fi Fat Marker renderer JS and its self-contained styling source (html-renderers/fm-html-map.js, fm-base.css), and default-props.json. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1; the fm tier finished in the fm-relocation follow-up). render.css derives from the ds-tier .css members; the gallery derives by running the ds-tier .js over each component's variant matrix. fm-base.css and fm-html-map.js are carried for the plugin's own parametric fm-tier consumption; knowledge derives no fm gallery of its own."
+      "description": "The relocated renderer: the fact-driven DS component renderer JS (ds-html-map + appearance/anatomy interpreters, structure-preserving under html-renderers/), its hi-fi styling source (ds-base.css, ds-fonts.css), the lo-fi Fat Marker renderer JS and its self-contained styling source (html-renderers/fm-html-map.js, fm-base.css), and default-props.json, which has no reader in this repo and is carried because the plugin's fidelity harness reads it from the vendored tree. Knowledge owns the one renderer; the plugin vendors it back (renderer-relocation phase 1; the fm tier finished in the fm-relocation follow-up). render.css derives from the ds-tier .css members; the gallery derives by running the ds-tier .js over each component's variant matrix. fm-base.css and fm-html-map.js are carried for the plugin's own parametric fm-tier consumption; knowledge derives no fm gallery of its own."
     },
     "components.render.usageNotes": {
       "dir": "components/render/dist/usage-notes",

@@ -35,6 +35,54 @@ are summarized at the release level.
 
 ### Fixed
 
+- **The vendored renderer had started inventing content for props a caller deliberately omits, and the
+  test that caught it was one keystroke from being regenerated away.**
+  ([#291](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/291)) The vendored snapshot moves to
+  knowledge **v0.34.135**, which closes a single defect class opened three versions earlier. **v0.34.133**
+  gave the renderer literal fallbacks for 13 props while filling empty slots in its own specimen gallery,
+  **v0.34.134** moved twelve of them into a specimen layer only the gallery reads, and **v0.34.135** fixed
+  the thirteenth and added two guards that take no hand-maintained list of slots. It matters more here than
+  upstream: this plugin generates real product screens with the same vendored renderer that draws that
+  gallery, so a value chosen to make the gallery look complete appeared on every generated screen.
+
+  **No golden was regenerated and no test was changed.** The suite read 1997 pass / 0 fail on v0.34.132,
+  13 failures on v0.34.133 (3 behavioural, 9 goldens, 1 derived document), 3 on v0.34.134 with the
+  behavioural ones green again untouched, 1 on v0.34.135, and **1997 pass / 0 fail** here. Two of the 13
+  were not drift: `stewardAnswered` supplies `Title`, `Insight`, `Source` and `Confidence` and
+  deliberately not `Context`, and it had begun rendering a context chip nobody asked for. That assertion
+  is what located the thirteenth slot, so a blind regeneration would have laundered a live product
+  regression into a green build.
+
+  **The only plugin-side change is a regenerated reference**,
+  `references/generate-flow/ds-components-authoring.md`, rebuilt by its own
+  `scripts/renderers/render-authoring-props.js` because the upstream render contract legitimately changed.
+  Its built-leaf props section now publishes a `default` only where the renderer genuinely falls back on
+  one, so `alert-banner.Message`, `stepper.Step`, `tooltip.Body`, `card-for-items.Body`,
+  `chat-with-ai-steward.Insight`, `notification.Message` and both lineage `Item type initials` gain one,
+  while `chat-with-ai-steward.Context`, `notification.Action`, `stepper.Body`, `page-header.Description`
+  and the rest correctly show none. For a flow author the table now separates what the renderer supplies
+  from what is theirs to fill. The snapshot also brings a new upstream artifact,
+  `vendor/components/render/dist/sparse-render.json` and its schema, which backs knowledge's own ratchet
+  and has no plugin-side consumer today by design.
+
+- **The nightly vendor sync had been unable to advance for three days, and reported success the whole
+  time.** ([#291](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/291))
+  `vendored.json#knowledge_repo_version_range` was `"<1.0.0"` from at least 07-21 through 08-13, so each
+  nightly resolved the newest knowledge tag and the snapshot advanced on its own. Commit `4f1fb878`
+  replaced it with `"0.34.129"`, the exact version it had just resolved, and the hand-carried refreshes
+  after it kept that shape. Three nightlies then re-resolved the version the repo already had (#288 and
+  #290 merged, #293 auto-merged), and each still bumped the marketplace version, because the workflow's
+  change guard diffs `vendored.json`, whose `vendored_at` timestamp is rewritten on every run. So three
+  CalVer releases in three days carried no new content, and that churn is what collided with this PR's own
+  bump twice in one morning. The range is back to `"<1.0.0"`, so adoption resumes.
+
+  The freeze was never undetected: `notifyIfNewerAvailable` warned on every one of those runs
+  (`Newer knowledge release available: v0.34.135 ... resolves to v0.34.132`). It is the right sentence in a
+  place nobody reads, an annotation inside a green nightly whose PR title already claims a refresh. That
+  warning's visibility and the change guard are filed together as
+  [#294](https://github.com/volivarii/Actian-DS-Claude-plugin/issues/294), since both change what the
+  nightly does to `main` unattended and want their own review.
+
 - **Four hand-written copies of one retired category slug, across three repos.** `form-input-selection`
   was renamed to `form` upstream (knowledge #541) after the Figma page was retitled. Each copy read
   the real vendored dist, so each would strand on the rename. All now read the shipped dist.
