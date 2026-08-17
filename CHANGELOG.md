@@ -65,6 +65,24 @@ are summarized at the release level.
   `vendor/components/render/dist/sparse-render.json` and its schema, which backs knowledge's own ratchet
   and has no plugin-side consumer today by design.
 
+- **The nightly vendor sync had been unable to advance for three days, and reported success the whole
+  time.** ([#291](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/291))
+  `vendored.json#knowledge_repo_version_range` was `"<1.0.0"` from at least 07-21 through 08-13, so each
+  nightly resolved the newest knowledge tag and the snapshot advanced on its own. Commit `4f1fb878`
+  replaced it with `"0.34.129"`, the exact version it had just resolved, and the hand-carried refreshes
+  after it kept that shape. Three nightlies then re-resolved the version the repo already had (#288 and
+  #290 merged, #293 auto-merged), and each still bumped the marketplace version, because the workflow's
+  change guard diffs `vendored.json`, whose `vendored_at` timestamp is rewritten on every run. So three
+  CalVer releases in three days carried no new content, and that churn is what collided with this PR's own
+  bump twice in one morning. The range is back to `"<1.0.0"`, so adoption resumes.
+
+  The freeze was never undetected: `notifyIfNewerAvailable` warned on every one of those runs
+  (`Newer knowledge release available: v0.34.135 ... resolves to v0.34.132`). It is the right sentence in a
+  place nobody reads, an annotation inside a green nightly whose PR title already claims a refresh. That
+  warning's visibility and the change guard are filed together as
+  [#294](https://github.com/volivarii/Actian-DS-Claude-plugin/issues/294), since both change what the
+  nightly does to `main` unattended and want their own review.
+
 - **Four hand-written copies of one retired category slug, across three repos.** `form-input-selection`
   was renamed to `form` upstream (knowledge #541) after the Figma page was retitled. Each copy read
   the real vendored dist, so each would strand on the rename. All now read the shipped dist.
