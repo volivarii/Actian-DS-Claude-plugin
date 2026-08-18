@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.135",
+  "knowledge_version": "0.34.136",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -570,6 +570,13 @@
       "generator": "scripts/icons/derive-icons-svg.js",
       "description": "Derived icon-geometry read-surface: per-slug {viewBox, body, group, dsKey, nodeId}. Consumed by the plugin render tier's renderIcon() to inline real glyphs. Auto-exported to the monochrome UI-icon set (~145 = Icons category minus the Connector group) by the icons sync phase, layered under the curated overrides; multicolor connector logos are a separate future asset class."
     },
+    "components.identity": {
+      "path": "components/dist/identity.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-identity.js",
+      "description": "Stable Figma identity to the slug a component answers to now, plus the slugs it answered to before. Read by clients/resolve-paths.js so a consumer holding a slug the component was renamed away from resolves it instead of breaking: the slug is a slugified display name and is the address in most collections, so before this a Figma rename broke every consumer that had written the old name down."
+    },
     "components.media.index": {
       "path": "components/dist/media/_index.json",
       "type": "json",
@@ -881,6 +888,7 @@
     "components.anatomy.byKey": {
       "dir": "components/dist/anatomy",
       "pattern": "{slug}.json",
+      "slugNamespace": "component",
       "type": "json",
       "origin": "ci",
       "description": "Per-component anatomy JSONs (normalized structure tree, Figma-synced). See components.anatomy.bundle for the roll-up."
@@ -931,6 +939,7 @@
     "components.images": {
       "dir": "components/src",
       "pattern": "{slug}/images/{filename}",
+      "slugNamespace": "component",
       "recursive": true,
       "type": "binary",
       "origin": "human",
@@ -939,6 +948,7 @@
     "components.media.ci": {
       "dir": "components/dist/media",
       "pattern": "{slug}/{role}[-{index}].{ext}",
+      "slugNamespace": "component",
       "recursive": true,
       "type": "binary",
       "origin": "ci",
@@ -947,6 +957,7 @@
     "components.render.fragments": {
       "dir": "components/render/dist/fragments",
       "pattern": "{slug}.html",
+      "slugNamespace": "component",
       "type": "text",
       "origin": "ci",
       "description": "Per-component markup fragments, combined with components/render/dist/render.css by consumers."
@@ -962,6 +973,7 @@
     "components.render.usageNotes": {
       "dir": "components/render/dist/usage-notes",
       "pattern": "{slug}.md",
+      "slugNamespace": "component",
       "type": "markdown",
       "origin": "ci",
       "description": "Per-component usage notes composed from the guideline domains (slice 2)."

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/identity.json",
+  "title": "Component identity ledger",
+  "description": "Stable Figma identity → the slug a component currently answers to, plus the slugs it used to answer to. CI-derived from components/dist/registries/*.json by scripts/components/derive-identity.js. Exists because the slug is a slugified DISPLAY NAME and is the address in 15 of 18 manifest collections, in the manifest keys, in the media and anatomy filenames, and in the authored components/src/<slug>/ directories: one Figma rename therefore cost about 90 references across three repositories and stalled the nightly sync for four nights (knowledge #526). clients/resolve-paths.js reads this so a consumer holding a renamed-away slug resolves it instead of breaking on it. Strict (additionalProperties:false) — CI-derived contract.",
+  "type": "object",
+  "required": ["_meta", "schemaVersion", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "required": ["auto_generated", "source", "do_not_edit"],
+      "additionalProperties": false,
+      "description": "Provenance block, matching every other generated JSON in this repo. No timestamp: idempotency requires byte-stable output across runs.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "components/dist/registries/*.json",
+          "do_not_edit": "Regenerate with `npm run derive:identity`. `slug` and `nodeId` are re-derived; `previousSlugs` accumulates and is carried forward verbatim, so a hand edit there survives regeneration and the drift guard."
+        }
+      ],
+      "properties": {
+        "auto_generated": {
+          "const": true,
+          "description": "Always true: this object is CI-derived.",
+          "examples": [true]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What this artifact is derived from, so a reader can find the authority rather than trusting the copy.",
+          "examples": ["components/dist/registries/*.json"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "minLength": 1,
+          "description": "How to regenerate, stated in the file so a hand edit is a deliberate act rather than an accident.",
+          "examples": [
+            "Regenerate with `npm run derive:identity`. `slug` and `nodeId` are re-derived; `previousSlugs` accumulates and is carried forward verbatim, so a hand edit there survives regeneration and the drift guard."
+          ]
+        }
+      }
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Ledger format version. A major bump means a consumer reading it must be updated; clients/resolve-paths.js treats an absent or unreadable ledger as 'no renames' rather than failing, so an older vendored snapshot keeps resolving.",
+      "examples": ["1.0.0"]
+    },
+    "entries": {
+      "type": "object",
+      "description": "Keyed by the component's stable Figma identity, which is its `key` when present and its `nodeId` otherwise. Precedence differs from its neighbours on purpose: the sync's identityOf() is key-then-nodeId-then-slug because it must classify everything it sees, the differ that decides the breaking verdict pairs renames by key alone, and this one skips an entry with neither key nor nodeId because a ledger keyed by slug would defeat its purpose. For a keyless entry this would record a rename by nodeId while the differ reported a removal plus an addition; latent today, since all 637 entries carry a key. A component that leaves the registries drops out rather than being tombstoned, because a retired slug should stop resolving rather than resolve to something that no longer ships; its history stays in git.",
+      "examples": [
+        {
+          "de36372be7d1532ee37fbfc43238aed444f6e7c9": {
+            "slug": "action-bar",
+            "nodeId": "14747:9839",
+            "previousSlugs": ["sticky-footer"]
+          }
+        }
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": ["slug", "previousSlugs"],
+        "additionalProperties": false,
+        "description": "One component's identity record.",
+        "examples": [
+          {
+            "slug": "action-bar",
+            "nodeId": "14747:9839",
+            "previousSlugs": ["sticky-footer"]
+          }
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The slug this component answers to now, which is the registry key it is published under.",
+            "examples": ["action-bar"]
+          },
+          "nodeId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Figma node id, carried for provenance and as the identity fallback when a component has no key.",
+            "examples": ["14747:9839"]
+          },
+          "previousSlugs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Slugs this component used to answer to, oldest first. ACCUMULATED, not derived: the builder copies this forward from the committed ledger and appends when the registry slug changes, so it is the one field a re-derive cannot verify and the drift guard cannot police. A rename missed at the moment it happened cannot be recovered from current state. Never contains the current slug and never repeats: a display name can be renamed away and back, and without that rule the history would grow on every flap and end up naming the live slug, which would let a resolver report a current slug as retired.",
+            "examples": [["sticky-footer"], []]
+          }
+        }
+      }
+    }
+  }
+}
