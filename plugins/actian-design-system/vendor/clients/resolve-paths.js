@@ -14,6 +14,10 @@ var path = require("path");
 
 var SUPPORTED_SCHEMA_VERSION = "v1";
 
+// Null-prototype so a slug colliding with an Object.prototype name cannot
+// resolve through the prototype.
+var NO_RENAMES = Object.create(null);
+
 // The ONLY definition of "can this collection pattern address a member".
 // Exported so scripts/validate-manifest.js gates on the same rule the resolver
 // enforces at runtime: a gate that disagrees with the code it protects is the
@@ -54,7 +58,60 @@ function setNested(obj, parts, value) {
   cursor[leaf] = value;
 }
 
-function buildPathsFromManifest(manifest, vendorRoot) {
+// Builds { retiredSlug: currentSlug } from the identity ledger
+// (components/dist/identity.json). A consumer that still addresses a component
+// by the slug it had before a Figma display-name change resolves through this
+// instead of breaking, which is what stops a rename from being a migration
+// across three repositories.
+//
+// A slug that is CURRENT for some component is never treated as retired, even
+// if another component used to carry it: a name can be freed and reused, and the
+// live component has to win.
+// Both maps are null-prototype: they are keyed by slug, and a slug colliding
+// with a name on Object.prototype would otherwise resolve through the prototype.
+// `renameMap["constructor"]` returns Object itself, which is truthy, and the
+// path would become the stringified function.
+function buildRenameIndex(ledger) {
+  // Shape-tolerant on purpose. readLedger below already treats an unreadable
+  // ledger as "no renames" so a bad file cannot wedge a consumer, and a
+  // JSON-valid ledger with the wrong shape has to degrade the same way: the
+  // schema gates this repo's CI, not a snapshot already vendored somewhere.
+  var raw = ledger && ledger.entries;
+  var entries = raw && typeof raw === "object" ? raw : {};
+  var current = Object.create(null);
+  Object.keys(entries).forEach(function (id) {
+    var slug = entries[id] && entries[id].slug;
+    if (typeof slug === "string" && slug) current[slug] = true;
+  });
+
+  // A retired slug two identities both claim is dropped rather than resolved to
+  // whichever key sorts later: two components can have carried the same name at
+  // different times, and guessing between them resolves silently to an arbitrary
+  // one. Ambiguous means unmapped, which fails the way it did before the ledger
+  // existed instead of failing invisibly.
+  var retired = Object.create(null);
+  var ambiguous = Object.create(null);
+  Object.keys(entries).forEach(function (id) {
+    var e = entries[id] || {};
+    var history = Array.isArray(e.previousSlugs) ? e.previousSlugs : [];
+    history.forEach(function (was) {
+      if (typeof was !== "string" || !was) return;
+      if (typeof e.slug !== "string" || !e.slug) return;
+      if (current[was]) return;
+      if (retired[was] !== undefined && retired[was] !== e.slug) {
+        ambiguous[was] = true;
+        return;
+      }
+      retired[was] = e.slug;
+    });
+  });
+  Object.keys(ambiguous).forEach(function (was) {
+    delete retired[was];
+  });
+  return retired;
+}
+
+function buildPathsFromManifest(manifest, vendorRoot, ledger) {
   if (manifest.manifest_schema_version !== SUPPORTED_SCHEMA_VERSION) {
     throw new Error(
       "paths.js: expected manifest_schema_version '" +
@@ -86,6 +143,8 @@ function buildPathsFromManifest(manifest, vendorRoot) {
     setNested(out, name.split("."), path.join(vendorRoot, entry.path));
   }
 
+  var renames = buildRenameIndex(ledger);
+
   var collections = manifest.collections || {};
   for (var collName in collections) {
     var coll = collections[collName];
@@ -106,7 +165,7 @@ function buildPathsFromManifest(manifest, vendorRoot) {
       // collName/coll are `var` loop bindings, so every value the closure needs
       // is passed in as a parameter rather than captured: a captured binding
       // would hold the LAST iteration's value for every collection.
-      (function (collDir, collRoot, name, declaredColl) {
+      (function (collDir, collRoot, name, declaredColl, renameMap) {
         // NOT named `entry`: the sub-directory walk below declares `var entry`,
         // which is function-scoped and would hoist over this parameter.
         var pattern = declaredColl.pattern;
@@ -187,10 +246,28 @@ function buildPathsFromManifest(manifest, vendorRoot) {
             );
           }
 
+          // A slug the component was renamed away from resolves to the slug it
+          // answers to now. Applied only in the {slug} branch: a {name}
+          // collection above takes a path, not a component identity.
+          var effective = renameMap[slug] || slug;
+
           // Substitute {slug}; if no other placeholders remain, join + return.
-          var resolved = pattern.replace("{slug}", slug);
+          var resolved = pattern.replace("{slug}", effective);
           if (!/\{[^}]+\}/.test(resolved)) {
-            return path.join(collDir, resolved);
+            var mapped = path.join(collDir, resolved);
+            if (effective === slug) return mapped;
+            // Renaming must never LOSE a path that resolved before. Several
+            // collections are named after the authored components/src/<slug>/
+            // directory rather than the registry slug (guideline docs and the
+            // usage notes derived from them), and a Figma rename moves only the
+            // registry slug, so the file on disk keeps the old name. Prefer the
+            // current name when it exists, fall back to the name asked for when
+            // that is the one on disk, and otherwise return the current name so
+            // the resulting ENOENT names the component as it is now called.
+            if (fs.existsSync(mapped)) return mapped;
+            var asAsked = path.join(collDir, pattern.replace("{slug}", slug));
+            if (fs.existsSync(asAsked)) return asAsked;
+            return mapped;
           }
           // Pattern has additional placeholders (e.g. {bucket}/{slug}.md for
           // recursive collections). Walk one level of sub-dirs and return the
@@ -205,12 +282,26 @@ function buildPathsFromManifest(manifest, vendorRoot) {
             } catch (e) {
               continue;
             }
-            var candidate = path.join(sub, slug + ".md");
+            var candidate = path.join(sub, effective + ".md");
             if (fs.existsSync(candidate)) return candidate;
           }
           return null;
         };
-      })(dir, path.resolve(dir), collName, coll),
+      })(
+        dir,
+        path.resolve(dir),
+        collName,
+        coll,
+        // Rename history is applied ONLY to collections a manifest declares as
+        // keyed by a component slug. The ledger's namespace is Figma components,
+        // and 7 of the 15 {slug} collections key on something else (a11y topics,
+        // app-context records, categories, content sections, foundations, icons).
+        // Eight of those slugs already collide with component slugs (api-key,
+        // dataset, field, lineage, scanner, suggestion, template, user-group), so
+        // an unscoped map sends an unrelated, never-renamed file to the wrong path
+        // or to null. Undeclared means untouched, which is the safe default.
+        coll.slugNamespace === "component" ? renames : NO_RENAMES,
+      ),
     );
   }
 
@@ -240,11 +331,36 @@ function buildPaths(vendorRoot) {
         err.message,
     );
   }
-  return buildPathsFromManifest(manifest, vendorRoot);
+  return buildPathsFromManifest(manifest, vendorRoot, readLedger(vendorRoot));
+}
+
+// The identity ledger is optional on purpose: snapshots vendored before it
+// existed have no such file, and resolution must carry on for them rather than
+// throw. A malformed ledger is also non-fatal, for the same reason a stale
+// snapshot should keep working, but it is not swallowed either: resolution
+// proceeds with no renames and the reason is stated on stderr, because a
+// consumer silently losing rename resolution would look identical to having no
+// renames at all.
+function readLedger(vendorRoot) {
+  var ledgerPath = path.join(vendorRoot, "components", "dist", "identity.json");
+  if (!fs.existsSync(ledgerPath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(ledgerPath, "utf8"));
+  } catch (err) {
+    console.error(
+      "resolve-paths.js: identity ledger at " +
+        ledgerPath +
+        " failed to parse (" +
+        err.message +
+        "). Resolving without rename history.",
+    );
+    return null;
+  }
 }
 
 module.exports = {
   buildPaths: buildPaths,
+  buildRenameIndex: buildRenameIndex,
   isResolvablePattern: isResolvablePattern,
   buildPathsFromManifest: buildPathsFromManifest,
   SUPPORTED_SCHEMA_VERSION: SUPPORTED_SCHEMA_VERSION,
