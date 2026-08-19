@@ -71,7 +71,9 @@ function tagsWithSource(pattern, slug) {
   // meant `tags: ["", ""]` reported itself as authored and scored on nothing at
   // all, which is the one outcome worse than falling back.
   if (authored.length) return { tags: authored, source: "authored" };
-  return { tags: slugTags(slug), source: "slug" };
+  // Normalized on this path too, or the reported tags are not the scored tags: a
+  // slug with a repeated token emits it twice while rankRecipes dedupes.
+  return { tags: normalizeTags(slugTags(slug)), source: "slug" };
 }
 
 function patternTags(pattern, slug) {
@@ -86,7 +88,7 @@ function loadRecipes(recipeIndex) {
   // the same way a malformed file does. Without the Array check on this path too,
   // the seam is only half a seam: a caller passing an object reaches .filter and
   // throws, which is the failure this guard exists to prevent on the other path.
-  if (recipeIndex !== undefined && recipeIndex !== null) {
+  if (recipeIndex !== undefined) {
     return Array.isArray(recipeIndex) ? recipeIndex : [];
   }
   if (_recipeCache) return _recipeCache;
@@ -173,6 +175,11 @@ function selectRecipe(tags, recipeIndex) {
   return {
     archetype: ranked[0].archetype,
     score: top,
+    // candidates is ALWAYS every entry at the top score, never a runners-up list.
+    // It used to be ranked.slice(0, 3) here and top-scorers on a tie, so the same
+    // key meant two things: a consumer told to "choose between candidates" saw,
+    // on a decisive result, browse-search(4) sitting beside table-list(1) with
+    // nothing marking one as the loser.
     // ONE shared tag is a coincidence, which is the whole complaint this change
     // answers; relabelling it "decisive" would just move the defect. On the
     // shipped substrate 8 of Studio's 17 sole winners rest on a single word,
@@ -180,7 +187,7 @@ function selectRecipe(tags, recipeIndex) {
     // data-visualization on "canvas" alone. Reported as weak so the generator
     // knows to read the pattern description rather than take the archetype.
     status: top >= 2 ? "decisive" : "weak",
-    candidates: ranked.slice(0, 3),
+    candidates: atTop,
   };
 }
 
@@ -296,13 +303,23 @@ function main() {
         );
       });
       misses.forEach(function (p) {
-        process.stderr.write("  no match " + p.slug + "\n");
-      });
-      untagged.forEach(function (p) {
+        // The cause goes on the outcome's line. Reporting a slug once as a miss
+        // and again as untagged reads as two findings about one pattern.
         process.stderr.write(
-          "  untagged " + p.slug + " (scoring on slug words; author tags in the substrate)\n",
+          "  no match " + p.slug +
+            (p.tagSource !== "authored" ? " (untagged, which is why)" : "") + "\n",
         );
       });
+      untagged
+        .filter(function (p) {
+          return p.recipe.status !== "no-match";
+        })
+        .forEach(function (p) {
+          process.stderr.write(
+            "  untagged " + p.slug +
+              " (scoring on slug words; author tags in the substrate)\n",
+          );
+        });
     }
     // NOT process.exit(). stdout is a pipe whenever the skill captures this, and
     // Node's write to a pipe is asynchronous, so exiting truncates it at the 64KB

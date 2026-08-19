@@ -373,11 +373,13 @@ source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolv
 
 Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags,tagSource,recipe}]`) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns: a pattern not scoped to this app never appears (the app boundary is firm). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
 
-Each pattern carries a `recipe` decision, already ranked by how many tags it shares with each archetype in `recipes/flow/_index.json`. **Use it rather than matching tags yourself:**
+Each pattern carries a `recipe` decision, already ranked by how many tags it shares with each archetype in `recipes/flow/_index.json`. **Use it rather than matching tags yourself, but read the next paragraph first: the decision belongs to the pattern, not to the screen.**
+
+`_glossary.patterns` holds every pattern scoped to the app, each with its own decision, and a flow has many screens. A screen-generator therefore decides **which pattern the screen it is building actually realizes** and reads only that pattern's `recipe`. Taking a decisive archetype from an unrelated pattern is the same failure this replaced, moved one step along: `faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen in the same Studio flow must not inherit it. If no pattern in the list describes the screen, there is no recipe guidance for it, and the screen's own purpose governs as it did before.
 
 | `recipe.status` | What it means | What a screen-generator does |
 | --- | --- | --- |
-| `decisive` | one archetype shares two or more tags, more than any other | take `recipe.archetype` |
+| `decisive` | one archetype shares two or more tags, more than any other | take `recipe.archetype` for a screen realizing THAT pattern |
 | `weak` | one archetype leads, but on a single shared tag | it is the best guess and no more: read the pattern `description` before taking it, and say so if you do |
 | `tie` | several share the top score, and `archetype` is `null` | choose between `recipe.candidates` on the pattern description, and say which and why |
 | `no-match` | the pattern shares no tag with any recipe | no archetype guidance exists; pick on the description alone and do not pretend it was grounded |

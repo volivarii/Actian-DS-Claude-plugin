@@ -49,7 +49,15 @@ are summarized at the release level.
   from 6 to 2, and silence from 11 to 6. `faceted-browse` scores `browse-search` 4 against `table-list`
   1 and resolves decisively.
 
-  **Compositions are never ranked.** `recipes/flow/_index.json` holds two `kind: composition` entries,
+  **The decision belongs to the pattern, not to the screen.** `_glossary.patterns` holds every
+  app-scoped pattern with its own decision, and a flow has many screens, so a generator decides which
+  pattern the screen it is building actually realizes and reads only that one. An earlier version of the
+  instruction read as per-screen, which would have relocated the very failure this fixes: `faceted-browse`
+  carries a decisive `browse-search`, and a "Create data product" form screen in the same Studio flow must
+  not inherit it. If no pattern describes the screen there is no recipe guidance, and the screen's own
+  purpose governs as before.
+
+    **Compositions are never ranked.** `recipes/flow/_index.json` holds two `kind: composition` entries,
   which are a separate branch of the pipeline: `screen-generator.md` defines a single recipe as an entry
   without that key, and `flow-data.schema.json` says `matchedRecipe` is `null` when tier 2 is a
   composition. Ranking them was wrong twice over. It invited the generator to set `matchedRecipe` to a
@@ -63,7 +71,13 @@ are summarized at the release level.
   than fixed it. It is still reported as the best guess, with the generator told to read the pattern
   description before taking it.
 
-  Tags are also matched case-insensitively and deduped, because `validate-flow-data.js` lowercases both
+  `recipe.candidates` always means every archetype at the top score. It briefly meant that on a tie and
+  the top three otherwise, so a consumer told to choose between candidates saw `browse-search(4)` beside
+  `table-list(1)` with nothing marking the loser. The slug fallback is normalized like the authored path,
+  so the tags reported are the tags scored, and an explicitly passed `null` recipe index now means "no
+  recipes" rather than falling through to the shipped one.
+
+    Tags are also matched case-insensitively and deduped, because `validate-flow-data.js` lowercases both
   sides of the same vocabulary and nothing validates casing in the substrate: an authored `"Table"`
   would have scored `no-match` here while the validator still saw an overlap. Deduped because the score
   is an overlap count, so `["search","search"]` would otherwise beat a rival sharing two real tags.

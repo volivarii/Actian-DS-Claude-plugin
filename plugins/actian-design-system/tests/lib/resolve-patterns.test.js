@@ -482,3 +482,47 @@ describe("resolve-patterns tag hygiene, third review (#303)", function () {
     );
   });
 });
+
+describe("resolve-patterns contract precision, fourth review (#303)", function () {
+  var BASE = [
+    { archetype: "table-list", tags: ["table", "list", "crud", "browse"] },
+    { archetype: "browse-search", tags: ["search", "browse", "catalog", "filter"] },
+  ];
+
+  it("candidates always means the top score, never a runners-up list", function () {
+    // The same key used to mean two things: every top-scorer on a tie, and
+    // ranked.slice(0, 3) otherwise. A consumer told to "choose between
+    // candidates" then saw browse-search(4) beside table-list(1) on a decisive
+    // result, with nothing marking one as the loser.
+    var dec = resolver.selectRecipe(["browse", "search", "catalog"], BASE);
+    assert.strictEqual(dec.status, "decisive");
+    assert.deepStrictEqual(dec.candidates.map(function (c) { return c.score; }), [3]);
+    dec.candidates.forEach(function (c) {
+      assert.strictEqual(c.score, dec.score, "no candidate may score below the top");
+    });
+
+    var tie = resolver.selectRecipe(["browse"], BASE);
+    tie.candidates.forEach(function (c) {
+      assert.strictEqual(c.score, tie.score);
+    });
+    assert.strictEqual(tie.candidates.length, 2);
+  });
+
+  it("an explicit null index means no recipes, not 'read the shipped one'", function () {
+    // null used to fall through to the disk read, so a caller writing
+    // `opts.recipeIndex ?? null` silently scored against the real 12 recipes and
+    // the seam the comment promises was only half there.
+    assert.deepStrictEqual(resolver.rankRecipes(["table", "browse"], null), []);
+    assert.strictEqual(resolver.selectRecipe(["table"], null).status, "no-match");
+  });
+
+  it("the slug fallback reports the tags it scored, as the authored path does", function () {
+    // slugTags was returned raw while the authored path normalized, so a slug
+    // with a repeated token emitted it twice while rankRecipes deduped: the
+    // reported tags were not the scored tags.
+    assert.deepStrictEqual(
+      resolver.tagsWithSource({}, "data-import-data-export").tags,
+      ["data", "import", "export"],
+    );
+  });
+});
