@@ -69,7 +69,7 @@ are summarized at the release level.
   is an overlap count, so `["search","search"]` would otherwise beat a rival sharing two real tags.
 
   **A tie and a miss are both reported rather than silently resolved.** Each pattern carries a `recipe`
-  decision of `decisive`, `tie` or `no-match`; a tie returns `archetype: null` with every candidate at the
+  decision of `decisive`, `weak`, `tie` or `no-match`; a tie returns `archetype: null` with every candidate at the
   top score named, because a stable arbitrary pick is still arbitrary. The CLI prints ties, misses and
   any pattern still scoring on slug words to stderr, leaving stdout a parseable object. `SKILL.md` and
   `agents/screen-generator.md` now tell the generator to take the ranked decision rather than match tags

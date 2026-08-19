@@ -40,11 +40,33 @@ function slugTags(slug) {
 // Studio patterns shared no word with any recipe, and `faceted-browse` reached
 // `table-list` and `browse-search` on the single word "browse" with nothing to
 // separate them. The fallback stays for a pattern authored before tags existed.
-function tagsWithSource(pattern, slug) {
-  var t = (pattern && pattern.tags) || [];
-  var authored = (Array.isArray(t) ? t : []).filter(function (x) {
-    return typeof x === "string" && x.length > 0;
+function normalizeTags(tags) {
+  var seen = Object.create(null);
+  var out = [];
+  (Array.isArray(tags) ? tags : []).forEach(function (x) {
+    if (typeof x !== "string") return;
+    var k = x.trim().toLowerCase();
+    // Normalized and deduped. Case matters because validate-flow-data.js
+    // lowercases both sides of this same vocabulary, so an authored "Table"
+    // would score no-match here while the validator still saw an overlap, and
+    // nothing in the substrate validates tag casing. Deduped because the score
+    // is an overlap COUNT: ["search","search"] would otherwise score 2 against a
+    // recipe sharing one tag and beat a genuine two-tag rival.
+    if (!k || seen[k]) return;
+    seen[k] = true;
+    out.push(k);
   });
+  return out;
+}
+
+function tagsWithSource(pattern, slug) {
+  // normalizeTags, not a second filter of its own. Filtering on `x.length > 0`
+  // here while normalizeTags TRIMMED meant a whitespace-only tag survived as
+  // authored and then scored against nothing: exactly the defect this function
+  // was written to close, reproduced one character over. Tags reach this file
+  // straight from YAML frontmatter with no trimming in the knowledge derive, so a
+  // quoted " " gets through. One normalizer, one answer.
+  var authored = normalizeTags(pattern && pattern.tags);
   // Filter FIRST, then decide. Deciding on `tags.length` and filtering afterwards
   // meant `tags: ["", ""]` reported itself as authored and scored on nothing at
   // all, which is the one outcome worse than falling back.
@@ -111,24 +133,6 @@ function isSelectable(r) {
 // and table-list 1, where the boolean join scored both 1. Ties are sorted by
 // archetype so the order is stable rather than index-order, but a tie is still
 // reported as a tie: a stable arbitrary pick is still arbitrary.
-function normalizeTags(tags) {
-  var seen = Object.create(null);
-  var out = [];
-  (Array.isArray(tags) ? tags : []).forEach(function (x) {
-    if (typeof x !== "string") return;
-    var k = x.trim().toLowerCase();
-    // Normalized and deduped. Case matters because validate-flow-data.js
-    // lowercases both sides of this same vocabulary, so an authored "Table"
-    // would score no-match here while the validator still saw an overlap, and
-    // nothing in the substrate validates tag casing. Deduped because the score
-    // is an overlap COUNT: ["search","search"] would otherwise score 2 against a
-    // recipe sharing one tag and beat a genuine two-tag rival.
-    if (!k || seen[k]) return;
-    seen[k] = true;
-    out.push(k);
-  });
-  return out;
-}
 
 function rankRecipes(tags, recipeIndex) {
   var want = normalizeTags(tags);
@@ -239,7 +243,7 @@ module.exports = {
 
 // Thin CLI: `resolve-patterns.js --app studio` → { app, patterns, useCases }.
 // Parity with resolve-chrome.js --app.
-if (require.main === module) {
+function main() {
   var args = process.argv.slice(2);
   var appIdx = args.indexOf("--app");
   if (appIdx !== -1 && args[appIdx + 1]) {
@@ -300,8 +304,20 @@ if (require.main === module) {
         );
       });
     }
-    process.exit(known ? 0 : 1);
+    // NOT process.exit(). stdout is a pipe whenever the skill captures this, and
+    // Node's write to a pipe is asynchronous, so exiting truncates it at the 64KB
+    // buffer with exit code 0 and no diagnostic. This payload is already 22KB for
+    // Studio, up 52% in this change, and it rides on pattern descriptions the
+    // substrate keeps appending to. Setting the code and letting the process end
+    // naturally flushes first.
+    process.exitCode = known ? 0 : 1;
+    return;
   }
   process.stderr.write("usage: resolve-patterns.js --app <name>\n");
-  process.exit(2);
+  process.exitCode = 2;
 }
+
+// A function, not a bare `if` block, so the --app branch can return without
+// falling through to the usage message, and without process.exit truncating the
+// payload it just wrote.
+if (require.main === module) main();

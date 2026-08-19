@@ -148,13 +148,55 @@ describe("resolve-patterns (CLI)", function () {
     assert.ok(Array.isArray(parsed.useCases) && parsed.useCases.length >= 2);
   });
 
-  it("--app <unknown> exits 1", function () {
-    assert.throws(function () {
-      execFileSync(NODE, [CLI, "--app", "nope"], {
-        encoding: "utf8",
-        stdio: "pipe",
-      });
-    });
+  it("--app <unknown> exits 1, not merely non-zero", function () {
+    // This asserted only that it threw, which a usage exit of 2 also satisfies.
+    // It did not distinguish "unknown app" from "you called me wrong", and a
+    // regression that fell through to the usage branch passed it.
+    var code = null;
+    try {
+      execFileSync(NODE, [CLI, "--app", "nope"], { encoding: "utf8", stdio: "pipe" });
+    } catch (e) {
+      code = e.status;
+    }
+    assert.strictEqual(code, 1);
+  });
+
+  it("with no --app, exits 2, so the two failures stay distinguishable", function () {
+    var code = null;
+    try {
+      execFileSync(NODE, [CLI], { encoding: "utf8", stdio: "pipe" });
+    } catch (e) {
+      code = e.status;
+    }
+    assert.strictEqual(code, 2);
+  });
+
+  it("never calls process.exit after writing the payload", function () {
+    // Node's write to a pipe is asynchronous and process.exit does not flush it,
+    // so exiting after the write truncates stdout at the 64KB buffer with exit
+    // code 0 and no diagnostic. Verified separately:
+    //   node -e 'process.stdout.write("x".repeat(500000)); process.exit(0)' | wc -c
+    // returns exactly 65536. The Studio payload is already ~22KB and grew 52% in
+    // this change, and it rides on pattern descriptions the substrate keeps
+    // appending to, so the headroom is finite and the failure is silent.
+    var src = fs.readFileSync(CLI, "utf8");
+    // Comment lines dropped first. The comments here NAME process.exit() to
+    // explain why it is absent, and a gate that reads them flags the very
+    // explanation for the thing it is checking. Its first version did exactly
+    // that and failed on correct code.
+    var code = src
+      .slice(src.indexOf("function main()"))
+      .split("\n")
+      .filter(function (l) {
+        return !/^\s*(\/\/|\*|\/\*)/.test(l);
+      })
+      .join("\n");
+    assert.strictEqual(
+      /process\.exit\(/.test(code),
+      false,
+      "use process.exitCode and let the process end, so stdout flushes first",
+    );
+    assert.ok(/process\.exitCode/.test(code), "and it must still set an exit code");
   });
 });
 
@@ -410,5 +452,33 @@ describe("resolve-patterns recipe selection, second review (#303)", function () 
     assert.strictEqual(ps[0].recipe.score, 3);
     var none = resolver.resolvePatterns("obs", ctx, []);
     assert.strictEqual(none[0].recipe.status, "no-match", "an empty index yields no guidance");
+  });
+});
+
+describe("resolve-patterns tag hygiene, third review (#303)", function () {
+  it("a whitespace-only tag falls back rather than claiming to be authored", function () {
+    // The guard against "authored while scoring on nothing" filtered on
+    // `length > 0` while the scorer TRIMMED, so `tags: ["  "]` survived as
+    // authored and then matched nothing: the same defect, one character over.
+    // Tags reach the plugin straight from YAML frontmatter with no trimming in
+    // the knowledge derive, so a quoted " " gets through.
+    var ws = resolver.tagsWithSource({ tags: ["  ", "\t"] }, "faceted-browse");
+    assert.strictEqual(ws.source, "slug");
+    assert.deepStrictEqual(ws.tags, ["faceted", "browse"]);
+
+    var ps = resolver.resolvePatterns("obs", {
+      patterns: { "faceted-browse": { apps: ["obs"], tags: ["  "] } },
+    });
+    assert.strictEqual(ps[0].tagSource, "slug");
+  });
+
+  it("normalizes the tags it reports, so they are the tags it scored", function () {
+    var mixed = resolver.tagsWithSource({ tags: [" Table ", "TABLE", "list"] }, "x-y");
+    assert.strictEqual(mixed.source, "authored");
+    assert.deepStrictEqual(
+      mixed.tags,
+      ["table", "list"],
+      "reported tags are trimmed, lowercased and deduped exactly as scored",
+    );
   });
 });
