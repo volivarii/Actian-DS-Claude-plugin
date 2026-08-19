@@ -28,5 +28,7 @@ individually unless they change user-facing behavior.
 
 This is an **ecosystem-wide** rule shared by all four DS repos (`actian-ds-knowledge`,
 `actian-design-system-plugin`, `actian-ds-docs`, `actian-ds-ecosystem`). The global cross-repo copy
-of this rule lives in the shared-brain memory `feedback_changelog_discipline` (it auto-loads in every
-repo's Claude context); this section is the authoritative checked-in copy for this repo.
+of this rule lives in `product-ds/doctrine.md` in `actian-ds-ecosystem`; this section is the
+authoritative checked-in copy for this repo. Agent memories may restate it, but they are a cache and
+never the source, because they live under one person's home directory and are invisible to everyone
+else.
