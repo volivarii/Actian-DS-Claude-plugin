@@ -5,6 +5,13 @@ slug: marketplace-browsing
 label: Marketplace browsing
 apps:
   - explorer
+tags:
+  - homepage
+  - browse
+  - search
+  - curated
+  - discover
+  - carousel
 components:
   - search
   - card-for-items

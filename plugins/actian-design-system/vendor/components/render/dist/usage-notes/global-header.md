@@ -23,4 +23,4 @@ Permanently anchored to the top of the screen across all pages and apps, for acc
 ## Category guidance (inherited: design, behavior)
 Navigation patterns share an items-with-current-state anatomy regardless of orientation. The `Orientation` axis captures the horizontal-tab vs vertical-rail authoring choice. `aria-current=page` is the single most important a11y affordance — it lets assistive tech announce "where am I" without sighted users needing the indicator.
 
-> Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
+> Note: includes guidance not yet ratified: INHERITED from category (design, behavior).

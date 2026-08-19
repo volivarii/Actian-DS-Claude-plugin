@@ -52,7 +52,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use breadcrumbs to show where the user is in the product hierarchy and let them jump back up in one click (for example **Data products / Sales analytics / orders-raw**).\n\n* Use them in the [page header](page-header) of detail pages below a section root.\n\n* The deeper the nesting, the more the path matters (a dataset inside a data product, a field inside a dataset).\n\n## When not to use\n\n* Don't use breadcrumbs as the primary way to move between sections of the app: that is the [side nav](side-nav). Breadcrumbs only go up the current branch.\n\n* Don't treat them as a replacement for the browser back button: back retraces history, breadcrumbs climb the hierarchy. Both must work.\n\n* Don't show breadcrumbs on top-level list pages (connections, datasets): there is nothing above them, so a single-item trail is noise.\n\n* Don't use them to switch between peer views of the same entity: use [tabs](tabs).\n\n## Variant selection\n\nBreadcrumbs have a single Default variant; the choices are configuration.\n\n* **Trail depth:** show the full path from the section root to the current page. Two to four levels is typical; if trails regularly exceed that, the information architecture is too deep.\n\n* **Current page:** always the last item, rendered as plain text, never a link.\n\n* **Truncation:** keep full names; truncate an item only when space is severely limited, and truncate the middle levels before the current page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the exact page or entity name at every level | Paraphrase or shorten names (**Analytics** for **Sales analytics**) |\n| Render the current page as plain text at the end | Make the current page a clickable link |\n| Match the trail to the hierarchy shown in the side nav | Build the trail from the user's browsing history |\n| Keep every parent level clickable | Include decorative, non-navigable levels |\n\n> Naming pattern and truncation wording (Main component / Sub component / Specific item) live in the Content guidelines for breadcrumbs.",
       "sections": [
         {
@@ -165,5 +165,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-13T10:59:44+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

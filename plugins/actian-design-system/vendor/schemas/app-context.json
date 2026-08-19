@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://actian-ds.example.com/schemas/app-context.json",
-  "title": "App context — Actian product surface area",
-  "description": "Schema for the app-context domain — validates the CI-derived consolidated output `app-context/dist/app-context.json`.",
+  "title": "App context \u2014 Actian product surface area",
+  "description": "Schema for the app-context domain \u2014 validates the CI-derived consolidated output `app-context/dist/app-context.json`.",
   "type": "object",
   "required": [
     "_schema_version",
@@ -32,12 +32,16 @@
         "auto_generated": {
           "type": "boolean",
           "description": "True when this file was produced by the derive script rather than hand-authored.",
-          "examples": [true]
+          "examples": [
+            true
+          ]
         },
         "source": {
           "type": "string",
           "description": "Relative path (from repo root) of the script that generated this file.",
-          "examples": ["scripts/app-context/derive-app-context.js"]
+          "examples": [
+            "scripts/app-context/derive-app-context.js"
+          ]
         },
         "do_not_edit": {
           "type": "string",
@@ -52,7 +56,10 @@
       "$ref": "#/$defs/regenBlock",
       "description": "Optional provenance block describing how this file is regenerated. See $defs.regenBlock.",
       "examples": [
-        { "source": "manual", "instructions": "Hand-curated catalogue." }
+        {
+          "source": "manual",
+          "instructions": "Hand-curated catalogue."
+        }
       ]
     },
     "apps": {
@@ -63,14 +70,22 @@
           "studio": {
             "label": "Studio",
             "purpose": "Data governance",
-            "users": ["Data steward"],
-            "header": { "type": "Studio" },
+            "users": [
+              "Data steward"
+            ],
+            "header": {
+              "type": "Studio"
+            },
             "sidebar": [],
-            "signals": ["govern"]
+            "signals": [
+              "govern"
+            ]
           }
         }
       ],
-      "additionalProperties": { "$ref": "#/$defs/app" }
+      "additionalProperties": {
+        "$ref": "#/$defs/app"
+      }
     },
     "entities": {
       "type": "object",
@@ -80,13 +95,19 @@
           "data-product": {
             "label": "Data Product",
             "description": "Curated, business-ready asset",
-            "properties": ["name"],
+            "properties": [
+              "name"
+            ],
             "relationships": {},
-            "apps": ["studio"]
+            "apps": [
+              "studio"
+            ]
           }
         }
       ],
-      "additionalProperties": { "$ref": "#/$defs/entity" }
+      "additionalProperties": {
+        "$ref": "#/$defs/entity"
+      }
     },
     "terminology": {
       "type": "object",
@@ -96,11 +117,15 @@
           "studio": {
             "use": "Studio",
             "meaning": "Governance app",
-            "notUse": ["admin panel"]
+            "notUse": [
+              "admin panel"
+            ]
           }
         }
       ],
-      "additionalProperties": { "$ref": "#/$defs/term" }
+      "additionalProperties": {
+        "$ref": "#/$defs/term"
+      }
     },
     "patterns": {
       "type": "object",
@@ -110,29 +135,42 @@
           "right-sliding-drawer": {
             "label": "Right sliding drawer",
             "description": "Opens from list row click",
-            "apps": ["studio", "explorer"]
+            "apps": [
+              "studio",
+              "explorer"
+            ]
           }
         }
       ],
-      "additionalProperties": { "$ref": "#/$defs/pattern" }
+      "additionalProperties": {
+        "$ref": "#/$defs/pattern"
+      }
     }
   },
   "$defs": {
     "regenBlock": {
       "type": "object",
       "description": "Structured provenance block describing how this file is regenerated (or that it is hand-curated). Shared across Class C JSONs in this substrate.",
-      "required": ["source"],
+      "required": [
+        "source"
+      ],
       "additionalProperties": false,
       "properties": {
         "source": {
-          "enum": ["manual", "figma", "ai-assisted"],
+          "enum": [
+            "manual",
+            "figma",
+            "ai-assisted"
+          ],
           "description": "Where the canonical content of this file comes from. `manual` = hand-curated; `figma` = synced from a Figma node; `ai-assisted` = LLM-generated with human review."
         },
         "lastSync": {
           "type": "string",
           "format": "date-time",
           "description": "ISO 8601 timestamp of the most recent sync from `source`. Set by sync tooling for `figma`/`ai-assisted` sources; omit for `manual`.",
-          "examples": ["2026-05-23T00:00:00Z"]
+          "examples": [
+            "2026-05-23T00:00:00Z"
+          ]
         },
         "instructions": {
           "type": "string",
@@ -144,25 +182,40 @@
         "fileKey": {
           "type": "string",
           "description": "Figma file key, when source = `figma`.",
-          "examples": ["l8biHxfarNi1I2RMvVxVOK"]
+          "examples": [
+            "l8biHxfarNi1I2RMvVxVOK"
+          ]
         },
         "nodeId": {
           "type": "string",
           "description": "Figma node id (with a colon separator), when source = `figma`.",
-          "examples": ["12770:19394"]
+          "examples": [
+            "12770:19394"
+          ]
         }
       }
     },
     "app": {
       "type": "object",
       "description": "Description of a single Actian app surface.",
-      "required": ["label", "purpose", "users", "header", "sidebar", "signals"],
+      "required": [
+        "label",
+        "purpose",
+        "users",
+        "header",
+        "sidebar",
+        "signals"
+      ],
       "additionalProperties": false,
       "properties": {
         "label": {
           "type": "string",
           "description": "Display name of the app as shown in product chrome and docs.",
-          "examples": ["Studio", "Explorer", "Administration"]
+          "examples": [
+            "Studio",
+            "Explorer",
+            "Administration"
+          ]
         },
         "purpose": {
           "type": "string",
@@ -173,88 +226,161 @@
         },
         "users": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Primary user roles served by this app.",
-          "examples": [["Data steward", "Data engineer"]]
+          "examples": [
+            [
+              "Data steward",
+              "Data engineer"
+            ]
+          ]
         },
         "header": {
           "type": "object",
           "description": "Header chrome configuration for this app.",
-          "examples": [{ "type": "Studio" }],
-          "required": ["type"],
+          "examples": [
+            {
+              "type": "Studio"
+            }
+          ],
+          "required": [
+            "type"
+          ],
           "additionalProperties": false,
           "properties": {
             "type": {
               "type": "string",
               "description": "Header variant identifier consumed by flow generators (matches the DS `global-header` `App type` axis).",
-              "examples": ["Studio", "Explorer", "Admin"]
+              "examples": [
+                "Studio",
+                "Explorer",
+                "Admin"
+              ]
             }
           }
         },
         "sidebar": {
           "type": "array",
           "description": "Ordered list of sidebar nav entries shown in this app. Empty array when the app has no left-nav (e.g. Explorer).",
-          "examples": [[{ "label": "Dashboard", "id": "dashboard" }]],
+          "examples": [
+            [
+              {
+                "label": "Dashboard",
+                "id": "dashboard"
+              }
+            ]
+          ],
           "items": {
             "type": "object",
-            "required": ["label", "id"],
+            "required": [
+              "label",
+              "id"
+            ],
             "additionalProperties": false,
             "properties": {
               "label": {
                 "type": "string",
                 "description": "Visible nav label.",
-                "examples": ["Dashboard", "Catalog"]
+                "examples": [
+                  "Dashboard",
+                  "Catalog"
+                ]
               },
               "id": {
                 "type": "string",
                 "description": "Stable slug used for routing and analytics.",
-                "examples": ["dashboard", "catalog"]
+                "examples": [
+                  "dashboard",
+                  "catalog"
+                ]
               }
             }
           }
         },
         "signals": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Keywords/phrases that, when present in a user request, route work to this app. Used by skill routing to pick an app context.",
-          "examples": [["steward", "govern", "lineage"]]
+          "examples": [
+            [
+              "steward",
+              "govern",
+              "lineage"
+            ]
+          ]
         },
         "useCases": {
           "type": "array",
-          "description": "What the app is FOR, framed as audience → jobs, optionally linked to app-scoped patterns. Drives flow framing + scaffold selection in consumers.",
+          "description": "What the app is FOR, framed as audience \u2192 jobs, optionally linked to app-scoped patterns. Drives flow framing + scaffold selection in consumers.",
           "examples": [
             [
               {
-                "audience": ["Data steward", "Data engineer"],
-                "jobs": ["Govern the catalog", "Review access requests"],
-                "patterns": ["asset-detail-360"]
+                "audience": [
+                  "Data steward",
+                  "Data engineer"
+                ],
+                "jobs": [
+                  "Govern the catalog",
+                  "Review access requests"
+                ],
+                "patterns": [
+                  "asset-detail-360"
+                ]
               }
             ]
           ],
           "items": {
             "type": "object",
-            "required": ["audience", "jobs"],
+            "required": [
+              "audience",
+              "jobs"
+            ],
             "additionalProperties": false,
             "properties": {
               "audience": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "Primary users this use case serves.",
-                "examples": [["Data steward", "Data engineer"]]
+                "examples": [
+                  [
+                    "Data steward",
+                    "Data engineer"
+                  ]
+                ]
               },
               "jobs": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "Jobs-to-be-done for this audience in this app.",
-                "examples": [["Govern the catalog", "Review access requests"]]
+                "examples": [
+                  [
+                    "Govern the catalog",
+                    "Review access requests"
+                  ]
+                ]
               },
               "patterns": {
                 "type": "array",
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "App-scoped pattern slugs idiomatic to this use case; existence + app-scope enforced by validate-app-context.js.",
-                "examples": [["asset-detail-360", "access-request-management"]]
+                "examples": [
+                  [
+                    "asset-detail-360",
+                    "access-request-management"
+                  ]
+                ]
               }
             }
           }
@@ -276,12 +402,17 @@
         "label": {
           "type": "string",
           "description": "Display name of the entity.",
-          "examples": ["Data Product", "Catalog Object"]
+          "examples": [
+            "Data Product",
+            "Catalog Object"
+          ]
         },
         "description": {
           "type": "string",
           "description": "One-paragraph definition of the entity.",
-          "examples": ["Curated, business-ready asset with Input/Output Ports."]
+          "examples": [
+            "Curated, business-ready asset with Input/Output Ports."
+          ]
         },
         "properties": {
           "type": "array",
@@ -293,22 +424,32 @@
               {
                 "name": "status",
                 "type": "enum",
-                "states": ["Draft", "Published"]
+                "states": [
+                  "Draft",
+                  "Published"
+                ]
               }
             ]
           ],
           "items": {
             "oneOf": [
-              { "type": "string" },
+              {
+                "type": "string"
+              },
               {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "additionalProperties": false,
                 "properties": {
                   "name": {
                     "type": "string",
                     "description": "Field name as shown in the UI.",
-                    "examples": ["status", "connection type"]
+                    "examples": [
+                      "status",
+                      "connection type"
+                    ]
                   },
                   "type": {
                     "type": "string",
@@ -324,13 +465,23 @@
                   "example": {
                     "type": "string",
                     "description": "Realistic example value(s) for generated content.",
-                    "examples": ["Snowflake, BigQuery, S3 (93+ connectors)"]
+                    "examples": [
+                      "Snowflake, BigQuery, S3 (93+ connectors)"
+                    ]
                   },
                   "states": {
                     "type": "array",
-                    "items": { "type": "string" },
+                    "items": {
+                      "type": "string"
+                    },
                     "description": "Enumerated states, when the type is enum.",
-                    "examples": [["Draft", "Published", "Deprecated"]]
+                    "examples": [
+                      [
+                        "Draft",
+                        "Published",
+                        "Deprecated"
+                      ]
+                    ]
                   }
                 }
               }
@@ -339,46 +490,80 @@
         },
         "relationships": {
           "type": "object",
-          "additionalProperties": { "type": "string" },
-          "description": "Map of relationship name → target entity slug. Keys are verbs like `hasMetadata`, `belongsTo`; values are entity slugs from the `entities` map.",
-          "examples": [{ "hasMetadata": "metadata", "belongsTo": "domain" }]
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Map of relationship name \u2192 target entity slug. Keys are verbs like `hasMetadata`, `belongsTo`; values are entity slugs from the `entities` map.",
+          "examples": [
+            {
+              "hasMetadata": "metadata",
+              "belongsTo": "domain"
+            }
+          ]
         },
         "apps": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "App slugs (from the `apps` map) where this entity is surfaced.",
-          "examples": [["studio", "explorer"]]
+          "examples": [
+            [
+              "studio",
+              "explorer"
+            ]
+          ]
         }
       }
     },
     "term": {
       "type": "object",
       "description": "Canonical-vs-discouraged terminology entry.",
-      "required": ["use", "meaning", "notUse"],
+      "required": [
+        "use",
+        "meaning",
+        "notUse"
+      ],
       "additionalProperties": false,
       "properties": {
         "use": {
           "type": "string",
           "description": "The approved spelling/phrasing to use in product copy and docs.",
-          "examples": ["Studio", "Data product"]
+          "examples": [
+            "Studio",
+            "Data product"
+          ]
         },
         "meaning": {
           "type": "string",
-          "description": "What the term denotes — enough to disambiguate.",
-          "examples": ["Governance/catalog app"]
+          "description": "What the term denotes \u2014 enough to disambiguate.",
+          "examples": [
+            "Governance/catalog app"
+          ]
         },
         "notUse": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Aliases/synonyms to avoid. Content guardrails flag these in generated copy.",
-          "examples": [["admin panel", "backend"]]
+          "examples": [
+            [
+              "admin panel",
+              "backend"
+            ]
+          ]
         }
       }
     },
     "pattern": {
       "type": "object",
       "description": "Description of a recurring UX pattern.",
-      "required": ["label", "description", "apps"],
+      "required": [
+        "label",
+        "description",
+        "apps"
+      ],
       "additionalProperties": false,
       "properties": {
         "label": {
@@ -398,15 +583,54 @@
         },
         "apps": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "App slugs (from the `apps` map) where the pattern appears.",
-          "examples": [["studio", "explorer"]]
+          "examples": [
+            [
+              "studio",
+              "explorer"
+            ]
+          ]
         },
         "components": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Registry-key slugs of the DS components this pattern composes (authored; projected as ux_pattern -> component edges).",
-          "examples": [["search-filters", "table", "tabs"]]
+          "examples": [
+            [
+              "search-filters",
+              "table",
+              "tabs"
+            ]
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "description": "Selection tags for this page shape, authored in the pattern's frontmatter. A consumer picking a layout should RANK candidates by how many of these overlap, not treat any single shared word as a match: measured over the plugin's 12 flow archetypes, boolean overlap leaves 6 ties while ranking resolves 13 of 25 decisively. Absent when the shape legitimately has no archetype, which is the signal a capture is needed rather than a defect.",
+          "examples": [
+            [
+              "browse",
+              "facets",
+              "results",
+              "collection"
+            ]
+          ]
+        },
+        "when": {
+          "type": "string",
+          "description": "Selection guidance: when this shape applies and which neighbouring shape to use instead. Absent where the running product has not been observed closely enough to say, which is deliberate: an absent `when` is a visible gap and an invented one is not.",
+          "examples": [
+            "Use when the user narrows a large collection by several independent facets at once. Do not use search-filtered-table, which is explicitly the single-search-no-facets case."
+          ]
         }
       }
     }

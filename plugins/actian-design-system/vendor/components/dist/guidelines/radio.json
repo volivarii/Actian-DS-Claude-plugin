@@ -714,7 +714,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use radio buttons when the user must pick exactly one of 2-5 mutually exclusive options (for example a refresh schedule: **Daily**, **Weekly**, **Monthly**).\n\n* Use them when seeing all options at once helps the user compare before choosing (for example access levels on a connection).\n\n* Use them inside forms where the choice applies on submit, not the instant it is clicked.\n\n## When not to use\n\n* Don't use radio buttons for more than about five options, or for lists that grow dynamically: use a [dropdown / select](dropdown-select).\n\n* Don't use them to switch views of the same content with immediate effect: use a [segmented control](segmented-control).\n\n* Don't use them when several options can be selected together: use [checkboxes](checkbox).\n\n* Don't use a Yes/No radio pair for a single opt-in: use one [checkbox](checkbox), or a [toggle](toggle) if the change applies immediately.\n\n## Variant selection\n\nRadio buttons have no type or size variants; the choices are between group configurations.\n\n* **Preselected default:** when a choice is required and one option is clearly the safest or most common, select it by default.\n\n* **No default:** when the decision is consequential (for example picking a data product's visibility), leave all options unselected and require an explicit choice.\n\n* **Card format:** when each option needs a title, description, or image, use the card format as a radio group (see [cards](card)).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show every option; radio groups never scroll | Stack ten radio options in a column |\n| Keep one group per decision | Let two decisions share a single group |\n| Preselect the most common option when it is safe | Preselect a destructive or irreversible option |\n| Use radios only for real alternative values | Use two radios for a plain on/off setting |\n\n> Label wording rules (short noun phrases, parallel structure, group labels) live in the Content guidelines for radio buttons.",
       "sections": [
         {
@@ -793,5 +793,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-14T15:49:03+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

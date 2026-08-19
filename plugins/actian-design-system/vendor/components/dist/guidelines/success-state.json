@@ -95,7 +95,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use a success state to close out a completed journey: a connection created, datasets imported, an onboarding flow finished. Completed journeys end here, not on a passing message.\n\n* Use it when the outcome needs a moment of reassurance: a long setup, a first-time task, an operation the user might doubt worked.\n\n* Use it to hand the user their next step: the screen pairs the confirmation with a logical follow-on action (**Open catalog**).\n\n* Use it in the container the journey occupied: the full page for full-page flows, the [modal](modal) body for flows that ran there.\n\n## When not to use\n\n* Don't use a success state for a routine action's result: a save or publish is a [global toast](global-toast).\n\n* Don't use it for feedback tied to one element: use an [inline toast](inline-toast).\n\n* Don't use it between steps of a flow: mid-journey progress belongs to the [stepper](stepper).\n\n* Don't show it before the action has fully completed; while the outcome is uncertain, keep the loading treatment.\n\n## Variant selection\n\nSuccess states have no type or size variants; the choices are configuration.\n\n* **Illustration and title:** always present; the title confirms what completed (**Items imported**), and the illustration is decorative for assistive tech.\n\n* **Body:** one line pointing at what the completion makes possible.\n\n* **Primary CTA:** a single action that starts the next task.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show it once, at the end of the journey | Insert a success screen after every step |\n| Point the CTA at the next task (**Open catalog**) | Close the flow with a bare **Done** |\n| Keep to a single primary CTA | Line up three next actions under the illustration |\n| Land the user somewhere useful afterwards | Return them to the same [empty state](empty-state) they started from |\n\n> Wording rules (confirm what completed, one-line body, example messages) live in the Content guidelines for success state.",
       "sections": [
         {
@@ -175,5 +175,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T11:29:30+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

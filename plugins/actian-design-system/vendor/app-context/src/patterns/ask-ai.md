@@ -5,6 +5,12 @@ slug: ask-ai
 label: Ask AI
 apps:
   - explorer
+tags:
+  - search
+  - ai
+  - conversation
+  - natural-language
+  - discover
 components:
   - search
   - chat-with-ai-steward

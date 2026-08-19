@@ -5,6 +5,12 @@ slug: bulk-edit
 label: Bulk Edit
 apps:
   - studio
+tags:
+  - bulk
+  - edit
+  - collection
+  - batch
+  - multi-select
 components:
   - table
   - checkbox

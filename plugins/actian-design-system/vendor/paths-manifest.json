@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.136",
+  "knowledge_version": "0.34.141",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -17,6 +17,8 @@
     "metadata": [
       "appContext",
       "appContextBundle",
+      "appContextRecipes",
+      "appContextRecipesSrc",
       "appContextSrc",
       "tokens"
     ],
@@ -674,6 +676,12 @@
       "generator": "scripts/styles-to-md.js",
       "description": "DS Kit text styles (human-readable catalog)"
     },
+    "components.syncDeferrals": {
+      "path": "components/src/sync-deferrals.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Registry removals deliberately NOT carried through yet, consumed by scripts/sync/sync-from-figma.js. A breaking sync commits nothing and the verdict is any-breaking-is-breaking, so one component mid-rework in Figma freezes the whole nightly; a deferral carries that entry forward so the rest of the sync lands. Each names the kit, slug, Figma key, a reason, an issue and an inclusive `review_by` date, past which the deferral stops applying and the removal returns. Self-retiring: a deferral whose slug is no longer being removed is dead config and fails the run. Provenance manual-override."
+    },
     "content.globalMd": {
       "path": "content/dist/global.md",
       "type": "markdown",
@@ -876,6 +884,21 @@
       "origin": "ci",
       "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection. Descriptive only (resolvable: false): the layout is arbitrarily deep, so no single pattern addresses a member. If a consumer ever needs path-addressed access, switch to pattern '{name}'.",
       "resolvable": false
+    },
+    "appContextRecipes": {
+      "dir": "app-context/dist/recipes",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/app-context/derive-app-context.js",
+      "description": "Per-slug page recipe JSONs (validated + stamped). Resolved one at a time rather than folded into app-context.json, which is consumed whole: a single recipe exceeds 1400 lines, so bundling them would make every consumer pay for every archetype to read one."
+    },
+    "appContextRecipesSrc": {
+      "dir": "app-context/src/recipes",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Authoring surface for page recipes: the composition for a page shape named by an app-context pattern. Governed by schemas/app-context-recipe.json. Derived per slug to app-context/dist/recipes. See README.md in that directory."
     },
     "appContextSrc": {
       "dir": "app-context/src",

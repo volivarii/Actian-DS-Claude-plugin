@@ -3,7 +3,7 @@ component: "Search result card"
 category: data-display
 domains:
   content:  { status: approved, owner: content-team }
-  usage:    { status: draft }
+  usage:    { status: approved }
   design:   { status: inherited }
   behavior: { status: inherited }
   tokens:   { status: not-started }

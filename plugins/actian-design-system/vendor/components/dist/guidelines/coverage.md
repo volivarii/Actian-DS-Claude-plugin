@@ -4,67 +4,67 @@
 
 | Component | Content | Usage | Design | Behavior | Tokens |
 |---|---|---|---|---|---|
-| Alert / banner | approved | draft | inherited | inherited | not started |
-| Avatar | approved | draft | inherited | inherited | not started |
-| Badges | approved | draft | inherited | inherited | approved |
-| Breadcrumbs | approved | draft | inherited | inherited | approved |
-| Buttons | approved | draft | draft | draft | approved |
-| Calendar | approved | draft | inherited | inherited | not started |
-| Cards | approved | draft | inherited | inherited | approved |
-| Chat with AI Steward | draft | draft | draft | not started | not started |
-| Checkboxes | approved | draft | inherited | inherited | approved |
-| Collapse / accordion | approved | draft | inherited | inherited | not started |
-| Combo box | approved | draft | inherited | inherited | not started |
-| Confirmation | approved | draft | inherited | inherited | not started |
-| Drawer, side panel | approved | draft | inherited | inherited | not started |
-| Dropdown / Select | approved | draft | inherited | inherited | not started |
-| Empty state | approved | draft | inherited | inherited | not started |
-| Error state | approved | draft | inherited | inherited | not started |
-| Global header | approved | draft | inherited | inherited | approved |
-| Global toast | approved | draft | inherited | inherited | not started |
-| Inline toast | approved | draft | inherited | inherited | not started |
-| Date input | approved | draft | inherited | inherited | not started |
-| Links | approved | draft | inherited | inherited | not started |
-| Loader | approved | draft | inherited | inherited | not started |
-| Loader with logo | approved | draft | inherited | inherited | not started |
-| Loading skeleton | approved | draft | inherited | inherited | not started |
-| Maintenance state | approved | draft | inherited | inherited | not started |
-| Modal | approved | draft | inherited | inherited | not started |
-| Multi-select | approved | draft | inherited | inherited | not started |
-| Notification | approved | draft | inherited | inherited | not started |
-| Notification dropdown | approved | draft | inherited | inherited | not started |
-| Page header | approved | draft | not started | not started | approved |
-| Popover | approved | draft | inherited | inherited | not started |
-| Progress bar | approved | draft | inherited | inherited | not started |
-| Radio | approved | draft | inherited | inherited | not started |
-| Rich text | approved | draft | inherited | inherited | not started |
-| Scroll bar | approved | draft | inherited | inherited | not started |
-| Search | approved | draft | inherited | inherited | approved |
-| Search dropdown menu | approved | draft | inherited | inherited | not started |
-| Filters | approved | draft | inherited | inherited | not started |
-| Search result card | approved | draft | inherited | inherited | not started |
-| Segmented control | approved | draft | inherited | inherited | not started |
-| Side nav | approved | draft | inherited | inherited | approved |
-| Spinner | approved | draft | inherited | inherited | not started |
-| Stepper | approved | draft | inherited | inherited | not started |
-| Sticky footer | approved | draft | inherited | inherited | not started |
-| Success state | approved | draft | inherited | inherited | not started |
-| Table | approved | draft | inherited | inherited | not started |
-| Tabs | approved | draft | inherited | inherited | approved |
-| Tags | approved | draft | inherited | inherited | approved |
-| Text input | approved | draft | draft | inherited | approved |
-| Toggle control | approved | draft | inherited | inherited | not started |
-| Toolbar | approved | draft | inherited | inherited | not started |
-| Tooltip | approved | draft | inherited | inherited | not started |
-| Upload file | approved | draft | inherited | inherited | not started |
-| What's new | approved | draft | inherited | inherited | not started |
+| Alert / banner | approved | approved | inherited | inherited | not started |
+| Avatar | approved | approved | inherited | inherited | not started |
+| Badges | approved | approved | inherited | inherited | approved |
+| Breadcrumbs | approved | approved | inherited | inherited | approved |
+| Buttons | approved | approved | draft | draft | approved |
+| Calendar | approved | approved | inherited | inherited | not started |
+| Cards | approved | approved | inherited | inherited | approved |
+| Chat with AI Steward | draft | approved | draft | not started | not started |
+| Checkboxes | approved | approved | inherited | inherited | approved |
+| Collapse / accordion | approved | approved | inherited | inherited | not started |
+| Combo box | approved | approved | inherited | inherited | not started |
+| Confirmation | approved | approved | inherited | inherited | not started |
+| Drawer, side panel | approved | approved | inherited | inherited | not started |
+| Dropdown / Select | approved | approved | inherited | inherited | not started |
+| Empty state | approved | approved | inherited | inherited | not started |
+| Error state | approved | approved | inherited | inherited | not started |
+| Global header | approved | approved | inherited | inherited | approved |
+| Global toast | approved | approved | inherited | inherited | not started |
+| Inline toast | approved | approved | inherited | inherited | not started |
+| Date input | approved | approved | inherited | inherited | not started |
+| Links | approved | approved | inherited | inherited | not started |
+| Loader | approved | approved | inherited | inherited | not started |
+| Loader with logo | approved | approved | inherited | inherited | not started |
+| Loading skeleton | approved | approved | inherited | inherited | not started |
+| Maintenance state | approved | approved | inherited | inherited | not started |
+| Modal | approved | approved | inherited | inherited | not started |
+| Multi-select | approved | approved | inherited | inherited | not started |
+| Notification | approved | approved | inherited | inherited | not started |
+| Notification dropdown | approved | approved | inherited | inherited | not started |
+| Page header | approved | approved | not started | not started | approved |
+| Popover | approved | approved | inherited | inherited | not started |
+| Progress bar | approved | approved | inherited | inherited | not started |
+| Radio | approved | approved | inherited | inherited | not started |
+| Rich text | approved | approved | inherited | inherited | not started |
+| Scroll bar | approved | approved | inherited | inherited | not started |
+| Search | approved | approved | inherited | inherited | approved |
+| Search dropdown menu | approved | approved | inherited | inherited | not started |
+| Filters | approved | approved | inherited | inherited | not started |
+| Search result card | approved | approved | inherited | inherited | not started |
+| Segmented control | approved | approved | inherited | inherited | not started |
+| Side nav | approved | approved | inherited | inherited | approved |
+| Spinner | approved | approved | inherited | inherited | not started |
+| Stepper | approved | approved | inherited | inherited | not started |
+| Sticky footer | approved | approved | inherited | inherited | not started |
+| Success state | approved | approved | inherited | inherited | not started |
+| Table | approved | approved | inherited | inherited | not started |
+| Tabs | approved | approved | inherited | inherited | approved |
+| Tags | approved | approved | inherited | inherited | approved |
+| Text input | approved | approved | draft | inherited | approved |
+| Toggle control | approved | approved | inherited | inherited | not started |
+| Toolbar | approved | approved | inherited | inherited | not started |
+| Tooltip | approved | approved | inherited | inherited | not started |
+| Upload file | approved | approved | inherited | inherited | not started |
+| What's new | approved | approved | inherited | inherited | not started |
 
 ## Summary
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
 | content | 53 | 1 | 0 | 0 | 0 |
-| usage | 0 | 54 | 0 | 0 | 0 |
+| usage | 54 | 0 | 0 | 0 | 0 |
 | design | 0 | 3 | 50 | 1 | 0 |
 | behavior | 0 | 1 | 51 | 2 | 0 |
 | tokens | 12 | 0 | 0 | 42 | 0 |

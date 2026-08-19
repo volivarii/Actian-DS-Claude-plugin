@@ -61,7 +61,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use the what's new dropdown, attached to its icon in the [global header](global-header), to summarize recent product changes: new capabilities, improvements, and fixes.\n\n* Use it for release communication the user reads on their own schedule: it waits in the header instead of interrupting work.\n\n* Use it to group updates by product area (for example **Data catalog**, **Connections**, **Performance**) so users can scan for what affects them.\n\n## When not to use\n\n* Don't use it for user-specific events (an import failed, an access request arrived): that is the [notification dropdown](notification-dropdown).\n\n* Don't use it for anything that requires action or acknowledgement: use an [alert banner](alert-banner) or a [modal](modal) for blocking messages.\n\n* Don't use it as a marketing surface: it is factual product communication, not promotion.\n\n* Don't announce releases anywhere else in the product chrome: this dropdown is the single home for what changed.\n\n* Don't use it for onboarding or feature tours: it summarizes what changed, it does not teach flows.\n\n## Variant selection\n\n* **List:** the default open state, the scannable list of recent updates grouped by category.\n\n* **Drilldown:** the detail view of one update, opened from a list item; use it when an item needs more than its one-to-two-sentence summary, and always provide the way back to the list.\n\n* **Empty:** shown when there is nothing new; keep the trigger in the header and state that plainly rather than hiding the entry point.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Group updates by product area | Pour everything into one undated stream |\n| Keep each item to one or two sentences, drilldown for more | Write a release essay in the list view |\n| Describe what changed in past tense (**Added support for...**) | Say \"Bug fixes and performance improvements\" |\n| Show a plain empty state when nothing is new | Pad the list with old items to avoid looking empty |\n\n> Tone and wording rules (past tense, no marketing adjectives, grouping) live in the Content guidelines for what's new.",
       "sections": [
         {
@@ -138,5 +138,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T11:29:30+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

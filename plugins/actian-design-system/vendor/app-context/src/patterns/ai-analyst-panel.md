@@ -5,6 +5,12 @@ slug: ai-analyst-panel
 label: AI Analyst Panel
 apps:
   - explorer
+tags:
+  - conversation
+  - ai
+  - panel
+  - analytics
+  - natural-language
 components:
   - chat-with-ai-steward
   - drawer-side-panel

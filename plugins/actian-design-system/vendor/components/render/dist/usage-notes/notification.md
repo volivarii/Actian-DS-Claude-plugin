@@ -25,4 +25,4 @@ Notifications inform users of updates, background task completions, or events th
 ## Category guidance (inherited: design, behavior)
 Feedback patterns share a Severity × Persistence matrix. Transient messages (toasts, snackbars) must NOT steal focus and must be polite by default; assertive announcements are reserved for blocking errors. Motion is central to the category — but reduced-motion users need a graceful degradation.
 
-> Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
+> Note: includes guidance not yet ratified: INHERITED from category (design, behavior).

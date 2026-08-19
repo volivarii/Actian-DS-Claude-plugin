@@ -6,6 +6,12 @@ label: Suggestion workflow
 apps:
   - explorer
   - studio
+tags:
+  - suggestions
+  - review
+  - approve
+  - workflow
+  - curate
 components:
   - button
   - confirmation

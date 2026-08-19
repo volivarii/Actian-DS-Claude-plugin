@@ -6,6 +6,16 @@ label: Lineage Graph
 apps:
   - studio
   - explorer
+tags:
+  - graph
+  - canvas
+  - lineage
+  - dataflow
+  - nodes
+when: >-
+  Use for directional data flow: node cards on a canvas, each naming its source and its
+  field count, read left to right. Do not use interactive-graph, whose nodes are
+  relationship satellites around one focus rather than a flow.
 components:
   - lineage-individual-node
   - lineage-grouped-node

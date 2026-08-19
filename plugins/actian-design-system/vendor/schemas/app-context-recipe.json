@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-recipe.json",
+  "title": "App-context page recipe",
+  "description": "A page recipe: the composition for a page shape named by an app-context pattern. Authored at app-context/src/recipes/<slug>.json and derived per slug to app-context/dist/recipes/<slug>.json. A pattern says what a page shape is; a recipe says what it is made of. Recipes are derived from screenshots of the running product, not invented.",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "slug",
+    "label",
+    "description",
+    "apps",
+    "derivedFrom",
+    "skeleton"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "_meta": {
+      "type": "object",
+      "description": "Stamped by the derive on the dist leaf only; absent from the authored source. Declared here because the root is additionalProperties:false, so without it no dist recipe validates against its own schema and the first validator wired into validate-schemas.yml would fail on every file.",
+      "examples": [{ "auto_generated": true, "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file." }]
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier for the recipe; must equal the filename minus .json, and should match the app-context pattern it composes.",
+      "examples": ["faceted-browse", "asset-detail-360", "import-wizard"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable display name of the page shape this recipe composes.",
+      "examples": ["Faceted browse", "360-degree asset detail"]
+    },
+    "description": {
+      "type": "string",
+      "description": "What the page shape is and what distinguishes it from adjacent shapes.",
+      "examples": [
+        "Three pane faceted browse over a large item set: app sidebar, a fixed-width filter rail of collapsible facet groups, and a result list of composed cards."
+      ]
+    },
+    "when": {
+      "type": "string",
+      "description": "Selection guidance, naming the shapes this one is most often confused with and why they do not fit. Read by whoever or whatever chooses a recipe.",
+      "examples": [
+        "Use when the user narrows a large collection by several independent facets at once. Do not use table-list: a table cannot hold a filter rail or per-facet counts."
+      ]
+    },
+    "apps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "App slugs where this page shape appears. Must resolve against app-context apps.",
+      "examples": [["studio"], ["studio", "explorer"]]
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Slugs of the app-context patterns this recipe composes. The link back from a composition to the shape that names it.",
+      "examples": [["faceted-browse"], ["asset-detail-360", "bulk-edit"]]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Free tags used to bias recipe selection against a pattern's own tags.",
+      "examples": [["search", "browse", "facets", "results"]]
+    },
+    "derivedFrom": {
+      "type": "object",
+      "required": ["surface", "capturedOn"],
+      "additionalProperties": false,
+      "description": "Provenance of the composition. A recipe that has never been compared against the running product is a guess, so this field is required and records which screen it was taken from and when.",
+      "examples": [{ "surface": "Studio > Catalog", "capturedOn": "2026-08-18" }],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "description": "The product surface the composition was taken from, as a person would navigate to it.",
+          "examples": ["Studio > Catalog", "Explorer > Marketplace"]
+        },
+        "capturedOn": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "description": "ISO date the product screen was captured. Ages the recipe honestly rather than implying it is current.",
+          "examples": ["2026-08-18"]
+        },
+        "productVersion": {
+          "type": "string",
+          "description": "Version or environment of the product screen captured, when known.",
+          "examples": ["studio-dev", "2026.8"]
+        }
+      }
+    },
+    "slots": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Named regions of the page and what each holds, so a reader can see the shape without parsing the skeleton.",
+      "examples": [{ "rail": "Filter rail: a range facet, a counted checkbox facet list", "results": "Result cards" }]
+    },
+    "renderNotes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Renderer behaviours an author must know for this composition to draw correctly. Written so the next recipe does not rediscover them by looking at a broken page.",
+      "examples": [
+        ["Children of a VERTICAL frame must omit `sizing`: horizontal FILL emits flex:1, which in a column stretches them vertically."]
+      ]
+    },
+    "skeleton": {
+      "type": "object",
+      "description": "The composition itself: the node tree a consumer renders. Node-level shape is owned by the consuming renderer, so it is intentionally not constrained here beyond being an object.",
+      "examples": [{ "chrome": "standard", "content": [] }]
+    }
+  }
+}

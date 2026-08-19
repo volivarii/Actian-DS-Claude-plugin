@@ -103,7 +103,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use a maintenance state when a page, feature, or app is temporarily unavailable because of planned work: an upgrade window, a migration, scheduled downtime.\n\n* Use it for a known, acknowledged outage while work is underway, so users see intent and timing rather than a raw failure.\n\n* Compose it from an illustration, a title, and what is affected; timing and the optional action are covered under Variant selection.\n\n## When not to use\n\n* Don't use it for an unexpected failure the product just hit: something broken is an [error state](error-state) with a **Try again**.\n\n* Don't use it for a container with no content yet: that is an [empty state](empty-state).\n\n* Don't use it to warn ahead of a window while everything still works: announce upcoming maintenance in a Primary [alert banner](alert-banner).\n\n* Don't let it block the whole app when one feature is down: scope it to the affected page or region and keep the rest working.\n\n## Variant selection\n\nMaintenance states come in a single Large size; the choices are configuration.\n\n* **Timing line:** include what is affected and the expected end (**until 12:00 PM EST**) whenever known.\n\n* **CTA:** at most one action, and only when acting helps (**Refresh** for a window that may already be over); omit it otherwise.\n\n* **Placement:** the state owns the main content region of whatever is down, the way an [error state](error-state) would.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Take it down as soon as service is restored | Leave the maintenance screen up past the window |\n| Give real timing when known (**until 12:00 PM EST**) | Promise \"back soon\" for an all-day migration |\n| Keep navigation to unaffected areas usable | Trap the user with no way to the rest of the app |\n| Describe a shared outage the same way in Studio and Explorer | Tell each app a different story about the same window |\n\n> Wording rules (what is affected and for how long, example messages) live in the Content guidelines for maintenance state.",
       "sections": [
         {
@@ -182,5 +182,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T11:29:30+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

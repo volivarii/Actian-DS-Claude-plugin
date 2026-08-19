@@ -7,6 +7,15 @@ apps:
   - studio
   - explorer
   - administration
+tags:
+  - notifications
+  - popover
+  - panel
+  - alerts
+when: >-
+  Use for an unread counter that opens an anchored popover of recent events, each with a
+  status icon and a click-through. Do not use right-sliding-drawer: this does not take over
+  the side of the screen, and it is dismissed by clicking away.
 components:
   - notification
   - notification-dropdown
