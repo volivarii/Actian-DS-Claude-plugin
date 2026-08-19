@@ -36,14 +36,37 @@ are summarized at the release level.
   authored before tags existed. **Ranking by overlap size is the other half**: the same tags under the old
   boolean join cut silence but raised ambiguity, so the operator was the defect, not the vocabulary.
 
-  Measured against the 25 Studio patterns and the 12 flow archetypes:
+  Measured against the 25 Studio patterns, split by how much evidence each result actually rests on.
+  A first version of this entry reported "8 decisive to 13", which counted a single shared word as a
+  decision on both sides and so flattered both:
 
-  | | decisive top-1 | tied | no match |
-  | --- | --- | --- | --- |
-  | slug words, boolean join | 8 | 6 | 11 |
-  | authored tags, ranked | **13** | 6 | **6** |
+  | | 2+ shared tags | exactly 1 | tied | no match |
+  | --- | --- | --- | --- | --- |
+  | slug words, boolean join | **1** | 7 | 6 | 11 |
+  | authored tags, ranked | **9** | 8 | **2** | **6** |
 
-  `faceted-browse` now scores `browse-search` 4 against `table-list` 1 and resolves decisively.
+  So the real move is that results resting on more than a coincidence go from **1 to 9**, ambiguity
+  from 6 to 2, and silence from 11 to 6. `faceted-browse` scores `browse-search` 4 against `table-list`
+  1 and resolves decisively.
+
+  **Compositions are never ranked.** `recipes/flow/_index.json` holds two `kind: composition` entries,
+  which are a separate branch of the pipeline: `screen-generator.md` defines a single recipe as an entry
+  without that key, and `flow-data.schema.json` says `matchedRecipe` is `null` when tier 2 is a
+  composition. Ranking them was wrong twice over. It invited the generator to set `matchedRecipe` to a
+  value the schema forbids, and because those two carry 6 and 9 tags against 5 for every base recipe,
+  overlap size favoured them on volume alone: four of the six remaining Studio ties were a composition
+  sharing one tag.
+
+  **A single shared tag is reported as `weak`, not `decisive`.** Eight of Studio's seventeen sole
+  winners rest on one word, including `metamodel-designer`, a split drag-drop editor, reaching
+  `data-visualization` on "canvas" alone. Calling that decisive would have relabelled the defect rather
+  than fixed it. It is still reported as the best guess, with the generator told to read the pattern
+  description before taking it.
+
+  Tags are also matched case-insensitively and deduped, because `validate-flow-data.js` lowercases both
+  sides of the same vocabulary and nothing validates casing in the substrate: an authored `"Table"`
+  would have scored `no-match` here while the validator still saw an overlap. Deduped because the score
+  is an overlap count, so `["search","search"]` would otherwise beat a rival sharing two real tags.
 
   **A tie and a miss are both reported rather than silently resolved.** Each pattern carries a `recipe`
   decision of `decisive`, `tie` or `no-match`; a tie returns `archetype: null` with every candidate at the

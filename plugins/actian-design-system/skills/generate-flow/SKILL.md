@@ -377,13 +377,14 @@ Each pattern carries a `recipe` decision, already ranked by how many tags it sha
 
 | `recipe.status` | What it means | What a screen-generator does |
 | --- | --- | --- |
-| `decisive` | one archetype has the strongest overlap | take `recipe.archetype` |
+| `decisive` | one archetype shares two or more tags, more than any other | take `recipe.archetype` |
+| `weak` | one archetype leads, but on a single shared tag | it is the best guess and no more: read the pattern `description` before taking it, and say so if you do |
 | `tie` | several share the top score, and `archetype` is `null` | choose between `recipe.candidates` on the pattern description, and say which and why |
 | `no-match` | the pattern shares no tag with any recipe | no archetype guidance exists; pick on the description alone and do not pretend it was grounded |
 
 `tagSource` is `authored` when the substrate tagged the pattern and `slug` when the tags were derived from its slug words as a fallback. A `slug` source is weaker evidence and worth naming when the choice was close.
 
-The old instruction was to bias toward "the recipe whose `tags[]` overlap", which is a set membership test: `faceted-browse` overlapped both `table-list` and `browse-search` on the single word "browse", and the tie resolved to the wrong one, which is how a Studio Catalog request produced a two-pane CRUD table at confidence 0.93. Ranking by overlap size scores `browse-search` 4 against `table-list` 1. The validator still flags any screen whose recipe shares **no** tag as `pattern-ungrounded` (info, advisory, never blocks).
+The old instruction was to bias toward "the recipe whose `tags[]` overlap", which is a set membership test: `faceted-browse` overlapped both `table-list` and `browse-search` on the single word "browse", and the tie resolved to the wrong one, which is how a Studio Catalog request produced a two-pane CRUD table at confidence 0.93. Ranking by overlap size scores `browse-search` 4 against `table-list` 1. Compositions are never ranked: they are a separate branch of the pipeline and `matchedRecipe` must be `null` for one. The validator still flags any screen whose recipe shares **no** tag as `pattern-ungrounded` (info, advisory, never blocks).
 
 **Entity relationships (grounded detail tabs, S3).** Using the same entity slug as the `entityProperties` lookup above, resolve the primary entity's relationships:
 

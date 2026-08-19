@@ -60,19 +60,46 @@ function patternTags(pattern, slug) {
 // including its injection seam so a test never reads the shipped index.
 var _recipeCache = null;
 function loadRecipes(recipeIndex) {
-  if (Array.isArray(recipeIndex)) return recipeIndex;
+  // An explicitly supplied index is used as given, and a malformed one degrades
+  // the same way a malformed file does. Without the Array check on this path too,
+  // the seam is only half a seam: a caller passing an object reaches .filter and
+  // throws, which is the failure this guard exists to prevent on the other path.
+  if (recipeIndex !== undefined && recipeIndex !== null) {
+    return Array.isArray(recipeIndex) ? recipeIndex : [];
+  }
   if (_recipeCache) return _recipeCache;
+  var idx;
   try {
-    _recipeCache = JSON.parse(
+    idx = JSON.parse(
       fs.readFileSync(
         path.join(__dirname, "..", "..", "..", "recipes", "flow", "_index.json"),
         "utf8",
       ),
     );
   } catch (e) {
-    _recipeCache = [];
+    // Deliberately NOT cached. Caching [] on a transient read failure would make
+    // every pattern in the run report no-match, silently, for the process
+    // lifetime. Degrade for this call and let the next one try again.
+    return [];
   }
+  // The Array guard that validate-flow-data.js keeps and this dropped: an index
+  // that parsed to an object would reach .filter and throw a TypeError out of
+  // resolvePatterns, taking down the whole glossary build rather than degrading.
+  if (!Array.isArray(idx)) return [];
+  _recipeCache = idx;
   return _recipeCache;
+}
+
+// Compositions are a different branch of the pipeline, not a stronger recipe.
+// screen-generator.md defines a single recipe as an entry WITHOUT
+// `kind: composition`, and flow-data.schema.json says `matchedRecipe` is null
+// when tier 2 is a composition. Ranking over them was wrong twice: it invited the
+// generator to set matchedRecipe to a value the schema forbids, and because the
+// two compositions carry 6 and 9 tags against 5 for every base recipe, overlap
+// size favoured them on volume alone. Excluding them moves Studio from 6 ties to
+// 2; four of those six were a composition sharing a single tag.
+function isSelectable(r) {
+  return r && r.archetype && r.kind !== "composition";
 }
 
 // Every recipe sharing at least one tag, strongest overlap first.
@@ -84,14 +111,31 @@ function loadRecipes(recipeIndex) {
 // and table-list 1, where the boolean join scored both 1. Ties are sorted by
 // archetype so the order is stable rather than index-order, but a tie is still
 // reported as a tie: a stable arbitrary pick is still arbitrary.
+function normalizeTags(tags) {
+  var seen = Object.create(null);
+  var out = [];
+  (Array.isArray(tags) ? tags : []).forEach(function (x) {
+    if (typeof x !== "string") return;
+    var k = x.trim().toLowerCase();
+    // Normalized and deduped. Case matters because validate-flow-data.js
+    // lowercases both sides of this same vocabulary, so an authored "Table"
+    // would score no-match here while the validator still saw an overlap, and
+    // nothing in the substrate validates tag casing. Deduped because the score
+    // is an overlap COUNT: ["search","search"] would otherwise score 2 against a
+    // recipe sharing one tag and beat a genuine two-tag rival.
+    if (!k || seen[k]) return;
+    seen[k] = true;
+    out.push(k);
+  });
+  return out;
+}
+
 function rankRecipes(tags, recipeIndex) {
-  var want = Array.isArray(tags) ? tags : [];
+  var want = normalizeTags(tags);
   return loadRecipes(recipeIndex)
-    .filter(function (r) {
-      return r && r.archetype;
-    })
+    .filter(isSelectable)
     .map(function (r) {
-      var rt = Array.isArray(r.tags) ? r.tags : [];
+      var rt = normalizeTags(r.tags);
       return {
         archetype: r.archetype,
         score: want.filter(function (x) {
@@ -125,12 +169,18 @@ function selectRecipe(tags, recipeIndex) {
   return {
     archetype: ranked[0].archetype,
     score: top,
-    status: "decisive",
+    // ONE shared tag is a coincidence, which is the whole complaint this change
+    // answers; relabelling it "decisive" would just move the defect. On the
+    // shipped substrate 8 of Studio's 17 sole winners rest on a single word,
+    // including metamodel-designer (a split drag-drop editor) reaching
+    // data-visualization on "canvas" alone. Reported as weak so the generator
+    // knows to read the pattern description rather than take the archetype.
+    status: top >= 2 ? "decisive" : "weak",
     candidates: ranked.slice(0, 3),
   };
 }
 
-function resolvePatterns(appName, ctx) {
+function resolvePatterns(appName, ctx, recipeIndex) {
   var key = normalizeApp(appName);
   if (!key) return [];
   var data = loadAppContext(ctx);
@@ -152,7 +202,7 @@ function resolvePatterns(appName, ctx) {
       // Where the tags came from, so an untagged pattern reads as a gap in the
       // substrate rather than silently scoring on its slug words.
       tagSource: t.source,
-      recipe: selectRecipe(t.tags),
+      recipe: selectRecipe(t.tags, recipeIndex),
     });
   });
   return out;
@@ -181,6 +231,8 @@ module.exports = {
   slugTags: slugTags,
   patternTags: patternTags,
   tagsWithSource: tagsWithSource,
+  normalizeTags: normalizeTags,
+  isSelectable: isSelectable,
   rankRecipes: rankRecipes,
   selectRecipe: selectRecipe,
 };
@@ -206,21 +258,29 @@ if (require.main === module) {
     // miss stops being silent. Both were invisible before: a tie resolved to
     // whichever recipe came first, and 11 of 25 Studio patterns matched nothing
     // with no warning anywhere in the pipeline.
-    var ties = pats.filter(function (p) {
-      return p.recipe.status === "tie";
-    });
-    var misses = pats.filter(function (p) {
-      return p.recipe.status === "no-match";
-    });
+    var by = function (s) {
+      return pats.filter(function (p) {
+        return p.recipe.status === s;
+      });
+    };
+    var ties = by("tie");
+    var misses = by("no-match");
+    var weak = by("weak");
     var untagged = pats.filter(function (p) {
       return p.tagSource !== "authored";
     });
-    if (ties.length || misses.length || untagged.length) {
+    if (ties.length || misses.length || untagged.length || weak.length) {
       process.stderr.write(
-        "recipe selection for " + key + ": " +
-          (pats.length - ties.length - misses.length) + " decisive, " +
-          ties.length + " tied, " + misses.length + " unmatched\n",
+        "recipe selection for " + key + ": " + by("decisive").length + " decisive, " +
+          weak.length + " weak, " + ties.length + " tied, " +
+          misses.length + " unmatched\n",
       );
+      weak.forEach(function (p) {
+        process.stderr.write(
+          "  weak     " + p.slug + " -> " + p.recipe.archetype +
+            " (one shared tag; read the pattern description before taking it)\n",
+        );
+      });
       ties.forEach(function (p) {
         process.stderr.write(
           "  tie      " + p.slug + " -> " +

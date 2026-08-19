@@ -42,7 +42,7 @@ describe("resolve-patterns (resolver core)", function () {
         );
       }
       assert.ok(
-        ["decisive", "tie", "no-match"].indexOf(p.recipe.status) !== -1,
+        ["decisive", "weak", "tie", "no-match"].indexOf(p.recipe.status) !== -1,
         "and every pattern carries a recipe decision, including its ambiguity",
       );
     });
@@ -329,5 +329,86 @@ describe("resolve-patterns recipe selection", function () {
     });
     assert.strictEqual(byslug.tagged.tagSource, "authored");
     assert.strictEqual(byslug.untagged.tagSource, "slug");
+  });
+});
+
+describe("resolve-patterns recipe selection, second review (#303)", function () {
+  var BASE = [
+    { archetype: "table-list", tags: ["table", "list", "crud", "browse"] },
+    { archetype: "browse-search", tags: ["search", "browse", "catalog", "filter"] },
+  ];
+  var WITH_COMPOSITION = BASE.concat([
+    {
+      archetype: "composition-detail-table",
+      kind: "composition",
+      tags: ["detail", "table", "composition", "hybrid", "embedded-list", "related-records"],
+    },
+  ]);
+
+  it("never ranks a composition, because matchedRecipe must be null for one", function () {
+    // screen-generator.md defines a single recipe as an entry WITHOUT
+    // kind: composition, and flow-data.schema.json says matchedRecipe is null
+    // when tier 2 is a composition. Ranking them invited the generator to write a
+    // value the schema forbids. They also carry 6 and 9 tags against 5 for every
+    // base recipe, so overlap size favoured them on volume alone.
+    var ranked = resolver.rankRecipes(["table", "detail", "composition"], WITH_COMPOSITION);
+    assert.deepStrictEqual(
+      ranked.map(function (r) {
+        return r.archetype;
+      }),
+      ["table-list"],
+      "the composition scored 3 and must still not appear",
+    );
+    assert.strictEqual(resolver.isSelectable({ archetype: "x", kind: "composition" }), false);
+    assert.strictEqual(resolver.isSelectable({ archetype: "x" }), true);
+  });
+
+  it("calls a single shared tag weak, not decisive", function () {
+    // Relabelling a one-word coincidence as decisive would move the defect rather
+    // than fix it: 8 of Studio's 17 sole winners rest on one shared word.
+    var one = resolver.selectRecipe(["crud"], BASE);
+    assert.strictEqual(one.status, "weak");
+    assert.strictEqual(one.archetype, "table-list", "it is still the best guess, and still reported");
+    assert.strictEqual(one.score, 1);
+
+    var two = resolver.selectRecipe(["crud", "table"], BASE);
+    assert.strictEqual(two.status, "decisive");
+    assert.strictEqual(two.score, 2);
+  });
+
+  it("matches tags case-insensitively, as the validator does", function () {
+    // validate-flow-data.js lowercases both sides of this same vocabulary, and
+    // nothing validates tag casing in the substrate, so an authored "Table" would
+    // have scored no-match here while the validator still saw an overlap.
+    var sel = resolver.selectRecipe(["  TABLE ", "Crud"], BASE);
+    assert.strictEqual(sel.archetype, "table-list");
+    assert.strictEqual(sel.score, 2);
+  });
+
+  it("counts an overlap once, so a repeated tag cannot buy a win", function () {
+    // score is an overlap COUNT: ["browse","browse"] would otherwise score 2 and
+    // beat a rival genuinely sharing two different tags.
+    var dup = resolver.selectRecipe(["browse", "browse", "browse"], BASE);
+    assert.strictEqual(dup.status, "tie", "one real overlap each, so still a tie");
+    assert.strictEqual(dup.score, 1);
+  });
+
+  it("degrades rather than throwing when the index is not an array", function () {
+    // The Array guard validate-flow-data.js keeps. Without it a malformed index
+    // reaches .filter and throws out of resolvePatterns, taking down the whole
+    // glossary build instead of reporting no-match.
+    assert.deepStrictEqual(resolver.rankRecipes(["table"], {}), []);
+    assert.strictEqual(resolver.selectRecipe(["table"], {}).status, "no-match");
+  });
+
+  it("threads the recipe index through resolvePatterns, so the seam is real", function () {
+    // The comment claimed a seam existed "so a test never reads the shipped
+    // index", and resolvePatterns had no way to pass one.
+    var ctx = { patterns: { p: { apps: ["obs"], tags: ["browse", "search", "catalog"] } } };
+    var ps = resolver.resolvePatterns("obs", ctx, BASE);
+    assert.strictEqual(ps[0].recipe.archetype, "browse-search");
+    assert.strictEqual(ps[0].recipe.score, 3);
+    var none = resolver.resolvePatterns("obs", ctx, []);
+    assert.strictEqual(none[0].recipe.status, "no-match", "an empty index yields no guidance");
   });
 });
