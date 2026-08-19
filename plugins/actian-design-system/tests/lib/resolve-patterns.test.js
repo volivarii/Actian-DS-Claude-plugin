@@ -608,3 +608,412 @@ describe("resolve-patterns failure reporting, fifth review (#303)", function () 
     });
     assert.deepStrictEqual(repeated, [], "no pattern may be reported twice");
   });});
+
+// Captured page recipes (knowledge app-context/dist/recipes) are a different
+// artefact from the plugin's flow archetypes: composed FROM the running product,
+// they carry provenance (derivedFrom) and applicability (when/apps/patterns) that
+// an archetype cannot have. Two shipped on 2026-08-18 and were read by nothing in
+// either consumer, while the tag ranking answered for those same two patterns
+// `decisive`, most confident exactly where a capture of that literal page
+// existed one lookup away.
+describe("resolve-patterns (captured page recipes)", function () {
+  it("points a pattern at its captured page recipe instead of leaving only the ranked archetype", function () {
+    // End-to-end against the real vendored substrate. Fails until resolvePatterns
+    // performs the lookup: today every pattern's pageRecipe is undefined.
+    var fb = resolver.resolvePatterns("studio").filter(function (p) {
+      return p.slug === "faceted-browse";
+    })[0];
+    assert.ok(fb, "faceted-browse must be a Studio pattern");
+    assert.strictEqual(
+      fb.pageRecipe,
+      "faceted-browse",
+      "the captured recipe declaring this pattern must be named on it",
+    );
+  });
+
+  it("does not offer a capture to an app the recipe does not claim", function () {
+    // `apps` is REQUIRED in schemas/app-context-recipe.json, so a recipe that
+    // says studio has said something. A pattern can live in both apps while the
+    // captured page exists in only one; handing Explorer a Studio capture would
+    // be inventing a surface nobody looked at.
+    var ctx = {
+      patterns: { "shared-shape": { apps: ["studio", "explorer"], tags: ["x"] } },
+    };
+    var index = [
+      { slug: "shared-shape", apps: ["studio"], patterns: ["shared-shape"] },
+    ];
+    assert.strictEqual(
+      resolver.resolvePatterns("studio", ctx, [], index)[0].pageRecipe,
+      "shared-shape",
+      "the app that owns the capture gets it",
+    );
+    assert.strictEqual(
+      resolver.resolvePatterns("explorer", ctx, [], index)[0].pageRecipe,
+      null,
+      "the app that does not must not inherit it",
+    );
+  });
+
+  it("leaves every pattern without a capture at null, so the field discriminates", function () {
+    // ASSERT THE SUBJECT, both ways. Without the second half this suite passes
+    // on an implementation that stamps every pattern with a recipe slug; without
+    // the first it passes on a substrate that ships no captures at all.
+    var ps = resolver.resolvePatterns("studio");
+    var withCapture = ps.filter(function (p) {
+      return p.pageRecipe !== null;
+    });
+    var without = ps.filter(function (p) {
+      return p.pageRecipe === null;
+    });
+    assert.ok(
+      withCapture.length > 0,
+      "the vendored substrate must ship at least one captured page recipe; if this fails, check app-context/dist/recipes came through the vendor sync",
+    );
+    assert.ok(
+      without.length > 0,
+      "and most patterns have none, so a non-null value means something",
+    );
+    withCapture.forEach(function (p) {
+      assert.strictEqual(
+        p.pageRecipe,
+        p.slug,
+        "every shipped capture is named for the pattern it composes",
+      );
+    });
+  });
+
+  it("joins on the recipe's own slug when it declares no patterns", function () {
+    // `patterns` is optional in schemas/app-context-recipe.json while `slug` is
+    // required. Joining on `patterns` alone would drop a schema-legal recipe.
+    var ctx = { patterns: { "lone-shape": { apps: ["obs"], tags: ["x"] } } };
+    var index = [{ slug: "lone-shape", apps: ["obs"] }];
+    assert.strictEqual(
+      resolver.resolvePatterns("obs", ctx, [], index)[0].pageRecipe,
+      "lone-shape",
+    );
+  });
+
+  it("serves every pattern a recipe declares, not just the one it is named for", function () {
+    // `patterns` is a list. A capture composing two shapes must reach both, or
+    // the second silently has no capture while one demonstrably exists.
+    var ctx = {
+      patterns: {
+        "shape-a": { apps: ["obs"], tags: ["x"] },
+        "shape-b": { apps: ["obs"], tags: ["y"] },
+      },
+    };
+    var index = [
+      { slug: "combined", apps: ["obs"], patterns: ["shape-a", "shape-b"] },
+    ];
+    var by = {};
+    resolver.resolvePatterns("obs", ctx, [], index).forEach(function (p) {
+      by[p.slug] = p.pageRecipe;
+    });
+    assert.deepStrictEqual(by, { "shape-a": "combined", "shape-b": "combined" });
+  });
+
+  it("emits a pointer that actually resolves, which is the whole contract", function () {
+    // ASSERT THE JOIN. screen-generator.md tells the agent to read
+    // vendor/app-context/dist/recipes/<pageRecipe>.json. If the slug we hand it
+    // does not resolve there, the agent reads nothing and silently falls back to
+    // the archetype, which is the exact silent miss this change exists to remove.
+    var pointed = resolver
+      .resolvePatterns("studio")
+      .map(function (p) {
+        return p.pageRecipe;
+      })
+      .filter(Boolean);
+    assert.ok(pointed.length > 0, "expected at least one captured page recipe");
+    pointed.forEach(function (slug) {
+      var file = PATHS.appContextRecipes(slug);
+      assert.ok(
+        fs.existsSync(file),
+        "pageRecipe '" + slug + "' must resolve to a readable file at " + file,
+      );
+      var body = JSON.parse(fs.readFileSync(file, "utf8"));
+      assert.ok(
+        body.skeleton,
+        "and carry the skeleton the generator is told to compose from",
+      );
+    });
+  });
+
+  it("degrades with a message when the vendor snapshot has no recipes collection", function () {
+    // A snapshot predating knowledge v0.34.137, or an incident-recovery --sha
+    // pin (which paths.js supports and exempts from the integrity check), has no
+    // appContextRecipes collection, so PATHS.appContextRecipes is undefined.
+    // Calling it threw a TypeError straight out of resolvePatterns and took down
+    // the whole glossary build. loadRecipes guards the same shape deliberately.
+    var saved = PATHS.appContextRecipes;
+    var errs = [];
+    var realWrite = process.stderr.write;
+    delete PATHS.appContextRecipes;
+    process.stderr.write = function (m) {
+      errs.push(String(m));
+      return true;
+    };
+    try {
+      resolver._resetPageRecipeCache();
+      var ps = resolver.resolvePatterns("studio");
+      assert.ok(ps.length > 0, "the glossary build must survive");
+      ps.forEach(function (p) {
+        assert.strictEqual(p.pageRecipe, null);
+      });
+      assert.ok(
+        errs.join("").indexOf("recipes collection") !== -1,
+        "and must SAY the collection is absent rather than reporting no captures as a fact",
+      );
+    } finally {
+      process.stderr.write = realWrite;
+      PATHS.appContextRecipes = saved;
+      resolver._resetPageRecipeCache();
+    }
+  });
+
+  it("does not cache an empty result from a failed read", function () {
+    // loadRecipes documents why: caching [] on a transient failure makes every
+    // pattern report no-capture for the whole process lifetime, turning one bad
+    // read into a fact about the substrate.
+    var saved = PATHS.appContextRecipes;
+    var realWrite = process.stderr.write;
+    process.stderr.write = function () {
+      return true;
+    };
+    try {
+      resolver._resetPageRecipeCache();
+      PATHS.appContextRecipes = function () {
+        return "/nonexistent-dir-for-test/x.json";
+      };
+      assert.deepStrictEqual(resolver.loadPageRecipes(), [], "read fails");
+      PATHS.appContextRecipes = saved;
+      assert.ok(
+        resolver.loadPageRecipes().length > 0,
+        "a later call in the same process must retry, not serve the cached miss",
+      );
+    } finally {
+      process.stderr.write = realWrite;
+      PATHS.appContextRecipes = saved;
+      resolver._resetPageRecipeCache();
+    }
+  });
+
+  it("says so when two captures claim the same pattern, and picks deterministically", function () {
+    // The derive validates that each patterns[] entry RESOLVES, never that a
+    // pattern is claimed once (knowledge derive-recipes.js checkReferences), so
+    // a refreshed capture alongside the original would flip which composition
+    // every flow is built from, on readdir order. This is the defect the sibling
+    // selectRecipe was rewritten to remove; it gets the same treatment.
+    var index = [
+      { slug: "zzz-capture", apps: ["obs"], patterns: ["shape"] },
+      { slug: "aaa-capture", apps: ["obs"], patterns: ["shape"] },
+    ];
+    var errs = [];
+    var realWrite = process.stderr.write;
+    process.stderr.write = function (m) {
+      errs.push(String(m));
+      return true;
+    };
+    try {
+      var got = resolver.selectPageRecipe("shape", "obs", index);
+      var gotReversed = resolver.selectPageRecipe("shape", "obs", index.slice().reverse());
+      assert.strictEqual(got, gotReversed, "order of the index must not decide");
+      assert.strictEqual(got, "aaa-capture", "and the pick is stable, not first-seen");
+      assert.ok(
+        errs.join("").indexOf("shape") !== -1,
+        "and the collision is reported rather than resolved in silence",
+      );
+    } finally {
+      process.stderr.write = realWrite;
+    }
+  });
+
+  var NODE = process.execPath;
+  var CLI = path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "lib",
+    "app-context",
+    "resolve-patterns.js",
+  );
+
+  it("reports how many captures were loaded and how many joined nothing", function () {
+    // A capture that reaches no pattern is invisible, which is the exact failure
+    // this change exists to remove: the derive checks that a named pattern
+    // EXISTS, not that it is scoped to the recipe's app, so a recipe can ship
+    // green and be read by nobody. The archetype summary counts decisive / weak
+    // / tie / unmatched and says nothing about captures.
+    var res = require("child_process").spawnSync(NODE, [CLI, "--app", "studio"], {
+      encoding: "utf8",
+    });
+    assert.strictEqual(res.status, 0);
+    var line = String(res.stderr)
+      .split("\n")
+      .filter(function (l) {
+        return l.indexOf("page recipes for") !== -1;
+      })[0];
+    assert.ok(line, "expected a page-recipe line in the diagnostics");
+    var m = line.match(/(\d+) captured, (\d+) joined, (\d+) joined nothing/);
+    assert.ok(m, "expected counts in the form 'N captured, N joined, N joined nothing', got: " + line);
+    assert.ok(Number(m[1]) > 0, "the substrate must ship captures for this to mean anything");
+    assert.strictEqual(Number(m[3]), 0, "no shipped capture should join nothing");
+    assert.strictEqual(
+      Number(m[1]),
+      Number(m[2]) + Number(m[3]),
+      "every capture is either joined or reported as joining nothing",
+    );
+  });
+
+  it("warns once per run when the read is degraded, not once per pattern", function () {
+    // loadPageRecipes deliberately does not cache a failed read, and
+    // selectPageRecipe runs once per pattern, so the warning was emitted 25 times
+    // for Studio. A wall of identical lines buries the one line that matters,
+    // which is the opposite of the reporting this layer exists to do.
+    var saved = PATHS.appContextRecipes;
+    var errs = [];
+    var realWrite = process.stderr.write;
+    process.stderr.write = function (m) {
+      errs.push(String(m));
+      return true;
+    };
+    try {
+      resolver._resetPageRecipeCache();
+      PATHS.appContextRecipes = function () {
+        return "/nonexistent-dir-for-test/x.json";
+      };
+      var ps = resolver.resolvePatterns("studio");
+      assert.ok(ps.length > 5, "expected many patterns, or this proves nothing");
+      var warnings = errs.filter(function (m) {
+        return m.indexOf("cannot read") !== -1;
+      });
+      assert.strictEqual(
+        warnings.length,
+        1,
+        "expected exactly one warning for the run, got " + warnings.length,
+      );
+    } finally {
+      process.stderr.write = realWrite;
+      PATHS.appContextRecipes = saved;
+      resolver._resetPageRecipeCache();
+    }
+  });
+
+  it("reports zero coverage instead of staying silent about it", function () {
+    // The line was printed only when the app already had a capture, so the two
+    // apps with NO coverage said nothing at all. Zero coverage is the case this
+    // layer exists to surface: authored is not read.
+    var r = resolver.pageRecipeReport("obs", [{ slug: "p", pageRecipe: null }], []);
+    assert.deepStrictEqual(r, {
+      captured: 0,
+      joined: 0,
+      orphans: [],
+      degraded: false,
+    });
+  });
+
+  it("names an unjoinable capture rather than printing undefined", function () {
+    // A recipe that parses but has no usable slug counted as relevant, never
+    // joined, and landed in the orphan list as the literal string "undefined",
+    // which names nothing an operator can act on.
+    var index = [{ apps: ["obs"], patterns: ["shape"] }, { slug: 42, apps: ["obs"] }];
+    var r = resolver.pageRecipeReport("obs", [{ slug: "shape", pageRecipe: null }], index);
+    assert.strictEqual(r.orphans.indexOf("undefined"), -1, "never the string undefined");
+    r.orphans.forEach(function (o) {
+      assert.ok(
+        typeof o === "string" && o.length > 0 && o !== "undefined",
+        "every orphan must be nameable, got: " + JSON.stringify(o),
+      );
+    });
+  });
+
+  it("normalizes the pattern the caller asks about, not only the one declared", function () {
+    // The sibling assertion below covers the DECLARED side. Dropping normalization
+    // on the INCOMING side left that one green, so the "both sides" claim was
+    // half guarded: a substrate authoring a mixed-case pattern key joined nothing.
+    var ctx = { patterns: { "Faceted-Browse": { apps: ["obs"], tags: ["x"] } } };
+    var index = [{ slug: "cap", apps: ["obs"], patterns: ["faceted-browse"] }];
+    assert.strictEqual(
+      resolver.resolvePatterns("obs", ctx, [], index)[0].pageRecipe,
+      "cap",
+    );
+  });
+
+  it("normalizes both sides of the pattern join, not just the app", function () {
+    // `apps` went through normalizeApp while the pattern slug was compared
+    // verbatim, so a capture authoring "Faceted-Browse" or a slug with stray
+    // whitespace joined nothing, and a library caller never saw the miss.
+    var ctx = { patterns: { "faceted-browse": { apps: ["obs"], tags: ["x"] } } };
+    var index = [
+      { slug: "cap", apps: ["OBS"], patterns: ["  Faceted-Browse  "] },
+    ];
+    assert.strictEqual(
+      resolver.resolvePatterns("obs", ctx, [], index)[0].pageRecipe,
+      "cap",
+    );
+  });
+
+  it("degrades on every way the manifest can drift, not only an absent collection", function () {
+    // The typeof guard covers ONE of three. resolve-paths.js returns a function
+    // that THROWS for a collection declared resolvable:false, and one that
+    // returns NULL for a pattern it cannot address; path.dirname(null) then
+    // throws too. Both escaped the guard and took down the glossary build, which
+    // is the failure the guard's own comment says it prevents.
+    var saved = PATHS.appContextRecipes;
+    var realWrite = process.stderr.write;
+    process.stderr.write = function () {
+      return true;
+    };
+    var cases = {
+      "resolver throws (resolvable: false)": function () {
+        throw new Error("declared descriptive-only");
+      },
+      "resolver returns null (unaddressable pattern)": function () {
+        return null;
+      },
+    };
+    try {
+      Object.keys(cases).forEach(function (label) {
+        resolver._resetPageRecipeCache();
+        PATHS.appContextRecipes = cases[label];
+        var ps;
+        assert.doesNotThrow(function () {
+          ps = resolver.resolvePatterns("studio");
+        }, label + " must degrade, not throw");
+        assert.ok(ps.length > 0, label + ": the glossary build must survive");
+        ps.forEach(function (p) {
+          assert.strictEqual(p.pageRecipe, null, label);
+        });
+      });
+    } finally {
+      process.stderr.write = realWrite;
+      PATHS.appContextRecipes = saved;
+      resolver._resetPageRecipeCache();
+    }
+  });
+
+  it("tells a degraded read apart from genuine zero coverage", function () {
+    // Both printed "0 captured, 0 joined, 0 joined nothing", byte-identical, so
+    // a failed read read as a fact about the substrate. That is precisely the
+    // conflation the surrounding comment claims to avoid.
+    var saved = PATHS.appContextRecipes;
+    var realWrite = process.stderr.write;
+    process.stderr.write = function () {
+      return true;
+    };
+    try {
+      var empty = resolver.pageRecipeReport("obs", [], []);
+      assert.strictEqual(empty.degraded, false, "an app with no captures is not degraded");
+
+      resolver._resetPageRecipeCache();
+      PATHS.appContextRecipes = function () {
+        return "/nonexistent-dir-for-test/x.json";
+      };
+      var broken = resolver.pageRecipeReport("studio", []);
+      assert.strictEqual(broken.degraded, true, "a failed read must say so");
+      assert.strictEqual(broken.captured, 0);
+    } finally {
+      process.stderr.write = realWrite;
+      PATHS.appContextRecipes = saved;
+      resolver._resetPageRecipeCache();
+    }
+  });
+});

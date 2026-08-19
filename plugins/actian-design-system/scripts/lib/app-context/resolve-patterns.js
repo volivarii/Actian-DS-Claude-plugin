@@ -143,6 +143,179 @@ function isSelectable(r) {
   return r && r.archetype && r.kind !== "composition";
 }
 
+// ---------------------------------------------------------------------------
+// Captured page recipes: a different artefact from the flow archetypes above.
+//
+// An archetype is a generic shape the plugin owns. A page recipe is a shape
+// COMPOSED FROM the running product and owned by the substrate, carrying
+// provenance (`derivedFrom` names the surface, the capture date and the product
+// build) and applicability (`when`, `apps`, `patterns`) that an archetype cannot
+// have, because nobody captured it from anything.
+//
+// The join is DECLARED rather than scored: a recipe names the pattern(s) it
+// composes, so this is a lookup and never a ranking. (One inference remains, and
+// it is marked as such where it lives: `patterns` is optional in the schema, so a
+// capture that omits it falls back to joining on its own slug.) That matters
+// because the ranking was
+// most confident exactly where it was most wrong. `faceted-browse` and
+// `asset-detail-360` are the only two patterns with a capture, and both resolved
+// `decisive` to a generic archetype while a capture of that literal page sat
+// unread in the same vendor tree (9 instances with 3 placeholders offered in
+// place of 34 with none).
+// ---------------------------------------------------------------------------
+
+// Injection seam mirrors loadRecipes: an array is used as-is, undefined reads the
+// vendored tree. The directory comes from the manifest via PATHS rather than a
+// literal, so moving the collection moves this with it.
+var _pageRecipeCache = null;
+// The degraded-read warning is emitted once per RUN. loadPageRecipes is called
+// once per pattern and deliberately does not cache a failure, so without this
+// Studio printed the same line 25 times, burying the one line that matters.
+var _pageRecipeWarned = false;
+// Whether the last unloaded read FAILED, as opposed to finding nothing. Both
+// yield zero captures, and only one of them is a fact about the substrate.
+var _pageRecipeDegraded = false;
+function warnOnce(message) {
+  if (_pageRecipeWarned) return;
+  _pageRecipeWarned = true;
+  process.stderr.write(message);
+}
+function loadPageRecipes(pageRecipeIndex) {
+  if (pageRecipeIndex !== undefined) {
+    return Array.isArray(pageRecipeIndex) ? pageRecipeIndex : [];
+  }
+  if (_pageRecipeCache) return _pageRecipeCache;
+  // Three ways the manifest can drift, all of which used to escape and take the
+  // whole glossary build down with them. A snapshot predating knowledge
+  // v0.34.137 declares no collection at all, so PATHS.appContextRecipes is
+  // undefined. resolve-paths.js returns a resolver that THROWS for a collection
+  // declared `resolvable: false`, and one that returns NULL for a pattern it
+  // cannot address, which then makes path.dirname throw in turn. Locating the
+  // directory is therefore guarded as one operation.
+  var dir;
+  try {
+    if (typeof PATHS.appContextRecipes !== "function") {
+      throw new Error("this vendor snapshot declares no recipes collection");
+    }
+    var probe = PATHS.appContextRecipes("_");
+    if (typeof probe !== "string" || !probe) {
+      throw new Error("the recipes collection cannot address a member");
+    }
+    dir = path.dirname(probe);
+  } catch (e) {
+    _pageRecipeDegraded = true;
+    warnOnce(
+      "resolve-patterns: cannot locate the captured page recipes (" + e.message +
+        "); none will be offered. That is a SNAPSHOT or MANIFEST problem, not " +
+        "an absence of captures.\n",
+    );
+    return [];
+  }
+  var files;
+  try {
+    files = fs.readdirSync(dir);
+  } catch (e) {
+    // SAY SO rather than returning []: an unreadable directory and a substrate
+    // with no captures both yield "no page recipe" on every pattern, and only
+    // one of them is a fact about the product.
+    _pageRecipeDegraded = true;
+    warnOnce(
+      "resolve-patterns: cannot read " + dir + " (" + e.message +
+        "); no captured page recipes will be offered\n",
+    );
+    // Deliberately NOT cached, matching loadRecipes: caching [] on a transient
+    // read failure would make every pattern report no-capture for the rest of
+    // the process, turning one bad read into a fact about the substrate.
+    return [];
+  }
+  var out = [];
+  files
+    .filter(function (f) {
+      return /\.json$/.test(f);
+    })
+    .forEach(function (f) {
+      try {
+        out.push(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")));
+      } catch (e) {
+        process.stderr.write(
+          "resolve-patterns: skipping unparseable page recipe " + f +
+            " (" + e.message + ")\n",
+        );
+      }
+    });
+  _pageRecipeCache = out;
+  return _pageRecipeCache;
+}
+
+// Trim + lowercase, so the pattern side of the join is compared on the same
+// footing as the app side. Comparing slugs verbatim while normalizing apps meant
+// a capture authoring "Faceted-Browse" joined nothing, and a library caller of
+// resolvePatterns never saw the miss because only the CLI prints orphans.
+function normalizeSlug(x) {
+  return typeof x === "string" ? x.trim().toLowerCase() : "";
+}
+
+// Which app-context patterns a recipe composes.
+// `patterns` is the declared link and wins. It is OPTIONAL in
+// schemas/app-context-recipe.json while `slug` is required, so a schema-legal
+// recipe that omits it still joins on its own slug instead of reaching nothing.
+function patternSlugsFor(r) {
+  if (!r) return [];
+  var declared = (Array.isArray(r.patterns) ? r.patterns : [])
+    .map(normalizeSlug)
+    .filter(Boolean);
+  if (declared.length) return declared;
+  // FALLBACK, and it is an inference rather than a declared join: `patterns` is
+  // optional in the schema while `slug` is required, so a schema-legal capture
+  // that omits it would otherwise reach nothing. Named as a fallback wherever
+  // this join is described, because a capture named for an unrelated pattern
+  // would claim it on nothing more than a matching filename.
+  return [normalizeSlug(r.slug)].filter(Boolean);
+}
+
+// The captured recipe's slug for this pattern, or null.
+//
+// A slug rather than the body: the manifest resolves recipes one at a time on
+// purpose (a single recipe exceeds 1400 lines), so handing back a pointer keeps a
+// 25-pattern answer from carrying every capture's skeleton to read one.
+//
+// Scoped by the recipe's own `apps`, which the schema requires: a pattern can
+// live in both apps while the captured page exists in only one, and handing
+// Explorer a Studio capture would be inventing a surface nobody looked at. A
+// recipe listing no app matches nothing, which is what a schema-invalid recipe
+// deserves; the derive validates `apps` before anything reaches dist.
+function selectPageRecipe(patternSlug, app, pageRecipeIndex) {
+  if (typeof patternSlug !== "string" || !patternSlug) return null;
+  var key = normalizeApp(app);
+  var hits = loadPageRecipes(pageRecipeIndex)
+    .filter(function (r) {
+      if (patternSlugsFor(r).indexOf(normalizeSlug(patternSlug)) === -1) return false;
+      return (Array.isArray(r.apps) ? r.apps : []).some(function (a) {
+        return normalizeApp(a) === key;
+      });
+    })
+    .map(function (r) {
+      return r && typeof r.slug === "string" ? r.slug : "";
+    })
+    .filter(Boolean)
+    .sort();
+  if (!hits.length) return null;
+  // The derive validates that every patterns[] entry RESOLVES, never that a
+  // pattern is claimed only ONCE, so two captures of the same shape ship green.
+  // Taking the first match made readdir order decide which composition every
+  // flow is built from. Sorted so the pick is stable, and reported either way:
+  // this is the same defect the sibling selectRecipe was rewritten to remove,
+  // where "a tie resolved to whichever recipe came first".
+  if (hits.length > 1) {
+    process.stderr.write(
+      "resolve-patterns: " + hits.length + " captures claim pattern '" +
+        patternSlug + "' for app '" + key + "' (" + hits.join(", ") +
+        "); taking '" + hits[0] + "'. One shape, one capture.\n",
+    );
+  }
+  return hits[0];
+}
+
 // Every recipe sharing at least one tag, strongest overlap first.
 //
 // RANKING, not intersecting. The old join asked "does this recipe share a tag",
@@ -214,7 +387,50 @@ function selectRecipe(tags, recipeIndex) {
   };
 }
 
-function resolvePatterns(appName, ctx, recipeIndex) {
+// Capture coverage for one app: how many captures claim it, how many reached a
+// pattern, and the name of each that reached none. A capture that joins nothing
+// is the failure this layer exists to remove and is otherwise invisible, because
+// the derive validates that a named pattern EXISTS but not that it is scoped to
+// the recipe's app.
+function pageRecipeReport(app, patterns, pageRecipeIndex) {
+  var key = normalizeApp(app);
+  var relevant = loadPageRecipes(pageRecipeIndex).filter(function (r) {
+    return (Array.isArray(r && r.apps) ? r.apps : []).some(function (a) {
+      return normalizeApp(a) === key;
+    });
+  });
+  var reached = Object.create(null);
+  (Array.isArray(patterns) ? patterns : []).forEach(function (p) {
+    if (p && p.pageRecipe) reached[p.pageRecipe] = true;
+  });
+  // A capture whose slug is missing or not a string never joins and cannot be
+  // named by it. Reporting the raw value printed the literal "undefined", which
+  // names nothing an operator can act on.
+  var rows = relevant.map(function (r, i) {
+    var slug = r && typeof r.slug === "string" && r.slug ? r.slug : "";
+    return {
+      slug: slug,
+      label: slug || "(capture #" + (i + 1) + " has no usable slug)",
+    };
+  });
+  var orphans = rows
+    .filter(function (row) {
+      return !row.slug || !reached[row.slug];
+    })
+    .map(function (row) {
+      return row.label;
+    });
+  return {
+    captured: relevant.length,
+    joined: relevant.length - orphans.length,
+    orphans: orphans,
+    // "0 captured" from a failed read and "0 captured" from an app with no
+    // coverage printed the same line. An injected index is never degraded.
+    degraded: pageRecipeIndex === undefined ? _pageRecipeDegraded : false,
+  };
+}
+
+function resolvePatterns(appName, ctx, recipeIndex, pageRecipeIndex) {
   var key = normalizeApp(appName);
   if (!key) return [];
   var data = loadAppContext(ctx);
@@ -237,6 +453,11 @@ function resolvePatterns(appName, ctx, recipeIndex) {
       // substrate rather than silently scoring on its slug words.
       tagSource: t.source,
       recipe: selectRecipe(t.tags, recipeIndex),
+      // The captured composition for this pattern when one exists, else null.
+      // Kept BESIDE the ranked archetype rather than overwriting it: `recipe` is
+      // the plugin's own guess and stays readable as such, while this is the
+      // substrate's answer. Precedence is stated once, in screen-generator.md.
+      pageRecipe: selectPageRecipe(slug, key, pageRecipeIndex),
     });
   });
   return out;
@@ -269,6 +490,17 @@ module.exports = {
   isSelectable: isSelectable,
   rankRecipes: rankRecipes,
   selectRecipe: selectRecipe,
+  loadPageRecipes: loadPageRecipes,
+  pageRecipeReport: pageRecipeReport,
+  // Test seam: the cache is process-lifetime, and a test that swaps the vendor
+  // tree underneath it would otherwise read the previous run's answer.
+  _resetPageRecipeCache: function () {
+    _pageRecipeCache = null;
+    _pageRecipeWarned = false;
+    _pageRecipeDegraded = false;
+  },
+  patternSlugsFor: patternSlugsFor,
+  selectPageRecipe: selectPageRecipe,
 };
 
 // Thin CLI: `resolve-patterns.js --app studio` → { app, patterns, useCases }.
@@ -281,6 +513,31 @@ function main() {
     var key = normalizeApp(app);
     var known = listApps().indexOf(key) !== -1;
     var pats = resolvePatterns(app);
+    // Printed for every KNOWN app, including at zero coverage. Suppressing the
+    // line when the app had no capture silenced exactly the case this layer
+    // exists to surface, and collapsed "no captures for this app" into the same
+    // silence as "the collection could not be read at all".
+    if (known) {
+      var rep = pageRecipeReport(key, pats);
+      process.stderr.write(
+        "page recipes for " + key + ": " + rep.captured + " captured, " +
+          rep.joined + " joined, " + rep.orphans.length + " joined nothing" +
+          (rep.orphans.length ? " (" + rep.orphans.join(", ") + ")" : "") +
+          (rep.degraded ? " [READ FAILED: this is not a fact about the substrate]" : "") +
+          "\n",
+      );
+      pats
+        .filter(function (p) {
+          return p.pageRecipe;
+        })
+        .forEach(function (p) {
+          process.stderr.write(
+            "  capture  " + p.slug + " -> " + p.pageRecipe +
+              " (composed from the product; outranks archetype " +
+              (p.recipe.archetype || "none") + ")\n",
+          );
+        });
+    }
     process.stdout.write(
       JSON.stringify(
         { app: key, patterns: pats, useCases: resolveUseCases(app) },
@@ -307,6 +564,15 @@ function main() {
     // line of its own. Folding it onto `no match` alone was half the rule: an
     // untagged pattern whose slug words happen to score still printed twice, once
     // as weak or tie and again as untagged.
+    // A capture changes the answer wherever the archetype choice is uncertain,
+    // so it is named on every line that prints, not only on `no match`. Both
+    // shipped captures sit on `decisive` patterns, which print no line at all,
+    // so the annotation was dead code where it was.
+    var captured = function (p) {
+      return p.pageRecipe
+        ? " [captured page recipe: " + p.pageRecipe + " -- prefer it]"
+        : "";
+    };
     var cause = function (p) {
       return p.tagSource !== "authored" ? " [untagged: scoring on slug words]" : "";
     };
@@ -333,7 +599,13 @@ function main() {
         );
       });
       misses.forEach(function (p) {
-        process.stderr.write("  no match " + p.slug + cause(p) + "\n");
+        // "no match" means no ARCHETYPE shares a tag. Once a pattern can carry a
+        // capture that is no longer the same as "no guidance exists", and the
+        // unannotated line would send a reader looking for a shape we already
+        // hold. Reachable as soon as a capture lands on an unranked pattern.
+        process.stderr.write(
+          "  no match " + p.slug + cause(p) + captured(p) + "\n",
+        );
       });
       // Only a pattern that printed no line above needs one of its own, which is
       // an untagged pattern that resolved decisively.
