@@ -101,15 +101,32 @@ function loadRecipes(recipeIndex) {
       ),
     );
   } catch (e) {
+    // Say so. Without this the whole point of the change inverts: losing the
+    // recipe index makes every pattern report no-match, the CLI prints
+    // "0 decisive, 0 weak, 0 tied, N unmatched" and exits 0, and the agent reads
+    // that as "the substrate has no guidance for any of these" rather than "the
+    // tool could not read its own index". This block exists so a miss stops being
+    // silent; total loss was the one miss it rendered as a fact about the data.
+    process.stderr.write(
+      "resolve-patterns: cannot read recipes/flow/_index.json (" + e.message +
+        "). Every pattern will report no-match, which is a TOOL failure, not an " +
+        "absence of guidance.\n",
+    );
     // Deliberately NOT cached. Caching [] on a transient read failure would make
-    // every pattern in the run report no-match, silently, for the process
-    // lifetime. Degrade for this call and let the next one try again.
+    // every pattern in the run report no-match for the process lifetime.
     return [];
   }
   // The Array guard that validate-flow-data.js keeps and this dropped: an index
   // that parsed to an object would reach .filter and throw a TypeError out of
   // resolvePatterns, taking down the whole glossary build rather than degrading.
-  if (!Array.isArray(idx)) return [];
+  if (!Array.isArray(idx)) {
+    process.stderr.write(
+      "resolve-patterns: recipes/flow/_index.json did not parse to an array. " +
+        "Every pattern will report no-match, which is a TOOL failure, not an " +
+        "absence of guidance.\n",
+    );
+    return [];
+  }
   _recipeCache = idx;
   return _recipeCache;
 }
@@ -153,7 +170,13 @@ function rankRecipes(tags, recipeIndex) {
       return r.score > 0;
     })
     .sort(function (a, b) {
-      return b.score - a.score || (a.archetype < b.archetype ? -1 : 1);
+      if (b.score !== a.score) return b.score - a.score;
+      // A TOTAL order. Returning 1 for both (a,b) and (b,a) when the archetypes
+      // are equal left the order implementation-defined, and two rows for one
+      // archetype (a bad merge of _index.json) then read as atTop.length > 1,
+      // manufacturing a tie out of a duplicate row instead of flagging it.
+      if (a.archetype === b.archetype) return 0;
+      return a.archetype < b.archetype ? -1 : 1;
     });
 }
 
@@ -280,6 +303,13 @@ function main() {
     var untagged = pats.filter(function (p) {
       return p.tagSource !== "authored";
     });
+    // The cause is a suffix on whatever line the pattern already prints, never a
+    // line of its own. Folding it onto `no match` alone was half the rule: an
+    // untagged pattern whose slug words happen to score still printed twice, once
+    // as weak or tie and again as untagged.
+    var cause = function (p) {
+      return p.tagSource !== "authored" ? " [untagged: scoring on slug words]" : "";
+    };
     if (ties.length || misses.length || untagged.length || weak.length) {
       process.stderr.write(
         "recipe selection for " + key + ": " + by("decisive").length + " decisive, " +
@@ -289,7 +319,7 @@ function main() {
       weak.forEach(function (p) {
         process.stderr.write(
           "  weak     " + p.slug + " -> " + p.recipe.archetype +
-            " (one shared tag; read the pattern description before taking it)\n",
+            " (one shared tag; read the pattern description before taking it)" + cause(p) + "\n",
         );
       });
       ties.forEach(function (p) {
@@ -299,25 +329,22 @@ function main() {
               .map(function (c) {
                 return c.archetype + "(" + c.score + ")";
               })
-              .join(" ") + "\n",
+              .join(" ") + cause(p) + "\n",
         );
       });
       misses.forEach(function (p) {
-        // The cause goes on the outcome's line. Reporting a slug once as a miss
-        // and again as untagged reads as two findings about one pattern.
-        process.stderr.write(
-          "  no match " + p.slug +
-            (p.tagSource !== "authored" ? " (untagged, which is why)" : "") + "\n",
-        );
+        process.stderr.write("  no match " + p.slug + cause(p) + "\n");
       });
+      // Only a pattern that printed no line above needs one of its own, which is
+      // an untagged pattern that resolved decisively.
       untagged
         .filter(function (p) {
-          return p.recipe.status !== "no-match";
+          return p.recipe.status === "decisive";
         })
         .forEach(function (p) {
           process.stderr.write(
-            "  untagged " + p.slug +
-              " (scoring on slug words; author tags in the substrate)\n",
+            "  untagged " + p.slug + " -> " + p.recipe.archetype +
+              " (decisive, but on slug words; author tags in the substrate)\n",
           );
         });
     }

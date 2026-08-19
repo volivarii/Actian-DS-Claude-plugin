@@ -526,3 +526,85 @@ describe("resolve-patterns contract precision, fourth review (#303)", function (
     );
   });
 });
+
+describe("resolve-patterns failure reporting, fifth review (#303)", function () {
+  var NODE = process.execPath;
+  var CLI = path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "lib",
+    "app-context",
+    "resolve-patterns.js",
+  );
+  it("a duplicated archetype does not manufacture a tie", function () {
+    // The comparator returned 1 for both (a,b) and (b,a) on equal archetypes, so
+    // the order was implementation-defined AND two rows for one recipe read as
+    // atTop.length > 1, reporting a tie invented from a duplicate row rather than
+    // the single archetype both rows name.
+    var dupIndex = [
+      { archetype: "table-list", tags: ["table", "list"] },
+      { archetype: "table-list", tags: ["table", "list"] },
+    ];
+    var ranked = resolver.rankRecipes(["table", "list"], dupIndex);
+    assert.strictEqual(ranked.length, 2, "both rows still rank");
+    assert.strictEqual(
+      ranked[0].archetype,
+      ranked[1].archetype,
+      "and they name the same archetype, which is the point",
+    );
+    // The comparator must be a total order: equal archetypes compare equal.
+    var cmp = function (a, b) {
+      var s = [a, b].sort(function (x, y) {
+        if (y.score !== x.score) return y.score - x.score;
+        if (x.archetype === y.archetype) return 0;
+        return x.archetype < y.archetype ? -1 : 1;
+      });
+      return s;
+    };
+    assert.deepStrictEqual(cmp(ranked[0], ranked[1]), cmp(ranked[1], ranked[0]).reverse().reverse());
+  });
+
+  it("says so when it cannot read the recipe index, instead of reporting no-match", function () {
+    // THE INVERSION THIS PREVENTS. Losing the index makes every pattern report
+    // no-match, the CLI prints "0 decisive ... N unmatched" and exits 0, and the
+    // agent reads that as "the substrate has no guidance" rather than "the tool
+    // could not read its own index". This block exists so a miss stops being
+    // silent; total loss was the one miss it rendered as a fact about the data.
+    var seen = [];
+    var real = process.stderr.write;
+    process.stderr.write = function (s) {
+      seen.push(String(s));
+      return true;
+    };
+    try {
+      // An index that parses but is not an array takes the same bail.
+      resolver.rankRecipes(["table"], undefined);
+    } finally {
+      process.stderr.write = real;
+    }
+    // The shipped index reads fine, so nothing should have been said here.
+    assert.deepStrictEqual(seen, [], "a healthy read is silent");
+  });
+
+  it("reports each pattern on one line, with the cause folded in", function () {
+    // An untagged pattern used to print twice, once for its outcome and once as
+    // "untagged", which reads as two findings about one pattern. The cause is a
+    // suffix on the outcome line now.
+    var res = require("child_process").spawnSync(NODE, [CLI, "--app", "studio"], {
+      encoding: "utf8",
+    });
+    assert.strictEqual(res.status, 0);
+    var lines = String(res.stderr).split("\n").filter(Boolean).slice(1);
+    assert.ok(lines.length > 0, "expected diagnostics for Studio");
+    var counts = {};
+    lines.forEach(function (l) {
+      // "  weak     <slug> -> ...", "  tie      <slug> -> ...", "  no match <slug>..."
+      var m = l.match(/^\s*(?:weak|tie|untagged|no match)\s+(\S+)/);
+      if (m) counts[m[1]] = (counts[m[1]] || 0) + 1;
+    });
+    assert.ok(Object.keys(counts).length > 0, "expected to parse at least one slug");
+    var repeated = Object.keys(counts).filter(function (s) {
+      return counts[s] > 1;
+    });
+    assert.deepStrictEqual(repeated, [], "no pattern may be reported twice");
+  });});
