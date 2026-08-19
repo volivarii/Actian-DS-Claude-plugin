@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "description": "Registry removals that are deliberately NOT carried through yet. A breaking sync commits nothing and the verdict is any-breaking-is-breaking, so ONE component mid-rework in Figma freezes the whole nightly. A deferral carries that component's entry FORWARD into the new registry, so there is no removal left to classify and the rest of the sync lands. The entry gains a `deferral` block and is otherwise byte-identical, so consumers see what they always saw.",
+    "provenance": "manual-override",
+    "added": "2026-08-18",
+    "remove_when": "Delete an entry the moment its removal is carried through, or the moment Figma republishes the component. A deferral whose slug is no longer being removed is dead config and FAILS the run by design, so this file cannot rot silently.",
+    "how_to_add": "One object per deferred removal, with: `kit` (dsKit/fmKit/metaKit), `slug`, `key` (the Figma key, which must match the registry entry: a slug can be freed and reused, and identity is what stops the wrong component being carried forward), `reason` (why, for someone outside the conversation), `issue` (where the decision lives), and `review_by` (an ISO date, inclusive). Past `review_by` the deferral stops applying, the removal returns and the sync goes breaking again. That is deliberate: a deferral is a dated pause, never a decision.",
+    "updated": "2026-08-18"
+  },
+  "deferrals": []
+}

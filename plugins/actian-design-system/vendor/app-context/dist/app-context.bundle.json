@@ -1127,19 +1127,37 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "queue",
+          "review",
+          "approve",
+          "table",
+          "requests"
+        ],
+        "when": "Use for the reviewer's side of a request flow: a queue of pending decisions, each row carrying its own approve and reject action. Do not use table-with-tabs, whose tabs partition one collection; here the filter is a status multi-select and the row itself is the unit of work.",
         "components": [
           "table",
-          "tabs",
+          "table",
+          "button",
+          "dropdown-select-default",
+          "tag-interactive",
           "tag-default",
           "button"
         ],
-        "description": "Table with Requester, Item, Status, Actions. Status tabs: Pending / Done."
+        "description": "Table with Requester, Item, Created at, Last updated, Status and Actions, the first four sortable. Each row ends in a decision pair: an outline Reject beside a filled Approve. Above the table, right aligned, a status multi-select holds the active filters as removable chips.\n\nCorrected 2026-08-18 from the running product: this record previously said \"Status tabs: Pending / Done\". There are no status tabs. Filtering is the multi-select described above, and the values seen were Pending and Error."
       },
       "access-request-workflow": {
         "label": "Access request workflow",
         "apps": [
           "explorer",
           "studio"
+        ],
+        "tags": [
+          "request",
+          "approve",
+          "form",
+          "workflow",
+          "permissions"
         ],
         "components": [
           "button",
@@ -1154,6 +1172,14 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "timeline",
+          "history",
+          "chronological",
+          "audit",
+          "single-object"
+        ],
+        "when": "Use for the system's chronological record of what changed on one object, grouped by date. Do not use discussion-threads, which is authored conversation rather than a log, and do not use a table: the unit is a sentence about a change, not a row.",
         "components": [
           "avatar"
         ],
@@ -1163,6 +1189,13 @@
         "label": "AI Analyst Panel",
         "apps": [
           "explorer"
+        ],
+        "tags": [
+          "conversation",
+          "ai",
+          "panel",
+          "analytics",
+          "natural-language"
         ],
         "components": [
           "chat-with-ai-steward",
@@ -1176,18 +1209,35 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "dashboard",
+          "metrics",
+          "charts",
+          "monitor",
+          "adoption"
+        ],
+        "when": "Use for the aggregate view over a whole catalog: a grid of per-type completion cards beside a rail of charts. Do not use documentation-completion-dashboard, which scores individual items against criteria; this one answers how the catalog is doing, not which item is behind.",
         "components": [
-          "card-for-items",
+          "card-for-perimeter",
+          "progress-bar-small",
+          "segmented-control",
           "bar-graph",
           "line-graph",
           "page-header"
         ],
-        "description": "Completion cards, adoption rate charts, popular items, frequent searches."
+        "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `bar-graph` and\n`line-graph` are left in place: the evolution chart is line-shaped so `line-graph` is defensible, and the\npage was not read to its end, so removing `bar-graph` would be an assertion from absence.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. The two adoption gauges lead this\npage and the design system cannot express them."
       },
       "ask-ai": {
         "label": "Ask AI",
         "apps": [
           "explorer"
+        ],
+        "tags": [
+          "search",
+          "ai",
+          "conversation",
+          "natural-language",
+          "discover"
         ],
         "components": [
           "search",
@@ -1201,19 +1251,45 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "detail",
+          "single-object",
+          "tabs",
+          "properties",
+          "stewardship"
+        ],
+        "when": "Use for one catalog object with more peer facets than a screen can hold. Do not use faceted-browse, which composes a collection. Do not use search-filtered-table for the whole page: that shape is real here but it is the content of one tab, not the page.",
         "components": [
           "tabs",
           "page-header",
           "breadcrumb",
           "side-nav",
-          "drawer-side-panel"
+          "drawer-side-panel",
+          "avatar",
+          "progress-bar-small",
+          "tag-default",
+          "tag-interactive",
+          "button",
+          "checkbox",
+          "empty-state",
+          "segmented-control",
+          "dropdown-select-default",
+          "text-area",
+          "input-date"
         ],
-        "description": "Every catalog object has a tabbed detail page with property panel/sidebar."
+        "description": "The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
       },
       "bulk-edit": {
         "label": "Bulk Edit",
         "apps": [
           "studio"
+        ],
+        "tags": [
+          "bulk",
+          "edit",
+          "collection",
+          "batch",
+          "multi-select"
         ],
         "components": [
           "table",
@@ -1228,6 +1304,13 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "profiling",
+          "sample",
+          "charts",
+          "fields",
+          "statistics"
+        ],
         "components": [
           "bar-graph",
           "line-graph",
@@ -1239,6 +1322,13 @@
         "label": "Data Steward Agent Panel",
         "apps": [
           "studio"
+        ],
+        "tags": [
+          "ai",
+          "agent",
+          "panel",
+          "curate",
+          "approval"
         ],
         "components": [
           "chat-with-ai-steward",
@@ -1254,6 +1344,13 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "threads",
+          "comments",
+          "conversation",
+          "collaboration",
+          "single-object"
+        ],
         "components": [
           "rich-text",
           "avatar",
@@ -1267,6 +1364,13 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "dashboard",
+          "completion",
+          "metrics",
+          "stewardship",
+          "monitor"
+        ],
         "components": [
           "progress-bar-small",
           "table",
@@ -1274,10 +1378,43 @@
         ],
         "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score."
       },
+      "faceted-browse": {
+        "label": "Faceted browse",
+        "apps": [
+          "studio",
+          "explorer"
+        ],
+        "tags": [
+          "browse",
+          "search",
+          "facets",
+          "filter",
+          "results",
+          "collection"
+        ],
+        "when": "Use when the user narrows a large collection by several independent facets at once, each carrying its own count against a live total. Do not use search-filtered-table, which is explicitly the single-search-no-facets case, and do not use table-with-tabs, where pre-filtering is by one categorical axis rather than several.",
+        "components": [
+          "checkbox",
+          "toggle",
+          "dropdown-select-default",
+          "progress-bar-small",
+          "tag-default",
+          "button",
+          "search",
+          "table"
+        ],
+        "description": "Three pane browse over a large item set: app sidebar, a filter rail, and a result list. The rail holds several independent facet groups (a range facet, a counted checkbox list of item types, a boolean toggle, and type-to-search selects), each collapsible. Results are composed cards rather than table rows: each carries type and sharing tags, a title, source metadata, a summary, domain values, a pending-suggestion chip, and a right-hand meta column with a completion meter and a last-updated date. A bulk action bar sits above the list with select-all, batch actions and a sort control.\n\nThe defining trait is scale. A live total is shown against the current filter state, and each facet value carries its own count, so narrowing is visible before it is committed. Studio Catalog is the canonical instance.\n\nDistinct from `search-filtered-table`, which is the single-search-input case with no facet rail, and from `table-with-tabs`, where pre-filtering is by one categorical axis rather than several independent ones. Choose this pattern whenever more than one facet narrows the same collection."
+      },
       "federated-catalog": {
         "label": "Federated Catalog",
         "apps": [
           "administration"
+        ],
+        "tags": [
+          "federation",
+          "catalogs",
+          "permissions",
+          "cross-catalog"
         ],
         "components": [
           "search",
@@ -1291,12 +1428,26 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "graph",
+          "architecture",
+          "metadata",
+          "ontology",
+          "federation"
+        ],
         "description": "Underlying architecture connecting all metadata with domain-specific ontologies."
       },
       "filter-groups-form": {
         "label": "Filter-groups edit form with sticky footer",
         "apps": [
           "administration"
+        ],
+        "tags": [
+          "form",
+          "configure",
+          "groups",
+          "permissions",
+          "collapsible"
         ],
         "components": [
           "page-header",
@@ -1314,13 +1465,23 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "wizard",
+          "stepper",
+          "import",
+          "create",
+          "sequence"
+        ],
+        "when": "Use when creating something requires an ordered sequence the user cannot complete out of order, with a numbered stepper and a persistent back/next action bar. Do not use a plain form: the defining trait is that each step narrows what the next one can offer.",
         "components": [
           "stepper",
           "button",
           "text-input",
-          "dropdown-select-default"
+          "dropdown-select-default",
+          "radio-card",
+          "sticky-footer"
         ],
-        "description": "6-step horizontal stepper (Connection → Items → Curator → Contact → Data Product → Confirm)."
+        "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.\n\nCorrected 2026-08-18 from the running product: this record previously said 6 steps and named \"Data Product\" as the sixth. There are 7, the first is Data source, and the sixth is Category. `components` also gained the radio\ncards of step one and the persistent action bar, which the corrected prose described and the\nmachine-read field did not. The action bar is named by its current slug `sticky-footer`; Figma has\nrenamed it to `action-bar` and that rename can only land alongside the registry, in one branch."
       },
       "interactive-graph": {
         "label": "Interactive graph visualization",
@@ -1328,6 +1489,14 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "graph",
+          "canvas",
+          "nodes",
+          "explore",
+          "visualization"
+        ],
+        "when": "Use for a graph the user pans, zooms and expands node by node, on a canvas with its own floating tool rail. Do not use lineage-graph, which is the directional data-flow case with its own node card; this one is radial and relationship-shaped.",
         "components": [
           "lineage-individual-node",
           "lineage-grouped-node",
@@ -1341,6 +1510,14 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "graph",
+          "canvas",
+          "lineage",
+          "dataflow",
+          "nodes"
+        ],
+        "when": "Use for directional data flow: node cards on a canvas, each naming its source and its field count, read left to right. Do not use interactive-graph, whose nodes are relationship satellites around one focus rather than a flow.",
         "components": [
           "lineage-individual-node",
           "lineage-grouped-node",
@@ -1352,6 +1529,14 @@
         "label": "Marketplace browsing",
         "apps": [
           "explorer"
+        ],
+        "tags": [
+          "homepage",
+          "browse",
+          "search",
+          "curated",
+          "discover",
+          "carousel"
         ],
         "components": [
           "search",
@@ -1373,6 +1558,14 @@
         "apps": [
           "studio"
         ],
+        "tags": [
+          "configure",
+          "canvas",
+          "split",
+          "editor",
+          "drag-drop"
+        ],
+        "when": "Use when a configurable structure is edited beside a live picture of itself: a searchable list of types on one side, a canvas on the other, with the canvas carrying its own zoom and export controls. Do not use a plain form; the picture is half the screen.",
         "components": [
           "metamodel-widget",
           "button",
@@ -1387,6 +1580,13 @@
           "explorer",
           "administration"
         ],
+        "tags": [
+          "notifications",
+          "popover",
+          "panel",
+          "alerts"
+        ],
+        "when": "Use for an unread counter that opens an anchored popover of recent events, each with a status icon and a click-through. Do not use right-sliding-drawer: this does not take over the side of the screen, and it is dismissed by clicking away.",
         "components": [
           "notification",
           "notification-dropdown",
@@ -1399,6 +1599,13 @@
         "apps": [
           "studio",
           "explorer"
+        ],
+        "tags": [
+          "drawer",
+          "overlay",
+          "panel",
+          "quick-view",
+          "single-object"
         ],
         "components": [
           "drawer-side-panel",
@@ -1413,6 +1620,14 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "search",
+          "table",
+          "list",
+          "collection",
+          "single-search"
+        ],
+        "when": "Use for a collection narrowed by ONE inline search input and nothing else, most often as the content of a detail tab rather than as a whole page. Do not use it for a page with a filter rail: that is faceted-browse. If tabs partition the collection, that is table-with-tabs.",
         "components": [
           "search",
           "table"
@@ -1425,6 +1640,14 @@
           "studio",
           "explorer"
         ],
+        "tags": [
+          "suggestions",
+          "ai",
+          "review",
+          "curate",
+          "single-object"
+        ],
+        "when": "Use for machine-proposed metadata awaiting a human decision on one object: a status segmented control over cards that each carry an author, a comment box and an accept/reject pair. Do not use suggestion-workflow, which is the cross-catalog process rather than this panel.",
         "components": [
           "tabs",
           "badge",
@@ -1437,6 +1660,13 @@
         "apps": [
           "explorer",
           "studio"
+        ],
+        "tags": [
+          "suggestions",
+          "review",
+          "approve",
+          "workflow",
+          "curate"
         ],
         "components": [
           "button",
@@ -1452,6 +1682,14 @@
           "administration",
           "studio"
         ],
+        "tags": [
+          "table",
+          "tabs",
+          "collection",
+          "status",
+          "partition"
+        ],
+        "when": "Use when one collection is partitioned by a single categorical axis, usually status or ownership, and the tabs are that axis. Do not use faceted-browse, where several independent facets narrow at once, and do not use asset-detail-360, whose tabs are facets of one object rather than slices of a list.",
         "components": [
           "page-header",
           "tabs",
@@ -1463,6 +1701,12 @@
         "label": "Drag-and-drop template builder",
         "apps": [
           "studio"
+        ],
+        "tags": [
+          "configure",
+          "builder",
+          "templates",
+          "editor"
         ],
         "components": [
           "metamodel-widget",
@@ -1476,6 +1720,13 @@
         "apps": [
           "explorer"
         ],
+        "tags": [
+          "browse",
+          "curated",
+          "topics",
+          "carousel",
+          "discover"
+        ],
         "components": [
           "card-for-items",
           "search"
@@ -1487,11 +1738,23 @@
         "apps": [
           "studio"
         ],
-        "components": [
-          "card-for-items",
-          "modal"
+        "tags": [
+          "grid",
+          "picker",
+          "create",
+          "types",
+          "selection"
         ],
-        "description": "Grid of type tiles with color-coded icons for New Item creation."
+        "when": "Use when creation begins by choosing a type from a grid of equally weighted options, grouped by family and filtered by a segmented control. Do not use a dropdown: the grid exists because the options carry an icon and a colour that make them recognisable.",
+        "components": [
+          "radio-card",
+          "segmented-control",
+          "search",
+          "text-input",
+          "sticky-footer",
+          "page-header"
+        ],
+        "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.\n\nNote for whoever carries the `sticky-footer` → `action-bar` rename through: this record now names\n`sticky-footer` truthfully, which makes it a fourth authored reference to rename. That does not change\nthe situation, since the rename can only be landed alongside the registry in one branch anyway."
       }
     }
   }

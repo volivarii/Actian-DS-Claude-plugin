@@ -140,6 +140,39 @@
           "description": "Derived from page-name status emoji (✍️ / ⚠️ / ⛔️). Omitted entirely for ✅ pages (stable) to match the foundations-status precedent.",
           "examples": ["in-progress", "warn", "deprecated"]
         },
+        "deferral": {
+          "type": "object",
+          "description": "Present only when this entry's removal has been deliberately deferred: Figma no longer publishes the component, and components/src/sync-deferrals.json says to carry it forward anyway, for a stated reason and a stated period. Distinct from `status`, which says what FIGMA thinks of a component; this says what the substrate is doing about it, so neither clobbers the other. The rest of the entry is carried verbatim, so a consumer sees what it always saw. Past `review_by` the deferral stops applying and the removal returns, so this cannot become a permanent fiction.",
+          "required": ["reason", "issue", "review_by"],
+          "additionalProperties": false,
+          "properties": {
+            "reason": {
+              "type": "string",
+              "description": "Why the removal is not being carried through yet, in terms someone outside the conversation can act on.",
+              "examples": [
+                "Figma refactor incomplete: Card is an empty shell, contents not republished as parts"
+              ]
+            },
+            "issue": {
+              "type": ["integer", "string"],
+              "description": "The issue where the decision lives, so the reason has somewhere to be argued.",
+              "examples": [526]
+            },
+            "review_by": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "description": "ISO date, inclusive. The day after this, the deferral stops applying and the sync goes breaking again.",
+              "examples": ["2026-09-18"]
+            }
+          },
+          "examples": [
+            {
+              "reason": "Figma refactor incomplete",
+              "issue": 526,
+              "review_by": "2026-09-18"
+            }
+          ]
+        },
         "properties": {
           "type": "object",
           "description": "Non-VARIANT componentPropertyDefinitions keyed by Figma's hash-suffixed identifier. Each value is { type, default }. Used for setProperties on imported instances.",

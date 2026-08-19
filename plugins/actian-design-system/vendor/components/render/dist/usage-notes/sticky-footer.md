@@ -19,4 +19,4 @@ The sticky footer is a persistent action bar that remains visible at the bottom 
 ## Category guidance (inherited: design, behavior)
 Action surfaces converge on a small set of style ramps (primary → ghost) and a tight state machine (default → hover → focus → active → loading → disabled). The category lives or dies on accessibility: keyboard operability, focus visibility, and non-color state signalling are non-negotiable.
 
-> Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
+> Note: includes guidance not yet ratified: INHERITED from category (design, behavior).

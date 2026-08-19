@@ -5,7 +5,7 @@ a11y_refs:
   - { ref: ai-output-suggestions }
 domains:
   content: { status: draft, owner: design }
-  usage:    { status: draft, owner: design }
+  usage:    { status: approved, owner: design }
   design:   { status: draft, owner: design }
   behavior: { status: not-started }
   tokens:   { status: not-started }

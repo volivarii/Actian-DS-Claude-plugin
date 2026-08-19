@@ -5,6 +5,12 @@ slug: data-steward-agent-panel
 label: Data Steward Agent Panel
 apps:
   - studio
+tags:
+  - ai
+  - agent
+  - panel
+  - curate
+  - approval
 components:
   - chat-with-ai-steward
   - drawer-side-panel

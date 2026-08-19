@@ -5384,7 +5384,7 @@
       "@id": "pattern:access-request-management",
       "@type": "UXPattern",
       "title": "Access request management",
-      "description": "Table with Requester, Item, Status, Actions. Status tabs: Pending / Done."
+      "description": "Table with Requester, Item, Created at, Last updated, Status and Actions, the first four sortable. Each row ends in a decision pair: an outline Reject beside a filled Approve. Above the table, right aligned, a status multi-select holds the active filters as removable chips.\n\nCorrected 2026-08-18 from the running product: this record previously said \"Status tabs: Pending / Done\". There are no status tabs. Filtering is the multi-select described above, and the values seen were Pending and Error."
     },
     {
       "@id": "pattern:access-request-workflow",
@@ -5408,7 +5408,7 @@
       "@id": "pattern:analytics-dashboard",
       "@type": "UXPattern",
       "title": "Analytics dashboard",
-      "description": "Completion cards, adoption rate charts, popular items, frequent searches."
+      "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `bar-graph` and\n`line-graph` are left in place: the evolution chart is line-shaped so `line-graph` is defensible, and the\npage was not read to its end, so removing `bar-graph` would be an assertion from absence.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. The two adoption gauges lead this\npage and the design system cannot express them."
     },
     {
       "@id": "pattern:ask-ai",
@@ -5420,7 +5420,7 @@
       "@id": "pattern:asset-detail-360",
       "@type": "UXPattern",
       "title": "360-degree asset detail view",
-      "description": "Every catalog object has a tabbed detail page with property panel/sidebar."
+      "description": "The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
     },
     {
       "@id": "pattern:bulk-edit",
@@ -5453,6 +5453,12 @@
       "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score."
     },
     {
+      "@id": "pattern:faceted-browse",
+      "@type": "UXPattern",
+      "title": "Faceted browse",
+      "description": "Three pane browse over a large item set: app sidebar, a filter rail, and a result list. The rail holds several independent facet groups (a range facet, a counted checkbox list of item types, a boolean toggle, and type-to-search selects), each collapsible. Results are composed cards rather than table rows: each carries type and sharing tags, a title, source metadata, a summary, domain values, a pending-suggestion chip, and a right-hand meta column with a completion meter and a last-updated date. A bulk action bar sits above the list with select-all, batch actions and a sort control.\n\nThe defining trait is scale. A live total is shown against the current filter state, and each facet value carries its own count, so narrowing is visible before it is committed. Studio Catalog is the canonical instance.\n\nDistinct from `search-filtered-table`, which is the single-search-input case with no facet rail, and from `table-with-tabs`, where pre-filtering is by one categorical axis rather than several independent ones. Choose this pattern whenever more than one facet narrows the same collection."
+    },
+    {
       "@id": "pattern:federated-catalog",
       "@type": "UXPattern",
       "title": "Federated Catalog",
@@ -5474,7 +5480,7 @@
       "@id": "pattern:import-wizard",
       "@type": "UXPattern",
       "title": "Multi-step import wizard",
-      "description": "6-step horizontal stepper (Connection → Items → Curator → Contact → Data Product → Confirm)."
+      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.\n\nCorrected 2026-08-18 from the running product: this record previously said 6 steps and named \"Data Product\" as the sixth. There are 7, the first is Data source, and the sixth is Category. `components` also gained the radio\ncards of step one and the persistent action bar, which the corrected prose described and the\nmachine-read field did not. The action bar is named by its current slug `sticky-footer`; Figma has\nrenamed it to `action-bar` and that rename can only land alongside the registry, in one branch."
     },
     {
       "@id": "pattern:interactive-graph",
@@ -5558,7 +5564,7 @@
       "@id": "pattern:type-picker-grid",
       "@type": "UXPattern",
       "title": "Type picker grid",
-      "description": "Grid of type tiles with color-coded icons for New Item creation."
+      "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.\n\nNote for whoever carries the `sticky-footer` → `action-bar` rename through: this record now names\n`sticky-footer` truthfully, which makes it a fourth authored reference to rename. That does not change\nthe situation, since the rename can only be landed alongside the registry in one branch anyway."
     },
     {
       "@id": "term:access-request-policy",
@@ -10817,6 +10823,30 @@
     {
       "@type": "Edge",
       "edgeType": "in_app",
+      "source": "pattern:faceted-browse",
+      "target": "app:explorer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.apps"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_app",
+      "source": "pattern:faceted-browse",
+      "target": "app:studio",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.apps"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_app",
       "source": "pattern:federated-catalog",
       "target": "app:administration",
       "confidence": "asserted",
@@ -14102,6 +14132,18 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:access-request-management",
+      "target": "component:dropdown-select-default",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:access-request-management",
       "target": "component:table",
       "confidence": "asserted",
       "provenance": {
@@ -14114,7 +14156,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:access-request-management",
-      "target": "component:tabs",
+      "target": "component:tag-default",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14126,7 +14168,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:access-request-management",
-      "target": "component:tag-default",
+      "target": "component:tag-interactive",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14246,7 +14288,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:analytics-dashboard",
-      "target": "component:card-for-items",
+      "target": "component:card-for-perimeter",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14271,6 +14313,30 @@
       "edgeType": "uses_component",
       "source": "pattern:analytics-dashboard",
       "target": "component:page-header",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:analytics-dashboard",
+      "target": "component:progress-bar-small",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:analytics-dashboard",
+      "target": "component:segmented-control",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14306,7 +14372,43 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:asset-detail-360",
+      "target": "component:avatar",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
       "target": "component:breadcrumb",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:button",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:checkbox",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14330,7 +14432,67 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:asset-detail-360",
+      "target": "component:dropdown-select-default",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:empty-state",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:input-date",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
       "target": "component:page-header",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:progress-bar-small",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:segmented-control",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14355,6 +14517,42 @@
       "edgeType": "uses_component",
       "source": "pattern:asset-detail-360",
       "target": "component:tabs",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:tag-default",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:tag-interactive",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:asset-detail-360",
+      "target": "component:text-area",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14581,6 +14779,102 @@
     {
       "@type": "Edge",
       "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:button",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:checkbox",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:dropdown-select-default",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:progress-bar-small",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:search",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:tag-default",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:faceted-browse",
+      "target": "component:toggle",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
       "source": "pattern:federated-catalog",
       "target": "component:search",
       "confidence": "asserted",
@@ -14714,7 +15008,31 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:import-wizard",
+      "target": "component:radio-card",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:import-wizard",
       "target": "component:stepper",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:import-wizard",
+      "target": "component:sticky-footer",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -15146,7 +15464,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:type-picker-grid",
-      "target": "component:card-for-items",
+      "target": "component:page-header",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -15158,7 +15476,55 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:type-picker-grid",
-      "target": "component:modal",
+      "target": "component:radio-card",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:type-picker-grid",
+      "target": "component:search",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:type-picker-grid",
+      "target": "component:segmented-control",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:type-picker-grid",
+      "target": "component:sticky-footer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "uses_component",
+      "source": "pattern:type-picker-grid",
+      "target": "component:text-input",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",

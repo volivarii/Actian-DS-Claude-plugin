@@ -6,5 +6,11 @@ label: Federated knowledge graph
 apps:
   - studio
   - explorer
+tags:
+  - graph
+  - architecture
+  - metadata
+  - ontology
+  - federation
 ---
 Underlying architecture connecting all metadata with domain-specific ontologies.

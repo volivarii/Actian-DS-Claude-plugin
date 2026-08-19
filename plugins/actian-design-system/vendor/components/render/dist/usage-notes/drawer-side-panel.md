@@ -26,4 +26,4 @@ The drawer is a slide-in panel that appears from the right side of the screen to
 ## Category guidance (inherited: design, behavior)
 Overlays share a Trigger → Surface relationship and a tight contract with focus management. The `Dismissibility` axis captures the modal-vs-dismissible decision that drives the entire keyboard + a11y model. The `Type` axis is intentionally finite — adding a new overlay type means revisiting the category contract, not extending it.
 
-> Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
+> Note: includes guidance not yet ratified: INHERITED from category (design, behavior).

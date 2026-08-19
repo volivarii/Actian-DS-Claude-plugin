@@ -6,6 +6,16 @@ label: Interactive graph visualization
 apps:
   - studio
   - explorer
+tags:
+  - graph
+  - canvas
+  - nodes
+  - explore
+  - visualization
+when: >-
+  Use for a graph the user pans, zooms and expands node by node, on a canvas with its own
+  floating tool rail. Do not use lineage-graph, which is the directional data-flow case with
+  its own node card; this one is radial and relationship-shaped.
 components:
   - lineage-individual-node
   - lineage-grouped-node

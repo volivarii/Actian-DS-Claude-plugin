@@ -6,6 +6,12 @@ label: Discussion threads
 apps:
   - studio
   - explorer
+tags:
+  - threads
+  - comments
+  - conversation
+  - collaboration
+  - single-object
 components:
   - rich-text
   - avatar

@@ -5,6 +5,12 @@ slug: data-profiling-sampling
 label: Data profiling and sampling
 apps:
   - studio
+tags:
+  - profiling
+  - sample
+  - charts
+  - fields
+  - statistics
 components:
   - bar-graph
   - line-graph
