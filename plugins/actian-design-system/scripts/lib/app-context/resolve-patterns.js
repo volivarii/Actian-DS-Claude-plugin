@@ -34,6 +34,102 @@ function slugTags(slug) {
     });
 }
 
+// A pattern's tags, authored where the substrate has them and derived from the
+// slug where it does not. Splitting the slug was the ONLY source until knowledge
+// #560 authored real ones, which made the join a naming coincidence: 11 of the 25
+// Studio patterns shared no word with any recipe, and `faceted-browse` reached
+// `table-list` and `browse-search` on the single word "browse" with nothing to
+// separate them. The fallback stays for a pattern authored before tags existed.
+function tagsWithSource(pattern, slug) {
+  var t = (pattern && pattern.tags) || [];
+  var authored = (Array.isArray(t) ? t : []).filter(function (x) {
+    return typeof x === "string" && x.length > 0;
+  });
+  // Filter FIRST, then decide. Deciding on `tags.length` and filtering afterwards
+  // meant `tags: ["", ""]` reported itself as authored and scored on nothing at
+  // all, which is the one outcome worse than falling back.
+  if (authored.length) return { tags: authored, source: "authored" };
+  return { tags: slugTags(slug), source: "slug" };
+}
+
+function patternTags(pattern, slug) {
+  return tagsWithSource(pattern, slug).tags;
+}
+
+// Recipe archetype -> tags[], mirroring loadRecipeTags in validate-flow-data.js,
+// including its injection seam so a test never reads the shipped index.
+var _recipeCache = null;
+function loadRecipes(recipeIndex) {
+  if (Array.isArray(recipeIndex)) return recipeIndex;
+  if (_recipeCache) return _recipeCache;
+  try {
+    _recipeCache = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, "..", "..", "..", "recipes", "flow", "_index.json"),
+        "utf8",
+      ),
+    );
+  } catch (e) {
+    _recipeCache = [];
+  }
+  return _recipeCache;
+}
+
+// Every recipe sharing at least one tag, strongest overlap first.
+//
+// RANKING, not intersecting. The old join asked "does this recipe share a tag",
+// which is a yes/no over a set, so two recipes sharing one word each were
+// indistinguishable and the caller took whichever came first. Overlap SIZE is
+// what separates them: with authored tags `faceted-browse` scores browse-search 4
+// and table-list 1, where the boolean join scored both 1. Ties are sorted by
+// archetype so the order is stable rather than index-order, but a tie is still
+// reported as a tie: a stable arbitrary pick is still arbitrary.
+function rankRecipes(tags, recipeIndex) {
+  var want = Array.isArray(tags) ? tags : [];
+  return loadRecipes(recipeIndex)
+    .filter(function (r) {
+      return r && r.archetype;
+    })
+    .map(function (r) {
+      var rt = Array.isArray(r.tags) ? r.tags : [];
+      return {
+        archetype: r.archetype,
+        score: want.filter(function (x) {
+          return rt.indexOf(x) >= 0;
+        }).length,
+      };
+    })
+    .filter(function (r) {
+      return r.score > 0;
+    })
+    .sort(function (a, b) {
+      return b.score - a.score || (a.archetype < b.archetype ? -1 : 1);
+    });
+}
+
+// The decision WITH its ambiguity, so neither a tie nor a miss can pass silently.
+// Both were invisible before: a tie resolved to whichever recipe came first, and
+// 11 of 25 patterns matched nothing with no warning anywhere.
+function selectRecipe(tags, recipeIndex) {
+  var ranked = rankRecipes(tags, recipeIndex);
+  if (!ranked.length) {
+    return { archetype: null, score: 0, status: "no-match", candidates: [] };
+  }
+  var top = ranked[0].score;
+  var atTop = ranked.filter(function (r) {
+    return r.score === top;
+  });
+  if (atTop.length > 1) {
+    return { archetype: null, score: top, status: "tie", candidates: atTop };
+  }
+  return {
+    archetype: ranked[0].archetype,
+    score: top,
+    status: "decisive",
+    candidates: ranked.slice(0, 3),
+  };
+}
+
 function resolvePatterns(appName, ctx) {
   var key = normalizeApp(appName);
   if (!key) return [];
@@ -44,11 +140,19 @@ function resolvePatterns(appName, ctx) {
     var p = data.patterns[slug] || {};
     var apps = Array.isArray(p.apps) ? p.apps : [];
     if (apps.indexOf(key) === -1) return;
+    // One call, so the tags and the source they are labelled with cannot
+    // disagree. Computing the label from its own copy of the condition is how a
+    // pattern ends up reported as "authored" while scoring on slug words.
+    var t = tagsWithSource(p, slug);
     out.push({
       slug: slug,
       label: p.label || "",
       description: p.description || "",
-      tags: slugTags(slug),
+      tags: t.tags,
+      // Where the tags came from, so an untagged pattern reads as a gap in the
+      // substrate rather than silently scoring on its slug words.
+      tagSource: t.source,
+      recipe: selectRecipe(t.tags),
     });
   });
   return out;
@@ -75,6 +179,10 @@ module.exports = {
   normalizeApp: normalizeApp,
   listApps: listApps,
   slugTags: slugTags,
+  patternTags: patternTags,
+  tagsWithSource: tagsWithSource,
+  rankRecipes: rankRecipes,
+  selectRecipe: selectRecipe,
 };
 
 // Thin CLI: `resolve-patterns.js --app studio` → { app, patterns, useCases }.
@@ -86,17 +194,52 @@ if (require.main === module) {
     var app = args[appIdx + 1];
     var key = normalizeApp(app);
     var known = listApps().indexOf(key) !== -1;
+    var pats = resolvePatterns(app);
     process.stdout.write(
       JSON.stringify(
-        {
-          app: key,
-          patterns: resolvePatterns(app),
-          useCases: resolveUseCases(app),
-        },
+        { app: key, patterns: pats, useCases: resolveUseCases(app) },
         null,
         2,
       ) + "\n",
     );
+    // Ambiguity to stderr, so stdout stays a parseable object while a tie or a
+    // miss stops being silent. Both were invisible before: a tie resolved to
+    // whichever recipe came first, and 11 of 25 Studio patterns matched nothing
+    // with no warning anywhere in the pipeline.
+    var ties = pats.filter(function (p) {
+      return p.recipe.status === "tie";
+    });
+    var misses = pats.filter(function (p) {
+      return p.recipe.status === "no-match";
+    });
+    var untagged = pats.filter(function (p) {
+      return p.tagSource !== "authored";
+    });
+    if (ties.length || misses.length || untagged.length) {
+      process.stderr.write(
+        "recipe selection for " + key + ": " +
+          (pats.length - ties.length - misses.length) + " decisive, " +
+          ties.length + " tied, " + misses.length + " unmatched\n",
+      );
+      ties.forEach(function (p) {
+        process.stderr.write(
+          "  tie      " + p.slug + " -> " +
+            p.recipe.candidates
+              .map(function (c) {
+                return c.archetype + "(" + c.score + ")";
+              })
+              .join(" ") + "\n",
+        );
+      });
+      misses.forEach(function (p) {
+        process.stderr.write("  no match " + p.slug + "\n");
+      });
+      untagged.forEach(function (p) {
+        process.stderr.write(
+          "  untagged " + p.slug + " (scoring on slug words; author tags in the substrate)\n",
+        );
+      });
+    }
     process.exit(known ? 0 : 1);
   }
   process.stderr.write("usage: resolve-patterns.js --app <name>\n");

@@ -19,6 +19,44 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Recipe selection reads the substrate's authored pattern tags and ranks by overlap size, instead of
+  intersecting tags invented from a slug.** ([#300](https://github.com/volivarii/Actian-DS-Claude-plugin/issues/300))
+  `resolve-patterns.js` derived a pattern's tags by splitting its slug on hyphens, so the join to
+  `recipes/flow/_index.json` was a naming coincidence rather than a semantic link. Two things fell out of
+  that, and better words could not have fixed either: `faceted-browse` reached both `table-list` and
+  `browse-search` on the single shared word "browse", and a set-membership test cannot separate them, so
+  the tie resolved to whichever came first. That is how a Studio Catalog request produced a two-pane CRUD
+  table at confidence 0.93. Separately, **11 of the 25 Studio patterns matched no recipe at all**, with no
+  warning anywhere in the pipeline.
+
+  Knowledge #560 authored real tags on 30 of the 31 patterns, and they arrived here with the v0.34.141
+  vendor snapshot. Patterns now score on those, with the slug split kept only as a fallback for a pattern
+  authored before tags existed. **Ranking by overlap size is the other half**: the same tags under the old
+  boolean join cut silence but raised ambiguity, so the operator was the defect, not the vocabulary.
+
+  Measured against the 25 Studio patterns and the 12 flow archetypes:
+
+  | | decisive top-1 | tied | no match |
+  | --- | --- | --- | --- |
+  | slug words, boolean join | 8 | 6 | 11 |
+  | authored tags, ranked | **13** | 6 | **6** |
+
+  `faceted-browse` now scores `browse-search` 4 against `table-list` 1 and resolves decisively.
+
+  **A tie and a miss are both reported rather than silently resolved.** Each pattern carries a `recipe`
+  decision of `decisive`, `tie` or `no-match`; a tie returns `archetype: null` with every candidate at the
+  top score named, because a stable arbitrary pick is still arbitrary. The CLI prints ties, misses and
+  any pattern still scoring on slug words to stderr, leaving stdout a parseable object. `SKILL.md` and
+  `agents/screen-generator.md` now tell the generator to take the ranked decision rather than match tags
+  itself, and what to do when there isn't one.
+
+  One defect found while testing this rather than by reading it: `tagSource` and the tags themselves were
+  computed from two separate copies of the same condition, so `tags: ["", ""]` reported the pattern as
+  authored while leaving it with no tags at all, scoring against nothing. The source is derived from the
+  tags actually used now.
+
 ### Added
 
 - **The built-leaf props reference is generated from the substrate's render contract, so the screen
