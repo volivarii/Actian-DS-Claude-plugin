@@ -345,7 +345,7 @@ After the screen list is approved, build a `_glossary` object and set it on `met
 source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-properties.js --entity <slug>
 ```
 
-Set `_glossary.entityProperties` to the returned `properties` array (`[{name, label, type, states?, example?}]`). These are the entity's standard fields from the substrate (e.g. `data-product` → Name, Description, Status, Datasets, …). Screen-generators use them **verbatim** for table column headers and form field labels instead of generic placeholders; the validator flags the flow as `properties-ungrounded` (info, advisory — never blocks) when **no** table or form in it reflects them. On **refine / iterate**, preserve existing `_glossary.entityProperties` rather than re-resolving.
+Set `_glossary.entityProperties` to the returned `properties` array (`[{name, label, type, states?, example?}]`). These are the entity's standard fields from the substrate (e.g. `data-product` → Name, Description, Status, Datasets, …). Screen-generators use them **verbatim** for table column headers and form field labels instead of generic placeholders; the validator flags the flow as `properties-ungrounded` (info, advisory, never blocks) when **no** table or form in it reflects them. On **refine / iterate**, preserve existing `_glossary.entityProperties` rather than re-resolving.
 
 If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
 
@@ -371,7 +371,22 @@ On **refine / iterate** of an existing flow, preserve any existing `_glossary.ch
 source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>
 ```
 
-Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags}]`) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns — a pattern not scoped to this app never appears (the app boundary is firm). Screen-generators bias recipe selection toward the recipe whose `tags[]` overlap these pattern tags; the validator flags any screen whose recipe shares **no** tag with them as `pattern-ungrounded` (info, advisory — never blocks). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
+Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags,tagSource,recipe}]`) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns: a pattern not scoped to this app never appears (the app boundary is firm). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
+
+Each pattern carries a `recipe` decision, already ranked by how many tags it shares with each archetype in `recipes/flow/_index.json`. **Use it rather than matching tags yourself, but read the next paragraph first: the decision belongs to the pattern, not to the screen.**
+
+`_glossary.patterns` holds every pattern scoped to the app, each with its own decision, and a flow has many screens. A screen-generator therefore decides **which pattern the screen it is building actually realizes** and reads only that pattern's `recipe`. Taking a decisive archetype from an unrelated pattern is the same failure this replaced, moved one step along: `faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen in the same Studio flow must not inherit it. If no pattern in the list describes the screen, there is no recipe guidance for it, and the screen's own purpose governs as it did before.
+
+| `recipe.status` | What it means | What a screen-generator does |
+| --- | --- | --- |
+| `decisive` | one archetype shares two or more tags, more than any other | take `recipe.archetype` for a screen realizing THAT pattern |
+| `weak` | one archetype leads, but on a single shared tag | it is the best guess and no more: read the pattern `description` before taking it, and say so if you do |
+| `tie` | several share the top score, and `archetype` is `null` | choose between `recipe.candidates` on the pattern description, and say which and why |
+| `no-match` | the pattern shares no tag with any recipe | no archetype guidance exists; pick on the description alone and do not pretend it was grounded |
+
+`tagSource` is `authored` when the substrate tagged the pattern and `slug` when the tags were derived from its slug words as a fallback. A `slug` source is weaker evidence and worth naming when the choice was close.
+
+The old instruction was to bias toward "the recipe whose `tags[]` overlap", which is a set membership test: `faceted-browse` overlapped both `table-list` and `browse-search` on the single word "browse", and the tie resolved to the wrong one, which is how a Studio Catalog request produced a two-pane CRUD table at confidence 0.93. Ranking by overlap size scores `browse-search` 4 against `table-list` 1. Compositions are never ranked: they are a separate branch of the pipeline and `matchedRecipe` must be `null` for one. The validator still flags any screen whose recipe shares **no** tag as `pattern-ungrounded` (info, advisory, never blocks).
 
 **Entity relationships (grounded detail tabs, S3).** Using the same entity slug as the `entityProperties` lookup above, resolve the primary entity's relationships:
 
@@ -379,7 +394,7 @@ Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,descrip
 source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-relationships.js --entity <slug>
 ```
 
-Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory — never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
+Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory, never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
 
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
