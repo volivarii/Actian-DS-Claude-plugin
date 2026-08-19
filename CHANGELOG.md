@@ -19,6 +19,52 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **The generator now composes from a captured page recipe where the substrate has one, instead of
+  always falling back to a generic flow archetype.**
+  `resolve-patterns.js` emits a new `pageRecipe` field on every pattern: the slug of the captured
+  composition that declares it, or `null`. The join is declared rather than scored, because a recipe
+  in `app-context/dist/recipes/` names the pattern(s) it composes, so this is a lookup and never a
+  ranking. One inference remains and is marked as such in the code: `patterns` is optional in the
+  schema, so a capture omitting it falls back to joining on its own slug. It is scoped by the recipe's own `apps`, since a pattern can live in two apps while the
+  captured page exists in only one.
+
+  The two artefacts are not interchangeable. A flow archetype is a generic shape the plugin owns; a
+  page recipe was composed from the running product and carries provenance (`derivedFrom` names the
+  surface, the capture date and the product build) that an archetype cannot have. The measured gap:
+  across all twelve archetypes there are 63 component instances, 9 of them placeholders, while the two
+  captures hold 56 with one. On the two patterns that have both, `faceted-browse` was being offered
+  `browse-search` (9 instances, 3 placeholders) in place of a capture of that literal page (34, none).
+
+  Both captures shipped in knowledge v0.34.137 on 2026-08-18 and had been read by nothing in either
+  consumer since. The tag ranking was reporting `decisive` for exactly those two patterns, so the
+  fallback was most confident where it was least right.
+
+  Classification is deliberately unchanged: `matchedRecipe` still names the archetype. The capture
+  supplies the composition, not the tier, and `validate-flow-data.js` keys its detail-screen and
+  pattern-grounding checks on archetype IDs, so redefining that field would have silenced both.
+
+  Reaches consumers through `screen-generator.md` and `generate-flow/SKILL.md`, which now carry the
+  precedence rule and the full pattern shape.
+
+  A capture is preferred for its STRUCTURE, and that is not the same as its content being ready.
+  Because it was taken from a real screen it speaks the product's vocabulary rather than the design
+  system's: composed verbatim, `faceted-browse` raises 7 terminology and 2 avoid-word findings and
+  `asset-detail-360` raises 9 and 1, where both archetypes raise none. Two are blocking rather than
+  advisory (`placeholder-text` on a bare `"Description"`, and `missing-required-override` on
+  `fmButton`). `screen-generator.md` now names all of this beside the `{{token}}` substitution rule,
+  since nothing downstream catches an unsubstituted token.
+
+  The capture layer reports itself, because the ways it can fail are all silent ones. The CLI prints
+  `page recipes for <app>: N captured, M joined, K joined nothing`, since the upstream derive validates
+  that a named pattern *exists* but not that it is scoped to the recipe's app, so a capture can ship
+  green and be read by nobody. Two captures claiming one pattern warn and resolve by sorted slug rather
+  than by directory order, which is the tie defect the archetype ranking was already rewritten to
+  remove. A `no match` line now names any capture the pattern holds. A vendor snapshot predating the
+  `appContextRecipes` collection says so and degrades, instead of throwing a `TypeError` out of
+  `resolvePatterns` and taking the whole glossary build down with it.
+
 ### Fixed
 
 - **Recipe selection reads the substrate's authored pattern tags and ranks by overlap size, instead of
