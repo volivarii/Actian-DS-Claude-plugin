@@ -5,6 +5,12 @@ slug: documentation-completion-dashboard
 label: Documentation Completion Dashboard
 apps:
   - studio
+tags:
+  - dashboard
+  - completion
+  - metrics
+  - stewardship
+  - monitor
 components:
   - progress-bar-small
   - table

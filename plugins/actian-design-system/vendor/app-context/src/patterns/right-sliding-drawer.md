@@ -6,6 +6,12 @@ label: Right sliding drawer
 apps:
   - studio
   - explorer
+tags:
+  - drawer
+  - overlay
+  - panel
+  - quick-view
+  - single-object
 components:
   - drawer-side-panel
   - button

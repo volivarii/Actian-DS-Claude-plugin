@@ -159,7 +159,7 @@
       ]
     },
     "usage": {
-      "status": "draft",
+      "status": "approved",
       "markdown": "## When to use\n\n* Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.\n\n* Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.\n\n* Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.\n\n* Use it when the underlying page state must not change while the user decides.\n\n## When not to use\n\n* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).\n\n* Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.\n\n* Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.\n\n* Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.\n\n* Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception.\n\n## Variant selection\n\n* **450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).\n\n* **700px create / setting:** short single-column forms, up to roughly six fields.\n\n* **900px create / edit:** richer forms that need breathing room or a second column.\n\n* **1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep one task per modal | Stack a second modal on top of the first |\n| Name the primary action after the task (**Create report**) | Label a task modal's primary action **OK** |\n| Land initial focus on the safe action in destructive confirms | Let a reflex Enter keypress delete data |\n| Warn before discarding unsaved input on dismiss | Silently drop what the user typed |\n| Pick the smallest size that fits the task | Default every dialog to 900px |",
       "sections": [
         {
@@ -239,5 +239,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-07-12T02:45:52+02:00"
+  "updated_at": "2026-08-18T18:56:05+02:00"
 }

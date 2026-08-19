@@ -5,6 +5,11 @@ slug: federated-catalog
 label: Federated Catalog
 apps:
   - administration
+tags:
+  - federation
+  - catalogs
+  - permissions
+  - cross-catalog
 components:
   - search
   - table

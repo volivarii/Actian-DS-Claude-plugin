@@ -3,7 +3,7 @@ component: "Page header"
 category: data-display
 domains:
   content:  { status: approved, owner: content-team }
-  usage:    { status: draft }
+  usage:    { status: approved }
   design:   { status: not-started }
   behavior: { status: not-started }
   tokens:   { status: approved }

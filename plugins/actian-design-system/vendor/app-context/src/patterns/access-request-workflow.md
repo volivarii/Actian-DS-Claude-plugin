@@ -6,6 +6,12 @@ label: Access request workflow
 apps:
   - explorer
   - studio
+tags:
+  - request
+  - approve
+  - form
+  - workflow
+  - permissions
 components:
   - button
   - dropdown-select-default

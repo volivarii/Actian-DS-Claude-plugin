@@ -1,0 +1,1372 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "slug": "faceted-browse",
+  "label": "Faceted browse",
+  "description": "Three pane faceted browse over a large item set: app sidebar, a fixed-width filter rail of collapsible facet groups, and a result list of composed cards. The defining trait is scale: a live total, per-facet counts, and results that carry their own metadata rather than fitting table columns. Derived from the Studio Catalog page.",
+  "when": "Use when the user browses or narrows a large collection by several independent facets at once. Do NOT use table-list: a table cannot hold a filter rail, per-facet counts, or a result unit richer than a row. Do NOT use search-filtered-table, which is explicitly the single-search-no-facets case.",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "faceted-browse"
+  ],
+  "tags": [
+    "search",
+    "browse",
+    "catalog",
+    "facets",
+    "filter",
+    "results",
+    "scale"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog",
+    "capturedOn": "2026-08-18",
+    "productVersion": "studio-dev"
+  },
+  "slots": {
+    "rail": "Filter rail: a range facet, a counted checkbox facet list, a toggle facet, and type-to-search selects",
+    "results-header": "Live result total plus a save-this-view action",
+    "bulk-bar": "Select-all plus batch actions, with the sort control opposite",
+    "results": "Result cards: type and sharing tags, title, source metadata, summary, domain, pending-suggestion chip, and a right meta column with completion and last-updated"
+  },
+  "renderNotes": [
+    "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal:\"FILL\"` emits `flex:1`, which in a column container stretches them vertically and distributes the height evenly.",
+    "fmSlider and fmProgressBar read the VARIANT (Progress= / Completion=), not props, and collapse to zero width inside a centred row unless hosted in a fixed-width frame.",
+    "fmCheckbox and fmToggle render no text; pair them with a sibling TEXT node.",
+    "Use DIVIDER for full-width rules. RECT takes a fixed pixel width and will not span."
+  ],
+  "skeleton": {
+    "chrome": "standard",
+    "appHeader": "{{app}}",
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Browse layout",
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 20
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Filter rail",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 12,
+              "padding": [
+                0,
+                20,
+                0,
+                0
+              ]
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "Filters",
+                "font": "Inter:Semi Bold",
+                "size": 18,
+                "color": "var(--zen-color-text-default)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Completion level",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Completion level header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{range_facet_label}}",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{result_count}} results",
+                    "font": "Inter:Regular",
+                    "size": 12,
+                    "color": "var(--zen-color-text-secondary)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmSlider",
+                    "variant": "Progress=100%",
+                    "props": {}
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Range bounds",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "0%",
+                        "font": "Inter:Regular",
+                        "size": 11,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "100%",
+                        "font": "Inter:Regular",
+                        "size": 11,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Item",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Item header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Item",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Data Products",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "DP"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet1_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "39",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Datasets",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Da"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet2_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "21515",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Visualizations",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Vi"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet3_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "225",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Data Processes",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "DP"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet4_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "375",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Use Cases",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "UC"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet5_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "14",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Categories",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmCheckbox",
+                            "variant": "State=Off",
+                            "props": {}
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Ca"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{facet6_label}}",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ],
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        }
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "1847",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "View more ({{facet_overflow}})",
+                    "font": "Inter:Regular",
+                    "size": 12,
+                    "color": "var(--zen-color-text-primary)"
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: User Suggestions",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "User Suggestions header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{toggle_facet_label}}",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Toggle row",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{toggle_label}}",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmToggle",
+                        "variant": "State=Off",
+                        "props": {}
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Item Lifecycle Event",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Item Lifecycle Event header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{select1_label}}",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "Choose a value",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Curator",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Curator header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{select2_label}}",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "Type to search",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Contact",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 10,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ]
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Contact header",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "{{select3_label}}",
+                        "font": "Inter:Semi Bold",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "v",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "Type to search",
+                      "Show label": false
+                    }
+                  }
+                ]
+              }
+            ],
+            "sizing": {
+              "horizontal": 300,
+              "vertical": "HUG"
+            }
+          },
+          {
+            "type": "FRAME",
+            "name": "Results pane",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 8
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Results header",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 0,
+                  "primaryAxisAlignItems": "SPACE_BETWEEN",
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "{{result_count}} results",
+                    "font": "Inter:Semi Bold",
+                    "size": 22,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmButton",
+                    "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
+                    "props": {
+                      "Label#1411:32": "Save filters",
+                      "👁 Leading Icon": false,
+                      "👁 Trailing Icon": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Bulk action bar",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 0,
+                  "padding": [
+                    10,
+                    0,
+                    10,
+                    0
+                  ],
+                  "primaryAxisAlignItems": "SPACE_BETWEEN",
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Bulk left",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 18,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmCheckbox",
+                        "variant": "State=Off",
+                        "props": {}
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Edit",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Move to catalog",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Delete",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Export selection",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": "HUG",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "Sort by  Name ASC",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result: /why_not/table_with_slashes",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [
+                    12,
+                    0,
+                    12,
+                    0
+                  ],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmCheckbox",
+                    "variant": "State=Off",
+                    "props": {}
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card body",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 5,
+                      "counterAxisAlignItems": "MIN"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Title row",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Dataset"
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Filled",
+                            "props": {
+                              "Tag Text": "Shared"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "/why_not/table_with_slashes",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-primary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Category: 24 hour  /  Connection: snowflake_test_v2-thomas",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "No summary available",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Schema: PUBLIC",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmChip",
+                        "variant": "Outline=False",
+                        "props": {
+                          "Chip Text": "3 suggestions are pending."
+                        }
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card meta",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 8,
+                      "counterAxisAlignItems": "MAX"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Completion",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "primaryAxisAlignItems": "MAX",
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Outline",
+                            "props": {
+                              "Tag Text": "Draft"
+                            }
+                          },
+                          {
+                            "type": "FRAME",
+                            "name": "Meter",
+                            "layout": {
+                              "mode": "HORIZONTAL",
+                              "spacing": 0
+                            },
+                            "children": [
+                              {
+                                "type": "INSTANCE",
+                                "ref": "fmProgressBar",
+                                "variant": "Completion=20%",
+                                "props": {}
+                              }
+                            ],
+                            "sizing": {
+                              "horizontal": 96,
+                              "vertical": "HUG"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "20%",
+                            "font": "Inter:Regular",
+                            "size": 12,
+                            "color": "var(--zen-color-text-secondary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Last updated: Aug 18, 2026",
+                        "font": "Inter:Regular",
+                        "size": 11,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": 230,
+                      "vertical": "HUG"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result: 24 hours",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [
+                    12,
+                    0,
+                    12,
+                    0
+                  ],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmCheckbox",
+                    "variant": "State=Off",
+                    "props": {}
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card body",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 5,
+                      "counterAxisAlignItems": "MIN"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Title row",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Category"
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Filled",
+                            "props": {
+                              "Tag Text": "Shared"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "24 hours",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-primary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "xw xw xw x xw x xw xw xw xwx",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Business Domain: Marketing;  IT",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmChip",
+                        "variant": "Outline=False",
+                        "props": {
+                          "Chip Text": "2 suggestions are pending."
+                        }
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card meta",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 8,
+                      "counterAxisAlignItems": "MAX"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Completion",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "primaryAxisAlignItems": "MAX",
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "FRAME",
+                            "name": "Meter",
+                            "layout": {
+                              "mode": "HORIZONTAL",
+                              "spacing": 0
+                            },
+                            "children": [
+                              {
+                                "type": "INSTANCE",
+                                "ref": "fmProgressBar",
+                                "variant": "Completion=70%",
+                                "props": {}
+                              }
+                            ],
+                            "sizing": {
+                              "horizontal": 96,
+                              "vertical": "HUG"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "70%",
+                            "font": "Inter:Regular",
+                            "size": 12,
+                            "color": "var(--zen-color-text-secondary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Last updated: Aug 6, 2026",
+                        "font": "Inter:Regular",
+                        "size": 11,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": 230,
+                      "vertical": "HUG"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result: 24/7",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [
+                    12,
+                    0,
+                    12,
+                    0
+                  ],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmCheckbox",
+                    "variant": "State=Off",
+                    "props": {}
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card body",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 5,
+                      "counterAxisAlignItems": "MIN"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Title row",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "Category"
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Filled",
+                            "props": {
+                              "Tag Text": "Shared"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "24/7",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-primary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "test",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Business Domain: Marketing",
+                        "font": "Inter:Regular",
+                        "size": 12,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Card meta",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 8,
+                      "counterAxisAlignItems": "MAX"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Completion",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "primaryAxisAlignItems": "MAX",
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "FRAME",
+                            "name": "Meter",
+                            "layout": {
+                              "mode": "HORIZONTAL",
+                              "spacing": 0
+                            },
+                            "children": [
+                              {
+                                "type": "INSTANCE",
+                                "ref": "fmProgressBar",
+                                "variant": "Completion=50%",
+                                "props": {}
+                              }
+                            ],
+                            "sizing": {
+                              "horizontal": 96,
+                              "vertical": "HUG"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "50%",
+                            "font": "Inter:Regular",
+                            "size": 12,
+                            "color": "var(--zen-color-text-secondary)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Last updated: Aug 17, 2026",
+                        "font": "Inter:Regular",
+                        "size": 11,
+                        "color": "var(--zen-color-text-tertiary)"
+                      }
+                    ],
+                    "sizing": {
+                      "horizontal": 230,
+                      "vertical": "HUG"
+                    }
+                  }
+                ]
+              }
+            ],
+            "sizing": {
+              "horizontal": "FILL",
+              "vertical": "HUG"
+            }
+          }
+        ],
+        "sizing": {
+          "horizontal": "FILL",
+          "vertical": "HUG"
+        }
+      }
+    ]
+  }
+}

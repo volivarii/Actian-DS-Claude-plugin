@@ -4,33 +4,92 @@
   "title": "App-context pattern (per-record frontmatter)",
   "description": "Frontmatter of app-context/src/patterns/<slug>.md. Documents a recurring UX interaction pattern scoped to one or more Actian apps.",
   "type": "object",
-  "required": ["_schema_version", "slug", "label", "apps"],
+  "required": [
+    "_schema_version",
+    "slug",
+    "label",
+    "apps"
+  ],
   "additionalProperties": false,
   "properties": {
-    "_schema_version": { "const": 1 },
+    "_schema_version": {
+      "const": 1
+    },
     "slug": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*$",
       "maxLength": 60,
       "description": "Kebab-case identifier for the pattern; used as the filename (minus .md) and cross-reference target.",
-      "examples": ["empty-state", "inline-edit", "bulk-action"]
+      "examples": [
+        "empty-state",
+        "inline-edit",
+        "bulk-action"
+      ]
     },
     "label": {
       "type": "string",
       "description": "Human-readable display name of the UX pattern.",
-      "examples": ["Empty State", "Inline Edit", "Bulk Action"]
+      "examples": [
+        "Empty State",
+        "Inline Edit",
+        "Bulk Action"
+      ]
     },
     "apps": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "App slugs where this UX pattern appears.",
-      "examples": [["studio", "explorer"]]
+      "examples": [
+        [
+          "studio",
+          "explorer"
+        ]
+      ]
     },
     "components": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Registry-key slugs of the DS components this pattern composes (authored; projected to the graph as ux_pattern -> component 'uses_component' edges).",
-      "examples": [["search-filters", "table", "tabs"]]
+      "examples": [
+        [
+          "search-filters",
+          "table",
+          "tabs"
+        ]
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$"
+      },
+      "description": "Selection tags for this page shape. A consumer choosing a layout for a screen matches on these. Authored deliberately, because the alternative is not 'no tags': a consumer with nothing to read invents them by splitting the slug on hyphens, which joins on naming coincidence (plugin #300). Name what the shape IS and what it is FOR, not the components it happens to use; those are already in `components`. A shape that legitimately matches no archetype should stay honestly untagged rather than be given tags that force a match.",
+      "examples": [
+        [
+          "browse",
+          "facets",
+          "results",
+          "collection"
+        ],
+        [
+          "detail",
+          "tabs",
+          "single-object"
+        ]
+      ]
+    },
+    "when": {
+      "type": "string",
+      "description": "Selection guidance: when this shape applies, and which neighbouring shape to use instead when it does not. Written for whoever or whatever picks a shape. Leave it absent rather than guess: an absent `when` is a visible gap, an invented one is not. Do not restate the description here.",
+      "examples": [
+        "Use when the user narrows a large collection by several independent facets at once. Do not use search-filtered-table, which is explicitly the single-search-no-facets case."
+      ]
     }
   }
 }

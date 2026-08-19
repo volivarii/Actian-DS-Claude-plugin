@@ -7,6 +7,17 @@ apps:
   - administration
   - studio
   - explorer
+tags:
+  - search
+  - table
+  - list
+  - collection
+  - single-search
+when: >-
+  Use for a collection narrowed by ONE inline search input and nothing else,
+  most often as the content of a detail tab rather than as a whole page. Do not
+  use it for a page with a filter rail: that is faceted-browse. If tabs
+  partition the collection, that is table-with-tabs.
 components:
   - search
   - table

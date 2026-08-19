@@ -213,7 +213,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an alert banner for a message that must persist until the user deals with it: it sits at the top of the page or affected section and never auto-dismisses.\n\n* Use it to warn about a condition that may affect the user's work or data before they act (read-only datasets, an expiring connection).\n\n* Use it for a system-level error that requires action to resolve (authentication expired, a broken connection blocking the section).\n\n* Use the inline banner form for the same kind of message scoped to a form or panel rather than the whole page.\n\n## When not to use\n\n* Don't use a banner to confirm a routine action: use a [global toast](global-toast); plain confirmations dismiss themselves after a few seconds.\n\n* Don't use it for feedback tied to one element on screen (a value copied, a field saved): use an [inline toast](inline-toast).\n\n* Don't use it for a single field's validation error: that belongs to inline validation on the [text input](text-input) itself.\n\n* Don't use it when a whole region failed to render: show an [error state](error-state) in place of the missing content.\n\n* Don't use it to ask for a decision before an action proceeds: use a [confirmation](confirmation) dialog.\n\n## Variant selection\n\n* **Primary (info):** neutral system information the user should know while working (an upcoming maintenance window, a policy change).\n\n* **Success:** a significant completed action the user must not miss the way they might a passing toast; dismissible. Routine completions stay a [global toast](global-toast); a finished journey ends on a [success state](success-state).\n\n* **Warning:** a condition that may affect work or data if the user proceeds.\n\n* **Danger:** an error that blocks work or requires action to resolve.\n\n* **Horizontal:** the default; a one-sentence message with the action inline.\n\n* **Vertical:** longer messages where the text wraps and the action drops below it, or narrow containers such as panels.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Place the banner at the top of the page or section it concerns | Float an alert in the middle of the screen |\n| Include the action that resolves the issue (**Log in again**) | State a problem with nothing the user can do about it |\n| Consolidate related problems into one banner | Stack three banners at the top of the same page |\n| Keep Warning and Danger banners up until resolved | Auto-dismiss an error the user has not dealt with |\n\n> Wording rules (one to two sentences, no \"Warning:\" prefixes, example messages) live in the Content guidelines for alert / banner.",
           "sections": [
             {
@@ -294,7 +294,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "avatar": {
       "_schema_version": 1,
@@ -380,7 +380,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an avatar to identify a person or account wherever ownership or authorship is surfaced: an Owner or Steward column in a [table](table), a comment thread, an assignee field.\n\n* Use it as a compact stand-in when a full name would take too much space, with the name reachable another way: adjacent text, the profile it opens on click, or a [tooltip](tooltip) plus accessible label. A hover tooltip must never be the only reveal; it is unreachable on touch.\n\n* Use it inside components that offer avatars: a [dropdown / select](dropdown-select) that shows avatars beside options when picking a person (assigning an owner or steward), or [tabs](tabs) showing an avatar when a tab represents a person or account.\n\n* Use a group of avatars to show the set of people attached to one item, for example everyone who owns or contributes to a data product.\n\n## When not to use\n\n* Don't use an avatar for things that are not people or accounts: datasets, connections, and data processes are identified by an icon and a name, not a face.\n\n* Don't use an avatar as a status or count indicator on an item: that is a [badge](badge).\n\n* Don't make an avatar trigger arbitrary actions: clicking it opens the person's profile or contact details, nothing else.\n\n## Variant selection\n\n* **Default:** a single person; the standard case in table cells, headers, and assignee fields.\n\n* **One group:** one set of people stacked in a row, for example all owners of an asset.\n\n* **Two groups:** two distinct sets shown side by side, for example owners and contributors, when the distinction matters at a glance.\n\n* **Image or initials:** show the profile photo when one exists; fall back to two uppercase initials, then to a generic placeholder when neither is available.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use first and last initial in uppercase (CF for Chris Frost) | Use a single letter or a first name |\n| Give the person's details a home beyond hover (profile on click, adjacent text) | Make a hover tooltip the only carrier of who this is |\n| Fall back to initials when the image fails to load | Show a broken image icon |\n| Collapse into a +N indicator when a group exceeds four avatars | Truncate a group without saying how many are hidden |\n\n> Initials format and tooltip content rules live in the Content guidelines for avatars.",
           "sections": [
             {
@@ -457,7 +457,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "badge": {
       "_schema_version": 1,
@@ -515,7 +515,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a badge to show a numeric count on an item, for example unread notifications on the bell in the [global header](global-header).\n\n* Use it for a short, system-set change flag on an item (**New**, **Updated**) that must be scannable in a [table](table) cell or on a [card](card). Lifecycle and status words (Draft, Published, Deprecated) belong to [tags](tag).\n\n* Use it to flag that something changed or needs attention while the item itself stays unchanged.\n\n* Put the dot form on a container (a [side nav](side-nav) entry, a tab) when the new content lives deeper inside.\n\n## When not to use\n\n* Don't use a badge for labels people apply or curate themselves: user-applied classification is a [tag](tag). The system sets and clears badges; users never do.\n\n* Don't make a badge interactive: it is a read-only signal, never a click target or a removable chip.\n\n* Don't use a badge to report the outcome of an action just taken: use a [global toast](global-toast) or [inline toast](inline-toast).\n\n* Don't badge everything on a screen: when every item carries one, none of them signals anything.\n\n## Variant selection\n\n* **Number:** the exact count carries meaning, for example 12 unread notifications or +5 hidden items.\n\n* **Dot:** the fact that something is new or changed matters more than how many; a dot draws the eye without a number to read.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show a count only when the number itself is useful | Display a badge with 0 |\n| Stick to change-flag vocabulary (New, Updated) | Invent per-screen status words |\n| Clear the badge as soon as the condition is resolved | Leave a stale New on an item seen weeks ago |\n| Keep the label to one word or a number | Write a phrase into a badge |\n| Place the badge consistently (top right of an icon, after an item name) | Move it around from screen to screen |\n\n> Status vocabulary and label length rules live in the Content guidelines for badges.",
           "sections": [
             {
@@ -621,7 +621,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "breadcrumb": {
       "_schema_version": 1,
@@ -677,7 +677,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use breadcrumbs to show where the user is in the product hierarchy and let them jump back up in one click (for example **Data products / Sales analytics / orders-raw**).\n\n* Use them in the [page header](page-header) of detail pages below a section root.\n\n* The deeper the nesting, the more the path matters (a dataset inside a data product, a field inside a dataset).\n\n## When not to use\n\n* Don't use breadcrumbs as the primary way to move between sections of the app: that is the [side nav](side-nav). Breadcrumbs only go up the current branch.\n\n* Don't treat them as a replacement for the browser back button: back retraces history, breadcrumbs climb the hierarchy. Both must work.\n\n* Don't show breadcrumbs on top-level list pages (connections, datasets): there is nothing above them, so a single-item trail is noise.\n\n* Don't use them to switch between peer views of the same entity: use [tabs](tabs).\n\n## Variant selection\n\nBreadcrumbs have a single Default variant; the choices are configuration.\n\n* **Trail depth:** show the full path from the section root to the current page. Two to four levels is typical; if trails regularly exceed that, the information architecture is too deep.\n\n* **Current page:** always the last item, rendered as plain text, never a link.\n\n* **Truncation:** keep full names; truncate an item only when space is severely limited, and truncate the middle levels before the current page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the exact page or entity name at every level | Paraphrase or shorten names (**Analytics** for **Sales analytics**) |\n| Render the current page as plain text at the end | Make the current page a clickable link |\n| Match the trail to the hierarchy shown in the side nav | Build the trail from the user's browsing history |\n| Keep every parent level clickable | Include decorative, non-navigable levels |\n\n> Naming pattern and truncation wording (Main component / Sub component / Specific item) live in the Content guidelines for breadcrumbs.",
           "sections": [
             {
@@ -790,7 +790,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-13T10:59:44+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "button": {
       "_schema_version": 1,
@@ -930,7 +930,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a button to trigger an action: submit a form, confirm a choice, start or cancel a process.\n\n* Use one filled (primary) button per view for the single most important action (for example **Create data product**, **Save changes**).\n\n* Use outlined (secondary) buttons for supporting actions that sit beside the primary (for example **Cancel**, **Back**, **Preview**).\n\n* Use ghost buttons for low-emphasis or repeated actions, such as row-level actions in a [table](table) or card footers.\n\n* Use icon-only buttons for compact, high-frequency actions whose icon is unambiguous; always pair them with a [tooltip](tooltip) that supplies the accessible name.\n\n## When not to use\n\n* Don't use a button to take the user somewhere: navigation is a [link](link). If activating it only changes location, it is not an action.\n\n* Don't use a button to switch between views of the same content: use [tabs](tabs) or a [segmented control](segmented-control).\n\n* Don't use a button for an immediate on/off state change: use a [toggle](toggle).\n\n* Don't line up more than three actions in a row: keep the two that matter and move the rest behind an actions menu (**Actions** or **More**, see [dropdown / select](dropdown-select)). A [page header](page-header) carries at most two.\n\n## Variant selection\n\n* **Filled (primary):** the one main action of the screen or modal.\n\n* **Outlined (secondary):** alternative actions displayed next to the primary.\n\n* **Ghost:** low-priority or repeated actions where visual noise must stay low (table rows, toolbars, card footers).\n\n* **Icon-only:** dense surfaces with well-known icons (edit, delete, refresh).\n\n* **Critical intent:** actions that destroy data or make a permanent change (for example **Delete dataset**). Pair with a [confirmation](confirmation) dialog (the 450px confirm [modal](modal)) when the loss is irreversible.\n\n* **Small size:** dense surfaces such as [table](table) rows and toolbars; use the default size everywhere else.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| One filled primary button per view | Two competing primary buttons side by side |\n| Confirm before a permanent destructive action | Delete data in a single click |\n| Give icon-only buttons a tooltip naming the action | Rely on the icon alone to convey the action |\n| Keep action placement consistent across similar screens | Reorder Cancel and Save from one modal to the next |\n\n> Label wording rules (sentence case, verb + object, no punctuation) live in the Content guidelines for buttons.",
           "sections": [
             {
@@ -1181,7 +1181,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T02:45:52+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "calendar": {
       "_schema_version": 1,
@@ -1269,7 +1269,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).\n\n* Use it to pick a date range where the span between start and end should stay visible while choosing.\n\n* Use it attached to a [date input](input-date) as the picking surface, or on its own when the month view is the main content of the screen.\n\n## When not to use\n\n* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](input-date), which pairs typing with an attached calendar.\n\n* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](input-date) is faster.\n\n* Don't use it to display schedules or events: it is a picking control, not a timeline view.\n\n## Variant selection\n\n* **Single selection:** picking one date; the standard mode when attached to a date input.\n\n* **Range selection:** picking a start and an end; the calendar shows the span between them while choosing.\n\n* **Month view:** the default granularity for picking individual days.\n\n* **Year view:** quick jumps to distant dates without paging month by month.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight today's date for orientation | Leave the user hunting for the current day |\n| Disable dates that cannot be chosen | Accept any date and show an error afterwards |\n| Show the span while a range is being picked | Reveal the range only after both ends are set |\n| Open on the month of the current or previously chosen value | Always open on the same fixed month |\n| Keep the week layout consistent across the product | Change the first day of the week between screens |\n\n> Date format and range label wording rules (**Start date**, **End date**; displayed format Jun 28, 2026, typed format YYYY-MM-DD) live in the Content guidelines for calendars.",
           "sections": [
             {
@@ -1349,7 +1349,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -1484,7 +1484,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card).\n\n## When to use\n\n* Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.\n\n* Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.\n\n* Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.\n\n* Use cards as gateways to collections, for example topic cards on the Explorer home.\n\n## When not to use\n\n* Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).\n\n* Don't use a card for a lone block of text on a page: plain page content needs no frame.\n\n* Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).\n\n* Don't nest cards inside cards; use the grouped-content card's slot for inner content instead.\n\n## Variant selection\n\n* **Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.\n\n* **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.\n\n* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio) (exactly one).\n\n* **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.\n\n* **View card:** saved views; do not reuse it for other entities.\n\n* **Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Make the whole item card one click target to the detail page | Scatter separate links inside the card body |\n| Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |\n| Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |\n| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |\n\n> Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.",
           "sections": [
             {
@@ -1647,7 +1647,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "card-for-grouped-content": {
       "_schema_version": 1,
@@ -1782,7 +1782,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card).\n\n## When to use\n\n* Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.\n\n* Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.\n\n* Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.\n\n* Use cards as gateways to collections, for example topic cards on the Explorer home.\n\n## When not to use\n\n* Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).\n\n* Don't use a card for a lone block of text on a page: plain page content needs no frame.\n\n* Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).\n\n* Don't nest cards inside cards; use the grouped-content card's slot for inner content instead.\n\n## Variant selection\n\n* **Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.\n\n* **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.\n\n* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio) (exactly one).\n\n* **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.\n\n* **View card:** saved views; do not reuse it for other entities.\n\n* **Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Make the whole item card one click target to the detail page | Scatter separate links inside the card body |\n| Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |\n| Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |\n| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |\n\n> Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.",
           "sections": [
             {
@@ -1945,7 +1945,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "card"
     },
     "card-for-items": {
@@ -2081,7 +2081,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card).\n\n## When to use\n\n* Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.\n\n* Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.\n\n* Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.\n\n* Use cards as gateways to collections, for example topic cards on the Explorer home.\n\n## When not to use\n\n* Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).\n\n* Don't use a card for a lone block of text on a page: plain page content needs no frame.\n\n* Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).\n\n* Don't nest cards inside cards; use the grouped-content card's slot for inner content instead.\n\n## Variant selection\n\n* **Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.\n\n* **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.\n\n* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio) (exactly one).\n\n* **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.\n\n* **View card:** saved views; do not reuse it for other entities.\n\n* **Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Make the whole item card one click target to the detail page | Scatter separate links inside the card body |\n| Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |\n| Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |\n| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |\n\n> Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.",
           "sections": [
             {
@@ -2244,7 +2244,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "card"
     },
     "card-for-perimeter": {
@@ -2380,7 +2380,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the card family: card for items, card for grouped content, selectable cards, card for perimeter, view card, and [search result card](search-result-card).\n\n## When to use\n\n* Use a card grid for browseable items whose identity matters more than attribute comparison: data products, datasets, visualizations, glossary topics.\n\n* Use a card when each item needs a recognizable face: name, type, a couple of metadata lines, and a click target to its detail page.\n\n* Use a grouped-content card to frame a related block (a summary, a chart, a settings group) on a dashboard or detail page.\n\n* Use cards as gateways to collections, for example topic cards on the Explorer home.\n\n## When not to use\n\n* Don't use cards for large sets of comparable records that users sort and filter: use a [table](table).\n\n* Don't use a card for a lone block of text on a page: plain page content needs no frame.\n\n* Don't put primary page actions inside a card: page-level actions belong in the [page header](page-header).\n\n* Don't nest cards inside cards; use the grouped-content card's slot for inner content instead.\n\n## Variant selection\n\n* **Card for items:** clickable entities in a grid. Pick the type that matches the entity: **Catalog** for catalog assets, **Item** for generic items, **Glossary type** for glossary entries, **Topic** for curated groupings. Enable the AI-ready flag only when the platform has marked the asset AI ready.\n\n* **Card for grouped content:** a container with an optional header and a free slot; use it to frame dashboard widgets or detail-page sections, not to represent an entity.\n\n* **Selectable card:** options presented as rich cards at a decision point; selection follows [checkboxes](checkbox) (several) or [radio buttons](radio) (exactly one).\n\n* **Card for perimeter:** perimeter definitions in Explorer; do not reuse it for other entities.\n\n* **View card:** saved views; do not reuse it for other entities.\n\n* **Search result card:** search results only, with an Explorer and a Studio variant; never use it in ordinary grids.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Make the whole item card one click target to the detail page | Scatter separate links inside the card body |\n| Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |\n| Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |\n| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |\n\n> Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.",
           "sections": [
             {
@@ -2543,7 +2543,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-23T16:24:56+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "card"
     },
     "chat-with-ai-steward": {
@@ -2639,7 +2639,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "owner": "design",
           "markdown": "## Where it lives\n\nThe steward is the AI surface for **Studio and Explorer**. It is not part of Administration. It opens as a side panel (Drawer variant) over the working context — search results, asset detail, lineage — and never navigates away.\n\n## When AI content appears\n\n* On explicit user ask (\"Ask AI\" entry points: global header action, asset detail, search results).\n\n* As inline suggestions (\"Suggestion\" = AI-generated metadata enrichment) surfaced in context; suggestions follow the same identification rules as panel content and are always dismissible.\n\n## Distinguishing AI content from static UI\n\n1. **Surface:** AI content renders on an elevated surface (see the design guidelines) — never flush with static page content.\n2. **Identification:** every AI-generated block carries the sparkle marker (`ai` icon) with the accessible label \"Generated by AI\". Identification is icon + label, never color alone.\n3. **Provenance:** source line + confidence (see the content guidelines). Static UI never carries these; their presence is itself a signal.\n\n## Interaction expectations\n\n* Accept / Regenerate / Discard on every output; generation is cancellable.\n\n* AI output is never injected into the user's focus path without warning.\n\n* Suggestions are bypassable — they must never gate task completion.\n\n## Don't\n\n* Don't use the steward pattern in Administration (no AI surface there today).\n\n* Don't restyle static components in \"AI purple\" to imply intelligence.\n\n* Don't stream into a surface the user is actively editing.",
           "sections": [
@@ -2763,7 +2763,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-23T14:42:59+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "checkbox": {
       "_schema_version": 1,
@@ -3527,7 +3527,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use checkboxes when the user can pick several independent options from a group (for example filtering datasets by format, owner, and status at once).\n\n* Use a single checkbox for one standalone opt-in inside a form that submits, where nothing changes until save (for example **Enable notifications**, agreeing to terms).\n\n* Use checkboxes for bulk selection of rows in a [table](table), such as picking datasets to add to a data product.\n\n## When not to use\n\n* Don't use a checkbox for a setting that takes effect the moment it is clicked: use a [toggle](toggle).\n\n* Don't use checkboxes when exactly one option must be chosen: use a [radio button](radio) group.\n\n* Don't stack a checkbox group past roughly seven options: use a [multi-select](multi-select).\n\n## Variant selection\n\n* **Checked / unchecked:** the normal two-state choice; every checkbox the user interacts with resolves to one of these.\n\n* **Indeterminate:** only as a parent whose children are partially selected, such as the select-all header of a [table](table). It is never a third value the user picks directly.\n\n* **Card format:** options that need rich context (title, description, image), at a primary decision point such as choosing a template or a connection type (see [cards](card)).\n\n* **Group vs standalone:** group related checkboxes under one group label; a lone opt-in stands on its own with a clear action label.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Let form checkboxes wait for submit (filters and row selection act instantly) | Fire a save request on every tick |\n| Use indeterminate only for partial child selection | Offer indeterminate as a choosable state |\n| Keep every option in a group independent | Mix mutually exclusive options into one checkbox group |\n| Group related checkboxes under one group label | Scatter related options across the form |\n\n> Label wording rules (positive form, parallel structure) live in the Content guidelines for checkboxes.",
           "sections": [
             {
@@ -3664,7 +3664,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "collapse-accordion": {
       "_schema_version": 1,
@@ -3748,7 +3748,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a collapse / accordion to progressively disclose secondary content on long pages: advanced settings, connection details, FAQ answers.\n\n* Use it when content is long and only some users need all of it: everyone else keeps a shorter page.\n\n* Use it to reduce vertical clutter on a detail or settings page while keeping every section on the page and reachable in one click.\n\n## When not to use\n\n* Don't use it for content users need on every visit: keep frequently accessed content visible.\n\n* Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.\n\n* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).\n\n* Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event.\n\n## Variant selection\n\nCollapse / accordion sections have no type or size variants; the choices are between modes and configurations.\n\n* **One open at a time:** the default; opening a section closes the current one. Allow multiple open sections only when users genuinely compare their contents.\n\n* **Initial state:** sections holding optional content start collapsed; auto-expanding everything on load defeats the disclosure.\n\n* **Header:** the whole header row is the toggle, with a chevron that rotates to show the open or closed state.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Label sections with specific noun phrases (Advanced settings, Connection details) | Fall back to generic labels (More options, Details) |\n| Put only genuinely optional content behind a collapse | Hide required form fields in a collapsed section |\n| Animate expand and collapse smoothly | Snap open with a layout shift |\n| Keep the header label identical in both states | Toggle the label between Show and Hide |\n\n> Header label wording rules live in the Content guidelines for collapse / accordion.",
           "sections": [
             {
@@ -3827,7 +3827,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "combo-box": {
       "_schema_version": 1,
@@ -3917,7 +3917,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a combo box to select one value from a long list (roughly 20 or more items) where typing to narrow the options beats scrolling (for example picking a schema, a dataset, or a connection from hundreds).\n\n* Use it when freeform input is valid alongside the suggestions, so the user can either pick a listed value or enter a new one.\n\n* Use it when users typically know the value by name and can type its first characters faster than they can scan a menu.\n\n## When not to use\n\n* Don't use a combo box for a short, stable list users can scan without typing: use a [dropdown / select](dropdown-select).\n\n* Don't use it to query or filter the content of the page: use [search](search). A combo box narrows a field's own options, not what the page shows.\n\n* Don't use it to collect several values as chips: use a [multi-select](multi-select).\n\n* Don't use it for freeform values with no meaningful suggestion list: use a [text input](text-input).\n\n## Variant selection\n\nCombo boxes have no type or size variants; the choices are between modes.\n\n* **List-only:** only listed values are valid; typing filters the options and the user must pick one.\n\n* **Free entry:** typed values outside the list are accepted, for example naming a new tag while suggesting existing ones.\n\n* **Value display:** keep the chosen value visible in the field after selection; clear the input on selection only when the value is displayed elsewhere.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Filter the options as the user types | Wait for Enter to run the filter |\n| Show a no-results message when nothing matches | Present an empty open list |\n| Let users open the full list before typing anything | Force typing before any option shows |\n| Allow selection with Enter as well as click | Require a mouse click to choose |\n\n> Placeholder and option wording rules live in the Content guidelines for combo boxes.",
           "sections": [
             {
@@ -3996,7 +3996,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "confirmation": {
       "_schema_version": 1,
@@ -4073,7 +4073,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a confirmation to interrupt the user before an irreversible or destructive action and verify intent: deleting a dataset, revoking a connection, resetting a configuration.\n\n* Use it when the action reaches beyond the user's own work: unpublishing a shared data product, removing another user's access.\n\n* Use it only when the action cannot be undone; the interruption is the price of irreversibility.\n\n## When not to use\n\n* Don't confirm reversible actions: perform them and offer **Undo** in a [global toast](global-toast).\n\n* Don't confirm routine, low-stakes operations (saving, closing a panel with nothing typed); constant interruptions teach users to click through.\n\n* Don't use a confirmation to collect input or choices: that is a create or edit task for a [modal](modal).\n\n* Don't use it after the action to report the outcome: completion feedback is a [global toast](global-toast), and a finished journey ends on a [success state](success-state).\n\n## Variant selection\n\nConfirmations come in one dialog size; the vehicle is the 450px confirm [modal](modal), and the choices are configuration.\n\n* **Destructive:** the primary action uses the critical [button](button) intent (**Delete**, **Revoke**); start focus on the safe action.\n\n* **Consequential but not destructive:** a permanent change that destroys nothing (transferring ownership); keep the default primary intent.\n\n* Keep it to one sentence of consequence and two actions; if it needs more, the action deserves a task modal or a page, not a bigger dialog.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Ask about one decision at a time | Chain a second confirmation behind the first |\n| Make **Cancel** a safe, complete exit | Start any part of the action before the user confirms |\n| Require a typed name when irreversibly deleting a shared or production asset | Guard a shared, production-wide delete with one click |\n| Reserve the interruption for irreversible actions | Confirm what a toast **Undo** already protects |\n\n> Wording rules (title names the action, CTA matches the title verb, body states the consequence) live in the Content guidelines for confirmation.",
           "sections": [
             {
@@ -4152,7 +4152,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "drawer-side-panel": {
       "_schema_version": 1,
@@ -4356,7 +4356,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a drawer for a quick view of an item's properties when the user clicks a tile in a list or a catalog search result: metadata, details, and actions, without leaving the page.\n\n* Use it to surface dependencies, related assets, or linked catalog entries alongside an asset detail page.\n\n* Use it for secondary tasks that need focus while the main page stays visible for reference: the mirror case of a [modal](modal), which blocks the page behind.\n\n* Use it to cut context switching during browsing and review: open, scan, close, move to the next item.\n\n## When not to use\n\n* Don't use a drawer for confirmations or destructive actions: use a [modal](modal), which forces the stop-and-think moment a drawer deliberately avoids.\n\n* Don't rebuild the full detail experience in the panel: when the user needs everything, send them to the full details page instead.\n\n* Don't use it for a linear multi-step process: navigate to a dedicated page with a [stepper](stepper).\n\n* Don't use it for a one-line definition or hint: use a [popover](popover) or [tooltip](tooltip).\n\n## Variant selection\n\n* **Studio** and **Explorer:** the only choice is the app; pick the one matching the product the panel opens in so the chrome stays consistent.\n\n* Content is otherwise free-form: compose metadata, attribute groups, related items, and actions to fit the task.\n\n* **Dismissal and focus:** Escape closes the panel and focus returns to the element that opened it; the non-modal form never traps focus, so the browse loop (open, scan, close, next) works by keyboard.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Slide in from the right, over the current page | Push the page content aside or navigate away |\n| Title the panel with the exact asset name | Paraphrase or shorten the name |\n| Put a View full details link at the top right | Bury the way to the full page |\n| Show a message when a section is empty (No related datasets found.) | Leave a blank section |\n| Group related attributes under subheadings when the panel runs long | Pour everything into one unstructured list |\n\n> Attribute label wording and empty-section copy live in the Content guidelines for drawers.",
           "sections": [
             {
@@ -4437,7 +4437,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "dropdown-select": {
       "_schema_version": 1,
@@ -4517,7 +4517,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a dropdown to select one item from a predefined list of roughly six or more options (for example **Connection type**, **Region**, **Glossary domain**).\n\n* Use it when space is limited and the alternatives don't need to stay visible: only the chosen value matters after selection.\n\n* Use it for filter controls above a [table](table) or catalog list, where several dropdowns sit side by side.\n\n* Use it as an actions menu: a button labeled with a clear action or noun (**Actions**, **More**) opening a short list of commands, for example overflow actions on a row or page.\n\n## When not to use\n\n* Don't hide two to five options behind a dropdown when they fit on screen: use a [radio button](radio) group so users can compare at a glance.\n\n* Don't make users scroll a very long list (countries, long dataset lists): use a [combo box](combo-box) so typing narrows the options.\n\n* Don't use it as a form field that collects several values: use a [multi-select](multi-select). The Search/Multiple variant is for in-menu filter checkboxes, not multi-value input.\n\n* Don't use it to switch views of the same content with immediate effect: use a [segmented control](segmented-control).\n\n## Variant selection\n\n* **Default:** single choice from a short, stable list; the standard form control.\n\n* **Search/Multiple:** lists too long to scan without an in-menu search field, or controls that allow more than one selection via checkboxes.\n\n* **With avatar:** choosing a person or account, for example assigning an owner or steward to a data product.\n\n* **Compact/Custom:** dense surfaces such as [table](table) toolbars and inline filters where the default height is too tall.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Sort options predictably (alphabetical, or most common first) | Order options in the sequence they were coded |\n| Preselect the most common value when one exists | Force a pick when almost everyone chooses the same value |\n| Show the selected value in the closed control | Keep showing **Select...** after a choice is made |\n| Keep option labels to a few words | Write full sentences as options |\n\n> Menu-item wording rules (verb + noun, sentence case) live in the Content guidelines for dropdowns.",
           "sections": [
             {
@@ -4595,7 +4595,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "dropdown-select-default": {
       "_schema_version": 1,
@@ -4675,7 +4675,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a dropdown to select one item from a predefined list of roughly six or more options (for example **Connection type**, **Region**, **Glossary domain**).\n\n* Use it when space is limited and the alternatives don't need to stay visible: only the chosen value matters after selection.\n\n* Use it for filter controls above a [table](table) or catalog list, where several dropdowns sit side by side.\n\n* Use it as an actions menu: a button labeled with a clear action or noun (**Actions**, **More**) opening a short list of commands, for example overflow actions on a row or page.\n\n## When not to use\n\n* Don't hide two to five options behind a dropdown when they fit on screen: use a [radio button](radio) group so users can compare at a glance.\n\n* Don't make users scroll a very long list (countries, long dataset lists): use a [combo box](combo-box) so typing narrows the options.\n\n* Don't use it as a form field that collects several values: use a [multi-select](multi-select). The Search/Multiple variant is for in-menu filter checkboxes, not multi-value input.\n\n* Don't use it to switch views of the same content with immediate effect: use a [segmented control](segmented-control).\n\n## Variant selection\n\n* **Default:** single choice from a short, stable list; the standard form control.\n\n* **Search/Multiple:** lists too long to scan without an in-menu search field, or controls that allow more than one selection via checkboxes.\n\n* **With avatar:** choosing a person or account, for example assigning an owner or steward to a data product.\n\n* **Compact/Custom:** dense surfaces such as [table](table) toolbars and inline filters where the default height is too tall.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Sort options predictably (alphabetical, or most common first) | Order options in the sequence they were coded |\n| Preselect the most common value when one exists | Force a pick when almost everyone chooses the same value |\n| Show the selected value in the closed control | Keep showing **Select...** after a choice is made |\n| Keep option labels to a few words | Write full sentences as options |\n\n> Menu-item wording rules (verb + noun, sentence case) live in the Content guidelines for dropdowns.",
           "sections": [
             {
@@ -4753,7 +4753,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "dropdown-select"
     },
     "empty-state": {
@@ -4867,7 +4867,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an empty state when a container has no content yet: no datasets created, no connections configured, an empty glossary on first use.\n\n* Use it when a [search](search) or filter returns nothing, so the user knows the query worked but matched no items.\n\n* Compose it from an illustration (decorative for assistive tech), a clear title, a short explanation, and a way forward.\n\n* Give first-use containers a create call to action (**Create dataset**), including a [table](table) with no rows yet.\n\n* For empty search or filter results, drop the create action and offer query adjustment instead (clear filters, broaden the search). Inside a filtered [table](table), keep the table chrome and offer the clear-filters link there.\n\n## When not to use\n\n* Don't use an empty state when something failed. A request error, a broken connection, or a failed load is an [error state](error-state); masking a failure as \"no content\" hides the problem.\n\n* Don't use an empty state while content is on its way: use a [loading skeleton](loading-skeleton) until the response lands, then decide between content, empty, and error.\n\n* Don't use it for planned downtime or an unavailable service: use a [maintenance state](maintenance-state).\n\n* Don't use it to celebrate the end of a flow: a completed creation or setup journey ends on a [success state](success-state).\n\n## Variant selection\n\n* **Large:** a full page or the main content region owns the emptiness (first visit to Datasets in Studio, an empty catalog in Explorer).\n\n* **Medium:** a panel, section, or [table](table) body inside a page that otherwise has content (an empty tab on a data product's detail page).\n\n* **Small:** compact containers such as cards, side panels, or dropdown lists, where the illustration must not dwarf the widget.\n\n* Pick the size from the container, not from how important the message feels; a Large illustration inside a card overwhelms the page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Give first-use emptiness a create CTA (**Add connection**) | Show \"No results.\" with no way forward |\n| Offer **Clear filters** when a search matches nothing | Push **Create dataset** at a user whose search found nothing |\n| Match size to the container (Small in a card) | Put a full-page Large empty state inside a panel |\n| Show an [error state](error-state) when the load failed | Pretend a failed request is an empty container |\n\n> Wording rules (instructive headline, one-sentence body, CTA phrasing) live in the Content guidelines for empty state.",
           "sections": [
             {
@@ -4946,7 +4946,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-13T14:14:29+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "error-state": {
       "_schema_version": 1,
@@ -5055,7 +5055,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an error state when a page, panel, or resource failed to load and its content cannot be shown: a request error, a broken connection, a failed fetch.\n\n* Use it when a user action failed in a way that empties or invalidates the container it ran in.\n\n* Compose it from an illustration, a clear title, a short explanation, and a recovery action (**Try again**).\n\n## When not to use\n\n* Don't use an error state when the container is simply empty: no datasets yet is an [empty state](empty-state), not a failure.\n\n* Don't use it while the request is still in flight: show a [loading skeleton](loading-skeleton) until the response lands.\n\n* Don't use it for planned downtime or a known outage: use a [maintenance state](maintenance-state).\n\n* Don't use it for a field or form error: that belongs to inline validation on the [text input](text-input), or an [alert banner](alert-banner) for section-level problems.\n\n* Don't use it for a failed background action that doesn't block the current view: use a critical [global toast](global-toast) with a retry.\n\n## Variant selection\n\n* **Large:** the full page or main content region failed (a dataset detail page that won't load).\n\n* **Medium:** a panel, section, or [table](table) body failed inside a page that otherwise works (one widget's query failing on a dashboard).\n\n* Match the size to the failed container; a Large treatment inside a panel blames the whole page for one section's failure.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Give every error state a recovery action (**Try again**) | Dead-end the user with a message and no way forward |\n| Keep the rest of the page interactive around a Medium error | Freeze working content because one section failed |\n| Replace the skeleton the moment the request fails | Leave a [loading skeleton](loading-skeleton) pulsing over a dead request |\n| Preserve the user's context (filters, scroll) across a retry | Reset the page state on every **Try again** |\n\n> Wording rules (specific and non-blaming, no raw error codes, example messages) live in the Content guidelines for error state.",
           "sections": [
             {
@@ -5132,7 +5132,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "global-header": {
       "_schema_version": 1,
@@ -5199,7 +5199,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use the global header as the one persistent bar at the top of every screen, across Studio, Explorer, and Administration.\n\n* Use it for suite-level chrome only: switching between product areas, global [search](search), notifications, what's new, help, and the account menu (profile, logout).\n\n* Use it to state which app the user is in: the branded title and navigation context adapt to the current app.\n\n## When not to use\n\n* Don't put page identity or page-level actions in it (**New dataset**, **Edit**): those belong to the [page header](page-header), which sits below it.\n\n* Don't use it to navigate between sections within an app: that is the [side nav](side-nav).\n\n* Don't add app-specific or entity-specific tools to it: if a control only makes sense on one page or for one entity, it does not belong in suite chrome.\n\n* Don't stack a second custom top bar under it: one global header per screen, then the page header.\n\n* Don't detach its dropdowns from it: notifications, [what's new](whats-new-dropdown), and the account menu open anchored to their header icons.\n\n## Variant selection\n\n* **App type (Studio, Explorer, Admin):** always match the app the user is actually in; never mix one app's header with another app's content.\n\n* **Breakpoints (XL to XS):** the breakpoint follows the viewport of the screen you are designing for; it is not a preference.\n\n* Across app types, only the branded title and navigation context change: utility icons keep the same set, order, and position everywhere.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the header identical in structure across all apps | Rearrange utility icons from one app to the next |\n| Reflect the current app in the branded title | Show the Studio header on an Explorer page |\n| Give unlabeled utility icons a [tooltip](tooltip) | Add text labels next to every icon |\n| Route recent-changes announcements to the [what's new](whats-new-dropdown) entry | Announce releases with a page-level banner on every screen |\n\n> Wording for the branded title and utility tooltips lives in the Content guidelines for the global header.",
           "sections": [
             {
@@ -5338,7 +5338,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "global-toast": {
       "_schema_version": 1,
@@ -5425,7 +5425,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a global toast to confirm the result of an async or background action: import finished, export ready, connection saved. It appears at a fixed screen edge, independent of what triggered it; plain confirmations dismiss themselves after a few seconds.\n\n* Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the [notification](notification) keeps the durable record; the toast only announces.\n\n* Use it for non-critical errors or warnings that do not block the user, ideally with a retry action (**Connection failed. Try again**). A toast that carries an action (**Undo**, **Try again**) must stay up until dismissed, never auto-dismiss.\n\n## When not to use\n\n* Don't use a toast for a message that must persist until the user deals with it: use an [alert banner](alert-banner) at the top of the page or section.\n\n* Don't use a toast for an error the user must act on. Blocking or actionable errors belong inline next to the control that caused them, or in an [alert banner](alert-banner).\n\n* Don't use a toast for feedback tied to a specific element on screen (a copied value, a field saved in place): use an [inline toast](inline-toast) anchored to that element.\n\n* Don't use a toast to ask anything. If the user must decide before continuing, use the 450px confirm [modal](modal).\n\n* Don't use a toast to close out a whole flow: a completed setup or creation journey ends on a [success state](success-state), not a passing message.\n\n## Variant selection\n\n* **Default:** confirmations and neutral notices (saved, exported, published). The variant for nearly every toast.\n\n* **Critical:** a failed background action worth the user's attention but not their immediate action (export failed, sync interrupted). Pair with a retry action where possible; if the failure blocks the user's current task, it is not a toast.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the message to one short sentence | Explain the whole operation in the toast |\n| Offer **Undo** after a reversible delete | Interrupt quick reversible actions with a confirm modal |\n| Keep an actionable toast up until dismissed | Auto-dismiss a toast carrying **Undo** or **Retry** |\n| Queue toasts when several arrive | Pile every background job's toast down the screen edge |\n| Route actionable errors to inline validation or an [alert banner](alert-banner) | Announce a form error in a toast that vanishes before it is read |\n\n> Wording rules (one short sentence, undo phrasing, example messages) live in the Content guidelines for global toast.",
           "sections": [
             {
@@ -5505,7 +5505,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "inline-toast": {
       "_schema_version": 1,
@@ -5596,7 +5596,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an inline toast to confirm a localized micro-action, right where it happened: a value copied to the clipboard, a field saved in place, a tag added to an asset, a share link generated.\n\n* Use it when the user's eyes are already on the element the feedback concerns, inside a form, panel, or drawer. The message appears next to that element, not at the screen edge.\n\n* Use it for brief, non-blocking feedback that the user can safely miss: it confirms, it never asks.\n\n## When not to use\n\n* Don't use an inline toast for the result of a page-level or background action (import finished, scan started): use a [global toast](global-toast) at the screen edge.\n\n* Don't use an inline toast for an error the user must fix. Field errors belong to inline validation on the [text input](text-input) itself; section-level problems belong in an [alert banner](alert-banner).\n\n* Don't use an inline toast for a message that must persist until acknowledged: use an [alert banner](alert-banner).\n\n* Don't stack inline toasts to narrate a multi-step operation; confirm the end result once with a [global toast](global-toast).\n\n## Variant selection\n\nInline toasts have no variants of their own; the choice is the intent.\n\n* **Success:** the default and by far the most common intent (**Copied**, **Saved**, **Tag added**).\n\n* **Info:** a neutral, transient notice tied to an element (for example a value refreshed in place).\n\n* **Warning:** a non-blocking caution the user can ignore (for example a value saved with a fallback). If the user must respond, leave the toast family.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep it under ten words (**Copied**, **Link created**) | Write a sentence explaining what copying means |\n| Anchor the toast to the element it confirms | Float a \"Saved\" message at the screen edge for one field |\n| Let it dismiss itself without user action | Add a close button to a two-word confirmation |\n| Use inline validation for field errors | Report a required-field error in a toast that fades away |\n\n> Wording rules (under ten words, past-tense confirmations, example messages) live in the Content guidelines for inline toast.",
           "sections": [
             {
@@ -5675,7 +5675,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "input-date": {
       "_schema_version": 1,
@@ -6393,7 +6393,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
           "sections": [
             {
@@ -6473,7 +6473,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "link": {
       "_schema_version": 1,
@@ -6619,7 +6619,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a link to take the user somewhere: another page, another section, or an external resource. If activating it only changes location, it is a link.\n\n* Use inline links inside prose to connect a mention to its page (for example the data process name in \"created by the **Nightly import**\").\n\n* Use standalone links for contextual navigation next to content (for example **View dataset details**, **Learn more**).\n\n* Use an external link icon when the destination leaves the product.\n\n## When not to use\n\n* Don't use a link to trigger an action: submitting a form, downloading a file, starting or deleting something is a [button](button). Actions change state; links change place.\n\n* Don't dress a link as a low-emphasis action: use a ghost [button](button) instead of a link for **Cancel** or **Retry**.\n\n* Don't use links to switch between views of the same content: use [tabs](tabs) or a [segmented control](segmented-control).\n\n* Don't use a bare icon as a link without an accessible label.\n\n## Variant selection\n\nLinks have no type or size variants; the choices are between modes and configurations.\n\n* **Inline:** within a sentence or table cell; link only the specific relevant words, never the whole sentence.\n\n* **Standalone:** on its own line, typically after or below the content it extends.\n\n* **External:** add the external link icon; only these open outside the current context.\n\n* **Visited:** keep the visited state visually distinct in both inline and standalone positions.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Reserve links for navigation, buttons for actions | Trigger a delete or a submit from a link |\n| Name the destination in the link text (**View dataset details**) | Write **Click here** or paste a raw URL |\n| Open in the same tab unless marked external | Surprise the user with a new tab |\n| Mark external destinations with the icon | Send users out of the product unannounced |\n\n> Link text rules (descriptive wording, consistency, sentence case, no terminal punctuation) live in the Content guidelines for links.",
           "sections": [
             {
@@ -6700,7 +6700,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "loader": {
       "_schema_version": 1,
@@ -6771,7 +6771,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a loader for an indeterminate wait on a large component or a section of a page: a fetch whose duration is unknown and whose result can't be sketched in advance.\n\n* Use it for in-page transitions where a region's content is being replaced (switching a dashboard's data source, reloading a results panel).\n\n* Use it as the fallback loading treatment when no more specific indicator fits the container.\n\n## When not to use\n\n* Don't use a loader when the layout of the incoming content is known: use a [loading skeleton](loading-skeleton) that sketches it.\n\n* Don't use it for a small, control-level wait (a saving button, a validating field): use a [spinner](spinner) inside the control.\n\n* Don't use it for application startup or switches between apps: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable (an upload, a stepped job): use a [progress bar](progress-bar-small).\n\n## Variant selection\n\nLoaders have no type or size variants; the choice is between two configurations.\n\n* **Bare loader:** the default for indeterminate waits expected to stay short.\n\n* **With message:** add one brief present-tense line (**Loading datasets...**) when the wait is likely to exceed three seconds.\n\n* Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification](notification) on completion.\n\n* Center the loader in the region it replaces, sized to that container rather than to the page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Prefer a [loading skeleton](loading-skeleton) once a view's layout is stable enough to sketch | Spin a generic loader over a table whose columns never change |\n| Show one loader per waiting region | Nest loaders inside an already-loading region |\n| Resolve to content, an [empty state](empty-state), or an [error state](error-state) | Keep spinning after the request has failed |\n| Skip it for sub-second responses | Flash a loader that disappears before it is seen |\n\n> Wording rules (brief present-tense messages, when to add one) live in the Content guidelines for loader.",
           "sections": [
             {
@@ -6851,7 +6851,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "loader-with-logo": {
       "_schema_version": 1,
@@ -6922,7 +6922,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use the loader with logo for application startup: the first paint of Studio, Explorer, or Administration before the shell renders.\n\n* Use it for logging in and out, where the suite itself is the context.\n\n* Use it for switches between apps of the suite, where the whole screen changes hands.\n\n* Use it full-screen only; the brand carries the wait when there is nothing else on screen to look at.\n\n## When not to use\n\n* Don't use it for in-page or section-level loading: use the standard [loader](loader).\n\n* Don't use it once the app shell has rendered and the incoming layout is known: use a [loading skeleton](loading-skeleton) for the content.\n\n* Don't use it for a control-level wait: use a [spinner](spinner).\n\n* Don't use it when progress is measurable (an install, a large import): use a [progress bar](progress-bar-small).\n\n* Don't use it when the transition is instant; a flash of brand between two ready screens reads as a glitch.\n\n## Variant selection\n\n* **Studio / Explorer / Admin:** match the logo to the destination app, the one being opened, not the one being left.\n\n* **Actian Data Intelligence:** suite-level surfaces where no single app owns the screen (login, the switch itself before a destination is chosen).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Match the logo to the app being opened | Show the Studio mark while Explorer boots |\n| Hand off to the shell and its [loading skeleton](loading-skeleton) as soon as they can render | Hold the logo screen until every widget has data |\n| Show it for the whole boot, once | Replay it on every in-app navigation |\n| Respect reduced-motion preferences with a calm fallback | Force the full animation on users who opted out |\n\n> Wording rules (brief present-tense messages such as **Loading your workspace...**) live in the Content guidelines for loader with logo.",
           "sections": [
             {
@@ -6999,7 +6999,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "loading-skeleton": {
       "_schema_version": 1,
@@ -7058,7 +7058,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a loading skeleton when content is on its way and the layout is known in advance: the placeholder sketches the blocks the content will fill.\n\n* Use it for content-heavy views: [table](table) rows, card grids, detail pages with a fixed structure.\n\n* Use it for the first paint of a page inside an already-running app, before the response lands.\n\n* Keep it visual only; if the wait needs a message, use a [loader](loader) alongside instead of writing into the blocks.\n\n## When not to use\n\n* Don't use a skeleton when the incoming layout is unpredictable: use a [loader](loader).\n\n* Don't use it for a small, control-level wait: use a [spinner](spinner) inside the control.\n\n* Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable: use a [progress bar](progress-bar-small).\n\n## Variant selection\n\nLoading skeletons have no type or size variants; the shape is the choice, built from the layout it stands in for.\n\n* **Structure:** same columns, headings, and block placement as the final view.\n\n* **Density:** a plausible number of rows or cards for the container, not an arbitrary fill.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Mirror the final layout's shapes | Show generic gray bars unrelated to the content |\n| Resolve to content, an [empty state](empty-state), or an [error state](error-state) when the response lands | Drop from skeleton to a blank container |\n| Fill in real content progressively as it arrives | Hold the whole skeleton until the last request finishes |\n| Cap the placeholder at a screenful | Fake two hundred skeleton rows for a table of five |\n\n> Copy rules (skeletons carry no text, no \"Loading...\" inside blocks) live in the Content guidelines for loading skeleton.",
           "sections": [
             {
@@ -7137,7 +7137,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "maintenance-state": {
       "_schema_version": 1,
@@ -7244,7 +7244,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a maintenance state when a page, feature, or app is temporarily unavailable because of planned work: an upgrade window, a migration, scheduled downtime.\n\n* Use it for a known, acknowledged outage while work is underway, so users see intent and timing rather than a raw failure.\n\n* Compose it from an illustration, a title, and what is affected; timing and the optional action are covered under Variant selection.\n\n## When not to use\n\n* Don't use it for an unexpected failure the product just hit: something broken is an [error state](error-state) with a **Try again**.\n\n* Don't use it for a container with no content yet: that is an [empty state](empty-state).\n\n* Don't use it to warn ahead of a window while everything still works: announce upcoming maintenance in a Primary [alert banner](alert-banner).\n\n* Don't let it block the whole app when one feature is down: scope it to the affected page or region and keep the rest working.\n\n## Variant selection\n\nMaintenance states come in a single Large size; the choices are configuration.\n\n* **Timing line:** include what is affected and the expected end (**until 12:00 PM EST**) whenever known.\n\n* **CTA:** at most one action, and only when acting helps (**Refresh** for a window that may already be over); omit it otherwise.\n\n* **Placement:** the state owns the main content region of whatever is down, the way an [error state](error-state) would.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Take it down as soon as service is restored | Leave the maintenance screen up past the window |\n| Give real timing when known (**until 12:00 PM EST**) | Promise \"back soon\" for an all-day migration |\n| Keep navigation to unaffected areas usable | Trap the user with no way to the rest of the app |\n| Describe a shared outage the same way in Studio and Explorer | Tell each app a different story about the same window |\n\n> Wording rules (what is affected and for how long, example messages) live in the Content guidelines for maintenance state.",
           "sections": [
             {
@@ -7323,7 +7323,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "modal": {
       "_schema_version": 1,
@@ -7486,7 +7486,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.\n\n* Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.\n\n* Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.\n\n* Use it when the underlying page state must not change while the user decides.\n\n## When not to use\n\n* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).\n\n* Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.\n\n* Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.\n\n* Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.\n\n* Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception.\n\n## Variant selection\n\n* **450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).\n\n* **700px create / setting:** short single-column forms, up to roughly six fields.\n\n* **900px create / edit:** richer forms that need breathing room or a second column.\n\n* **1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep one task per modal | Stack a second modal on top of the first |\n| Name the primary action after the task (**Create report**) | Label a task modal's primary action **OK** |\n| Land initial focus on the safe action in destructive confirms | Let a reflex Enter keypress delete data |\n| Warn before discarding unsaved input on dismiss | Silently drop what the user typed |\n| Pick the smallest size that fits the task | Default every dialog to 900px |",
           "sections": [
             {
@@ -7566,7 +7566,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T02:45:52+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "multi-select": {
       "_schema_version": 1,
@@ -7659,7 +7659,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a multi-select as a form field that collects several values from one list, shown as chips inside the field (for example assigning tags, owners, or data domains to a data product).\n\n* Use it when the option list is too long to show as a group of visible checkboxes.\n\n* Use it to apply several filters from one category at once above a [table](table) or catalog list.\n\n## When not to use\n\n* Don't use it when exactly one value is valid: use a [dropdown / select](dropdown-select) or a [radio button](radio) group.\n\n* Don't use it for up to roughly seven options that fit on screen: use a [checkbox](checkbox) group so users can compare every option at a glance.\n\n* Don't reach for a searchable multi-choice [dropdown / select](dropdown-select) to collect form values: its in-menu checkboxes are for filtering; a multi-select carries the chosen values as chips.\n\n## Variant selection\n\nMulti-selects have no type or size variants; the choices are between modes.\n\n* **Chips in field:** the default; every selected value stays visible and individually removable via its close icon.\n\n* **Collapsed count:** when selections outgrow the field, collapse to a count such as **3 selected**.\n\n* **Select all / Clear all:** add these actions when picking everything or resetting is a common move.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the list open while the user picks several values | Close the menu after every single pick |\n| Let each chip be removed by keyboard as well as its close icon | Force a full reset to drop one value |\n| Show a count when the field collapses | Truncate chips with no signal of how many are chosen |\n| Keep chip labels to the item name only | Pack metadata into every chip |\n| Preload current assignments when editing an asset | Open an edit form with an empty field |\n\n> Count and action wording rules (**3 selected**, **Select all**, **Clear all**) live in the Content guidelines for multi-selects.",
           "sections": [
             {
@@ -7741,7 +7741,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "notification": {
       "_schema_version": 1,
@@ -7899,7 +7899,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a notification to record a completed background task in the notification panel: an export ready to download, a metadata scan finished, an import processed.\n\n* Use it for system events and updates the user needs to know about but not act on immediately (a connection starting to fail, a glossary term awaiting review).\n\n* Use it when the user may not be looking when the event lands: a long-running job finishing while they work elsewhere in Studio or Explorer. The item waits in the [notification dropdown](notification-dropdown) (the panel).\n\n* Give every notification a timestamp and, when there is a result, a link or action to open it (**Download**, **View run**).\n\n## When not to use\n\n* Don't use a notification as the only feedback for an action the user just took and is watching: use a [global toast](global-toast) at the moment of completion. For long jobs, do both: the toast announces, the notification remains.\n\n* Don't use it for anything requiring immediate input: use a [modal](modal), or a [confirmation](confirmation) before a destructive action.\n\n* Don't use it for a persistent problem scoped to a page or section: use an [alert banner](alert-banner) there.\n\n* Don't use it for feedback anchored to a specific element: use an [inline toast](inline-toast).\n\n* Don't use it for product announcements or release notes: those belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\n* **Default:** completions and neutral events (export ready, run finished, an asset shared with you). The variant for most items.\n\n* **Critical:** failed jobs and error events worth attention next time the user checks the panel (scan failed, connection lost). If the failure blocks what the user is doing right now, escalate to an [alert banner](alert-banner) instead.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Notify about events the user could otherwise miss | Create an item for every click the user just made |\n| Link each item to its result (**Download**, **View run**) | Announce a finished export with no way to open it |\n| Send one notification per job, updated if it changes | Post a new item for every stage of the same run |\n| Keep items until the user reads them | Expire notifications on a timer like a toast |\n\n> Wording rules (one to two sentences, timestamps, example messages) live in the Content guidelines for notification.",
           "sections": [
             {
@@ -7976,7 +7976,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "notification-dropdown": {
       "_schema_version": 1,
@@ -8136,7 +8136,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).\n\n* Use it to let the user browse, open, and mark notifications as read without leaving their current page.\n\n* Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.\n\n* Signal unread items with an indicator on the bell; the user decides when to open the panel.\n\n## When not to use\n\n* Don't rely on the panel to deliver an error that blocks the user's current work: put it in an [alert banner](alert-banner) on the affected page.\n\n* Don't use it to confirm an action the user is watching: that moment belongs to a [global toast](global-toast).\n\n* Don't open it automatically when a notification arrives; only a user click opens it.\n\n* Don't put content in the panel that is not a notification item: product announcements and release notes belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\nThe notification dropdown has no type or size variants; the choice is between its two configurations.\n\n* **List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.\n\n* **Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Order items newest first | Make the user scroll to find the latest event |\n| Show enough of each message to act on it | Truncate every item to a cryptic first line |\n| Clear the bell's indicator once items are read | Keep the badge lit after everything is read |\n| Show the empty message when the list is empty | Hide or disable the bell when there is nothing new |\n\n> Wording rules (panel header, empty copy, mark-all-as-read labels) live in the Content guidelines for notification dropdown.",
           "sections": [
             {
@@ -8215,7 +8215,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "page-header": {
       "_schema_version": 1,
@@ -8287,7 +8287,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumb), and the page's primary actions.\n\n* Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).\n\n* Use it on detail pages to anchor identity: the entity's exact name plus breadcrumbs back up the hierarchy.\n\n## When not to use\n\n* Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.\n\n* Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.\n\n* Don't use it as a section divider within a page: use plain headings.\n\n* Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select)).\n\n## Variant selection\n\n* **Default:** list and index pages (connections, datasets, data processes in Studio or Administration): title plus page-level create action.\n\n* **Details page:** a single entity's page: breadcrumbs, the entity name as title, and entity-level actions such as **Edit**.\n\n* **Explorer home:** the Explorer landing page only; do not reuse it elsewhere.\n\n* **Explorer detail:** asset detail pages inside Explorer; pairs with Explorer's browsing chrome.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Title the page with the entity's exact name | Paraphrase or decorate the name (**Sales analytics overview**) |\n| Keep at most two primary actions in the header | Line up four buttons across the title row |\n| Use breadcrumbs on detail pages to show the path back | Rely on the browser back button as the only way up |\n| Use the same variant for every page of the same kind | Give two list pages different header layouts |\n\n> Title and action label wording (sentence case, one or two words per action) lives in the Content guidelines for page headers.",
           "sections": [
             {
@@ -8422,7 +8422,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-13T10:59:44+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "popover": {
       "_schema_version": 1,
@@ -8556,7 +8556,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a popover for rich or multi-sentence contextual content that a [tooltip](tooltip) cannot hold: formatted text and links. It opens on click and stays open until the user clicks outside or presses Escape.\n\n* Use it to explain a concept, term, or complex field inline, without sending the user off the page or into documentation.\n\n* Use it when the user needs to keep the page visible while reading: a popover is non-modal and never dims the page behind.\n\n## When not to use\n\n* Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.\n\n* Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).\n\n* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).\n\n* Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not.\n\n## Variant selection\n\n* **Interaction guide:** in-place guidance that walks the user through a control or feature, anchored to the element it explains.\n\n* **Advanced search:** the structured search-options panel that opens under the [search](search) field to build a precise query.\n\n* Both types are click-triggered and non-modal; there is no plain default popover, so pick the type whose structure matches the content.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Open on click, close on outside click or Escape | Trigger a popover on hover |\n| Keep the body to two to four short sentences | Pack bullet lists and long prose into it |\n| Anchor the popover to the element it explains | Float it in the middle of the screen like a dialog |\n| Show one popover at a time | Chain a second popover from the first |\n\n> Title and body wording rules live in the Content guidelines for popovers.",
           "sections": [
             {
@@ -8632,7 +8632,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "progress-bar-small": {
       "_schema_version": 1,
@@ -8708,7 +8708,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a progress bar when completion is measurable: a percentage, bytes transferred, or steps done out of a total.\n\n* Use it for file operations such as [file uploads](upload-file), for imports, and for long-running jobs that report progress.\n\n* Use it in multi-step flows (wizards, onboarding) to show overall completion alongside the step labels.\n\n* Use it statically to visualize how complete something is (a dataset's documentation, a setup checklist); annotate this use as a meter for engineering, since nothing is running.\n\n## When not to use\n\n* Don't use it when duration is unknown: an indeterminate wait is a [spinner](spinner) in a control or a [loader](loader) over a section.\n\n* Don't use it while page content loads into a known layout: use a [loading skeleton](loading-skeleton).\n\n* Don't use it as the navigation of a stepped flow: the [stepper](stepper) owns named, revisitable steps; the bar only summarizes.\n\n* Don't show a bar for waits too short to read; a sub-second operation needs no progress treatment at all.\n\n## Variant selection\n\n* **Default:** inline and dense contexts: [table](table) rows, cards, panels, upload lists.\n\n* **Large:** when the progress itself is the focus of the view: an import screen, a full-width wizard footer.\n\n* Completeness (0 to 100%) is the live value the bar displays, not a variant to choose.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Drive the fill from real measured progress | Animate a fake percentage over an indeterminate wait |\n| Move the fill forward only | Slide backwards when an estimate is revised |\n| Reach 100% before the bar disappears | Vanish at 80% and call the job done |\n| Announce a backgrounded job's completion with a [global toast](global-toast) | Rely on the bar as the only completion signal |\n\n> Wording rules (**Step 2 of 4**, **45% complete**, bytes transferred) live in the Content guidelines for progress bar.",
           "sections": [
             {
@@ -8785,7 +8785,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "radio": {
       "_schema_version": 1,
@@ -9503,7 +9503,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use radio buttons when the user must pick exactly one of 2-5 mutually exclusive options (for example a refresh schedule: **Daily**, **Weekly**, **Monthly**).\n\n* Use them when seeing all options at once helps the user compare before choosing (for example access levels on a connection).\n\n* Use them inside forms where the choice applies on submit, not the instant it is clicked.\n\n## When not to use\n\n* Don't use radio buttons for more than about five options, or for lists that grow dynamically: use a [dropdown / select](dropdown-select).\n\n* Don't use them to switch views of the same content with immediate effect: use a [segmented control](segmented-control).\n\n* Don't use them when several options can be selected together: use [checkboxes](checkbox).\n\n* Don't use a Yes/No radio pair for a single opt-in: use one [checkbox](checkbox), or a [toggle](toggle) if the change applies immediately.\n\n## Variant selection\n\nRadio buttons have no type or size variants; the choices are between group configurations.\n\n* **Preselected default:** when a choice is required and one option is clearly the safest or most common, select it by default.\n\n* **No default:** when the decision is consequential (for example picking a data product's visibility), leave all options unselected and require an explicit choice.\n\n* **Card format:** when each option needs a title, description, or image, use the card format as a radio group (see [cards](card)).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show every option; radio groups never scroll | Stack ten radio options in a column |\n| Keep one group per decision | Let two decisions share a single group |\n| Preselect the most common option when it is safe | Preselect a destructive or irreversible option |\n| Use radios only for real alternative values | Use two radios for a plain on/off setting |\n\n> Label wording rules (short noun phrases, parallel structure, group labels) live in the Content guidelines for radio buttons.",
           "sections": [
             {
@@ -9582,7 +9582,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "rich-text": {
       "_schema_version": 1,
@@ -9659,7 +9659,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use rich text for long-form content where formatting carries meaning: headings, lists, links, emphasis (for example a data product description).\n\n* Use it for fields users will later read as a formatted page: dataset documentation, notes, comments.\n\n* Use it for release notes and changelog-style updates, where lists and emphasis structure the message.\n\n* Use the same editor everywhere formatted content is written, so descriptions read the same across Studio, Explorer, and Administration.\n\n## When not to use\n\n* Don't use it for short single-line values such as names, hosts, or titles: use a [text input](text-input).\n\n* Don't use it for values the system parses (connection strings, expressions, queries): formatting markup would corrupt the value; use a [text input](text-input) with the right type.\n\n* Don't use it when the content never benefits from formatting, such as a one-sentence reason field: the toolbar becomes noise.\n\n* Don't use it to lay out tabular data: structured rows and columns belong in a [table](table), not formatted prose.\n\n## Variant selection\n\nRich text has no type or size variants; the choice is how much room the field gets.\n\n* **Compact field:** a few formatted lines inside a form, the typical description field.\n\n* **Full writing surface:** long documentation where the user needs room to write and review; give the editor the panel or page, not a form row.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Offer only the formats the field needs (bold, links, lists) | Ship a full word-processor toolbar for a two-line description |\n| Put formatting hints in helper text below the field | Cram formatting instructions into the placeholder |\n| Preserve formatting wherever the content is displayed | Strip formatting on the read view and surprise the author |\n| Warn before discarding long unsaved content | Lose a written description on accidental navigation |\n| Sanitize pasted content down to the allowed formats | Import arbitrary styling from pasted documents |\n\n> Placeholder and toolbar label wording rules (Bold, Italic, Bullet list) live in the Content guidelines for rich text.",
           "sections": [
             {
@@ -9742,7 +9742,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "scroll-bar": {
       "_schema_version": 1,
@@ -9800,7 +9800,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "Scroll bars are a behavior primitive, not a layout choice: they appear automatically when content overflows its container. The usage question is when a custom scroll container is appropriate at all.\n\n## When to use\n\n* Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.\n\n* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.\n\n* Use it in any container with a fixed height and variable content: query results, log output, long attribute lists.\n\n## When not to use\n\n* Don't restyle or replace the page-level browser scroll: custom scroll is for regions inside the page, not the page itself.\n\n* Don't suppress scroll bars where overflow is expected: a region that looks unscrollable reads as complete when it isn't.\n\n* Don't nest independently scrolling regions inside one another: two scroll bars in the same direction fight for the wheel.\n\n* Don't use scrolling as a fix for an overloaded panel: when a drawer scrolls forever, move the content to the full details page.\n\n## Variant selection\n\nScroll bars have no type or size variants; the choices are between modes and configurations.\n\n* **Orientation:** vertical for lists and panels; horizontal only for wide [table](table) content that cannot reflow, never for prose.\n\n* **Accessible label:** give the scrollable region an accessible label (Dataset list, Query results) so screen reader users know what they are scrolling.\n\n* **Keyboard access:** a custom scroll region must be reachable and scrollable by keyboard (focusable, arrow keys work), not only by wheel or trackpad.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Let the scroll bar appear only on overflow | Force one onto content that fits |\n| Name the scrollable region for assistive tech | Leave an anonymous scroll region |\n| Keep one scroll direction per region | Make users pan both axes to read a list |\n| Keep the scroll position stable while content loads | Yank the user back to the top on data refresh |\n| Pair a pinned header with a scrolling table body | Let column headers scroll out of view |\n\n> Accessible-label wording for scroll regions lives in the Content guidelines for scroll bars.",
           "sections": [
             {
@@ -9891,7 +9891,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "search": {
       "_schema_version": 1,
@@ -10002,7 +10002,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "Search is the input surface of the search flow: suggestions appear in the [search dropdown menu](search-dropdown-menu), refinement lives in [filters](search-filters), and results render as [search result cards](search-result-card).\n\n## When to use\n\n* Use search as the global entry point for finding any data asset across the platform, from the [global header](global-header) or the Explorer home.\n\n* Use it as a scoped filter inside a specific view: a catalog section, a topic, a long list where typing narrows what is shown.\n\n* Use it when users know roughly what they are looking for and a keyword beats browsing or structured criteria.\n\n## When not to use\n\n* Don't use search to collect a freeform form value such as a name or host: use a [text input](text-input). Search queries content; it never stores data.\n\n* Don't use it to pick a form value by typing from a known list: use a [combo box](combo-box).\n\n* Don't use it as the only way to narrow a result set by structured attributes (owner, status, type): pair it with [filters](search-filters) instead of teaching users keyword tricks.\n\n* Don't embed a search field for a list short enough to scan; a dozen visible items need no query box.\n\n## Variant selection\n\n* **Explorer home:** the prominent search on the Explorer landing surface, where finding an asset is the primary task of the page.\n\n* **Global header:** the persistent search in the [global header](global-header), reachable from anywhere in the app for cross-platform lookup.\n\n* **Inline:** a scoped search embedded above a [table](table) or list, filtering only that view's content.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Scope the placeholder to what is searched (**Search topics**) | Show a generic **Search** placeholder on every surface |\n| Execute the search on Enter or on a suggestion click | Reload the full results page on every keystroke |\n| Keep the last query when the user returns to the search view | Wipe the query each time the user navigates back |\n| Offer query adjustment when nothing matches (see [empty state](empty-state)) | Push a create call to action at a query that found nothing |\n\n> Placeholder wording rules (\"Search + plural asset name\", no period) live in the Content guidelines for search.",
           "sections": [
             {
@@ -10140,7 +10140,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "search-dropdown-menu": {
       "_schema_version": 1,
@@ -10228,7 +10228,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "The search dropdown menu is the suggestion surface of the search flow: it opens under a [search](search) field, before the full results page with its [search result cards](search-result-card) and [filters](search-filters).\n\n## When to use\n\n* Use it to surface matching results and suggestions live under a [search](search) field as the user types, so a known target is reachable without leaving the field.\n\n* Use it to shortcut the full results page: a user typing an exact asset name should land on that asset in one click.\n\n* Use it to group matches by type (**Datasets**, **Topics**) when more than one kind of asset can match the query.\n\n## When not to use\n\n* Don't put filter controls or unrelated actions in the menu: refinement belongs to [filters](search-filters) on the results page; the menu carries only matches and suggestions.\n\n* Don't use it as a form control that assigns a value by typing: use a [combo box](combo-box).\n\n* Don't use it as a command or actions menu under a button: use [dropdown / select](dropdown-select).\n\n* Don't make it the whole search experience: cap the list and hand off to the full results page (**See all results**) instead of scrolling dozens of matches in a floating menu.\n\n## Variant selection\n\n* **Before typed:** the field is focused but empty; show recent searches or suggested entry points so the menu is never blank.\n\n* **After typed:** live matches for the current query, grouped by type, matched portion highlighted.\n\n* **No result:** a brief message naming the query (for example **No matches for \"orders\"**); suggest adjusting the query, never a create action.\n\n* **Explorer home:** the wider menu paired with the Explorer home [search](search) variant on the landing surface.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight the matched portion of each result | Make users guess why a result matched |\n| Keep each row to its name plus minimal context (type, owner) | Load full metadata cards into the menu |\n| Offer **See all results** when matches exceed the menu | Truncate the list silently |\n| Let users move through results with the keyboard and select with Enter | Support pointer selection only |\n\n> Group headings, empty-message wording, and the **See all results** phrasing live in the Content guidelines for the search dropdown menu.",
           "sections": [
             {
@@ -10313,7 +10313,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
@@ -10386,7 +10386,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "Filters are the refinement surface of the search flow: they narrow what a [search](search) returned or what a list shows, alongside the [search dropdown menu](search-dropdown-menu) for suggestions and [search result cards](search-result-card) for presentation.\n\n## When to use\n\n* Use filters when a result set or list is large enough that users need structured criteria (**Owner**, **Status**, **Data domain**) to find what they need.\n\n* Use them when several criteria apply simultaneously and users combine them to converge on a result.\n\n* Place them above or to the left of the content they control, so cause and effect stay visually connected.\n\n* Use them to refine search results in Explorer or narrow asset lists in Studio; filters only change what is visible, never the underlying data.\n\n## When not to use\n\n* Don't use filters for keyword lookup: a query typed against names and metadata is [search](search).\n\n* Don't use them to switch between views of the same content set (grid vs table, day vs week): use a [segmented control](segmented-control).\n\n* Don't reach for the full filter collection when one or two independent dropdowns above a [table](table) do the job: those stay plain [dropdown / select](dropdown-select) controls.\n\n* Don't use filters as a saved-scope or permission mechanism; a filter is a temporary view refinement the user can always clear.\n\n## Variant selection\n\n* **Explorer:** refining search results and catalog browsing in Explorer, where search is a first-class surface.\n\n* **Studio:** narrowing working lists of catalog assets, topics, and access requests.\n\n* Match the variant to the app the user is in; never mix the two on one surface.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show the active count when collapsed (**Filters (3)**) | Hide that filters are silently narrowing the view |\n| Offer **Clear all** whenever filters are active | Force users to unpick criteria one by one |\n| Keep the surrounding chrome and a clear-filters link when nothing matches (see [table](table)) | Swap in a create-new [empty state](empty-state) for a filtered-out view |\n| Persist filter state when users leave and return to the view | Reset every filter on navigation |\n\n> Filter label wording (short noun phrases, sentence case, the **Filters (3)** pattern) lives in the Content guidelines for filters.",
           "sections": [
             {
@@ -10471,7 +10471,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "search-result-card": {
       "_schema_version": 1,
@@ -10543,7 +10543,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "The search result card is the presentation surface of the search flow: it renders what a [search](search) query returned, after the [search dropdown menu](search-dropdown-menu) suggestions and under the active [filters](search-filters).\n\n## When to use\n\n* Use it for search results only: one card per returned item, in the results list of Explorer or Studio.\n\n* Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last modified) beside the title.\n\n* Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic [table](table).\n\n## When not to use\n\n* Don't use it in ordinary browse grids: data products on a dashboard or catalog items outside a search context use the item [card](card).\n\n* Don't use it for record sets users sort and filter by attributes outside a search: use a [table](table).\n\n* Don't use it inside the [search dropdown menu](search-dropdown-menu): suggestion rows stay name plus minimal context, not full cards.\n\n* Don't render result cards when the query matched nothing: show the empty results message with query adjustment and no create call to action (see [empty state](empty-state)).\n\n## Variant selection\n\n* **Explorer:** results in Explorer, where search is a first-class surface and cards emphasize catalog metadata.\n\n* **Studio:** results in Studio, tuned to working assets.\n\n* Pick the variant of the app the results appear in; never mix Explorer and Studio cards in one list.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight matched terms in title and excerpt | Show plain text and make users guess the match |\n| Make the whole card one click target to the item's detail page | Scatter separate links inside the card body |\n| Show the same metadata lines on every card in the list | Vary the metadata set from one result to the next |\n| Trim excerpts at a consistent length | Let one card balloon to a paragraph while its neighbors stay two lines |\n\n> Title fidelity, metadata label wording, and timestamp formatting live in the Content guidelines for the search result card.",
           "sections": [
             {
@@ -10627,7 +10627,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "segmented-control": {
       "_schema_version": 1,
@@ -11155,7 +11155,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a segmented control to switch between two to four mutually exclusive presentations of the same content set, applied the instant a segment is clicked (**List / Grid**, **Day / Week / Month**).\n\n* Use it when all options benefit from side-by-side visibility, so the current mode and its alternatives read at a glance.\n\n* Use it above a [table](table) or card grid to re-display the records already on screen in another arrangement.\n\n## When not to use\n\n* Don't use it inside a form where the choice applies on submit: use a [radio button](radio) group.\n\n* Don't use it for peer views of different content on one object (**Overview**, **Lineage**, **Settings**): use [tabs](tabs). A segmented control re-displays one content set; tabs move between distinct ones.\n\n* Don't use it for page-level navigation; if the destination changes, it is the [side nav](side-nav) or [tabs](tabs), not a mode switch.\n\n* Don't use it for a single binary on/off setting: use a [toggle](toggle).\n\n* Don't use it to narrow which records are shown: reducing a result set by criteria is [filters](search-filters), not a view switch.\n\n## Variant selection\n\nSegmented controls have no type or size variants; the choices are configuration.\n\n* **Segment count:** two to four. Beyond four, labels shrink past legibility; regroup the modes into fewer, broader presentations.\n\n* **Default segment:** one segment is always selected; load the view most users need first and keep that default identical across similar surfaces.\n\n* **Persistence:** when a surface remembers its last mode, restore it on return rather than snapping back to the default.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Apply the switch immediately on click | Pair a segmented control with an **Apply** button |\n| Keep exactly one segment selected at all times | Allow a no-selection state |\n| Re-render the same records in the new mode | Load different content behind a segment |\n| Keep the same segment set across sibling surfaces | Offer **List / Grid** on one catalog page and **Grid** only on the next |\n\n> Segment label wording (short balanced nouns, **List / Grid** not **List view / Grid view**) lives in the Content guidelines for segmented controls.",
           "sections": [
             {
@@ -11235,7 +11235,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "side-nav": {
       "_schema_version": 1,
@@ -11304,7 +11304,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use the side nav for persistent access to the primary sections of an app (for example **Dashboard**, **Catalog**, **Topics** in Studio): it is the main way to move between places.\n\n* Use it when the app has several top-level sections, or when a section needs visible sub-navigation.\n\n* Use it anchored to the left of the content area, below the [global header](global-header), on every page of the apps that have it.\n\n## When not to use\n\n* Don't use it to switch between peer views of one object (**Overview**, **Lineage**, **Settings**): that is [tabs](tabs). The side nav changes place; tabs change view.\n\n* Don't use it for suite-level switching between products or apps: that is the [global header](global-header).\n\n* Don't use it to show the path back up from a detail page: that is [breadcrumbs](breadcrumb) in the [page header](page-header).\n\n* Don't put actions in it (**Create data product**, **Export**): navigation only. Actions live in the page header or a [toolbar](toolbar).\n\n* Don't use it for an ordered sequence of steps: use a [stepper](stepper).\n\n## Variant selection\n\n* **App (Studio, Admin):** match the app you are designing; Explorer uses its own browsing chrome instead of a side nav.\n\n* **Expanded:** the default; icons plus labels.\n\n* **Collapsed:** icon-only rail for narrow screens or when the user collapses it; it must remain expandable, never remove it entirely.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Match item labels to the page headers they lead to | Call it **Data sources** in the nav and **Connections** on the page |\n| Keep item naming and order identical across the platform | Reorder sections between Studio and Admin |\n| Highlight the current section, and its parent when nested | Leave the user with no \"you are here\" marker |\n| Keep the set of items stable as the user navigates | Add or remove items depending on the current page |\n\n> Label wording rules (short, descriptive, plain language) live in the Content guidelines for the side nav.",
           "sections": [
             {
@@ -11447,7 +11447,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-13T10:59:44+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "spinner": {
       "_schema_version": 1,
@@ -11518,7 +11518,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a spinner right after a user triggers an action, inside the control that triggered it: a saving [button](button), a validating field, a small section refreshing.\n\n* Use it for short, indeterminate, localized waits where a full loading treatment would be noise.\n\n* Add a brief label only when the context doesn't already say what is happening (**Running query...**).\n\n## When not to use\n\n* Don't use a spinner for a large component or a page section: use a [loader](loader).\n\n* Don't use it when the incoming layout is known: use a [loading skeleton](loading-skeleton).\n\n* Don't use it for application startup or app switches: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable: use a [progress bar](progress-bar-small).\n\n* Don't run several spinners in the same view at once; a whole area waiting is one [loader](loader), not many spinners.\n\n## Variant selection\n\n* **On light bg:** the default on standard surfaces: forms, panels, [table](table) cells.\n\n* **On dark bg:** dark surfaces such as a filled [button](button) or dark chrome, where the light-surface spinner would vanish; pick the mode from the surface behind it.\n\n* The completion arc (25 to 100%) is the animation's own cycle, not a variant to choose.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the spinner inside the control it concerns | Overlay the whole page because one button is saving |\n| Disable the triggering control while it spins | Let a second click fire the same request again |\n| Escalate to a [loader](loader) or [progress bar](progress-bar-small) when the wait grows long | Spin a button for a minute-long job |\n| Clear it the moment the response lands | Leave a stale spinner on a control that already finished |\n\n> Wording rules (brief present-tense labels, when to add one) live in the Content guidelines for spinner.",
           "sections": [
             {
@@ -11595,7 +11595,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "stepper": {
       "_schema_version": 1,
@@ -11778,7 +11778,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a stepper for a linear process of three or more distinct steps that must be completed in order: connection setup, onboarding, a create wizard for a data product or connection.\n\n* Use it when seeing progress matters: the stepper shows which steps are completed, which one is current, and what is still ahead.\n\n* Use it on a dedicated page when a task outgrows a [modal](modal): a long form split into digestible stages.\n\n## When not to use\n\n* Don't use a stepper for a simple two-step confirmation: use a [modal](modal).\n\n* Don't use it for peer views the user can visit in any order: use [tabs](tabs). A stepper implies sequence; tabs imply choice.\n\n* Don't use it to show a running system process (an import, a metadata scan): use a [progress bar](progress-bar-small) or a [loader](loader). The stepper tracks the user's task, not the machine's.\n\n* Don't split a short form that fits one screen into steps: the ceremony costs more than it guides.\n\n## Variant selection\n\nSteppers have no type or size variants; the choices are between modes and configurations.\n\n* **Step states:** each step reads as completed, current, or upcoming; exactly one step is current at any time.\n\n* **Placement:** the stepper sits above the step content on a dedicated page, never inside a modal.\n\n* **Navigation:** Back and Next move between steps; the final step's button names the outcome (Create, or the matching object-specific verb).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate on Next and move focus to the first error | Let users advance past missing required fields |\n| Keep entered data when the user goes Back | Wipe earlier steps on return |\n| Let the component render step numbers | Write \"Step 1:\" into the title text |\n| Make each step a discrete, completable task | Slice one field per screen just to have a wizard |\n\n> Step title and navigation button wording rules live in the Content guidelines for steppers.",
           "sections": [
             {
@@ -11857,7 +11857,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "sticky-footer": {
       "_schema_version": 1,
@@ -11967,7 +11967,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nSticky footers have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the footer | Let the sticky bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers.",
           "sections": [
             {
@@ -12050,7 +12050,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "success-state": {
       "_schema_version": 1,
@@ -12149,7 +12149,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a success state to close out a completed journey: a connection created, datasets imported, an onboarding flow finished. Completed journeys end here, not on a passing message.\n\n* Use it when the outcome needs a moment of reassurance: a long setup, a first-time task, an operation the user might doubt worked.\n\n* Use it to hand the user their next step: the screen pairs the confirmation with a logical follow-on action (**Open catalog**).\n\n* Use it in the container the journey occupied: the full page for full-page flows, the [modal](modal) body for flows that ran there.\n\n## When not to use\n\n* Don't use a success state for a routine action's result: a save or publish is a [global toast](global-toast).\n\n* Don't use it for feedback tied to one element: use an [inline toast](inline-toast).\n\n* Don't use it between steps of a flow: mid-journey progress belongs to the [stepper](stepper).\n\n* Don't show it before the action has fully completed; while the outcome is uncertain, keep the loading treatment.\n\n## Variant selection\n\nSuccess states have no type or size variants; the choices are configuration.\n\n* **Illustration and title:** always present; the title confirms what completed (**Items imported**), and the illustration is decorative for assistive tech.\n\n* **Body:** one line pointing at what the completion makes possible.\n\n* **Primary CTA:** a single action that starts the next task.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Show it once, at the end of the journey | Insert a success screen after every step |\n| Point the CTA at the next task (**Open catalog**) | Close the flow with a bare **Done** |\n| Keep to a single primary CTA | Line up three next actions under the illustration |\n| Land the user somewhere useful afterwards | Return them to the same [empty state](empty-state) they started from |\n\n> Wording rules (confirm what completed, one-line body, example messages) live in the Content guidelines for success state.",
           "sections": [
             {
@@ -12229,7 +12229,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "table": {
       "_schema_version": 1,
@@ -12466,7 +12466,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a table for large sets of comparable records with shared attributes: datasets, connections, data processes, catalog entries.\n\n* Use it when users need to sort, filter, or scan columns to compare values across many rows.\n\n* Use it when rows carry row-level or bulk actions (edit, delete, export) that must stay reachable without leaving the view.\n\n* Use it for complex rows that mix value types: text, badges, counts, dates, and an actions column.\n\n## When not to use\n\n* Don't use a table for browseable items whose identity matters more than attribute comparison: use a [card](card) grid (for example data products on a dashboard).\n\n* Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer-side-panel).\n\n* Don't reach for a table when a simple list carries the content: two columns of name plus one value rarely need sorting chrome.\n\n* Don't build search results as a generic table when scannability of matches matters: use the [search result card](search-result-card).\n\n## Variant selection\n\n* **Built type, by columns (default):** compose from column components when column formatting drives the layout: fixed widths, per-column alignment, one cell type per column.\n\n* **Built type, by rows:** compose from row components when row-level treatment matters most: selection, hover actions, row states.\n\n* **Empty data:** when the table has no rows yet, show the [empty state](empty-state) illustration with a create-new call to action (for example **Add connection**). Never render an empty grid.\n\n* **No results after filtering:** keep the table chrome, explain the empty result, and offer a clear-filters link; do not show the create-new [empty state](empty-state).\n\n* **Selection and bulk actions:** add the selection column only when bulk actions exist; otherwise leave it out to save width.\n\n* **Pagination:** paginate long lists; do not rely on an unbounded scroll for datasets users must audit completely.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Sort by last modified by default on catalog lists | Default to alphabetical when recency is what users seek |\n| Show the empty state with a create CTA when data is null | Leave a blank grid with no explanation |\n| Keep one cell type per column | Mix badges, prose, and numbers in the same column |\n| Add the selection column only when bulk actions exist | Show checkboxes that select nothing actionable |\n\n> Column header wording, cell formatting, and status vocabulary live in the Content guidelines for tables.",
           "sections": [
             {
@@ -12546,7 +12546,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "tabs": {
       "_schema_version": 1,
@@ -12604,7 +12604,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use tabs to switch between peer views of the same object or context, in place, without full navigation (for example **Overview**, **Lineage**, **Settings** on a dataset detail page).\n\n* Use them when the views are at the same level and the user moves between them repeatedly during one task.\n\n* Use them under a [page header](page-header) to structure a detail page whose content does not fit one scroll.\n\n## When not to use\n\n* Don't use tabs to navigate between different places in the app: use the [side nav](side-nav) or links. If the URL context changes meaningfully, it is navigation, not tabs.\n\n* Don't use tabs to filter or re-display the same content set: use a [segmented control](segmented-control) (for example switching a list between grid and table view).\n\n* Don't use tabs for sequential steps that must be completed in order: use a [stepper](stepper).\n\n* Don't nest tabs inside tabs. If a view needs its own sub-views, the page is carrying too much: split it.\n\n## Variant selection\n\nTabs have a single Default variant; the real choices are configuration.\n\n* **Number of tabs:** two to six. Beyond six, labels truncate and scanning breaks; regroup the content or promote it to navigation.\n\n* **First tab:** make it the summary view (**Overview**) and load it selected. Never land the user on an empty tab.\n\n* **Show avatar:** turn it on only when a tab represents a person or account.\n\n* **Tab order:** most-used view first, administrative or rarely used views (for example **Settings**) last. Keep the order identical across similar detail pages.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the user on the same page when a tab is clicked | Trigger a full page navigation from a tab |\n| Preserve entered state when switching tabs | Discard a half-filled form because the user peeked at another tab |\n| Keep tab sets identical across entities of the same kind | Show Lineage on one dataset but not its sibling |\n| Land on a populated default tab | Open on an empty tab that needs setup first |\n\n> Tab label wording (short nouns, no verbs, sentence case) lives in the Content guidelines for tabs.",
           "sections": [
             {
@@ -12746,7 +12746,7 @@
           ]
         }
       },
-      "updated_at": "2026-07-12T02:45:52+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "tag": {
       "_schema_version": 1,
@@ -12805,7 +12805,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
           "sections": [
             {
@@ -12959,7 +12959,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-12T18:18:05+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "tag-default": {
       "_schema_version": 1,
@@ -13018,7 +13018,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
           "sections": [
             {
@@ -13172,7 +13172,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-12T18:18:05+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "tag"
     },
     "tag-interactive": {
@@ -13232,7 +13232,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
           "sections": [
             {
@@ -13386,7 +13386,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-12T18:18:05+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "tag"
     },
     "tag-item-type": {
@@ -13446,7 +13446,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
           "sections": [
             {
@@ -13600,7 +13600,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-12T18:18:05+02:00",
+      "updated_at": "2026-08-18T18:56:05+02:00",
       "_alias_of": "tag"
     },
     "text-input": {
@@ -14312,7 +14312,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a text input for a single-line freeform value that cannot be constrained to a fixed list: names, emails, hosts, ports (for example **Dataset name**, **Connection host**).\n\n* Use it when the user already knows the value and just needs to type it, rather than pick it from options.\n\n* Specify the input type when the value has a format (email, number, password) so validation and keyboards can assist.\n\n## When not to use\n\n* Don't use a text input when the value comes from a known list: use a [dropdown / select](dropdown-select), or a [combo box](combo-box) when the list is long and typing should narrow it.\n\n* Don't use it to query or filter the content of the page: use [search](search).\n\n* Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).\n\n* Don't use it for dates: use the [date input](input-date).\n\n* Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle).\n\n## Variant selection\n\nText inputs have no type or size variants; the choices are between modes.\n\n* **Editable (default):** the normal case; pair with helper text when the field needs persistent instructions.\n\n* **Read-only:** a value the user can see and copy but not change in this context (for example a system-generated connection ID). Never use disabled for this.\n\n* **Disabled:** the field does not apply until another choice is made (for example a port field before a protocol is picked).\n\n* **With placeholder:** only to model a good example value; if the label is sufficient on its own, leave the field empty.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate on blur, then re-validate as the user fixes the value | Flash an error on every keystroke |\n| Match the field width to the expected value length | Stretch a port-number field across the page |\n| Use read-only for values users may copy but not edit | Disable a field just to display data |\n| Constrain known formats with the right input type | Accept any text into a numeric-only field |\n\n> Placeholder and label wording rules live in the Content guidelines for text inputs.",
           "sections": [
             {
@@ -14497,7 +14497,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "toggle": {
       "_schema_version": 1,
@@ -15200,7 +15200,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a toggle for an on/off state change that applies the moment it is flipped, with no save step (for example **Auto-refresh** in Explorer, or a notification setting in Administration).\n\n* Use it in settings pages (Administration, user preferences) where each row is one independent setting saved instantly.\n\n* Use it to enable or disable a feature, permission, or schedule that has a clear on state and off state.\n\n## When not to use\n\n* Don't use a toggle inside a form that submits; if the change waits for a save action, use a [checkbox](checkbox).\n\n* Don't use a toggle to pick one of several exclusive options: use a [radio button](radio) group, or a [segmented control](segmented-control) for immediate view changes.\n\n* Don't use a toggle to trigger an action such as starting an import: use a [button](button).\n\n* Don't use a toggle when the off state is ambiguous; if users can't predict what off means, use a [radio button](radio) pair with explicit labels instead.\n\n## Variant selection\n\n* **Toggle location, left (the captured default):** the toggle leads its label; suits a single inline control in dense or embedded contexts.\n\n* **Toggle location, right:** label first with toggles aligned at the end of the row, keeping a settings column scannable. Pick one location per surface and keep it consistent.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Apply the change immediately when the toggle flips | Pair a toggle with a **Save** button |\n| Revert the toggle and explain if the change fails | Leave a toggle on after the request errored |\n| Use one toggle per independent setting | Use a toggle to choose between three modes |\n| Confirm first when flipping is destructive or affects others (disabling a shared connection) | Silently cut off every consumer of a shared connection |\n\n> Label wording rules (name the setting, never the state) live in the Content guidelines for toggle controls.",
           "sections": [
             {
@@ -15275,7 +15275,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "toolbar": {
       "_schema_version": 1,
@@ -15363,7 +15363,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a toolbar to group the primary actions for the working surface directly below it: a [table](table), a canvas, or a list (for example **Export**, **Add filter**, **Delete** above a dataset table).\n\n* Use it for actions that apply to the current view or to the current selection within it, and that users reach for repeatedly.\n\n* Use it to keep frequent actions visible in one predictable place instead of scattering them around the content.\n\n## When not to use\n\n* Don't use a toolbar for page-level title actions (**New dataset**, **Edit**): those belong in the [page header](page-header).\n\n* Don't use it for actions on a single row: those are ghost or icon-only [buttons](button) inside the [table](table) row itself.\n\n* Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the [sticky footer](sticky-footer).\n\n* Don't use it for navigation between views or places: use [tabs](tabs) or the [side nav](side-nav).\n\n## Variant selection\n\n* **Single:** one standalone action or control; the minimal strip.\n\n* **Combined:** mixed controls in one strip (buttons, filters, search); the default for tables and lists.\n\n* **Group:** related actions clustered into visible groups, separated from unrelated groups; use when the strip carries more than a handful of actions.\n\n* **Horizontal:** the default orientation, spanning the top of the surface it controls.\n\n* **Vertical:** alongside a canvas surface, such as the lineage graph, where actions stack on the edge.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Disable actions that don't apply to the selection | Hide actions and let the layout jump around |\n| Say what's needed in the empty case (**Select items to export**) | Leave disabled actions unexplained |\n| Order actions by frequency, most common first | Order actions alphabetically or by team ownership |\n| Keep the same toolbar layout on every similar surface | Rearrange actions between two dataset tables |\n\n> Action label wording (one or two words, verb first) lives in the Content guidelines for toolbars.",
           "sections": [
             {
@@ -15441,7 +15441,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "tooltip": {
       "_schema_version": 1,
@@ -15501,7 +15501,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use a tooltip to label icon-only controls: every icon-only [button](button) gets one, and the tooltip supplies its accessible name.\n\n* Use it for a short supplementary hint on hover or focus: what a control does, a keyboard shortcut, a spelled-out abbreviation.\n\n* Use it to expose the full value of truncated text, for example a clipped cell in a [table](table), provided the trigger itself is focusable so keyboard users can reach it.\n\n## When not to use\n\n* Don't put essential content in a tooltip: anything the user must know to proceed stays visible on the page. If they have to hover to understand the UI, the UI is broken.\n\n* Don't use a tooltip for rich or multi-sentence content, links, or actions: use a [popover](popover), which opens on click and can hold structure.\n\n* Don't use a tooltip for form-field guidance the user needs while typing: use persistent helper text under the field.\n\n* Don't attach tooltips to disabled controls as the only explanation; hover never fires on touch, and focus may not reach them. Explain the disabled state inline.\n\n## Variant selection\n\nTooltips have a single Default variant; the real choices are configuration.\n\n* **Body text:** a few words to one short sentence. The tooltip is flex width up to a 320px maximum; if the text wraps past two lines, move it to a [popover](popover) or inline help.\n\n* **Placement:** default to above the trigger; flip automatically near viewport edges so the tooltip is never clipped.\n\n* **Trigger:** hover and keyboard focus, never click. It must appear for keyboard users exactly as it does for mouse users.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Give every icon-only button a tooltip naming its action | Rely on the icon alone to convey meaning |\n| Keep the tooltip to one short sentence | Pack instructions and links into a 320px block |\n| Show the tooltip on keyboard focus as well as hover | Make the hint mouse-only |\n| Explain a disabled control with inline text | Hide the reason behind a hover on a disabled target |\n\n> Tooltip wording rules (no label repetition, one concise sentence) live in the Content guidelines for tooltips.",
           "sections": [
             {
@@ -15580,7 +15580,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T02:45:52+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "upload-file": {
       "_schema_version": 1,
@@ -15668,7 +15668,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use an upload component whenever the user brings a file into the platform: importing data files into a dataset, adding certificates or configuration files during connection setup, attaching files.\n\n* Use a drop zone with a browse link so both drag-and-drop and file-picker users are served.\n\n* Surface the constraints (accepted formats, size limit) in the drop zone before the user picks a file.\n\n## When not to use\n\n* Don't ask for a file when the value could just be typed (a URL, a path to an existing source): use a [text input](text-input).\n\n* Don't use it to pick from files already on the platform: use a selection control such as a [table](table) with row selection or a [combo box](combo-box).\n\n* Don't ask users to export and re-upload data when a direct connection to the source exists: point them to connection setup instead.\n\n## Variant selection\n\nUpload components have no type or size variants; the choices are between modes.\n\n* **Drop zone:** the default surface; an action phrase plus the accepted file types, with a browse link.\n\n* **In progress:** filename, progress bar, and percentage while the file transfers.\n\n* **Result rows:** each file resolves to a success indicator or a specific error naming the file and the failure.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| State accepted formats and the size limit up front | Reveal constraints only in the rejection error |\n| Name the file and the exact problem on failure | Report a bare upload failure |\n| Show per-file progress during upload | Leave the screen static with no transfer signal |\n| Validate type and size on drop, before the transfer | Upload the whole file and reject it afterwards |\n| Let the user remove or replace an uploaded file | Force a restart of the flow to retry |\n\n> Drop zone, constraint, and status wording rules live in the Content guidelines for file uploads.",
           "sections": [
             {
@@ -15750,7 +15750,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-14T15:49:03+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     },
     "whats-new-dropdown": {
       "_schema_version": 1,
@@ -15815,7 +15815,7 @@
           ]
         },
         "usage": {
-          "status": "draft",
+          "status": "approved",
           "markdown": "## When to use\n\n* Use the what's new dropdown, attached to its icon in the [global header](global-header), to summarize recent product changes: new capabilities, improvements, and fixes.\n\n* Use it for release communication the user reads on their own schedule: it waits in the header instead of interrupting work.\n\n* Use it to group updates by product area (for example **Data catalog**, **Connections**, **Performance**) so users can scan for what affects them.\n\n## When not to use\n\n* Don't use it for user-specific events (an import failed, an access request arrived): that is the [notification dropdown](notification-dropdown).\n\n* Don't use it for anything that requires action or acknowledgement: use an [alert banner](alert-banner) or a [modal](modal) for blocking messages.\n\n* Don't use it as a marketing surface: it is factual product communication, not promotion.\n\n* Don't announce releases anywhere else in the product chrome: this dropdown is the single home for what changed.\n\n* Don't use it for onboarding or feature tours: it summarizes what changed, it does not teach flows.\n\n## Variant selection\n\n* **List:** the default open state, the scannable list of recent updates grouped by category.\n\n* **Drilldown:** the detail view of one update, opened from a list item; use it when an item needs more than its one-to-two-sentence summary, and always provide the way back to the list.\n\n* **Empty:** shown when there is nothing new; keep the trigger in the header and state that plainly rather than hiding the entry point.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Group updates by product area | Pour everything into one undated stream |\n| Keep each item to one or two sentences, drilldown for more | Write a release essay in the list view |\n| Describe what changed in past tense (**Added support for...**) | Say \"Bug fixes and performance improvements\" |\n| Show a plain empty state when nothing is new | Pad the list with old items to avoid looking empty |\n\n> Tone and wording rules (past tense, no marketing adjectives, grouping) live in the Content guidelines for what's new.",
           "sections": [
             {
@@ -15892,7 +15892,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-07-12T11:29:30+02:00"
+      "updated_at": "2026-08-18T18:56:05+02:00"
     }
   }
 }

@@ -5,6 +5,11 @@ slug: template-builder
 label: Drag-and-drop template builder
 apps:
   - studio
+tags:
+  - configure
+  - builder
+  - templates
+  - editor
 components:
   - metamodel-widget
   - button

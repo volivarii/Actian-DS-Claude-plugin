@@ -5,6 +5,12 @@ slug: filter-groups-form
 label: Filter-groups edit form with sticky footer
 apps:
   - administration
+tags:
+  - form
+  - configure
+  - groups
+  - permissions
+  - collapsible
 components:
   - page-header
   - text-input

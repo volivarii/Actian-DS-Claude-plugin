@@ -5,6 +5,12 @@ slug: topic-browse
 label: Topic Browse
 apps:
   - explorer
+tags:
+  - browse
+  - curated
+  - topics
+  - carousel
+  - discover
 components:
   - card-for-items
   - search

@@ -23,4 +23,4 @@ The search dropdown menu shows suggestions and matching results below a search f
 ## Category guidance (inherited: design, behavior)
 Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.
 
-> Note: includes guidance not yet ratified: DRAFT (usage); INHERITED from category (design, behavior).
+> Note: includes guidance not yet ratified: INHERITED from category (design, behavior).

@@ -20,5 +20,3 @@ The page header identifies the current page and surfaces its primary actions. It
 - Use sentence case for page titles.
 - Keep action labels in the header short. Prefer one or two words. For example, "New dataset" not "Create a new dataset".
 - Avoid putting more than two primary actions in the header. Move secondary actions to a menu.
-
-> Note: includes guidance not yet ratified: DRAFT (usage).
