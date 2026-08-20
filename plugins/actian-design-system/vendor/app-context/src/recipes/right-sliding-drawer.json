@@ -1,0 +1,260 @@
+{
+  "_schema_version": 1,
+  "slug": "right-sliding-drawer",
+  "label": "Right sliding drawer",
+  "description": "A non-modal quick view docked to the right edge, 550px wide, opened by clicking the body of a result card. The page behind it stays live and interactive: the selected card keeps its highlight and the filter rail keeps working. The header carries the item title, an optional primary action, and three icon buttons. The body scrolls independently and holds the item's summary, its pinned properties, and a tab bar whose panels are the same ones the full detail page shows.",
+  "when": "Use when a user needs to inspect one item without losing the list they found it in. Do NOT use asset-detail-360: that is the full page this drawer previews, reached by clicking the item TITLE rather than the card body, and it carries tabs and sections the drawer omits. Do NOT use a modal for this: in the product a drawer and a modal are different surfaces, and the difference is not decorative. The drawer sets `::backdrop { display: none }` and is opened non-modally so the page stays usable behind it; the modal paints a 60% black backdrop and blocks the page. Reach for a modal when the user must answer before continuing, and for this drawer when they must not lose their place.",
+  "apps": ["explorer"],
+  "patterns": ["right-sliding-drawer"],
+  "tags": [
+    "drawer",
+    "overlay",
+    "quick-view",
+    "detail",
+    "panel",
+    "non-modal",
+    "preview"
+  ],
+  "derivedFrom": {
+    "surface": "Explorer > Marketplace > Search > result card body > quick view",
+    "capturedOn": "2026-08-19",
+    "productVersion": "next.dev.zeenea.app/explorer"
+  },
+  "slots": {
+    "header": "Item title, an optional subtitle holding the technical path, an optional primary action, and three icon buttons: favourite, open in full page, close",
+    "tags": "Item type, catalog folder, connection, and a data quality indicator carrying a coloured traffic light",
+    "summary": "A Summary heading with an information icon, over the item's description",
+    "featured-properties": "A Featured properties heading over pinned label and value pairs, laid out as a definition list",
+    "tabs": "A tab bar whose labels carry result counts, over the selected tab's panel"
+  },
+  "renderNotes": [
+    "Do NOT compose this from `fmDialog`. It is a stub: it returns a hardcoded `<div class=\"fm-dialog__title\">Dialog</div>` and an empty body, reads no props at all, and cannot be given a title, an action or any content. The drawer is therefore composed from frames, TEXT and the components below. This is the same class of gap as the ones filed in plugin #299.",
+    "`fmTabs` reads `Tabs` (a comma string or an array) and `Active`, and renders no count badge. The real drawer's tabs read `Fields 2`, `Properties 8`, `Contacts 4`, `Suggestions 0`, so the counts cannot be drawn. They are written into the tab label here so the count is at least visible, which is a workaround and not a fix.",
+    "`fmIconButtons` renders an empty div carrying only a Type class, with no glyph inside. The favourite, open-in-page and close buttons therefore draw as blank squares. Do not read a blank square in the render as a missing node.",
+    "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal:\"FILL\"` emits `flex:1`, which in a column container distributes height instead of hugging content. `faceted-browse` carried 20 of these against its own notes and `tests/app-context-recipes.test.js` now walks every skeleton for the case.",
+    "This recipe composes the overlay surface ONLY, at its captured width of 550px. In the product the dialog is `position: fixed` with `inset: 70px 0 0 0`, so it docks to the right edge below the app header and runs to the bottom of the viewport. The page beneath is not part of this composition and stays interactive."
+  ],
+  "skeleton": {
+    "chrome": "standard",
+    "appHeader": "{{app}}",
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Quick view drawer",
+        "layout": { "mode": "VERTICAL", "spacing": 0 },
+        "sizing": { "horizontal": 550, "vertical": "FILL" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Drawer header",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8,
+              "padding": [16, 16, 16, 16]
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Title block",
+                "layout": { "mode": "VERTICAL", "spacing": 2 },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_name}}",
+                    "font": "Inter:Semi Bold",
+                    "size": 16,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_path}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-subtle)"
+                  }
+                ]
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmButton",
+                "variant": "Type=Secondary, Size=Small",
+                "props": { "Label": "{{primary_action}}" }
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Secondary",
+                "props": {}
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Secondary",
+                "props": {}
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Secondary",
+                "props": {}
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Drawer body",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 20,
+              "padding": [12, 16, 16, 16]
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Tag row",
+                "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "variant": "Type=Default",
+                    "props": { "Label": "{{item_type}}" }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "variant": "Type=Default",
+                    "props": { "Label": "{{catalog_folder}}" }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "variant": "Type=Default",
+                    "props": { "Label": "Connection: {{connection_name}}" }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "variant": "Type=Default",
+                    "props": { "Label": "Data Quality" }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Summary",
+                "layout": { "mode": "VERTICAL", "spacing": 8 },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Summary",
+                    "font": "Inter:Semi Bold",
+                    "size": 15,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_summary}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Featured properties",
+                "layout": { "mode": "VERTICAL", "spacing": 8 },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Featured properties",
+                    "font": "Inter:Semi Bold",
+                    "size": 15,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Pinned property pairs",
+                    "layout": { "mode": "HORIZONTAL", "spacing": 24 },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Property: first",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "{{property1_label}}:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{property1_value}}",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: second",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "{{property2_label}}:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{property2_value}}",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmTabs",
+                "variant": "Type=Default",
+                "props": {
+                  "Tabs": "Description, Fields {{fields_count}}, Properties {{properties_count}}, Contacts {{contacts_count}}, Suggestions {{suggestions_count}}",
+                  "Active": "Description"
+                }
+              },
+              {
+                "type": "FRAME",
+                "name": "Tab panel: Description",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8,
+                  "padding": [16, 16, 16, 16]
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_description}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
