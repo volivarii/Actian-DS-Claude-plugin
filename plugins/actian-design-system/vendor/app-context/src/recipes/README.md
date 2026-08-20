@@ -114,10 +114,24 @@ Two guards, both proven to fail before they were trusted:
 - `tests/app-context-recipes.test.js` asserts a recipe actually reached dist, with a positive control
   proving the count can be zero, so the assertion cannot pass over an empty list.
 
-The remaining consumer-side gap is the plugin's, not this repo's: `resolve-patterns.js` lives in the
-plugin and resolves patterns only, so nothing there reads a recipe yet. Two separate facts, worth not
-conflating: unread here would be a knowledge problem, and this repo now reads them; unresolved there
-is a plugin problem.
+**The consumer now reads them.** Plugin #305 (2026.8.16, 2026-08-19) closed the last step of the
+sequence above: `resolve-patterns.js` emits a `pageRecipe` on every pattern, naming the capture that
+declares it, and the generator composes from that capture instead of the ranked archetype. The join is
+the recipe's own `patterns` field, so it is a lookup rather than a ranking, scoped by the recipe's
+`apps`.
+
+Two things that shipping it established, both worth knowing before authoring the next one:
+
+- **It changes the answer for 2 of 31 patterns**, which is the whole point of capturing more. Both
+  captured patterns had been resolving `decisive` to a generic archetype, so the fallback was most
+  confident exactly where it was most wrong.
+- **A capture is better structurally and worse lexically.** `faceted-browse` holds 34 real component
+  instances where `browse-search` holds 9 padded with 3 placeholders. But because it was taken from a
+  real screen it speaks the product's vocabulary: run `validate-flow-data.js` over the skeletons and
+  the captures raise 7 and 10 terminology findings plus 2 and 1 avoid-word findings, where both
+  archetypes raise zero. Compose from the capture, then re-term against the glossary.
+
+Step three of the sequence, retiring a flow archetype, is deliberately not started.
 
 ## Known gap in the pattern set
 
