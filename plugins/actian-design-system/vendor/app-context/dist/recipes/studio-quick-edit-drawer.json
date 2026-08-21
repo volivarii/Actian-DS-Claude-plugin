@@ -1,0 +1,362 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "slug": "studio-quick-edit-drawer",
+  "label": "Studio quick edit drawer",
+  "description": "A non-modal panel docked to the right edge of Studio, 550px wide, opened by clicking the body of a Catalog result row. It shares its shell with Explorer's quick view (the same 550px dialog, the same inset of 70px 0 0 0, the same suppressed backdrop) and carries a different body: the title is editable in place, the properties are editable fields rather than read-only pairs, and two of the four tabs exist to assign people and to moderate suggestions. The page behind it stays live, so the clicked row keeps its highlight and the filter rail keeps working.",
+  "when": "Use when a Studio user needs to inspect or correct one catalog item without losing the result list they found it in. Do NOT use the Explorer capture `right-sliding-drawer`, which is a DIFFERENT RECIPE for the same pattern, not a different pattern: this recipe declares `right-sliding-drawer` too, and the selector tells the two apart by `apps`. That capture is Explorer's quick VIEW of the same shell. Its body is read-only, it carries a favourite button Studio does not have, and it puts result counts on its tab labels where Studio's carry none. Explorer's five tabs read `Description`, `Fields 2`, `Properties 18`, `Contacts 6`, `Suggestions 1`, so the count is on four of the five and `Description` leads; Studio's four are `General`, `Properties`, `People`, `Suggestions`. Both apps carry Properties and Suggestions, so a Suggestions tab does NOT tell the two apart. Those differences were re-verified on 2026-08-20 with BOTH apps open on the SAME host, `manufacturing.zeenea.app`, so they are a difference between the apps and not between two environments; the Explorer recipe's own `derivedFrom` still names the `next.dev` host it was originally captured on. Do NOT use asset-detail-360: that is the full item page this drawer previews, reached by clicking the item TITLE rather than the row body. Do NOT use a modal: the product renders this as a drawer deliberately, and the stylesheet says so, `.zng-drawer::backdrop { display: none }` against `.zng-dialog::backdrop` at 60 percent black. A modal would take the list away, which is the one thing this surface exists to preserve.",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "right-sliding-drawer"
+  ],
+  "tags": [
+    "drawer",
+    "overlay",
+    "panel",
+    "quick-edit",
+    "non-modal",
+    "inline-edit",
+    "single-object"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog > result row body > quick edit drawer",
+    "capturedOn": "2026-08-20",
+    "productVersion": "manufacturing.zeenea.app/studio"
+  },
+  "slots": {
+    "header": "A qualifier row holding the item type tag and a Shared badge, the item name rendered as an editable field rather than static text, and exactly TWO icon buttons: open in full page (a link to the item route, carrying the icon named view-detail) and close. Explorer's equivalent carries three, the extra one being favourite.",
+    "subtitle": "A single line naming the catalog the item belongs to, in the form 'Catalog: {{catalog_name}}'.",
+    "metrics": "A three-up strip of label-over-value pairs: Last updated with a date, Linked items with a count rendered as a link to the linked items, and Completion with a progress bar and its percentage.",
+    "tabs": "Four tabs of equal width, General, Properties, People and Suggestions, carrying NO counts on their labels. General is active when the drawer opens.",
+    "tab-general": "A 'Glossary Items' heading carrying its count in parentheses, over an empty combo box prompting 'Search for Glossary Items', then a 'Description' heading with an information icon over the item's description.",
+    "tab-properties": "Property groups, each introduced by an uppercase group heading such as GENERAL, over label-and-field pairs. The fields are mixed and mostly editable: read-only text, an external link, an empty combo box prompting 'Add <property>', and a multi-select field holding removable chips with a clear-all control.",
+    "tab-people": "Two role sections, Curator and Contact, each headed by its label with an assign-person icon button at the right edge. A filled role draws an avatar chip carrying initials, the person's name and their job title on a second line, plus a remove control. An empty role draws an empty state, illustration over the sentence 'No curator has been assigned.'",
+    "tab-suggestions": "A segmented control filtering by suggestion state, Accepted, Rejected, Pending and All, with Pending selected by default, over the matching suggestions. When none match it draws an empty state reading 'There are no suggestions for this filter.'"
+  },
+  "renderNotes": [
+    "Do NOT compose this from `fmDialog`. It is a stub: it returns a hardcoded `<div class=\"fm-dialog__title\">Dialog</div>` and an empty body, reads no props at all, and cannot be given a title, an action or any content. The drawer surface is composed as a plain FRAME at the captured width instead. This is the same trap recorded on `right-sliding-drawer`, repeated here because a reader of one recipe does not read the other.",
+    "`fmProgressBar` reads its value from the VARIANT and not from props: the renderer takes `v.Completion || v.Progress || \"0%\"` and drops it straight into a CSS `width`. So the completion bar must be written as `\"variant\": \"Completion={{completion_percent}}\"`, and a props-borne `Completion` renders an empty bar. Because the value lands in a CSS width rather than in text, an unsubstituted `{{completion_percent}}` produces `width:{{completion_percent}}`, which the browser discards silently: the bar draws empty instead of showing the broken token. That is plugin #306 (no `{{token}}` check) with a failure mode that is invisible rather than merely ugly.",
+    "`fmTabs` reads `Tabs` (a comma string or an array) plus `Active`, and renders no count badge. That costs nothing here: Studio's drawer tabs genuinely carry no counts, unlike Explorer's, so for this capture the renderer and the product agree.",
+    "There is NO segmented control in the FM tier. `fmSegmentedControl` does not exist in `fm-html-map.js`, and an unmapped ref falls through to `gracefulChip()`, so the Suggestions filter cannot be composed faithfully at FM fidelity. The DS tier does have `segmented-control` (`type-picker-grid` already names it), so this is an FM-tier gap and not a design-system gap. The Suggestions panel is described in `slots` rather than composed for that reason.",
+    "`fmEmptyState` takes no props and always renders the words 'No items'. Both empty states in this drawer say something else ('No curator has been assigned.', 'There are no suggestions for this filter.'), so neither can be rendered truthfully by it. Filed as plugin #299.",
+    "`fmUser` always draws the name beside the initials on one line. Studio's Contact chip puts the job title on a second line beneath the name, which `fmUser` cannot express.",
+    "`fmMultiSelectDropdown` reads ONLY `props[\"Dropdown Text\"]`, so a `Label`, a `Placeholder` or a `Text` prop renders blank. `fmDropdown` is NOT the same: it reads `Dropdown Text` too, but it also renders an inline label from `Label Text` (unless `Show label` is false) and, ONLY inside that label, a caption from `Caption Text` (unless `Caption` is false), wrapping label and field together in an `fm-field-group`. The caption is nested in the label branch, so a `Caption Text` with no `Label Text` renders nothing at all. The glossary picker here is composed without a label because the product puts its heading above the field as a section title, not inside the field group.",
+    "An INSTANCE's `sizing` is IGNORED. `render-node.js` `case \"INSTANCE\"` returns `renderFMComponent(node)` with no style wrapper, so a width set on an instance never reaches the DOM. That matters here because `.fm-progress-bar` is `width: 100%` in `fm-base.css`, so dropped into a HORIZONTAL row it consumes the row and squeezes the percentage beside it. The bar is therefore wrapped in its own fixed-width FRAME, which is the only place a width CAN be set. Any FM component with a percentage width needs the same treatment.",
+    "`fmIconButtons` renders an empty div carrying only a Type class, with no glyph inside, so the open-in-page and close buttons draw as blank squares. Do not read a blank square here as a missing icon in the capture.",
+    "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal: \"FILL\"` emits `flex:1`, which in a column container distributes height instead of hugging content, while width already fills from flexbox's stretch default. `tests/app-context-recipes.test.js` walks every skeleton for this case.",
+    "This recipe composes the overlay surface ONLY, at its captured width of 550px. In the product the dialog is `position: fixed` with `inset: 70px 0 0 0` and `z-index: 950`, so it docks to the right edge BELOW the global app header rather than over it, and it is opened non-modally: `dialog.matches(':modal')` is false and `.zng-drawer::backdrop` is `display: none`. Compose the page behind it from `faceted-browse` when a full screen is wanted."
+  ],
+  "skeleton": {
+    "chrome": "standard",
+    "appHeader": "{{app}}",
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Quick edit drawer",
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 0
+        },
+        "sizing": {
+          "horizontal": 550,
+          "vertical": "FILL"
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Drawer header",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 12,
+              "padding": [
+                16,
+                16,
+                12,
+                16
+              ]
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Title row",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 8
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Title block",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 4
+                    },
+                    "sizing": {
+                      "horizontal": "FILL"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Qualifier tags",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Light",
+                            "props": {
+                              "Tag Text": "{{item_type}}"
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmTag",
+                            "variant": "Style=Filled",
+                            "props": {
+                              "Tag Text": "Shared"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmTextInput",
+                        "variant": "Type=Default",
+                        "props": {
+                          "Input Text": "{{item_name}}"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Header actions",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 4
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmIconButtons",
+                        "variant": "Type=Secondary",
+                        "props": {}
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmIconButtons",
+                        "variant": "Type=Secondary",
+                        "props": {}
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "TEXT",
+                "content": "Catalog: {{catalog_name}}",
+                "font": "Inter:Regular",
+                "size": 14,
+                "color": "var(--zen-color-text-secondary)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Metric strip",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 24
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Metric: Last updated",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 2
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Last updated",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "{{last_updated}}",
+                        "font": "Inter:Regular",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Metric: Linked items",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 2
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Linked items",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "{{linked_items_count}}",
+                        "font": "Inter:Regular",
+                        "size": 14,
+                        "color": "var(--zen-color-text-primary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Metric: Completion",
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "spacing": 2
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Completion",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Completion value",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8
+                        },
+                        "children": [
+                          {
+                            "type": "FRAME",
+                            "name": "Completion bar",
+                            "layout": {
+                              "mode": "HORIZONTAL",
+                              "spacing": 0
+                            },
+                            "sizing": {
+                              "horizontal": 80
+                            },
+                            "children": [
+                              {
+                                "type": "INSTANCE",
+                                "ref": "fmProgressBar",
+                                "variant": "Completion={{completion_percent}}",
+                                "props": {}
+                              }
+                            ]
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "{{completion_percent}}",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTabs",
+            "variant": "Type=Default",
+            "props": {
+              "Tabs": "General, Properties, People, Suggestions",
+              "Active": "General"
+            }
+          },
+          {
+            "type": "FRAME",
+            "name": "Tab panel: General",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 20,
+              "padding": [
+                16,
+                16,
+                16,
+                16
+              ]
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Section: Glossary items",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Glossary Items ({{glossary_items_count}})",
+                    "font": "Inter:Semi Bold",
+                    "size": 15,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "Search for Glossary Items"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Section: Description",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Description",
+                    "font": "Inter:Semi Bold",
+                    "size": 15,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_description}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
