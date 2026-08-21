@@ -3,7 +3,7 @@
   "slug": "right-sliding-drawer",
   "label": "Right sliding drawer",
   "description": "A non-modal quick view docked to the right edge, 550px wide, opened by clicking the body of a result card. The page behind it stays live and interactive: the selected card keeps its highlight and the filter rail keeps working. The header carries the item title, an optional primary action, and three icon buttons. The body scrolls independently and holds the item's summary, its pinned properties, and a tab bar whose panels are the same ones the full detail page shows.",
-  "when": "Use when a user needs to inspect one item without losing the list they found it in. Do NOT use asset-detail-360: that is the full page this drawer previews, reached by clicking the item TITLE rather than the card body, and it carries tabs and sections the drawer omits. Do NOT use a modal for this: in the product a drawer and a modal are different surfaces, and the difference is not decorative. The drawer sets `::backdrop { display: none }` and is opened non-modally so the page stays usable behind it; the modal paints a 60% black backdrop and blocks the page. Reach for a modal when the user must answer before continuing, and for this drawer when they must not lose their place.",
+  "when": "Use when a user needs to inspect one item without losing the list they found it in, IN EXPLORER. Studio draws the same 550px shell with a different body, and it is captured separately as `studio-quick-edit-drawer`: that one edits the title in place and renders Properties as editable fields. The tab sets overlap rather than nest. Both carry Properties and Suggestions; only Studio carries General and People; only Explorer carries Description and Fields. Explorer shows five tabs and puts a result count on four of them, Studio shows four and counts none. The selector tells the two apart by `apps`, so this pointer is for a human reading one capture without reading the other. Do NOT use asset-detail-360: that is the full page this drawer previews, reached by clicking the item TITLE rather than the card body, and it carries tabs and sections the drawer omits. Do NOT use a modal for this: in the product a drawer and a modal are different surfaces, and the difference is not decorative. The drawer sets `::backdrop { display: none }` and is opened non-modally so the page stays usable behind it; the modal paints a 60% black backdrop and blocks the page. Reach for a modal when the user must answer before continuing, and for this drawer when they must not lose their place.",
   "apps": ["explorer"],
   "patterns": ["right-sliding-drawer"],
   "tags": [
@@ -70,7 +70,7 @@
                     "content": "{{item_path}}",
                     "font": "Inter:Regular",
                     "size": 14,
-                    "color": "var(--zen-color-text-subtle)"
+                    "color": "var(--zen-color-text-secondary)"
                   }
                 ]
               },
