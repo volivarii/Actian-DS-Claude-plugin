@@ -658,7 +658,8 @@ describe("resolve-patterns (captured page recipes)", function () {
     // ASSERT THE SUBJECT, both ways. Without the second half this suite passes
     // on an implementation that stamps every pattern with a recipe slug; without
     // the first it passes on a substrate that ships no captures at all.
-    var ps = resolver.resolvePatterns("studio");
+    var APP = "studio";
+    var ps = resolver.resolvePatterns(APP);
     var withCapture = ps.filter(function (p) {
       return p.pageRecipe !== null;
     });
@@ -673,13 +674,77 @@ describe("resolve-patterns (captured page recipes)", function () {
       without.length > 0,
       "and most patterns have none, so a non-null value means something",
     );
+    // 🪤 This asserted `p.pageRecipe === p.slug`, "every shipped capture is named
+    // for the pattern it composes". That was true only by COINCIDENCE, while
+    // every shipped recipe happened to be named for its pattern, and it
+    // contradicted this suite's own "serves every pattern a recipe declares, not
+    // just the one it is named for" plus resolve-patterns.js's comment that
+    // `patterns` "is the declared link and wins". knowledge v0.34.145 shipped
+    // `studio-quick-edit-drawer`, which declares `right-sliding-drawer` because
+    // Studio and Explorer draw the same 550px shell with different bodies, and
+    // this assertion failed on the first recipe to use the join as designed.
+    // What has to hold is the JOIN, not the NAME.
+    var byRecipeSlug = {};
+    resolver.loadPageRecipes().forEach(function (r) {
+      if (r && typeof r.slug === "string") byRecipeSlug[r.slug] = r;
+    });
     withCapture.forEach(function (p) {
-      assert.strictEqual(
-        p.pageRecipe,
-        p.slug,
-        "every shipped capture is named for the pattern it composes",
+      var r = byRecipeSlug[p.pageRecipe];
+      assert.ok(
+        r,
+        p.slug + ": pageRecipe '" + p.pageRecipe + "' names no shipped recipe",
+      );
+      // Mirrors patternSlugsFor EXACTLY: normalize, filter, THEN fall back.
+      // 🪤 Checking `r.patterns.length` BEFORE normalizing diverges: on
+      // `patterns: ["", "  "]` the resolver filters to empty and falls back to
+      // the slug, while a raw length check keeps the blanks and fails a recipe
+      // the resolver resolves correctly. A test that reds on behaviour the code
+      // handles is worse than no test.
+      var norm = function (x) {
+        return typeof x === "string" ? x.trim().toLowerCase() : "";
+      };
+      var declared = (Array.isArray(r.patterns) ? r.patterns : [])
+        .map(norm)
+        .filter(Boolean);
+      if (!declared.length) declared = [norm(r.slug)].filter(Boolean);
+      assert.ok(
+        declared.indexOf(p.slug) !== -1,
+        p.slug + ": recipe '" + r.slug + "' does not declare this pattern",
+      );
+      assert.ok(
+        (Array.isArray(r.apps) ? r.apps : []).some(function (a) {
+          return resolver.normalizeApp(a) === resolver.normalizeApp(APP);
+        }),
+        p.slug + ": recipe '" + r.slug + "' does not claim " + APP,
       );
     });
+  });
+
+  it("serves a capture whose slug differs from the pattern it declares", function () {
+    // The case the `pageRecipe === slug` assertion above used to forbid, and the
+    // reason it was wrong. Two captures of ONE shape, told apart by `apps`: the
+    // product draws the same 550px right-hand drawer in both Studio and Explorer
+    // with different bodies, so knowledge ships `right-sliding-drawer` (explorer)
+    // and `studio-quick-edit-drawer` (studio), both declaring the same pattern.
+    // Kept synthetic rather than read from the vendored substrate, so it pins the
+    // capability at every vendored version rather than only after a given sync.
+    var ctx = {
+      patterns: { "right-sliding-drawer": { apps: ["studio", "explorer"], tags: ["x"] } },
+    };
+    var index = [
+      { slug: "right-sliding-drawer", apps: ["explorer"], patterns: ["right-sliding-drawer"] },
+      { slug: "studio-quick-edit-drawer", apps: ["studio"], patterns: ["right-sliding-drawer"] },
+    ];
+    assert.strictEqual(
+      resolver.resolvePatterns("studio", ctx, [], index)[0].pageRecipe,
+      "studio-quick-edit-drawer",
+      "studio must get the capture named for studio, not the one named for the pattern",
+    );
+    assert.strictEqual(
+      resolver.resolvePatterns("explorer", ctx, [], index)[0].pageRecipe,
+      "right-sliding-drawer",
+      "explorer must keep its own capture",
+    );
   });
 
   it("joins on the recipe's own slug when it declares no patterns", function () {

@@ -19,6 +19,32 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **A test asserted that a captured recipe is always named for the pattern it composes, which was true
+  only by coincidence, and it blocked the substrate's first real use of the declared join.**
+  ([#PR](_PR link added at open_)) knowledge v0.34.145 shipped `studio-quick-edit-drawer`, which
+  declares `patterns: ["right-sliding-drawer"]`: Studio and Explorer draw the same 550px right-hand
+  drawer with different bodies, so one pattern now has two captures told apart by `apps`. The nightly
+  vendor PR went red on `assert.strictEqual(p.pageRecipe, p.slug)` and stopped auto-merging, so the
+  capture reached no consumer.
+
+  **It was the assertion that was wrong, not the capture.** `patterns` is a DECLARED field precisely so
+  a recipe can compose a pattern it is not named for, `resolve-patterns.js` says so in as many words
+  ("the declared link and wins"), and the same suite already contained "serves every pattern a recipe
+  declares, not just the one it is named for" and "joins on the recipe's own slug when it declares no
+  patterns", the second of which proves slug-matching is the FALLBACK rather than the rule. The suite
+  asserted both that a recipe may compose a pattern it is not named for and that it never does; the
+  first capture to exercise the design decided which one it meant.
+
+  The check now asserts the JOIN rather than the NAME: the recipe a pattern points at must DECLARE that
+  pattern (with the same slug fallback the resolver uses) and CLAIM that app. Verified not to be
+  tautological by planting a wrong pairing, which it rejects. A new test pins the capability directly,
+  one pattern with two captures resolving per app, and it is written against a synthetic index rather
+  than the vendored substrate so it holds at every vendored version instead of only after a given sync.
+  Nothing pinned that before, which is why a green suite broke on the first recipe to use the join as
+  designed.
+
 ### Added
 
 - **The generator now composes from a captured page recipe where the substrate has one, instead of
