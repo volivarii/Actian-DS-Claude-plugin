@@ -22,7 +22,7 @@ are summarized at the release level.
 ### Removed
 
 - **The vendored media oracles, 6.9 MB in every install and 34 MB of git history, bought two
-  unactioned failure reports and zero verifications.** ([#PR](_PR link added at open_))
+  unactioned failure reports and zero verifications.** ([#314](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/314))
   `vendor/components/dist/media/<slug>/` held 365 `.webp` reference screenshots across 183 components.
   One caller in this repo read them: `scripts/fidelity/run-fidelity.js`, through
   `PATHS.components.media()` / `mediaDefault()`, over a hardcoded 19-slug `PILOT`, in a `pr-checks`
@@ -67,7 +67,7 @@ are summarized at the release level.
 ### Fixed
 
 - **The fidelity ledger named a reference image that was never compared, and after the prune above it
-  would have named a missing file on every row.** ([#PR](_PR link added at open_))
+  would have named a missing file on every row.** ([#314](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/314))
   `ledgerRow()` in `scripts/fidelity/run-fidelity.js` emitted
   `reference.media: ["components/dist/media/<slug>/default.webp"]` even when `chosenOracle` was null,
   falling back to that literal string. Its own comment states the field exists "so the recorded
