@@ -19,7 +19,60 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Removed
+
+- **The vendored media oracles, 6.9 MB in every install and 34 MB of git history, bought two
+  unactioned failure reports and zero verifications.** ([#PR](_PR link added at open_))
+  `vendor/components/dist/media/<slug>/` held 365 `.webp` reference screenshots across 183 components.
+  One caller in this repo read them: `scripts/fidelity/run-fidelity.js`, through
+  `PATHS.components.media()` / `mediaDefault()`, over a hardcoded 19-slug `PILOT`, in a `pr-checks`
+  job carrying `continue-on-error: true`. Nothing in `skills/`, `agents/`, `recipes/`, `references/`
+  or `templates/` touched them.
+
+  **Measured before and after, on the same tree.** The visual gate reported
+  `2 fail, 17 skipped, 0 verified` with all 183 components' oracles present, and now reports
+  `0 fail, 19 skipped, 0 verified`. The DS Quality Score is 87/100 either way, because `visual` is
+  "not scored" in both. What shipped bought two failure reports that could not red a build, against
+  zero verified components.
+
+  **The cost was not the 6.9 MB.** Across history the media is 1041 unique blobs holding 34.3 MB
+  against a 59 MB pack. WebP does not delta-compress, so every nightly re-vendor stored fresh copies:
+  a fresh install was 39 MB and a live one that had taken nightly updates had reached 86 MB, of which
+  57 MB was `.git`. The marketplace clone is shallow, but updates arrive by fetch and a shallow clone
+  only cuts history at clone time, so the number a user lived with grew every night.
+
+  **They could not be dropped upstream.** `vendor-include.json` is shared with the docs site, which
+  genuinely renders these files onto component pages (`scripts/generate-component-pages.cjs` mirrors
+  them into `public/media/`, `src/components/media-asset-resolver.mjs` resolves them; 549 entries
+  vendored there). The substrate's `vendor-exclude.json` seam is repo-global for the same reason. So
+  the plugin prunes its own copy in `vendor-snapshot.js`'s existing `postVendorHook`, after the copy
+  and before `[vendor] OK`. The prune is scoped to the `.webp` oracles and removes a slug directory
+  only once emptied, so a future per-component asset under `components/dist/media` is not taken with
+  them; `_index.json` and `README.md` stay, because `paths-manifest.json` declares
+  `components.media.index` as a path entry. A failing prune warns and sets a non-zero exit rather
+  than throwing, matching the mirror step: an unguarded throw would abort before the mirrors
+  regenerate, which is the stale-mirror state `postVendorHook` was introduced to prevent.
+
+  **The fidelity harness is now inert in this repo, and that is recorded rather than hidden.** Its
+  integration test already carried the skip reason `"default.webp oracles not vendored"` and now
+  always takes it, and the CI summary states `19 skipped, 0 verified` in plain words. Deciding the
+  harness's home is [#310](https://github.com/volivarii/Actian-DS-Claude-plugin/issues/310) step 2:
+  it pixel-diffs knowledge's renderer against knowledge's own oracle, from inside a consumer, and
+  both halves belong to the producer.
+
+  `pruneMediaOracles(mediaDir)` requires its directory and never defaults to one. A prune helper that
+  can fall back to a repo-relative path is one bad call away from deleting committed files, which has
+  happened in this ecosystem before.
+
 ### Fixed
+
+- **The fidelity ledger named a reference image that was never compared, and after the prune above it
+  would have named a missing file on every row.** ([#PR](_PR link added at open_))
+  `ledgerRow()` in `scripts/fidelity/run-fidelity.js` emitted
+  `reference.media: ["components/dist/media/<slug>/default.webp"]` even when `chosenOracle` was null,
+  falling back to that literal string. Its own comment states the field exists "so the recorded
+  reference can never disagree with what was actually compared". It now emits `[]` when nothing was
+  compared, so the ledger and the CI artifact cite only oracles that were actually diffed.
 
 - **A test asserted that a captured recipe is always named for the pattern it composes, which was true
   only by coincidence, and it blocked the substrate's first real use of the declared join.**
