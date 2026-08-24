@@ -107,15 +107,97 @@ function runComponentReferenceRenderer() {
   return true;
 }
 
+// #310: prune the vendored media oracles. `vendor/components/dist/media/<slug>/`
+// holds 365 .webp reference screenshots across 183 components. Exactly one caller
+// in this repo reads them (scripts/fidelity/run-fidelity.js, via
+// PATHS.components.media()/mediaDefault()), over a hardcoded 19-slug PILOT, in a
+// pr-checks job marked continue-on-error. They cost 6.9 MB in every install and,
+// because WebP does not delta-compress, tens of MB of git history that grows with
+// every nightly re-vendor.
+//
+// They cannot be dropped upstream: vendor-include.json is shared with the docs
+// site, which genuinely renders these files onto component pages. So the plugin
+// drops its own copy here instead.
+//
+// Only the .webp oracles go, and a slug directory is removed only once emptied.
+// The top-level sidecars (_index.json, README.md) stay: paths-manifest.json
+// declares components.media.index as a path entry, and keeping it costs a few KB.
+//
+// mediaDir is REQUIRED and never defaults. This function deletes directories, and
+// a prune helper that can fall back to a repo path is one bad call away from
+// removing committed files.
+function pruneMediaOracles(mediaDir) {
+  if (!mediaDir) throw new Error("pruneMediaOracles: mediaDir is required");
+  if (!fs.existsSync(mediaDir)) return 0;
+  var removed = 0;
+  fs.readdirSync(mediaDir, { withFileTypes: true }).forEach(function (entry) {
+    if (!entry.isDirectory()) return;
+    var slugDir = path.join(mediaDir, entry.name);
+    fs.readdirSync(slugDir).forEach(function (file) {
+      if (path.extname(file) !== ".webp") return;
+      fs.rmSync(path.join(slugDir, file));
+      removed += 1;
+    });
+    // The directory goes only once it holds nothing this function did not own.
+    // Deleting the slug directory outright would silently take any future
+    // per-component asset knowledge adds under components/dist/media.
+    if (fs.readdirSync(slugDir).length === 0) fs.rmdirSync(slugDir);
+  });
+  return removed;
+}
+
+// Where the vendored oracles land. Named so a test can assert the prune is aimed
+// at the real directory without deleting it.
+function defaultMediaDir() {
+  return path.join(VENDOR_DIR, "components", "dist", "media");
+}
+
+// The post-vendor step: drop the media oracles (#310), then regenerate the
+// component mirrors. `deps` exists so the prune can be exercised against a
+// throwaway tree; the mirror step spawns a renderer process, so a test stubs it.
+function makePostVendorHook(deps) {
+  var d = deps || {};
+  var mediaDir = d.mediaDir || defaultMediaDir();
+  var prune = d.prune || pruneMediaOracles;
+  var mirrors = d.mirrors || runComponentReferenceRenderer;
+  return function () {
+    // Warn and continue, matching the mirror step's own semantics. An unguarded
+    // throw here would abort before the mirrors regenerate, leaving vendored.json
+    // and a fresh tree on disk beside stale mirrors: the state this hook exists
+    // to prevent. A failed prune only means the tree stayed heavy.
+    try {
+      var removed = prune(mediaDir);
+      process.stdout.write(
+        "[vendor] pruned " + removed + " media oracle files (#310)\n",
+      );
+    } catch (err) {
+      process.stderr.write(
+        "[vendor] WARNING: media oracle prune failed (" +
+          err.message +
+          "). Snapshot is on disk; the vendored media was NOT pruned.\n",
+      );
+      process.exitCode = 1;
+    }
+    return mirrors();
+  };
+}
+
+// `deps` is forwarded to the hook so a test can invoke the REAL configured hook
+// against a throwaway tree. Without that, a test could only assert the hook is
+// "a function", which a revert to the bare mirror step would still satisfy.
+function buildConfig(deps) {
+  return {
+    knowledgeRepo: KNOWLEDGE_REPO,
+    vendorDir: VENDOR_DIR,
+    vendoredJsonPath: VENDORED_JSON_PATH,
+    excludeTopLevel: EXCLUDE_TOP_LEVEL,
+    postVendorHook: makePostVendorHook(deps),
+  };
+}
+
 if (require.main === module) {
   try {
-    core.runSnapshot({
-      knowledgeRepo: KNOWLEDGE_REPO,
-      vendorDir: VENDOR_DIR,
-      vendoredJsonPath: VENDORED_JSON_PATH,
-      excludeTopLevel: EXCLUDE_TOP_LEVEL,
-      postVendorHook: runComponentReferenceRenderer,
-    });
+    core.runSnapshot(buildConfig());
   } catch (err) {
     // exit 2 = any fatal vendor error. The core THROWS the unrecoverable
     // conditions (no in-range tag / no resolvable SHA) that the pre-shared-client
@@ -139,4 +221,8 @@ module.exports = {
   selectEntries: core.selectEntries,
   readVendorInclude: core.readVendorInclude,
   runComponentReferenceRenderer: runComponentReferenceRenderer,
+  pruneMediaOracles: pruneMediaOracles,
+  defaultMediaDir: defaultMediaDir,
+  makePostVendorHook: makePostVendorHook,
+  buildConfig: buildConfig,
 };

@@ -172,12 +172,17 @@ function ledgerRow(slug, gate1, gate2, oracle) {
       method: "Program C two-gate (pixel + structural)",
     },
     reference: {
-      media: [
-        "components/dist/media/" +
-          slug +
-          "/" +
-          (chosenOracle ? path.basename(chosenOracle) : "default.webp"),
-      ],
+      // Nothing compared, so name nothing. The old fallback to a literal
+      // "default.webp" cited a file that need not exist, which since #310
+      // (the plugin ships no .webp oracles) would be every row.
+      media: chosenOracle
+        ? [
+            "components/dist/media/" +
+              slug +
+              "/" +
+              path.basename(chosenOracle),
+          ]
+        : [],
     },
     pixel: gate1,
     structural: gate2,
