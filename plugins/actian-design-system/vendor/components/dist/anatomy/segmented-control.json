@@ -2,50 +2,54 @@
   "_schema_version": 1,
   "slug": "segmented-control",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-08-24T12:29:56.337Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7618:5187",
-    "variant": "Type=Default"
+    "variant": "Property 1=Default"
   },
   "quality": {
-    "nodesTotal": 10,
-    "nodesNormalized": 5,
-    "ratio": 0.5,
+    "nodesTotal": 6,
+    "nodesNormalized": 1,
+    "ratio": 0.17,
     "degraded": []
   },
   "root": {
-    "name": "Type=Default",
+    "name": "Property 1=Default",
     "kind": "container",
     "tokenRefs": [
-      "--zen-border-default"
+      "--zen-border-subtle"
     ],
     "id": "7618:5284",
     "appearance": {
       "background": "#ffffff",
       "border": {
-        "color": "#c7c7ce",
-        "colorToken": "--zen-border-default",
+        "color": "#e1e1e6",
+        "colorToken": "--zen-border-subtle",
         "width": "1px"
       },
-      "radius": "6px"
+      "radius": "9999px"
     },
     "layout": {
       "axis": "row",
       "gap": "0px",
       "padding": {
         "top": "0px",
-        "right": "0px",
+        "right": "4px",
         "bottom": "0px",
-        "left": "0px"
+        "left": "4px"
       },
       "align": {
         "main": "start",
-        "cross": "start"
+        "cross": "center"
       },
       "sizing": {
-        "h": "fixed",
+        "h": "hug",
         "v": "fixed"
+      },
+      "paddingTokens": {
+        "right": "--zen-spacing-2xs",
+        "left": "--zen-spacing-2xs"
       }
     },
     "children": [
@@ -54,25 +58,15 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
+          "Show label": true,
           "Label": "Label",
-          "Icon2": true,
+          "Show icon": true,
           "State": "Selected"
         },
         "id": "7618:5285",
         "appearance": {
-          "background": "#edf6ff"
-        }
-      },
-      {
-        "name": " Divider",
-        "kind": "vector",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "13811:13070",
-        "appearance": {
-          "background": "#c7c7ce",
-          "backgroundToken": "--zen-border-default"
+          "background": "#edf6ff",
+          "radius": "9999px"
         }
       },
       {
@@ -81,21 +75,13 @@
         "unresolved": true,
         "props": {
           "Label": "Label",
-          "Icon2": true,
+          "Show label": true,
+          "Show icon": true,
           "State": "Default"
         },
-        "id": "7618:5286"
-      },
-      {
-        "name": " Divider",
-        "kind": "vector",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "13811:13068",
+        "id": "7618:5286",
         "appearance": {
-          "background": "#c7c7ce",
-          "backgroundToken": "--zen-border-default"
+          "radius": "9999px"
         }
       },
       {
@@ -104,21 +90,13 @@
         "unresolved": true,
         "props": {
           "Label": "Label",
-          "Icon2": true,
+          "Show label": true,
+          "Show icon": true,
           "State": "Default"
         },
-        "id": "7618:5287"
-      },
-      {
-        "name": " Divider",
-        "kind": "vector",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "13811:13066",
+        "id": "7618:5287",
         "appearance": {
-          "background": "#c7c7ce",
-          "backgroundToken": "--zen-border-default"
+          "radius": "9999px"
         }
       },
       {
@@ -127,21 +105,13 @@
         "unresolved": true,
         "props": {
           "Label": "Label",
-          "Icon2": true,
+          "Show label": true,
+          "Show icon": true,
           "State": "Default"
         },
-        "id": "7618:5288"
-      },
-      {
-        "name": " Divider",
-        "kind": "vector",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "13811:13064",
+        "id": "7618:5288",
         "appearance": {
-          "background": "#c7c7ce",
-          "backgroundToken": "--zen-border-default"
+          "radius": "9999px"
         }
       },
       {
@@ -150,14 +120,18 @@
         "unresolved": true,
         "props": {
           "Label": "Label",
-          "Icon2": true,
+          "Show label": true,
+          "Show icon": true,
           "State": "Default"
         },
-        "id": "7618:5289"
+        "id": "7618:5289",
+        "appearance": {
+          "radius": "9999px"
+        }
       }
     ]
   },
   "variantDefaults": {
-    "Type": "Default"
+    "Property 1": "Default"
   }
 }

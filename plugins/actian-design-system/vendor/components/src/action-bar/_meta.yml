@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
-component: "Sticky footer"
+component: "Action bar"
 category: action
 a11y_refs:
   - { ref: buttons }

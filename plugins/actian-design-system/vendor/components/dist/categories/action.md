@@ -34,7 +34,7 @@ foundations_refs:
 
 # Action — design rationale
 
-Components in this category trigger discrete actions or navigate. Members: `button`, `link`, `sticky-footer`.
+Components in this category trigger discrete actions or navigate. Members: `button`, `link`, `action-bar`.
 
 ## Reference patterns
 
@@ -50,7 +50,7 @@ Action surfaces converge on a small set of style ramps (primary → ghost) and a
 
 ## Notes for refining authors
 
-* `sticky-footer` is a layout wrapper that pins one or more action buttons; its anatomy extends with `Container` (full-width bar) but otherwise inherits the action defaults.
+* `action-bar` is a layout wrapper that pins one or more action buttons; its anatomy extends with `Container` (full-width bar) but otherwise inherits the action defaults.
 
 * `link` MAY drop the `Leading icon`/`Trailing icon` parts unless the link semantically points to an external resource or downloads a file.
 

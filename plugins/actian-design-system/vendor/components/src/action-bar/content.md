@@ -1,10 +1,10 @@
 ---
-title: "Sticky footer"
-nav_order: 33
+title: "Action bar"
+nav_order: 2
 ---
-# Sticky footer
+# Action bar
 
-The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.
+The action bar is a persistent bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.
 
 ***
 
@@ -18,7 +18,7 @@ The sticky footer is a persistent action bar that remains visible at the bottom 
 
 ## Button hierarchy
 
-* The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.
+* The action bar must contain exactly one primary action. The only exception is an additional destructive button such as Delete.
 
 * An optional secondary action can be included.
 
@@ -35,7 +35,7 @@ Use clear verbs that describe the outcome. Labels should describe what will happ
 | Create                                  | Submit (except on forms)                   |
 | Confirm                                 | Yes                                        |
 | Delete                                  | Remove (for destructive permanent actions) |
-| Continue (as part of a defined stepper) | Next (in sticky footers outside steppers)  |
+| Continue (as part of a defined stepper) | Next (in action bars outside steppers)  |
 
 ## Steppers
 

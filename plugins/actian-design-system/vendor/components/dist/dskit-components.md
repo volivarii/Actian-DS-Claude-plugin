@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-322 components.
+321 components.
 
 ---
 
@@ -35,12 +35,23 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 - Variants: **Color:** `Full color` · `White` · `Color3` · `Color4`
 - Node: `7764:7688` | Key: `84e6abe2e5b7dbe96a859397f557249922560413`
 
+### Action bar
+
+A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.
+
+- Variants: **Property 1:** `Default`
+- Node: `14747:9839` | Key: `de36372be7d1532ee37fbfc43238aed444f6e7c9`
+
 ### add
+
+Add / create
 
 - Single component (no variants)
 - Node: `7206:3772` | Key: `33ab1534db5a1d5619a29735d2a0ac87514819b9`
 
 ### add-circle
+
+Add
 
 - Single component (no variants)
 - Node: `14703:19709` | Key: `1aa9aeb58cfd76045aef34c67c9137a659eb4c5d`
@@ -57,6 +68,8 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 
 ### alert
 
+Notifications
+
 - Single component (no variants)
 - Node: `7207:2820` | Key: `3ef4d9930695bc99abbbf055d853f986227ae5c5`
 
@@ -67,13 +80,6 @@ Static, high-visibility message placed at the top of a page or section. Use for 
 - Variants: **Type:** `Info` · `Success` · `Warning` · `Error` | **Orientation':** `Horizontal` · `Vertical`
 - Boolean properties: `Show Icon#14881:0` (default: true) — set to `false` to hide · `Show close button#14881:5` (default: true) — set to `false` to hide · `Show action#14907:5` (default: true) — set to `false` to hide
 - Node: `13732:3056` | Key: `9717f500f425975f63c0eb2f9c1e434ff010f24b`
-
-### Alert-inline
-
-Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
-
-- Variants: **Type:** `Warning` · `Danger` · `Success` · `Primary` | **Orientation':** `Horizontal`
-- Node: `19746:32731` | Key: `14a9062ded019fd0aafa717a268cba3e402c4a3f`
 
 ### alteryx
 
@@ -87,6 +93,8 @@ Static, high-visibility message placed at the top of a page or section. Use for 
 
 ### analytics
 
+Analytics
+
 - Single component (no variants)
 - Node: `7378:3747` | Key: `2cd31a798fd279626c6235902e21b17d6850db19`
 
@@ -96,6 +104,8 @@ Static, high-visibility message placed at the top of a page or section. Use for 
 - Node: `8400:25201` | Key: `d7bfb59b3cc1a6b3adccab62c95f2a39fa6b75e7`
 
 ### api-key
+
+API keys
 
 - Single component (no variants)
 - Node: `7378:3969` | Key: `f0f6ca388b8ac7bb5a0b3dea5b3d5ec30c6d0293`
@@ -113,30 +123,42 @@ Menu list item - can be edited by selecting individual list item and  selecting 
 
 ### applications
 
+App switcher
+
 - Single component (no variants)
 - Node: `7378:5025` | Key: `3ba99b342a17c51b99638e6b4aea3a91948ff578`
 
 ### arrow
+
+Right
 
 - Single component (no variants)
 - Node: `7207:2841` | Key: `1c31323fdcdaafe18878eb8206c3300f36bd6274`
 
 ### arrow-alt
 
+Go to Operations
+
 - Single component (no variants)
 - Node: `8504:23323` | Key: `3a4fe9f03c3754d97f2fc5e8a472052a9fd4c9d7`
 
 ### arrow-down
+
+Expand
 
 - Single component (no variants)
 - Node: `7207:2839` | Key: `43009d0b38b304e97c5716c0a32ccc3951851872`
 
 ### arrow-left
 
+Left
+
 - Single component (no variants)
 - Node: `7207:2837` | Key: `7940e22ca8c7fb72312b009bbc5d622c45dfc58f`
 
 ### arrow-up
+
+Collapse
 
 - Single component (no variants)
 - Node: `7207:2842` | Key: `5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4`
@@ -155,7 +177,7 @@ Menu list item - can be edited by selecting individual list item and  selecting 
 
 Visual representation of a user or entity. Use "Image" variant if a photo exists, or "Initials" as a fallback.
 
-- Variants: **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Disabled` · `Selected` | **Type:** `One group` · `Two groups` · `Default`
+- Variants: **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled` · `Expanded` | **Type:** `One group` · `Two groups` · `Default`
 - Node: `7384:14212` | Key: `67e11f5d63bbe3cb24cae7d38ab5e90ee506d266`
 
 ### avro
@@ -200,6 +222,8 @@ Visual representation of a user or entity. Use "Image" variant if a photo exists
 
 ### back
 
+Back
+
 - Single component (no variants)
 - Node: `8504:23035` | Key: `3626cb4ae78e5ad1bbc79bb3b04ef9d0323dbf9f`
 
@@ -232,15 +256,21 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 
 ### bin-type
 
+Bin
+
 - Single component (no variants)
 - Node: `14292:5730` | Key: `fe0c2ab0c4128c555979c33682a6f3df40fb0b76`
 
 ### book-bookmark
 
+Topics (saved searches)
+
 - Single component (no variants)
 - Node: `7378:3702` | Key: `b5e398041c92e0830c652775f440c06226403d04`
 
 ### book-edit
+
+Switch to rich text
 
 - Single component (no variants)
 - Node: `8504:23324` | Key: `5375571bf48c287ec6f4c68bc4323db53466cf36`
@@ -261,6 +291,8 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 - Node: `20633:35` | Key: `aff52ad8b0869b5d8085bfc6c109eb84d234b136`
 
 ### boolean-type
+
+Boolean
 
 - Single component (no variants)
 - Node: `8504:23295` | Key: `e3dffdffb222be75a098c850a0ad155e1ad47eef`
@@ -297,19 +329,16 @@ Critical: "Use specifically for actions that result in data loss or permanent ch
 - Variants: **Type:** `Single date select` · `Date` · `Month` · `Single` | **Selection:** `Single` · `Range` · `Year`
 - Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
 
+### Card
+
+- Variants: **Elevation:** `Flat with border` · `Raised with shadow` | **Size:** `Small` · `Large`
+- Node: `21781:16248` | Key: `f96a26b8cbcb77880425bb0d95269b3a55eed18e`
+
 ### Card for grouped content
 
 - Variants: **Property 1:** `Default`
 - Boolean properties: `Show header#15927:2` (default: true) — set to `false` to hide
 - Node: `14782:29281` | Key: `3b8d2c7adc118fdd5f31e68440fa35e952fee92e`
-
-### Card for items
-
-A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.
-
-- Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
-- Boolean properties: `Show AI ready#14853:0` (default: true) — set to `false` to hide
-- Node: `7613:7853` | Key: `95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30`
 
 ### Card for perimeter
 
@@ -328,15 +357,21 @@ A flexible container for grouping related information. Use for dashboard summari
 
 ### catalog
 
+Catalogs
+
 - Single component (no variants)
 - Node: `7439:4618` | Key: `64b2045e4c431df3c913363c7ae6d98bc44434d6`
 
 ### catalog-design
 
+Catalog design
+
 - Single component (no variants)
 - Node: `7439:4619` | Key: `1e008db8c2582d72bc8688a4eec84b2da83506c1`
 
 ### catalogs
+
+Catalogs
 
 - Single component (no variants)
 - Node: `14115:8084` | Key: `bf59f59271f2a5fb0945e406629aefeb72775468`
@@ -374,6 +409,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 ### close
 
+Close
+
 - Single component (no variants)
 - Node: `7293:24` | Key: `09bac5a4cba0cbd89819dbe34afadc5db046f29d`
 
@@ -393,6 +430,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Node: `8400:25224` | Key: `ee8c45ab057d92ce74a177352d4a9efbd18c6aec`
 
 ### collapse
+
+Collapse
 
 - Single component (no variants)
 - Node: `20633:62` | Key: `1530594f58087b425da1de80ce555a12afd24deb`
@@ -417,6 +456,8 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 - Node: `13871:32310` | Key: `41a7ce5d67baa4a49843fc0768bee6df42f945a7`
 
 ### connected
+
+Hide connection
 
 - Single component (no variants)
 - Node: `7378:5604` | Key: `1af7f48fd97a924fbefe8516b1f41bc63c25a5dc`
@@ -453,15 +494,21 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 ### dashboard
 
+Dashboard
+
 - Single component (no variants)
 - Node: `7439:4602` | Key: `5d18c47639d77f1042c9e0bc2ccde8fcab2156d6`
 
 ### data-access-request
 
+Access requests
+
 - Single component (no variants)
 - Node: `13315:9277` | Key: `9c4bda0c1c0521899b4019980ff9d248850fa215`
 
 ### data-file-question
+
+Field statistics
 
 - Single component (no variants)
 - Node: `8820:13520` | Key: `952165dd5316a81b1e8ee351e98c9cc489a3b863`
@@ -473,25 +520,35 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 ### data-model
 
+Data model
+
 - Single component (no variants)
 - Node: `7294:705` | Key: `0fcfb9923b572949f296c019646f8ec17d6297b9`
 
 ### data-product-input-port
+
+Input ports
 
 - Single component (no variants)
 - Node: `18646:4476` | Key: `d98d310de8453ec6b7dd90e9a6ed339e4155d8b0`
 
 ### data-product-output-port
 
+Output ports
+
 - Single component (no variants)
 - Node: `8504:23087` | Key: `f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f`
 
 ### database
 
+Select a connection
+
 - Single component (no variants)
 - Node: `7378:3700` | Key: `eb4d7d43a2ef5bae16611e36a2da213bd07e27ba`
 
 ### database-check
+
+Data quality
 
 - Single component (no variants)
 - Node: `8504:23088` | Key: `d94160526fbf06fff8a2be78f3449d5711a1f15e`
@@ -513,10 +570,14 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 
 ### Datasets
 
+Datasets
+
 - Single component (no variants)
 - Node: `18532:4652` | Key: `119f67e361c3421c5d2b3ad53ffd2df7f253de4c`
 
 ### date
+
+Date
 
 - Single component (no variants)
 - Node: `7378:5221` | Key: `decde3b78f16d02045516de4e4d8255d67d73cfc`
@@ -560,13 +621,22 @@ Works like tags but contains only 2 letters (initials of category name)
 
 ### disconnected
 
+Show connection
+
 - Single component (no variants)
 - Node: `7378:5601` | Key: `a5726c79041ba23ea9615c4c8af7a7dedde9eb4f`
 
 ### discussion
 
+Discussion
+
 - Single component (no variants)
 - Node: `7378:5054` | Key: `4544a1b4ee7ecc05c3c18662aabb8b1aa0abebe0`
+
+### Dot
+
+- Single component (no variants)
+- Node: `21224:24526` | Key: `fe71ed0acd41e7361aa2f1042db1caf78dbd7ac3`
 
 ### double-check
 
@@ -575,10 +645,14 @@ Works like tags but contains only 2 letters (initials of category name)
 
 ### download
 
+Import
+
 - Single component (no variants)
 - Node: `7439:4645` | Key: `3a3acebe888e3a87c03831ab720ad5639c358af6`
 
 ### drag
+
+Drag to reorder
 
 - Single component (no variants)
 - Node: `7378:5050` | Key: `f4dd4a86dfd0f91cce381eaa51abaa14a84785d3`
@@ -600,6 +674,8 @@ Use when there are more than 7 options or space is limited. Ideal for selecting 
 - Node: `13972:708` | Key: `1140aec3d572e3fbda362723cd7137ac2f0ce9bd`
 
 ### edit
+
+Edit
 
 - Single component (no variants)
 - Node: `7207:2827` | Key: `2f0c909fda47237325e20a1fc1c3d6eea2b05cd6`
@@ -625,6 +701,8 @@ A placeholder shown when a container has no content (e.g., empty search, no mess
 
 ### error-filled
 
+Critical, danger, error
+
 - Single component (no variants)
 - Node: `7378:5468` | Key: `53bac27f6b0e802b7f07de2c4a853502c6e93475`
 
@@ -642,30 +720,42 @@ A placeholder shown when a container has an error. Must include an illustration,
 
 ### exit
 
+Log out
+
 - Single component (no variants)
 - Node: `7301:2777` | Key: `e0ea887336f377ba397b25d988a54cf79eec6e4e`
 
 ### expand
+
+Expand
 
 - Single component (no variants)
 - Node: `20633:61` | Key: `1ef2bea34b02a5fd472ea139006e2245783e28cf`
 
 ### exploration
 
+View 360
+
 - Single component (no variants)
 - Node: `7294:702` | Key: `8220d30e69ebd1f255417f5871137cff0bcd7f99`
 
 ### export
+
+Export
 
 - Single component (no variants)
 - Node: `7271:2697` | Key: `d6ab31d568212dca630643adb1d54e302535b70f`
 
 ### favorite
 
+Add to favorites
+
 - Single component (no variants)
 - Node: `7378:3698` | Key: `5ab08e77426cace71669963cfecc7164391598b3`
 
 ### favorite-filled
+
+Favorited
 
 - Single component (no variants)
 - Node: `7378:3696` | Key: `f356489882aa4ddfc7e099e006510d6fdda704df`
@@ -702,15 +792,21 @@ A placeholder shown when a container has an error. Must include an illustration,
 
 ### filter-text
 
+Filter
+
 - Single component (no variants)
 - Node: `7378:5053` | Key: `eeb978ec0554b3df748891134e68c1c98137b480`
 
 ### float-type
 
+Float
+
 - Single component (no variants)
 - Node: `8504:23304` | Key: `6db7c938fc9015d08e43e7b1de61438c6fb3534a`
 
 ### folder
+
+Folder
 
 - Single component (no variants)
 - Node: `8189:4595` | Key: `c97a2b5506aafe95c2e4964752e4522b247e609b`
@@ -732,6 +828,8 @@ A placeholder shown when a container has an error. Must include an illustration,
 
 ### geo-point-type
 
+Geo point
+
 - Single component (no variants)
 - Node: `8504:23303` | Key: `8260b27df19484714fd96a17eef967ad126b8266`
 
@@ -739,10 +837,12 @@ A placeholder shown when a container has an error. Must include an illustration,
 
 The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).
 
-- Variants: **App type:** `Explorer` · `Admin` · `Studio` | **Breakpoints:** `XL` · `L` · `M` · `S` · `XS`
+- Variants: **App type:** `Explorer` · `Admin` · `Studio` | **Breakpoints:** `XL` · `L`
 - Node: `7384:22554` | Key: `e3e1e5d29f092fbd6ba5f0f40141ba55473548a8`
 
 ### glossary
+
+Glossary
 
 - Single component (no variants)
 - Node: `10613:30347` | Key: `e47a036e8d2cce3968395f79cc96fdcc70bcf275`
@@ -758,6 +858,8 @@ The persistent top-level container for branding, primary site-wide navigation, a
 - Node: `8400:25071` | Key: `d12a8061cfd85561bfea6763765c06144bf6e985`
 
 ### graph-merge
+
+Glossary breadcrumb
 
 - Single component (no variants)
 - Node: `8576:4931` | Key: `b715dbd163131f360146e6044d9f8743045a973b`
@@ -779,10 +881,14 @@ The persistent top-level container for branding, primary site-wide navigation, a
 
 ### help-bubble
 
+Support
+
 - Single component (no variants)
 - Node: `7207:2832` | Key: `e842d2ce342d70cf02719cd42d5243744345c402`
 
 ### help-circle
+
+Help
 
 - Single component (no variants)
 - Node: `8504:23049` | Key: `2e8edce02b9198b99fe770fab00b636fb20d2f48`
@@ -799,6 +905,8 @@ The persistent top-level container for branding, primary site-wide navigation, a
 
 ### home
 
+Details
+
 - Single component (no variants)
 - Node: `7378:5034` | Key: `4a8ee163ef4f785c846a3a71344af13b834e02f0`
 
@@ -806,13 +914,6 @@ The persistent top-level container for branding, primary site-wide navigation, a
 
 - Single component (no variants)
 - Node: `20633:46` | Key: `34c17abed901ebcf66101b581c552290996fcbf3`
-
-### Identification key
-
-Use for identification keys. Can be interactive (removable) or static metadata.
-
-- Variants: **Property 1:** `Default`
-- Node: `14349:15323` | Key: `3bf340c5e6f49afc5b73140935558a558b3e8855`
 
 ### Illustration
 
@@ -831,10 +932,14 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 
 ### info
 
+More information
+
 - Single component (no variants)
 - Node: `7207:2838` | Key: `01923eb6557a8612cf500c74a0ba5b32e37317e3`
 
 ### info-filled
+
+Informational
 
 - Single component (no variants)
 - Node: `7471:3918` | Key: `a593edf42eb81c2dfa8c4b0be8eac76b14cdffeb`
@@ -845,6 +950,8 @@ Use for identification keys. Can be interactive (removable) or static metadata.
 - Node: `8400:25085` | Key: `181f865b3a16ad0c0846ec99c3d247c7e00c6541`
 
 ### input
+
+Input types
 
 - Single component (no variants)
 - Node: `8504:23028` | Key: `e044df9621b9fec28326d9e35e61326bcdc7b324`
@@ -858,6 +965,8 @@ Used for selecting a single date, a date range, or a specific point in time. Bes
 - Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
 
 ### integer-type
+
+Integer
 
 - Single component (no variants)
 - Node: `8504:23296` | Key: `8b6d13a33e18de3483b3b330d23abc5e69aefe56`
@@ -899,10 +1008,14 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 ### layers-front
 
+Curator indicator (Used to be Copy, needs discussion)
+
 - Single component (no variants)
 - Node: `8504:23326` | Key: `548f9b5398eaff3804a4912550fc4c944881b465`
 
 ### lifecycle-policy
+
+Lifecycle policy
 
 - Single component (no variants)
 - Node: `13315:9276` | Key: `b1f0c9b1baad043881f1d2401a93aa1c8cce4791`
@@ -913,6 +1026,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Node: `15473:49490` | Key: `e365ff8c88faf24f3cadf6166127e97dbc8771fb`
 
 ### lineage
+
+Lineage
 
 - Single component (no variants)
 - Node: `7378:5706` | Key: `32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119`
@@ -945,15 +1060,21 @@ Used for navigation to a different page, an external URL, or to trigger a second
 
 ### link-type
 
+URL
+
 - Single component (no variants)
 - Node: `7378:5042` | Key: `30958f1f13ddf3866556b37ab570a09de2b2a26c`
 
 ### list-bullets
 
+List view
+
 - Single component (no variants)
 - Node: `7622:5395` | Key: `69ddc5d1660da5b9f5ae1eac95b5dda1e1299b37`
 
 ### list-numbers
+
+Number
 
 - Single component (no variants)
 - Node: `7378:5046` | Key: `b731322950354840772eadaac3abb71d45aca649`
@@ -996,6 +1117,8 @@ Indicates a background process is active. Use Skeleton for page-level transition
 
 ### maintenance
 
+Maintenance
+
 - Single component (no variants)
 - Node: `7378:4004` | Key: `71d837e04ce0a29b69d9e5c67362bbcf0b896e19`
 
@@ -1007,6 +1130,8 @@ A placeholder shown when maintenance. Must include an illustration, a clear titl
 - Node: `13871:32311` | Key: `4c187d32a069682c44d5ccd8744b9fe0709c894a`
 
 ### map
+
+Toggle overview
 
 - Single component (no variants)
 - Node: `7378:5048` | Key: `c79f5921936c1c9b69477d09ce5c1d7ae7d24863`
@@ -1056,10 +1181,14 @@ A centered dialog that blocks the main content. Use for critical "Stop and Think
 
 ### more
 
+More options
+
 - Single component (no variants)
 - Node: `7378:3729` | Key: `d4bf02099fcf80e9f1956149da15460fe1ae13a7`
 
 ### move
+
+Move to catalog
 
 - Single component (no variants)
 - Node: `7378:5154` | Key: `62e026e024bd84bf9bcdd4cba5ec039616e6cca8`
@@ -1098,10 +1227,14 @@ Small, temporary overlay that appears at the edge of the screen. Use for non-cri
 
 ### null-type
 
+Null
+
 - Single component (no variants)
 - Node: `8504:23300` | Key: `585087e1ea2d421dcaec6ac1db468c8f502ad6d2`
 
 ### open
+
+Open new page
 
 - Single component (no variants)
 - Node: `7293:667` | Key: `f0af6e82dbffbc929018959ff7fbb609226fecaf`
@@ -1128,6 +1261,8 @@ Small, temporary overlay that appears at the edge of the screen. Use for non-cri
 
 ### output
 
+Output types
+
 - Single component (no variants)
 - Node: `8504:23029` | Key: `e16258e8231434bb180aa71804bdb92dfbffce77`
 
@@ -1145,6 +1280,8 @@ The title area of a specific page. Should include the Page Title, optional Bread
 
 ### paragraph-justify
 
+Rich text
+
 - Single component (no variants)
 - Node: `7378:5049` | Key: `7dbcda5b9d1a14cd7205b1a1a5faf3b34f9ab22f`
 
@@ -1160,10 +1297,14 @@ The title area of a specific page. Should include the Page Title, optional Bread
 
 ### pii
 
+PII indicator
+
 - Single component (no variants)
 - Node: `8517:23021` | Key: `442a010032d021c1bc2cd198f611f49466623430`
 
 ### pin
+
+Featured
 
 - Single component (no variants)
 - Node: `7378:5040` | Key: `4433057ddb2e2a901f12781f99e3a64b9db47cac`
@@ -1192,6 +1333,8 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 - Node: `8400:25142` | Key: `4f905bd3d9625c8ef3c115a421ec22035a700283`
 
 ### process
+
+Process
 
 - Single component (no variants)
 - Node: `14703:19645` | Key: `edc02bc5216a1b8970bf42c0192dbac253613d8d`
@@ -1245,20 +1388,28 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 ### relation
 
+Implementations and linked items
+
 - Single component (no variants)
 - Node: `8587:44312` | Key: `328e40cf262d88c868275a408b432b445bf34888`
 
 ### relation_incoming
+
+Incoming relation
 
 - Single component (no variants)
 - Node: `8504:23150` | Key: `acc0d738122fb3dae02b1941b9909a3d15c0e0f1`
 
 ### relation_outgoing
 
+Outgoing relation
+
 - Single component (no variants)
 - Node: `8504:23151` | Key: `af3df33d230376a5bb016435dbb7ddecb9d42448`
 
 ### remove-circle
+
+Fail / error / expired
 
 - Single component (no variants)
 - Node: `20633:59` | Key: `cfe2607b9be9de7b238470e5372d0cc3a6d60dbd`
@@ -1276,6 +1427,8 @@ A multi-line input field that allows for text formatting (bold, links, lists). U
 - Node: `9480:17723` | Key: `e904c7b5c3ef6d223d9743546484e5a99b7a7808`
 
 ### rotate-back
+
+Refresh
 
 - Single component (no variants)
 - Node: `7378:5031` | Key: `e428e49c8dc1b6772d7b569e58fd6fa8a960b85f`
@@ -1332,10 +1485,14 @@ A multi-line input field that allows for text formatting (bold, links, lists). U
 
 ### scanner
 
+Scanners
+
 - Single component (no variants)
 - Node: `7378:3979` | Key: `92eba2ab6095c5b95bf4b86d1c056f5e1e39e232`
 
 ### schema
+
+Fields
 
 - Single component (no variants)
 - Node: `7378:5038` | Key: `f8fffb1cbe411321f66142c020a208b000d15e9d`
@@ -1369,17 +1526,21 @@ A specialized card variant optimized for scannability during a search. Highlight
 
 ### security-services
 
+Policy
+
 - Single component (no variants)
 - Node: `7378:3968` | Key: `99137e55f852dc4f26cf9aa63f1bb560d4f28a2f`
 
 ### Segmented control
 
-Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., "Week / Month / Year").
+Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., "Week / Month / Year").S
 
-- Variants: **Type:** `Default`
+- Variants: **Property 1:** `Default`
 - Node: `7618:5187` | Key: `062274018b2daab1c45c7e634c95c5a4eaa42b69`
 
 ### server-search
+
+Add section
 
 - Single component (no variants)
 - Node: `8576:4926` | Key: `4b21aa187b1559d7c4ad33b31e477f7fcfc9975a`
@@ -1391,6 +1552,8 @@ Use for mutually exclusive options that impact the immediate view. Best for 2–
 
 ### settings
 
+Administration
+
 - Single component (no variants)
 - Node: `7378:4812` | Key: `fa49ba4ce11934ea568dc702f402f52207703e97`
 
@@ -1400,6 +1563,8 @@ Use for mutually exclusive options that impact the immediate view. Best for 2–
 - Node: `20633:54` | Key: `2de96d18724ed01071aa4b8eb2e075e6dd82032b`
 
 ### shield-lock
+
+Groups
 
 - Single component (no variants)
 - Node: `7378:3967` | Key: `20d03d16f42b9cb4d84c5ea07f6845c99b8fe7b6`
@@ -1413,13 +1578,15 @@ Vertical navigation for primary application modules. Use when the app has many t
 
 ### simple-check
 
+Done
+
 - Single component (no variants)
 - Node: `7271:6256` | Key: `a660b57404739aba1621b29bbe22ba70f81f4346`
 
 ### Snowflake
 
 - Single component (no variants)
-- Node: `7691:4999` | Key: `046781836dd3d72a9f1185981ebb28e0eab09bd9`
+- Node: `8504:23447` | Key: `14abdd5e317e35b558549d54270c9f7024dc64ed`
 
 ### soda
 
@@ -1460,6 +1627,8 @@ Indicates a background process is active. Use Spinner for small, localized actio
 
 ### stars-filled
 
+AI assistant
+
 - Single component (no variants)
 - Node: `17991:4240` | Key: `7afdab93e1015a122408dc9aff0a95c07b6a15d8`
 
@@ -1472,29 +1641,30 @@ Use to guide a user through a linear process with defined steps (e.g., Onboardin
 - Boolean properties: `Show Body#14072:0` (default: true) — set to `false` to hide
 - Node: `7676:4492` | Key: `9d73595077c798866bf42c87a53893bbdc8d4ce0`
 
-### Sticky footer
-
-A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.
-
-- Variants: **Property 1:** `Default`
-- Node: `14747:9839` | Key: `de36372be7d1532ee37fbfc43238aed444f6e7c9`
-
 ### struct-type
+
+Struct
 
 - Single component (no variants)
 - Node: `8504:23301` | Key: `b5370a64062dc0d1ed1f42a936ef87023738f284`
 
 ### success
 
+Success
+
 - Single component (no variants)
 - Node: `20633:60` | Key: `3aa7e60ad6a9d1d99afa487829d5434fc144b5d6`
 
 ### success-filled
 
+Success
+
 - Single component (no variants)
 - Node: `7378:5490` | Key: `d864426ee65112314a7925eaa9b5bd883a677100`
 
 ### suggestion
+
+Suggestion
 
 - Single component (no variants)
 - Node: `7279:3164` | Key: `b0fdb7c7eb45f51182647cc89b12a5fd6989cafb`
@@ -1552,6 +1722,8 @@ This is read-only tag. Use for item types.
 
 ### tags-add
 
+Activity timeline
+
 - Single component (no variants)
 - Node: `14691:426` | Key: `3736725d4f34af19d9cadeacbac382af2aa4685e`
 
@@ -1562,15 +1734,21 @@ This is read-only tag. Use for item types.
 
 ### target-type
 
+Target
+
 - Single component (no variants)
 - Node: `8504:23302` | Key: `131e2264fa0b24b4715953951f3a50677c6c299a`
 
 ### task-list
 
+Select
+
 - Single component (no variants)
 - Node: `8504:23375` | Key: `371f35da773bc12bc441d4c36acd98ba8ac23e6e`
 
 ### task-list-settings
+
+Edit template
 
 - Single component (no variants)
 - Node: `8504:23325` | Key: `6d75371c1dd77bd21889e1519f9281dd134dca23`
@@ -1590,6 +1768,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 ### text-file
 
+Short text
+
 - Single component (no variants)
 - Node: `7378:5045` | Key: `8f09539f181a4dbe90a86d6ccfe73ac4d41dd8c8`
 
@@ -1602,6 +1782,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Node: `7238:2487` | Key: `9245f434d92d2a5d54962c51d7e374c87251fc4b`
 
 ### text-type
+
+Text
 
 - Single component (no variants)
 - Node: `8504:23299` | Key: `2cd429a5df61f046748fc20c9e22aea14db8f9c0`
@@ -1618,10 +1800,14 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 
 ### thumbs-down
 
+Thumbs down
+
 - Single component (no variants)
 - Node: `10089:786` | Key: `93686ddb00e20fd0a150c2a9f56986d47abf5db0`
 
 ### thumbs-up
+
+Thumbs up
 
 - Single component (no variants)
 - Node: `10089:787` | Key: `5ab3cbd59dee68fabb404966d3be7aa87ed761a5`
@@ -1632,6 +1818,8 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Node: `8400:25186` | Key: `c6b80e098e699b0ff94f5722b20ce61170ae7c75`
 
 ### time-type
+
+Time
 
 - Single component (no variants)
 - Node: `8504:23298` | Key: `d056a594413fcd44887aca52b86d9df25f0cbd0c`
@@ -1659,10 +1847,14 @@ Flex width with maximum width of 320px.
 
 ### trash
 
+Delete
+
 - Single component (no variants)
 - Node: `7378:5056` | Key: `09df4020b9f8d306843fca4159658c8ed4b5e323`
 
 ### unknown-type
+
+Unknown
 
 - Single component (no variants)
 - Node: `8504:23297` | Key: `b120c4277b392ad79c9b1bfc21015fc8d55453e5`
@@ -1674,40 +1866,56 @@ Flex width with maximum width of 320px.
 
 ### user-add
 
+Assign
+
 - Single component (no variants)
 - Node: `7378:5027` | Key: `48c0ce663827e3dddb050be67302b9af9ceb74c0`
 
 ### user-group
+
+Users
 
 - Single component (no variants)
 - Node: `7378:5131` | Key: `db200734daac36815be3bf52f078c9e528b15da4`
 
 ### user-info
 
+Suggest PII field
+
 - Single component (no variants)
 - Node: `8820:13334` | Key: `3b2848d77b98a22dfa31033342ae67f84dee3c0b`
 
 ### user-single
+
+User
 
 - Single component (no variants)
 - Node: `7378:5029` | Key: `719b2cace9669955bbf05111ee8151ac6b50d3f5`
 
 ### view
 
+View scanner details
+
 - Single component (no variants)
 - Node: `14697:19193` | Key: `4e86d04da3c537ed576f6ac221e8a1353b2b4475`
 
-### view-details
+### view-detail
+
+View details
 
 - Single component (no variants)
 - Node: `12222:5799` | Key: `cf1033712c94e4f740ae4c8de3f907004dc9380f`
 
 ### warning
 
+Warning
+
 - Single component (no variants)
 - Node: `20633:58` | Key: `77fb8f21eaa89ed7b047124dfb3c129d872a4f09`
 
 ### warning-filled
+
+Warning
 
 - Single component (no variants)
 - Node: `14719:1075` | Key: `1ca9ea45ed67eb11a5f1b4ff9027aaa9b8526073`
@@ -1744,20 +1952,28 @@ Flex width with maximum width of 320px.
 
 ### zoom-in
 
+Zoom in
+
 - Single component (no variants)
 - Node: `7378:5055` | Key: `8743ba1b2c9fa86034a0e389b283e9da6e56d6fd`
 
 ### zoom-out
+
+Zoom out
 
 - Single component (no variants)
 - Node: `7378:5026` | Key: `fe8ce8b1dc8f249bb19bbfb2304e20431984452f`
 
 ### zoom-reset
 
+Reset zoom
+
 - Single component (no variants)
 - Node: `7378:5606` | Key: `61225ecdbe8c2577297b8f190c86ccc3dc874641`
 
 ### zoom-to-fit
+
+Zoom to fit
 
 - Single component (no variants)
 - Node: `7378:5032` | Key: `daac1ce452877e634fcd4d81a9880be63946816a`

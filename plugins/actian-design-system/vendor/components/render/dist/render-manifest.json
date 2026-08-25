@@ -13,6 +13,14 @@
       "source": "rendered"
     },
     {
+      "slug": "action-bar",
+      "tagName": "zen-action-bar",
+      "group": "Action",
+      "fragment": "fragments/action-bar.html",
+      "tokensConsumed": 6,
+      "source": "rendered"
+    },
+    {
       "slug": "alert-banner",
       "tagName": "zen-alert-banner",
       "group": "Feedback",
@@ -74,14 +82,6 @@
       "group": "Data Display",
       "fragment": "fragments/card-for-grouped-content.html",
       "tokensConsumed": 14,
-      "source": "rendered"
-    },
-    {
-      "slug": "card-for-items",
-      "tagName": "zen-card-for-items",
-      "group": "Data Display",
-      "fragment": "fragments/card-for-items.html",
-      "tokensConsumed": 16,
       "source": "rendered"
     },
     {
@@ -378,14 +378,6 @@
       "group": "Navigation",
       "fragment": "fragments/stepper.html",
       "tokensConsumed": 22,
-      "source": "rendered"
-    },
-    {
-      "slug": "sticky-footer",
-      "tagName": "zen-sticky-footer",
-      "group": "Action",
-      "fragment": "fragments/sticky-footer.html",
-      "tokensConsumed": 6,
       "source": "rendered"
     },
     {

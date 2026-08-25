@@ -80,6 +80,48 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/action-bar.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ActionBar",
+          "tagName": "zen-action-bar",
+          "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-shadow-md"
+            },
+            {
+              "name": "--zen-spacing-lg"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/alert-banner.html",
       "declarations": [
         {
@@ -235,7 +277,7 @@
             {
               "name": "state",
               "type": {
-                "text": "Default | Hovered | Focused | Pressed | Disabled | Selected"
+                "text": "Default | Hover | Focus | Pressed | Disabled | Expanded"
               }
             },
             {
@@ -638,84 +680,6 @@
             },
             {
               "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-tertiary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-font-weight-semibold"
-            },
-            {
-              "name": "--zen-shadow-xs"
-            },
-            {
-              "name": "--zen-spacing-md"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/card-for-items.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "CardForItems",
-          "tagName": "zen-card-for-items",
-          "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
-          "attributes": [
-            {
-              "name": "type",
-              "type": {
-                "text": "Catalog | Item | item type | Glossary type | Topic"
-              }
-            },
-            {
-              "name": "state",
-              "type": {
-                "text": "Default | Hover | Focus | Pressed | Selected"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-default"
-            },
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-border-selected"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-bg-selected"
             },
             {
               "name": "--zen-color-text-default"
@@ -1563,7 +1527,7 @@
             {
               "name": "breakpoints",
               "type": {
-                "text": "XL | L | M | S | XS"
+                "text": "XL | L"
               }
             }
           ],
@@ -3013,10 +2977,10 @@
           "customElement": true,
           "name": "SegmentedControl",
           "tagName": "zen-segmented-control",
-          "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").",
+          "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").S",
           "attributes": [
             {
-              "name": "type",
+              "name": "property 1",
               "type": {
                 "text": "Default"
               }
@@ -3025,13 +2989,13 @@
           "cssParts": [],
           "cssProperties": [
             {
-              "name": "--zen-border-default"
-            },
-            {
               "name": "--zen-border-radius-sm"
             },
             {
               "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-border-subtle"
             },
             {
               "name": "--zen-color-bg-default"
@@ -3293,48 +3257,6 @@
             },
             {
               "name": "--zen-spacing-3xs"
-            },
-            {
-              "name": "--zen-spacing-sm"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/sticky-footer.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "StickyFooter",
-          "tagName": "zen-sticky-footer",
-          "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-default"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-shadow-md"
-            },
-            {
-              "name": "--zen-spacing-lg"
             },
             {
               "name": "--zen-spacing-sm"

@@ -395,6 +395,12 @@
       "provenance": "figma-dskit"
     },
     {
+      "id": "category:third-party-logos",
+      "type": "category",
+      "title": "Third-party logos",
+      "provenance": "figma-dskit"
+    },
+    {
       "id": "category:white-label-services",
       "type": "category",
       "title": "White-label services",
@@ -450,6 +456,13 @@
       "figmaNodeId": "7764:7688"
     },
     {
+      "id": "component:action-bar",
+      "type": "component",
+      "title": "Action bar",
+      "figmaKey": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
+      "figmaNodeId": "14747:9839"
+    },
+    {
       "id": "component:add",
       "type": "component",
       "title": "add",
@@ -497,13 +510,6 @@
       "title": "Alert-banner",
       "figmaKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
       "figmaNodeId": "13732:3056"
-    },
-    {
-      "id": "component:alert-inline",
-      "type": "component",
-      "title": "Alert-inline",
-      "figmaKey": "14a9062ded019fd0aafa717a268cba3e402c4a3f",
-      "figmaNodeId": "19746:32731"
     },
     {
       "id": "component:alteryx",
@@ -996,18 +1002,18 @@
       "figmaNodeId": "8:20540"
     },
     {
+      "id": "component:card",
+      "type": "component",
+      "title": "Card",
+      "figmaKey": "f96a26b8cbcb77880425bb0d95269b3a55eed18e",
+      "figmaNodeId": "21781:16248"
+    },
+    {
       "id": "component:card-for-grouped-content",
       "type": "component",
       "title": "Card for grouped content",
       "figmaKey": "3b8d2c7adc118fdd5f31e68440fa35e952fee92e",
       "figmaNodeId": "14782:29281"
-    },
-    {
-      "id": "component:card-for-items",
-      "type": "component",
-      "title": "Card for items",
-      "figmaKey": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
-      "figmaNodeId": "7613:7853"
     },
     {
       "id": "component:card-for-perimeter",
@@ -1708,6 +1714,13 @@
       "title": "document-text",
       "figmaKey": "d91039013a464c196a4d11042ea495b4bb196065",
       "figmaNodeId": "8:20896"
+    },
+    {
+      "id": "component:dot",
+      "type": "component",
+      "title": "Dot",
+      "figmaKey": "fe71ed0acd41e7361aa2f1042db1caf78dbd7ac3",
+      "figmaNodeId": "21224:24526"
     },
     {
       "id": "component:dots-circle-horizontal",
@@ -2513,13 +2526,6 @@
       "title": "identification",
       "figmaKey": "e7f314591cf5b3ad8252df5c1f6d908c7268e38b",
       "figmaNodeId": "8:20910"
-    },
-    {
-      "id": "component:identification-key",
-      "type": "component",
-      "title": "Identification key",
-      "figmaKey": "3bf340c5e6f49afc5b73140935558a558b3e8855",
-      "figmaNodeId": "14349:15323"
     },
     {
       "id": "component:illustration",
@@ -3988,8 +3994,8 @@
       "id": "component:snowflake",
       "type": "component",
       "title": "Snowflake",
-      "figmaKey": "046781836dd3d72a9f1185981ebb28e0eab09bd9",
-      "figmaNodeId": "7691:4999"
+      "figmaKey": "14abdd5e317e35b558549d54270c9f7024dc64ed",
+      "figmaNodeId": "8504:23447"
     },
     {
       "id": "component:soda",
@@ -4102,13 +4108,6 @@
       "title": "Stepper",
       "figmaKey": "9d73595077c798866bf42c87a53893bbdc8d4ce0",
       "figmaNodeId": "7676:4492"
-    },
-    {
-      "id": "component:sticky-footer",
-      "type": "component",
-      "title": "Sticky footer",
-      "figmaKey": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
-      "figmaNodeId": "14747:9839"
     },
     {
       "id": "component:sticky-note",
@@ -4545,9 +4544,9 @@
       "figmaNodeId": "8:20664"
     },
     {
-      "id": "component:view-details",
+      "id": "component:view-detail",
       "type": "component",
-      "title": "view-details",
+      "title": "view-detail",
       "figmaKey": "cf1033712c94e4f740ae4c8de3f907004dc9380f",
       "figmaNodeId": "12222:5799"
     },
@@ -5394,7 +5393,7 @@
       "id": "pattern:documentation-completion-dashboard",
       "type": "ux_pattern",
       "title": "Documentation Completion Dashboard",
-      "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score."
+      "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
     },
     {
       "id": "pattern:faceted-browse",
@@ -5424,7 +5423,7 @@
       "id": "pattern:import-wizard",
       "type": "ux_pattern",
       "title": "Multi-step import wizard",
-      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.\n\nCorrected 2026-08-18 from the running product: this record previously said 6 steps and named \"Data Product\" as the sixth. There are 7, the first is Data source, and the sixth is Category. `components` also gained the radio\ncards of step one and the persistent action bar, which the corrected prose described and the\nmachine-read field did not. The action bar is named by its current slug `sticky-footer`; Figma has\nrenamed it to `action-bar` and that rename can only land alongside the registry, in one branch."
+      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.\n\nCorrected 2026-08-18 from the running product: this record previously said 6 steps and named \"Data Product\" as the sixth. There are 7, the first is Data source, and the sixth is Category. `components` also gained the radio\ncards of step one and the persistent action bar, which the corrected prose described and the\nmachine-read field did not. The action bar was named by its then-current slug `sticky-footer`; Figma renamed\nit to `action-bar`, and that rename landed alongside the registry in one branch on 2026-08-24 (#526),\nwhich is why this record now names `action-bar`."
     },
     {
       "id": "pattern:interactive-graph",
@@ -5442,7 +5441,7 @@
       "id": "pattern:marketplace-browsing",
       "type": "ux_pattern",
       "title": "Marketplace browsing",
-      "description": "Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards)."
+      "description": "Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards).\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
     },
     {
       "id": "pattern:mcp-server",
@@ -5502,13 +5501,13 @@
       "id": "pattern:topic-browse",
       "type": "ux_pattern",
       "title": "Topic Browse",
-      "description": "Curated topic collections browsed via carousel + selector + favorites for business-user discovery."
+      "description": "Curated topic collections browsed via carousel + selector + favorites for business-user discovery.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
     },
     {
       "id": "pattern:type-picker-grid",
       "type": "ux_pattern",
       "title": "Type picker grid",
-      "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.\n\nNote for whoever carries the `sticky-footer` → `action-bar` rename through: this record now names\n`sticky-footer` truthfully, which makes it a fourth authored reference to rename. That does not change\nthe situation, since the rename can only be landed alongside the registry in one branch anyway."
+      "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.\n\nThe `sticky-footer` to `action-bar` rename this record was waiting on landed alongside the registry on\n2026-08-24 (#526), so it now names `action-bar`."
     },
     {
       "id": "term:access-request-policy",
@@ -6176,6 +6175,18 @@
       "note": "respect prefers-reduced-motion — disable scale + slide, keep fade"
     },
     {
+      "source": "component:action-bar",
+      "target": "a11y:buttons",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/action-bar/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
       "source": "component:alert-banner",
       "target": "a11y:alerts-toasts-banners",
       "type": "a11y_ref",
@@ -6236,7 +6247,7 @@
       }
     },
     {
-      "source": "component:card-for-grouped-content",
+      "source": "component:card",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
       "scope": "component",
@@ -6248,7 +6259,7 @@
       }
     },
     {
-      "source": "component:card-for-items",
+      "source": "component:card-for-grouped-content",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
       "scope": "component",
@@ -6633,18 +6644,6 @@
       }
     },
     {
-      "source": "component:sticky-footer",
-      "target": "a11y:buttons",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/sticky-footer/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:table",
       "target": "a11y:data-tables",
       "type": "a11y_ref",
@@ -6826,6 +6825,21 @@
       "type": "composed_of"
     },
     {
+      "source": "component:action-bar",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:action-bar",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:action-bar",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
       "source": "component:alert-banner",
       "target": "component:add",
       "type": "composed_of"
@@ -6953,36 +6967,6 @@
     {
       "source": "component:card-for-grouped-content",
       "target": "component:help-circle",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:digram-topic",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:favorite",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:folder",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:tag-default",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:card-for-items",
-      "target": "component:tag-item-type",
       "type": "composed_of"
     },
     {
@@ -7162,11 +7146,6 @@
     },
     {
       "source": "component:drawer-side-panel",
-      "target": "component:identification-key",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
       "target": "component:info",
       "type": "composed_of"
     },
@@ -7212,7 +7191,7 @@
     },
     {
       "source": "component:drawer-side-panel",
-      "target": "component:view-details",
+      "target": "component:view-detail",
       "type": "composed_of"
     },
     {
@@ -7737,11 +7716,6 @@
     },
     {
       "source": "component:global-header",
-      "target": "component:avatar",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:global-header",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7913,11 +7887,6 @@
     {
       "source": "component:lineage-individual-node",
       "target": "component:digram-item-types",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:identification-key",
       "type": "composed_of"
     },
     {
@@ -8357,6 +8326,11 @@
     },
     {
       "source": "component:search-result-card",
+      "target": "component:dot",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search-result-card",
       "target": "component:favorite",
       "type": "composed_of"
     },
@@ -8481,21 +8455,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:sticky-footer",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:sticky-footer",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:sticky-footer",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
       "source": "component:table",
       "target": "component:add",
       "type": "composed_of"
@@ -8573,6 +8532,11 @@
     {
       "source": "component:tag-default",
       "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-default",
+      "target": "component:dot",
       "type": "composed_of"
     },
     {
@@ -10551,6 +10515,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:action-bar",
+      "target": "category:action",
+      "type": "in_category"
+    },
+    {
       "source": "component:add",
       "target": "category:icons",
       "type": "in_category"
@@ -10562,12 +10531,12 @@
     },
     {
       "source": "component:adlsgen1",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:adobe-analytics",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10581,18 +10550,13 @@
       "type": "in_category"
     },
     {
-      "source": "component:alert-inline",
-      "target": "category:feedback",
-      "type": "in_category"
-    },
-    {
       "source": "component:alteryx",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:amazons3",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10602,7 +10566,7 @@
     },
     {
       "source": "component:api",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10647,7 +10611,7 @@
     },
     {
       "source": "component:atlas",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10662,42 +10626,42 @@
     },
     {
       "source": "component:avro",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:aws-glue-etl",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:awsredshift",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-cosmosdb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-datafactory",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-purview",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:azure-synapse",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10727,7 +10691,7 @@
     },
     {
       "source": "component:bigquery",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10786,12 +10750,12 @@
       "type": "in_category"
     },
     {
-      "source": "component:card-for-grouped-content",
+      "source": "component:card",
       "target": "category:data-display",
       "type": "in_category"
     },
     {
-      "source": "component:card-for-items",
+      "source": "component:card-for-grouped-content",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -10807,7 +10771,7 @@
     },
     {
       "source": "component:cassandra",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10847,7 +10811,7 @@
     },
     {
       "source": "component:ckan",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10862,12 +10826,12 @@
     },
     {
       "source": "component:cognos",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:cognos-bi",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10897,22 +10861,22 @@
     },
     {
       "source": "component:cosmosdb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:couchbase",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:csv",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:csv-custom-item",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10972,17 +10936,17 @@
     },
     {
       "source": "component:databricks",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:dataiku",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:dataset",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -10997,27 +10961,27 @@
     },
     {
       "source": "component:db2",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:db2-database-1",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:dbt",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:denodo",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:dictionnary",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11037,6 +11001,11 @@
     },
     {
       "source": "component:discussion",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:dot",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11072,7 +11041,7 @@
     },
     {
       "source": "component:elasticsearch",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11097,7 +11066,7 @@
     },
     {
       "source": "component:erwin-data-modeler",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11177,17 +11146,17 @@
     },
     {
       "source": "component:gcp",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:gcpcloudstorage",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:generic-jdbc",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11212,7 +11181,7 @@
     },
     {
       "source": "component:google-cloud",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11222,17 +11191,17 @@
     },
     {
       "source": "component:greenplum",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:hbase",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:hdfs",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11252,7 +11221,7 @@
     },
     {
       "source": "component:hive",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11266,23 +11235,18 @@
       "type": "in_category"
     },
     {
-      "source": "component:identification-key",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
       "source": "component:illustration",
       "target": "category:illustrations-graphics",
       "type": "in_category"
     },
     {
       "source": "component:impala",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:influxdb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11297,7 +11261,7 @@
     },
     {
       "source": "component:informatica",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11322,17 +11286,17 @@
     },
     {
       "source": "component:jdbc",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:json",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:kafka",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11417,12 +11381,12 @@
     },
     {
       "source": "component:local-filesystem",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:looker",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11447,17 +11411,17 @@
     },
     {
       "source": "component:mapr",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:mariadb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:matillion",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11472,7 +11436,7 @@
     },
     {
       "source": "component:microstrategy",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11482,7 +11446,7 @@
     },
     {
       "source": "component:mongodb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11497,17 +11461,17 @@
     },
     {
       "source": "component:ms-teams",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:mysql",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:netezza",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11537,22 +11501,22 @@
     },
     {
       "source": "component:openapi",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:opendatagouv",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:oracle",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:orc",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11567,7 +11531,7 @@
     },
     {
       "source": "component:palantir",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11577,7 +11541,7 @@
     },
     {
       "source": "component:parquet",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11602,17 +11566,17 @@
     },
     {
       "source": "component:postgresql",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:powerbi",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:powerbireportserver",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11622,7 +11586,7 @@
     },
     {
       "source": "component:process-csv",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11637,7 +11601,7 @@
     },
     {
       "source": "component:qlik-sense",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11702,47 +11666,47 @@
     },
     {
       "source": "component:safyr-dynamics365",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-dynamicsax",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-ebs",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-jdedwards",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-peoplesoft",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-salesforce",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-sap-bw",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:safyr-siebel",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:sas-database",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11822,17 +11786,17 @@
     },
     {
       "source": "component:snowflake",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:soda",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:sparkdb",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11842,17 +11806,17 @@
     },
     {
       "source": "component:spline",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:splunk",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:sqlserver",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11868,11 +11832,6 @@
     {
       "source": "component:stepper",
       "target": "category:navigation",
-      "type": "in_category"
-    },
-    {
-      "source": "component:sticky-footer",
-      "target": "category:action",
       "type": "in_category"
     },
     {
@@ -11897,7 +11856,7 @@
     },
     {
       "source": "component:sybaseiq",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11907,7 +11866,7 @@
     },
     {
       "source": "component:tableau",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11937,7 +11896,7 @@
     },
     {
       "source": "component:talend",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11957,7 +11916,7 @@
     },
     {
       "source": "component:teradata",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -11987,7 +11946,7 @@
     },
     {
       "source": "component:thoughtspot",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -12002,7 +11961,7 @@
     },
     {
       "source": "component:tibco-datavirtualization",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -12066,7 +12025,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:view-details",
+      "source": "component:view-detail",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -12097,7 +12056,7 @@
     },
     {
       "source": "component:xml",
-      "target": "category:product-logos",
+      "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
@@ -13555,17 +13514,6 @@
     },
     {
       "source": "pattern:documentation-completion-dashboard",
-      "target": "component:card-for-items",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:documentation-completion-dashboard",
       "target": "component:progress-bar-small",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13698,6 +13646,17 @@
     },
     {
       "source": "pattern:filter-groups-form",
+      "target": "component:action-bar",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:filter-groups-form",
       "target": "component:button",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13742,17 +13701,6 @@
     },
     {
       "source": "pattern:filter-groups-form",
-      "target": "component:sticky-footer",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:filter-groups-form",
       "target": "component:text-input",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13765,6 +13713,17 @@
     {
       "source": "pattern:filter-groups-form",
       "target": "component:toggle",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:import-wizard",
+      "target": "component:action-bar",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13819,17 +13778,6 @@
     },
     {
       "source": "pattern:import-wizard",
-      "target": "component:sticky-footer",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:import-wizard",
       "target": "component:text-input",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13897,17 +13845,6 @@
     {
       "source": "pattern:lineage-graph",
       "target": "component:lineage-individual-node",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:marketplace-browsing",
-      "target": "component:card-for-items",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14193,7 +14130,7 @@
     },
     {
       "source": "pattern:topic-browse",
-      "target": "component:card-for-items",
+      "target": "component:search",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14203,8 +14140,8 @@
       }
     },
     {
-      "source": "pattern:topic-browse",
-      "target": "component:search",
+      "source": "pattern:type-picker-grid",
+      "target": "component:action-bar",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14249,17 +14186,6 @@
     {
       "source": "pattern:type-picker-grid",
       "target": "component:segmented-control",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:type-picker-grid",
-      "target": "component:sticky-footer",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

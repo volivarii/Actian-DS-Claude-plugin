@@ -1857,6 +1857,159 @@
         "Color": "Full color"
       }
     },
+    "action-bar": {
+      "_schema_version": 1,
+      "slug": "action-bar",
+      "kit": "dskit",
+      "synced_at": "2026-08-24T12:29:56.337Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "14747:9839",
+        "variant": "Property 1=Default"
+      },
+      "quality": {
+        "nodesTotal": 5,
+        "nodesNormalized": 5,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Property 1=Default",
+        "kind": "container",
+        "tokenRefs": [
+          "--zen-border-disabled"
+        ],
+        "id": "8190:6001",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
+            "width": "1px"
+          }
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "8px",
+          "padding": {
+            "top": "16px",
+            "right": "24px",
+            "bottom": "16px",
+            "left": "24px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-lg"
+          }
+        },
+        "children": [
+          {
+            "name": "Button",
+            "kind": "instance",
+            "slug": "button",
+            "props": {
+              "Show trailing icon": false,
+              "Show label": true,
+              "Show leading icon": false,
+              "Label": "Delete",
+              "Intent": "Critical",
+              "Emphasis": "Outlined",
+              "Size": "Default",
+              "State": "Default"
+            },
+            "id": "8190:5963",
+            "appearance": {
+              "border": {
+                "color": "#c12c11",
+                "width": "1px"
+              },
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": "Right side actions",
+            "kind": "container",
+            "id": "8190:5964",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "end",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label": "Cancel",
+                  "Intent": "Default",
+                  "Emphasis": "Ghost",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "8190:5965",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": false,
+                  "Show label": true,
+                  "Show leading icon": false,
+                  "Label": "Save",
+                  "Intent": "Default",
+                  "Emphasis": "Filled",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "tokenRefs": [
+                  "--zen-color-bg-primary"
+                ],
+                "id": "8190:5966",
+                "appearance": {
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-bg-primary",
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Property 1": "Default"
+      }
+    },
     "adlsgen1": {
       "_schema_version": 1,
       "slug": "adlsgen1",
@@ -2126,34 +2279,6 @@
       "variantDefaults": {
         "Type": "Info",
         "Orientation'": "Horizontal"
-      }
-    },
-    "alert-inline": {
-      "_schema_version": 1,
-      "slug": "alert-inline",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "19746:32731"
-      },
-      "quality": {
-        "nodesTotal": 1,
-        "nodesNormalized": 1,
-        "ratio": 1,
-        "degraded": []
-      },
-      "root": {
-        "name": "Alert-inline",
-        "kind": "container",
-        "id": "19746:32731",
-        "appearance": {
-          "border": {
-            "color": "#9747ff",
-            "width": "1px"
-          },
-          "radius": "5px"
-        }
       }
     },
     "alteryx": {
@@ -2430,11 +2555,11 @@
       "_schema_version": 1,
       "slug": "avatar",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7384:14212",
-        "variant": "State=Hovered, Type=Default"
+        "variant": "State=Hover, Type=Default"
       },
       "quality": {
         "nodesTotal": 3,
@@ -2442,12 +2567,12 @@
         "ratio": 0.67,
         "degraded": [
           {
-            "name": "State=Hovered, Type=Default",
+            "name": "State=Hover, Type=Default",
             "reason": "layoutMode:NONE"
           },
           {
-            "name": "State=Focused, Type=Default",
-            "reason": "layoutMode:NONE (variant State=Focused)"
+            "name": "State=Focus, Type=Default",
+            "reason": "layoutMode:NONE (variant State=Focus)"
           },
           {
             "name": "State=Default, Type=Default",
@@ -2458,8 +2583,8 @@
             "reason": "layoutMode:NONE (variant State=Pressed)"
           },
           {
-            "name": "State=Selected, Type=Default",
-            "reason": "layoutMode:NONE (variant State=Selected)"
+            "name": "State=Expanded, Type=Default",
+            "reason": "layoutMode:NONE (variant State=Expanded)"
           },
           {
             "name": "State=Disabled, Type=Default",
@@ -2475,7 +2600,7 @@
           },
           {
             "prop": "State",
-            "value": "Focused",
+            "value": "Focus",
             "path": "",
             "reason": "childCount:2!=3"
           }
@@ -2494,7 +2619,7 @@
         ]
       },
       "root": {
-        "name": "State=Hovered, Type=Default",
+        "name": "State=Hover, Type=Default",
         "kind": "container",
         "tokenRefs": [
           "--zen-color-primary-25"
@@ -2508,7 +2633,7 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 6241,
+          "x": 6240,
           "y": 231,
           "constraints": {
             "vertical": "TOP",
@@ -2533,16 +2658,10 @@
                 {
                   "prop": "State",
                   "values": [
+                    "Expanded",
                     "Pressed"
                   ],
                   "background": "rgba(0, 0, 0, 0.1)"
-                },
-                {
-                  "prop": "State",
-                  "values": [
-                    "Selected"
-                  ],
-                  "background": "#edf6ff"
                 }
               ]
             }
@@ -2585,7 +2704,7 @@
         ]
       },
       "variantDefaults": {
-        "State": "Hovered",
+        "State": "Hover",
         "Type": "Default"
       }
     },
@@ -6039,6 +6158,103 @@
         "Selection": "Single"
       }
     },
+    "card": {
+      "_schema_version": 1,
+      "slug": "card",
+      "kit": "dskit",
+      "synced_at": "2026-08-24T12:29:56.337Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "21781:16248",
+        "variant": "Elevation=Flat with border, Size=Small"
+      },
+      "quality": {
+        "nodesTotal": 2,
+        "nodesNormalized": 2,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Elevation=Flat with border, Size=Small",
+        "kind": "container",
+        "tokenRefs": [
+          "--zen-border-subtle"
+        ],
+        "id": "21781:16247",
+        "appearance": {
+          "background": "#ffffff",
+          "border": {
+            "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
+            "width": "1px"
+          },
+          "radius": "6px",
+          "variants": [
+            {
+              "prop": "Elevation",
+              "values": [
+                "Raised with shadow"
+              ],
+              "border": null
+            }
+          ]
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-xs",
+            "right": "--zen-spacing-xs",
+            "bottom": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
+          }
+        },
+        "children": [
+          {
+            "name": "Slot",
+            "kind": "container",
+            "id": "21781:16236",
+            "layout": {
+              "axis": "column",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-xs"
+            }
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Elevation": "Flat with border",
+        "Size": "Small"
+      }
+    },
     "card-for-grouped-content": {
       "_schema_version": 1,
       "slug": "card-for-grouped-content",
@@ -6148,267 +6364,11 @@
         "Property 1": "Default"
       }
     },
-    "card-for-items": {
-      "_schema_version": 1,
-      "slug": "card-for-items",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "7613:7853",
-        "variant": "Type=Item, State=Default"
-      },
-      "quality": {
-        "nodesTotal": 6,
-        "nodesNormalized": 6,
-        "ratio": 1,
-        "degraded": [],
-        "structuralVariants": [
-          {
-            "prop": "State",
-            "value": "Focus",
-            "path": "",
-            "reason": "childCount:4!=5"
-          },
-          {
-            "prop": "State",
-            "value": "Hover",
-            "path": "",
-            "reason": "childCount:4!=5"
-          },
-          {
-            "prop": "State",
-            "value": "Pressed",
-            "path": "",
-            "reason": "childCount:4!=5"
-          },
-          {
-            "prop": "State",
-            "value": "Selected",
-            "path": "",
-            "reason": "childCount:4!=5"
-          },
-          {
-            "prop": "Type",
-            "value": "Catalog",
-            "path": "",
-            "reason": "childCount:4!=1"
-          },
-          {
-            "prop": "Type",
-            "value": "Glossary type",
-            "path": "",
-            "reason": "childCount:4!=2"
-          },
-          {
-            "prop": "Type",
-            "value": "Topic",
-            "path": "0",
-            "reason": "kind:instance!=container"
-          },
-          {
-            "prop": "Type",
-            "value": "Topic",
-            "path": "2",
-            "reason": "kind:container!=text"
-          },
-          {
-            "prop": "Type",
-            "value": "Topic",
-            "path": "3",
-            "reason": "kind:text!=instance"
-          },
-          {
-            "prop": "Type",
-            "value": "item type",
-            "path": "",
-            "reason": "childCount:4!=2"
-          }
-        ]
-      },
-      "root": {
-        "name": "Type=Item, State=Default",
-        "kind": "container",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "7613:7852",
-        "appearance": {
-          "background": "#ffffff",
-          "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-default",
-            "width": "1px"
-          },
-          "radius": "4px",
-          "variants": [
-            {
-              "prop": "State",
-              "values": [
-                "Focus"
-              ],
-              "border": {
-                "color": "#0f5fdc",
-                "colorToken": "--zen-focus-ring-primary",
-                "width": "2px"
-              }
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Catalog"
-              ],
-              "background": "#ecffff",
-              "border": null
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Glossary type",
-                "item type"
-              ],
-              "border": null
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Topic"
-              ],
-              "border": {
-                "color": "#003786",
-                "width": "1px"
-              }
-            }
-          ]
-        },
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "12px",
-            "right": "16px",
-            "bottom": "12px",
-            "left": "16px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag, Item type",
-            "kind": "instance",
-            "slug": "tag-item-type",
-            "props": {
-              "Show Counter": false,
-              "Show counter": false,
-              "Property 1": "Dataset"
-            },
-            "id": "7613:7709",
-            "appearance": {
-              "background": "#cfeafd",
-              "radius": "4px"
-            }
-          },
-          {
-            "name": "Title",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "7613:7606",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "14px",
-                "weight": 600,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            },
-            "text": "Title"
-          },
-          {
-            "name": "Tag",
-            "kind": "container",
-            "id": "7613:7607",
-            "layout": {
-              "axis": "row",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Tag, Default",
-                "kind": "instance",
-                "slug": "tag-default",
-                "props": {
-                  "Leading icon show": true,
-                  "Label": "Default",
-                  "Type": "Catalog"
-                },
-                "id": "7613:7712",
-                "appearance": {
-                  "background": "#ecffff",
-                  "border": {
-                    "color": "#d0efed",
-                    "width": "1px"
-                  },
-                  "radius": "4px"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Subtitle",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "7613:7612",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "14px",
-                "weight": 400,
-                "lineHeight": "20px",
-                "letterSpacing": "0.2px"
-              }
-            },
-            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
-          }
-        ]
-      },
-      "variantDefaults": {
-        "Type": "Item",
-        "State": "Default"
-      }
-    },
     "card-for-perimeter": {
       "_schema_version": 1,
       "slug": "card-for-perimeter",
       "kit": "dskit",
-      "synced_at": "2026-07-08T14:07:52.886Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14783:7565",
@@ -6433,9 +6393,9 @@
           "gap": "8px",
           "padding": {
             "top": "12px",
-            "right": "12px",
+            "right": "16px",
             "bottom": "12px",
-            "left": "12px"
+            "left": "16px"
           },
           "align": {
             "main": "start",
@@ -6447,9 +6407,9 @@
           },
           "paddingTokens": {
             "top": "--zen-spacing-sm",
-            "right": "--zen-spacing-sm",
+            "right": "--zen-spacing-md",
             "bottom": "--zen-spacing-sm",
-            "left": "--zen-spacing-sm"
+            "left": "--zen-spacing-md"
           }
         },
         "children": [
@@ -12183,24 +12143,20 @@
       "_schema_version": 1,
       "slug": "global-header",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7384:22554",
         "variant": "App type=Studio, Breakpoints=XL"
       },
       "quality": {
-        "nodesTotal": 19,
-        "nodesNormalized": 18,
-        "ratio": 0.95,
+        "nodesTotal": 16,
+        "nodesNormalized": 11,
+        "ratio": 0.69,
         "degraded": [
           {
             "name": "Logo",
             "reason": "layoutMode:NONE"
-          },
-          {
-            "name": "Logo",
-            "reason": "layoutMode:NONE (variant App type=Explorer)"
           },
           {
             "name": "Logo",
@@ -12209,18 +12165,6 @@
           {
             "name": "Logo",
             "reason": "layoutMode:NONE (variant Breakpoints=L)"
-          },
-          {
-            "name": "Logo",
-            "reason": "layoutMode:NONE (variant Breakpoints=M)"
-          },
-          {
-            "name": "Logo",
-            "reason": "layoutMode:NONE (variant Breakpoints=S)"
-          },
-          {
-            "name": "Logo",
-            "reason": "layoutMode:NONE (variant Breakpoints=XS)"
           }
         ],
         "structuralVariants": [
@@ -12233,62 +12177,20 @@
           {
             "prop": "App type",
             "value": "Explorer",
+            "path": "0",
+            "reason": "kind:container!=instance"
+          },
+          {
+            "prop": "App type",
+            "value": "Explorer",
             "path": "1.0",
-            "reason": "kind:text!=container"
-          },
-          {
-            "prop": "App type",
-            "value": "Explorer",
-            "path": "1.2",
-            "reason": "kind:instance!=text"
-          },
-          {
-            "prop": "App type",
-            "value": "Explorer",
-            "path": "2.0",
             "reason": "kind:container!=instance"
           },
           {
             "prop": "App type",
             "value": "Explorer",
-            "path": "2.1",
+            "path": "1.1",
             "reason": "kind:container!=instance"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "L",
-            "path": "1",
-            "reason": "childCount:7!=2"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "L",
-            "path": "2",
-            "reason": "childCount:2!=7"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "M",
-            "path": "1",
-            "reason": "childCount:7!=2"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "M",
-            "path": "2",
-            "reason": "childCount:2!=5"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "S",
-            "path": "",
-            "reason": "childCount:3!=2"
-          },
-          {
-            "prop": "Breakpoints",
-            "value": "XS",
-            "path": "",
-            "reason": "childCount:3!=2"
           }
         ]
       },
@@ -12333,8 +12235,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 4261,
-              "y": -6128,
+              "x": 4260,
+              "y": -6143,
               "constraints": {
                 "vertical": "TOP",
                 "horizontal": "LEFT"
@@ -12349,148 +12251,6 @@
                   "Type": "Logo Studio"
                 },
                 "id": "7805:6391"
-              }
-            ]
-          },
-          {
-            "name": "Action on right",
-            "kind": "container",
-            "id": "7384:14041",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "end",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "fixed"
-              },
-              "gapToken": "--zen-spacing-xs"
-            },
-            "children": [
-              {
-                "name": "What’s new",
-                "kind": "text",
-                "tokenRefs": [
-                  "--zen-color-text-default"
-                ],
-                "id": "14035:6518",
-                "appearance": {
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "14px",
-                    "weight": 400,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
-                  }
-                },
-                "text": "What’s new"
-              },
-              {
-                "name": "Divider",
-                "kind": "vector",
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "14783:9585",
-                "appearance": {
-                  "border": {
-                    "color": "#dadada",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  }
-                }
-              },
-              {
-                "name": "notification",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show label": true,
-                  "Show leading icon": true,
-                  "Label": "Button",
-                  "Show trailing icon": true,
-                  "Intent": "Default",
-                  "Emphasis": "Icon-only",
-                  "Size": "Default",
-                  "State": "Default"
-                },
-                "id": "14035:8192",
-                "appearance": {
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": "Divider",
-                "kind": "vector",
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "14783:9571",
-                "appearance": {
-                  "border": {
-                    "color": "#dadada",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  }
-                }
-              },
-              {
-                "name": "App switcher",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show label": true,
-                  "Show leading icon": true,
-                  "Label": "Button",
-                  "Show trailing icon": true,
-                  "Intent": "Default",
-                  "Emphasis": "Icon-only",
-                  "Size": "Default",
-                  "State": "Default"
-                },
-                "id": "14036:7042",
-                "appearance": {
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": "Divider",
-                "kind": "vector",
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "14783:9556",
-                "appearance": {
-                  "border": {
-                    "color": "#dadada",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  }
-                }
-              },
-              {
-                "name": "Avatar",
-                "kind": "instance",
-                "slug": "avatar",
-                "props": {
-                  "State": "Default",
-                  "Type": "Default"
-                },
-                "id": "7384:14239",
-                "appearance": {
-                  "background": "#d0efed",
-                  "radius": "9999px"
-                }
               }
             ]
           },
@@ -12644,6 +12404,85 @@
                     "id": "9125:15127"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "name": "Action on right",
+            "kind": "container",
+            "id": "21923:41014",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "end",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "fixed"
+              },
+              "gapToken": "--zen-spacing-xs"
+            },
+            "children": [
+              {
+                "name": ".global header utility nav item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "State": "Default",
+                  "Type": "What's new"
+                },
+                "id": "21923:41017",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": ".global header utility nav item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "State": "Default",
+                  "Type": "Notification"
+                },
+                "id": "21923:41019",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": ".global header utility nav item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "State": "Default",
+                  "Type": "App switcher"
+                },
+                "id": "21924:49923",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": ".global header utility nav item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "State": "Default",
+                  "Type": "Avatar"
+                },
+                "id": "21923:41020",
+                "appearance": {
+                  "background": "#d0efed",
+                  "radius": "9999px"
+                }
               }
             ]
           }
@@ -13340,34 +13179,6 @@
             "id": "8400:25080"
           }
         ]
-      }
-    },
-    "identification-key": {
-      "_schema_version": 1,
-      "slug": "identification-key",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14349:15323"
-      },
-      "quality": {
-        "nodesTotal": 1,
-        "nodesNormalized": 1,
-        "ratio": 1,
-        "degraded": []
-      },
-      "root": {
-        "name": "Identification key",
-        "kind": "container",
-        "id": "14349:15323",
-        "appearance": {
-          "border": {
-            "color": "#9747ff",
-            "width": "1px"
-          },
-          "radius": "5px"
-        }
       }
     },
     "illustration": {
@@ -19139,7 +18950,7 @@
       "_schema_version": 1,
       "slug": "modal",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14175:14426",
@@ -19385,14 +19196,13 @@
                 "left": "24px"
               },
               "align": {
-                "main": "end",
+                "main": "space-between",
                 "cross": "end"
               },
               "sizing": {
                 "h": "fill",
                 "v": "hug"
               },
-              "gapToken": "--zen-spacing-xs",
               "paddingTokens": {
                 "top": "--zen-spacing-lg",
                 "right": "--zen-spacing-lg",
@@ -26386,50 +26196,54 @@
       "_schema_version": 1,
       "slug": "segmented-control",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7618:5187",
-        "variant": "Type=Default"
+        "variant": "Property 1=Default"
       },
       "quality": {
-        "nodesTotal": 10,
-        "nodesNormalized": 5,
-        "ratio": 0.5,
+        "nodesTotal": 6,
+        "nodesNormalized": 1,
+        "ratio": 0.17,
         "degraded": []
       },
       "root": {
-        "name": "Type=Default",
+        "name": "Property 1=Default",
         "kind": "container",
         "tokenRefs": [
-          "--zen-border-default"
+          "--zen-border-subtle"
         ],
         "id": "7618:5284",
         "appearance": {
           "background": "#ffffff",
           "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-default",
+            "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
             "width": "1px"
           },
-          "radius": "6px"
+          "radius": "9999px"
         },
         "layout": {
           "axis": "row",
           "gap": "0px",
           "padding": {
             "top": "0px",
-            "right": "0px",
+            "right": "4px",
             "bottom": "0px",
-            "left": "0px"
+            "left": "4px"
           },
           "align": {
             "main": "start",
-            "cross": "start"
+            "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "hug",
             "v": "fixed"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-2xs",
+            "left": "--zen-spacing-2xs"
           }
         },
         "children": [
@@ -26438,25 +26252,15 @@
             "kind": "instance",
             "unresolved": true,
             "props": {
+              "Show label": true,
               "Label": "Label",
-              "Icon2": true,
+              "Show icon": true,
               "State": "Selected"
             },
             "id": "7618:5285",
             "appearance": {
-              "background": "#edf6ff"
-            }
-          },
-          {
-            "name": " Divider",
-            "kind": "vector",
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "13811:13070",
-            "appearance": {
-              "background": "#c7c7ce",
-              "backgroundToken": "--zen-border-default"
+              "background": "#edf6ff",
+              "radius": "9999px"
             }
           },
           {
@@ -26465,21 +26269,13 @@
             "unresolved": true,
             "props": {
               "Label": "Label",
-              "Icon2": true,
+              "Show label": true,
+              "Show icon": true,
               "State": "Default"
             },
-            "id": "7618:5286"
-          },
-          {
-            "name": " Divider",
-            "kind": "vector",
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "13811:13068",
+            "id": "7618:5286",
             "appearance": {
-              "background": "#c7c7ce",
-              "backgroundToken": "--zen-border-default"
+              "radius": "9999px"
             }
           },
           {
@@ -26488,21 +26284,13 @@
             "unresolved": true,
             "props": {
               "Label": "Label",
-              "Icon2": true,
+              "Show label": true,
+              "Show icon": true,
               "State": "Default"
             },
-            "id": "7618:5287"
-          },
-          {
-            "name": " Divider",
-            "kind": "vector",
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "13811:13066",
+            "id": "7618:5287",
             "appearance": {
-              "background": "#c7c7ce",
-              "backgroundToken": "--zen-border-default"
+              "radius": "9999px"
             }
           },
           {
@@ -26511,21 +26299,13 @@
             "unresolved": true,
             "props": {
               "Label": "Label",
-              "Icon2": true,
+              "Show label": true,
+              "Show icon": true,
               "State": "Default"
             },
-            "id": "7618:5288"
-          },
-          {
-            "name": " Divider",
-            "kind": "vector",
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "13811:13064",
+            "id": "7618:5288",
             "appearance": {
-              "background": "#c7c7ce",
-              "backgroundToken": "--zen-border-default"
+              "radius": "9999px"
             }
           },
           {
@@ -26534,15 +26314,19 @@
             "unresolved": true,
             "props": {
               "Label": "Label",
-              "Icon2": true,
+              "Show label": true,
+              "Show icon": true,
               "State": "Default"
             },
-            "id": "7618:5289"
+            "id": "7618:5289",
+            "appearance": {
+              "radius": "9999px"
+            }
           }
         ]
       },
       "variantDefaults": {
-        "Type": "Default"
+        "Property 1": "Default"
       }
     },
     "side-nav": {
@@ -26984,30 +26768,18 @@
       "_schema_version": 1,
       "slug": "snowflake",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "7691:4999"
+        "nodeId": "8504:23447"
       },
       "quality": {
-        "nodesTotal": 10,
-        "nodesNormalized": 6,
-        "ratio": 0.6,
+        "nodesTotal": 2,
+        "nodesNormalized": 1,
+        "ratio": 0.5,
         "degraded": [
           {
             "name": "Snowflake",
-            "reason": "layoutMode:NONE"
-          },
-          {
-            "name": "Group 41",
-            "reason": "layoutMode:NONE"
-          },
-          {
-            "name": "Group",
-            "reason": "layoutMode:NONE"
-          },
-          {
-            "name": "Group",
             "reason": "layoutMode:NONE"
           }
         ]
@@ -27015,12 +26787,12 @@
       "root": {
         "name": "Snowflake",
         "kind": "container",
-        "id": "7691:4999",
+        "id": "8504:23447",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": -948,
-          "y": 1059,
+          "x": -620,
+          "y": 2515,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -27028,103 +26800,12 @@
         },
         "children": [
           {
-            "name": "Group 41",
-            "kind": "container",
-            "id": "7641:5820",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -947,
-              "y": 1064,
-              "constraints": {
-                "vertical": "CENTER",
-                "horizontal": "CENTER"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5821",
-                "appearance": {
-                  "background": "#252f3e"
-                }
-              },
-              {
-                "name": "Group",
-                "kind": "container",
-                "id": "7641:5822",
-                "normalizable": false,
-                "rawHint": {
-                  "layoutMode": "NONE",
-                  "x": -947,
-                  "y": 1072.08740234375,
-                  "constraints": {
-                    "vertical": "SCALE",
-                    "horizontal": "SCALE"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Vector",
-                    "kind": "vector",
-                    "id": "7641:5823",
-                    "appearance": {
-                      "background": "#ff9900"
-                    }
-                  },
-                  {
-                    "name": "Vector",
-                    "kind": "vector",
-                    "id": "7641:5824",
-                    "appearance": {
-                      "background": "#ff9900"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5825",
-                "appearance": {
-                  "background": "#252f3e"
-                }
-              },
-              {
-                "name": "Group",
-                "kind": "container",
-                "id": "7641:5826",
-                "normalizable": false,
-                "rawHint": {
-                  "layoutMode": "NONE",
-                  "x": -947,
-                  "y": 1072.08740234375,
-                  "constraints": {
-                    "vertical": "SCALE",
-                    "horizontal": "SCALE"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Vector",
-                    "kind": "vector",
-                    "id": "7641:5827",
-                    "appearance": {
-                      "background": "#ff9900"
-                    }
-                  },
-                  {
-                    "name": "Vector",
-                    "kind": "vector",
-                    "id": "7641:5828",
-                    "appearance": {
-                      "background": "#ff9900"
-                    }
-                  }
-                ]
-              }
-            ]
+            "name": "Vector",
+            "kind": "vector",
+            "id": "8504:23446",
+            "appearance": {
+              "background": "#29b5e8"
+            }
           }
         ]
       }
@@ -27802,159 +27483,6 @@
         "State": "Complete"
       }
     },
-    "sticky-footer": {
-      "_schema_version": 1,
-      "slug": "sticky-footer",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14747:9839",
-        "variant": "Property 1=Default"
-      },
-      "quality": {
-        "nodesTotal": 5,
-        "nodesNormalized": 5,
-        "ratio": 1,
-        "degraded": []
-      },
-      "root": {
-        "name": "Property 1=Default",
-        "kind": "container",
-        "tokenRefs": [
-          "--zen-border-disabled"
-        ],
-        "id": "8190:6001",
-        "appearance": {
-          "background": "#ffffff",
-          "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-disabled",
-            "width": "1px"
-          }
-        },
-        "layout": {
-          "axis": "row",
-          "gap": "8px",
-          "padding": {
-            "top": "16px",
-            "right": "24px",
-            "bottom": "16px",
-            "left": "24px"
-          },
-          "align": {
-            "main": "space-between",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          },
-          "paddingTokens": {
-            "top": "--zen-spacing-md",
-            "right": "--zen-spacing-lg",
-            "bottom": "--zen-spacing-md",
-            "left": "--zen-spacing-lg"
-          }
-        },
-        "children": [
-          {
-            "name": "Button",
-            "kind": "instance",
-            "slug": "button",
-            "props": {
-              "Show trailing icon": false,
-              "Show label": true,
-              "Show leading icon": false,
-              "Label": "Delete",
-              "Intent": "Critical",
-              "Emphasis": "Outlined",
-              "Size": "Default",
-              "State": "Default"
-            },
-            "id": "8190:5963",
-            "appearance": {
-              "border": {
-                "color": "#c12c11",
-                "width": "1px"
-              },
-              "radius": "9999px"
-            }
-          },
-          {
-            "name": "Right side actions",
-            "kind": "container",
-            "id": "8190:5964",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "end",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Button",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": false,
-                  "Show leading icon": false,
-                  "Label": "Cancel",
-                  "Intent": "Default",
-                  "Emphasis": "Ghost",
-                  "Size": "Default",
-                  "State": "Default"
-                },
-                "id": "8190:5965",
-                "appearance": {
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show trailing icon": false,
-                  "Show label": true,
-                  "Show leading icon": false,
-                  "Label": "Save",
-                  "Intent": "Default",
-                  "Emphasis": "Filled",
-                  "Size": "Default",
-                  "State": "Default"
-                },
-                "tokenRefs": [
-                  "--zen-color-bg-primary"
-                ],
-                "id": "8190:5966",
-                "appearance": {
-                  "background": "#0f5fdc",
-                  "backgroundToken": "--zen-color-bg-primary",
-                  "radius": "9999px"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "variantDefaults": {
-        "Property 1": "Default"
-      }
-    },
     "sybaseiq": {
       "_schema_version": 1,
       "slug": "sybaseiq",
@@ -28436,7 +27964,7 @@
       "_schema_version": 1,
       "slug": "tag-default",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-24T12:29:56.337Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7257:3037",
@@ -28639,6 +28167,20 @@
                     "Catalog"
                   ],
                   "slug": "folder"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Stage-1",
+                    "Stage-2",
+                    "Stage-3",
+                    "Stage-4",
+                    "Stage-5",
+                    "Stage-6",
+                    "Stage-7",
+                    "Stage-8"
+                  ],
+                  "slug": "dot"
                 },
                 {
                   "prop": "Type",

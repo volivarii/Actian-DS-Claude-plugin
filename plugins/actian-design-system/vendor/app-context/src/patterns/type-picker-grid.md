@@ -20,7 +20,7 @@ components:
   - segmented-control
   - search
   - text-input
-  - sticky-footer
+  - action-bar
   - page-header
 ---
 A full page, not an overlay. A required Name field over an information banner explaining that a key is
@@ -36,6 +36,5 @@ involved. And it named `card-for-items`: the tiles are radio cards, verified by 
 against `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,
 and is nothing like a type tile.
 
-Note for whoever carries the `sticky-footer` → `action-bar` rename through: this record now names
-`sticky-footer` truthfully, which makes it a fourth authored reference to rename. That does not change
-the situation, since the rename can only be landed alongside the registry in one branch anyway.
+The `sticky-footer` to `action-bar` rename this record was waiting on landed alongside the registry on
+2026-08-24 (#526), so it now names `action-bar`.

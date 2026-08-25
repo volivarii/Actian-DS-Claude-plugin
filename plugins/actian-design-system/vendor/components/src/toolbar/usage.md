@@ -15,7 +15,7 @@ title: "Toolbar usage guidelines"
 
 * Don't use it for actions on a single row: those are ghost or icon-only [buttons](button) inside the [table](table) row itself.
 
-* Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the [sticky footer](sticky-footer).
+* Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the [action bar](action-bar).
 
 * Don't use it for navigation between views or places: use [tabs](tabs) or the [side nav](side-nav).
 

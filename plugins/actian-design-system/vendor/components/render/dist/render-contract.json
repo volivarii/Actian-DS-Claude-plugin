@@ -23,6 +23,27 @@
       ],
       "variants": {}
     },
+    "action-bar": {
+      "group": "Action",
+      "props": [
+        {
+          "name": "Primary",
+          "default": "Save"
+        },
+        {
+          "name": "Secondary",
+          "default": "Cancel"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
     "alert-banner": {
       "group": "Feedback",
       "props": [
@@ -80,17 +101,17 @@
         "State": {
           "values": [
             "Default",
-            "Hovered",
-            "Focused",
+            "Hover",
+            "Focus",
             "Pressed",
             "Disabled",
-            "Selected"
+            "Expanded"
           ],
           "rendersAs": {
-            "Hovered": "Default",
-            "Focused": "Default",
+            "Hover": "Default",
+            "Focus": "Default",
             "Pressed": "Default",
-            "Selected": "Default"
+            "Expanded": "Default"
           }
         },
         "Type": {
@@ -249,58 +270,6 @@
             "Default"
           ],
           "rendersAs": {}
-        }
-      }
-    },
-    "card-for-items": {
-      "group": "Data Display",
-      "props": [
-        {
-          "name": "Body",
-          "default": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
-        },
-        {
-          "name": "Category",
-          "default": "Catalog"
-        },
-        {
-          "name": "Eyebrow",
-          "default": "Dataset"
-        },
-        {
-          "name": "Title",
-          "default": "Title"
-        }
-      ],
-      "variants": {
-        "Type": {
-          "values": [
-            "Catalog",
-            "Item",
-            "item type",
-            "Glossary type",
-            "Topic"
-          ],
-          "rendersAs": {
-            "Item": "Catalog",
-            "item type": "Catalog",
-            "Glossary type": "Catalog",
-            "Topic": "Catalog"
-          }
-        },
-        "State": {
-          "values": [
-            "Default",
-            "Hover",
-            "Focus",
-            "Pressed",
-            "Selected"
-          ],
-          "rendersAs": {
-            "Hover": "Default",
-            "Focus": "Default",
-            "Pressed": "Default"
-          }
         }
       }
     },
@@ -770,16 +739,10 @@
         "Breakpoints": {
           "values": [
             "XL",
-            "L",
-            "M",
-            "S",
-            "XS"
+            "L"
           ],
           "rendersAs": {
-            "L": "XL",
-            "M": "XL",
-            "S": "XL",
-            "XS": "XL"
+            "L": "XL"
           }
         }
       }
@@ -1451,7 +1414,7 @@
         }
       ],
       "variants": {
-        "Type": {
+        "Property 1": {
           "values": [
             "Default"
           ],
@@ -1548,27 +1511,6 @@
           "rendersAs": {
             "State5": "Default"
           }
-        }
-      }
-    },
-    "sticky-footer": {
-      "group": "Action",
-      "props": [
-        {
-          "name": "Primary",
-          "default": "Save"
-        },
-        {
-          "name": "Secondary",
-          "default": "Cancel"
-        }
-      ],
-      "variants": {
-        "Property 1": {
-          "values": [
-            "Default"
-          ],
-          "rendersAs": {}
         }
       }
     },

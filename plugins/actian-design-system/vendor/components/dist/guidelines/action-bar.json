@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "components/src/sticky-footer/",
+    "source": "components/src/action-bar/",
     "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
   },
-  "slug": "sticky-footer",
-  "component": "Sticky footer",
+  "slug": "action-bar",
+  "component": "Action bar",
   "meta": {
     "category": "action",
     "a11y_refs": [
@@ -19,13 +19,13 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Sticky footer\n\nThe sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.\n\n***\n\n## When to use\n\n* When a page or drawer contains primary actions that must remain available during scrolling.\n\n* When users complete steppers or multi-field forms that extend beyond the current view.\n\n* When the action affects the entire page, drawer, or form state.\n\n## Button hierarchy\n\n* The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.\n\n* An optional secondary action can be included.\n\n* Limit to a maximum of three buttons. More actions increase cognitive load.\n\n## Button labels\n\nUse clear verbs that describe the outcome. Labels should describe what will happen, not what the button is.\n\n| Recommended labels                      | Avoid                                      |\n| --------------------------------------- | ------------------------------------------ |\n| Save                                    | Done                                       |\n| Update                                  | OK                                         |\n| Create                                  | Submit (except on forms)                   |\n| Confirm                                 | Yes                                        |\n| Delete                                  | Remove (for destructive permanent actions) |\n| Continue (as part of a defined stepper) | Next (in sticky footers outside steppers)  |\n\n## Steppers\n\nWhen used as part of a stepper, use the following label terminology consistently:\n\n* **Back** for the previous step.\n\n* **Next** for intermediate steps.\n\n* **Submit** for the final step.\n\nDo not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow.",
+      "markdown": "# Action bar\n\nThe action bar is a persistent bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.\n\n***\n\n## When to use\n\n* When a page or drawer contains primary actions that must remain available during scrolling.\n\n* When users complete steppers or multi-field forms that extend beyond the current view.\n\n* When the action affects the entire page, drawer, or form state.\n\n## Button hierarchy\n\n* The action bar must contain exactly one primary action. The only exception is an additional destructive button such as Delete.\n\n* An optional secondary action can be included.\n\n* Limit to a maximum of three buttons. More actions increase cognitive load.\n\n## Button labels\n\nUse clear verbs that describe the outcome. Labels should describe what will happen, not what the button is.\n\n| Recommended labels                      | Avoid                                      |\n| --------------------------------------- | ------------------------------------------ |\n| Save                                    | Done                                       |\n| Update                                  | OK                                         |\n| Create                                  | Submit (except on forms)                   |\n| Confirm                                 | Yes                                        |\n| Delete                                  | Remove (for destructive permanent actions) |\n| Continue (as part of a defined stepper) | Next (in action bars outside steppers)  |\n\n## Steppers\n\nWhen used as part of a stepper, use the following label terminology consistently:\n\n* **Back** for the previous step.\n\n* **Next** for intermediate steps.\n\n* **Submit** for the final step.\n\nDo not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow.",
       "sections": [
         {
           "heading": "",
           "content": [
             {
-              "prose": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
+              "prose": "The action bar is a persistent bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
             }
           ]
         },
@@ -46,7 +46,7 @@
           "content": [
             {
               "bullets": [
-                "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
+                "The action bar must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
                 "An optional secondary action can be included.",
                 "Limit to a maximum of three buttons. More actions increase cognitive load."
               ]
@@ -81,7 +81,7 @@
             },
             {
               "do": "Continue (as part of a defined stepper)",
-              "dont": "Next (in sticky footers outside steppers)"
+              "dont": "Next (in action bars outside steppers)"
             }
           ]
         },
@@ -107,14 +107,14 @@
     },
     "usage": {
       "status": "approved",
-      "markdown": "## When to use\n\n* Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nSticky footers have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the footer | Let the sticky bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers.",
+      "markdown": "## When to use\n\n* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nAction bars have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the action bar | Let the action bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for action bars.",
       "sections": [
         {
           "heading": "When to use",
           "content": [
             {
               "bullets": [
-                "Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.",
+                "Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.",
                 "Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).",
                 "Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings)."
               ]
@@ -138,7 +138,7 @@
           "heading": "Variant selection",
           "content": [
             {
-              "prose": "Sticky footers have a single Default variant; the choices are configuration."
+              "prose": "Action bars have a single Default variant; the choices are configuration."
             },
             {
               "bullets": [
@@ -169,11 +169,11 @@
               "dont": "Park a permanently disabled Save the user cannot interrogate"
             },
             {
-              "do": "Keep the focused field visible above the footer",
-              "dont": "Let the sticky bar cover the input the user is typing in"
+              "do": "Keep the focused field visible above the action bar",
+              "dont": "Let the action bar cover the input the user is typing in"
             },
             {
-              "note": "Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers."
+              "note": "Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for action bars."
             }
           ]
         }
@@ -189,5 +189,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-18T18:56:05+02:00"
+  "updated_at": "2026-08-24T15:26:17+02:00"
 }

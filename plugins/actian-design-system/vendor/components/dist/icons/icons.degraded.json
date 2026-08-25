@@ -13,11 +13,7 @@
     },
     {
       "slug": "data-product-input-port",
-      "reason": "gradient-or-image-fill"
-    },
-    {
-      "slug": "double-check",
-      "reason": "gradient-or-image-fill"
+      "reason": "multicolor"
     }
   ]
 }

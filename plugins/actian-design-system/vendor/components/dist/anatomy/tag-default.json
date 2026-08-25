@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "tag-default",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-24T12:29:56.337Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3037",
@@ -205,6 +205,20 @@
                 "Catalog"
               ],
               "slug": "folder"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Stage-1",
+                "Stage-2",
+                "Stage-3",
+                "Stage-4",
+                "Stage-5",
+                "Stage-6",
+                "Stage-7",
+                "Stage-8"
+              ],
+              "slug": "dot"
             },
             {
               "prop": "Type",

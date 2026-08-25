@@ -12,7 +12,7 @@ A toolbar groups the primary actions for the content below it, such as a table o
 ## When not to use
 - Don't use a toolbar for page-level title actions (**New dataset**, **Edit**): those belong in the page header.
 - Don't use it for actions on a single row: those are ghost or icon-only buttons inside the table row itself.
-- Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the sticky footer.
+- Don't use it as the commit bar of a long form (**Save**, **Cancel**): that is the action bar.
 - Don't use it for navigation between views or places: use tabs or the side nav.
 
 ## Style

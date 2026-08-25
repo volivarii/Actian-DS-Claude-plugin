@@ -11,8 +11,8 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | Slug | Name | Status | Variant axes |
 |---|---|---|---|
 | `account-dropdown` | Account dropdown | **BUILT** | — |
+| `action-bar` | Action bar | **BUILT** | Property 1 |
 | `alert-banner` | Alert-banner | **BUILT** | Type / Orientation' |
-| `alert-inline` | Alert-inline | appearance | Type / Orientation' |
 | `app-switcher-dropdown` | App switcher dropdown | **BUILT** | — |
 | `avatar` | Avatar | **BUILT** | State / Type |
 | `badge` | ✍️ Badge | **BUILT** | Type |
@@ -20,8 +20,8 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `breadcrumb` | Breadcrumb | **BUILT** | Type |
 | `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
 | `calendar` | Calendar | **BUILT** | Type / Selection |
+| `card` | Card | appearance | Elevation / Size |
 | `card-for-grouped-content` | Card for grouped content | **BUILT** | Property 1 |
-| `card-for-items` | Card for items | **BUILT** | Type / State |
 | `card-for-perimeter` | Card for perimeter | **BUILT** | Property 1 |
 | `chat-with-ai-steward` | Chat with AI Steward | **BUILT** | size / history |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
@@ -38,7 +38,6 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `field` | Field | appearance | Size / State |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `glossary-item-hierarchy-diagram` | Glossary item hierarchy diagram | chip | Type |
-| `identification-key` | Identification key | appearance | Property 1 |
 | `input-date` | Input, date | **BUILT** | Type / States |
 | `label` | Label | appearance | State |
 | `line-graph` | ⛔️ Line graph | appearance | Property 1 |
@@ -66,11 +65,10 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 | `search` | Search | **BUILT** | Type / State |
 | `search-dropdown-menu` | Search dropdown menu | **BUILT** | Type |
 | `search-result-card` | Search result card | **BUILT** | App / State |
-| `segmented-control` | Segmented control | **BUILT** | Type |
+| `segmented-control` | Segmented control | **BUILT** | Property 1 |
 | `side-nav` | ✍️ Side nav | **BUILT** | App / View |
 | `spinner` | Spinner | **BUILT** | Color mode / Complete |
 | `stepper` | Stepper | **BUILT** | State |
-| `sticky-footer` | Sticky footer | **BUILT** | Property 1 |
 | `table` | ✍️ Table | **BUILT** | Built type |
 | `tabs` | Tabs | **BUILT** | Property 1 |
 | `tag-default` | Tag, Default | **BUILT** | Type |

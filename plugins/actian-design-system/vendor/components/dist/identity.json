@@ -41,11 +41,6 @@
       "nodeId": "8:20682",
       "previousSlugs": []
     },
-    "046781836dd3d72a9f1185981ebb28e0eab09bd9": {
-      "slug": "snowflake",
-      "nodeId": "7691:4999",
-      "previousSlugs": []
-    },
     "0472d1847ae41798e082c2e92e67a89b9b7b3a70": {
       "slug": "cosmosdb",
       "nodeId": "8400:25228",
@@ -261,9 +256,9 @@
       "nodeId": "8:20768",
       "previousSlugs": []
     },
-    "14a9062ded019fd0aafa717a268cba3e402c4a3f": {
-      "slug": "alert-inline",
-      "nodeId": "19746:32731",
+    "14abdd5e317e35b558549d54270c9f7024dc64ed": {
+      "slug": "snowflake",
+      "nodeId": "8504:23447",
       "previousSlugs": []
     },
     "14bae24b81e91dbc154eb178fe7847ac18f1b3cf": {
@@ -829,11 +824,6 @@
     "3befa3fc619a900f666288d3f7046251d78658b3": {
       "slug": "white-label-merck-favicon",
       "nodeId": "15609:14859",
-      "previousSlugs": []
-    },
-    "3bf340c5e6f49afc5b73140935558a558b3e8855": {
-      "slug": "identification-key",
-      "nodeId": "14349:15323",
       "previousSlugs": []
     },
     "3c8a16f6928da03e6cf20f4d642622738adf0e30": {
@@ -1951,11 +1941,6 @@
       "nodeId": "8820:13520",
       "previousSlugs": []
     },
-    "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30": {
-      "slug": "card-for-items",
-      "nodeId": "7613:7853",
-      "previousSlugs": []
-    },
     "95920b8206501203714ab6df215cfe9ab33a7a96": {
       "slug": "safyr-peoplesoft",
       "nodeId": "8400:25156",
@@ -2537,9 +2522,11 @@
       "previousSlugs": []
     },
     "cf1033712c94e4f740ae4c8de3f907004dc9380f": {
-      "slug": "view-details",
+      "slug": "view-detail",
       "nodeId": "12222:5799",
-      "previousSlugs": []
+      "previousSlugs": [
+        "view-details"
+      ]
     },
     "cf44b9c0b5623a394d90f320f98250dc77378268": {
       "slug": "fm-empty-state",
@@ -2767,9 +2754,11 @@
       "previousSlugs": []
     },
     "de36372be7d1532ee37fbfc43238aed444f6e7c9": {
-      "slug": "sticky-footer",
+      "slug": "action-bar",
       "nodeId": "14747:9839",
-      "previousSlugs": []
+      "previousSlugs": [
+        "sticky-footer"
+      ]
     },
     "de570a3d693466f8314750901d629799f27d2eb6": {
       "slug": "arrow-up",
@@ -3111,6 +3100,11 @@
       "nodeId": "7378:5038",
       "previousSlugs": []
     },
+    "f96a26b8cbcb77880425bb0d95269b3a55eed18e": {
+      "slug": "card",
+      "nodeId": "21781:16248",
+      "previousSlugs": []
+    },
     "f9c6c20e5ac993e4b8076f57b60fb1e73f1a159b": {
       "slug": "ckan",
       "nodeId": "8400:25222",
@@ -3159,6 +3153,11 @@
     "fe4f2ac8259f21b6e08d82a83074624959966be3": {
       "slug": "chat-alt",
       "nodeId": "8:20838",
+      "previousSlugs": []
+    },
+    "fe71ed0acd41e7361aa2f1042db1caf78dbd7ac3": {
+      "slug": "dot",
+      "nodeId": "21224:24526",
       "previousSlugs": []
     },
     "fe8ce8b1dc8f249bb19bbfb2304e20431984452f": {
