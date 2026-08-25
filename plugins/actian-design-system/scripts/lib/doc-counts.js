@@ -113,6 +113,45 @@ function deriveGuidelines() {
   };
 }
 
+// Per-category authorable counts: the members of each categories.json entry
+// whose registry `section` is "Components" (the same join categories.test.js
+// and render-authoring-table.js make). Icon, logo and structure categories
+// have no Components-section member and so produce no row.
+function deriveCategories() {
+  var cats = JSON.parse(
+    fs.readFileSync(PATHS.components.categories, "utf8"),
+  ).categories;
+  var reg = JSON.parse(
+    fs.readFileSync(PATHS.components.registries.dskit, "utf8"),
+  ).components;
+  var byName = {};
+  Object.keys(cats).forEach(function (name) {
+    var n = (cats[name].components || []).filter(function (slug) {
+      return reg[slug] && reg[slug].section === "Components";
+    }).length;
+    if (n) byName[name] = n;
+  });
+  return { byName: byName, count: Object.keys(byName).length };
+}
+
+function countJsonFiles(dir) {
+  var n = 0;
+  fs.readdirSync(dir).forEach(function (e) {
+    var p = path.join(dir, e);
+    if (fs.statSync(p).isDirectory()) n += countJsonFiles(p);
+    else if (e.endsWith(".json")) n++;
+  });
+  return n;
+}
+
+function deriveAppContext() {
+  var ac = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
+  function size(v) {
+    return Array.isArray(v) ? v.length : Object.keys(v || {}).length;
+  }
+  return { patterns: size(ac.patterns), entities: size(ac.entities) };
+}
+
 function deriveCounts() {
   return {
     SKILLS: deriveSkills(),
@@ -122,7 +161,14 @@ function deriveCounts() {
     FM: deriveRegistry("fmkit"),
     META: deriveRegistry("metakit"),
     GUIDE: deriveGuidelines(),
+    CATEGORIES: deriveCategories(),
+    FOUNDATIONS: countJsonFiles(PATHS.foundations.distDir),
+    APP: deriveAppContext(),
   };
+}
+
+function escapeRx(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 // ---------------------------------------------------------------------------
@@ -179,6 +225,19 @@ function buildChecks(c) {
         {
           str: c.GUIDE.canonical + " components + " + c.GUIDE.aliases,
           fixRx: /\d+ components \+ \d+/g,
+        },
+        // Foundations dist is a tree of leaf JSONs, counted recursively.
+        {
+          str: c.FOUNDATIONS + " derived JSONs",
+          fixRx: /\d+ derived JSONs/g,
+        },
+        {
+          str: c.APP.entities + " entities with typed",
+          fixRx: /\d+ entities with typed/g,
+        },
+        {
+          str: c.APP.patterns + " named UX patterns",
+          fixRx: /\d+ named UX patterns/g,
         },
       ],
       // Stale-phrasing denylist. Keep these to WORDING that is wrong regardless
@@ -251,10 +310,14 @@ function buildChecks(c) {
         },
         { str: "WCAG 2.2 AA" },
         // Anchored on ", all curated" so it never clobbers the sibling
-        // "Foundations subtree (8 JSON files)" line.
+        // "Foundations subtree (N JSON files)" line, which has its own entry.
         {
           str: c.GUIDE.total + " JSON files, all curated",
           fixRx: /\d+ JSON files, all curated/g,
+        },
+        {
+          str: "Foundations subtree (" + c.FOUNDATIONS + " JSON files)",
+          fixRx: /Foundations subtree \(\d+ JSON files\)/g,
         },
       ],
       notContains: [
@@ -301,7 +364,25 @@ function buildChecks(c) {
           str: c.GUIDE.canonical + " components + " + c.GUIDE.aliases,
           fixRx: /\d+ components \+ \d+/g,
         },
-      ],
+        {
+          str: "grouped into " + c.CATEGORIES.count + " categories",
+          fixRx: /grouped into \d+ categories/g,
+        },
+      ].concat(
+        // One "| **Category** | N |" row per Components-section category in
+        // the DS Kit Categories table, anchored on the bold label.
+        Object.keys(c.CATEGORIES.byName)
+          .sort()
+          .map(function (name) {
+            return {
+              str: "| **" + name + "** | " + c.CATEGORIES.byName[name] + " |",
+              fixRx: new RegExp(
+                "\\| \\*\\*" + escapeRx(name) + "\\*\\* \\| \\d+ \\|",
+                "g",
+              ),
+            };
+          }),
+      ),
       notContains: ["107 sets", "44 components |", "~41 of 85"],
     },
     {

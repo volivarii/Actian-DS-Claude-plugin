@@ -183,10 +183,10 @@ and variant axes from the table.
 - `variant.Intent`: `Default` | `Critical` (default: `Default`) — use `Critical` for destructive/error actions
 - `variant.Emphasis`: `Filled` | `Outlined` | `Ghost` | `Icon-only` (default: `Filled`) — emphasis ladder; `Filled` is the primary CTA, `Outlined`/`Ghost` step down, `Icon-only` for icon-only buttons
 - `variant.Size`: `Default` | `Small` (default: `Default`)
-- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Selected` | `Disabled` | `Loading` (default: `Default`)
+- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Expanded` | `Disabled` | `Loading` (default: `Default`)
 - `props.Label`: button text (required, never generic — use real action copy)
 - `props["Leading icon show"]`: `true` renders the `add` icon before the label
-- `props["Trailing icon show"]`: `true` renders a rotated `chevron-up` (chevron-down) after the label
+- `props["Trailing icon show"]`: `true` renders an `arrow-down` chevron after the label
 
 ### `text-input`
 
@@ -220,15 +220,15 @@ never author `dsSlug: "input"`.)
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "checkbox",
-  "variant": "Selected=No, State=Default",
+  "variant": "Selection=Unchecked, State=Default",
   "props": {
     "Label": "Enable notifications"
   }
 }
 ```
 
-- `variant.Selected`: `Yes` | `No` (default: `No`)
-- `variant.State`: `Default` | `Hovered` | `Disabled` (default: `Default`)
+- `variant.Selection`: `Unchecked` | `Indeterminate` | `Checked` (default: `Unchecked`)
+- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Disabled` (default: `Default`)
 - `props.Label`: checkbox label text
 
 ### `radio`
@@ -268,7 +268,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "toggle",
-  "variant": "Toggle location=Left, Selected=No, State=Default",
+  "variant": "Toggle position=On right (default), Selection=Off, State=Default",
   "props": {
     "Label": "Dark mode",
     "Helper text": "Applies the dark theme to the UI",
@@ -277,9 +277,9 @@ as the Figma property contract.
 }
 ```
 
-- `variant["Toggle location"]`: `Left` | `Right` (default: `Left`)
-- `variant.Selected`: `Yes` | `No` (default: `No`)
-- `variant.State`: `Default` | `Hovered` | `Disabled` (default: `Default`)
+- `variant["Toggle position"]`: `On right (default)` | `On left` (default: `On right (default)`; both render the same)
+- `variant.Selection`: `Off` | `On` (default: `Off`)
+- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Disabled` (default: `Default`)
 - `props.Label`: toggle label text
 - `props["Helper text"]`: sub-label text (only shown when `Show Helper text` is truthy)
 - `props["Show Helper text"]`: `true` | `false` (default: `false`)
@@ -291,7 +291,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "tag-default",
-  "variant": "Color=Default",
+  "variant": "Type=Default",
   "props": {
     "Label": "Published",
     "Leading icon show": false
@@ -299,9 +299,9 @@ as the Figma property contract.
 }
 ```
 
-- `variant.Color`: `Default` | `Gray` | `Pink` | `Purple` | `Blue` | `Teal` | `Green` | `Yellow` | `Orange` | `Red` (default: `Default`)
+- `variant.Type`: `Default` | `Catalog` | `Shared` | `Stage-1` to `Stage-8` | `Status-error` | `Status-warning` | `Status-success` (default: `Default`). The Type also selects the leading icon.
 - `props.Label`: tag text
-- `props["Leading icon show"]`: `true` renders a `directory` icon before the label
+- `props["Leading icon show"]`: shown unless `false`; the icon follows the Type: `folder` for Catalog, `dot` for Stage-1 to Stage-8, `error-filled` / `warning-filled` / `success-filled` for the Status types, `add` otherwise
 
 ### `badge`
 
@@ -327,15 +327,15 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "search",
-  "variant": "Type=Default, State=Default",
+  "variant": "Type=Inline, State=Default",
   "props": {
     "Placeholder text": "Search assets…"
   }
 }
 ```
 
-- `variant.Type`: `Default` | `Expanded` (default: `Default`)
-- `variant.State`: `Default` | `Focused` | `Filled` | `Disabled` (default: `Default`)
+- `variant.Type`: `Explorer home` | `Global header` | `Inline` (all three render the same field)
+- `variant.State`: `Default` | `Hovered` | `Focused` | `Filled` | `Active` | `Dsiabled` (the registry's spelling; all render the default field)
 - `props["Placeholder text"]`: search input placeholder (default: `"Search"`)
 
 ### `global-header`
@@ -345,7 +345,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "global-header",
-  "variant": "App type=Studio, Breakpoints=Desktop",
+  "variant": "App type=Studio, Breakpoints=XL",
   "props": {
     "App": "Studio",
     "Account": "JD"
@@ -356,7 +356,7 @@ as the Figma property contract.
 **Note:** Do not author `global-header` in screen content arrays — the renderer's DS chrome branch supplies it automatically. Only author it if building a custom layout that bypasses DS chrome.
 
 - `variant["App type"]`: `Studio` | `Explorer` | `Admin` (default: `Studio`)
-- `variant.Breakpoints`: `Desktop` | `Tablet` | `Mobile` (default: `Desktop`)
+- `variant.Breakpoints`: `XL` | `L` (default: `XL`; L renders the same as XL)
 - `props.App`: app name displayed in the header brand slot (falls back to variant App type value)
 - `props.Account`: avatar initials (default: `"AU"`)
 
@@ -367,7 +367,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "side-nav",
-  "variant": "App=Studio, View=Default",
+  "variant": "App=Studio, View=Expanded",
   "props": {
     "Items": "Catalog, Pipelines, Connections, Settings",
     "Active": "Catalog"
@@ -377,8 +377,8 @@ as the Figma property contract.
 
 **Note:** Do not author `side-nav` in screen content arrays — the renderer's DS chrome branch supplies it automatically. Only author it if building a custom layout that bypasses DS chrome.
 
-- `variant.App`: `Studio` | `Explorer` | `Admin` (default: `Studio`)
-- `variant.View`: `Default` | `Collapsed` (default: `Default`)
+- `variant.App`: `Admin` | `Studio` (default: `Studio`)
+- `variant.View`: `Expanded` | `Collapsed` (default: `Expanded`)
 - `props.Items`: comma-separated nav item labels
 - `props.Active`: label of the active nav item (case-insensitive match; defaults to first item)
 
@@ -389,7 +389,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "page-header",
-  "variant": "Type=Title + Actions",
+  "variant": "Type=Default",
   "props": {
     "Title": "Catalog",
     "Description": "Browse and manage your data assets.",
@@ -401,7 +401,7 @@ as the Figma property contract.
 }
 ```
 
-- `variant.Type`: `Title only` | `Title + Description` | `Title + Actions` (default: `Title only`)
+- `variant.Type`: `Default` | `Details page` | `Explorer home` | `Explorer detail` (default: `Default`). Description and actions come from `props`, not from the Type.
 - `props.Title`: page title (required — use a real page name)
 - `props.Description`: subtitle paragraph (shown when present)
 - `props.Actions`: array of `{ label: string, variant: "primary" | "secondary" | "tertiary" }` objects. First action is always `primary`.
@@ -448,7 +448,7 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "table",
-  "variant": "Built type=Default",
+  "variant": "Built type=By columns",
   "props": {
     "Columns": "Name, Type, Status, Updated",
     "Rows": [
@@ -460,7 +460,7 @@ as the Figma property contract.
 }
 ```
 
-- `variant["Built type"]`: `Default` (default: `Default`)
+- `variant["Built type"]`: `By columns` | `By rows` (default: `By columns`; both render the same)
 - `props.Columns`: comma-separated column header labels
 - `props.Rows`: array of row arrays, each inner array cell corresponding to a column. Realistic row data is required — no "Row 1 / Cell 1" placeholders. Alternatively, a comma-separated string is accepted (each value becomes a single-cell row).
 
@@ -512,7 +512,7 @@ as the Figma property contract.
 }
 ```
 
-- `variant.Type`: `Primary` (info) · `Success` · `Warning` · `Danger`. Drives the status icon (`info-filled`/`success-filled`/`warning-filled`/`error-filled`) and the role (`status`, or `alert` for `Danger`). Unknown values fall back to `Primary`.
+- `variant.Type`: `Info` | `Success` | `Warning` | `Error`. Drives the status icon (`info-filled`/`success-filled`/`warning-filled`/`error-filled`) and the role (`status`, or `alert` for `Error`). Unknown values fall back to `Info`. `variant["Orientation'"]` (the registry's axis name): `Horizontal` | `Vertical`, both render the same.
 - `props.Message`: required body. `props.Title`: optional bold lead.
 
 ### `chat-with-ai-steward`
@@ -524,8 +524,9 @@ The AI surface panel (Studio / Explorer). Renders an elevated `<aside>` with a s
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "chat-with-ai-steward",
-  "variant": "State=Default",
+  "variant": "size=Default, history=Closed",
   "props": {
+    "State": "Default",
     "Title": "AI Steward",
     "Insight": "Customer Orders joins cleanly to Customer Accounts on customer_id (98% match).",
     "Source": "Customer Accounts",
@@ -534,7 +535,8 @@ The AI surface panel (Studio / Explorer). Renders an elevated `<aside>` with a s
 }
 ```
 
-- `variant.State`: `Default` (answered) | `Generating` (shimmer + Stop, `aria-busy`). Default = `Default`.
+- `variant.size`: `Default` | `Drawer`; `variant.history`: `Closed` | `Open` (Open renders the same as Closed).
+- `props.State`: `Default` (answered) | `Generating` (shimmer + Stop, `aria-busy`). Default = `Default`.
 - `props.Title`: panel header (default: `"AI Steward"`).
 - `props.Insight`: the AI-generated output body (answered state). Required for a meaningful answered panel.
 - `props.Source`: catalog asset the insight was derived from — renders the `Source:` citation line. Omit to suppress (and label the output "verify before use" per the guideline).
@@ -542,44 +544,157 @@ The AI surface panel (Studio / Explorer). Renders an elevated `<aside>` with a s
 
 ## Available icon slugs
 
-37 icons are currently vendored (incl. `ai` + `stars` for AI surfaces). Use these slug values in `renderIcon()` calls or when setting icon-bearing props. Unknown slugs silently produce no output — verify against this list.
+<!-- BEGIN GENERATED icons: node scripts/renderers/render-authoring-table.js -->
+144 icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in
+`renderIcon()` calls or when setting icon-bearing props. An unknown slug renders nothing, with no
+error, so check against this list.
 
 ```
 add
-alert-circle
+add-circle
+alert
+analytics
+api-key
+applications
 arrow
+arrow-alt
 arrow-down
+arrow-left
+arrow-up
+attachments
 back
-calendar-2
-checkmark-outline
-chevron-left
-chevron-sort-down
-chevron-sort-up
-chevron-up
+ban
+bin-type
+book-bookmark
+book-edit
+book-open
+book-pages
+book-text
+boolean-type
+business-contract-give
+calendar
+cash-briefcase
+catalog
+catalog-design
+catalogs
 close
-cloud-upload
+code
+collapse
+connected
 dashboard
-directory
-dots
+data-access-request
+data-file-question
+data-model
+data-product-output-port
+database
+database-check
+datasets
+date
+disconnected
+discussion
+dot
+double-check
 download
 drag
 edit
+error
 error-filled
 exit
+expand
+exploration
 export
+favorite
+favorite-filled
+file-cash
+file-check
+file-info
+file-stack
 filter
+filter-text
+float-type
+folder
+geo-point-type
+glossary
+graph-merge
+help-bubble
+help-circle
+hierarchy
 home
+idea
+info
 info-filled
-menu
+input
+integer-type
+invoice
+layers-front
+lifecycle-policy
+lineage
+link-type
+list-bullets
+list-numbers
+maintenance
+map
 more
+move
+notifications-setting
+null-type
+open
+output
+paragraph-justify
+phone
+pii
 pin
+process
+products-briefcase
+read-search
+relation
+relation-incoming
+relation-outgoing
+remove-circle
+reply
+rotate-back
+scanner
+schema
+search
+security-services
+server-search
+server-warning
 settings
+share
+shield-lock
 simple-check
+stars
+stars-filled
+struct-type
+success
 success-filled
+suggestion
+table
+tags-add
+target-type
+task-list
+task-list-settings
+text-file
+text-type
+thumbs-down
+thumbs-up
+time-type
 trash
+unknown-type
+user
+user-add
+user-group
+user-info
 user-single
-warning-alt
+view
+view-detail
+warning
 warning-filled
+zoom-in
+zoom-out
+zoom-reset
+zoom-to-fit
 ```
+<!-- END GENERATED icons -->
 
-Built leaves that reference icons currently use: `add` (button leading icon), `chevron-up` rotated 180° (button trailing icon, input trailing chevron, breadcrumb separator), `simple-check` (checkbox check mark), `directory` (tag-default leading icon), `chevron-left` rotated 180° (breadcrumb separators).
+Built leaves that reference icons use: `add` (button leading icon), `arrow-down` (button trailing icon, input trailing chevron, dropdown and accordion carets), `arrow-left` rotated 180° (breadcrumb separators), `simple-check` (checkbox check mark), and the tag-default Type icons (`folder`, `dot`, `error-filled`, `warning-filled`, `success-filled`, `add`).

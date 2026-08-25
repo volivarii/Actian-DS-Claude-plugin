@@ -163,6 +163,28 @@ jobs:
         run: |
           node scripts/renderers/render-authoring-table.js
 
+      - name: Regenerate the authoring built-leaf props section
+        # Same file, same class of drift gate
+        # (tests/integration/authoring-props-sync.test.js): the props block is
+        # generated from the vendored render contract, so a refresh that
+        # changes a prop default or a variant value leaves the PR red until
+        # this runs. Idempotent no-op when the contract did not move.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/render-authoring-props.js
+
+      - name: Re-record the blank-box baseline
+        # tests/renderers/blank-box-budget.test.js compares the renderer's
+        # blank-box count per unbuilt slug against
+        # tests/renderers/blank-box-baseline.json. A refresh that BUILDS a slug
+        # or recaptures an anatomy doc changes that count and the gate goes
+        # red until the improvement is banked. The CLI refuses (exit 1) to
+        # write a regression, so this step cannot launder one: a real loss
+        # still fails the job, by slug.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/ds-coverage-report.js --write-baseline
+
       - name: Detect changes
         id: diff
         run: |
@@ -218,6 +240,7 @@ jobs:
             plugins/actian-design-system/references/context/companion-context.md
             plugins/actian-design-system/references/figma/figma-push-patterns.md
             plugins/actian-design-system/references/generate-flow/ds-components-authoring.md
+            plugins/actian-design-system/tests/renderers/blank-box-baseline.json
 
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number

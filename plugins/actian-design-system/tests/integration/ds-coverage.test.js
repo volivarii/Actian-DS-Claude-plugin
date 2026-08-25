@@ -6,16 +6,6 @@ var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
 var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
 
-// dskit categories that are NOT authorable UI components (icons + brand assets).
-// The authorable UI surface = dskit minus these (≈76 components) — the real
-// ceiling for the DS render tier (DS-native feeder), broader than the 22
-// conversion-reachable slugs.
-var NON_AUTHORABLE_CATEGORIES = new Set([
-  "Icons",
-  "Product logos",
-  "Illustrations & graphics",
-]);
-
 // FM→DS CONVERSION coverage gate (one of two feeders into the shared DS render tier).
 //
 // The DS render tier (ds-html-map.js) is fed by two paths: (1) FM→DS CONVERSION —
@@ -134,9 +124,16 @@ function appearanceCovered(slug) {
   );
 }
 
-// The authorable UI surface = every dskit component NOT in an icon/brand-asset
-// category. This is the real ceiling for the render tier (the DS-native feeder
-// can author any of these directly — far beyond the 22 conversion-reachable).
+// The authorable UI surface = every dskit component the registry files under
+// section "Components" (the same join render-authoring-table.js makes). This
+// is the real ceiling for the render tier (the DS-native feeder can author any
+// of these directly, far beyond the 22 conversion-reachable).
+//
+// It used to be "every category NOT in a hand list of icon/brand categories".
+// That list missed `Third-party logos` when the registry split it out, so the
+// authorable set grew to 167 against 71 real components and the orphan gate
+// below would have accepted `case "snowflake"`. The section is the registry's
+// own answer; categories.test.js retired its closed list for the same reason.
 function authorableDsSlugs() {
   var dskit = JSON.parse(
     fs.readFileSync(PATHS.components.registries.dskit, "utf8"),
@@ -144,7 +141,7 @@ function authorableDsSlugs() {
   var comps = dskit.components || {};
   var slugs = new Set();
   Object.keys(comps).forEach(function (slug) {
-    if (!NON_AUTHORABLE_CATEGORIES.has(comps[slug].category)) slugs.add(slug);
+    if (comps[slug].section === "Components") slugs.add(slug);
   });
   return slugs;
 }

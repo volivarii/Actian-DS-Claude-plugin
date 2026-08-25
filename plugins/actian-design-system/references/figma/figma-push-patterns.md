@@ -252,7 +252,7 @@ sidebar.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];               
 sidebar.strokes = [{ type: "SOLID", color: { r: 0.886, g: 0.902, b: 0.937 } }];            // ❌ raw gray
 ```
 
-**Library-gap reminder:** before scaffolding any chrome (sidebar, header, toolbar, page header, action bar) with raw frames, check the registry for an existing component. FM has `fm-app-header`, `fm-nav-bar`, `fm-page-header`, `fm-banner`. DS has Global Header, Side nav, Page header, Sticky footer. **Use components first; only scaffold when the registry has no fit.** See `references/ds-rules/library-gap-detection.md`.
+**Library-gap reminder:** before scaffolding any chrome (sidebar, header, toolbar, page header, action bar) with raw frames, check the registry for an existing component. FM has `fm-app-header`, `fm-nav-bar`, `fm-page-header`, `fm-banner`. DS has Global header, Side nav, Page header, Action bar. **Use components first; only scaffold when the registry has no fit.** See `references/ds-rules/library-gap-detection.md`.
 
 ---
 

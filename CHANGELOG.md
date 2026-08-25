@@ -47,14 +47,38 @@ are summarized at the release level.
   **One gate changed shape rather than number.** `appearance-variant-realdata.test.js` required
   `ceil(candidates * 0.94)` exercised, a floor that tolerates one structural-only skip only at 17 or
   more candidates. `card` joins as the 12th candidate with a single removal-only delta
-  (`Elevation=Raised with shadow` sets `border: null`, which emits no declaration), so the floor
-  demanded 12 of 12. The test now verifies each structural-only skip with an independent walk of the
-  doc's `variants[]` entries, which fails by name when the pick function misreads a real delta
-  (checked by mutation) and does not depend on population size.
+  (`Elevation=Raised with shadow` sets `border: null`). The test now renders every candidate,
+  removal deltas included: the expected change is computed by the renderer's own exported
+  `resolveNodeAppearance` and `appearanceToDecls`, a declaration the delta adds must occur more
+  often in the variant render than in the base render and one it removes must occur less often, a
+  glyph swap must change the markup, and an entry that produces no observable delta fails by name.
+  The population is guarded by a file scan independent of the tree walk, so a walk that stops short
+  fails naming the slugs it dropped (12 candidates to 4 under mutation), and a doc whose delta is
+  nulled fails as unobservable (`actian-pyramid (Color=White)` under mutation).
 
   Also: the built-leaf props section of `ds-components-authoring.md` regenerated from the render
   contract (57 slugs, 173 bindings), its authorable count corrected to the registry's 71, and the
   `fm-to-ds-map.json` alert note trimmed to the current axis.
+
+  **Review follow-through.** The orphan-case gate in `ds-coverage.test.js` now derives the
+  authorable set from the registry's `section === "Components"` (the hand list of non-authorable
+  categories missed `Third-party logos`, so 167 slugs passed as authorable against 71 real
+  components and a `case "snowflake"` would have been accepted). `doc-counts.js` now derives and
+  stamps the per-category counts in `companion-context.md`, the foundations JSON count (79) and the
+  app-context pattern and entity counts, so the nightly corrects them; the `llms.txt` guideline link
+  points at `components/dist/guidelines` and the evicted presentation guide line is gone. The icon
+  list in `ds-components-authoring.md` is generated from the vendored `icons.json` by
+  `render-authoring-table.js` (the hand copy named 12 slugs that do not exist), its worked examples
+  use the registry's axes and values (`Breakpoints=XL`, `Selection=Unchecked`, `Type=Default` for
+  tags, `size`/`history` for the AI steward) and a new gate joins every example's `variant` string
+  against the registry. `quality-gates-cli.js` throws at startup when a `PILOT` slug is not in
+  `BUILT_SLUGS`. The nightly vendor workflow also runs `render-authoring-props.js` and
+  `ds-coverage-report.js --write-baseline` (which refuses a regression) and commits the baseline. A
+  card-family test renders each built card leaf with a hostile heading and asserts the escape.
+  `figma-push-patterns.md`, `catalog-slice.json`, the `search-results-ai` recipe notes and the
+  chrome golden note state the current library (`Action bar`, `Breakpoints` XL and L,
+  `search-result-card` built, tag `Type` axis).
+
 ### Removed
 
 - **The vendored media oracles, 6.9 MB in every install and 34 MB of git history, bought two

@@ -652,6 +652,48 @@ describe("ds-html-map: search", function () {
   });
 });
 
+// The DS card family. Every built card leaf must render a real leaf, not the
+// graceful chip, and must escape its heading prop. The slugs and the heading
+// prop each leaf reads are looked up from the vendored BUILT_SLUGS and the
+// render contract, so a card renamed or retired upstream drops out of this
+// block instead of pinning a stale name.
+describe("ds-html-map: built card family (leaf + hostile heading)", function () {
+  var BUILT = renderer.dsHtmlMap.BUILT_SLUGS;
+  var contract = JSON.parse(
+    fs.readFileSync(PATHS.components.render.contract, "utf8"),
+  ).slugs;
+  var cards = BUILT.filter(function (s) {
+    return /card/.test(s) && contract[s];
+  });
+  it("the family is non-empty (the vendored renderer builds at least one card)", function () {
+    assert.ok(cards.length > 0, "no built slug matches /card/");
+  });
+  cards.forEach(function (slug) {
+    var props = contract[slug].props.map(function (p) {
+      return p.name;
+    });
+    var heading = ["Title", "Name", "Label"].filter(function (p) {
+      return props.indexOf(p) !== -1;
+    })[0];
+    it(
+      slug + " renders a leaf, not a chip, and escapes a hostile " + heading,
+      function () {
+        assert.ok(heading, slug + " exposes no Title/Name/Label prop to test");
+        var hostile = {};
+        hostile[heading] = "<svg onload=1>";
+        var html = render({ dsSlug: slug, variant: "", props: hostile });
+        assert.ok(html.length > 0, "non-empty render");
+        assert.ok(
+          html.indexOf('<span class="ds-component"') === -1,
+          "rendered the graceful chip instead of the " + slug + " leaf",
+        );
+        assert.ok(html.indexOf("&lt;svg") !== -1, heading + " escaped");
+        assert.ok(html.indexOf("<svg onload") === -1, "no raw injection");
+      },
+    );
+  });
+});
+
 describe("ds-html-map: global-header", function () {
   it("default: emits a <header> with brand, center, actions, and avatar", function () {
     var html = render({

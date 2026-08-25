@@ -94,7 +94,7 @@
       "nodeId": "7384:22554",
       "variants": {
         "App type": ["Explorer", "Admin", "Studio"],
-        "Breakpoints": ["XL", "L", "M", "S", "XS"]
+        "Breakpoints": ["XL", "L"]
       },
       "geometry": {
         "height": "xl(32)-based row, ~56-64 total",
