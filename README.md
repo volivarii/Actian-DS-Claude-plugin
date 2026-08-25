@@ -223,9 +223,9 @@ Works at every preview gate across all skills.
 The companion has always-loaded knowledge of:
 
 - **Tokens** — 155 design tokens in W3C DTCG format across 8 collections (color, spacing, border, size, breakpoint, focus-ring, font, icon), 3 theme modes, CSS custom properties (`--zen-*`)
-- **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 79 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
+- **Foundations**: `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 79 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 31 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
+- **App context**: Studio (integration/catalog), Explorer (discovery), Administration (settings/users), a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 31 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
 - **Component inventory** — 321 DS Kit + 287 FM Kit + 28 Meta Kit components (82 / 33 / 11 sets) — dynamically derived from synced registries
 - **Component guidelines** — 60 per-component guideline docs (54 components + 6 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
@@ -281,7 +281,7 @@ Companion + skills read at runtime
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
 **Pipeline quality gates:**
-- **Foundations MD-as-SoT** (v1.60.0+) — `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
+- **Foundations MD-as-SoT** (v1.60.0+): `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
 - **Substrate-grounded glossary** — before generating screens, the skill resolves a shared `_glossary` directly from the structured `app-context.json` (deterministic resolvers under `scripts/lib/app-context/`): the app **chrome** (sidebar/header), the matched **UX pattern**, entity **relationships** (→ detail tabs + related sub-lists), and typed entity **properties** (→ table columns / form field labels, with `type:"enum"` columns rendered as status pills and dates formatted per the content guideline) — alongside entity names, action verbs, and CTA labels. All parallel screen-generators read it, so screens are idiomatic to the app rather than generic SaaS, with consistent terminology.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
 - **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
