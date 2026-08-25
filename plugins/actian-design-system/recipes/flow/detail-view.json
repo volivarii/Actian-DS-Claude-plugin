@@ -159,5 +159,5 @@
     "For Explorer, the page header includes type badge, breadcrumb, and right-aligned actions"
   ],
   "missing_states": ["empty-section", "loading"],
-  "dsComposition": "page-header(+actions) / breadcrumbs / tabs / card-for-items or content sections"
+  "dsComposition": "page-header(+actions) / breadcrumbs / tabs / content sections"
 }

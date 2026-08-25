@@ -4,7 +4,7 @@ This reference is for the screen-generator agent when `meta.library:"ds"` is set
 
 The DS detail bar is higher than the FM deliberate-simplicity bar. When composing DS-native screens you are expected to supply realistic app-context data, real Action labels, full-detail copy, and meaningful states — not generic placeholders. The hi-fi HTML is the deliverable and must read like a real product screen.
 
-The table below covers the 69 authorable slugs (registry `section:"Components"`). **BUILT** = full CSS-styled HTML leaf renderer. Non-BUILT slugs are still valid to author: when the slug has a vendored appearance doc, the appearance renderer draws its real captured colors (fill, border, text) and, where anatomy resolves a real icon instance, a real SVG glyph (not a placeholder). **chip** = graceful labeled chip (`<span class="ds-component" data-slug="...">`), the last-resort fallback used only when no vendored appearance doc exists for the slug.
+The table below covers the 71 authorable slugs (registry `section:"Components"`). **BUILT** = full CSS-styled HTML leaf renderer. Non-BUILT slugs are still valid to author: when the slug has a vendored appearance doc, the appearance renderer draws its real captured colors (fill, border, text) and, where anatomy resolves a real icon instance, a real SVG glyph (not a placeholder). **chip** = graceful labeled chip (`<span class="ds-component" data-slug="...">`), the last-resort fallback used only when no vendored appearance doc exists for the slug.
 
 ## Vocabulary table
 
@@ -85,10 +85,10 @@ The table below covers the 69 authorable slugs (registry `section:"Components"`)
 ## Built leaf props
 
 <!-- BEGIN GENERATED props: node scripts/renderers/render-authoring-props.js -->
-All 58 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
+All 57 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 177 prop bindings in total.
+parenthesised value renders nothing until you supply it. 173 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -97,15 +97,15 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | Slug | Props (fallback) | Variant axes | Renders the same as |
 |---|---|---|---|
 | `account-dropdown` | `Email`, `Items`, `Name` ("Account user") | none | none |
+| `action-bar` | `Primary` ("Save"), `Secondary` ("Cancel") | `Property 1` = Default | none |
 | `alert-banner` | `Message` ("Info"), `Title` | `Type` = Info / Success / Warning / Error<br>`Orientation'` = Horizontal / Vertical | Vertical = Horizontal |
 | `app-switcher-dropdown` | `Items` | none | none |
-| `avatar` | `Count` ("3"), `Initials` ("AV") | `State` = Default / Hovered / Focused / Pressed / Disabled / Selected<br>`Type` = One group / Two groups / Default | Hovered = Default<br>Focused = Default<br>Pressed = Default<br>Selected = Default |
+| `avatar` | `Count` ("3"), `Initials` ("AV") | `State` = Default / Hover / Focus / Pressed / Disabled / Expanded<br>`Type` = One group / Two groups / Default | Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default |
 | `badge` | `Label` | `Type` = Number / Dot | none |
 | `breadcrumb` | `Items` | `Type` = Default | none |
 | `button` | `Label`, `Leading icon show`, `Trailing icon show` | `Intent` = Default / Critical<br>`Emphasis` = Filled / Outlined / Ghost / Icon-only<br>`Size` = Default / Small<br>`State` = Default / Hover / Focus / Pressed / Expanded / Disabled / Loading | Icon-only = Filled<br>Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default<br>Loading = Default |
 | `calendar` | `Month` ("June 2026") | `Type` = Single date select / Date / Month / Single<br>`Selection` = Single / Range / Year | Date = Single date select<br>Month = Single date select<br>Single = Single date select<br>Year = Single |
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
-| `card-for-items` | `Body` ("Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."), `Category` ("Catalog"), `Eyebrow` ("Dataset"), `Title` ("Title") | `Type` = Catalog / Item / item type / Glossary type / Topic<br>`State` = Default / Hover / Focus / Pressed / Selected | Item = Catalog<br>item type = Catalog<br>Glossary type = Catalog<br>Topic = Catalog<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
 | `chat-with-ai-steward` | `Confidence`, `Context`, `Greeting`, `Insight` ("This dataset has three upstream sources and feeds two published reports. Review its lineage before changing the schema."), `Source`, `State`, `Title` ("AI Steward") | `size` = Default / Drawer<br>`history` = Closed / Open | Open = Closed |
 | `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
@@ -117,7 +117,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `dropdown-select-default` | `Description`, `Helper`, `Label` ("Label"), `Placeholder` ("Select…"), `Value` | `Type` = Default / Search/Multiple / With avatar / Compact/Custom<br>`State` = Default / Hover / Focus / Active / Filled / Disabled | Search/Multiple = Default<br>With avatar = Default<br>Compact/Custom = Default<br>Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default |
 | `empty-state` | `Body` ("Create policies to define how your platform operates."), `Cta` ("Create policy"), `Headline` ("No policies available"), `Illustration` ("illustration-empty-state"), `Primary`, `Secondary` ("Learn more"), `Title` | `Size` = Large / Medium / Small | Medium = Large<br>Small = Large |
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
-| `global-header` | `Account` ("AU"), `App`, `Context` ("Catalog"), `ContextValue` ("Default"), `Logo` ("actian-pyramid"), `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L / M / S / XS | L = XL<br>M = XL<br>S = XL<br>XS = XL |
+| `global-header` | `Account` ("AU"), `App`, `Context` ("Catalog"), `ContextValue` ("Default"), `Logo` ("actian-pyramid"), `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
 | `input-date` | `Helper`, `Label` ("Date"), `Placeholder text` ("MM/DD/YYYY") | `Type` = Single date / Date range<br>`States` = Enabled / Hovered / Focused / Error / Disabled / Fille / Activ | Hovered = Enabled<br>Focused = Enabled<br>Error = Enabled<br>Fille = Enabled<br>Activ = Enabled |
 | `lineage-grouped-node` | `Child initials`, `Child label`, `Item type initials` ("DS"), `Label`, `Title` | `State` = Default / Expanded<br>`Type` = Main item / Sub item | Sub item = Main item |
 | `lineage-individual-node` | `Item type initials` ("PB"), `Label`, `Title` | `Type` = Main item / Sub item<br>`State` = Default / Selected / Disabled<br>`Fields` = Collapsed / Expanded | none |
@@ -139,11 +139,10 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `search` | `Placeholder text` ("Search") | `Type` = Explorer home / Global header / Inline<br>`State` = Hovered / Focused / Filled / Active / Dsiabled / Default | Global header = Explorer home<br>Inline = Explorer home<br>Focused = Hovered<br>Filled = Hovered<br>Active = Hovered<br>Default = Hovered |
 | `search-dropdown-menu` | `Heading`, `Items`, `Query` ("orders"), `Results` | `Type` = No result / Before typed / After typed / Explorer home | none |
 | `search-result-card` | `Body`, `Catalog` ("Catalog"), `Description` ("A product is anything that can be offered to a market that might satisfy a want or need by potential customers."), `Featured property 1` ("Business Domain: IT"), `Featured property 2` ("Source Application: App 120"), `Glossary initials` ("VH"), `Glossary label` ("Vehicle"), `Stage` ("Stage"), `Tech name` ("[Financial Summary EY2024]"), `Title` ("Financial Summary EY2024"), `Type` ("Category") | `App` = Explorer / Studio<br>`State` = Default / Hover / Focus / Pressed / Selected | Studio = Explorer<br>Hover = Default<br>Pressed = Default |
-| `segmented-control` | `Active`, `Items`, `Segments` | `Type` = Default | none |
+| `segmented-control` | `Active`, `Items`, `Segments` | `Property 1` = Default | none |
 | `side-nav` | `Active`, `Groups`, `Items` | `App` = Admin / Studio<br>`View` = Collapsed / Expanded | Studio = Admin |
 | `spinner` | `Label` ("Loading") | `Color mode` = On light bg / On dark bg<br>`Complete` = 50% / 75% / 100% / 25% | 75% = 50%<br>100% = 50%<br>25% = 50% |
 | `stepper` | `Body`, `Step` ("1"), `Title` ("Connect source") | `State` = Complete / Active / Default / State5 | State5 = Default |
-| `sticky-footer` | `Primary` ("Save"), `Secondary` ("Cancel") | `Property 1` = Default | none |
 | `table` | `Columns`, `Rows` | `Built type` = By columns / By rows | By rows = By columns |
 | `tabs` | `Active`, `Items` | `Property 1` = Default | none |
 | `tag-default` | `Label`, `Leading icon show` | `Type` = Default / Catalog / Shared / Stage-1 / Stage-2 / Stage-3 / Stage-4 / Stage-5 / Stage-6 / Stage-7 / Stage-8 / Status-error / Status-warning / Status-success | none |
@@ -338,30 +337,6 @@ as the Figma property contract.
 - `variant.Type`: `Default` | `Expanded` (default: `Default`)
 - `variant.State`: `Default` | `Focused` | `Filled` | `Disabled` (default: `Default`)
 - `props["Placeholder text"]`: search input placeholder (default: `"Search"`)
-
-### `card-for-items`
-
-```json
-{
-  "type": "INSTANCE",
-  "library": "ds",
-  "dsSlug": "card-for-items",
-  "variant": "Type=Catalog, State=Default",
-  "props": {
-    "Eyebrow": "Dataset",
-    "Title": "Sales Q1 2025",
-    "Category": "Finance",
-    "Body": "Monthly revenue and pipeline data for Q1."
-  }
-}
-```
-
-- `variant.Type`: `Catalog` | `Pipeline` | `Connection` (default: `Catalog`)
-- `variant.State`: `Default` | `Selected` | `Hovered` (default: `Default`)
-- `props.Eyebrow`: small label above the title (default: `"Dataset"`)
-- `props.Title`: card title (required — use a real entity name)
-- `props.Category`: catalog category shown with a `directory` icon
-- `props.Body`: body text paragraph
 
 ### `global-header`
 
@@ -607,4 +582,4 @@ warning-alt
 warning-filled
 ```
 
-Built leaves that reference icons currently use: `add` (button leading icon), `chevron-up` rotated 180° (button trailing icon, input trailing chevron, breadcrumb separator), `simple-check` (checkbox check mark), `directory` (tag-default leading icon, card-for-items category icon), `chevron-left` rotated 180° (breadcrumb separators).
+Built leaves that reference icons currently use: `add` (button leading icon), `chevron-up` rotated 180° (button trailing icon, input trailing chevron, breadcrumb separator), `simple-check` (checkbox check mark), `directory` (tag-default leading icon), `chevron-left` rotated 180° (breadcrumb separators).

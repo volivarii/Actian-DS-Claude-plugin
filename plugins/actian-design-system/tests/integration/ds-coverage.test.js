@@ -172,7 +172,7 @@ test("every reachable DS slug has a renderer case or is allowlisted", function (
 
 test("no orphan renderer cases (every case is a real authorable DS component)", function () {
   // Validated against the AUTHORABLE dskit surface, not the conversion map — a
-  // DS-native-only component (e.g. card-for-items, which has no FM mapping) is a
+  // DS-native-only component (e.g. card-for-perimeter, which has no FM mapping) is a
   // legitimate case, not an orphan. An orphan is a case whose slug isn't a real
   // authorable DS component at all (typo, or a renamed/removed component).
   var authorable = authorableDsSlugs();

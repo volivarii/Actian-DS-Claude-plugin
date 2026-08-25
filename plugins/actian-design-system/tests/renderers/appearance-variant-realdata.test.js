@@ -118,26 +118,49 @@ function variantString(obj) {
     .join(", ");
 }
 
-// Most candidates must be genuinely exercised, as a SHARE of the live
-// population rather than a fixed count.
+// Every candidate is either exercised or skipped as structural-only, and the
+// three counters are written by one pass of the same loop, so
+// `exercised === candidateCount - skippedStructuralOnly.length` holds by
+// construction and can never fail. What CAN fail is the skip itself: if
+// findMatchableVariantPick regresses and starts misreading a real delta as
+// structural-only, the slug lands in skippedStructuralOnly with a literal
+// value still sitting in its doc. So every skip is re-checked below by an
+// INDEPENDENT walk of the whole doc (each variants[] entry, not the first
+// matchable one, and its own key list rather than pickDeltaValue's), which
+// must find no literal value at all.
 //
-// This was `MIN_EXERCISED = 18`, "the real number, not a rounder/looser one",
-// from when 19 non-BUILT_SLUGS docs carried variants[] data and 18 had a
-// matchable (non-null) delta. Gray-box-to-zero keeps converting those docs
-// into BUILT slugs (knowledge #472 left 8 candidates), so a fixed 18 fails
-// while all 8 remaining candidates verify correctly.
-//
-// Deliberately NOT `exercised === candidateCount - skippedStructuralOnly`:
-// those three counters are written by one pass of the same loop (a candidate
-// either lands in skippedStructuralOnly or increments exercised, and a failed
-// per-slug assert throws before the tally is read), so that equality holds by
-// construction and can never fail. It would look like a stricter check while
-// being a no-op — in particular it stays true if findMatchableVariantPick
-// regresses and starts misreading real deltas as structural-only, because
-// both counters move together. A share of candidateCount does catch exactly
-// that drift, since skippedStructuralOnly growing pushes the ratio down.
-var MIN_EXERCISED_SHARE = 0.94; // the original 18/19
-//
+// This replaces a share floor, `exercised >= ceil(candidateCount * 0.94)`
+// (the original 18/19). That floor tolerated one structural-only skip only
+// while the population was 17 or more. knowledge #588 (v0.34.150) added
+// `card`, whose single delta is `Elevation=Raised with shadow` -> `border:
+// null`, a removal the renderer emits no declaration for, and with 12
+// candidates ceil(11.28) demanded all 12. Verifying the skip is the check
+// the ratio was standing in for.
+function entryHasLiteralDelta(entry) {
+  if (!entry || typeof entry !== "object") return false;
+  var literal = false;
+  ["background", "border", "radius", "text"].forEach(function (key) {
+    var v = entry[key];
+    if (v === null || v === undefined) return;
+    if (typeof v !== "object") {
+      literal = true;
+      return;
+    }
+    Object.keys(v).forEach(function (k) {
+      if (v[k] !== null && v[k] !== undefined) literal = true;
+    });
+  });
+  return literal;
+}
+
+function docHasLiteralDelta(node) {
+  if (!node || typeof node !== "object") return false;
+  var ap = node.appearance;
+  if (ap && Array.isArray(ap.variants) && ap.variants.some(entryHasLiteralDelta)) {
+    return true;
+  }
+  return Array.isArray(node.children) && node.children.some(docHasLiteralDelta);
+}
 // candidateCount - skippedStructuralOnly is exactly what the original comment
 // meant by "the real number": every candidate carrying something literal to
 // match. It stays exact as the population shrinks, and it is stricter than a
@@ -227,18 +250,19 @@ test("appearance variant deltas resolve correctly on real vendored data (non-def
       "no subject left; retire or repoint it rather than letting it pass " +
       "against an empty population",
   );
+  skippedStructuralOnly.forEach(function (slug) {
+    assert.ok(
+      !docHasLiteralDelta(docs[slug].root),
+      slug +
+        " was skipped as structural-only, but an independent walk of its " +
+        "variants[] entries found a literal delta value: " +
+        "findMatchableVariantPick is misreading real deltas",
+    );
+  });
   assert.ok(
-    exercised >= Math.ceil(candidateCount * MIN_EXERCISED_SHARE),
-    "expected at least " +
-      Math.ceil(candidateCount * MIN_EXERCISED_SHARE) +
-      " (" +
-      Math.round(MIN_EXERCISED_SHARE * 100) +
-      "%) of the live candidates to render + verify correctly, got " +
-      exercised +
-      " (candidates with variants[] data: " +
-      candidateCount +
-      ", structural-only skips: " +
-      (skippedStructuralOnly.join(", ") || "none") +
-      ")",
+    exercised > 0,
+    "every candidate was skipped as structural-only (" +
+      skippedStructuralOnly.join(", ") +
+      "), so the variant-match seam was not exercised at all",
   );
 });

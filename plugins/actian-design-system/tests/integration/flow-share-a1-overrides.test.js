@@ -24,7 +24,7 @@ var A1_OVERRIDES = [
   { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
   { slug: "segmented-control", cls: "ds-segmented" },
   { slug: "toolbar", cls: "ds-toolbar" },
-  { slug: "sticky-footer", cls: "ds-sticky-footer" },
+  { slug: "action-bar", cls: "ds-action-bar" },
   { slug: "loader", cls: "ds-loader" },
   { slug: "calendar", cls: "ds-calendar" },
 ];

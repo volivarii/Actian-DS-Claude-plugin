@@ -343,7 +343,7 @@
           "Warning": "Warning"
         }
       },
-      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). The 2026-07 Figma rework changed alert-banner's Type axis from Primary/Success/Warning/Danger to Info/Success/Warning/Error, so FM Primary now maps to DS Info and FM Error to DS Error (was Danger). The OLD vocabulary survives verbatim on the new alert-inline component; FM Alert stays pointed at the banner deliberately.",
+      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). alert-banner's Type axis is Info/Success/Warning/Error, so FM Primary maps to DS Info and FM Error to DS Error. FM Alert points at the banner deliberately.",
       "dsKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b"
     },
     "fmToast": {

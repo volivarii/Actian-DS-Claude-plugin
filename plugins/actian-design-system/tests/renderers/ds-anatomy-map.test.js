@@ -22,7 +22,7 @@ describe("collectDsSlugs", function () {
           content: [
             { dsSlug: "actian-data-intelligence" },
             {
-              dsSlug: "card-for-items",
+              dsSlug: "card-for-perimeter",
               children: [{ dsSlug: "avatar" }],
             },
           ],
@@ -34,7 +34,7 @@ describe("collectDsSlugs", function () {
     assert.deepEqual(slugs.sort(), [
       "actian-data-intelligence",
       "avatar",
-      "card-for-items",
+      "card-for-perimeter",
       "spinner",
     ]);
   });

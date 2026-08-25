@@ -43,7 +43,7 @@ var PILOT = [
   "app-switcher-dropdown",
   "segmented-control",
   "toolbar",
-  "sticky-footer",
+  "action-bar",
   "loader",
   "calendar",
 ];
