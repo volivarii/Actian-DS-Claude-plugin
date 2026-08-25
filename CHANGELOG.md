@@ -19,6 +19,42 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **The knowledge v0.34.150 breaking sync is carried through the plugin's own authored source.**
+  ([#315](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/315), upstream
+  [knowledge #588](https://github.com/volivarii/actian-ds-knowledge/pull/588)) The vendored renderer
+  moved with the sync; what follows it here is everything this repo authors on top of it.
+
+  | upstream change | carried through |
+  | --- | --- |
+  | `sticky-footer` renamed to `action-bar` (same component, class `ds-action-bar`) | the A1 override list in `flow-share-a1-overrides.test.js`, the leaf and hostile-prop tests in `ds-html-map.test.js`, the fidelity `PILOT` in `scripts/quality/quality-gates-cli.js`, the Action category row in `references/context/companion-context.md` |
+  | `card-for-items` retired with no successor | its leaf tests and the two `cardCatalog` goldens are deleted, its worked example leaves `ds-components-authoring.md`, its measured block leaves `convert-to-hifi/anatomy/catalog-slice.json`, and `recipes/flow/detail-view.json` composes content sections without it |
+  | `alert-inline` and `identification-key` retired, `card` added | the blank-box baseline re-banked: the two retired slugs leave, `card` arrives at 0 blank boxes, total unchanged at 61 |
+  | `database` icon glyph re-exported | the explorer chrome golden recaptured, one path token (`v.047z` to `v.046z`) |
+
+  **`card-for-items` is not repointed at `card`.** The new `card` is the base container (Elevation
+  and Size axes) and cannot express the retired Type axis (Item, Catalog, item type, Glossary type,
+  Topic). The screen generator's vocabulary has no catalog item card; `card-for-perimeter`,
+  `card-for-grouped-content` and `search-result-card` survive, and which of them a given screen needs
+  is a product fact to check on that screen, not a default to alias in. The `hifi-push-emit` CLI
+  proof, which only needs a keyed content card, uses `search-result-card`.
+
+  **The `sticky-footer` flow archetype keeps its name.** `recipes/flow/sticky-footer.json` and the
+  `form-create` + `sticky-footer` composition name a plugin recipe built from FM buttons, not the DS
+  component, and knowledge's own recipes README keeps the same mention for the same reason.
+
+  **One gate changed shape rather than number.** `appearance-variant-realdata.test.js` required
+  `ceil(candidates * 0.94)` exercised, a floor that tolerates one structural-only skip only at 17 or
+  more candidates. `card` joins as the 12th candidate with a single removal-only delta
+  (`Elevation=Raised with shadow` sets `border: null`, which emits no declaration), so the floor
+  demanded 12 of 12. The test now verifies each structural-only skip with an independent walk of the
+  doc's `variants[]` entries, which fails by name when the pick function misreads a real delta
+  (checked by mutation) and does not depend on population size.
+
+  Also: the built-leaf props section of `ds-components-authoring.md` regenerated from the render
+  contract (57 slugs, 173 bindings), its authorable count corrected to the registry's 71, and the
+  `fm-to-ds-map.json` alert note trimmed to the current axis.
 ### Removed
 
 - **The vendored media oracles, 6.9 MB in every install and 34 MB of git history, bought two
