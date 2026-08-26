@@ -22,6 +22,7 @@ Filters allow users to refine visible data by applying structured criteria. They
 - Use sentence case for all filter labels and option values.
 - Show the active filter count when filters are collapsed. For example, `Filters (3)`.
 - Use consistent terminology across all filter controls in the same view.
+- Item-type filter labels use the singular form of the type name (`Dataset`, not `Datasets`), matching the attribute being filtered rather than the count of results returned.
 
 ## Category guidance (inherited: design, behavior)
 Inputs and selections converge on Label → Control → Helper → Validation as the dominant anatomy across mature DSes. The `Label position` variant captures the dense-form vs comfortable-form authoring choice. The six accessibility refs map to WCAG criteria that apply to every form control regardless of subtype.

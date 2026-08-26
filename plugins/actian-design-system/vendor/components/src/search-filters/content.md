@@ -26,6 +26,8 @@ Filters allow users to refine visible data by applying structured criteria. They
 
 * Use consistent terminology across all filter controls in the same view.
 
+* Item-type filter labels use the singular form of the type name (`Dataset`, not `Datasets`), matching the attribute being filtered rather than the count of results returned. 
+
 ## Behavior
 
 * Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.
