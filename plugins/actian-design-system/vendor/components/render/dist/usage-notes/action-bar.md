@@ -1,12 +1,12 @@
-# Sticky footer: usage notes
+# Action bar: usage notes
 
-The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.
+The action bar is a persistent bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.
 
 ## When to use
 - When a page or drawer contains primary actions that must remain available during scrolling.
 - When users complete steppers or multi-field forms that extend beyond the current view.
 - When the action affects the entire page, drawer, or form state.
-- Use a sticky footer as the persistent commit bar of a long form: a page or drawer / side panel whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
+- Use an action bar as the persistent commit bar of a long form: a page or drawer / side panel whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
 - Use it for stepper flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).
 - Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).
 

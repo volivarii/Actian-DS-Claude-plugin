@@ -11,7 +11,7 @@
 //   - The CLI invocation path (spawnSync → stdin spec → stdout Plugin API JS)
 //   - screenTree() wrapping chrome + multiple real content components
 //   - Whole-tree traversal: chrome DS keys (global-header, side-nav, page-header)
-//     AND content DS keys (input, button, card-for-items) all appear in one emit
+//     AND content DS keys (input, button, search-result-card) all appear in one emit
 //   - Fail-loud path: unknown dsSlug → exit 1, stderr names the slug
 //
 // Run:
@@ -64,7 +64,7 @@ var DS_KEYS = shared.buildKeyMapFromRegistry("dskit", "ds");
 // all have verified registry keys:
 //   text-input     → dsTextInput
 //   button         → dsButton
-//   card-for-items → dsCardForItems
+//   search-result-card → dsSearchResultCard
 //
 // Chrome slugs resolved by screenTree() from template:"studio":
 //   global-header  → dsGlobalHeader
@@ -103,9 +103,9 @@ var FIXTURE_SCREEN = {
     {
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "card-for-items",
-      variant: "Type=Default, State=Default",
-      props: { "Title#text": "Analytics Pipeline" },
+      dsSlug: "search-result-card",
+      variant: "App=Studio, State=Default",
+      props: { Title: "Analytics Pipeline" },
       sizing: { horizontal: "FILL" },
     },
   ],
@@ -197,7 +197,7 @@ describe("hifi-push-emit — deliverable-level CLI emit proof", function () {
     // ---- content DS Kit keys ----
     var inputKey = dsKey("text-input");
     var buttonKey = dsKey("button");
-    var cardForItemsKey = dsKey("card-for-items");
+    var searchResultCardKey = dsKey("search-result-card");
 
     assert.ok(
       stdout.indexOf(inputKey) !== -1,
@@ -208,9 +208,9 @@ describe("hifi-push-emit — deliverable-level CLI emit proof", function () {
       "button DS Kit key must appear in emitted JS (key: " + buttonKey + ")",
     );
     assert.ok(
-      stdout.indexOf(cardForItemsKey) !== -1,
-      "card-for-items DS Kit key must appear in emitted JS (key: " +
-        cardForItemsKey +
+      stdout.indexOf(searchResultCardKey) !== -1,
+      "search-result-card DS Kit key must appear in emitted JS (key: " +
+        searchResultCardKey +
         ")",
     );
 

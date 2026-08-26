@@ -93,24 +93,76 @@ function replaceTable(md, rows) {
     .join("\n");
 }
 
+// The icon slug list in the same file is generated from the vendored
+// icons.json for the same reason as the table: a hand copy named 37 slugs of
+// which 12 did not exist, and an unknown slug renders nothing, silently.
+var ICONS_BEGIN =
+  "<!-- BEGIN GENERATED icons: node scripts/renderers/render-authoring-table.js -->";
+var ICONS_END = "<!-- END GENERATED icons -->";
+
+function iconSlugs() {
+  var j = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
+  return Object.keys(j.icons || {}).sort();
+}
+
+function renderIconsBlock() {
+  var slugs = iconSlugs();
+  return [
+    ICONS_BEGIN,
+    slugs.length +
+      " icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in",
+    "`renderIcon()` calls or when setting icon-bearing props. An unknown slug renders nothing, with no",
+    "error, so check against this list.",
+    "",
+    "```",
+  ]
+    .concat(slugs)
+    .concat(["```", ICONS_END])
+    .join("\n");
+}
+
+function replaceIcons(md) {
+  var start = md.indexOf(ICONS_BEGIN);
+  var end = md.indexOf(ICONS_END);
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error(
+      "generated-icons markers not found (or out of order) in " +
+        MD_PATH +
+        ". Expected " +
+        ICONS_BEGIN +
+        " ... " +
+        ICONS_END,
+    );
+  }
+  return (
+    md.slice(0, start) + renderIconsBlock() + md.slice(end + ICONS_END.length)
+  );
+}
+
 module.exports = {
   authorableEntries: authorableEntries,
   renderTableRows: renderTableRows,
   replaceTable: replaceTable,
   statusFor: statusFor,
+  iconSlugs: iconSlugs,
+  replaceIcons: replaceIcons,
   MD_PATH: MD_PATH,
   TABLE_HEADER: TABLE_HEADER,
+  ICONS_BEGIN: ICONS_BEGIN,
+  ICONS_END: ICONS_END,
 };
 
 if (require.main === module) {
   var md = fs.readFileSync(MD_PATH, "utf8");
-  var out = replaceTable(md, renderTableRows());
+  var out = replaceIcons(replaceTable(md, renderTableRows()));
   if (out !== md) {
     fs.writeFileSync(MD_PATH, out);
     console.log(
       "[authoring-table] rewrote vocabulary table (" +
         renderTableRows().length +
-        " rows)",
+        " rows) and icon list (" +
+        iconSlugs().length +
+        " slugs)",
     );
   } else {
     console.log("[authoring-table] no change");

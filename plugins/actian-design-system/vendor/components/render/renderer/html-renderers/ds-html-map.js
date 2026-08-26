@@ -627,8 +627,27 @@
           // WHICH icon is a capture fact too: the anatomy's leading-icon child
           // swaps slug per Type (folder for Catalog, error-/success-/
           // warning-filled for the Status values, its own `add` otherwise).
+          // Hand-copied from the capture's per-Type instance-swap groups in
+          // components/dist/anatomy/tag-default.json, which is the gap #521
+          // names: a colour-only gate cannot check an icon slug. The
+          // "leading icon slug follows the anatomy's per-Type instance swap"
+          // test reads that capture directly and fails when this map drifts,
+          // which is how the Stage entries below arrived.
+          //
+          // Stage-1..8 -> dot is new in the 2026-08-24 breaking sync (#526).
+          // The comment above still says Stage-1 has no appearance group; that
+          // was true of the fill, and remains true, but the capture now names
+          // an icon for the whole Stage range.
           var TAG_TYPE_ICONS = {
             catalog: "folder",
+            "stage-1": "dot",
+            "stage-2": "dot",
+            "stage-3": "dot",
+            "stage-4": "dot",
+            "stage-5": "dot",
+            "stage-6": "dot",
+            "stage-7": "dot",
+            "stage-8": "dot",
             "status-error": "error-filled",
             "status-success": "success-filled",
             "status-warning": "warning-filled",
@@ -749,40 +768,6 @@
           );
         }
 
-        case "card-for-items": {
-          // DS-native only — no FM mapping. Composite data-product card (Catalog
-          // type). Reuses the shared .ds-tag classes for the eyebrow + category.
-          var cardCls = "ds-card";
-          if (v.State === "Selected") cardCls += " ds-card--selected";
-          return (
-            '<div class="' +
-            cardCls +
-            '">' +
-            '<span class="ds-tag ds-card__eyebrow">' +
-            esc(props.Eyebrow || "Dataset") +
-            "</span>" +
-            '<div class="ds-card__title">' +
-            esc(props.Title || "Title") +
-            "</div>" +
-            // Category pill: .ds-tag base + the card's own slot class. No
-            // `ds-tag--with-icon` marker, retired repo-wide as a ruleless no-op
-            // (see the tag-default case); the .ds-tag__icon span is the fact.
-            '<span class="ds-tag ds-card__cat">' +
-            '<span class="ds-tag__icon">' +
-            renderIcon("catalog") +
-            "</span>" +
-            esc(props.Category || "Catalog") +
-            "</span>" +
-            '<p class="ds-card__body">' +
-            // capture: components/dist/anatomy/card-for-items.json layer "Subtitle"
-            esc(
-              props.Body ||
-                "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna.",
-            ) +
-            "</p>" +
-            "</div>"
-          );
-        }
 
         case "digram-item-types": {
           var itItemType = v["Item type"] || "Category";
@@ -1463,7 +1448,8 @@
           //
           // Both spellings keep resolving because v.Type is flow data, not only
           // registry data: a flow authored against the older Primary/Danger
-          // spelling (which the registry still publishes for `alert-inline`, a
+          // spelling (which the registry published for `alert-inline` until the
+          // 2026-08-24 sync retired it, so this reason no longer holds on its own; a
           // component with no branch here) would otherwise degrade the same
           // silent way. Retiring the aliases needs those authored flows checked,
           // not just the registry.
@@ -2684,7 +2670,7 @@
           );
         }
 
-        case "sticky-footer": {
+        case "action-bar": {
           // Registry axis: Property 1 = Default (no content props). Persistent
           // bottom action bar; right-aligned DS buttons (reuses .ds-button) —
           // defaults Cancel (secondary) + Save (primary); Primary/Secondary
@@ -2692,8 +2678,8 @@
           var sfPrimary = esc(props.Primary || "Save");
           var sfSecondary = esc(props.Secondary || "Cancel");
           return (
-            '<div class="ds-sticky-footer">' +
-            '<div class="ds-sticky-footer__actions">' +
+            '<div class="ds-action-bar">' +
+            '<div class="ds-action-bar__actions">' +
             '<button class="ds-button ds-button--secondary">' +
             sfSecondary +
             "</button>" +
@@ -3239,7 +3225,6 @@
     "tag-default",
     "badge",
     "search",
-    "card-for-items",
     "global-header",
     "side-nav",
     "page-header",
@@ -3266,7 +3251,7 @@
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls.
     "segmented-control",
     "toolbar",
-    "sticky-footer",
+    "action-bar",
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date.
     "loader",
     "calendar",

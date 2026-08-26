@@ -104,7 +104,7 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 322 components (84 sets) | Roboto | Full design system, all tokens, 3 themes |
+| DS Kit | 321 components (82 sets) | Roboto | Full design system, all tokens, 3 themes |
 | FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 
@@ -116,11 +116,11 @@ DS Kit components are grouped into 6 categories (synced from the design team's F
 
 | Category | Components | Examples |
 |---|---|---|
-| **Action** | 3 | button, link, sticky-footer |
-| **Form (input & selection)** | 11 | input, text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
-| **Navigation** | 11 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
-| **Data Display** | 31 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
-| **Feedback** | 11 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
+| **Action** | 3 | button, link, action-bar |
+| **Form** | 19 | text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
+| **Navigation** | 10 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
+| **Data Display** | 24 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
+| **Feedback** | 10 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
 | **Overlays** | 5 | modal, popover, tooltip, drawer-side-panel, chat-with-ai-steward |
 
 Counts and full membership: `vendor/components/dist/categories.json` (source of truth — synced from Figma). Some components carry `status` (`in-progress` ✍️, `deprecated` ⛔️, `warn` ⚠️) — surface this when answering questions about a component's readiness.
@@ -164,7 +164,7 @@ feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
 content — a stub guideline, or no per-component doc at all (most of the
-catalog; 61 guideline docs cover 54 components + 7 registry-key aliases) —
+catalog; 60 guideline docs cover 54 components + 6 registry-key aliases) —
 lift these defaults into the brief grounding payload via
 `scripts/transformers/category-defaults-loader.js`.
 

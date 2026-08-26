@@ -89,46 +89,12 @@
         "text": "--zen-color-text-primary"
       }
     },
-    "card-for-items": {
-      "dsKey": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
-      "nodeId": "7613:7853",
-      "variants": {
-        "Type": ["Catalog", "Item", "item type", "Glossary type", "Topic"],
-        "State": ["Default", "Hover", "Focus", "Pressed", "Selected"]
-      },
-      "props": { "Show AI ready": "bool" },
-      "structure_Catalog": "vertical card: [eyebrow tag e.g. 'Dataset'] + [Title — heading-subtle 14 semibold] + [category tag w/ folder icon e.g. 'Catalog'] + [Body — body 14 regular, secondary/tertiary, 2-line clamp]. Topic type adds an avatar + star + 'AI Ready' tag.",
-      "geometry": {
-        "radius": "border-radius-sm(6)",
-        "padding": "spacing-md(16)",
-        "gap": "spacing-xs(8)",
-        "border": "border-default(1)",
-        "shadow": "shadow-xs",
-        "titleFont": "heading-subtle (14/20, semibold, ls .2)",
-        "bodyFont": "body (14/20, regular)"
-      },
-      "tokens": {
-        "bg": "--zen-color-bg-default",
-        "border": "--zen-border-default",
-        "title": "--zen-color-text-primary",
-        "body": "--zen-color-text-tertiary",
-        "hoverOverlay": "#0000000d",
-        "selectedBg": "--zen-color-bg-selected (#edf6ff)",
-        "selectedBorder": "--zen-border-selected",
-        "shadow": "--zen-shadow-xs"
-      },
-      "states": {
-        "Default": "border-default + shadow-xs",
-        "Hover": "+ subtle dark overlay",
-        "Focus/Selected": "border-selected 2px (Selected also bg-selected)"
-      }
-    },
     "global-header": {
       "dsKey": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8",
       "nodeId": "7384:22554",
       "variants": {
         "App type": ["Explorer", "Admin", "Studio"],
-        "Breakpoints": ["XL", "L", "M", "S", "XS"]
+        "Breakpoints": ["XL", "L"]
       },
       "geometry": {
         "height": "xl(32)-based row, ~56-64 total",

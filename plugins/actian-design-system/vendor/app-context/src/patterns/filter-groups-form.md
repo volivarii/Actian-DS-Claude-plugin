@@ -15,7 +15,7 @@ components:
   - page-header
   - text-input
   - collapse-accordion
-  - sticky-footer
+  - action-bar
   - button
   - toggle
   - checkbox

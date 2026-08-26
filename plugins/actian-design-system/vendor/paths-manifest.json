@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.145",
+  "knowledge_version": "0.34.150",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -160,6 +160,13 @@
       "origin": "ci",
       "generator": "scripts/graphics/derive-graphics-svg.js",
       "description": "Derived artwork read-surface: per-slug {viewBox, body}. Embedded by renderGraphic() in the render tier for illustrations and product logos. Separate namespace from icons.json to avoid the icon-vs-component slug collision."
+    },
+    "components.guidelineDoc.action-bar": {
+      "path": "components/dist/guidelines/action-bar.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'action-bar' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.alert-banner": {
       "path": "components/dist/guidelines/alert-banner.json",
@@ -475,13 +482,6 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'stepper' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.sticky-footer": {
-      "path": "components/dist/guidelines/sticky-footer.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'sticky-footer' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.success-state": {
       "path": "components/dist/guidelines/success-state.json",
@@ -1029,7 +1029,6 @@
   "aliases": {},
   "registryAliases": {
     "card-for-grouped-content": "card",
-    "card-for-items": "card",
     "card-for-perimeter": "card",
     "dropdown-select-default": "dropdown-select",
     "tag-default": "tag",

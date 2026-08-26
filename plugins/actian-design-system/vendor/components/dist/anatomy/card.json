@@ -1,0 +1,97 @@
+{
+  "_schema_version": 1,
+  "slug": "card",
+  "kit": "dskit",
+  "synced_at": "2026-08-24T12:29:56.337Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "21781:16248",
+    "variant": "Elevation=Flat with border, Size=Small"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 2,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "Elevation=Flat with border, Size=Small",
+    "kind": "container",
+    "tokenRefs": [
+      "--zen-border-subtle"
+    ],
+    "id": "21781:16247",
+    "appearance": {
+      "background": "#ffffff",
+      "border": {
+        "color": "#e1e1e6",
+        "colorToken": "--zen-border-subtle",
+        "width": "1px"
+      },
+      "radius": "6px",
+      "variants": [
+        {
+          "prop": "Elevation",
+          "values": [
+            "Raised with shadow"
+          ],
+          "border": null
+        }
+      ]
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "8px",
+      "padding": {
+        "top": "8px",
+        "right": "8px",
+        "bottom": "8px",
+        "left": "8px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-xs",
+        "right": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
+      }
+    },
+    "children": [
+      {
+        "name": "Slot",
+        "kind": "container",
+        "id": "21781:16236",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-xs"
+        }
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Elevation": "Flat with border",
+    "Size": "Small"
+  }
+}

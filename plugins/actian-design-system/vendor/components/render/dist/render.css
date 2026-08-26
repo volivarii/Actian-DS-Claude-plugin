@@ -694,7 +694,7 @@
   font-weight: var(--zen-font-weight-regular);
   color: var(--zen-color-text-tertiary);
 }
-/* Card format = bordered, padded container (matches the .ds-card idiom). */
+/* Card format = bordered, padded container. */
 .ds-radio--card {
   align-items: center;
   padding: var(--zen-spacing-sm) var(--zen-spacing-md);
@@ -890,58 +890,6 @@
   opacity: 0.4;
 }
 
-/* ============ Card (for items — Catalog) ============ */
-.ds-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--zen-spacing-xs); /* 8 */
-  width: 280px; /* fixed card width (raw px — slice geometry) */
-  padding: var(--zen-spacing-md); /* 16 */
-  background: var(--zen-color-bg-default);
-  border: 1px solid var(--zen-border-default);
-  border-radius: var(--zen-border-radius-sm); /* 6 */
-  box-shadow: var(--zen-shadow-xs);
-  box-sizing: border-box;
-  font-family: var(--zen-font-family-text);
-}
-.ds-card--selected {
-  border-color: var(--zen-border-selected);
-  background: var(--zen-color-bg-selected);
-}
-.ds-card__title {
-  font-size: var(--zen-font-size-md); /* 14 */
-  line-height: var(--zen-font-lineheight-md); /* 20 */
-  font-weight: var(--zen-font-weight-semibold);
-  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
-  color: var(--zen-color-text-default);
-}
-.ds-card__body {
-  margin: 0;
-  font-size: var(--zen-font-size-md); /* 14 */
-  line-height: var(--zen-font-lineheight-md); /* 20 */
-  font-weight: var(--zen-font-weight-regular);
-  color: var(--zen-color-text-tertiary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.ds-card__eyebrow,
-.ds-card__cat {
-  align-self: flex-start;
-}
-/* Base .ds-tag regained a 1px neutral border in the 2026-08-12 fold-in, and
- * this card's own capture records its eyebrow (a "Tag, Item type" instance,
- * bg #cfeafd, radius 4px) with NO border -- so it opts out, exactly as
- * .ds-search-result-card__type already does for the same reason. Only the
- * border is corrected here: the eyebrow's captured FILL and the category
- * pill's (#ecffff / #d0efed, i.e. Type=Catalog) are a card-for-items fidelity
- * gap that predates this change and is not resolved by it. */
-.ds-card__eyebrow {
-  border: none;
-}
-
-/* ============ Item type badge (digram-item-types) ============ */
 .ds-item-type {
   display: inline-flex;
   align-items: center;
@@ -2760,10 +2708,14 @@
   padding: var(--zen-spacing-3xs);
   gap: var(--zen-spacing-3xs);
   /* Capture (root "Type=Default", the neutral default of the only axis) paints
-   * the track #ffffff, same root whose border already verifies. bg-subtle was
+   * the track #ffffff, same root whose border verifies. bg-subtle was
    * the iOS/Material "gray trough" idiom, not the captured component. */
   background: var(--zen-color-bg-default);
-  border: 1px solid var(--zen-border-default);
+  /* border-subtle, not border-default: the 2026-08-24 sync's capture paints this
+   * border #e1e1e6 where it used to paint #c7c7ce, and #e1e1e6 is exactly what
+   * --zen-border-subtle resolves to. Figma is the oracle for the render tier
+   * (#518), so a divergence from the capture is a defect, not a difference. */
+  border: 1px solid var(--zen-border-subtle);
   border-radius: var(--zen-border-radius-sm);
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
@@ -2851,7 +2803,7 @@
 
 /* ============ Sticky footer (persistent action bar) ============ */
 /* Registry axis: Property 1 = Default. Reuses .ds-button leaves. */
-.ds-sticky-footer {
+.ds-action-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -2863,7 +2815,7 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-sticky-footer__actions {
+.ds-action-bar__actions {
   display: inline-flex;
   align-items: center;
   gap: var(--zen-spacing-sm);
@@ -3512,7 +3464,7 @@
 /* ============ Card (for perimeter -- badge + name/counter + progress), gray-box-to-zero family 3 ============ */
 /* Single "Property 1=Default" variant -- no State/Size axis, no modifier
  * classes. Anatomy root captures background+radius ONLY (no border, no
- * shadow) -- honored verbatim, unlike .ds-card's bordered/shadowed shell.
+ * shadow) -- honored verbatim, unlike a bordered/shadowed card shell.
  * The item-type badge (.ds-item-type) and progress bar (.ds-progress*)
  * reuse their existing rules verbatim; only the 5 classes below are new. */
 .ds-card-perimeter {
@@ -3556,14 +3508,14 @@
 
 /* ============ Card (for grouped content -- header + divider + slot), gray-box-to-zero family 3 ============ */
 /* Single "Property 1=Default" variant -- no State/Size axis, no modifier
- * classes. bg/border/radius/shadow mirror .ds-card, but padding lives on
+ * classes. bg/border/radius/shadow mirror the card idiom, but padding lives on
  * __header/__slot, NOT the root (the anatomy's Slot carries the padding,
  * not the card shell) -- so .ds-card-grouped itself is unpadded, unlike
- * .ds-card's padded shell. */
+ * a card's padded shell. */
 .ds-card-grouped {
   display: flex;
   flex-direction: column;
-  width: 280px; /* fixed card width, matches the .ds-card family (raw px) */
+  width: 280px; /* fixed card width, matches the ds-card-* family (raw px) */
   background: var(--zen-color-bg-default);
   border: 1px solid var(--zen-border-default);
   border-radius: var(--zen-border-radius-sm); /* 6 */
@@ -3585,7 +3537,7 @@
   line-height: var(--zen-font-lineheight-md); /* 20 */
   font-weight: var(--zen-font-weight-semibold);
   letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
-  color: var(--zen-color-text-default); /* .ds-card__title ramp, verbatim */
+  color: var(--zen-color-text-default); /* card title ramp, verbatim */
 }
 .ds-card-grouped__info {
   display: inline-flex;
@@ -3618,7 +3570,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  overflow: hidden; /* .ds-card__body ramp, verbatim */
+  overflow: hidden; /* card body ramp, verbatim */
 }
 
 /* ============ Search result card (rich header/details/tags/glossary), gray-box-to-zero family 3 ============ */
@@ -3644,7 +3596,7 @@
   border: 1px solid var(--zen-border-subtle); /* captured #ebebeb */
   border-radius: var(
     --zen-border-radius-sm
-  ); /* 6, not captured on root -- chosen to match the .ds-card family */
+  ); /* 6, not captured on root -- chosen to match the ds-card-* family */
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }

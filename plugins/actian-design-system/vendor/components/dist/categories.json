@@ -1,13 +1,13 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-08-13T18:14:08.233Z",
+  "generatedAt": "2026-08-24T13:44:52.710Z",
   "categories": {
     "Action": {
       "components": [
+        "action-bar",
         "button",
-        "link",
-        "sticky-footer"
+        "link"
       ],
       "count": 3
     },
@@ -26,14 +26,13 @@
         "avatar",
         "badge",
         "bar-graph",
+        "card",
         "card-for-grouped-content",
-        "card-for-items",
         "card-for-perimeter",
         "collapse-accordion",
         "digram-item-types",
         "digram-topic",
         "glossary-item-hierarchy-diagram",
-        "identification-key",
         "line-graph",
         "lineage-connecting-line",
         "lineage-grouped-node",
@@ -49,12 +48,11 @@
         "tag-item-type",
         "toolbar"
       ],
-      "count": 25
+      "count": 24
     },
     "Feedback": {
       "components": [
         "alert-banner",
-        "alert-inline",
         "confirmation",
         "empty-state",
         "error-state",
@@ -65,7 +63,7 @@
         "notification",
         "spinner"
       ],
-      "count": 11
+      "count": 10
     },
     "Form": {
       "components": [
@@ -137,6 +135,7 @@
         "date",
         "disconnected",
         "discussion",
+        "dot",
         "double-check",
         "download",
         "drag",
@@ -229,7 +228,7 @@
         "user-info",
         "user-single",
         "view",
-        "view-details",
+        "view-detail",
         "warning",
         "warning-filled",
         "zoom-in",
@@ -237,7 +236,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 143
+      "count": 144
     },
     "Illustrations & graphics": {
       "components": [
@@ -278,6 +277,14 @@
         "actian-data-intelligence-studio-horizontal",
         "actian-data-observability",
         "actian-pyramid",
+        "component-1",
+        "data-intelligence-dev-logo",
+        "zeenea-logo"
+      ],
+      "count": 8
+    },
+    "Third-party logos": {
+      "components": [
         "adlsgen1",
         "adobe-analytics",
         "alteryx",
@@ -297,12 +304,10 @@
         "ckan",
         "cognos",
         "cognos-bi",
-        "component-1",
         "cosmosdb",
         "couchbase",
         "csv",
         "csv-custom-item",
-        "data-intelligence-dev-logo",
         "databricks",
         "dataiku",
         "dataset",
@@ -369,10 +374,9 @@
         "teradata",
         "thoughtspot",
         "tibco-datavirtualization",
-        "xml",
-        "zeenea-logo"
+        "xml"
       ],
-      "count": 98
+      "count": 90
     },
     "White-label services": {
       "components": [

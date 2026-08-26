@@ -19,6 +19,12 @@
     "actian-pyramid": {
       "default": "components/dist/media/actian-pyramid/default.webp"
     },
+    "action-bar": {
+      "preview": "components/dist/media/action-bar/preview.webp",
+      "parts": [
+        "components/dist/media/action-bar/parts-0.webp"
+      ]
+    },
     "adlsgen1": {
       "default": "components/dist/media/adlsgen1/default.webp"
     },
@@ -27,23 +33,10 @@
     },
     "alert-banner": {
       "preview": "components/dist/media/alert-banner/preview.webp",
-      "variations": [
-        "components/dist/media/alert-banner/variations-0.webp"
-      ],
       "layout": [
         "components/dist/media/alert-banner/layout-0.webp"
       ],
       "default": "components/dist/media/alert-banner/default.webp"
-    },
-    "alert-inline": {
-      "preview": "components/dist/media/alert-inline/preview.webp",
-      "variations": [
-        "components/dist/media/alert-inline/variations-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/alert-inline/layout-0.webp"
-      ],
-      "default": "components/dist/media/alert-inline/default.webp"
     },
     "alteryx": {
       "default": "components/dist/media/alteryx/default.webp"
@@ -172,10 +165,6 @@
       "preview": "components/dist/media/card-for-grouped-content/preview.webp",
       "default": "components/dist/media/card-for-grouped-content/default.webp"
     },
-    "card-for-items": {
-      "preview": "components/dist/media/card-for-items/preview.webp",
-      "default": "components/dist/media/card-for-items/default.webp"
-    },
     "card-for-perimeter": {
       "preview": "components/dist/media/card-for-perimeter/preview.webp",
       "default": "components/dist/media/card-for-perimeter/default.webp"
@@ -198,13 +187,43 @@
     },
     "checkbox": {
       "preview": "components/dist/media/checkbox/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/checkbox/behavior-0.webp"
+      ],
       "default": "components/dist/media/checkbox/default.webp"
     },
     "checkbox-card": {
       "preview": "components/dist/media/checkbox-card/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox-card/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox-card/spacing-0.webp",
+        "components/dist/media/checkbox-card/spacing-1.webp",
+        "components/dist/media/checkbox-card/spacing-2.webp"
+      ],
+      "behavior": [
+        "components/dist/media/checkbox-card/behavior-0.webp"
+      ],
       "default": "components/dist/media/checkbox-card/default.webp"
     },
     "checkbox-group": {
+      "preview": "components/dist/media/checkbox-group/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox-group/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox-group/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/checkbox-group/behavior-0.webp"
+      ],
       "default": "components/dist/media/checkbox-group/default.webp"
     },
     "checkbox-with-label": {
@@ -390,22 +409,6 @@
     },
     "hive": {
       "default": "components/dist/media/hive/default.webp"
-    },
-    "identification-key": {
-      "preview": "components/dist/media/identification-key/preview.webp",
-      "parts": [
-        "components/dist/media/identification-key/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/identification-key/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/identification-key/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/identification-key/layout-0.webp"
-      ],
-      "default": "components/dist/media/identification-key/default.webp"
     },
     "illustration": {
       "default": "components/dist/media/illustration/default.webp"
@@ -635,6 +638,16 @@
       "default": "components/dist/media/qlik-sense/default.webp"
     },
     "radio": {
+      "preview": "components/dist/media/radio/preview.webp",
+      "parts": [
+        "components/dist/media/radio/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/radio/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/radio/behavior-0.webp"
+      ],
       "default": "components/dist/media/radio/default.webp"
     },
     "radio-button": {
@@ -652,7 +665,30 @@
       ],
       "default": "components/dist/media/radio-button/default.webp"
     },
+    "radio-card": {
+      "preview": "components/dist/media/radio-card/preview.webp",
+      "parts": [
+        "components/dist/media/radio-card/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/radio-card/spacing-0.webp",
+        "components/dist/media/radio-card/spacing-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/radio-card/behavior-0.webp"
+      ]
+    },
     "radio-group": {
+      "preview": "components/dist/media/radio-group/preview.webp",
+      "parts": [
+        "components/dist/media/radio-group/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/radio-group/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/radio-group/behavior-0.webp"
+      ],
       "default": "components/dist/media/radio-group/default.webp"
     },
     "rich-text": {
@@ -753,13 +789,6 @@
       "preview": "components/dist/media/stepper/preview.webp",
       "default": "components/dist/media/stepper/default.webp"
     },
-    "sticky-footer": {
-      "preview": "components/dist/media/sticky-footer/preview.webp",
-      "parts": [
-        "components/dist/media/sticky-footer/parts-0.webp"
-      ],
-      "default": "components/dist/media/sticky-footer/default.webp"
-    },
     "sybaseiq": {
       "default": "components/dist/media/sybaseiq/default.webp"
     },
@@ -795,15 +824,33 @@
         "components/dist/media/tag-interactive/parts-0.webp"
       ],
       "variations": [
-        "components/dist/media/tag-interactive/variations-0.webp"
+        "components/dist/media/tag-interactive/variations-0.webp",
+        "components/dist/media/tag-interactive/variations-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/tag-interactive/spacing-0.webp"
       ],
       "behavior": [
         "components/dist/media/tag-interactive/behavior-0.webp"
       ],
-      "layout": [
-        "components/dist/media/tag-interactive/layout-0.webp"
-      ],
       "default": "components/dist/media/tag-interactive/default.webp"
+    },
+    "tag-item-type": {
+      "preview": "components/dist/media/tag-item-type/preview.webp",
+      "parts": [
+        "components/dist/media/tag-item-type/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/tag-item-type/variations-0.webp",
+        "components/dist/media/tag-item-type/variations-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/tag-item-type/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/tag-item-type/behavior-0.webp",
+        "components/dist/media/tag-item-type/behavior-1.webp"
+      ]
     },
     "talend": {
       "default": "components/dist/media/talend/default.webp"
@@ -812,10 +859,30 @@
       "default": "components/dist/media/teradata/default.webp"
     },
     "text-area": {
+      "preview": "components/dist/media/text-area/preview.webp",
+      "parts": [
+        "components/dist/media/text-area/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/text-area/variations-0.webp",
+        "components/dist/media/text-area/variations-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/text-area/behavior-0.webp"
+      ],
       "default": "components/dist/media/text-area/default.webp"
     },
     "text-input": {
       "preview": "components/dist/media/text-input/preview.webp",
+      "parts": [
+        "components/dist/media/text-input/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/text-input/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/text-input/behavior-0.webp"
+      ],
       "default": "components/dist/media/text-input/default.webp"
     },
     "textfield-buttons": {
@@ -839,6 +906,16 @@
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
+      "parts": [
+        "components/dist/media/toggle/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/toggle/variations-0.webp",
+        "components/dist/media/toggle/variations-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/toggle/behavior-0.webp"
+      ],
       "default": "components/dist/media/toggle/default.webp"
     },
     "toolbar": {

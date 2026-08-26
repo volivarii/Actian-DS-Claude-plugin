@@ -104,7 +104,6 @@ var CSS_OWNERS = {
   "app-switcher-dropdown": ["ds-app-switcher"],
   breadcrumb: ["ds-breadcrumbs"],
   "card-for-grouped-content": ["ds-card-grouped"],
-  "card-for-items": ["ds-card"],
   "card-for-perimeter": ["ds-card-perimeter"],
   "chat-with-ai-steward": ["ds-steward"],
   "digram-item-types": ["ds-item-type"],

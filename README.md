@@ -165,7 +165,7 @@ Find every empty state we use across DS Kit
 Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
 ```
 
-The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (322 DS Kit + 287 FM Kit + 28 Meta Kit components — 84 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
+The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (321 DS Kit + 287 FM Kit + 28 Meta Kit components — 82 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
 
@@ -223,11 +223,11 @@ Works at every preview gate across all skills.
 The companion has always-loaded knowledge of:
 
 - **Tokens** — 155 design tokens in W3C DTCG format across 8 collections (color, spacing, border, size, breakpoint, focus-ring, font, icon), 3 theme modes, CSS custom properties (`--zen-*`)
-- **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 8 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
+- **Foundations**: `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 79 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 30 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
-- **Component inventory** — 322 DS Kit + 287 FM Kit + 28 Meta Kit components (84 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 61 per-component guideline docs (54 components + 7 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
+- **App context**: Studio (integration/catalog), Explorer (discovery), Administration (settings/users), a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 31 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
+- **Component inventory** — 321 DS Kit + 287 FM Kit + 28 Meta Kit components (82 / 33 / 11 sets) — dynamically derived from synced registries
+- **Component guidelines** — 60 per-component guideline docs (54 components + 6 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
 It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
@@ -262,10 +262,10 @@ volivarii/actian-ds-knowledge CI (sync-from-figma + foundations-derive)
     |
 plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
     ├─ vendor/components/dist/registries/  -- DS Kit + FM Kit + Meta Kit registries
-    ├─ vendor/components/dist/guidelines/  -- 61 per-component guideline docs (54 components + 7 aliases)
-    ├─ vendor/foundations/            -- foundations.md + 8 derived JSONs
+    ├─ vendor/components/dist/guidelines/  -- 60 per-component guideline docs (54 components + 6 aliases)
+    ├─ vendor/foundations/            -- foundations.md + 79 derived JSONs
     ├─ vendor/tokens/                 -- DTCG + CSS custom properties
-    ├─ vendor/{content,accessibility,presentation,app-context,fm-to-ds-map}/
+    ├─ vendor/{content,accessibility,app-context}/
     |
 Companion + skills read at runtime
 ```
@@ -275,13 +275,13 @@ Companion + skills read at runtime
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
 | **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 322 DS Kit components (84 sets) | Component briefs, audits, hifi conversion |
+| **DS Kit (hi-fi)** | Roboto | 321 DS Kit components (82 sets) | Component briefs, audits, hifi conversion |
 | **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
 **Pipeline quality gates:**
-- **Foundations MD-as-SoT** (v1.60.0+) — `foundations.md` is the editable source; CI regenerates 8 derived JSONs and posts a PR comment confirming the regen.
+- **Foundations MD-as-SoT** (v1.60.0+): `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
 - **Substrate-grounded glossary** — before generating screens, the skill resolves a shared `_glossary` directly from the structured `app-context.json` (deterministic resolvers under `scripts/lib/app-context/`): the app **chrome** (sidebar/header), the matched **UX pattern**, entity **relationships** (→ detail tabs + related sub-lists), and typed entity **properties** (→ table columns / form field labels, with `type:"enum"` columns rendered as status pills and dates formatted per the content guideline) — alongside entity names, action verbs, and CTA labels. All parallel screen-generators read it, so screens are idiomatic to the app rather than generic SaaS, with consistent terminology.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
 - **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
@@ -330,7 +330,7 @@ actian-design-system-plugin/
 │   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
-│   │   ├── foundations/                   # foundations.md (source of truth) + 8 derived JSONs
+│   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs
 │   │   ├── tokens/                        # W3C DTCG JSON + CSS custom properties
 │   │   ├── accessibility/                 # per-section WCAG 2.2 AA docs
 │   │   ├── content/                       # global.md + words-to-avoid.json

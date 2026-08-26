@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-perimeter",
   "kit": "dskit",
-  "synced_at": "2026-07-08T14:07:52.886Z",
+  "synced_at": "2026-08-24T12:29:56.337Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14783:7565",
@@ -27,9 +27,9 @@
       "gap": "8px",
       "padding": {
         "top": "12px",
-        "right": "12px",
+        "right": "16px",
         "bottom": "12px",
-        "left": "12px"
+        "left": "16px"
       },
       "align": {
         "main": "start",
@@ -41,9 +41,9 @@
       },
       "paddingTokens": {
         "top": "--zen-spacing-sm",
-        "right": "--zen-spacing-sm",
+        "right": "--zen-spacing-md",
         "bottom": "--zen-spacing-sm",
-        "left": "--zen-spacing-sm"
+        "left": "--zen-spacing-md"
       }
     },
     "children": [

@@ -2,30 +2,18 @@
   "_schema_version": 1,
   "slug": "snowflake",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-24T12:29:56.337Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "7691:4999"
+    "nodeId": "8504:23447"
   },
   "quality": {
-    "nodesTotal": 10,
-    "nodesNormalized": 6,
-    "ratio": 0.6,
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
     "degraded": [
       {
         "name": "Snowflake",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Group 41",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Group",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Group",
         "reason": "layoutMode:NONE"
       }
     ]
@@ -33,12 +21,12 @@
   "root": {
     "name": "Snowflake",
     "kind": "container",
-    "id": "7691:4999",
+    "id": "8504:23447",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": -948,
-      "y": 1059,
+      "x": -620,
+      "y": 2515,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -46,103 +34,12 @@
     },
     "children": [
       {
-        "name": "Group 41",
-        "kind": "container",
-        "id": "7641:5820",
-        "normalizable": false,
-        "rawHint": {
-          "layoutMode": "NONE",
-          "x": -947,
-          "y": 1064,
-          "constraints": {
-            "vertical": "CENTER",
-            "horizontal": "CENTER"
-          }
-        },
-        "children": [
-          {
-            "name": "Vector",
-            "kind": "vector",
-            "id": "7641:5821",
-            "appearance": {
-              "background": "#252f3e"
-            }
-          },
-          {
-            "name": "Group",
-            "kind": "container",
-            "id": "7641:5822",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -947,
-              "y": 1072.08740234375,
-              "constraints": {
-                "vertical": "SCALE",
-                "horizontal": "SCALE"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5823",
-                "appearance": {
-                  "background": "#ff9900"
-                }
-              },
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5824",
-                "appearance": {
-                  "background": "#ff9900"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Vector",
-            "kind": "vector",
-            "id": "7641:5825",
-            "appearance": {
-              "background": "#252f3e"
-            }
-          },
-          {
-            "name": "Group",
-            "kind": "container",
-            "id": "7641:5826",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -947,
-              "y": 1072.08740234375,
-              "constraints": {
-                "vertical": "SCALE",
-                "horizontal": "SCALE"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5827",
-                "appearance": {
-                  "background": "#ff9900"
-                }
-              },
-              {
-                "name": "Vector",
-                "kind": "vector",
-                "id": "7641:5828",
-                "appearance": {
-                  "background": "#ff9900"
-                }
-              }
-            ]
-          }
-        ]
+        "name": "Vector",
+        "kind": "vector",
+        "id": "8504:23446",
+        "appearance": {
+          "background": "#29b5e8"
+        }
       }
     ]
   }

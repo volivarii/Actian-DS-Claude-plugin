@@ -24,6 +24,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="acronyms">Acronyms</a>
   <a href="plurals">Plurals</a>
   <a href="abbreviations-and-articles">Abbreviations and articles</a>
+  <a href="action-bar">Action bar</a>
   <a href="alert-banner">Alert / banner</a>
   <a href="avatar">Avatar</a>
   <a href="button">Buttons</a>
@@ -78,7 +79,6 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="spinner">Spinner</a>
   <a href="success-state">Success state</a>
   <a href="stepper">Stepper</a>
-  <a href="sticky-footer">Sticky footer</a>
   <a href="table">Table</a>
   <a href="tabs">Tabs</a>
   <a href="tag">Tags</a>

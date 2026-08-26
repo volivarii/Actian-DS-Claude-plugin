@@ -19,6 +19,66 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **The knowledge v0.34.150 breaking sync is carried through the plugin's own authored source.**
+  ([#315](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/315), upstream
+  [knowledge #588](https://github.com/volivarii/actian-ds-knowledge/pull/588)) The vendored renderer
+  moved with the sync; what follows it here is everything this repo authors on top of it.
+
+  | upstream change | carried through |
+  | --- | --- |
+  | `sticky-footer` renamed to `action-bar` (same component, class `ds-action-bar`) | the A1 override list in `flow-share-a1-overrides.test.js`, the leaf and hostile-prop tests in `ds-html-map.test.js`, the fidelity `PILOT` in `scripts/quality/quality-gates-cli.js`, the Action category row in `references/context/companion-context.md` |
+  | `card-for-items` retired with no successor | its leaf tests and the two `cardCatalog` goldens are deleted, its worked example leaves `ds-components-authoring.md`, its measured block leaves `convert-to-hifi/anatomy/catalog-slice.json`, and `recipes/flow/detail-view.json` composes content sections without it |
+  | `alert-inline` and `identification-key` retired, `card` added | the blank-box baseline re-banked: the two retired slugs leave, `card` arrives at 0 blank boxes, total unchanged at 61 |
+  | `database` icon glyph re-exported | the explorer chrome golden recaptured, one path token (`v.047z` to `v.046z`) |
+
+  **`card-for-items` is not repointed at `card`.** The new `card` is the base container (Elevation
+  and Size axes) and cannot express the retired Type axis (Item, Catalog, item type, Glossary type,
+  Topic). The screen generator's vocabulary has no catalog item card; `card-for-perimeter`,
+  `card-for-grouped-content` and `search-result-card` survive, and which of them a given screen needs
+  is a product fact to check on that screen, not a default to alias in. The `hifi-push-emit` CLI
+  proof, which only needs a keyed content card, uses `search-result-card`.
+
+  **The `sticky-footer` flow archetype keeps its name.** `recipes/flow/sticky-footer.json` and the
+  `form-create` + `sticky-footer` composition name a plugin recipe built from FM buttons, not the DS
+  component, and knowledge's own recipes README keeps the same mention for the same reason.
+
+  **One gate changed shape rather than number.** `appearance-variant-realdata.test.js` required
+  `ceil(candidates * 0.94)` exercised, a floor that tolerates one structural-only skip only at 17 or
+  more candidates. `card` joins as the 12th candidate with a single removal-only delta
+  (`Elevation=Raised with shadow` sets `border: null`). The test now renders every candidate,
+  removal deltas included: the expected change is computed by the renderer's own exported
+  `resolveNodeAppearance` and `appearanceToDecls`, a declaration the delta adds must occur more
+  often in the variant render than in the base render and one it removes must occur less often, a
+  glyph swap must change the markup, and an entry that produces no observable delta fails by name.
+  The population is guarded by a file scan independent of the tree walk, so a walk that stops short
+  fails naming the slugs it dropped (12 candidates to 4 under mutation), and a doc whose delta is
+  nulled fails as unobservable (`actian-pyramid (Color=White)` under mutation).
+
+  Also: the built-leaf props section of `ds-components-authoring.md` regenerated from the render
+  contract (57 slugs, 173 bindings), its authorable count corrected to the registry's 71, and the
+  `fm-to-ds-map.json` alert note trimmed to the current axis.
+
+  **Review follow-through.** The orphan-case gate in `ds-coverage.test.js` now derives the
+  authorable set from the registry's `section === "Components"` (the hand list of non-authorable
+  categories missed `Third-party logos`, so 167 slugs passed as authorable against 71 real
+  components and a `case "snowflake"` would have been accepted). `doc-counts.js` now derives and
+  stamps the per-category counts in `companion-context.md`, the foundations JSON count (79) and the
+  app-context pattern and entity counts, so the nightly corrects them; the `llms.txt` guideline link
+  points at `components/dist/guidelines` and the evicted presentation guide line is gone. The icon
+  list in `ds-components-authoring.md` is generated from the vendored `icons.json` by
+  `render-authoring-table.js` (the hand copy named 12 slugs that do not exist), its worked examples
+  use the registry's axes and values (`Breakpoints=XL`, `Selection=Unchecked`, `Type=Default` for
+  tags, `size`/`history` for the AI steward) and a new gate joins every example's `variant` string
+  against the registry. `quality-gates-cli.js` throws at startup when a `PILOT` slug is not in
+  `BUILT_SLUGS`. The nightly vendor workflow also runs `render-authoring-props.js` and
+  `ds-coverage-report.js --write-baseline` (which refuses a regression) and commits the baseline. A
+  card-family test renders each built card leaf with a hostile heading and asserts the escape.
+  `figma-push-patterns.md`, `catalog-slice.json`, the `search-results-ai` recipe notes and the
+  chrome golden note state the current library (`Action bar`, `Breakpoints` XL and L,
+  `search-result-card` built, tag `Type` axis).
+
 ### Removed
 
 - **The vendored media oracles, 6.9 MB in every install and 34 MB of git history, bought two

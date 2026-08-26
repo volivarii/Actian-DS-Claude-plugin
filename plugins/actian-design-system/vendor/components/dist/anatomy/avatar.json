@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "slug": "avatar",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-08-24T12:29:56.337Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:14212",
-    "variant": "State=Hovered, Type=Default"
+    "variant": "State=Hover, Type=Default"
   },
   "quality": {
     "nodesTotal": 3,
@@ -14,12 +14,12 @@
     "ratio": 0.67,
     "degraded": [
       {
-        "name": "State=Hovered, Type=Default",
+        "name": "State=Hover, Type=Default",
         "reason": "layoutMode:NONE"
       },
       {
-        "name": "State=Focused, Type=Default",
-        "reason": "layoutMode:NONE (variant State=Focused)"
+        "name": "State=Focus, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Focus)"
       },
       {
         "name": "State=Default, Type=Default",
@@ -30,8 +30,8 @@
         "reason": "layoutMode:NONE (variant State=Pressed)"
       },
       {
-        "name": "State=Selected, Type=Default",
-        "reason": "layoutMode:NONE (variant State=Selected)"
+        "name": "State=Expanded, Type=Default",
+        "reason": "layoutMode:NONE (variant State=Expanded)"
       },
       {
         "name": "State=Disabled, Type=Default",
@@ -47,7 +47,7 @@
       },
       {
         "prop": "State",
-        "value": "Focused",
+        "value": "Focus",
         "path": "",
         "reason": "childCount:2!=3"
       }
@@ -66,7 +66,7 @@
     ]
   },
   "root": {
-    "name": "State=Hovered, Type=Default",
+    "name": "State=Hover, Type=Default",
     "kind": "container",
     "tokenRefs": [
       "--zen-color-primary-25"
@@ -80,7 +80,7 @@
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": 6241,
+      "x": 6240,
       "y": 231,
       "constraints": {
         "vertical": "TOP",
@@ -105,16 +105,10 @@
             {
               "prop": "State",
               "values": [
+                "Expanded",
                 "Pressed"
               ],
               "background": "rgba(0, 0, 0, 0.1)"
-            },
-            {
-              "prop": "State",
-              "values": [
-                "Selected"
-              ],
-              "background": "#edf6ff"
             }
           ]
         }
@@ -157,7 +151,7 @@
     ]
   },
   "variantDefaults": {
-    "State": "Hovered",
+    "State": "Hover",
     "Type": "Default"
   }
 }

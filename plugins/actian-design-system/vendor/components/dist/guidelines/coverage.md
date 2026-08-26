@@ -4,6 +4,7 @@
 
 | Component | Content | Usage | Design | Behavior | Tokens |
 |---|---|---|---|---|---|
+| Action bar | approved | approved | inherited | inherited | not started |
 | Alert / banner | approved | approved | inherited | inherited | not started |
 | Avatar | approved | approved | inherited | inherited | not started |
 | Badges | approved | approved | inherited | inherited | approved |
@@ -47,7 +48,6 @@
 | Side nav | approved | approved | inherited | inherited | approved |
 | Spinner | approved | approved | inherited | inherited | not started |
 | Stepper | approved | approved | inherited | inherited | not started |
-| Sticky footer | approved | approved | inherited | inherited | not started |
 | Success state | approved | approved | inherited | inherited | not started |
 | Table | approved | approved | inherited | inherited | not started |
 | Tabs | approved | approved | inherited | inherited | approved |
@@ -76,7 +76,6 @@
 | Registry key | Guideline slug |
 |---|---|
 | card-for-grouped-content | card |
-| card-for-items | card |
 | card-for-perimeter | card |
 | dropdown-select-default | dropdown-select |
 | tag-default | tag |

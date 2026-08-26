@@ -209,26 +209,6 @@ var DS_FIXTURES = {
     variant: "State=Disabled",
     props: { "Placeholder text": "Search catalog" },
   },
-  cardCatalog: {
-    dsSlug: "card-for-items",
-    variant: "Type=Catalog, State=Default",
-    props: {
-      Eyebrow: "Dataset",
-      Title: "Quarterly sales",
-      Category: "Catalog",
-      Body: "Quarterly sales figures across all regions and product lines.",
-    },
-  },
-  cardCatalogSelected: {
-    dsSlug: "card-for-items",
-    variant: "Type=Catalog, State=Selected",
-    props: {
-      Eyebrow: "Dataset",
-      Title: "Quarterly sales",
-      Category: "Catalog",
-      Body: "Quarterly sales figures across all regions and product lines.",
-    },
-  },
   // Catalog-slice chrome components.
   globalHeaderStudio: {
     dsSlug: "global-header",

@@ -1,9 +1,9 @@
 ---
-title: "Sticky footer usage guidelines"
+title: "Action bar usage guidelines"
 ---
 ## When to use
 
-* Use a sticky footer as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
+* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
 
 * Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).
 
@@ -21,7 +21,7 @@ title: "Sticky footer usage guidelines"
 
 ## Variant selection
 
-Sticky footers have a single Default variant; the choices are configuration.
+Action bars have a single Default variant; the choices are configuration.
 
 * **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.
 
@@ -37,6 +37,6 @@ Sticky footers have a single Default variant; the choices are configuration.
 | Commit or discard the entire form state from it | Mix in actions that only affect one field or section |
 | Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |
 | Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |
-| Keep the focused field visible above the footer | Let the sticky bar cover the input the user is typing in |
+| Keep the focused field visible above the action bar | Let the action bar cover the input the user is typing in |
 
-> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for sticky footers.
+> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for action bars.

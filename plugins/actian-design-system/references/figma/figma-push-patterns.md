@@ -15,7 +15,7 @@ Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a
 |----------|------|----------|
 | FM Kit | `vendor/components/dist/registries/fmkit.json` | 287 wireframe components with keys, variants, and properties |
 | Meta Kit | `vendor/components/dist/registries/metakit.json` | 28 components with keys, variants, and properties |
-| DS Kit | `vendor/components/dist/registries/dskit.json` | 322 design system components with keys, variants, and properties |
+| DS Kit | `vendor/components/dist/registries/dskit.json` | 321 design system components with keys, variants, and properties |
 
 Each registry entry contains: `key`, `importMethod` ("set" for `importComponentSetByKeyAsync`, "single" for `importComponentByKeyAsync`), `variants`, and `properties` (with exact hash-suffixed names for `setProperties()`).
 
@@ -252,7 +252,7 @@ sidebar.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];               
 sidebar.strokes = [{ type: "SOLID", color: { r: 0.886, g: 0.902, b: 0.937 } }];            // ❌ raw gray
 ```
 
-**Library-gap reminder:** before scaffolding any chrome (sidebar, header, toolbar, page header, action bar) with raw frames, check the registry for an existing component. FM has `fm-app-header`, `fm-nav-bar`, `fm-page-header`, `fm-banner`. DS has Global Header, Side nav, Page header, Sticky footer. **Use components first; only scaffold when the registry has no fit.** See `references/ds-rules/library-gap-detection.md`.
+**Library-gap reminder:** before scaffolding any chrome (sidebar, header, toolbar, page header, action bar) with raw frames, check the registry for an existing component. FM has `fm-app-header`, `fm-nav-bar`, `fm-page-header`, `fm-banner`. DS has Global header, Side nav, Page header, Action bar. **Use components first; only scaffold when the registry has no fit.** See `references/ds-rules/library-gap-detection.md`.
 
 ---
 

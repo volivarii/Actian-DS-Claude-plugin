@@ -652,87 +652,45 @@ describe("ds-html-map: search", function () {
   });
 });
 
-describe("ds-html-map: card-for-items (DS-native only)", function () {
-  it("Catalog default: card composes .ds-tag for eyebrow + category, plus title/body", function () {
-    var html = render({
-      dsSlug: "card-for-items",
-      variant: "Type=Catalog, State=Default",
-      props: {
-        Eyebrow: "Dataset",
-        Title: "Sales records",
-        Category: "Catalog",
-        Body: "Quarterly sales figures across regions.",
+// The DS card family. Every built card leaf must render a real leaf, not the
+// graceful chip, and must escape its heading prop. The slugs and the heading
+// prop each leaf reads are looked up from the vendored BUILT_SLUGS and the
+// render contract, so a card renamed or retired upstream drops out of this
+// block instead of pinning a stale name.
+describe("ds-html-map: built card family (leaf + hostile heading)", function () {
+  var BUILT = renderer.dsHtmlMap.BUILT_SLUGS;
+  var contract = JSON.parse(
+    fs.readFileSync(PATHS.components.render.contract, "utf8"),
+  ).slugs;
+  var cards = BUILT.filter(function (s) {
+    return /card/.test(s) && contract[s];
+  });
+  it("the family is non-empty (the vendored renderer builds at least one card)", function () {
+    assert.ok(cards.length > 0, "no built slug matches /card/");
+  });
+  cards.forEach(function (slug) {
+    var props = contract[slug].props.map(function (p) {
+      return p.name;
+    });
+    var heading = ["Title", "Name", "Label"].filter(function (p) {
+      return props.indexOf(p) !== -1;
+    })[0];
+    it(
+      slug + " renders a leaf, not a chip, and escapes a hostile " + heading,
+      function () {
+        assert.ok(heading, slug + " exposes no Title/Name/Label prop to test");
+        var hostile = {};
+        hostile[heading] = "<svg onload=1>";
+        var html = render({ dsSlug: slug, variant: "", props: hostile });
+        assert.ok(html.length > 0, "non-empty render");
+        assert.ok(
+          html.indexOf('<span class="ds-component"') === -1,
+          "rendered the graceful chip instead of the " + slug + " leaf",
+        );
+        assert.ok(html.indexOf("&lt;svg") !== -1, heading + " escaped");
+        assert.ok(html.indexOf("<svg onload") === -1, "no raw injection");
       },
-    });
-    assert.ok(
-      html.indexOf('<div class="ds-card"') === 0,
-      "starts with ds-card",
     );
-    assert.ok(
-      html.indexOf("ds-card--selected") === -1,
-      "not selected by default",
-    );
-    // composes the shared tag classes
-    assert.ok(
-      html.indexOf("ds-tag ds-card__eyebrow") !== -1,
-      "eyebrow reuses ds-tag",
-    );
-    // `ds-tag--with-icon` was dropped from BOTH emit sites in the 2026-08-12
-    // fold-in: it had no ds-base.css rule, so it painted nothing and only
-    // restated that the icon span below exists. The icon span IS the fact, so
-    // it is what this asserts; the modifier's absence is asserted too, so the
-    // no-op class cannot quietly come back.
-    assert.ok(
-      html.indexOf("ds-tag ds-card__cat") !== -1,
-      "category reuses ds-tag",
-    );
-    assert.ok(
-      html.indexOf("ds-tag--with-icon") === -1,
-      "no ruleless with-icon modifier",
-    );
-    assert.ok(html.indexOf("ds-tag__icon") !== -1, "category folder icon");
-    assert.ok(html.indexOf("ds-card__title") !== -1, "has title");
-    assert.ok(html.indexOf("ds-card__body") !== -1, "has body");
-    assert.ok(html.indexOf("Dataset") !== -1, "renders eyebrow");
-    assert.ok(html.indexOf("Sales records") !== -1, "renders title");
-    assert.ok(html.indexOf("Catalog") !== -1, "renders category");
-    assert.ok(
-      html.indexOf("Quarterly sales figures across regions.") !== -1,
-      "renders body",
-    );
-  });
-
-  it("Selected: ds-card--selected", function () {
-    var html = render({
-      dsSlug: "card-for-items",
-      variant: "Type=Catalog, State=Selected",
-      props: { Title: "Picked" },
-    });
-    assert.ok(
-      html.indexOf("ds-card ds-card--selected") !== -1,
-      "has selected modifier when State=Selected",
-    );
-  });
-
-  it("falls back to defaults when props absent", function () {
-    var html = render({
-      dsSlug: "card-for-items",
-      variant: "Type=Catalog",
-      props: {},
-    });
-    assert.ok(html.indexOf("Dataset") !== -1, "default eyebrow");
-    assert.ok(html.indexOf("Title") !== -1, "default title");
-    assert.ok(html.indexOf("Catalog") !== -1, "default category");
-  });
-
-  it("escapes a hostile Title", function () {
-    var html = render({
-      dsSlug: "card-for-items",
-      variant: "Type=Catalog",
-      props: { Title: "<svg onload=1>" },
-    });
-    assert.ok(html.indexOf("&lt;svg") !== -1, "title escaped");
-    assert.ok(html.indexOf("<svg onload") === -1, "no raw injection");
   });
 });
 
@@ -2962,16 +2920,16 @@ describe("ds-html-map: toolbar (A1)", function () {
   });
 });
 
-describe("ds-html-map: sticky-footer (A1)", function () {
-  it("renders a sticky footer — not a chip — with DS action buttons", function () {
+describe("ds-html-map: action-bar (A1)", function () {
+  it("renders an action bar, not a chip, with DS action buttons", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "sticky-footer",
+      dsSlug: "action-bar",
       props: { Primary: "Publish", Secondary: "Discard" },
     });
-    assert.ok(html.indexOf("ds-sticky-footer") !== -1, "sticky-footer class");
-    assert.ok(html.indexOf("ds-component") === -1, "sticky-footer not a chip");
+    assert.ok(html.indexOf("ds-action-bar") !== -1, "action-bar class");
+    assert.ok(html.indexOf("ds-component") === -1, "action-bar not a chip");
     assert.ok(html.indexOf("Publish") !== -1, "primary action label");
     assert.ok(html.indexOf("Discard") !== -1, "secondary action label");
     assert.ok(
@@ -2984,7 +2942,7 @@ describe("ds-html-map: sticky-footer (A1)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "sticky-footer",
+      dsSlug: "action-bar",
       props: {},
     });
     assert.ok(html.indexOf("Save") !== -1, "default primary");
@@ -3096,7 +3054,7 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
     { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
     { slug: "segmented-control", cls: "ds-segmented" },
     { slug: "toolbar", cls: "ds-toolbar" },
-    { slug: "sticky-footer", cls: "ds-sticky-footer" },
+    { slug: "action-bar", cls: "ds-action-bar" },
     { slug: "calendar", cls: "ds-calendar" },
   ].forEach(function (t) {
     it(

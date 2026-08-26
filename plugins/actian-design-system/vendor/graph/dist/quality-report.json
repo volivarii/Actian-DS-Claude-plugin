@@ -65,7 +65,7 @@
   {
     "dimension": "connectivity",
     "metric": "categories_without_a11y",
-    "value": 5,
+    "value": 6,
     "timestamp": null,
     "severity": "info"
   },
@@ -79,14 +79,14 @@
   {
     "dimension": "connectivity",
     "metric": "composition_edges",
-    "value": 399,
+    "value": 392,
     "timestamp": null,
     "severity": "info"
   },
   {
     "dimension": "connectivity",
     "metric": "pattern_component_edges",
-    "value": 118,
+    "value": 115,
     "timestamp": null,
     "severity": "info"
   },

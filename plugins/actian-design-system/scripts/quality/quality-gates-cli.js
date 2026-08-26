@@ -43,10 +43,28 @@ var PILOT = [
   "app-switcher-dropdown",
   "segmented-control",
   "toolbar",
-  "sticky-footer",
+  "action-bar",
   "loader",
   "calendar",
 ];
+
+// PILOT is a hand-picked subset of the renderer's BUILT_SLUGS and nothing else
+// checks that it still is one. A slug renamed upstream (sticky-footer became
+// action-bar in the 2026-08-24 sync) would otherwise keep its PILOT entry,
+// render the graceful chip, and score a green structural pass on that chip.
+// Fail at startup, by name, instead.
+var BUILT_SLUGS = require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS;
+var notBuilt = PILOT.filter(function (slug) {
+  return BUILT_SLUGS.indexOf(slug) === -1;
+});
+if (notBuilt.length) {
+  throw new Error(
+    "PILOT names slug(s) that are not in the vendored BUILT_SLUGS (renamed or " +
+      "removed upstream; a chip would score as a leaf): " +
+      notBuilt.join(", "),
+  );
+}
+
 var DIFF_DIR = path.join(
   __dirname,
   "..",

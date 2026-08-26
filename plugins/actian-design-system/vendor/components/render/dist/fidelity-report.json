@@ -8,19 +8,19 @@
     "verified": 75,
     "verifiedViaTokenName": 3,
     "mismatch": 0,
-    "unverifiable": 360,
+    "unverifiable": 354,
     "overridden": 0,
-    "oracleCoverage": 0.1781,
+    "oracleCoverage": 0.1806,
     "verifiedFidelity": 0.9615,
-    "examined": 438
+    "examined": 432
   },
   "reasons": {
     "no-fact-of-kind": 23,
-    "element-no-node-mapping": 249,
-    "root-is-variant-instance": 25,
+    "element-no-node-mapping": 247,
+    "root-is-variant-instance": 23,
     "no-matching-variant": 14,
     "root-is-non-default-state": 4,
-    "state-unreachable": 42,
+    "state-unreachable": 40,
     "selector-not-attributable": 3
   },
   "bySlug": {
@@ -32,6 +32,17 @@
       "verifiedViaTokenName": 0,
       "mismatch": 0,
       "unverifiable": 6,
+      "overridden": 0,
+      "blind": false
+    },
+    "action-bar": {
+      "prefixes": [
+        "ds-action-bar"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 0,
       "overridden": 0,
       "blind": false
     },
@@ -122,17 +133,6 @@
       "unverifiable": 5,
       "overridden": 0,
       "blind": false
-    },
-    "card-for-items": {
-      "prefixes": [
-        "ds-card"
-      ],
-      "verified": 0,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 6,
-      "overridden": 0,
-      "blind": true
     },
     "card-for-perimeter": {
       "prefixes": [
@@ -541,17 +541,6 @@
       "overridden": 0,
       "blind": true
     },
-    "sticky-footer": {
-      "prefixes": [
-        "ds-sticky-footer"
-      ],
-      "verified": 2,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 0,
-      "overridden": 0,
-      "blind": false
-    },
     "table": {
       "prefixes": [
         "ds-table"
@@ -667,7 +656,6 @@
     "alert-banner",
     "avatar",
     "breadcrumb",
-    "card-for-items",
     "chat-with-ai-steward",
     "checkbox",
     "collapse-accordion",
