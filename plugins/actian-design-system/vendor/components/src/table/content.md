@@ -83,6 +83,17 @@ The table component displays structured information in rows and columns. It is t
 
 * Do not apply alphabetical sort as a default unless alphabetical order is genuinely meaningful. For names, alphabetical is fine; for status values, priority order is better.
 
+* Phrase the sort-direction options to match the data type being sorted. Avoid using a single generic ascending/descending entry for every field, and never use "ASC" or "DESC" as they are database jargon.
+
+  <br />
+
+  Sort option labelling:
+  | **Data type**                                  | **Direction pair**          | **Example**                  |
+  | :--------------------------------------------- | :-------------------------- | :--------------------------- |
+  | Alphabetical (text)                            | A-Z / Z-A                   | Name (A-Z)                   |
+  | Temporal (date, time, not duration)            | Newest first / Oldest first | Last modified (newest first) |
+  | Magnitude (count, score, popularity, duration) | High to low / Low to high   | Popularity (high to low)     |
+
 ### Empty states
 
 * No rows (no data yet): follow the [empty state](empty-state) pattern - headline, one-sentence explanation, and a primary CTA. For example: "No connections found / Add your first connection to get started. / Add connection"
@@ -117,13 +128,15 @@ The table component displays structured information in rows and columns. It is t
 
 ## Do / Don't
 
-| Do                          | Don't                                     |
-| --------------------------- | ----------------------------------------- |
-| Last modified               | Last Modification Date                    |
-| Revenue (USD)               | Revenue in U.S. Dollars                   |
-| - (hyphen) for empty cells  | N/A / null / blank                        |
-| Active                      | active / ACTIVE                           |
-| 3 rows selected             | 3 items selected (when rows are datasets) |
-| No connections found + CTA  | (blank table with no explanation)         |
-| Delete (overflow menu item) | Delete this connection                    |
-| Showing 1-25 of 340 results | Page 1 of 14                              |
+| Do                           | Don't                                     |
+| ---------------------------- | ----------------------------------------- |
+| Revenue (USD)                | Revenue in U.S. Dollars                   |
+| - (hyphen) for empty cells   | N/A / null / blank                        |
+| Active                       | active / ACTIVE                           |
+| 3 rows selected              | 3 items selected (when rows are datasets) |
+| No connections found + CTA   | (blank table with no explanation)         |
+| Delete (overflow menu item)  | Delete this connection                    |
+| Showing 1-25 of 340 results  | Page 1 of 14                              |
+| Name (A-Z)                   | Name ASC                                  |
+| Last modified (newest first) | Update date DESC                          |
+| Popularity (high to low)     | Popularity                                |
