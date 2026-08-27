@@ -254,7 +254,9 @@ jobs:
           gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --squash --repo "${{ github.repository }}"
 
       - name: Summarize
-        if: always()
+        # Success lines only. On any other outcome the alarm script writes the
+        # summary, since it holds the status, the run and the PR (#317).
+        if: success()
         run: |
           if [ "${{ steps.diff.outputs.changed }}" = "true" ]; then
             echo "### Vendor refreshed: ${{ steps.target.outputs.label }} (auto-bump applied)" >> "$GITHUB_STEP_SUMMARY"
@@ -270,6 +272,19 @@ jobs:
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The queue cannot show a PR that was never opened (#317): the script
+          # also reads why it is running. job.status is failure or cancelled
+          # here whenever an earlier step did not succeed.
+          REFRESH_OUTCOME: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          # Empty unless "Open pull request" ran and set its outputs, so a
+          # failure after the PR exists is described as that. It is not proof of
+          # the reverse: create-pull-request sets these outputs LAST, so a
+          # failure after the PR was created leaves them empty, which is why the
+          # script says "the PR step reported no PR" and never "no PR exists".
+          OPENED_PR: ${{ steps.cpr.outputs.pull-request-number }}
+          # created or updated: only a PR created tonight is too new to be stuck.
+          OPENED_OP: ${{ steps.cpr.outputs.pull-request-operation }}
         # Best-effort by contract: it must never fail the refresh itself. Kept in
         # a script, not inline, so its branches are testable:
         # plugins/actian-design-system/tests/vendor/vendor-queue-alarm.test.js
