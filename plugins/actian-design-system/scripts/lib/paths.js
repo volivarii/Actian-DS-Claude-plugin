@@ -166,6 +166,9 @@ PATHS.foundations.distDir = path.join(VENDOR, "foundations", "dist");
 
 module.exports = PATHS;
 module.exports.buildPathsFromManifest = buildPathsFromManifest;
+// The substrate's own reader of its identity ledger, so a consumer resolves a
+// rename the way the substrate does.
+module.exports.buildRenameIndex = resolverCore.buildRenameIndex;
 module.exports.verifyVendorIntegrity = verifyVendorIntegrity;
 module.exports.normalizeVersion = normalizeVersion;
 module.exports.SUPPORTED_SCHEMA_VERSION = SUPPORTED_SCHEMA_VERSION;
