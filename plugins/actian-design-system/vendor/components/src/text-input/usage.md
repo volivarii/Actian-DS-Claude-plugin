@@ -17,7 +17,7 @@ title: "Text input usage guidelines"
 
 * Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).
 
-* Don't use it for dates: use the [date input](input-date).
+* Don't use it for dates: use the [date input](date-input).
 
 * Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle).
 

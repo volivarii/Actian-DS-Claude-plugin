@@ -2,452 +2,261 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14747:30242",
-    "variant": "Type=Default"
+    "nodeId": "14747:30243"
   },
   "quality": {
-    "nodesTotal": 27,
-    "nodesNormalized": 5,
-    "ratio": 0.19,
+    "nodesTotal": 20,
+    "nodesNormalized": 0,
+    "ratio": 0,
     "degraded": [
       {
-        "name": "Graph",
+        "name": "Glossary item hierarchy diagram",
         "reason": "layoutMode:NONE"
       }
     ]
   },
   "root": {
-    "name": "Type=Default",
+    "name": "Glossary item hierarchy diagram",
     "kind": "container",
-    "tokenRefs": [
-      "--zen-border-default"
-    ],
     "id": "14747:30243",
     "appearance": {
-      "background": "#ffffff",
-      "border": {
-        "color": "#c7c7ce",
-        "colorToken": "--zen-border-default",
-        "width": "1px"
-      },
       "radius": "6px"
     },
-    "layout": {
-      "axis": "column",
-      "gap": "0px",
-      "padding": {
-        "top": "0px",
-        "right": "0px",
-        "bottom": "0px",
-        "left": "0px"
-      },
-      "align": {
-        "main": "start",
-        "cross": "start"
-      },
-      "sizing": {
-        "h": "fixed",
-        "v": "hug"
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -3698,
+      "y": 2408,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
       }
     },
     "children": [
       {
-        "name": "Header",
-        "kind": "container",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
-        "id": "14747:30244",
-        "appearance": {
-          "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-default",
-            "width": "1px"
-          }
+        "name": ".Glossary connecting line",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Straight"
         },
-        "layout": {
-          "axis": "row",
-          "gap": "8px",
-          "padding": {
-            "top": "8px",
-            "right": "8px",
-            "bottom": "8px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          },
-          "paddingTokens": {
-            "top": "--zen-spacing-xs",
-            "right": "--zen-spacing-xs",
-            "bottom": "--zen-spacing-xs",
-            "left": "--zen-spacing-xs"
-          }
-        },
-        "children": [
-          {
-            "name": "sideNavHeading",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "14747:30245",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "16px",
-                "weight": 600,
-                "lineHeight": "24px",
-                "letterSpacing": "0.1px"
-              }
-            },
-            "text": "Glossary item hierarchy"
-          },
-          {
-            "name": "Button",
-            "kind": "instance",
-            "slug": "button",
-            "props": {
-              "Show label": true,
-              "Show trailing icon": false,
-              "Show leading icon": false,
-              "Label": "Switch to list view",
-              "Intent": "Default",
-              "Emphasis": "Ghost",
-              "Size": "Small",
-              "State": "Default"
-            },
-            "id": "14747:30246",
-            "appearance": {
-              "radius": "9999px"
-            }
-          }
-        ]
+        "id": "14747:30249"
       },
       {
-        "name": "Body",
-        "kind": "container",
-        "id": "14747:30247",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "16px",
-            "right": "0px",
-            "bottom": "16px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          }
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going down"
         },
-        "children": [
-          {
-            "name": "Graph",
-            "kind": "container",
-            "id": "14747:30248",
-            "appearance": {
-              "radius": "0px"
-            },
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -3632.25,
-              "y": 2499,
-              "constraints": {
-                "vertical": "TOP",
-                "horizontal": "LEFT"
-              }
-            },
-            "children": [
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Straight"
-                },
-                "id": "14747:30249"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going down"
-                },
-                "id": "14747:30250"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going up"
-                },
-                "id": "14747:30251"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going up"
-                },
-                "id": "14747:30252"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going up"
-                },
-                "id": "14747:30253"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going down"
-                },
-                "id": "14747:30254"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going down"
-                },
-                "id": "14747:30255"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going down"
-                },
-                "id": "14747:30256"
-              },
-              {
-                "name": ".Glossary connecting line",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Going up"
-                },
-                "id": "14747:30257"
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Main item",
-                  "State": "Default"
-                },
-                "id": "14747:30258",
-                "appearance": {
-                  "background": "#a76605",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30259",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30260",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30261",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30262",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30263",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30264",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30265",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30266",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              },
-              {
-                "name": ".Glossary item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Sub items",
-                  "State": "Default"
-                },
-                "id": "14747:30267",
-                "appearance": {
-                  "background": "#fff9e5",
-                  "radius": "9999px"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Toolbar",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show View scale": true,
-              "Type": "Group",
-              "Orientation": "Horizontal"
-            },
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "14747:30268",
-            "appearance": {
-              "background": "#ffffff",
-              "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-default",
-                "width": "1px"
-              },
-              "radius": "6px"
-            }
-          },
-          {
-            "name": "Toolbar",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show View scale": true,
-              "Type": "Single",
-              "Orientation": "Horizontal"
-            },
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "14747:30269",
-            "appearance": {
-              "background": "#ffffff",
-              "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-default",
-                "width": "1px"
-              },
-              "radius": "6px"
-            }
-          }
-        ]
+        "id": "14747:30250"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going up"
+        },
+        "id": "14747:30251"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going up"
+        },
+        "id": "14747:30252"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going up"
+        },
+        "id": "14747:30253"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going down"
+        },
+        "id": "14747:30254"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going down"
+        },
+        "id": "14747:30255"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going down"
+        },
+        "id": "14747:30256"
+      },
+      {
+        "name": ".     Glossary item hierarchy diagram-connector",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Going up"
+        },
+        "id": "14747:30257"
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Main item",
+          "State": "Default"
+        },
+        "id": "14747:30258",
+        "appearance": {
+          "background": "#a76605",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30259",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30260",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30261",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30262",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30263",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30264",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30265",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30266",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
+      },
+      {
+        "name": ".Glossary item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Type": "Sub items",
+          "State": "Default"
+        },
+        "id": "14747:30267",
+        "appearance": {
+          "background": "#fff9e5",
+          "radius": "9999px"
+        }
       }
     ]
-  },
-  "variantDefaults": {
-    "Type": "Default"
   }
 }

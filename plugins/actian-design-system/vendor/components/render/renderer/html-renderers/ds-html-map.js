@@ -45,7 +45,7 @@
       return p || {};
     };
 
-  // Composite-key helper (anatomyVariantKey) used by the tag-default
+  // Composite-key helper (anatomyVariantKey) used by the tag-read-only
   // token-injection case below. Same guard-with-inline-fallback shape as fm
   // above: this module runs in BOTH Node (require works) and the browser
   // deliverable (require may be absent), so the fallback body is a verbatim
@@ -148,13 +148,27 @@
 
   // Captured resolved-appearance colors for digram-item-types' 27 "Item type"
   // values (components/dist/anatomy/digram-item-types.json, root.appearance.variants).
-  // Same species of problem as tag-default's per-Color palette: many color
+  // Same species of problem as tag-read-only's per-Color palette: many color
   // variants driven by design-tool facts, not a small fixed brand set, but
-  // simpler than tag-default's build-time variant-style-map injection (no
+  // simpler than tag-read-only's build-time variant-style-map injection (no
   // theme-swap requirement here), so this is a plain lookup table instead of
   // a new injection seam. Custom 1 and Custom 15 have no captured entry;
   // DIGRAM_ITEM_TYPE_COLORS falls back to "Category" for any unmapped value.
   var DIGRAM_ITEM_TYPE_COLORS = {
+    // capture: root.appearance.variants in anatomy/digram-item-types.json.
+    // Topic 1..10 arrived with Figma v2.7.0 and take the axis from 28 to 38
+    // values; unlike every other member of this table they are saturated rather
+    // than pastel, so falling back to Category painted all ten peach.
+    "Topic 1": "#a17ab6",
+    "Topic 2": "#8b00e8",
+    "Topic 3": "#00b6e1",
+    "Topic 4": "#003786",
+    "Topic 5": "#75b86b",
+    "Topic 6": "#299315",
+    "Topic 7": "#eabd34",
+    "Topic 8": "#ef8d00",
+    "Topic 9": "#a82743",
+    "Topic 10": "#b22700",
     Category: "#ffdacf",
     Field: "#d3efcd",
     "Custom 10": "#d3efcd",
@@ -212,8 +226,8 @@
     Yellow: "#eabd34",
   };
 
-  // Captured resolved-appearance border colors for metamodel-widget's 5 Type
-  // values (components/dist/anatomy/metamodel-widget.json, root.appearance +
+  // Captured resolved-appearance border colors for metamodel's 5 Type
+  // values (components/dist/anatomy/metamodel.json, root.appearance +
   // variants). Border width (1.5px) and radius (6px) are constant across every
   // variant; only the color changes. "Dataset" is the variant default.
   var METAMODEL_TYPE_BORDERS = {
@@ -223,7 +237,14 @@
     Field: { color: "#145f04", token: "--zen-color-success-800" },
     Visualisation: { color: "#7900cb", token: null },
   };
+  // The Connector group is captured as `{background: null, radius: null,
+  // border: null}`: connectors are lines between nodes, not boxes, so the
+  // capture is stating an absence rather than failing to record one. Falling
+  // through to the Dataset default painted each of the four a 1.5px blue box
+  // the design does not have. Returning "" renders no border rule at all.
+  var METAMODEL_BORDERLESS = /^Connector /;
   function metamodelBorderStyle(type) {
+    if (METAMODEL_BORDERLESS.test(String(type || ""))) return "";
     var b = METAMODEL_TYPE_BORDERS[type] || METAMODEL_TYPE_BORDERS.Dataset;
     return b.token
       ? "border-color:var(" + b.token + ", " + b.color + ")"
@@ -327,7 +348,7 @@
   }
 
   // Variant-style map for token-injection into delegated hand-authored
-  // templates (slice 1: tag-default). Same two supply paths as the anatomy
+  // templates (slice 1: tag-read-only). Same two supply paths as the anatomy
   // map above: window.__dsVariantStyles (browser) or setVariantStyleMap()
   // (server-side Node render).
   var _serverVariantStyleMap = null;
@@ -570,7 +591,7 @@
           );
         }
 
-        case "tag-default": {
+        case "tag-read-only": {
           // The 2026-08-12 breaking sync folded tag-shared, tag-catalog,
           // tag-stage, tag-status and tag-glossary-item-type INTO this
           // component: the Color axis is gone and a single `Type` axis carries
@@ -578,7 +599,7 @@
           // -success. So the modifier below is keyed off v.Type, and each
           // value's fill/border lives in one .ds-tag--<type> rule in
           // ds-base.css, derived from the capture's own per-Type appearance
-          // groups (components/dist/anatomy/tag-default.json).
+          // groups (components/dist/anatomy/tag-read-only.json).
           //
           // TWO CAPTURE FACTS CARRIED, NOT PAPERED OVER. Both are values whose
           // modifier class is emitted with NO ds-base.css rule behind it, so
@@ -628,7 +649,7 @@
           // swaps slug per Type (folder for Catalog, error-/success-/
           // warning-filled for the Status values, its own `add` otherwise).
           // Hand-copied from the capture's per-Type instance-swap groups in
-          // components/dist/anatomy/tag-default.json, which is the gap #521
+          // components/dist/anatomy/tag-read-only.json, which is the gap #521
           // names: a colour-only gate cannot check an icon slug. The
           // "leading icon slug follows the anatomy's per-Type instance swap"
           // test reads that capture directly and fails when this map drifts,
@@ -673,7 +694,7 @@
             (typeof window !== "undefined" && window.__dsVariantStyles) ||
             _serverVariantStyleMap ||
             {};
-          var _tagStyle = _styleMap[anatomyVariantKey("tag-default", v)] || "";
+          var _tagStyle = _styleMap[anatomyVariantKey("tag-read-only", v)] || "";
           var _tagStyleAttr = _tagStyle
             ? ' style="' + esc(_tagStyle) + '"'
             : "";
@@ -772,11 +793,13 @@
         case "digram-item-types": {
           var itItemType = v["Item type"] || "Category";
           var itCls = "ds-item-type";
-          // "Default" is the bare state (no modifier, matches ds-item-type's own
-          // size rule); only a non-default Size (e.g. "Small") adds a modifier
-          // class, mirroring the Size handling convention used elsewhere in this
-          // file (compare the button case's `v.Size === "Small"` check above).
-          if (v.Size && v.Size !== "Default") {
+          // The captured default is the bare state, and it is named here rather
+          // than assumed: the axis used to read Small/Default/Large and now
+          // reads XS/SM/MD, so a hardcoded "Default" made the DEFAULT size the
+          // one emitting a modifier, and pointed it at a class ds-base.css has
+          // no rule for. anatomy/digram-item-types.json's variantDefaults says
+          // SM. Every other value gets its own modifier, lowercased.
+          if (v.Size && v.Size !== "SM") {
             itCls += " ds-item-type--" + v.Size.toLowerCase();
           }
           return (
@@ -805,7 +828,20 @@
 
         case "lineage-individual-node": {
           var linCls = "ds-lineage-node";
-          if (v.Type === "Sub item") linCls += " ds-lineage-node--sub";
+          // The Type axis went from Main item/Sub item to seven values when the
+          // lineage components folded together: Individual/Group x main/sub,
+          // plus three Connectors. Matching the retired literal "Sub item" made
+          // .ds-lineage-node--sub unreachable and painted every sub item as a
+          // main node. Matched on the published value's own words, so a value
+          // added to this axis keeps working: both sub shapes end in "sub item".
+          //
+          // The three Connector values are NOT modelled here. They are lines
+          // between nodes rather than nodes, the capture records no appearance
+          // for them, and inventing one is how a wrong value ships looking
+          // right. They render the base node until the artwork is captured.
+          if (/sub item$/i.test(String(v.Type || ""))) {
+            linCls += " ds-lineage-node--sub";
+          }
           if (v.State === "Selected") linCls += " ds-lineage-node--selected";
           if (v.State === "Disabled") linCls += " ds-lineage-node--disabled";
           if (v.Fields === "Expanded") linCls += " ds-lineage-node--expanded";
@@ -908,7 +944,7 @@
           );
         }
 
-        case "metamodel-widget": {
+        case "metamodel": {
           var mwType = v.Type || "Dataset";
           var mwItemType = v["Item type"] || "Category";
           var mwBadge =
@@ -923,22 +959,22 @@
             esc(props["Item type initials"] || itemTypeInitials(mwType)) +
             "</span>";
           var mwSection = props["Show Section"]
-            ? '<div class="ds-metamodel-widget__section">' +
-              '<button class="ds-metamodel-widget__collapse" aria-label="Collapse section">' +
+            ? '<div class="ds-metamodel__section">' +
+              '<button class="ds-metamodel__collapse" aria-label="Collapse section">' +
               renderIcon("arrow-down") +
               "</button>" +
-              '<div class="ds-metamodel-widget__section-body">' +
+              '<div class="ds-metamodel__section-body">' +
               esc(props["Section body"] || "") +
               "</div>" +
               "</div>"
             : "";
           return (
-            '<div class="ds-metamodel-widget" style="' +
+            '<div class="ds-metamodel" style="' +
             metamodelBorderStyle(mwType) +
             '">' +
-            '<div class="ds-metamodel-widget__header">' +
+            '<div class="ds-metamodel__header">' +
             mwBadge +
-            '<span class="ds-metamodel-widget__title">' +
+            '<span class="ds-metamodel__title">' +
             esc(props.Title || props.Label || "") +
             "</span>" +
             "</div>" +
@@ -1492,150 +1528,6 @@
           );
         }
 
-        case "chat-with-ai-steward": {
-          // Oracle: vendor/components/dist/media/chat-with-ai-steward/
-          //   preview.webp — ~420px floating panel, bg-default, shadow-xl elevation
-          //   behavior-0.webp — overlay/drawer/floating variants; this leaf = static open panel
-          // Design guideline: surface elevation (shadow-xl), ai icon sparkle (16px),
-          //   confidence = badge, streaming shimmer (2000ms), disclaimer footer.
-          // Note: --zen-color-purple-* NOT in vendored tokens.css — using
-          //   --zen-color-icon-primary as sparkle accent (nearest semantic match).
-          // Task 4 (2026-06-10): re-modelled to full Figma anatomy:
-          //   header controls (New chat + settings/expand/close), Welcome state,
-          //   task-input footer, size=Drawer modifier.
-          var stTitle = esc(props.Title || "AI Steward");
-          // State: prefer variant key (v.State) but also accept props.State
-          var stState = v.State || props.State || "";
-          var generating = stState === "Generating";
-          var welcome = stState === "Welcome";
-          // Size: variant key (lowercase "size" from flow-data, e.g. "size=Drawer")
-          var isDrawer = v.size === "Drawer";
-
-          // SVG_EXPAND — two diagonal arrows (maximize), hardcoded inline per oracle;
-          // no vendored glyph match for this geometry in the 37-glyph curated set.
-          var SVG_EXPAND =
-            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">' +
-            '<path d="M12 3h5v5M3 8V3h5M8 12H3v5M17 12v5h-5"/>' +
-            "</svg>";
-
-          // Header: sparkle + title + New chat dropdown + controls (settings/expand/close)
-          var stHeader =
-            '<div class="ds-steward__header">' +
-            '<span class="ds-steward__spark" aria-label="Generated by AI">' +
-            renderIcon("stars-filled") +
-            "</span>" +
-            '<span class="ds-steward__title">' +
-            stTitle +
-            "</span>" +
-            '<button class="ds-steward__newchat" type="button">New chat &#9660;</button>' +
-            '<div class="ds-steward__controls">' +
-            '<button class="ds-steward__control ds-steward__control--settings" type="button" aria-label="Settings">' +
-            renderIcon("settings") +
-            "</button>" +
-            '<button class="ds-steward__control ds-steward__control--expand" type="button" aria-label="Expand">' +
-            SVG_EXPAND +
-            "</button>" +
-            '<button class="ds-steward__control ds-steward__control--close" type="button" aria-label="Close">' +
-            renderIcon("close") +
-            "</button>" +
-            "</div>" +
-            "</div>";
-
-          // Task-input footer (anatomy: input + context chip + Plan button).
-          // Context may be an object {type,name} ("Dataset Customer Orders") or a
-          // bare string; both render to a single esc'd chip label.
-          //
-          // The initial value is EMPTY on purpose. The chip is optional: a caller
-          // that scopes a steward session to nothing must get a task input with
-          // no chip, and a literal here takes that choice away. This slot is the
-          // thirteenth of the #543 fills, and it survived #544 because it wears a
-          // different shape: a variable initialised to the literal, rather than
-          // the ternary-guarded element the other twelve used, so a reader
-          // scanning for that shape walked straight past it. The gallery's label
-          // lives in matrix.js SPECIMEN_PROPS, like the other twelve.
-          var stCtxLabel = "";
-          if (props.Context && typeof props.Context === "object") {
-            stCtxLabel =
-              String(props.Context.type || "") +
-              (props.Context.name ? " " + props.Context.name : "");
-          } else if (props.Context) {
-            stCtxLabel = String(props.Context);
-          }
-          var stCtx = stCtxLabel.trim()
-            ? '<span class="ds-steward__context-chip">' +
-              esc(stCtxLabel) +
-              "</span>"
-            : "";
-          var stTaskInput =
-            '<div class="ds-steward__taskinput">' +
-            '<input class="ds-steward__taskinput-field" type="text" placeholder="Give Steward a task" aria-label="Give Steward a task"/>' +
-            stCtx +
-            '<button class="ds-button ds-button--secondary ds-button--small" type="button">Plan</button>' +
-            "</div>";
-
-          var stBody;
-          if (generating) {
-            stBody =
-              '<div class="ds-steward__body" aria-busy="true">' +
-              '<span class="ds-steward__shimmer"></span>' +
-              '<span class="ds-steward__shimmer ds-steward__shimmer--short"></span>' +
-              '<button class="ds-button ds-button--tertiary ds-button--small">Stop</button>' +
-              "</div>";
-          } else if (welcome) {
-            var stGreeting = props.Greeting
-              ? '<p class="ds-steward__greeting">' +
-                esc(props.Greeting) +
-                "</p>"
-              : "";
-            stBody =
-              '<div class="ds-steward__body" aria-live="polite">' +
-              stGreeting +
-              "</div>";
-          } else {
-            var stConf = props.Confidence
-              ? '<span class="ds-badge ds-badge--number ds-steward__conf">' +
-                esc(props.Confidence) +
-                "</span>"
-              : "";
-            var stSrc = props.Source
-              ? '<div class="ds-steward__source">Source: <a class="ds-steward__source-link">' +
-                esc(props.Source) +
-                "</a>" +
-                stConf +
-                "</div>"
-              : "";
-            stBody =
-              '<div class="ds-steward__body" aria-live="polite">' +
-              '<p class="ds-steward__insight">' +
-              // authored: the Figma capture for this component has zero text nodes
-              esc(
-                props.Insight ||
-                  "This dataset has three upstream sources and feeds two published reports. Review its lineage before changing the schema.",
-              ) +
-              "</p>" +
-              stSrc +
-              '<div class="ds-steward__actions">' +
-              '<button class="ds-button ds-button--secondary ds-button--small">Accept</button>' +
-              '<button class="ds-button ds-button--tertiary ds-button--small">Regenerate</button>' +
-              '<button class="ds-button ds-button--tertiary ds-button--small">Discard</button>' +
-              "</div>" +
-              "</div>";
-          }
-          var stFooter =
-            '<div class="ds-steward__disclaimer">AI-generated content can contain errors. Verify important information.</div>';
-          var stRootCls =
-            "ds-steward" + (isDrawer ? " ds-steward--drawer" : "");
-          return (
-            '<aside class="' +
-            stRootCls +
-            '">' +
-            stHeader +
-            stBody +
-            (generating ? "" : stTaskInput) +
-            stFooter +
-            "</aside>"
-          );
-        }
 
         // ── Hi-Fi Slice 1 (Task 4): transform-target leaves ──────────────
         // These 8 slugs chip-degraded before. Each renders a tokens-only leaf
@@ -1784,7 +1676,7 @@
           );
         }
 
-        case "input-date": {
+        case "date-input": {
           // Registry axes: Type = Single date | Date range; States = Enabled |
           // Disabled | Error | … . Anatomy: container{ container[Label]{text},
           // container[Input + icon button]{ inputfield, instance[Button] } } —
@@ -1792,17 +1684,17 @@
           // the .ds-field/.ds-input idiom; Date range adds a second input.
           var dateRange = v.Type === "Date range";
           var dateDisabled = v.States === "Disabled";
-          var dateCls = "ds-input-date";
-          if (dateRange) dateCls += " ds-input-date--range";
+          var dateCls = "ds-date-input";
+          if (dateRange) dateCls += " ds-date-input--range";
           if (dateDisabled) dateCls += " is-disabled";
           var datePlaceholder = esc(props["Placeholder text"] || "MM/DD/YYYY");
           function dateInput() {
             return (
-              '<div class="ds-input-date__field">' +
-              '<span class="ds-input-date__value">' +
+              '<div class="ds-date-input__field">' +
+              '<span class="ds-date-input__value">' +
               datePlaceholder +
               "</span>" +
-              '<span class="ds-input-date__calendar" aria-hidden="true">' +
+              '<span class="ds-date-input__calendar" aria-hidden="true">' +
               renderIcon("calendar") +
               "</span>" +
               "</div>"
@@ -1810,13 +1702,13 @@
           }
           var dateInputs = dateRange
             ? dateInput() +
-              '<span class="ds-input-date__sep">–</span>' +
+              '<span class="ds-date-input__sep">–</span>' +
               dateInput()
             : dateInput();
           // Optional slot: the capture holds no helper layer at all. The
           // gallery's helper string lives in matrix.js SPECIMEN_PROPS.
           var dateHelper = props.Helper
-            ? '<span class="ds-input-date__helper">' +
+            ? '<span class="ds-date-input__helper">' +
               esc(props.Helper) +
               "</span>"
             : "";
@@ -1824,10 +1716,10 @@
             '<div class="' +
             dateCls +
             '">' +
-            '<div class="ds-input-date__label-row"><span class="ds-input-date__label">' +
+            '<div class="ds-date-input__label-row"><span class="ds-date-input__label">' +
             esc(props.Label || "Date") +
             "</span></div>" +
-            '<div class="ds-input-date__inputs">' +
+            '<div class="ds-date-input__inputs">' +
             dateInputs +
             "</div>" +
             dateHelper +
@@ -2067,36 +1959,37 @@
         // tag-shared, tag-catalog, tag-stage, tag-status and
         // tag-glossary-item-type were RETIRED upstream: Figma folded their
         // treatments into "Tag, Default"'s new single `Type` axis (see the
-        // tag-default case above) and into "Tag, Item type" below. Their cases
+        // tag-read-only case above) and into "Tag, Item type" below. Their cases
         // are gone rather than left rendering plausible markup for components
         // the design system no longer publishes -- a stale case is invisible,
         // because its output cannot be told apart from a real component's.
         //
         // .ds-tag--shared / .ds-tag--catalog / .ds-tag--status-* survive in
-        // ds-base.css, but as tag-default Type modifiers now, re-grounded
+        // ds-base.css, but as tag-read-only Type modifiers now, re-grounded
         // against the fold-in capture. .ds-tag-stage and .ds-tag-stage__dot
         // also survive: search-result-card reuses them for its stage pill.
 
         case "tag-item-type": {
-          // Renamed from tag-catalog-item-type by the 2026-08-12 sync, which
-          // also absorbed the retired tag-glossary-item-type: the axis moved
-          // from `Type` (8 catalog values) to `Property 1` (28 values --
+          // The registry publishes one axis, `Type`, carrying 28 values:
           // Glossary-1..5, Category, Custom-1..15, and the six data-catalog
-          // names). Reading v.Type here after the rename would clamp every
-          // instance to "category" and paint 28 published values one colour,
-          // so the axis is read as the registry publishes it.
+          // names. The axis name is read here as a literal because this
+          // renderer has no registry access, which is the one restatement in
+          // this block -- an axis rename in Figma lands as every instance
+          // clamping to the base class with no modifier, and
+          // tests/render/ds-html-map.test.js catches exactly that by deriving
+          // the axis name from the registry instead of repeating it.
           //
           // Dedicated block (NOT base .ds-tag): the anatomy has no border,
           // unlike .ds-tag's 1px border -- reusing the base class would leak
           // one. Each value's fill and its label colour come from that value's
           // own appearance group in components/dist/anatomy/tag-item-type.json.
           //
-          // Shape clamp, not a value list, for the same reason as tag-default
-          // above: v["Property 1"] is user-supplied flow-data and an unclamped
-          // value would break out of the class attribute (XSS), while a
-          // hardcoded copy of a 28-value axis is exactly the restatement that
-          // went stale here once already.
-          var titRaw = v["Property 1"] || "";
+          // Shape clamp, not a value list, for the same reason as tag-read-only
+          // above: v.Type is user-supplied flow-data and an unclamped value
+          // would break out of the class attribute (XSS), while a hardcoded
+          // copy of a 28-value axis is the restatement this block exists to
+          // avoid.
+          var titRaw = v.Type || "";
           var titSlug = String(titRaw).toLowerCase().replace(/\s+/g, "-");
           var titCls = "ds-tag-item-type";
           if (titSlug && /^[a-z0-9-]+$/.test(titSlug)) {
@@ -3079,7 +2972,7 @@
           // tag-interactive's Selected/Disabled-only handling above). The
           // fidelity oracle only captures App=Explorer/State=Default, so
           // that default stays faithful; Studio's structural swaps (button
-          // -> progress-bar-small, digram -> tag-default) are intentionally
+          // -> progress-bar-small, digram -> tag-read-only) are intentionally
           // NOT built here, per the spec. App=Studio therefore renders the
           // BASE card with no root modifier -- there is no built CSS delta
           // for it, and a modifier class must not be emitted without one
@@ -3089,12 +2982,12 @@
           // .ds-tag--catalog / .ds-item-type) rather than
           // recursing into renderDSComponent, same idiom as card-for-items.
           // The stage pill carried a `.ds-tag--gray` modifier until the
-          // 2026-08-12 fold-in retired tag-default's Color axis; Gray was
+          // 2026-08-12 fold-in retired tag-read-only's Color axis; Gray was
           // never a value with a rule of its own (it equalled Color=Default),
           // so the class named a value the design system no longer has and
           // painted nothing. Dropped rather than left dangling. This card's
           // OWN capture agrees with where that leaves the pill: its stage
-          // child is a tag-default instance captured at bg #fcfcfc / border
+          // child is a tag-read-only instance captured at bg #fcfcfc / border
           // #ebebeb (--zen-color-neutral-50) / radius 4px, which is base
           // .ds-tag's re-grounded Type=Default paint in this card's theme
           // mode, and its catalog child is captured at #ecffff / #d0efed,
@@ -3222,7 +3115,7 @@
     "checkbox",
     "radio",
     "toggle",
-    "tag-default",
+    "tag-read-only",
     "badge",
     "search",
     "global-header",
@@ -3234,12 +3127,11 @@
     "modal",
     "empty-state",
     "alert-banner",
-    "chat-with-ai-steward",
     // Hi-Fi Slice 1 (Task 4): transform-target leaves
     "notification",
     "stepper",
     "tooltip",
-    "input-date",
+    "date-input",
     "rich-text",
     "dropdown-select-default",
     "progress-bar-small",
@@ -3259,7 +3151,7 @@
     "digram-topic",
     "lineage-individual-node",
     "lineage-grouped-node",
-    "metamodel-widget",
+    "metamodel",
     "loader-with-logo",
     // Gray-box-to-zero, family 1 (feedback states).
     "confirmation",
@@ -3267,7 +3159,7 @@
     "maintenance-state",
     // Gray-box-to-zero, family 2 (tag family). The 2026-08-12 sync folded
     // tag-shared, tag-catalog, tag-stage, tag-status and
-    // tag-glossary-item-type into tag-default's Type axis and renamed
+    // tag-glossary-item-type into tag-read-only's Type axis and renamed
     // tag-catalog-item-type, so one entry is left where six were.
     "tag-item-type",
     // Gray-box-to-zero, family 3 (card family).

@@ -17,6 +17,7 @@
 | Collapse / accordion | approved | approved | inherited | inherited | not started |
 | Combo box | approved | approved | inherited | inherited | not started |
 | Confirmation | approved | approved | inherited | inherited | not started |
+| Date input | approved | approved | inherited | inherited | not started |
 | Drawer, side panel | approved | approved | inherited | inherited | not started |
 | Dropdown / Select | approved | approved | inherited | inherited | not started |
 | Empty state | approved | approved | inherited | inherited | not started |
@@ -24,7 +25,6 @@
 | Global header | approved | approved | inherited | inherited | approved |
 | Global toast | approved | approved | inherited | inherited | not started |
 | Inline toast | approved | approved | inherited | inherited | not started |
-| Date input | approved | approved | inherited | inherited | not started |
 | Links | approved | approved | inherited | inherited | not started |
 | Loader | approved | approved | inherited | inherited | not started |
 | Loader with logo | approved | approved | inherited | inherited | not started |
@@ -78,9 +78,9 @@
 | card-for-grouped-content | card |
 | card-for-perimeter | card |
 | dropdown-select-default | dropdown-select |
-| tag-default | tag |
 | tag-interactive | tag |
 | tag-item-type | tag |
+| tag-read-only | tag |
 
 ## Token render-grade
 

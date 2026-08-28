@@ -16,7 +16,7 @@ when: >-
   list of types on one side, a canvas on the other, with the canvas carrying its own zoom
   and export controls. Do not use a plain form; the picture is half the screen.
 components:
-  - metamodel-widget
+  - metamodel
   - button
   - text-input
 ---

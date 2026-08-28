@@ -459,8 +459,8 @@
       "id": "component:action-bar",
       "type": "component",
       "title": "Action bar",
-      "figmaKey": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
-      "figmaNodeId": "14747:9839"
+      "figmaKey": "8e442c841e0adb644fb1a1a779b29406881b1ae4",
+      "figmaNodeId": "8190:6001"
     },
     {
       "id": "component:add",
@@ -815,7 +815,7 @@
     {
       "id": "component:badge",
       "type": "component",
-      "title": "✍️ Badge",
+      "title": "Badge",
       "figmaKey": "e8d93a3432951bd42d9b0bb20287eb61262ae10e",
       "figmaNodeId": "12159:16447"
     },
@@ -836,7 +836,7 @@
     {
       "id": "component:bar-graph",
       "type": "component",
-      "title": "⛔️ Bar graph",
+      "title": "Bar graph",
       "figmaKey": "6ea07622a616f54b591da8eb26515332b9d02c31",
       "figmaNodeId": "15473:49489"
     },
@@ -942,8 +942,8 @@
       "id": "component:breadcrumb",
       "type": "component",
       "title": "Breadcrumb",
-      "figmaKey": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
-      "figmaNodeId": "13792:15247"
+      "figmaKey": "c32ff5e17107ecc01c983a8c0623d2229740c880",
+      "figmaNodeId": "13792:15246"
     },
     {
       "id": "component:briefcase",
@@ -1105,13 +1105,6 @@
       "title": "chat-alt-2",
       "figmaKey": "c3e3f8f29d1ac164e488581eecacdf4a35dc8c52",
       "figmaNodeId": "8:20866"
-    },
-    {
-      "id": "component:chat-with-ai-steward",
-      "type": "component",
-      "title": "Chat with AI Steward",
-      "figmaKey": "8ba9d4d075ffab728d03d5bf771173f39d41e5ac",
-      "figmaNodeId": "15464:24509"
     },
     {
       "id": "component:check",
@@ -1319,7 +1312,7 @@
     {
       "id": "component:collapse-accordion",
       "type": "component",
-      "title": "✍️ Collapse-accordion",
+      "title": "Collapse-accordion",
       "figmaKey": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
       "figmaNodeId": "8292:80"
     },
@@ -1527,6 +1520,13 @@
       "figmaNodeId": "8504:23087"
     },
     {
+      "id": "component:data-viz-legend-item",
+      "type": "component",
+      "title": "Data-viz-legend-item",
+      "figmaKey": "0a5b4776b4199b4a9efc77a76e99e12192e0dac5",
+      "figmaNodeId": "14747:33310"
+    },
+    {
       "id": "component:database",
       "type": "component",
       "title": "database",
@@ -1574,6 +1574,13 @@
       "title": "date",
       "figmaKey": "decde3b78f16d02045516de4e4d8255d67d73cfc",
       "figmaNodeId": "7378:5221"
+    },
+    {
+      "id": "component:date-input",
+      "type": "component",
+      "title": "Date input",
+      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
+      "figmaNodeId": "8194:7305"
     },
     {
       "id": "component:db2",
@@ -1770,6 +1777,13 @@
       "title": "Drawer, side panel",
       "figmaKey": "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf",
       "figmaNodeId": "14294:5758"
+    },
+    {
+      "id": "component:dropdown",
+      "type": "component",
+      "title": "Dropdown",
+      "figmaKey": "a38a874d532ced8607f8632d0aa9cdf2dec39484",
+      "figmaNodeId": "21982:71973"
     },
     {
       "id": "component:dropdown-select-default",
@@ -2398,8 +2412,8 @@
       "id": "component:glossary-item-hierarchy-diagram",
       "type": "component",
       "title": "Glossary item hierarchy diagram",
-      "figmaKey": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
-      "figmaNodeId": "14747:30242"
+      "figmaKey": "589059440a078bfe879a21b056edfe16be6b12c2",
+      "figmaNodeId": "14747:30243"
     },
     {
       "id": "component:google-cloud",
@@ -2598,13 +2612,6 @@
       "figmaNodeId": "8504:23028"
     },
     {
-      "id": "component:input-date",
-      "type": "component",
-      "title": "Input, date",
-      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
-      "figmaNodeId": "8194:7305"
-    },
-    {
       "id": "component:integer-type",
       "type": "component",
       "title": "integer-type",
@@ -2705,7 +2712,7 @@
     {
       "id": "component:line-graph",
       "type": "component",
-      "title": "⛔️ Line graph",
+      "title": "Line graph",
       "figmaKey": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
       "figmaNodeId": "15473:49490"
     },
@@ -3130,9 +3137,9 @@
       "figmaNodeId": "4:2"
     },
     {
-      "id": "component:metamodel-widget",
+      "id": "component:metamodel",
       "type": "component",
-      "title": "Metamodel widget",
+      "title": "Metamodel",
       "figmaKey": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
       "figmaNodeId": "14747:23588"
     },
@@ -3333,6 +3340,13 @@
       "figmaNodeId": "12923:2794"
     },
     {
+      "id": "component:pagination",
+      "type": "component",
+      "title": "Pagination",
+      "figmaKey": "7547107f65e9c7fd94d54fd24371262682f9017c",
+      "figmaNodeId": "15295:14916"
+    },
+    {
       "id": "component:palantir",
       "type": "component",
       "title": "palantir",
@@ -3517,7 +3531,7 @@
     {
       "id": "component:popover",
       "type": "component",
-      "title": "⛔️ Popover",
+      "title": "Popover",
       "figmaKey": "6116aac0bacf92b34f2f796633953616ab9efd7c",
       "figmaNodeId": "14294:7345"
     },
@@ -3889,8 +3903,8 @@
       "id": "component:segmented-control",
       "type": "component",
       "title": "Segmented control",
-      "figmaKey": "062274018b2daab1c45c7e634c95c5a4eaa42b69",
-      "figmaNodeId": "7618:5187"
+      "figmaKey": "b4d36abfe1043c86a74903008f4560be67b54e9a",
+      "figmaNodeId": "7618:5284"
     },
     {
       "id": "component:selector",
@@ -3972,7 +3986,7 @@
     {
       "id": "component:side-nav",
       "type": "component",
-      "title": "✍️ Side nav",
+      "title": "Side nav",
       "figmaKey": "3606cc19247f989332aac33953ffdf57c9d1bbdd",
       "figmaNodeId": "13599:20120"
     },
@@ -4196,7 +4210,7 @@
     {
       "id": "component:table",
       "type": "component",
-      "title": "✍️ Table",
+      "title": "Table",
       "figmaKey": "62d235b35d44ddafd58cb1a060107b4f69ab234e",
       "figmaNodeId": "15295:14902"
     },
@@ -4211,8 +4225,8 @@
       "id": "component:tabs",
       "type": "component",
       "title": "Tabs",
-      "figmaKey": "dbd33845613381780e5364600815d9bc983d5230",
-      "figmaNodeId": "14747:14818"
+      "figmaKey": "f7c2d559b6cadba2002dc304bd4f71924cb4a27a",
+      "figmaNodeId": "7279:3297"
     },
     {
       "id": "component:tag",
@@ -4220,13 +4234,6 @@
       "title": "tag",
       "figmaKey": "30214723889333e0c3577001802a75cab6230ee4",
       "figmaNodeId": "8:20674"
-    },
-    {
-      "id": "component:tag-default",
-      "type": "component",
-      "title": "Tag, Default",
-      "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
-      "figmaNodeId": "7257:3037"
     },
     {
       "id": "component:tag-interactive",
@@ -4238,9 +4245,16 @@
     {
       "id": "component:tag-item-type",
       "type": "component",
-      "title": "Tag, Item type",
+      "title": "Tag, item type",
       "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
       "figmaNodeId": "11300:8312"
+    },
+    {
+      "id": "component:tag-read-only",
+      "type": "component",
+      "title": "Tag, read only",
+      "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
+      "figmaNodeId": "7257:3037"
     },
     {
       "id": "component:tags-add",
@@ -4330,8 +4344,8 @@
       "id": "component:textfield-buttons",
       "type": "component",
       "title": "Textfield buttons",
-      "figmaKey": "701b1f6d93b336acb724a3496f7f0e33d1301c4f",
-      "figmaNodeId": "14241:37663"
+      "figmaKey": "9df25e44e3b0f80f6b9291cf714513c65e984078",
+      "figmaNodeId": "14241:37660"
     },
     {
       "id": "component:thoughtspot",
@@ -5423,7 +5437,7 @@
       "id": "pattern:import-wizard",
       "type": "ux_pattern",
       "title": "Multi-step import wizard",
-      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.\n\nCorrected 2026-08-18 from the running product: this record previously said 6 steps and named \"Data Product\" as the sixth. There are 7, the first is Data source, and the sixth is Category. `components` also gained the radio\ncards of step one and the persistent action bar, which the corrected prose described and the\nmachine-read field did not. The action bar was named by its then-current slug `sticky-footer`; Figma renamed\nit to `action-bar`, and that rename landed alongside the registry in one branch on 2026-08-24 (#526),\nwhich is why this record now names `action-bar`."
+      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo."
     },
     {
       "id": "pattern:interactive-graph",
@@ -5507,7 +5521,7 @@
       "id": "pattern:type-picker-grid",
       "type": "ux_pattern",
       "title": "Type picker grid",
-      "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.\n\nThe `sticky-footer` to `action-bar` rename this record was waiting on landed alongside the registry on\n2026-08-24 (#526), so it now names `action-bar`."
+      "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile."
     },
     {
       "id": "term:access-request-policy",
@@ -6283,18 +6297,6 @@
       }
     },
     {
-      "source": "component:chat-with-ai-steward",
-      "target": "a11y:ai-output-suggestions",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/chat-with-ai-steward/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:checkbox",
       "target": "a11y:forms",
       "type": "a11y_ref",
@@ -6326,6 +6328,18 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/confirmation/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:date-input",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/date-input/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6399,18 +6413,6 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/global-header/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:input-date",
-      "target": "a11y:forms",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/input-date/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6692,18 +6694,6 @@
       }
     },
     {
-      "source": "component:tag-default",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:tag-interactive",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
@@ -6717,6 +6707,18 @@
     },
     {
       "source": "component:tag-item-type",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:tag-read-only",
       "target": "a11y:truncation-overflow",
       "type": "a11y_ref",
       "scope": "component",
@@ -6816,7 +6818,7 @@
     },
     {
       "source": "component:account-dropdown",
-      "target": "component:help-bubble",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -6886,12 +6888,7 @@
     },
     {
       "source": "component:app-switcher-dropdown",
-      "target": "component:settings",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:app-switcher-dropdown",
-      "target": "component:zeenea-logo",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -6946,7 +6943,7 @@
     },
     {
       "source": "component:calendar",
-      "target": "component:arrow-up",
+      "target": "component:button",
       "type": "composed_of"
     },
     {
@@ -6977,41 +6974,6 @@
     {
       "source": "component:card-for-perimeter",
       "target": "component:progress-bar-small",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:arrow-up",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:close",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:collapse",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:chat-with-ai-steward",
-      "target": "component:expand",
       "type": "composed_of"
     },
     {
@@ -7092,6 +7054,16 @@
     {
       "source": "component:confirmation",
       "target": "component:illustration",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:date-input",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:date-input",
+      "target": "component:error-filled",
       "type": "composed_of"
     },
     {
@@ -7176,11 +7148,6 @@
     },
     {
       "source": "component:drawer-side-panel",
-      "target": "component:tag-default",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
       "target": "component:tag-interactive",
       "type": "composed_of"
     },
@@ -7191,7 +7158,22 @@
     },
     {
       "source": "component:drawer-side-panel",
+      "target": "component:tag-read-only",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer-side-panel",
       "target": "component:view-detail",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:dropdown",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:dropdown",
+      "target": "component:folder",
       "type": "composed_of"
     },
     {
@@ -7750,61 +7732,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:export",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:list-bullets",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:more",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:zoom-in",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:zoom-out",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:zoom-reset",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:glossary-item-hierarchy-diagram",
-      "target": "component:zoom-to-fit",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:input-date",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:input-date",
-      "target": "component:error-filled",
-      "type": "composed_of"
-    },
-    {
       "source": "component:label",
       "target": "component:info",
       "type": "composed_of"
@@ -7860,11 +7787,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:lineage-grouped-node",
-      "target": "component:tag-default",
-      "type": "composed_of"
-    },
-    {
       "source": "component:lineage-individual-node",
       "target": "component:add",
       "type": "composed_of"
@@ -7896,12 +7818,12 @@
     },
     {
       "source": "component:lineage-individual-node",
-      "target": "component:tag-default",
+      "target": "component:tableau",
       "type": "composed_of"
     },
     {
       "source": "component:lineage-individual-node",
-      "target": "component:text-type",
+      "target": "component:tag-read-only",
       "type": "composed_of"
     },
     {
@@ -7965,12 +7887,12 @@
       "type": "composed_of"
     },
     {
-      "source": "component:metamodel-widget",
+      "source": "component:metamodel",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
-      "source": "component:metamodel-widget",
+      "source": "component:metamodel",
       "target": "component:digram-item-types",
       "type": "composed_of"
     },
@@ -8080,6 +8002,11 @@
       "type": "composed_of"
     },
     {
+      "source": "component:notification-dropdown",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
       "source": "component:page-header",
       "target": "component:add",
       "type": "composed_of"
@@ -8131,17 +8058,37 @@
     },
     {
       "source": "component:page-header",
-      "target": "component:tag-default",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:page-header",
       "target": "component:tag-item-type",
       "type": "composed_of"
     },
     {
       "source": "component:page-header",
+      "target": "component:tag-read-only",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:page-header",
       "target": "component:zeenea-logo",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:pagination",
+      "target": "component:arrow",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:pagination",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:pagination",
+      "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:pagination",
+      "target": "component:button",
       "type": "composed_of"
     },
     {
@@ -8206,7 +8153,7 @@
     },
     {
       "source": "component:popover",
-      "target": "component:tag-default",
+      "target": "component:tag-read-only",
       "type": "composed_of"
     },
     {
@@ -8305,6 +8252,11 @@
       "type": "composed_of"
     },
     {
+      "source": "component:search-dropdown-menu",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
       "source": "component:search-result-card",
       "target": "component:add",
       "type": "composed_of"
@@ -8346,12 +8298,12 @@
     },
     {
       "source": "component:search-result-card",
-      "target": "component:tag-default",
+      "target": "component:tag-item-type",
       "type": "composed_of"
     },
     {
       "source": "component:search-result-card",
-      "target": "component:tag-item-type",
+      "target": "component:tag-read-only",
       "type": "composed_of"
     },
     {
@@ -8501,6 +8453,11 @@
     },
     {
       "source": "component:table",
+      "target": "component:pagination",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:table",
       "target": "component:search",
       "type": "composed_of"
     },
@@ -8530,36 +8487,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:tag-default",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-default",
-      "target": "component:dot",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-default",
-      "target": "component:error-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-default",
-      "target": "component:folder",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-default",
-      "target": "component:success-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-default",
-      "target": "component:warning-filled",
-      "type": "composed_of"
-    },
-    {
       "source": "component:tag-interactive",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -8582,6 +8509,36 @@
     {
       "source": "component:tag-interactive",
       "target": "component:simple-check",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:dot",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:success-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:tag-read-only",
+      "target": "component:warning-filled",
       "type": "composed_of"
     },
     {
@@ -10790,11 +10747,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:chat-with-ai-steward",
-      "target": "category:overlays",
-      "type": "in_category"
-    },
-    {
       "source": "component:checkbox",
       "target": "category:form",
       "type": "in_category"
@@ -10925,6 +10877,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:data-viz-legend-item",
+      "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
       "source": "component:database",
       "target": "category:icons",
       "type": "in_category"
@@ -10957,6 +10914,11 @@
     {
       "source": "component:date",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:date-input",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11027,6 +10989,11 @@
     {
       "source": "component:drawer-side-panel",
       "target": "category:overlays",
+      "type": "in_category"
+    },
+    {
+      "source": "component:dropdown",
+      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -11270,11 +11237,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:input-date",
-      "target": "category:form",
-      "type": "in_category"
-    },
-    {
       "source": "component:integer-type",
       "target": "category:icons",
       "type": "in_category"
@@ -11430,7 +11392,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:metamodel-widget",
+      "source": "component:metamodel",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -11526,6 +11488,11 @@
     },
     {
       "source": "component:page-header",
+      "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
+      "source": "component:pagination",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -11875,17 +11842,17 @@
       "type": "in_category"
     },
     {
-      "source": "component:tag-default",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
       "source": "component:tag-interactive",
       "target": "category:data-display",
       "type": "in_category"
     },
     {
       "source": "component:tag-item-type",
+      "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
+      "source": "component:tag-read-only",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -12645,7 +12612,7 @@
     },
     {
       "source": "content:forms",
-      "target": "component:input-date",
+      "target": "component:date-input",
       "type": "related"
     },
     {
@@ -12730,7 +12697,7 @@
     },
     {
       "source": "content:validation-messages",
-      "target": "component:input-date",
+      "target": "component:date-input",
       "type": "related"
     },
     {
@@ -12975,7 +12942,7 @@
     },
     {
       "source": "pattern:access-request-management",
-      "target": "component:tag-default",
+      "target": "component:tag-interactive",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -12986,7 +12953,7 @@
     },
     {
       "source": "pattern:access-request-management",
-      "target": "component:tag-interactive",
+      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13019,7 +12986,7 @@
     },
     {
       "source": "pattern:access-request-workflow",
-      "target": "component:tag-default",
+      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13042,17 +13009,6 @@
     {
       "source": "pattern:activity-timeline",
       "target": "component:avatar",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:ai-analyst-panel",
-      "target": "component:chat-with-ai-steward",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13151,17 +13107,6 @@
     },
     {
       "source": "pattern:ask-ai",
-      "target": "component:chat-with-ai-steward",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:ask-ai",
       "target": "component:search",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13217,6 +13162,17 @@
     },
     {
       "source": "pattern:asset-detail-360",
+      "target": "component:date-input",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:asset-detail-360",
       "target": "component:drawer-side-panel",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13240,17 +13196,6 @@
     {
       "source": "pattern:asset-detail-360",
       "target": "component:empty-state",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:asset-detail-360",
-      "target": "component:input-date",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13316,7 +13261,7 @@
     },
     {
       "source": "pattern:asset-detail-360",
-      "target": "component:tag-default",
+      "target": "component:tag-interactive",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13327,7 +13272,7 @@
     },
     {
       "source": "pattern:asset-detail-360",
-      "target": "component:tag-interactive",
+      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13427,17 +13372,6 @@
     {
       "source": "pattern:data-steward-agent-panel",
       "target": "component:button",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:data-steward-agent-panel",
-      "target": "component:chat-with-ai-steward",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13602,7 +13536,7 @@
     },
     {
       "source": "pattern:faceted-browse",
-      "target": "component:tag-default",
+      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13888,7 +13822,7 @@
     },
     {
       "source": "pattern:metamodel-designer",
-      "target": "component:metamodel-widget",
+      "target": "component:metamodel",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14042,7 +13976,7 @@
     },
     {
       "source": "pattern:suggestion-workflow",
-      "target": "component:tag-default",
+      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14108,7 +14042,7 @@
     },
     {
       "source": "pattern:template-builder",
-      "target": "component:metamodel-widget",
+      "target": "component:metamodel",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

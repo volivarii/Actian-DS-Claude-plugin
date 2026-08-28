@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search-result-card",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12932:3259",
@@ -172,13 +172,13 @@
             },
             "children": [
               {
-                "name": "Tag, Item type",
+                "name": "Tag, item type",
                 "kind": "instance",
                 "slug": "tag-item-type",
                 "props": {
                   "Show Counter": false,
                   "Show counter": false,
-                  "Property 1": "Category"
+                  "Type": "Category"
                 },
                 "id": "12932:3266",
                 "appearance": {
@@ -227,9 +227,9 @@
             ]
           },
           {
-            "name": "Tag, Default",
+            "name": "Tag, read only",
             "kind": "instance",
-            "slug": "tag-default",
+            "slug": "tag-read-only",
             "props": {
               "Leading icon show": true,
               "Label": "Default",
@@ -328,9 +328,9 @@
             },
             "children": [
               {
-                "name": "Tag, Default",
+                "name": "Tag, read only",
                 "kind": "instance",
-                "slug": "tag-default",
+                "slug": "tag-read-only",
                 "props": {
                   "Leading icon show": true,
                   "Label": "Default",
@@ -477,7 +477,7 @@
                         "colorToken": "--zen-color-warning-25",
                         "width": "1px"
                       },
-                      "slug": "tag-default"
+                      "slug": "tag-read-only"
                     }
                   ]
                 }

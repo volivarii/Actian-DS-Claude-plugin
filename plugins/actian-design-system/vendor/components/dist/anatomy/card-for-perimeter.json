@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card-for-perimeter",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14783:7565",
@@ -53,7 +53,7 @@
         "slug": "digram-item-types",
         "props": {
           "Item type": "Dataset",
-          "Size": "Default"
+          "Size": "SM"
         },
         "id": "14783:7552",
         "appearance": {

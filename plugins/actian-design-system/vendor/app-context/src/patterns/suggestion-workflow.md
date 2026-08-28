@@ -16,6 +16,6 @@ components:
   - button
   - confirmation
   - text-input
-  - tag-default
+  - tag-read-only
 ---
 Explorer users submit suggestions, curators review (accept/decline with comment).

@@ -35,6 +35,3 @@ creation is a full page at `/new-item`, carrying the app sidebar and a pinned ac
 involved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page
 against `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,
 and is nothing like a type tile.
-
-The `sticky-footer` to `action-bar` rename this record was waiting on landed alongside the registry on
-2026-08-24 (#526), so it now names `action-bar`.

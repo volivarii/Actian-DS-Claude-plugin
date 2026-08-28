@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "calendar",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8211:6664",
@@ -10,8 +10,8 @@
   },
   "quality": {
     "nodesTotal": 63,
-    "nodesNormalized": 15,
-    "ratio": 0.24,
+    "nodesNormalized": 18,
+    "ratio": 0.29,
     "degraded": [
       {
         "name": "Frame 1010110409",
@@ -154,14 +154,20 @@
               {
                 "name": "mat-calendar-previous-btn",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
-                  "Show icon": true,
-                  "Label": "Button"
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
                 },
                 "id": "8211:5828",
                 "appearance": {
-                  "radius": "40px"
+                  "radius": "9999px"
                 }
               }
             ]
@@ -192,27 +198,39 @@
               {
                 "name": "button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
-                  "Show icon": true,
-                  "Label": "Button"
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
                 },
                 "id": "8211:5830",
                 "appearance": {
-                  "radius": "40px"
+                  "radius": "9999px"
                 }
               },
               {
                 "name": "button",
                 "kind": "instance",
-                "unresolved": true,
+                "slug": "button",
                 "props": {
-                  "Show icon": true,
-                  "Label": "Button"
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
                 },
                 "id": "8211:5831",
                 "appearance": {
-                  "radius": "40px"
+                  "radius": "9999px"
                 }
               }
             ]
@@ -411,8 +429,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "GRID",
-              "x": 7279,
-              "y": 1508,
+              "x": 5747,
+              "y": 2216,
               "constraints": {
                 "vertical": "TOP",
                 "horizontal": "LEFT"

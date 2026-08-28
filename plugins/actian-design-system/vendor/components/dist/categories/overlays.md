@@ -38,7 +38,7 @@ foundations_refs:
 
 # Overlays — design rationale
 
-Components in this category layer above the page surface. Members: `chat-with-ai-steward`, `drawer-side-panel`, `modal`, `popover`, `tooltip`.
+Components in this category layer above the page surface.
 
 ## Reference patterns
 

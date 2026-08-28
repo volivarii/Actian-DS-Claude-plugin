@@ -36,7 +36,7 @@ foundations_refs:
 
 # Navigation — design rationale
 
-Components in this category move the user between contexts (pages, sections, steps). Members: `account-dropdown`, `app-switcher-dropdown`, `breadcrumbs`, `global-header`, `notification-dropdown`, `side-nav`, `stepper`, `tabs`, `whats-new-dropdown`.
+Components in this category move the user between contexts (pages, sections, steps).
 
 ## Reference patterns
 
@@ -52,7 +52,7 @@ Navigation patterns share an items-with-current-state anatomy regardless of orie
 
 ## Notes for refining authors
 
-* `breadcrumbs` collapses items at narrow widths — the anatomy extends with `Overflow indicator` (...).
+* `breadcrumb` collapses items at narrow widths, so the anatomy extends with `Overflow indicator` (...).
 
 * `stepper` adds `Step number` + `Step status` parts and a `progressively-revealed` state value.
 
