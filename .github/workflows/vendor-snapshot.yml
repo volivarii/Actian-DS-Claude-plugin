@@ -173,18 +173,6 @@ jobs:
         run: |
           node scripts/renderers/render-authoring-props.js
 
-      - name: Re-record the blank-box baseline
-        # tests/renderers/blank-box-budget.test.js compares the renderer's
-        # blank-box count per unbuilt slug against
-        # tests/renderers/blank-box-baseline.json. A refresh that BUILDS a slug
-        # or recaptures an anatomy doc changes that count and the gate goes
-        # red until the improvement is banked. The CLI refuses (exit 1) to
-        # write a regression, so this step cannot launder one: a real loss
-        # still fails the job, by slug.
-        working-directory: plugins/actian-design-system
-        run: |
-          node scripts/renderers/ds-coverage-report.js --write-baseline
-
       - name: Detect changes
         id: diff
         run: |
@@ -196,6 +184,19 @@ jobs:
             echo "Vendor diff:"
             git diff --stat -- plugins/actian-design-system/vendor/ plugins/actian-design-system/vendored.json
           fi
+
+      - name: Re-record the blank-box baseline
+        id: bank
+        # Only on a night the vendor changed: a bank no PR carries would be
+        # announced in the summary and then discarded with the runner.
+        if: steps.diff.outputs.changed == 'true'
+        # The baseline is the renderer's own output, so the refresh re-records
+        # it. Only a regression or a demotion to a bare chip refuses and fails
+        # the job, by slug; everything else banks and is named in this step's
+        # summary and in the PR body below (plugin #318).
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/ds-coverage-report.js --write-baseline
 
       - name: Auto-bump plugin.json (calendar)
         if: steps.diff.outputs.changed == 'true'
@@ -226,6 +227,8 @@ jobs:
             See https://github.com/volivarii/actian-ds-knowledge/tree/${{ steps.target.outputs.sha }} for source state.
 
             Auto-bumps plugin.json (calendar `YYYY.MM.PATCH`) so the marketplace cache propagates the new content to designers.
+
+            ${{ steps.bank.outputs.notes }}
           branch: "vendor/refresh-${{ steps.target.outputs.short_sha }}"
           labels: vendor,knowledge-snapshot,auto-merge
           delete-branch: true

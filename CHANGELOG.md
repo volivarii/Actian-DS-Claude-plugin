@@ -126,6 +126,75 @@ are summarized at the release level.
 
 ### Fixed
 
+- **A component new to the plugin was reported as "demoted to a bare chip", and the false verdict
+  halted all knowledge consumption.** ([#321](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/321), plugin #318) `dropdown`
+  arrived in knowledge v0.34.155 as a real slot-based menu with no render leaf yet, so it renders as a
+  chip. `compareBlankBoxes()` listed every chip absent from the baseline as a demotion, because the
+  baseline never recorded which slugs it had seen, and `--write-baseline` refused to bank it; the
+  steps that open the PR skipped, and the plugin stayed at v0.34.153 while knowledge shipped .154 to
+  .156. The bank rule is now one sentence: only a SAME-NAME loss refuses, a slug emitting more boxes
+  than recorded or a slug that rendered real markup under that name and renders a bare chip now;
+  every other change is a named row and banks, because a refusal before the PR opens is this outage
+  and the vendor job cannot answer a prompt. So the `--accept-new-blanks` flag is gone with the
+  refusal it served. The baseline gains `builtSlugs`, because built slugs have no per-slug row; a
+  record without it fails closed. A rename the vendored identity ledger knows (read through `PATHS`,
+  failing closed on a ledger that does not parse) is applied to the baseline before anything is
+  compared, so the one set of rules then compares name to name and a rename needs no rule of its
+  own, even while the old name lingers as a built leaf; it is not applied when the baseline already
+  carries the new name, when the new name does not exist tonight, or when two applicable retired
+  names claim one current slug; while the old name is still a measured row, the new name's count
+  is compared to that row. Only a same-name change refuses: a slug's own count rising, or real markup becoming a
+  chip under the same name. Everything the ledger carries over is named and banks, a chip under a
+  renamed name included, because a knowledge rename must never halt the intake (the very next
+  refresh, v0.34.156, renames two built leaves whose new names render from anatomy with a few boxes).
+  Only a re-key, which leaves no trail, is still flagged as a vanished-plus-newcomer pair for a
+  reader. A built slug that falls back to the generic renderer is the named `leafDropped` row, with
+  its boxes, and banks. The comparison also names a built slug gone from the vocabulary, a
+  measured slug gone, a measured slug promoted to built, a leaf built tonight, fewer boxes, and a
+  chip that stopped being one; a slug that demotes to a chip is no longer also an improvement;
+  `clean` is derived from the rows themselves; a record without `builtSlugs` says so in its refusal,
+  and a measurement without it reads as no change in what is built. Everything banked comes from
+  one place (`summarizeBank`) and reaches stdout, the job summary and, through the step's output, the
+  vendor PR body; a refusal reaches the job summary too; the bank step runs only on a night the
+  vendor changed, so a bank no PR carries is never announced. `authorableSlugs()` lists each slug
+  once; a chip is recognised by its root element, not by a chip nested in real markup; a render that
+  produces nothing (empty, not a string, or thrown) is a chip; the command refuses a record it cannot
+  parse instead of overwriting it, degrades with a note when the vendored client ships no rename
+  reader, and takes `BLANK_BOX_BASELINE` and `BLANK_BOX_LEDGER` so the tests that drive it never
+  touch a committed or vendored file. Two existing tests asserted the wrong reading
+  (their "demotion" baselines had never measured the slug) and now describe a real demotion.
+  A hand-authored leaf that stops applying banks whichever way the slug falls: onto an anatomy doc,
+  or, with no doc to catch it, onto a bare chip. Both are one upstream event, the leaves live in the
+  vendored renderer, and refusing the second halted the nightly on a slug no maintainer of this repo
+  can fix, gated only on whether knowledge happened to ship an anatomy doc for it. The chip fall is
+  a real loss, so it is worded as one (`LOST REAL MARKUP`) rather than filed with the ordinary
+  fallbacks. The rename ambiguity guard counts claims per class: a retired name still measured
+  tonight is not a rival claimant, because it is still there under its own name, but two names that
+  both linger toward one slug leave no way to say whose row that slug's count belongs to, so neither
+  is applied and the slug reads as a newcomer. Counting the two classes together let the order of
+  `previousSlugs`, which is just the order a component was renamed in, decide whether a night banked
+  or reported a regression and halted. Measuring now refuses outright when the vendored renderer
+  exports no `BUILT_SLUGS`: an empty export would skip no slug, measure every built one as if it had
+  never been built, and bank a record whose `builtSlugs` is `[]`, which the fail-closed path cannot
+  catch because that record still has the field. The drift failure words each class once, from
+  `summarizeBank`, instead of naming every improvement, newcomer, promotion and departure a second
+  time under a second heading. A name the ledger retired that is still measured tonight
+  gets its own row, naming the retired name it answers to, rather than reporting a component the
+  baseline has measured for weeks as a newcomer; the row is worded as a loss only when the retired
+  name rendered real markup, so a chip renamed to a chip no longer claims something was lost. A component that
+  lost real markup is reported once, from one place, whichever of the three routes it arrived by: a
+  retired leaf that fell to a chip, a carried-over rename whose new name is a chip, or a rename the
+  ledger could not carry over. Worded separately they printed two contradictory lines about one
+  component, and left the commonest shape of all reported as a routine rename note with no counts at
+  all: an ordinary rename whose new name has no leaf, where the same-name path suppresses the fall as
+  a demotion and the chip class excludes a renamed slug, so the fall appeared nowhere. Each line
+  names the retired name, the boxes it fell from, and which of the three causes applies. Left as
+  found, filed as plugin #319: `authorableSlugs()` reads every table in the authoring file, so a leaf
+  keyed to a slug the registry has renamed never leaves the vocabulary. Left as found, filed as
+  plugin #320: with the new-blank refusal gone, the blank-box total has no bound on the nightly path,
+  because the vendor job re-banks before any test runs, so a corpus that grows by a few boxes a night
+  is reported only as a line in an auto-merged PR body.
+
 - **The fidelity ledger named a reference image that was never compared, and after the prune above it
   would have named a missing file on every row.** ([#314](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/314))
   `ledgerRow()` in `scripts/fidelity/run-fidelity.js` emitted
