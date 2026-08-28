@@ -126,6 +126,71 @@ are summarized at the release level.
 
 ### Fixed
 
+- **The vendor alarm read an empty PR queue as healthy, so a refresh that died before opening a PR
+  reported success on the night the plugin stopped consuming knowledge.** ([#323](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/323), plugin #317) On 2026-08-27 the refresh failed at "Re-record the blank-box baseline" and the
+  four steps after it, including the ones that open and auto-merge the PR, were skipped;
+  `vendor-queue-alarm.sh`, which decides stuck, healthy or unknown by inspecting open vendor PRs,
+  found none and cleared. A queue cannot show a PR that was never opened, so the step now passes the
+  job's own status (`REFRESH_OUTCOME: ${{ job.status }}`), the run URL, and the number and operation
+  (created or updated) of the PR carrying tonight's refresh when one exists. A failed refresh raises
+  or updates the alarm and can never clear it, saying which PR carries tonight's refresh or that the
+  PR step reported none. That wording is deliberate: `create-pull-request` sets its outputs last, so
+  an empty output is not proof no PR exists, and the alarm states what is known rather than that the
+  plugin consumed nothing. If that PR had already merged, nothing is raised and the run summary says
+  so; whether it merged is read with gh's exit code, so a 502 is unknown rather than "not merged",
+  which would put a false title on a night the knowledge landed. The queue is read on every verdict,
+  because the pile is the signal: an older stuck PR is named in the same alarm, what could not be
+  read is named in that same body rather than dropped, and a green vendor PR with auto-merge not
+  enabled is stuck, since it will never merge. A PR is healthy only when every check reported a
+  conclusion on an explicit passing list (`SUCCESS`, `SKIPPED`, `NEUTRAL`, the ones GitHub itself
+  counts as passing for a required check, so auto-merge fires on them); `STALE`, which describes an
+  older commit, and anything GitHub adds later are unknown. The list is positive on purpose, but
+  reading it as `SUCCESS` only would have been the opposite mistake: a vendor PR carrying one skipped
+  required check would read unknown every night and the alarm could never clear. The conclusion is
+  read as the first NON-EMPTY of `.conclusion`, `.state`, `PENDING`, not through `//`: jq's `//`
+  falls through on null and false but not on `""`, and gh reports a check that is still running as
+  `"conclusion": ""` with no `.state` key, so three running checks joined to `,,`, which is not empty
+  and holds no non-passing token. The PR read healthy and cleared the alarm while its checks were
+  still running, which is defect 2 from the script's own header. An empty token is also named rather
+  than dropped on the shell side, since an empty line survives `grep -v` and then vanishes in
+  `paste`. Only the PR this run created is exempt from "pending is
+  unknown", so a transient alarm no longer clears only on a night nothing was published; an updated
+  PR keeps its history. When that exempt PR is the only one open, nothing was measured, so the clear
+  says the queue drained apart from tonight's PR rather than claiming every PR reports healthy. A
+  cancelled run is treated as a failed refresh: a cancel is a timeout, a concurrency cancel or a lost
+  runner as often as it is a human, and its own quiet verdict let a nightly that hangs every night go
+  silent under a status word. An absent status never clears. A failed refresh whose queue cannot be
+  read is raised rather than only logged, since the refresh is known to have failed whatever the
+  queue says. The alarm is raised from one path for every cause, one headline and one note are
+  assembled per night so the run summary and the issue body cannot disagree, and when gh cannot list,
+  create or comment, the reason goes to the run summary instead of nowhere. Each PR's checks, merge
+  state and auto-merge are read in one gh call rather than three, joined on `|` rather than a tab,
+  since two of the four fields are empty on a healthy PR and `read` collapses whitespace delimiters.
+  A PR is healthy only if GitHub reports it mergeable now: `CLEAN`, `HAS_HOOKS` or `UNSTABLE`.
+  `mergeStateStatus` was reduced to conflicts-or-not, so `BLOCKED`, which means a required check that
+  never reported or a required review, cleared the alarm with every check green, though `gh pr merge
+  --auto` queues silently on it and never fires. `BLOCKED` and `DRAFT` are stuck; `BEHIND` and
+  `UNKNOWN` are neither, so they are unknown. The queue is read with `--limit 100`, because gh pages
+  at 30 newest-first and a pile is exactly when it exceeds that window, so the oldest and most stuck
+  fell outside it. Tonight's own PR is exempt from every stuck test rather than only from the
+  pending-checks reading: `gh pr merge --auto` runs in the step before, so the lag before
+  `autoMergeRequest` appears raised an alarm about the one PR that had just succeeded. The test stub
+  now emits the JSON gh really returns and lets the script's own `--jq` run through real jq: it used
+  to answer with the already-joined row, so no test ever executed the filter and every semantic
+  element of it, including the empty-conclusion fallback above, could be deleted with the suite
+  green. A PR that is no longer open is not in the queue: a vendor PR carries auto-merge, so one can merge
+  between the listing and its own read, and it would then report no auto-merge request and be called
+  stuck for doing exactly what it was built to do. The test that pins the questions asked reads the
+  `--json` field list itself rather than the command line, because every field name also appears in
+  the `--jq` filter, so dropping one from `--json` left the suite green while jq read the absent
+  field as null for every PR, which would have fired the alarm every night.
+  The script also writes the failure line of the run
+  summary, which used to say "no changes" for a dead refresh; the Summarize step keeps only the
+  success lines, guarded on success. The contract is asserted against the workflow YAML step by step,
+  including `if: always()` and the four inputs by their expressions, with the step slice bounded by
+  the step's own indent and asserted to hold exactly one step, so an assertion cannot pass against a
+  slice that quietly ran to the end of the file.
+
 - **A component new to the plugin was reported as "demoted to a bare chip", and the false verdict
   halted all knowledge consumption.** ([#321](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/321), plugin #318) `dropdown`
   arrived in knowledge v0.34.155 as a real slot-based menu with no render leaf yet, so it renders as a
