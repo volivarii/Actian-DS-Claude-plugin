@@ -1,0 +1,260 @@
+{
+  "_schema_version": 1,
+  "slug": "pagination",
+  "kit": "dskit",
+  "synced_at": "2026-08-26T14:16:00.631Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "15295:14916"
+  },
+  "quality": {
+    "nodesTotal": 10,
+    "nodesNormalized": 10,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "Pagination",
+    "kind": "container",
+    "id": "15295:14916",
+    "layout": {
+      "axis": "row",
+      "gap": "0px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Pagination",
+        "kind": "container",
+        "id": "15295:14917",
+        "appearance": {
+          "background": "#ffffff"
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "end",
+            "cross": "end"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Current page",
+            "kind": "container",
+            "id": "15295:14918",
+            "appearance": {
+              "background": "#ffffff"
+            },
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "16px",
+                "bottom": "0px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "1",
+                "kind": "text",
+                "id": "15295:14919",
+                "appearance": {
+                  "text": {
+                    "color": "#12131f",
+                    "size": "14px",
+                    "weight": 600,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "1"
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": true,
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Small",
+                  "State": "Default"
+                },
+                "id": "15295:14920",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "of 2 pages",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "15295:14921",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": "of 2 pages"
+              }
+            ]
+          },
+          {
+            "name": "Previous",
+            "kind": "container",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
+            "id": "15295:14922",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
+                "width": "1px"
+              }
+            },
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "20px",
+                "right": "20px",
+                "bottom": "20px",
+                "left": "20px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": true,
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Small",
+                  "State": "Default"
+                },
+                "id": "15295:14923",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Next",
+            "kind": "container",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
+            "id": "15295:14924",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
+                "width": "1px"
+              }
+            },
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "20px",
+                "right": "20px",
+                "bottom": "20px",
+                "left": "20px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": true,
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Small",
+                  "State": "Default"
+                },
+                "id": "15295:14925",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

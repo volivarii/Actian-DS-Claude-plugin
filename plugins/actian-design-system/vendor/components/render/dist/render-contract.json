@@ -35,14 +35,7 @@
           "default": "Cancel"
         }
       ],
-      "variants": {
-        "Property 1": {
-          "values": [
-            "Default"
-          ],
-          "rendersAs": {}
-        }
-      }
+      "variants": {}
     },
     "alert-banner": {
       "group": "Feedback",
@@ -148,14 +141,7 @@
           "name": "Items"
         }
       ],
-      "variants": {
-        "Type": {
-          "values": [
-            "Default"
-          ],
-          "rendersAs": {}
-        }
-      }
+      "variants": {}
     },
     "button": {
       "group": "Action",
@@ -311,52 +297,6 @@
         }
       }
     },
-    "chat-with-ai-steward": {
-      "group": "Overlays",
-      "props": [
-        {
-          "name": "Confidence"
-        },
-        {
-          "name": "Context"
-        },
-        {
-          "name": "Greeting"
-        },
-        {
-          "name": "Insight",
-          "default": "This dataset has three upstream sources and feeds two published reports. Review its lineage before changing the schema."
-        },
-        {
-          "name": "Source"
-        },
-        {
-          "name": "State"
-        },
-        {
-          "name": "Title",
-          "default": "AI Steward"
-        }
-      ],
-      "variants": {
-        "size": {
-          "values": [
-            "Default",
-            "Drawer"
-          ],
-          "rendersAs": {}
-        },
-        "history": {
-          "values": [
-            "Closed",
-            "Open"
-          ],
-          "rendersAs": {
-            "Open": "Closed"
-          }
-        }
-      }
-    },
     "checkbox": {
       "group": "Form",
       "props": [
@@ -450,6 +390,49 @@
         }
       }
     },
+    "date-input": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper"
+        },
+        {
+          "name": "Label",
+          "default": "Date"
+        },
+        {
+          "name": "Placeholder text",
+          "default": "MM/DD/YYYY"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Single date",
+            "Date range"
+          ],
+          "rendersAs": {}
+        },
+        "States": {
+          "values": [
+            "Enabled",
+            "Hovered",
+            "Focused",
+            "Error",
+            "Disabled",
+            "Fille",
+            "Activ"
+          ],
+          "rendersAs": {
+            "Hovered": "Enabled",
+            "Focused": "Enabled",
+            "Error": "Enabled",
+            "Fille": "Enabled",
+            "Activ": "Enabled"
+          }
+        }
+      }
+    },
     "digram-item-types": {
       "group": "Data Display",
       "props": [
@@ -490,7 +473,17 @@
             "Glossary 2",
             "Glossary 3",
             "Glossary 4",
-            "Glossary 5"
+            "Glossary 5",
+            "Topic 10",
+            "Topic 1",
+            "Topic 2",
+            "Topic 3",
+            "Topic 4",
+            "Topic 5",
+            "Topic 6",
+            "Topic 7",
+            "Topic 8",
+            "Topic 9"
           ],
           "rendersAs": {
             "Custom 1": "Category",
@@ -506,9 +499,9 @@
         },
         "Size": {
           "values": [
-            "Small",
-            "Default",
-            "Large"
+            "XS",
+            "SM",
+            "MD"
           ],
           "rendersAs": {}
         }
@@ -651,6 +644,19 @@
         }
       ],
       "variants": {
+        "Empty": {
+          "values": [
+            "Default",
+            "Maintenance",
+            "Error state",
+            "Confirmation"
+          ],
+          "rendersAs": {
+            "Maintenance": "Default",
+            "Error state": "Default",
+            "Confirmation": "Default"
+          }
+        },
         "Size": {
           "values": [
             "Large",
@@ -747,49 +753,6 @@
         }
       }
     },
-    "input-date": {
-      "group": "Form",
-      "props": [
-        {
-          "name": "Helper"
-        },
-        {
-          "name": "Label",
-          "default": "Date"
-        },
-        {
-          "name": "Placeholder text",
-          "default": "MM/DD/YYYY"
-        }
-      ],
-      "variants": {
-        "Type": {
-          "values": [
-            "Single date",
-            "Date range"
-          ],
-          "rendersAs": {}
-        },
-        "States": {
-          "values": [
-            "Enabled",
-            "Hovered",
-            "Focused",
-            "Error",
-            "Disabled",
-            "Fille",
-            "Activ"
-          ],
-          "rendersAs": {
-            "Hovered": "Enabled",
-            "Focused": "Enabled",
-            "Error": "Enabled",
-            "Fille": "Enabled",
-            "Activ": "Enabled"
-          }
-        }
-      }
-    },
     "lineage-grouped-node": {
       "group": "Data Display",
       "props": [
@@ -846,25 +809,48 @@
       "variants": {
         "Type": {
           "values": [
-            "Main item",
-            "Sub item"
+            "Individual main node",
+            "Individual sub item",
+            "Group sub item",
+            "Group main item",
+            "Connector up",
+            "Connector down",
+            "Connector straight"
           ],
-          "rendersAs": {}
+          "rendersAs": {
+            "Group sub item": "Individual sub item",
+            "Group main item": "Individual main node",
+            "Connector up": "Individual main node",
+            "Connector down": "Individual main node",
+            "Connector straight": "Individual main node"
+          }
         },
         "State": {
           "values": [
             "Default",
             "Selected",
-            "Disabled"
+            "Disabled",
+            "Expanded"
           ],
-          "rendersAs": {}
+          "rendersAs": {
+            "Expanded": "Default"
+          }
         },
         "Fields": {
           "values": [
             "Collapsed",
-            "Expanded"
+            "Expanded",
+            "Default",
+            "Selected",
+            "Disabled",
+            "n/a"
           ],
-          "rendersAs": {}
+          "rendersAs": {
+            "Default": "Collapsed",
+            "Selected": "Collapsed",
+            "Disabled": "Collapsed",
+            "n/a": "Collapsed"
+          }
         }
       }
     },
@@ -904,11 +890,11 @@
           "values": [
             "99%",
             "10%",
-            "Percent3"
+            "50"
           ],
           "rendersAs": {
-            "10%": "99%",
-            "Percent3": "99%"
+            "50": "99%",
+            "10%": "99%"
           }
         }
       }
@@ -985,7 +971,7 @@
         }
       }
     },
-    "metamodel-widget": {
+    "metamodel": {
       "group": "Data Display",
       "props": [
         {
@@ -1011,7 +997,11 @@
             "Business Term",
             "Data Process",
             "Field",
-            "Visualisation"
+            "Visualisation",
+            "Connector 4",
+            "Connector 1",
+            "Connector 2",
+            "Connector 3"
           ],
           "rendersAs": {}
         }
@@ -1413,14 +1403,7 @@
           "name": "Segments"
         }
       ],
-      "variants": {
-        "Property 1": {
-          "values": [
-            "Default"
-          ],
-          "rendersAs": {}
-        }
-      }
+      "variants": {}
     },
     "side-nav": {
       "group": "Navigation",
@@ -1546,46 +1529,7 @@
           "name": "Items"
         }
       ],
-      "variants": {
-        "Property 1": {
-          "values": [
-            "Default"
-          ],
-          "rendersAs": {}
-        }
-      }
-    },
-    "tag-default": {
-      "group": "Data Display",
-      "props": [
-        {
-          "name": "Label"
-        },
-        {
-          "name": "Leading icon show"
-        }
-      ],
-      "variants": {
-        "Type": {
-          "values": [
-            "Default",
-            "Catalog",
-            "Shared",
-            "Stage-1",
-            "Stage-2",
-            "Stage-3",
-            "Stage-4",
-            "Stage-5",
-            "Stage-6",
-            "Stage-7",
-            "Stage-8",
-            "Status-error",
-            "Status-warning",
-            "Status-success"
-          ],
-          "rendersAs": {}
-        }
-      }
+      "variants": {}
     },
     "tag-interactive": {
       "group": "Data Display",
@@ -1650,7 +1594,7 @@
         }
       ],
       "variants": {
-        "Property 1": {
+        "Type": {
           "values": [
             "Glossary-1",
             "Glossary-2",
@@ -1680,6 +1624,38 @@
             "Output port",
             "Use case",
             "Visualization"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "tag-read-only": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Leading icon show"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Default",
+            "Catalog",
+            "Shared",
+            "Stage-1",
+            "Stage-2",
+            "Stage-3",
+            "Stage-4",
+            "Stage-5",
+            "Stage-6",
+            "Stage-7",
+            "Stage-8",
+            "Status-error",
+            "Status-warning",
+            "Status-success"
           ],
           "rendersAs": {}
         }

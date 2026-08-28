@@ -7,13 +7,13 @@ title: "Calendar usage guidelines"
 
 * Use it to pick a date range where the span between start and end should stay visible while choosing.
 
-* Use it attached to a [date input](input-date) as the picking surface, or on its own when the month view is the main content of the screen.
+* Use it attached to a [date input](date-input) as the picking surface, or on its own when the month view is the main content of the screen.
 
 ## When not to use
 
-* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](input-date), which pairs typing with an attached calendar.
+* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](date-input), which pairs typing with an attached calendar.
 
-* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](input-date) is faster.
+* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](date-input) is faster.
 
 * Don't use it to display schedules or events: it is a picking control, not a timeline view.
 

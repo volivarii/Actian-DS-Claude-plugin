@@ -92,7 +92,7 @@ var RENDER_SLUGS = readRenderSlugs();
 // `class="ds-tag ds-tag-stage ds-tag--orange ds-tag-stage--orange"` so its own
 // scoped modifier could override the shared hue for itself alone, and `.ds-tag`
 // was claimed by five tag-family members at once. Figma folded all five into
-// tag-default's single `Type` axis, so `.ds-tag` now has exactly one owner and
+// tag-read-only's single `Type` axis, so `.ds-tag` now has exactly one owner and
 // the family-scope handling in the fidelity classifier (shared-base-no-single-
 // subject, the subjectKey cascade collapse) has no subject in this corpus --
 // tests/render/css-owners.test.js enumerates that population so it can never be
@@ -105,7 +105,6 @@ var CSS_OWNERS = {
   breadcrumb: ["ds-breadcrumbs"],
   "card-for-grouped-content": ["ds-card-grouped"],
   "card-for-perimeter": ["ds-card-perimeter"],
-  "chat-with-ai-steward": ["ds-steward"],
   "digram-item-types": ["ds-item-type"],
   "digram-topic": ["ds-topic"],
   "drawer-side-panel": ["ds-drawer"],
@@ -118,7 +117,7 @@ var CSS_OWNERS = {
   "search-dropdown-menu": ["ds-search-menu"],
   "segmented-control": ["ds-segmented"],
   "side-nav": ["ds-sidenav"],
-  "tag-default": ["ds-tag"],
+  "tag-read-only": ["ds-tag"],
   "text-input": ["ds-field"],
   "whats-new-dropdown": ["ds-whatsnew"],
 };
@@ -181,7 +180,7 @@ function allIdentityValueCells(slug) {
 // reduced: `quality.structuralVariants` entries whose reason is a child-count
 // shortfall (`childCount:<canonical>!=<actual>`, actual < canonical).
 //
-// Why this exists at all. tag-default's Type=Shared has 1 child where the
+// Why this exists at all. tag-read-only's Type=Shared has 1 child where the
 // canonical node has 2, and the missing one is the leading icon: the pre-sync
 // tag-shared capture had exactly one child (`Shared`, a text node) and the
 // retired tag-shared case rendered label-only. The 2026-08-12 fold-in gave the
@@ -340,7 +339,7 @@ var MATRIX_OVERRIDES = {
     },
   ],
 
-  // tag-default's identity axis has more than 5 values, so the generic cap
+  // tag-read-only's identity axis has more than 5 values, so the generic cap
   // would drop most of them; the axis IS the component's identity here, so show
   // every value. DERIVED, not listed: this used to spell out nine Color names,
   // and the 2026-08-12 fold-in replaced Color with a 14-value Type axis --
@@ -348,7 +347,7 @@ var MATRIX_OVERRIDES = {
   // which is the fabrication invariant 10 exists to catch. Deriving removes the
   // failure mode instead of testing for it (invariant 10 keeps guarding the
   // overrides that really are curated, below).
-  "tag-default": allIdentityValueCells("tag-default"),
+  "tag-read-only": allIdentityValueCells("tag-read-only"),
 
   // Size is a secondary axis (filtered by isSecondaryAxis), so the generic
   // derivation falls back to a single bare cell with no props. Curate one
@@ -368,9 +367,9 @@ var MATRIX_OVERRIDES = {
     },
   ],
 
-  // Same rationale, same derive, as tag-default above. tag-stage, tag-status
+  // Same rationale, same derive, as tag-read-only above. tag-stage, tag-status
   // and tag-glossary-item-type had overrides here until the 2026-08-12 sync
-  // retired all three into tag-default's Type axis; tag-catalog-item-type's
+  // retired all three into tag-read-only's Type axis; tag-catalog-item-type's
   // eight hand-listed `Type=` values went with the rename, since the renamed
   // component publishes 28 values on a `Property 1` axis instead. Every value
   // is a distinct colored pill, i.e. the component's identity, so the whole
@@ -728,13 +727,13 @@ var MATRIX_OVERRIDES = {
 // input a "Use MM/DD/YYYY.", with no way to turn them off. The strings below
 // are those, moved to the layer that actually wanted them.
 //
-// #544 moved twelve. The thirteenth, chat-with-ai-steward's context chip, went
-// on shipping in the renderer because it wore a different shape (a variable
-// initialised to the literal, not a `props.X ? el : ""` conditional), and the
-// omission test that guards this map ITERATES this map, so a slot missing here
-// was a slot nothing checked. The guard that needs no list is
-// tests/render/sparse-render-ratchet.test.js: it renders every slug with no
-// props at all and fails when one starts producing parts it did not before.
+// #544 moved twelve. The thirteenth wore a different shape (a variable
+// initialised to the literal, not a `props.X ? el : ""` conditional) and went on
+// shipping in the renderer, because the omission test that guards this map
+// ITERATES this map, so a slot missing here was a slot nothing checked. The
+// guard that needs no list is tests/render/sparse-render-ratchet.test.js: it
+// renders every slug with no props at all and fails when one starts producing
+// parts it did not before.
 //
 // Provenance travels with the value, in the words it had in the renderer:
 // `capture:` quotes components/dist/anatomy/<slug>.json, `authored:` means the
@@ -770,7 +769,7 @@ var SPECIMEN_PROPS = {
   stepper: { Body: "Optional body" },
 
   // authored: the capture holds "Date", "*" and "mm/dd/yyyy" but no helper layer
-  "input-date": { Helper: "Use MM/DD/YYYY." },
+  "date-input": { Helper: "Use MM/DD/YYYY." },
 
   "dropdown-select-default": {
     // capture: anatomy/dropdown-select-default.json layer "description"
@@ -788,13 +787,6 @@ var SPECIMEN_PROPS = {
     // single space so no raw line separator reaches the rendered markup
     Body: "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline. Learn how to navigate data lineage using mouse and keyboard controls.",
   },
-
-  // authored: anatomy/chat-with-ai-steward.json holds zero text nodes, so the
-  // context chip has no captured string. It names the asset the steward session
-  // is scoped to, which is what the Figma preview shows the chip doing. The
-  // renderer accepts this bare-string form and the object form {type, name}
-  // alike; the gallery uses the string.
-  "chat-with-ai-steward": { Context: "Dataset Customer Orders" },
 
   // substituted, not captured: anatomy/account-dropdown.json holds what reads as
   // a real person's name and address at an external domain. Shipping that as

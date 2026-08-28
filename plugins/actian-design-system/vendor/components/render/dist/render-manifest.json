@@ -93,14 +93,6 @@
       "source": "rendered"
     },
     {
-      "slug": "chat-with-ai-steward",
-      "tagName": "zen-chat-with-ai-steward",
-      "group": "Overlays",
-      "fragment": "fragments/chat-with-ai-steward.html",
-      "tokensConsumed": 28,
-      "source": "rendered"
-    },
-    {
       "slug": "checkbox",
       "tagName": "zen-checkbox",
       "group": "Form",
@@ -122,6 +114,14 @@
       "group": "Feedback",
       "fragment": "fragments/confirmation.html",
       "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "date-input",
+      "tagName": "zen-date-input",
+      "group": "Form",
+      "fragment": "fragments/date-input.html",
+      "tokensConsumed": 18,
       "source": "rendered"
     },
     {
@@ -181,14 +181,6 @@
       "source": "rendered"
     },
     {
-      "slug": "input-date",
-      "tagName": "zen-input-date",
-      "group": "Form",
-      "fragment": "fragments/input-date.html",
-      "tokensConsumed": 18,
-      "source": "rendered"
-    },
-    {
       "slug": "lineage-grouped-node",
       "tagName": "zen-lineage-grouped-node",
       "group": "Data Display",
@@ -245,10 +237,10 @@
       "source": "rendered"
     },
     {
-      "slug": "metamodel-widget",
-      "tagName": "zen-metamodel-widget",
+      "slug": "metamodel",
+      "tagName": "zen-metamodel",
       "group": "Data Display",
-      "fragment": "fragments/metamodel-widget.html",
+      "fragment": "fragments/metamodel.html",
       "tokensConsumed": 12,
       "source": "rendered"
     },
@@ -397,14 +389,6 @@
       "source": "rendered"
     },
     {
-      "slug": "tag-default",
-      "tagName": "zen-tag-default",
-      "group": "Data Display",
-      "fragment": "fragments/tag-default.html",
-      "tokensConsumed": 15,
-      "source": "rendered"
-    },
-    {
       "slug": "tag-interactive",
       "tagName": "zen-tag-interactive",
       "group": "Data Display",
@@ -418,6 +402,14 @@
       "group": "Data Display",
       "fragment": "fragments/tag-item-type.html",
       "tokensConsumed": 9,
+      "source": "rendered"
+    },
+    {
+      "slug": "tag-read-only",
+      "tagName": "zen-tag-read-only",
+      "group": "Data Display",
+      "fragment": "fragments/tag-read-only.html",
+      "tokensConsumed": 15,
       "source": "rendered"
     },
     {

@@ -2,11 +2,10 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14747:14818",
-    "variant": "Property 1=Default"
+    "nodeId": "7279:3297"
   },
   "quality": {
     "nodesTotal": 13,
@@ -15,7 +14,7 @@
     "degraded": []
   },
   "root": {
-    "name": "Property 1=Default",
+    "name": "Tabs",
     "kind": "container",
     "tokenRefs": [
       "--zen-border-default"
@@ -49,7 +48,7 @@
     },
     "children": [
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -68,7 +67,7 @@
         }
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -81,7 +80,7 @@
         "id": "7279:3255"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -94,7 +93,7 @@
         "id": "7279:3256"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -107,7 +106,7 @@
         "id": "7279:3257"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -120,7 +119,7 @@
         "id": "7279:3258"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -133,7 +132,7 @@
         "id": "14072:3943"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -146,7 +145,7 @@
         "id": "14797:17631"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -159,7 +158,7 @@
         "id": "14797:17697"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -172,7 +171,7 @@
         "id": "14797:17727"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -185,7 +184,7 @@
         "id": "14797:17757"
       },
       {
-        "name": ".tab",
+        "name": ".tab-nav-item",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -208,8 +207,5 @@
         "id": "14797:18240"
       }
     ]
-  },
-  "variantDefaults": {
-    "Property 1": "Default"
   }
 }

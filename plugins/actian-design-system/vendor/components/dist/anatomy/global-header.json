@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "global-header",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:22554",
@@ -291,7 +291,7 @@
         },
         "children": [
           {
-            "name": ".global header utility nav item",
+            "name": ".global header nav item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -304,7 +304,7 @@
             }
           },
           {
-            "name": ".global header utility nav item",
+            "name": ".global header nav item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -317,7 +317,7 @@
             }
           },
           {
-            "name": ".global header utility nav item",
+            "name": ".global header nav item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -330,7 +330,7 @@
             }
           },
           {
-            "name": ".global header utility nav item",
+            "name": ".global header nav item",
             "kind": "instance",
             "unresolved": true,
             "props": {

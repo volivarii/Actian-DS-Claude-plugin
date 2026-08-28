@@ -2,20 +2,82 @@
   "_schema_version": 1,
   "slug": "digram-item-types",
   "kit": "dskit",
-  "synced_at": "2026-07-15T12:44:12.117Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14007:23209",
-    "variant": "Item type=Category, Size=Default"
+    "variant": "Item type=Category, Size=SM"
   },
   "quality": {
     "nodesTotal": 2,
     "nodesNormalized": 2,
     "ratio": 1,
-    "degraded": []
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "Item type",
+        "value": "Topic 1",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 10",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 2",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 3",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 4",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 5",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 6",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 7",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 8",
+        "path": "",
+        "reason": "childCount:1!=2"
+      },
+      {
+        "prop": "Item type",
+        "value": "Topic 9",
+        "path": "",
+        "reason": "childCount:1!=2"
+      }
+    ]
   },
   "root": {
-    "name": "Item type=Category, Size=Default",
+    "name": "Item type=Category, Size=SM",
     "kind": "container",
     "id": "14007:23210",
     "appearance": {
@@ -149,6 +211,76 @@
             "Glossary 5"
           ],
           "background": "#fff5d5"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 1"
+          ],
+          "background": "#a17ab6"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 10"
+          ],
+          "background": "#b22700"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 2"
+          ],
+          "background": "#8b00e8"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 3"
+          ],
+          "background": "#00b6e1"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 4"
+          ],
+          "background": "#003786"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 5"
+          ],
+          "background": "#75b86b"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 6"
+          ],
+          "background": "#299315"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 7"
+          ],
+          "background": "#eabd34"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 8"
+          ],
+          "background": "#ef8d00"
+        },
+        {
+          "prop": "Item type",
+          "values": [
+            "Topic 9"
+          ],
+          "background": "#a82743"
         },
         {
           "prop": "Item type",
@@ -459,7 +591,7 @@
             {
               "prop": "Size",
               "values": [
-                "Large"
+                "MD"
               ],
               "text": {
                 "color": "#c12c11",
@@ -478,6 +610,6 @@
   },
   "variantDefaults": {
     "Item type": "Category",
-    "Size": "Default"
+    "Size": "SM"
   }
 }

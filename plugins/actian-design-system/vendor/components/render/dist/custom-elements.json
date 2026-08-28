@@ -87,15 +87,8 @@
           "customElement": true,
           "name": "ActionBar",
           "tagName": "zen-action-bar",
-          "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
+          "description": "ActionBar component.",
+          "attributes": [],
           "cssParts": [],
           "cssProperties": [
             {
@@ -389,15 +382,8 @@
           "customElement": true,
           "name": "Breadcrumb",
           "tagName": "zen-breadcrumb",
-          "description": "This component is built as a custom component by Index-0 and is not officially in the engineering design system library.",
-          "attributes": [
-            {
-              "name": "type",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
+          "description": "Breadcrumb component.",
+          "attributes": [],
           "cssParts": [],
           "cssProperties": [
             {
@@ -780,120 +766,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/chat-with-ai-steward.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "ChatWithAiSteward",
-          "tagName": "zen-chat-with-ai-steward",
-          "description": "ChatWithAiSteward component.",
-          "attributes": [
-            {
-              "name": "size",
-              "type": {
-                "text": "Default | Drawer"
-              }
-            },
-            {
-              "name": "history",
-              "type": {
-                "text": "Closed | Open"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-default"
-            },
-            {
-              "name": "--zen-border-radius-full"
-            },
-            {
-              "name": "--zen-border-radius-md"
-            },
-            {
-              "name": "--zen-border-radius-sm"
-            },
-            {
-              "name": "--zen-border-radius-xs"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-bg-emphasis"
-            },
-            {
-              "name": "--zen-color-bg-subtle"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-icon-primary"
-            },
-            {
-              "name": "--zen-color-icon-subtle"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-placeholder-subtle"
-            },
-            {
-              "name": "--zen-color-text-primary"
-            },
-            {
-              "name": "--zen-color-text-secondary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-lineheight-lg"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-size-xs"
-            },
-            {
-              "name": "--zen-font-weight-medium"
-            },
-            {
-              "name": "--zen-font-weight-semibold"
-            },
-            {
-              "name": "--zen-shadow-xl"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-md"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "components/render/dist/fragments/checkbox.html",
       "declarations": [
         {
@@ -1095,6 +967,90 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/date-input.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DateInput",
+          "tagName": "zen-date-input",
+          "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Single date | Date range"
+              }
+            },
+            {
+              "name": "states",
+              "type": {
+                "text": "Enabled | Hovered | Focused | Error | Disabled | Fille | Activ"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-placeholder"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/digram-item-types.html",
       "declarations": [
         {
@@ -1107,13 +1063,13 @@
             {
               "name": "item type",
               "type": {
-                "text": "Dataset | Data process | Data product | Field | Output port | Use case | Visualization | Category | Custom 1 | Custom 2 | Custom 3 | Custom 4 | Custom 5 | Custom 6 | Custom 7 | Custom 8 | Custom 9 | Custom 10 | Custom 11 | Custom 12 | Custom 13 | Custom 14 | Custom 16 | Glossary 1 | Glossary 2 | Glossary 3 | Glossary 4 | Glossary 5"
+                "text": "Dataset | Data process | Data product | Field | Output port | Use case | Visualization | Category | Custom 1 | Custom 2 | Custom 3 | Custom 4 | Custom 5 | Custom 6 | Custom 7 | Custom 8 | Custom 9 | Custom 10 | Custom 11 | Custom 12 | Custom 13 | Custom 14 | Custom 16 | Glossary 1 | Glossary 2 | Glossary 3 | Glossary 4 | Glossary 5 | Topic 10 | Topic 1 | Topic 2 | Topic 3 | Topic 4 | Topic 5 | Topic 6 | Topic 7 | Topic 8 | Topic 9"
               }
             },
             {
               "name": "size",
               "type": {
-                "text": "Small | Default | Large"
+                "text": "XS | SM | MD"
               }
             }
           ],
@@ -1399,6 +1355,12 @@
           "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
           "attributes": [
             {
+              "name": "empty",
+              "type": {
+                "text": "Default | Maintenance | Error state | Confirmation"
+              }
+            },
+            {
               "name": "size",
               "type": {
                 "text": "Large | Medium | Small"
@@ -1596,90 +1558,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/input-date.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "InputDate",
-          "tagName": "zen-input-date",
-          "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
-          "attributes": [
-            {
-              "name": "type",
-              "type": {
-                "text": "Single date | Date range"
-              }
-            },
-            {
-              "name": "states",
-              "type": {
-                "text": "Enabled | Hovered | Focused | Error | Disabled | Fille | Activ"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-default"
-            },
-            {
-              "name": "--zen-border-radius-xs"
-            },
-            {
-              "name": "--zen-color-bg-default"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-text-placeholder"
-            },
-            {
-              "name": "--zen-color-text-secondary"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-2"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-md"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-md"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-medium"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-spacing-2xs"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "components/render/dist/fragments/lineage-grouped-node.html",
       "declarations": [
         {
@@ -1758,19 +1636,19 @@
             {
               "name": "type",
               "type": {
-                "text": "Main item | Sub item"
+                "text": "Individual main node | Individual sub item | Group sub item | Group main item | Connector up | Connector down | Connector straight"
               }
             },
             {
               "name": "state",
               "type": {
-                "text": "Default | Selected | Disabled"
+                "text": "Default | Selected | Disabled | Expanded"
               }
             },
             {
               "name": "fields",
               "type": {
-                "text": "Collapsed | Expanded"
+                "text": "Collapsed | Expanded | Default | Selected | Disabled | n/a"
               }
             }
           ],
@@ -1887,7 +1765,7 @@
             {
               "name": "percent",
               "type": {
-                "text": "99% | 10% | Percent3"
+                "text": "99% | 10% | 50"
               }
             }
           ],
@@ -2049,19 +1927,19 @@
     },
     {
       "kind": "javascript-module",
-      "path": "components/render/dist/fragments/metamodel-widget.html",
+      "path": "components/render/dist/fragments/metamodel.html",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
-          "name": "MetamodelWidget",
-          "tagName": "zen-metamodel-widget",
-          "description": "MetamodelWidget component.",
+          "name": "Metamodel",
+          "tagName": "zen-metamodel",
+          "description": "Metamodel component.",
           "attributes": [
             {
               "name": "type",
               "type": {
-                "text": "Dataset | Business Term | Data Process | Field | Visualisation"
+                "text": "Dataset | Business Term | Data Process | Field | Visualisation | Connector 4 | Connector 1 | Connector 2 | Connector 3"
               }
             }
           ],
@@ -2977,15 +2855,8 @@
           "customElement": true,
           "name": "SegmentedControl",
           "tagName": "zen-segmented-control",
-          "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").S",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
+          "description": "SegmentedControl component.",
+          "attributes": [],
           "cssParts": [],
           "cssProperties": [
             {
@@ -3322,15 +3193,8 @@
           "customElement": true,
           "name": "Tabs",
           "tagName": "zen-tabs",
-          "description": "Use to switch between related views within the same context without navigating to a new page. Ideal for organizing content at the same level.",
-          "attributes": [
-            {
-              "name": "property 1",
-              "type": {
-                "text": "Default"
-              }
-            }
-          ],
+          "description": "Tabs component.",
+          "attributes": [],
           "cssParts": [],
           "cssProperties": [
             {
@@ -3371,75 +3235,6 @@
             },
             {
               "name": "--zen-size-xl"
-            },
-            {
-              "name": "--zen-spacing-xs"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "components/render/dist/fragments/tag-default.html",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "TagDefault",
-          "tagName": "zen-tag-default",
-          "description": "This is read-only tag",
-          "attributes": [
-            {
-              "name": "type",
-              "type": {
-                "text": "Default | Catalog | Shared | Stage-1 | Stage-2 | Stage-3 | Stage-4 | Stage-5 | Stage-6 | Stage-7 | Stage-8 | Status-error | Status-warning | Status-success"
-              }
-            }
-          ],
-          "cssParts": [],
-          "cssProperties": [
-            {
-              "name": "--zen-border-radius-xs"
-            },
-            {
-              "name": "--zen-color-error-50"
-            },
-            {
-              "name": "--zen-color-icon-default"
-            },
-            {
-              "name": "--zen-color-neutral-50"
-            },
-            {
-              "name": "--zen-color-success-50"
-            },
-            {
-              "name": "--zen-color-text-default"
-            },
-            {
-              "name": "--zen-color-warning-50"
-            },
-            {
-              "name": "--zen-font-family-text"
-            },
-            {
-              "name": "--zen-font-letterspacing-wide-3"
-            },
-            {
-              "name": "--zen-font-lineheight-sm"
-            },
-            {
-              "name": "--zen-font-size-sm"
-            },
-            {
-              "name": "--zen-font-weight-regular"
-            },
-            {
-              "name": "--zen-size-lg"
-            },
-            {
-              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-xs"
@@ -3547,7 +3342,7 @@
           "description": "This is read-only tag. Use for item types.",
           "attributes": [
             {
-              "name": "property 1",
+              "name": "type",
               "type": {
                 "text": "Glossary-1 | Glossary-2 | Glossary-3 | Glossary-4 | Glossary-5 | Category | Custom-1 | Custom-2 | Custom-3 | Custom-4 | Custom-5 | Custom-6 | Custom-7 | Custom-8 | Custom-9 | Custom-10 | Custom-11 | Custom-12 | Custom-13 | Custom-14 | Custom-15 | Dataset | Data process | Data product | Field | Output port | Use case | Visualization"
               }
@@ -3578,6 +3373,75 @@
             },
             {
               "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/tag-read-only.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TagReadOnly",
+          "tagName": "zen-tag-read-only",
+          "description": "This is read-only tag",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Default | Catalog | Shared | Stage-1 | Stage-2 | Stage-3 | Stage-4 | Stage-5 | Stage-6 | Stage-7 | Stage-8 | Status-error | Status-warning | Status-success"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-error-50"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-neutral-50"
+            },
+            {
+              "name": "--zen-color-success-50"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-warning-50"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-size-lg"
+            },
+            {
+              "name": "--zen-spacing-2xs"
             },
             {
               "name": "--zen-spacing-xs"

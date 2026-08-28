@@ -11,7 +11,7 @@ tags:
   - templates
   - editor
 components:
-  - metamodel-widget
+  - metamodel
   - button
   - text-input
 ---

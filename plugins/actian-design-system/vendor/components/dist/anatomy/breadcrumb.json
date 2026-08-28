@@ -2,11 +2,10 @@
   "_schema_version": 1,
   "slug": "breadcrumb",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "13792:15247",
-    "variant": "Type=Default"
+    "nodeId": "13792:15246"
   },
   "quality": {
     "nodesTotal": 16,
@@ -15,7 +14,7 @@
     "degraded": []
   },
   "root": {
-    "name": "Type=Default",
+    "name": "Breadcrumb",
     "kind": "container",
     "id": "13792:15246",
     "layout": {
@@ -39,7 +38,7 @@
     },
     "children": [
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -50,7 +49,7 @@
         "id": "13792:15217"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -61,7 +60,7 @@
         "id": "13792:15244"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -72,7 +71,7 @@
         "id": "19230:22906"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -83,7 +82,7 @@
         "id": "19230:22902"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -94,7 +93,7 @@
         "id": "13792:15242"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -105,7 +104,7 @@
         "id": "19156:14844"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -116,7 +115,7 @@
         "id": "19156:14840"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -127,7 +126,7 @@
         "id": "13792:15218"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -138,7 +137,7 @@
         "id": "19230:22854"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -149,7 +148,7 @@
         "id": "19230:22866"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -160,7 +159,7 @@
         "id": "19230:22874"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -171,7 +170,7 @@
         "id": "19230:22898"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -182,7 +181,7 @@
         "id": "19230:22886"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -193,7 +192,7 @@
         "id": "19230:22870"
       },
       {
-        "name": ".Breadcrumb-subcomponent",
+        "name": ".Breadcrumb-node",
         "kind": "instance",
         "unresolved": true,
         "props": {
@@ -204,8 +203,5 @@
         "id": "13792:15219"
       }
     ]
-  },
-  "variantDefaults": {
-    "Type": "Default"
   }
 }
