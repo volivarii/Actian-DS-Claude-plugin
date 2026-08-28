@@ -167,7 +167,7 @@ describe("FM-to-DS Map Tests", function () {
                       assert.fail(
                         fmSlug +
                           ": DS component '" +
-                          entry.dsSlug +
+                          shared.slugFromKey(entry.dsKey, "ds") +
                           "' has no variants",
                       );
                     }
@@ -192,7 +192,7 @@ describe("FM-to-DS Map Tests", function () {
                         "'] target '" +
                         dsValue +
                         "' not found in any DS variant axis for '" +
-                        entry.dsSlug +
+                        shared.slugFromKey(entry.dsKey, "ds") +
                         "'. DS axes: " +
                         dsAxes
                           .map(function (a) {
@@ -255,21 +255,38 @@ describe("FM-to-DS Map Tests", function () {
   // Part 5: dsSlug matches slugFromKey(dsKey)
   // ---------------------------------------------------------------------------
 
-  describe("Part 5: dsSlug matches slugFromKey(dsKey)", function () {
+  describe("Part 5: dsKey resolves to a registry slug", function () {
+    // The map used to store a `dsSlug` beside the immutable `dsKey`, and this
+    // block compared the two. That cache had no runtime reader at all
+    // (transform-to-hifi.js has always derived from dsKey), so its only effect
+    // was to go stale on a Figma rename and fail here, pointing at a
+    // `/sync-design-system` command that does not exist in this repo. The field
+    // is gone; what is worth asserting is that the stable key still resolves.
     for (var ref5 in map.mappings) {
       (function (fmSlug) {
         var entry = map.mappings[fmSlug];
-        it(fmSlug + ": dsSlug matches slugFromKey(dsKey)", function () {
+        it(fmSlug + ": dsKey resolves to a registry slug", function () {
+          assert.ok(
+            entry.dsKey,
+            fmSlug + " has no dsKey, so nothing anchors it across a rename",
+          );
           var derived = shared.slugFromKey(entry.dsKey, "ds");
-          assert.strictEqual(
-            entry.dsSlug,
+          assert.ok(
             derived,
             fmSlug +
-              ": dsSlug '" +
-              entry.dsSlug +
-              "' out of sync with derived '" +
-              derived +
-              "' — re-run /sync-design-system to refresh",
+              ": dsKey '" +
+              entry.dsKey +
+              "' resolves to no slug in the vendored registry, so the component " +
+              "it names is gone or was re-keyed (a rename would still resolve)",
+          );
+        });
+        it(fmSlug + ": carries no cached dsSlug", function () {
+          assert.equal(
+            entry.dsSlug,
+            undefined,
+            fmSlug +
+              " re-introduced a cached dsSlug. It has no reader and can only " +
+              "disagree with the registry; derive from dsKey instead",
           );
         });
       })(ref5);
