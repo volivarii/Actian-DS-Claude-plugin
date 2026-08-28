@@ -99,8 +99,8 @@ relatedComponents: [empty-state, error-state, maintenance-state]
 ---
 title: "Forms"
 nav_order: 14
-relatedComponents: [input, checkbox, dropdown-select]
-relatedCategories: [form-input-selection]   # shorthand for every component in the category
+relatedComponents: [text-input, checkbox, dropdown-select]
+relatedCategories: [form]   # shorthand for every component in the category
 ---
 ```
 

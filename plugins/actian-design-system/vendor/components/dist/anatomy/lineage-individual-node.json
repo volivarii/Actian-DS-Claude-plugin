@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
-    "variant": "Type=Main item, State=Default, Fields=Collapsed"
+    "variant": "Type=Individual main node, State=Default, Fields=Collapsed"
   },
   "quality": {
     "nodesTotal": 14,
@@ -19,7 +19,7 @@
       },
       {
         "name": "Featured icon",
-        "reason": "layoutMode:NONE (variant Type=Sub item)"
+        "reason": "layoutMode:NONE (variant Type=Individual sub item)"
       },
       {
         "name": "Featured icon",
@@ -36,18 +36,70 @@
         "value": "Expanded",
         "path": "1",
         "reason": "childCount:3!=7"
+      },
+      {
+        "prop": "Type",
+        "value": "Group main item",
+        "path": "",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Group sub item",
+        "path": "",
+        "reason": "childCount:2!=1"
       }
     ],
     "uncapturedValues": [
       {
+        "prop": "Fields",
+        "value": "Default",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Fields",
+        "value": "Disabled",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Fields",
+        "value": "Selected",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Fields",
+        "value": "n/a",
+        "reason": "no isolated variant"
+      },
+      {
         "prop": "State",
         "value": "Disabled",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "State",
+        "value": "Expanded",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Connector down",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Connector straight",
+        "reason": "no isolated variant"
+      },
+      {
+        "prop": "Type",
+        "value": "Connector up",
         "reason": "no isolated variant"
       }
     ]
   },
   "root": {
-    "name": "Type=Main item, State=Default, Fields=Collapsed",
+    "name": "Type=Individual main node, State=Default, Fields=Collapsed",
     "kind": "container",
     "id": "14747:19904",
     "appearance": {
@@ -78,8 +130,12 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
+          "Show Indicator left": true,
+          "Show Indicator right": true,
+          "Show Identification key": true,
           "Icon": "Collapse",
-          "State": "Default"
+          "State": "Default",
+          "Type": "Collapse control"
         },
         "tokenRefs": [
           "--zen-border-subtle"
@@ -121,7 +177,7 @@
             {
               "prop": "Type",
               "values": [
-                "Sub item"
+                "Individual sub item"
               ],
               "border": {
                 "color": "#0f5fdc",
@@ -197,7 +253,7 @@
                 "slug": "digram-item-types",
                 "props": {
                   "Item type": "Dataset",
-                  "Size": "Large"
+                  "Size": "MD"
                 },
                 "id": "14747:19908",
                 "appearance": {
@@ -369,7 +425,7 @@
               {
                 "name": "Tag, Default",
                 "kind": "instance",
-                "slug": "tag-default",
+                "slug": "tag-read-only",
                 "props": {
                   "Leading icon show": true,
                   "Label": "powerbi",
@@ -456,7 +512,7 @@
     ]
   },
   "variantDefaults": {
-    "Type": "Main item",
+    "Type": "Individual main node",
     "State": "Default",
     "Fields": "Collapsed"
   }

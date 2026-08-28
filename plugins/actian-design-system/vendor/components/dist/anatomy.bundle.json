@@ -5,7 +5,7 @@
       "_schema_version": 1,
       "slug": "account-dropdown",
       "kit": "dskit",
-      "synced_at": "2026-07-08T14:07:52.886Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9118:17382"
@@ -124,7 +124,7 @@
             "id": "9085:21680"
           },
           {
-            "name": ".menu item",
+            "name": ".dropdown-menu-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -134,10 +134,7 @@
               "Type": "Selectable item",
               "State": "Selected"
             },
-            "id": "9096:17446",
-            "appearance": {
-              "radius": "4px"
-            }
+            "id": "9096:17446"
           },
           {
             "name": ".menu item",
@@ -153,7 +150,7 @@
             "id": "14058:2337"
           },
           {
-            "name": ".menu item",
+            "name": ".dropdown-menu-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -163,10 +160,7 @@
               "Type": "Selectable item",
               "State": "Selected"
             },
-            "id": "14058:2325",
-            "appearance": {
-              "radius": "4px"
-            }
+            "id": "14058:2325"
           }
         ]
       }
@@ -1861,11 +1855,10 @@
       "_schema_version": 1,
       "slug": "action-bar",
       "kit": "dskit",
-      "synced_at": "2026-08-24T12:29:56.337Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14747:9839",
-        "variant": "Property 1=Default"
+        "nodeId": "8190:6001"
       },
       "quality": {
         "nodesTotal": 5,
@@ -1874,7 +1867,7 @@
         "degraded": []
       },
       "root": {
-        "name": "Property 1=Default",
+        "name": "Action bar",
         "kind": "container",
         "tokenRefs": [
           "--zen-border-disabled"
@@ -2005,9 +1998,6 @@
             ]
           }
         ]
-      },
-      "variantDefaults": {
-        "Property 1": "Default"
       }
     },
     "adlsgen1": {
@@ -2426,7 +2416,7 @@
       "_schema_version": 1,
       "slug": "app-switcher-dropdown",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9118:17666"
@@ -2470,7 +2460,7 @@
         },
         "children": [
           {
-            "name": ".menu item",
+            "name": ".dropdown-menu-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -2480,13 +2470,10 @@
               "Type": "Selectable item",
               "State": "Selected"
             },
-            "id": "9085:21604",
-            "appearance": {
-              "radius": "4px"
-            }
+            "id": "9085:21604"
           },
           {
-            "name": ".menu item",
+            "name": ".dropdown-menu-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -2496,10 +2483,7 @@
               "Type": "Selectable item",
               "State": "Default"
             },
-            "id": "9085:21605",
-            "appearance": {
-              "radius": "4px"
-            }
+            "id": "9085:21605"
           }
         ]
       }
@@ -3129,7 +3113,7 @@
       "_schema_version": 1,
       "slug": "background-explore",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "16494:19414"
@@ -3182,265 +3166,397 @@
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19380",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19381",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19382",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19383",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19384",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19385",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19386",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19387",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19388",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19389",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19390",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19391",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19392",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19393",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19394",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19395",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19396",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19397",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19398",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19399",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19400",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19401",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19402",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19403",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19404",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19405",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19406",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19407",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19408",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19409",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19410",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19411",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               },
               {
                 "name": "Vector",
                 "kind": "vector",
+                "tokenRefs": [
+                  "--zen-color-primary-500"
+                ],
                 "id": "16494:19412",
                 "appearance": {
-                  "background": "#0047bc"
+                  "background": "#049b98",
+                  "backgroundToken": "--zen-color-primary-500"
                 }
               }
             ]
@@ -4717,11 +4833,10 @@
       "_schema_version": 1,
       "slug": "breadcrumb",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "13792:15247",
-        "variant": "Type=Default"
+        "nodeId": "13792:15246"
       },
       "quality": {
         "nodesTotal": 16,
@@ -4730,7 +4845,7 @@
         "degraded": []
       },
       "root": {
-        "name": "Type=Default",
+        "name": "Breadcrumb",
         "kind": "container",
         "id": "13792:15246",
         "layout": {
@@ -4754,7 +4869,7 @@
         },
         "children": [
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4765,7 +4880,7 @@
             "id": "13792:15217"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4776,7 +4891,7 @@
             "id": "13792:15244"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4787,7 +4902,7 @@
             "id": "19230:22906"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4798,7 +4913,7 @@
             "id": "19230:22902"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4809,7 +4924,7 @@
             "id": "13792:15242"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4820,7 +4935,7 @@
             "id": "19156:14844"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4831,7 +4946,7 @@
             "id": "19156:14840"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4842,7 +4957,7 @@
             "id": "13792:15218"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4853,7 +4968,7 @@
             "id": "19230:22854"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4864,7 +4979,7 @@
             "id": "19230:22866"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4875,7 +4990,7 @@
             "id": "19230:22874"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4886,7 +5001,7 @@
             "id": "19230:22898"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4897,7 +5012,7 @@
             "id": "19230:22886"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4908,7 +5023,7 @@
             "id": "19230:22870"
           },
           {
-            "name": ".Breadcrumb-subcomponent",
+            "name": ".Breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -4919,9 +5034,6 @@
             "id": "13792:15219"
           }
         ]
-      },
-      "variantDefaults": {
-        "Type": "Default"
       }
     },
     "button": {
@@ -5147,7 +5259,7 @@
       "_schema_version": 1,
       "slug": "calendar",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "8211:6664",
@@ -5155,8 +5267,8 @@
       },
       "quality": {
         "nodesTotal": 63,
-        "nodesNormalized": 15,
-        "ratio": 0.24,
+        "nodesNormalized": 18,
+        "ratio": 0.29,
         "degraded": [
           {
             "name": "Frame 1010110409",
@@ -5299,14 +5411,20 @@
                   {
                     "name": "mat-calendar-previous-btn",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "button",
                     "props": {
-                      "Show icon": true,
-                      "Label": "Button"
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Show trailing icon": true,
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Default",
+                      "State": "Default"
                     },
                     "id": "8211:5828",
                     "appearance": {
-                      "radius": "40px"
+                      "radius": "9999px"
                     }
                   }
                 ]
@@ -5337,27 +5455,39 @@
                   {
                     "name": "button",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "button",
                     "props": {
-                      "Show icon": true,
-                      "Label": "Button"
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Show trailing icon": true,
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Default",
+                      "State": "Default"
                     },
                     "id": "8211:5830",
                     "appearance": {
-                      "radius": "40px"
+                      "radius": "9999px"
                     }
                   },
                   {
                     "name": "button",
                     "kind": "instance",
-                    "unresolved": true,
+                    "slug": "button",
                     "props": {
-                      "Show icon": true,
-                      "Label": "Button"
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Show trailing icon": true,
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Default",
+                      "State": "Default"
                     },
                     "id": "8211:5831",
                     "appearance": {
-                      "radius": "40px"
+                      "radius": "9999px"
                     }
                   }
                 ]
@@ -5556,8 +5686,8 @@
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "GRID",
-                  "x": 7279,
-                  "y": 1508,
+                  "x": 5747,
+                  "y": 2216,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -6368,7 +6498,7 @@
       "_schema_version": 1,
       "slug": "card-for-perimeter",
       "kit": "dskit",
-      "synced_at": "2026-08-24T12:29:56.337Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14783:7565",
@@ -6419,7 +6549,7 @@
             "slug": "digram-item-types",
             "props": {
               "Item type": "Dataset",
-              "Size": "Default"
+              "Size": "SM"
             },
             "id": "14783:7552",
             "appearance": {
@@ -6580,119 +6710,11 @@
         ]
       }
     },
-    "chat-with-ai-steward": {
-      "_schema_version": 1,
-      "slug": "chat-with-ai-steward",
-      "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "15464:24509",
-        "variant": "size=Default, history=Closed"
-      },
-      "quality": {
-        "nodesTotal": 4,
-        "nodesNormalized": 1,
-        "ratio": 0.25,
-        "degraded": [],
-        "structuralVariants": [
-          {
-            "prop": "history",
-            "value": "Open",
-            "path": "",
-            "reason": "childCount:3!=2"
-          }
-        ]
-      },
-      "root": {
-        "name": "size=Default, history=Closed",
-        "kind": "container",
-        "id": "15464:23205",
-        "appearance": {
-          "background": "#ffffff",
-          "radius": "6px",
-          "variants": [
-            {
-              "prop": "size",
-              "values": [
-                "Drawer"
-              ],
-              "radius": null,
-              "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-default",
-                "width": "1px"
-              }
-            }
-          ]
-        },
-        "layout": {
-          "axis": "column",
-          "gap": "0px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "space-between",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": ".Chat with AI Steward Header",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "State": "Default"
-            },
-            "id": "15464:23995",
-            "appearance": {
-              "background": "#ffffff"
-            }
-          },
-          {
-            "name": ".Chat with AI Steward Chat area",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "State": "Default"
-            },
-            "id": "15464:23830",
-            "appearance": {
-              "background": "#ffffff"
-            }
-          },
-          {
-            "name": ".Chat with AI Steward Footer",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "State": "Default"
-            },
-            "id": "15608:35136",
-            "appearance": {
-              "background": "#ffffff"
-            }
-          }
-        ]
-      },
-      "variantDefaults": {
-        "size": "Default",
-        "history": "Closed"
-      }
-    },
     "checkbox": {
       "_schema_version": 1,
       "slug": "checkbox",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9478:17216",
@@ -6795,7 +6817,7 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 5998,
+              "x": 2509,
               "y": 494,
               "constraints": {
                 "vertical": "TOP",
@@ -6890,7 +6912,7 @@
                     "slug": "digram-item-types",
                     "props": {
                       "Item type": "Dataset",
-                      "Size": "Small"
+                      "Size": "XS"
                     },
                     "id": "19748:36913",
                     "appearance": {
@@ -8737,6 +8759,121 @@
         "Property 1": "Dev Actian Data Intelligence Admin"
       }
     },
+    "data-viz-legend-item": {
+      "_schema_version": 1,
+      "slug": "data-viz-legend-item",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "14747:33310",
+        "variant": "Property 1=Default"
+      },
+      "quality": {
+        "nodesTotal": 3,
+        "nodesNormalized": 3,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Property 1=Default",
+        "kind": "container",
+        "id": "14747:33311",
+        "appearance": {
+          "background": "#ffffff",
+          "radius": "4px",
+          "variants": [
+            {
+              "prop": "Property 1",
+              "values": [
+                "Focused"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)",
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-focus-ring-primary",
+                "width": "2px"
+              }
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Hovered"
+              ],
+              "background": "rgba(0, 0, 0, 0.05)"
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Pressed"
+              ],
+              "background": "rgba(0, 0, 0, 0.1)"
+            },
+            {
+              "prop": "Property 1",
+              "values": [
+                "Selected"
+              ],
+              "background": "#edf6ff"
+            }
+          ]
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "4px",
+            "right": "8px",
+            "bottom": "4px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Color dot",
+            "kind": "vector",
+            "tokenRefs": [
+              "--zen-color-primary-500"
+            ],
+            "id": "14747:33312",
+            "appearance": {
+              "background": "#0f5fdc",
+              "backgroundToken": "--zen-color-primary-500"
+            }
+          },
+          {
+            "name": "LABEL",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "14747:33313",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            "text": "All"
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Property 1": "Default"
+      }
+    },
     "databricks": {
       "_schema_version": 1,
       "slug": "databricks",
@@ -8876,6 +9013,353 @@
             "id": "8400:25054"
           }
         ]
+      }
+    },
+    "date-input": {
+      "_schema_version": 1,
+      "slug": "date-input",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "8194:7305",
+        "variant": "Type=Single date, States=Enabled"
+      },
+      "quality": {
+        "nodesTotal": 8,
+        "nodesNormalized": 8,
+        "ratio": 1,
+        "degraded": [],
+        "structuralVariants": [
+          {
+            "prop": "States",
+            "value": "Error",
+            "path": "",
+            "reason": "childCount:2!=3"
+          },
+          {
+            "prop": "Type",
+            "value": "Date range",
+            "path": "1.0",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Type",
+            "value": "Date range",
+            "path": "1.1",
+            "reason": "kind:instance!=container"
+          }
+        ]
+      },
+      "root": {
+        "name": "Type=Single date, States=Enabled",
+        "kind": "container",
+        "id": "8194:7392",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Label",
+            "kind": "container",
+            "id": "8194:7393",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "8194:7394",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
+                        "size": "14px",
+                        "weight": 500,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
+                "text": "Date"
+              },
+              {
+                "name": "Label",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-error"
+                ],
+                "id": "8194:7395",
+                "appearance": {
+                  "text": {
+                    "color": "#c12c11",
+                    "colorToken": "--zen-color-text-error",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "text": {
+                        "color": "#656574",
+                        "colorToken": "--zen-color-text-disabled",
+                        "size": "16px",
+                        "weight": 600,
+                        "lineHeight": "24px",
+                        "letterSpacing": "0.1px"
+                      }
+                    }
+                  ]
+                },
+                "text": "*"
+              }
+            ]
+          },
+          {
+            "name": "Input + icon button",
+            "kind": "container",
+            "id": "13855:35385",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "input field",
+                "kind": "container",
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
+                "id": "8194:7399",
+                "appearance": {
+                  "background": "#ffffff",
+                  "border": {
+                    "color": "#c7c7ce",
+                    "colorToken": "--zen-border-default",
+                    "width": "1px"
+                  },
+                  "radius": "4px",
+                  "variants": [
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Activ"
+                      ],
+                      "border": {
+                        "color": "#0f5fdc",
+                        "colorToken": "--zen-border-selected",
+                        "width": "1px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Disabled"
+                      ],
+                      "border": {
+                        "color": "#c7c7ce",
+                        "colorToken": "--zen-border-disabled",
+                        "width": "1px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Focused"
+                      ],
+                      "border": {
+                        "color": "#0f5fdc",
+                        "colorToken": "--zen-focus-ring-primary",
+                        "width": "2px"
+                      }
+                    },
+                    {
+                      "prop": "States",
+                      "values": [
+                        "Hovered"
+                      ],
+                      "border": {
+                        "color": "#e1e1e6",
+                        "colorToken": "--zen-border-subtle",
+                        "width": "1px"
+                      }
+                    },
+                    {
+                      "prop": "Type",
+                      "values": [
+                        "Date range"
+                      ],
+                      "background": null,
+                      "radius": null,
+                      "border": null
+                    }
+                  ]
+                },
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "8px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Input text",
+                    "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-secondary"
+                    ],
+                    "id": "8194:7401",
+                    "appearance": {
+                      "text": {
+                        "color": "#40404a",
+                        "colorToken": "--zen-color-text-secondary",
+                        "size": "14px",
+                        "weight": 400,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      },
+                      "variants": [
+                        {
+                          "prop": "States",
+                          "values": [
+                            "Activ",
+                            "Fille"
+                          ],
+                          "text": {
+                            "color": "#000000",
+                            "colorToken": "--zen-color-text-default",
+                            "size": "14px",
+                            "weight": 400,
+                            "lineHeight": "20px",
+                            "letterSpacing": "0.2px"
+                          }
+                        },
+                        {
+                          "prop": "States",
+                          "values": [
+                            "Disabled"
+                          ],
+                          "text": {
+                            "color": "#656574",
+                            "colorToken": "--zen-color-text-disabled",
+                            "size": "14px",
+                            "weight": 400,
+                            "lineHeight": "20px",
+                            "letterSpacing": "0.2px"
+                          }
+                        }
+                      ]
+                    },
+                    "text": "mm/dd/yyyy"
+                  }
+                ]
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "13855:35381",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Type": "Single date",
+        "States": "Enabled"
       }
     },
     "db2": {
@@ -9116,20 +9600,82 @@
       "_schema_version": 1,
       "slug": "digram-item-types",
       "kit": "dskit",
-      "synced_at": "2026-07-15T12:44:12.117Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14007:23209",
-        "variant": "Item type=Category, Size=Default"
+        "variant": "Item type=Category, Size=SM"
       },
       "quality": {
         "nodesTotal": 2,
         "nodesNormalized": 2,
         "ratio": 1,
-        "degraded": []
+        "degraded": [],
+        "structuralVariants": [
+          {
+            "prop": "Item type",
+            "value": "Topic 1",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 10",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 2",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 3",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 4",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 5",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 6",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 7",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 8",
+            "path": "",
+            "reason": "childCount:1!=2"
+          },
+          {
+            "prop": "Item type",
+            "value": "Topic 9",
+            "path": "",
+            "reason": "childCount:1!=2"
+          }
+        ]
       },
       "root": {
-        "name": "Item type=Category, Size=Default",
+        "name": "Item type=Category, Size=SM",
         "kind": "container",
         "id": "14007:23210",
         "appearance": {
@@ -9263,6 +9809,76 @@
                 "Glossary 5"
               ],
               "background": "#fff5d5"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 1"
+              ],
+              "background": "#a17ab6"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 10"
+              ],
+              "background": "#b22700"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 2"
+              ],
+              "background": "#8b00e8"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 3"
+              ],
+              "background": "#00b6e1"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 4"
+              ],
+              "background": "#003786"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 5"
+              ],
+              "background": "#75b86b"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 6"
+              ],
+              "background": "#299315"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 7"
+              ],
+              "background": "#eabd34"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 8"
+              ],
+              "background": "#ef8d00"
+            },
+            {
+              "prop": "Item type",
+              "values": [
+                "Topic 9"
+              ],
+              "background": "#a82743"
             },
             {
               "prop": "Item type",
@@ -9573,7 +10189,7 @@
                 {
                   "prop": "Size",
                   "values": [
-                    "Large"
+                    "MD"
                   ],
                   "text": {
                     "color": "#c12c11",
@@ -9592,7 +10208,7 @@
       },
       "variantDefaults": {
         "Item type": "Category",
-        "Size": "Default"
+        "Size": "SM"
       }
     },
     "digram-topic": {
@@ -9832,7 +10448,7 @@
       "_schema_version": 1,
       "slug": "drawer-side-panel",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14294:5758",
@@ -9999,13 +10615,13 @@
                     },
                     "children": [
                       {
-                        "name": "Tag, Item type",
+                        "name": "Tag, item type",
                         "kind": "instance",
                         "slug": "tag-item-type",
                         "props": {
                           "Show Counter": false,
                           "Show counter": false,
-                          "Property 1": "Dataset"
+                          "Type": "Dataset"
                         },
                         "id": "14292:1206",
                         "appearance": {
@@ -10016,7 +10632,7 @@
                       {
                         "name": "Shared",
                         "kind": "instance",
-                        "slug": "tag-default",
+                        "slug": "tag-read-only",
                         "props": {
                           "Leading icon show": false,
                           "Label": "Shared",
@@ -10452,8 +11068,7 @@
                 "kind": "instance",
                 "slug": "tabs",
                 "props": {
-                  "Show Avatar": false,
-                  "Property 1": "Default"
+                  "Show Avatar": false
                 },
                 "tokenRefs": [
                   "--zen-border-default"
@@ -10696,11 +11311,140 @@
         "App": "Studio"
       }
     },
+    "dropdown": {
+      "_schema_version": 1,
+      "slug": "dropdown",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "21982:71973"
+      },
+      "quality": {
+        "nodesTotal": 6,
+        "nodesNormalized": 2,
+        "ratio": 0.33,
+        "degraded": []
+      },
+      "root": {
+        "name": "Dropdown",
+        "kind": "container",
+        "id": "21982:71973",
+        "appearance": {
+          "background": "#ffffff",
+          "radius": "6px"
+        },
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-2xs",
+            "bottom": "--zen-spacing-2xs"
+          }
+        },
+        "children": [
+          {
+            "name": "Slot",
+            "kind": "container",
+            "id": "21982:71972",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".dropdown-menu-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label text": "All items",
+                  "Type": "Selectable item",
+                  "State": "Selected"
+                },
+                "id": "21982:72019",
+                "appearance": {
+                  "background": "#edf6ff"
+                }
+              },
+              {
+                "name": ".dropdown-menu-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label text": "Datasets",
+                  "Type": "Selectable item",
+                  "State": "Default"
+                },
+                "id": "21982:72024"
+              },
+              {
+                "name": ".dropdown-menu-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label text": "Fields",
+                  "Type": "Selectable item",
+                  "State": "Default"
+                },
+                "id": "21982:72028"
+              },
+              {
+                "name": ".dropdown-menu-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label text": "Visualization",
+                  "Type": "Selectable item",
+                  "State": "Default"
+                },
+                "id": "21982:72032"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "dropdown-select-default": {
       "_schema_version": 1,
       "slug": "dropdown-select-default",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "13972:708",
@@ -10935,14 +11679,14 @@
             "name": "input field",
             "kind": "container",
             "tokenRefs": [
-              "--zen-border-default"
+              "--zen-border-subtle"
             ],
             "id": "13937:34585",
             "appearance": {
               "background": "#ffffff",
               "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-default",
+                "color": "#e1e1e6",
+                "colorToken": "--zen-border-subtle",
                 "width": "1px"
               },
               "radius": "6px",
@@ -11201,11 +11945,11 @@
       "_schema_version": 1,
       "slug": "empty-state",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9230:22073",
-        "variant": "Size=Large"
+        "variant": "Empty=Default, Size=Large"
       },
       "quality": {
         "nodesTotal": 8,
@@ -11228,7 +11972,7 @@
         ]
       },
       "root": {
-        "name": "Size=Large",
+        "name": "Empty=Default, Size=Large",
         "kind": "container",
         "id": "8151:9689",
         "layout": {
@@ -11426,6 +12170,7 @@
         ]
       },
       "variantDefaults": {
+        "Empty": "Default",
         "Size": "Large"
       }
     },
@@ -12143,7 +12888,7 @@
       "_schema_version": 1,
       "slug": "global-header",
       "kit": "dskit",
-      "synced_at": "2026-08-24T12:29:56.337Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7384:22554",
@@ -12432,7 +13177,7 @@
             },
             "children": [
               {
-                "name": ".global header utility nav item",
+                "name": ".global header nav item",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
@@ -12445,7 +13190,7 @@
                 }
               },
               {
-                "name": ".global header utility nav item",
+                "name": ".global header nav item",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
@@ -12458,7 +13203,7 @@
                 }
               },
               {
-                "name": ".global header utility nav item",
+                "name": ".global header nav item",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
@@ -12471,7 +13216,7 @@
                 }
               },
               {
-                "name": ".global header utility nav item",
+                "name": ".global header nav item",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
@@ -12497,453 +13242,262 @@
       "_schema_version": 1,
       "slug": "glossary-item-hierarchy-diagram",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14747:30242",
-        "variant": "Type=Default"
+        "nodeId": "14747:30243"
       },
       "quality": {
-        "nodesTotal": 27,
-        "nodesNormalized": 5,
-        "ratio": 0.19,
+        "nodesTotal": 20,
+        "nodesNormalized": 0,
+        "ratio": 0,
         "degraded": [
           {
-            "name": "Graph",
+            "name": "Glossary item hierarchy diagram",
             "reason": "layoutMode:NONE"
           }
         ]
       },
       "root": {
-        "name": "Type=Default",
+        "name": "Glossary item hierarchy diagram",
         "kind": "container",
-        "tokenRefs": [
-          "--zen-border-default"
-        ],
         "id": "14747:30243",
         "appearance": {
-          "background": "#ffffff",
-          "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-default",
-            "width": "1px"
-          },
           "radius": "6px"
         },
-        "layout": {
-          "axis": "column",
-          "gap": "0px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -3698,
+          "y": 2408,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
           }
         },
         "children": [
           {
-            "name": "Header",
-            "kind": "container",
-            "tokenRefs": [
-              "--zen-border-default"
-            ],
-            "id": "14747:30244",
-            "appearance": {
-              "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-default",
-                "width": "1px"
-              }
+            "name": ".Glossary connecting line",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Straight"
             },
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              },
-              "paddingTokens": {
-                "top": "--zen-spacing-xs",
-                "right": "--zen-spacing-xs",
-                "bottom": "--zen-spacing-xs",
-                "left": "--zen-spacing-xs"
-              }
-            },
-            "children": [
-              {
-                "name": "sideNavHeading",
-                "kind": "text",
-                "tokenRefs": [
-                  "--zen-color-text-default"
-                ],
-                "id": "14747:30245",
-                "appearance": {
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "16px",
-                    "weight": 600,
-                    "lineHeight": "24px",
-                    "letterSpacing": "0.1px"
-                  }
-                },
-                "text": "Glossary item hierarchy"
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": false,
-                  "Show leading icon": false,
-                  "Label": "Switch to list view",
-                  "Intent": "Default",
-                  "Emphasis": "Ghost",
-                  "Size": "Small",
-                  "State": "Default"
-                },
-                "id": "14747:30246",
-                "appearance": {
-                  "radius": "9999px"
-                }
-              }
-            ]
+            "id": "14747:30249"
           },
           {
-            "name": "Body",
-            "kind": "container",
-            "id": "14747:30247",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "16px",
-                "right": "0px",
-                "bottom": "16px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going down"
             },
-            "children": [
-              {
-                "name": "Graph",
-                "kind": "container",
-                "id": "14747:30248",
-                "appearance": {
-                  "radius": "0px"
-                },
-                "normalizable": false,
-                "rawHint": {
-                  "layoutMode": "NONE",
-                  "x": -3632.25,
-                  "y": 2499,
-                  "constraints": {
-                    "vertical": "TOP",
-                    "horizontal": "LEFT"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Straight"
-                    },
-                    "id": "14747:30249"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    },
-                    "id": "14747:30250"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    },
-                    "id": "14747:30251"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    },
-                    "id": "14747:30252"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    },
-                    "id": "14747:30253"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    },
-                    "id": "14747:30254"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    },
-                    "id": "14747:30255"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    },
-                    "id": "14747:30256"
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    },
-                    "id": "14747:30257"
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Main item",
-                      "State": "Default"
-                    },
-                    "id": "14747:30258",
-                    "appearance": {
-                      "background": "#a76605",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30259",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30260",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30261",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30262",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30263",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30264",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30265",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30266",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    },
-                    "id": "14747:30267",
-                    "appearance": {
-                      "background": "#fff9e5",
-                      "radius": "9999px"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "Toolbar",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show View scale": true,
-                  "Type": "Group",
-                  "Orientation": "Horizontal"
-                },
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "14747:30268",
-                "appearance": {
-                  "background": "#ffffff",
-                  "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  },
-                  "radius": "6px"
-                }
-              },
-              {
-                "name": "Toolbar",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show View scale": true,
-                  "Type": "Single",
-                  "Orientation": "Horizontal"
-                },
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "14747:30269",
-                "appearance": {
-                  "background": "#ffffff",
-                  "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  },
-                  "radius": "6px"
-                }
-              }
-            ]
+            "id": "14747:30250"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going up"
+            },
+            "id": "14747:30251"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going up"
+            },
+            "id": "14747:30252"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going up"
+            },
+            "id": "14747:30253"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going down"
+            },
+            "id": "14747:30254"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going down"
+            },
+            "id": "14747:30255"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going down"
+            },
+            "id": "14747:30256"
+          },
+          {
+            "name": ".     Glossary item hierarchy diagram-connector",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Going up"
+            },
+            "id": "14747:30257"
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Main item",
+              "State": "Default"
+            },
+            "id": "14747:30258",
+            "appearance": {
+              "background": "#a76605",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30259",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30260",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30261",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30262",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30263",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30264",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30265",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30266",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
+          },
+          {
+            "name": ".Glossary item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Sub items",
+              "State": "Default"
+            },
+            "id": "14747:30267",
+            "appearance": {
+              "background": "#fff9e5",
+              "radius": "9999px"
+            }
           }
         ]
-      },
-      "variantDefaults": {
-        "Type": "Default"
       }
     },
     "google-cloud": {
@@ -14244,353 +14798,6 @@
         ]
       }
     },
-    "input-date": {
-      "_schema_version": 1,
-      "slug": "input-date",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "8194:7305",
-        "variant": "Type=Single date, States=Enabled"
-      },
-      "quality": {
-        "nodesTotal": 8,
-        "nodesNormalized": 8,
-        "ratio": 1,
-        "degraded": [],
-        "structuralVariants": [
-          {
-            "prop": "States",
-            "value": "Error",
-            "path": "",
-            "reason": "childCount:2!=3"
-          },
-          {
-            "prop": "Type",
-            "value": "Date range",
-            "path": "1.0",
-            "reason": "childCount:1!=2"
-          },
-          {
-            "prop": "Type",
-            "value": "Date range",
-            "path": "1.1",
-            "reason": "kind:instance!=container"
-          }
-        ]
-      },
-      "root": {
-        "name": "Type=Single date, States=Enabled",
-        "kind": "container",
-        "id": "8194:7392",
-        "layout": {
-          "axis": "column",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Label",
-            "kind": "container",
-            "id": "8194:7393",
-            "layout": {
-              "axis": "row",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "tokenRefs": [
-                  "--zen-color-text-default"
-                ],
-                "id": "8194:7394",
-                "appearance": {
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "14px",
-                    "weight": 500,
-                    "lineHeight": "20px",
-                    "letterSpacing": "0.2px"
-                  },
-                  "variants": [
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Disabled"
-                      ],
-                      "text": {
-                        "color": "#656574",
-                        "colorToken": "--zen-color-text-disabled",
-                        "size": "14px",
-                        "weight": 500,
-                        "lineHeight": "20px",
-                        "letterSpacing": "0.2px"
-                      }
-                    }
-                  ]
-                },
-                "text": "Date"
-              },
-              {
-                "name": "Label",
-                "kind": "text",
-                "tokenRefs": [
-                  "--zen-color-text-error"
-                ],
-                "id": "8194:7395",
-                "appearance": {
-                  "text": {
-                    "color": "#c12c11",
-                    "colorToken": "--zen-color-text-error",
-                    "size": "16px",
-                    "weight": 600,
-                    "lineHeight": "24px",
-                    "letterSpacing": "0.1px"
-                  },
-                  "variants": [
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Disabled"
-                      ],
-                      "text": {
-                        "color": "#656574",
-                        "colorToken": "--zen-color-text-disabled",
-                        "size": "16px",
-                        "weight": 600,
-                        "lineHeight": "24px",
-                        "letterSpacing": "0.1px"
-                      }
-                    }
-                  ]
-                },
-                "text": "*"
-              }
-            ]
-          },
-          {
-            "name": "Input + icon button",
-            "kind": "container",
-            "id": "13855:35385",
-            "layout": {
-              "axis": "row",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "input field",
-                "kind": "container",
-                "tokenRefs": [
-                  "--zen-border-default"
-                ],
-                "id": "8194:7399",
-                "appearance": {
-                  "background": "#ffffff",
-                  "border": {
-                    "color": "#c7c7ce",
-                    "colorToken": "--zen-border-default",
-                    "width": "1px"
-                  },
-                  "radius": "4px",
-                  "variants": [
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Activ"
-                      ],
-                      "border": {
-                        "color": "#0f5fdc",
-                        "colorToken": "--zen-border-selected",
-                        "width": "1px"
-                      }
-                    },
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Disabled"
-                      ],
-                      "border": {
-                        "color": "#c7c7ce",
-                        "colorToken": "--zen-border-disabled",
-                        "width": "1px"
-                      }
-                    },
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Focused"
-                      ],
-                      "border": {
-                        "color": "#0f5fdc",
-                        "colorToken": "--zen-focus-ring-primary",
-                        "width": "2px"
-                      }
-                    },
-                    {
-                      "prop": "States",
-                      "values": [
-                        "Hovered"
-                      ],
-                      "border": {
-                        "color": "#e1e1e6",
-                        "colorToken": "--zen-border-subtle",
-                        "width": "1px"
-                      }
-                    },
-                    {
-                      "prop": "Type",
-                      "values": [
-                        "Date range"
-                      ],
-                      "background": null,
-                      "radius": null,
-                      "border": null
-                    }
-                  ]
-                },
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "8px",
-                    "right": "8px",
-                    "bottom": "8px",
-                    "left": "8px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Input text",
-                    "kind": "text",
-                    "tokenRefs": [
-                      "--zen-color-text-secondary"
-                    ],
-                    "id": "8194:7401",
-                    "appearance": {
-                      "text": {
-                        "color": "#40404a",
-                        "colorToken": "--zen-color-text-secondary",
-                        "size": "14px",
-                        "weight": 400,
-                        "lineHeight": "20px",
-                        "letterSpacing": "0.2px"
-                      },
-                      "variants": [
-                        {
-                          "prop": "States",
-                          "values": [
-                            "Activ",
-                            "Fille"
-                          ],
-                          "text": {
-                            "color": "#000000",
-                            "colorToken": "--zen-color-text-default",
-                            "size": "14px",
-                            "weight": 400,
-                            "lineHeight": "20px",
-                            "letterSpacing": "0.2px"
-                          }
-                        },
-                        {
-                          "prop": "States",
-                          "values": [
-                            "Disabled"
-                          ],
-                          "text": {
-                            "color": "#656574",
-                            "colorToken": "--zen-color-text-disabled",
-                            "size": "14px",
-                            "weight": 400,
-                            "lineHeight": "20px",
-                            "letterSpacing": "0.2px"
-                          }
-                        }
-                      ]
-                    },
-                    "text": "mm/dd/yyyy"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "slug": "button",
-                "props": {
-                  "Show label": true,
-                  "Show leading icon": true,
-                  "Label": "Button",
-                  "Show trailing icon": true,
-                  "Intent": "Default",
-                  "Emphasis": "Icon-only",
-                  "Size": "Default",
-                  "State": "Default"
-                },
-                "id": "13855:35381",
-                "appearance": {
-                  "radius": "9999px"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "variantDefaults": {
-        "Type": "Single date",
-        "States": "Enabled"
-      }
-    },
     "jdbc": {
       "_schema_version": 1,
       "slug": "jdbc",
@@ -15135,7 +15342,7 @@
       "_schema_version": 1,
       "slug": "line-graph",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "15473:49490",
@@ -16441,8 +16648,8 @@
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
-                  "x": 3628,
-                  "y": 2857,
+                  "x": 2299,
+                  "y": 2359,
                   "constraints": {
                     "vertical": "CENTER",
                     "horizontal": "SCALE"
@@ -16475,8 +16682,8 @@
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
-                      "x": 3628,
-                      "y": 2912.754119873047,
+                      "x": 2299,
+                      "y": 2414.754119873047,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -17065,11 +17272,11 @@
       "_schema_version": 1,
       "slug": "lineage-individual-node",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14747:19902",
-        "variant": "Type=Main item, State=Default, Fields=Collapsed"
+        "variant": "Type=Individual main node, State=Default, Fields=Collapsed"
       },
       "quality": {
         "nodesTotal": 14,
@@ -17082,7 +17289,7 @@
           },
           {
             "name": "Featured icon",
-            "reason": "layoutMode:NONE (variant Type=Sub item)"
+            "reason": "layoutMode:NONE (variant Type=Individual sub item)"
           },
           {
             "name": "Featured icon",
@@ -17099,18 +17306,70 @@
             "value": "Expanded",
             "path": "1",
             "reason": "childCount:3!=7"
+          },
+          {
+            "prop": "Type",
+            "value": "Group main item",
+            "path": "",
+            "reason": "childCount:2!=1"
+          },
+          {
+            "prop": "Type",
+            "value": "Group sub item",
+            "path": "",
+            "reason": "childCount:2!=1"
           }
         ],
         "uncapturedValues": [
           {
+            "prop": "Fields",
+            "value": "Default",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Fields",
+            "value": "Disabled",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Fields",
+            "value": "Selected",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Fields",
+            "value": "n/a",
+            "reason": "no isolated variant"
+          },
+          {
             "prop": "State",
             "value": "Disabled",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "State",
+            "value": "Expanded",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector down",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector straight",
+            "reason": "no isolated variant"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector up",
             "reason": "no isolated variant"
           }
         ]
       },
       "root": {
-        "name": "Type=Main item, State=Default, Fields=Collapsed",
+        "name": "Type=Individual main node, State=Default, Fields=Collapsed",
         "kind": "container",
         "id": "14747:19904",
         "appearance": {
@@ -17141,8 +17400,12 @@
             "kind": "instance",
             "unresolved": true,
             "props": {
+              "Show Indicator left": true,
+              "Show Indicator right": true,
+              "Show Identification key": true,
               "Icon": "Collapse",
-              "State": "Default"
+              "State": "Default",
+              "Type": "Collapse control"
             },
             "tokenRefs": [
               "--zen-border-subtle"
@@ -17184,7 +17447,7 @@
                 {
                   "prop": "Type",
                   "values": [
-                    "Sub item"
+                    "Individual sub item"
                   ],
                   "border": {
                     "color": "#0f5fdc",
@@ -17260,7 +17523,7 @@
                     "slug": "digram-item-types",
                     "props": {
                       "Item type": "Dataset",
-                      "Size": "Large"
+                      "Size": "MD"
                     },
                     "id": "14747:19908",
                     "appearance": {
@@ -17432,7 +17695,7 @@
                   {
                     "name": "Tag, Default",
                     "kind": "instance",
-                    "slug": "tag-default",
+                    "slug": "tag-read-only",
                     "props": {
                       "Leading icon show": true,
                       "Label": "powerbi",
@@ -17519,7 +17782,7 @@
         ]
       },
       "variantDefaults": {
-        "Type": "Main item",
+        "Type": "Individual main node",
         "State": "Default",
         "Fields": "Collapsed"
       }
@@ -17653,7 +17916,7 @@
       "_schema_version": 1,
       "slug": "loader",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7372:2195",
@@ -17669,8 +17932,8 @@
             "reason": "layoutMode:NONE"
           },
           {
-            "name": "Percent=Percent3",
-            "reason": "layoutMode:NONE (variant Percent=Percent3)"
+            "name": "Percent=50",
+            "reason": "layoutMode:NONE (variant Percent=50)"
           },
           {
             "name": "Percent=99%",
@@ -17698,8 +17961,8 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 5121,
-          "y": -350,
+          "x": 2868,
+          "y": 365,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -17811,7 +18074,7 @@
       "_schema_version": 1,
       "slug": "loading-skeleton",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14294:8086",
@@ -17847,8 +18110,8 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 5130,
-          "y": 5,
+          "x": 2916,
+          "y": 3383,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -18672,11 +18935,11 @@
         "Type": "Warning"
       }
     },
-    "metamodel-widget": {
+    "metamodel": {
       "_schema_version": 1,
-      "slug": "metamodel-widget",
+      "slug": "metamodel",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "14747:23588",
@@ -18686,7 +18949,50 @@
         "nodesTotal": 5,
         "nodesNormalized": 4,
         "ratio": 0.8,
-        "degraded": []
+        "degraded": [
+          {
+            "name": "Type=Connector 1",
+            "reason": "layoutMode:NONE (variant Type=Connector 1)"
+          },
+          {
+            "name": "Type=Connector 2",
+            "reason": "layoutMode:NONE (variant Type=Connector 2)"
+          },
+          {
+            "name": "Type=Connector 3",
+            "reason": "layoutMode:NONE (variant Type=Connector 3)"
+          },
+          {
+            "name": "Type=Connector 4",
+            "reason": "layoutMode:NONE (variant Type=Connector 4)"
+          }
+        ],
+        "structuralVariants": [
+          {
+            "prop": "Type",
+            "value": "Connector 1",
+            "path": "",
+            "reason": "childCount:2!=3"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector 2",
+            "path": "",
+            "reason": "childCount:2!=3"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector 3",
+            "path": "",
+            "reason": "childCount:2!=3"
+          },
+          {
+            "prop": "Type",
+            "value": "Connector 4",
+            "path": "",
+            "reason": "childCount:2!=3"
+          }
+        ]
       },
       "root": {
         "name": "Type=Dataset",
@@ -18714,6 +19020,18 @@
                 "colorToken": "--zen-color-warning-800",
                 "width": "1.5px"
               }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Connector 1",
+                "Connector 2",
+                "Connector 3",
+                "Connector 4"
+              ],
+              "background": null,
+              "radius": null,
+              "border": null
             },
             {
               "prop": "Type",
@@ -18804,7 +19122,7 @@
                 "slug": "digram-item-types",
                 "props": {
                   "Item type": "Dataset",
-                  "Size": "Large"
+                  "Size": "MD"
                 },
                 "id": "14747:23591",
                 "appearance": {
@@ -19793,7 +20111,7 @@
       "_schema_version": 1,
       "slug": "notification-dropdown",
       "kit": "dskit",
-      "synced_at": "2026-07-12T20:29:04.398Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9114:15379",
@@ -19841,7 +20159,7 @@
         },
         "children": [
           {
-            "name": ".menu item",
+            "name": ".dropdown-menu-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -19851,10 +20169,7 @@
               "Type": "Selectable item",
               "State": "Selected"
             },
-            "id": "9097:17458",
-            "appearance": {
-              "radius": "4px"
-            }
+            "id": "9097:17458"
           },
           {
             "name": ".menu item",
@@ -20549,6 +20864,266 @@
       },
       "variantDefaults": {
         "Type": "Default"
+      }
+    },
+    "pagination": {
+      "_schema_version": 1,
+      "slug": "pagination",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "15295:14916"
+      },
+      "quality": {
+        "nodesTotal": 10,
+        "nodesNormalized": 10,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Pagination",
+        "kind": "container",
+        "id": "15295:14916",
+        "layout": {
+          "axis": "row",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Pagination",
+            "kind": "container",
+            "id": "15295:14917",
+            "appearance": {
+              "background": "#ffffff"
+            },
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "end",
+                "cross": "end"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Current page",
+                "kind": "container",
+                "id": "15295:14918",
+                "appearance": {
+                  "background": "#ffffff"
+                },
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "16px",
+                    "bottom": "0px",
+                    "left": "16px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "1",
+                    "kind": "text",
+                    "id": "15295:14919",
+                    "appearance": {
+                      "text": {
+                        "color": "#12131f",
+                        "size": "14px",
+                        "weight": 600,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    },
+                    "text": "1"
+                  },
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "slug": "button",
+                    "props": {
+                      "Show trailing icon": true,
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Small",
+                      "State": "Default"
+                    },
+                    "id": "15295:14920",
+                    "appearance": {
+                      "radius": "9999px"
+                    }
+                  },
+                  {
+                    "name": "of 2 pages",
+                    "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
+                    "id": "15295:14921",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
+                        "size": "12px",
+                        "weight": 400,
+                        "lineHeight": "16px",
+                        "letterSpacing": "0.1px"
+                      }
+                    },
+                    "text": "of 2 pages"
+                  }
+                ]
+              },
+              {
+                "name": "Previous",
+                "kind": "container",
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
+                "id": "15295:14922",
+                "appearance": {
+                  "background": "#ffffff",
+                  "border": {
+                    "color": "#c7c7ce",
+                    "colorToken": "--zen-border-default",
+                    "width": "1px"
+                  }
+                },
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "20px",
+                    "right": "20px",
+                    "bottom": "20px",
+                    "left": "20px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "slug": "button",
+                    "props": {
+                      "Show trailing icon": true,
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Small",
+                      "State": "Default"
+                    },
+                    "id": "15295:14923",
+                    "appearance": {
+                      "radius": "9999px"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Next",
+                "kind": "container",
+                "tokenRefs": [
+                  "--zen-border-default"
+                ],
+                "id": "15295:14924",
+                "appearance": {
+                  "background": "#ffffff",
+                  "border": {
+                    "color": "#c7c7ce",
+                    "colorToken": "--zen-border-default",
+                    "width": "1px"
+                  }
+                },
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "20px",
+                    "right": "20px",
+                    "bottom": "20px",
+                    "left": "20px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "slug": "button",
+                    "props": {
+                      "Show trailing icon": true,
+                      "Show label": true,
+                      "Show leading icon": true,
+                      "Label": "Button",
+                      "Intent": "Default",
+                      "Emphasis": "Icon-only",
+                      "Size": "Small",
+                      "State": "Default"
+                    },
+                    "id": "15295:14925",
+                    "appearance": {
+                      "radius": "9999px"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     },
     "palantir": {
@@ -22495,7 +23070,7 @@
       "_schema_version": 1,
       "slug": "radio",
       "kit": "dskit",
-      "synced_at": "2026-07-23T09:22:37.724Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9474:16884",
@@ -22594,7 +23169,7 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 4368,
+              "x": 937,
               "y": 498,
               "constraints": {
                 "vertical": "TOP",
@@ -22687,7 +23262,7 @@
                     "slug": "digram-item-types",
                     "props": {
                       "Item type": "Dataset",
-                      "Size": "Small"
+                      "Size": "XS"
                     },
                     "id": "19748:38330",
                     "appearance": {
@@ -25682,7 +26257,7 @@
       "_schema_version": 1,
       "slug": "search-result-card",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "12932:3259",
@@ -25852,13 +26427,13 @@
                 },
                 "children": [
                   {
-                    "name": "Tag, Item type",
+                    "name": "Tag, item type",
                     "kind": "instance",
                     "slug": "tag-item-type",
                     "props": {
                       "Show Counter": false,
                       "Show counter": false,
-                      "Property 1": "Category"
+                      "Type": "Category"
                     },
                     "id": "12932:3266",
                     "appearance": {
@@ -25907,9 +26482,9 @@
                 ]
               },
               {
-                "name": "Tag, Default",
+                "name": "Tag, read only",
                 "kind": "instance",
-                "slug": "tag-default",
+                "slug": "tag-read-only",
                 "props": {
                   "Leading icon show": true,
                   "Label": "Default",
@@ -26008,9 +26583,9 @@
                 },
                 "children": [
                   {
-                    "name": "Tag, Default",
+                    "name": "Tag, read only",
                     "kind": "instance",
-                    "slug": "tag-default",
+                    "slug": "tag-read-only",
                     "props": {
                       "Leading icon show": true,
                       "Label": "Default",
@@ -26157,7 +26732,7 @@
                             "colorToken": "--zen-color-warning-25",
                             "width": "1px"
                           },
-                          "slug": "tag-default"
+                          "slug": "tag-read-only"
                         }
                       ]
                     }
@@ -26196,11 +26771,10 @@
       "_schema_version": 1,
       "slug": "segmented-control",
       "kit": "dskit",
-      "synced_at": "2026-08-24T12:29:56.337Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "7618:5187",
-        "variant": "Property 1=Default"
+        "nodeId": "7618:5284"
       },
       "quality": {
         "nodesTotal": 6,
@@ -26209,7 +26783,7 @@
         "degraded": []
       },
       "root": {
-        "name": "Property 1=Default",
+        "name": "Segmented control",
         "kind": "container",
         "tokenRefs": [
           "--zen-border-subtle"
@@ -26324,9 +26898,6 @@
             }
           }
         ]
-      },
-      "variantDefaults": {
-        "Property 1": "Default"
       }
     },
     "side-nav": {
@@ -26917,7 +27488,7 @@
       "_schema_version": 1,
       "slug": "spinner",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7372:2170",
@@ -26957,8 +27528,8 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 5255,
-          "y": -165,
+          "x": 3023,
+          "y": 1860,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -27534,7 +28105,7 @@
       "_schema_version": 1,
       "slug": "table",
       "kit": "dskit",
-      "synced_at": "2026-07-05T11:32:12.359Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "15295:14902",
@@ -27542,8 +28113,8 @@
       },
       "quality": {
         "nodesTotal": 12,
-        "nodesNormalized": 2,
-        "ratio": 0.17,
+        "nodesNormalized": 3,
+        "ratio": 0.25,
         "degraded": [],
         "structuralVariants": [
           {
@@ -27684,12 +28255,9 @@
             ]
           },
           {
-            "name": ".Pagination",
+            "name": "Pagination",
             "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Property 1": "Default"
-            },
+            "slug": "pagination",
             "id": "15295:14914"
           }
         ]
@@ -27749,11 +28317,10 @@
       "_schema_version": 1,
       "slug": "tabs",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14747:14818",
-        "variant": "Property 1=Default"
+        "nodeId": "7279:3297"
       },
       "quality": {
         "nodesTotal": 13,
@@ -27762,7 +28329,7 @@
         "degraded": []
       },
       "root": {
-        "name": "Property 1=Default",
+        "name": "Tabs",
         "kind": "container",
         "tokenRefs": [
           "--zen-border-default"
@@ -27796,7 +28363,7 @@
         },
         "children": [
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27815,7 +28382,7 @@
             }
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27828,7 +28395,7 @@
             "id": "7279:3255"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27841,7 +28408,7 @@
             "id": "7279:3256"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27854,7 +28421,7 @@
             "id": "7279:3257"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27867,7 +28434,7 @@
             "id": "7279:3258"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27880,7 +28447,7 @@
             "id": "14072:3943"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27893,7 +28460,7 @@
             "id": "14797:17631"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27906,7 +28473,7 @@
             "id": "14797:17697"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27919,7 +28486,7 @@
             "id": "14797:17727"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27932,7 +28499,7 @@
             "id": "14797:17757"
           },
           {
-            "name": ".tab",
+            "name": ".tab-nav-item",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -27955,16 +28522,749 @@
             "id": "14797:18240"
           }
         ]
-      },
-      "variantDefaults": {
-        "Property 1": "Default"
       }
     },
-    "tag-default": {
+    "tag-interactive": {
       "_schema_version": 1,
-      "slug": "tag-default",
+      "slug": "tag-interactive",
       "kit": "dskit",
-      "synced_at": "2026-08-24T12:29:56.337Z",
+      "synced_at": "2026-08-12T12:00:22.180Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "13845:33759",
+        "variant": "State=Default, Type=Dismissible"
+      },
+      "quality": {
+        "nodesTotal": 4,
+        "nodesNormalized": 4,
+        "ratio": 1,
+        "degraded": [],
+        "structuralVariants": [
+          {
+            "prop": "State",
+            "value": "Focus",
+            "path": "",
+            "reason": "childCount:3!=5"
+          },
+          {
+            "prop": "State",
+            "value": "Hover",
+            "path": "",
+            "reason": "childCount:3!=4"
+          },
+          {
+            "prop": "State",
+            "value": "Pressed",
+            "path": "",
+            "reason": "childCount:3!=4"
+          },
+          {
+            "prop": "Type",
+            "value": "Selectable",
+            "path": "",
+            "reason": "childCount:3!=1"
+          },
+          {
+            "prop": "Type",
+            "value": "Selectable-selected",
+            "path": "",
+            "reason": "childCount:3!=2"
+          }
+        ]
+      },
+      "root": {
+        "name": "State=Default, Type=Dismissible",
+        "kind": "container",
+        "tokenRefs": [
+          "--zen-color-neutral-50"
+        ],
+        "id": "13845:33758",
+        "appearance": {
+          "background": "#fbfbff",
+          "border": {
+            "color": "#e1e1e6",
+            "colorToken": "--zen-color-neutral-50",
+            "width": "1px"
+          },
+          "radius": "9999px",
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "background": "#e1e1e6",
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-disabled",
+                "width": "1px"
+              }
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dropdown-expanded"
+              ],
+              "background": "#e1e1e6",
+              "backgroundToken": "--zen-color-neutral-50"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Selectable-selected"
+              ],
+              "background": "#edf6ff",
+              "backgroundToken": "--zen-color-primary-25",
+              "border": {
+                "color": "#cbe3ff",
+                "colorToken": "--zen-color-primary-50",
+                "width": "1px"
+              }
+            }
+          ]
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "right": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "slug": "folder",
+            "id": "13846:34347"
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "13846:34348",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Disabled"
+                  ],
+                  "text": {
+                    "color": "#656574",
+                    "colorToken": "--zen-color-text-disabled",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                }
+              ]
+            },
+            "text": "Default"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "close",
+            "id": "13849:34922",
+            "appearance": {
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dropdown"
+                  ],
+                  "slug": "arrow-down"
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dropdown-expanded"
+                  ],
+                  "slug": "arrow-up"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "variantDefaults": {
+        "State": "Default",
+        "Type": "Dismissible"
+      }
+    },
+    "tag-item-type": {
+      "_schema_version": 1,
+      "slug": "tag-item-type",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "11300:8312",
+        "variant": "Type=Glossary-1"
+      },
+      "quality": {
+        "nodesTotal": 3,
+        "nodesNormalized": 3,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Type=Glossary-1",
+        "kind": "container",
+        "id": "11300:8551",
+        "appearance": {
+          "background": "#ffebce",
+          "radius": "4px",
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Category"
+              ],
+              "background": "#ffd7ca"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-1"
+              ],
+              "background": "#ffd5dd"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-10",
+                "Custom-12",
+                "Custom-13"
+              ],
+              "background": "#d3efcd"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-11"
+              ],
+              "background": "#f0ffec"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-14"
+              ],
+              "background": "#e1eacb"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-15"
+              ],
+              "background": "#e2e4dd"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-2",
+                "Data process"
+              ],
+              "background": "#ffd6d8"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-3"
+              ],
+              "background": "#e7e0ee"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-4"
+              ],
+              "background": "#e1e5ff"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-5",
+                "Data product"
+              ],
+              "background": "#cadcf7"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-6"
+              ],
+              "background": "#dde6ec"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-7",
+                "Custom-9"
+              ],
+              "background": "#d0efed"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Custom-8"
+              ],
+              "background": "#ecffff"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dataset"
+              ],
+              "background": "#cfeafd"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Field"
+              ],
+              "background": "#d3efcd",
+              "backgroundToken": "--zen-color-success-50"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Glossary-2",
+                "Glossary-4"
+              ],
+              "background": "#ffddb6"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Glossary-3",
+                "Glossary-5"
+              ],
+              "background": "#ffcd92"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Output port"
+              ],
+              "background": "#f1fdff"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Use case"
+              ],
+              "background": "#fff5d5"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Visualization"
+              ],
+              "background": "#eed7ff"
+            }
+          ]
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "4px",
+            "bottom": "0px",
+            "left": "4px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "right": "--zen-spacing-2xs",
+            "left": "--zen-spacing-2xs"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "id": "11300:8381",
+            "appearance": {
+              "text": {
+                "color": "#9c2000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              },
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Category",
+                    "Glossary-2"
+                  ],
+                  "text": {
+                    "color": "#7b2000",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-1"
+                  ],
+                  "text": {
+                    "color": "#771a34",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-10"
+                  ],
+                  "text": {
+                    "color": "#047800",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-11",
+                    "Custom-13"
+                  ],
+                  "text": {
+                    "color": "#1a4b14",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-12"
+                  ],
+                  "text": {
+                    "color": "#145f04",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-14"
+                  ],
+                  "text": {
+                    "color": "#5a6b00",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-15"
+                  ],
+                  "text": {
+                    "color": "#555947",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-2",
+                    "Data process"
+                  ],
+                  "text": {
+                    "color": "#932139",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-3"
+                  ],
+                  "text": {
+                    "color": "#644f77",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-4"
+                  ],
+                  "text": {
+                    "color": "#5c61a7",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-5"
+                  ],
+                  "text": {
+                    "color": "#002f75",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-6"
+                  ],
+                  "text": {
+                    "color": "#4a6470",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-7"
+                  ],
+                  "text": {
+                    "color": "#006563",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-8"
+                  ],
+                  "text": {
+                    "color": "#007e7b",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Custom-9"
+                  ],
+                  "text": {
+                    "color": "#15504e",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Data product",
+                    "Output port"
+                  ],
+                  "text": {
+                    "color": "#00255a",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dataset"
+                  ],
+                  "text": {
+                    "color": "#00547d",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Field"
+                  ],
+                  "text": {
+                    "color": "#145f04",
+                    "colorToken": "--zen-color-success-800",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Glossary-3"
+                  ],
+                  "text": {
+                    "color": "#5d1f0b",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Glossary-4"
+                  ],
+                  "text": {
+                    "color": "#83551f",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Glossary-5"
+                  ],
+                  "text": {
+                    "color": "#591e27",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Use case"
+                  ],
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Visualization"
+                  ],
+                  "text": {
+                    "color": "#5f0c9e",
+                    "size": "12px",
+                    "weight": 400,
+                    "lineHeight": "16px",
+                    "letterSpacing": "0.3px"
+                  }
+                }
+              ]
+            },
+            "text": "Glossary 1"
+          },
+          {
+            "name": "Counter",
+            "kind": "text",
+            "id": "14128:3421",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            "text": "00"
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Type": "Glossary-1"
+      }
+    },
+    "tag-read-only": {
+      "_schema_version": 1,
+      "slug": "tag-read-only",
+      "kit": "dskit",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "7257:3037",
@@ -28229,742 +29529,6 @@
       },
       "variantDefaults": {
         "Type": "Default"
-      }
-    },
-    "tag-interactive": {
-      "_schema_version": 1,
-      "slug": "tag-interactive",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "13845:33759",
-        "variant": "State=Default, Type=Dismissible"
-      },
-      "quality": {
-        "nodesTotal": 4,
-        "nodesNormalized": 4,
-        "ratio": 1,
-        "degraded": [],
-        "structuralVariants": [
-          {
-            "prop": "State",
-            "value": "Focus",
-            "path": "",
-            "reason": "childCount:3!=5"
-          },
-          {
-            "prop": "State",
-            "value": "Hover",
-            "path": "",
-            "reason": "childCount:3!=4"
-          },
-          {
-            "prop": "State",
-            "value": "Pressed",
-            "path": "",
-            "reason": "childCount:3!=4"
-          },
-          {
-            "prop": "Type",
-            "value": "Selectable",
-            "path": "",
-            "reason": "childCount:3!=1"
-          },
-          {
-            "prop": "Type",
-            "value": "Selectable-selected",
-            "path": "",
-            "reason": "childCount:3!=2"
-          }
-        ]
-      },
-      "root": {
-        "name": "State=Default, Type=Dismissible",
-        "kind": "container",
-        "tokenRefs": [
-          "--zen-color-neutral-50"
-        ],
-        "id": "13845:33758",
-        "appearance": {
-          "background": "#fbfbff",
-          "border": {
-            "color": "#e1e1e6",
-            "colorToken": "--zen-color-neutral-50",
-            "width": "1px"
-          },
-          "radius": "9999px",
-          "variants": [
-            {
-              "prop": "State",
-              "values": [
-                "Disabled"
-              ],
-              "background": "#e1e1e6",
-              "border": {
-                "color": "#c7c7ce",
-                "colorToken": "--zen-border-disabled",
-                "width": "1px"
-              }
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Dropdown-expanded"
-              ],
-              "background": "#e1e1e6",
-              "backgroundToken": "--zen-color-neutral-50"
-            },
-            {
-              "prop": "Type",
-              "values": [
-                "Selectable-selected"
-              ],
-              "background": "#edf6ff",
-              "backgroundToken": "--zen-color-primary-25",
-              "border": {
-                "color": "#cbe3ff",
-                "colorToken": "--zen-color-primary-50",
-                "width": "1px"
-              }
-            }
-          ]
-        },
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "fixed"
-          },
-          "gapToken": "--zen-spacing-2xs",
-          "paddingTokens": {
-            "right": "--zen-spacing-xs",
-            "left": "--zen-spacing-xs"
-          }
-        },
-        "children": [
-          {
-            "name": "Leading icon",
-            "kind": "instance",
-            "slug": "folder",
-            "id": "13846:34347"
-          },
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "tokenRefs": [
-              "--zen-color-text-default"
-            ],
-            "id": "13846:34348",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "colorToken": "--zen-color-text-default",
-                "size": "12px",
-                "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              },
-              "variants": [
-                {
-                  "prop": "State",
-                  "values": [
-                    "Disabled"
-                  ],
-                  "text": {
-                    "color": "#656574",
-                    "colorToken": "--zen-color-text-disabled",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                }
-              ]
-            },
-            "text": "Default"
-          },
-          {
-            "name": "Trailing icon",
-            "kind": "instance",
-            "slug": "close",
-            "id": "13849:34922",
-            "appearance": {
-              "variants": [
-                {
-                  "prop": "Type",
-                  "values": [
-                    "Dropdown"
-                  ],
-                  "slug": "arrow-down"
-                },
-                {
-                  "prop": "Type",
-                  "values": [
-                    "Dropdown-expanded"
-                  ],
-                  "slug": "arrow-up"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "variantDefaults": {
-        "State": "Default",
-        "Type": "Dismissible"
-      }
-    },
-    "tag-item-type": {
-      "_schema_version": 1,
-      "slug": "tag-item-type",
-      "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
-      "source": {
-        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "11300:8312",
-        "variant": "Property 1=Glossary-1"
-      },
-      "quality": {
-        "nodesTotal": 3,
-        "nodesNormalized": 3,
-        "ratio": 1,
-        "degraded": []
-      },
-      "root": {
-        "name": "Property 1=Glossary-1",
-        "kind": "container",
-        "id": "11300:8551",
-        "appearance": {
-          "background": "#ffebce",
-          "radius": "4px",
-          "variants": [
-            {
-              "prop": "Property 1",
-              "values": [
-                "Category"
-              ],
-              "background": "#ffd7ca"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-1"
-              ],
-              "background": "#ffd5dd"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-10",
-                "Custom-12",
-                "Custom-13"
-              ],
-              "background": "#d3efcd"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-11"
-              ],
-              "background": "#f0ffec"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-14"
-              ],
-              "background": "#e1eacb"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-15"
-              ],
-              "background": "#e2e4dd"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-2",
-                "Data process"
-              ],
-              "background": "#ffd6d8"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-3"
-              ],
-              "background": "#e7e0ee"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-4"
-              ],
-              "background": "#e1e5ff"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-5",
-                "Data product"
-              ],
-              "background": "#cadcf7"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-6"
-              ],
-              "background": "#dde6ec"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-7",
-                "Custom-9"
-              ],
-              "background": "#d0efed"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Custom-8"
-              ],
-              "background": "#ecffff"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Dataset"
-              ],
-              "background": "#cfeafd"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Field"
-              ],
-              "background": "#d3efcd",
-              "backgroundToken": "--zen-color-success-50"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Glossary-2",
-                "Glossary-4"
-              ],
-              "background": "#ffddb6"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Glossary-3",
-                "Glossary-5"
-              ],
-              "background": "#ffcd92"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Output port"
-              ],
-              "background": "#f1fdff"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Use case"
-              ],
-              "background": "#fff5d5"
-            },
-            {
-              "prop": "Property 1",
-              "values": [
-                "Visualization"
-              ],
-              "background": "#eed7ff"
-            }
-          ]
-        },
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "4px",
-            "bottom": "0px",
-            "left": "4px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "fixed"
-          },
-          "gapToken": "--zen-spacing-2xs",
-          "paddingTokens": {
-            "right": "--zen-spacing-2xs",
-            "left": "--zen-spacing-2xs"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "id": "11300:8381",
-            "appearance": {
-              "text": {
-                "color": "#9c2000",
-                "size": "12px",
-                "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              },
-              "variants": [
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Category",
-                    "Glossary-2"
-                  ],
-                  "text": {
-                    "color": "#7b2000",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-1"
-                  ],
-                  "text": {
-                    "color": "#771a34",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-10"
-                  ],
-                  "text": {
-                    "color": "#047800",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-11",
-                    "Custom-13"
-                  ],
-                  "text": {
-                    "color": "#1a4b14",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-12"
-                  ],
-                  "text": {
-                    "color": "#145f04",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-14"
-                  ],
-                  "text": {
-                    "color": "#5a6b00",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-15"
-                  ],
-                  "text": {
-                    "color": "#555947",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-2",
-                    "Data process"
-                  ],
-                  "text": {
-                    "color": "#932139",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-3"
-                  ],
-                  "text": {
-                    "color": "#644f77",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-4"
-                  ],
-                  "text": {
-                    "color": "#5c61a7",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-5"
-                  ],
-                  "text": {
-                    "color": "#002f75",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-6"
-                  ],
-                  "text": {
-                    "color": "#4a6470",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-7"
-                  ],
-                  "text": {
-                    "color": "#006563",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-8"
-                  ],
-                  "text": {
-                    "color": "#007e7b",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Custom-9"
-                  ],
-                  "text": {
-                    "color": "#15504e",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Data product",
-                    "Output port"
-                  ],
-                  "text": {
-                    "color": "#00255a",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Dataset"
-                  ],
-                  "text": {
-                    "color": "#00547d",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Field"
-                  ],
-                  "text": {
-                    "color": "#145f04",
-                    "colorToken": "--zen-color-success-800",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Glossary-3"
-                  ],
-                  "text": {
-                    "color": "#5d1f0b",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Glossary-4"
-                  ],
-                  "text": {
-                    "color": "#83551f",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Glossary-5"
-                  ],
-                  "text": {
-                    "color": "#591e27",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Use case"
-                  ],
-                  "text": {
-                    "color": "#000000",
-                    "colorToken": "--zen-color-text-default",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                },
-                {
-                  "prop": "Property 1",
-                  "values": [
-                    "Visualization"
-                  ],
-                  "text": {
-                    "color": "#5f0c9e",
-                    "size": "12px",
-                    "weight": 400,
-                    "lineHeight": "16px",
-                    "letterSpacing": "0.3px"
-                  }
-                }
-              ]
-            },
-            "text": "Glossary 1"
-          },
-          {
-            "name": "Counter",
-            "kind": "text",
-            "id": "14128:3421",
-            "appearance": {
-              "text": {
-                "color": "#000000",
-                "size": "12px",
-                "weight": 400,
-                "lineHeight": "16px",
-                "letterSpacing": "0.3px"
-              }
-            },
-            "text": "00"
-          }
-        ]
-      },
-      "variantDefaults": {
-        "Property 1": "Glossary-1"
       }
     },
     "talend": {
@@ -29479,11 +30043,10 @@
       "_schema_version": 1,
       "slug": "textfield-buttons",
       "kit": "dskit",
-      "synced_at": "2026-08-12T12:00:22.180Z",
+      "synced_at": "2026-08-26T14:16:00.631Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-        "nodeId": "14241:37663",
-        "variant": "Property 1=Default"
+        "nodeId": "14241:37660"
       },
       "quality": {
         "nodesTotal": 3,
@@ -29492,7 +30055,7 @@
         "degraded": []
       },
       "root": {
-        "name": "Property 1=Default",
+        "name": "Textfield buttons",
         "kind": "container",
         "id": "14241:37660",
         "appearance": {
@@ -29564,9 +30127,6 @@
             }
           }
         ]
-      },
-      "variantDefaults": {
-        "Property 1": "Default"
       }
     },
     "thoughtspot": {

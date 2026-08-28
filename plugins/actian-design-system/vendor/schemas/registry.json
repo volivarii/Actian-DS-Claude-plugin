@@ -137,7 +137,7 @@
         "status": {
           "type": "string",
           "enum": ["in-progress", "warn", "deprecated"],
-          "description": "Derived from page-name status emoji (✍️ / ⚠️ / ⛔️). Omitted entirely for ✅ pages (stable) to match the foundations-status precedent.",
+          "description": "Derived from a leading status emoji on the COMPONENT name (✍️ / ⚠️ / ⛔️), which the sync strips from `name`. Omitted entirely for ✅ and for an unmarked component (stable), matching the foundations-status precedent. The Figma page contributes category, section and group, but not status: a page renamed without republishing keeps a stale emoji in the published metadata, so page-derived status was an artifact rather than a signal.",
           "examples": ["in-progress", "warn", "deprecated"]
         },
         "deferral": {
@@ -218,7 +218,7 @@
           "type": "string",
           "minLength": 1,
           "description": "Slug of the nested component, resolved within the same registry. Cross-kit refs and external-library refs are dropped (not emitted).",
-          "examples": ["icon-info", "tag-default"]
+          "examples": ["icon-info", "tag-read-only"]
         },
         "role": {
           "type": ["string", "null"],

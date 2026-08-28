@@ -12,7 +12,6 @@ tags:
   - curate
   - approval
 components:
-  - chat-with-ai-steward
   - drawer-side-panel
   - confirmation
   - button

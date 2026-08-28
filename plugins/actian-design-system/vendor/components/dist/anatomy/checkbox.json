@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9478:17216",
@@ -105,7 +105,7 @@
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": 5998,
+          "x": 2509,
           "y": 494,
           "constraints": {
             "vertical": "TOP",
@@ -200,7 +200,7 @@
                 "slug": "digram-item-types",
                 "props": {
                   "Item type": "Dataset",
-                  "Size": "Small"
+                  "Size": "XS"
                 },
                 "id": "19748:36913",
                 "appearance": {

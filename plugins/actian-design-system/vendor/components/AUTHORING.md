@@ -23,7 +23,7 @@ consumers.
 `🧱 COMPONENTS`, `💎 FOUNDATIONS`, `🎨 BRAND ASSETS`). Sync uses
 `name.includes('COMPONENTS')` to gate which pages count as components.
 
-**Category headers** — Title Case, NO leading whitespace, NO status emoji.
+**Category headers**: Title Case, no leading whitespace, no emoji.
 Current headers:
 
 - Action
@@ -33,7 +33,12 @@ Current headers:
 - Feedback
 - Overlays
 
-**Member pages** — 5-space leading whitespace + status emoji (✅ ✍️ ⛔️ ⚠️).
+**Member pages**: 5-space leading whitespace, plain name, no emoji.
+
+The indent is load-bearing twice over. It is the publish gate, and it is now
+the only difference between a member page and a category header. A member
+page that loses its 5 spaces silently becomes a new category and captures
+every member page below it, so keep the indent when renaming.
 
 A component whose frames sit directly on a category-header page, with no
 dedicated member page of its own, is excluded from the sync and surfaced
@@ -45,12 +50,32 @@ under the right category header.
 
 ### Status emojis (DS Kit vocabulary)
 
+Status is authored **on the component**, as a leading emoji on the component
+or component-set name (`✍️ Badge`, `⛔️ Popover`). Sync strips the emoji from
+the shipped `name` and writes the meaning into `status`. Pages carry no
+status: one component, one status, set where the component lives.
+
 | Emoji | Meaning | Sync `status` value |
 |---|---|---|
 | ✅ | Curated / healthy | field omitted (implicit) |
 | ✍️ | In progress | `"in-progress"` |
 | ⛔️ | Deprecated | `"deprecated"` |
 | ⚠️ | Needs attention | `"warn"` |
+
+Only these four are read, and the sync **fails** on any other emoji in a
+component name rather than shipping it. A component called `🟢 Modal` stops
+that night's sync with an error and produces no PR, because `name` is the
+display name the docs site and the plugin render and `✍️ Badge` reached both
+for weeks before anyone noticed. Use one of the four above, or no emoji at
+all. If a new status is genuinely needed, add it to `COMPONENT_STATUS_MAP` in
+`scripts/transformers/component-status-emoji.js` in the same change.
+
+The colour-vs-monochrome form of the same emoji does not matter (`⚠` and
+`⚠️` both read as `warn`), and the space after it is optional.
+
+A variant-property value is not a status: a `Dev status` axis is a variant
+axis like any other, never reaches the `status` field, and adds a dimension
+to the component's variant matrix. Status belongs on the component name.
 
 **Divergence from foundations:** the foundations status-emoji parser at
 `scripts/foundations/foundations-parser/status-emoji.js` uses
@@ -60,11 +85,10 @@ pages use `✍️ / ⛔️ / ⚠️` per the DS Kit's existing convention.
 
 ### Multi-component pages
 
-A page can host multiple components (e.g., `✍️ Tag (Identification key)`
-contains 9 tag-* variants; `✅ Loading (Loader, Spinner, Skeleton)`
-contains 4 loading variants). All components on a page inherit the
-page's category and status — sync keys the lookup by page clean-name,
-not by component name.
+A page can host multiple components. All components on a page inherit the
+page's `category` and `group`; sync keys that lookup by page clean-name, not
+by component name. `status` does not come from the page, so components
+sharing a page can each carry their own.
 
 ### Adding a new category
 

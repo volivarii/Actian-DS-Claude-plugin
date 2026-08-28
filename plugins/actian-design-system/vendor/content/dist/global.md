@@ -883,7 +883,7 @@ Make sure to confirm specific limits, formats, and patterns for any validation m
 
 * Error: name the specific date constraint the value fails, rather than a generic phrase. For example, "Enter a date on or after today."
 
-See [date input](input-date).
+See [date input](date-input).
 
 #### Character counters
 

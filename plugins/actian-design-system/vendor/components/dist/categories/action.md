@@ -34,7 +34,7 @@ foundations_refs:
 
 # Action — design rationale
 
-Components in this category trigger discrete actions or navigate. Members: `button`, `link`, `action-bar`.
+Components in this category trigger discrete actions or navigate.
 
 ## Reference patterns
 

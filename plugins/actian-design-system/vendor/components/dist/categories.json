@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-08-24T13:44:52.710Z",
+  "generatedAt": "2026-08-26T15:30:27.064Z",
   "categories": {
     "Action": {
       "components": [
@@ -30,6 +30,7 @@
         "card-for-grouped-content",
         "card-for-perimeter",
         "collapse-accordion",
+        "data-viz-legend-item",
         "digram-item-types",
         "digram-topic",
         "glossary-item-hierarchy-diagram",
@@ -37,18 +38,19 @@
         "lineage-connecting-line",
         "lineage-grouped-node",
         "lineage-individual-node",
-        "metamodel-widget",
+        "metamodel",
         "page-header",
+        "pagination",
         "progress-bar-small",
         "search-result-card",
         "segmented-control",
         "table",
-        "tag-default",
         "tag-interactive",
         "tag-item-type",
+        "tag-read-only",
         "toolbar"
       ],
-      "count": 24
+      "count": 26
     },
     "Feedback": {
       "components": [
@@ -71,9 +73,10 @@
         "checkbox",
         "checkbox-card",
         "checkbox-group",
+        "date-input",
+        "dropdown",
         "dropdown-select-default",
         "field",
-        "input-date",
         "label",
         "message",
         "radio",
@@ -87,7 +90,7 @@
         "textfield-buttons",
         "toggle"
       ],
-      "count": 19
+      "count": 20
     },
     "Icons": {
       "components": [
@@ -262,13 +265,12 @@
     },
     "Overlays": {
       "components": [
-        "chat-with-ai-steward",
         "drawer-side-panel",
         "modal",
         "popover",
         "tooltip"
       ],
-      "count": 5
+      "count": 4
     },
     "Product logos": {
       "components": [

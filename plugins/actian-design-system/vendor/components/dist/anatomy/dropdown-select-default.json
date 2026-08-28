@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13972:708",
@@ -237,14 +237,14 @@
         "name": "input field",
         "kind": "container",
         "tokenRefs": [
-          "--zen-border-default"
+          "--zen-border-subtle"
         ],
         "id": "13937:34585",
         "appearance": {
           "background": "#ffffff",
           "border": {
-            "color": "#c7c7ce",
-            "colorToken": "--zen-border-default",
+            "color": "#e1e1e6",
+            "colorToken": "--zen-border-subtle",
             "width": "1px"
           },
           "radius": "6px",

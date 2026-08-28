@@ -1,6 +1,6 @@
 /* ds-base.css — hi-fi DS leaf styles. 100% bound to vendored --zen-* tokens.
  * SPIKE scope: button, input, checkbox. Catalog slice adds:
- * tag-default, badge, search, card-for-items + chrome (global-header,
+ * tag-read-only, badge, search, card-for-items + chrome (global-header,
  * side-nav). Geometry + token bindings
  * measured from the published Figma DS Kit (file l8biHxfarNi1I2RMvVxVOK, 2026-06-06).
  * Figma-var -> --zen-* alias notes: color-bg-primary->bg-emphasis,
@@ -366,14 +366,14 @@
  *   background #fbfbff, border 1px --zen-color-neutral-50 (#e1e1e6), radius 4px
  *
  * All three moved. The previous fill (#dde6ec) was Color=Default's, and Color no
- * longer exists as an axis -- that hex appears nowhere in tag-default's new
+ * longer exists as an axis -- that hex appears nowhere in tag-read-only's new
  * capture, so leaving it would paint the most-used tag in the system a colour
  * the design system does not contain. The 2026-07-23 pass had also dropped the
  * border outright ("the fill IS the tint the border used to carry"); the
  * redesign put a neutral border back and moved the fill to near-white.
  *
  * Confirmed by a SECOND, independent capture rather than by this one alone:
- * search-result-card's anatomy records its own stage pill (a tag-default
+ * search-result-card's anatomy records its own stage pill (a tag-read-only
  * instance) at bg #fcfcfc / border #ebebeb / radius 4px -- the same shape, with
  * --zen-color-neutral-50 resolved in that card's theme mode. Padding, height and
  * the text colour are unchanged by the fold-in.
@@ -490,7 +490,7 @@
   font-weight: var(--zen-font-weight-semibold);
   box-sizing: border-box;
 }
-.ds-item-type--small {
+.ds-item-type--xs {
   min-width: var(--zen-size-md); /* 16 */
   height: var(--zen-size-md);
   font-size: var(--zen-font-size-xs);
@@ -577,7 +577,7 @@
   border: 1px solid var(--zen-border-default);
   border-radius: var(--zen-border-radius-sm); /* 6 */
   padding: var(--zen-spacing-xs); /* 8 */
-  /* Capture (root "State=Default, Type=Main item", a neutral default) paints
+  /* Capture (root "Type=Individual main node, State=Default, Fields=Collapsed") paints
    * the group surface #ffffff, and the Figma render image shows a white card.
    * bg-subtle (#f5f5f8) was a gray surface the component never had. */
   background: var(--zen-color-bg-default);
@@ -621,8 +621,8 @@
   align-self: flex-start; /* keep the inlined child row compact like a standalone lineage node, not stretched to the group column width */
 }
 
-/* ============ Metamodel widget (metamodel-widget) ============ */
-.ds-metamodel-widget {
+/* ============ Metamodel (metamodel) ============ */
+.ds-metamodel {
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs); /* 8 */
@@ -633,23 +633,23 @@
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }
-.ds-metamodel-widget__header {
+.ds-metamodel__header {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8 */
 }
-.ds-metamodel-widget__title {
+.ds-metamodel__title {
   font-size: var(--zen-font-size-md); /* 14 */
   line-height: var(--zen-font-lineheight-md); /* 20 */
   font-weight: var(--zen-font-weight-medium); /* 500, captured title weight */
   color: var(--zen-color-text-default);
 }
-.ds-metamodel-widget__section {
+.ds-metamodel__section {
   display: flex;
   align-items: flex-start;
   gap: var(--zen-spacing-2xs); /* 4 */
 }
-.ds-metamodel-widget__collapse {
+.ds-metamodel__collapse {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -661,7 +661,7 @@
   color: var(--zen-color-icon-default);
   cursor: pointer;
 }
-.ds-metamodel-widget__section-body {
+.ds-metamodel__section-body {
   font-size: var(--zen-font-size-sm); /* 12 */
   line-height: var(--zen-font-lineheight-sm); /* 16 */
   color: var(--zen-color-text-tertiary);
@@ -1343,214 +1343,6 @@
   line-height: var(--zen-font-lineheight-lg);
 }
 
-/* ============ Chat with AI Steward (elevated overlay panel) ============ */
-/* Oracle: vendor/components/dist/media/chat-with-ai-steward/
- *   preview.webp — ~420px floating panel, white bg, shadow-xl, radius-md
- *   behavior-0.webp — Overlay=420px/Drawer=550px/Floating variants; leaf renders open panel
- *   variations-0.webp — confirms floating/drawer layout geometry
- * Shadow token: --zen-shadow-xl (overlay tier, from foundations elevation scale).
- * Note: --zen-color-purple-* NOT present in vendored tokens.css;
- *   sparkle accent uses --zen-color-icon-primary (nearest semantic match; flagged
- *   for token-domain backfill when purple primitives land). */
-.ds-steward {
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* raw px: DS-conventional inner gap, measured from oracle */
-  width: 320px; /* raw px: default overlay width (oracle: ~420px; 320px for static leaf rendering in flows context) */
-  padding: var(--zen-spacing-md); /* 16px */
-  background: var(--zen-color-bg-default);
-  border: 1px solid var(--zen-border-default);
-  border-radius: var(
-    --zen-border-radius-md
-  ); /* 8px, matches oracle rounded corners */
-  box-shadow: var(
-    --zen-shadow-xl
-  ); /* overlay elevation: 8px/12px shadow per tokens */
-  font-family: var(--zen-font-family-text);
-  box-sizing: border-box;
-}
-.ds-steward__header {
-  display: flex;
-  align-items: center;
-  gap: var(--zen-spacing-xs); /* 8px */
-  font-size: var(--zen-font-size-md);
-  font-weight: var(--zen-font-weight-semibold);
-  color: var(--zen-color-text-default);
-}
-.ds-steward__spark {
-  display: inline-flex;
-  align-items: center;
-  flex: none;
-}
-.ds-steward__spark .ds-icon {
-  width: 16px; /* raw px: ai icon 16px per design guideline */
-  height: 16px;
-  color: var(
-    --zen-color-icon-primary
-  ); /* purple-500 not in tokens.css; nearest = icon-primary */
-}
-.ds-steward__title {
-  flex: 1;
-  line-height: var(--zen-font-lineheight-sm);
-}
-.ds-steward__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--zen-spacing-xs); /* 8px */
-}
-.ds-steward__insight {
-  margin: 0;
-  font-size: var(--zen-font-size-sm);
-  color: var(--zen-color-text-default);
-  line-height: var(--zen-font-lineheight-lg);
-}
-.ds-steward__source {
-  font-size: var(--zen-font-size-xs); /* 10px — secondary/meta label */
-  color: var(--zen-color-text-secondary);
-  display: flex;
-  align-items: center;
-  gap: var(--zen-spacing-xs); /* 8px */
-}
-.ds-steward__source-link {
-  color: var(--zen-color-text-primary);
-  text-decoration: underline;
-  cursor: pointer;
-}
-.ds-steward__conf {
-  /* Extends .ds-badge--number; no additional overrides needed */
-}
-.ds-steward__actions {
-  display: flex;
-  gap: var(--zen-spacing-xs); /* 8px */
-  flex-wrap: wrap;
-}
-/* Generating (shimmer) state */
-.ds-steward__shimmer {
-  display: block;
-  height: 12px; /* raw px: shimmer bar height, DS-conventional skeleton */
-  border-radius: var(--zen-border-radius-xs); /* 4px */
-  background: linear-gradient(
-    90deg,
-    var(--zen-color-bg-subtle) 25%,
-    var(--zen-color-bg-emphasis) 50%,
-    var(--zen-color-bg-subtle) 75%
-  );
-  background-size: 200% 100%;
-  animation: ds-shimmer 2000ms linear infinite; /* 2000ms per foundations spec (not yet tokenized) */
-}
-.ds-steward__shimmer--short {
-  width: 60%; /* raw px: shorter second skeleton bar, DS-conventional */
-}
-@keyframes ds-shimmer {
-  to {
-    background-position: -200% 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ds-steward__shimmer {
-    animation: none;
-    background: var(--zen-color-bg-subtle);
-  }
-}
-.ds-steward__disclaimer {
-  font-size: var(--zen-font-size-xs); /* 10px */
-  color: var(--zen-color-text-secondary);
-  border-top: 1px solid var(--zen-border-default);
-  padding-top: var(--zen-spacing-xs); /* 8px */
-  line-height: var(--zen-font-lineheight-lg);
-}
-/* Drawer size modifier — 550px wide, full-height per anatomy (Figma 550×897) */
-.ds-steward--drawer {
-  width: 550px; /* raw px: Figma Drawer variant geometry; overlay base stays 320px on .ds-steward */
-  height: 100%; /* full side-panel height */
-  border-radius: 0; /* drawer variant: flush with edge, no rounded corners */
-}
-/* Header controls — "New chat" dropdown + icon button row */
-.ds-steward__newchat {
-  margin-left: var(--zen-spacing-xs); /* 8px gap from title */
-  font-size: var(--zen-font-size-xs); /* 10px — secondary action label */
-  font-weight: var(--zen-font-weight-medium);
-  color: var(--zen-color-text-secondary);
-  background: none;
-  border: 1px solid var(--zen-border-default);
-  border-radius: var(--zen-border-radius-sm); /* 6px */
-  padding: 2px var(--zen-spacing-xs); /* raw 2px top/bottom, xs(8px) sides */
-  cursor: pointer;
-  white-space: nowrap;
-  line-height: var(--zen-font-lineheight-md);
-}
-.ds-steward__controls {
-  display: flex;
-  align-items: center;
-  gap: var(--zen-spacing-2xs); /* 4px */
-  margin-left: auto; /* push controls to the right edge of the header */
-}
-.ds-steward__control {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px; /* raw px: icon button size per anatomy */
-  height: 24px;
-  padding: 0;
-  background: none;
-  border: none;
-  border-radius: var(--zen-border-radius-sm); /* 6px */
-  color: var(--zen-color-icon-subtle);
-  cursor: pointer;
-}
-.ds-steward__control:hover {
-  background: var(--zen-color-bg-subtle);
-  color: var(--zen-color-icon-default);
-}
-.ds-steward__control svg {
-  width: 16px; /* raw px: icon within 24px control — DS-conventional 16px icon */
-  height: 16px;
-}
-/* Welcome state greeting */
-.ds-steward__greeting {
-  margin: 0;
-  font-size: var(--zen-font-size-sm);
-  color: var(--zen-color-text-default);
-  line-height: var(--zen-font-lineheight-lg);
-}
-/* Task-input footer — input row + context chip + Plan button */
-.ds-steward__taskinput {
-  display: flex;
-  align-items: center;
-  gap: var(--zen-spacing-xs); /* 8px */
-  padding: var(--zen-spacing-xs) 0; /* 8px top/bottom, flush sides */
-  border-top: 1px solid var(--zen-border-default);
-  flex-wrap: wrap;
-}
-.ds-steward__taskinput-field {
-  flex: 1;
-  min-width: 0; /* flex shrink below content */
-  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4px 8px */
-  font-size: var(--zen-font-size-sm);
-  font-family: var(--zen-font-family-text);
-  color: var(--zen-color-text-default);
-  background: var(--zen-color-bg-default);
-  border: 1px solid var(--zen-border-default);
-  border-radius: var(--zen-border-radius-sm); /* 6px */
-  outline: none;
-}
-.ds-steward__taskinput-field::placeholder {
-  color: var(--zen-color-text-placeholder-subtle);
-}
-.ds-steward__context-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--zen-spacing-2xs); /* 4px */
-  padding: 2px var(--zen-spacing-xs); /* raw 2px + xs(8px) — compact pill */
-  font-size: var(--zen-font-size-xs); /* 10px — meta label */
-  color: var(--zen-color-text-secondary);
-  background: var(
-    --zen-color-bg-subtle
-  ); /* --zen-color-bg-subtle (#fbfbff) — nearest to Figma --color-bg-subtle */
-  border: 1px solid var(--zen-border-default);
-  border-radius: var(--zen-border-radius-full); /* pill shape */
-  white-space: nowrap;
-}
 
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
@@ -1712,7 +1504,7 @@
 
 /* ============ Input date (labeled date field + calendar btn) ============ */
 /* Registry axes: Type = Single date | Date range; States = Enabled | … */
-.ds-input-date {
+.ds-date-input {
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs); /* 8 */
@@ -1720,24 +1512,24 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-input-date__label-row {
+.ds-date-input__label-row {
   display: flex;
   gap: var(--zen-spacing-2xs);
   align-items: center;
 }
-.ds-input-date__label {
+.ds-date-input__label {
   font-size: var(--zen-font-size-md);
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-default);
 }
-.ds-input-date__inputs {
+.ds-date-input__inputs {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs);
 }
-.ds-input-date__field {
+.ds-date-input__field {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -1750,7 +1542,7 @@
   border-radius: var(--zen-border-radius-xs);
   box-sizing: border-box;
 }
-.ds-input-date__value {
+.ds-date-input__value {
   flex: 1 1 0;
   min-width: 0;
   font-size: var(--zen-font-size-md);
@@ -1758,30 +1550,30 @@
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-placeholder);
 }
-.ds-input-date__calendar {
+.ds-date-input__calendar {
   width: 20px; /* icon box geometry (raw px) */
   height: 20px;
   flex: 0 0 auto;
   display: inline-flex;
   color: var(--zen-color-icon-default);
 }
-.ds-input-date__calendar svg {
+.ds-date-input__calendar svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.ds-input-date__sep {
+.ds-date-input__sep {
   flex: 0 0 auto;
   color: var(--zen-color-text-secondary);
 }
-.ds-input-date__helper {
+.ds-date-input__helper {
   font-size: var(--zen-font-size-sm);
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-sm);
   letter-spacing: var(--zen-font-letterspacing-wide-3);
   color: var(--zen-color-text-secondary);
 }
-.ds-input-date.is-disabled {
+.ds-date-input.is-disabled {
   opacity: 0.4;
 }
 
@@ -2548,7 +2340,7 @@
 }
 
 /* ============ Tag (Type variants, derived from facts) ============ */
-/* Derived from components/dist/anatomy/tag-default.json's per-Type appearance
+/* Derived from components/dist/anatomy/tag-read-only.json's per-Type appearance
  * groups. Renderer relocation phase 1b-alpha's binding rule still applies:
  * bind var(--token) only where the token round-trips to the appearance fact's
  * resolved value, otherwise the literal ships (value-first, see
@@ -2634,7 +2426,7 @@
 }
 
 /* ============ Tag (stage pill, reused by search-result-card) ============ */
-/* The tag-stage COMPONENT retired into tag-default's Type axis on 2026-08-12,
+/* The tag-stage COMPONENT retired into tag-read-only's Type axis on 2026-08-12,
  * but these two classes survive it: search-result-card's own markup emits
  * `.ds-tag .ds-tag-stage` + `.ds-tag-stage__dot` for its stage pill, so
  * deleting them would silently drop that card's dot.
@@ -3170,7 +2962,7 @@
  * badge reuse EXISTING .ds-tag / .ds-tag-stage / .ds-tag--catalog /
  * .ds-item-type rules verbatim -- only the
  * ds-search-result-card* classes below are new. (The stage pill's
- * .ds-tag--gray dropped out with tag-default's Color axis on 2026-08-12; Gray
+ * .ds-tag--gray dropped out with tag-read-only's Color axis on 2026-08-12; Gray
  * never had a rule of its own, so nothing it painted was lost.) */
 .ds-search-result-card {
   display: flex;

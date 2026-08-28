@@ -13,6 +13,5 @@ tags:
   - discover
 components:
   - search
-  - chat-with-ai-steward
 ---
 Natural language query search through the knowledge graph with AI-generated summaries.

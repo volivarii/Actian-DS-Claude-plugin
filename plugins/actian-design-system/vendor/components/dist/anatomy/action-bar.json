@@ -2,11 +2,10 @@
   "_schema_version": 1,
   "slug": "action-bar",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14747:9839",
-    "variant": "Property 1=Default"
+    "nodeId": "8190:6001"
   },
   "quality": {
     "nodesTotal": 5,
@@ -15,7 +14,7 @@
     "degraded": []
   },
   "root": {
-    "name": "Property 1=Default",
+    "name": "Action bar",
     "kind": "container",
     "tokenRefs": [
       "--zen-border-disabled"
@@ -146,8 +145,5 @@
         ]
       }
     ]
-  },
-  "variantDefaults": {
-    "Property 1": "Default"
   }
 }

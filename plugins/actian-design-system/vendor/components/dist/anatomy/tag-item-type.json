@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "slug": "tag-item-type",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "11300:8312",
-    "variant": "Property 1=Glossary-1"
+    "variant": "Type=Glossary-1"
   },
   "quality": {
     "nodesTotal": 3,
@@ -15,7 +15,7 @@
     "degraded": []
   },
   "root": {
-    "name": "Property 1=Glossary-1",
+    "name": "Type=Glossary-1",
     "kind": "container",
     "id": "11300:8551",
     "appearance": {
@@ -23,21 +23,21 @@
       "radius": "4px",
       "variants": [
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Category"
           ],
           "background": "#ffd7ca"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-1"
           ],
           "background": "#ffd5dd"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-10",
             "Custom-12",
@@ -46,28 +46,28 @@
           "background": "#d3efcd"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-11"
           ],
           "background": "#f0ffec"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-14"
           ],
           "background": "#e1eacb"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-15"
           ],
           "background": "#e2e4dd"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-2",
             "Data process"
@@ -75,21 +75,21 @@
           "background": "#ffd6d8"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-3"
           ],
           "background": "#e7e0ee"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-4"
           ],
           "background": "#e1e5ff"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-5",
             "Data product"
@@ -97,14 +97,14 @@
           "background": "#cadcf7"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-6"
           ],
           "background": "#dde6ec"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-7",
             "Custom-9"
@@ -112,21 +112,21 @@
           "background": "#d0efed"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Custom-8"
           ],
           "background": "#ecffff"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Dataset"
           ],
           "background": "#cfeafd"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Field"
           ],
@@ -134,7 +134,7 @@
           "backgroundToken": "--zen-color-success-50"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Glossary-2",
             "Glossary-4"
@@ -142,7 +142,7 @@
           "background": "#ffddb6"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Glossary-3",
             "Glossary-5"
@@ -150,21 +150,21 @@
           "background": "#ffcd92"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Output port"
           ],
           "background": "#f1fdff"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Use case"
           ],
           "background": "#fff5d5"
         },
         {
-          "prop": "Property 1",
+          "prop": "Type",
           "values": [
             "Visualization"
           ],
@@ -210,7 +210,7 @@
           },
           "variants": [
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Category",
                 "Glossary-2"
@@ -224,7 +224,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-1"
               ],
@@ -237,7 +237,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-10"
               ],
@@ -250,7 +250,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-11",
                 "Custom-13"
@@ -264,7 +264,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-12"
               ],
@@ -277,7 +277,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-14"
               ],
@@ -290,7 +290,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-15"
               ],
@@ -303,7 +303,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-2",
                 "Data process"
@@ -317,7 +317,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-3"
               ],
@@ -330,7 +330,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-4"
               ],
@@ -343,7 +343,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-5"
               ],
@@ -356,7 +356,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-6"
               ],
@@ -369,7 +369,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-7"
               ],
@@ -382,7 +382,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-8"
               ],
@@ -395,7 +395,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Custom-9"
               ],
@@ -408,7 +408,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Data product",
                 "Output port"
@@ -422,7 +422,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Dataset"
               ],
@@ -435,7 +435,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Field"
               ],
@@ -449,7 +449,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Glossary-3"
               ],
@@ -462,7 +462,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Glossary-4"
               ],
@@ -475,7 +475,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Glossary-5"
               ],
@@ -488,7 +488,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Use case"
               ],
@@ -502,7 +502,7 @@
               }
             },
             {
-              "prop": "Property 1",
+              "prop": "Type",
               "values": [
                 "Visualization"
               ],
@@ -536,6 +536,6 @@
     ]
   },
   "variantDefaults": {
-    "Property 1": "Glossary-1"
+    "Type": "Glossary-1"
   }
 }

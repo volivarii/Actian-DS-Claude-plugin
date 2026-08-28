@@ -104,7 +104,7 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 321 components (82 sets) | Roboto | Full design system, all tokens, 3 themes |
+| DS Kit | 323 components (76 sets) | Roboto | Full design system, all tokens, 3 themes |
 | FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 
@@ -117,11 +117,11 @@ DS Kit components are grouped into 6 categories (synced from the design team's F
 | Category | Components | Examples |
 |---|---|---|
 | **Action** | 3 | button, link, action-bar |
-| **Form** | 19 | text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
+| **Form** | 20 | text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
 | **Navigation** | 10 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
-| **Data Display** | 24 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
+| **Data Display** | 26 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
 | **Feedback** | 10 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
-| **Overlays** | 5 | modal, popover, tooltip, drawer-side-panel, chat-with-ai-steward |
+| **Overlays** | 4 | modal, popover, tooltip, drawer-side-panel, chat-with-ai-steward |
 
 Counts and full membership: `vendor/components/dist/categories.json` (source of truth — synced from Figma). Some components carry `status` (`in-progress` ✍️, `deprecated` ⛔️, `warn` ⚠️) — surface this when answering questions about a component's readiness.
 

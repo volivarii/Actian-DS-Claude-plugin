@@ -11,7 +11,7 @@ The calendar lets users pick a date or date range from a visual month view. It a
 
 * When users need to select a date or date range and seeing surrounding days adds context.
 
-* For a compact single-date entry where a visual month view is unnecessary, use a [date input](input-date) instead.
+* For a compact single-date entry where a visual month view is unnecessary, use a [date input](date-input) instead.
 
 ## Style
 
