@@ -33,6 +33,22 @@ are summarized at the release level.
   slug, plus a guard that the cache cannot come back.
 
 
+- **The flow preview did not resolve a renamed component, and could not say so.**
+  ([#PR](_PR link added at open_)) knowledge #601 made the renderer resolve a retired slug
+  through the identity ledger, but the map it reads is a separate vendored module,
+  `ds-retired-slugs.js`, and there is no fs in the browser: `ds-html-map.js` takes it from
+  `require` in Node and from `window.dsRetiredSlugs` in the browser. `assemble-preview.js`
+  inlines its renderer modules from a hand-kept list, and the new module was never added to it,
+  so the browser fell back to the empty map. An empty map is a legitimate state, no renames
+  recorded yet, which is exactly why this was silent: the whole Node-side suite passed while a
+  flow preview rendered `tag-default` as a grey chip. The module is now inlined before its
+  reader, and `preview-retired-slug-wiring.test.js` pulls the assembled bundle's own scripts
+  back out, runs them with a browser's globals and no `require`, and requires the retired slug
+  to render byte-identically to its current name. Moving the module after its reader turns the
+  behavioural assertions red, not only the ordering one, so the order is proved load-bearing
+  rather than asserted as style. Its specimen is read from the ledger, so it follows the next
+  rename by itself.
+
 - **A component archived in Figma while it is rebuilt no longer costs its tests.**
   ([#327](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/327)) The knowledge v0.34.157 refresh unpublished
   `chat-with-ai-steward`: an old version being rebuilt, archived in the file rather than deleted,
