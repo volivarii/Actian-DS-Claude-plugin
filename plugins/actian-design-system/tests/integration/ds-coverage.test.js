@@ -5,6 +5,7 @@ var fs = require("fs");
 var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
 var dsHtmlMap = require("../../scripts/lib/renderer.js").dsHtmlMap;
+var shared = require("../../scripts/lib/shared-constants.js");
 
 // FM→DS CONVERSION coverage gate (one of two feeders into the shared DS render tier).
 //
@@ -51,7 +52,11 @@ function reachableDsSlugs() {
   var map = JSON.parse(fs.readFileSync(MAP, "utf8"));
   var slugs = new Set();
   Object.keys(map.mappings || {}).forEach(function (fmRef) {
-    var slug = map.mappings[fmRef].dsSlug;
+    // Derived from the IMMUTABLE dsKey, never from a slug stored beside it.
+    // The map used to cache a `dsSlug` field, and a Figma rename made that
+    // cache disagree with the registry while the runtime (transform-to-hifi)
+    // had always derived. The cache existed only to go stale and fail here.
+    var slug = shared.slugFromKey(map.mappings[fmRef].dsKey, "ds");
     if (slug) slugs.add(slug);
   });
   return slugs;

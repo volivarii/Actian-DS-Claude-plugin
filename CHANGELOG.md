@@ -19,6 +19,17 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+- **The fm-to-ds map cached a slug beside the immutable key it derives from, so a Figma rename made
+  the map disagree with the registry.** ([#326](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/326)) Each of the 24 mappings
+  carried a `dsSlug` next to its `dsKey`, and `dsKey` is what survives a rename. Nothing at runtime
+  read the cached field: `transform-to-hifi.js` has always resolved the current slug from `dsKey`,
+  with a comment saying so. Only tests read it, so its entire effect was to go stale on a rename and
+  fail a check whose message pointed at a `/sync-design-system` command that does not exist in this
+  repo. The field is removed and both test readers derive from `dsKey` through
+  `shared.slugFromKey`, which reads the vendored registry and therefore follows a rename by itself.
+  Part 5 of the map test now asserts what matters, that the stable key still resolves to a registry
+  slug, plus a guard that the cache cannot come back.
+
 ### Changed
 
 - **The knowledge v0.34.150 breaking sync is carried through the plugin's own authored source.**
