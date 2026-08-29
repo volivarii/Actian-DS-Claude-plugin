@@ -34,7 +34,7 @@ are summarized at the release level.
 
 
 - **The flow preview did not resolve a renamed component, and could not say so.**
-  ([#PR](_PR link added at open_)) knowledge #601 made the renderer resolve a retired slug
+  ([#328](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/328)) knowledge #601 made the renderer resolve a retired slug
   through the identity ledger, but the map it reads is a separate vendored module,
   `ds-retired-slugs.js`, and there is no fs in the browser: `ds-html-map.js` takes it from
   `require` in Node and from `window.dsRetiredSlugs` in the browser. `assemble-preview.js`
