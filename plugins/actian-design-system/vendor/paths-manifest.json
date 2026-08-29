@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.153",
+  "knowledge_version": "0.34.157",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -266,6 +266,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Component × domain × status coverage matrix — the documentation-debt backlog."
     },
+    "components.guidelineDoc.date-input": {
+      "path": "components/dist/guidelines/date-input.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'date-input' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.drawer-side-panel": {
       "path": "components/dist/guidelines/drawer-side-panel.json",
       "type": "json",
@@ -314,13 +321,6 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'inline-toast' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.input-date": {
-      "path": "components/dist/guidelines/input-date.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'input-date' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.link": {
       "path": "components/dist/guidelines/link.json",
@@ -928,7 +928,7 @@
       "pattern": "{slug}-defaults.json",
       "type": "json",
       "origin": "ci",
-      "description": "Per-category defaults (Phase 2 v2). 6 categories: action, form-input-selection, navigation, data-display, feedback, overlays. See also bundle entry components.categoryDefaults.bundle for the roll-up. Renamed from components.categoryDefaults in v0.5.1 to honor leaf-XOR-namespace manifest convention."
+      "description": "Per-category defaults (Phase 2 v2), one leaf per authored category. The category set and its membership are published in components/dist/categories.json, auto-synced from the Figma Pages panel; this description does not restate them. See also bundle entry components.categoryDefaults.bundle for the roll-up. Named to honor the leaf-XOR-namespace manifest convention."
     },
     "components.graphics.dist": {
       "dir": "components/dist/graphics",
@@ -1031,7 +1031,7 @@
     "card-for-grouped-content": "card",
     "card-for-perimeter": "card",
     "dropdown-select-default": "dropdown-select",
-    "tag-default": "tag",
+    "tag-read-only": "tag",
     "tag-interactive": "tag",
     "tag-item-type": "tag"
   },

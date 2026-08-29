@@ -129,14 +129,14 @@ function pickUnbuiltRegistrySlug(builtSlugs, registryPath) {
 // Variant-axis specimens.
 //
 // Same rot story as pickSpecimen above, one level down: several tests needed a
-// tag-default variant that actually PAINTS something, and named one
+// tag-read-only variant that actually PAINTS something, and named one
 // ("Color=Pink", "Color=Purple"). The 2026-08-12 fold-in replaced the whole
 // Color axis with a 14-value Type axis, so those names resolved to nothing and
 // the tests failed for a reason that was not a regression. Naming a Type value
 // instead would only buy time until the next redesign, so the axis AND the
 // value are read off the anatomy doc the renderer itself reads.
 
-// The renderer's own modifier-suffix transform (ds-html-map.js, tag-default:
+// The renderer's own modifier-suffix transform (ds-html-map.js, tag-read-only:
 // `String(v.Type).toLowerCase().replace(/\s+/g, "-")`). Mirrored once here so
 // every test that predicts a `ds-<block>--<value>` class agrees, instead of
 // each re-deriving it slightly differently.

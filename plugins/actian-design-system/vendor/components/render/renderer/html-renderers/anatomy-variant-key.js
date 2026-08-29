@@ -4,10 +4,10 @@
 // composite key for a delegated slug + variant. No requires (leaf module).
 "use strict";
 
-// Slice 1 delegates ONLY tag-default to variant-aware token-injection.
+// Slice 1 delegates ONLY tag-read-only to variant-aware token-injection.
 // Widening later = broadening this predicate; no other change needed.
 function isDelegated(slug) {
-  return slug === "tag-default";
+  return slug === "tag-read-only";
 }
 
 // slug + a deterministic, sorted encoding of the variant object.

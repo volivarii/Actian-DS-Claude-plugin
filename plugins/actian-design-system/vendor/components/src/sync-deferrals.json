@@ -5,7 +5,56 @@
     "added": "2026-08-18",
     "remove_when": "Delete an entry the moment its removal is carried through, or the moment Figma republishes the component. A deferral whose slug is no longer being removed is dead config and FAILS the run by design, so this file cannot rot silently.",
     "how_to_add": "One object per deferred removal, with: `kit` (dsKit/fmKit/metaKit), `slug`, `key` (the Figma key, which must match the registry entry: a slug can be freed and reused, and identity is what stops the wrong component being carried forward), `reason` (why, for someone outside the conversation), `issue` (where the decision lives), and `review_by` (an ISO date, inclusive). Past `review_by` the deferral stops applying, the removal returns and the sync goes breaking again. That is deliberate: a deferral is a dated pause, never a decision.",
-    "updated": "2026-08-18"
+    "updated": "2026-08-26"
   },
-  "deferrals": []
+  "deferrals": [
+    {
+      "kit": "dsKit",
+      "slug": "confirmation",
+      "key": "41a7ce5d67baa4a49843fc0768bee6df42f945a7",
+      "reason": "Folded into empty-state as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    },
+    {
+      "kit": "dsKit",
+      "slug": "error-state",
+      "key": "a219aa99ab9712f911f391af8dd623c18b281ccb",
+      "reason": "Folded into empty-state as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    },
+    {
+      "kit": "dsKit",
+      "slug": "maintenance-state",
+      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
+      "reason": "Folded into empty-state as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    },
+    {
+      "kit": "dsKit",
+      "slug": "digram-topic",
+      "key": "c5cccb155896a560523120f96888c1d64374b562",
+      "reason": "Folded into digram-item-types as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    },
+    {
+      "kit": "dsKit",
+      "slug": "lineage-connecting-line",
+      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
+      "reason": "Folded into lineage-individual-node as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    },
+    {
+      "kit": "dsKit",
+      "slug": "lineage-grouped-node",
+      "key": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
+      "reason": "Folded into lineage-individual-node as a variant. No artwork is lost, but the render leaf, its CSS ownership and its guidance have not moved yet, and the fold is the same shape as the tag-family fold rather than a rename. Carried forward so the rest of the reorganisation lands.",
+      "issue": 589,
+      "review_by": "2026-10-15"
+    }
+  ]
 }

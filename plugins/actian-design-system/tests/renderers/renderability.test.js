@@ -8,6 +8,43 @@ var R = require(
   path.resolve(__dirname, "..", "..", "scripts", "renderers", "renderability.js"),
 );
 var { loadAnatomy } = require("../../scripts/lib/renderer.js").anatomyRender;
+var fs = require("fs");
+
+// Pick, at run time, a vendored doc that isRenderable rejects for a GIVEN
+// reason. The rejections are ordered (no layout, then too few placeable
+// nodes, then unresolved instances), so a hardcoded specimen silently starts
+// testing an earlier rule the moment a sync changes its anatomy. That is what
+// happened to notification-dropdown in the v0.34.157 sync: still rejected,
+// but for "only 8/17 nodes placeable" rather than the unresolved-instances
+// rule this test is about. Same reasoning as tests/helpers/appearance-
+// specimen.js; the population is asserted non-empty so a substrate with no
+// such doc left fails loudly instead of passing vacuously.
+var ANATOMY_DIR = path.resolve(
+  __dirname,
+  "..",
+  "..",
+  "vendor",
+  "components",
+  "dist",
+  "anatomy",
+);
+function pickRejectedFor(pattern) {
+  var found = null;
+  fs.readdirSync(ANATOMY_DIR)
+    .filter(function (name) {
+      return name.endsWith(".json");
+    })
+    .sort() // deterministic: same specimen on every run and every machine
+    .forEach(function (name) {
+      if (found) return;
+      var slug = name.replace(/\.json$/, "");
+      var verdict = R.isRenderable(loadAnatomy(slug));
+      if (!verdict.ok && pattern.test(verdict.why)) {
+        found = { slug: slug, why: verdict.why };
+      }
+    });
+  return found;
+}
 
 describe("renderability.docStats", function () {
   it("returns a zeroed shape for a missing or malformed doc", function () {
@@ -51,9 +88,15 @@ describe("renderability.isRenderable", function () {
   });
 
   it("rejects a doc whose instances are mostly unresolved", function () {
-    var doc = loadAnatomy("notification-dropdown");
-    var v = R.isRenderable(doc);
-    assert.strictEqual(v.ok, false);
+    var picked = pickRejectedFor(/instances unresolved/);
+    assert.ok(
+      picked,
+      "no vendored anatomy doc reaches the unresolved-instances rejection " +
+        "any more, so this rule has no specimen: retire or repoint the test " +
+        "rather than letting it pass vacuously",
+    );
+    var v = R.isRenderable(loadAnatomy(picked.slug));
+    assert.strictEqual(v.ok, false, picked.slug + " should be rejected");
     assert.match(v.why, /instances unresolved/);
   });
 

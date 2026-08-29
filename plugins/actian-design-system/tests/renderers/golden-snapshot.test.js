@@ -6,6 +6,7 @@ var path = require("path");
 var fm = require("../../scripts/lib/renderer.js").fmHtmlMap;
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 var dsAnatomyMap = require("../../scripts/lib/renderer.js").dsAnatomyMap;
+var unpublished = require("../helpers/unpublished.js");
 
 var GOLDEN_DIR = path.join(__dirname, "__goldens__");
 var UPDATE = process.env.UPDATE_GOLDENS === "1";
@@ -169,13 +170,13 @@ var DS_FIXTURES = {
     props: { Label: "Agree to terms" },
   },
   // Catalog-slice content components.
-  // tag-default's Color axis was retired on 2026-08-12 for a 14-value Type
+  // The Color axis was retired on 2026-08-12 for a 14-value Type
   // axis. Left as "Color=Default" these two kept rendering, because the leaf
   // shape-clamps an unknown axis rather than throwing: the pill came out with
   // NO modifier class at all and the golden would have gone on recording that
   // as if it were the component. Both now name live Type values.
   tagDefault: {
-    dsSlug: "tag-default",
+    dsSlug: "tag-read-only",
     variant: "Type=Default",
     props: { Label: "Active" },
   },
@@ -185,7 +186,7 @@ var DS_FIXTURES = {
   // what carries a fact now, because the leaf swaps the GLYPH per Type
   // (folder here, `add` for tagDefault above), so the pair pins the swap.
   tagWithIcon: {
-    dsSlug: "tag-default",
+    dsSlug: "tag-read-only",
     variant: "Type=Catalog",
     props: { Label: "Catalog" },
   },
@@ -431,7 +432,7 @@ var DS_FIXTURES = {
     },
   },
   // The tag-status COMPONENT was deleted on 2026-08-12 and folded into
-  // tag-default's Type axis, so these two are repointed onto their successor
+  // tag-read-only's Type axis, so these two are repointed onto their successor
   // values (Status=Success -> Type=Status-success, Status=Fail ->
   // Type=Status-error, which is what Figma now calls the failure value).
   //
@@ -450,12 +451,12 @@ var DS_FIXTURES = {
   // both pills now carry real path geometry. knowledge #406 covers the six
   // dropped glyphs generally and stays open; it no longer blocks these two.
   tagStatusSuccess: {
-    dsSlug: "tag-default",
+    dsSlug: "tag-read-only",
     variant: "Type=Status-success",
     props: { Label: "Active" },
   },
   tagStatusFail: {
-    dsSlug: "tag-default",
+    dsSlug: "tag-read-only",
     variant: "Type=Status-error",
     props: { Label: "Failed" },
   },
@@ -474,8 +475,13 @@ var DS_BUILT_SLUGS_SET = {};
 });
 
 Object.keys(DS_FIXTURES).forEach(function (name) {
-  test("golden(ds): " + name, function () {
-    var fixture = DS_FIXTURES[name];
+  var fixture = DS_FIXTURES[name];
+  // A fixture whose component is unpublished upstream keeps its golden file
+  // on disk and skips, so the capture is still here when the component comes
+  // back. Read from the fixture own dsSlug rather than listing fixture names,
+  // so a second quarantined component needs no edit here.
+  var opts = { skip: unpublished.skipReason(fixture.dsSlug) };
+  test("golden(ds): " + name, opts, function () {
     var node = Object.assign({ type: "INSTANCE", library: "ds" }, fixture);
     var needsDocMap = !DS_BUILT_SLUGS_SET[fixture.dsSlug];
     if (needsDocMap) {

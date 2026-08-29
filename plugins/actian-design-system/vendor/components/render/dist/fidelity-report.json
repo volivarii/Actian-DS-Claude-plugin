@@ -8,20 +8,20 @@
     "verified": 75,
     "verifiedViaTokenName": 3,
     "mismatch": 0,
-    "unverifiable": 354,
+    "unverifiable": 330,
     "overridden": 0,
-    "oracleCoverage": 0.1806,
+    "oracleCoverage": 0.1912,
     "verifiedFidelity": 0.9615,
-    "examined": 432
+    "examined": 408
   },
   "reasons": {
     "no-fact-of-kind": 23,
-    "element-no-node-mapping": 247,
-    "root-is-variant-instance": 23,
+    "element-no-node-mapping": 229,
+    "root-is-variant-instance": 21,
     "no-matching-variant": 14,
     "root-is-non-default-state": 4,
-    "state-unreachable": 40,
-    "selector-not-attributable": 3
+    "state-unreachable": 37,
+    "selector-not-attributable": 2
   },
   "bySlug": {
     "account-dropdown": {
@@ -145,17 +145,6 @@
       "overridden": 0,
       "blind": false
     },
-    "chat-with-ai-steward": {
-      "prefixes": [
-        "ds-steward"
-      ],
-      "verified": 0,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 24,
-      "overridden": 0,
-      "blind": true
-    },
     "checkbox": {
       "prefixes": [
         "ds-checkbox"
@@ -186,6 +175,17 @@
       "verifiedViaTokenName": 0,
       "mismatch": 0,
       "unverifiable": 2,
+      "overridden": 0,
+      "blind": true
+    },
+    "date-input": {
+      "prefixes": [
+        "ds-date-input"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 7,
       "overridden": 0,
       "blind": true
     },
@@ -266,17 +266,6 @@
       "overridden": 0,
       "blind": false
     },
-    "input-date": {
-      "prefixes": [
-        "ds-input-date"
-      ],
-      "verified": 0,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 7,
-      "overridden": 0,
-      "blind": true
-    },
     "lineage-grouped-node": {
       "prefixes": [
         "ds-lineage-group"
@@ -354,9 +343,9 @@
       "overridden": 0,
       "blind": true
     },
-    "metamodel-widget": {
+    "metamodel": {
       "prefixes": [
-        "ds-metamodel-widget"
+        "ds-metamodel"
       ],
       "verified": 0,
       "verifiedViaTokenName": 0,
@@ -563,17 +552,6 @@
       "overridden": 0,
       "blind": false
     },
-    "tag-default": {
-      "prefixes": [
-        "ds-tag"
-      ],
-      "verified": 24,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 4,
-      "overridden": 0,
-      "blind": false
-    },
     "tag-interactive": {
       "prefixes": [
         "ds-tag-interactive"
@@ -593,6 +571,17 @@
       "verifiedViaTokenName": 0,
       "mismatch": 0,
       "unverifiable": 30,
+      "overridden": 0,
+      "blind": false
+    },
+    "tag-read-only": {
+      "prefixes": [
+        "ds-tag"
+      ],
+      "verified": 24,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 4,
       "overridden": 0,
       "blind": false
     },
@@ -656,22 +645,21 @@
     "alert-banner",
     "avatar",
     "breadcrumb",
-    "chat-with-ai-steward",
     "checkbox",
     "collapse-accordion",
     "confirmation",
+    "date-input",
     "digram-item-types",
     "digram-topic",
     "dropdown-select-default",
     "empty-state",
     "error-state",
-    "input-date",
     "link",
     "loader",
     "loader-with-logo",
     "loading-skeleton",
     "maintenance-state",
-    "metamodel-widget",
+    "metamodel",
     "notification",
     "page-header",
     "progress-bar-small",

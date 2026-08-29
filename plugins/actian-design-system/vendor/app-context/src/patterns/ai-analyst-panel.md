@@ -12,7 +12,6 @@ tags:
   - analytics
   - natural-language
 components:
-  - chat-with-ai-steward
   - drawer-side-panel
   - text-input
 ---

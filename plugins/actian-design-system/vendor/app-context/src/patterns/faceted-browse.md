@@ -24,7 +24,7 @@ components:
   - toggle
   - dropdown-select-default
   - progress-bar-small
-  - tag-default
+  - tag-read-only
   - button
   - search
   - table

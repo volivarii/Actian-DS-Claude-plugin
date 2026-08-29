@@ -13,6 +13,12 @@
     "actian-data-intelligence": {
       "default": "components/dist/media/actian-data-intelligence/default.webp"
     },
+    "actian-data-intelligence-explorer-horizontal": {
+      "default": "components/dist/media/actian-data-intelligence-explorer-horizontal/default.webp"
+    },
+    "actian-data-intelligence-studio-horizontal": {
+      "default": "components/dist/media/actian-data-intelligence-studio-horizontal/default.webp"
+    },
     "actian-data-observability": {
       "default": "components/dist/media/actian-data-observability/default.webp"
     },
@@ -23,7 +29,8 @@
       "preview": "components/dist/media/action-bar/preview.webp",
       "parts": [
         "components/dist/media/action-bar/parts-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/action-bar/default.webp"
     },
     "adlsgen1": {
       "default": "components/dist/media/adlsgen1/default.webp"
@@ -113,9 +120,6 @@
       "parts": [
         "components/dist/media/breadcrumb/parts-0.webp"
       ],
-      "variations": [
-        "components/dist/media/breadcrumb/variations-0.webp"
-      ],
       "behavior": [
         "components/dist/media/breadcrumb/behavior-0.webp",
         "components/dist/media/breadcrumb/behavior-1.webp"
@@ -161,6 +165,10 @@
       "preview": "components/dist/media/calendar/preview.webp",
       "default": "components/dist/media/calendar/default.webp"
     },
+    "card": {
+      "preview": "components/dist/media/card/preview.webp",
+      "default": "components/dist/media/card/default.webp"
+    },
     "card-for-grouped-content": {
       "preview": "components/dist/media/card-for-grouped-content/preview.webp",
       "default": "components/dist/media/card-for-grouped-content/default.webp"
@@ -171,19 +179,6 @@
     },
     "cassandra": {
       "default": "components/dist/media/cassandra/default.webp"
-    },
-    "chat-with-ai-steward": {
-      "preview": "components/dist/media/chat-with-ai-steward/preview.webp",
-      "parts": [
-        "components/dist/media/chat-with-ai-steward/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/chat-with-ai-steward/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/chat-with-ai-steward/behavior-0.webp"
-      ],
-      "default": "components/dist/media/chat-with-ai-steward/default.webp"
     },
     "checkbox": {
       "preview": "components/dist/media/checkbox/preview.webp",
@@ -287,6 +282,9 @@
     "data-intelligence-dev-logo": {
       "default": "components/dist/media/data-intelligence-dev-logo/default.webp"
     },
+    "data-viz-legend-item": {
+      "default": "components/dist/media/data-viz-legend-item/default.webp"
+    },
     "databricks": {
       "default": "components/dist/media/databricks/default.webp"
     },
@@ -295,6 +293,10 @@
     },
     "dataset": {
       "default": "components/dist/media/dataset/default.webp"
+    },
+    "date-input": {
+      "preview": "components/dist/media/date-input/preview.webp",
+      "default": "components/dist/media/date-input/default.webp"
     },
     "db2": {
       "default": "components/dist/media/db2/default.webp"
@@ -322,6 +324,10 @@
     "drawer-side-panel": {
       "preview": "components/dist/media/drawer-side-panel/preview.webp",
       "default": "components/dist/media/drawer-side-panel/default.webp"
+    },
+    "dropdown": {
+      "preview": "components/dist/media/dropdown/preview.webp",
+      "default": "components/dist/media/dropdown/default.webp"
     },
     "dropdown-select-default": {
       "preview": "components/dist/media/dropdown-select-default/preview.webp",
@@ -432,10 +438,6 @@
         "components/dist/media/input/spacing-1.webp"
       ],
       "default": "components/dist/media/input/default.webp"
-    },
-    "input-date": {
-      "preview": "components/dist/media/input-date/preview.webp",
-      "default": "components/dist/media/input-date/default.webp"
     },
     "jdbc": {
       "default": "components/dist/media/jdbc/default.webp"
@@ -558,9 +560,9 @@
       ],
       "default": "components/dist/media/message/default.webp"
     },
-    "metamodel-widget": {
-      "preview": "components/dist/media/metamodel-widget/preview.webp",
-      "default": "components/dist/media/metamodel-widget/default.webp"
+    "metamodel": {
+      "preview": "components/dist/media/metamodel/preview.webp",
+      "default": "components/dist/media/metamodel/default.webp"
     },
     "microstrategy": {
       "default": "components/dist/media/microstrategy/default.webp"
@@ -580,9 +582,6 @@
     },
     "netezza": {
       "default": "components/dist/media/netezza/default.webp"
-    },
-    "notes-feedback": {
-      "default": "components/dist/media/notes-feedback/default.webp"
     },
     "notification": {
       "preview": "components/dist/media/notification/preview.webp",
@@ -607,6 +606,16 @@
     "page-header": {
       "preview": "components/dist/media/page-header/preview.webp",
       "default": "components/dist/media/page-header/default.webp"
+    },
+    "pagination": {
+      "preview": "components/dist/media/pagination/preview.webp",
+      "parts": [
+        "components/dist/media/pagination/parts-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/pagination/behavior-0.webp"
+      ],
+      "default": "components/dist/media/pagination/default.webp"
     },
     "palantir": {
       "default": "components/dist/media/palantir/default.webp"
@@ -676,7 +685,8 @@
       ],
       "behavior": [
         "components/dist/media/radio-card/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/radio-card/default.webp"
     },
     "radio-group": {
       "preview": "components/dist/media/radio-group/preview.webp",
@@ -802,22 +812,6 @@
       "preview": "components/dist/media/tabs/preview.webp",
       "default": "components/dist/media/tabs/default.webp"
     },
-    "tag-default": {
-      "preview": "components/dist/media/tag-default/preview.webp",
-      "parts": [
-        "components/dist/media/tag-default/parts-0.webp"
-      ],
-      "variations": [
-        "components/dist/media/tag-default/variations-0.webp"
-      ],
-      "behavior": [
-        "components/dist/media/tag-default/behavior-0.webp"
-      ],
-      "layout": [
-        "components/dist/media/tag-default/layout-0.webp"
-      ],
-      "default": "components/dist/media/tag-default/default.webp"
-    },
     "tag-interactive": {
       "preview": "components/dist/media/tag-interactive/preview.webp",
       "parts": [
@@ -841,16 +835,30 @@
         "components/dist/media/tag-item-type/parts-0.webp"
       ],
       "variations": [
-        "components/dist/media/tag-item-type/variations-0.webp",
-        "components/dist/media/tag-item-type/variations-1.webp"
+        "components/dist/media/tag-item-type/variations-0.webp"
       ],
       "spacing": [
         "components/dist/media/tag-item-type/spacing-0.webp"
       ],
+      "default": "components/dist/media/tag-item-type/default.webp"
+    },
+    "tag-read-only": {
+      "preview": "components/dist/media/tag-read-only/preview.webp",
+      "parts": [
+        "components/dist/media/tag-read-only/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/tag-read-only/variations-0.webp",
+        "components/dist/media/tag-read-only/variations-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/tag-read-only/spacing-0.webp"
+      ],
       "behavior": [
-        "components/dist/media/tag-item-type/behavior-0.webp",
-        "components/dist/media/tag-item-type/behavior-1.webp"
-      ]
+        "components/dist/media/tag-read-only/behavior-0.webp",
+        "components/dist/media/tag-read-only/behavior-1.webp"
+      ],
+      "default": "components/dist/media/tag-read-only/default.webp"
     },
     "talend": {
       "default": "components/dist/media/talend/default.webp"

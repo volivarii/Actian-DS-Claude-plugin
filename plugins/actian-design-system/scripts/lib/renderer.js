@@ -203,7 +203,7 @@ function withAnatomyLoader(opts) {
 // broken module default is what production gets. Measured across the whole
 // anatomy tier: the injection is worth 17 glyphs on 9 of 86 components
 // (alert-banner, alert-inline, dropdown-select-default, global-header, popover,
-// search, tag-default, tag-interactive, tag-stage). Silent visual loss in the
+// search, tag-read-only, tag-interactive, tag-stage). Silent visual loss in the
 // server-side deliverable. The empty shadowed list is the inverse risk: a slug
 // a component owns could draw a glyph it should not.
 //

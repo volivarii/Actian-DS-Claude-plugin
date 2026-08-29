@@ -134,5 +134,5 @@
     "For sortable columns, note sort direction in the header label (e.g., 'Name ▾')"
   ],
   "missing_states": ["empty", "loading", "error"],
-  "dsComposition": "page-header(+actions) / search / table / tag-default"
+  "dsComposition": "page-header(+actions) / search / table / tag-read-only"
 }

@@ -10,6 +10,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const unpublished = require("../helpers/unpublished.js");
 
 // ---------------------------------------------------------------------------
 // Minimal test harness
@@ -908,11 +909,25 @@ assertContains(
   "ds-steward-layer--docked",
   "docked steward: layer carries --docked modifier",
 );
-assertContains(
-  stewardDocked,
-  "ds-steward--drawer",
-  "docked steward: drawer-size leaf rendered",
-);
+// The layer assertions above are this renderer own chrome and hold either
+// way. The drawer-size class comes from the DS component itself, so it is
+// the one assertion here that an unpublished component takes down. Pin the
+// degraded shape rather than skipping, so a flow built while the component
+// is away has a stated expected output, and flip back automatically.
+if (unpublished.skipReason("chat-with-ai-steward")) {
+  assertContains(
+    stewardDocked,
+    'data-slug="chat-with-ai-steward"',
+    "docked steward: leaf degrades to a graceful chip while the component " +
+      "is unpublished upstream",
+  );
+} else {
+  assertContains(
+    stewardDocked,
+    "ds-steward--drawer",
+    "docked steward: drawer-size leaf rendered",
+  );
+}
 
 section("Task 5 — steward negative control (no steward)");
 

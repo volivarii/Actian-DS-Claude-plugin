@@ -31,7 +31,7 @@ var PILOT = [
   "notification",
   "stepper",
   "tooltip",
-  "input-date",
+  "date-input",
   "rich-text",
   "dropdown-select-default",
   "progress-bar-small",

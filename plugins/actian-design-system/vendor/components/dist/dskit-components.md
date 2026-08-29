@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-321 components.
+323 components.
 
 ---
 
@@ -37,10 +37,8 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 
 ### Action bar
 
-A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.
-
-- Variants: **Property 1:** `Default`
-- Node: `14747:9839` | Key: `de36372be7d1532ee37fbfc43238aed444f6e7c9`
+- Single component (no variants)
+- Node: `8190:6001` | Key: `8e442c841e0adb644fb1a1a779b29406881b1ae4`
 
 ### add
 
@@ -232,7 +230,7 @@ Back
 - Single component (no variants)
 - Node: `16494:19414` | Key: `5167be1b2727b54509c3c10a770545b04972d16c`
 
-### ✍️ Badge
+### Badge
 
 Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for counts or short, non-interactive status labels.
 
@@ -244,7 +242,7 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 - Single component (no variants)
 - Node: `20395:1492` | Key: `ed6f4c8c30c74c30a2310ce0b9dc7e4f7e92bb7e`
 
-### ⛔️ Bar graph
+### Bar graph
 
 - Variants: **Property 1:** `Default`
 - Node: `15473:49489` | Key: `6ea07622a616f54b591da8eb26515332b9d02c31`
@@ -299,10 +297,8 @@ Boolean
 
 ### Breadcrumb
 
-This component is built as a custom component by Index-0 and is not officially in the engineering design system library.
-
-- Variants: **Type:** `Default`
-- Node: `13792:15247` | Key: `72976d77668b8e085d716fc8c5bc0bd144cb7274`
+- Single component (no variants)
+- Node: `13792:15246` | Key: `c32ff5e17107ecc01c983a8c0623d2229740c880`
 
 ### business-contract-give
 
@@ -376,11 +372,6 @@ Catalogs
 - Single component (no variants)
 - Node: `14115:8084` | Key: `bf59f59271f2a5fb0945e406629aefeb72775468`
 
-### Chat with AI Steward
-
-- Variants: **size:** `Default` · `Drawer` | **history:** `Closed` · `Open`
-- Node: `15464:24509` | Key: `8ba9d4d075ffab728d03d5bf771173f39d41e5ac`
-
 ### Checkbox
 
 Used for binary choices (on/off) or when a user can select multiple options from a list of related items.
@@ -436,7 +427,7 @@ Collapse
 - Single component (no variants)
 - Node: `20633:62` | Key: `1530594f58087b425da1de80ce555a12afd24deb`
 
-### ✍️ Collapse-accordion
+### Collapse-accordion
 
 Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.
 
@@ -539,6 +530,11 @@ Output ports
 - Single component (no variants)
 - Node: `8504:23087` | Key: `f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f`
 
+### Data-viz-legend-item
+
+- Variants: **Property 1:** `Default` · `Focused` · `Hovered` · `Pressed` · `Selected`
+- Node: `14747:33310` | Key: `0a5b4776b4199b4a9efc77a76e99e12192e0dac5`
+
 ### database
 
 Select a connection
@@ -582,6 +578,14 @@ Date
 - Single component (no variants)
 - Node: `7378:5221` | Key: `decde3b78f16d02045516de4e4d8255d67d73cfc`
 
+### Date input
+
+Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
+
+- Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
+- Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
+
 ### db2
 
 - Single component (no variants)
@@ -611,7 +615,7 @@ Date
 
 Works like tags but contains only 2 letters (initials of category name)
 
-- Variants: **Item type:** `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization` · `Category` · `Custom 1` · `Custom 2` · `Custom 3` · `Custom 4` · `Custom 5` · `Custom 6` · `Custom 7` · `Custom 8` · `Custom 9` · `Custom 10` · `Custom 11` · `Custom 12` · `Custom 13` · `Custom 14` · `Custom 16` · `Glossary 1` · `Glossary 2` · `Glossary 3` · `Glossary 4` · `Glossary 5` | **Size:** `Small` · `Default` · `Large`
+- Variants: **Item type:** `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization` · `Category` · `Custom 1` · `Custom 2` · `Custom 3` · `Custom 4` · `Custom 5` · `Custom 6` · `Custom 7` · `Custom 8` · `Custom 9` · `Custom 10` · `Custom 11` · `Custom 12` · `Custom 13` · `Custom 14` · `Custom 16` · `Glossary 1` · `Glossary 2` · `Glossary 3` · `Glossary 4` · `Glossary 5` · `Topic 10` · `Topic 1` · `Topic 2` · `Topic 3` · `Topic 4` · `Topic 5` · `Topic 6` · `Topic 7` · `Topic 8` · `Topic 9` | **Size:** `XS` · `SM` · `MD`
 - Node: `14007:23209` | Key: `1705ad4e55489bb9ca0f203be5bd0edbd77e82b2`
 
 ### Digram, Topic
@@ -665,6 +669,11 @@ A container that slides from right side of the screen. Use for secondary tasks t
 - Boolean properties: `Show Back#14294:18` (default: true) — set to `false` to hide
 - Node: `14294:5758` | Key: `3fe66a28fd56e3dbfd87a6f6be08df327bda27bf`
 
+### Dropdown
+
+- Single component (no variants)
+- Node: `21982:71973` | Key: `a38a874d532ced8607f8632d0aa9cdf2dec39484`
+
 ### Dropdown, Select, default
 
 Use when there are more than 7 options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
@@ -689,7 +698,7 @@ Edit
 
 A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a "Call to Action" button to help the user get started.
 
-- Variants: **Size:** `Large` · `Medium` · `Small`
+- Variants: **Empty:** `Default` · `Maintenance` · `Error state` · `Confirmation` | **Size:** `Large` · `Medium` · `Small`
 - Text overrides: `Title content#10964:24`, `Body content#10964:28`
 - Boolean properties: `Tertiary button#10964:0` (default: true) — set to `false` to hide · `Primary button#10964:4` (default: true) — set to `false` to hide · `Title#10964:8` (default: true) — set to `false` to hide · `Body#10964:12` (default: true) — set to `false` to hide
 - Node: `9230:22073` | Key: `0adc6b54a212315ebb16db7f5eea388276a1587b`
@@ -849,8 +858,8 @@ Glossary
 
 ### Glossary item hierarchy diagram
 
-- Variants: **Type:** `Default`
-- Node: `14747:30242` | Key: `ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da`
+- Single component (no variants)
+- Node: `14747:30243` | Key: `589059440a078bfe879a21b056edfe16be6b12c2`
 
 ### google-cloud
 
@@ -956,14 +965,6 @@ Input types
 - Single component (no variants)
 - Node: `8504:23028` | Key: `e044df9621b9fec28326d9e35e61326bcdc7b324`
 
-### Input, date
-
-Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
-
-- Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
-- Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
-
 ### integer-type
 
 Integer
@@ -1020,7 +1021,7 @@ Lifecycle policy
 - Single component (no variants)
 - Node: `13315:9276` | Key: `b1f0c9b1baad043881f1d2401a93aa1c8cce4791`
 
-### ⛔️ Line graph
+### Line graph
 
 - Variants: **Property 1:** `Default`
 - Node: `15473:49490` | Key: `e365ff8c88faf24f3cadf6166127e97dbc8771fb`
@@ -1045,8 +1046,8 @@ Lineage
 
 ### Lineage individual node
 
-- Variants: **Type:** `Main item` · `Sub item` | **State:** `Default` · `Selected` · `Disabled` | **Fields:** `Collapsed` · `Expanded`
-- Boolean properties: `Show left control#14691:0` (default: true) — set to `false` to hide
+- Variants: **Type:** `Individual main node` · `Individual sub item` · `Group sub item` · `Group main item` · `Connector up` · `Connector down` · `Connector straight` | **State:** `Default` · `Selected` · `Disabled` · `Expanded` | **Fields:** `Collapsed` · `Expanded` · `Default` · `Selected` · `Disabled` · `n/a`
+- Boolean properties: `Show left control#14691:0` (default: true) — set to `false` to hide · `Show icon#21982:54` (default: true) — set to `false` to hide
 - Node: `14747:19902` | Key: `5904351595c9b5b263bb5891bd1ed038fbaff636`
 
 ### Link
@@ -1083,7 +1084,7 @@ Number
 
 Indicates a background process is active. Use loader for large components or large section within a page
 
-- Variants: **Percent:** `99%` · `10%` · `Percent3`
+- Variants: **Percent:** `99%` · `10%` · `50`
 - Node: `7372:2195` | Key: `0cf73cc20fd0120418e60d904cff641ff38f4840`
 
 ### Loader with logo
@@ -1156,9 +1157,9 @@ Toggle overview
 - Variants: **Type:** `Helper text` · `Error` · `Warning` · `Success` · `Info`
 - Node: `20353:18848` | Key: `15ac4db6a89896982ac8453535ca301aa30305eb`
 
-### Metamodel widget
+### Metamodel
 
-- Variants: **Type:** `Dataset` · `Business Term` · `Data Process` · `Field` · `Visualisation`
+- Variants: **Type:** `Dataset` · `Business Term` · `Data Process` · `Field` · `Visualisation` · `Connector 4` · `Connector 1` · `Connector 2` · `Connector 3`
 - Boolean properties: `Show Section#8582:0` (default: true) — set to `false` to hide
 - Node: `14747:23588` | Key: `6b29851b99078abe643d2c6873e8e1a89f8ff0b4`
 
@@ -1273,6 +1274,11 @@ The title area of a specific page. Should include the Page Title, optional Bread
 - Variants: **Type:** `Default` · `Details page` · `Explorer home` · `Explorer detail`
 - Node: `12923:2794` | Key: `ec2418807ba81bd52ab103d34c1bffd82fc0b92c`
 
+### Pagination
+
+- Single component (no variants)
+- Node: `15295:14916` | Key: `7547107f65e9c7fd94d54fd24371262682f9017c`
+
 ### palantir
 
 - Single component (no variants)
@@ -1309,7 +1315,7 @@ Featured
 - Single component (no variants)
 - Node: `7378:5040` | Key: `4433057ddb2e2a901f12781f99e3a64b9db47cac`
 
-### ⛔️ Popover
+### Popover
 
 A non-modal floating container triggered by a click. Use for displaying a small menu or related content that doesn't fit in a tooltip. Stays open until a user clicks outside.
 
@@ -1533,10 +1539,8 @@ Policy
 
 ### Segmented control
 
-Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., "Week / Month / Year").S
-
-- Variants: **Property 1:** `Default`
-- Node: `7618:5187` | Key: `062274018b2daab1c45c7e634c95c5a4eaa42b69`
+- Single component (no variants)
+- Node: `7618:5284` | Key: `b4d36abfe1043c86a74903008f4560be67b54e9a`
 
 ### server-search
 
@@ -1569,7 +1573,7 @@ Groups
 - Single component (no variants)
 - Node: `7378:3967` | Key: `20d03d16f42b9cb4d84c5ea07f6845c99b8fe7b6`
 
-### ✍️ Side nav
+### Side nav
 
 Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.
 
@@ -1674,7 +1678,7 @@ Suggestion
 - Single component (no variants)
 - Node: `8400:25176` | Key: `1a1c77af7989eeaf683601efd8f4a6110524bff2`
 
-### ✍️ Table
+### Table
 
 Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).
 
@@ -1690,20 +1694,9 @@ Use for large datasets requiring comparison, sorting, and filtering. Supports co
 
 ### Tabs
 
-Use to switch between related views within the same context without navigating to a new page. Ideal for organizing content at the same level.
-
-- Variants: **Property 1:** `Default`
-- Boolean properties: `Show Avatar#14797:0` (default: true) — set to `false` to hide
-- Node: `14747:14818` | Key: `dbd33845613381780e5364600815d9bc983d5230`
-
-### Tag, Default
-
-This is read-only tag
-
-- Variants: **Type:** `Default` · `Catalog` · `Shared` · `Stage-1` · `Stage-2` · `Stage-3` · `Stage-4` · `Stage-5` · `Stage-6` · `Stage-7` · `Stage-8` · `Status-error` · `Status-warning` · `Status-success`
-- Text overrides: `Label#257:0`
-- Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
-- Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
+- Single component (no variants)
+- Boolean properties: `Show Avatar#14797:1` (default: true) — set to `false` to hide
+- Node: `7279:3297` | Key: `f7c2d559b6cadba2002dc304bd4f71924cb4a27a`
 
 ### Tag, Interactive
 
@@ -1713,12 +1706,21 @@ Interacitve tag
 - Boolean properties: `Show trailing icon#21264:8` (default: true) — set to `false` to hide · `Show leading icon#21264:24` (default: true) — set to `false` to hide
 - Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
 
-### Tag, Item type
+### Tag, item type
 
 This is read-only tag. Use for item types.
 
-- Variants: **Property 1:** `Glossary-1` · `Glossary-2` · `Glossary-3` · `Glossary-4` · `Glossary-5` · `Category` · `Custom-1` · `Custom-2` · `Custom-3` · `Custom-4` · `Custom-5` · `Custom-6` · `Custom-7` · `Custom-8` · `Custom-9` · `Custom-10` · `Custom-11` · `Custom-12` · `Custom-13` · `Custom-14` · `Custom-15` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
+- Variants: **Type:** `Glossary-1` · `Glossary-2` · `Glossary-3` · `Glossary-4` · `Glossary-5` · `Category` · `Custom-1` · `Custom-2` · `Custom-3` · `Custom-4` · `Custom-5` · `Custom-6` · `Custom-7` · `Custom-8` · `Custom-9` · `Custom-10` · `Custom-11` · `Custom-12` · `Custom-13` · `Custom-14` · `Custom-15` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
 - Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
+
+### Tag, read only
+
+This is read-only tag
+
+- Variants: **Type:** `Default` · `Catalog` · `Shared` · `Stage-1` · `Stage-2` · `Stage-3` · `Stage-4` · `Stage-5` · `Stage-6` · `Stage-7` · `Stage-8` · `Status-error` · `Status-warning` · `Status-success`
+- Text overrides: `Label#257:0`
+- Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
+- Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
 
 ### tags-add
 
@@ -1790,8 +1792,8 @@ Text
 
 ### Textfield buttons
 
-- Variants: **Property 1:** `Default`
-- Node: `14241:37663` | Key: `701b1f6d93b336acb724a3496f7f0e33d1301c4f`
+- Single component (no variants)
+- Node: `14241:37660` | Key: `9df25e44e3b0f80f6b9291cf714513c65e984078`
 
 ### thoughtspot
 

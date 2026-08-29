@@ -66,11 +66,6 @@
       "nodeId": "140:12",
       "previousSlugs": []
     },
-    "062274018b2daab1c45c7e634c95c5a4eaa42b69": {
-      "slug": "segmented-control",
-      "nodeId": "7618:5187",
-      "previousSlugs": []
-    },
     "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e": {
       "slug": "meta-template-table-header-row",
       "nodeId": "73:12",
@@ -119,6 +114,11 @@
     "0a110a850bce8693871a43820aa97c75a4d50dbe": {
       "slug": "hdfs",
       "nodeId": "8400:25077",
+      "previousSlugs": []
+    },
+    "0a5b4776b4199b4a9efc77a76e99e12192e0dac5": {
+      "slug": "data-viz-legend-item",
+      "nodeId": "14747:33310",
       "previousSlugs": []
     },
     "0adc6b54a212315ebb16db7f5eea388276a1587b": {
@@ -1161,6 +1161,11 @@
       "nodeId": "8504:23300",
       "previousSlugs": []
     },
+    "589059440a078bfe879a21b056edfe16be6b12c2": {
+      "slug": "glossary-item-hierarchy-diagram",
+      "nodeId": "14747:30243",
+      "previousSlugs": []
+    },
     "5904351595c9b5b263bb5891bd1ed038fbaff636": {
       "slug": "lineage-individual-node",
       "nodeId": "14747:19902",
@@ -1412,9 +1417,11 @@
       "previousSlugs": []
     },
     "69c8a031b8b1f1703474cc000eaeb14611f0319c": {
-      "slug": "tag-default",
+      "slug": "tag-read-only",
       "nodeId": "7257:3037",
-      "previousSlugs": []
+      "previousSlugs": [
+        "tag-default"
+      ]
     },
     "69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e": {
       "slug": "fm-date-input",
@@ -1437,9 +1444,11 @@
       "previousSlugs": []
     },
     "6b29851b99078abe643d2c6873e8e1a89f8ff0b4": {
-      "slug": "metamodel-widget",
+      "slug": "metamodel",
       "nodeId": "14747:23588",
-      "previousSlugs": []
+      "previousSlugs": [
+        "metamodel-widget"
+      ]
     },
     "6c61c1469d97020721267a3e1ad209f3cf4c12c3": {
       "slug": "calendar",
@@ -1511,11 +1520,6 @@
       "nodeId": "8:20734",
       "previousSlugs": []
     },
-    "701b1f6d93b336acb724a3496f7f0e33d1301c4f": {
-      "slug": "textfield-buttons",
-      "nodeId": "14241:37663",
-      "previousSlugs": []
-    },
     "719b2cace9669955bbf05111ee8151ac6b50d3f5": {
       "slug": "user-single",
       "nodeId": "7378:5029",
@@ -1524,11 +1528,6 @@
     "71d837e04ce0a29b69d9e5c67362bbcf0b896e19": {
       "slug": "maintenance",
       "nodeId": "7378:4004",
-      "previousSlugs": []
-    },
-    "72976d77668b8e085d716fc8c5bc0bd144cb7274": {
-      "slug": "breadcrumb",
-      "nodeId": "13792:15247",
       "previousSlugs": []
     },
     "72d228be50f33d06cf90b9a00f34bf3bb298e7b8": {
@@ -1564,6 +1563,11 @@
     "74e59094d4c999fad9159ed3514d0332be4775e6": {
       "slug": "trash",
       "nodeId": "8:20730",
+      "previousSlugs": []
+    },
+    "7547107f65e9c7fd94d54fd24371262682f9017c": {
+      "slug": "pagination",
+      "nodeId": "15295:14916",
       "previousSlugs": []
     },
     "77e6d3ce1ac243842e028983ebeb9735ad5a5e31": {
@@ -1826,10 +1830,12 @@
       "nodeId": "8400:25188",
       "previousSlugs": []
     },
-    "8ba9d4d075ffab728d03d5bf771173f39d41e5ac": {
-      "slug": "chat-with-ai-steward",
-      "nodeId": "15464:24509",
-      "previousSlugs": []
+    "8e442c841e0adb644fb1a1a779b29406881b1ae4": {
+      "slug": "action-bar",
+      "nodeId": "8190:6001",
+      "previousSlugs": [
+        "sticky-footer"
+      ]
     },
     "8f09539f181a4dbe90a86d6ccfe73ac4d41dd8c8": {
       "slug": "text-file",
@@ -2066,15 +2072,22 @@
       "nodeId": "7676:4492",
       "previousSlugs": []
     },
+    "9df25e44e3b0f80f6b9291cf714513c65e984078": {
+      "slug": "textfield-buttons",
+      "nodeId": "14241:37660",
+      "previousSlugs": []
+    },
     "9e267d055429c3f0e586f2fc787fd8b6fced1629": {
       "slug": "search-dropdown-menu",
       "nodeId": "8756:9994",
       "previousSlugs": []
     },
     "9eafdb6242837b591ba5f39959150b53e40ef02d": {
-      "slug": "input-date",
+      "slug": "date-input",
       "nodeId": "8194:7305",
-      "previousSlugs": []
+      "previousSlugs": [
+        "input-date"
+      ]
     },
     "9ed31a542256e1d255e30e00bae6c625d8688b00": {
       "slug": "thoughtspot",
@@ -2104,6 +2117,11 @@
     "a2a71b29edfd47b1f9eaa1a6e4d529da5586e4b6": {
       "slug": "safyr-dynamics365",
       "nodeId": "8400:25148",
+      "previousSlugs": []
+    },
+    "a38a874d532ced8607f8632d0aa9cdf2dec39484": {
+      "slug": "dropdown",
+      "nodeId": "21982:71973",
       "previousSlugs": []
     },
     "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766": {
@@ -2261,6 +2279,11 @@
       "nodeId": "47:24",
       "previousSlugs": []
     },
+    "b4d36abfe1043c86a74903008f4560be67b54e9a": {
+      "slug": "segmented-control",
+      "nodeId": "7618:5284",
+      "previousSlugs": []
+    },
     "b5370a64062dc0d1ed1f42a936ef87023738f284": {
       "slug": "struct-type",
       "nodeId": "8504:23301",
@@ -2401,6 +2424,11 @@
       "nodeId": "8:20720",
       "previousSlugs": []
     },
+    "c32ff5e17107ecc01c983a8c0623d2229740c880": {
+      "slug": "breadcrumb",
+      "nodeId": "13792:15246",
+      "previousSlugs": []
+    },
     "c3d255b415093cbef924af2f068c0bc3c7c396da": {
       "slug": "office-building",
       "nodeId": "8:20624",
@@ -2499,11 +2527,6 @@
     "cbc2bc0a266fabdfb26be4bc406413846501248d": {
       "slug": "postgresql",
       "nodeId": "7173:1882",
-      "previousSlugs": []
-    },
-    "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da": {
-      "slug": "glossary-item-hierarchy-diagram",
-      "nodeId": "14747:30242",
       "previousSlugs": []
     },
     "cd02bd7ff749c214daaa1784989449d469923b64": {
@@ -2738,11 +2761,6 @@
       "nodeId": "8400:25195",
       "previousSlugs": []
     },
-    "dbd33845613381780e5364600815d9bc983d5230": {
-      "slug": "tabs",
-      "nodeId": "14747:14818",
-      "previousSlugs": []
-    },
     "dbe1c6463a6dfe12a0c4a578831a1feac992d78c": {
       "slug": "at-symbol",
       "nodeId": "8:20706",
@@ -2752,13 +2770,6 @@
       "slug": "italic",
       "nodeId": "8:20994",
       "previousSlugs": []
-    },
-    "de36372be7d1532ee37fbfc43238aed444f6e7c9": {
-      "slug": "action-bar",
-      "nodeId": "14747:9839",
-      "previousSlugs": [
-        "sticky-footer"
-      ]
     },
     "de570a3d693466f8314750901d629799f27d2eb6": {
       "slug": "arrow-up",
@@ -3068,6 +3079,11 @@
     "f798a1600b8e79d4959036ecdedf19959729d4e3": {
       "slug": "document-duplicate",
       "nodeId": "8:20566",
+      "previousSlugs": []
+    },
+    "f7c2d559b6cadba2002dc304bd4f71924cb4a27a": {
+      "slug": "tabs",
+      "nodeId": "7279:3297",
       "previousSlugs": []
     },
     "f868aabb0aa2c52f00610c09da8dce3bccc79dc4": {

@@ -11,6 +11,7 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var gen = require("../../scripts/renderers/render-authoring-table.js");
 var PATHS = require("../../scripts/lib/paths.js");
+var unpublished = require("../helpers/unpublished.js");
 var BUILT_SLUGS = require("../../scripts/lib/renderer.js").dsHtmlMap
   .BUILT_SLUGS;
 
@@ -24,6 +25,36 @@ test("ds-components-authoring.md vocabulary table and icon list are in sync with
     md,
     "Stale vocabulary table or icon list, regenerate and commit:\n" +
       "  node scripts/renderers/render-authoring-table.js",
+  );
+});
+
+test("the prose slug count matches the table the generator writes", function () {
+  // replaceTable() swaps only the rows between the header and the first
+  // non-pipe line, so the sentence introducing the table is hand-maintained
+  // and drifts silently: it said 71 while the registry published 73, in a
+  // file the screen generator reads as its DS vocabulary. Read the number
+  // back out of the prose and join it against the same source the rows come
+  // from, so the sentence cannot disagree with the table beneath it.
+  var md = fs.readFileSync(gen.MD_PATH, "utf8");
+  var m = md.match(/covers the (\d+) authorable slugs/);
+  assert.ok(
+    m,
+    "the sentence introducing the vocabulary table no longer states a slug " +
+      "count in the form this gate reads; update the gate with the prose",
+  );
+  var reg = JSON.parse(
+    fs.readFileSync(PATHS.components.registries.dskit, "utf8"),
+  ).components;
+  var authorable = Object.keys(reg).filter(function (slug) {
+    return reg[slug].section === "Components";
+  }).length;
+  assert.equal(
+    Number(m[1]),
+    authorable,
+    "the prose says " +
+      m[1] +
+      " authorable slugs but the registry publishes " +
+      authorable,
   );
 });
 
@@ -50,8 +81,20 @@ test("worked examples author only variant axes and values the registry publishes
       var slug = section.slice(0, section.indexOf("`"));
       var m = section.match(/^  "variant": "([^"]*)"/m);
       if (!m || !m[1]) return;
+      // A component archived in Figma while it is rebuilt keeps its worked
+      // example here, the same way upstream keeps its guidance, so nothing
+      // has to be rewritten when it republishes. See tests/helpers/
+      // unpublished.js; the staleness gate there un-skips it automatically.
+      if (unpublished.skipReason(slug)) return;
       var axes = (reg[slug] && reg[slug].variants) || null;
-      if (!axes) return bad.push(slug + ": not a registry component");
+      if (!axes) {
+        return bad.push(
+          reg[slug]
+            ? slug + ": registry publishes no variant axes, so the example " +
+              "must not declare a variant"
+            : slug + ": not a registry component",
+        );
+      }
       checked++;
       m[1].split(",").forEach(function (pair) {
         var i = pair.indexOf("=");

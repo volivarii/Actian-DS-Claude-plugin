@@ -9,7 +9,7 @@ const { parseVariant } = require("../../scripts/lib/renderer.js").dsHtmlMap;
 const specimen = require("../helpers/appearance-specimen.js");
 
 // flow-share-variant-tag-deliverable.test.js -- proves the flow-share HTML
-// deliverable renders tag-default's per-variant colors from the appearance
+// deliverable renders tag-read-only's per-variant colors from the appearance
 // layer (Task A2 re-sourced buildDsVariantStyleMap onto resolveNodeAppearance
 // + variantColorDecls), not the retired path-b token-injection chain
 // (resolveRootTokenStyle / the vendored token-bindings sidecar join, deleted
@@ -23,14 +23,14 @@ const specimen = require("../helpers/appearance-specimen.js");
 //
 // Real-data-first: the expected colors below are derived independently, at
 // test time, from resolveNodeAppearance against the real vendored
-// tag-default anatomy doc -- no hardcoded hex, no fixtures -- then compared
+// tag-read-only anatomy doc -- no hardcoded hex, no fixtures -- then compared
 // against what assemble-flow-share actually renders. A dedicated regression
 // guard also asserts no ds-tag span ever injects a fallback-less
 // var(--token) (the exact shape of the bug this whole effort fixes).
 
 //
 // UPDATED at renderer-relocation phase 2. The plugin now renders through the
-// renderer knowledge owns, so tag-default additionally emits a `ds-tag--<color>`
+// renderer knowledge owns, so tag-read-only additionally emits a `ds-tag--<color>`
 // class (phase 1b), backed by a real rule in the vendored ds-base.css. The
 // inline appearance VALUES are unchanged and still asserted below; the class is
 // additive. Every original guarantee is kept, and the new final assertion
@@ -38,7 +38,7 @@ const specimen = require("../helpers/appearance-specimen.js");
 // actually resolves to a rule in the deliverable, rather than dangling.
 //
 // UPDATED again for the 2026-07-23 tag redesign (knowledge v0.34.120). Figma
-// removed the border from tags: tag-default's captured root appearance is now
+// removed the border from tags: tag-read-only's captured root appearance is now
 // `{background, radius}` and each of its 7 Color variants carries a background
 // only. The renderer and the vendored ds-base.css both followed correctly, and
 // this test was the only thing left demanding a border, which is what held the
@@ -55,7 +55,7 @@ const specimen = require("../helpers/appearance-specimen.js");
 // #275 (2026-08-12): the SPECIMEN itself rotted the same way a hardcoded slug
 // does in tests/helpers/appearance-specimen.js. This test drove
 // parseVariant("Color=Purple"); the 2026-08-12 fold-in (knowledge v0.34.124)
-// replaced tag-default's `Color` axis (7 values) with a `Type` axis (14
+// replaced tag-read-only's `Color` axis (7 values) with a `Type` axis (14
 // values: Default, Catalog, Shared, Stage-1..8, Status-error/-warning/
 // -success), so "Color=Purple" resolves to nothing against the new data --
 // no matching entry in appearance.variants, so resolveNodeAppearance returns
@@ -68,7 +68,7 @@ const specimen = require("../helpers/appearance-specimen.js");
 // axis name or value is named here, so it is correct whether the doc's axis
 // is `Color`, `Type`, or something else entirely next time it is redesigned.
 
-// Pick a `<prop>=<value>` variant string straight from tag-default's own
+// Pick a `<prop>=<value>` variant string straight from tag-read-only's own
 // anatomy doc rather than naming one. Mirrors pickSpecimen() in
 // tests/helpers/appearance-specimen.js: walk real candidates in a
 // deterministic order (the array order the anatomy doc itself carries) and
@@ -94,18 +94,18 @@ function pickColoredVariant(doc, base) {
     }
   }
   throw new Error(
-    "tag-default's anatomy doc carries no appearance.variants entry whose " +
+    "tag-read-only's anatomy doc carries no appearance.variants entry whose " +
       "background differs from the base -- this test has no colored " +
       "specimen left; retire or repoint it rather than letting it pass " +
       "vacuously against an empty/uniform population",
   );
 }
 
-test("flow-share deliverable: tag-default renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
-  const doc = anatomyRender.loadAnatomy("tag-default");
+test("flow-share deliverable: tag-read-only renders per-variant colors from the appearance layer, keeps its instance label, and never injects a fallback-less var(--token)", () => {
+  const doc = anatomyRender.loadAnatomy("tag-read-only");
   assert.ok(
     doc && doc.root,
-    "tag-default anatomy doc must load (precondition)",
+    "tag-read-only anatomy doc must load (precondition)",
   );
 
   const base = appearanceRender.resolveNodeAppearance(doc.root, null);
@@ -118,7 +118,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
   const [axisProp] = Object.keys(doc.variantDefaults || {});
   assert.ok(
     axisProp,
-    "tag-default's anatomy doc must declare variantDefaults (precondition)",
+    "tag-read-only's anatomy doc must declare variantDefaults (precondition)",
   );
   const defaultVariantString = `${axisProp}=${doc.variantDefaults[axisProp]}`;
   // The class modifiers the deliverable's ds-tag spans are expected to carry:
@@ -165,14 +165,14 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
           {
             type: "INSTANCE",
             library: "ds",
-            dsSlug: "tag-default",
+            dsSlug: "tag-read-only",
             variant: coloredVariantString,
             props: { Label: "Tag" },
           },
           {
             type: "INSTANCE",
             library: "ds",
-            dsSlug: "tag-default",
+            dsSlug: "tag-read-only",
             variant: defaultVariantString,
             props: { Label: "Draft Items" },
           },
@@ -259,7 +259,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
       !coloredDecls.some(function (d) {
         return d.startsWith("border");
       }),
-      "the appearance layer captured no border for tag-default, so the deliverable " +
+      "the appearance layer captured no border for tag-read-only, so the deliverable " +
         "must not invent one, got: " +
         coloredDecls.join(";"),
     );
@@ -296,7 +296,7 @@ test("flow-share deliverable: tag-default renders per-variant colors from the ap
 
   // Regression guard: no ds-tag span, of any variant, may ever inject a
   // fallback-less var(--token) -- that bare-token shape is exactly what
-  // rendered most tag-default variants transparent/collapsed under path b.
+  // rendered most tag-read-only variants transparent/collapsed under path b.
   const tagSpanOpenTags = html.match(/<span class="ds-tag[^"]*"[^>]*>/g) || [];
   assert.ok(
     tagSpanOpenTags.length >= 2,

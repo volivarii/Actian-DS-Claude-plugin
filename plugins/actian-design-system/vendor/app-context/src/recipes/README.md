@@ -13,7 +13,7 @@ consumers that keep their own copy of a shared fact drift from it.
 It is **not** the wrong source, and an earlier version of this file said it was. Checked, and false:
 `browse-search` names Studio's 277px tree nav and Explorer's 335px faceted filter panel, `detail-view`
 names Studio's 568px equal columns. Those were written by someone looking at the product. Nor are all 12
-page shapes: `overlay`, `sticky-footer` and the two `composition-*` entries are fragments, which belong
+page shapes: `overlay`, `action-bar` and the two `composition-*` entries are fragments, which belong
 with the renderer, not in a page-shape catalogue. Retiring them wholesale would delete working
 knowledge.
 

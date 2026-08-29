@@ -11,13 +11,13 @@ Six categories, one MD file each. Filenames match the `slug` in frontmatter.
 | File | Figma category label |
 |---|---|
 | `action.md` | Action |
-| `form-input-selection.md` | Form (input & selection) |
+| `form.md` | Form |
 | `navigation.md` | Navigation |
 | `data-display.md` | Data Display |
 | `feedback.md` | Feedback |
 | `overlays.md` | Overlays |
 
-Membership lists are derived from `components/dist/categories.json` (auto-synced from the Figma Pages panel). If a member moves to a different category in Figma, the membership list reshuffles automatically — but you may want to update the rationale prose in the MD body.
+Membership is published in `components/dist/categories.json`, auto-synced from the Figma Pages panel and keyed by the Figma category label (`Data Display`, `Form`), in the per-category `components` array. Read it there, and note it also carries groups that have no MD file, such as Icons and Third-party logos. The MD body carries design rationale only and must not restate the member list. Naming a component slug anywhere in this file, frontmatter or prose, is what `scripts/sync/rename-preconditions.js` reads: while the slug appears here the sync cannot absorb a rename of it, and a name left stale ships in `components/dist/categories/<slug>.md`. Name a slug where the rationale needs it and keep it current; never restate membership, which rots without adding anything.
 
 ## Required frontmatter schema
 
@@ -138,7 +138,7 @@ If a needed slug doesn't exist upstream, do one of:
 
 ## Worked example
 
-See `form-input-selection.md` for the canonical worked example. It shows:
+See `form.md` for the canonical worked example. It shows:
 
 - A 7-part anatomy with 2 optional parts
 - 3 variant axes (State / Size / Label position)

@@ -45,7 +45,14 @@ var {
   isDelegated,
   anatomyVariantKey,
 } = require("./html-renderers/anatomy-variant-key.js");
-var parseVariant = require("./html-renderers/ds-html-map.js").parseVariant;
+var dsHtmlMap = require("./html-renderers/ds-html-map.js");
+var parseVariant = dsHtmlMap.parseVariant;
+// The renderer resolves a retired slug before it dispatches and before it
+// looks up the maps built below, so these collectors must key by the SAME
+// resolved name. Keying by the authored one left a renamed component with no
+// anatomy doc and no variant style: it chipped, or painted the wrong colours,
+// with nothing red to say so.
+var resolveSlug = dsHtmlMap.resolveSlug || function (s) { return s; };
 
 /**
  * Shared recursive tree-walk over a flow data tree (screens → content →
@@ -78,9 +85,10 @@ function collectDsSlugs(data) {
   var seen = {};
   var slugs = [];
   walkDsContent(data, function (n) {
-    if (typeof n.dsSlug === "string" && n.dsSlug && !seen[n.dsSlug]) {
-      seen[n.dsSlug] = true;
-      slugs.push(n.dsSlug);
+    var slug = resolveSlug(n.dsSlug);
+    if (typeof slug === "string" && slug && !seen[slug]) {
+      seen[slug] = true;
+      slugs.push(slug);
     }
   });
   return slugs;
@@ -97,12 +105,13 @@ function collectDsSlugVariants(data) {
   var seen = {};
   var pairs = [];
   walkDsContent(data, function (n) {
-    if (typeof n.dsSlug === "string" && isDelegated(n.dsSlug)) {
+    var slug = resolveSlug(n.dsSlug);
+    if (typeof slug === "string" && isDelegated(slug)) {
       var variant = parseVariant(n.variant || "");
-      var key = anatomyVariantKey(n.dsSlug, variant);
+      var key = anatomyVariantKey(slug, variant);
       if (!seen[key]) {
         seen[key] = true;
-        pairs.push({ slug: n.dsSlug, variant: variant });
+        pairs.push({ slug: slug, variant: variant });
       }
     }
   });

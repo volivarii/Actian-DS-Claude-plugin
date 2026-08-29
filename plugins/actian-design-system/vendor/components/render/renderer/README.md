@@ -31,7 +31,7 @@ dependency injection:
   injection seams `setIcons`, `setAnatomyDocMap`, and `setVariantStyleMap`. As of
   2026-07-22, 6 more slugs joined the hand-authored set from the gray-box reduction
   program: `digram-item-types`, `digram-topic`, `lineage-individual-node`,
-  `lineage-grouped-node`, `metamodel-widget` (components), and `loader-with-logo`
+  `lineage-grouped-node`, `metamodel` (components), and `loader-with-logo`
   (graphic, composes the existing `loader`). `tests/render/ds-html-map.test.js`
   covers these 6 directly in knowledge; the other 35 stay covered by the plugin's
   own `tests/renderers/ds-html-map.test.js` against the vendored copy (a known,

@@ -1,8 +1,8 @@
 {
   "_schema_version": 1,
-  "slug": "tag-default",
+  "slug": "tag-read-only",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-08-26T14:16:00.631Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7257:3037",
