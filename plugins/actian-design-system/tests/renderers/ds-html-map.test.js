@@ -10,6 +10,13 @@ var assert = require("node:assert");
 var ds = require("../../scripts/lib/renderer.js").dsHtmlMap;
 var renderer = require("../../scripts/lib/renderer.js");
 var specimen = require("../helpers/appearance-specimen.js");
+var unpublished = require("../helpers/unpublished.js");
+
+// chat-with-ai-steward is archived in Figma while an old version is rebuilt,
+// and is expected back (knowledge c8340c77). Its leaf tests are SKIPPED rather
+// than deleted so republishing costs no work here; see tests/helpers/
+// unpublished.js and the staleness gate in unpublished-quarantine.test.js.
+var STEWARD = { skip: unpublished.skipReason("chat-with-ai-steward") };
 var PATHS = require("../../scripts/lib/paths.js");
 var fs = require("fs");
 var path = require("path");
@@ -436,7 +443,7 @@ describe("ds-html-map: checkbox", function () {
   });
 });
 
-describe("ds-html-map: tag-default", function () {
+describe("ds-html-map: tag-read-only", function () {
   // The axis and its values are DERIVED from the anatomy doc, never named.
   // These tests drove "Color=Default" until the 2026-08-12 fold-in retired the
   // Color axis for a 14-value Type axis. That failed loudly here, but the
@@ -444,13 +451,13 @@ describe("ds-html-map: tag-default", function () {
   // `<span class="ds-tag">` with NO modifier at all, and every substring
   // assertion below except the class one would still have passed. See
   // tests/helpers/appearance-specimen.js.
-  var tagDoc = renderer.anatomyLoader("tag-default");
-  var tagDefault = specimen.defaultVariantString(tagDoc, "tag-default");
-  var tagPainted = specimen.pickPaintedVariant(tagDoc, "tag-default");
+  var tagDoc = renderer.anatomyLoader("tag-read-only");
+  var tagDefault = specimen.defaultVariantString(tagDoc, "tag-read-only");
+  var tagPainted = specimen.pickPaintedVariant(tagDoc, "tag-read-only");
 
   it("default: ds-tag pill, its modifier class, esc'd Label, and the default-true leading icon", function () {
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: tagDefault.variantString,
       props: { Label: "Active" },
     });
@@ -474,7 +481,7 @@ describe("ds-html-map: tag-default", function () {
 
   it("Leading icon show=false: drops the icon span, and no ruleless with-icon modifier is ever emitted", function () {
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: tagDefault.variantString,
       props: { Label: "Bare", "Leading icon show": false },
     });
@@ -495,7 +502,7 @@ describe("ds-html-map: tag-default", function () {
 
   it("a painted Type emits its own modifier class and keeps the icon", function () {
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: tagPainted.variantString,
       props: { Label: "Painted" },
     });
@@ -527,7 +534,7 @@ describe("ds-html-map: tag-default", function () {
     // render as the base pill, never as a guessed colour, and must never break
     // out of the class attribute.
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: tagPainted.prop + '="><script>alert(1)</script>',
       props: { Label: "Hostile" },
     });
@@ -541,7 +548,7 @@ describe("ds-html-map: tag-default", function () {
 
   it("escapes a hostile Label", function () {
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: tagDefault.variantString,
       props: { Label: "<img src=x onerror=1>" },
     });
@@ -2085,7 +2092,7 @@ describe("ds-html-map: alert-banner (Task 9b)", function () {
 // Task 11: chat-with-ai-steward leaf (DS-native hi-fi program)
 // ---------------------------------------------------------------------------
 
-describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
+describe("ds-html-map: chat-with-ai-steward (Task 11)", STEWARD, function () {
   it("steward (answered) renders sparkle header, insight, source, confidence, actions", function () {
     var html = render({
       type: "INSTANCE",
@@ -2365,23 +2372,23 @@ describe("ds-html-map: tooltip (Task 4)", function () {
   });
 });
 
-describe("ds-html-map: input-date (Task 4)", function () {
+describe("ds-html-map: date-input (Task 4)", function () {
   it("renders a date field — not a chip — label + input + calendar button", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "input-date",
+      dsSlug: "date-input",
       variant: "Type=Single date,States=Enabled",
       props: { Label: "Start date", Helper: "MM/DD/YYYY" },
     });
     assert.ok(
-      html.indexOf("ds-input-date") !== -1,
-      "input-date built leaf class",
+      html.indexOf("ds-date-input") !== -1,
+      "date-input built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "input-date not a chip");
+    assert.ok(html.indexOf("ds-component") === -1, "date-input not a chip");
     assert.ok(html.indexOf("Start date") !== -1, "label text");
     assert.ok(
-      html.indexOf("ds-input-date__calendar") !== -1,
+      html.indexOf("ds-date-input__calendar") !== -1,
       "calendar icon button",
     );
     assert.ok(html.indexOf("MM/DD/YYYY") !== -1, "helper text");
@@ -2391,18 +2398,18 @@ describe("ds-html-map: input-date (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "input-date",
+      dsSlug: "date-input",
       variant: "Type=Date range,States=Enabled",
       props: { Label: "Range" },
     });
-    assert.ok(html.indexOf("ds-input-date--range") !== -1, "range modifier");
+    assert.ok(html.indexOf("ds-date-input--range") !== -1, "range modifier");
   });
 
   it("States=Disabled adds the disabled flag", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "input-date",
+      dsSlug: "date-input",
       variant: "States=Disabled",
       props: { Label: "Start date" },
     });
@@ -3085,28 +3092,28 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
 });
 
 // ---------------------------------------------------------------------------
-// Token-injection pivot: tag-default keeps the hand-authored .ds-tag template
+// Token-injection pivot: tag-read-only keeps the hand-authored .ds-tag template
 // (label + icon) and INJECTS the harvested variant token style as an inline
 // style attr, instead of being replaced by anatomy HTML.
-describe("ds-html-map: tag-default variant-style token injection", function () {
+describe("ds-html-map: tag-read-only variant-style token injection", function () {
   // Composite key + class suffix both derived from the live axis; this named
   // "Color=Pink" on both sides, so after the fold-in the map key matched
   // nothing AND the expected class was gone. The injected STYLE VALUE stays a
   // literal on purpose: it is the test's own sentinel, not a substrate fact,
   // and it must be recognisable in the output to prove it survived the trip.
   var injectPainted = specimen.pickPaintedVariant(
-    renderer.anatomyLoader("tag-default"),
-    "tag-default",
+    renderer.anatomyLoader("tag-read-only"),
+    "tag-read-only",
   );
   var SENTINEL = "background-color:rgb(1, 2, 3)";
 
-  it("renderDSComponent: tag-default injects the variant style onto the ds-tag span, keeping the label", function () {
+  it("renderDSComponent: tag-read-only injects the variant style onto the ds-tag span, keeping the label", function () {
     var map = {};
-    map["tag-default|" + injectPainted.variantString] = SENTINEL;
+    map["tag-read-only|" + injectPainted.variantString] = SENTINEL;
     ds.setVariantStyleMap(map);
     try {
       var html = render({
-        dsSlug: "tag-default",
+        dsSlug: "tag-read-only",
         variant: injectPainted.variantString,
         props: { Label: "Customer Orders" },
       });
@@ -3124,10 +3131,10 @@ describe("ds-html-map: tag-default variant-style token injection", function () {
     }
   });
 
-  it("renderDSComponent: tag-default with no style-map entry renders the plain ds-tag (no style attr)", function () {
+  it("renderDSComponent: tag-read-only with no style-map entry renders the plain ds-tag (no style attr)", function () {
     ds.setVariantStyleMap(null);
     var html = render({
-      dsSlug: "tag-default",
+      dsSlug: "tag-read-only",
       variant: injectPainted.variantString,
       props: { Label: "Hi" },
     });

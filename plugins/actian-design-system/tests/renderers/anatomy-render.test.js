@@ -17,11 +17,11 @@ var ar = require("../../scripts/lib/renderer.js").anatomyRender;
 test("loadAnatomy: delegates to an injected loader with the slug", () => {
   var seen = null;
   var doc = { root: { id: "r" }, quality: { ratio: 1 } };
-  var result = ar.loadAnatomy("tag-default", (slug) => {
+  var result = ar.loadAnatomy("tag-read-only", (slug) => {
     seen = slug;
     return doc;
   });
-  assert.strictEqual(seen, "tag-default");
+  assert.strictEqual(seen, "tag-read-only");
   assert.strictEqual(result, doc);
 });
 

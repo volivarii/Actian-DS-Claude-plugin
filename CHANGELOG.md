@@ -19,6 +19,8 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
 - **The fm-to-ds map cached a slug beside the immutable key it derives from, so a Figma rename made
   the map disagree with the registry.** ([#326](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/326)) Each of the 24 mappings
   carried a `dsSlug` next to its `dsKey`, and `dsKey` is what survives a rename. Nothing at runtime
@@ -29,6 +31,39 @@ are summarized at the release level.
   `shared.slugFromKey`, which reads the vendored registry and therefore follows a rename by itself.
   Part 5 of the map test now asserts what matters, that the stable key still resolves to a registry
   slug, plus a guard that the cache cannot come back.
+
+
+- **A component archived in Figma while it is rebuilt no longer costs its tests.**
+  ([#PR](_PR link added at open_)) The knowledge v0.34.157 refresh unpublished
+  `chat-with-ai-steward`: an old version being rebuilt, archived in the file rather than deleted,
+  expected back (upstream `c8340c77`). Upstream kept its guidance for that reason, so republishing
+  costs nothing there. Deleting the four goldens, the twelve leaf tests and the worked example
+  here would have thrown away exactly that saving. `tests/helpers/unpublished.js` skips them
+  instead, naming the cause in the skip line of every run, and
+  `unpublished-quarantine.test.js` refuses to let the skip outlive its cause: it fails when a
+  quarantined slug is published again, and fails differently when the slug loses its vendored
+  guidance, which is the signal that it was a retirement after all and the tests should be
+  deleted rather than skipped.
+
+- **The two Figma renames that reach authored references are carried through.**
+  ([#PR](_PR link added at open_)) The sync renamed four components. `metamodel-widget` to
+  `metamodel` appears only in generated content, and `sticky-footer` to `action-bar` was already
+  carried in #315, so two needed authored references moved: `tag-default` to `tag-read-only` and
+  `input-date` to `date-input` (also `ds-input-date` to `ds-date-input` in the emitted classes),
+  plus the registry allowlists and PILOT list that named the old slugs. The renderer already resolved retired slugs through
+  the identity ledger (knowledge #601), which is why the goldens and every renderer-mediated test
+  stayed green: only the tests that read the anatomy and registry DIRECTLY by slug broke.
+  `ds-anatomy-map.test.js` now authors one node under the retired name on purpose and asserts it
+  collapses onto the current pair, so the resolution is pinned in a consumer rather than assumed.
+
+- **Two gates were pointed at a specimen that had moved.** ([#PR](_PR link added at open_))
+  `renderability.test.js` asserted the unresolved-instances rejection through
+  `notification-dropdown`, which the sync changed enough that an earlier rule rejected it first,
+  so the test passed its `ok:false` check while no longer testing its own rule. The specimen is
+  now derived at run time and the population asserted non-empty. `breadcrumb`'s worked example
+  declared a `Type` variant that the reorg stopped publishing, and `pagination` arrived with no
+  root appearance: its root is a bare wrapper and the page buttons carry the paint, checked
+  rather than waved through.
 
 ### Changed
 

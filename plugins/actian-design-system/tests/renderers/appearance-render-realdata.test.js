@@ -138,7 +138,17 @@ var NO_ROOT_APPEARANCE = {
   checkbox: "box is a child",
   toggle: "track and knob are children",
   "text-input": "field box is a child",
-  "input-date": "field box is a child",
+  // Keyed `input-date` until the 2026-08-26 Figma v2.7.0 reorg renamed the
+  // component to "Date input" (knowledge c8340c77, same dsKey). The capture is
+  // unchanged across the rename: it carried no root appearance before either,
+  // so this is the same entry under the current name, not a new loss.
+  "date-input": "field box is a child",
+
+  // Arrived with the same reorg. Its root is a bare wrapper: the `Pagination`
+  // child paints #ffffff and the Previous/Next buttons carry the borders, so
+  // 4 of its 10 captured nodes paint and none of them is the root. Same
+  // profile as spinner and progress-bar-small above.
+  pagination: "root is a bare wrapper; the page buttons carry the paint",
 
   // These five were section:"Foundations" until the 2026-08 taxonomy repair
   // (knowledge #534 to #536) moved them from Figma PAGE-NAME categories

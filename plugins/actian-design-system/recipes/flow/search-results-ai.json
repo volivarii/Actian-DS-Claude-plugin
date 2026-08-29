@@ -51,28 +51,28 @@
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-default",
+                    "dsSlug": "tag-read-only",
                     "variant": "Type=Default",
                     "props": { "Label": "All", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-default",
+                    "dsSlug": "tag-read-only",
                     "variant": "Color=Blue",
                     "props": { "Label": "Datasets", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-default",
+                    "dsSlug": "tag-read-only",
                     "variant": "Type=Default",
                     "props": { "Label": "Pipelines", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-default",
+                    "dsSlug": "tag-read-only",
                     "variant": "Type=Default",
                     "props": { "Label": "Glossary", "Leading icon show": false }
                   }
@@ -138,8 +138,8 @@
     "AI Steward rail is fixed at 360px (per the chat-with-ai-steward component spec) — use HUG width override",
     "The search bar spans the full content width above the split — author it as a standalone row",
     "Filter tags act as a tab-like filter row — the active filter uses a colored variant, inactive use Default",
-    "search-result-card and chat-with-ai-steward are both BUILT leaves: author search-result-card with Title, Tech name, Type, Stage, Catalog and Description, and chat-with-ai-steward with Title, Insight, Source and Confidence"
+    "search-result-card is a BUILT leaf: author it with Title, Tech name, Type, Stage, Catalog and Description. chat-with-ai-steward is NOT currently renderable: Figma has it archived while an old version is rebuilt, so it has no registry entry, no anatomy and no leaf, and it renders as a graceful chip until it republishes. Compose the rail with it anyway (that is what the rail is), and expect a placeholder there in the meantime"
   ],
   "missing_states": ["empty-results", "loading", "error", "ai-steward-collapsed"],
-  "dsComposition": "search / tag-default(filters) / search-result-card(results) / chat-with-ai-steward(rail)"
+  "dsComposition": "search / tag-read-only(filters) / search-result-card(results) / chat-with-ai-steward(rail)"
 }

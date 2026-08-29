@@ -4,7 +4,7 @@ This reference is for the screen-generator agent when `meta.library:"ds"` is set
 
 The DS detail bar is higher than the FM deliberate-simplicity bar. When composing DS-native screens you are expected to supply realistic app-context data, real Action labels, full-detail copy, and meaningful states — not generic placeholders. The hi-fi HTML is the deliverable and must read like a real product screen.
 
-The table below covers the 71 authorable slugs (registry `section:"Components"`). **BUILT** = full CSS-styled HTML leaf renderer. Non-BUILT slugs are still valid to author: when the slug has a vendored appearance doc, the appearance renderer draws its real captured colors (fill, border, text) and, where anatomy resolves a real icon instance, a real SVG glyph (not a placeholder). **chip** = graceful labeled chip (`<span class="ds-component" data-slug="...">`), the last-resort fallback used only when no vendored appearance doc exists for the slug.
+The table below covers the 73 authorable slugs (registry `section:"Components"`). **BUILT** = full CSS-styled HTML leaf renderer. Non-BUILT slugs are still valid to author: when the slug has a vendored appearance doc, the appearance renderer draws its real captured colors (fill, border, text) and, where anatomy resolves a real icon instance, a real SVG glyph (not a placeholder). **chip** = graceful labeled chip (`<span class="ds-component" data-slug="...">`), the last-resort fallback used only when no vendored appearance doc exists for the slug.
 
 ## Vocabulary table
 
@@ -285,13 +285,13 @@ as the Figma property contract.
 - `props["Helper text"]`: sub-label text (only shown when `Show Helper text` is truthy)
 - `props["Show Helper text"]`: `true` | `false` (default: `false`)
 
-### `tag-default`
+### `tag-read-only`
 
 ```json
 {
   "type": "INSTANCE",
   "library": "ds",
-  "dsSlug": "tag-default",
+  "dsSlug": "tag-read-only",
   "variant": "Type=Default",
   "props": {
     "Label": "Published",
@@ -414,14 +414,13 @@ as the Figma property contract.
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "breadcrumb",
-  "variant": "Type=Default",
   "props": {
     "Items": "Home, Catalog, Sales Q1 2025"
   }
 }
 ```
 
-- `variant.Type`: `Default` (default: `Default`)
+- no `variant`: the component publishes no variant axis
 - `props.Items`: comma-separated breadcrumb labels, left-to-right (last item = current page)
 
 ### `tabs`
@@ -698,4 +697,4 @@ zoom-to-fit
 ```
 <!-- END GENERATED icons -->
 
-Built leaves that reference icons use: `add` (button leading icon), `arrow-down` (button trailing icon, input trailing chevron, dropdown and accordion carets), `arrow-left` rotated 180° (breadcrumb separators), `simple-check` (checkbox check mark), and the tag-default Type icons (`folder`, `dot`, `error-filled`, `warning-filled`, `success-filled`, `add`).
+Built leaves that reference icons use: `add` (button leading icon), `arrow-down` (button trailing icon, input trailing chevron, dropdown and accordion carets), `arrow-left` rotated 180° (breadcrumb separators), `simple-check` (checkbox check mark), and the tag-read-only Type icons (`folder`, `dot`, `error-filled`, `warning-filled`, `success-filled`, `add`).
