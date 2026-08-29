@@ -34,7 +34,7 @@ are summarized at the release level.
 
 
 - **A component archived in Figma while it is rebuilt no longer costs its tests.**
-  ([#PR](_PR link added at open_)) The knowledge v0.34.157 refresh unpublished
+  ([#327](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/327)) The knowledge v0.34.157 refresh unpublished
   `chat-with-ai-steward`: an old version being rebuilt, archived in the file rather than deleted,
   expected back (upstream `c8340c77`). Upstream kept its guidance for that reason, so republishing
   costs nothing there. Deleting the four goldens, the twelve leaf tests and the worked example
@@ -46,7 +46,7 @@ are summarized at the release level.
   deleted rather than skipped.
 
 - **The two Figma renames that reach authored references are carried through.**
-  ([#PR](_PR link added at open_)) The sync renamed four components. `metamodel-widget` to
+  ([#327](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/327)) The sync renamed four components. `metamodel-widget` to
   `metamodel` appears only in generated content, and `sticky-footer` to `action-bar` was already
   carried in #315, so two needed authored references moved: `tag-default` to `tag-read-only` and
   `input-date` to `date-input` (also `ds-input-date` to `ds-date-input` in the emitted classes),
@@ -56,7 +56,7 @@ are summarized at the release level.
   `ds-anatomy-map.test.js` now authors one node under the retired name on purpose and asserts it
   collapses onto the current pair, so the resolution is pinned in a consumer rather than assumed.
 
-- **Two gates were pointed at a specimen that had moved.** ([#PR](_PR link added at open_))
+- **Two gates were pointed at a specimen that had moved.** ([#327](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/327))
   `renderability.test.js` asserted the unresolved-instances rejection through
   `notification-dropdown`, which the sync changed enough that an earlier rule rejected it first,
   so the test passed its `ok:false` check while no longer testing its own rule. The specimen is
