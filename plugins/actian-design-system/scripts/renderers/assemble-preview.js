@@ -64,6 +64,15 @@ var TYPE_CONFIGS = {
       // window.dsHtmlMap to route library:"ds" INSTANCE nodes). Order is
       // load-bearing: fm-html-map → appearance-style → appearance-render →
       // ds-html-map → render-node → flow-renderer.
+      // ds-retired-slugs.js must load BEFORE ds-html-map.js: the map is a
+      // separate vendored module and there is no fs in the browser, so
+      // ds-html-map.js reads it from window.dsRetiredSlugs when its IIFE
+      // evaluates. Absent, it falls back to an empty map, which is a
+      // legitimate state (no renames recorded yet) and therefore SILENT:
+      // every slug the design system has renamed would render as a graceful
+      // chip in the preview while the Node path stayed correct. Order is
+      // load-bearing here for the same reason it is for appearance-render.
+      rendererModule.modulePath("html-renderers/ds-retired-slugs.js"),
       rendererModule.modulePath("html-renderers/ds-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
       // pick it up via window.renderNode (shared structural-node renderer).
