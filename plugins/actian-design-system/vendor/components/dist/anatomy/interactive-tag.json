@@ -1,0 +1,195 @@
+{
+  "_schema_version": 1,
+  "slug": "interactive-tag",
+  "kit": "dskit",
+  "synced_at": "2026-08-31T11:39:48.734Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "13845:33759",
+    "variant": "State=Default, Type=Dismissible"
+  },
+  "quality": {
+    "nodesTotal": 4,
+    "nodesNormalized": 4,
+    "ratio": 1,
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Focus",
+        "path": "",
+        "reason": "childCount:3!=5"
+      },
+      {
+        "prop": "State",
+        "value": "Hover",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "State",
+        "value": "Pressed",
+        "path": "",
+        "reason": "childCount:3!=4"
+      },
+      {
+        "prop": "Type",
+        "value": "Selectable",
+        "path": "",
+        "reason": "childCount:3!=1"
+      },
+      {
+        "prop": "Type",
+        "value": "Selectable-selected",
+        "path": "",
+        "reason": "childCount:3!=2"
+      }
+    ]
+  },
+  "root": {
+    "name": "State=Default, Type=Dismissible",
+    "kind": "container",
+    "tokenRefs": [
+      "--zen-color-neutral-50"
+    ],
+    "id": "13845:33758",
+    "appearance": {
+      "background": "#fbfbff",
+      "border": {
+        "color": "#e1e1e6",
+        "colorToken": "--zen-color-neutral-50",
+        "width": "1px"
+      },
+      "radius": "9999px",
+      "variants": [
+        {
+          "prop": "State",
+          "values": [
+            "Disabled"
+          ],
+          "background": "#e1e1e6",
+          "border": {
+            "color": "#c7c7ce",
+            "colorToken": "--zen-border-disabled",
+            "width": "1px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Dropdown-expanded"
+          ],
+          "background": "#e1e1e6",
+          "backgroundToken": "--zen-color-neutral-50"
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Selectable-selected"
+          ],
+          "background": "#ecfdff",
+          "backgroundToken": "--zen-color-primary-25",
+          "border": {
+            "color": "#cbe3ff",
+            "colorToken": "--zen-color-primary-50",
+            "width": "1px"
+          }
+        }
+      ]
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "8px",
+        "bottom": "0px",
+        "left": "8px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "fixed"
+      },
+      "gapToken": "--zen-spacing-2xs",
+      "paddingTokens": {
+        "right": "--zen-spacing-xs",
+        "left": "--zen-spacing-xs"
+      }
+    },
+    "children": [
+      {
+        "name": "Leading icon",
+        "kind": "instance",
+        "slug": "folder",
+        "id": "13846:34347"
+      },
+      {
+        "name": "Tag-Name",
+        "kind": "text",
+        "tokenRefs": [
+          "--zen-color-text-default"
+        ],
+        "id": "13846:34348",
+        "appearance": {
+          "text": {
+            "color": "#000000",
+            "colorToken": "--zen-color-text-default",
+            "size": "12px",
+            "weight": 400,
+            "lineHeight": "16px",
+            "letterSpacing": "0.3px"
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Disabled"
+              ],
+              "text": {
+                "color": "#656574",
+                "colorToken": "--zen-color-text-disabled",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            }
+          ]
+        },
+        "text": "Default"
+      },
+      {
+        "name": "Trailing icon",
+        "kind": "instance",
+        "slug": "close",
+        "id": "13849:34922",
+        "appearance": {
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Dropdown"
+              ],
+              "slug": "arrow-down"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dropdown-expanded"
+              ],
+              "slug": "arrow-up"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "variantDefaults": {
+    "State": "Default",
+    "Type": "Dismissible"
+  }
+}

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-08-31T11:39:48.734Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "21982:71973"
@@ -80,7 +80,7 @@
             },
             "id": "21982:72019",
             "appearance": {
-              "background": "#edf6ff"
+              "background": "#ecfdff"
             }
           },
           {

@@ -13,7 +13,7 @@ tags:
   - quick-view
   - single-object
 components:
-  - drawer-side-panel
+  - drawer
   - button
 ---
 Opens from list row click. Studio: quick edit. Explorer: quick view with Request Access.

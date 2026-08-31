@@ -3,7 +3,7 @@ title: "Object preview panels"
 nav_order: 27
 # Pattern fan-out — Overlays-category surfaces typically used as preview panels.
 # Jeff: edit/correct/extend.
-relatedComponents: [drawer-side-panel, popover]
+relatedComponents: [drawer, popover]
 ---
 # Object preview panels
 

@@ -1376,15 +1376,15 @@
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
     },
-    "calendar": {
+    "calendar-data-selector": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "components/src/calendar/",
+        "source": "components/src/calendar-data-selector/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
-      "slug": "calendar",
-      "component": "Calendar",
+      "slug": "calendar-data-selector",
+      "component": "Calendar data selector",
       "meta": {
         "category": "form",
         "a11y_refs": [
@@ -1542,7 +1542,805 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-26T17:53:49+02:00"
+      "updated_at": "2026-08-31T15:52:46+02:00"
+    },
+    "calendar-date-input": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/calendar-date-input/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "calendar-date-input",
+      "component": "Calendar date input",
+      "meta": {
+        "category": "form",
+        "related": [
+          "calendar",
+          "text-input"
+        ],
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "For single-date entry in a form, such as a deadline or an effective date.",
+                    "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Label the field by what the date represents. For example, \"Start date\", not \"Date\".",
+                    "Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".",
+                    "Use a single, consistent date format across the product."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.",
+                    "State what is wrong and how to fix it when a date is invalid or out of range."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Label: Start date / Placeholder: YYYY-MM-DD",
+                  "dont": "Placeholder: Enter a date"
+                },
+                {
+                  "do": "Enter a date on or after today.",
+                  "dont": "Invalid date."
+                },
+                {
+                  "do": "Effective date",
+                  "dont": "Date field"
+                }
+              ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "Forms collect or update user data. Consistent structure, clear labels, and helpful guidance reduce friction and prevent errors."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "bullets": [
+                    "To collect user input that affects data, configuration, or permissions.",
+                    "To edit or update existing records or entities.",
+                    "To guide users through multi-step flows where input drives behavior.",
+                    "To allow users to provide comments and suggestions, or to confirm, approve, or reject requests that require context."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Types of forms",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Usage",
+                      "Examples"
+                    ],
+                    "rows": [
+                      [
+                        "Single page or simple form",
+                        "Data entry for simple workflows",
+                        "Editing a dataset name or description"
+                      ],
+                      [
+                        "Stepper or multi-page form",
+                        "Task-based workflows",
+                        "Creating a data connection or access request"
+                      ],
+                      [
+                        "Modal form",
+                        "Short, focused tasks that require user confirmation",
+                        "Adding a note or setting permissions"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "General form guidelines",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "How to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Be concise and directive: each label or helper text should clearly describe the required action.",
+                        "Use sentence case for labels and titles."
+                      ]
+                    },
+                    {
+                      "do": "Group name",
+                      "dont": "Group Name"
+                    },
+                    {
+                      "bullets": [
+                        "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
+                        "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
+                        "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
+                        "Error text should guide correction."
+                      ]
+                    },
+                    {
+                      "do": "Enter a valid date",
+                      "dont": "Invalid input"
+                    },
+                    {
+                      "bullets": [
+                        "Success or confirmation text should be brief, reassuring, and specific. For example, `The policy was successfully created`.",
+                        "Use progressive disclosure for field entry assistance: Label → Tooltip → Descriptive text → Link to docs."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Structure",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Group related fields together under sections.",
+                        "Always place the primary CTA at the bottom right for consistency.",
+                        "Avoid multi-column layouts when possible - single column is easier to read. Exceptions such as separate fields for first and last names are acceptable."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Labels should be visible even when the field is in focus.",
+                        "Include placeholder text only when it provides value - never to just repeat the label.",
+                        "The primary CTA should be disabled until all required fields are filled.",
+                        "Validate fields inline and provide red error text below the field. See [validation messages](validation-messages) for error text guidelines."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Input labels and helper text",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Labels describe the purpose of the field. They are always visible.",
+                        "Helper text provides brief instruction or clarification below the field. Use it sparingly.",
+                        "Placeholder text is a hint only - never a substitute for a label. It disappears when the user starts typing."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Do / Don't",
+                  "content": [
+                    {
+                      "do": "Label: Connection name / Helper: Use a unique name to identify this connection.",
+                      "dont": "Placeholder: Enter connection name (no visible label)"
+                    },
+                    {
+                      "do": "Helper: Must be 8–32 characters.",
+                      "dont": "Helper: Please enter a valid password."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Dropdown",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "For lists of 5 to 20 options.",
+                        "When the full list does not need to be visible at all times."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Label the dropdown clearly. The label should describe the category of options, not the action.",
+                        "Close after selection.",
+                        "Keep option phrasing consistent within the same dropdown.",
+                        "Use sentence case for all options."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Calendar",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "The calendar component is used for any interaction involving date ranges, filtering, or scheduling."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "prose": "For any interaction involving date ranges, filtering, or scheduling."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Use labels like `From` and `To`, or `Start date` and `End date` for range fields. Do not leave any fields unlabeled.",
+                        "Display date formats clearly (MM/DD/YYYY or regional format) with placeholders or hints where appropriate.",
+                        "Do not pre-fill dates for users."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Support both typing and calendar picking.",
+                        "Auto-close the calendar when the selection is complete.",
+                        "Highlight today, weekends, and blocked dates visually when appropriate.",
+                        "Visually display any selected range in the calendar."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Toggle",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Label the toggle next to or above the control. For example, **Enable alerts**.",
+                        "Show the label for the state that is currently active. For example, show `Off` when off, `On` when on - but not both at the same time."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "The action should happen on toggle with no confirmation step.",
+                        "Left = off, right = on.",
+                        "Should update instantly unless a delay is unavoidable - show a loading indicator if delayed.",
+                        "Do not use toggles for destructive or irreversible actions."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Toggle vs Checkbox vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a toggle when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The action takes effect immediately.",
+                        "It represents a system state (for example, ON/OFF, enabled/disabled).",
+                        "It is a binary setting that persists (for example, dark mode, notifications)."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[checkbox](checkbox)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The user is selecting one or more items.",
+                        "The action does not take effect immediately (typically part of a form or group submission).",
+                        "It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Checkbox group vs Multi-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a checkbox group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list has roughly seven or fewer options and all of them should stay visible at once."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long or space is limited, and a search field would help users find options."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Radio button",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
+                        "When all choices should be visible up front rather than hidden in a dropdown."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Use short, descriptive labels that clearly state each option.",
+                        "Write labels as direct answers to the group's prompt or question. For example, **Yes / No** instead of `Select yes if you agree`.",
+                        "Ensure the group label or question is always visible next to the options.",
+                        "Avoid jargon or abbreviations.",
+                        "Keep labels parallel in structure - all nouns, or all verb phrases."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Radio card format",
+              "source": "pattern:forms",
+              "content": [
+                {
+                  "prose": "Use card-format radio buttons instead of traditional radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                        "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Indicate selected state visually (`Selected` highlight border, and so on).",
+                        "Click anywhere on the tile to toggle selection.",
+                        "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                        "Maintain selection across steps if part of a multi-step process.",
+                        "Title: short, descriptive, and consistent across tiles.",
+                        "Supporting text: use only in the large variant."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Segmented control",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
+                        "Do not use for page-level navigation - use [tabs](tabs) instead."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Segmented control vs Radio button",
+                  "content": [
+                    {
+                      "prose": "**Use a segmented control when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice takes effect immediately, with no separate submit step."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The choice is part of a form and applies on submit."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Combo box",
+              "source": "pattern:forms",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    {
+                      "bullets": [
+                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Combo box vs Single-select dropdown",
+                  "content": [
+                    {
+                      "prose": "**Use a combo box when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is long enough that typing to filter is faster than scanning it."
+                      ]
+                    },
+                    {
+                      "prose": "**Use a single-select dropdown when:**"
+                    },
+                    {
+                      "bullets": [
+                        "The list is shorter and fixed."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Validation messages appear inline with [form](forms) fields to help users correct input errors. They are the primary mechanism for communicating what went wrong and how to fix it."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "On field blur (when the user leaves a field), not on every keystroke.",
+                    "On form submission when required fields are empty or invalid.",
+                    "Do not show validation errors before the user has interacted with a field."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "Be specific: say what is wrong and how to fix it.",
+                    "Use plain language - do not expose technical error codes or internal validation rule names.",
+                    "Keep messages to one sentence.",
+                    "Do not use \"Invalid\" as a standalone message - explain why it is invalid.",
+                    "Do not blame the user. Use neutral, factual language.",
+                    "Do not use \"Please\" - omit it."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "do": "Enter a valid email address.",
+                  "dont": "Invalid email."
+                },
+                {
+                  "do": "Connection name is required.",
+                  "dont": "Please fill out this field."
+                },
+                {
+                  "do": "Password must be 8–32 characters.",
+                  "dont": "Password does not meet requirements."
+                },
+                {
+                  "do": "This name is already in use. Choose a different name.",
+                  "dont": "Duplicate entry error."
+                },
+                {
+                  "do": "Select at least one data domain.",
+                  "dont": "You must make a selection."
+                }
+              ]
+            },
+            {
+              "heading": "Text slots",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Slot",
+                      "When it appears",
+                      "Content"
+                    ],
+                    "rows": [
+                      [
+                        "Label",
+                        "Always",
+                        "The field name. Mark required fields with an asterisk."
+                      ],
+                      [
+                        "Description",
+                        "Always, before the user interacts",
+                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
+                      ],
+                      [
+                        "Helper",
+                        "Reactively, below the field",
+                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Severity",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "bullets": [
+                    "**Error** blocks submission. State what's wrong and how to fix it.",
+                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
+                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
+                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Common fields",
+              "source": "pattern:validation-messages",
+              "content": [
+                {
+                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
+                },
+                {
+                  "bullets": [
+                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
+                  ]
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "Email",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
+                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "URL",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
+                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
+                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Date input",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Description or helper: show the expected format as an example, not an instruction.",
+                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
+                      ]
+                    },
+                    {
+                      "prose": "See [date input](date-input)."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Character counters",
+                  "content": [
+                    {
+                      "bullets": [
+                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
+                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
+          "sections": [
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.",
+                    "Use it when users may know the exact date, so typing it is as fast as picking it.",
+                    "Pair it with an attached [calendar](calendar) when a visual month view would help the choice."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).",
+                    "Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.",
+                    "Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "bullets": [
+                    "**Single date:** one date field; the default for deadlines and effective dates.",
+                    "**Date range:** start and end in one control, for spans such as a reporting window or a retention period.",
+                    "**Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.",
+                    "**Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Validate the date on blur",
+                  "dont": "Flash errors while the user is still typing"
+                },
+                {
+                  "do": "Accept typing and the attached calendar equally",
+                  "dont": "Force every entry through the picker"
+                },
+                {
+                  "do": "Say what range is valid when a date is rejected",
+                  "dont": "Stop at naming the field invalid"
+                },
+                {
+                  "do": "Keep one date format across the product",
+                  "dont": "Vary the format field by field"
+                },
+                {
+                  "do": "Constrain a range so the end follows the start",
+                  "dont": "Accept an end date before the start date"
+                },
+                {
+                  "note": "Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-08-31T15:52:46+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -3560,15 +4358,15 @@
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
     },
-    "collapse-accordion": {
+    "collapse": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "components/src/collapse-accordion/",
+        "source": "components/src/collapse/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
-      "slug": "collapse-accordion",
-      "component": "Collapse / accordion",
+      "slug": "collapse",
+      "component": "Collapse",
       "meta": {
         "category": "data-display"
       },
@@ -3721,7 +4519,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T15:52:46+02:00"
     },
     "combo-box": {
       "_schema_version": 1,
@@ -4048,813 +4846,15 @@
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
     },
-    "date-input": {
+    "drawer": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "components/src/date-input/",
+        "source": "components/src/drawer/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
-      "slug": "date-input",
-      "component": "Date input",
-      "meta": {
-        "category": "form",
-        "related": [
-          "calendar",
-          "text-input"
-        ],
-        "a11y_refs": [
-          {
-            "ref": "forms"
-          }
-        ]
-      },
-      "domains": {
-        "content": {
-          "status": "approved",
-          "owner": "content-team",
-          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "For single-date entry in a form, such as a deadline or an effective date.",
-                    "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Label the field by what the date represents. For example, \"Start date\", not \"Date\".",
-                    "Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".",
-                    "Use a single, consistent date format across the product."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Behavior",
-              "content": [
-                {
-                  "bullets": [
-                    "Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.",
-                    "State what is wrong and how to fix it when a date is invalid or out of range."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Label: Start date / Placeholder: YYYY-MM-DD",
-                  "dont": "Placeholder: Enter a date"
-                },
-                {
-                  "do": "Enter a date on or after today.",
-                  "dont": "Invalid date."
-                },
-                {
-                  "do": "Effective date",
-                  "dont": "Date field"
-                }
-              ]
-            },
-            {
-              "heading": "",
-              "source": "pattern:forms",
-              "content": [
-                {
-                  "prose": "Forms collect or update user data. Consistent structure, clear labels, and helpful guidance reduce friction and prevent errors."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "source": "pattern:forms",
-              "content": [
-                {
-                  "bullets": [
-                    "To collect user input that affects data, configuration, or permissions.",
-                    "To edit or update existing records or entities.",
-                    "To guide users through multi-step flows where input drives behavior.",
-                    "To allow users to provide comments and suggestions, or to confirm, approve, or reject requests that require context."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Types of forms",
-              "source": "pattern:forms",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Type",
-                      "Usage",
-                      "Examples"
-                    ],
-                    "rows": [
-                      [
-                        "Single page or simple form",
-                        "Data entry for simple workflows",
-                        "Editing a dataset name or description"
-                      ],
-                      [
-                        "Stepper or multi-page form",
-                        "Task-based workflows",
-                        "Creating a data connection or access request"
-                      ],
-                      [
-                        "Modal form",
-                        "Short, focused tasks that require user confirmation",
-                        "Adding a note or setting permissions"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "heading": "General form guidelines",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "How to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Be concise and directive: each label or helper text should clearly describe the required action.",
-                        "Use sentence case for labels and titles."
-                      ]
-                    },
-                    {
-                      "do": "Group name",
-                      "dont": "Group Name"
-                    },
-                    {
-                      "bullets": [
-                        "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
-                        "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
-                        "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
-                        "Error text should guide correction."
-                      ]
-                    },
-                    {
-                      "do": "Enter a valid date",
-                      "dont": "Invalid input"
-                    },
-                    {
-                      "bullets": [
-                        "Success or confirmation text should be brief, reassuring, and specific. For example, `The policy was successfully created`.",
-                        "Use progressive disclosure for field entry assistance: Label → Tooltip → Descriptive text → Link to docs."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Structure",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Group related fields together under sections.",
-                        "Always place the primary CTA at the bottom right for consistency.",
-                        "Avoid multi-column layouts when possible - single column is easier to read. Exceptions such as separate fields for first and last names are acceptable."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Behavior",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Labels should be visible even when the field is in focus.",
-                        "Include placeholder text only when it provides value - never to just repeat the label.",
-                        "The primary CTA should be disabled until all required fields are filled.",
-                        "Validate fields inline and provide red error text below the field. See [validation messages](validation-messages) for error text guidelines."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Input labels and helper text",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Labels describe the purpose of the field. They are always visible.",
-                        "Helper text provides brief instruction or clarification below the field. Use it sparingly.",
-                        "Placeholder text is a hint only - never a substitute for a label. It disappears when the user starts typing."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Do / Don't",
-                  "content": [
-                    {
-                      "do": "Label: Connection name / Helper: Use a unique name to identify this connection.",
-                      "dont": "Placeholder: Enter connection name (no visible label)"
-                    },
-                    {
-                      "do": "Helper: Must be 8–32 characters.",
-                      "dont": "Helper: Please enter a valid password."
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Dropdown",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "For lists of 5 to 20 options.",
-                        "When the full list does not need to be visible at all times."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label the dropdown clearly. The label should describe the category of options, not the action.",
-                        "Close after selection.",
-                        "Keep option phrasing consistent within the same dropdown.",
-                        "Use sentence case for all options."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Calendar",
-              "source": "pattern:forms",
-              "content": [
-                {
-                  "prose": "The calendar component is used for any interaction involving date ranges, filtering, or scheduling."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "prose": "For any interaction involving date ranges, filtering, or scheduling."
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use labels like `From` and `To`, or `Start date` and `End date` for range fields. Do not leave any fields unlabeled.",
-                        "Display date formats clearly (MM/DD/YYYY or regional format) with placeholders or hints where appropriate.",
-                        "Do not pre-fill dates for users."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Behavior",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Support both typing and calendar picking.",
-                        "Auto-close the calendar when the selection is complete.",
-                        "Highlight today, weekends, and blocked dates visually when appropriate.",
-                        "Visually display any selected range in the calendar."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Toggle",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label the toggle next to or above the control. For example, **Enable alerts**.",
-                        "Show the label for the state that is currently active. For example, show `Off` when off, `On` when on - but not both at the same time."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Behavior",
-                  "content": [
-                    {
-                      "bullets": [
-                        "The action should happen on toggle with no confirmation step.",
-                        "Left = off, right = on.",
-                        "Should update instantly unless a delay is unavoidable - show a loading indicator if delayed.",
-                        "Do not use toggles for destructive or irreversible actions."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Toggle vs Checkbox vs Radio button",
-                  "content": [
-                    {
-                      "prose": "**Use a toggle when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The action takes effect immediately.",
-                        "It represents a system state (for example, ON/OFF, enabled/disabled).",
-                        "It is a binary setting that persists (for example, dark mode, notifications)."
-                      ]
-                    },
-                    {
-                      "prose": "**Use a** **[checkbox](checkbox)** **when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The user is selecting one or more items.",
-                        "The action does not take effect immediately (typically part of a form or group submission).",
-                        "It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Checkbox group vs Multi-select dropdown",
-                  "content": [
-                    {
-                      "prose": "**Use a checkbox group when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The list has roughly seven or fewer options and all of them should stay visible at once."
-                      ]
-                    },
-                    {
-                      "prose": "**Use a** **[multi-select dropdown](multi-select)** **when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The list is long or space is limited, and a search field would help users find options."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Radio button",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When the user must select exactly one option from a short visible list (typically two to seven options). For more than seven, use a [single-select dropdown](dropdown-select) instead.",
-                        "When all choices should be visible up front rather than hidden in a dropdown."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use short, descriptive labels that clearly state each option.",
-                        "Write labels as direct answers to the group's prompt or question. For example, **Yes / No** instead of `Select yes if you agree`.",
-                        "Ensure the group label or question is always visible next to the options.",
-                        "Avoid jargon or abbreviations.",
-                        "Keep labels parallel in structure - all nouns, or all verb phrases."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Radio card format",
-              "source": "pattern:forms",
-              "content": [
-                {
-                  "prose": "Use card-format radio buttons instead of traditional radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
-                        "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Behavior",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Indicate selected state visually (`Selected` highlight border, and so on).",
-                        "Click anywhere on the tile to toggle selection.",
-                        "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
-                        "Maintain selection across steps if part of a multi-step process.",
-                        "Title: short, descriptive, and consistent across tiles.",
-                        "Supporting text: use only in the large variant."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Segmented control",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To switch between 2-5 mutually exclusive views or modes within a single surface, when side-by-side visibility helps.",
-                        "Do not use for page-level navigation - use [tabs](tabs) instead."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Segmented control vs Radio button",
-                  "content": [
-                    {
-                      "prose": "**Use a segmented control when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The choice takes effect immediately, with no separate submit step."
-                      ]
-                    },
-                    {
-                      "prose": "**Use a** **[radio button](#radio-button)** **group when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The choice is part of a form and applies on submit."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Combo box",
-              "source": "pattern:forms",
-              "content": [],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When the list has 20 or more options and typing to filter improves efficiency, or freeform input alongside suggestions is valid."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Combo box vs Single-select dropdown",
-                  "content": [
-                    {
-                      "prose": "**Use a combo box when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The list is long enough that typing to filter is faster than scanning it."
-                      ]
-                    },
-                    {
-                      "prose": "**Use a single-select dropdown when:**"
-                    },
-                    {
-                      "bullets": [
-                        "The list is shorter and fixed."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "prose": "Validation messages appear inline with [form](forms) fields to help users correct input errors. They are the primary mechanism for communicating what went wrong and how to fix it."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "bullets": [
-                    "On field blur (when the user leaves a field), not on every keystroke.",
-                    "On form submission when required fields are empty or invalid.",
-                    "Do not show validation errors before the user has interacted with a field."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "bullets": [
-                    "Be specific: say what is wrong and how to fix it.",
-                    "Use plain language - do not expose technical error codes or internal validation rule names.",
-                    "Keep messages to one sentence.",
-                    "Do not use \"Invalid\" as a standalone message - explain why it is invalid.",
-                    "Do not blame the user. Use neutral, factual language.",
-                    "Do not use \"Please\" - omit it."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "do": "Enter a valid email address.",
-                  "dont": "Invalid email."
-                },
-                {
-                  "do": "Connection name is required.",
-                  "dont": "Please fill out this field."
-                },
-                {
-                  "do": "Password must be 8–32 characters.",
-                  "dont": "Password does not meet requirements."
-                },
-                {
-                  "do": "This name is already in use. Choose a different name.",
-                  "dont": "Duplicate entry error."
-                },
-                {
-                  "do": "Select at least one data domain.",
-                  "dont": "You must make a selection."
-                }
-              ]
-            },
-            {
-              "heading": "Text slots",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "prose": "Each field can carry up to three distinct pieces of text. Do not blend their roles."
-                },
-                {
-                  "table": {
-                    "headers": [
-                      "Slot",
-                      "When it appears",
-                      "Content"
-                    ],
-                    "rows": [
-                      [
-                        "Label",
-                        "Always",
-                        "The field name. Mark required fields with an asterisk."
-                      ],
-                      [
-                        "Description",
-                        "Always, before the user interacts",
-                        "Guidance the user needs before typing: the field's purpose, naming rules, or constraints."
-                      ],
-                      [
-                        "Helper",
-                        "Reactively, below the field",
-                        "Format hints or status. Becomes the error or warning message when one is triggered - never show helper text and an error at the same time."
-                      ]
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "heading": "Severity",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "bullets": [
-                    "**Error** blocks submission. State what's wrong and how to fix it.",
-                    "**Warning** does not block submission. State the risk, but let the user proceed. For example, \"Datasets not found. You can still create the item.\"",
-                    "**Success** confirms a value or action. Use sparingly, only where confirmation reduces uncertainty.",
-                    "**Informational** is neutral guidance tied to a field or section. It carries no icon - reserve icons for error, warning, and success."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Common fields",
-              "source": "pattern:validation-messages",
-              "content": [
-                {
-                  "prose": "Make sure to confirm specific limits, formats, and patterns for any validation messages."
-                },
-                {
-                  "bullets": [
-                    "When a field has a length or character restriction, state it up front in the description or helper text, not only after the user fails it. For example, \"Use lowercase letters, numbers, and hyphens only.\" Repeat the same constraint in the error message if the value doesn't meet it, rather than a generic \"Invalid\" response."
-                  ]
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Email",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Description: state the expected format only if the field's purpose isn't obvious from the label.",
-                        "Error: give a realistic example that matches what this specific field expects, rather than a generic phrase. For example, \"Enter a complete email like name@company.com.\""
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "URL",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Description: state what the link is for, specific to that field. For example, \"The web address to link to.\"",
-                        "Helper (before interaction): show the expected protocol as an example, matching what the field actually requires. For example, \"Start with the protocol, e.g. https://\"",
-                        "Error: name the specific requirement the value fails. For example, \"Enter a URL that starts with https://\""
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Date input",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Description or helper: show the expected format as an example, not an instruction.",
-                        "Error: name the specific date constraint the value fails, rather than a generic phrase. For example, \"Enter a date on or after today.\""
-                      ]
-                    },
-                    {
-                      "prose": "See [date input](date-input)."
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Character counters",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Show the counter as helper text once the user is near the limit, not from the first keystroke.",
-                        "Format: \"[count]/[max]\" (e.g., \"42/100\"). Switch to error styling only once the limit is exceeded, with the message: \"[Field] must be [max] characters or fewer.\""
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "usage": {
-          "status": "approved",
-          "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
-          "sections": [
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.",
-                    "Use it when users may know the exact date, so typing it is as fast as picking it.",
-                    "Pair it with an attached [calendar](calendar) when a visual month view would help the choice."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "When not to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).",
-                    "Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.",
-                    "Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Variant selection",
-              "content": [
-                {
-                  "bullets": [
-                    "**Single date:** one date field; the default for deadlines and effective dates.",
-                    "**Date range:** start and end in one control, for spans such as a reporting window or a retention period.",
-                    "**Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.",
-                    "**Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Validate the date on blur",
-                  "dont": "Flash errors while the user is still typing"
-                },
-                {
-                  "do": "Accept typing and the attached calendar equally",
-                  "dont": "Force every entry through the picker"
-                },
-                {
-                  "do": "Say what range is valid when a date is rejected",
-                  "dont": "Stop at naming the field invalid"
-                },
-                {
-                  "do": "Keep one date format across the product",
-                  "dont": "Vary the format field by field"
-                },
-                {
-                  "do": "Constrain a range so the end follows the start",
-                  "dont": "Accept an end date before the start date"
-                },
-                {
-                  "note": "Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs."
-                }
-              ]
-            }
-          ]
-        },
-        "design": {
-          "status": "inherited"
-        },
-        "behavior": {
-          "status": "inherited"
-        },
-        "tokens": {
-          "status": "not-started"
-        }
-      },
-      "updated_at": "2026-08-26T17:53:49+02:00"
-    },
-    "drawer-side-panel": {
-      "_schema_version": 1,
-      "_meta": {
-        "auto_generated": true,
-        "source": "components/src/drawer-side-panel/",
-        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
-      },
-      "slug": "drawer-side-panel",
-      "component": "Drawer, side panel",
+      "slug": "drawer",
+      "component": "Drawer",
       "meta": {
         "category": "overlays",
         "a11y_refs": [
@@ -5129,7 +5129,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T15:52:46+02:00"
     },
     "dropdown-select": {
       "_schema_version": 1,
@@ -6368,6 +6368,434 @@
         }
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
+    },
+    "interactive-tag": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tag/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tag",
+      "component": "Tags",
+      "meta": {
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use sentence case.",
+                    "Keep tag text to one to three words.",
+                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
+                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
+                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
+                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
+                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
+                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "bullets": [
+                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
+                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
+                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
+                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
+                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
+                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Use the specialized variant for types, stages, and statuses",
+                  "dont": "Put a system status in a freeform default tag"
+                },
+                {
+                  "do": "Show the remove affordance only in edit contexts",
+                  "dont": "Render an X on tags in a read-only view"
+                },
+                {
+                  "do": "Keep one color per category, consistent across screens",
+                  "dont": "Recolor the same topic tag from page to page"
+                },
+                {
+                  "do": "Let tag values come from the platform vocabulary where one exists",
+                  "dont": "Mix **Published** and **Live** for the same state"
+                },
+                {
+                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "property": "height",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-xs",
+              "property": "padding",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "property": "gap",
+              "context": "Gap between icon and label"
+            },
+            {
+              "token": "border-default",
+              "property": "border-color",
+              "context": "Border (Default color)"
+            },
+            {
+              "token": "border-radius-sm",
+              "property": "border-radius",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "property": "background-color",
+              "context": "Fill (Default color)"
+            },
+            {
+              "token": "color-text-tertiary",
+              "property": "color",
+              "context": "Label text"
+            },
+            {
+              "token": "color-icon-default",
+              "property": "fill",
+              "context": "Leading icon"
+            },
+            {
+              "token": "font-family-text",
+              "property": "font-family",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-sm",
+              "property": "font-size",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "property": "font-weight",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "property": "line-height",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "property": "letter-spacing",
+              "context": "Label letter spacing"
+            }
+          ]
+        }
+      },
+      "updated_at": "2026-08-18T18:56:05+02:00",
+      "_alias_of": "tag"
+    },
+    "item-type-tag": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tag/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tag",
+      "component": "Tags",
+      "meta": {
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use sentence case.",
+                    "Keep tag text to one to three words.",
+                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
+                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
+                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
+                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
+                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
+                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "bullets": [
+                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
+                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
+                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
+                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
+                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
+                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Use the specialized variant for types, stages, and statuses",
+                  "dont": "Put a system status in a freeform default tag"
+                },
+                {
+                  "do": "Show the remove affordance only in edit contexts",
+                  "dont": "Render an X on tags in a read-only view"
+                },
+                {
+                  "do": "Keep one color per category, consistent across screens",
+                  "dont": "Recolor the same topic tag from page to page"
+                },
+                {
+                  "do": "Let tag values come from the platform vocabulary where one exists",
+                  "dont": "Mix **Published** and **Live** for the same state"
+                },
+                {
+                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "property": "height",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-xs",
+              "property": "padding",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "property": "gap",
+              "context": "Gap between icon and label"
+            },
+            {
+              "token": "border-default",
+              "property": "border-color",
+              "context": "Border (Default color)"
+            },
+            {
+              "token": "border-radius-sm",
+              "property": "border-radius",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "property": "background-color",
+              "context": "Fill (Default color)"
+            },
+            {
+              "token": "color-text-tertiary",
+              "property": "color",
+              "context": "Label text"
+            },
+            {
+              "token": "color-icon-default",
+              "property": "fill",
+              "context": "Leading icon"
+            },
+            {
+              "token": "font-family-text",
+              "property": "font-family",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-sm",
+              "property": "font-size",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "property": "font-weight",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "property": "line-height",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "property": "letter-spacing",
+              "context": "Label letter spacing"
+            }
+          ]
+        }
+      },
+      "updated_at": "2026-08-18T18:56:05+02:00",
+      "_alias_of": "tag"
     },
     "link": {
       "_schema_version": 1,
@@ -7620,241 +8048,6 @@
                 },
                 {
                   "note": "Count and action wording rules (**3 selected**, **Select all**, **Clear all**) live in the Content guidelines for multi-selects."
-                }
-              ]
-            }
-          ]
-        },
-        "design": {
-          "status": "inherited"
-        },
-        "behavior": {
-          "status": "inherited"
-        },
-        "tokens": {
-          "status": "not-started"
-        }
-      },
-      "updated_at": "2026-08-18T18:56:05+02:00"
-    },
-    "notification": {
-      "_schema_version": 1,
-      "_meta": {
-        "auto_generated": true,
-        "source": "components/src/notification/",
-        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
-      },
-      "slug": "notification",
-      "component": "Notification",
-      "meta": {
-        "category": "feedback",
-        "a11y_refs": [
-          {
-            "ref": "alerts-toasts-banners"
-          }
-        ]
-      },
-      "domains": {
-        "content": {
-          "status": "approved",
-          "owner": "content-team",
-          "markdown": "# Notification\n\nNotifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel.\n\n***\n\n## When to use\n\n* To inform users of completed background tasks.\n\n* To surface updates or system events that require the user's attention.\n\n* Do not use for actions requiring immediate input. Use a [modal](modal) instead.\n\n## Style\n\n* Use direct, concise language. One to two sentences.\n\n* Include a timestamp.\n\n* Include a link or action if the user must respond.\n\n## Do / Don't\n\n| Do                                                            | Don't                        |\n| ------------------------------------------------------------- | ---------------------------- |\n| Export complete - Your file is ready to download.             | You have a new notification. |\n| Connection error - The Snowflake connection failed. Reconnect | Something happened.          |",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To inform users of completed background tasks.",
-                    "To surface updates or system events that require the user's attention.",
-                    "Do not use for actions requiring immediate input. Use a [modal](modal) instead."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use direct, concise language. One to two sentences.",
-                    "Include a timestamp.",
-                    "Include a link or action if the user must respond."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Export complete - Your file is ready to download.",
-                  "dont": "You have a new notification."
-                },
-                {
-                  "do": "Connection error - The Snowflake connection failed. Reconnect",
-                  "dont": "Something happened."
-                }
-              ]
-            },
-            {
-              "heading": "",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
-                }
-              ]
-            },
-            {
-              "heading": "Principles",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "bullets": [
-                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
-                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
-                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Choosing a messaging pattern",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Type",
-                      "Scope",
-                      "When it appears",
-                      "Where it appears",
-                      "How it goes away",
-                      "Example"
-                    ],
-                    "rows": [
-                      [
-                        "Banner (page)",
-                        "The whole page",
-                        "Until the underlying issue is resolved",
-                        "Top of the page, below the header",
-                        "Cleared when the issue resolves, or dismissed if informational",
-                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
-                      ],
-                      [
-                        "Banner (section)",
-                        "One part of the page",
-                        "While a section-level issue exists",
-                        "Top of the affected section",
-                        "Cleared when the issue resolves",
-                        "\"This output port is managed by an external data contract and is read-only.\""
-                      ],
-                      [
-                        "Toast",
-                        "One completed action",
-                        "Right after the action completes",
-                        "Bottom center",
-                        "Dismisses automatically after a few seconds",
-                        "\"Prospect customers created.\""
-                      ],
-                      [
-                        "Inline message",
-                        "One form field",
-                        "On blur, or on submit attempt",
-                        "Directly below the field",
-                        "Clears as soon as the field is valid",
-                        "\"Enter a valid email address.\""
-                      ],
-                      [
-                        "Modal",
-                        "A required decision",
-                        "When the user must confirm or provide input before continuing",
-                        "Centered, blocking the page",
-                        "Dismissed only by completing or canceling the action",
-                        "\"This will permanently delete the dataset and cannot be undone.\""
-                      ]
-                    ]
-                  }
-                },
-                {
-                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
-                }
-              ]
-            }
-          ]
-        },
-        "usage": {
-          "status": "approved",
-          "markdown": "## When to use\n\n* Use a notification to record a completed background task in the notification panel: an export ready to download, a metadata scan finished, an import processed.\n\n* Use it for system events and updates the user needs to know about but not act on immediately (a connection starting to fail, a glossary term awaiting review).\n\n* Use it when the user may not be looking when the event lands: a long-running job finishing while they work elsewhere in Studio or Explorer. The item waits in the [notification dropdown](notification-dropdown) (the panel).\n\n* Give every notification a timestamp and, when there is a result, a link or action to open it (**Download**, **View run**).\n\n## When not to use\n\n* Don't use a notification as the only feedback for an action the user just took and is watching: use a [global toast](global-toast) at the moment of completion. For long jobs, do both: the toast announces, the notification remains.\n\n* Don't use it for anything requiring immediate input: use a [modal](modal), or a [confirmation](confirmation) before a destructive action.\n\n* Don't use it for a persistent problem scoped to a page or section: use an [alert banner](alert-banner) there.\n\n* Don't use it for feedback anchored to a specific element: use an [inline toast](inline-toast).\n\n* Don't use it for product announcements or release notes: those belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\n* **Default:** completions and neutral events (export ready, run finished, an asset shared with you). The variant for most items.\n\n* **Critical:** failed jobs and error events worth attention next time the user checks the panel (scan failed, connection lost). If the failure blocks what the user is doing right now, escalate to an [alert banner](alert-banner) instead.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Notify about events the user could otherwise miss | Create an item for every click the user just made |\n| Link each item to its result (**Download**, **View run**) | Announce a finished export with no way to open it |\n| Send one notification per job, updated if it changes | Post a new item for every stage of the same run |\n| Keep items until the user reads them | Expire notifications on a timer like a toast |\n\n> Wording rules (one to two sentences, timestamps, example messages) live in the Content guidelines for notification.",
-          "sections": [
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Use a notification to record a completed background task in the notification panel: an export ready to download, a metadata scan finished, an import processed.",
-                    "Use it for system events and updates the user needs to know about but not act on immediately (a connection starting to fail, a glossary term awaiting review).",
-                    "Use it when the user may not be looking when the event lands: a long-running job finishing while they work elsewhere in Studio or Explorer. The item waits in the [notification dropdown](notification-dropdown) (the panel).",
-                    "Give every notification a timestamp and, when there is a result, a link or action to open it (**Download**, **View run**)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "When not to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Don't use a notification as the only feedback for an action the user just took and is watching: use a [global toast](global-toast) at the moment of completion. For long jobs, do both: the toast announces, the notification remains.",
-                    "Don't use it for anything requiring immediate input: use a [modal](modal), or a [confirmation](confirmation) before a destructive action.",
-                    "Don't use it for a persistent problem scoped to a page or section: use an [alert banner](alert-banner) there.",
-                    "Don't use it for feedback anchored to a specific element: use an [inline toast](inline-toast).",
-                    "Don't use it for product announcements or release notes: those belong to the [what's new dropdown](whats-new-dropdown)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Variant selection",
-              "content": [
-                {
-                  "bullets": [
-                    "**Default:** completions and neutral events (export ready, run finished, an asset shared with you). The variant for most items.",
-                    "**Critical:** failed jobs and error events worth attention next time the user checks the panel (scan failed, connection lost). If the failure blocks what the user is doing right now, escalate to an [alert banner](alert-banner) instead."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Notify about events the user could otherwise miss",
-                  "dont": "Create an item for every click the user just made"
-                },
-                {
-                  "do": "Link each item to its result (**Download**, **View run**)",
-                  "dont": "Announce a finished export with no way to open it"
-                },
-                {
-                  "do": "Send one notification per job, updated if it changes",
-                  "dont": "Post a new item for every stage of the same run"
-                },
-                {
-                  "do": "Keep items until the user reads them",
-                  "dont": "Expire notifications on a timer like a toast"
-                },
-                {
-                  "note": "Wording rules (one to two sentences, timestamps, example messages) live in the Content guidelines for notification."
                 }
               ]
             }
@@ -9477,6 +9670,220 @@
         }
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
+    },
+    "read-only-tag": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tag/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tag",
+      "component": "Tags",
+      "meta": {
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use sentence case.",
+                    "Keep tag text to one to three words.",
+                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
+                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
+                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
+                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
+                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
+                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "bullets": [
+                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
+                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
+                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
+                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
+                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
+                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Use the specialized variant for types, stages, and statuses",
+                  "dont": "Put a system status in a freeform default tag"
+                },
+                {
+                  "do": "Show the remove affordance only in edit contexts",
+                  "dont": "Render an X on tags in a read-only view"
+                },
+                {
+                  "do": "Keep one color per category, consistent across screens",
+                  "dont": "Recolor the same topic tag from page to page"
+                },
+                {
+                  "do": "Let tag values come from the platform vocabulary where one exists",
+                  "dont": "Mix **Published** and **Live** for the same state"
+                },
+                {
+                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "property": "height",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-xs",
+              "property": "padding",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "property": "gap",
+              "context": "Gap between icon and label"
+            },
+            {
+              "token": "border-default",
+              "property": "border-color",
+              "context": "Border (Default color)"
+            },
+            {
+              "token": "border-radius-sm",
+              "property": "border-radius",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "property": "background-color",
+              "context": "Fill (Default color)"
+            },
+            {
+              "token": "color-text-tertiary",
+              "property": "color",
+              "context": "Label text"
+            },
+            {
+              "token": "color-icon-default",
+              "property": "fill",
+              "context": "Leading icon"
+            },
+            {
+              "token": "font-family-text",
+              "property": "font-family",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-sm",
+              "property": "font-size",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "property": "font-weight",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "property": "line-height",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "property": "letter-spacing",
+              "context": "Label letter spacing"
+            }
+          ]
+        }
+      },
+      "updated_at": "2026-08-18T18:56:05+02:00",
+      "_alias_of": "tag"
     },
     "rich-text": {
       "_schema_version": 1,
@@ -12672,648 +13079,6 @@
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
     },
-    "tag-interactive": {
-      "_schema_version": 1,
-      "_meta": {
-        "auto_generated": true,
-        "source": "components/src/tag/",
-        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
-      },
-      "slug": "tag",
-      "component": "Tags",
-      "meta": {
-        "category": "data-display",
-        "a11y_refs": [
-          {
-            "ref": "truncation-overflow"
-          }
-        ]
-      },
-      "domains": {
-        "content": {
-          "status": "approved",
-          "owner": "content-team",
-          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
-                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use sentence case.",
-                    "Keep tag text to one to three words.",
-                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "usage": {
-          "status": "approved",
-          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
-                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
-                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "When not to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
-                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
-                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
-                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Variant selection",
-              "content": [
-                {
-                  "bullets": [
-                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
-                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
-                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
-                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
-                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
-                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Use the specialized variant for types, stages, and statuses",
-                  "dont": "Put a system status in a freeform default tag"
-                },
-                {
-                  "do": "Show the remove affordance only in edit contexts",
-                  "dont": "Render an X on tags in a read-only view"
-                },
-                {
-                  "do": "Keep one color per category, consistent across screens",
-                  "dont": "Recolor the same topic tag from page to page"
-                },
-                {
-                  "do": "Let tag values come from the platform vocabulary where one exists",
-                  "dont": "Mix **Published** and **Live** for the same state"
-                },
-                {
-                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
-                }
-              ]
-            }
-          ]
-        },
-        "design": {
-          "status": "inherited"
-        },
-        "behavior": {
-          "status": "inherited"
-        },
-        "tokens": {
-          "status": "approved",
-          "bindings": [
-            {
-              "token": "size-lg",
-              "property": "height",
-              "context": "Height"
-            },
-            {
-              "token": "spacing-xs",
-              "property": "padding",
-              "context": "Horizontal padding"
-            },
-            {
-              "token": "spacing-2xs",
-              "property": "gap",
-              "context": "Gap between icon and label"
-            },
-            {
-              "token": "border-default",
-              "property": "border-color",
-              "context": "Border (Default color)"
-            },
-            {
-              "token": "border-radius-sm",
-              "property": "border-radius",
-              "context": "Corner rounding"
-            },
-            {
-              "token": "color-bg-subtle",
-              "property": "background-color",
-              "context": "Fill (Default color)"
-            },
-            {
-              "token": "color-text-tertiary",
-              "property": "color",
-              "context": "Label text"
-            },
-            {
-              "token": "color-icon-default",
-              "property": "fill",
-              "context": "Leading icon"
-            },
-            {
-              "token": "font-family-text",
-              "property": "font-family",
-              "context": "Font family"
-            },
-            {
-              "token": "font-size-sm",
-              "property": "font-size",
-              "context": "Label font size"
-            },
-            {
-              "token": "font-weight-regular",
-              "property": "font-weight",
-              "context": "Label font weight"
-            },
-            {
-              "token": "font-lineheight-sm",
-              "property": "line-height",
-              "context": "Label line height"
-            },
-            {
-              "token": "font-letterspacing-wide-3",
-              "property": "letter-spacing",
-              "context": "Label letter spacing"
-            }
-          ]
-        }
-      },
-      "updated_at": "2026-08-18T18:56:05+02:00",
-      "_alias_of": "tag"
-    },
-    "tag-item-type": {
-      "_schema_version": 1,
-      "_meta": {
-        "auto_generated": true,
-        "source": "components/src/tag/",
-        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
-      },
-      "slug": "tag",
-      "component": "Tags",
-      "meta": {
-        "category": "data-display",
-        "a11y_refs": [
-          {
-            "ref": "truncation-overflow"
-          }
-        ]
-      },
-      "domains": {
-        "content": {
-          "status": "approved",
-          "owner": "content-team",
-          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
-                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use sentence case.",
-                    "Keep tag text to one to three words.",
-                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "usage": {
-          "status": "approved",
-          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
-                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
-                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "When not to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
-                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
-                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
-                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Variant selection",
-              "content": [
-                {
-                  "bullets": [
-                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
-                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
-                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
-                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
-                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
-                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Use the specialized variant for types, stages, and statuses",
-                  "dont": "Put a system status in a freeform default tag"
-                },
-                {
-                  "do": "Show the remove affordance only in edit contexts",
-                  "dont": "Render an X on tags in a read-only view"
-                },
-                {
-                  "do": "Keep one color per category, consistent across screens",
-                  "dont": "Recolor the same topic tag from page to page"
-                },
-                {
-                  "do": "Let tag values come from the platform vocabulary where one exists",
-                  "dont": "Mix **Published** and **Live** for the same state"
-                },
-                {
-                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
-                }
-              ]
-            }
-          ]
-        },
-        "design": {
-          "status": "inherited"
-        },
-        "behavior": {
-          "status": "inherited"
-        },
-        "tokens": {
-          "status": "approved",
-          "bindings": [
-            {
-              "token": "size-lg",
-              "property": "height",
-              "context": "Height"
-            },
-            {
-              "token": "spacing-xs",
-              "property": "padding",
-              "context": "Horizontal padding"
-            },
-            {
-              "token": "spacing-2xs",
-              "property": "gap",
-              "context": "Gap between icon and label"
-            },
-            {
-              "token": "border-default",
-              "property": "border-color",
-              "context": "Border (Default color)"
-            },
-            {
-              "token": "border-radius-sm",
-              "property": "border-radius",
-              "context": "Corner rounding"
-            },
-            {
-              "token": "color-bg-subtle",
-              "property": "background-color",
-              "context": "Fill (Default color)"
-            },
-            {
-              "token": "color-text-tertiary",
-              "property": "color",
-              "context": "Label text"
-            },
-            {
-              "token": "color-icon-default",
-              "property": "fill",
-              "context": "Leading icon"
-            },
-            {
-              "token": "font-family-text",
-              "property": "font-family",
-              "context": "Font family"
-            },
-            {
-              "token": "font-size-sm",
-              "property": "font-size",
-              "context": "Label font size"
-            },
-            {
-              "token": "font-weight-regular",
-              "property": "font-weight",
-              "context": "Label font weight"
-            },
-            {
-              "token": "font-lineheight-sm",
-              "property": "line-height",
-              "context": "Label line height"
-            },
-            {
-              "token": "font-letterspacing-wide-3",
-              "property": "letter-spacing",
-              "context": "Label letter spacing"
-            }
-          ]
-        }
-      },
-      "updated_at": "2026-08-18T18:56:05+02:00",
-      "_alias_of": "tag"
-    },
-    "tag-read-only": {
-      "_schema_version": 1,
-      "_meta": {
-        "auto_generated": true,
-        "source": "components/src/tag/",
-        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
-      },
-      "slug": "tag",
-      "component": "Tags",
-      "meta": {
-        "category": "data-display",
-        "a11y_refs": [
-          {
-            "ref": "truncation-overflow"
-          }
-        ]
-      },
-      "domains": {
-        "content": {
-          "status": "approved",
-          "owner": "content-team",
-          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag family has three components: default (whose Type values include status, stage, catalog, and shared), item type, and interactive."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
-                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use sentence case.",
-                    "Keep tag text to one to three words.",
-                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "usage": {
-          "status": "approved",
-          "markdown": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags.\n\n## When to use\n\n* Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.\n\n* Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).\n\n* Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters).\n\n## When not to use\n\n* Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.\n\n* Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.\n\n* Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.\n\n* Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest.\n\n## Variant selection\n\n* **Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.\n\n* **Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.\n\n* **Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.\n\n* **Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.\n\n* **Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.\n\n* **Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Use the specialized variant for types, stages, and statuses | Put a system status in a freeform default tag |\n| Show the remove affordance only in edit contexts | Render an X on tags in a read-only view |\n| Keep one color per category, consistent across screens | Recolor the same topic tag from page to page |\n| Let tag values come from the platform vocabulary where one exists | Mix **Published** and **Live** for the same state |\n\n> Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags.",
-          "sections": [
-            {
-              "heading": "",
-              "content": [
-                {
-                  "prose": "This guideline covers the tag family: default (with status, stage, catalog, and shared as Type values), item type, and interactive tags."
-                }
-              ]
-            },
-            {
-              "heading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Use tags to label items with metadata values: topics, domains, types, or user-defined attributes on datasets, data products, and glossary entries.",
-                    "Use them for both user-applied labels (a topic a steward adds) and system-applied classification (an item's type or lifecycle stage).",
-                    "Use interactive tags in edit contexts where a label can be removed or selected, for example managing the topics on a data product or clearing an applied criterion in [filters](search-filters)."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "When not to use",
-              "content": [
-                {
-                  "bullets": [
-                    "Don't use a tag as an action trigger: tags are labels, not [buttons](button). Only the interactive variant responds to clicks, and only to select or remove the label itself.",
-                    "Don't use a tag for a count or a small indicator attached to another element (unread items on a nav entry): use a [badge](badge). A tag names a metadata value and stands on its own.",
-                    "Don't invent freeform text for values the platform already classifies: item types, stages, and statuses use their dedicated variants with fixed vocabularies.",
-                    "Don't stack so many tags on a card or row that they crowd out the content; show the few that aid recognition and overflow the rest."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Variant selection",
-              "content": [
-                {
-                  "bullets": [
-                    "**Default (Type: Default):** user-defined or topic labels. All of them share one neutral treatment; there is no color choice to make here, and none to read meaning into.",
-                    "**Default (Type: Status-error / Status-warning / Status-success):** operational status of a running asset (**Error**, **Warning**, **Success**). Use the platform status vocabulary; never coin a new status word per screen.",
-                    "**Default (Type: Stage-1 through Stage-8):** data lifecycle stages, colored per stage consistently across the platform.",
-                    "**Default (Type: Catalog) and Item type:** system classification of what an entity is (**Dataset**, **Data product**, **Field**, **Use case**); always system-set, never typed by users.",
-                    "**Default (Type: Shared):** flags an item as recently updated; apply it automatically, not by hand.",
-                    "**Interactive:** the removable and selectable form; the only variant that takes hover, focus, and selection."
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Do / Don't",
-              "content": [
-                {
-                  "do": "Use the specialized variant for types, stages, and statuses",
-                  "dont": "Put a system status in a freeform default tag"
-                },
-                {
-                  "do": "Show the remove affordance only in edit contexts",
-                  "dont": "Render an X on tags in a read-only view"
-                },
-                {
-                  "do": "Keep one color per category, consistent across screens",
-                  "dont": "Recolor the same topic tag from page to page"
-                },
-                {
-                  "do": "Let tag values come from the platform vocabulary where one exists",
-                  "dont": "Mix **Published** and **Live** for the same state"
-                },
-                {
-                  "note": "Casing, one-to-three-word length, and the status vocabulary live in the Content guidelines for tags."
-                }
-              ]
-            }
-          ]
-        },
-        "design": {
-          "status": "inherited"
-        },
-        "behavior": {
-          "status": "inherited"
-        },
-        "tokens": {
-          "status": "approved",
-          "bindings": [
-            {
-              "token": "size-lg",
-              "property": "height",
-              "context": "Height"
-            },
-            {
-              "token": "spacing-xs",
-              "property": "padding",
-              "context": "Horizontal padding"
-            },
-            {
-              "token": "spacing-2xs",
-              "property": "gap",
-              "context": "Gap between icon and label"
-            },
-            {
-              "token": "border-default",
-              "property": "border-color",
-              "context": "Border (Default color)"
-            },
-            {
-              "token": "border-radius-sm",
-              "property": "border-radius",
-              "context": "Corner rounding"
-            },
-            {
-              "token": "color-bg-subtle",
-              "property": "background-color",
-              "context": "Fill (Default color)"
-            },
-            {
-              "token": "color-text-tertiary",
-              "property": "color",
-              "context": "Label text"
-            },
-            {
-              "token": "color-icon-default",
-              "property": "fill",
-              "context": "Leading icon"
-            },
-            {
-              "token": "font-family-text",
-              "property": "font-family",
-              "context": "Font family"
-            },
-            {
-              "token": "font-size-sm",
-              "property": "font-size",
-              "context": "Label font size"
-            },
-            {
-              "token": "font-weight-regular",
-              "property": "font-weight",
-              "context": "Label font weight"
-            },
-            {
-              "token": "font-lineheight-sm",
-              "property": "line-height",
-              "context": "Label line height"
-            },
-            {
-              "token": "font-letterspacing-wide-3",
-              "property": "letter-spacing",
-              "context": "Label letter spacing"
-            }
-          ]
-        }
-      },
-      "updated_at": "2026-08-18T18:56:05+02:00",
-      "_alias_of": "tag"
-    },
     "text-input": {
       "_schema_version": 1,
       "_meta": {
@@ -14209,6 +13974,241 @@
         }
       },
       "updated_at": "2026-08-26T17:53:49+02:00"
+    },
+    "toast": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/toast/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "toast",
+      "component": "Toast",
+      "meta": {
+        "category": "feedback",
+        "a11y_refs": [
+          {
+            "ref": "alerts-toasts-banners"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Notification\n\nNotifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel.\n\n***\n\n## When to use\n\n* To inform users of completed background tasks.\n\n* To surface updates or system events that require the user's attention.\n\n* Do not use for actions requiring immediate input. Use a [modal](modal) instead.\n\n## Style\n\n* Use direct, concise language. One to two sentences.\n\n* Include a timestamp.\n\n* Include a link or action if the user must respond.\n\n## Do / Don't\n\n| Do                                                            | Don't                        |\n| ------------------------------------------------------------- | ---------------------------- |\n| Export complete - Your file is ready to download.             | You have a new notification. |\n| Connection error - The Snowflake connection failed. Reconnect | Something happened.          |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To inform users of completed background tasks.",
+                    "To surface updates or system events that require the user's attention.",
+                    "Do not use for actions requiring immediate input. Use a [modal](modal) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use direct, concise language. One to two sentences.",
+                    "Include a timestamp.",
+                    "Include a link or action if the user must respond."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Export complete - Your file is ready to download.",
+                  "dont": "You have a new notification."
+                },
+                {
+                  "do": "Connection error - The Snowflake connection failed. Reconnect",
+                  "dont": "Something happened."
+                }
+              ]
+            },
+            {
+              "heading": "",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "prose": "Banners, toasts, inline messages, and modals form one messaging family. Each has a different scope, urgency, and lifespan. Choosing the right one keeps feedback proportional to what happened."
+                }
+              ]
+            },
+            {
+              "heading": "Principles",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "bullets": [
+                    "Validate late, clear early. Errors appear after the user leaves the field, not on the first keystroke, and disappear as soon as the value is valid. See [validation messages](validation-messages).",
+                    "An unresolved change is not an error. A reminder that something is unsaved is a neutral, informational state, not an error state.",
+                    "If the user must decide, use a modal, not a message. Reserve modals for blocking or destructive actions. Use a banner, toast, or inline message for anything else."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Choosing a messaging pattern",
+              "source": "pattern:notifications-and-messaging",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Type",
+                      "Scope",
+                      "When it appears",
+                      "Where it appears",
+                      "How it goes away",
+                      "Example"
+                    ],
+                    "rows": [
+                      [
+                        "Banner (page)",
+                        "The whole page",
+                        "Until the underlying issue is resolved",
+                        "Top of the page, below the header",
+                        "Cleared when the issue resolves, or dismissed if informational",
+                        "\"Some datasets are read-only. Contact your administrator to request edit access.\""
+                      ],
+                      [
+                        "Banner (section)",
+                        "One part of the page",
+                        "While a section-level issue exists",
+                        "Top of the affected section",
+                        "Cleared when the issue resolves",
+                        "\"This output port is managed by an external data contract and is read-only.\""
+                      ],
+                      [
+                        "Toast",
+                        "One completed action",
+                        "Right after the action completes",
+                        "Bottom center",
+                        "Dismisses automatically after a few seconds",
+                        "\"Prospect customers created.\""
+                      ],
+                      [
+                        "Inline message",
+                        "One form field",
+                        "On blur, or on submit attempt",
+                        "Directly below the field",
+                        "Clears as soon as the field is valid",
+                        "\"Enter a valid email address.\""
+                      ],
+                      [
+                        "Modal",
+                        "A required decision",
+                        "When the user must confirm or provide input before continuing",
+                        "Centered, blocking the page",
+                        "Dismissed only by completing or canceling the action",
+                        "\"This will permanently delete the dataset and cannot be undone.\""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "prose": "Do not use a banner for a short confirmation. Use a toast instead. Do not use a toast for something that requires a decision or blocks the user. Use a modal instead."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "## When to use\n\n* Use a notification to record a completed background task in the notification panel: an export ready to download, a metadata scan finished, an import processed.\n\n* Use it for system events and updates the user needs to know about but not act on immediately (a connection starting to fail, a glossary term awaiting review).\n\n* Use it when the user may not be looking when the event lands: a long-running job finishing while they work elsewhere in Studio or Explorer. The item waits in the [notification dropdown](notification-dropdown) (the panel).\n\n* Give every notification a timestamp and, when there is a result, a link or action to open it (**Download**, **View run**).\n\n## When not to use\n\n* Don't use a notification as the only feedback for an action the user just took and is watching: use a [global toast](global-toast) at the moment of completion. For long jobs, do both: the toast announces, the notification remains.\n\n* Don't use it for anything requiring immediate input: use a [modal](modal), or a [confirmation](confirmation) before a destructive action.\n\n* Don't use it for a persistent problem scoped to a page or section: use an [alert banner](alert-banner) there.\n\n* Don't use it for feedback anchored to a specific element: use an [inline toast](inline-toast).\n\n* Don't use it for product announcements or release notes: those belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\n* **Default:** completions and neutral events (export ready, run finished, an asset shared with you). The variant for most items.\n\n* **Critical:** failed jobs and error events worth attention next time the user checks the panel (scan failed, connection lost). If the failure blocks what the user is doing right now, escalate to an [alert banner](alert-banner) instead.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Notify about events the user could otherwise miss | Create an item for every click the user just made |\n| Link each item to its result (**Download**, **View run**) | Announce a finished export with no way to open it |\n| Send one notification per job, updated if it changes | Post a new item for every stage of the same run |\n| Keep items until the user reads them | Expire notifications on a timer like a toast |\n\n> Wording rules (one to two sentences, timestamps, example messages) live in the Content guidelines for notification.",
+          "sections": [
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use a notification to record a completed background task in the notification panel: an export ready to download, a metadata scan finished, an import processed.",
+                    "Use it for system events and updates the user needs to know about but not act on immediately (a connection starting to fail, a glossary term awaiting review).",
+                    "Use it when the user may not be looking when the event lands: a long-running job finishing while they work elsewhere in Studio or Explorer. The item waits in the [notification dropdown](notification-dropdown) (the panel).",
+                    "Give every notification a timestamp and, when there is a result, a link or action to open it (**Download**, **View run**)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use a notification as the only feedback for an action the user just took and is watching: use a [global toast](global-toast) at the moment of completion. For long jobs, do both: the toast announces, the notification remains.",
+                    "Don't use it for anything requiring immediate input: use a [modal](modal), or a [confirmation](confirmation) before a destructive action.",
+                    "Don't use it for a persistent problem scoped to a page or section: use an [alert banner](alert-banner) there.",
+                    "Don't use it for feedback anchored to a specific element: use an [inline toast](inline-toast).",
+                    "Don't use it for product announcements or release notes: those belong to the [what's new dropdown](whats-new-dropdown)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "bullets": [
+                    "**Default:** completions and neutral events (export ready, run finished, an asset shared with you). The variant for most items.",
+                    "**Critical:** failed jobs and error events worth attention next time the user checks the panel (scan failed, connection lost). If the failure blocks what the user is doing right now, escalate to an [alert banner](alert-banner) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Notify about events the user could otherwise miss",
+                  "dont": "Create an item for every click the user just made"
+                },
+                {
+                  "do": "Link each item to its result (**Download**, **View run**)",
+                  "dont": "Announce a finished export with no way to open it"
+                },
+                {
+                  "do": "Send one notification per job, updated if it changes",
+                  "dont": "Post a new item for every stage of the same run"
+                },
+                {
+                  "do": "Keep items until the user reads them",
+                  "dont": "Expire notifications on a timer like a toast"
+                },
+                {
+                  "note": "Wording rules (one to two sentences, timestamps, example messages) live in the Content guidelines for notification."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-08-31T15:52:46+02:00"
     },
     "toggle": {
       "_schema_version": 1,
@@ -15292,6 +15292,146 @@
         }
       },
       "updated_at": "2026-08-18T18:56:05+02:00"
+    },
+    "tooltip-default": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tooltip/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tooltip",
+      "component": "Tooltip",
+      "meta": {
+        "category": "overlays",
+        "a11y_refs": [
+          {
+            "ref": "tooltips"
+          }
+        ]
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tooltip\n\nTooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible.\n\n***\n\n## When to use\n\n* To provide short contextual help on hover or focus.\n\n* For icon-only controls that require a label.\n\n* Do not use tooltips for critical information. Users should not be required to hover to understand the UI.\n\n## Style\n\n* Limit to a few words or one concise sentence.\n\n* Do not repeat the label of the element being described.\n\n* For multi-sentence explanations, use a [popover](popover) or inline help text instead.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To provide short contextual help on hover or focus.",
+                    "For icon-only controls that require a label.",
+                    "Do not use tooltips for critical information. Users should not be required to hover to understand the UI."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Limit to a few words or one concise sentence.",
+                    "Do not repeat the label of the element being described.",
+                    "For multi-sentence explanations, use a [popover](popover) or inline help text instead."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "approved",
+          "markdown": "## When to use\n\n* Use a tooltip to label icon-only controls: every icon-only [button](button) gets one, and the tooltip supplies its accessible name.\n\n* Use it for a short supplementary hint on hover or focus: what a control does, a keyboard shortcut, a spelled-out abbreviation.\n\n* Use it to expose the full value of truncated text, for example a clipped cell in a [table](table), provided the trigger itself is focusable so keyboard users can reach it.\n\n## When not to use\n\n* Don't put essential content in a tooltip: anything the user must know to proceed stays visible on the page. If they have to hover to understand the UI, the UI is broken.\n\n* Don't use a tooltip for rich or multi-sentence content, links, or actions: use a [popover](popover), which opens on click and can hold structure.\n\n* Don't use a tooltip for form-field guidance the user needs while typing: use persistent helper text under the field.\n\n* Don't attach tooltips to disabled controls as the only explanation; hover never fires on touch, and focus may not reach them. Explain the disabled state inline.\n\n## Variant selection\n\nTooltips have a single Default variant; the real choices are configuration.\n\n* **Body text:** a few words to one short sentence. The tooltip is flex width up to a 320px maximum; if the text wraps past two lines, move it to a [popover](popover) or inline help.\n\n* **Placement:** default to above the trigger; flip automatically near viewport edges so the tooltip is never clipped.\n\n* **Trigger:** hover and keyboard focus, never click. It must appear for keyboard users exactly as it does for mouse users.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Give every icon-only button a tooltip naming its action | Rely on the icon alone to convey meaning |\n| Keep the tooltip to one short sentence | Pack instructions and links into a 320px block |\n| Show the tooltip on keyboard focus as well as hover | Make the hint mouse-only |\n| Explain a disabled control with inline text | Hide the reason behind a hover on a disabled target |\n\n> Tooltip wording rules (no label repetition, one concise sentence) live in the Content guidelines for tooltips.",
+          "sections": [
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Use a tooltip to label icon-only controls: every icon-only [button](button) gets one, and the tooltip supplies its accessible name.",
+                    "Use it for a short supplementary hint on hover or focus: what a control does, a keyboard shortcut, a spelled-out abbreviation.",
+                    "Use it to expose the full value of truncated text, for example a clipped cell in a [table](table), provided the trigger itself is focusable so keyboard users can reach it."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "When not to use",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't put essential content in a tooltip: anything the user must know to proceed stays visible on the page. If they have to hover to understand the UI, the UI is broken.",
+                    "Don't use a tooltip for rich or multi-sentence content, links, or actions: use a [popover](popover), which opens on click and can hold structure.",
+                    "Don't use a tooltip for form-field guidance the user needs while typing: use persistent helper text under the field.",
+                    "Don't attach tooltips to disabled controls as the only explanation; hover never fires on touch, and focus may not reach them. Explain the disabled state inline."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Variant selection",
+              "content": [
+                {
+                  "prose": "Tooltips have a single Default variant; the real choices are configuration."
+                },
+                {
+                  "bullets": [
+                    "**Body text:** a few words to one short sentence. The tooltip is flex width up to a 320px maximum; if the text wraps past two lines, move it to a [popover](popover) or inline help.",
+                    "**Placement:** default to above the trigger; flip automatically near viewport edges so the tooltip is never clipped.",
+                    "**Trigger:** hover and keyboard focus, never click. It must appear for keyboard users exactly as it does for mouse users."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Give every icon-only button a tooltip naming its action",
+                  "dont": "Rely on the icon alone to convey meaning"
+                },
+                {
+                  "do": "Keep the tooltip to one short sentence",
+                  "dont": "Pack instructions and links into a 320px block"
+                },
+                {
+                  "do": "Show the tooltip on keyboard focus as well as hover",
+                  "dont": "Make the hint mouse-only"
+                },
+                {
+                  "do": "Explain a disabled control with inline text",
+                  "dont": "Hide the reason behind a hover on a disabled target"
+                },
+                {
+                  "note": "Tooltip wording rules (no label repetition, one concise sentence) live in the Content guidelines for tooltips."
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-08-18T18:56:05+02:00",
+      "_alias_of": "tooltip"
     },
     "upload-file": {
       "_schema_version": 1,

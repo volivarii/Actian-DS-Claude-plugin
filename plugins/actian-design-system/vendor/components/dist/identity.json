@@ -117,9 +117,11 @@
       "previousSlugs": []
     },
     "0a5b4776b4199b4a9efc77a76e99e12192e0dac5": {
-      "slug": "data-viz-legend-item",
+      "slug": "data-viz-legend",
       "nodeId": "14747:33310",
-      "previousSlugs": []
+      "previousSlugs": [
+        "data-viz-legend-item"
+      ]
     },
     "0adc6b54a212315ebb16db7f5eea388276a1587b": {
       "slug": "empty-state",
@@ -266,11 +268,6 @@
       "nodeId": "8:20796",
       "previousSlugs": []
     },
-    "1530594f58087b425da1de80ce555a12afd24deb": {
-      "slug": "collapse",
-      "nodeId": "20633:62",
-      "previousSlugs": []
-    },
     "153406ac1399935e61490640e80bfe2a0cfd2b23": {
       "slug": "fast-forward",
       "nodeId": "8:20970",
@@ -322,9 +319,11 @@
       "previousSlugs": []
     },
     "19d8ed0dd3f5dc406017130026a6229f121f169d": {
-      "slug": "tag-interactive",
+      "slug": "interactive-tag",
       "nodeId": "13845:33759",
-      "previousSlugs": []
+      "previousSlugs": [
+        "tag-interactive"
+      ]
     },
     "1a1c77af7989eeaf683601efd8f4a6110524bff2": {
       "slug": "sybaseiq",
@@ -661,11 +660,6 @@
       "nodeId": "8587:44312",
       "previousSlugs": []
     },
-    "32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119": {
-      "slug": "lineage",
-      "nodeId": "7378:5706",
-      "previousSlugs": []
-    },
     "330720794f58865f5b9442d1723b16b97412a2bb": {
       "slug": "book-open",
       "nodeId": "20391:2184",
@@ -882,14 +876,18 @@
       "previousSlugs": []
     },
     "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf": {
-      "slug": "drawer-side-panel",
+      "slug": "drawer",
       "nodeId": "14294:5758",
-      "previousSlugs": []
+      "previousSlugs": [
+        "drawer-side-panel"
+      ]
     },
     "40393216be9b998d35ac0b4bd63929ccbc4de25e": {
-      "slug": "tag-item-type",
+      "slug": "item-type-tag",
       "nodeId": "11300:8312",
-      "previousSlugs": []
+      "previousSlugs": [
+        "tag-item-type"
+      ]
     },
     "40bed7c635c99631854c00b036fb440248e4182d": {
       "slug": "sm-view-grid-add",
@@ -972,9 +970,11 @@
       "previousSlugs": []
     },
     "487b25247d05a6f9d36a4c7b9f5177ca2017348e": {
-      "slug": "account-dropdown",
+      "slug": "global-header-account-dropdown",
       "nodeId": "9118:17382",
-      "previousSlugs": []
+      "previousSlugs": [
+        "account-dropdown"
+      ]
     },
     "48c0ce663827e3dddb050be67302b9af9ceb74c0": {
       "slug": "user-add",
@@ -1136,11 +1136,6 @@
       "nodeId": "14747:20085",
       "previousSlugs": []
     },
-    "558adad968a5b5e1e3714307fb19de73d1ac6d21": {
-      "slug": "tooltip",
-      "nodeId": "7038:351",
-      "previousSlugs": []
-    },
     "56ad08f30372948c12ebb989e47e6260342eab52": {
       "slug": "fm-multi-select-menu-item",
       "nodeId": "8:21659",
@@ -1162,19 +1157,25 @@
       "previousSlugs": []
     },
     "589059440a078bfe879a21b056edfe16be6b12c2": {
-      "slug": "glossary-item-hierarchy-diagram",
+      "slug": "glossary-item-hierarchy",
       "nodeId": "14747:30243",
-      "previousSlugs": []
+      "previousSlugs": [
+        "glossary-item-hierarchy-diagram"
+      ]
     },
     "5904351595c9b5b263bb5891bd1ed038fbaff636": {
-      "slug": "lineage-individual-node",
+      "slug": "lineage",
       "nodeId": "14747:19902",
-      "previousSlugs": []
+      "previousSlugs": [
+        "lineage-individual-node"
+      ]
     },
     "590d2373b688235e8da72732919d2f874eee6cda": {
-      "slug": "notification",
+      "slug": "toast",
       "nodeId": "13868:11595",
-      "previousSlugs": []
+      "previousSlugs": [
+        "notification"
+      ]
     },
     "5991f7a4d3d14619cdd1b3cc74a15e527c4e1e86": {
       "slug": "actian-data-intelligence-explorer-horizontal",
@@ -1279,6 +1280,11 @@
     "6006211edd13c5bb409837e4d8de3e291e247662": {
       "slug": "volume-up",
       "nodeId": "8:20680",
+      "previousSlugs": []
+    },
+    "60170092dbcba66c66b1b172ada88bc613485887": {
+      "slug": "thumbs-up-filled",
+      "nodeId": "22230:3445",
       "previousSlugs": []
     },
     "60b65e9a8385abecff08cdfd13e57b4ba87cc212": {
@@ -1417,10 +1423,11 @@
       "previousSlugs": []
     },
     "69c8a031b8b1f1703474cc000eaeb14611f0319c": {
-      "slug": "tag-read-only",
+      "slug": "read-only-tag",
       "nodeId": "7257:3037",
       "previousSlugs": [
-        "tag-default"
+        "tag-default",
+        "tag-read-only"
       ]
     },
     "69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e": {
@@ -1451,9 +1458,11 @@
       ]
     },
     "6c61c1469d97020721267a3e1ad209f3cf4c12c3": {
-      "slug": "calendar",
+      "slug": "calendar-data-selector",
       "nodeId": "8211:6664",
-      "previousSlugs": []
+      "previousSlugs": [
+        "calendar"
+      ]
     },
     "6cce75bed5ae5854e74b4d2e4f7c842a0c4c29b9": {
       "slug": "currency-euro",
@@ -1498,11 +1507,6 @@
     "6e6e358c72cddede4be188726a3bed67e677643f": {
       "slug": "sort-ascending",
       "nodeId": "8:20732",
-      "previousSlugs": []
-    },
-    "6ea07622a616f54b591da8eb26515332b9d02c31": {
-      "slug": "bar-graph",
-      "nodeId": "15473:49489",
       "previousSlugs": []
     },
     "6edb5b6d977105b79bc5582de729ba6c74bb64bf": {
@@ -1568,6 +1572,11 @@
     "7547107f65e9c7fd94d54fd24371262682f9017c": {
       "slug": "pagination",
       "nodeId": "15295:14916",
+      "previousSlugs": []
+    },
+    "75f685ba047cd2f103afe2b6550b7b72e3634f89": {
+      "slug": "line-graph",
+      "nodeId": "15473:49487",
       "previousSlugs": []
     },
     "77e6d3ce1ac243842e028983ebeb9735ad5a5e31": {
@@ -1695,6 +1704,11 @@
       "nodeId": "8400:25073",
       "previousSlugs": []
     },
+    "805cb80b498052ea49f63c3123e9491808d6d8ef": {
+      "slug": "calendar",
+      "nodeId": "7378:5041",
+      "previousSlugs": []
+    },
     "80d8ab0ae5eb4b99708994aba332ba345b442ed3": {
       "slug": "menu-alt-2",
       "nodeId": "8:20584",
@@ -1721,9 +1735,11 @@
       "previousSlugs": []
     },
     "8253d19d70a3b835653049d90b4fdf97b26a31c8": {
-      "slug": "collapse-accordion",
+      "slug": "collapse",
       "nodeId": "8292:80",
-      "previousSlugs": []
+      "previousSlugs": [
+        "collapse-accordion"
+      ]
     },
     "8260b27df19484714fd96a17eef967ad126b8266": {
       "slug": "geo-point-type",
@@ -1738,6 +1754,11 @@
     "8299b94bfc00da69c1f3bac9f75734f10ebeccc2": {
       "slug": "moon",
       "nodeId": "8:20782",
+      "previousSlugs": []
+    },
+    "82ebd7270ba880f1183ee0a25e5f2ecbc7dc40eb": {
+      "slug": "data-quality-checks-graph",
+      "nodeId": "15473:49488",
       "previousSlugs": []
     },
     "82fc81413312e7e69981169db50003765cf94423": {
@@ -2083,10 +2104,11 @@
       "previousSlugs": []
     },
     "9eafdb6242837b591ba5f39959150b53e40ef02d": {
-      "slug": "date-input",
+      "slug": "calendar-date-input",
       "nodeId": "8194:7305",
       "previousSlugs": [
-        "input-date"
+        "input-date",
+        "date-input"
       ]
     },
     "9ed31a542256e1d255e30e00bae6c625d8688b00": {
@@ -2219,6 +2241,11 @@
       "nodeId": "8:20780",
       "previousSlugs": []
     },
+    "af138f930c5548f423f74f3d9c05157bd1b9a704": {
+      "slug": "thumbs-down-filled",
+      "nodeId": "22230:3444",
+      "previousSlugs": []
+    },
     "af3df33d230376a5bb016435dbb7ddecb9d42448": {
       "slug": "relation-outgoing",
       "nodeId": "8504:23151",
@@ -2273,6 +2300,13 @@
       "slug": "denodo",
       "nodeId": "8400:25059",
       "previousSlugs": []
+    },
+    "b36b2406753f81a38dc29731eb262dda640e83c4": {
+      "slug": "tooltip-default",
+      "nodeId": "7036:1360",
+      "previousSlugs": [
+        "tooltip"
+      ]
     },
     "b4779a13f4097d682413a669eaaf9ead1b49f115": {
       "slug": "meta-chrome-accessibility-card",
@@ -2824,11 +2858,6 @@
     "e2d43e3c5149857e6602c4364355d019fa1e5765": {
       "slug": "invoice",
       "nodeId": "20633:47",
-      "previousSlugs": []
-    },
-    "e365ff8c88faf24f3cadf6166127e97dbc8771fb": {
-      "slug": "line-graph",
-      "nodeId": "15473:49490",
       "previousSlugs": []
     },
     "e3dffdffb222be75a098c850a0ad155e1ad47eef": {

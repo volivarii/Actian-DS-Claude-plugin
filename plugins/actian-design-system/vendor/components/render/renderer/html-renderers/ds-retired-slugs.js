@@ -15,10 +15,22 @@
 (function (exports) {
   "use strict";
   var m = Object.create(null);
-  m["input-date"] = "date-input";
+  m["account-dropdown"] = "global-header-account-dropdown";
+  m["collapse-accordion"] = "collapse";
+  m["data-viz-legend-item"] = "data-viz-legend";
+  m["date-input"] = "calendar-date-input";
+  m["drawer-side-panel"] = "drawer";
+  m["glossary-item-hierarchy-diagram"] = "glossary-item-hierarchy";
+  m["input-date"] = "calendar-date-input";
+  m["lineage-individual-node"] = "lineage";
   m["metamodel-widget"] = "metamodel";
+  m["notification"] = "toast";
   m["sticky-footer"] = "action-bar";
-  m["tag-default"] = "tag-read-only";
+  m["tag-default"] = "read-only-tag";
+  m["tag-interactive"] = "interactive-tag";
+  m["tag-item-type"] = "item-type-tag";
+  m["tag-read-only"] = "read-only-tag";
+  m["tooltip"] = "tooltip-default";
   m["view-details"] = "view-detail";
   exports.RETIRED_SLUGS = m;
 })(

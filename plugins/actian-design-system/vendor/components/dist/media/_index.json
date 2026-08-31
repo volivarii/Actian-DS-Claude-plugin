@@ -165,6 +165,14 @@
       "preview": "components/dist/media/calendar/preview.webp",
       "default": "components/dist/media/calendar/default.webp"
     },
+    "calendar-data-selector": {
+      "preview": "components/dist/media/calendar-data-selector/preview.webp",
+      "default": "components/dist/media/calendar-data-selector/default.webp"
+    },
+    "calendar-date-input": {
+      "preview": "components/dist/media/calendar-date-input/preview.webp",
+      "default": "components/dist/media/calendar-date-input/default.webp"
+    },
     "card": {
       "preview": "components/dist/media/card/preview.webp",
       "default": "components/dist/media/card/default.webp"
@@ -241,6 +249,13 @@
     "cognos-bi": {
       "default": "components/dist/media/cognos-bi/default.webp"
     },
+    "collapse": {
+      "preview": "components/dist/media/collapse/preview.webp",
+      "behavior": [
+        "components/dist/media/collapse/behavior-0.webp"
+      ],
+      "default": "components/dist/media/collapse/default.webp"
+    },
     "collapse-accordion": {
       "preview": "components/dist/media/collapse-accordion/preview.webp",
       "behavior": [
@@ -282,6 +297,14 @@
     "data-intelligence-dev-logo": {
       "default": "components/dist/media/data-intelligence-dev-logo/default.webp"
     },
+    "data-quality-checks-graph": {
+      "preview": "components/dist/media/data-quality-checks-graph/preview.webp",
+      "default": "components/dist/media/data-quality-checks-graph/default.webp"
+    },
+    "data-viz-legend": {
+      "preview": "components/dist/media/data-viz-legend/preview.webp",
+      "default": "components/dist/media/data-viz-legend/default.webp"
+    },
     "data-viz-legend-item": {
       "default": "components/dist/media/data-viz-legend-item/default.webp"
     },
@@ -320,6 +343,10 @@
     "digram-topic": {
       "preview": "components/dist/media/digram-topic/preview.webp",
       "default": "components/dist/media/digram-topic/default.webp"
+    },
+    "drawer": {
+      "preview": "components/dist/media/drawer/preview.webp",
+      "default": "components/dist/media/drawer/default.webp"
     },
     "drawer-side-panel": {
       "preview": "components/dist/media/drawer-side-panel/preview.webp",
@@ -397,6 +424,13 @@
       "preview": "components/dist/media/global-header/preview.webp",
       "default": "components/dist/media/global-header/default.webp"
     },
+    "global-header-account-dropdown": {
+      "default": "components/dist/media/global-header-account-dropdown/default.webp"
+    },
+    "glossary-item-hierarchy": {
+      "preview": "components/dist/media/glossary-item-hierarchy/preview.webp",
+      "default": "components/dist/media/glossary-item-hierarchy/default.webp"
+    },
     "glossary-item-hierarchy-diagram": {
       "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.webp",
       "default": "components/dist/media/glossary-item-hierarchy-diagram/default.webp"
@@ -439,6 +473,36 @@
       ],
       "default": "components/dist/media/input/default.webp"
     },
+    "interactive-tag": {
+      "preview": "components/dist/media/interactive-tag/preview.webp",
+      "parts": [
+        "components/dist/media/interactive-tag/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/interactive-tag/variations-0.webp",
+        "components/dist/media/interactive-tag/variations-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/interactive-tag/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/interactive-tag/behavior-0.webp"
+      ],
+      "default": "components/dist/media/interactive-tag/default.webp"
+    },
+    "item-type-tag": {
+      "preview": "components/dist/media/item-type-tag/preview.webp",
+      "parts": [
+        "components/dist/media/item-type-tag/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/item-type-tag/variations-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/item-type-tag/spacing-0.webp"
+      ],
+      "default": "components/dist/media/item-type-tag/default.webp"
+    },
     "jdbc": {
       "default": "components/dist/media/jdbc/default.webp"
     },
@@ -465,7 +529,15 @@
       "default": "components/dist/media/label/default.webp"
     },
     "line-graph": {
+      "preview": "components/dist/media/line-graph/preview.webp",
       "default": "components/dist/media/line-graph/default.webp"
+    },
+    "lineage": {
+      "preview": "components/dist/media/lineage/preview.webp",
+      "behavior": [
+        "components/dist/media/lineage/behavior-0.webp"
+      ],
+      "default": "components/dist/media/lineage/default.webp"
     },
     "lineage-connecting-line": {
       "preview": "components/dist/media/lineage-connecting-line/preview.webp",
@@ -701,6 +773,24 @@
       ],
       "default": "components/dist/media/radio-group/default.webp"
     },
+    "read-only-tag": {
+      "preview": "components/dist/media/read-only-tag/preview.webp",
+      "parts": [
+        "components/dist/media/read-only-tag/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/read-only-tag/variations-0.webp",
+        "components/dist/media/read-only-tag/variations-1.webp"
+      ],
+      "spacing": [
+        "components/dist/media/read-only-tag/spacing-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/read-only-tag/behavior-0.webp",
+        "components/dist/media/read-only-tag/behavior-1.webp"
+      ],
+      "default": "components/dist/media/read-only-tag/default.webp"
+    },
     "rich-text": {
       "preview": "components/dist/media/rich-text/preview.webp",
       "default": "components/dist/media/rich-text/default.webp"
@@ -912,6 +1002,13 @@
     "tibco-datavirtualization": {
       "default": "components/dist/media/tibco-datavirtualization/default.webp"
     },
+    "toast": {
+      "preview": "components/dist/media/toast/preview.webp",
+      "behavior": [
+        "components/dist/media/toast/behavior-0.webp"
+      ],
+      "default": "components/dist/media/toast/default.webp"
+    },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
       "parts": [
@@ -946,6 +1043,23 @@
         "components/dist/media/tooltip/layout-1.webp"
       ],
       "default": "components/dist/media/tooltip/default.webp"
+    },
+    "tooltip-default": {
+      "preview": "components/dist/media/tooltip-default/preview.webp",
+      "parts": [
+        "components/dist/media/tooltip-default/parts-0.webp"
+      ],
+      "variations": [
+        "components/dist/media/tooltip-default/variations-0.webp"
+      ],
+      "behavior": [
+        "components/dist/media/tooltip-default/behavior-0.webp"
+      ],
+      "layout": [
+        "components/dist/media/tooltip-default/layout-0.webp",
+        "components/dist/media/tooltip-default/layout-1.webp"
+      ],
+      "default": "components/dist/media/tooltip-default/default.webp"
     },
     "whats-new-dropdown": {
       "preview": "components/dist/media/whats-new-dropdown/preview.webp",

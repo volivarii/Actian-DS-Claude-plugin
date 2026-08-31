@@ -1,0 +1,125 @@
+{
+  "_schema_version": 1,
+  "slug": "collapse",
+  "kit": "dskit",
+  "synced_at": "2026-08-31T11:39:48.734Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8292:80",
+    "variant": "State=Collapsed"
+  },
+  "quality": {
+    "nodesTotal": 4,
+    "nodesNormalized": 4,
+    "ratio": 1,
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "State",
+        "value": "Expanede",
+        "path": "",
+        "reason": "childCount:1!=2"
+      }
+    ]
+  },
+  "root": {
+    "name": "State=Collapsed",
+    "kind": "container",
+    "id": "8292:79",
+    "appearance": {
+      "background": "#ffffff"
+    },
+    "layout": {
+      "axis": "row",
+      "gap": "8px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      },
+      "paddingTokens": {
+        "top": "--zen-spacing-md",
+        "right": "--zen-spacing-md",
+        "bottom": "--zen-spacing-md",
+        "left": "--zen-spacing-md"
+      }
+    },
+    "children": [
+      {
+        "name": "Header",
+        "kind": "container",
+        "id": "15956:6279",
+        "layout": {
+          "axis": "row",
+          "gap": "242px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "sideNavHeading",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "8291:2629",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "16px",
+                "weight": 600,
+                "lineHeight": "24px",
+                "letterSpacing": "0.1px"
+              }
+            },
+            "text": "Collapse header "
+          },
+          {
+            "name": "Button",
+            "kind": "instance",
+            "slug": "button",
+            "props": {
+              "Show trailing icon": true,
+              "Show label": true,
+              "Show leading icon": true,
+              "Label": "Add",
+              "Intent": "Default",
+              "Emphasis": "Icon-only",
+              "Size": "Small",
+              "State": "Default"
+            },
+            "id": "8291:2630",
+            "appearance": {
+              "radius": "9999px"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "variantDefaults": {
+    "State": "Collapsed"
+  }
+}

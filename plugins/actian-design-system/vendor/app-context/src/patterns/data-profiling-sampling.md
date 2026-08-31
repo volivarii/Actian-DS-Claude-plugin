@@ -12,8 +12,11 @@ tags:
   - fields
   - statistics
 components:
-  - bar-graph
   - line-graph
   - table
 ---
 Statistical graphs on fields (profiling) and sample data preview rows (sampling).
+
+The profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on
+2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays
+because it is a real component; the gap is recorded rather than hidden by dropping the pattern.

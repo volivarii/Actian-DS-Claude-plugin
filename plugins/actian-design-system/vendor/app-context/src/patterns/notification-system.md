@@ -17,7 +17,7 @@ when: >-
   status icon and a click-through. Do not use right-sliding-drawer: this does not take over
   the side of the screen, and it is dismissed by clicking away.
 components:
-  - notification
+  - toast
   - notification-dropdown
   - global-header
 ---

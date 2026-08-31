@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "global-header",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-08-31T11:39:48.734Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:22554",
@@ -335,7 +335,7 @@
             "unresolved": true,
             "props": {
               "State": "Default",
-              "Type": "Avatar"
+              "Type": "Account"
             },
             "id": "21923:41020",
             "appearance": {

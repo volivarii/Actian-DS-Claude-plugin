@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.157",
+  "knowledge_version": "0.34.160",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -210,12 +210,19 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'button' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.calendar": {
-      "path": "components/dist/guidelines/calendar.json",
+    "components.guidelineDoc.calendar-data-selector": {
+      "path": "components/dist/guidelines/calendar-data-selector.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'calendar' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'calendar-data-selector' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.calendar-date-input": {
+      "path": "components/dist/guidelines/calendar-date-input.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'calendar-date-input' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.card": {
       "path": "components/dist/guidelines/card.json",
@@ -238,12 +245,12 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'checkbox' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.collapse-accordion": {
-      "path": "components/dist/guidelines/collapse-accordion.json",
+    "components.guidelineDoc.collapse": {
+      "path": "components/dist/guidelines/collapse.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'collapse-accordion' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'collapse' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.combo-box": {
       "path": "components/dist/guidelines/combo-box.json",
@@ -266,19 +273,12 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Component × domain × status coverage matrix — the documentation-debt backlog."
     },
-    "components.guidelineDoc.date-input": {
-      "path": "components/dist/guidelines/date-input.json",
+    "components.guidelineDoc.drawer": {
+      "path": "components/dist/guidelines/drawer.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'date-input' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.drawer-side-panel": {
-      "path": "components/dist/guidelines/drawer-side-panel.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'drawer-side-panel' component (content, usage, design, behavior, tokens — each optional)."
+      "description": "Merged multi-domain guideline object for the 'drawer' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.dropdown-select": {
       "path": "components/dist/guidelines/dropdown-select.json",
@@ -370,13 +370,6 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'multi-select' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.notification": {
-      "path": "components/dist/guidelines/notification.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'notification' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.notification-dropdown": {
       "path": "components/dist/guidelines/notification-dropdown.json",
@@ -517,6 +510,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'text-input' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.toast": {
+      "path": "components/dist/guidelines/toast.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'toast' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.toggle": {
       "path": "components/dist/guidelines/toggle.json",
@@ -1031,9 +1031,10 @@
     "card-for-grouped-content": "card",
     "card-for-perimeter": "card",
     "dropdown-select-default": "dropdown-select",
-    "tag-read-only": "tag",
-    "tag-interactive": "tag",
-    "tag-item-type": "tag"
+    "tooltip-default": "tooltip",
+    "read-only-tag": "tag",
+    "interactive-tag": "tag",
+    "item-type-tag": "tag"
   },
   "_notes": {
     "foundations_auto": "foundations.* entries are auto-regenerated by scripts/foundations/derive-foundations.js. Do not hand-edit. Hierarchical layout: bundle for one-shot, per-H2 _index entries for navigation; full per-leaf tree lives under foundations/dist/<slug>/.",

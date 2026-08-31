@@ -218,7 +218,7 @@
           "type": "string",
           "minLength": 1,
           "description": "Slug of the nested component, resolved within the same registry. Cross-kit refs and external-library refs are dropped (not emitted).",
-          "examples": ["icon-info", "tag-read-only"]
+          "examples": ["icon-info", "read-only-tag"]
         },
         "role": {
           "type": ["string", "null"],

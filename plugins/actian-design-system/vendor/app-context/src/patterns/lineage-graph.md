@@ -17,7 +17,7 @@ when: >-
   field count, read left to right. Do not use interactive-graph, whose nodes are
   relationship satellites around one focus rather than a flow.
 components:
-  - lineage-individual-node
+  - lineage
   - lineage-grouped-node
   - lineage-connecting-line
 ---

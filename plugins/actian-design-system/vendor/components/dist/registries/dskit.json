@@ -2,45 +2,9 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-08-26T15:30:09.423Z",
-  "componentCount": 323,
+  "lastSynced": "2026-08-31T11:40:06.860Z",
+  "componentCount": 324,
   "components": {
-    "account-dropdown": {
-      "name": "Account dropdown",
-      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
-      "nodeId": "9118:17382",
-      "importMethod": "single",
-      "description": "",
-      "page": "Global header: account dropdown",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "avatar",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "folder",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "exit",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "categorySlug": "navigation",
-      "group": "Global header: account dropdown"
-    },
     "actian-data-intelligence": {
       "name": "Actian Data Intelligence",
       "key": "2e53061b856da7a42b2328279d16718d252e0780",
@@ -146,9 +110,7 @@
       "variants": {
         "Color": [
           "Full color",
-          "White",
-          "Color3",
-          "Color4"
+          "White"
         ]
       }
     },
@@ -196,7 +158,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "add-circle": {
       "name": "add-circle",
@@ -211,7 +176,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "adlsgen1": {
       "name": "adlsgen1",
@@ -256,15 +221,15 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "alert-banner": {
-      "name": "Alert-banner",
+      "name": "Alert banner",
       "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
       "nodeId": "13732:3056",
       "importMethod": "set",
       "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
-      "page": "Alert",
+      "page": "Alert banner",
       "properties": {
         "Show Icon#14881:0": {
           "type": "BOOLEAN",
@@ -325,7 +290,7 @@
       "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Alert",
+      "group": "Alert banner",
       "variants": {
         "Type": [
           "Info",
@@ -382,7 +347,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "api": {
       "name": "api",
@@ -412,7 +377,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "app-switcher-dropdown": {
       "name": "App switcher dropdown",
@@ -420,11 +385,11 @@
       "nodeId": "9118:17666",
       "importMethod": "single",
       "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
-      "page": "Global header: app switcher dropdown",
+      "page": "Global header: app switcher",
       "properties": {},
       "nestedComponents": [
         {
-          "slug": "folder",
+          "slug": "actian-pyramid",
           "role": null,
           "source": "child-instance"
         },
@@ -438,7 +403,7 @@
       "section": "Components",
       "category": "Navigation",
       "categorySlug": "navigation",
-      "group": "Global header: app switcher dropdown"
+      "group": "Global header: app switcher"
     },
     "applications": {
       "name": "applications",
@@ -453,7 +418,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "arrow": {
       "name": "arrow",
@@ -468,7 +433,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -483,7 +448,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -498,7 +463,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "arrow-left": {
       "name": "arrow-left",
@@ -513,7 +478,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "arrow-up": {
       "name": "arrow-up",
@@ -528,7 +493,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "atlas": {
       "name": "atlas",
@@ -558,7 +523,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "avatar": {
       "name": "Avatar",
@@ -723,7 +688,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "background-explore": {
       "name": "background-explore",
@@ -775,39 +740,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
-    },
-    "bar-graph": {
-      "name": "Bar graph",
-      "key": "6ea07622a616f54b591da8eb26515332b9d02c31",
-      "nodeId": "15473:49489",
-      "importMethod": "set",
-      "description": "",
-      "page": "Data viz: bar graph",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "button",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "more",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Data viz: bar graph",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
+      "group": "Other"
     },
     "bigquery": {
       "name": "bigquery",
@@ -837,7 +770,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "book-bookmark": {
       "name": "book-bookmark",
@@ -852,7 +785,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "book-edit": {
       "name": "book-edit",
@@ -867,7 +803,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "book-open": {
       "name": "book-open",
@@ -882,7 +818,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "book-pages": {
       "name": "book-pages",
@@ -897,7 +833,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "book-text": {
       "name": "book-text",
@@ -912,7 +848,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -927,7 +863,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "breadcrumb": {
       "name": "Breadcrumb",
@@ -968,7 +904,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "button": {
       "name": "Button",
@@ -1052,7 +988,22 @@
       }
     },
     "calendar": {
-      "name": "Calendar",
+      "name": "calendar",
+      "key": "805cb80b498052ea49f63c3123e9491808d6d8ef",
+      "nodeId": "7378:5041",
+      "importMethod": "single",
+      "description": "Calendar",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Status"
+    },
+    "calendar-data-selector": {
+      "name": "Calendar data selector",
       "key": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
       "nodeId": "8211:6664",
       "importMethod": "set",
@@ -1097,6 +1048,69 @@
           "Single",
           "Range",
           "Year"
+        ]
+      }
+    },
+    "calendar-date-input": {
+      "name": "Calendar date input",
+      "key": "9eafdb6242837b591ba5f39959150b53e40ef02d",
+      "nodeId": "8194:7305",
+      "importMethod": "set",
+      "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
+      "page": "Calendar",
+      "properties": {
+        "Helper#458:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#458:13": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "* (Asterisk)#7242:142": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Sub label#9716:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "button",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "calendar",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form",
+      "categorySlug": "form",
+      "group": "Calendar",
+      "variants": {
+        "Type": [
+          "Single date",
+          "Date range"
+        ],
+        "States": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Error",
+          "Disabled",
+          "Fille",
+          "Activ"
         ]
       }
     },
@@ -1234,7 +1248,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "cassandra": {
       "name": "cassandra",
@@ -1264,7 +1278,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -1279,7 +1293,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "catalogs": {
       "name": "catalogs",
@@ -1294,7 +1308,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "checkbox": {
       "name": "Checkbox",
@@ -1508,7 +1522,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "code": {
       "name": "code",
@@ -1523,7 +1537,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "cognos": {
       "name": "cognos",
@@ -1556,27 +1570,12 @@
       "group": "Third-party logos"
     },
     "collapse": {
-      "name": "collapse",
-      "key": "1530594f58087b425da1de80ce555a12afd24deb",
-      "nodeId": "20633:62",
-      "importMethod": "single",
-      "description": "Collapse",
-      "page": "Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Actual icons"
-    },
-    "collapse-accordion": {
-      "name": "Collapse-accordion",
+      "name": "Collapse",
       "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
       "nodeId": "8292:80",
       "importMethod": "set",
       "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
-      "page": "Collapse (Accordion)",
+      "page": "Collapse",
       "properties": {
         "Slot#15956:0": {
           "type": "SLOT",
@@ -1609,8 +1608,7 @@
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Collapse (Accordion)",
-      "status": "in-progress",
+      "group": "Collapse",
       "variants": {
         "State": [
           "Collapsed",
@@ -1652,7 +1650,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "cosmosdb": {
       "name": "cosmosdb",
@@ -1727,7 +1725,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -1742,7 +1740,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "dashboard": {
       "name": "dashboard",
@@ -1757,7 +1755,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -1772,7 +1770,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -1787,7 +1785,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "data-intelligence-dev-logo": {
       "name": "Data Intelligence Dev Logo",
@@ -1824,7 +1822,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "data-product-input-port": {
       "name": "data-product-input-port",
@@ -1839,7 +1837,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -1854,22 +1852,48 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
-    "data-viz-legend-item": {
-      "name": "Data-viz-legend-item",
+    "data-quality-checks-graph": {
+      "name": "Data quality checks graph",
+      "key": "82ebd7270ba880f1183ee0a25e5f2ecbc7dc40eb",
+      "nodeId": "15473:49488",
+      "importMethod": "single",
+      "description": "",
+      "page": "Data quality checks graph",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "button",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "more",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Data quality checks graph"
+    },
+    "data-viz-legend": {
+      "name": "Data viz legend",
       "key": "0a5b4776b4199b4a9efc77a76e99e12192e0dac5",
       "nodeId": "14747:33310",
       "importMethod": "set",
       "description": "",
-      "page": "Data viz: legend",
+      "page": "Legend",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Data viz: legend",
+      "group": "Legend",
       "variants": {
         "Property 1": [
           "Default",
@@ -1893,7 +1917,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "database-check": {
       "name": "database-check",
@@ -1908,7 +1932,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "databricks": {
       "name": "databricks",
@@ -1968,7 +1992,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "date": {
       "name": "date",
@@ -1983,65 +2007,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
-    },
-    "date-input": {
-      "name": "Date input",
-      "key": "9eafdb6242837b591ba5f39959150b53e40ef02d",
-      "nodeId": "8194:7305",
-      "importMethod": "set",
-      "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
-      "page": "Date input",
-      "properties": {
-        "Helper#458:9": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Label#458:13": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "* (Asterisk)#7242:142": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Sub label#9716:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "button",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "error-filled",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Form",
-      "categorySlug": "form",
-      "group": "Date input",
-      "variants": {
-        "Type": [
-          "Single date",
-          "Date range"
-        ],
-        "States": [
-          "Enabled",
-          "Hovered",
-          "Focused",
-          "Error",
-          "Disabled",
-          "Fille",
-          "Activ"
-        ]
-      }
+      "group": "Other"
     },
     "db2": {
       "name": "db2",
@@ -2193,7 +2159,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "discussion": {
       "name": "discussion",
@@ -2208,7 +2174,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "dot": {
       "name": "Dot",
@@ -2223,7 +2189,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "double-check": {
       "name": "double-check",
@@ -2238,7 +2204,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "download": {
       "name": "download",
@@ -2253,7 +2219,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "drag": {
       "name": "drag",
@@ -2268,15 +2237,15 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
-    "drawer-side-panel": {
-      "name": "Drawer, side panel",
+    "drawer": {
+      "name": "Drawer",
       "key": "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf",
       "nodeId": "14294:5758",
       "importMethod": "set",
       "description": "A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.",
-      "page": "Drawer (Side panel)",
+      "page": "Drawer",
       "properties": {
         "Show Back#14294:18": {
           "type": "BOOLEAN",
@@ -2295,12 +2264,12 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-item-type",
+          "slug": "item-type-tag",
           "role": null,
           "source": "child-instance"
         },
         {
-          "slug": "tag-read-only",
+          "slug": "read-only-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -2350,7 +2319,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-interactive",
+          "slug": "interactive-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -2389,7 +2358,7 @@
       "section": "Components",
       "category": "Overlays",
       "categorySlug": "overlays",
-      "group": "Drawer (Side panel)",
+      "group": "Drawer",
       "variants": {
         "App": [
           "Studio",
@@ -2498,7 +2467,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-interactive",
+          "slug": "interactive-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -2543,7 +2512,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "elasticsearch": {
       "name": "elasticsearch",
@@ -2659,7 +2628,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "error-filled": {
       "name": "error-filled",
@@ -2674,7 +2643,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "erwin-data-modeler": {
       "name": "erwin-data-modeler",
@@ -2704,7 +2673,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "expand": {
       "name": "expand",
@@ -2719,7 +2688,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "exploration": {
       "name": "exploration",
@@ -2734,7 +2703,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "export": {
       "name": "export",
@@ -2749,7 +2718,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "favorite": {
       "name": "favorite",
@@ -2764,7 +2736,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -2779,7 +2751,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "field": {
       "name": "Field",
@@ -2864,7 +2836,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-check": {
       "name": "file-check",
@@ -2879,7 +2851,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-info": {
       "name": "file-info",
@@ -2894,7 +2866,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-stack": {
       "name": "file-stack",
@@ -2909,7 +2881,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "filter": {
       "name": "filter",
@@ -2924,7 +2896,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "filter-text": {
       "name": "filter-text",
@@ -2939,7 +2911,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "float-type": {
       "name": "float-type",
@@ -2954,7 +2926,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "folder": {
       "name": "folder",
@@ -2969,7 +2941,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "gcp": {
       "name": "GCP",
@@ -3029,7 +3001,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "global-header": {
       "name": "Global header",
@@ -3108,6 +3080,42 @@
         ]
       }
     },
+    "global-header-account-dropdown": {
+      "name": "Global header account dropdown",
+      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "nodeId": "9118:17382",
+      "importMethod": "single",
+      "description": "",
+      "page": "Global header: account",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "avatar",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "folder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "exit",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "categorySlug": "navigation",
+      "group": "Global header: account"
+    },
     "glossary": {
       "name": "glossary",
       "key": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
@@ -3121,22 +3129,22 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
-    "glossary-item-hierarchy-diagram": {
-      "name": "Glossary item hierarchy diagram",
+    "glossary-item-hierarchy": {
+      "name": "Glossary item hierarchy",
       "key": "589059440a078bfe879a21b056edfe16be6b12c2",
       "nodeId": "14747:30243",
       "importMethod": "single",
       "description": "",
-      "page": "Glossary item hierarchy diagram",
+      "page": "Glossary item hierarchy",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Glossary item hierarchy diagram"
+      "group": "Glossary item hierarchy"
     },
     "google-cloud": {
       "name": "google-cloud",
@@ -3166,7 +3174,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "greenplum": {
       "name": "greenplum",
@@ -3226,7 +3234,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "help-circle": {
       "name": "help-circle",
@@ -3241,7 +3249,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "hierarchy": {
       "name": "hierarchy",
@@ -3256,7 +3264,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "hive": {
       "name": "hive",
@@ -3286,7 +3294,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "idea": {
       "name": "idea",
@@ -3301,7 +3309,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "illustration": {
       "name": "Illustration",
@@ -3372,7 +3380,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "info-filled": {
       "name": "info-filled",
@@ -3387,7 +3395,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "informatica": {
       "name": "informatica",
@@ -3417,7 +3425,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "integer-type": {
       "name": "integer-type",
@@ -3432,7 +3440,73 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
+    },
+    "interactive-tag": {
+      "name": "Interactive tag",
+      "key": "19d8ed0dd3f5dc406017130026a6229f121f169d",
+      "nodeId": "13845:33759",
+      "importMethod": "set",
+      "description": "Interacitve tag",
+      "page": "Tag: interactive",
+      "properties": {
+        "Show trailing icon#21264:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show leading icon#21264:24": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "folder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "simple-check",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag: interactive",
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled",
+          "Focus",
+          "Hover",
+          "Pressed"
+        ],
+        "Type": [
+          "Dismissible",
+          "Selectable",
+          "Dropdown-expanded",
+          "Dropdown",
+          "Selectable-selected"
+        ]
+      }
     },
     "invoice": {
       "name": "invoice",
@@ -3447,7 +3521,63 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
+    },
+    "item-type-tag": {
+      "name": "Item type tag",
+      "key": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
+      "nodeId": "11300:8312",
+      "importMethod": "set",
+      "description": "This is read-only tag. Use for item types.",
+      "page": "Tag: item type",
+      "properties": {
+        "Show counter#14128:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Counter#21221:38": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag: item type",
+      "variants": {
+        "Type": [
+          "Glossary-1",
+          "Glossary-2",
+          "Glossary-3",
+          "Glossary-4",
+          "Glossary-5",
+          "Category",
+          "Custom-1",
+          "Custom-2",
+          "Custom-3",
+          "Custom-4",
+          "Custom-5",
+          "Custom-6",
+          "Custom-7",
+          "Custom-8",
+          "Custom-9",
+          "Custom-10",
+          "Custom-11",
+          "Custom-12",
+          "Custom-13",
+          "Custom-14",
+          "Custom-15",
+          "Dataset",
+          "Data process",
+          "Data product",
+          "Field",
+          "Output port",
+          "Use case",
+          "Visualization"
+        ]
+      }
     },
     "jdbc": {
       "name": "jdbc",
@@ -3581,7 +3711,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -3596,15 +3726,15 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "line-graph": {
       "name": "Line graph",
-      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "nodeId": "15473:49490",
-      "importMethod": "set",
+      "key": "75f685ba047cd2f103afe2b6550b7b72e3634f89",
+      "nodeId": "15473:49487",
+      "importMethod": "single",
       "description": "",
-      "page": "Data viz: line graph",
+      "page": "Line graph",
       "properties": {},
       "nestedComponents": [
         {
@@ -3622,31 +3752,10 @@
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Data viz: line graph",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
+      "group": "Line graph"
     },
     "lineage": {
-      "name": "lineage",
-      "key": "32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119",
-      "nodeId": "7378:5706",
-      "importMethod": "single",
-      "description": "Lineage",
-      "page": "Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "categorySlug": "icons",
-      "group": "Actual icons"
-    },
-    "lineage-individual-node": {
-      "name": "Lineage individual node",
+      "name": "Lineage",
       "key": "5904351595c9b5b263bb5891bd1ed038fbaff636",
       "nodeId": "14747:19902",
       "importMethod": "set",
@@ -3669,7 +3778,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-read-only",
+          "slug": "read-only-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -3774,7 +3883,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -3789,7 +3898,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -3804,7 +3913,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "loader": {
       "name": "Loader",
@@ -3812,14 +3921,14 @@
       "nodeId": "7372:2195",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use loader for large components or large section within a page",
-      "page": "Loading: loader",
+      "page": "Loader",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Loading: loader",
+      "group": "Loader",
       "variants": {
         "Percent": [
           "99%",
@@ -3834,7 +3943,7 @@
       "nodeId": "14294:7650",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use loader with logo in transition between apps or logging in or out to reduce perceived wait time",
-      "page": "Loading: loader with logo",
+      "page": "Loader with logo",
       "properties": {},
       "nestedComponents": [
         {
@@ -3857,7 +3966,7 @@
       "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Loading: loader with logo",
+      "group": "Loader with logo",
       "variants": {
         "App": [
           "Actian Data Intelligence",
@@ -3873,14 +3982,14 @@
       "nodeId": "14294:8086",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use Skeleton for page-level transitions to reduce perceived wait time.",
-      "page": "Loading: skeleton",
+      "page": "Skeleton",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Loading: skeleton",
+      "group": "Skeleton",
       "variants": {
         "Transition": [
           "1",
@@ -3952,7 +4061,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "map": {
       "name": "map",
@@ -3967,7 +4076,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "mapr": {
       "name": "mapr",
@@ -4271,7 +4380,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "move": {
       "name": "move",
@@ -4286,7 +4395,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "ms-teams": {
       "name": "ms-teams",
@@ -4333,50 +4442,13 @@
       "categorySlug": "third-party-logos",
       "group": "Third-party logos"
     },
-    "notification": {
-      "name": "Notification",
-      "key": "590d2373b688235e8da72732919d2f874eee6cda",
-      "nodeId": "13868:11595",
-      "importMethod": "set",
-      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
-      "page": "Notification (Toast)",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "button",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "add",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "categorySlug": "feedback",
-      "group": "Notification (Toast)",
-      "variants": {
-        "Type": [
-          "Default",
-          "Critical"
-        ]
-      }
-    },
     "notification-dropdown": {
       "name": "Notification dropdown",
       "key": "927eb804d065b6e2be5f8dfa54643774304d7d6c",
       "nodeId": "9114:15379",
       "importMethod": "set",
       "description": "",
-      "page": "Global header: notification dropdown",
+      "page": "Global header: notification",
       "properties": {},
       "nestedComponents": [
         {
@@ -4394,7 +4466,7 @@
       "section": "Components",
       "category": "Navigation",
       "categorySlug": "navigation",
-      "group": "Global header: notification dropdown",
+      "group": "Global header: notification",
       "variants": {
         "Property 1": [
           "Empty",
@@ -4415,7 +4487,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "null-type": {
       "name": "null-type",
@@ -4430,7 +4502,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "open": {
       "name": "open",
@@ -4445,7 +4517,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "openapi": {
       "name": "openapi",
@@ -4520,7 +4592,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "page-header": {
       "name": "Page header",
@@ -4552,7 +4624,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-item-type",
+          "slug": "item-type-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -4577,7 +4649,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-read-only",
+          "slug": "read-only-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -4675,7 +4747,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "parquet": {
       "name": "parquet",
@@ -4705,7 +4777,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "pii": {
       "name": "pii",
@@ -4720,7 +4792,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "pin": {
       "name": "pin",
@@ -4735,7 +4807,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "popover": {
       "name": "Popover",
@@ -4802,7 +4874,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "tag-read-only",
+          "slug": "read-only-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -4817,7 +4889,7 @@
           "source": "child-instance"
         },
         {
-          "slug": "collapse-accordion",
+          "slug": "collapse",
           "role": null,
           "source": "child-instance"
         },
@@ -4908,7 +4980,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "process-csv": {
       "name": "process csv",
@@ -4938,7 +5013,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "progress-bar-small": {
       "name": "Progress bar small",
@@ -5142,6 +5217,83 @@
         ]
       }
     },
+    "read-only-tag": {
+      "name": "Read only tag",
+      "key": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
+      "nodeId": "7257:3037",
+      "importMethod": "set",
+      "description": "This is read-only tag",
+      "page": "Tag: read-only",
+      "properties": {
+        "Label#257:0": {
+          "type": "TEXT",
+          "default": "Default"
+        },
+        "Leading icon show#7276:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Leading icon#8400:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "7206:3772"
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dot",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "success-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "folder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "categorySlug": "data-display",
+      "group": "Tag: read-only",
+      "variants": {
+        "Type": [
+          "Default",
+          "Catalog",
+          "Shared",
+          "Stage-1",
+          "Stage-2",
+          "Stage-3",
+          "Stage-4",
+          "Stage-5",
+          "Stage-6",
+          "Stage-7",
+          "Stage-8",
+          "Status-error",
+          "Status-warning",
+          "Status-success"
+        ]
+      }
+    },
     "read-search": {
       "name": "read-search",
       "key": "1222cc69a63b1887b0c24bc533b71addd718c013",
@@ -5155,7 +5307,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "relation": {
       "name": "relation",
@@ -5170,7 +5322,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -5185,7 +5337,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -5200,7 +5352,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "remove-circle": {
       "name": "remove-circle",
@@ -5215,7 +5367,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "reply": {
       "name": "reply",
@@ -5230,7 +5382,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "rich-text": {
       "name": "Rich text",
@@ -5272,7 +5424,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "s-grid": {
       "name": "S grid",
@@ -5442,7 +5594,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "schema": {
       "name": "schema",
@@ -5457,7 +5609,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "scroll-bar": {
       "name": "Scroll bar",
@@ -5584,12 +5736,12 @@
       "properties": {},
       "nestedComponents": [
         {
-          "slug": "tag-item-type",
+          "slug": "item-type-tag",
           "role": null,
           "source": "child-instance"
         },
         {
-          "slug": "tag-read-only",
+          "slug": "read-only-tag",
           "role": null,
           "source": "child-instance"
         },
@@ -5666,7 +5818,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "segmented-control": {
       "name": "Segmented control",
@@ -5674,14 +5826,14 @@
       "nodeId": "7618:5284",
       "importMethod": "single",
       "description": "",
-      "page": "Segmented control (Button group)",
+      "page": "Segmented control",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Segmented control (Button group)"
+      "group": "Segmented control"
     },
     "server-search": {
       "name": "server-search",
@@ -5696,7 +5848,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "server-warning": {
       "name": "server-warning",
@@ -5711,7 +5863,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "settings": {
       "name": "settings",
@@ -5726,7 +5878,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "share": {
       "name": "share",
@@ -5741,7 +5893,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -5756,7 +5908,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "side-nav": {
       "name": "Side nav",
@@ -5898,7 +6050,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "snowflake": {
       "name": "Snowflake",
@@ -5951,14 +6103,14 @@
       "nodeId": "7372:2170",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
-      "page": "Loading: spinner",
+      "page": "Spinner",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Feedback",
       "categorySlug": "feedback",
-      "group": "Loading: spinner",
+      "group": "Spinner",
       "variants": {
         "Color mode": [
           "On light bg",
@@ -6030,7 +6182,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "stars-filled": {
       "name": "stars-filled",
@@ -6045,7 +6197,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "stepper": {
       "name": "Stepper",
@@ -6092,7 +6244,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "success": {
       "name": "success",
@@ -6107,7 +6259,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "success-filled": {
       "name": "success-filled",
@@ -6122,7 +6274,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "suggestion": {
       "name": "suggestion",
@@ -6137,7 +6289,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "sybaseiq": {
       "name": "sybaseiq",
@@ -6268,7 +6420,7 @@
       "nodeId": "7279:3297",
       "importMethod": "single",
       "description": "",
-      "page": "Tab",
+      "page": "Tabs",
       "properties": {
         "Show Avatar#14797:1": {
           "type": "BOOLEAN",
@@ -6291,206 +6443,7 @@
       "section": "Components",
       "category": "Navigation",
       "categorySlug": "navigation",
-      "group": "Tab"
-    },
-    "tag-interactive": {
-      "name": "Tag, Interactive",
-      "key": "19d8ed0dd3f5dc406017130026a6229f121f169d",
-      "nodeId": "13845:33759",
-      "importMethod": "set",
-      "description": "Interacitve tag",
-      "page": "Tag: interactive",
-      "properties": {
-        "Show trailing icon#21264:8": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Show leading icon#21264:24": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "folder",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-up",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "simple-check",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag: interactive",
-      "variants": {
-        "State": [
-          "Default",
-          "Disabled",
-          "Focus",
-          "Hover",
-          "Pressed"
-        ],
-        "Type": [
-          "Dismissible",
-          "Selectable",
-          "Dropdown-expanded",
-          "Dropdown",
-          "Selectable-selected"
-        ]
-      }
-    },
-    "tag-item-type": {
-      "name": "Tag, item type",
-      "key": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
-      "nodeId": "11300:8312",
-      "importMethod": "set",
-      "description": "This is read-only tag. Use for item types.",
-      "page": "Tag: item type",
-      "properties": {
-        "Show counter#14128:0": {
-          "type": "BOOLEAN",
-          "default": false
-        },
-        "Show Counter#21221:38": {
-          "type": "BOOLEAN",
-          "default": false
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag: item type",
-      "variants": {
-        "Type": [
-          "Glossary-1",
-          "Glossary-2",
-          "Glossary-3",
-          "Glossary-4",
-          "Glossary-5",
-          "Category",
-          "Custom-1",
-          "Custom-2",
-          "Custom-3",
-          "Custom-4",
-          "Custom-5",
-          "Custom-6",
-          "Custom-7",
-          "Custom-8",
-          "Custom-9",
-          "Custom-10",
-          "Custom-11",
-          "Custom-12",
-          "Custom-13",
-          "Custom-14",
-          "Custom-15",
-          "Dataset",
-          "Data process",
-          "Data product",
-          "Field",
-          "Output port",
-          "Use case",
-          "Visualization"
-        ]
-      }
-    },
-    "tag-read-only": {
-      "name": "Tag, read only",
-      "key": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
-      "nodeId": "7257:3037",
-      "importMethod": "set",
-      "description": "This is read-only tag",
-      "page": "Tag: read-only",
-      "properties": {
-        "Label#257:0": {
-          "type": "TEXT",
-          "default": "Default"
-        },
-        "Leading icon show#7276:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Leading icon#8400:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "7206:3772"
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "add",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "dot",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "error-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "warning-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "success-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "folder",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "categorySlug": "data-display",
-      "group": "Tag: read-only",
-      "variants": {
-        "Type": [
-          "Default",
-          "Catalog",
-          "Shared",
-          "Stage-1",
-          "Stage-2",
-          "Stage-3",
-          "Stage-4",
-          "Stage-5",
-          "Stage-6",
-          "Stage-7",
-          "Stage-8",
-          "Status-error",
-          "Status-warning",
-          "Status-success"
-        ]
-      }
+      "group": "Tabs"
     },
     "tags-add": {
       "name": "tags-add",
@@ -6505,7 +6458,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "talend": {
       "name": "talend",
@@ -6535,7 +6488,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "task-list": {
       "name": "task-list",
@@ -6550,7 +6503,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -6565,7 +6518,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "teradata": {
       "name": "teradata",
@@ -6678,7 +6631,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "text-input": {
       "name": "Text input",
@@ -6790,7 +6743,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "textfield-buttons": {
       "name": "Textfield buttons",
@@ -6851,7 +6804,22 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
+    },
+    "thumbs-down-filled": {
+      "name": "thumbs-down-filled",
+      "key": "af138f930c5548f423f74f3d9c05157bd1b9a704",
+      "nodeId": "22230:3444",
+      "importMethod": "single",
+      "description": "Thumbs down",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -6866,7 +6834,22 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
+    },
+    "thumbs-up-filled": {
+      "name": "thumbs-up-filled",
+      "key": "60170092dbcba66c66b1b172ada88bc613485887",
+      "nodeId": "22230:3445",
+      "importMethod": "single",
+      "description": "Thumbs up",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     },
     "tibco-datavirtualization": {
       "name": "tibco-datavirtualization",
@@ -6896,7 +6879,44 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
+    },
+    "toast": {
+      "name": "Toast",
+      "key": "590d2373b688235e8da72732919d2f874eee6cda",
+      "nodeId": "13868:11595",
+      "importMethod": "set",
+      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
+      "page": "Toast",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "button",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "categorySlug": "feedback",
+      "group": "Toast",
+      "variants": {
+        "Type": [
+          "Default",
+          "Critical"
+        ]
+      }
     },
     "toggle": {
       "name": "Toggle",
@@ -6936,7 +6956,7 @@
       "nodeId": "14335:16907",
       "importMethod": "set",
       "description": "",
-      "page": "Data viz: toolbar",
+      "page": "Toolbar",
       "properties": {
         "Show View scale#14335:0": {
           "type": "BOOLEAN",
@@ -6989,7 +7009,7 @@
       "section": "Components",
       "category": "Data Display",
       "categorySlug": "data-display",
-      "group": "Data viz: toolbar",
+      "group": "Toolbar",
       "variants": {
         "Type": [
           "Single",
@@ -7002,15 +7022,15 @@
         ]
       }
     },
-    "tooltip": {
-      "name": "Tooltip",
-      "key": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
-      "nodeId": "7038:351",
-      "importMethod": "set",
-      "description": "Flex width with maximum width of 320px.",
+    "tooltip-default": {
+      "name": "Tooltip/Default",
+      "key": "b36b2406753f81a38dc29731eb262dda640e83c4",
+      "nodeId": "7036:1360",
+      "importMethod": "single",
+      "description": "A brief, descriptive text box triggered by hover or focus. Use for clarifying icons or providing short context for a specific UI element. Note: Must not contain interactive elements.",
       "page": "Tooltip",
       "properties": {
-        "Body#7038:10": {
+        "Body#7038:11": {
           "type": "TEXT",
           "default": "Body line text lorem ipsum dolor sit amet, consectetur"
         }
@@ -7020,12 +7040,7 @@
       "section": "Components",
       "category": "Overlays",
       "categorySlug": "overlays",
-      "group": "Tooltip",
-      "variants": {
-        "Type": [
-          "Default"
-        ]
-      }
+      "group": "Tooltip"
     },
     "trash": {
       "name": "trash",
@@ -7040,7 +7055,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -7055,7 +7070,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "user": {
       "name": "user",
@@ -7070,7 +7085,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "user-add": {
       "name": "user-add",
@@ -7085,7 +7100,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "user-group": {
       "name": "user-group",
@@ -7100,7 +7115,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "user-info": {
       "name": "user-info",
@@ -7115,7 +7130,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "user-single": {
       "name": "user-single",
@@ -7130,7 +7145,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "view": {
       "name": "view",
@@ -7145,7 +7160,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "view-detail": {
       "name": "view-detail",
@@ -7160,7 +7175,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "warning": {
       "name": "warning",
@@ -7175,7 +7190,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -7190,7 +7205,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "whats-new-dropdown": {
       "name": "Whats new dropdown",
@@ -7198,7 +7213,7 @@
       "nodeId": "9114:16794",
       "importMethod": "set",
       "description": "",
-      "page": "Global header: whats new dropdown",
+      "page": "Global header: whats new",
       "properties": {},
       "nestedComponents": [
         {
@@ -7226,7 +7241,7 @@
       "section": "Components",
       "category": "Navigation",
       "categorySlug": "navigation",
-      "group": "Global header: whats new dropdown",
+      "group": "Global header: whats new",
       "variants": {
         "Property 1": [
           "Drilldown1",
@@ -7356,7 +7371,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -7371,7 +7386,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -7386,7 +7401,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -7401,7 +7416,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "confirmation": {
       "name": "Confirmation",
@@ -7706,7 +7721,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "info": {
       "name": "info",
@@ -7721,7 +7736,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "arrow": {
       "name": "arrow",
@@ -7736,7 +7751,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -7751,7 +7766,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "help-circle": {
       "name": "help-circle",
@@ -7766,7 +7781,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "lineage": {
       "name": "lineage",
@@ -7781,7 +7796,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "book-open": {
       "name": "book-open",
@@ -7796,7 +7811,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "back": {
       "name": "back",
@@ -7811,7 +7826,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -7826,7 +7841,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "applications": {
       "name": "applications",
@@ -7841,7 +7856,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "discussion": {
       "name": "discussion",
@@ -7856,7 +7871,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "home": {
       "name": "home",
@@ -7871,7 +7886,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "dashboard": {
       "name": "dashboard",
@@ -7886,7 +7901,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "geo-point-type": {
       "name": "geo-point-type",
@@ -7901,7 +7916,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "info-filled": {
       "name": "info-filled",
@@ -7916,7 +7931,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "book-bookmark": {
       "name": "book-bookmark",
@@ -7931,7 +7946,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -7946,7 +7964,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "database-check": {
       "name": "database-check",
@@ -7961,7 +7979,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "date": {
       "name": "date",
@@ -7976,7 +7994,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "api-key": {
       "name": "api-key",
@@ -7991,7 +8009,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "bin-type": {
       "name": "bin-type",
@@ -8006,7 +8024,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "zoom-in": {
       "name": "zoom-in",
@@ -8021,7 +8039,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "connected": {
       "name": "connected",
@@ -8036,7 +8054,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -8051,7 +8069,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "analytics": {
       "name": "analytics",
@@ -8066,7 +8084,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "notifications-setting": {
       "name": "notifications-setting",
@@ -8081,7 +8099,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "relation": {
       "name": "relation",
@@ -8096,7 +8114,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "add": {
       "name": "add",
@@ -8111,7 +8129,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "business-contract-give": {
       "name": "business-contract-give",
@@ -8126,7 +8147,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "task-list": {
       "name": "task-list",
@@ -8141,7 +8162,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "tags-add": {
       "name": "tags-add",
@@ -8156,7 +8177,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "alert": {
       "name": "alert",
@@ -8171,7 +8192,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -8186,7 +8207,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "pii": {
       "name": "pii",
@@ -8201,7 +8222,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "pin": {
       "name": "pin",
@@ -8216,7 +8237,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "integer-type": {
       "name": "integer-type",
@@ -8231,7 +8252,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "hierarchy": {
       "name": "hierarchy",
@@ -8246,7 +8267,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "server-search": {
       "name": "server-search",
@@ -8261,7 +8282,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "view": {
       "name": "view",
@@ -8276,7 +8297,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "products-briefcase": {
       "name": "products-briefcase",
@@ -8291,7 +8312,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "book-edit": {
       "name": "book-edit",
@@ -8306,7 +8327,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "error-filled": {
       "name": "error-filled",
@@ -8321,7 +8342,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "search": {
       "name": "search",
@@ -8336,7 +8357,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -8351,7 +8372,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "arrow-up": {
       "name": "arrow-up",
@@ -8366,7 +8387,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -8381,7 +8402,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "move": {
       "name": "move",
@@ -8396,7 +8417,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -8411,7 +8432,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -8426,7 +8447,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "float-type": {
       "name": "float-type",
@@ -8441,7 +8462,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "user-single": {
       "name": "user-single",
@@ -8456,7 +8477,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "maintenance": {
       "name": "maintenance",
@@ -8471,7 +8492,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "warning": {
       "name": "warning",
@@ -8486,7 +8507,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "arrow-left": {
       "name": "arrow-left",
@@ -8501,7 +8522,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-stack": {
       "name": "file-stack",
@@ -8516,7 +8537,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "paragraph-justify": {
       "name": "paragraph-justify",
@@ -8531,7 +8552,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "close": {
       "name": "close",
@@ -8546,7 +8567,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "calendar": {
       "name": "calendar",
@@ -8561,7 +8582,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "exploration": {
       "name": "exploration",
@@ -8576,7 +8597,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "trash": {
       "name": "trash",
@@ -8591,7 +8612,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "data-model": {
       "name": "data-model",
@@ -8606,7 +8627,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "datasets": {
       "name": "Datasets",
@@ -8621,7 +8642,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "target-type": {
       "name": "target-type",
@@ -8636,7 +8657,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "text-file": {
       "name": "text-file",
@@ -8651,7 +8672,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "code": {
       "name": "code",
@@ -8666,7 +8687,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "scanner": {
       "name": "scanner",
@@ -8681,7 +8702,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "thumbs-down": {
       "name": "thumbs-down",
@@ -8696,7 +8717,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -8711,7 +8732,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "security-services": {
       "name": "security-services",
@@ -8726,7 +8747,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "user": {
       "name": "user",
@@ -8741,7 +8762,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "error": {
       "name": "error",
@@ -8756,7 +8777,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -8771,7 +8792,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "suggestion": {
       "name": "suggestion",
@@ -8786,7 +8807,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -8801,7 +8822,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "struct-type": {
       "name": "struct-type",
@@ -8816,7 +8837,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "graph-merge": {
       "name": "graph-merge",
@@ -8831,7 +8852,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "catalogs": {
       "name": "catalogs",
@@ -8846,7 +8867,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "cursor-arrow": {
       "name": "cursor-arrow",
@@ -8861,7 +8882,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "book-pages": {
       "name": "book-pages",
@@ -8876,7 +8897,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "folder": {
       "name": "folder",
@@ -8891,7 +8912,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "view-detail": {
       "name": "view-detail",
@@ -8906,7 +8927,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "remove-circle": {
       "name": "remove-circle",
@@ -8921,7 +8942,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "time-type": {
       "name": "time-type",
@@ -8936,7 +8957,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-cash": {
       "name": "file-cash",
@@ -8951,7 +8972,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "more": {
       "name": "more",
@@ -8966,7 +8987,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "export": {
       "name": "export",
@@ -8981,7 +9002,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "data-product-input-port": {
       "name": "data-product-input-port",
@@ -8996,7 +9020,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "user-group": {
       "name": "user-group",
@@ -9011,7 +9035,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "input": {
       "name": "input",
@@ -9026,7 +9050,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "exit": {
       "name": "exit",
@@ -9041,7 +9065,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "output": {
       "name": "output",
@@ -9056,7 +9080,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -9071,7 +9095,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "rotate-back": {
       "name": "rotate-back",
@@ -9086,7 +9110,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "glossary": {
       "name": "glossary",
@@ -9101,7 +9125,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "help-bubble": {
       "name": "help-bubble",
@@ -9116,7 +9140,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "database": {
       "name": "database",
@@ -9131,7 +9155,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "process": {
       "name": "process",
@@ -9146,7 +9170,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "filter-text": {
       "name": "filter-text",
@@ -9161,7 +9188,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -9176,7 +9203,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "drag": {
       "name": "drag",
@@ -9191,7 +9218,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "schema": {
       "name": "schema",
@@ -9206,7 +9233,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "dot": {
       "name": "Dot",
@@ -9221,7 +9248,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "server-warning": {
       "name": "server-warning",
@@ -9236,7 +9263,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "stars-filled": {
       "name": "stars-filled",
@@ -9251,7 +9278,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "filter": {
       "name": "filter",
@@ -9266,7 +9293,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "ban": {
       "name": "ban",
@@ -9281,7 +9308,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -9296,7 +9323,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "phone": {
       "name": "phone",
@@ -9311,7 +9338,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "text-type": {
       "name": "text-type",
@@ -9326,7 +9353,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "download": {
       "name": "download",
@@ -9341,7 +9368,10 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "read-search": {
       "name": "read-search",
@@ -9356,7 +9386,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "table": {
       "name": "table",
@@ -9371,7 +9401,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "collapse": {
       "name": "collapse",
@@ -9386,7 +9416,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "add-circle": {
       "name": "add-circle",
@@ -9401,7 +9431,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "link-type": {
       "name": "link-type",
@@ -9416,7 +9446,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "disconnected": {
       "name": "disconnected",
@@ -9431,7 +9461,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "idea": {
       "name": "idea",
@@ -9446,7 +9476,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "double-check": {
       "name": "double-check",
@@ -9461,7 +9491,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "share": {
       "name": "share",
@@ -9476,7 +9506,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "attachments": {
       "name": "Attachments",
@@ -9491,7 +9521,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-info": {
       "name": "file-info",
@@ -9506,7 +9536,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "file-check": {
       "name": "file-check",
@@ -9521,7 +9551,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -9536,7 +9566,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "cash-briefcase": {
       "name": "cash-briefcase",
@@ -9551,7 +9581,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "reply": {
       "name": "reply",
@@ -9566,7 +9596,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -9581,7 +9611,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -9596,7 +9626,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -9611,7 +9641,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "map": {
       "name": "map",
@@ -9626,7 +9656,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "stars": {
       "name": "stars",
@@ -9641,7 +9671,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "book-text": {
       "name": "book-text",
@@ -9656,7 +9686,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "expand": {
       "name": "expand",
@@ -9671,7 +9701,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "edit": {
       "name": "edit",
@@ -9686,7 +9716,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "success": {
       "name": "success",
@@ -9701,7 +9731,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "user-info": {
       "name": "user-info",
@@ -9716,7 +9746,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "user-add": {
       "name": "user-add",
@@ -9731,7 +9761,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "layers-front": {
       "name": "layers-front",
@@ -9746,7 +9776,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "null-type": {
       "name": "null-type",
@@ -9761,7 +9791,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "favorite": {
       "name": "favorite",
@@ -9776,7 +9806,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "catalog": {
       "name": "catalog",
@@ -9791,7 +9821,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "simple-check": {
       "name": "simple-check",
@@ -9806,7 +9836,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -9821,7 +9851,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -9836,7 +9866,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "invoice": {
       "name": "invoice",
@@ -9851,7 +9881,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Other"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -9866,7 +9896,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "open": {
       "name": "open",
@@ -9881,7 +9911,7 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "settings": {
       "name": "settings",
@@ -9896,7 +9926,37 @@
       "section": "Foundations",
       "category": "Icons",
       "categorySlug": "icons",
-      "group": "Actual icons"
+      "group": "Navigation"
+    },
+    "thumbs-up-filled": {
+      "name": "thumbs-up-filled",
+      "key": "60170092dbcba66c66b1b172ada88bc613485887",
+      "nodeId": "22230:3445",
+      "importMethod": "single",
+      "description": "Thumbs up",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "thumbs-down-filled": {
+      "name": "thumbs-down-filled",
+      "key": "af138f930c5548f423f74f3d9c05157bd1b9a704",
+      "nodeId": "22230:3444",
+      "importMethod": "single",
+      "description": "Thumbs down",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     }
   }
 }

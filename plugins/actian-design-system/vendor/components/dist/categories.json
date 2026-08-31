@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-08-26T15:30:27.064Z",
+  "generatedAt": "2026-08-31T11:40:20.130Z",
   "categories": {
     "Action": {
       "components": [
@@ -25,29 +25,29 @@
       "components": [
         "avatar",
         "badge",
-        "bar-graph",
         "card",
         "card-for-grouped-content",
         "card-for-perimeter",
-        "collapse-accordion",
-        "data-viz-legend-item",
+        "collapse",
+        "data-quality-checks-graph",
+        "data-viz-legend",
         "digram-item-types",
         "digram-topic",
-        "glossary-item-hierarchy-diagram",
+        "glossary-item-hierarchy",
+        "interactive-tag",
+        "item-type-tag",
         "line-graph",
+        "lineage",
         "lineage-connecting-line",
         "lineage-grouped-node",
-        "lineage-individual-node",
         "metamodel",
         "page-header",
         "pagination",
         "progress-bar-small",
+        "read-only-tag",
         "search-result-card",
         "segmented-control",
         "table",
-        "tag-interactive",
-        "tag-item-type",
-        "tag-read-only",
         "toolbar"
       ],
       "count": 26
@@ -62,18 +62,18 @@
         "loader-with-logo",
         "loading-skeleton",
         "maintenance-state",
-        "notification",
-        "spinner"
+        "spinner",
+        "toast"
       ],
       "count": 10
     },
     "Form": {
       "components": [
-        "calendar",
+        "calendar-data-selector",
+        "calendar-date-input",
         "checkbox",
         "checkbox-card",
         "checkbox-group",
-        "date-input",
         "dropdown",
         "dropdown-select-default",
         "field",
@@ -116,13 +116,13 @@
         "book-text",
         "boolean-type",
         "business-contract-give",
+        "calendar",
         "cash-briefcase",
         "catalog",
         "catalog-design",
         "catalogs",
         "close",
         "code",
-        "collapse",
         "connected",
         "cursor-arrow",
         "cursor-hand",
@@ -174,7 +174,6 @@
         "invoice",
         "layers-front",
         "lifecycle-policy",
-        "lineage",
         "link-type",
         "list-bullets",
         "list-numbers",
@@ -221,7 +220,9 @@
         "text-file",
         "text-type",
         "thumbs-down",
+        "thumbs-down-filled",
         "thumbs-up",
+        "thumbs-up-filled",
         "time-type",
         "trash",
         "unknown-type",
@@ -239,7 +240,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 144
+      "count": 145
     },
     "Illustrations & graphics": {
       "components": [
@@ -250,10 +251,10 @@
     },
     "Navigation": {
       "components": [
-        "account-dropdown",
         "app-switcher-dropdown",
         "breadcrumb",
         "global-header",
+        "global-header-account-dropdown",
         "notification-dropdown",
         "scroll-bar",
         "side-nav",
@@ -265,10 +266,10 @@
     },
     "Overlays": {
       "components": [
-        "drawer-side-panel",
+        "drawer",
         "modal",
         "popover",
-        "tooltip"
+        "tooltip-default"
       ],
       "count": 4
     },

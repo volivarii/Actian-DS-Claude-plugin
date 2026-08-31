@@ -1140,8 +1140,8 @@
           "table",
           "button",
           "dropdown-select-default",
-          "tag-interactive",
-          "tag-read-only",
+          "interactive-tag",
+          "read-only-tag",
           "button"
         ],
         "description": "Table with Requester, Item, Created at, Last updated, Status and Actions, the first four sortable. Each row ends in a decision pair: an outline Reject beside a filled Approve. Above the table, right aligned, a status multi-select holds the active filters as removable chips.\n\nCorrected 2026-08-18 from the running product: this record previously said \"Status tabs: Pending / Done\". There are no status tabs. Filtering is the multi-select described above, and the values seen were Pending and Error."
@@ -1163,7 +1163,7 @@
           "button",
           "dropdown-select-default",
           "text-input",
-          "tag-read-only"
+          "read-only-tag"
         ],
         "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval."
       },
@@ -1198,7 +1198,7 @@
           "natural-language"
         ],
         "components": [
-          "drawer-side-panel",
+          "drawer",
           "text-input"
         ],
         "description": "Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language."
@@ -1220,11 +1220,10 @@
           "card-for-perimeter",
           "progress-bar-small",
           "segmented-control",
-          "bar-graph",
           "line-graph",
           "page-header"
         ],
-        "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `bar-graph` and\n`line-graph` are left in place: the evolution chart is line-shaped so `line-graph` is defensible, and the\npage was not read to its end, so removing `bar-graph` would be an assertion from absence.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. The two adoption gauges lead this\npage and the design system cannot express them."
+        "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `line-graph` is left in place: the evolution chart is\nline-shaped, so it is defensible. `bar-graph` was left beside it on 2026-08-18 because the page was not\nread to its end and removing it would have been an assertion from absence. It leaves the list on\n2026-08-31 for a different reason, which is not an assertion from absence: the component is deleted from\nthe Figma library, so nothing here can realise it whatever the page shows.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. A bar chart is now a second gap of\nthe same kind, since `bar-graph` was retired upstream with no replacement. The two adoption gauges lead this\npage and the design system cannot express them."
       },
       "ask-ai": {
         "label": "Ask AI",
@@ -1262,18 +1261,18 @@
           "page-header",
           "breadcrumb",
           "side-nav",
-          "drawer-side-panel",
+          "drawer",
           "avatar",
           "progress-bar-small",
-          "tag-read-only",
-          "tag-interactive",
+          "read-only-tag",
+          "interactive-tag",
           "button",
           "checkbox",
           "empty-state",
           "segmented-control",
           "dropdown-select-default",
           "text-area",
-          "date-input"
+          "calendar-date-input"
         ],
         "description": "The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
       },
@@ -1310,11 +1309,10 @@
           "statistics"
         ],
         "components": [
-          "bar-graph",
           "line-graph",
           "table"
         ],
-        "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling)."
+        "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling).\n\nThe profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on\n2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays\nbecause it is a real component; the gap is recorded rather than hidden by dropping the pattern."
       },
       "data-steward-agent-panel": {
         "label": "Data Steward Agent Panel",
@@ -1329,7 +1327,7 @@
           "approval"
         ],
         "components": [
-          "drawer-side-panel",
+          "drawer",
           "confirmation",
           "button"
         ],
@@ -1394,7 +1392,7 @@
           "toggle",
           "dropdown-select-default",
           "progress-bar-small",
-          "tag-read-only",
+          "read-only-tag",
           "button",
           "search",
           "table"
@@ -1448,7 +1446,7 @@
         "components": [
           "page-header",
           "text-input",
-          "collapse-accordion",
+          "collapse",
           "action-bar",
           "button",
           "toggle",
@@ -1494,7 +1492,7 @@
         ],
         "when": "Use for a graph the user pans, zooms and expands node by node, on a canvas with its own floating tool rail. Do not use lineage-graph, which is the directional data-flow case with its own node card; this one is radial and relationship-shaped.",
         "components": [
-          "lineage-individual-node",
+          "lineage",
           "lineage-grouped-node",
           "lineage-connecting-line"
         ],
@@ -1515,7 +1513,7 @@
         ],
         "when": "Use for directional data flow: node cards on a canvas, each naming its source and its field count, read left to right. Do not use interactive-graph, whose nodes are relationship satellites around one focus rather than a flow.",
         "components": [
-          "lineage-individual-node",
+          "lineage",
           "lineage-grouped-node",
           "lineage-connecting-line"
         ],
@@ -1583,7 +1581,7 @@
         ],
         "when": "Use for an unread counter that opens an anchored popover of recent events, each with a status icon and a click-through. Do not use right-sliding-drawer: this does not take over the side of the screen, and it is dismissed by clicking away.",
         "components": [
-          "notification",
+          "toast",
           "notification-dropdown",
           "global-header"
         ],
@@ -1603,7 +1601,7 @@
           "single-object"
         ],
         "components": [
-          "drawer-side-panel",
+          "drawer",
           "button"
         ],
         "description": "Opens from list row click. Studio: quick edit. Explorer: quick view with Request Access."
@@ -1667,7 +1665,7 @@
           "button",
           "confirmation",
           "text-input",
-          "tag-read-only"
+          "read-only-tag"
         ],
         "description": "Explorer users submit suggestions, curators review (accept/decline with comment)."
       },
