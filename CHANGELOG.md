@@ -22,7 +22,7 @@ are summarized at the release level.
 ### Fixed
 
 - **A rename reaches the plugin through hand-written slug lists, which do not resolve through the
-  identity ledger the renderer reads.** (#PR_PLACEHOLDER) The refresh moves the vendored snapshot from
+  identity ledger the renderer reads.** ([#332](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/332)) The refresh moves the vendored snapshot from
   `v0.34.157` to `v0.34.165`, which renames eleven components and dissolves the `Tooltip` set. Both
   arrive with `v0.34.160`; `v0.34.165` adds the restored captures below. The renderer was never affected: `ds-html-map.js`
   resolves a retired slug through `ds-retired-slugs.js`, so every renderer-mediated test stayed green,
