@@ -414,13 +414,6 @@
       "figmaNodeId": "8:20772"
     },
     {
-      "id": "component:account-dropdown",
-      "type": "component",
-      "title": "Account dropdown",
-      "figmaKey": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
-      "figmaNodeId": "9118:17382"
-    },
-    {
       "id": "component:actian-data-intelligence",
       "type": "component",
       "title": "Actian Data Intelligence",
@@ -507,7 +500,7 @@
     {
       "id": "component:alert-banner",
       "type": "component",
-      "title": "Alert-banner",
+      "title": "Alert banner",
       "figmaKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
       "figmaNodeId": "13732:3056"
     },
@@ -834,13 +827,6 @@
       "figmaNodeId": "20395:1492"
     },
     {
-      "id": "component:bar-graph",
-      "type": "component",
-      "title": "Bar graph",
-      "figmaKey": "6ea07622a616f54b591da8eb26515332b9d02c31",
-      "figmaNodeId": "15473:49489"
-    },
-    {
       "id": "component:beaker",
       "type": "component",
       "title": "beaker",
@@ -990,9 +976,23 @@
     {
       "id": "component:calendar",
       "type": "component",
-      "title": "Calendar",
+      "title": "calendar",
+      "figmaKey": "805cb80b498052ea49f63c3123e9491808d6d8ef",
+      "figmaNodeId": "7378:5041"
+    },
+    {
+      "id": "component:calendar-data-selector",
+      "type": "component",
+      "title": "Calendar data selector",
       "figmaKey": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
       "figmaNodeId": "8211:6664"
+    },
+    {
+      "id": "component:calendar-date-input",
+      "type": "component",
+      "title": "Calendar date input",
+      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
+      "figmaNodeId": "8194:7305"
     },
     {
       "id": "component:camera",
@@ -1305,14 +1305,7 @@
     {
       "id": "component:collapse",
       "type": "component",
-      "title": "collapse",
-      "figmaKey": "1530594f58087b425da1de80ce555a12afd24deb",
-      "figmaNodeId": "20633:62"
-    },
-    {
-      "id": "component:collapse-accordion",
-      "type": "component",
-      "title": "Collapse-accordion",
+      "title": "Collapse",
       "figmaKey": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
       "figmaNodeId": "8292:80"
     },
@@ -1520,9 +1513,16 @@
       "figmaNodeId": "8504:23087"
     },
     {
-      "id": "component:data-viz-legend-item",
+      "id": "component:data-quality-checks-graph",
       "type": "component",
-      "title": "Data-viz-legend-item",
+      "title": "Data quality checks graph",
+      "figmaKey": "82ebd7270ba880f1183ee0a25e5f2ecbc7dc40eb",
+      "figmaNodeId": "15473:49488"
+    },
+    {
+      "id": "component:data-viz-legend",
+      "type": "component",
+      "title": "Data viz legend",
       "figmaKey": "0a5b4776b4199b4a9efc77a76e99e12192e0dac5",
       "figmaNodeId": "14747:33310"
     },
@@ -1574,13 +1574,6 @@
       "title": "date",
       "figmaKey": "decde3b78f16d02045516de4e4d8255d67d73cfc",
       "figmaNodeId": "7378:5221"
-    },
-    {
-      "id": "component:date-input",
-      "type": "component",
-      "title": "Date input",
-      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
-      "figmaNodeId": "8194:7305"
     },
     {
       "id": "component:db2",
@@ -1772,9 +1765,9 @@
       "figmaNodeId": "7378:5050"
     },
     {
-      "id": "component:drawer-side-panel",
+      "id": "component:drawer",
       "type": "component",
-      "title": "Drawer, side panel",
+      "title": "Drawer",
       "figmaKey": "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf",
       "figmaNodeId": "14294:5758"
     },
@@ -2388,6 +2381,13 @@
       "figmaNodeId": "7384:22554"
     },
     {
+      "id": "component:global-header-account-dropdown",
+      "type": "component",
+      "title": "Global header account dropdown",
+      "figmaKey": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "figmaNodeId": "9118:17382"
+    },
+    {
       "id": "component:globe",
       "type": "component",
       "title": "globe",
@@ -2409,9 +2409,9 @@
       "figmaNodeId": "10613:30347"
     },
     {
-      "id": "component:glossary-item-hierarchy-diagram",
+      "id": "component:glossary-item-hierarchy",
       "type": "component",
-      "title": "Glossary item hierarchy diagram",
+      "title": "Glossary item hierarchy",
       "figmaKey": "589059440a078bfe879a21b056edfe16be6b12c2",
       "figmaNodeId": "14747:30243"
     },
@@ -2619,6 +2619,13 @@
       "figmaNodeId": "8504:23296"
     },
     {
+      "id": "component:interactive-tag",
+      "type": "component",
+      "title": "Interactive tag",
+      "figmaKey": "19d8ed0dd3f5dc406017130026a6229f121f169d",
+      "figmaNodeId": "13845:33759"
+    },
+    {
       "id": "component:invoice",
       "type": "component",
       "title": "invoice",
@@ -2631,6 +2638,13 @@
       "title": "italic",
       "figmaKey": "dd2ba10beb4361ced5bcabdf44535ffffa83e65a",
       "figmaNodeId": "8:20994"
+    },
+    {
+      "id": "component:item-type-tag",
+      "type": "component",
+      "title": "Item type tag",
+      "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
+      "figmaNodeId": "11300:8312"
     },
     {
       "id": "component:jdbc",
@@ -2713,15 +2727,15 @@
       "id": "component:line-graph",
       "type": "component",
       "title": "Line graph",
-      "figmaKey": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "figmaNodeId": "15473:49490"
+      "figmaKey": "75f685ba047cd2f103afe2b6550b7b72e3634f89",
+      "figmaNodeId": "15473:49487"
     },
     {
       "id": "component:lineage",
       "type": "component",
-      "title": "lineage",
-      "figmaKey": "32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119",
-      "figmaNodeId": "7378:5706"
+      "title": "Lineage",
+      "figmaKey": "5904351595c9b5b263bb5891bd1ed038fbaff636",
+      "figmaNodeId": "14747:19902"
     },
     {
       "id": "component:lineage-connecting-line",
@@ -2736,13 +2750,6 @@
       "title": "Lineage grouped node",
       "figmaKey": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
       "figmaNodeId": "15634:17895"
-    },
-    {
-      "id": "component:lineage-individual-node",
-      "type": "component",
-      "title": "Lineage individual node",
-      "figmaKey": "5904351595c9b5b263bb5891bd1ed038fbaff636",
-      "figmaNodeId": "14747:19902"
     },
     {
       "id": "component:link",
@@ -3249,13 +3256,6 @@
       "figmaNodeId": "8:20842"
     },
     {
-      "id": "component:notification",
-      "type": "component",
-      "title": "Notification",
-      "figmaKey": "590d2373b688235e8da72732919d2f874eee6cda",
-      "figmaNodeId": "13868:11595"
-    },
-    {
       "id": "component:notification-dropdown",
       "type": "component",
       "title": "Notification dropdown",
@@ -3653,6 +3653,13 @@
       "title": "Radio group",
       "figmaKey": "5b8b91cfad6d11d95a9b7f4332c49a6dc1779740",
       "figmaNodeId": "20428:26750"
+    },
+    {
+      "id": "component:read-only-tag",
+      "type": "component",
+      "title": "Read only tag",
+      "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
+      "figmaNodeId": "7257:3037"
     },
     {
       "id": "component:read-search",
@@ -4236,27 +4243,6 @@
       "figmaNodeId": "8:20674"
     },
     {
-      "id": "component:tag-interactive",
-      "type": "component",
-      "title": "Tag, Interactive",
-      "figmaKey": "19d8ed0dd3f5dc406017130026a6229f121f169d",
-      "figmaNodeId": "13845:33759"
-    },
-    {
-      "id": "component:tag-item-type",
-      "type": "component",
-      "title": "Tag, item type",
-      "figmaKey": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
-      "figmaNodeId": "11300:8312"
-    },
-    {
-      "id": "component:tag-read-only",
-      "type": "component",
-      "title": "Tag, read only",
-      "figmaKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
-      "figmaNodeId": "7257:3037"
-    },
-    {
       "id": "component:tags-add",
       "type": "component",
       "title": "tags-add",
@@ -4376,11 +4362,25 @@
       "figmaNodeId": "10089:786"
     },
     {
+      "id": "component:thumbs-down-filled",
+      "type": "component",
+      "title": "thumbs-down-filled",
+      "figmaKey": "af138f930c5548f423f74f3d9c05157bd1b9a704",
+      "figmaNodeId": "22230:3444"
+    },
+    {
       "id": "component:thumbs-up",
       "type": "component",
       "title": "thumbs-up",
       "figmaKey": "5ab3cbd59dee68fabb404966d3be7aa87ed761a5",
       "figmaNodeId": "10089:787"
+    },
+    {
+      "id": "component:thumbs-up-filled",
+      "type": "component",
+      "title": "thumbs-up-filled",
+      "figmaKey": "60170092dbcba66c66b1b172ada88bc613485887",
+      "figmaNodeId": "22230:3445"
     },
     {
       "id": "component:tibco-datavirtualization",
@@ -4404,6 +4404,13 @@
       "figmaNodeId": "8504:23298"
     },
     {
+      "id": "component:toast",
+      "type": "component",
+      "title": "Toast",
+      "figmaKey": "590d2373b688235e8da72732919d2f874eee6cda",
+      "figmaNodeId": "13868:11595"
+    },
+    {
       "id": "component:toggle",
       "type": "component",
       "title": "Toggle",
@@ -4418,11 +4425,11 @@
       "figmaNodeId": "14335:16907"
     },
     {
-      "id": "component:tooltip",
+      "id": "component:tooltip-default",
       "type": "component",
-      "title": "Tooltip",
-      "figmaKey": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
-      "figmaNodeId": "7038:351"
+      "title": "Tooltip/Default",
+      "figmaKey": "b36b2406753f81a38dc29731eb262dda640e83c4",
+      "figmaNodeId": "7036:1360"
     },
     {
       "id": "component:translate",
@@ -5365,7 +5372,7 @@
       "id": "pattern:analytics-dashboard",
       "type": "ux_pattern",
       "title": "Analytics dashboard",
-      "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `bar-graph` and\n`line-graph` are left in place: the evolution chart is line-shaped so `line-graph` is defensible, and the\npage was not read to its end, so removing `bar-graph` would be an assertion from absence.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. The two adoption gauges lead this\npage and the design system cannot express them."
+      "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `line-graph` is left in place: the evolution chart is\nline-shaped, so it is defensible. `bar-graph` was left beside it on 2026-08-18 because the page was not\nread to its end and removing it would have been an assertion from absence. It leaves the list on\n2026-08-31 for a different reason, which is not an assertion from absence: the component is deleted from\nthe Figma library, so nothing here can realise it whatever the page shows.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. A bar chart is now a second gap of\nthe same kind, since `bar-graph` was retired upstream with no replacement. The two adoption gauges lead this\npage and the design system cannot express them."
     },
     {
       "id": "pattern:ask-ai",
@@ -5389,7 +5396,7 @@
       "id": "pattern:data-profiling-sampling",
       "type": "ux_pattern",
       "title": "Data profiling and sampling",
-      "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling)."
+      "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling).\n\nThe profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on\n2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays\nbecause it is a real component; the gap is recorded rather than hidden by dropping the pattern."
     },
     {
       "id": "pattern:data-steward-agent-panel",
@@ -6249,13 +6256,25 @@
       }
     },
     {
-      "source": "component:calendar",
+      "source": "component:calendar-data-selector",
       "target": "a11y:forms",
       "type": "a11y_ref",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/calendar/",
+        "source_file": "components/src/calendar-data-selector/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:calendar-date-input",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/calendar-date-input/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6333,25 +6352,13 @@
       }
     },
     {
-      "source": "component:date-input",
-      "target": "a11y:forms",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/date-input/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "a11y:modals",
       "type": "a11y_ref",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/drawer-side-panel/",
+        "source_file": "components/src/drawer/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       },
@@ -6418,6 +6425,30 @@
       }
     },
     {
+      "source": "component:interactive-tag",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:item-type-tag",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
       "source": "component:loader",
       "target": "a11y:loading-patterns",
       "type": "a11y_ref",
@@ -6478,18 +6509,6 @@
       }
     },
     {
-      "source": "component:notification",
-      "target": "a11y:alerts-toasts-banners",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/notification/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:notification-dropdown",
       "target": "a11y:alerts-toasts-banners",
       "type": "a11y_ref",
@@ -6545,6 +6564,18 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/radio/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6694,42 +6725,6 @@
       }
     },
     {
-      "source": "component:tag-interactive",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-item-type",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "a11y:truncation-overflow",
-      "type": "a11y_ref",
-      "scope": "component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "components/src/tag/",
-        "deriver": "derive-graph.js",
-        "method": "meta.a11y_refs"
-      }
-    },
-    {
       "source": "component:text-input",
       "target": "a11y:forms",
       "type": "a11y_ref",
@@ -6737,6 +6732,18 @@
       "confidence": "asserted",
       "provenance": {
         "source_file": "components/src/text-input/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:toast",
+      "target": "a11y:alerts-toasts-banners",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/toast/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6766,7 +6773,7 @@
       }
     },
     {
-      "source": "component:tooltip",
+      "source": "component:tooltip-default",
       "target": "a11y:tooltips",
       "type": "a11y_ref",
       "scope": "component",
@@ -6800,26 +6807,6 @@
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
-    },
-    {
-      "source": "component:account-dropdown",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:account-dropdown",
-      "target": "component:avatar",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:account-dropdown",
-      "target": "component:exit",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:account-dropdown",
-      "target": "component:folder",
-      "type": "composed_of"
     },
     {
       "source": "component:actian-data-observability",
@@ -6883,22 +6870,12 @@
     },
     {
       "source": "component:app-switcher-dropdown",
-      "target": "component:arrow-down",
+      "target": "component:actian-pyramid",
       "type": "composed_of"
     },
     {
       "source": "component:app-switcher-dropdown",
-      "target": "component:folder",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:bar-graph",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:bar-graph",
-      "target": "component:more",
+      "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
@@ -6927,23 +6904,38 @@
       "type": "composed_of"
     },
     {
-      "source": "component:calendar",
+      "source": "component:calendar-data-selector",
       "target": "component:arrow",
       "type": "composed_of"
     },
     {
-      "source": "component:calendar",
+      "source": "component:calendar-data-selector",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
-      "source": "component:calendar",
+      "source": "component:calendar-data-selector",
       "target": "component:arrow-left",
       "type": "composed_of"
     },
     {
-      "source": "component:calendar",
+      "source": "component:calendar-data-selector",
       "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:calendar-date-input",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:calendar-date-input",
+      "target": "component:calendar",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:calendar-date-input",
+      "target": "component:error-filled",
       "type": "composed_of"
     },
     {
@@ -7022,17 +7014,17 @@
       "type": "composed_of"
     },
     {
-      "source": "component:collapse-accordion",
+      "source": "component:collapse",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
-      "source": "component:collapse-accordion",
+      "source": "component:collapse",
       "target": "component:arrow-up",
       "type": "composed_of"
     },
     {
-      "source": "component:collapse-accordion",
+      "source": "component:collapse",
       "target": "component:button",
       "type": "composed_of"
     },
@@ -7057,112 +7049,112 @@
       "type": "composed_of"
     },
     {
-      "source": "component:date-input",
+      "source": "component:data-quality-checks-graph",
       "target": "component:button",
       "type": "composed_of"
     },
     {
-      "source": "component:date-input",
-      "target": "component:error-filled",
+      "source": "component:data-quality-checks-graph",
+      "target": "component:more",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:add",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:arrow-left",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:avatar",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:button",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:close",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:dropdown-select-default",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:favorite",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:folder",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:home",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:info",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:integer-type",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
+      "target": "component:interactive-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer",
+      "target": "component:item-type-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer",
       "target": "component:progress-bar-small",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
+      "target": "component:read-only-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:drawer",
       "target": "component:search",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:stars-filled",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:tabs",
       "type": "composed_of"
     },
     {
-      "source": "component:drawer-side-panel",
-      "target": "component:tag-interactive",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
-      "target": "component:tag-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
-      "target": "component:tag-read-only",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "component:view-detail",
       "type": "composed_of"
     },
@@ -7208,7 +7200,7 @@
     },
     {
       "source": "component:dropdown-select-default",
-      "target": "component:tag-interactive",
+      "target": "component:interactive-tag",
       "type": "composed_of"
     },
     {
@@ -7732,6 +7724,51 @@
       "type": "composed_of"
     },
     {
+      "source": "component:global-header-account-dropdown",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:global-header-account-dropdown",
+      "target": "component:avatar",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:global-header-account-dropdown",
+      "target": "component:exit",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:global-header-account-dropdown",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:interactive-tag",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:interactive-tag",
+      "target": "component:arrow-up",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:interactive-tag",
+      "target": "component:close",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:interactive-tag",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:interactive-tag",
+      "target": "component:simple-check",
+      "type": "composed_of"
+    },
+    {
       "source": "component:label",
       "target": "component:info",
       "type": "composed_of"
@@ -7744,6 +7781,46 @@
     {
       "source": "component:line-graph",
       "target": "component:more",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:arrow-up",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:button",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:digram-item-types",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:powerbi",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:read-only-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:lineage",
+      "target": "component:tableau",
       "type": "composed_of"
     },
     {
@@ -7778,52 +7855,7 @@
     },
     {
       "source": "component:lineage-grouped-node",
-      "target": "component:lineage-individual-node",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-grouped-node",
       "target": "component:powerbi",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:arrow-up",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:digram-item-types",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:powerbi",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:tableau",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:lineage-individual-node",
-      "target": "component:tag-read-only",
       "type": "composed_of"
     },
     {
@@ -7982,21 +8014,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:notification",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:notification",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:notification",
-      "target": "component:button",
-      "type": "composed_of"
-    },
-    {
       "source": "component:notification-dropdown",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -8033,6 +8050,11 @@
     },
     {
       "source": "component:page-header",
+      "target": "component:item-type-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:page-header",
       "target": "component:more",
       "type": "composed_of"
     },
@@ -8048,22 +8070,17 @@
     },
     {
       "source": "component:page-header",
+      "target": "component:read-only-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:page-header",
       "target": "component:search",
       "type": "composed_of"
     },
     {
       "source": "component:page-header",
       "target": "component:suggestion",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:page-header",
-      "target": "component:tag-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:page-header",
-      "target": "component:tag-read-only",
       "type": "composed_of"
     },
     {
@@ -8118,7 +8135,7 @@
     },
     {
       "source": "component:popover",
-      "target": "component:collapse-accordion",
+      "target": "component:collapse",
       "type": "composed_of"
     },
     {
@@ -8148,12 +8165,12 @@
     },
     {
       "source": "component:popover",
-      "target": "component:success-filled",
+      "target": "component:read-only-tag",
       "type": "composed_of"
     },
     {
       "source": "component:popover",
-      "target": "component:tag-read-only",
+      "target": "component:success-filled",
       "type": "composed_of"
     },
     {
@@ -8214,6 +8231,36 @@
     {
       "source": "component:radio-group",
       "target": "component:radio",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:dot",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:error-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:folder",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:success-filled",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "component:warning-filled",
       "type": "composed_of"
     },
     {
@@ -8293,17 +8340,17 @@
     },
     {
       "source": "component:search-result-card",
+      "target": "component:item-type-tag",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:search-result-card",
       "target": "component:progress-bar-small",
       "type": "composed_of"
     },
     {
       "source": "component:search-result-card",
-      "target": "component:tag-item-type",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:search-result-card",
-      "target": "component:tag-read-only",
+      "target": "component:read-only-tag",
       "type": "composed_of"
     },
     {
@@ -8487,61 +8534,6 @@
       "type": "composed_of"
     },
     {
-      "source": "component:tag-interactive",
-      "target": "component:arrow-down",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-interactive",
-      "target": "component:arrow-up",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-interactive",
-      "target": "component:close",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-interactive",
-      "target": "component:folder",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-interactive",
-      "target": "component:simple-check",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:add",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:dot",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:error-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:folder",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:success-filled",
-      "type": "composed_of"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "component:warning-filled",
-      "type": "composed_of"
-    },
-    {
       "source": "component:text-area",
       "target": "component:arrow-down",
       "type": "composed_of"
@@ -8654,6 +8646,21 @@
     {
       "source": "component:textfield-buttons",
       "target": "component:simple-check",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:toast",
+      "target": "component:add",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:toast",
+      "target": "component:arrow-down",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:toast",
+      "target": "component:button",
       "type": "composed_of"
     },
     {
@@ -10442,11 +10449,6 @@
       }
     },
     {
-      "source": "component:account-dropdown",
-      "target": "category:navigation",
-      "type": "in_category"
-    },
-    {
       "source": "component:actian-data-intelligence",
       "target": "category:product-logos",
       "type": "in_category"
@@ -10642,11 +10644,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:bar-graph",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
       "source": "component:bigquery",
       "target": "category:third-party-logos",
       "type": "in_category"
@@ -10703,6 +10700,16 @@
     },
     {
       "source": "component:calendar",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:calendar-data-selector",
+      "target": "category:form",
+      "type": "in_category"
+    },
+    {
+      "source": "component:calendar-date-input",
       "target": "category:form",
       "type": "in_category"
     },
@@ -10788,11 +10795,6 @@
     },
     {
       "source": "component:collapse",
-      "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:collapse-accordion",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -10877,7 +10879,12 @@
       "type": "in_category"
     },
     {
-      "source": "component:data-viz-legend-item",
+      "source": "component:data-quality-checks-graph",
+      "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
+      "source": "component:data-viz-legend",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -10914,11 +10921,6 @@
     {
       "source": "component:date",
       "target": "category:icons",
-      "type": "in_category"
-    },
-    {
-      "source": "component:date-input",
-      "target": "category:form",
       "type": "in_category"
     },
     {
@@ -10987,7 +10989,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:drawer-side-panel",
+      "source": "component:drawer",
       "target": "category:overlays",
       "type": "in_category"
     },
@@ -11137,12 +11139,17 @@
       "type": "in_category"
     },
     {
+      "source": "component:global-header-account-dropdown",
+      "target": "category:navigation",
+      "type": "in_category"
+    },
+    {
       "source": "component:glossary",
       "target": "category:icons",
       "type": "in_category"
     },
     {
-      "source": "component:glossary-item-hierarchy-diagram",
+      "source": "component:glossary-item-hierarchy",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -11242,8 +11249,18 @@
       "type": "in_category"
     },
     {
+      "source": "component:interactive-tag",
+      "target": "category:data-display",
+      "type": "in_category"
+    },
+    {
       "source": "component:invoice",
       "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:item-type-tag",
+      "target": "category:data-display",
       "type": "in_category"
     },
     {
@@ -11288,7 +11305,7 @@
     },
     {
       "source": "component:lineage",
-      "target": "category:icons",
+      "target": "category:data-display",
       "type": "in_category"
     },
     {
@@ -11298,11 +11315,6 @@
     },
     {
       "source": "component:lineage-grouped-node",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:lineage-individual-node",
       "target": "category:data-display",
       "type": "in_category"
     },
@@ -11434,11 +11446,6 @@
     {
       "source": "component:netezza",
       "target": "category:third-party-logos",
-      "type": "in_category"
-    },
-    {
-      "source": "component:notification",
-      "target": "category:feedback",
       "type": "in_category"
     },
     {
@@ -11584,6 +11591,11 @@
     {
       "source": "component:radio-group",
       "target": "category:form",
+      "type": "in_category"
+    },
+    {
+      "source": "component:read-only-tag",
+      "target": "category:data-display",
       "type": "in_category"
     },
     {
@@ -11842,21 +11854,6 @@
       "type": "in_category"
     },
     {
-      "source": "component:tag-interactive",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-item-type",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
-      "source": "component:tag-read-only",
-      "target": "category:data-display",
-      "type": "in_category"
-    },
-    {
       "source": "component:tags-add",
       "target": "category:icons",
       "type": "in_category"
@@ -11922,7 +11919,17 @@
       "type": "in_category"
     },
     {
+      "source": "component:thumbs-down-filled",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:thumbs-up",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:thumbs-up-filled",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11937,6 +11944,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:toast",
+      "target": "category:feedback",
+      "type": "in_category"
+    },
+    {
       "source": "component:toggle",
       "target": "category:form",
       "type": "in_category"
@@ -11947,7 +11959,7 @@
       "type": "in_category"
     },
     {
-      "source": "component:tooltip",
+      "source": "component:tooltip-default",
       "target": "category:overlays",
       "type": "in_category"
     },
@@ -12607,12 +12619,12 @@
     },
     {
       "source": "content:forms",
-      "target": "component:checkbox",
+      "target": "component:calendar-date-input",
       "type": "related"
     },
     {
       "source": "content:forms",
-      "target": "component:date-input",
+      "target": "component:checkbox",
       "type": "related"
     },
     {
@@ -12667,17 +12679,17 @@
     },
     {
       "source": "content:notifications-and-messaging",
-      "target": "component:notification",
-      "type": "related"
-    },
-    {
-      "source": "content:notifications-and-messaging",
       "target": "component:notification-dropdown",
       "type": "related"
     },
     {
+      "source": "content:notifications-and-messaging",
+      "target": "component:toast",
+      "type": "related"
+    },
+    {
       "source": "content:object-preview-panels",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
       "type": "related"
     },
     {
@@ -12687,17 +12699,17 @@
     },
     {
       "source": "content:related-content-panels",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
+      "type": "related"
+    },
+    {
+      "source": "content:validation-messages",
+      "target": "component:calendar-date-input",
       "type": "related"
     },
     {
       "source": "content:validation-messages",
       "target": "component:checkbox",
-      "type": "related"
-    },
-    {
-      "source": "content:validation-messages",
-      "target": "component:date-input",
       "type": "related"
     },
     {
@@ -12931,29 +12943,29 @@
     },
     {
       "source": "pattern:access-request-management",
+      "target": "component:interactive-tag",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:access-request-management",
+      "target": "component:read-only-tag",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:access-request-management",
       "target": "component:table",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:access-request-management",
-      "target": "component:tag-interactive",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:access-request-management",
-      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -12986,7 +12998,7 @@
     },
     {
       "source": "pattern:access-request-workflow",
-      "target": "component:tag-read-only",
+      "target": "component:read-only-tag",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13019,7 +13031,7 @@
     },
     {
       "source": "pattern:ai-analyst-panel",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13031,17 +13043,6 @@
     {
       "source": "pattern:ai-analyst-panel",
       "target": "component:text-input",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:analytics-dashboard",
-      "target": "component:bar-graph",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13151,6 +13152,17 @@
     },
     {
       "source": "pattern:asset-detail-360",
+      "target": "component:calendar-date-input",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:asset-detail-360",
       "target": "component:checkbox",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13162,18 +13174,7 @@
     },
     {
       "source": "pattern:asset-detail-360",
-      "target": "component:date-input",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:asset-detail-360",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13206,6 +13207,17 @@
     },
     {
       "source": "pattern:asset-detail-360",
+      "target": "component:interactive-tag",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:asset-detail-360",
       "target": "component:page-header",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13218,6 +13230,17 @@
     {
       "source": "pattern:asset-detail-360",
       "target": "component:progress-bar-small",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:asset-detail-360",
+      "target": "component:read-only-tag",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13251,28 +13274,6 @@
     {
       "source": "pattern:asset-detail-360",
       "target": "component:tabs",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:asset-detail-360",
-      "target": "component:tag-interactive",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:asset-detail-360",
-      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13338,17 +13339,6 @@
     },
     {
       "source": "pattern:data-profiling-sampling",
-      "target": "component:bar-graph",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:data-profiling-sampling",
       "target": "component:line-graph",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13393,7 +13383,7 @@
     },
     {
       "source": "pattern:data-steward-agent-panel",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13514,6 +13504,17 @@
     },
     {
       "source": "pattern:faceted-browse",
+      "target": "component:read-only-tag",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:faceted-browse",
       "target": "component:search",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13526,17 +13527,6 @@
     {
       "source": "pattern:faceted-browse",
       "target": "component:table",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:faceted-browse",
-      "target": "component:tag-read-only",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13613,7 +13603,7 @@
     },
     {
       "source": "pattern:filter-groups-form",
-      "target": "component:collapse-accordion",
+      "target": "component:collapse",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13723,6 +13713,17 @@
     },
     {
       "source": "pattern:interactive-graph",
+      "target": "component:lineage",
+      "type": "uses_component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "patterns.components"
+      }
+    },
+    {
+      "source": "pattern:interactive-graph",
       "target": "component:lineage-connecting-line",
       "type": "uses_component",
       "confidence": "asserted",
@@ -13744,8 +13745,8 @@
       }
     },
     {
-      "source": "pattern:interactive-graph",
-      "target": "component:lineage-individual-node",
+      "source": "pattern:lineage-graph",
+      "target": "component:lineage",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13768,17 +13769,6 @@
     {
       "source": "pattern:lineage-graph",
       "target": "component:lineage-grouped-node",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:lineage-graph",
-      "target": "component:lineage-individual-node",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13855,7 +13845,7 @@
     },
     {
       "source": "pattern:notification-system",
-      "target": "component:notification",
+      "target": "component:notification-dropdown",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13866,7 +13856,7 @@
     },
     {
       "source": "pattern:notification-system",
-      "target": "component:notification-dropdown",
+      "target": "component:toast",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13888,7 +13878,7 @@
     },
     {
       "source": "pattern:right-sliding-drawer",
-      "target": "component:drawer-side-panel",
+      "target": "component:drawer",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -13976,7 +13966,7 @@
     },
     {
       "source": "pattern:suggestion-workflow",
-      "target": "component:tag-read-only",
+      "target": "component:read-only-tag",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

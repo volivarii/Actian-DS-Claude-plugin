@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-08-31T11:39:48.734Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -1414,7 +1414,7 @@
           {
             "name": "✍️ Collapse-accordion",
             "kind": "instance",
-            "slug": "collapse-accordion",
+            "slug": "collapse",
             "props": {
               "State": "Collapsed"
             },

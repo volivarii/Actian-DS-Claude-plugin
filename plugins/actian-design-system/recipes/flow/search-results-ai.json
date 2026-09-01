@@ -51,28 +51,28 @@
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-read-only",
+                    "dsSlug": "read-only-tag",
                     "variant": "Type=Default",
                     "props": { "Label": "All", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-read-only",
-                    "variant": "Color=Blue",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Default",
                     "props": { "Label": "Datasets", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-read-only",
+                    "dsSlug": "read-only-tag",
                     "variant": "Type=Default",
                     "props": { "Label": "Pipelines", "Leading icon show": false }
                   },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
-                    "dsSlug": "tag-read-only",
+                    "dsSlug": "read-only-tag",
                     "variant": "Type=Default",
                     "props": { "Label": "Glossary", "Leading icon show": false }
                   }
@@ -141,5 +141,5 @@
     "search-result-card is a BUILT leaf: author it with Title, Tech name, Type, Stage, Catalog and Description. chat-with-ai-steward is NOT currently renderable: Figma has it archived while an old version is rebuilt, so it has no registry entry, no anatomy and no leaf, and it renders as a graceful chip until it republishes. Compose the rail with it anyway (that is what the rail is), and expect a placeholder there in the meantime"
   ],
   "missing_states": ["empty-results", "loading", "error", "ai-steward-collapsed"],
-  "dsComposition": "search / tag-read-only(filters) / search-result-card(results) / chat-with-ai-steward(rail)"
+  "dsComposition": "search / read-only-tag(filters) / search-result-card(results) / chat-with-ai-steward(rail)"
 }

@@ -4,7 +4,7 @@ nav_order: 47
 # Pattern fan-out — form controls that carry inline validation. Mirrors most of
 # forms.md fan-out but narrower; ordering on the page is forms-then-validation
 # (forms appears first in content-index.md). Jeff: edit/correct/extend.
-relatedComponents: [text-input, date-input, checkbox, radio, toggle]
+relatedComponents: [text-input, calendar-date-input, checkbox, radio, toggle]
 ---
 # Validation messages
 
@@ -90,7 +90,7 @@ Make sure to confirm specific limits, formats, and patterns for any validation m
 
 * Error: name the specific date constraint the value fails, rather than a generic phrase. For example, "Enter a date on or after today."
 
-See [date input](date-input).
+See [date input](calendar-date-input).
 
 ### Character counters
 

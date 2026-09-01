@@ -21,8 +21,8 @@ components:
   - table
   - button
   - dropdown-select-default
-  - tag-interactive
-  - tag-read-only
+  - interactive-tag
+  - read-only-tag
   - button
 ---
 Table with Requester, Item, Created at, Last updated, Status and Actions, the first four sortable. Each row ends in a decision pair: an outline Reject beside a filled Approve. Above the table, right aligned, a status multi-select holds the active filters as removable chips.

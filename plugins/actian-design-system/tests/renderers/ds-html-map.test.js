@@ -443,7 +443,7 @@ describe("ds-html-map: checkbox", function () {
   });
 });
 
-describe("ds-html-map: tag-read-only", function () {
+describe("ds-html-map: read-only-tag", function () {
   // The axis and its values are DERIVED from the anatomy doc, never named.
   // These tests drove "Color=Default" until the 2026-08-12 fold-in retired the
   // Color axis for a 14-value Type axis. That failed loudly here, but the
@@ -451,13 +451,13 @@ describe("ds-html-map: tag-read-only", function () {
   // `<span class="ds-tag">` with NO modifier at all, and every substring
   // assertion below except the class one would still have passed. See
   // tests/helpers/appearance-specimen.js.
-  var tagDoc = renderer.anatomyLoader("tag-read-only");
-  var tagDefault = specimen.defaultVariantString(tagDoc, "tag-read-only");
-  var tagPainted = specimen.pickPaintedVariant(tagDoc, "tag-read-only");
+  var tagDoc = renderer.anatomyLoader("read-only-tag");
+  var tagDefault = specimen.defaultVariantString(tagDoc, "read-only-tag");
+  var tagPainted = specimen.pickPaintedVariant(tagDoc, "read-only-tag");
 
   it("default: ds-tag pill, its modifier class, esc'd Label, and the default-true leading icon", function () {
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: tagDefault.variantString,
       props: { Label: "Active" },
     });
@@ -481,7 +481,7 @@ describe("ds-html-map: tag-read-only", function () {
 
   it("Leading icon show=false: drops the icon span, and no ruleless with-icon modifier is ever emitted", function () {
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: tagDefault.variantString,
       props: { Label: "Bare", "Leading icon show": false },
     });
@@ -502,7 +502,7 @@ describe("ds-html-map: tag-read-only", function () {
 
   it("a painted Type emits its own modifier class and keeps the icon", function () {
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: tagPainted.variantString,
       props: { Label: "Painted" },
     });
@@ -534,7 +534,7 @@ describe("ds-html-map: tag-read-only", function () {
     // render as the base pill, never as a guessed colour, and must never break
     // out of the class attribute.
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: tagPainted.prop + '="><script>alert(1)</script>',
       props: { Label: "Hostile" },
     });
@@ -548,7 +548,7 @@ describe("ds-html-map: tag-read-only", function () {
 
   it("escapes a hostile Label", function () {
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: tagDefault.variantString,
       props: { Label: "<img src=x onerror=1>" },
     });
@@ -2276,22 +2276,22 @@ describe("ds-html-map: chat-with-ai-steward (Task 11)", STEWARD, function () {
 // Each was chip-degrading before; now a full tokens-only leaf.
 // ---------------------------------------------------------------------------
 
-describe("ds-html-map: notification (Task 4)", function () {
-  it("renders a notification leaf — not a chip — with message + action", function () {
+describe("ds-html-map: toast (Task 4)", function () {
+  it("renders a toast leaf — not a chip — with message + action", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "notification",
+      dsSlug: "toast",
       props: {
         Message: "Your export is ready to download.",
         Action: "View",
       },
     });
     assert.ok(
-      html.indexOf("ds-notification") !== -1,
-      "notification built leaf class",
+      html.indexOf("ds-toast") !== -1,
+      "toast built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "notification not a chip");
+    assert.ok(html.indexOf("ds-component") === -1, "toast not a chip");
     assert.ok(html.indexOf("Your export is ready") !== -1, "message text");
     assert.ok(
       html.indexOf("ds-button") !== -1 && html.indexOf("View") !== -1,
@@ -2303,12 +2303,12 @@ describe("ds-html-map: notification (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "notification",
+      dsSlug: "toast",
       variant: "Type=Critical",
       props: { Message: "Pipeline failed." },
     });
     assert.ok(
-      html.indexOf("ds-notification--critical") !== -1,
+      html.indexOf("ds-toast--critical") !== -1,
       "critical modifier",
     );
     assert.ok(html.indexOf('role="alert"') !== -1, "critical uses role=alert");
@@ -2318,7 +2318,7 @@ describe("ds-html-map: notification (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "notification",
+      dsSlug: "toast",
       props: { Message: "<script>alert(1)</script>" },
     });
     assert.ok(html.indexOf("<script>") === -1, "script not injected");
@@ -2357,38 +2357,44 @@ describe("ds-html-map: stepper (Task 4)", function () {
   });
 });
 
-describe("ds-html-map: tooltip (Task 4)", function () {
+describe("ds-html-map: tooltip-default (Task 4)", function () {
   it("renders a tooltip bubble — not a chip — with body text", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "tooltip",
+      dsSlug: "tooltip-default",
       props: { Body: "Only admins can edit this field." },
     });
-    assert.ok(html.indexOf("ds-tooltip") !== -1, "tooltip built leaf class");
-    assert.ok(html.indexOf("ds-component") === -1, "tooltip not a chip");
+    // The class is asserted in full. `ds-tooltip` is a PREFIX of
+    // `ds-tooltip-default`, so the shorter substring passes against the leaf,
+    // the chip, and any future ds-tooltip-* leaf alike.
+    assert.ok(
+      html.indexOf('class="ds-tooltip-default"') !== -1,
+      "tooltip-default built leaf class",
+    );
+    assert.ok(html.indexOf("ds-component") === -1, "tooltip-default not a chip");
     assert.ok(html.indexOf("Only admins") !== -1, "body text present");
     assert.ok(html.indexOf('role="tooltip"') !== -1, "has tooltip role");
   });
 });
 
-describe("ds-html-map: date-input (Task 4)", function () {
+describe("ds-html-map: calendar-date-input (Task 4)", function () {
   it("renders a date field — not a chip — label + input + calendar button", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "date-input",
+      dsSlug: "calendar-date-input",
       variant: "Type=Single date,States=Enabled",
       props: { Label: "Start date", Helper: "MM/DD/YYYY" },
     });
     assert.ok(
-      html.indexOf("ds-date-input") !== -1,
-      "date-input built leaf class",
+      html.indexOf("ds-calendar-date-input") !== -1,
+      "calendar-date-input built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "date-input not a chip");
+    assert.ok(html.indexOf("ds-component") === -1, "calendar-date-input not a chip");
     assert.ok(html.indexOf("Start date") !== -1, "label text");
     assert.ok(
-      html.indexOf("ds-date-input__calendar") !== -1,
+      html.indexOf("ds-calendar-date-input__calendar") !== -1,
       "calendar icon button",
     );
     assert.ok(html.indexOf("MM/DD/YYYY") !== -1, "helper text");
@@ -2398,18 +2404,18 @@ describe("ds-html-map: date-input (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "date-input",
+      dsSlug: "calendar-date-input",
       variant: "Type=Date range,States=Enabled",
       props: { Label: "Range" },
     });
-    assert.ok(html.indexOf("ds-date-input--range") !== -1, "range modifier");
+    assert.ok(html.indexOf("ds-calendar-date-input--range") !== -1, "range modifier");
   });
 
   it("States=Disabled adds the disabled flag", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "date-input",
+      dsSlug: "calendar-date-input",
       variant: "States=Disabled",
       props: { Label: "Start date" },
     });
@@ -2524,12 +2530,12 @@ describe("ds-html-map: progress-bar-small (Task 4)", function () {
   });
 });
 
-describe("ds-html-map: tag-interactive (Task 4)", function () {
+describe("ds-html-map: interactive-tag (Task 4)", function () {
   it("renders an interactive tag — not a chip — leading icon + name + trailing icon", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "tag-interactive",
+      dsSlug: "interactive-tag",
       props: {
         Label: "Production",
         "Leading icon show": true,
@@ -2537,16 +2543,16 @@ describe("ds-html-map: tag-interactive (Task 4)", function () {
       },
     });
     assert.ok(
-      html.indexOf("ds-tag-interactive") !== -1,
-      "tag-interactive built leaf class",
+      html.indexOf("ds-interactive-tag") !== -1,
+      "interactive-tag built leaf class",
     );
     assert.ok(
       html.indexOf("ds-component") === -1,
-      "tag-interactive not a chip",
+      "interactive-tag not a chip",
     );
     assert.ok(html.indexOf("Production") !== -1, "tag name");
     assert.ok(
-      html.indexOf("ds-tag-interactive__remove") !== -1,
+      html.indexOf("ds-interactive-tag__remove") !== -1,
       "trailing remove control",
     );
   });
@@ -2555,12 +2561,12 @@ describe("ds-html-map: tag-interactive (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "tag-interactive",
+      dsSlug: "interactive-tag",
       variant: "State=Selected",
       props: { Label: "Active" },
     });
     assert.ok(
-      html.indexOf("ds-tag-interactive--selected") !== -1,
+      html.indexOf("ds-interactive-tag--selected") !== -1,
       "selected modifier",
     );
   });
@@ -2569,7 +2575,7 @@ describe("ds-html-map: tag-interactive (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "tag-interactive",
+      dsSlug: "interactive-tag",
       variant: "State=Disabled",
       props: { Label: "Archived" },
     });
@@ -2783,12 +2789,12 @@ describe("ds-html-map: popover (A1)", function () {
   });
 });
 
-describe("ds-html-map: account-dropdown (A1)", function () {
+describe("ds-html-map: global-header-account-dropdown (A1)", function () {
   it("renders an account menu — not a chip — with identity + default items", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "account-dropdown",
+      dsSlug: "global-header-account-dropdown",
       props: { Name: "Ada Lovelace", Email: "ada@example.com" },
     });
     assert.ok(
@@ -2806,7 +2812,7 @@ describe("ds-html-map: account-dropdown (A1)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "account-dropdown",
+      dsSlug: "global-header-account-dropdown",
       props: { Items: "Profile, Preferences, Log out" },
     });
     assert.ok(html.indexOf("Preferences") !== -1, "custom item rendered");
@@ -2988,19 +2994,19 @@ describe("ds-html-map: loader (A1)", function () {
   });
 });
 
-describe("ds-html-map: calendar (A1)", function () {
+describe("ds-html-map: calendar-data-selector (A1)", function () {
   it("renders a month grid — not a chip — with header, weekdays, selected day", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar",
+      dsSlug: "calendar-data-selector",
       variant: "Selection=Single",
       props: {},
     });
-    assert.ok(html.indexOf("ds-calendar") !== -1, "calendar leaf class");
+    assert.ok(html.indexOf("ds-calendar-data-selector") !== -1, "calendar leaf class");
     assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
-    assert.ok(html.indexOf("ds-calendar__month") !== -1, "month header");
-    assert.ok(html.indexOf("ds-calendar__weekdays") !== -1, "weekday row");
+    assert.ok(html.indexOf("ds-calendar-data-selector__month") !== -1, "month header");
+    assert.ok(html.indexOf("ds-calendar-data-selector__weekdays") !== -1, "weekday row");
     assert.ok(html.indexOf("is-selected") !== -1, "a selected day");
     assert.ok(html.indexOf(">15</button>") !== -1, "renders day cells");
     assert.ok(html.indexOf("ds-icon") !== -1, "nav chevrons");
@@ -3018,7 +3024,7 @@ describe("ds-html-map: calendar (A1)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar",
+      dsSlug: "calendar-data-selector",
       variant: "Selection=Range",
       props: {},
     });
@@ -3031,7 +3037,7 @@ describe("ds-html-map: calendar (A1)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar",
+      dsSlug: "calendar-data-selector",
       props: { Month: "March 2027" },
     });
     assert.ok(html.indexOf("March 2027") !== -1, "custom month label");
@@ -3057,12 +3063,12 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
     Segments: { s: 1 },
   };
   [
-    { slug: "account-dropdown", cls: "ds-account-menu" },
+    { slug: "global-header-account-dropdown", cls: "ds-account-menu" },
     { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
     { slug: "segmented-control", cls: "ds-segmented" },
     { slug: "toolbar", cls: "ds-toolbar" },
     { slug: "action-bar", cls: "ds-action-bar" },
-    { slug: "calendar", cls: "ds-calendar" },
+    { slug: "calendar-data-selector", cls: "ds-calendar-data-selector" },
   ].forEach(function (t) {
     it(
       t.slug + " renders its leaf (no throw, no chip) on hostile props",
@@ -3095,25 +3101,25 @@ describe("ds-html-map: A1 hostile-prop robustness", function () {
 // Token-injection pivot: tag-read-only keeps the hand-authored .ds-tag template
 // (label + icon) and INJECTS the harvested variant token style as an inline
 // style attr, instead of being replaced by anatomy HTML.
-describe("ds-html-map: tag-read-only variant-style token injection", function () {
+describe("ds-html-map: read-only-tag variant-style token injection", function () {
   // Composite key + class suffix both derived from the live axis; this named
   // "Color=Pink" on both sides, so after the fold-in the map key matched
   // nothing AND the expected class was gone. The injected STYLE VALUE stays a
   // literal on purpose: it is the test's own sentinel, not a substrate fact,
   // and it must be recognisable in the output to prove it survived the trip.
   var injectPainted = specimen.pickPaintedVariant(
-    renderer.anatomyLoader("tag-read-only"),
-    "tag-read-only",
+    renderer.anatomyLoader("read-only-tag"),
+    "read-only-tag",
   );
   var SENTINEL = "background-color:rgb(1, 2, 3)";
 
-  it("renderDSComponent: tag-read-only injects the variant style onto the ds-tag span, keeping the label", function () {
+  it("renderDSComponent: read-only-tag injects the variant style onto the ds-tag span, keeping the label", function () {
     var map = {};
-    map["tag-read-only|" + injectPainted.variantString] = SENTINEL;
+    map["read-only-tag|" + injectPainted.variantString] = SENTINEL;
     ds.setVariantStyleMap(map);
     try {
       var html = render({
-        dsSlug: "tag-read-only",
+        dsSlug: "read-only-tag",
         variant: injectPainted.variantString,
         props: { Label: "Customer Orders" },
       });
@@ -3131,10 +3137,10 @@ describe("ds-html-map: tag-read-only variant-style token injection", function ()
     }
   });
 
-  it("renderDSComponent: tag-read-only with no style-map entry renders the plain ds-tag (no style attr)", function () {
+  it("renderDSComponent: read-only-tag with no style-map entry renders the plain ds-tag (no style attr)", function () {
     ds.setVariantStyleMap(null);
     var html = render({
-      dsSlug: "tag-read-only",
+      dsSlug: "read-only-tag",
       variant: injectPainted.variantString,
       props: { Label: "Hi" },
     });

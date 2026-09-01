@@ -13,12 +13,6 @@
     (typeof window !== "undefined" && window.fmHtmlMap) ||
     (typeof require !== "undefined" && require("./fm-html-map")) ||
     {};
-  // Retired slug -> current slug, derived from the identity ledger by
-  // scripts/render/derive-retired-slugs.js. Same supply idiom as `fm` above,
-  // because this file is UMD and there is no fs in the browser. An empty map is
-  // a legitimate state (no renames recorded yet), so a missing module degrades
-  // to "resolve nothing" rather than throwing: an unresolved slug renders a
-  // chip, which is what it did before this existed.
   /**
    * resolveSlug(slug) - the retired name a component answers to now, or the
    * slug unchanged.
@@ -38,32 +32,57 @@
    */
   function resolveSlug(slug) {
     if (!slug || typeof slug !== "string") return slug;
-    return Object.prototype.hasOwnProperty.call(RETIRED_SLUGS, slug)
-      ? RETIRED_SLUGS[slug]
-      : slug;
+    // The ledger this repo owns is consulted first, then whatever the host
+    // supplied. A consumer must not be able to repoint a recorded rename from
+    // the page: that is the consumer-restates-producer defect wearing a new hat.
+    var own = LEDGER_SLUGS;
+    if (own && Object.prototype.hasOwnProperty.call(own, slug))
+      return own[slug];
+    var host = hostSlugs();
+    if (host && Object.prototype.hasOwnProperty.call(host, slug))
+      return host[slug];
+    return slug;
   }
 
   // Retired slug -> current slug, derived from the identity ledger by
-  // scripts/render/derive-retired-slugs.js. Same supply idiom as `fm` above,
-  // because this file is UMD and there is no fs in the browser.
+  // scripts/render/derive-retired-slugs.js. Two supply paths, because this file
+  // is UMD and there is no fs in the browser.
   //
-  // The require is WRAPPED: `require` throws on a missing module before `||` can
-  // fall through, and this file is vendored into consumers that prune their
-  // install trees for size, so an absent sibling would take out the entire
-  // renderer at load rather than one component. An empty map is a legitimate
-  // state (no renames recorded yet) and degrades to resolving nothing, which is
-  // what the renderer did before this existed.
-  var RETIRED_SLUGS = (function () {
-    var supplied = typeof window !== "undefined" && window.dsRetiredSlugs;
-    if (!supplied && typeof require !== "undefined") {
+  // Path one, the sibling module, resolved ONCE at load: a require cannot change
+  // under us, and this is the ledger's own answer, so it wins in resolveSlug.
+  // The require is WRAPPED because `require` throws on a missing module before
+  // `||` can fall through, and this file is vendored into consumers that prune
+  // their install trees for size, so an absent sibling would take out the entire
+  // renderer at load rather than one component. An absent or empty ledger both
+  // fall through to the host in resolveSlug, and deliberately so: an empty map
+  // is a legitimate state (no renames recorded yet) and is indistinguishable
+  // from a pruned one, so gating the host read on "the ledger is missing" would
+  // make a consumer whose ledger simply has no renames ignore its own map,
+  // which is #603 again in the one state where it cannot be detected.
+  var LEDGER_SLUGS = (function () {
+    var supplied = null;
+    if (typeof require !== "undefined") {
       try {
         supplied = require("./ds-retired-slugs");
       } catch (e) {
         supplied = null;
       }
     }
-    return (supplied && supplied.RETIRED_SLUGS) || {};
+    return (supplied && supplied.RETIRED_SLUGS) || null;
   })();
+
+  // Path two, the host's map, read LAZILY on every lookup rather than
+  // snapshotted at load. A browser has no require, so window is the only supply
+  // path there, and a host inlines its modules in whatever order its list carries.
+  // Snapshotting here meant that a host loading this file before the map module
+  // held an empty map for the life of the page, with every renamed slug chipping
+  // and nothing going red, because an empty map is a legitimate state (no
+  // renames recorded yet). Reading late removes the ordering dependency instead
+  // of documenting it (#603).
+  function hostSlugs() {
+    var supplied = typeof window !== "undefined" && window.dsRetiredSlugs;
+    return (supplied && supplied.RETIRED_SLUGS) || null;
+  }
   // The `esc`/`parseVariant`/`normalizeProps` fallbacks below are intentional
   // inline mirrors of fm-html-map's helpers, kept for the browser-without-
   // preloaded-fm case (no window.fmHtmlMap and no require). Do NOT delete them
@@ -670,7 +689,7 @@
           );
         }
 
-        case "tag-read-only": {
+        case "read-only-tag": {
           // The 2026-08-12 breaking sync folded tag-shared, tag-catalog,
           // tag-stage, tag-status and tag-glossary-item-type INTO this
           // component: the Color axis is gone and a single `Type` axis carries
@@ -678,7 +697,7 @@
           // -success. So the modifier below is keyed off v.Type, and each
           // value's fill/border lives in one .ds-tag--<type> rule in
           // ds-base.css, derived from the capture's own per-Type appearance
-          // groups (components/dist/anatomy/tag-read-only.json).
+          // groups (components/dist/anatomy/read-only-tag.json).
           //
           // TWO CAPTURE FACTS CARRIED, NOT PAPERED OVER. Both are values whose
           // modifier class is emitted with NO ds-base.css rule behind it, so
@@ -728,7 +747,7 @@
           // swaps slug per Type (folder for Catalog, error-/success-/
           // warning-filled for the Status values, its own `add` otherwise).
           // Hand-copied from the capture's per-Type instance-swap groups in
-          // components/dist/anatomy/tag-read-only.json, which is the gap #521
+          // components/dist/anatomy/read-only-tag.json, which is the gap #521
           // names: a colour-only gate cannot check an icon slug. The
           // "leading icon slug follows the anatomy's per-Type instance swap"
           // test reads that capture directly and fails when this map drifts,
@@ -774,7 +793,7 @@
             _serverVariantStyleMap ||
             {};
           var _tagStyle =
-            _styleMap[anatomyVariantKey("tag-read-only", v)] || "";
+            _styleMap[anatomyVariantKey("read-only-tag", v)] || "";
           var _tagStyleAttr = _tagStyle
             ? ' style="' + esc(_tagStyle) + '"'
             : "";
@@ -905,7 +924,7 @@
           );
         }
 
-        case "lineage-individual-node": {
+        case "lineage": {
           var linCls = "ds-lineage-node";
           // The Type axis went from Main item/Sub item to seven values when the
           // lineage components folded together: Individual/Group x main/sub,
@@ -1611,7 +1630,7 @@
         // These 8 slugs chip-degraded before. Each renders a tokens-only leaf
         // from its registry variant axes + Figma anatomy part-tree.
 
-        case "notification": {
+        case "toast": {
           // Registry axis: Type = Default | Critical.
           // Anatomy: container[Type]{ text[message], instance[Button] } — an
           // inline banner with a message + a single action button. Mirrors the
@@ -1619,15 +1638,15 @@
           var notifTypeRaw = (v.Type || "Default").toLowerCase();
           var notifCritical = notifTypeRaw === "critical";
           var notifCls =
-            "ds-notification" +
-            (notifCritical ? " ds-notification--critical" : "");
+            "ds-toast" +
+            (notifCritical ? " ds-toast--critical" : "");
           var notifRole = notifCritical ? "alert" : "status";
-          // capture: anatomy/notification.json text layer "Item deleted"
+          // capture: anatomy/toast.json text layer "Item deleted"
           var notifMsg = esc(props.Message || "Item deleted");
           // Action button is optional: only render when an Action label exists.
           // The gallery's label lives in matrix.js SPECIMEN_PROPS.
           var notifAction = props.Action
-            ? '<button class="ds-button ds-button--tertiary ds-button--small ds-notification__action" type="button">' +
+            ? '<button class="ds-button ds-button--tertiary ds-button--small ds-toast__action" type="button">' +
               esc(props.Action) +
               "</button>"
             : "";
@@ -1637,10 +1656,10 @@
             '" role="' +
             notifRole +
             '">' +
-            '<span class="ds-notification__icon">' +
+            '<span class="ds-toast__icon">' +
             renderIcon(notifCritical ? "error-filled" : "info-filled") +
             "</span>" +
-            '<p class="ds-notification__message">' +
+            '<p class="ds-toast__message">' +
             notifMsg +
             "</p>" +
             notifAction +
@@ -1695,12 +1714,12 @@
           );
         }
 
-        case "collapse-accordion": {
+        case "collapse": {
           // Registry variant State=[Collapsed, "Expanede"] -- "Expanede" is
           // a literal registry typo (misspelling of "Expanded"); match via
           // a prefix test so both the typo and a future-fixed spelling
           // resolve. State is a secondary axis (isSecondaryAxis in
-          // matrix.js), so MATRIX_OVERRIDES["collapse-accordion"] supplies
+          // matrix.js), so MATRIX_OVERRIDES["collapse"] supplies
           // real Title/Body -- the generic derivation would only ever feed
           // props:{Label:"Collapsed"|"Expanede"}. The caret is arrow-down,
           // which points down as drawn, so the EXPANDED state is the one
@@ -1713,10 +1732,10 @@
               .toLowerCase()
               .indexOf("expan") === 0;
           var accCls =
-            "ds-collapse-accordion" +
-            (accExpanded ? " ds-collapse-accordion--expanded" : "");
+            "ds-collapse" +
+            (accExpanded ? " ds-collapse--expanded" : "");
           var accBody = accExpanded
-            ? '<div class="ds-collapse-accordion__body">' +
+            ? '<div class="ds-collapse__body">' +
               esc(props.Body || "") +
               "</div>"
             : "";
@@ -1724,11 +1743,11 @@
             '<div class="' +
             accCls +
             '">' +
-            '<div class="ds-collapse-accordion__header">' +
-            '<span class="ds-collapse-accordion__title">' +
+            '<div class="ds-collapse__header">' +
+            '<span class="ds-collapse__title">' +
             esc(props.Title || "Advanced settings") +
             "</span>" +
-            '<span class="ds-collapse-accordion__toggle" aria-hidden="true">' +
+            '<span class="ds-collapse__toggle" aria-hidden="true">' +
             renderIcon("arrow-down", accExpanded ? { rotate: 180 } : {}) +
             "</span>" +
             "</div>" +
@@ -1737,24 +1756,24 @@
           );
         }
 
-        case "tooltip": {
+        case "tooltip-default": {
           // Registry axis: Type = Default. Anatomy: container[Type]{ text[Body] }
           // — a small text bubble. role=tooltip for assistive tech.
           return (
-            '<div class="ds-tooltip" role="tooltip">' +
-            '<span class="ds-tooltip__body">' +
+            '<div class="ds-tooltip-default" role="tooltip">' +
+            '<span class="ds-tooltip-default__body">' +
             // capture: anatomy/tooltip.json layer "Body"
             esc(
               props.Body ||
                 "Body line text lorem ipsum dolor sit amet, consectetur",
             ) +
             "</span>" +
-            '<span class="ds-tooltip__arrow" aria-hidden="true"></span>' +
+            '<span class="ds-tooltip-default__arrow" aria-hidden="true"></span>' +
             "</div>"
           );
         }
 
-        case "date-input": {
+        case "calendar-date-input": {
           // Registry axes: Type = Single date | Date range; States = Enabled |
           // Disabled | Error | … . Anatomy: container{ container[Label]{text},
           // container[Input + icon button]{ inputfield, instance[Button] } } —
@@ -1762,17 +1781,17 @@
           // the .ds-field/.ds-input idiom; Date range adds a second input.
           var dateRange = v.Type === "Date range";
           var dateDisabled = v.States === "Disabled";
-          var dateCls = "ds-date-input";
-          if (dateRange) dateCls += " ds-date-input--range";
+          var dateCls = "ds-calendar-date-input";
+          if (dateRange) dateCls += " ds-calendar-date-input--range";
           if (dateDisabled) dateCls += " is-disabled";
           var datePlaceholder = esc(props["Placeholder text"] || "MM/DD/YYYY");
           function dateInput() {
             return (
-              '<div class="ds-date-input__field">' +
-              '<span class="ds-date-input__value">' +
+              '<div class="ds-calendar-date-input__field">' +
+              '<span class="ds-calendar-date-input__value">' +
               datePlaceholder +
               "</span>" +
-              '<span class="ds-date-input__calendar" aria-hidden="true">' +
+              '<span class="ds-calendar-date-input__calendar" aria-hidden="true">' +
               renderIcon("calendar") +
               "</span>" +
               "</div>"
@@ -1780,13 +1799,13 @@
           }
           var dateInputs = dateRange
             ? dateInput() +
-              '<span class="ds-date-input__sep">–</span>' +
+              '<span class="ds-calendar-date-input__sep">–</span>' +
               dateInput()
             : dateInput();
           // Optional slot: the capture holds no helper layer at all. The
           // gallery's helper string lives in matrix.js SPECIMEN_PROPS.
           var dateHelper = props.Helper
-            ? '<span class="ds-date-input__helper">' +
+            ? '<span class="ds-calendar-date-input__helper">' +
               esc(props.Helper) +
               "</span>"
             : "";
@@ -1794,10 +1813,10 @@
             '<div class="' +
             dateCls +
             '">' +
-            '<div class="ds-date-input__label-row"><span class="ds-date-input__label">' +
+            '<div class="ds-calendar-date-input__label-row"><span class="ds-calendar-date-input__label">' +
             esc(props.Label || "Date") +
             "</span></div>" +
-            '<div class="ds-date-input__inputs">' +
+            '<div class="ds-calendar-date-input__inputs">' +
             dateInputs +
             "</div>" +
             dateHelper +
@@ -1995,27 +2014,27 @@
           );
         }
 
-        case "tag-interactive": {
+        case "interactive-tag": {
           // Registry axis: State = Default | Hovered | Selected | Disabled | …
           // Anatomy: container[State]{ instance[Leading icon], text[Tag-Name],
           // instance[Trailing icon] } — a tag/chip with optional leading + a
           // removable trailing control. Mirrors the .ds-tag idiom + state mods.
           var tiStateRaw = (v.State || "Default").toLowerCase();
-          var tiCls = "ds-tag-interactive";
+          var tiCls = "ds-interactive-tag";
           if (tiStateRaw === "selected")
-            tiCls += " ds-tag-interactive--selected";
+            tiCls += " ds-interactive-tag--selected";
           if (tiStateRaw === "disabled") tiCls += " is-disabled";
           // Leading icon defaults on (anatomy shows one); honor an explicit false.
           var tiShowLead = props["Leading icon show"] !== false;
           var tiLead = tiShowLead
-            ? '<span class="ds-tag-interactive__icon ds-tag-interactive__icon--lead">' +
+            ? '<span class="ds-interactive-tag__icon ds-interactive-tag__icon--lead">' +
               renderIcon("catalog") +
               "</span>"
             : "";
           // Trailing control defaults on (interactive = removable); honor false.
           var tiShowTrail = props["Trailing icon show"] !== false;
           var tiTrail = tiShowTrail
-            ? '<button class="ds-tag-interactive__remove" type="button" aria-label="Remove">' +
+            ? '<button class="ds-interactive-tag__remove" type="button" aria-label="Remove">' +
               renderIcon("close") +
               "</button>"
             : "";
@@ -2024,7 +2043,7 @@
             tiCls +
             '">' +
             tiLead +
-            '<span class="ds-tag-interactive__label">' +
+            '<span class="ds-interactive-tag__label">' +
             esc(props.Label || "") +
             "</span>" +
             tiTrail +
@@ -2047,7 +2066,7 @@
         // against the fold-in capture. .ds-tag-stage and .ds-tag-stage__dot
         // also survive: search-result-card reuses them for its stage pill.
 
-        case "tag-item-type": {
+        case "item-type-tag": {
           // The registry publishes one axis, `Type`, carrying 28 values:
           // Glossary-1..5, Category, Custom-1..15, and the six data-catalog
           // names. The axis name is read here as a literal because this
@@ -2060,7 +2079,7 @@
           // Dedicated block (NOT base .ds-tag): the anatomy has no border,
           // unlike .ds-tag's 1px border -- reusing the base class would leak
           // one. Each value's fill and its label colour come from that value's
-          // own appearance group in components/dist/anatomy/tag-item-type.json.
+          // own appearance group in components/dist/anatomy/item-type-tag.json.
           //
           // Shape clamp, not a value list, for the same reason as tag-read-only
           // above: v.Type is user-supplied flow-data and an unclamped value
@@ -2069,9 +2088,9 @@
           // avoid.
           var titRaw = v.Type || "";
           var titSlug = String(titRaw).toLowerCase().replace(/\s+/g, "-");
-          var titCls = "ds-tag-item-type";
+          var titCls = "ds-item-type-tag";
           if (titSlug && /^[a-z0-9-]+$/.test(titSlug)) {
-            titCls += " ds-tag-item-type--" + titSlug;
+            titCls += " ds-item-type-tag--" + titSlug;
           }
           // Two spellings of the same boolean exist in the registry
           // ("Show counter#14128:0" and "Show Counter#21221:38", both default
@@ -2079,7 +2098,7 @@
           // fold-in beside the catalog one. Honour either.
           var titCounter =
             props["Show counter"] || props["Show Counter"]
-              ? '<span class="ds-tag-item-type__counter">' +
+              ? '<span class="ds-item-type-tag__counter">' +
                 esc(props.Counter || "00") +
                 "</span>"
               : "";
@@ -2087,7 +2106,7 @@
             '<span class="' +
             titCls +
             '">' +
-            '<span class="ds-tag-item-type__name">' +
+            '<span class="ds-item-type-tag__name">' +
             esc(props.Label || titRaw) +
             "</span>" +
             titCounter +
@@ -2137,7 +2156,7 @@
           );
         }
 
-        case "account-dropdown": {
+        case "global-header-account-dropdown": {
           // No registry variants/props (single-import; nested help-bubble /
           // arrow-down / exit baked into the Figma component). Render an account
           // menu overlay: identity header + default items (Items prop overrides).
@@ -2377,7 +2396,7 @@
           );
         }
 
-        case "drawer-side-panel": {
+        case "drawer": {
           // Registry axis: App = Studio | Explorer -- the only captured
           // non-secondary axis. CORRECTS the pre-triage: this is an
           // Overlays component (sibling of modal/popover), NOT a dropdown,
@@ -2410,7 +2429,7 @@
           // user-supplied flow-data; an unclamped value would break out of
           // the class attribute (XSS), same discipline as the
           // tag-item-type case above. Reuses THAT case's EXISTING
-          // .ds-tag-item-type(--<slug>) classes verbatim (a static
+          // .ds-item-type-tag(--<slug>) classes verbatim (a static
           // pill, not a recursive renderDSComponent call), same idiom as
           // search-result-card's tag reuse. The class names followed the
           // 2026-08-12 rename of tag-catalog-item-type -> tag-item-type; the
@@ -2431,9 +2450,9 @@
             DR_TYPE_SLUGS[String(drTypeRaw).toLowerCase()] || "dataset";
           var drTags =
             '<div class="ds-drawer__tags">' +
-            '<span class="ds-tag-item-type ds-tag-item-type--' +
+            '<span class="ds-item-type-tag ds-item-type-tag--' +
             drTypeSlug +
-            '"><span class="ds-tag-item-type__name">' +
+            '"><span class="ds-item-type-tag__name">' +
             esc(drTypeRaw) +
             "</span></span>" +
             '<span class="ds-drawer__tag-shared">Shared</span>' +
@@ -2734,7 +2753,7 @@
           );
         }
 
-        case "calendar": {
+        case "calendar-data-selector": {
           // Registry axes: Type = Single date select | Date | Month | Single;
           // Selection = Single | Range | Year. A static month grid
           // (DETERMINISTIC — no Date()): header (month/year + prev/next nav) +
@@ -2745,7 +2764,7 @@
           var calWeek = ["S", "M", "T", "W", "T", "F", "S"]
             .map(function (d) {
               return (
-                '<span class="ds-calendar__weekday" aria-hidden="true">' +
+                '<span class="ds-calendar-data-selector__weekday" aria-hidden="true">' +
                 d +
                 "</span>"
               );
@@ -2753,11 +2772,11 @@
             .join("");
           // Static month layout: 2 leading blanks, then days 1..30.
           var calCells = [
-            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
-            '<span class="ds-calendar__day is-blank" aria-hidden="true"></span>',
+            '<span class="ds-calendar-data-selector__day is-blank" aria-hidden="true"></span>',
+            '<span class="ds-calendar-data-selector__day is-blank" aria-hidden="true"></span>',
           ];
           for (var cd = 1; cd <= 30; cd++) {
-            var cdCls = "ds-calendar__day";
+            var cdCls = "ds-calendar-data-selector__day";
             var cdSel = false; // selected → aria-pressed (non-visual selection state)
             if (calRange) {
               if (cd >= 12 && cd <= 16) {
@@ -2781,26 +2800,26 @@
             );
           }
           return (
-            '<div class="ds-calendar">' +
-            '<div class="ds-calendar__header">' +
-            '<button class="ds-calendar__nav" type="button" aria-label="Previous month">' +
+            '<div class="ds-calendar-data-selector">' +
+            '<div class="ds-calendar-data-selector__header">' +
+            '<button class="ds-calendar-data-selector__nav" type="button" aria-label="Previous month">' +
             renderIcon("arrow-left") +
             "</button>" +
-            '<span class="ds-calendar__month">' +
+            '<span class="ds-calendar-data-selector__month">' +
             calMonth +
             "</span>" +
-            '<button class="ds-calendar__nav" type="button" aria-label="Next month">' +
+            '<button class="ds-calendar-data-selector__nav" type="button" aria-label="Next month">' +
             renderIcon("arrow-left", { rotate: 180 }) +
             "</button>" +
             "</div>" +
-            '<div class="ds-calendar__weekdays">' +
+            '<div class="ds-calendar-data-selector__weekdays">' +
             calWeek +
             "</div>" +
             // No role="grid": a real grid requires row/gridcell descendants,
             // which this static month strip does not provide; claiming the role
             // without them is invalid ARIA (axe aria-required-children). Left as
             // a styled group of day buttons; selection carried via aria-pressed.
-            '<div class="ds-calendar__grid">' +
+            '<div class="ds-calendar-data-selector__grid">' +
             calCells.join("") +
             "</div>" +
             "</div>"
@@ -3193,7 +3212,7 @@
     "checkbox",
     "radio",
     "toggle",
-    "tag-read-only",
+    "read-only-tag",
     "badge",
     "search",
     "global-header",
@@ -3206,17 +3225,17 @@
     "empty-state",
     "alert-banner",
     // Hi-Fi Slice 1 (Task 4): transform-target leaves
-    "notification",
+    "toast",
     "stepper",
-    "tooltip",
-    "date-input",
+    "tooltip-default",
+    "calendar-date-input",
     "rich-text",
     "dropdown-select-default",
     "progress-bar-small",
-    "tag-interactive",
+    "interactive-tag",
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 1: overlays.
     "popover",
-    "account-dropdown",
+    "global-header-account-dropdown",
     "app-switcher-dropdown",
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 2: controls.
     "segmented-control",
@@ -3224,10 +3243,10 @@
     "action-bar",
     // Hi-Fi A1 (narrow) — degraded-slug overrides. Batch 3: feedback + date.
     "loader",
-    "calendar",
+    "calendar-data-selector",
     "digram-item-types",
     "digram-topic",
-    "lineage-individual-node",
+    "lineage",
     "lineage-grouped-node",
     "metamodel",
     "loader-with-logo",
@@ -3239,7 +3258,7 @@
     // tag-shared, tag-catalog, tag-stage, tag-status and
     // tag-glossary-item-type into tag-read-only's Type axis and renamed
     // tag-catalog-item-type, so one entry is left where six were.
-    "tag-item-type",
+    "item-type-tag",
     // Gray-box-to-zero, family 3 (card family).
     "card-for-perimeter",
     "card-for-grouped-content",
@@ -3248,14 +3267,14 @@
     "notification-dropdown",
     "search-dropdown-menu",
     "whats-new-dropdown",
-    "drawer-side-panel",
+    "drawer",
     // Gray-box-to-zero, family 5 (primitives).
     "spinner",
     "loading-skeleton",
     "scroll-bar",
     "link",
     "avatar",
-    "collapse-accordion",
+    "collapse",
   ];
 
   exports.renderDSComponent = renderDSComponent;

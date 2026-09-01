@@ -10,15 +10,15 @@
 | Badges | approved | approved | inherited | inherited | approved |
 | Breadcrumbs | approved | approved | inherited | inherited | approved |
 | Buttons | approved | approved | draft | draft | approved |
-| Calendar | approved | approved | inherited | inherited | not started |
+| Calendar data selector | approved | approved | inherited | inherited | not started |
+| Calendar date input | approved | approved | inherited | inherited | not started |
 | Cards | approved | approved | inherited | inherited | approved |
 | Chat with AI Steward | draft | approved | draft | not started | not started |
 | Checkboxes | approved | approved | inherited | inherited | approved |
-| Collapse / accordion | approved | approved | inherited | inherited | not started |
+| Collapse | approved | approved | inherited | inherited | not started |
 | Combo box | approved | approved | inherited | inherited | not started |
 | Confirmation | approved | approved | inherited | inherited | not started |
-| Date input | approved | approved | inherited | inherited | not started |
-| Drawer, side panel | approved | approved | inherited | inherited | not started |
+| Drawer | approved | approved | inherited | inherited | not started |
 | Dropdown / Select | approved | approved | inherited | inherited | not started |
 | Empty state | approved | approved | inherited | inherited | not started |
 | Error state | approved | approved | inherited | inherited | not started |
@@ -32,7 +32,6 @@
 | Maintenance state | approved | approved | inherited | inherited | not started |
 | Modal | approved | approved | inherited | inherited | not started |
 | Multi-select | approved | approved | inherited | inherited | not started |
-| Notification | approved | approved | inherited | inherited | not started |
 | Notification dropdown | approved | approved | inherited | inherited | not started |
 | Page header | approved | approved | not started | not started | approved |
 | Popover | approved | approved | inherited | inherited | not started |
@@ -53,6 +52,7 @@
 | Tabs | approved | approved | inherited | inherited | approved |
 | Tags | approved | approved | inherited | inherited | approved |
 | Text input | approved | approved | draft | inherited | approved |
+| Toast | approved | approved | inherited | inherited | not started |
 | Toggle control | approved | approved | inherited | inherited | not started |
 | Toolbar | approved | approved | inherited | inherited | not started |
 | Tooltip | approved | approved | inherited | inherited | not started |
@@ -78,9 +78,10 @@
 | card-for-grouped-content | card |
 | card-for-perimeter | card |
 | dropdown-select-default | dropdown-select |
-| tag-interactive | tag |
-| tag-item-type | tag |
-| tag-read-only | tag |
+| interactive-tag | tag |
+| item-type-tag | tag |
+| read-only-tag | tag |
+| tooltip-default | tooltip |
 
 ## Token render-grade
 

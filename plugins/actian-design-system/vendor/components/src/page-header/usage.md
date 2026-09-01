@@ -13,7 +13,7 @@ title: "Page header usage guidelines"
 
 * Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.
 
-* Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.
+* Don't use it inside [modals](modal), [drawers / side panels](drawer), or nested sections: those surfaces have their own title patterns.
 
 * Don't use it as a section divider within a page: use plain headings.
 

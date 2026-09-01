@@ -1,0 +1,867 @@
+{
+  "_schema_version": 1,
+  "slug": "drawer",
+  "kit": "dskit",
+  "synced_at": "2026-08-31T11:39:48.734Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14294:5758",
+    "variant": "App=Studio"
+  },
+  "quality": {
+    "nodesTotal": 37,
+    "nodesNormalized": 37,
+    "ratio": 1,
+    "degraded": [],
+    "structuralVariants": [
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "0.0",
+        "reason": "childCount:3!=2"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "0.1",
+        "reason": "childCount:2!=3"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "1",
+        "reason": "childCount:2!=1"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "2.2.1",
+        "reason": "kind:instance!=container"
+      },
+      {
+        "prop": "App",
+        "value": "Explorer",
+        "path": "4",
+        "reason": "childCount:3!=2"
+      }
+    ]
+  },
+  "root": {
+    "name": "App=Studio",
+    "kind": "container",
+    "id": "14292:2985",
+    "appearance": {
+      "background": "#ffffff"
+    },
+    "layout": {
+      "axis": "column",
+      "gap": "0px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
+      }
+    },
+    "children": [
+      {
+        "name": "Header",
+        "kind": "container",
+        "id": "14292:745",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          }
+        },
+        "children": [
+          {
+            "name": "Back + Tag + Name",
+            "kind": "container",
+            "id": "14292:1349",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-xs"
+            },
+            "children": [
+              {
+                "name": "Back",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14292:1239",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Tag",
+                "kind": "container",
+                "id": "14292:1459",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  },
+                  "gapToken": "--zen-spacing-2xs"
+                },
+                "children": [
+                  {
+                    "name": "Tag, item type",
+                    "kind": "instance",
+                    "slug": "item-type-tag",
+                    "props": {
+                      "Show Counter": false,
+                      "Show counter": false,
+                      "Type": "Dataset"
+                    },
+                    "id": "14292:1206",
+                    "appearance": {
+                      "background": "#cfeafd",
+                      "radius": "4px"
+                    }
+                  },
+                  {
+                    "name": "Shared",
+                    "kind": "instance",
+                    "slug": "read-only-tag",
+                    "props": {
+                      "Leading icon show": false,
+                      "Label": "Shared",
+                      "Type": "Default"
+                    },
+                    "tokenRefs": [
+                      "--zen-color-primary-700"
+                    ],
+                    "id": "14292:1201",
+                    "appearance": {
+                      "background": "#00699f",
+                      "backgroundToken": "--zen-color-primary-700",
+                      "border": {
+                        "color": "#00699f",
+                        "colorToken": "--zen-color-primary-700",
+                        "width": "1px"
+                      },
+                      "radius": "4px"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Name",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1226",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  }
+                },
+                "text": "Name"
+              }
+            ]
+          },
+          {
+            "name": "Actions",
+            "kind": "container",
+            "id": "14292:1308",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-xs"
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14292:1302",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show leading icon": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Intent": "Default",
+                  "Emphasis": "Icon-only",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14292:1305",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Body 1",
+        "kind": "container",
+        "id": "14292:746",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          }
+        },
+        "children": [
+          {
+            "name": "Technical name: able_agency",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "14292:1460",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            "text": "Technical name: able_agency"
+          },
+          {
+            "name": "Catalog + Category + Connection",
+            "kind": "container",
+            "id": "14292:1465",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Catalog",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1462",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Catalog: Finance "
+              },
+              {
+                "name": "/",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1463",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "/"
+              },
+              {
+                "name": "Category",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1466",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Category: 24/7"
+              },
+              {
+                "name": "/",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1467",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "/"
+              },
+              {
+                "name": "Connection",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1464",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Connection: Powerbi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Body 2",
+        "kind": "container",
+        "id": "14292:1474",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          }
+        },
+        "children": [
+          {
+            "name": "Last updated",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "14292:1475",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            "text": "Last updated\nDec 15, 2025"
+          },
+          {
+            "name": "Fields",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-default"
+            ],
+            "id": "14292:1482",
+            "appearance": {
+              "text": {
+                "color": "#000000",
+                "colorToken": "--zen-color-text-default",
+                "size": "14px",
+                "weight": 400,
+                "lineHeight": "20px",
+                "letterSpacing": "0.2px"
+              }
+            },
+            "text": "Fields\n10 Fields"
+          },
+          {
+            "name": "Completion",
+            "kind": "container",
+            "id": "14292:1524",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Completion",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1483",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 500,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Completion"
+              },
+              {
+                "name": "Progress bar small",
+                "kind": "instance",
+                "slug": "progress-bar-small",
+                "props": {
+                  "Size": "Default",
+                  "Completeness": "50%"
+                },
+                "id": "14292:1514"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Tabs",
+        "kind": "container",
+        "id": "14292:747",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "16px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md"
+          }
+        },
+        "children": [
+          {
+            "name": "Tabs",
+            "kind": "instance",
+            "slug": "tabs",
+            "props": {
+              "Show Avatar": false
+            },
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
+            "id": "14292:1808",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#dadada",
+                "colorToken": "--zen-border-default",
+                "width": "1px"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Body 3",
+        "kind": "container",
+        "id": "14292:1867",
+        "appearance": {
+          "background": "#ffffff"
+        },
+        "layout": {
+          "axis": "column",
+          "gap": "16px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "fill"
+          },
+          "gapToken": "--zen-spacing-md",
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          }
+        },
+        "children": [
+          {
+            "name": "Glossary",
+            "kind": "container",
+            "id": "14292:2892",
+            "layout": {
+              "axis": "column",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Last updated",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:1868",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": "Glossary items (2)"
+              },
+              {
+                "name": "Dropdown, Select, default",
+                "kind": "instance",
+                "slug": "dropdown-select-default",
+                "props": {
+                  "Show Label": false,
+                  "Show info icon": false,
+                  "Show helper text": false,
+                  "Show asterisk ": false,
+                  "Show description": false,
+                  "Type": "Search/Multiple",
+                  "State": "Filled"
+                },
+                "id": "14292:2840"
+              }
+            ]
+          },
+          {
+            "name": "Description",
+            "kind": "container",
+            "id": "14292:2867",
+            "layout": {
+              "axis": "column",
+              "gap": "7.99px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Heading",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:2870",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": "Description"
+              },
+              {
+                "name": "Body",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:2871",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. Duisplatonem agam sagittis noster diam veri comprehensam explicari aliquip ecteque epicurei definitiones viris mi dignissim regione. "
+              }
+            ]
+          },
+          {
+            "name": "Source description",
+            "kind": "container",
+            "id": "14292:2872",
+            "layout": {
+              "axis": "column",
+              "gap": "7.085px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Heading",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:2874",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 600,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": "Source description"
+              },
+              {
+                "name": "Body",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14292:2876",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "14px",
+                    "weight": 400,
+                    "lineHeight": "20px",
+                    "letterSpacing": "0.2px"
+                  }
+                },
+                "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. "
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "variantDefaults": {
+    "App": "Studio"
+  }
+}

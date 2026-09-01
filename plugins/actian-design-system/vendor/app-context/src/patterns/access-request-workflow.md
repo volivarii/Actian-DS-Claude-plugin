@@ -16,6 +16,6 @@ components:
   - button
   - dropdown-select-default
   - text-input
-  - tag-read-only
+  - read-only-tag
 ---
 Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval.

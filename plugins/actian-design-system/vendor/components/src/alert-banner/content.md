@@ -16,7 +16,7 @@ Alerts communicate important information that requires the user's attention. The
 
 * To surface a system-level error that requires action to resolve.
 
-* Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.
+* Do not use alerts for routine confirmations - use [toast notifications](global-toast) instead.
 
 * Do not stack multiple alerts. Consolidate if possible.
 

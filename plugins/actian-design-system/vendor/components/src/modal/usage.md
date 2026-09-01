@@ -13,7 +13,7 @@ title: "Modal usage guidelines"
 
 ## When not to use
 
-* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).
+* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer).
 
 * Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.
 

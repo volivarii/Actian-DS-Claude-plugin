@@ -14,7 +14,7 @@ tags:
 components:
   - page-header
   - text-input
-  - collapse-accordion
+  - collapse
   - action-bar
   - button
   - toggle

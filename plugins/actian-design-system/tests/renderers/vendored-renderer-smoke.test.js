@@ -98,8 +98,8 @@ test("a component renders real markup, not the graceful fallback", function () {
 // THE GATE. Without the icon injection this renders an empty <svg> and the
 // component still "works", which is exactly why it needs its own assertion.
 test("icons are injected: an icon-bearing component emits real path geometry", function () {
-  var html = render("tag-interactive", firstCell("tag-interactive"));
-  assertNotGracefulChip(html, "tag-interactive");
+  var html = render("interactive-tag", firstCell("interactive-tag"));
+  assertNotGracefulChip(html, "interactive-tag");
   var paths = html.match(/ d="M[^"]{20,}"/g) || [];
   assert.ok(
     paths.length > 0,
@@ -120,19 +120,19 @@ test("the icon map is non-empty and matches the vendored source", function () {
 // so pin it here rather than discovering it after the repoint.
 test("the tag/checkbox divergence is closed in the plugin's own renderer", function () {
   // The specimen is DERIVED, not named. This asserted `Color=Pink` until the
-  // 2026-08-12 fold-in retired tag-read-only's whole Color axis, at which point
+  // 2026-08-12 fold-in retired read-only-tag's whole Color axis, at which point
   // the filter matched no cell and the test failed for a reason that was not a
   // regression. specimen.pickPaintedVariant reads the axis and the value off
   // the anatomy doc, so it is correct whether the axis is Color, Type, or
   // whatever the next redesign calls it.
-  var tagDoc = renderer.anatomyLoader("tag-read-only");
+  var tagDoc = renderer.anatomyLoader("read-only-tag");
   assert.ok(
     tagDoc && tagDoc.root,
-    "tag-read-only anatomy must load (precondition)",
+    "read-only-tag anatomy must load (precondition)",
   );
-  var painted = specimen.pickPaintedVariant(tagDoc, "tag-read-only");
+  var painted = specimen.pickPaintedVariant(tagDoc, "read-only-tag");
 
-  var tagCells = renderer.matrix.variantMatrix("tag-read-only");
+  var tagCells = renderer.matrix.variantMatrix("read-only-tag");
   var cell = tagCells.filter(function (c) {
     return c.variant === painted.variantString;
   })[0];
@@ -143,7 +143,7 @@ test("the tag/checkbox divergence is closed in the plugin's own renderer", funct
       "; the anatomy and the matrix disagree about the axis",
   );
   assert.match(
-    render("tag-read-only", cell),
+    render("read-only-tag", cell),
     new RegExp("ds-tag--" + painted.classSuffix + "\\b"),
     painted.variantString +
       " is painted " +
@@ -178,11 +178,11 @@ test("the styling source is the vendored one and carries the phase-1b rules", fu
   // carry no captured delta (Stage-1 has no appearance group at all), so they
   // emit a modifier with no rule behind it on purpose; demanding a rule for
   // them would be demanding an invented hue.
-  var tagDoc = renderer.anatomyLoader("tag-read-only");
+  var tagDoc = renderer.anatomyLoader("read-only-tag");
   var paints = specimen.capturedVariantPaints(tagDoc);
   assert.ok(
     paints.length,
-    "tag-read-only's capture paints no variant at all, so this assertion has " +
+    "read-only-tag's capture paints no variant at all, so this assertion has " +
       "no subject; retire or repoint it rather than passing vacuously",
   );
   var unruled = paints.filter(function (p) {

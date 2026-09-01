@@ -444,7 +444,7 @@ Example:
 
 ```json
 {
-  "slug": "tooltip",
+  "slug": "tooltip-default",
   "anatomyScale": 3,
   ...
 }

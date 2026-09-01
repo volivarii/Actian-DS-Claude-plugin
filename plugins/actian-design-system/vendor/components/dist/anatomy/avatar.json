@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "avatar",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-08-31T11:39:48.734Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:14212",
@@ -73,7 +73,7 @@
     ],
     "id": "9132:27670",
     "appearance": {
-      "background": "#edf6ff",
+      "background": "#ecfdff",
       "backgroundToken": "--zen-color-primary-25",
       "radius": "9999px"
     },

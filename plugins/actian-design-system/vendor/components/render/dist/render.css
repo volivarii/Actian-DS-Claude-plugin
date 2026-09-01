@@ -1784,7 +1784,7 @@
 /* ============ Notification (inline banner + action) ============ */
 /* Registry axis: Type = Default | Critical. Mirrors the .ds-alert idiom:
  * icon left, message, optional action button right. Critical = error accent. */
-.ds-notification {
+.ds-toast {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-sm);
@@ -1798,20 +1798,20 @@
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-md);
 }
-.ds-notification--critical {
+.ds-toast--critical {
   border-left-color: var(--zen-color-icon-error);
 }
-.ds-notification__icon {
+.ds-toast__icon {
   flex: none;
   display: inline-flex;
   align-items: center;
   color: var(--zen-color-icon-primary);
   font-size: var(--zen-font-size-lg);
 }
-.ds-notification--critical .ds-notification__icon {
+.ds-toast--critical .ds-toast__icon {
   color: var(--zen-color-icon-error);
 }
-.ds-notification__message {
+.ds-toast__message {
   flex: 1 1 0;
   min-width: 0;
   margin: 0;
@@ -1819,7 +1819,7 @@
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
 }
-.ds-notification__action {
+.ds-toast__action {
   flex: none;
 }
 
@@ -1890,7 +1890,7 @@
 
 /* ============ Tooltip (small text bubble) ============ */
 /* Registry axis: Type = Default. */
-.ds-tooltip {
+.ds-tooltip-default {
   position: relative;
   display: inline-block;
   max-width: 240px; /* raw px: tooltip bubble max width (slice geometry) */
@@ -1904,10 +1904,10 @@
   line-height: var(--zen-font-lineheight-sm);
   letter-spacing: var(--zen-font-letterspacing-wide-3);
 }
-.ds-tooltip__body {
+.ds-tooltip-default__body {
   display: block;
 }
-.ds-tooltip__arrow {
+.ds-tooltip-default__arrow {
   position: absolute;
   left: var(--zen-spacing-sm);
   bottom: -4px; /* raw px: caret tip offset */
@@ -1919,7 +1919,7 @@
 
 /* ============ Input date (labeled date field + calendar btn) ============ */
 /* Registry axes: Type = Single date | Date range; States = Enabled | … */
-.ds-date-input {
+.ds-calendar-date-input {
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs); /* 8 */
@@ -1927,24 +1927,24 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-date-input__label-row {
+.ds-calendar-date-input__label-row {
   display: flex;
   gap: var(--zen-spacing-2xs);
   align-items: center;
 }
-.ds-date-input__label {
+.ds-calendar-date-input__label {
   font-size: var(--zen-font-size-md);
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-default);
 }
-.ds-date-input__inputs {
+.ds-calendar-date-input__inputs {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs);
 }
-.ds-date-input__field {
+.ds-calendar-date-input__field {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -1957,7 +1957,7 @@
   border-radius: var(--zen-border-radius-xs);
   box-sizing: border-box;
 }
-.ds-date-input__value {
+.ds-calendar-date-input__value {
   flex: 1 1 0;
   min-width: 0;
   font-size: var(--zen-font-size-md);
@@ -1965,30 +1965,30 @@
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-placeholder);
 }
-.ds-date-input__calendar {
+.ds-calendar-date-input__calendar {
   width: 20px; /* icon box geometry (raw px) */
   height: 20px;
   flex: 0 0 auto;
   display: inline-flex;
   color: var(--zen-color-icon-default);
 }
-.ds-date-input__calendar svg {
+.ds-calendar-date-input__calendar svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.ds-date-input__sep {
+.ds-calendar-date-input__sep {
   flex: 0 0 auto;
   color: var(--zen-color-text-secondary);
 }
-.ds-date-input__helper {
+.ds-calendar-date-input__helper {
   font-size: var(--zen-font-size-sm);
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-sm);
   letter-spacing: var(--zen-font-letterspacing-wide-3);
   color: var(--zen-color-text-secondary);
 }
-.ds-date-input.is-disabled {
+.ds-calendar-date-input.is-disabled {
   opacity: 0.4;
 }
 
@@ -2155,7 +2155,7 @@
 
 /* ============ Tag interactive (chip w/ icons + remove) ============ */
 /* Registry axis: State = Default | Hovered | Selected | Disabled | … */
-.ds-tag-interactive {
+.ds-interactive-tag {
   display: inline-flex;
   align-items: center;
   gap: var(--zen-spacing-2xs); /* 4 */
@@ -2174,31 +2174,31 @@
   white-space: nowrap;
   cursor: pointer;
 }
-.ds-tag-interactive--selected {
+.ds-interactive-tag--selected {
   border-color: var(--zen-border-selected);
   background: var(--zen-color-bg-selected);
   color: var(--zen-color-text-default);
 }
-.ds-tag-interactive.is-disabled {
+.ds-interactive-tag.is-disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-.ds-tag-interactive__icon {
+.ds-interactive-tag__icon {
   width: 14px; /* icon box geometry (raw px) */
   height: 14px;
   flex: 0 0 auto;
   display: inline-flex;
   color: var(--zen-color-icon-default);
 }
-.ds-tag-interactive__icon svg {
+.ds-interactive-tag__icon svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.ds-tag-interactive__label {
+.ds-interactive-tag__label {
   display: inline-block;
 }
-.ds-tag-interactive__remove {
+.ds-interactive-tag__remove {
   width: 16px; /* tap target geometry (raw px) */
   height: 16px;
   flex: 0 0 auto;
@@ -2212,11 +2212,11 @@
   justify-content: center;
   cursor: pointer;
 }
-.ds-tag-interactive__remove:hover {
+.ds-interactive-tag__remove:hover {
   background: var(--zen-color-bg-default);
   color: var(--zen-color-icon-error);
 }
-.ds-tag-interactive__remove svg {
+.ds-interactive-tag__remove svg {
   width: 12px; /* glyph geometry (raw px) */
   height: 12px;
   display: block;
@@ -2654,7 +2654,7 @@
 
 /* ============ Calendar (static month grid) ============ */
 /* Registry axes: Type = Single date select | … ; Selection = Single | Range | Year. */
-.ds-calendar {
+.ds-calendar-data-selector {
   display: inline-flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs);
@@ -2667,20 +2667,20 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-calendar__header {
+.ds-calendar-data-selector__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--zen-spacing-xs);
 }
-.ds-calendar__month {
+.ds-calendar-data-selector__month {
   font-size: var(--zen-font-size-md);
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-default);
 }
-.ds-calendar__nav {
+.ds-calendar-data-selector__nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2693,18 +2693,18 @@
   color: var(--zen-color-icon-default);
   cursor: pointer;
 }
-.ds-calendar__nav svg {
+.ds-calendar-data-selector__nav svg {
   width: 16px; /* raw px: chevron box */
   height: 16px;
   display: block;
 }
-.ds-calendar__weekdays,
-.ds-calendar__grid {
+.ds-calendar-data-selector__weekdays,
+.ds-calendar-data-selector__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--zen-spacing-3xs);
 }
-.ds-calendar__weekday {
+.ds-calendar-data-selector__weekday {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2713,7 +2713,7 @@
   font-weight: var(--zen-font-weight-medium);
   color: var(--zen-color-text-tertiary);
 }
-.ds-calendar__day {
+.ds-calendar-data-selector__day {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2727,29 +2727,29 @@
   color: var(--zen-color-text-secondary);
   cursor: pointer;
 }
-.ds-calendar__day.is-blank {
+.ds-calendar-data-selector__day.is-blank {
   visibility: hidden;
 }
 /* Band first, so the endpoints (which also carry is-range) win the strong fill below. */
-.ds-calendar__day.is-range {
+.ds-calendar-data-selector__day.is-range {
   background: var(--zen-color-bg-selected);
   color: var(--zen-color-text-default);
   border-radius: 0;
 }
-.ds-calendar__day.is-selected,
-.ds-calendar__day.is-range-start,
-.ds-calendar__day.is-range-end {
+.ds-calendar-data-selector__day.is-selected,
+.ds-calendar-data-selector__day.is-range-start,
+.ds-calendar-data-selector__day.is-range-end {
   /* Brand fill: bg-emphasis is the canonical Figma color-bg-primary alias this
      file standardizes on (see header note + .ds-button--primary), not bg-primary. */
   background: var(--zen-color-bg-emphasis);
   color: var(--zen-color-text-reverse);
   font-weight: var(--zen-font-weight-medium);
 }
-.ds-calendar__day.is-range-start {
+.ds-calendar-data-selector__day.is-range-start {
   border-top-left-radius: var(--zen-border-radius-xs);
   border-bottom-left-radius: var(--zen-border-radius-xs);
 }
-.ds-calendar__day.is-range-end {
+.ds-calendar-data-selector__day.is-range-end {
   border-top-right-radius: var(--zen-border-radius-xs);
   border-bottom-right-radius: var(--zen-border-radius-xs);
 }
@@ -3066,7 +3066,7 @@
  *
  * Dedicated block, NOT base .ds-tag: the anatomy captures no border here,
  * unlike .ds-tag's 1px border -- reusing the base class would leak one. */
-.ds-tag-item-type {
+.ds-item-type-tag {
   display: inline-flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8, captured gapToken */
@@ -3082,174 +3082,174 @@
   box-sizing: border-box;
   white-space: nowrap;
 }
-.ds-tag-item-type__name {
+.ds-item-type-tag__name {
   display: inline-block;
   color: #9c2000; /* Property 1=Glossary-1's captured label colour */
 }
-.ds-tag-item-type__counter {
+.ds-item-type-tag__counter {
   color: #000000; /* no token captured */
 }
-.ds-tag-item-type--category {
+.ds-item-type-tag--category {
   background: #ffd7ca; /* no captured token */
 }
-.ds-tag-item-type--custom-1 {
+.ds-item-type-tag--custom-1 {
   background: #ffd5dd; /* no captured token */
 }
-.ds-tag-item-type--custom-2 {
+.ds-item-type-tag--custom-2 {
   background: #ffd6d8; /* no captured token */
 }
-.ds-tag-item-type--custom-3 {
+.ds-item-type-tag--custom-3 {
   background: #e7e0ee; /* no captured token */
 }
-.ds-tag-item-type--custom-4 {
+.ds-item-type-tag--custom-4 {
   background: #e1e5ff; /* no captured token */
 }
-.ds-tag-item-type--custom-5 {
+.ds-item-type-tag--custom-5 {
   background: #cadcf7; /* no captured token */
 }
-.ds-tag-item-type--custom-6 {
+.ds-item-type-tag--custom-6 {
   background: #dde6ec; /* no captured token */
 }
-.ds-tag-item-type--custom-7 {
+.ds-item-type-tag--custom-7 {
   background: #d0efed; /* no captured token */
 }
-.ds-tag-item-type--custom-8 {
+.ds-item-type-tag--custom-8 {
   background: #ecffff; /* no captured token */
 }
-.ds-tag-item-type--custom-9 {
+.ds-item-type-tag--custom-9 {
   background: #d0efed; /* no captured token */
 }
-.ds-tag-item-type--custom-10 {
+.ds-item-type-tag--custom-10 {
   background: #d3efcd; /* no captured token */
 }
-.ds-tag-item-type--custom-11 {
+.ds-item-type-tag--custom-11 {
   background: #f0ffec; /* no captured token */
 }
-.ds-tag-item-type--custom-12 {
+.ds-item-type-tag--custom-12 {
   background: #d3efcd; /* no captured token */
 }
-.ds-tag-item-type--custom-13 {
+.ds-item-type-tag--custom-13 {
   background: #d3efcd; /* no captured token */
 }
-.ds-tag-item-type--custom-14 {
+.ds-item-type-tag--custom-14 {
   background: #e1eacb; /* no captured token */
 }
-.ds-tag-item-type--custom-15 {
+.ds-item-type-tag--custom-15 {
   background: #e2e4dd; /* no captured token */
 }
-.ds-tag-item-type--data-process {
+.ds-item-type-tag--data-process {
   background: #ffd6d8; /* no captured token */
 }
-.ds-tag-item-type--data-product {
+.ds-item-type-tag--data-product {
   background: #cadcf7; /* no captured token */
 }
-.ds-tag-item-type--dataset {
+.ds-item-type-tag--dataset {
   background: #cfeafd; /* no captured token */
 }
-.ds-tag-item-type--field {
+.ds-item-type-tag--field {
   background: var(--zen-color-success-50);
 }
-.ds-tag-item-type--glossary-2 {
+.ds-item-type-tag--glossary-2 {
   background: #ffddb6; /* no captured token */
 }
-.ds-tag-item-type--glossary-3 {
+.ds-item-type-tag--glossary-3 {
   background: #ffcd92; /* no captured token */
 }
-.ds-tag-item-type--glossary-4 {
+.ds-item-type-tag--glossary-4 {
   background: #ffddb6; /* no captured token */
 }
-.ds-tag-item-type--glossary-5 {
+.ds-item-type-tag--glossary-5 {
   background: #ffcd92; /* no captured token */
 }
-.ds-tag-item-type--output-port {
+.ds-item-type-tag--output-port {
   background: #f1fdff; /* no captured token */
 }
-.ds-tag-item-type--use-case {
+.ds-item-type-tag--use-case {
   background: #fff5d5; /* no captured token */
 }
-.ds-tag-item-type--visualization {
+.ds-item-type-tag--visualization {
   background: #eed7ff; /* no captured token */
 }
 
-.ds-tag-item-type--category .ds-tag-item-type__name {
+.ds-item-type-tag--category .ds-item-type-tag__name {
   color: #7b2000; /* no captured token */
 }
-.ds-tag-item-type--custom-1 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-1 .ds-item-type-tag__name {
   color: #771a34; /* no captured token */
 }
-.ds-tag-item-type--custom-2 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-2 .ds-item-type-tag__name {
   color: #932139; /* no captured token */
 }
-.ds-tag-item-type--custom-3 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-3 .ds-item-type-tag__name {
   color: #644f77; /* no captured token */
 }
-.ds-tag-item-type--custom-4 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-4 .ds-item-type-tag__name {
   color: #5c61a7; /* no captured token */
 }
-.ds-tag-item-type--custom-5 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-5 .ds-item-type-tag__name {
   color: #002f75; /* no captured token */
 }
-.ds-tag-item-type--custom-6 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-6 .ds-item-type-tag__name {
   color: #4a6470; /* no captured token */
 }
-.ds-tag-item-type--custom-7 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-7 .ds-item-type-tag__name {
   color: #006563; /* no captured token */
 }
-.ds-tag-item-type--custom-8 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-8 .ds-item-type-tag__name {
   color: #007e7b; /* no captured token */
 }
-.ds-tag-item-type--custom-9 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-9 .ds-item-type-tag__name {
   color: #15504e; /* no captured token */
 }
-.ds-tag-item-type--custom-10 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-10 .ds-item-type-tag__name {
   color: #047800; /* no captured token */
 }
-.ds-tag-item-type--custom-11 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-11 .ds-item-type-tag__name {
   color: #1a4b14; /* no captured token */
 }
-.ds-tag-item-type--custom-12 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-12 .ds-item-type-tag__name {
   color: #145f04; /* no captured token */
 }
-.ds-tag-item-type--custom-13 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-13 .ds-item-type-tag__name {
   color: #1a4b14; /* no captured token */
 }
-.ds-tag-item-type--custom-14 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-14 .ds-item-type-tag__name {
   color: #5a6b00; /* no captured token */
 }
-.ds-tag-item-type--custom-15 .ds-tag-item-type__name {
+.ds-item-type-tag--custom-15 .ds-item-type-tag__name {
   color: #555947; /* no captured token */
 }
-.ds-tag-item-type--data-process .ds-tag-item-type__name {
+.ds-item-type-tag--data-process .ds-item-type-tag__name {
   color: #932139; /* no captured token */
 }
-.ds-tag-item-type--data-product .ds-tag-item-type__name {
+.ds-item-type-tag--data-product .ds-item-type-tag__name {
   color: #00255a; /* no captured token */
 }
-.ds-tag-item-type--dataset .ds-tag-item-type__name {
+.ds-item-type-tag--dataset .ds-item-type-tag__name {
   color: #00547d; /* no captured token */
 }
-.ds-tag-item-type--field .ds-tag-item-type__name {
+.ds-item-type-tag--field .ds-item-type-tag__name {
   color: var(--zen-color-success-800);
 }
-.ds-tag-item-type--glossary-2 .ds-tag-item-type__name {
+.ds-item-type-tag--glossary-2 .ds-item-type-tag__name {
   color: #7b2000; /* no captured token */
 }
-.ds-tag-item-type--glossary-3 .ds-tag-item-type__name {
+.ds-item-type-tag--glossary-3 .ds-item-type-tag__name {
   color: #5d1f0b; /* no captured token */
 }
-.ds-tag-item-type--glossary-4 .ds-tag-item-type__name {
+.ds-item-type-tag--glossary-4 .ds-item-type-tag__name {
   color: #83551f; /* no captured token */
 }
-.ds-tag-item-type--glossary-5 .ds-tag-item-type__name {
+.ds-item-type-tag--glossary-5 .ds-item-type-tag__name {
   color: #591e27; /* no captured token */
 }
-.ds-tag-item-type--output-port .ds-tag-item-type__name {
+.ds-item-type-tag--output-port .ds-item-type-tag__name {
   color: #00255a; /* no captured token */
 }
-.ds-tag-item-type--use-case .ds-tag-item-type__name {
+.ds-item-type-tag--use-case .ds-item-type-tag__name {
   color: var(--zen-color-text-default);
 }
-.ds-tag-item-type--visualization .ds-tag-item-type__name {
+.ds-item-type-tag--visualization .ds-item-type-tag__name {
   color: #5f0c9e; /* no captured token */
 }
 
@@ -3759,7 +3759,7 @@
  * verbatim from the Studio anatomy (quality.ratio 1); only Explorer's
  * chrome-accent modifier and the tab-strip/section copy are invented
  * (registry exposes no content props for either -- see the case comment).
- * The item-type badge (.ds-tag-item-type) and progress bar
+ * The item-type badge (.ds-item-type-tag) and progress bar
  * (.ds-progress*) reuse their EXISTING rules verbatim; only the classes
  * below are new. */
 .ds-drawer {
@@ -4175,9 +4175,9 @@
  * for the literal registry typo. Anatomy (ratio 1) captures the Collapsed
  * root + header (title + a trailing icon-only round Button, represented
  * here as the chevron toggle); the Expanded body geometry is NOT captured
- * (structuralVariants childCount:1!=2), so .ds-collapse-accordion__body is
+ * (structuralVariants childCount:1!=2), so .ds-collapse__body is
  * approximated from .ds-stepper__body's text tokens. */
-.ds-collapse-accordion {
+.ds-collapse {
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs); /* captured header gap, 8 */
@@ -4190,18 +4190,18 @@
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }
-.ds-collapse-accordion--expanded {
+.ds-collapse--expanded {
   border-color: var(
     --zen-color-primary-500
   ); /* real delta: accent border ties the revealed body to its header, not captured */
 }
-.ds-collapse-accordion__header {
+.ds-collapse__header {
   display: flex;
   align-items: center;
   justify-content: space-between; /* captured align.main: space-between */
   gap: var(--zen-spacing-xs);
 }
-.ds-collapse-accordion__title {
+.ds-collapse__title {
   font-size: var(--zen-font-size-lg); /* 16, captured */
   font-weight: var(--zen-font-weight-semibold); /* 600, captured */
   line-height: var(--zen-font-lineheight-lg); /* 24, captured */
@@ -4210,7 +4210,7 @@
   ); /* closest captured token (captured raw is 0.1px); same approximation .ds-stepper__title uses */
   color: var(--zen-color-text-default); /* captured #000000 */
 }
-.ds-collapse-accordion__toggle {
+.ds-collapse__toggle {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
@@ -4222,7 +4222,7 @@
   ); /* captured on the header's Button instance */
   color: var(--zen-color-icon-default);
 }
-.ds-collapse-accordion__body {
+.ds-collapse__body {
   color: var(
     --zen-color-text-secondary
   ); /* not captured; mirrors .ds-stepper__body */

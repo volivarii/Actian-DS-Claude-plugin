@@ -1,14 +1,9 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-323 components.
+324 components.
 
 ---
-
-### Account dropdown
-
-- Single component (no variants)
-- Node: `9118:17382` | Key: `487b25247d05a6f9d36a4c7b9f5177ca2017348e`
 
 ### Actian Data Intelligence
 
@@ -32,7 +27,7 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 
 ### Actian pyramid
 
-- Variants: **Color:** `Full color` · `White` · `Color3` · `Color4`
+- Variants: **Color:** `Full color` · `White`
 - Node: `7764:7688` | Key: `84e6abe2e5b7dbe96a859397f557249922560413`
 
 ### Action bar
@@ -71,7 +66,7 @@ Notifications
 - Single component (no variants)
 - Node: `7207:2820` | Key: `3ef4d9930695bc99abbbf055d853f986227ae5c5`
 
-### Alert-banner
+### Alert banner
 
 Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
 
@@ -242,11 +237,6 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 - Single component (no variants)
 - Node: `20395:1492` | Key: `ed6f4c8c30c74c30a2310ce0b9dc7e4f7e92bb7e`
 
-### Bar graph
-
-- Variants: **Property 1:** `Default`
-- Node: `15473:49489` | Key: `6ea07622a616f54b591da8eb26515332b9d02c31`
-
 ### bigquery
 
 - Single component (no variants)
@@ -320,10 +310,25 @@ Critical: "Use specifically for actions that result in data loss or permanent ch
 - Boolean properties: `Show leading icon#809:73` (default: true) — set to `false` to hide · `Show trailing icon#13807:82` (default: true) — set to `false` to hide · `Show label#15988:3` (default: true) — set to `false` to hide
 - Node: `7206:2643` | Key: `5a6d10d26bef3cc83955bf32a318c6b4682f25d3`
 
-### Calendar
+### calendar
+
+Calendar
+
+- Single component (no variants)
+- Node: `7378:5041` | Key: `805cb80b498052ea49f63c3123e9491808d6d8ef`
+
+### Calendar data selector
 
 - Variants: **Type:** `Single date select` · `Date` · `Month` · `Single` | **Selection:** `Single` · `Range` · `Year`
 - Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
+
+### Calendar date input
+
+Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
+
+- Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
+- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
+- Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
 
 ### Card
 
@@ -420,14 +425,7 @@ Close
 - Single component (no variants)
 - Node: `8400:25224` | Key: `ee8c45ab057d92ce74a177352d4a9efbd18c6aec`
 
-### collapse
-
-Collapse
-
-- Single component (no variants)
-- Node: `20633:62` | Key: `1530594f58087b425da1de80ce555a12afd24deb`
-
-### Collapse-accordion
+### Collapse
 
 Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.
 
@@ -530,7 +528,12 @@ Output ports
 - Single component (no variants)
 - Node: `8504:23087` | Key: `f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f`
 
-### Data-viz-legend-item
+### Data quality checks graph
+
+- Single component (no variants)
+- Node: `15473:49488` | Key: `82ebd7270ba880f1183ee0a25e5f2ecbc7dc40eb`
+
+### Data viz legend
 
 - Variants: **Property 1:** `Default` · `Focused` · `Hovered` · `Pressed` · `Selected`
 - Node: `14747:33310` | Key: `0a5b4776b4199b4a9efc77a76e99e12192e0dac5`
@@ -577,14 +580,6 @@ Date
 
 - Single component (no variants)
 - Node: `7378:5221` | Key: `decde3b78f16d02045516de4e4d8255d67d73cfc`
-
-### Date input
-
-Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
-
-- Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
-- Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
 
 ### db2
 
@@ -661,7 +656,7 @@ Drag to reorder
 - Single component (no variants)
 - Node: `7378:5050` | Key: `f4dd4a86dfd0f91cce381eaa51abaa14a84785d3`
 
-### Drawer, side panel
+### Drawer
 
 A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.
 
@@ -849,6 +844,11 @@ The persistent top-level container for branding, primary site-wide navigation, a
 - Variants: **App type:** `Explorer` · `Admin` · `Studio` | **Breakpoints:** `XL` · `L`
 - Node: `7384:22554` | Key: `e3e1e5d29f092fbd6ba5f0f40141ba55473548a8`
 
+### Global header account dropdown
+
+- Single component (no variants)
+- Node: `9118:17382` | Key: `487b25247d05a6f9d36a4c7b9f5177ca2017348e`
+
 ### glossary
 
 Glossary
@@ -856,7 +856,7 @@ Glossary
 - Single component (no variants)
 - Node: `10613:30347` | Key: `e47a036e8d2cce3968395f79cc96fdcc70bcf275`
 
-### Glossary item hierarchy diagram
+### Glossary item hierarchy
 
 - Single component (no variants)
 - Node: `14747:30243` | Key: `589059440a078bfe879a21b056edfe16be6b12c2`
@@ -972,10 +972,25 @@ Integer
 - Single component (no variants)
 - Node: `8504:23296` | Key: `8b6d13a33e18de3483b3b330d23abc5e69aefe56`
 
+### Interactive tag
+
+Interacitve tag
+
+- Variants: **State:** `Default` · `Disabled` · `Focus` · `Hover` · `Pressed` | **Type:** `Dismissible` · `Selectable` · `Dropdown-expanded` · `Dropdown` · `Selectable-selected`
+- Boolean properties: `Show trailing icon#21264:8` (default: true) — set to `false` to hide · `Show leading icon#21264:24` (default: true) — set to `false` to hide
+- Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
+
 ### invoice
 
 - Single component (no variants)
 - Node: `20633:47` | Key: `e2d43e3c5149857e6602c4364355d019fa1e5765`
+
+### Item type tag
+
+This is read-only tag. Use for item types.
+
+- Variants: **Type:** `Glossary-1` · `Glossary-2` · `Glossary-3` · `Glossary-4` · `Glossary-5` · `Category` · `Custom-1` · `Custom-2` · `Custom-3` · `Custom-4` · `Custom-5` · `Custom-6` · `Custom-7` · `Custom-8` · `Custom-9` · `Custom-10` · `Custom-11` · `Custom-12` · `Custom-13` · `Custom-14` · `Custom-15` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
+- Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
 
 ### jdbc
 
@@ -1023,15 +1038,14 @@ Lifecycle policy
 
 ### Line graph
 
-- Variants: **Property 1:** `Default`
-- Node: `15473:49490` | Key: `e365ff8c88faf24f3cadf6166127e97dbc8771fb`
-
-### lineage
-
-Lineage
-
 - Single component (no variants)
-- Node: `7378:5706` | Key: `32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119`
+- Node: `15473:49487` | Key: `75f685ba047cd2f103afe2b6550b7b72e3634f89`
+
+### Lineage
+
+- Variants: **Type:** `Individual main node` · `Individual sub item` · `Group sub item` · `Group main item` · `Connector up` · `Connector down` · `Connector straight` | **State:** `Default` · `Selected` · `Disabled` · `Expanded` | **Fields:** `Collapsed` · `Expanded` · `Default` · `Selected` · `Disabled` · `n/a`
+- Boolean properties: `Show left control#14691:0` (default: true) — set to `false` to hide · `Show icon#21982:54` (default: true) — set to `false` to hide
+- Node: `14747:19902` | Key: `5904351595c9b5b263bb5891bd1ed038fbaff636`
 
 ### Lineage connecting line
 
@@ -1043,12 +1057,6 @@ Lineage
 
 - Variants: **State:** `Default` · `Expanded` | **Type:** `Main item` · `Sub item`
 - Node: `15634:17895` | Key: `f1cafad1f47132058587042da7ec1e46e4eeffdd`
-
-### Lineage individual node
-
-- Variants: **Type:** `Individual main node` · `Individual sub item` · `Group sub item` · `Group main item` · `Connector up` · `Connector down` · `Connector straight` | **State:** `Default` · `Selected` · `Disabled` · `Expanded` | **Fields:** `Collapsed` · `Expanded` · `Default` · `Selected` · `Disabled` · `n/a`
-- Boolean properties: `Show left control#14691:0` (default: true) — set to `false` to hide · `Show icon#21982:54` (default: true) — set to `false` to hide
-- Node: `14747:19902` | Key: `5904351595c9b5b263bb5891bd1ed038fbaff636`
 
 ### Link
 
@@ -1208,13 +1216,6 @@ Move to catalog
 
 - Single component (no variants)
 - Node: `8400:25111` | Key: `5a04491296f24a38a3364f6650782d09e2658fca`
-
-### Notification
-
-Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., "Item saved"). Automatically dismisses after 3–5 seconds.
-
-- Variants: **Type:** `Default` · `Critical`
-- Node: `13868:11595` | Key: `590d2373b688235e8da72732919d2f874eee6cda`
 
 ### Notification dropdown
 
@@ -1386,6 +1387,15 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Variants: **Orientation:** `Vertical` · `Horizontal`
 - Boolean properties: `Show label#20405:23` (default: true) — set to `false` to hide · `Show helper text#20405:35` (default: true) — set to `false` to hide
 - Node: `20428:26750` | Key: `5b8b91cfad6d11d95a9b7f4332c49a6dc1779740`
+
+### Read only tag
+
+This is read-only tag
+
+- Variants: **Type:** `Default` · `Catalog` · `Shared` · `Stage-1` · `Stage-2` · `Stage-3` · `Stage-4` · `Stage-5` · `Stage-6` · `Stage-7` · `Stage-8` · `Status-error` · `Status-warning` · `Status-success`
+- Text overrides: `Label#257:0`
+- Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
+- Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
 
 ### read-search
 
@@ -1698,30 +1708,6 @@ Use for large datasets requiring comparison, sorting, and filtering. Supports co
 - Boolean properties: `Show Avatar#14797:1` (default: true) — set to `false` to hide
 - Node: `7279:3297` | Key: `f7c2d559b6cadba2002dc304bd4f71924cb4a27a`
 
-### Tag, Interactive
-
-Interacitve tag
-
-- Variants: **State:** `Default` · `Disabled` · `Focus` · `Hover` · `Pressed` | **Type:** `Dismissible` · `Selectable` · `Dropdown-expanded` · `Dropdown` · `Selectable-selected`
-- Boolean properties: `Show trailing icon#21264:8` (default: true) — set to `false` to hide · `Show leading icon#21264:24` (default: true) — set to `false` to hide
-- Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
-
-### Tag, item type
-
-This is read-only tag. Use for item types.
-
-- Variants: **Type:** `Glossary-1` · `Glossary-2` · `Glossary-3` · `Glossary-4` · `Glossary-5` · `Category` · `Custom-1` · `Custom-2` · `Custom-3` · `Custom-4` · `Custom-5` · `Custom-6` · `Custom-7` · `Custom-8` · `Custom-9` · `Custom-10` · `Custom-11` · `Custom-12` · `Custom-13` · `Custom-14` · `Custom-15` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
-- Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
-
-### Tag, read only
-
-This is read-only tag
-
-- Variants: **Type:** `Default` · `Catalog` · `Shared` · `Stage-1` · `Stage-2` · `Stage-3` · `Stage-4` · `Stage-5` · `Stage-6` · `Stage-7` · `Stage-8` · `Status-error` · `Status-warning` · `Status-success`
-- Text overrides: `Label#257:0`
-- Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
-- Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
-
 ### tags-add
 
 Activity timeline
@@ -1807,12 +1793,26 @@ Thumbs down
 - Single component (no variants)
 - Node: `10089:786` | Key: `93686ddb00e20fd0a150c2a9f56986d47abf5db0`
 
+### thumbs-down-filled
+
+Thumbs down
+
+- Single component (no variants)
+- Node: `22230:3444` | Key: `af138f930c5548f423f74f3d9c05157bd1b9a704`
+
 ### thumbs-up
 
 Thumbs up
 
 - Single component (no variants)
 - Node: `10089:787` | Key: `5ab3cbd59dee68fabb404966d3be7aa87ed761a5`
+
+### thumbs-up-filled
+
+Thumbs up
+
+- Single component (no variants)
+- Node: `22230:3445` | Key: `60170092dbcba66c66b1b172ada88bc613485887`
 
 ### tibco-datavirtualization
 
@@ -1825,6 +1825,13 @@ Time
 
 - Single component (no variants)
 - Node: `8504:23298` | Key: `d056a594413fcd44887aca52b86d9df25f0cbd0c`
+
+### Toast
+
+Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., "Item saved"). Automatically dismisses after 3–5 seconds.
+
+- Variants: **Type:** `Default` · `Critical`
+- Node: `13868:11595` | Key: `590d2373b688235e8da72732919d2f874eee6cda`
 
 ### Toggle
 
@@ -1839,13 +1846,13 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 - Boolean properties: `Show View scale#14335:0` (default: true) — set to `false` to hide
 - Node: `14335:16907` | Key: `96683d78ad981aacc04a5b6c7c2b0f0f1d631516`
 
-### Tooltip
+### Tooltip/Default
 
-Flex width with maximum width of 320px.
+A brief, descriptive text box triggered by hover or focus. Use for clarifying icons or providing short context for a specific UI element. Note: Must not contain interactive elements.
 
-- Variants: **Type:** `Default`
-- Text overrides: `Body#7038:10`
-- Node: `7038:351` | Key: `558adad968a5b5e1e3714307fb19de73d1ac6d21`
+- Single component (no variants)
+- Text overrides: `Body#7038:11`
+- Node: `7036:1360` | Key: `b36b2406753f81a38dc29731eb262dda640e83c4`
 
 ### trash
 

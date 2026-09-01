@@ -176,7 +176,7 @@ var DS_FIXTURES = {
   // NO modifier class at all and the golden would have gone on recording that
   // as if it were the component. Both now name live Type values.
   tagDefault: {
-    dsSlug: "tag-read-only",
+    dsSlug: "read-only-tag",
     variant: "Type=Default",
     props: { Label: "Active" },
   },
@@ -186,7 +186,7 @@ var DS_FIXTURES = {
   // what carries a fact now, because the leaf swaps the GLYPH per Type
   // (folder here, `add` for tagDefault above), so the pair pins the swap.
   tagWithIcon: {
-    dsSlug: "tag-read-only",
+    dsSlug: "read-only-tag",
     variant: "Type=Catalog",
     props: { Label: "Catalog" },
   },
@@ -432,7 +432,7 @@ var DS_FIXTURES = {
     },
   },
   // The tag-status COMPONENT was deleted on 2026-08-12 and folded into
-  // tag-read-only's Type axis, so these two are repointed onto their successor
+  // read-only-tag's Type axis, so these two are repointed onto their successor
   // values (Status=Success -> Type=Status-success, Status=Fail ->
   // Type=Status-error, which is what Figma now calls the failure value).
   //
@@ -451,12 +451,12 @@ var DS_FIXTURES = {
   // both pills now carry real path geometry. knowledge #406 covers the six
   // dropped glyphs generally and stays open; it no longer blocks these two.
   tagStatusSuccess: {
-    dsSlug: "tag-read-only",
+    dsSlug: "read-only-tag",
     variant: "Type=Status-success",
     props: { Label: "Active" },
   },
   tagStatusFail: {
-    dsSlug: "tag-read-only",
+    dsSlug: "read-only-tag",
     variant: "Type=Status-error",
     props: { Label: "Failed" },
   },

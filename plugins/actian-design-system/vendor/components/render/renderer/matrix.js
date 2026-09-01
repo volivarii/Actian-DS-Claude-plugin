@@ -99,7 +99,7 @@ var RENDER_SLUGS = readRenderSlugs();
 // checked vacuously, and tests/render/fidelity-check.test.js proves those
 // properties on a fixture instead.
 var CSS_OWNERS = {
-  "account-dropdown": ["ds-account-menu"],
+  "global-header-account-dropdown": ["ds-account-menu"],
   "alert-banner": ["ds-alert"],
   "app-switcher-dropdown": ["ds-app-switcher"],
   breadcrumb: ["ds-breadcrumbs"],
@@ -107,17 +107,16 @@ var CSS_OWNERS = {
   "card-for-perimeter": ["ds-card-perimeter"],
   "digram-item-types": ["ds-item-type"],
   "digram-topic": ["ds-topic"],
-  "drawer-side-panel": ["ds-drawer"],
   "dropdown-select-default": ["ds-dropdown-select"],
   "global-header": ["ds-header"],
   "lineage-grouped-node": ["ds-lineage-group"],
-  "lineage-individual-node": ["ds-lineage-node"],
+  "lineage": ["ds-lineage-node"],
   "notification-dropdown": ["ds-notification-menu"],
   "progress-bar-small": ["ds-progress"],
   "search-dropdown-menu": ["ds-search-menu"],
   "segmented-control": ["ds-segmented"],
   "side-nav": ["ds-sidenav"],
-  "tag-read-only": ["ds-tag"],
+  "read-only-tag": ["ds-tag"],
   "text-input": ["ds-field"],
   "whats-new-dropdown": ["ds-whatsnew"],
 };
@@ -347,7 +346,7 @@ var MATRIX_OVERRIDES = {
   // which is the fabrication invariant 10 exists to catch. Deriving removes the
   // failure mode instead of testing for it (invariant 10 keeps guarding the
   // overrides that really are curated, below).
-  "tag-read-only": allIdentityValueCells("tag-read-only"),
+  "read-only-tag": allIdentityValueCells("read-only-tag"),
 
   // Size is a secondary axis (filtered by isSecondaryAxis), so the generic
   // derivation falls back to a single bare cell with no props. Curate one
@@ -374,7 +373,7 @@ var MATRIX_OVERRIDES = {
   // component publishes 28 values on a `Property 1` axis instead. Every value
   // is a distinct colored pill, i.e. the component's identity, so the whole
   // axis is shown.
-  "tag-item-type": allIdentityValueCells("tag-item-type"),
+  "item-type-tag": allIdentityValueCells("item-type-tag"),
 
   // Same rationale as empty-state above: Size is the only (secondary) axis,
   // so curate one representative rich cell instead of the generic bare stub.
@@ -570,7 +569,7 @@ var MATRIX_OVERRIDES = {
   // App (Studio/Explorer) is the identity axis, but this leaf reads
   // Name/Type/Show Back, not Label -- curate both cells so the gallery
   // shows the faithful Studio default plus the minimal Explorer accent.
-  "drawer-side-panel": [
+  "drawer": [
     {
       label: "Studio",
       variant: "App=Studio",
@@ -694,7 +693,7 @@ var MATRIX_OVERRIDES = {
   // title with no body. Curate two real cells (mirrors the empty-state
   // override's rationale). The "Expanede" value is the literal registry
   // typo -- see the case comment.
-  "collapse-accordion": [
+  "collapse": [
     {
       label: "Collapsed",
       variant: "State=Collapsed",
@@ -762,14 +761,14 @@ var SPECIMEN_PROPS = {
     Body: "Update the description so teammates know what this connection is for.",
   },
 
-  // capture: anatomy/notification.json nested button label "Close"
-  notification: { Action: "Close" },
+  // capture: anatomy/toast.json nested button label "Close"
+  toast: { Action: "Close" },
 
   // capture: anatomy/stepper.json layer "Body" reads "Optional body"
   stepper: { Body: "Optional body" },
 
   // authored: the capture holds "Date", "*" and "mm/dd/yyyy" but no helper layer
-  "date-input": { Helper: "Use MM/DD/YYYY." },
+  "calendar-date-input": { Helper: "Use MM/DD/YYYY." },
 
   "dropdown-select-default": {
     // capture: anatomy/dropdown-select-default.json layer "description"
@@ -788,11 +787,11 @@ var SPECIMEN_PROPS = {
     Body: "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline. Learn how to navigate data lineage using mouse and keyboard controls.",
   },
 
-  // substituted, not captured: anatomy/account-dropdown.json holds what reads as
+  // substituted, not captured: anatomy/global-header-account-dropdown.json holds what reads as
   // a real person's name and address at an external domain. Shipping that as
   // specimen content in a customer-facing bundle is not acceptable, so the
   // structure is kept and the address replaced.
-  "account-dropdown": { Email: "account.user@example.com" },
+  "global-header-account-dropdown": { Email: "account.user@example.com" },
 };
 
 // Merge, never replace, and never in place: a cell's own prop wins, and the

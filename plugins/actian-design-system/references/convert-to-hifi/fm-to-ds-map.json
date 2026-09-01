@@ -449,13 +449,11 @@
       "dsKey": "3ad726123245a1052e193ff80b894ba98b9a3e52"
     },
     "fmTooltip": {
-      "defaultVariant": {
-        "Type": "Default"
-      },
+      "defaultVariant": {},
       "variantMap": {},
       "dropVariants": ["Position"],
-      "notes": "DS tooltip has only Type=Default with no position variants. FM Position axis is dropped.",
-      "dsKey": "558adad968a5b5e1e3714307fb19de73d1ac6d21"
+      "notes": "DS publishes Tooltip/Default as a single component with no variant axes, so no default variant is set. FM Position axis is dropped.",
+      "dsKey": "b36b2406753f81a38dc29731eb262dda640e83c4"
     },
     "fmTextArea": {
       "defaultVariant": {

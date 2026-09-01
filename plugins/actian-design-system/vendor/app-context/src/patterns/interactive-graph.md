@@ -17,7 +17,7 @@ when: >-
   floating tool rail. Do not use lineage-graph, which is the directional data-flow case with
   its own node card; this one is radial and relationship-shaped.
 components:
-  - lineage-individual-node
+  - lineage
   - lineage-grouped-node
   - lineage-connecting-line
 ---

@@ -21,18 +21,18 @@ components:
   - page-header
   - breadcrumb
   - side-nav
-  - drawer-side-panel
+  - drawer
   - avatar
   - progress-bar-small
-  - tag-read-only
-  - tag-interactive
+  - read-only-tag
+  - interactive-tag
   - button
   - checkbox
   - empty-state
   - segmented-control
   - dropdown-select-default
   - text-area
-  - date-input
+  - calendar-date-input
 ---
 The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.
 

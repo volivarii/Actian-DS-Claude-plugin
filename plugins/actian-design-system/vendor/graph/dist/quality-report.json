@@ -86,7 +86,7 @@
   {
     "dimension": "connectivity",
     "metric": "pattern_component_edges",
-    "value": 112,
+    "value": 110,
     "timestamp": null,
     "severity": "info"
   },

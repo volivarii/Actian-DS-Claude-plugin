@@ -3,7 +3,7 @@ title: "Notification dropdown usage guidelines"
 ---
 ## When to use
 
-* Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).
+* Use the notification dropdown as the single entry point for recent [notification items](toast), opened from the bell in the [global header](global-header).
 
 * Use it to let the user browse, open, and mark notifications as read without leaving their current page.
 
@@ -25,7 +25,7 @@ title: "Notification dropdown usage guidelines"
 
 The notification dropdown has no type or size variants; the choice is between its two configurations.
 
-* **List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.
+* **List:** the populated panel, [notification items](toast) newest first, with a mark-all-as-read action in reach.
 
 * **Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state).
 

@@ -15,7 +15,7 @@ title: "Popover usage guidelines"
 
 * Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).
 
-* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).
+* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer).
 
 * Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not.
 

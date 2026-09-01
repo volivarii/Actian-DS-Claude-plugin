@@ -1,0 +1,140 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/tooltip/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "tooltip",
+  "component": "Tooltip",
+  "meta": {
+    "category": "overlays",
+    "a11y_refs": [
+      {
+        "ref": "tooltips"
+      }
+    ]
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Tooltip\n\nTooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible.\n\n***\n\n## When to use\n\n* To provide short contextual help on hover or focus.\n\n* For icon-only controls that require a label.\n\n* Do not use tooltips for critical information. Users should not be required to hover to understand the UI.\n\n## Style\n\n* Limit to a few words or one concise sentence.\n\n* Do not repeat the label of the element being described.\n\n* For multi-sentence explanations, use a [popover](popover) or inline help text instead.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "To provide short contextual help on hover or focus.",
+                "For icon-only controls that require a label.",
+                "Do not use tooltips for critical information. Users should not be required to hover to understand the UI."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Limit to a few words or one concise sentence.",
+                "Do not repeat the label of the element being described.",
+                "For multi-sentence explanations, use a [popover](popover) or inline help text instead."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "approved",
+      "markdown": "## When to use\n\n* Use a tooltip to label icon-only controls: every icon-only [button](button) gets one, and the tooltip supplies its accessible name.\n\n* Use it for a short supplementary hint on hover or focus: what a control does, a keyboard shortcut, a spelled-out abbreviation.\n\n* Use it to expose the full value of truncated text, for example a clipped cell in a [table](table), provided the trigger itself is focusable so keyboard users can reach it.\n\n## When not to use\n\n* Don't put essential content in a tooltip: anything the user must know to proceed stays visible on the page. If they have to hover to understand the UI, the UI is broken.\n\n* Don't use a tooltip for rich or multi-sentence content, links, or actions: use a [popover](popover), which opens on click and can hold structure.\n\n* Don't use a tooltip for form-field guidance the user needs while typing: use persistent helper text under the field.\n\n* Don't attach tooltips to disabled controls as the only explanation; hover never fires on touch, and focus may not reach them. Explain the disabled state inline.\n\n## Variant selection\n\nTooltips have a single Default variant; the real choices are configuration.\n\n* **Body text:** a few words to one short sentence. The tooltip is flex width up to a 320px maximum; if the text wraps past two lines, move it to a [popover](popover) or inline help.\n\n* **Placement:** default to above the trigger; flip automatically near viewport edges so the tooltip is never clipped.\n\n* **Trigger:** hover and keyboard focus, never click. It must appear for keyboard users exactly as it does for mouse users.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Give every icon-only button a tooltip naming its action | Rely on the icon alone to convey meaning |\n| Keep the tooltip to one short sentence | Pack instructions and links into a 320px block |\n| Show the tooltip on keyboard focus as well as hover | Make the hint mouse-only |\n| Explain a disabled control with inline text | Hide the reason behind a hover on a disabled target |\n\n> Tooltip wording rules (no label repetition, one concise sentence) live in the Content guidelines for tooltips.",
+      "sections": [
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "Use a tooltip to label icon-only controls: every icon-only [button](button) gets one, and the tooltip supplies its accessible name.",
+                "Use it for a short supplementary hint on hover or focus: what a control does, a keyboard shortcut, a spelled-out abbreviation.",
+                "Use it to expose the full value of truncated text, for example a clipped cell in a [table](table), provided the trigger itself is focusable so keyboard users can reach it."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "When not to use",
+          "content": [
+            {
+              "bullets": [
+                "Don't put essential content in a tooltip: anything the user must know to proceed stays visible on the page. If they have to hover to understand the UI, the UI is broken.",
+                "Don't use a tooltip for rich or multi-sentence content, links, or actions: use a [popover](popover), which opens on click and can hold structure.",
+                "Don't use a tooltip for form-field guidance the user needs while typing: use persistent helper text under the field.",
+                "Don't attach tooltips to disabled controls as the only explanation; hover never fires on touch, and focus may not reach them. Explain the disabled state inline."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Variant selection",
+          "content": [
+            {
+              "prose": "Tooltips have a single Default variant; the real choices are configuration."
+            },
+            {
+              "bullets": [
+                "**Body text:** a few words to one short sentence. The tooltip is flex width up to a 320px maximum; if the text wraps past two lines, move it to a [popover](popover) or inline help.",
+                "**Placement:** default to above the trigger; flip automatically near viewport edges so the tooltip is never clipped.",
+                "**Trigger:** hover and keyboard focus, never click. It must appear for keyboard users exactly as it does for mouse users."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Give every icon-only button a tooltip naming its action",
+              "dont": "Rely on the icon alone to convey meaning"
+            },
+            {
+              "do": "Keep the tooltip to one short sentence",
+              "dont": "Pack instructions and links into a 320px block"
+            },
+            {
+              "do": "Show the tooltip on keyboard focus as well as hover",
+              "dont": "Make the hint mouse-only"
+            },
+            {
+              "do": "Explain a disabled control with inline text",
+              "dont": "Hide the reason behind a hover on a disabled target"
+            },
+            {
+              "note": "Tooltip wording rules (no label repetition, one concise sentence) live in the Content guidelines for tooltips."
+            }
+          ]
+        }
+      ]
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-08-18T18:56:05+02:00",
+  "_alias_of": "tooltip"
+}

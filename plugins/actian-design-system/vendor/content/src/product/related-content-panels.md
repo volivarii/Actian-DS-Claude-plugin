@@ -2,7 +2,7 @@
 title: "Related content panels"
 nav_order: 30
 # Pattern fan-out — surfaces that show contextually-related content. Jeff: edit/correct/extend.
-relatedComponents: [drawer-side-panel]
+relatedComponents: [drawer]
 ---
 # Related content panels
 

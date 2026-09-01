@@ -12,7 +12,7 @@ tags:
   - analytics
   - natural-language
 components:
-  - drawer-side-panel
+  - drawer
   - text-input
 ---
 Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language.

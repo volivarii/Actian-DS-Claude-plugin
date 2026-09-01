@@ -142,7 +142,7 @@ var NO_ROOT_APPEARANCE = {
   // component to "Date input" (knowledge c8340c77, same dsKey). The capture is
   // unchanged across the rename: it carried no root appearance before either,
   // so this is the same entry under the current name, not a new loss.
-  "date-input": "field box is a child",
+  "calendar-date-input": "field box is a child",
 
   // Arrived with the same reorg. Its root is a bare wrapper: the `Pagination`
   // child paints #ffffff and the Previous/Next buttons carry the borders, so

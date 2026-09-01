@@ -8,7 +8,7 @@ Global toasts appear at a fixed position on screen, independent of the triggerin
 - Do not use for actions that require user input.
 - For confirmations that need to persist, use an alert / banner instead.
 - Use a global toast to confirm the result of an async or background action: import finished, export ready, connection saved. It appears at a fixed screen edge, independent of what triggered it; plain confirmations dismiss themselves after a few seconds.
-- Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the notification keeps the durable record; the toast only announces.
+- Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the notification item keeps the durable record; the global toast only announces.
 - Use it for non-critical errors or warnings that do not block the user, ideally with a retry action (**Connection failed. Try again**). A toast that carries an action (**Undo**, **Try again**) must stay up until dismissed, never auto-dismiss.
 
 ## When not to use

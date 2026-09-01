@@ -15,7 +15,7 @@ title: "Table usage guidelines"
 
 * Don't use a table for browseable items whose identity matters more than attribute comparison: use a [card](card) grid (for example data products on a dashboard).
 
-* Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer-side-panel).
+* Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer).
 
 * Don't reach for a table when a simple list carries the content: two columns of name plus one value rarely need sorting chrome.
 

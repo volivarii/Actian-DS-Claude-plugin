@@ -2,11 +2,10 @@
   "_schema_version": 1,
   "slug": "line-graph",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-08-31T11:39:48.734Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "15473:49490",
-    "variant": "Property 1=Default"
+    "nodeId": "15473:49487"
   },
   "quality": {
     "nodesTotal": 80,
@@ -28,7 +27,7 @@
     ]
   },
   "root": {
-    "name": "Property 1=Default",
+    "name": "Line graph",
     "kind": "container",
     "tokenRefs": [
       "--zen-border-default"
@@ -1308,8 +1307,8 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "NONE",
-              "x": 2299,
-              "y": 2359,
+              "x": 2306,
+              "y": 2338,
               "constraints": {
                 "vertical": "CENTER",
                 "horizontal": "SCALE"
@@ -1342,8 +1341,8 @@
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
-                  "x": 2299,
-                  "y": 2414.754119873047,
+                  "x": 2306,
+                  "y": 2393.754119873047,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -1435,7 +1434,7 @@
                 },
                 "id": "15473:49389",
                 "appearance": {
-                  "background": "#edf6ff",
+                  "background": "#ecfdff",
                   "radius": "4px"
                 }
               },
@@ -1584,8 +1583,5 @@
         ]
       }
     ]
-  },
-  "variantDefaults": {
-    "Property 1": "Default"
   }
 }

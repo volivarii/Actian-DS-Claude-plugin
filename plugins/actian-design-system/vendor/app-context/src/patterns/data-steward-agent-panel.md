@@ -12,7 +12,7 @@ tags:
   - curate
   - approval
 components:
-  - drawer-side-panel
+  - drawer
   - confirmation
   - button
 ---
