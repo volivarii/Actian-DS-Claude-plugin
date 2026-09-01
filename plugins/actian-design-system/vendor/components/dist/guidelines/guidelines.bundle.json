@@ -115,14 +115,14 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nAction bars have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the action bar | Let the action bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for action bars.",
+          "markdown": "## When to use\n\n* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.\n\n* Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).\n\n* Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings).\n\n## When not to use\n\n* Don't use it in a [modal](modal): modals have their own footer as part of the dialog.\n\n* Don't use it for page-level actions on non-form pages (**New dataset** on a list page): those belong in the [page header](page-header).\n\n* Don't use it for actions scoped to a selection in the content: that is a [toolbar](toolbar) above the working surface.\n\n* Don't use it on short forms that fit one view without scrolling: place the actions at the end of the form instead.\n\n## Variant selection\n\nAction bars have a single Default variant; the choices are configuration.\n\n* **Button set:** exactly one primary action, an optional secondary (**Cancel**), and at most three [buttons](button) total; the only extra allowed is a destructive **Delete**.\n\n* **Scope:** span the surface the actions commit: full page width for a page form, drawer width inside a drawer.\n\n* **Stepper mode:** label the actions **Back** and **Next**, and name the final button for the outcome (**Create**, per the [stepper](stepper) rules); keep the terminology identical through the whole flow.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the footer visible for the whole scroll of the form | Let the actions scroll away with the content |\n| Commit or discard the entire form state from it | Mix in actions that only affect one field or section |\n| Keep primary and secondary in the same position on every form | Swap Save and Cancel between two drawers |\n| Validate on save and move focus to the first error | Park a permanently disabled Save the user cannot interrogate |\n| Keep the focused field visible above the action bar | Let the action bar cover the input the user is typing in |\n\n> Button label rules (Save vs Done, Next vs Continue, the stepper terminology) live in the Content guidelines for action bars.",
           "sections": [
             {
               "heading": "When to use",
               "content": [
                 {
                   "bullets": [
-                    "Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.",
+                    "Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.",
                     "Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).",
                     "Use it when the actions commit the state of the entire page, drawer, or form (for example creating a connection, saving import settings)."
                   ]
@@ -197,7 +197,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-24T15:26:17+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "alert-banner": {
       "_schema_version": 1,
@@ -220,7 +220,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Alert / banner\n\nAlerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved.\n\n***\n\n## When to use\n\n* To warn the user of a condition that may affect their work or data - before an action is taken.\n\n* To confirm that a significant action was completed and the user should be aware of the result.\n\n* To surface a system-level error that requires action to resolve.\n\n* Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.\n\n* Do not stack multiple alerts. Consolidate if possible.\n\n## Style\n\n* Keep alert text to one to two sentences.\n\n* Lead with the most important information.\n\n* Use the appropriate severity: informational, success, warning, or error.\n\n* Include a clear action link or button when the user needs to do something.\n\n* Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity.\n\n## Behavior\n\n* Informational and success alerts can be dismissible.\n\n* Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.\n\n* Alerts should appear at the top of the affected area, not in the center of the page.\n\n## Do / Don't\n\n| Do                                                                              | Don't                                                         |\n| ------------------------------------------------------------------------------- | ------------------------------------------------------------- |\n| Your connection expired. Log in again to continue.                              | Alert: There has been an authentication error. Please log in. |\n| Some datasets are read-only. Contact your administrator to request edit access. | Warning: Permission issue detected.                           |\n| Import failed. Check the file format and try again.                             | Error.                                                        |\n\n***\n\n## Inline banner\n\nAn inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context.\n\n### When to use\n\n* To display persistent warnings, errors, or informational messages within a page or form.\n\n### Style\n\n* State the issue and what the user should do. Keep to one to two sentences.\n\n* Include a link or action if applicable.",
+          "markdown": "# Alert / banner\n\nAlerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved.\n\n***\n\n## When to use\n\n* To warn the user of a condition that may affect their work or data - before an action is taken.\n\n* To confirm that a significant action was completed and the user should be aware of the result.\n\n* To surface a system-level error that requires action to resolve.\n\n* Do not use alerts for routine confirmations - use [toast notifications](global-toast) instead.\n\n* Do not stack multiple alerts. Consolidate if possible.\n\n## Style\n\n* Keep alert text to one to two sentences.\n\n* Lead with the most important information.\n\n* Use the appropriate severity: informational, success, warning, or error.\n\n* Include a clear action link or button when the user needs to do something.\n\n* Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity.\n\n## Behavior\n\n* Informational and success alerts can be dismissible.\n\n* Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.\n\n* Alerts should appear at the top of the affected area, not in the center of the page.\n\n## Do / Don't\n\n| Do                                                                              | Don't                                                         |\n| ------------------------------------------------------------------------------- | ------------------------------------------------------------- |\n| Your connection expired. Log in again to continue.                              | Alert: There has been an authentication error. Please log in. |\n| Some datasets are read-only. Contact your administrator to request edit access. | Warning: Permission issue detected.                           |\n| Import failed. Check the file format and try again.                             | Error.                                                        |\n\n***\n\n## Inline banner\n\nAn inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context.\n\n### When to use\n\n* To display persistent warnings, errors, or informational messages within a page or form.\n\n### Style\n\n* State the issue and what the user should do. Keep to one to two sentences.\n\n* Include a link or action if applicable.",
           "sections": [
             {
               "heading": "",
@@ -238,7 +238,7 @@
                     "To warn the user of a condition that may affect their work or data - before an action is taken.",
                     "To confirm that a significant action was completed and the user should be aware of the result.",
                     "To surface a system-level error that requires action to resolve.",
-                    "Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.",
+                    "Do not use alerts for routine confirmations - use [toast notifications](global-toast) instead.",
                     "Do not stack multiple alerts. Consolidate if possible."
                   ]
                 }
@@ -487,7 +487,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T19:16:57+02:00"
     },
     "avatar": {
       "_schema_version": 1,
@@ -1397,7 +1397,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n* When users need to select a date or date range and seeing surrounding days adds context.\n\n* For a compact single-date entry where a visual month view is unnecessary, use a [date input](date-input) instead.\n\n## Style\n\n* Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n\n* Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n\n* For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n* Highlight today's date for orientation.\n\n* Disable dates that are not selectable rather than allowing selection and then showing an error.\n\n* For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do                                 | Don't          |\n| ---------------------------------- | -------------- |\n| Start date                         | Select date    |\n| Jun 28, 2026                       | 06/28/26       |\n| End date must be after start date. | Invalid range. |",
+          "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n* When users need to select a date or date range and seeing surrounding days adds context.\n\n* For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar-date-input) instead.\n\n## Style\n\n* Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n\n* Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n\n* For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n* Highlight today's date for orientation.\n\n* Disable dates that are not selectable rather than allowing selection and then showing an error.\n\n* For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do                                 | Don't          |\n| ---------------------------------- | -------------- |\n| Start date                         | Select date    |\n| Jun 28, 2026                       | 06/28/26       |\n| End date must be after start date. | Invalid range. |",
           "sections": [
             {
               "heading": "",
@@ -1413,7 +1413,7 @@
                 {
                   "bullets": [
                     "When users need to select a date or date range and seeing surrounding days adds context.",
-                    "For a compact single-date entry where a visual month view is unnecessary, use a [date input](date-input) instead."
+                    "For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar-date-input) instead."
                   ]
                 }
               ]
@@ -1463,7 +1463,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).\n\n* Use it to pick a date range where the span between start and end should stay visible while choosing.\n\n* Use it attached to a [date input](date-input) as the picking surface, or on its own when the month view is the main content of the screen.\n\n## When not to use\n\n* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](date-input), which pairs typing with an attached calendar.\n\n* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](date-input) is faster.\n\n* Don't use it to display schedules or events: it is a picking control, not a timeline view.\n\n## Variant selection\n\n* **Single selection:** picking one date; the standard mode when attached to a date input.\n\n* **Range selection:** picking a start and an end; the calendar shows the span between them while choosing.\n\n* **Month view:** the default granularity for picking individual days.\n\n* **Year view:** quick jumps to distant dates without paging month by month.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight today's date for orientation | Leave the user hunting for the current day |\n| Disable dates that cannot be chosen | Accept any date and show an error afterwards |\n| Show the span while a range is being picked | Reveal the range only after both ends are set |\n| Open on the month of the current or previously chosen value | Always open on the same fixed month |\n| Keep the week layout consistent across the product | Change the first day of the week between screens |\n\n> Date format and range label wording rules (**Start date**, **End date**; displayed format Jun 28, 2026, typed format YYYY-MM-DD) live in the Content guidelines for calendars.",
+          "markdown": "## When to use\n\n* Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).\n\n* Use it to pick a date range where the span between start and end should stay visible while choosing.\n\n* Use it attached to a [date input](calendar-date-input) as the picking surface, or on its own when the month view is the main content of the screen.\n\n## When not to use\n\n* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar-date-input), which pairs typing with an attached calendar.\n\n* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar-date-input) is faster.\n\n* Don't use it to display schedules or events: it is a picking control, not a timeline view.\n\n## Variant selection\n\n* **Single selection:** picking one date; the standard mode when attached to a date input.\n\n* **Range selection:** picking a start and an end; the calendar shows the span between them while choosing.\n\n* **Month view:** the default granularity for picking individual days.\n\n* **Year view:** quick jumps to distant dates without paging month by month.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight today's date for orientation | Leave the user hunting for the current day |\n| Disable dates that cannot be chosen | Accept any date and show an error afterwards |\n| Show the span while a range is being picked | Reveal the range only after both ends are set |\n| Open on the month of the current or previously chosen value | Always open on the same fixed month |\n| Keep the week layout consistent across the product | Change the first day of the week between screens |\n\n> Date format and range label wording rules (**Start date**, **End date**; displayed format Jun 28, 2026, typed format YYYY-MM-DD) live in the Content guidelines for calendars.",
           "sections": [
             {
               "heading": "When to use",
@@ -1472,7 +1472,7 @@
                   "bullets": [
                     "Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).",
                     "Use it to pick a date range where the span between start and end should stay visible while choosing.",
-                    "Use it attached to a [date input](date-input) as the picking surface, or on its own when the month view is the main content of the screen."
+                    "Use it attached to a [date input](calendar-date-input) as the picking surface, or on its own when the month view is the main content of the screen."
                   ]
                 }
               ]
@@ -1482,8 +1482,8 @@
               "content": [
                 {
                   "bullets": [
-                    "Don't use a standalone calendar for compact single-date entry in a form: use a [date input](date-input), which pairs typing with an attached calendar.",
-                    "Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](date-input) is faster.",
+                    "Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar-date-input), which pairs typing with an attached calendar.",
+                    "Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar-date-input) is faster.",
                     "Don't use it to display schedules or events: it is a picking control, not a timeline view."
                   ]
                 }
@@ -1542,7 +1542,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-31T15:52:46+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "calendar-date-input": {
       "_schema_version": 1,
@@ -1569,13 +1569,13 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
+          "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar-data-selector). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar-data-selector).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
           "sections": [
             {
               "heading": "",
               "content": [
                 {
-                  "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
+                  "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar-data-selector). Use it for compact date entry within a form."
                 }
               ]
             },
@@ -1585,7 +1585,7 @@
                 {
                   "bullets": [
                     "For single-date entry in a form, such as a deadline or an effective date.",
-                    "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
+                    "When a visual month view would help the user choose, pair it with a [calendar](calendar-data-selector)."
                   ]
                 }
               ]
@@ -2240,7 +2240,7 @@
                       ]
                     },
                     {
-                      "prose": "See [date input](date-input)."
+                      "prose": "See [date input](calendar-date-input)."
                     }
                   ]
                 },
@@ -2261,7 +2261,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
+          "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar-data-selector) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar-data-selector).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
           "sections": [
             {
               "heading": "When to use",
@@ -2270,7 +2270,7 @@
                   "bullets": [
                     "Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.",
                     "Use it when users may know the exact date, so typing it is as fast as picking it.",
-                    "Pair it with an attached [calendar](calendar) when a visual month view would help the choice."
+                    "Pair it with an attached [calendar](calendar-data-selector) when a visual month view would help the choice."
                   ]
                 }
               ]
@@ -2280,7 +2280,7 @@
               "content": [
                 {
                   "bullets": [
-                    "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).",
+                    "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar-data-selector).",
                     "Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.",
                     "Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field."
                   ]
@@ -2340,7 +2340,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-31T15:52:46+02:00"
+      "updated_at": "2026-08-31T19:16:57+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -4199,7 +4199,7 @@
                       ]
                     },
                     {
-                      "prose": "See [date input](date-input)."
+                      "prose": "See [date input](calendar-date-input)."
                     }
                   ]
                 },
@@ -4441,7 +4441,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a collapse / accordion to progressively disclose secondary content on long pages: advanced settings, connection details, FAQ answers.\n\n* Use it when content is long and only some users need all of it: everyone else keeps a shorter page.\n\n* Use it to reduce vertical clutter on a detail or settings page while keeping every section on the page and reachable in one click.\n\n## When not to use\n\n* Don't use it for content users need on every visit: keep frequently accessed content visible.\n\n* Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.\n\n* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).\n\n* Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event.\n\n## Variant selection\n\nCollapse / accordion sections have no type or size variants; the choices are between modes and configurations.\n\n* **One open at a time:** the default; opening a section closes the current one. Allow multiple open sections only when users genuinely compare their contents.\n\n* **Initial state:** sections holding optional content start collapsed; auto-expanding everything on load defeats the disclosure.\n\n* **Header:** the whole header row is the toggle, with a chevron that rotates to show the open or closed state.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Label sections with specific noun phrases (Advanced settings, Connection details) | Fall back to generic labels (More options, Details) |\n| Put only genuinely optional content behind a collapse | Hide required form fields in a collapsed section |\n| Animate expand and collapse smoothly | Snap open with a layout shift |\n| Keep the header label identical in both states | Toggle the label between Show and Hide |\n\n> Header label wording rules live in the Content guidelines for collapse / accordion.",
+          "markdown": "## When to use\n\n* Use a collapse / accordion to progressively disclose secondary content on long pages: advanced settings, connection details, FAQ answers.\n\n* Use it when content is long and only some users need all of it: everyone else keeps a shorter page.\n\n* Use it to reduce vertical clutter on a detail or settings page while keeping every section on the page and reachable in one click.\n\n## When not to use\n\n* Don't use it for content users need on every visit: keep frequently accessed content visible.\n\n* Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.\n\n* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer).\n\n* Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event.\n\n## Variant selection\n\nCollapse / accordion sections have no type or size variants; the choices are between modes and configurations.\n\n* **One open at a time:** the default; opening a section closes the current one. Allow multiple open sections only when users genuinely compare their contents.\n\n* **Initial state:** sections holding optional content start collapsed; auto-expanding everything on load defeats the disclosure.\n\n* **Header:** the whole header row is the toggle, with a chevron that rotates to show the open or closed state.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Label sections with specific noun phrases (Advanced settings, Connection details) | Fall back to generic labels (More options, Details) |\n| Put only genuinely optional content behind a collapse | Hide required form fields in a collapsed section |\n| Animate expand and collapse smoothly | Snap open with a layout shift |\n| Keep the header label identical in both states | Toggle the label between Show and Hide |\n\n> Header label wording rules live in the Content guidelines for collapse / accordion.",
           "sections": [
             {
               "heading": "When to use",
@@ -4462,7 +4462,7 @@
                   "bullets": [
                     "Don't use it for content users need on every visit: keep frequently accessed content visible.",
                     "Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.",
-                    "Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).",
+                    "Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer).",
                     "Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event."
                   ]
                 }
@@ -4519,7 +4519,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-31T15:52:46+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "combo-box": {
       "_schema_version": 1,
@@ -6118,7 +6118,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a global toast to confirm the result of an async or background action: import finished, export ready, connection saved. It appears at a fixed screen edge, independent of what triggered it; plain confirmations dismiss themselves after a few seconds.\n\n* Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the [notification](notification) keeps the durable record; the toast only announces.\n\n* Use it for non-critical errors or warnings that do not block the user, ideally with a retry action (**Connection failed. Try again**). A toast that carries an action (**Undo**, **Try again**) must stay up until dismissed, never auto-dismiss.\n\n## When not to use\n\n* Don't use a toast for a message that must persist until the user deals with it: use an [alert banner](alert-banner) at the top of the page or section.\n\n* Don't use a toast for an error the user must act on. Blocking or actionable errors belong inline next to the control that caused them, or in an [alert banner](alert-banner).\n\n* Don't use a toast for feedback tied to a specific element on screen (a copied value, a field saved in place): use an [inline toast](inline-toast) anchored to that element.\n\n* Don't use a toast to ask anything. If the user must decide before continuing, use the 450px confirm [modal](modal).\n\n* Don't use a toast to close out a whole flow: a completed setup or creation journey ends on a [success state](success-state), not a passing message.\n\n## Variant selection\n\n* **Default:** confirmations and neutral notices (saved, exported, published). The variant for nearly every toast.\n\n* **Critical:** a failed background action worth the user's attention but not their immediate action (export failed, sync interrupted). Pair with a retry action where possible; if the failure blocks the user's current task, it is not a toast.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the message to one short sentence | Explain the whole operation in the toast |\n| Offer **Undo** after a reversible delete | Interrupt quick reversible actions with a confirm modal |\n| Keep an actionable toast up until dismissed | Auto-dismiss a toast carrying **Undo** or **Retry** |\n| Queue toasts when several arrive | Pile every background job's toast down the screen edge |\n| Route actionable errors to inline validation or an [alert banner](alert-banner) | Announce a form error in a toast that vanishes before it is read |\n\n> Wording rules (one short sentence, undo phrasing, example messages) live in the Content guidelines for global toast.",
+          "markdown": "## When to use\n\n* Use a global toast to confirm the result of an async or background action: import finished, export ready, connection saved. It appears at a fixed screen edge, independent of what triggered it; plain confirmations dismiss themselves after a few seconds.\n\n* Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the [notification item](toast) keeps the durable record; the global toast only announces.\n\n* Use it for non-critical errors or warnings that do not block the user, ideally with a retry action (**Connection failed. Try again**). A toast that carries an action (**Undo**, **Try again**) must stay up until dismissed, never auto-dismiss.\n\n## When not to use\n\n* Don't use a toast for a message that must persist until the user deals with it: use an [alert banner](alert-banner) at the top of the page or section.\n\n* Don't use a toast for an error the user must act on. Blocking or actionable errors belong inline next to the control that caused them, or in an [alert banner](alert-banner).\n\n* Don't use a toast for feedback tied to a specific element on screen (a copied value, a field saved in place): use an [inline toast](inline-toast) anchored to that element.\n\n* Don't use a toast to ask anything. If the user must decide before continuing, use the 450px confirm [modal](modal).\n\n* Don't use a toast to close out a whole flow: a completed setup or creation journey ends on a [success state](success-state), not a passing message.\n\n## Variant selection\n\n* **Default:** confirmations and neutral notices (saved, exported, published). The variant for nearly every toast.\n\n* **Critical:** a failed background action worth the user's attention but not their immediate action (export failed, sync interrupted). Pair with a retry action where possible; if the failure blocks the user's current task, it is not a toast.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep the message to one short sentence | Explain the whole operation in the toast |\n| Offer **Undo** after a reversible delete | Interrupt quick reversible actions with a confirm modal |\n| Keep an actionable toast up until dismissed | Auto-dismiss a toast carrying **Undo** or **Retry** |\n| Queue toasts when several arrive | Pile every background job's toast down the screen edge |\n| Route actionable errors to inline validation or an [alert banner](alert-banner) | Announce a form error in a toast that vanishes before it is read |\n\n> Wording rules (one short sentence, undo phrasing, example messages) live in the Content guidelines for global toast.",
           "sections": [
             {
               "heading": "When to use",
@@ -6126,7 +6126,7 @@
                 {
                   "bullets": [
                     "Use a global toast to confirm the result of an async or background action: import finished, export ready, connection saved. It appears at a fixed screen edge, independent of what triggered it; plain confirmations dismiss themselves after a few seconds.",
-                    "Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the [notification](notification) keeps the durable record; the toast only announces.",
+                    "Use it when the user has moved on (or may move on) from where the action started: deleting a dataset from a list, publishing a data product, starting an import. For long jobs the [notification item](toast) keeps the durable record; the global toast only announces.",
                     "Use it for non-critical errors or warnings that do not block the user, ideally with a retry action (**Connection failed. Try again**). A toast that carries an action (**Undo**, **Try again**) must stay up until dismissed, never auto-dismiss."
                   ]
                 }
@@ -6197,7 +6197,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "inline-toast": {
       "_schema_version": 1,
@@ -7094,7 +7094,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a loader for an indeterminate wait on a large component or a section of a page: a fetch whose duration is unknown and whose result can't be sketched in advance.\n\n* Use it for in-page transitions where a region's content is being replaced (switching a dashboard's data source, reloading a results panel).\n\n* Use it as the fallback loading treatment when no more specific indicator fits the container.\n\n## When not to use\n\n* Don't use a loader when the layout of the incoming content is known: use a [loading skeleton](loading-skeleton) that sketches it.\n\n* Don't use it for a small, control-level wait (a saving button, a validating field): use a [spinner](spinner) inside the control.\n\n* Don't use it for application startup or switches between apps: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable (an upload, a stepped job): use a [progress bar](progress-bar-small).\n\n## Variant selection\n\nLoaders have no type or size variants; the choice is between two configurations.\n\n* **Bare loader:** the default for indeterminate waits expected to stay short.\n\n* **With message:** add one brief present-tense line (**Loading datasets...**) when the wait is likely to exceed three seconds.\n\n* Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification](notification) on completion.\n\n* Center the loader in the region it replaces, sized to that container rather than to the page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Prefer a [loading skeleton](loading-skeleton) once a view's layout is stable enough to sketch | Spin a generic loader over a table whose columns never change |\n| Show one loader per waiting region | Nest loaders inside an already-loading region |\n| Resolve to content, an [empty state](empty-state), or an [error state](error-state) | Keep spinning after the request has failed |\n| Skip it for sub-second responses | Flash a loader that disappears before it is seen |\n\n> Wording rules (brief present-tense messages, when to add one) live in the Content guidelines for loader.",
+          "markdown": "## When to use\n\n* Use a loader for an indeterminate wait on a large component or a section of a page: a fetch whose duration is unknown and whose result can't be sketched in advance.\n\n* Use it for in-page transitions where a region's content is being replaced (switching a dashboard's data source, reloading a results panel).\n\n* Use it as the fallback loading treatment when no more specific indicator fits the container.\n\n## When not to use\n\n* Don't use a loader when the layout of the incoming content is known: use a [loading skeleton](loading-skeleton) that sketches it.\n\n* Don't use it for a small, control-level wait (a saving button, a validating field): use a [spinner](spinner) inside the control.\n\n* Don't use it for application startup or switches between apps: use the [loader with logo](loader-with-logo).\n\n* Don't use it when progress is measurable (an upload, a stepped job): use a [progress bar](progress-bar-small).\n\n## Variant selection\n\nLoaders have no type or size variants; the choice is between two configurations.\n\n* **Bare loader:** the default for indeterminate waits expected to stay short.\n\n* **With message:** add one brief present-tense line (**Loading datasets...**) when the wait is likely to exceed three seconds.\n\n* Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification item](toast) on completion.\n\n* Center the loader in the region it replaces, sized to that container rather than to the page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Prefer a [loading skeleton](loading-skeleton) once a view's layout is stable enough to sketch | Spin a generic loader over a table whose columns never change |\n| Show one loader per waiting region | Nest loaders inside an already-loading region |\n| Resolve to content, an [empty state](empty-state), or an [error state](error-state) | Keep spinning after the request has failed |\n| Skip it for sub-second responses | Flash a loader that disappears before it is seen |\n\n> Wording rules (brief present-tense messages, when to add one) live in the Content guidelines for loader.",
           "sections": [
             {
               "heading": "When to use",
@@ -7131,7 +7131,7 @@
                   "bullets": [
                     "**Bare loader:** the default for indeterminate waits expected to stay short.",
                     "**With message:** add one brief present-tense line (**Loading datasets...**) when the wait is likely to exceed three seconds.",
-                    "Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification](notification) on completion.",
+                    "Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification item](toast) on completion.",
                     "Center the loader in the region it replaces, sized to that container rather than to the page."
                   ]
                 }
@@ -7173,7 +7173,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "loader-with-logo": {
       "_schema_version": 1,
@@ -7809,7 +7809,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.\n\n* Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.\n\n* Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.\n\n* Use it when the underlying page state must not change while the user decides.\n\n## When not to use\n\n* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).\n\n* Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.\n\n* Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.\n\n* Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.\n\n* Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception.\n\n## Variant selection\n\n* **450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).\n\n* **700px create / setting:** short single-column forms, up to roughly six fields.\n\n* **900px create / edit:** richer forms that need breathing room or a second column.\n\n* **1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep one task per modal | Stack a second modal on top of the first |\n| Name the primary action after the task (**Create report**) | Label a task modal's primary action **OK** |\n| Land initial focus on the safe action in destructive confirms | Let a reflex Enter keypress delete data |\n| Warn before discarding unsaved input on dismiss | Silently drop what the user typed |\n| Pick the smallest size that fits the task | Default every dialog to 900px |",
+          "markdown": "## When to use\n\n* Use a modal for a \"stop and think\" moment: the user must complete or explicitly cancel the step before returning to the page.\n\n* Use it to confirm consequential actions, above all destructive ones (deleting a dataset, revoking a connection); see the [confirmation](confirmation) guidelines.\n\n* Use it for short, focused create or edit tasks (a handful of fields) that benefit from staying in the current context.\n\n* Use it when the underlying page state must not change while the user decides.\n\n## When not to use\n\n* Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer).\n\n* Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.\n\n* Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.\n\n* Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.\n\n* Don't open a modal without an explicit user action (never on page load). System-initiated warnings such as session expiry are the one exception.\n\n## Variant selection\n\n* **450px warning / confirm:** single-decision dialogs; one sentence of consequence plus two actions. The confirm variant is the standard companion of critical [buttons](button).\n\n* **700px create / setting:** short single-column forms, up to roughly six fields.\n\n* **900px create / edit:** richer forms that need breathing room or a second column.\n\n* **1200px:** exceptional, data-heavy tasks such as column mapping or selecting from large lists. If content pushes past this size, move to a dedicated page.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Keep one task per modal | Stack a second modal on top of the first |\n| Name the primary action after the task (**Create report**) | Label a task modal's primary action **OK** |\n| Land initial focus on the safe action in destructive confirms | Let a reflex Enter keypress delete data |\n| Warn before discarding unsaved input on dismiss | Silently drop what the user typed |\n| Pick the smallest size that fits the task | Default every dialog to 900px |",
           "sections": [
             {
               "heading": "When to use",
@@ -7829,7 +7829,7 @@
               "content": [
                 {
                   "bullets": [
-                    "Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer-side-panel).",
+                    "Don't use a modal when the user needs to keep seeing or referencing the page behind: use a [drawer / side panel](drawer).",
                     "Don't use a modal for a long form or a multi-step process: navigate to a dedicated page, with a [stepper](stepper) if the steps are linear.",
                     "Don't use a modal to announce a result: use a [global toast](global-toast) or [inline toast](inline-toast) after the action completes.",
                     "Don't open a modal from a modal. If a task spawns a second blocking step, the task is too big for a modal.",
@@ -7888,7 +7888,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "multi-select": {
       "_schema_version": 1,
@@ -8224,14 +8224,14 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).\n\n* Use it to let the user browse, open, and mark notifications as read without leaving their current page.\n\n* Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.\n\n* Signal unread items with an indicator on the bell; the user decides when to open the panel.\n\n## When not to use\n\n* Don't rely on the panel to deliver an error that blocks the user's current work: put it in an [alert banner](alert-banner) on the affected page.\n\n* Don't use it to confirm an action the user is watching: that moment belongs to a [global toast](global-toast).\n\n* Don't open it automatically when a notification arrives; only a user click opens it.\n\n* Don't put content in the panel that is not a notification item: product announcements and release notes belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\nThe notification dropdown has no type or size variants; the choice is between its two configurations.\n\n* **List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.\n\n* **Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Order items newest first | Make the user scroll to find the latest event |\n| Show enough of each message to act on it | Truncate every item to a cryptic first line |\n| Clear the bell's indicator once items are read | Keep the badge lit after everything is read |\n| Show the empty message when the list is empty | Hide or disable the bell when there is nothing new |\n\n> Wording rules (panel header, empty copy, mark-all-as-read labels) live in the Content guidelines for notification dropdown.",
+          "markdown": "## When to use\n\n* Use the notification dropdown as the single entry point for recent [notification items](toast), opened from the bell in the [global header](global-header).\n\n* Use it to let the user browse, open, and mark notifications as read without leaving their current page.\n\n* Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.\n\n* Signal unread items with an indicator on the bell; the user decides when to open the panel.\n\n## When not to use\n\n* Don't rely on the panel to deliver an error that blocks the user's current work: put it in an [alert banner](alert-banner) on the affected page.\n\n* Don't use it to confirm an action the user is watching: that moment belongs to a [global toast](global-toast).\n\n* Don't open it automatically when a notification arrives; only a user click opens it.\n\n* Don't put content in the panel that is not a notification item: product announcements and release notes belong to the [what's new dropdown](whats-new-dropdown).\n\n## Variant selection\n\nThe notification dropdown has no type or size variants; the choice is between its two configurations.\n\n* **List:** the populated panel, [notification items](toast) newest first, with a mark-all-as-read action in reach.\n\n* **Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state).\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Order items newest first | Make the user scroll to find the latest event |\n| Show enough of each message to act on it | Truncate every item to a cryptic first line |\n| Clear the bell's indicator once items are read | Keep the badge lit after everything is read |\n| Show the empty message when the list is empty | Hide or disable the bell when there is nothing new |\n\n> Wording rules (panel header, empty copy, mark-all-as-read labels) live in the Content guidelines for notification dropdown.",
           "sections": [
             {
               "heading": "When to use",
               "content": [
                 {
                   "bullets": [
-                    "Use the notification dropdown as the single entry point for recent [notification](notification) items, opened from the bell in the [global header](global-header).",
+                    "Use the notification dropdown as the single entry point for recent [notification items](toast), opened from the bell in the [global header](global-header).",
                     "Use it to let the user browse, open, and mark notifications as read without leaving their current page.",
                     "Use it in every app of the suite (Studio, Explorer, Administration) so background-job feedback always lives in the same place.",
                     "Signal unread items with an indicator on the bell; the user decides when to open the panel."
@@ -8260,7 +8260,7 @@
                 },
                 {
                   "bullets": [
-                    "**List:** the populated panel, [notification](notification) items newest first, with a mark-all-as-read action in reach.",
+                    "**List:** the populated panel, [notification items](toast) newest first, with a mark-all-as-read action in reach.",
                     "**Empty:** shown when the list is empty; a brief all-caught-up message, not a full illustrated [empty state](empty-state)."
                   ]
                 }
@@ -8302,7 +8302,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "page-header": {
       "_schema_version": 1,
@@ -8375,7 +8375,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumb), and the page's primary actions.\n\n* Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).\n\n* Use it on detail pages to anchor identity: the entity's exact name plus breadcrumbs back up the hierarchy.\n\n## When not to use\n\n* Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.\n\n* Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.\n\n* Don't use it as a section divider within a page: use plain headings.\n\n* Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select)).\n\n## Variant selection\n\n* **Default:** list and index pages (connections, datasets, data processes in Studio or Administration): title plus page-level create action.\n\n* **Details page:** a single entity's page: breadcrumbs, the entity name as title, and entity-level actions such as **Edit**.\n\n* **Explorer home:** the Explorer landing page only; do not reuse it elsewhere.\n\n* **Explorer detail:** asset detail pages inside Explorer; pairs with Explorer's browsing chrome.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Title the page with the entity's exact name | Paraphrase or decorate the name (**Sales analytics overview**) |\n| Keep at most two primary actions in the header | Line up four buttons across the title row |\n| Use breadcrumbs on detail pages to show the path back | Rely on the browser back button as the only way up |\n| Use the same variant for every page of the same kind | Give two list pages different header layouts |\n\n> Title and action label wording (sentence case, one or two words per action) lives in the Content guidelines for page headers.",
+          "markdown": "## When to use\n\n* Use a page header at the top of every main content area to state where the user is: page title, optional [breadcrumbs](breadcrumb), and the page's primary actions.\n\n* Use it to carry the one or two page-level actions (for example **New dataset** on a list page, **Edit** on a detail page).\n\n* Use it on detail pages to anchor identity: the entity's exact name plus breadcrumbs back up the hierarchy.\n\n## When not to use\n\n* Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.\n\n* Don't use it inside [modals](modal), [drawers / side panels](drawer), or nested sections: those surfaces have their own title patterns.\n\n* Don't use it as a section divider within a page: use plain headings.\n\n* Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select)).\n\n## Variant selection\n\n* **Default:** list and index pages (connections, datasets, data processes in Studio or Administration): title plus page-level create action.\n\n* **Details page:** a single entity's page: breadcrumbs, the entity name as title, and entity-level actions such as **Edit**.\n\n* **Explorer home:** the Explorer landing page only; do not reuse it elsewhere.\n\n* **Explorer detail:** asset detail pages inside Explorer; pairs with Explorer's browsing chrome.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Title the page with the entity's exact name | Paraphrase or decorate the name (**Sales analytics overview**) |\n| Keep at most two primary actions in the header | Line up four buttons across the title row |\n| Use breadcrumbs on detail pages to show the path back | Rely on the browser back button as the only way up |\n| Use the same variant for every page of the same kind | Give two list pages different header layouts |\n\n> Title and action label wording (sentence case, one or two words per action) lives in the Content guidelines for page headers.",
           "sections": [
             {
               "heading": "When to use",
@@ -8395,7 +8395,7 @@
                 {
                   "bullets": [
                     "Don't use a page header for suite-level chrome (product switcher, search, account): that is the [global header](global-header), which sits above it.",
-                    "Don't use it inside [modals](modal), [drawers / side panels](drawer-side-panel), or nested sections: those surfaces have their own title patterns.",
+                    "Don't use it inside [modals](modal), [drawers / side panels](drawer), or nested sections: those surfaces have their own title patterns.",
                     "Don't use it as a section divider within a page: use plain headings.",
                     "Don't load it with more than two primary actions: move the rest into an actions menu ([dropdown / select](dropdown-select))."
                   ]
@@ -8509,7 +8509,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "popover": {
       "_schema_version": 1,
@@ -8644,7 +8644,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a popover for rich or multi-sentence contextual content that a [tooltip](tooltip) cannot hold: formatted text and links. It opens on click and stays open until the user clicks outside or presses Escape.\n\n* Use it to explain a concept, term, or complex field inline, without sending the user off the page or into documentation.\n\n* Use it when the user needs to keep the page visible while reading: a popover is non-modal and never dims the page behind.\n\n## When not to use\n\n* Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.\n\n* Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).\n\n* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).\n\n* Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not.\n\n## Variant selection\n\n* **Interaction guide:** in-place guidance that walks the user through a control or feature, anchored to the element it explains.\n\n* **Advanced search:** the structured search-options panel that opens under the [search](search) field to build a precise query.\n\n* Both types are click-triggered and non-modal; there is no plain default popover, so pick the type whose structure matches the content.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Open on click, close on outside click or Escape | Trigger a popover on hover |\n| Keep the body to two to four short sentences | Pack bullet lists and long prose into it |\n| Anchor the popover to the element it explains | Float it in the middle of the screen like a dialog |\n| Show one popover at a time | Chain a second popover from the first |\n\n> Title and body wording rules live in the Content guidelines for popovers.",
+          "markdown": "## When to use\n\n* Use a popover for rich or multi-sentence contextual content that a [tooltip](tooltip) cannot hold: formatted text and links. It opens on click and stays open until the user clicks outside or presses Escape.\n\n* Use it to explain a concept, term, or complex field inline, without sending the user off the page or into documentation.\n\n* Use it when the user needs to keep the page visible while reading: a popover is non-modal and never dims the page behind.\n\n## When not to use\n\n* Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.\n\n* Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).\n\n* Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer).\n\n* Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not.\n\n## Variant selection\n\n* **Interaction guide:** in-place guidance that walks the user through a control or feature, anchored to the element it explains.\n\n* **Advanced search:** the structured search-options panel that opens under the [search](search) field to build a precise query.\n\n* Both types are click-triggered and non-modal; there is no plain default popover, so pick the type whose structure matches the content.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Open on click, close on outside click or Escape | Trigger a popover on hover |\n| Keep the body to two to four short sentences | Pack bullet lists and long prose into it |\n| Anchor the popover to the element it explains | Float it in the middle of the screen like a dialog |\n| Show one popover at a time | Chain a second popover from the first |\n\n> Title and body wording rules live in the Content guidelines for popovers.",
           "sections": [
             {
               "heading": "When to use",
@@ -8665,7 +8665,7 @@
                   "bullets": [
                     "Don't use a popover for a short plain-text hint on hover or focus: that is a [tooltip](tooltip). Anything hover-triggered is a tooltip; a popover always opens on click.",
                     "Don't use it as a command menu on a button: use an actions menu (see [dropdown / select](dropdown-select)).",
-                    "Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer-side-panel).",
+                    "Don't use it for a task with form fields or a decision that blocks the page: use a [modal](modal) or a [drawer / side panel](drawer).",
                     "Don't use it for critical or error messaging: use inline validation on the field or an [alert banner](alert-banner). A popover disappears on a stray click; errors must not."
                   ]
                 }
@@ -8719,7 +8719,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "progress-bar-small": {
       "_schema_version": 1,
@@ -9570,7 +9570,7 @@
                       ]
                     },
                     {
-                      "prose": "See [date input](date-input)."
+                      "prose": "See [date input](calendar-date-input)."
                     }
                   ]
                 },
@@ -10102,7 +10102,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "Scroll bars are a behavior primitive, not a layout choice: they appear automatically when content overflows its container. The usage question is when a custom scroll container is appropriate at all.\n\n## When to use\n\n* Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.\n\n* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.\n\n* Use it in any container with a fixed height and variable content: query results, log output, long attribute lists.\n\n## When not to use\n\n* Don't restyle or replace the page-level browser scroll: custom scroll is for regions inside the page, not the page itself.\n\n* Don't suppress scroll bars where overflow is expected: a region that looks unscrollable reads as complete when it isn't.\n\n* Don't nest independently scrolling regions inside one another: two scroll bars in the same direction fight for the wheel.\n\n* Don't use scrolling as a fix for an overloaded panel: when a drawer scrolls forever, move the content to the full details page.\n\n## Variant selection\n\nScroll bars have no type or size variants; the choices are between modes and configurations.\n\n* **Orientation:** vertical for lists and panels; horizontal only for wide [table](table) content that cannot reflow, never for prose.\n\n* **Accessible label:** give the scrollable region an accessible label (Dataset list, Query results) so screen reader users know what they are scrolling.\n\n* **Keyboard access:** a custom scroll region must be reachable and scrollable by keyboard (focusable, arrow keys work), not only by wheel or trackpad.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Let the scroll bar appear only on overflow | Force one onto content that fits |\n| Name the scrollable region for assistive tech | Leave an anonymous scroll region |\n| Keep one scroll direction per region | Make users pan both axes to read a list |\n| Keep the scroll position stable while content loads | Yank the user back to the top on data refresh |\n| Pair a pinned header with a scrolling table body | Let column headers scroll out of view |\n\n> Accessible-label wording for scroll regions lives in the Content guidelines for scroll bars.",
+          "markdown": "Scroll bars are a behavior primitive, not a layout choice: they appear automatically when content overflows its container. The usage question is when a custom scroll container is appropriate at all.\n\n## When to use\n\n* Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.\n\n* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer) body or a [table](table) body under a pinned header.\n\n* Use it in any container with a fixed height and variable content: query results, log output, long attribute lists.\n\n## When not to use\n\n* Don't restyle or replace the page-level browser scroll: custom scroll is for regions inside the page, not the page itself.\n\n* Don't suppress scroll bars where overflow is expected: a region that looks unscrollable reads as complete when it isn't.\n\n* Don't nest independently scrolling regions inside one another: two scroll bars in the same direction fight for the wheel.\n\n* Don't use scrolling as a fix for an overloaded panel: when a drawer scrolls forever, move the content to the full details page.\n\n## Variant selection\n\nScroll bars have no type or size variants; the choices are between modes and configurations.\n\n* **Orientation:** vertical for lists and panels; horizontal only for wide [table](table) content that cannot reflow, never for prose.\n\n* **Accessible label:** give the scrollable region an accessible label (Dataset list, Query results) so screen reader users know what they are scrolling.\n\n* **Keyboard access:** a custom scroll region must be reachable and scrollable by keyboard (focusable, arrow keys work), not only by wheel or trackpad.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Let the scroll bar appear only on overflow | Force one onto content that fits |\n| Name the scrollable region for assistive tech | Leave an anonymous scroll region |\n| Keep one scroll direction per region | Make users pan both axes to read a list |\n| Keep the scroll position stable while content loads | Yank the user back to the top on data refresh |\n| Pair a pinned header with a scrolling table body | Let column headers scroll out of view |\n\n> Accessible-label wording for scroll regions lives in the Content guidelines for scroll bars.",
           "sections": [
             {
               "heading": "",
@@ -10118,7 +10118,7 @@
                 {
                   "bullets": [
                     "Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.",
-                    "Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.",
+                    "Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer) body or a [table](table) body under a pinned header.",
                     "Use it in any container with a fixed height and variable content: query results, log output, long attribute lists."
                   ]
                 }
@@ -10192,7 +10192,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "search": {
       "_schema_version": 1,
@@ -10952,7 +10952,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Segmented control\n\nA segmented control lets users switch between mutually exclusive views or modes. All options are visible simultaneously.\n\n***\n\n## When to use\n\n* To switch between 2-5 mutually exclusive views or modes within a single surface.\n\n* When all options benefit from side-by-side visibility.\n\n* Do not use for page-level navigation. Use [tabs](tabs) instead.\n\n* Do not use when options represent independent toggles. Use separate [toggle controls](toggle-control) instead.\n\n## Style\n\n* Labels should be short nouns or verbs. One or two words maximum.\n\n* Keep all labels similar in length for visual balance.\n\n* Use sentence case.\n\n## Do / Don't\n\n| Do                 | Don't                         |\n| ------------------ | ----------------------------- |\n| List / Grid        | List view / Grid view         |\n| Day / Week / Month | Daily / Weekly / Monthly view |\n| Chart / Table      | Show as chart / Show as table |",
+          "markdown": "# Segmented control\n\nA segmented control lets users switch between mutually exclusive views or modes. All options are visible simultaneously.\n\n***\n\n## When to use\n\n* To switch between 2-5 mutually exclusive views or modes within a single surface.\n\n* When all options benefit from side-by-side visibility.\n\n* Do not use for page-level navigation. Use [tabs](tabs) instead.\n\n* Do not use when options represent independent toggles. Use separate [toggle controls](toggle) instead.\n\n## Style\n\n* Labels should be short nouns or verbs. One or two words maximum.\n\n* Keep all labels similar in length for visual balance.\n\n* Use sentence case.\n\n## Do / Don't\n\n| Do                 | Don't                         |\n| ------------------ | ----------------------------- |\n| List / Grid        | List view / Grid view         |\n| Day / Week / Month | Daily / Weekly / Monthly view |\n| Chart / Table      | Show as chart / Show as table |",
           "sections": [
             {
               "heading": "",
@@ -10970,7 +10970,7 @@
                     "To switch between 2-5 mutually exclusive views or modes within a single surface.",
                     "When all options benefit from side-by-side visibility.",
                     "Do not use for page-level navigation. Use [tabs](tabs) instead.",
-                    "Do not use when options represent independent toggles. Use separate [toggle controls](toggle-control) instead."
+                    "Do not use when options represent independent toggles. Use separate [toggle controls](toggle) instead."
                   ]
                 }
               ]
@@ -11537,7 +11537,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-18T18:56:05+02:00"
+      "updated_at": "2026-08-31T19:16:57+02:00"
     },
     "side-nav": {
       "_schema_version": 1,
@@ -12585,7 +12585,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a table for large sets of comparable records with shared attributes: datasets, connections, data processes, catalog entries.\n\n* Use it when users need to sort, filter, or scan columns to compare values across many rows.\n\n* Use it when rows carry row-level or bulk actions (edit, delete, export) that must stay reachable without leaving the view.\n\n* Use it for complex rows that mix value types: text, badges, counts, dates, and an actions column.\n\n## When not to use\n\n* Don't use a table for browseable items whose identity matters more than attribute comparison: use a [card](card) grid (for example data products on a dashboard).\n\n* Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer-side-panel).\n\n* Don't reach for a table when a simple list carries the content: two columns of name plus one value rarely need sorting chrome.\n\n* Don't build search results as a generic table when scannability of matches matters: use the [search result card](search-result-card).\n\n## Variant selection\n\n* **Built type, by columns (default):** compose from column components when column formatting drives the layout: fixed widths, per-column alignment, one cell type per column.\n\n* **Built type, by rows:** compose from row components when row-level treatment matters most: selection, hover actions, row states.\n\n* **Empty data:** when the table has no rows yet, show the [empty state](empty-state) illustration with a create-new call to action (for example **Add connection**). Never render an empty grid.\n\n* **No results after filtering:** keep the table chrome, explain the empty result, and offer a clear-filters link; do not show the create-new [empty state](empty-state).\n\n* **Selection and bulk actions:** add the selection column only when bulk actions exist; otherwise leave it out to save width.\n\n* **Pagination:** paginate long lists; do not rely on an unbounded scroll for datasets users must audit completely.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Sort by last modified by default on catalog lists | Default to alphabetical when recency is what users seek |\n| Show the empty state with a create CTA when data is null | Leave a blank grid with no explanation |\n| Keep one cell type per column | Mix badges, prose, and numbers in the same column |\n| Add the selection column only when bulk actions exist | Show checkboxes that select nothing actionable |\n\n> Column header wording, cell formatting, and status vocabulary live in the Content guidelines for tables.",
+          "markdown": "## When to use\n\n* Use a table for large sets of comparable records with shared attributes: datasets, connections, data processes, catalog entries.\n\n* Use it when users need to sort, filter, or scan columns to compare values across many rows.\n\n* Use it when rows carry row-level or bulk actions (edit, delete, export) that must stay reachable without leaving the view.\n\n* Use it for complex rows that mix value types: text, badges, counts, dates, and an actions column.\n\n## When not to use\n\n* Don't use a table for browseable items whose identity matters more than attribute comparison: use a [card](card) grid (for example data products on a dashboard).\n\n* Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer).\n\n* Don't reach for a table when a simple list carries the content: two columns of name plus one value rarely need sorting chrome.\n\n* Don't build search results as a generic table when scannability of matches matters: use the [search result card](search-result-card).\n\n## Variant selection\n\n* **Built type, by columns (default):** compose from column components when column formatting drives the layout: fixed widths, per-column alignment, one cell type per column.\n\n* **Built type, by rows:** compose from row components when row-level treatment matters most: selection, hover actions, row states.\n\n* **Empty data:** when the table has no rows yet, show the [empty state](empty-state) illustration with a create-new call to action (for example **Add connection**). Never render an empty grid.\n\n* **No results after filtering:** keep the table chrome, explain the empty result, and offer a clear-filters link; do not show the create-new [empty state](empty-state).\n\n* **Selection and bulk actions:** add the selection column only when bulk actions exist; otherwise leave it out to save width.\n\n* **Pagination:** paginate long lists; do not rely on an unbounded scroll for datasets users must audit completely.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Sort by last modified by default on catalog lists | Default to alphabetical when recency is what users seek |\n| Show the empty state with a create CTA when data is null | Leave a blank grid with no explanation |\n| Keep one cell type per column | Mix badges, prose, and numbers in the same column |\n| Add the selection column only when bulk actions exist | Show checkboxes that select nothing actionable |\n\n> Column header wording, cell formatting, and status vocabulary live in the Content guidelines for tables.",
           "sections": [
             {
               "heading": "When to use",
@@ -12606,7 +12606,7 @@
                 {
                   "bullets": [
                     "Don't use a table for browseable items whose identity matters more than attribute comparison: use a [card](card) grid (for example data products on a dashboard).",
-                    "Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer-side-panel).",
+                    "Don't use a table to show a single item's attributes: use a definition list on the detail page or a [drawer / side panel](drawer).",
                     "Don't reach for a table when a simple list carries the content: two columns of name plus one value rarely need sorting chrome.",
                     "Don't build search results as a generic table when scannability of matches matters: use the [search result card](search-result-card)."
                   ]
@@ -12664,7 +12664,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-08-25T16:15:48-07:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "tabs": {
       "_schema_version": 1,
@@ -13768,7 +13768,7 @@
                       ]
                     },
                     {
-                      "prose": "See [date input](date-input)."
+                      "prose": "See [date input](calendar-date-input)."
                     }
                   ]
                 },
@@ -13789,7 +13789,7 @@
         },
         "usage": {
           "status": "approved",
-          "markdown": "## When to use\n\n* Use a text input for a single-line freeform value that cannot be constrained to a fixed list: names, emails, hosts, ports (for example **Dataset name**, **Connection host**).\n\n* Use it when the user already knows the value and just needs to type it, rather than pick it from options.\n\n* Specify the input type when the value has a format (email, number, password) so validation and keyboards can assist.\n\n## When not to use\n\n* Don't use a text input when the value comes from a known list: use a [dropdown / select](dropdown-select), or a [combo box](combo-box) when the list is long and typing should narrow it.\n\n* Don't use it to query or filter the content of the page: use [search](search).\n\n* Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).\n\n* Don't use it for dates: use the [date input](date-input).\n\n* Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle).\n\n## Variant selection\n\nText inputs have no type or size variants; the choices are between modes.\n\n* **Editable (default):** the normal case; pair with helper text when the field needs persistent instructions.\n\n* **Read-only:** a value the user can see and copy but not change in this context (for example a system-generated connection ID). Never use disabled for this.\n\n* **Disabled:** the field does not apply until another choice is made (for example a port field before a protocol is picked).\n\n* **With placeholder:** only to model a good example value; if the label is sufficient on its own, leave the field empty.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate on blur, then re-validate as the user fixes the value | Flash an error on every keystroke |\n| Match the field width to the expected value length | Stretch a port-number field across the page |\n| Use read-only for values users may copy but not edit | Disable a field just to display data |\n| Constrain known formats with the right input type | Accept any text into a numeric-only field |\n\n> Placeholder and label wording rules live in the Content guidelines for text inputs.",
+          "markdown": "## When to use\n\n* Use a text input for a single-line freeform value that cannot be constrained to a fixed list: names, emails, hosts, ports (for example **Dataset name**, **Connection host**).\n\n* Use it when the user already knows the value and just needs to type it, rather than pick it from options.\n\n* Specify the input type when the value has a format (email, number, password) so validation and keyboards can assist.\n\n## When not to use\n\n* Don't use a text input when the value comes from a known list: use a [dropdown / select](dropdown-select), or a [combo box](combo-box) when the list is long and typing should narrow it.\n\n* Don't use it to query or filter the content of the page: use [search](search).\n\n* Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).\n\n* Don't use it for dates: use the [date input](calendar-date-input).\n\n* Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle).\n\n## Variant selection\n\nText inputs have no type or size variants; the choices are between modes.\n\n* **Editable (default):** the normal case; pair with helper text when the field needs persistent instructions.\n\n* **Read-only:** a value the user can see and copy but not change in this context (for example a system-generated connection ID). Never use disabled for this.\n\n* **Disabled:** the field does not apply until another choice is made (for example a port field before a protocol is picked).\n\n* **With placeholder:** only to model a good example value; if the label is sufficient on its own, leave the field empty.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate on blur, then re-validate as the user fixes the value | Flash an error on every keystroke |\n| Match the field width to the expected value length | Stretch a port-number field across the page |\n| Use read-only for values users may copy but not edit | Disable a field just to display data |\n| Constrain known formats with the right input type | Accept any text into a numeric-only field |\n\n> Placeholder and label wording rules live in the Content guidelines for text inputs.",
           "sections": [
             {
               "heading": "When to use",
@@ -13811,7 +13811,7 @@
                     "Don't use a text input when the value comes from a known list: use a [dropdown / select](dropdown-select), or a [combo box](combo-box) when the list is long and typing should narrow it.",
                     "Don't use it to query or filter the content of the page: use [search](search).",
                     "Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).",
-                    "Don't use it for dates: use the [date input](date-input).",
+                    "Don't use it for dates: use the [date input](calendar-date-input).",
                     "Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle)."
                   ]
                 }
@@ -13973,7 +13973,7 @@
           ]
         }
       },
-      "updated_at": "2026-08-26T17:53:49+02:00"
+      "updated_at": "2026-08-31T21:06:17+02:00"
     },
     "toast": {
       "_schema_version": 1,
@@ -14891,7 +14891,7 @@
                       ]
                     },
                     {
-                      "prose": "See [date input](date-input)."
+                      "prose": "See [date input](calendar-date-input)."
                     }
                   ]
                 },

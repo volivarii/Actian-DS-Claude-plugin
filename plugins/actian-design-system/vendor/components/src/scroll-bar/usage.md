@@ -7,7 +7,7 @@ Scroll bars are a behavior primitive, not a layout choice: they appear automatic
 
 * Let the scroll bar appear automatically when content exceeds the visible area of a container: it signals the overflow and lets users navigate it.
 
-* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer-side-panel) body or a [table](table) body under a pinned header.
+* Use a custom scroll container only when standard browser scrolling is insufficient: an independently scrolling region inside a fixed layout, such as a [drawer / side panel](drawer) body or a [table](table) body under a pinned header.
 
 * Use it in any container with a fixed height and variable content: query results, log output, long attribute lists.
 

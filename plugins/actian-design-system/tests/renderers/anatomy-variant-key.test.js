@@ -7,8 +7,8 @@ const {
 
 test("anatomyVariantKey: sorts props deterministically", () => {
   assert.strictEqual(
-    anatomyVariantKey("tag-read-only", { Type: "Shared" }),
-    "tag-read-only|Type=Shared",
+    anatomyVariantKey("read-only-tag", { Type: "Shared" }),
+    "read-only-tag|Type=Shared",
   );
   assert.strictEqual(
     anatomyVariantKey("x", { B: "2", A: "1" }),
@@ -18,22 +18,22 @@ test("anatomyVariantKey: sorts props deterministically", () => {
 });
 
 test("anatomyVariantKey: empty/absent variant returns the bare slug", () => {
-  assert.strictEqual(anatomyVariantKey("tag-read-only", {}), "tag-read-only");
+  assert.strictEqual(anatomyVariantKey("read-only-tag", {}), "read-only-tag");
   assert.strictEqual(
-    anatomyVariantKey("tag-read-only", null),
-    "tag-read-only",
+    anatomyVariantKey("read-only-tag", null),
+    "read-only-tag",
   );
 });
 
-test("isDelegated: only tag-read-only is delegated in slice 1", () => {
-  assert.strictEqual(isDelegated("tag-read-only"), true);
+test("isDelegated: only read-only-tag is delegated in slice 1", () => {
+  assert.strictEqual(isDelegated("read-only-tag"), true);
   assert.strictEqual(isDelegated("tag-status"), false);
   assert.strictEqual(isDelegated("button"), false);
   assert.strictEqual(isDelegated(null), false);
 });
 
 test("isDelegated does NOT resolve a retired slug; its caller already did", () => {
-  // tag-read-only answered to `tag-default` until the 2026-08-26 rename.
+  // read-only-tag answered to `tag-default` until the 2026-08-26 rename.
   // This predicate is deliberately a bare string compare: ds-anatomy-map
   // calls resolveSlug() on the authored slug BEFORE consulting it
   // (collectDsSlugVariants), so teaching it about retired names as well

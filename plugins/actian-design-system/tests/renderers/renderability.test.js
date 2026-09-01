@@ -101,10 +101,10 @@ describe("renderability.isRenderable", function () {
   });
 
   it("admits a doc that carries real layout, paint and resolvable children", function () {
-    var doc = loadAnatomy("collapse-accordion");
-    assert.ok(doc, "fixture: collapse-accordion anatomy must exist");
+    var doc = loadAnatomy("collapse");
+    assert.ok(doc, "fixture: collapse anatomy must exist");
     var v = R.isRenderable(doc);
-    assert.strictEqual(v.ok, true, "collapse-accordion should be renderable");
+    assert.strictEqual(v.ok, true, "collapse should be renderable");
     assert.strictEqual(v.why, "");
   });
 

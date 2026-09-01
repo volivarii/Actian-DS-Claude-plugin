@@ -23,13 +23,13 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
+      "markdown": "# Date input\n\nA date input lets users enter a single date by typing or by picking from an attached [calendar](calendar-data-selector). Use it for compact date entry within a form.\n\n***\n\n## When to use\n\n* For single-date entry in a form, such as a deadline or an effective date.\n\n* When a visual month view would help the user choose, pair it with a [calendar](calendar-data-selector).\n\n## Style\n\n* Label the field by what the date represents. For example, \"Start date\", not \"Date\".\n\n* Show the expected format as a placeholder example, not as an instruction. For example, \"YYYY-MM-DD\".\n\n* Use a single, consistent date format across the product.\n\n## Behavior\n\n* Validate the date on blur, not on every keystroke. See [text input](text-input) for the general rule.\n\n* State what is wrong and how to fix it when a date is invalid or out of range.\n\n## Do / Don't\n\n| Do                                          | Don't                     |\n| ------------------------------------------- | ------------------------- |\n| Label: Start date / Placeholder: YYYY-MM-DD | Placeholder: Enter a date |\n| Enter a date on or after today.             | Invalid date.             |\n| Effective date                              | Date field                |",
       "sections": [
         {
           "heading": "",
           "content": [
             {
-              "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form."
+              "prose": "A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar-data-selector). Use it for compact date entry within a form."
             }
           ]
         },
@@ -39,7 +39,7 @@
             {
               "bullets": [
                 "For single-date entry in a form, such as a deadline or an effective date.",
-                "When a visual month view would help the user choose, pair it with a [calendar](calendar)."
+                "When a visual month view would help the user choose, pair it with a [calendar](calendar-data-selector)."
               ]
             }
           ]
@@ -694,7 +694,7 @@
                   ]
                 },
                 {
-                  "prose": "See [date input](date-input)."
+                  "prose": "See [date input](calendar-date-input)."
                 }
               ]
             },
@@ -715,7 +715,7 @@
     },
     "usage": {
       "status": "approved",
-      "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
+      "markdown": "## When to use\n\n* Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.\n\n* Use it when users may know the exact date, so typing it is as fast as picking it.\n\n* Pair it with an attached [calendar](calendar-data-selector) when a visual month view would help the choice.\n\n## When not to use\n\n* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar-data-selector).\n\n* Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.\n\n* Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field.\n\n## Variant selection\n\n* **Single date:** one date field; the default for deadlines and effective dates.\n\n* **Date range:** start and end in one control, for spans such as a reporting window or a retention period.\n\n* **Label, sub label, and helper text:** on by default; drop the sub label only when the label alone is unambiguous; helper text carrying the expected format (YYYY-MM-DD) stays as long as typing is accepted.\n\n* **Required (asterisk):** show the asterisk on required date fields so the requirement is visible before submit.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Validate the date on blur | Flash errors while the user is still typing |\n| Accept typing and the attached calendar equally | Force every entry through the picker |\n| Say what range is valid when a date is rejected | Stop at naming the field invalid |\n| Keep one date format across the product | Vary the format field by field |\n| Constrain a range so the end follows the start | Accept an end date before the start date |\n\n> Label, placeholder, and error wording rules (\"Start date\"; typed format YYYY-MM-DD, displayed format Jun 28, 2026) live in the Content guidelines for date inputs.",
       "sections": [
         {
           "heading": "When to use",
@@ -724,7 +724,7 @@
               "bullets": [
                 "Use a date input for compact date entry in a form, such as a deadline, an effective date, or a historical data point.",
                 "Use it when users may know the exact date, so typing it is as fast as picking it.",
-                "Pair it with an attached [calendar](calendar) when a visual month view would help the choice."
+                "Pair it with an attached [calendar](calendar-data-selector) when a visual month view would help the choice."
               ]
             }
           ]
@@ -734,7 +734,7 @@
           "content": [
             {
               "bullets": [
-                "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).",
+                "Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar-data-selector).",
                 "Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.",
                 "Don't split a date across separate day, month, and year [dropdown / select](dropdown-select) controls: three picks are slower and more error-prone than one field."
               ]
@@ -794,5 +794,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-31T15:52:46+02:00"
+  "updated_at": "2026-08-31T19:16:57+02:00"
 }

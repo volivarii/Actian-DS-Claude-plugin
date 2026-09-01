@@ -7,11 +7,11 @@ title: "Date input usage guidelines"
 
 * Use it when users may know the exact date, so typing it is as fast as picking it.
 
-* Pair it with an attached [calendar](calendar) when a visual month view would help the choice.
+* Pair it with an attached [calendar](calendar-data-selector) when a visual month view would help the choice.
 
 ## When not to use
 
-* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar).
+* Don't use a bare date input when the month view is the point of the screen (planning against surrounding days): lead with the [calendar](calendar-data-selector).
 
 * Don't fall back to a plain [text input](text-input) for a date: the date input constrains the format and validates the value.
 

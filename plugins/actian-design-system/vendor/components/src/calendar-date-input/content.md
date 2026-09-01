@@ -3,7 +3,7 @@ title: "Date input"
 ---
 # Date input
 
-A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar). Use it for compact date entry within a form.
+A date input lets users enter a single date by typing or by picking from an attached [calendar](calendar-data-selector). Use it for compact date entry within a form.
 
 ***
 
@@ -11,7 +11,7 @@ A date input lets users enter a single date by typing or by picking from an atta
 
 * For single-date entry in a form, such as a deadline or an effective date.
 
-* When a visual month view would help the user choose, pair it with a [calendar](calendar).
+* When a visual month view would help the user choose, pair it with a [calendar](calendar-data-selector).
 
 ## Style
 

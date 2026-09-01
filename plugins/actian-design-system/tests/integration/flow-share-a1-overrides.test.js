@@ -20,13 +20,13 @@ var {
 // slug → override signature class. Grown per batch as overrides land.
 var A1_OVERRIDES = [
   { slug: "popover", cls: "ds-popover" },
-  { slug: "account-dropdown", cls: "ds-account-menu" },
+  { slug: "global-header-account-dropdown", cls: "ds-account-menu" },
   { slug: "app-switcher-dropdown", cls: "ds-app-switcher" },
   { slug: "segmented-control", cls: "ds-segmented" },
   { slug: "toolbar", cls: "ds-toolbar" },
   { slug: "action-bar", cls: "ds-action-bar" },
   { slug: "loader", cls: "ds-loader" },
-  { slug: "calendar", cls: "ds-calendar" },
+  { slug: "calendar-data-selector", cls: "ds-calendar-data-selector" },
 ];
 
 function fixture(slug) {

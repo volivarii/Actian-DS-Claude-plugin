@@ -27,7 +27,7 @@ Loaders have no type or size variants; the choice is between two configurations.
 
 * **With message:** add one brief present-tense line (**Loading datasets...**) when the wait is likely to exceed three seconds.
 
-* Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification](notification) on completion.
+* Past roughly ten seconds an indeterminate loader stops being honest: switch to a [progress bar](progress-bar-small), or surface the wait as a background job with a [notification item](toast) on completion.
 
 * Center the loader in the region it replaces, sized to that container rather than to the page.
 

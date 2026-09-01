@@ -3,7 +3,7 @@ title: "Action bar usage guidelines"
 ---
 ## When to use
 
-* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer-side-panel) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
+* Use an action bar as the persistent commit bar of a long form: a page or [drawer / side panel](drawer) whose fields extend beyond one view, so **Save** and **Cancel** stay reachable while scrolling.
 
 * Use it for [stepper](stepper) flows, carrying **Back**, **Next**, and a final button named for the outcome (**Create connection**).
 

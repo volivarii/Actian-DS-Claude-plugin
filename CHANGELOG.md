@@ -21,6 +21,37 @@ are summarized at the release level.
 
 ### Fixed
 
+- **A rename reaches the plugin through hand-written slug lists, which do not resolve through the
+  identity ledger the renderer reads.** (#PR_PLACEHOLDER) The refresh moves the vendored snapshot from
+  `v0.34.157` to `v0.34.165`, which renames eleven components and dissolves the `Tooltip` set. Both
+  arrive with `v0.34.160`; `v0.34.165` adds the restored captures below. The renderer was never affected: `ds-html-map.js`
+  resolves a retired slug through `ds-retired-slugs.js`, so every renderer-mediated test stayed green,
+  goldens included. What broke was 26 assertions that read the anatomy and the registry DIRECTLY by
+  slug, plus the hand-kept lists that name one: `PILOT` in `quality-gates-cli.js`, `A1_OVERRIDES`, the
+  `NO_ROOT_APPEARANCE` allowlist, and the `resolve-a11y` surface list. This is the second refresh in a
+  row to break in exactly that shape (#327 fixed 32 of them on `v0.34.157`).
+
+  Each pair was verified by Figma key before anything was repointed, because two of the failure
+  messages misdescribed their own cause. `calendar-date-input` reported that it had "LOST its root
+  appearance" when neither release has one for it and only the allowlist entry was stale, and
+  `read-only-tag` reported that it "declares no variantDefaults" when it declares the same `["Type"]`
+  it always did. Eleven of the twelve pairs carry the SAME Figma key and node across the two releases,
+  so nothing was lost and following the rename is safe.
+
+  `tooltip` is the exception and is not a plain rename: the component the map pointed at
+  (`558adad9...`) is gone from the registry, and `Tooltip/Default` is a different node published as a
+  single component with no variant axes. `fmTooltip` is repointed to it deliberately, its
+  `defaultVariant` emptied to match a component that has no axes to set, rather than following a
+  ledger entry the keys do not support.
+
+  The refresh lands `v0.34.165` rather than `v0.34.160`, which is what four of the failures actually
+  needed: knowledge #613 restores the six deferred slugs' anatomy captures that the 2026-08-31 sync
+  deleted. The authoring worked example, two recipes, the `component-brief` schema example and the
+  always-loaded companion category table are repointed too, so an author copying an example gets a
+  slug the registry publishes. The companion table mattered most: its `calendar` example resolved to
+  nothing, because that slug now belongs to the icon while the component is `calendar-data-selector`.
+  Every example in it is now joined against `categories.json`.
+
 - **The fm-to-ds map cached a slug beside the immutable key it derives from, so a Figma rename made
   the map disagree with the registry.** ([#326](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/326)) Each of the 24 mappings
   carried a `dsSlug` next to its `dsKey`, and `dsKey` is what survives a rename. Nothing at runtime

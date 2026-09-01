@@ -15,7 +15,7 @@ title: "Collapse / accordion usage guidelines"
 
 * Don't use it for peer views the user switches between repeatedly: use [tabs](tabs), which swap views instead of stacking them.
 
-* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer-side-panel).
+* Don't use it to show the properties of an item selected from a list: use a [drawer / side panel](drawer).
 
 * Don't wrap a page's primary content in an accordion: disclosure is for the secondary layer, not the main event.
 

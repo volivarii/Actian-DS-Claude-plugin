@@ -93,7 +93,7 @@ describe("coverage(): renderability columns", function () {
   });
 
   it("reports renderable:true for a doc with real layout and resolvable children", function () {
-    var rows = coverage(["collapse-accordion"], { builtSlugs: [] });
+    var rows = coverage(["collapse"], { builtSlugs: [] });
     assert.strictEqual(rows[0].renderable, true);
   });
 });

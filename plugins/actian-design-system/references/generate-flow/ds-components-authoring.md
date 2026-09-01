@@ -285,13 +285,13 @@ as the Figma property contract.
 - `props["Helper text"]`: sub-label text (only shown when `Show Helper text` is truthy)
 - `props["Show Helper text"]`: `true` | `false` (default: `false`)
 
-### `tag-read-only`
+### `read-only-tag`
 
 ```json
 {
   "type": "INSTANCE",
   "library": "ds",
-  "dsSlug": "tag-read-only",
+  "dsSlug": "read-only-tag",
   "variant": "Type=Default",
   "props": {
     "Label": "Published",
@@ -699,4 +699,4 @@ zoom-to-fit
 ```
 <!-- END GENERATED icons -->
 
-Built leaves that reference icons use: `add` (button leading icon), `arrow-down` (button trailing icon, input trailing chevron, dropdown and accordion carets), `arrow-left` rotated 180° (breadcrumb separators), `simple-check` (checkbox check mark), and the tag-read-only Type icons (`folder`, `dot`, `error-filled`, `warning-filled`, `success-filled`, `add`).
+Built leaves that reference icons use: `add` (button leading icon), `arrow-down` (button trailing icon, input trailing chevron, dropdown and accordion carets), `arrow-left` rotated 180° (breadcrumb separators), `simple-check` (checkbox check mark), and the read-only-tag Type icons (`folder`, `dot`, `error-filled`, `warning-filled`, `success-filled`, `add`).

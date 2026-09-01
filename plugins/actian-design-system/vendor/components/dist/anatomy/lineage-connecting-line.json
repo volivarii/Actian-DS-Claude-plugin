@@ -1,0 +1,112 @@
+{
+  "_schema_version": 1,
+  "slug": "lineage-connecting-line",
+  "kit": "dskit",
+  "synced_at": "2026-07-06T13:21:40.803Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14747:20085",
+    "variant": "Direction=Straight, State=Default"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 1,
+    "ratio": 0.33,
+    "degraded": [
+      {
+        "name": "Direction=Straight, State=Default",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Down, State=Default",
+        "reason": "layoutMode:NONE (variant Direction=Down)"
+      },
+      {
+        "name": "Direction=Up, State=Default",
+        "reason": "layoutMode:NONE (variant Direction=Up)"
+      },
+      {
+        "name": "Direction=Straight, State=Selected",
+        "reason": "layoutMode:NONE (variant State=Selected)"
+      },
+      {
+        "name": "Direction=Straight, State=Disabled",
+        "reason": "layoutMode:NONE (variant State=Disabled)"
+      }
+    ],
+    "uncapturedValues": [
+      {
+        "prop": "Direction",
+        "value": "up",
+        "reason": "no isolated variant"
+      }
+    ]
+  },
+  "root": {
+    "name": "Direction=Straight, State=Default",
+    "kind": "container",
+    "id": "14747:20086",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 5794,
+      "y": 817,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Lineage connector/Right/Straight",
+        "kind": "vector",
+        "tokenRefs": [
+          "--zen-border-default"
+        ],
+        "id": "14747:20087",
+        "appearance": {
+          "border": {
+            "color": "#c7c7ce",
+            "colorToken": "--zen-border-default",
+            "width": "2px"
+          },
+          "radius": "100px",
+          "variants": [
+            {
+              "prop": "Direction",
+              "values": [
+                "Down",
+                "Up"
+              ],
+              "radius": "0px"
+            },
+            {
+              "prop": "State",
+              "values": [
+                "Selected"
+              ],
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-color-primary-500",
+                "width": "2px"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": ".lineage connector icon",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "State": "Default"
+        },
+        "id": "14747:20088"
+      }
+    ]
+  },
+  "variantDefaults": {
+    "Direction": "Straight",
+    "State": "Default"
+  }
+}

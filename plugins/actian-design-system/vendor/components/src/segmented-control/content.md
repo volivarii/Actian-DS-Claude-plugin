@@ -15,7 +15,7 @@ A segmented control lets users switch between mutually exclusive views or modes.
 
 * Do not use for page-level navigation. Use [tabs](tabs) instead.
 
-* Do not use when options represent independent toggles. Use separate [toggle controls](toggle-control) instead.
+* Do not use when options represent independent toggles. Use separate [toggle controls](toggle) instead.
 
 ## Style
 

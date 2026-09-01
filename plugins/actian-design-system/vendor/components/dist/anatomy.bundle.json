@@ -6858,6 +6858,192 @@
         "Layout": "Vertical"
       }
     },
+    "confirmation": {
+      "_schema_version": 1,
+      "slug": "confirmation",
+      "kit": "dskit",
+      "synced_at": "2026-08-12T12:00:22.180Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "13871:32310",
+        "variant": "Size=Large"
+      },
+      "quality": {
+        "nodesTotal": 8,
+        "nodesNormalized": 8,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Size=Large",
+        "kind": "container",
+        "id": "11049:20515",
+        "layout": {
+          "axis": "column",
+          "gap": "16px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-md"
+        },
+        "children": [
+          {
+            "name": "Illustration",
+            "kind": "instance",
+            "slug": "illustration",
+            "props": {
+              "Type": "Success"
+            },
+            "id": "14747:19722"
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "id": "14747:19723",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Title",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19724",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  }
+                },
+                "text": "Success!"
+              },
+              {
+                "name": "Body",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19725",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 400,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": "The selected items will be imported into the catalog. You will be notified once the import is complete."
+              }
+            ]
+          },
+          {
+            "name": "Actions",
+            "kind": "container",
+            "id": "14747:19726",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label": "Learn more",
+                  "Intent": "Default",
+                  "Emphasis": "Ghost",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14747:19727",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": false,
+                  "Show label": true,
+                  "Show leading icon": false,
+                  "Label": "Open the catalog",
+                  "Intent": "Default",
+                  "Emphasis": "Filled",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "tokenRefs": [
+                  "--zen-color-bg-primary"
+                ],
+                "id": "14747:19728",
+                "appearance": {
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-bg-primary",
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Size": "Large"
+      }
+    },
     "cosmosdb": {
       "_schema_version": 1,
       "slug": "cosmosdb",
@@ -9845,6 +10031,239 @@
         "Size": "SM"
       }
     },
+    "digram-topic": {
+      "_schema_version": 1,
+      "slug": "digram-topic",
+      "kit": "dskit",
+      "synced_at": "2026-07-06T13:21:40.803Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "14128:3800",
+        "variant": "Type=Light purple"
+      },
+      "quality": {
+        "nodesTotal": 3,
+        "nodesNormalized": 3,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Type=Light purple",
+        "kind": "container",
+        "id": "14128:3780",
+        "appearance": {
+          "background": "#a17ab6",
+          "radius": "4px",
+          "variants": [
+            {
+              "prop": "Type",
+              "values": [
+                "Dark blue"
+              ],
+              "background": "#003786"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark green"
+              ],
+              "background": "#299315"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark orange"
+              ],
+              "background": "#b22700"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Dark purple"
+              ],
+              "background": "#8b00e8"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Light blue"
+              ],
+              "background": "#00b6e1"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Light green"
+              ],
+              "background": "#75b86b"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Orange"
+              ],
+              "background": "#ef8d00"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Red"
+              ],
+              "background": "#a82743"
+            },
+            {
+              "prop": "Type",
+              "values": [
+                "Yellow"
+              ],
+              "background": "#eabd34"
+            }
+          ]
+        },
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "gapToken": "--zen-spacing-2xs",
+          "paddingTokens": {
+            "right": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "tokenRefs": [
+              "--zen-color-text-reverse"
+            ],
+            "id": "14128:3781",
+            "appearance": {
+              "text": {
+                "color": "#ffffff",
+                "colorToken": "--zen-color-text-reverse",
+                "size": "12px",
+                "weight": 400,
+                "lineHeight": "16px",
+                "letterSpacing": "0.3px"
+              }
+            },
+            "text": "TP"
+          },
+          {
+            "name": "Border",
+            "kind": "vector",
+            "id": "14128:3802",
+            "appearance": {
+              "border": {
+                "color": "#a17ab6",
+                "width": "1px"
+              },
+              "radius": "4px",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dark blue"
+                  ],
+                  "border": {
+                    "color": "#003786",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dark green",
+                    "Light blue"
+                  ],
+                  "border": {
+                    "color": "#00b6e1",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dark orange"
+                  ],
+                  "border": {
+                    "color": "#b22700",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Dark purple"
+                  ],
+                  "border": {
+                    "color": "#8b00e8",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Light green"
+                  ],
+                  "border": {
+                    "color": "#75b86b",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Orange"
+                  ],
+                  "border": {
+                    "color": "#ef8d00",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Red"
+                  ],
+                  "border": {
+                    "color": "#a82743",
+                    "width": "1px"
+                  }
+                },
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Yellow"
+                  ],
+                  "border": {
+                    "color": "#eabd34",
+                    "width": "1px"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Type": "Light purple"
+      }
+    },
     "drawer": {
       "_schema_version": 1,
       "slug": "drawer",
@@ -11572,6 +11991,232 @@
       },
       "variantDefaults": {
         "Empty": "Default",
+        "Size": "Large"
+      }
+    },
+    "error-state": {
+      "_schema_version": 1,
+      "slug": "error-state",
+      "kit": "dskit",
+      "synced_at": "2026-08-12T12:00:22.180Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "13087:34544",
+        "variant": "Size=Large"
+      },
+      "quality": {
+        "nodesTotal": 8,
+        "nodesNormalized": 8,
+        "ratio": 1,
+        "degraded": [],
+        "structuralVariants": [
+          {
+            "prop": "Size",
+            "value": "Medium",
+            "path": "2",
+            "reason": "kind:container!=instance"
+          }
+        ]
+      },
+      "root": {
+        "name": "Size=Large",
+        "kind": "container",
+        "id": "11049:17256",
+        "layout": {
+          "axis": "column",
+          "gap": "16px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-md"
+        },
+        "children": [
+          {
+            "name": "Illustration",
+            "kind": "instance",
+            "slug": "illustration",
+            "props": {
+              "Type": "Error state"
+            },
+            "id": "14747:19593"
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "id": "14747:19594",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Title",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19595",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "Size",
+                      "values": [
+                        "Medium"
+                      ],
+                      "text": {
+                        "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
+                        "size": "14px",
+                        "weight": 600,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
+                "text": "Something went wrong"
+              },
+              {
+                "name": "Body",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19596",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 400,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  },
+                  "variants": [
+                    {
+                      "prop": "Size",
+                      "values": [
+                        "Medium"
+                      ],
+                      "text": {
+                        "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
+                        "size": "14px",
+                        "weight": 400,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    }
+                  ]
+                },
+                "text": "There was an error creating your item. Please try again in a moment."
+              }
+            ]
+          },
+          {
+            "name": "Actions",
+            "kind": "container",
+            "id": "14747:19597",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label": "Go back",
+                  "Intent": "Default",
+                  "Emphasis": "Ghost",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14747:19598",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": false,
+                  "Show label": true,
+                  "Show leading icon": false,
+                  "Label": "Try again",
+                  "Intent": "Default",
+                  "Emphasis": "Filled",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "tokenRefs": [
+                  "--zen-color-bg-primary"
+                ],
+                "id": "14747:19599",
+                "appearance": {
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-bg-primary",
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
         "Size": "Large"
       }
     },
@@ -17515,6 +18160,345 @@
         "Fields": "Collapsed"
       }
     },
+    "lineage-connecting-line": {
+      "_schema_version": 1,
+      "slug": "lineage-connecting-line",
+      "kit": "dskit",
+      "synced_at": "2026-07-06T13:21:40.803Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "14747:20085",
+        "variant": "Direction=Straight, State=Default"
+      },
+      "quality": {
+        "nodesTotal": 3,
+        "nodesNormalized": 1,
+        "ratio": 0.33,
+        "degraded": [
+          {
+            "name": "Direction=Straight, State=Default",
+            "reason": "layoutMode:NONE"
+          },
+          {
+            "name": "Direction=Down, State=Default",
+            "reason": "layoutMode:NONE (variant Direction=Down)"
+          },
+          {
+            "name": "Direction=Up, State=Default",
+            "reason": "layoutMode:NONE (variant Direction=Up)"
+          },
+          {
+            "name": "Direction=Straight, State=Selected",
+            "reason": "layoutMode:NONE (variant State=Selected)"
+          },
+          {
+            "name": "Direction=Straight, State=Disabled",
+            "reason": "layoutMode:NONE (variant State=Disabled)"
+          }
+        ],
+        "uncapturedValues": [
+          {
+            "prop": "Direction",
+            "value": "up",
+            "reason": "no isolated variant"
+          }
+        ]
+      },
+      "root": {
+        "name": "Direction=Straight, State=Default",
+        "kind": "container",
+        "id": "14747:20086",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5794,
+          "y": 817,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Straight",
+            "kind": "vector",
+            "tokenRefs": [
+              "--zen-border-default"
+            ],
+            "id": "14747:20087",
+            "appearance": {
+              "border": {
+                "color": "#c7c7ce",
+                "colorToken": "--zen-border-default",
+                "width": "2px"
+              },
+              "radius": "100px",
+              "variants": [
+                {
+                  "prop": "Direction",
+                  "values": [
+                    "Down",
+                    "Up"
+                  ],
+                  "radius": "0px"
+                },
+                {
+                  "prop": "State",
+                  "values": [
+                    "Selected"
+                  ],
+                  "border": {
+                    "color": "#0f5fdc",
+                    "colorToken": "--zen-color-primary-500",
+                    "width": "2px"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            },
+            "id": "14747:20088"
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Direction": "Straight",
+        "State": "Default"
+      }
+    },
+    "lineage-grouped-node": {
+      "_schema_version": 1,
+      "slug": "lineage-grouped-node",
+      "kit": "dskit",
+      "synced_at": "2026-08-12T12:00:22.180Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "15634:17895",
+        "variant": "State=Default, Type=Main item"
+      },
+      "quality": {
+        "nodesTotal": 7,
+        "nodesNormalized": 7,
+        "ratio": 1,
+        "degraded": [],
+        "structuralVariants": [
+          {
+            "prop": "State",
+            "value": "Expanded",
+            "path": "0.1",
+            "reason": "childCount:1!=3"
+          }
+        ]
+      },
+      "root": {
+        "name": "State=Default, Type=Main item",
+        "kind": "container",
+        "id": "15634:17897",
+        "appearance": {
+          "background": "#ffffff",
+          "radius": "6px"
+        },
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Card",
+            "kind": "container",
+            "id": "15634:17899",
+            "appearance": {
+              "background": "#ffffff",
+              "border": {
+                "color": "#0f5fdc",
+                "width": "2px"
+              },
+              "radius": "6px",
+              "variants": [
+                {
+                  "prop": "Type",
+                  "values": [
+                    "Sub item"
+                  ],
+                  "border": null
+                }
+              ]
+            },
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Header",
+                "kind": "container",
+                "id": "15634:17900",
+                "appearance": {
+                  "radius": "6px 6px 0px 0px"
+                },
+                "layout": {
+                  "axis": "row",
+                  "gap": "9px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  },
+                  "paddingTokens": {
+                    "top": "--zen-spacing-xs",
+                    "right": "--zen-spacing-xs",
+                    "bottom": "--zen-spacing-2xs",
+                    "left": "--zen-spacing-xs"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "slug": "digram-item-types",
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Large"
+                    },
+                    "id": "15634:17901",
+                    "appearance": {
+                      "background": "#ffdacf",
+                      "radius": "4px"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "tokenRefs": [
+                      "--zen-color-text-default"
+                    ],
+                    "id": "15634:17903",
+                    "appearance": {
+                      "text": {
+                        "color": "#000000",
+                        "colorToken": "--zen-color-text-default",
+                        "size": "14px",
+                        "weight": 600,
+                        "lineHeight": "20px",
+                        "letterSpacing": "0.2px"
+                      }
+                    },
+                    "text": "Connection1"
+                  }
+                ]
+              },
+              {
+                "name": "Field expand collapse",
+                "kind": "container",
+                "tokenRefs": [
+                  "--zen-border-subtle"
+                ],
+                "id": "15634:17909",
+                "appearance": {
+                  "border": {
+                    "color": "#e1e1e6",
+                    "colorToken": "--zen-border-subtle",
+                    "width": "1px"
+                  }
+                },
+                "layout": {
+                  "axis": "column",
+                  "gap": "10px",
+                  "padding": {
+                    "top": "4px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  },
+                  "paddingTokens": {
+                    "top": "--zen-spacing-2xs",
+                    "right": "--zen-spacing-xs",
+                    "bottom": "--zen-spacing-2xs",
+                    "left": "--zen-spacing-xs"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "slug": "button",
+                    "props": {
+                      "Show label": true,
+                      "Show trailing icon": true,
+                      "Show leading icon": false,
+                      "Label": "2 datasets",
+                      "Intent": "Default",
+                      "Emphasis": "Ghost",
+                      "Size": "Small",
+                      "State": "Default"
+                    },
+                    "id": "15634:17910",
+                    "appearance": {
+                      "radius": "9999px"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
+        "State": "Default",
+        "Type": "Main item"
+      }
+    },
     "link": {
       "_schema_version": 1,
       "slug": "link",
@@ -18187,6 +19171,192 @@
       },
       "variantDefaults": {
         "Property 1": "Default"
+      }
+    },
+    "maintenance-state": {
+      "_schema_version": 1,
+      "slug": "maintenance-state",
+      "kit": "dskit",
+      "synced_at": "2026-08-12T12:00:22.180Z",
+      "source": {
+        "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+        "nodeId": "13871:32311",
+        "variant": "Size=Large"
+      },
+      "quality": {
+        "nodesTotal": 8,
+        "nodesNormalized": 8,
+        "ratio": 1,
+        "degraded": []
+      },
+      "root": {
+        "name": "Size=Large",
+        "kind": "container",
+        "id": "11049:17273",
+        "layout": {
+          "axis": "column",
+          "gap": "16px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "gapToken": "--zen-spacing-md"
+        },
+        "children": [
+          {
+            "name": "Illustration",
+            "kind": "instance",
+            "slug": "illustration",
+            "props": {
+              "Type": "Maintenance"
+            },
+            "id": "14747:19544"
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "id": "14747:19545",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              },
+              "gapToken": "--zen-spacing-2xs"
+            },
+            "children": [
+              {
+                "name": "Title",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19546",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "18px",
+                    "weight": 600,
+                    "lineHeight": "26px"
+                  }
+                },
+                "text": "Scheduled maintenance in progress until 12:00 PM EST"
+              },
+              {
+                "name": "Body",
+                "kind": "text",
+                "tokenRefs": [
+                  "--zen-color-text-default"
+                ],
+                "id": "14747:19547",
+                "appearance": {
+                  "text": {
+                    "color": "#000000",
+                    "colorToken": "--zen-color-text-default",
+                    "size": "16px",
+                    "weight": 400,
+                    "lineHeight": "24px",
+                    "letterSpacing": "0.1px"
+                  }
+                },
+                "text": " Reports may be unavailable. Refresh or check back when the maintenance window is complete."
+              }
+            ]
+          },
+          {
+            "name": "Actions",
+            "kind": "container",
+            "id": "14747:19548",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show label": true,
+                  "Show trailing icon": false,
+                  "Show leading icon": false,
+                  "Label": "Learn more",
+                  "Intent": "Default",
+                  "Emphasis": "Ghost",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "id": "14747:19549",
+                "appearance": {
+                  "radius": "9999px"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "slug": "button",
+                "props": {
+                  "Show trailing icon": false,
+                  "Show label": true,
+                  "Show leading icon": false,
+                  "Label": "Create policy",
+                  "Intent": "Default",
+                  "Emphasis": "Filled",
+                  "Size": "Default",
+                  "State": "Default"
+                },
+                "tokenRefs": [
+                  "--zen-color-bg-primary"
+                ],
+                "id": "14747:19550",
+                "appearance": {
+                  "background": "#0f5fdc",
+                  "backgroundToken": "--zen-color-bg-primary",
+                  "radius": "9999px"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "variantDefaults": {
+        "Size": "Large"
       }
     },
     "mapr": {

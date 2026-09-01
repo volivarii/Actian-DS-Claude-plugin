@@ -28,24 +28,24 @@ var PILOT = [
   // so anatomy-tier slugs (ds-html-map's default: case) now render their real
   // per-instance appearance HTML here too, not a chip. PILOT staying limited
   // to override-tier leaves is just scope, not a rendering limitation.
-  "notification",
+  "toast",
   "stepper",
-  "tooltip",
-  "date-input",
+  "tooltip-default",
+  "calendar-date-input",
   "rich-text",
   "dropdown-select-default",
   "progress-bar-small",
-  "tag-interactive",
+  "interactive-tag",
   // Hi-Fi A1 (narrow) degraded-slug override leaves — same rationale as Slice 1
   // (real switch-case, render server-side in Node, no window.__dsAnatomyDocs).
   "popover",
-  "account-dropdown",
+  "global-header-account-dropdown",
   "app-switcher-dropdown",
   "segmented-control",
   "toolbar",
   "action-bar",
   "loader",
-  "calendar",
+  "calendar-data-selector",
 ];
 
 // PILOT is a hand-picked subset of the renderer's BUILT_SLUGS and nothing else

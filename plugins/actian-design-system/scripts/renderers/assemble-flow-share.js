@@ -82,7 +82,7 @@ function assembleFlowShare(data) {
   // selects the right captured colors. (The legacy slug→pre-rendered-HTML
   // anatomy map — "path c" — was retired in Group C.)
   var docMap = anatomyHelpers.buildDsAnatomyDocMap(dsSlugs);
-  // Token-injection tier (slice 1: tag-read-only): { anatomyVariantKey ->
+  // Token-injection tier (slice 1: read-only-tag): { anatomyVariantKey ->
   // inline-style-string } for delegated slugs, so their hand-authored
   // templates render with the harvested variant-correct token instead of
   // being replaced by anatomy HTML.

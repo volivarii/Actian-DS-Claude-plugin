@@ -117,11 +117,11 @@ DS Kit components are grouped into 6 categories (synced from the design team's F
 | Category | Components | Examples |
 |---|---|---|
 | **Action** | 3 | button, link, action-bar |
-| **Form** | 20 | text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar |
-| **Navigation** | 10 | breadcrumb, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
-| **Data Display** | 26 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
-| **Feedback** | 10 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
-| **Overlays** | 4 | modal, popover, tooltip, drawer-side-panel |
+| **Form** | 20 | text-input, checkbox, radio, dropdown-select-default, search, toggle, calendar-data-selector |
+| **Navigation** | 10 | breadcrumb, side-nav, tabs, global-header, stepper, global-header-account-dropdown, app-switcher-dropdown |
+| **Data Display** | 26 | card, table, badge, read-only-tag, interactive-tag, avatar, segmented-control, page-header, toolbar, lineage, line-graph |
+| **Feedback** | 10 | alert-banner, toast, empty-state, error-state, loader, spinner, loading-skeleton |
+| **Overlays** | 4 | drawer, modal, popover, tooltip-default |
 
 Counts and full membership: `vendor/components/dist/categories.json` (source of truth — synced from Figma). Some components carry `status` (`in-progress` ✍️, `deprecated` ⛔️, `warn` ⚠️) — surface this when answering questions about a component's readiness.
 

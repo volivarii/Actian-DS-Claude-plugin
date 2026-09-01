@@ -66,14 +66,14 @@ test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes"
     screens: [
       {
         content: [
-          { dsSlug: "tag-read-only", variant: "Type=Shared" },
-          { dsSlug: "tag-read-only", variant: "Type=Shared" }, // dup -> collapses
+          { dsSlug: "read-only-tag", variant: "Type=Shared" },
+          { dsSlug: "read-only-tag", variant: "Type=Shared" }, // dup -> collapses
           // Authored under the name this component answered to before the
           // 2026-08-26 rename. The collector resolves it through the identity
           // ledger BEFORE testing delegation, so it must collapse onto the
           // pair above rather than emit a third, unrenderable key.
           { dsSlug: "tag-default", variant: "Type=Shared" },
-          { dsSlug: "tag-read-only", variant: "Type=Catalog" },
+          { dsSlug: "read-only-tag", variant: "Type=Catalog" },
           { dsSlug: "button", variant: "Type=Primary" }, // not delegated -> ignored here
         ],
       },
@@ -84,8 +84,8 @@ test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes"
     .map((p) => p.slug + "|" + JSON.stringify(p.variant))
     .sort();
   assert.deepStrictEqual(keys, [
-    'tag-read-only|{"Type":"Catalog"}',
-    'tag-read-only|{"Type":"Shared"}',
+    'read-only-tag|{"Type":"Catalog"}',
+    'read-only-tag|{"Type":"Shared"}',
   ]);
 });
 
@@ -94,7 +94,7 @@ test("collectDsSlugVariants: emits distinct {slug, variant} for delegated nodes"
 // the two new appearance-sourced tests below for the real-vendored-data
 // coverage). Same intent, injected-loader unit coverage of the composite-key
 // lookup, now shaped like an anatomy `root.appearance` doc.
-test("buildDsVariantStyleMap: keys tag-read-only by composite key with the appearance-resolved variant style", () => {
+test("buildDsVariantStyleMap: keys read-only-tag by composite key with the appearance-resolved variant style", () => {
   const anatomy = {
     quality: { ratio: 1 },
     root: {
@@ -115,20 +115,20 @@ test("buildDsVariantStyleMap: keys tag-read-only by composite key with the appea
   };
   const data = {
     screens: [
-      { content: [{ dsSlug: "tag-read-only", variant: "Type=Shared" }] },
+      { content: [{ dsSlug: "read-only-tag", variant: "Type=Shared" }] },
     ],
   };
   const map = anatomyMapMod.buildDsVariantStyleMap(data, {
     anatomyLoader: () => anatomy,
   });
   assert.strictEqual(
-    map["tag-read-only|Type=Shared"],
+    map["read-only-tag|Type=Shared"],
     "background:#fff5f6;border-color:#ffd6d8",
   );
 });
 
 // Task A2: buildDsVariantStyleMap is re-sourced from the appearance layer
-// (real vendored tag-read-only anatomy, no fixtures) instead of the
+// (real vendored read-only-tag anatomy, no fixtures) instead of the
 // token-bindings sidecar join (resolveRootTokenStyle, "path b").
 function flowWith(variants) {
   return {
@@ -138,7 +138,7 @@ function flowWith(variants) {
           return {
             type: "INSTANCE",
             library: "ds",
-            dsSlug: "tag-read-only",
+            dsSlug: "read-only-tag",
             variant: v,
             props: { Label: "Tag" },
           };
@@ -148,7 +148,7 @@ function flowWith(variants) {
   };
 }
 
-it("tag-read-only variant style is appearance-sourced: per-type paint, no bare unresolved token", function () {
+it("read-only-tag variant style is appearance-sourced: per-type paint, no bare unresolved token", function () {
   // The specimen is DERIVED. This named "Color=Purple" until the 2026-08-12
   // fold-in retired the Color axis, after which the key resolved to
   // nothing and the assertion read "Purple entry present" against a substrate
@@ -156,13 +156,13 @@ it("tag-read-only variant style is appearance-sourced: per-type paint, no bare u
   // the axis and the value come off the anatomy doc buildDsVariantStyleMap
   // itself reads. See tests/helpers/appearance-specimen.js.
   var painted = specimen.pickPaintedVariant(
-    renderer.anatomyLoader("tag-read-only"),
-    "tag-read-only",
+    renderer.anatomyLoader("read-only-tag"),
+    "read-only-tag",
   );
   var map = anatomyMapMod.buildDsVariantStyleMap(
     flowWith([painted.variantString]),
   );
-  var style = map["tag-read-only|" + painted.variantString];
+  var style = map["read-only-tag|" + painted.variantString];
   assert.ok(style, painted.variantString + " entry present");
   assert.match(style, /background:/);
   // The paint is the capture's own value, not merely "some background".
@@ -175,7 +175,7 @@ it("tag-read-only variant style is appearance-sourced: per-type paint, no bare u
       style,
   );
   // No border assertion: the 2026-07-23 tag redesign removed tag borders, so
-  // tag-read-only's captured appearance is background-only and the renderer
+  // read-only-tag's captured appearance is background-only and the renderer
   // correctly emits no border-color. Demanding one asserted the old Figma, not
   // the appearance layer this test is about. The per-variant fidelity guard
   // (border present iff the substrate captured one) lives in
@@ -188,7 +188,7 @@ it("tag-read-only variant style is appearance-sourced: per-type paint, no bare u
   assert.match(style, /#[0-9a-fA-F]{3,8}/);
 });
 
-it("tag-read-only DEFAULT variant emits no injected style (ds-base.css is correct)", function () {
+it("read-only-tag DEFAULT variant emits no injected style (ds-base.css is correct)", function () {
   var map = anatomyMapMod.buildDsVariantStyleMap(flowWith([""]));
-  assert.strictEqual(map["tag-read-only"], undefined);
+  assert.strictEqual(map["read-only-tag"], undefined);
 });
