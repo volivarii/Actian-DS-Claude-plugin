@@ -17,10 +17,14 @@ hand-written and not a frozen snapshot.
   (generate-flow's lo-fi preview, component briefs), not to build an fm gallery
   here.
 
-`render.css` is built as `tokens/tokens.css` + `ds-fonts.css` + `ds-base.css`, in that
-order (the same order the render read path uses). `tests/render/derive-canonical.test.js`
-pins that composition exactly, so the derive cannot quietly start sourcing its stylesheet
-from somewhere else.
+`render.css` is built as `tokens/tokens.css` + `ds-base.css`, in that order (the same
+order the render read path uses). `ds-fonts.css` is emitted SEPARATELY as
+`render-fonts.css`: it is base64 woff2 subsets and was 70% of the sheet, so a consumer
+with its own font pipeline should not download it to show one component. A consumer that
+needs standalone offline files inlines both, which is what `build-bundle.js` does; take
+`render.css` alone and the type falls back to the system stack.
+`tests/render/derive-canonical.test.js` pins both halves exactly, so the derive cannot
+quietly start sourcing its stylesheet from somewhere else, nor drop the font payload.
 
 ## Renderer JS (phase 1a)
 

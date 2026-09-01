@@ -1,8 +1,9 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "generatedBy": "scripts/render/derive-canonical.js",
   "cem": "custom-elements.json",
   "css": "render.css",
+  "fontsCss": "render-fonts.css",
   "renders": [
     {
       "slug": "action-bar",

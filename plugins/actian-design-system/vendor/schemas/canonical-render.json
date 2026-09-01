@@ -24,8 +24,13 @@
     },
     "css": {
       "type": "string",
-      "description": "File name of the shared stylesheet inlined once and combined with each fragment.",
+      "description": "File name of the shared component stylesheet, inlined once and combined with each fragment. Carries no font payload: the embedded faces are a separate artifact named by fontsCss.",
       "examples": ["render.css"]
+    },
+    "fontsCss": {
+      "type": "string",
+      "description": "File name of the embedded font faces (base64 woff2 subsets), held apart from the component stylesheet. A consumer needing standalone offline files inlines this alongside css; a consumer with its own font pipeline takes css alone.",
+      "examples": ["render-fonts.css"]
     },
     "renders": {
       "type": "array",
