@@ -1,0 +1,183 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/render/derive-quality-trend.js",
+    "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
+    "sourcesLastChangedAt": "2026-08-31"
+  },
+  "measures": {
+    "unexplainedCollapses": {
+      "value": 54,
+      "direction": "unchanged",
+      "previous": 54
+    },
+    "inlineHex": {
+      "value": 31,
+      "direction": "unknown",
+      "previous": null
+    },
+    "oracleVerified": {
+      "value": 78,
+      "direction": "unchanged",
+      "previous": 78
+    },
+    "oracleExamined": {
+      "value": 408,
+      "direction": "unchanged",
+      "previous": 408
+    }
+  },
+  "detail": {
+    "inlineHexBySlug": {
+      "card-for-perimeter": 1,
+      "digram-item-types": 5,
+      "digram-topic": 5,
+      "lineage-grouped-node": 2,
+      "lineage": 6,
+      "metamodel": 10,
+      "search-result-card": 2
+    }
+  },
+  "oracleSeries": [
+    {
+      "date": "2026-08-31",
+      "version": "0.34.161",
+      "sha": "dfb068bc",
+      "verified": 78,
+      "examined": 408
+    },
+    {
+      "date": "2026-08-31",
+      "version": "0.34.159",
+      "sha": "0014e8f3",
+      "verified": 77,
+      "examined": 408
+    },
+    {
+      "date": "2026-08-26",
+      "version": "0.34.154",
+      "sha": "c8340c77",
+      "verified": 78,
+      "examined": 408
+    },
+    {
+      "date": "2026-08-24",
+      "version": "0.34.147",
+      "sha": "ac51956a",
+      "verified": 78,
+      "examined": 432
+    },
+    {
+      "date": "2026-08-12",
+      "version": "0.34.123",
+      "sha": "137cefe2",
+      "verified": 78,
+      "examined": 438
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.118",
+      "sha": "0026726b",
+      "verified": 49,
+      "examined": 415
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.118",
+      "sha": "69241f83",
+      "verified": 49,
+      "examined": 417
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.117",
+      "sha": "d2286d32",
+      "verified": 65,
+      "examined": 445
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.117",
+      "sha": "182b1af6",
+      "verified": 65,
+      "examined": 445
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.117",
+      "sha": "25fe8fa2",
+      "verified": 59,
+      "examined": 445
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.117",
+      "sha": "87e441f5",
+      "verified": 59,
+      "examined": 445
+    },
+    {
+      "date": "2026-07-24",
+      "version": "0.34.117",
+      "sha": "3d61aa24",
+      "verified": 59,
+      "examined": 396
+    }
+  ],
+  "collapseSeries": [
+    {
+      "date": "2026-08-31",
+      "version": "0.34.159",
+      "sha": "0014e8f3",
+      "unexplained": 54
+    },
+    {
+      "date": "2026-08-26",
+      "version": "0.34.155",
+      "sha": "8ea49c54",
+      "unexplained": 54
+    },
+    {
+      "date": "2026-08-26",
+      "version": "0.34.154",
+      "sha": "c8340c77",
+      "unexplained": 65
+    },
+    {
+      "date": "2026-08-24",
+      "version": "0.34.146",
+      "sha": "b05c40c1",
+      "unexplained": 43
+    },
+    {
+      "date": "2026-08-15",
+      "version": "0.34.133",
+      "sha": "da3f3805",
+      "unexplained": 50
+    },
+    {
+      "date": "2026-08-15",
+      "version": "0.34.132",
+      "sha": "0fce3c94",
+      "unexplained": 50
+    },
+    {
+      "date": "2026-08-14",
+      "version": "0.34.132",
+      "sha": "152cb159",
+      "unexplained": 50
+    },
+    {
+      "date": "2026-08-14",
+      "version": "0.34.128",
+      "sha": "e10c392b",
+      "unexplained": 50
+    },
+    {
+      "date": "2026-08-14",
+      "version": "0.34.128",
+      "sha": "25774ba1",
+      "unexplained": 50
+    }
+  ]
+}
