@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-08-31T11:40:20.130Z",
+  "generatedAt": "2026-09-01T12:19:34.366Z",
   "categories": {
     "Action": {
       "components": [
@@ -151,6 +151,7 @@
         "export",
         "favorite",
         "favorite-filled",
+        "file",
         "file-cash",
         "file-check",
         "file-info",
@@ -165,7 +166,9 @@
         "help-bubble",
         "help-circle",
         "hierarchy",
+        "history",
         "home",
+        "icon",
         "idea",
         "info",
         "info-filled",
@@ -191,6 +194,7 @@
         "pin",
         "process",
         "products-briefcase",
+        "prompt-library",
         "read-search",
         "relation",
         "relation-incoming",
@@ -199,13 +203,16 @@
         "reply",
         "rotate-back",
         "scanner",
+        "schedule-run",
         "schema",
         "security-services",
+        "send",
         "server-search",
         "server-warning",
         "settings",
         "share",
         "shield-lock",
+        "sidepanel",
         "simple-check",
         "stars",
         "stars-filled",
@@ -225,6 +232,7 @@
         "thumbs-up-filled",
         "time-type",
         "trash",
+        "undo",
         "unknown-type",
         "user",
         "user-add",
@@ -240,7 +248,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 145
+      "count": 153
     },
     "Illustrations & graphics": {
       "components": [

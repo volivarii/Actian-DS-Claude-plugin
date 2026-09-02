@@ -8,8 +8,10 @@ properties:
   - definition
   - linked assets
 relationships:
-  linkedTo: catalog-object
-  parentItem: glossary-item
+  relatesTo:
+    - catalog-object
+  subtypeOf:
+    - glossary-item
 apps:
   - studio
   - explorer

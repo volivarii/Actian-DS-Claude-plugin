@@ -3,13 +3,23 @@
     "auto_generated": true,
     "source": "scripts/render/derive-quality-trend.js",
     "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
-    "sourcesLastChangedAt": "2026-08-31"
+    "sourcesLastChangedAt": "2026-09-02"
   },
   "measures": {
     "unexplainedCollapses": {
       "value": 54,
       "direction": "unchanged",
       "previous": 54
+    },
+    "fmUnexplainedCollapses": {
+      "value": 55,
+      "direction": "unchanged",
+      "previous": 55
+    },
+    "fmUnownedModifiers": {
+      "value": 56,
+      "direction": "unchanged",
+      "previous": 56
     },
     "inlineHex": {
       "value": 31,
@@ -32,11 +42,248 @@
       "card-for-perimeter": 1,
       "digram-item-types": 5,
       "digram-topic": 5,
-      "lineage-grouped-node": 2,
       "lineage": 6,
+      "lineage-grouped-node": 2,
       "metamodel": 10,
       "search-result-card": 2
-    }
+    },
+    "fmUnownedModifiers": [
+      {
+        "class": "fm-alert--success",
+        "origin": "fm-alert Type=Success"
+      },
+      {
+        "class": "fm-alert--error",
+        "origin": "fm-alert Type=Error"
+      },
+      {
+        "class": "fm-alert--warning",
+        "origin": "fm-alert Type=Warning"
+      },
+      {
+        "class": "fm-badge--small",
+        "origin": "fm-badge Size=Small"
+      },
+      {
+        "class": "fm-badge--medium",
+        "origin": "fm-badge Size=Medium"
+      },
+      {
+        "class": "fm-badge--large",
+        "origin": "fm-badge Size=Large"
+      },
+      {
+        "class": "fm-button--md",
+        "origin": "fm-button Size=md"
+      },
+      {
+        "class": "fm-button--sm",
+        "origin": "fm-button Size=sm"
+      },
+      {
+        "class": "fm-checkbox--off",
+        "origin": "fm-checkbox State=Off"
+      },
+      {
+        "class": "fm-checkbox--on",
+        "origin": "fm-checkbox State=On"
+      },
+      {
+        "class": "fm-date-input--default",
+        "origin": "fm-date-input State=Default"
+      },
+      {
+        "class": "fm-date-input--open",
+        "origin": "fm-date-input State=Open"
+      },
+      {
+        "class": "fm-date-input--placeholder",
+        "origin": "fm-date-input State=Placeholder"
+      },
+      {
+        "class": "fm-dropdown--placeholder",
+        "origin": "fm-dropdown Type=Placeholder"
+      },
+      {
+        "class": "fm-dropdown--open",
+        "origin": "fm-dropdown Type=Open"
+      },
+      {
+        "class": "fm-dropdown--disabled",
+        "origin": "fm-dropdown Type=Disabled"
+      },
+      {
+        "class": "fm-dropdown--filled",
+        "origin": "fm-dropdown Type=Filled"
+      },
+      {
+        "class": "fm-icon-button--primary",
+        "origin": "fm-icon-buttons Type=Primary"
+      },
+      {
+        "class": "fm-icon-button--secondary",
+        "origin": "fm-icon-buttons Type=Secondary"
+      },
+      {
+        "class": "fm-icon-button--outline",
+        "origin": "fm-icon-buttons Type=Outline"
+      },
+      {
+        "class": "fm-menu-item--default",
+        "origin": "fm-menu-item State=Default"
+      },
+      {
+        "class": "fm-menu-item--hover",
+        "origin": "fm-menu-item State=Hover"
+      },
+      {
+        "class": "fm-menu-item--active",
+        "origin": "fm-menu-item State=Active"
+      },
+      {
+        "class": "fm-dropdown--multi",
+        "origin": "fm-multi-select-dropdown Type=Placeholder"
+      },
+      {
+        "class": "fm-nav-item--off",
+        "origin": "fm-nav-item State=Off"
+      },
+      {
+        "class": "fm-placeholder--label+1line",
+        "origin": "fm-placeholder Type=Label+1line"
+      },
+      {
+        "class": "fm-placeholder--label+3lines",
+        "origin": "fm-placeholder Type=Label+3lines"
+      },
+      {
+        "class": "fm-placeholder--label+6lines",
+        "origin": "fm-placeholder Type=Label+6lines"
+      },
+      {
+        "class": "fm-placeholder--label+avatars",
+        "origin": "fm-placeholder Type=Label+avatars"
+      },
+      {
+        "class": "fm-placeholder--metric",
+        "origin": "fm-placeholder Type=metric"
+      },
+      {
+        "class": "fm-radio--off",
+        "origin": "fm-radio-button Format=Default"
+      },
+      {
+        "class": "fm-radio--on",
+        "origin": "fm-radio-button State=On"
+      },
+      {
+        "class": "fm-search-input--empty",
+        "origin": "fm-search-input Type=Empty"
+      },
+      {
+        "class": "fm-search-input--placeholder",
+        "origin": "fm-search-input Type=Placeholder"
+      },
+      {
+        "class": "fm-search-input--filled",
+        "origin": "fm-search-input Type=Filled"
+      },
+      {
+        "class": "fm-stepper--active",
+        "origin": "fm-stepper State=Active"
+      },
+      {
+        "class": "fm-stepper--complete",
+        "origin": "fm-stepper State=Complete"
+      },
+      {
+        "class": "fm-tab--on",
+        "origin": "fm-tab State=On"
+      },
+      {
+        "class": "fm-tab--off",
+        "origin": "fm-tab State=Off"
+      },
+      {
+        "class": "fm-tab--placeholder",
+        "origin": "fm-tab State=Placeholder"
+      },
+      {
+        "class": "fm-table-cell--text",
+        "origin": "fm-table-cell Type=Text"
+      },
+      {
+        "class": "fm-table-cell--pill",
+        "origin": "fm-table-cell Type=Pill"
+      },
+      {
+        "class": "fm-table-cell--placeholder",
+        "origin": "fm-table-cell Type=Placeholder"
+      },
+      {
+        "class": "fm-tag--filled",
+        "origin": "fm-tag Style=Filled"
+      },
+      {
+        "class": "fm-tag--outline",
+        "origin": "fm-tag Style=Outline"
+      },
+      {
+        "class": "fm-tag--light",
+        "origin": "fm-tag Style=Light"
+      },
+      {
+        "class": "fm-textarea--none",
+        "origin": "fm-text-area Content=None"
+      },
+      {
+        "class": "fm-textarea--placeholder",
+        "origin": "fm-text-area Content=Placeholder"
+      },
+      {
+        "class": "fm-textarea--filled",
+        "origin": "fm-text-area Content=Filled"
+      },
+      {
+        "class": "fm-input--empty",
+        "origin": "fm-text-input Type=Empty"
+      },
+      {
+        "class": "fm-input--placeholder",
+        "origin": "fm-text-input Type=Placeholder"
+      },
+      {
+        "class": "fm-input--default",
+        "origin": "fm-text-input Type=Default"
+      },
+      {
+        "class": "fm-input--disabled",
+        "origin": "fm-text-input Type=Disabled"
+      },
+      {
+        "class": "fm-toast--standard",
+        "origin": "fm-toast Style=Standard"
+      },
+      {
+        "class": "fm-toast--outline",
+        "origin": "fm-toast Style=Outline"
+      },
+      {
+        "class": "fm-toggle--off",
+        "origin": "fm-toggle State=Off"
+      }
+    ],
+    "fmOwnedNotEmitted": [
+      "fm-sidebar__item--active",
+      "fm-sidebar__item--placeholder",
+      "fm-sidebar__section--bottom",
+      "fm-tab--active",
+      "fm-table-cell--row",
+      "fm-textarea--rich"
+    ],
+    "fmUnrendered": [
+      "fm-cursor"
+    ]
   },
   "oracleSeries": [
     {

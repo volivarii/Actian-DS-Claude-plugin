@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-08-31T11:40:06.860Z",
-  "componentCount": 324,
+  "lastSynced": "2026-09-01T12:19:21.864Z",
+  "componentCount": 332,
   "components": {
     "actian-data-intelligence": {
       "name": "Actian Data Intelligence",
@@ -881,6 +881,16 @@
         },
         {
           "slug": "link",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "back",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-alt",
           "role": null,
           "source": "child-instance"
         }
@@ -2823,6 +2833,21 @@
         ]
       }
     },
+    "file": {
+      "name": "File",
+      "key": "e23db37759784ef2451c4d0cc1d6ddde65d8e4d4",
+      "nodeId": "22256:5787",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
     "file-cash": {
       "name": "file-cash",
       "key": "d43c304fff438798a08982ddd26ae5444fec84a0",
@@ -3266,6 +3291,21 @@
       "categorySlug": "icons",
       "group": "Other"
     },
+    "history": {
+      "name": "history",
+      "key": "d4b5e909bb8951a5465e5b50c0537662d82e5031",
+      "nodeId": "22258:8771",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common"
+    },
     "hive": {
       "name": "hive",
       "key": "d7bd860c86c5152462817fa348a5a95b31349596",
@@ -3295,6 +3335,21 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Details"
+    },
+    "icon": {
+      "name": "Icon",
+      "key": "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9",
+      "nodeId": "22258:8789",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     },
     "idea": {
       "name": "idea",
@@ -3851,8 +3906,36 @@
       "importMethod": "set",
       "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.\n\nUsed for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.",
       "page": "Link",
-      "properties": {},
-      "nestedComponents": [],
+      "properties": {
+        "Show leading icon#22259:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show trailing icon#22259:8": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Leading icon#22259:16": {
+          "type": "INSTANCE_SWAP",
+          "default": "8504:23035"
+        },
+        "Trailing icon#22259:24": {
+          "type": "INSTANCE_SWAP",
+          "default": "8504:23323"
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "back",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-alt",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "section": "Components",
       "category": "Action",
@@ -4907,6 +4990,16 @@
           "slug": "link",
           "role": null,
           "source": "child-instance"
+        },
+        {
+          "slug": "back",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-alt",
+          "role": null,
+          "source": "child-instance"
         }
       ],
       "documentationLinks": [],
@@ -5040,6 +5133,21 @@
           "50%"
         ]
       }
+    },
+    "prompt-library": {
+      "name": "Prompt library",
+      "key": "3058a76fa70c3aa01a20f424cf6b32ddba2c9345",
+      "nodeId": "22262:9698",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     },
     "qlik-sense": {
       "name": "qlik-sense",
@@ -5596,6 +5704,21 @@
       "categorySlug": "icons",
       "group": "Navigation"
     },
+    "schedule-run": {
+      "name": "Schedule run",
+      "key": "2a37acbcf17c7a8e003546e7ab6bf24c9c516e6c",
+      "nodeId": "22262:9696",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
     "schema": {
       "name": "schema",
       "key": "f8fffb1cbe411321f66142c020a208b000d15e9d",
@@ -5835,6 +5958,21 @@
       "categorySlug": "data-display",
       "group": "Segmented control"
     },
+    "send": {
+      "name": "send",
+      "key": "72834e964fdf12a9a33ac7089706c1b81d02ea36",
+      "nodeId": "22258:8626",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
     "server-search": {
       "name": "server-search",
       "key": "4b21aa187b1559d7c4ad33b31e477f7fcfc9975a",
@@ -6036,6 +6174,21 @@
           "Expanded"
         ]
       }
+    },
+    "sidepanel": {
+      "name": "sidepanel",
+      "key": "1442941e459a3dfa5c23f598d02c173f4472204c",
+      "nodeId": "22258:8784",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
     },
     "simple-check": {
       "name": "simple-check",
@@ -7057,6 +7210,21 @@
       "categorySlug": "icons",
       "group": "Common"
     },
+    "undo": {
+      "name": "undo",
+      "key": "1f713342258d4453639880aa4c6f3ef78bc88399",
+      "nodeId": "22258:8776",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common"
+    },
     "unknown-type": {
       "name": "unknown-type",
       "key": "b120c4277b392ad79c9b1bfc21015fc8d55453e5",
@@ -7233,6 +7401,16 @@
         },
         {
           "slug": "link",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "back",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-alt",
           "role": null,
           "source": "child-instance"
         }
@@ -7722,6 +7900,66 @@
       "category": "Icons",
       "categorySlug": "icons",
       "group": "Message"
+    },
+    "card": {
+      "name": "card",
+      "key": "9eeb170d719d39682ddd830fae8d2e30c45ec3e0",
+      "nodeId": "22258:8780",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "send": {
+      "name": "send",
+      "key": "72834e964fdf12a9a33ac7089706c1b81d02ea36",
+      "nodeId": "22258:8626",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "file": {
+      "name": "File",
+      "key": "e23db37759784ef2451c4d0cc1d6ddde65d8e4d4",
+      "nodeId": "22256:5787",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "history": {
+      "name": "history",
+      "key": "d4b5e909bb8951a5465e5b50c0537662d82e5031",
+      "nodeId": "22258:8771",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common"
     },
     "info": {
       "name": "info",
@@ -9254,6 +9492,81 @@
       "name": "server-warning",
       "key": "ffa8798d9b0a3d22602ed2d39fcb551af4c01992",
       "nodeId": "20633:53",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "icon": {
+      "name": "Icon",
+      "key": "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9",
+      "nodeId": "22258:8789",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "sidepanel": {
+      "name": "sidepanel",
+      "key": "1442941e459a3dfa5c23f598d02c173f4472204c",
+      "nodeId": "22258:8784",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "undo": {
+      "name": "undo",
+      "key": "1f713342258d4453639880aa4c6f3ef78bc88399",
+      "nodeId": "22258:8776",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Common"
+    },
+    "schedule-run": {
+      "name": "Schedule run",
+      "key": "2a37acbcf17c7a8e003546e7ab6bf24c9c516e6c",
+      "nodeId": "22262:9696",
+      "importMethod": "single",
+      "description": "",
+      "page": "Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "categorySlug": "icons",
+      "group": "Other"
+    },
+    "prompt-library": {
+      "name": "Prompt library",
+      "key": "3058a76fa70c3aa01a20f424cf6b32ddba2c9345",
+      "nodeId": "22262:9698",
       "importMethod": "single",
       "description": "",
       "page": "Icons",

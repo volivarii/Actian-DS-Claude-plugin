@@ -10,7 +10,8 @@ properties:
   - { name: key, type: enum, states: [Primary key, Foreign key, Business key, None] }
   - description
 relationships:
-  belongsTo: dataset
+  belongsTo:
+    - dataset
 apps:
   - studio
   - explorer

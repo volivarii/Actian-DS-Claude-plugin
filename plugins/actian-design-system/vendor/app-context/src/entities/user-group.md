@@ -10,7 +10,8 @@ properties:
   - groups
   - permissions
 relationships:
-  hasGovernancePolicies: governance-policy
+  relatesTo:
+    - governance-policy
 apps:
   - administration
 ---

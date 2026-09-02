@@ -8,9 +8,11 @@ properties:
   - description
   - { name: job status, type: enum, states: [Created, Processing, Processed] }
 relationships:
-  hasInputs: dataset
-  hasOutputs: dataset
-  produces: lineage
+  consumes:
+    - dataset
+  produces:
+    - dataset
+    - lineage
 apps:
   - studio
   - explorer

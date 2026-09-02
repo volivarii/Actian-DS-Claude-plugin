@@ -8,7 +8,8 @@ properties:
   - { name: type, type: enum, states: [Short text, Rich text, Number, URL, Select, Multi-select, Date, Tag] }
   - { name: importance, type: enum, states: [Standard, Important, Required] }
 relationships:
-  partOf: template
+  belongsTo:
+    - template
 apps:
   - studio
 ---

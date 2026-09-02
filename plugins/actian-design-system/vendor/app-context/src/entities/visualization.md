@@ -9,8 +9,10 @@ properties:
   - description
   - contacts
 relationships:
-  builtFrom: dataset
-  discoveredVia: connection
+  derivedFrom:
+    - dataset
+  uses:
+    - connection
 apps:
   - studio
   - explorer

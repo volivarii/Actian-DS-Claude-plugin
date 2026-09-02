@@ -33,3 +33,7 @@ contract surface (`_zones`), where machines can read it.
   `accessibility/`).
 - **I want to contribute / understand CI** → [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - **I want the AI-agent guide** → [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md).
+- **I want to run, extend or inherit the substrate** → the technical guide at
+  `docs/technical-guide/` in the source repository
+  ([volivarii/actian-ds-knowledge](https://github.com/volivarii/actian-ds-knowledge/tree/main/docs/technical-guide)).
+  It is a contributor document and is deliberately absent from vendor bundles.

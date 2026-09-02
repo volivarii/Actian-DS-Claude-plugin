@@ -9,7 +9,8 @@ properties:
   - { name: status, type: enum, states: [Connected, Error, Pending] }
   - provider
 relationships:
-  discoversCatalogObjects: catalog-object
+  produces:
+    - catalog-object
 apps:
   - administration
 ---

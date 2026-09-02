@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-324 components.
+332 components.
 
 ---
 
@@ -769,6 +769,11 @@ Favorited
 - Variants: **Size:** `Compact` · `Default` | **State:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Warning` · `Disabled` · `Read-only`
 - Node: `20353:18650` | Key: `8643b848a0145883056cc45521b903b2a18fb922`
 
+### File
+
+- Single component (no variants)
+- Node: `22256:5787` | Key: `e23db37759784ef2451c4d0cc1d6ddde65d8e4d4`
+
 ### file-cash
 
 - Single component (no variants)
@@ -907,6 +912,11 @@ Help
 - Single component (no variants)
 - Node: `20633:45` | Key: `4812156c670d9d6cb93a91f9f39910a9d09c73fb`
 
+### history
+
+- Single component (no variants)
+- Node: `22258:8771` | Key: `d4b5e909bb8951a5465e5b50c0537662d82e5031`
+
 ### hive
 
 - Single component (no variants)
@@ -918,6 +928,11 @@ Details
 
 - Single component (no variants)
 - Node: `7378:5034` | Key: `4a8ee163ef4f785c846a3a71344af13b834e02f0`
+
+### Icon
+
+- Single component (no variants)
+- Node: `22258:8789` | Key: `c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9`
 
 ### idea
 
@@ -1363,6 +1378,11 @@ Visualizes the completion percentage of a task.  Use as a static visualization l
 - Variants: **Size:** `Default` · `Large` | **Completeness:** `0%` · `100%` · `50%`
 - Node: `14136:1615` | Key: `3ad726123245a1052e193ff80b894ba98b9a3e52`
 
+### Prompt library
+
+- Single component (no variants)
+- Node: `22262:9698` | Key: `3058a76fa70c3aa01a20f424cf6b32ddba2c9345`
+
 ### qlik-sense
 
 - Single component (no variants)
@@ -1506,6 +1526,11 @@ Scanners
 - Single component (no variants)
 - Node: `7378:3979` | Key: `92eba2ab6095c5b95bf4b86d1c056f5e1e39e232`
 
+### Schedule run
+
+- Single component (no variants)
+- Node: `22262:9696` | Key: `2a37acbcf17c7a8e003546e7ab6bf24c9c516e6c`
+
 ### schema
 
 Fields
@@ -1552,6 +1577,11 @@ Policy
 - Single component (no variants)
 - Node: `7618:5284` | Key: `b4d36abfe1043c86a74903008f4560be67b54e9a`
 
+### send
+
+- Single component (no variants)
+- Node: `22258:8626` | Key: `72834e964fdf12a9a33ac7089706c1b81d02ea36`
+
 ### server-search
 
 Add section
@@ -1589,6 +1619,11 @@ Vertical navigation for primary application modules. Use when the app has many t
 
 - Variants: **App:** `Admin` · `Studio` | **View:** `Collapsed` · `Expanded`
 - Node: `13599:20120` | Key: `3606cc19247f989332aac33953ffdf57c9d1bbdd`
+
+### sidepanel
+
+- Single component (no variants)
+- Node: `22258:8784` | Key: `1442941e459a3dfa5c23f598d02c173f4472204c`
 
 ### simple-check
 
@@ -1860,6 +1895,11 @@ Delete
 
 - Single component (no variants)
 - Node: `7378:5056` | Key: `09df4020b9f8d306843fca4159658c8ed4b5e323`
+
+### undo
+
+- Single component (no variants)
+- Node: `22258:8776` | Key: `1f713342258d4453639880aa4c6f3ef78bc88399`
 
 ### unknown-type
 

@@ -14,8 +14,8 @@
   "additionalProperties": false,
   "properties": {
     "_schema_version": {
-      "const": 1,
-      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+      "const": 2,
+      "description": "Substrate schema version. Bumped to 2 when a relationship verb changed from carrying one target slug to carrying a list of them; bump only on a schema-incompatible change to the file shape."
     },
     "_meta": {
       "type": "object",
@@ -491,13 +491,21 @@
         "relationships": {
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
           },
-          "description": "Map of relationship name \u2192 target entity slug. Keys are verbs like `hasMetadata`, `belongsTo`; values are entity slugs from the `entities` map.",
+          "description": "Map of relationship verb \u2192 target entity slugs. The authoring vocabulary lives in schemas/app-context-entity.json and is deliberately NOT enforced here: this schema validates the shipped dist in CI, and failing a build over a verb an author was told they could introduce is the after-the-pull-request surprise the vocabulary exists to end. The values are entity slugs from the `entities` map.",
           "examples": [
             {
-              "hasMetadata": "metadata",
-              "belongsTo": "domain"
+              "contains": [
+                "metadata"
+              ],
+              "belongsTo": [
+                "domain"
+              ]
             }
           ]
         },

@@ -72,9 +72,31 @@
     },
     "relationships": {
       "type": "object",
-      "additionalProperties": { "type": "string" },
-      "description": "Map of relationship verb → target entity slug. Referential integrity is enforced by scripts/app-context/validate-app-context.js, not this schema.",
-      "examples": [{ "belongs-to": "project", "uses": "connection" }]
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 1,
+        "description": "Target entity slugs. A list because one verb routinely has several targets: a catalog object contains seven things, and saying so with seven near-synonym verbs is what produced the sprawl this vocabulary replaces."
+      },
+      "propertyNames": {
+        "enum": [
+          "appliesTo",
+          "belongsTo",
+          "consumes",
+          "contains",
+          "derivedFrom",
+          "produces",
+          "relatesTo",
+          "requires",
+          "subtypeOf",
+          "uses"
+        ],
+        "description": "The relationship vocabulary. Ten verbs, curated from the 36 that accumulated while the verb was free text, 31 of which were used exactly once. contains and belongsTo are inverses, as are consumes and produces. Adding a verb is a deliberate edit here rather than a typo in a record."
+      },
+      "description": "Map of relationship verb → target entity slugs. The verb comes from the vocabulary in propertyNames. Every target must be an entity slug: scripts/app-context/validate-app-context.js enforces that in CI, and the editor refuses an unknown one while you type rather than after you open the pull request.",
+      "examples": [
+        { "contains": ["dataset", "input-port"], "belongsTo": ["domain"], "uses": ["connection"] }
+      ]
     },
     "apps": {
       "type": "array",

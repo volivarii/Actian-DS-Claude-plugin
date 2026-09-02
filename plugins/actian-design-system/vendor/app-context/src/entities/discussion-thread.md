@@ -9,7 +9,8 @@ properties:
   - replies
   - created at
 relationships:
-  on: catalog-object
+  belongsTo:
+    - catalog-object
 apps:
   - studio
   - explorer

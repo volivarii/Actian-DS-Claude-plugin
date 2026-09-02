@@ -11,9 +11,11 @@ properties:
   - { name: deletion date, type: date, example: "set when removed from the source connection" }
   - { name: documentation completion, type: number, example: "percentage (0–100)" }
 relationships:
-  hasFields: field
-  discoveredVia: connection
-  exposedVia: output-port
+  contains:
+    - field
+  uses:
+    - connection
+    - output-port
 apps:
   - studio
   - explorer

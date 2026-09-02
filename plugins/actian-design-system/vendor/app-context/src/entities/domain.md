@@ -7,8 +7,10 @@ properties:
   - name
   - description
 relationships:
-  containsCatalogObjects: catalog-object
-  subtypeOf: glossary-item
+  contains:
+    - catalog-object
+  subtypeOf:
+    - glossary-item
 apps:
   - studio
   - explorer

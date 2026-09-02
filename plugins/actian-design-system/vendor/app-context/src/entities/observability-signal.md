@@ -8,7 +8,8 @@ properties:
   - freshness
   - usage count
 relationships:
-  attachedTo: catalog-object
+  belongsTo:
+    - catalog-object
 apps:
   - studio
   - explorer

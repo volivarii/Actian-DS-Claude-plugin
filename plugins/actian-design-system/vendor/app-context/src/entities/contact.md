@@ -7,7 +7,8 @@ properties:
   - name
   - { name: email, type: string, example: "person email" }
 relationships:
-  hasResponsibility: responsibility
+  relatesTo:
+    - responsibility
 apps:
   - studio
   - explorer
