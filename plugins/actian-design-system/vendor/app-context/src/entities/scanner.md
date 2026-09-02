@@ -8,7 +8,8 @@ properties:
   - status
   - connections
 relationships:
-  usesConnection: connection
+  uses:
+    - connection
 apps:
   - administration
 ---

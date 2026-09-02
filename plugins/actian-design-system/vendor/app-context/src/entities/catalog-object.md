@@ -12,15 +12,19 @@ properties:
   - contacts
   - last modified
 relationships:
-  belongsTo: domain
-  discoveredVia: connection
-  hasMetadata: metadata
-  hasLineage: lineage
-  hasGlossaryItems: glossary-item
-  hasGovernancePolicies: governance-policy
-  hasDiscussionThreads: discussion-thread
-  hasSuggestions: suggestion
-  hasObservabilitySignals: observability-signal
+  belongsTo:
+    - domain
+  uses:
+    - connection
+  contains:
+    - metadata
+    - lineage
+    - discussion-thread
+    - suggestion
+    - observability-signal
+  relatesTo:
+    - glossary-item
+    - governance-policy
 apps:
   - studio
   - explorer

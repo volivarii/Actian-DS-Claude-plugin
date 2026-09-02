@@ -1,5 +1,5 @@
 {
-  "_schema_version": 1,
+  "_schema_version": 2,
   "_meta": {
     "auto_generated": true,
     "source": "scripts/app-context/derive-app-context.js",
@@ -253,8 +253,12 @@
         "created at"
       ],
       "relationships": {
-        "targetsOutputPort": "output-port",
-        "requiresJustification": "use-case"
+        "uses": [
+          "output-port"
+        ],
+        "requires": [
+          "use-case"
+        ]
       },
       "apps": [
         "studio",
@@ -295,15 +299,23 @@
         "last modified"
       ],
       "relationships": {
-        "belongsTo": "domain",
-        "discoveredVia": "connection",
-        "hasMetadata": "metadata",
-        "hasLineage": "lineage",
-        "hasGlossaryItems": "glossary-item",
-        "hasGovernancePolicies": "governance-policy",
-        "hasDiscussionThreads": "discussion-thread",
-        "hasSuggestions": "suggestion",
-        "hasObservabilitySignals": "observability-signal"
+        "belongsTo": [
+          "domain"
+        ],
+        "uses": [
+          "connection"
+        ],
+        "contains": [
+          "metadata",
+          "lineage",
+          "discussion-thread",
+          "suggestion",
+          "observability-signal"
+        ],
+        "relatesTo": [
+          "glossary-item",
+          "governance-policy"
+        ]
       },
       "apps": [
         "studio",
@@ -332,7 +344,9 @@
         "provider"
       ],
       "relationships": {
-        "discoversCatalogObjects": "catalog-object"
+        "produces": [
+          "catalog-object"
+        ]
       },
       "apps": [
         "administration"
@@ -350,7 +364,9 @@
         }
       ],
       "relationships": {
-        "hasResponsibility": "responsibility"
+        "relatesTo": [
+          "responsibility"
+        ]
       },
       "apps": [
         "studio",
@@ -391,7 +407,9 @@
         }
       ],
       "relationships": {
-        "attachedTo": "output-port"
+        "belongsTo": [
+          "output-port"
+        ]
       },
       "apps": [
         "studio"
@@ -414,9 +432,13 @@
         }
       ],
       "relationships": {
-        "hasInputs": "dataset",
-        "hasOutputs": "dataset",
-        "produces": "lineage"
+        "consumes": [
+          "dataset"
+        ],
+        "produces": [
+          "dataset",
+          "lineage"
+        ]
       },
       "apps": [
         "studio",
@@ -467,9 +489,11 @@
         }
       ],
       "relationships": {
-        "hasInputPorts": "input-port",
-        "hasOutputPorts": "output-port",
-        "hasDatasets": "dataset"
+        "contains": [
+          "input-port",
+          "output-port",
+          "dataset"
+        ]
       },
       "apps": [
         "studio",
@@ -507,9 +531,13 @@
         }
       ],
       "relationships": {
-        "hasFields": "field",
-        "discoveredVia": "connection",
-        "exposedVia": "output-port"
+        "contains": [
+          "field"
+        ],
+        "uses": [
+          "connection",
+          "output-port"
+        ]
       },
       "apps": [
         "studio",
@@ -526,7 +554,9 @@
         "created at"
       ],
       "relationships": {
-        "on": "catalog-object"
+        "belongsTo": [
+          "catalog-object"
+        ]
       },
       "apps": [
         "studio",
@@ -541,8 +571,12 @@
         "description"
       ],
       "relationships": {
-        "containsCatalogObjects": "catalog-object",
-        "subtypeOf": "glossary-item"
+        "contains": [
+          "catalog-object"
+        ],
+        "subtypeOf": [
+          "glossary-item"
+        ]
       },
       "apps": [
         "studio",
@@ -580,7 +614,9 @@
         "description"
       ],
       "relationships": {
-        "belongsTo": "dataset"
+        "belongsTo": [
+          "dataset"
+        ]
       },
       "apps": [
         "studio",
@@ -596,8 +632,12 @@
         "linked assets"
       ],
       "relationships": {
-        "linkedTo": "catalog-object",
-        "parentItem": "glossary-item"
+        "relatesTo": [
+          "catalog-object"
+        ],
+        "subtypeOf": [
+          "glossary-item"
+        ]
       },
       "apps": [
         "studio",
@@ -613,8 +653,10 @@
         "rules"
       ],
       "relationships": {
-        "appliesTo": "catalog-object",
-        "assignedTo": "user-group"
+        "appliesTo": [
+          "catalog-object",
+          "user-group"
+        ]
       },
       "apps": [
         "studio",
@@ -663,7 +705,9 @@
         "usage count"
       ],
       "relationships": {
-        "attachedTo": "catalog-object"
+        "belongsTo": [
+          "catalog-object"
+        ]
       },
       "apps": [
         "studio",
@@ -709,7 +753,9 @@
         }
       ],
       "relationships": {
-        "partOf": "template"
+        "belongsTo": [
+          "template"
+        ]
       },
       "apps": [
         "studio"
@@ -727,7 +773,9 @@
         }
       ],
       "relationships": {
-        "assignedTo": "contact"
+        "appliesTo": [
+          "contact"
+        ]
       },
       "apps": [
         "studio"
@@ -742,7 +790,9 @@
         "connections"
       ],
       "relationships": {
-        "usesConnection": "connection"
+        "uses": [
+          "connection"
+        ]
       },
       "apps": [
         "administration"
@@ -770,7 +820,9 @@
         "sections"
       ],
       "relationships": {
-        "contains": "property"
+        "contains": [
+          "property"
+        ]
       },
       "apps": [
         "studio"
@@ -789,7 +841,9 @@
         }
       ],
       "relationships": {
-        "groups": "catalog-object"
+        "contains": [
+          "catalog-object"
+        ]
       },
       "apps": [
         "studio",
@@ -804,8 +858,10 @@
         "description"
       ],
       "relationships": {
-        "justifies": "access-request",
-        "relatesTo": "data-product"
+        "relatesTo": [
+          "access-request",
+          "data-product"
+        ]
       },
       "apps": [
         "studio",
@@ -823,7 +879,9 @@
         "permissions"
       ],
       "relationships": {
-        "hasGovernancePolicies": "governance-policy"
+        "relatesTo": [
+          "governance-policy"
+        ]
       },
       "apps": [
         "administration"
@@ -843,8 +901,12 @@
         "contacts"
       ],
       "relationships": {
-        "builtFrom": "dataset",
-        "discoveredVia": "connection"
+        "derivedFrom": [
+          "dataset"
+        ],
+        "uses": [
+          "connection"
+        ]
       },
       "apps": [
         "studio",

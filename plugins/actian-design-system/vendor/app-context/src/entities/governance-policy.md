@@ -8,8 +8,9 @@ properties:
   - type
   - rules
 relationships:
-  appliesTo: catalog-object
-  assignedTo: user-group
+  appliesTo:
+    - catalog-object
+    - user-group
 apps:
   - studio
   - administration

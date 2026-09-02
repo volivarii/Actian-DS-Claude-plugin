@@ -11,8 +11,10 @@ properties:
   - { name: status, type: enum, states: [Pending, Accepted, Rejected, Granted, Error, Closed] }
   - created at
 relationships:
-  targetsOutputPort: output-port
-  requiresJustification: use-case
+  uses:
+    - output-port
+  requires:
+    - use-case
 apps:
   - studio
   - explorer

@@ -545,7 +545,7 @@ The AI surface panel (Studio / Explorer). Renders an elevated `<aside>` with a s
 ## Available icon slugs
 
 <!-- BEGIN GENERATED icons: node scripts/renderers/render-authoring-table.js -->
-146 icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in
+155 icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in
 `renderIcon()` calls or when setting icon-bearing props. An unknown slug renders nothing, with no
 error, so check against this list.
 
@@ -573,6 +573,7 @@ book-text
 boolean-type
 business-contract-give
 calendar
+card
 cash-briefcase
 catalog
 catalog-design
@@ -605,6 +606,7 @@ exploration
 export
 favorite
 favorite-filled
+file
 file-cash
 file-check
 file-info
@@ -619,7 +621,9 @@ graph-merge
 help-bubble
 help-circle
 hierarchy
+history
 home
+icon
 idea
 info
 info-filled
@@ -646,6 +650,7 @@ pii
 pin
 process
 products-briefcase
+prompt-library
 read-search
 relation
 relation-incoming
@@ -654,14 +659,17 @@ remove-circle
 reply
 rotate-back
 scanner
+schedule-run
 schema
 search
 security-services
+send
 server-search
 server-warning
 settings
 share
 shield-lock
+sidepanel
 simple-check
 stars
 stars-filled
@@ -682,6 +690,7 @@ thumbs-up
 thumbs-up-filled
 time-type
 trash
+undo
 unknown-type
 user
 user-add

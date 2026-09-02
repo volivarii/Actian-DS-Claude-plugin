@@ -8,7 +8,8 @@ properties:
   - { name: item type, type: enum, example: "Dataset, Visualization, Data Process, Custom Item, Glossary Item" }
   - sections
 relationships:
-  contains: property
+  contains:
+    - property
 apps:
   - studio
 ---

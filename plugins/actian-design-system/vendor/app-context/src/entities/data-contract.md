@@ -11,7 +11,8 @@ properties:
   - { name: apiVersion, type: string, example: "ODCS descriptor version" }
   - { name: schema, type: reference, example: "fields with logicalType/physicalType/primaryKey" }
 relationships:
-  attachedTo: output-port
+  belongsTo:
+    - output-port
 apps:
   - studio
 ---

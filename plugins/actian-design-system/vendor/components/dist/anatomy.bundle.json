@@ -3526,7 +3526,7 @@
       "_schema_version": 1,
       "slug": "breadcrumb",
       "kit": "dskit",
-      "synced_at": "2026-08-26T14:16:00.631Z",
+      "synced_at": "2026-09-01T12:19:06.354Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "13792:15246"
@@ -3562,7 +3562,7 @@
         },
         "children": [
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3584,7 +3584,7 @@
             "id": "13792:15244"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3606,7 +3606,7 @@
             "id": "19230:22902"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3628,7 +3628,7 @@
             "id": "19156:14844"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3650,7 +3650,7 @@
             "id": "13792:15218"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3672,7 +3672,7 @@
             "id": "19230:22866"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -3694,7 +3694,7 @@
             "id": "19230:22898"
           },
           {
-            "name": ".Breadcrumb-node",
+            "name": ".breadcrumb-node",
             "kind": "instance",
             "unresolved": true,
             "props": {
@@ -11765,7 +11765,7 @@
       "_schema_version": 1,
       "slug": "empty-state",
       "kit": "dskit",
-      "synced_at": "2026-08-26T14:16:00.631Z",
+      "synced_at": "2026-09-01T12:19:06.354Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "9230:22073",
@@ -11947,17 +11947,21 @@
                 "kind": "instance",
                 "slug": "button",
                 "props": {
-                  "Show label": true,
                   "Show trailing icon": false,
+                  "Show label": true,
                   "Show leading icon": false,
                   "Label": "Learn more",
                   "Intent": "Default",
-                  "Emphasis": "Ghost",
+                  "Emphasis": "Outlined",
                   "Size": "Default",
                   "State": "Default"
                 },
                 "id": "9230:25786",
                 "appearance": {
+                  "border": {
+                    "color": "#0f5fdc",
+                    "width": "1px"
+                  },
                   "radius": "9999px"
                 }
               },
@@ -18503,15 +18507,15 @@
       "_schema_version": 1,
       "slug": "link",
       "kit": "dskit",
-      "synced_at": "2026-07-06T13:21:40.803Z",
+      "synced_at": "2026-09-01T12:19:06.354Z",
       "source": {
         "fileKey": "l8biHxfarNi1I2RMvVxVOK",
         "nodeId": "8346:6897",
         "variant": "State=Default"
       },
       "quality": {
-        "nodesTotal": 2,
-        "nodesNormalized": 2,
+        "nodesTotal": 4,
+        "nodesNormalized": 4,
         "ratio": 1,
         "degraded": [],
         "structuralVariants": [
@@ -18519,25 +18523,25 @@
             "prop": "State",
             "value": "Expanded",
             "path": "",
-            "reason": "childCount:1!=2"
+            "reason": "childCount:3!=4"
           },
           {
             "prop": "State",
             "value": "Focus",
             "path": "",
-            "reason": "childCount:1!=2"
+            "reason": "childCount:3!=4"
           },
           {
             "prop": "State",
             "value": "Hover",
             "path": "",
-            "reason": "childCount:1!=2"
+            "reason": "childCount:3!=4"
           },
           {
             "prop": "State",
             "value": "Pressed",
             "path": "",
-            "reason": "childCount:1!=2"
+            "reason": "childCount:3!=4"
           }
         ]
       },
@@ -18573,6 +18577,12 @@
           }
         },
         "children": [
+          {
+            "name": "back",
+            "kind": "instance",
+            "slug": "back",
+            "id": "22256:6402"
+          },
           {
             "name": "Link",
             "kind": "text",
@@ -18617,6 +18627,12 @@
               ]
             },
             "text": "Link"
+          },
+          {
+            "name": "arrow-alt",
+            "kind": "instance",
+            "slug": "arrow-alt",
+            "id": "22256:5795"
           }
         ]
       },

@@ -7,7 +7,8 @@ properties:
   - name
   - { name: role, type: enum, example: "Data Owner, Data Steward, Reader (tenant-configurable)" }
 relationships:
-  assignedTo: contact
+  appliesTo:
+    - contact
 apps:
   - studio
 ---

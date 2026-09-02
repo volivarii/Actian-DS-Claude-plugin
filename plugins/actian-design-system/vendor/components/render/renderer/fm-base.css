@@ -285,6 +285,18 @@ body {
   color: var(--fm-base-800);
   border: 2px solid var(--fm-base-800);
 }
+/* Secondary and Destructive were emitted with no rule behind them and rendered
+   as an unstyled div at 1.03:1 (#554). Secondary is the quieter filled button;
+   Destructive keeps the error hue the kit already names, white on it clears
+   4.5:1. */
+.fm-button--secondary {
+  background: var(--fm-base-300);
+  color: var(--fm-base-800);
+}
+.fm-button--destructive {
+  background: var(--fm-text-error);
+  color: var(--fm-base-white);
+}
 .fm-button--disabled {
   background: var(--fm-base-400);
   color: white;

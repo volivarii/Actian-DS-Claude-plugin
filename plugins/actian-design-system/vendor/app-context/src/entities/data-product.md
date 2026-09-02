@@ -15,9 +15,10 @@ properties:
   - { name: apiVersion, type: string, example: "ODPS descriptor version" }
   - { name: kind, type: string, example: "DataProduct" }
 relationships:
-  hasInputPorts: input-port
-  hasOutputPorts: output-port
-  hasDatasets: dataset
+  contains:
+    - input-port
+    - output-port
+    - dataset
 apps:
   - studio
   - explorer

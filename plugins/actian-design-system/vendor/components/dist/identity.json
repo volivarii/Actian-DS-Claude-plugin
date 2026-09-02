@@ -258,6 +258,11 @@
       "nodeId": "8:20768",
       "previousSlugs": []
     },
+    "1442941e459a3dfa5c23f598d02c173f4472204c": {
+      "slug": "sidepanel",
+      "nodeId": "22258:8784",
+      "previousSlugs": []
+    },
     "14abdd5e317e35b558549d54270c9f7024dc64ed": {
       "slug": "snowflake",
       "nodeId": "8504:23447",
@@ -420,6 +425,11 @@
       "nodeId": "8:21002",
       "previousSlugs": []
     },
+    "1f713342258d4453639880aa4c6f3ef78bc88399": {
+      "slug": "undo",
+      "nodeId": "22258:8776",
+      "previousSlugs": []
+    },
     "1f9939148afb1d1de4a5b30424c5c3cb65fc43a3": {
       "slug": "opendatagouv",
       "nodeId": "8400:25128",
@@ -545,6 +555,11 @@
       "nodeId": "14175:14426",
       "previousSlugs": []
     },
+    "2a37acbcf17c7a8e003546e7ab6bf24c9c516e6c": {
+      "slug": "schedule-run",
+      "nodeId": "22262:9696",
+      "previousSlugs": []
+    },
     "2b72bcb632f5072df86561f5d01e65ecf65da80b": {
       "slug": "sparkdb",
       "nodeId": "8400:25168",
@@ -628,6 +643,11 @@
     "304ad4757a346e17d39e2d4ccad4085e15e0752b": {
       "slug": "arrows-expand",
       "nodeId": "8:20880",
+      "previousSlugs": []
+    },
+    "3058a76fa70c3aa01a20f424cf6b32ddba2c9345": {
+      "slug": "prompt-library",
+      "nodeId": "22262:9698",
       "previousSlugs": []
     },
     "308669714c6b34194a46be8f1b226b4129b775cb": {
@@ -1532,6 +1552,11 @@
     "71d837e04ce0a29b69d9e5c67362bbcf0b896e19": {
       "slug": "maintenance",
       "nodeId": "7378:4004",
+      "previousSlugs": []
+    },
+    "72834e964fdf12a9a33ac7089706c1b81d02ea36": {
+      "slug": "send",
+      "nodeId": "22258:8626",
       "previousSlugs": []
     },
     "72d228be50f33d06cf90b9a00f34bf3bb298e7b8": {
@@ -2453,6 +2478,11 @@
       "nodeId": "14783:7565",
       "previousSlugs": []
     },
+    "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9": {
+      "slug": "icon",
+      "nodeId": "22258:8789",
+      "previousSlugs": []
+    },
     "c1f9f7a550ed686f3abf9d75d13feeafad0302d7": {
       "slug": "eye",
       "nodeId": "8:20720",
@@ -2665,6 +2695,11 @@
       "nodeId": "20633:41",
       "previousSlugs": []
     },
+    "d4b5e909bb8951a5465e5b50c0537662d82e5031": {
+      "slug": "history",
+      "nodeId": "22258:8771",
+      "previousSlugs": []
+    },
     "d4bf02099fcf80e9f1956149da15460fe1ae13a7": {
       "slug": "more",
       "nodeId": "7378:3729",
@@ -2853,6 +2888,11 @@
     "e1e89733c66a56f6591dec45e6e96c693795b369": {
       "slug": "chevron-down",
       "nodeId": "8:20666",
+      "previousSlugs": []
+    },
+    "e23db37759784ef2451c4d0cc1d6ddde65d8e4d4": {
+      "slug": "file",
+      "nodeId": "22256:5787",
       "previousSlugs": []
     },
     "e2d43e3c5149857e6602c4364355d019fa1e5765": {

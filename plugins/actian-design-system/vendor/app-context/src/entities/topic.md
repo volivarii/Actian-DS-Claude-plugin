@@ -8,7 +8,8 @@ properties:
   - description
   - { name: color, type: string, example: "display color for the topic card" }
 relationships:
-  groups: catalog-object
+  contains:
+    - catalog-object
 apps:
   - studio
   - explorer

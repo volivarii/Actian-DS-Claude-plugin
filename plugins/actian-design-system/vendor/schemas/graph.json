@@ -194,8 +194,8 @@
           },
           "predicate": {
             "type": "string",
-            "description": "For entity_related edges: the authored relationship name from the app-context entity model (e.g. hasInputPorts, belongsTo). Keeps the controlled edge vocabulary small while preserving the specific relation.",
-            "examples": ["hasInputPorts", "belongsTo", "discoveredVia"]
+            "description": "For entity_related edges: the authored relationship verb from the app-context entity model, drawn from the vocabulary in schemas/app-context-entity.json (contains, belongsTo, uses, produces, consumes, derivedFrom, appliesTo, requires, subtypeOf, relatesTo). Keeps the controlled edge vocabulary small while preserving the specific relation.",
+            "examples": ["contains", "belongsTo", "uses"]
           },
           "provenance": {
             "type": "object",

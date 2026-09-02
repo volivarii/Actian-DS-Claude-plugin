@@ -90,12 +90,17 @@
           var sizeMap = { md: "md", sm: "sm", MD: "md", SM: "sm" };
           var btnType = typeMap[v.Type] || "primary";
           var btnSize = sizeMap[v.Size] || "md";
+          // The State axis was read by nobody while fm-base.css carried a
+          // fm-button--disabled rule, so a disabled destructive action looked
+          // enabled (#554 review). Emit it when the registry says so.
+          var btnState = v.State === "Disabled" ? " fm-button--disabled" : "";
           var label = esc(props.Label || "");
           return (
             '<div class="fm-button fm-button--' +
             btnType +
             " fm-button--" +
             btnSize +
+            btnState +
             '">' +
             label +
             "</div>"

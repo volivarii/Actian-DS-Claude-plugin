@@ -32,6 +32,11 @@
       "description": "File name of the embedded font faces (base64 woff2 subsets), held apart from the component stylesheet. A consumer needing standalone offline files inlines this alongside css; a consumer with its own font pipeline takes css alone.",
       "examples": ["render-fonts.css"]
     },
+    "pageCss": {
+      "type": "string",
+      "description": "The page framing a standalone consumer applies LAST in the cascade, as CSS text (one body rule), so no consumer restates it. render.css excludes it on purpose: a consumer embedding render.css into its own page must not inherit this body framing.",
+      "examples": ["body{margin:0;padding:24px;background:#fff}"]
+    },
     "renders": {
       "type": "array",
       "description": "One entry per canonical component render present in the dist directory.",

@@ -1947,6 +1947,13 @@
       "figmaNodeId": "20353:18650"
     },
     {
+      "id": "component:file",
+      "type": "component",
+      "title": "File",
+      "figmaKey": "e23db37759784ef2451c4d0cc1d6ddde65d8e4d4",
+      "figmaNodeId": "22256:5787"
+    },
+    {
       "id": "component:file-cash",
       "type": "component",
       "title": "file-cash",
@@ -2500,6 +2507,13 @@
       "figmaNodeId": "20633:45"
     },
     {
+      "id": "component:history",
+      "type": "component",
+      "title": "history",
+      "figmaKey": "d4b5e909bb8951a5465e5b50c0537662d82e5031",
+      "figmaNodeId": "22258:8771"
+    },
+    {
       "id": "component:hive",
       "type": "component",
       "title": "hive",
@@ -2512,6 +2526,13 @@
       "title": "home",
       "figmaKey": "4a8ee163ef4f785c846a3a71344af13b834e02f0",
       "figmaNodeId": "7378:5034"
+    },
+    {
+      "id": "component:icon",
+      "type": "component",
+      "title": "Icon",
+      "figmaKey": "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9",
+      "figmaNodeId": "22258:8789"
     },
     {
       "id": "component:icon-placeholder",
@@ -3606,6 +3627,13 @@
       "figmaNodeId": "14136:1615"
     },
     {
+      "id": "component:prompt-library",
+      "type": "component",
+      "title": "Prompt library",
+      "figmaKey": "3058a76fa70c3aa01a20f424cf6b32ddba2c9345",
+      "figmaNodeId": "22262:9698"
+    },
+    {
       "id": "component:puzzle",
       "type": "component",
       "title": "puzzle",
@@ -3851,6 +3879,13 @@
       "figmaNodeId": "7378:3979"
     },
     {
+      "id": "component:schedule-run",
+      "type": "component",
+      "title": "Schedule run",
+      "figmaKey": "2a37acbcf17c7a8e003546e7ab6bf24c9c516e6c",
+      "figmaNodeId": "22262:9696"
+    },
+    {
       "id": "component:schema",
       "type": "component",
       "title": "schema",
@@ -3919,6 +3954,13 @@
       "title": "selector",
       "figmaKey": "d7ef1b77aba03f327b6e45fc04ec8bc91c704956",
       "figmaNodeId": "8:20762"
+    },
+    {
+      "id": "component:send",
+      "type": "component",
+      "title": "send",
+      "figmaKey": "72834e964fdf12a9a33ac7089706c1b81d02ea36",
+      "figmaNodeId": "22258:8626"
     },
     {
       "id": "component:server",
@@ -3996,6 +4038,13 @@
       "title": "Side nav",
       "figmaKey": "3606cc19247f989332aac33953ffdf57c9d1bbdd",
       "figmaNodeId": "13599:20120"
+    },
+    {
+      "id": "component:sidepanel",
+      "type": "component",
+      "title": "sidepanel",
+      "figmaKey": "1442941e459a3dfa5c23f598d02c173f4472204c",
+      "figmaNodeId": "22258:8784"
     },
     {
       "id": "component:simple-check",
@@ -4472,6 +4521,13 @@
       "title": "underline",
       "figmaKey": "f1b96fb678c3af9d4c3748afd0a2fba4e3a3a31e",
       "figmaNodeId": "8:20990"
+    },
+    {
+      "id": "component:undo",
+      "type": "component",
+      "title": "undo",
+      "figmaKey": "1f713342258d4453639880aa4c6f3ef78bc88399",
+      "figmaNodeId": "22258:8776"
     },
     {
       "id": "component:unknown-type",
@@ -6880,6 +6936,16 @@
     },
     {
       "source": "component:breadcrumb",
+      "target": "component:arrow-alt",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:breadcrumb",
+      "target": "component:back",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:breadcrumb",
       "target": "component:digram-item-types",
       "type": "composed_of"
     },
@@ -7859,6 +7925,16 @@
       "type": "composed_of"
     },
     {
+      "source": "component:link",
+      "target": "component:arrow-alt",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:link",
+      "target": "component:back",
+      "type": "composed_of"
+    },
+    {
       "source": "component:loader-with-logo",
       "target": "component:actian-data-intelligence",
       "type": "composed_of"
@@ -8115,12 +8191,22 @@
     },
     {
       "source": "component:popover",
+      "target": "component:arrow-alt",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:popover",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
       "source": "component:popover",
       "target": "component:avatar",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:popover",
+      "target": "component:back",
       "type": "composed_of"
     },
     {
@@ -8710,12 +8796,22 @@
     },
     {
       "source": "component:whats-new-dropdown",
+      "target": "component:arrow-alt",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:whats-new-dropdown",
       "target": "component:arrow-down",
       "type": "composed_of"
     },
     {
       "source": "component:whats-new-dropdown",
       "target": "component:arrow-left",
+      "type": "composed_of"
+    },
+    {
+      "source": "component:whats-new-dropdown",
+      "target": "component:back",
       "type": "composed_of"
     },
     {
@@ -8727,7 +8823,7 @@
       "source": "entity:access-request",
       "target": "entity:output-port",
       "type": "entity_related",
-      "predicate": "targetsOutputPort",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8739,7 +8835,7 @@
       "source": "entity:access-request",
       "target": "entity:use-case",
       "type": "entity_related",
-      "predicate": "requiresJustification",
+      "predicate": "requires",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8751,7 +8847,7 @@
       "source": "entity:catalog-object",
       "target": "entity:connection",
       "type": "entity_related",
-      "predicate": "discoveredVia",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8763,7 +8859,7 @@
       "source": "entity:catalog-object",
       "target": "entity:discussion-thread",
       "type": "entity_related",
-      "predicate": "hasDiscussionThreads",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8787,7 +8883,7 @@
       "source": "entity:catalog-object",
       "target": "entity:glossary-item",
       "type": "entity_related",
-      "predicate": "hasGlossaryItems",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8799,7 +8895,7 @@
       "source": "entity:catalog-object",
       "target": "entity:governance-policy",
       "type": "entity_related",
-      "predicate": "hasGovernancePolicies",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8811,7 +8907,7 @@
       "source": "entity:catalog-object",
       "target": "entity:lineage",
       "type": "entity_related",
-      "predicate": "hasLineage",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8823,7 +8919,7 @@
       "source": "entity:catalog-object",
       "target": "entity:metadata",
       "type": "entity_related",
-      "predicate": "hasMetadata",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8835,7 +8931,7 @@
       "source": "entity:catalog-object",
       "target": "entity:observability-signal",
       "type": "entity_related",
-      "predicate": "hasObservabilitySignals",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8847,7 +8943,7 @@
       "source": "entity:catalog-object",
       "target": "entity:suggestion",
       "type": "entity_related",
-      "predicate": "hasSuggestions",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8859,7 +8955,7 @@
       "source": "entity:connection",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "discoversCatalogObjects",
+      "predicate": "produces",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8871,7 +8967,7 @@
       "source": "entity:contact",
       "target": "entity:responsibility",
       "type": "entity_related",
-      "predicate": "hasResponsibility",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8883,7 +8979,7 @@
       "source": "entity:data-contract",
       "target": "entity:output-port",
       "type": "entity_related",
-      "predicate": "attachedTo",
+      "predicate": "belongsTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8895,7 +8991,7 @@
       "source": "entity:data-process",
       "target": "entity:dataset",
       "type": "entity_related",
-      "predicate": "hasInputs",
+      "predicate": "consumes",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8907,7 +9003,7 @@
       "source": "entity:data-process",
       "target": "entity:dataset",
       "type": "entity_related",
-      "predicate": "hasOutputs",
+      "predicate": "produces",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8931,7 +9027,7 @@
       "source": "entity:data-product",
       "target": "entity:dataset",
       "type": "entity_related",
-      "predicate": "hasDatasets",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8943,7 +9039,7 @@
       "source": "entity:data-product",
       "target": "entity:input-port",
       "type": "entity_related",
-      "predicate": "hasInputPorts",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8955,7 +9051,7 @@
       "source": "entity:data-product",
       "target": "entity:output-port",
       "type": "entity_related",
-      "predicate": "hasOutputPorts",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8967,7 +9063,7 @@
       "source": "entity:dataset",
       "target": "entity:connection",
       "type": "entity_related",
-      "predicate": "discoveredVia",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8979,7 +9075,7 @@
       "source": "entity:dataset",
       "target": "entity:field",
       "type": "entity_related",
-      "predicate": "hasFields",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -8991,7 +9087,7 @@
       "source": "entity:dataset",
       "target": "entity:output-port",
       "type": "entity_related",
-      "predicate": "exposedVia",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9003,7 +9099,7 @@
       "source": "entity:discussion-thread",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "on",
+      "predicate": "belongsTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9015,7 +9111,7 @@
       "source": "entity:domain",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "containsCatalogObjects",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9051,7 +9147,7 @@
       "source": "entity:glossary-item",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "linkedTo",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9063,7 +9159,7 @@
       "source": "entity:glossary-item",
       "target": "entity:glossary-item",
       "type": "entity_related",
-      "predicate": "parentItem",
+      "predicate": "subtypeOf",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9087,7 +9183,7 @@
       "source": "entity:governance-policy",
       "target": "entity:user-group",
       "type": "entity_related",
-      "predicate": "assignedTo",
+      "predicate": "appliesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9099,7 +9195,7 @@
       "source": "entity:observability-signal",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "attachedTo",
+      "predicate": "belongsTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9111,7 +9207,7 @@
       "source": "entity:property",
       "target": "entity:template",
       "type": "entity_related",
-      "predicate": "partOf",
+      "predicate": "belongsTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9123,7 +9219,7 @@
       "source": "entity:responsibility",
       "target": "entity:contact",
       "type": "entity_related",
-      "predicate": "assignedTo",
+      "predicate": "appliesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9135,7 +9231,7 @@
       "source": "entity:scanner",
       "target": "entity:connection",
       "type": "entity_related",
-      "predicate": "usesConnection",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9159,7 +9255,7 @@
       "source": "entity:topic",
       "target": "entity:catalog-object",
       "type": "entity_related",
-      "predicate": "groups",
+      "predicate": "contains",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9171,7 +9267,7 @@
       "source": "entity:use-case",
       "target": "entity:access-request",
       "type": "entity_related",
-      "predicate": "justifies",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9195,7 +9291,7 @@
       "source": "entity:user-group",
       "target": "entity:governance-policy",
       "type": "entity_related",
-      "predicate": "hasGovernancePolicies",
+      "predicate": "relatesTo",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9207,7 +9303,7 @@
       "source": "entity:visualization",
       "target": "entity:connection",
       "type": "entity_related",
-      "predicate": "discoveredVia",
+      "predicate": "uses",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -9219,7 +9315,7 @@
       "source": "entity:visualization",
       "target": "entity:dataset",
       "type": "entity_related",
-      "predicate": "builtFrom",
+      "predicate": "derivedFrom",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -11074,6 +11170,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:file",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:file-cash",
       "target": "category:icons",
       "type": "in_category"
@@ -11194,12 +11295,22 @@
       "type": "in_category"
     },
     {
+      "source": "component:history",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:hive",
       "target": "category:third-party-logos",
       "type": "in_category"
     },
     {
       "source": "component:home",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:icon",
       "target": "category:icons",
       "type": "in_category"
     },
@@ -11574,6 +11685,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:prompt-library",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:qlik-sense",
       "target": "category:third-party-logos",
       "type": "in_category"
@@ -11694,6 +11810,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:schedule-run",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:schema",
       "target": "category:icons",
       "type": "in_category"
@@ -11729,6 +11850,11 @@
       "type": "in_category"
     },
     {
+      "source": "component:send",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
       "source": "component:server-search",
       "target": "category:icons",
       "type": "in_category"
@@ -11756,6 +11882,11 @@
     {
       "source": "component:side-nav",
       "target": "category:navigation",
+      "type": "in_category"
+    },
+    {
+      "source": "component:sidepanel",
+      "target": "category:icons",
       "type": "in_category"
     },
     {
@@ -11965,6 +12096,11 @@
     },
     {
       "source": "component:trash",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:undo",
       "target": "category:icons",
       "type": "in_category"
     },

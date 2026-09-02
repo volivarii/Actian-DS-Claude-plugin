@@ -568,8 +568,12 @@
       "variations": [
         "components/dist/media/link/variations-0.webp"
       ],
+      "spacing": [
+        "components/dist/media/link/spacing-0.webp"
+      ],
       "behavior": [
-        "components/dist/media/link/behavior-0.webp"
+        "components/dist/media/link/behavior-0.webp",
+        "components/dist/media/link/behavior-1.webp"
       ],
       "default": "components/dist/media/link/default.webp"
     },

@@ -7,8 +7,9 @@ properties:
   - name
   - description
 relationships:
-  justifies: access-request
-  relatesTo: data-product
+  relatesTo:
+    - access-request
+    - data-product
 apps:
   - studio
   - explorer
