@@ -817,6 +817,18 @@
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }
+/* Type = Explorer home | Inline, from the capture (anatomy/search.json
+ * appearance.variants). Global header is the captured default and keeps the
+ * base rule; Search/Multiple carries no distinguishing fact, so it has no rule
+ * rather than an invented one -- see #641. */
+.ds-search--emphasis {
+  background: #ffffff;
+  border: 1px solid var(--zen-color-icon-primary, #0f5fdc);
+}
+.ds-search--inline {
+  background: #ffffff;
+  border: 1px solid var(--zen-border-default, #c7c7ce);
+}
 .ds-search__icon {
   width: 20px; /* icon box geometry (raw px) */
   height: 20px;
@@ -1645,11 +1657,20 @@
 }
 
 /* ============ Alert banner (page-level feedback) ============ */
-/* Oracle: vendor/components/dist/media/alert-banner/preview.webp + layout-0.webp present.
+/* Oracle: components/dist/media/alert-banner/default.webp — the default variant
+ * captured in isolation, which is the like-for-like counterpart of one rendered
+ * cell. preview.webp and layout-0.webp are also present but are doc-PAGE frames,
+ * so they show more than any single render does.
  * Registry variant axis: Type = Primary | Success | Warning | Danger.
  * Anatomy: full-width band, icon left, content (optional title + message) right.
- * Colors: semantic bg-subtle base + status-colored left border accent (4px).
- * Note: no --zen-color-bg-* per-status tokens exist yet; using bg-subtle + border accent. */
+ * Colors: the type's own --zen-color-bg-* tint fills the band; the icon carries
+ * the type's --zen-color-icon-* colour. A previous revision put the type colour
+ * in a 4px left border over a neutral bg-subtle base, and pointed success at
+ * icon-primary and warning at icon-error "nearest available — no zen-success
+ * token", so Success rendered as Info's blue and Warning as Danger's red. Those
+ * tokens do exist and always did; the note claiming otherwise is what kept the
+ * substitution alive. tests/render/alert-status-colors.test.js asserts the fact
+ * rather than the note: four types, four backgrounds, four icon colours. */
 .ds-alert {
   display: flex;
   align-items: flex-start;
@@ -1658,25 +1679,20 @@
   border-radius: var(--zen-border-radius-xs);
   background: var(--zen-color-bg-subtle);
   border: 1px solid var(--zen-border-default);
-  border-left-width: 4px; /* raw px: status accent strip, DS-conventional */
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-sm);
 }
 .ds-alert--primary {
-  border-left-color: var(--zen-color-icon-primary);
+  background: var(--zen-color-bg-info);
 }
 .ds-alert--success {
-  border-left-color: var(
-    --zen-color-icon-primary
-  ); /* nearest available — no zen-success token */
+  background: var(--zen-color-bg-success);
 }
 .ds-alert--warning {
-  border-left-color: var(
-    --zen-color-icon-error
-  ); /* nearest warm token for caution */
+  background: var(--zen-color-bg-warning);
 }
 .ds-alert--danger {
-  border-left-color: var(--zen-color-icon-error);
+  background: var(--zen-color-bg-error);
 }
 .ds-alert__icon {
   flex: none;
@@ -1685,11 +1701,15 @@
   color: var(--zen-color-icon-default);
   font-size: var(--zen-font-size-lg);
 }
-.ds-alert--primary .ds-alert__icon,
-.ds-alert--success .ds-alert__icon {
+.ds-alert--primary .ds-alert__icon {
   color: var(--zen-color-icon-primary);
 }
-.ds-alert--warning .ds-alert__icon,
+.ds-alert--success .ds-alert__icon {
+  color: var(--zen-color-icon-success);
+}
+.ds-alert--warning .ds-alert__icon {
+  color: var(--zen-color-icon-warning);
+}
 .ds-alert--danger .ds-alert__icon {
   color: var(--zen-color-icon-error);
 }
@@ -1709,7 +1729,6 @@
   margin: 0;
   line-height: var(--zen-font-lineheight-lg);
 }
-
 
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
@@ -2130,6 +2149,16 @@
   border-color: var(--zen-border-selected);
   background: var(--zen-color-bg-selected);
   color: var(--zen-color-text-default);
+}
+/* Type = Dropdown-expanded | Selectable-selected, from the capture
+ * (anatomy/interactive-tag.json appearance.variants). The other Type values
+ * carry no distinguishing fact, so they deliberately have no rule: see #641. */
+.ds-interactive-tag--dropdown-expanded {
+  background: var(--zen-color-neutral-50, #e1e1e6);
+}
+.ds-interactive-tag--selectable-selected {
+  background: var(--zen-color-primary-25, #ecfdff);
+  border: 1px solid var(--zen-color-primary-50, #cbe3ff);
 }
 .ds-interactive-tag.is-disabled {
   opacity: 0.4;

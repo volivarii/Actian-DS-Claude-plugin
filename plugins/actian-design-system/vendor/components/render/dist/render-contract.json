@@ -473,12 +473,7 @@
             "Custom 1": "Category",
             "Custom 2": "Data process",
             "Custom 3": "Output port",
-            "Custom 5": "Data product",
-            "Custom 6": "Output port",
-            "Custom 8": "Custom 7",
-            "Custom 13": "Custom 12",
-            "Custom 14": "Custom 12",
-            "Glossary 1": "Use case"
+            "Custom 6": "Output port"
           }
         },
         "Size": {
@@ -790,10 +785,7 @@
             "Selectable-selected"
           ],
           "rendersAs": {
-            "Selectable": "Dismissible",
-            "Dropdown-expanded": "Dismissible",
-            "Dropdown": "Dismissible",
-            "Selectable-selected": "Dismissible"
+            "Selectable": "Dismissible"
           }
         }
       }
@@ -1375,10 +1367,7 @@
             "Global header",
             "Inline"
           ],
-          "rendersAs": {
-            "Global header": "Explorer home",
-            "Inline": "Explorer home"
-          }
+          "rendersAs": {}
         },
         "State": {
           "values": [
