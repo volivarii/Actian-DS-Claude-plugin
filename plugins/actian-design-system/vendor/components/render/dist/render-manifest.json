@@ -19,7 +19,7 @@
       "tagName": "zen-alert-banner",
       "group": "Feedback",
       "fragment": "fragments/alert-banner.html",
-      "tokensConsumed": 16,
+      "tokensConsumed": 22,
       "source": "rendered"
     },
     {
@@ -187,7 +187,7 @@
       "tagName": "zen-interactive-tag",
       "group": "Data Display",
       "fragment": "fragments/interactive-tag.html",
-      "tokensConsumed": 19,
+      "tokensConsumed": 22,
       "source": "rendered"
     },
     {
@@ -339,7 +339,7 @@
       "tagName": "zen-search",
       "group": "Form",
       "fragment": "fragments/search.html",
-      "tokensConsumed": 13,
+      "tokensConsumed": 14,
       "source": "rendered"
     },
     {

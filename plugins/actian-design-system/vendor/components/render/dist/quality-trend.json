@@ -7,9 +7,9 @@
   },
   "measures": {
     "unexplainedCollapses": {
-      "value": 54,
+      "value": 44,
       "direction": "unchanged",
-      "previous": 54
+      "previous": 44
     },
     "fmUnexplainedCollapses": {
       "value": 55,
@@ -22,30 +22,30 @@
       "previous": 56
     },
     "inlineHex": {
-      "value": 31,
+      "value": 39,
       "direction": "unknown",
       "previous": null
     },
     "oracleVerified": {
-      "value": 78,
+      "value": 85,
       "direction": "unchanged",
-      "previous": 78
+      "previous": 85
     },
     "oracleExamined": {
-      "value": 408,
+      "value": 417,
       "direction": "unchanged",
-      "previous": 408
+      "previous": 417
     }
   },
   "detail": {
     "inlineHexBySlug": {
-      "card-for-perimeter": 1,
-      "digram-item-types": 5,
+      "card-for-perimeter": 2,
+      "digram-item-types": 10,
       "digram-topic": 5,
       "lineage": 6,
       "lineage-grouped-node": 2,
       "metamodel": 10,
-      "search-result-card": 2
+      "search-result-card": 4
     },
     "fmUnownedModifiers": [
       {
@@ -287,6 +287,20 @@
   },
   "oracleSeries": [
     {
+      "date": "2026-09-02",
+      "version": "0.34.177",
+      "sha": "a9ca5179",
+      "verified": 85,
+      "examined": 417
+    },
+    {
+      "date": "2026-09-02",
+      "version": "0.34.173",
+      "sha": "39f1dd87",
+      "verified": 80,
+      "examined": 410
+    },
+    {
       "date": "2026-08-31",
       "version": "0.34.161",
       "sha": "dfb068bc",
@@ -355,23 +369,15 @@
       "sha": "25fe8fa2",
       "verified": 59,
       "examined": 445
-    },
-    {
-      "date": "2026-07-24",
-      "version": "0.34.117",
-      "sha": "87e441f5",
-      "verified": 59,
-      "examined": 445
-    },
-    {
-      "date": "2026-07-24",
-      "version": "0.34.117",
-      "sha": "3d61aa24",
-      "verified": 59,
-      "examined": 396
     }
   ],
   "collapseSeries": [
+    {
+      "date": "2026-09-02",
+      "version": "0.34.177",
+      "sha": "a9ca5179",
+      "unexplained": 44
+    },
     {
       "date": "2026-08-31",
       "version": "0.34.159",

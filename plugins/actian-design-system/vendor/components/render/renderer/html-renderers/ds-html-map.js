@@ -270,13 +270,66 @@
   var DIGRAM_ITEM_TYPE_TOKENS = {
     Field: "--zen-color-success-50",
   };
+  // Captured Tag-Name text colors, one per Item type
+  // (components/dist/anatomy/digram-item-types.json, the "Tag-Name" node's
+  // appearance.variants). Generated from that capture, not hand-picked.
+  //
+  // These exist because the background alone does NOT separate the family: six
+  // backgrounds are shared by two or three types, and five pairs that share a
+  // background carry DIFFERENT text colors in Figma. Rendering only the
+  // background made those pairs byte-identical, so asking for `Custom 5`
+  // returned something indistinguishable from `Data product` (#550, #641).
+  // Where the capture gives the two the same text color too -- `Custom 3` and
+  // `Custom 6`, `Custom 2` and `Data process` -- they still render alike, and
+  // that is Figma's answer rather than a gap.
+  var DIGRAM_ITEM_TYPE_TEXT = {
+    "Custom 2": "#a82743",
+    "Custom 3": "#3c515a",
+    "Custom 4": "#5c61a7",
+    "Custom 5": "#003786",
+    "Custom 6": "#3c515a",
+    "Custom 7": "#006563",
+    "Custom 8": "#007e7b",
+    "Custom 9": "#216b57",
+    "Custom 10": "#098900",
+    "Custom 11": "#475500",
+    "Custom 12": "#5a6b00",
+    "Custom 13": "#475500",
+    "Custom 14": "#677b00",
+    "Custom 16": "#626752",
+    "Data process": "#a82743",
+    "Data product": "#3c515a",
+    Dataset: "#00547d",
+    Field: "#145f04",
+    "Glossary 1": "#a76605",
+    "Glossary 2": "#a76605",
+    "Glossary 3": "#937148",
+    "Glossary 4": "#b78a55",
+    "Glossary 5": "#937148",
+    "Output port": "#3c515a",
+    "Use case": "#755d40",
+    Visualization: "#7900cb",
+  };
+  // The two the capture binds to a token; the rest are raw in Figma too (#551).
+  var DIGRAM_ITEM_TYPE_TEXT_TOKENS = {
+    Field: "--zen-color-success-800",
+    "Glossary 1": "--zen-color-warning-800",
+    "Glossary 2": "--zen-color-warning-800",
+  };
   function digramItemTypeStyle(itemType) {
     var bg =
       DIGRAM_ITEM_TYPE_COLORS[itemType] || DIGRAM_ITEM_TYPE_COLORS.Category;
     var token = DIGRAM_ITEM_TYPE_TOKENS[itemType];
-    return token
+    var style = token
       ? "background:var(" + token + ", " + bg + ")"
       : "background:" + bg;
+    var fg = DIGRAM_ITEM_TYPE_TEXT[itemType];
+    if (fg) {
+      var fgToken = DIGRAM_ITEM_TYPE_TEXT_TOKENS[itemType];
+      style +=
+        ";color:" + (fgToken ? "var(" + fgToken + ", " + fg + ")" : fg);
+    }
+    return style;
   }
 
   // Captured resolved-appearance colors for digram-topic's 10 "Type" values
@@ -872,6 +925,15 @@
 
         case "search": {
           var searchCls = "ds-search";
+          // Type was rendering as nothing: Global header, Explorer home and
+          // Inline emitted byte-identical markup (#550). The capture
+          // (anatomy/search.json appearance.variants) separates two of the
+          // three -- Explorer home takes a primary border, Inline the default
+          // one -- against Global header, which is the captured default and so
+          // keeps the base rule. Search/Multiple carries no fact and gets none.
+          var searchType = String(v.Type || "").toLowerCase();
+          if (searchType === "explorer home") searchCls += " ds-search--emphasis";
+          if (searchType === "inline") searchCls += " ds-search--inline";
           // Accept the kit's typo "Dsiabled" as well as the canonical spelling.
           if (v.State === "Disabled" || v.State === "Dsiabled") {
             searchCls += " is-disabled";
@@ -2031,13 +2093,37 @@
               renderIcon("catalog") +
               "</span>"
             : "";
+          // Type is a real axis and it was rendering as nothing: all five values
+          // emitted byte-identical markup, so asking for Dropdown returned
+          // Selectable (#550). The capture
+          // (anatomy/interactive-tag.json, appearance.variants) distinguishes
+          // three of them, and only those three are honoured here -- Dismissible
+          // and Selectable carry no distinguishing fact, so inventing one would
+          // be the guess that #641 exists to stop.
+          var tiType = String(v.Type || "").toLowerCase();
+          if (tiType === "dropdown-expanded")
+            tiCls += " ds-interactive-tag--dropdown-expanded";
+          if (tiType === "selectable-selected")
+            tiCls += " ds-interactive-tag--selectable-selected";
           // Trailing control defaults on (interactive = removable); honor false.
+          // The capture gives the dropdown types a caret instead of the remove
+          // control: Trailing icon = arrow-down / arrow-up.
           var tiShowTrail = props["Trailing icon show"] !== false;
-          var tiTrail = tiShowTrail
-            ? '<button class="ds-interactive-tag__remove" type="button" aria-label="Remove">' +
-              renderIcon("close") +
-              "</button>"
-            : "";
+          var tiCaret =
+            tiType === "dropdown"
+              ? "arrow-down"
+              : tiType === "dropdown-expanded"
+                ? "arrow-up"
+                : null;
+          var tiTrail = !tiShowTrail
+            ? ""
+            : tiCaret
+              ? '<span class="ds-interactive-tag__icon ds-interactive-tag__icon--trail">' +
+                renderIcon(tiCaret) +
+                "</span>"
+              : '<button class="ds-interactive-tag__remove" type="button" aria-label="Remove">' +
+                renderIcon("close") +
+                "</button>";
           return (
             '<span class="' +
             tiCls +
