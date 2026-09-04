@@ -11,12 +11,13 @@
     "checkbox-group": 5,
     "data-quality-checks-graph": 25,
     "data-viz-legend": 1,
-    "dropdown": 0,
     "field": 2,
     "glossary-item-hierarchy": 0,
+    "identification-key": 0,
     "label": 0,
     "line-graph": 17,
     "lineage-connecting-line": 0,
+    "menu-dropdown": 0,
     "message": 0,
     "pagination": 3,
     "radio-card": 1,
@@ -25,9 +26,9 @@
     "textfield-buttons": 2
   },
   "chipSlugs": [
-    "dropdown",
     "glossary-item-hierarchy",
-    "lineage-connecting-line"
+    "lineage-connecting-line",
+    "menu-dropdown"
   ],
   "builtSlugs": [
     "action-bar",
@@ -37,8 +38,8 @@
     "badge",
     "breadcrumb",
     "button",
+    "calendar",
     "calendar-data-selector",
-    "calendar-date-input",
     "card-for-grouped-content",
     "card-for-perimeter",
     "checkbox",
@@ -69,7 +70,7 @@
     "progress-bar-small",
     "radio",
     "read-only-tag",
-    "rich-text",
+    "rich-text-froala",
     "scroll-bar",
     "search",
     "search-dropdown-menu",

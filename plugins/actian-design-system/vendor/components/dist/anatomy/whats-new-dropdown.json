@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "whats-new-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9114:16794",
@@ -23,31 +23,76 @@
         "prop": "Property 1",
         "value": "Drilldown1",
         "path": "0",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Label text"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Label text"
+        ]
       },
       {
         "prop": "Property 1",
         "value": "Drilldown1",
         "path": "2",
-        "reason": "childCount:1!=4"
+        "reason": "childCount:1!=4",
+        "base": [
+          "text:Label text"
+        ],
+        "variant": [
+          "container:Tag",
+          "text:Label text",
+          "vector:Image",
+          "instance:Link"
+        ]
       },
       {
         "prop": "Property 1",
         "value": "Drilldown2",
         "path": "0",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Label text"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Label text"
+        ]
       },
       {
         "prop": "Property 1",
         "value": "Drilldown2",
         "path": "2",
-        "reason": "childCount:1!=3"
+        "reason": "childCount:1!=3",
+        "base": [
+          "text:Label text"
+        ],
+        "variant": [
+          "container:Tags",
+          "text:Body",
+          "instance:Link"
+        ]
       },
       {
         "prop": "Property 1",
         "value": "List",
         "path": "",
-        "reason": "childCount:3!=7"
+        "reason": "childCount:3!=7",
+        "base": [
+          "container:Header",
+          "instance:.menu item",
+          "container:Body"
+        ],
+        "variant": [
+          "container:Header",
+          "instance:Divider",
+          "container:Release item",
+          "instance:Divider",
+          "container:Release item",
+          "instance:Divider",
+          "container:Release item"
+        ]
       }
     ]
   },
@@ -75,6 +120,9 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "size": {
+        "w": "360px"
       }
     },
     "children": [
@@ -101,6 +149,9 @@
           "sizing": {
             "h": "fill",
             "v": "fixed"
+          },
+          "size": {
+            "h": "32px"
           }
         },
         "children": [
@@ -130,9 +181,8 @@
         "kind": "instance",
         "unresolved": true,
         "props": {
+          "Show support text": false,
           "Show leading icon": true,
-          "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-          "Show trailing icon": false,
           "Type": "Divider",
           "State": "Default"
         },
@@ -161,7 +211,17 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "variants": [
+            {
+              "prop": "Property 1",
+              "values": [
+                "Drilldown1",
+                "Drilldown2"
+              ],
+              "axis": "column"
+            }
+          ]
         },
         "children": [
           {

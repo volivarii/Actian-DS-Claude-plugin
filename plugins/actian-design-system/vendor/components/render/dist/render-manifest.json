@@ -19,7 +19,7 @@
       "tagName": "zen-alert-banner",
       "group": "Feedback",
       "fragment": "fragments/alert-banner.html",
-      "tokensConsumed": 22,
+      "tokensConsumed": 23,
       "source": "rendered"
     },
     {
@@ -63,19 +63,19 @@
       "source": "rendered"
     },
     {
+      "slug": "calendar",
+      "tagName": "zen-calendar",
+      "group": "Form",
+      "fragment": "fragments/calendar.html",
+      "tokensConsumed": 18,
+      "source": "rendered"
+    },
+    {
       "slug": "calendar-data-selector",
       "tagName": "zen-calendar-data-selector",
       "group": "Form",
       "fragment": "fragments/calendar-data-selector.html",
       "tokensConsumed": 22,
-      "source": "rendered"
-    },
-    {
-      "slug": "calendar-date-input",
-      "tagName": "zen-calendar-date-input",
-      "group": "Form",
-      "fragment": "fragments/calendar-date-input.html",
-      "tokensConsumed": 18,
       "source": "rendered"
     },
     {
@@ -319,10 +319,10 @@
       "source": "rendered"
     },
     {
-      "slug": "rich-text",
-      "tagName": "zen-rich-text",
+      "slug": "rich-text-froala",
+      "tagName": "zen-rich-text-froala",
       "group": "Form",
-      "fragment": "fragments/rich-text.html",
+      "fragment": "fragments/rich-text-froala.html",
       "tokensConsumed": 14,
       "source": "rendered"
     },

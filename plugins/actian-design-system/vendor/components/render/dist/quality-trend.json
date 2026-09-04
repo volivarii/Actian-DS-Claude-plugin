@@ -3,13 +3,13 @@
     "auto_generated": true,
     "source": "scripts/render/derive-quality-trend.js",
     "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
-    "sourcesLastChangedAt": "2026-09-02"
+    "sourcesLastChangedAt": "2026-09-03"
   },
   "measures": {
     "unexplainedCollapses": {
-      "value": 44,
+      "value": 42,
       "direction": "unchanged",
-      "previous": 44
+      "previous": 42
     },
     "fmUnexplainedCollapses": {
       "value": 55,
@@ -22,7 +22,7 @@
       "previous": 56
     },
     "inlineHex": {
-      "value": 39,
+      "value": 51,
       "direction": "unknown",
       "previous": null
     },
@@ -32,13 +32,14 @@
       "previous": 85
     },
     "oracleExamined": {
-      "value": 417,
+      "value": 418,
       "direction": "unchanged",
-      "previous": 417
+      "previous": 418
     }
   },
   "detail": {
     "inlineHexBySlug": {
+      "breadcrumb": 12,
       "card-for-perimeter": 2,
       "digram-item-types": 10,
       "digram-topic": 5,
@@ -287,6 +288,20 @@
   },
   "oracleSeries": [
     {
+      "date": "2026-09-03",
+      "version": "0.34.180",
+      "sha": "96ff2bc0",
+      "verified": 85,
+      "examined": 418
+    },
+    {
+      "date": "2026-09-03",
+      "version": "0.34.178",
+      "sha": "684fd067",
+      "verified": 85,
+      "examined": 418
+    },
+    {
       "date": "2026-09-02",
       "version": "0.34.177",
       "sha": "a9ca5179",
@@ -355,23 +370,21 @@
       "sha": "d2286d32",
       "verified": 65,
       "examined": 445
-    },
-    {
-      "date": "2026-07-24",
-      "version": "0.34.117",
-      "sha": "182b1af6",
-      "verified": 65,
-      "examined": 445
-    },
-    {
-      "date": "2026-07-24",
-      "version": "0.34.117",
-      "sha": "25fe8fa2",
-      "verified": 59,
-      "examined": 445
     }
   ],
   "collapseSeries": [
+    {
+      "date": "2026-09-03",
+      "version": "0.34.180",
+      "sha": "96ff2bc0",
+      "unexplained": 42
+    },
+    {
+      "date": "2026-09-03",
+      "version": "0.34.178",
+      "sha": "684fd067",
+      "unexplained": 44
+    },
     {
       "date": "2026-09-02",
       "version": "0.34.177",

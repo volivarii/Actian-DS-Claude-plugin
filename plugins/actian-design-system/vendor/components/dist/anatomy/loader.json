@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "loader",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7372:2195",
@@ -49,6 +49,8 @@
       "layoutMode": "NONE",
       "x": 2868,
       "y": 365,
+      "w": 480,
+      "h": 8,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"

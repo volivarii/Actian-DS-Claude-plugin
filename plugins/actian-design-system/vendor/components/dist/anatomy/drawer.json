@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "drawer",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:5758",
@@ -18,31 +18,71 @@
         "prop": "App",
         "value": "Explorer",
         "path": "0.0",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "instance:Back",
+          "container:Tag",
+          "text:Name"
+        ],
+        "variant": [
+          "instance:Back",
+          "text:Name"
+        ]
       },
       {
         "prop": "App",
         "value": "Explorer",
         "path": "0.1",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "instance:Button",
+          "instance:Button"
+        ],
+        "variant": [
+          "instance:Button",
+          "instance:Button",
+          "instance:Button"
+        ]
       },
       {
         "prop": "App",
         "value": "Explorer",
         "path": "1",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "text:Technical name: able_agency",
+          "container:Catalog + Category + Connection"
+        ],
+        "variant": [
+          "container:Tag"
+        ]
       },
       {
         "prop": "App",
         "value": "Explorer",
         "path": "2.2.1",
-        "reason": "kind:instance!=container"
+        "reason": "kind:instance!=container",
+        "base": [
+          "instance:Progress bar small"
+        ],
+        "variant": [
+          "container:Glossary"
+        ]
       },
       {
         "prop": "App",
         "value": "Explorer",
         "path": "4",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "container:Glossary",
+          "container:Description",
+          "container:Source description"
+        ],
+        "variant": [
+          "container:Total field + search",
+          "container:Filed card"
+        ]
       }
     ]
   },
@@ -69,6 +109,10 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
+      },
+      "size": {
+        "w": "550px",
+        "h": "897px"
       }
     },
     "children": [
@@ -119,7 +163,7 @@
                 "cross": "center"
               },
               "sizing": {
-                "h": "hug",
+                "h": "fill",
                 "v": "hug"
               },
               "gapToken": "--zen-spacing-xs"
@@ -169,7 +213,7 @@
                 },
                 "children": [
                   {
-                    "name": "Tag, item type",
+                    "name": "Item type tag",
                     "kind": "instance",
                     "slug": "item-type-tag",
                     "props": {
@@ -322,7 +366,25 @@
             "right": "--zen-spacing-md",
             "bottom": "--zen-spacing-md",
             "left": "--zen-spacing-md"
-          }
+          },
+          "variants": [
+            {
+              "prop": "App",
+              "values": [
+                "Explorer"
+              ],
+              "padding": {
+                "top": "0px",
+                "right": "16px",
+                "bottom": "0px",
+                "left": "16px"
+              },
+              "paddingTokens": {
+                "right": "--zen-spacing-md",
+                "left": "--zen-spacing-md"
+              }
+            }
+          ]
         },
         "children": [
           {
@@ -493,7 +555,22 @@
             "right": "--zen-spacing-md",
             "bottom": "--zen-spacing-md",
             "left": "--zen-spacing-md"
-          }
+          },
+          "variants": [
+            {
+              "prop": "App",
+              "values": [
+                "Explorer"
+              ],
+              "axis": "column",
+              "gap": "16px",
+              "gapToken": "--zen-spacing-md",
+              "align": {
+                "main": "start",
+                "cross": "start"
+              }
+            }
+          ]
         },
         "children": [
           {
@@ -555,7 +632,23 @@
                 "h": "fixed",
                 "v": "hug"
               },
-              "gapToken": "--zen-spacing-2xs"
+              "size": {
+                "w": "88px"
+              },
+              "gapToken": "--zen-spacing-2xs",
+              "variants": [
+                {
+                  "prop": "App",
+                  "values": [
+                    "Explorer"
+                  ],
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  },
+                  "size": null
+                }
+              ]
             },
             "children": [
               {
@@ -715,7 +808,7 @@
                 "text": "Glossary items (2)"
               },
               {
-                "name": "Dropdown, Select, default",
+                "name": "Select, default",
                 "kind": "instance",
                 "slug": "dropdown-select-default",
                 "props": {

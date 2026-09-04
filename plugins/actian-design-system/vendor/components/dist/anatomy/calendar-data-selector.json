@@ -2,11 +2,11 @@
   "_schema_version": 1,
   "slug": "calendar-data-selector",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8211:6664",
-    "variant": "Type=Single date select, Selection=Single"
+    "variant": "Type=Dates"
   },
   "quality": {
     "nodesTotal": 63,
@@ -19,48 +19,191 @@
       },
       {
         "name": "Frame 1010110409",
-        "reason": "layoutMode:GRID (variant Type=Month)"
+        "reason": "layoutMode:GRID (variant Type=Years)"
+      },
+      {
+        "name": "Frame 1010110409",
+        "reason": "layoutMode:GRID (variant Type=Months)"
       }
     ],
     "structuralVariants": [
       {
         "prop": "Type",
-        "value": "Month",
+        "value": "Months",
         "path": "1.0",
-        "reason": "childCount:7!=0"
+        "reason": "childCount:7!=0",
+        "base": [
+          "text:S",
+          "text:M",
+          "text:T",
+          "text:W",
+          "text:T",
+          "text:F",
+          "text:S"
+        ],
+        "variant": []
       },
       {
         "prop": "Type",
-        "value": "Month",
+        "value": "Months",
         "path": "1.1",
-        "reason": "childCount:42!=13"
-      }
-    ],
-    "uncapturedValues": [
-      {
-        "prop": "Selection",
-        "value": "Range",
-        "reason": "no isolated variant"
-      },
-      {
-        "prop": "Selection",
-        "value": "Year",
-        "reason": "no isolated variant"
+        "reason": "childCount:42!=13",
+        "base": [
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item"
+        ],
+        "variant": [
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item"
+        ]
       },
       {
         "prop": "Type",
-        "value": "Date",
-        "reason": "no isolated variant"
+        "value": "Years",
+        "path": "1.0",
+        "reason": "childCount:7!=0",
+        "base": [
+          "text:S",
+          "text:M",
+          "text:T",
+          "text:W",
+          "text:T",
+          "text:F",
+          "text:S"
+        ],
+        "variant": []
       },
       {
         "prop": "Type",
-        "value": "Single",
-        "reason": "no isolated variant"
+        "value": "Years",
+        "path": "1.1",
+        "reason": "childCount:42!=24",
+        "base": [
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item",
+          "instance:.Calendar item"
+        ],
+        "variant": [
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item",
+          "instance:.Calendar-nav-item"
+        ]
       }
     ]
   },
   "root": {
-    "name": "Type=Single date select, Selection=Single",
+    "name": "Type=Dates",
     "kind": "container",
     "id": "8211:6034",
     "appearance": {
@@ -83,7 +226,25 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "size": {
+        "w": "352px"
+      },
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Months"
+          ],
+          "gapToken": "--zen-spacing-xs",
+          "paddingTokens": {
+            "top": "--zen-spacing-xs",
+            "right": "--zen-spacing-xs",
+            "bottom": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -129,6 +290,9 @@
               "sizing": {
                 "h": "fixed",
                 "v": "hug"
+              },
+              "size": {
+                "w": "155.5px"
               }
             },
             "children": [
@@ -429,8 +593,10 @@
             "normalizable": false,
             "rawHint": {
               "layoutMode": "GRID",
-              "x": 6682,
-              "y": 2216,
+              "x": 6789,
+              "y": 2200,
+              "w": 336,
+              "h": 288,
               "constraints": {
                 "vertical": "TOP",
                 "horizontal": "LEFT"
@@ -981,6 +1147,9 @@
           "sizing": {
             "h": "fixed",
             "v": "hug"
+          },
+          "size": {
+            "w": "296px"
           }
         },
         "children": [
@@ -1027,7 +1196,6 @@
     ]
   },
   "variantDefaults": {
-    "Type": "Single date select",
-    "Selection": "Single"
+    "Type": "Dates"
   }
 }

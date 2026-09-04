@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "actian-data-intelligence-studio-horizontal",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "21084:2357"
@@ -39,6 +39,8 @@
       "layoutMode": "NONE",
       "x": -2315,
       "y": 2927,
+      "w": 359.46661376953125,
+      "h": 63.40999984741211,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -54,6 +56,8 @@
           "layoutMode": "NONE",
           "x": -2232.2666015625,
           "y": 2927,
+          "w": 276.7332763671875,
+          "h": 57.410888671875,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -295,6 +299,8 @@
           "layoutMode": "NONE",
           "x": -2315,
           "y": 2927.202392578125,
+          "w": 66.97804260253906,
+          "h": 57.111183166503906,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -35,19 +35,47 @@
         "prop": "Fields",
         "value": "Expanded",
         "path": "1",
-        "reason": "childCount:3!=7"
+        "reason": "childCount:3!=7",
+        "base": [
+          "container:Header",
+          "container:Tag",
+          "container:Field expand collapse"
+        ],
+        "variant": [
+          "container:Header",
+          "container:Tag",
+          "container:Field expand collapse",
+          "instance:.lineage-node-subcomponents",
+          "instance:.lineage-node-subcomponents",
+          "instance:.lineage-node-subcomponents",
+          "instance:.lineage-node-subcomponents"
+        ]
       },
       {
         "prop": "Type",
         "value": "Group main item",
         "path": "",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "instance:.lineage expand control",
+          "container:Card"
+        ],
+        "variant": [
+          "container:Card"
+        ]
       },
       {
         "prop": "Type",
         "value": "Group sub item",
         "path": "",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "instance:.lineage expand control",
+          "container:Card"
+        ],
+        "variant": [
+          "container:Card"
+        ]
       }
     ],
     "uncapturedValues": [
@@ -122,7 +150,23 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "size": {
+        "w": "273px"
+      },
+      "variants": [
+        {
+          "prop": "Fields",
+          "values": [
+            "Expanded"
+          ],
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "size": null
+        }
+      ]
     },
     "children": [
       {
@@ -202,6 +246,9 @@
           "sizing": {
             "h": "fixed",
             "v": "hug"
+          },
+          "size": {
+            "w": "273px"
           }
         },
         "children": [
@@ -281,6 +328,9 @@
                   "sizing": {
                     "h": "fill",
                     "v": "fixed"
+                  },
+                  "size": {
+                    "h": "39px"
                   }
                 },
                 "children": [
@@ -377,6 +427,8 @@
                   "layoutMode": "NONE",
                   "x": 4015,
                   "y": 625,
+                  "w": 16,
+                  "h": 16,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -477,6 +529,9 @@
               "sizing": {
                 "h": "fixed",
                 "v": "hug"
+              },
+              "size": {
+                "w": "273px"
               },
               "paddingTokens": {
                 "top": "--zen-spacing-2xs",

@@ -1,4 +1,4 @@
-# Calendar date input: usage notes
+# Calendar: usage notes
 
 A date input lets users enter a single date by typing or by picking from an attached calendar. Use it for compact date entry within a form.
 

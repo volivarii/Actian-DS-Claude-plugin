@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox-card",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "19983:23496",
@@ -74,6 +74,9 @@
         "h": "fixed",
         "v": "hug"
       },
+      "size": {
+        "w": "316px"
+      },
       "gapToken": "--zen-spacing-xs",
       "paddingTokens": {
         "top": "--zen-spacing-md",
@@ -116,6 +119,9 @@
           "sizing": {
             "h": "fixed",
             "v": "hug"
+          },
+          "size": {
+            "w": "284px"
           }
         }
       }

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "metamodel",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:23588",
@@ -35,25 +35,85 @@
         "prop": "Type",
         "value": "Connector 1",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:Header",
+          "instance:.metamodel property section"
+        ],
+        "variant": [
+          "text:O-N",
+          "text:O-N",
+          "vector:Line"
+        ]
+      },
+      {
+        "prop": "Type",
+        "value": "Connector 1",
+        "path": "",
+        "reason": "layout:column!=none"
       },
       {
         "prop": "Type",
         "value": "Connector 2",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:Header",
+          "instance:.metamodel property section"
+        ],
+        "variant": [
+          "text:O-N",
+          "text:O-N",
+          "vector:Line"
+        ]
+      },
+      {
+        "prop": "Type",
+        "value": "Connector 2",
+        "path": "",
+        "reason": "layout:column!=none"
       },
       {
         "prop": "Type",
         "value": "Connector 3",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:Header",
+          "instance:.metamodel property section"
+        ],
+        "variant": [
+          "text:O-N",
+          "text:O-N",
+          "vector:Line"
+        ]
+      },
+      {
+        "prop": "Type",
+        "value": "Connector 3",
+        "path": "",
+        "reason": "layout:column!=none"
       },
       {
         "prop": "Type",
         "value": "Connector 4",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:Header",
+          "instance:.metamodel property section"
+        ],
+        "variant": [
+          "text:O-N",
+          "text:O-N",
+          "vector:Line"
+        ]
+      },
+      {
+        "prop": "Type",
+        "value": "Connector 4",
+        "path": "",
+        "reason": "layout:column!=none"
       }
     ]
   },

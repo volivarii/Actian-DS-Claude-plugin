@@ -1032,9 +1032,9 @@
     {
       "@id": "component:calendar",
       "@type": "Component",
-      "title": "calendar",
-      "figmaKey": "805cb80b498052ea49f63c3123e9491808d6d8ef",
-      "figmaNodeId": "7378:5041"
+      "title": "Calendar",
+      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
+      "figmaNodeId": "8194:7305"
     },
     {
       "@id": "component:calendar-data-selector",
@@ -1042,13 +1042,6 @@
       "title": "Calendar data selector",
       "figmaKey": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
       "figmaNodeId": "8211:6664"
-    },
-    {
-      "@id": "component:calendar-date-input",
-      "@type": "Component",
-      "title": "Calendar date input",
-      "figmaKey": "9eafdb6242837b591ba5f39959150b53e40ef02d",
-      "figmaNodeId": "8194:7305"
     },
     {
       "@id": "component:camera",
@@ -1828,13 +1821,6 @@
       "figmaNodeId": "14294:5758"
     },
     {
-      "@id": "component:dropdown",
-      "@type": "Component",
-      "title": "Dropdown",
-      "figmaKey": "a38a874d532ced8607f8632d0aa9cdf2dec39484",
-      "figmaNodeId": "21982:71973"
-    },
-    {
       "@id": "component:dropdown-select-default",
       "@type": "Component",
       "title": "Dropdown, Select, default",
@@ -2584,13 +2570,6 @@
       "figmaNodeId": "7378:5034"
     },
     {
-      "@id": "component:icon",
-      "@type": "Component",
-      "title": "Icon",
-      "figmaKey": "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9",
-      "figmaNodeId": "22258:8789"
-    },
-    {
       "@id": "component:icon-placeholder",
       "@type": "Component",
       "title": "icon-placeholder",
@@ -2619,11 +2598,18 @@
       "figmaNodeId": "8:20910"
     },
     {
+      "@id": "component:identification-key",
+      "@type": "Component",
+      "title": "Identification key",
+      "figmaKey": "fff06ba00e1d5317d3112c722a8434f765194909",
+      "figmaNodeId": "14349:15322"
+    },
+    {
       "@id": "component:illustration",
       "@type": "Component",
       "title": "Illustration",
-      "figmaKey": "00302ca7dc4298c719f19ca4766029909ecbeb9d",
-      "figmaNodeId": "8837:9945"
+      "figmaKey": "b952fe74e9ca263e4a378f24982ab02fa22e114a",
+      "figmaNodeId": "22325:8253"
     },
     {
       "@id": "component:impala",
@@ -3018,6 +3004,13 @@
       "figmaNodeId": "8:20628"
     },
     {
+      "@id": "component:menu-dropdown",
+      "@type": "Component",
+      "title": "Menu (Dropdown)",
+      "figmaKey": "a38a874d532ced8607f8632d0aa9cdf2dec39484",
+      "figmaNodeId": "21982:71973"
+    },
+    {
       "@id": "component:message",
       "@type": "Component",
       "title": "Message",
@@ -3324,6 +3317,13 @@
       "title": "netezza",
       "figmaKey": "5a04491296f24a38a3364f6650782d09e2658fca",
       "figmaNodeId": "8400:25111"
+    },
+    {
+      "@id": "component:new-conversation",
+      "@type": "Component",
+      "title": "new-conversation",
+      "figmaKey": "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9",
+      "figmaNodeId": "22258:8789"
     },
     {
       "@id": "component:newspaper",
@@ -3816,9 +3816,9 @@
       "figmaNodeId": "8:20972"
     },
     {
-      "@id": "component:rich-text",
+      "@id": "component:rich-text-froala",
       "@type": "Component",
-      "title": "Rich text",
+      "title": "Rich text (Froala)",
       "figmaKey": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
       "figmaNodeId": "9480:17723"
     },
@@ -4633,6 +4633,13 @@
       "title": "user-info",
       "figmaKey": "3b2848d77b98a22dfa31033342ae67f84dee3c0b",
       "figmaNodeId": "8820:13334"
+    },
+    {
+      "@id": "component:user-info-add",
+      "@type": "Component",
+      "title": "user-info-add",
+      "figmaKey": "691135f1a6dfc54fce73354587475424718fd79d",
+      "figmaNodeId": "22284:6096"
     },
     {
       "@id": "component:user-single",
@@ -6401,12 +6408,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:calendar-data-selector",
+      "source": "component:calendar",
       "target": "a11y:forms",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/calendar-data-selector/",
+        "source_file": "components/src/calendar/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6414,12 +6421,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:calendar-date-input",
+      "source": "component:calendar-data-selector",
       "target": "a11y:forms",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/calendar-date-input/",
+        "source_file": "components/src/calendar-data-selector/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -6753,12 +6760,12 @@
     {
       "@type": "Edge",
       "edgeType": "a11y_ref",
-      "source": "component:rich-text",
+      "source": "component:rich-text-froala",
       "target": "a11y:forms",
       "scope": "component",
       "confidence": "asserted",
       "provenance": {
-        "source_file": "components/src/rich-text/",
+        "source_file": "components/src/rich-text-froala/",
         "deriver": "derive-graph.js",
         "method": "meta.a11y_refs"
       }
@@ -7079,7 +7086,13 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:app-switcher-dropdown",
-      "target": "component:arrow-down"
+      "target": "component:folder"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:breadcrumb",
+      "target": "component:add"
     },
     {
       "@type": "Edge",
@@ -7091,7 +7104,19 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:breadcrumb",
+      "target": "component:arrow-down"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:breadcrumb",
       "target": "component:back"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:breadcrumb",
+      "target": "component:button"
     },
     {
       "@type": "Edge",
@@ -7126,6 +7151,48 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:button"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:close"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:error-filled"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:field"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:info"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:label"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:calendar",
+      "target": "component:message"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
       "source": "component:calendar-data-selector",
       "target": "component:arrow"
     },
@@ -7146,24 +7213,6 @@
       "edgeType": "composed_of",
       "source": "component:calendar-data-selector",
       "target": "component:button"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:calendar-date-input",
-      "target": "component:button"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:calendar-date-input",
-      "target": "component:calendar"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:calendar-date-input",
-      "target": "component:error-filled"
     },
     {
       "@type": "Edge",
@@ -7373,6 +7422,12 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:drawer",
+      "target": "component:identification-key"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:drawer",
       "target": "component:info"
     },
     {
@@ -7428,18 +7483,6 @@
       "edgeType": "composed_of",
       "source": "component:drawer",
       "target": "component:view-detail"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:dropdown",
-      "target": "component:arrow-down"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:dropdown",
-      "target": "component:folder"
     },
     {
       "@type": "Edge",
@@ -7500,12 +7543,6 @@
       "edgeType": "composed_of",
       "source": "component:empty-state",
       "target": "component:button"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:empty-state",
-      "target": "component:illustration"
     },
     {
       "@type": "Edge",
@@ -8111,19 +8148,7 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:global-header-account-dropdown",
-      "target": "component:arrow-down"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:global-header-account-dropdown",
       "target": "component:avatar"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:global-header-account-dropdown",
-      "target": "component:exit"
     },
     {
       "@type": "Edge",
@@ -8208,6 +8233,12 @@
       "edgeType": "composed_of",
       "source": "component:lineage",
       "target": "component:digram-item-types"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:lineage",
+      "target": "component:identification-key"
     },
     {
       "@type": "Edge",
@@ -8322,6 +8353,12 @@
       "edgeType": "composed_of",
       "source": "component:maintenance-state",
       "target": "component:illustration"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "composed_of",
+      "source": "component:menu-dropdown",
+      "target": "component:folder"
     },
     {
       "@type": "Edge",
@@ -8447,7 +8484,7 @@
       "@type": "Edge",
       "edgeType": "composed_of",
       "source": "component:modal",
-      "target": "component:rich-text"
+      "target": "component:rich-text-froala"
     },
     {
       "@type": "Edge",
@@ -8466,12 +8503,6 @@
       "edgeType": "composed_of",
       "source": "component:modal",
       "target": "component:toggle"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:notification-dropdown",
-      "target": "component:arrow-down"
     },
     {
       "@type": "Edge",
@@ -8782,7 +8813,7 @@
     {
       "@type": "Edge",
       "edgeType": "composed_of",
-      "source": "component:rich-text",
+      "source": "component:rich-text-froala",
       "target": "component:more"
     },
     {
@@ -8814,12 +8845,6 @@
       "edgeType": "composed_of",
       "source": "component:search",
       "target": "component:stars-filled"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "composed_of",
-      "source": "component:search-dropdown-menu",
-      "target": "component:arrow-down"
     },
     {
       "@type": "Edge",
@@ -11523,18 +11548,12 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:calendar",
-      "target": "category:icons"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
-      "source": "component:calendar-data-selector",
       "target": "category:form"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:calendar-date-input",
+      "source": "component:calendar-data-selector",
       "target": "category:form"
     },
     {
@@ -11876,12 +11895,6 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:dropdown",
-      "target": "category:form"
-    },
-    {
-      "@type": "Edge",
-      "edgeType": "in_category",
       "source": "component:dropdown-select-default",
       "target": "category:form"
     },
@@ -12140,14 +12153,14 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:icon",
+      "source": "component:idea",
       "target": "category:icons"
     },
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:idea",
-      "target": "category:icons"
+      "source": "component:identification-key",
+      "target": "category:data-display"
     },
     {
       "@type": "Edge",
@@ -12380,6 +12393,12 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
+      "source": "component:menu-dropdown",
+      "target": "category:overlays"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_category",
       "source": "component:message",
       "target": "category:form"
     },
@@ -12436,6 +12455,12 @@
       "edgeType": "in_category",
       "source": "component:netezza",
       "target": "category:third-party-logos"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_category",
+      "source": "component:new-conversation",
+      "target": "category:icons"
     },
     {
       "@type": "Edge",
@@ -12662,7 +12687,7 @@
     {
       "@type": "Edge",
       "edgeType": "in_category",
-      "source": "component:rich-text",
+      "source": "component:rich-text-froala",
       "target": "category:form"
     },
     {
@@ -13119,6 +13144,12 @@
       "@type": "Edge",
       "edgeType": "in_category",
       "source": "component:user-info",
+      "target": "category:icons"
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "in_category",
+      "source": "component:user-info-add",
       "target": "category:icons"
     },
     {
@@ -13853,7 +13884,7 @@
       "@type": "Edge",
       "edgeType": "related",
       "source": "content:forms",
-      "target": "component:calendar-date-input"
+      "target": "component:calendar"
     },
     {
       "@type": "Edge",
@@ -13955,7 +13986,7 @@
       "@type": "Edge",
       "edgeType": "related",
       "source": "content:validation-messages",
-      "target": "component:calendar-date-input"
+      "target": "component:calendar"
     },
     {
       "@type": "Edge",
@@ -14447,7 +14478,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:asset-detail-360",
-      "target": "component:calendar-date-input",
+      "target": "component:calendar",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",
@@ -14735,7 +14766,7 @@
       "@type": "Edge",
       "edgeType": "uses_component",
       "source": "pattern:discussion-threads",
-      "target": "component:rich-text",
+      "target": "component:rich-text-froala",
       "confidence": "asserted",
       "provenance": {
         "source_file": "app-context/dist/app-context.json",

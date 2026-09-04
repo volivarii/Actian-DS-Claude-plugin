@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "badge",
   "kit": "dskit",
-  "synced_at": "2026-07-12T20:29:04.398Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12159:16447",
@@ -42,7 +42,23 @@
       "sizing": {
         "h": "hug",
         "v": "hug"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Dot"
+          ],
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "6px",
+            "h": "6px"
+          }
+        }
+      ]
     },
     "children": [
       {

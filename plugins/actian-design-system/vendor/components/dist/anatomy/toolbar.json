@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "toolbar",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14335:16907",
@@ -18,13 +18,33 @@
         "prop": "Type",
         "value": "Combined",
         "path": "",
-        "reason": "childCount:1!=3"
+        "reason": "childCount:1!=3",
+        "base": [
+          "instance:Button"
+        ],
+        "variant": [
+          "instance:Group 1",
+          "instance:Single 1",
+          "instance:Single 2"
+        ]
       },
       {
         "prop": "Type",
         "value": "Group",
         "path": "",
-        "reason": "childCount:1!=7"
+        "reason": "childCount:1!=7",
+        "base": [
+          "instance:Button"
+        ],
+        "variant": [
+          "instance:Button",
+          "instance:Button",
+          "instance:Button",
+          "instance:Button",
+          "instance:Button",
+          "instance:Button",
+          "container:View scale"
+        ]
       }
     ],
     "uncapturedValues": [
@@ -84,7 +104,38 @@
         "right": "--zen-spacing-2xs",
         "bottom": "--zen-spacing-2xs",
         "left": "--zen-spacing-2xs"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Combined"
+          ],
+          "axis": "row",
+          "gap": "8px",
+          "gapToken": "--zen-spacing-xs",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "paddingTokens": null,
+          "align": {
+            "main": "start",
+            "cross": "center"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Group"
+          ],
+          "axis": "row",
+          "gap": "4px",
+          "gapToken": "--zen-spacing-2xs"
+        }
+      ]
     },
     "children": [
       {

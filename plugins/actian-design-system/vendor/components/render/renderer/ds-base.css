@@ -1091,6 +1091,12 @@
   letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
 }
 .ds-breadcrumbs__crumb {
+  /* inline-flex + gap so a crumb can carry the leading item-type badge the
+   * default capture shows beside its label; with no badge it lays out exactly
+   * as the inline text it was. */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
   color: var(--zen-color-text-primary);
   font-weight: var(--zen-font-weight-regular);
   text-decoration: none;
@@ -1362,6 +1368,34 @@
   margin: 0;
   line-height: var(--zen-font-lineheight-lg);
 }
+/* The trailing slots the registry publishes as default-TRUE booleans
+ * (`Show action`, `Show close button`) and the default capture shows: a text
+ * action, then a dismiss, both pinned right of the message. `flex: none` keeps
+ * them at content width while __content takes the slack. */
+.ds-alert__actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+}
+/* Icon-only dismiss. Sized to the icon rather than to .ds-button's 32px height
+ * so it does not grow the banner. */
+.ds-alert__close {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--zen-color-icon-default);
+  cursor: pointer;
+}
+.ds-alert__close svg {
+  width: var(--zen-size-md);
+  height: var(--zen-size-md);
+  display: block;
+}
 
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
@@ -1523,7 +1557,7 @@
 
 /* ============ Input date (labeled date field + calendar btn) ============ */
 /* Registry axes: Type = Single date | Date range; States = Enabled | … */
-.ds-calendar-date-input {
+.ds-calendar {
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-xs); /* 8 */
@@ -1531,24 +1565,24 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-calendar-date-input__label-row {
+.ds-calendar__label-row {
   display: flex;
   gap: var(--zen-spacing-2xs);
   align-items: center;
 }
-.ds-calendar-date-input__label {
+.ds-calendar__label {
   font-size: var(--zen-font-size-md);
   font-weight: var(--zen-font-weight-medium);
   line-height: var(--zen-font-lineheight-md);
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-default);
 }
-.ds-calendar-date-input__inputs {
+.ds-calendar__inputs {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs);
 }
-.ds-calendar-date-input__field {
+.ds-calendar__field {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -1561,7 +1595,7 @@
   border-radius: var(--zen-border-radius-xs);
   box-sizing: border-box;
 }
-.ds-calendar-date-input__value {
+.ds-calendar__value {
   flex: 1 1 0;
   min-width: 0;
   font-size: var(--zen-font-size-md);
@@ -1569,36 +1603,36 @@
   letter-spacing: var(--zen-font-letterspacing-wide-2);
   color: var(--zen-color-text-placeholder);
 }
-.ds-calendar-date-input__calendar {
+.ds-calendar__calendar {
   width: 20px; /* icon box geometry (raw px) */
   height: 20px;
   flex: 0 0 auto;
   display: inline-flex;
   color: var(--zen-color-icon-default);
 }
-.ds-calendar-date-input__calendar svg {
+.ds-calendar__calendar svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.ds-calendar-date-input__sep {
+.ds-calendar__sep {
   flex: 0 0 auto;
   color: var(--zen-color-text-secondary);
 }
-.ds-calendar-date-input__helper {
+.ds-calendar__helper {
   font-size: var(--zen-font-size-sm);
   font-weight: var(--zen-font-weight-regular);
   line-height: var(--zen-font-lineheight-sm);
   letter-spacing: var(--zen-font-letterspacing-wide-3);
   color: var(--zen-color-text-secondary);
 }
-.ds-calendar-date-input.is-disabled {
+.ds-calendar.is-disabled {
   opacity: 0.4;
 }
 
 /* ============ Rich text (editor toolbar shell) ============ */
 /* Registry axis: State = Default | Expanded. */
-.ds-rich-text {
+.ds-rich-text-froala {
   display: flex;
   flex-direction: column;
   width: 480px; /* raw px: editor shell width (forms max-width convention) */
@@ -1608,7 +1642,7 @@
   font-family: var(--zen-font-family-text);
   box-sizing: border-box;
 }
-.ds-rich-text__toolbar {
+.ds-rich-text-froala__toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1617,12 +1651,12 @@
   border-bottom: 1px solid var(--zen-border-default);
   background: var(--zen-color-bg-subtle);
 }
-.ds-rich-text__group {
+.ds-rich-text-froala__group {
   display: inline-flex;
   align-items: center;
   gap: var(--zen-spacing-2xs);
 }
-.ds-rich-text__btn {
+.ds-rich-text-froala__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1636,15 +1670,15 @@
   font-size: var(--zen-font-size-lg);
   cursor: pointer;
 }
-.ds-rich-text__btn:hover {
+.ds-rich-text-froala__btn:hover {
   background: var(--zen-color-bg-subtle);
   color: var(--zen-color-icon-primary);
 }
-.ds-rich-text__content {
+.ds-rich-text-froala__content {
   min-height: 96px; /* raw px: collapsed editor body height */
   padding: var(--zen-spacing-md);
 }
-.ds-rich-text--expanded .ds-rich-text__content {
+.ds-rich-text-froala--expanded .ds-rich-text-froala__content {
   min-height: 200px; /* raw px: expanded editor body height */
 }
 
@@ -2226,6 +2260,16 @@
   align-items: center;
   gap: var(--zen-spacing-sm);
 }
+/* The leading slot the default capture pins left (a destructive `Delete`).
+ * `margin-right: auto` rather than switching the bar to space-between: with no
+ * leading slot present, space-between would leave a lone trailing group sitting
+ * at the LEFT edge, so the bar would depend on the slot being filled. */
+.ds-action-bar__leading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-sm);
+  margin-right: auto;
+}
 
 /* ===================================================================== */
 /* Hi-Fi A1 (narrow) — degraded-slug leaf overrides. Batch 3: feedback.  */
@@ -2709,8 +2753,19 @@
 .ds-item-type-tag--custom-1 {
   background: #ffd5dd; /* no captured token */
 }
+/* #640, verdict 2026-09-03 (design lead): custom-2 and data-process share this
+ * fill AND #932139 below, so the two tags are indistinguishable. That is BY
+ * DESIGN -- the custom-N slots cycle a fixed palette the named types also draw
+ * from, which is why five further pairs share a background (custom-5 with
+ * data-product, custom-7 with custom-9, custom-10/12/13, glossary-2 with -4,
+ * glossary-3 with -5) and differ only in name colour. Do not "fix" this by
+ * inventing a colour: neither value is oracle-backed, so an invented one is the
+ * move that put Info's blue behind Success (#637). It is recorded here rather
+ * than in variant-collapse-by-design.js because that ledger asserts every key
+ * still names a real collapse, and this pair is not one: the two emit different
+ * class names, so the markup-hashing census never aliases them. */
 .ds-item-type-tag--custom-2 {
-  background: #ffd6d8; /* no captured token */
+  background: #ffd6d8; /* no captured token; = data-process, by design (#640) */
 }
 .ds-item-type-tag--custom-3 {
   background: #e7e0ee; /* no captured token */
@@ -2752,7 +2807,7 @@
   background: #e2e4dd; /* no captured token */
 }
 .ds-item-type-tag--data-process {
-  background: #ffd6d8; /* no captured token */
+  background: #ffd6d8; /* no captured token; = custom-2, by design (#640) */
 }
 .ds-item-type-tag--data-product {
   background: #cadcf7; /* no captured token */
@@ -2792,7 +2847,7 @@
   color: #771a34; /* no captured token */
 }
 .ds-item-type-tag--custom-2 .ds-item-type-tag__name {
-  color: #932139; /* no captured token */
+  color: #932139; /* no captured token; = data-process, by design (#640) */
 }
 .ds-item-type-tag--custom-3 .ds-item-type-tag__name {
   color: #644f77; /* no captured token */
@@ -2834,7 +2889,7 @@
   color: #555947; /* no captured token */
 }
 .ds-item-type-tag--data-process .ds-item-type-tag__name {
-  color: #932139; /* no captured token */
+  color: #932139; /* no captured token; = custom-2, by design (#640) */
 }
 .ds-item-type-tag--data-product .ds-item-type-tag__name {
   color: #00255a; /* no captured token */

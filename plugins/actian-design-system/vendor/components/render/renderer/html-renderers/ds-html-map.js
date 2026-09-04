@@ -1434,6 +1434,28 @@
 
         case "breadcrumb": {
           var crumbItems = parseItems(props.Items, "Home, Section, Page");
+          // The registry publishes digram-item-types as a nested component of
+          // breadcrumb, and the default capture shows one per crumb but the
+          // first: a small item-type badge carrying the record's initials. It is
+          // per-crumb CONTENT (which record each crumb names), so it is
+          // positional, one entry per crumb, and an empty entry means that crumb
+          // has none. No badges given -> the crumbs render exactly as the plain
+          // links they were.
+          //
+          // An ARRAY is accepted alongside the comma string (the shape `table`'s
+          // Rows already uses) because parseItems drops empty entries, so only
+          // the array form can say "this crumb has no badge" -- which the
+          // default capture needs: `Home` carries none and every crumb after it
+          // does.
+          var crumbBadges = Array.isArray(props.Badges)
+            ? props.Badges
+            : props.Badges === undefined
+              ? []
+              : parseItems(props.Badges, "");
+          // One item type for the row, not one per crumb: in the capture every
+          // badge is the same type. Absent -> digram-item-types' own documented
+          // fallback, rather than a type invented here.
+          var crumbBadgeType = props.BadgeType ? String(props.BadgeType) : "";
           var crumbSep =
             '<span class="ds-breadcrumbs__sep">' +
             renderIcon("arrow-left", { rotate: 180 }) +
@@ -1444,12 +1466,27 @@
               var crumbCls = "ds-breadcrumbs__crumb";
               if (isLast) crumbCls += " ds-breadcrumbs__crumb--current";
               var tag = isLast ? "span" : "a";
+              // String(): Badges is flow data, and a non-string entry would
+              // throw on .trim() -- caught by the interpreter's never-throws
+              // seam, but at the cost of degrading the whole breadcrumb to a
+              // graceful chip over one bad cell.
+              var badge = String(crumbBadges[i] || "").trim();
+              var badgeHtml = badge
+                ? renderDSComponent({
+                    dsSlug: "digram-item-types",
+                    variant:
+                      "Size=XS" +
+                      (crumbBadgeType ? ", Item type=" + crumbBadgeType : ""),
+                    props: { Initials: badge },
+                  })
+                : "";
               return (
                 "<" +
                 tag +
                 ' class="' +
                 crumbCls +
                 '">' +
+                badgeHtml +
                 esc(label) +
                 "</" +
                 tag +
@@ -1669,21 +1706,67 @@
           // default variant (Type=Info), so the message mirrors the type name.
           // matrix.js supplies the per-Type value; this is the no-props fallback.
           var alertMsg = esc(props.Message || "Info");
+          // The registry publishes `Show Icon`, `Show action` and
+          // `Show close button` as BOOLEAN component properties, all defaulting
+          // to true, and the isolated default capture shows all three. The
+          // renderer implemented only the icon, and that one unconditionally.
+          // Reading the published default means a caller passing no props gets
+          // what Figma documents, and a caller turning one off gets the
+          // component without it -- a slot, not a fixture.
+          // `!== false` is this renderer's default-TRUE idiom (see
+          // props["Leading icon show"] on text-input), and the literal bracket
+          // reads are what derive-contract's BRACKET_READ picks up, so all three
+          // appear in the published contract rather than only in the code.
+          var alertIconHtml =
+            props["Show Icon"] !== false
+              ? '<span class="ds-alert__icon">' +
+                renderIcon(alertIconSlug) +
+                "</span>"
+              : "";
+          // An ordinary DS button: it needs no positional CSS of its own, and a
+          // modifier class with no rule behind it is the thing this renderer
+          // already refuses to emit elsewhere.
+          //
+          // The LABEL is not defaulted. Figma's own default reads "Button",
+          // which is placeholder text, and a literal fallback here would hand
+          // that word to every caller who asked for no optional parts -- the
+          // specimen-vs-runtime defect the sparse-render ratchet exists to
+          // block. So the boolean gates the slot and the caller names it; the
+          // gallery's "Button" lives in matrix.js, where the specimen belongs
+          // and the caller keeps the choice.
+          var alertActionHtml =
+            props["Show action"] !== false && props.Action
+              ? '<button class="ds-button ds-button--tertiary">' +
+                esc(props.Action) +
+                "</button>"
+              : "";
+          var alertCloseHtml =
+            props["Show close button"] !== false
+              ? '<button class="ds-alert__close" aria-label="Dismiss">' +
+                renderIcon("close") +
+                "</button>"
+              : "";
+          var alertActionsHtml =
+            alertActionHtml || alertCloseHtml
+              ? '<div class="ds-alert__actions">' +
+                alertActionHtml +
+                alertCloseHtml +
+                "</div>"
+              : "";
           return (
             '<div class="' +
             alertCls +
             '" role="' +
             alertRole +
             '">' +
-            '<span class="ds-alert__icon">' +
-            renderIcon(alertIconSlug) +
-            "</span>" +
+            alertIconHtml +
             '<div class="ds-alert__content">' +
             alertTitleHtml +
             '<p class="ds-alert__message">' +
             alertMsg +
             "</p>" +
             "</div>" +
+            alertActionsHtml +
             "</div>"
           );
         }
@@ -1835,25 +1918,28 @@
           );
         }
 
-        case "calendar-date-input": {
-          // Registry axes: Type = Single date | Date range; States = Enabled |
-          // Disabled | Error | … . Anatomy: container{ container[Label]{text},
+        case "calendar": {
+          // Registry axes: Type = Single date | Date range; States = Default |
+          // Hover | Focus | Active | Filled | Error | Disabled (the 2026-09-03
+          // sync renamed Enabled/Hovered/Focused/Activ/Fille to the first five;
+          // Error and Disabled are unchanged, and Disabled is the only one this
+          // branch reads). Anatomy: container{ container[Label]{text},
           // container[Input + icon button]{ inputfield, instance[Button] } } —
           // a labeled date input with a trailing calendar icon button. Mirrors
           // the .ds-field/.ds-input idiom; Date range adds a second input.
           var dateRange = v.Type === "Date range";
           var dateDisabled = v.States === "Disabled";
-          var dateCls = "ds-calendar-date-input";
-          if (dateRange) dateCls += " ds-calendar-date-input--range";
+          var dateCls = "ds-calendar";
+          if (dateRange) dateCls += " ds-calendar--range";
           if (dateDisabled) dateCls += " is-disabled";
           var datePlaceholder = esc(props["Placeholder text"] || "MM/DD/YYYY");
           function dateInput() {
             return (
-              '<div class="ds-calendar-date-input__field">' +
-              '<span class="ds-calendar-date-input__value">' +
+              '<div class="ds-calendar__field">' +
+              '<span class="ds-calendar__value">' +
               datePlaceholder +
               "</span>" +
-              '<span class="ds-calendar-date-input__calendar" aria-hidden="true">' +
+              '<span class="ds-calendar__calendar" aria-hidden="true">' +
               renderIcon("calendar") +
               "</span>" +
               "</div>"
@@ -1861,13 +1947,18 @@
           }
           var dateInputs = dateRange
             ? dateInput() +
-              '<span class="ds-calendar-date-input__sep">–</span>' +
+              '<span class="ds-calendar__sep">–</span>' +
               dateInput()
             : dateInput();
           // Optional slot: the capture holds no helper layer at all. The
           // gallery's helper string lives in matrix.js SPECIMEN_PROPS.
-          var dateHelper = props.Helper
-            ? '<span class="ds-calendar-date-input__helper">' +
+          // `Show message` arrived as a default-TRUE BOOLEAN in the 2026-09-03
+          // sync. Read as a literal bracket access so derive-contract's
+          // BRACKET_READ publishes it, and gating rather than defaulting: the
+          // caller still names the message, the switch only turns it off.
+          var dateHelper =
+            props.Helper && props["Show message"] !== false
+            ? '<span class="ds-calendar__helper">' +
               esc(props.Helper) +
               "</span>"
             : "";
@@ -1875,10 +1966,10 @@
             '<div class="' +
             dateCls +
             '">' +
-            '<div class="ds-calendar-date-input__label-row"><span class="ds-calendar-date-input__label">' +
+            '<div class="ds-calendar__label-row"><span class="ds-calendar__label">' +
             esc(props.Label || "Date") +
             "</span></div>" +
-            '<div class="ds-calendar-date-input__inputs">' +
+            '<div class="ds-calendar__inputs">' +
             dateInputs +
             "</div>" +
             dateHelper +
@@ -1886,17 +1977,17 @@
           );
         }
 
-        case "rich-text": {
+        case "rich-text-froala": {
           // Registry axis: State = Default | Expanded. Anatomy: container[State]{
           // container[Toolbar]{ container[Left toolbar], container[Right toolbar]
           // } } — an editor toolbar shell with grouped controls. Expanded shows
           // a content area below the toolbar.
           var rtExpanded = v.State === "Expanded";
           var rtCls =
-            "ds-rich-text" + (rtExpanded ? " ds-rich-text--expanded" : "");
+            "ds-rich-text-froala" + (rtExpanded ? " ds-rich-text-froala--expanded" : "");
           function rtBtn(iconSlug, label) {
             return (
-              '<button class="ds-rich-text__btn" type="button" aria-label="' +
+              '<button class="ds-rich-text-froala__btn" type="button" aria-label="' +
               esc(label) +
               '">' +
               renderIcon(iconSlug) +
@@ -1904,23 +1995,23 @@
             );
           }
           var rtLeft =
-            '<div class="ds-rich-text__group ds-rich-text__group--left">' +
+            '<div class="ds-rich-text-froala__group ds-rich-text-froala__group--left">' +
             rtBtn("text-type", "Text style") +
             rtBtn("list-bullets", "Bulleted list") +
             rtBtn("list-numbers", "Numbered list") +
             "</div>";
           var rtRight =
-            '<div class="ds-rich-text__group ds-rich-text__group--right">' +
+            '<div class="ds-rich-text-froala__group ds-rich-text-froala__group--right">' +
             rtBtn("link-type", "Insert link") +
             "</div>";
           var rtBody = rtExpanded
-            ? '<div class="ds-rich-text__content" aria-label="Editor"></div>'
+            ? '<div class="ds-rich-text-froala__content" aria-label="Editor"></div>'
             : "";
           return (
             '<div class="' +
             rtCls +
             '">' +
-            '<div class="ds-rich-text__toolbar">' +
+            '<div class="ds-rich-text-froala__toolbar">' +
             rtLeft +
             rtRight +
             "</div>" +
@@ -2753,8 +2844,22 @@
           // props override the labels.
           var sfPrimary = esc(props.Primary || "Save");
           var sfSecondary = esc(props.Secondary || "Cancel");
+          // The default capture pins a destructive action to the leading edge.
+          // The registry publishes no boolean for it, so it is CONTENT, not a
+          // documented toggle: the slot renders only when a caller supplies a
+          // label. .ds-action-bar's justify-content stays flex-end and the slot
+          // carries margin-right:auto, so a bar with no destructive action lays
+          // out exactly as before.
+          var sfLeading = props.Destructive
+            ? '<div class="ds-action-bar__leading">' +
+              '<button class="ds-button ds-button--critical-secondary">' +
+              esc(props.Destructive) +
+              "</button>" +
+              "</div>"
+            : "";
           return (
             '<div class="ds-action-bar">' +
+            sfLeading +
             '<div class="ds-action-bar__actions">' +
             '<button class="ds-button ds-button--secondary">' +
             sfSecondary +
@@ -2840,8 +2945,15 @@
         }
 
         case "calendar-data-selector": {
-          // Registry axes: Type = Single date select | Date | Month | Single;
-          // Selection = Single | Range | Year. A static month grid
+          // Registry axis: Type = Dates | Months | Years (the 2026-09-03 sync
+          // replaced Single date select | Date | Month | Single and RETIRED the
+          // Selection axis entirely). `v.Selection` is still read below: it is
+          // flow data as well as registry data, so a flow authored against the
+          // retired axis keeps its range rendering rather than silently losing
+          // it — the same reason alert-banner keeps its Primary/Danger aliases.
+          // Months and Years render as Dates today; both now carry captured
+          // evidence (layout + structural), so they are workable under #550
+          // rather than needing an invented appearance. A static month grid
           // (DETERMINISTIC — no Date()): header (month/year + prev/next nav) +
           // weekday row + day cells. Range renders a start→end band; else a
           // single selected day. Month label is overridable via props.Month.
@@ -3314,8 +3426,8 @@
     "toast",
     "stepper",
     "tooltip-default",
-    "calendar-date-input",
-    "rich-text",
+    "calendar",
+    "rich-text-froala",
     "dropdown-select-default",
     "progress-bar-small",
     "interactive-tag",

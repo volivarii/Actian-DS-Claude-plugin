@@ -88,20 +88,28 @@
         },
         "structuralVariants": {
           "type": "array",
-          "description": "Variant values whose subtree diverged structurally from the default (added/removed/reordered nodes), so no appearance delta was emitted there.",
+          "description": "Variant values whose subtree diverged structurally from the default (added/removed/reordered nodes, or a layout that appears or disappears), so no delta was emitted below that point. base/variant name what sits at the path on each side, so the entry states WHAT differs rather than only that something does.",
           "examples": [
             [
               {
                 "prop": "State",
                 "value": "Hover",
                 "path": "0",
-                "reason": "childCount:3!=4"
+                "reason": "childCount:3!=4",
+                "base": ["vector:Icon", "text:Label", "vector:Chevron"],
+                "variant": [
+                  "container:Overlay",
+                  "vector:Icon",
+                  "text:Label",
+                  "vector:Chevron"
+                ]
               }
             ]
           ],
           "items": {
             "type": "object",
             "required": ["prop", "value", "path", "reason"],
+            "additionalProperties": false,
             "properties": {
               "prop": {
                 "type": "string",
@@ -120,8 +128,24 @@
               },
               "reason": {
                 "type": "string",
-                "description": "Why alignment stopped here.",
-                "examples": ["kind:text!=container"]
+                "description": "Why alignment stopped here, or which layout presence differs.",
+                "examples": [
+                  "kind:text!=container",
+                  "childCount:5!=1",
+                  "layout:column!=none"
+                ]
+              },
+              "base": {
+                "type": "array",
+                "description": "What sits at this path in the DEFAULT variant, as \"<kind>:<name>\" \u2014 the children for a childCount divergence, the node itself for a kind divergence. Absent for a layout presence divergence, whose reason states it in full.",
+                "examples": [["container:Header", "container:Actions"]],
+                "items": { "type": "string" }
+              },
+              "variant": {
+                "type": "array",
+                "description": "What sits at this path in THIS variant, in the same form as base.",
+                "examples": [["text:Message"]],
+                "items": { "type": "string" }
               }
             }
           }
@@ -341,11 +365,12 @@
         },
         "rawHint": {
           "type": "object",
-          "description": "For non-normalizable nodes: minimal raw Figma positioning data for the consumer to interpret.",
-          "examples": [{ "layoutMode": "NONE", "x": 12, "y": -4 }]
+          "description": "For non-normalizable nodes: minimal raw Figma positioning data for the consumer to interpret \u2014 the absolute origin AND the box, since an absolutely-positioned node cannot be placed from its origin alone.",
+          "examples": [{ "layoutMode": "NONE", "x": 12, "y": -4, "w": 24, "h": 24 }]
         },
         "layout": {
           "type": "object",
+          "additionalProperties": false,
           "description": "Normalized auto-layout intent (present on flex containers), medium-neutral.",
           "examples": [
             {
@@ -468,6 +493,119 @@
               "properties": {
                 "h": { "enum": ["hug", "fill", "fixed"] },
                 "v": { "enum": ["hug", "fill", "fixed"] }
+              }
+            },
+            "size": {
+              "type": "object",
+              "description": "Authored fixed dimensions, in px. A side appears ONLY when its sizing is \"fixed\" \u2014 a hug or fill dimension is a consequence of content or container, and recording it would invite a consumer to pin a dimension that must grow.",
+              "examples": [{ "w": "450px" }, { "w": "320px", "h": "40px" }],
+              "properties": {
+                "w": {
+                  "type": "string",
+                  "description": "Authored fixed width.",
+                  "examples": ["450px"]
+                },
+                "h": {
+                  "type": "string",
+                  "description": "Authored fixed height.",
+                  "examples": ["40px"]
+                }
+              }
+            },
+            "variants": {
+              "type": "array",
+              "description": "Per-variant LAYOUT deltas relative to the base layout (variantDefaults) \u2014 the structural counterpart to appearance.variants. Each entry scopes to one axis and its values; a null field means the base value is removed for those values. Absent when every captured variant lays out identically to the default.",
+              "examples": [
+                [
+                  {
+                    "prop": "Size & Type",
+                    "values": ["450px confirm", "450px warning"],
+                    "size": { "w": "450px" }
+                  }
+                ]
+              ],
+              "items": {
+                "type": "object",
+                "required": ["prop", "values"],
+                "additionalProperties": false,
+                "properties": {
+                  "prop": {
+                    "type": "string",
+                    "description": "Variant axis name (verbatim from Figma).",
+                    "examples": ["Size & Type"]
+                  },
+                  "values": {
+                    "type": "array",
+                    "description": "Axis values sharing this delta.",
+                    "examples": [["450px confirm", "450px warning"]],
+                    "items": { "type": "string" }
+                  },
+                  "axis": {
+                    "enum": ["row", "column", null],
+                    "description": "Delta main axis (null = removed).",
+                    "examples": ["column", null]
+                  },
+                  "gap": {
+                    "type": ["string", "null"],
+                    "description": "Delta item spacing (null = removed).",
+                    "examples": ["16px", null]
+                  },
+                  "gapToken": {
+                    "type": ["string", "null"],
+                    "description": "Delta item-spacing token binding (null = the base binding is removed for these values).",
+                    "examples": ["--zen-spacing-200", null]
+                  },
+                  "padding": {
+                    "description": "Delta padding (null = removed).",
+                    "examples": [null],
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node/properties/layout/properties/padding"
+                      },
+                      { "type": "null" }
+                    ]
+                  },
+                  "paddingTokens": {
+                    "description": "Delta padding token bindings (null = removed).",
+                    "examples": [null],
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node/properties/layout/properties/paddingTokens"
+                      },
+                      { "type": "null" }
+                    ]
+                  },
+                  "align": {
+                    "description": "Delta alignment (null = removed).",
+                    "examples": [{ "main": "center", "cross": "center" }, null],
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node/properties/layout/properties/align"
+                      },
+                      { "type": "null" }
+                    ]
+                  },
+                  "sizing": {
+                    "description": "Delta sizing behaviour (null = removed).",
+                    "examples": [{ "h": "fixed", "v": "hug" }, null],
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node/properties/layout/properties/sizing"
+                      },
+                      { "type": "null" }
+                    ]
+                  },
+                  "size": {
+                    "description": "Delta authored dimensions (null = the base size is removed, i.e. this variant hugs where the default is fixed).",
+                    "examples": [{ "w": "450px" }, null],
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/node/properties/layout/properties/size"
+                      },
+                      { "type": "null" }
+                    ]
+                  }
+                }
               }
             }
           }

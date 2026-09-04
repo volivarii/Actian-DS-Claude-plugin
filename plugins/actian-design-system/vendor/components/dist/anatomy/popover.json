@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14294:7345",
@@ -18,7 +18,21 @@
         "prop": "Type",
         "value": "Advanced search",
         "path": "",
-        "reason": "childCount:4!=6"
+        "reason": "childCount:4!=6",
+        "base": [
+          "container:Header",
+          "container:Body 1",
+          "container:Body 2",
+          "container:Action"
+        ],
+        "variant": [
+          "container:Header",
+          "container:Body 1",
+          "container:Body 2",
+          "container:Body 3",
+          "container:Body 4",
+          "container:Link"
+        ]
       }
     ]
   },
@@ -46,6 +60,9 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "size": {
+        "w": "500px"
       },
       "gapToken": "--zen-spacing-md",
       "paddingTokens": {
@@ -266,6 +283,9 @@
                   "sizing": {
                     "h": "fixed",
                     "v": "hug"
+                  },
+                  "size": {
+                    "w": "170px"
                   }
                 },
                 "children": [
@@ -508,6 +528,9 @@
                   "sizing": {
                     "h": "fixed",
                     "v": "hug"
+                  },
+                  "size": {
+                    "w": "180px"
                   }
                 },
                 "children": [
@@ -566,6 +589,10 @@
                       "sizing": {
                         "h": "fixed",
                         "v": "fixed"
+                      },
+                      "size": {
+                        "w": "180px",
+                        "h": "40px"
                       }
                     },
                     "children": [
@@ -592,6 +619,10 @@
                           "sizing": {
                             "h": "fixed",
                             "v": "fixed"
+                          },
+                          "size": {
+                            "w": "24px",
+                            "h": "24px"
                           }
                         },
                         "children": [
@@ -635,6 +666,10 @@
                       "sizing": {
                         "h": "fixed",
                         "v": "fixed"
+                      },
+                      "size": {
+                        "w": "180px",
+                        "h": "40px"
                       }
                     },
                     "children": [
@@ -661,6 +696,10 @@
                           "sizing": {
                             "h": "fixed",
                             "v": "fixed"
+                          },
+                          "size": {
+                            "w": "24px",
+                            "h": "24px"
                           }
                         },
                         "children": [
@@ -723,6 +762,10 @@
                       "sizing": {
                         "h": "fixed",
                         "v": "fixed"
+                      },
+                      "size": {
+                        "w": "180px",
+                        "h": "40px"
                       }
                     },
                     "children": [
@@ -749,6 +792,10 @@
                           "sizing": {
                             "h": "fixed",
                             "v": "fixed"
+                          },
+                          "size": {
+                            "w": "24px",
+                            "h": "24px"
                           }
                         },
                         "children": [
@@ -859,6 +906,10 @@
                       "sizing": {
                         "h": "fixed",
                         "v": "fixed"
+                      },
+                      "size": {
+                        "w": "180px",
+                        "h": "40px"
                       }
                     },
                     "children": [
@@ -1004,6 +1055,10 @@
                       "sizing": {
                         "h": "fixed",
                         "v": "fixed"
+                      },
+                      "size": {
+                        "w": "180px",
+                        "h": "40px"
                       }
                     },
                     "children": [

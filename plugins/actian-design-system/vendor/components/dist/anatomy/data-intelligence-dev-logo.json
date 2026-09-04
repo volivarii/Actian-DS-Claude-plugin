@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "data-intelligence-dev-logo",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12770:6655",
@@ -99,13 +99,29 @@
         "prop": "Property 1",
         "value": "Dev Actian Data Intelligence Explorer",
         "path": "",
-        "reason": "childCount:1!=4"
+        "reason": "childCount:1!=4",
+        "base": [
+          "container:Group 6"
+        ],
+        "variant": [
+          "container:Group",
+          "container:Group",
+          "container:Group",
+          "container:Dev"
+        ]
       },
       {
         "prop": "Property 1",
         "value": "Dev Actian Data Intelligence Studio",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "container:Group 6"
+        ],
+        "variant": [
+          "container:Actian Data Intelligence Studio",
+          "container:Group"
+        ]
       }
     ]
   },
@@ -118,6 +134,8 @@
       "layoutMode": "NONE",
       "x": -1641,
       "y": 221,
+      "w": 359.657958984375,
+      "h": 63.40999984741211,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -133,6 +151,8 @@
           "layoutMode": "NONE",
           "x": -1641,
           "y": 221.4000244140625,
+          "w": 359.6141357421875,
+          "h": 57.22999954223633,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"
@@ -148,6 +168,8 @@
               "layoutMode": "NONE",
               "x": -1641,
               "y": 221.40240478515625,
+              "w": 66.92809295654297,
+              "h": 57.068572998046875,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -186,6 +208,8 @@
               "layoutMode": "NONE",
               "x": -1555.8819580078125,
               "y": 221.40003967285156,
+              "w": 274.49609375,
+              "h": 24.914735794067383,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -281,6 +305,8 @@
                   "layoutMode": "NONE",
                   "x": -1411.363525390625,
                   "y": 221.40003967285156,
+                  "w": 129.977783203125,
+                  "h": 24.914735794067383,
                   "constraints": {
                     "vertical": "SCALE",
                     "horizontal": "SCALE"
@@ -396,6 +422,8 @@
               "layoutMode": "NONE",
               "x": -1555.8819580078125,
               "y": 255.18890380859375,
+              "w": 266.349853515625,
+              "h": 23.441267013549805,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -523,6 +551,8 @@
                   "layoutMode": "NONE",
                   "x": -1337.9998779296875,
                   "y": 256,
+                  "w": 48.4677734375,
+                  "h": 22.341796875,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"

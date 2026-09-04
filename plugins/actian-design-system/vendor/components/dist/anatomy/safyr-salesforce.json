@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "safyr-salesforce",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8400:25158"
@@ -43,6 +43,8 @@
       "layoutMode": "NONE",
       "x": -620,
       "y": 2291,
+      "w": 24,
+      "h": 24,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -58,6 +60,8 @@
           "layoutMode": "NONE",
           "x": -618,
           "y": 2296.003662109375,
+          "w": 20,
+          "h": 13.992673873901367,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "CENTER"
@@ -73,6 +77,8 @@
               "layoutMode": "NONE",
               "x": -617.99560546875,
               "y": 2296.040283203125,
+              "w": 19.926740646362305,
+              "h": 13.919413566589355,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -88,6 +94,8 @@
                   "layoutMode": "NONE",
                   "x": -617.99560546875,
                   "y": 2296.040283203125,
+                  "w": 19.926740646362305,
+                  "h": 13.919413566589355,
                   "constraints": {
                     "vertical": "SCALE",
                     "horizontal": "SCALE"
@@ -103,6 +111,8 @@
                       "layoutMode": "NONE",
                       "x": -617.99560546875,
                       "y": 2296.040283203125,
+                      "w": 19.926740646362305,
+                      "h": 13.919413566589355,
                       "constraints": {
                         "vertical": "SCALE",
                         "horizontal": "SCALE"

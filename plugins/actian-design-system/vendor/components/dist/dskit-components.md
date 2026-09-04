@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-332 components.
+333 components.
 
 ---
 
@@ -130,7 +130,7 @@ Right
 
 ### arrow-alt
 
-Go to Operations
+Go to Operations (or to a related page or resource)
 
 - Single component (no variants)
 - Node: `8504:23323` | Key: `3a4fe9f03c3754d97f2fc5e8a472052a9fd4c9d7`
@@ -310,25 +310,18 @@ Critical: "Use specifically for actions that result in data loss or permanent ch
 - Boolean properties: `Show leading icon#809:73` (default: true) — set to `false` to hide · `Show trailing icon#13807:82` (default: true) — set to `false` to hide · `Show label#15988:3` (default: true) — set to `false` to hide
 - Node: `7206:2643` | Key: `5a6d10d26bef3cc83955bf32a318c6b4682f25d3`
 
-### calendar
-
-Calendar
-
-- Single component (no variants)
-- Node: `7378:5041` | Key: `805cb80b498052ea49f63c3123e9491808d6d8ef`
-
-### Calendar data selector
-
-- Variants: **Type:** `Single date select` · `Date` · `Month` · `Single` | **Selection:** `Single` · `Range` · `Year`
-- Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
-
-### Calendar date input
+### Calendar
 
 Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
 
-- Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
-- Boolean properties: `Helper#458:9` (default: true) — set to `false` to hide · `Label#458:13` (default: true) — set to `false` to hide · `* (Asterisk)#7242:142` (default: true) — set to `false` to hide · `Sub label#9716:0` (default: true) — set to `false` to hide
+- Variants: **Type:** `Single date` · `Date range` | **States:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Error` · `Disabled`
+- Boolean properties: `Show message#22330:8` (default: true) — set to `false` to hide
 - Node: `8194:7305` | Key: `9eafdb6242837b591ba5f39959150b53e40ef02d`
+
+### Calendar data selector
+
+- Variants: **Type:** `Dates` · `Months` · `Years`
+- Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
 
 ### Card
 
@@ -664,11 +657,6 @@ A container that slides from right side of the screen. Use for secondary tasks t
 - Boolean properties: `Show Back#14294:18` (default: true) — set to `false` to hide
 - Node: `14294:5758` | Key: `3fe66a28fd56e3dbfd87a6f6be08df327bda27bf`
 
-### Dropdown
-
-- Single component (no variants)
-- Node: `21982:71973` | Key: `a38a874d532ced8607f8632d0aa9cdf2dec39484`
-
 ### Dropdown, Select, default
 
 Use when there are more than 7 options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
@@ -929,20 +917,20 @@ Details
 - Single component (no variants)
 - Node: `7378:5034` | Key: `4a8ee163ef4f785c846a3a71344af13b834e02f0`
 
-### Icon
-
-- Single component (no variants)
-- Node: `22258:8789` | Key: `c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9`
-
 ### idea
 
 - Single component (no variants)
 - Node: `20633:46` | Key: `34c17abed901ebcf66101b581c552290996fcbf3`
 
+### Identification key
+
+- Single component (no variants)
+- Node: `14349:15322` | Key: `fff06ba00e1d5317d3112c722a8434f765194909`
+
 ### Illustration
 
 - Variants: **Type:** `Empty state large` · `Empty state medium` · `Empty state small` · `Error state` · `Maintenance` · `Success` · `Error state medium`
-- Node: `8837:9945` | Key: `00302ca7dc4298c719f19ca4766029909ecbeb9d`
+- Node: `22325:8253` | Key: `b952fe74e9ca263e4a378f24982ab02fa22e114a`
 
 ### impala
 
@@ -1175,6 +1163,11 @@ Toggle overview
 - Single component (no variants)
 - Node: `8400:25103` | Key: `573cc53c470e350189a4d086626ac5793c6930cf`
 
+### Menu (Dropdown)
+
+- Single component (no variants)
+- Node: `21982:71973` | Key: `a38a874d532ced8607f8632d0aa9cdf2dec39484`
+
 ### Message
 
 - Variants: **Type:** `Helper text` · `Error` · `Warning` · `Success` · `Info`
@@ -1231,6 +1224,11 @@ Move to catalog
 
 - Single component (no variants)
 - Node: `8400:25111` | Key: `5a04491296f24a38a3364f6650782d09e2658fca`
+
+### new-conversation
+
+- Single component (no variants)
+- Node: `22258:8789` | Key: `c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9`
 
 ### Notification dropdown
 
@@ -1455,7 +1453,7 @@ Fail / error / expired
 - Single component (no variants)
 - Node: `20633:52` | Key: `f311e34a262cf841272a8ded336967e6a67bd466`
 
-### Rich text
+### Rich text (Froala)
 
 A multi-line input field that allows for text formatting (bold, links, lists). Use for long-form content like descriptions or comments.
 
@@ -1771,7 +1769,7 @@ Select
 
 ### task-list-settings
 
-Edit template
+Edit template, Properties
 
 - Single component (no variants)
 - Node: `8504:23325` | Key: `6d75371c1dd77bd21889e1519f9281dd134dca23`
@@ -1933,6 +1931,13 @@ Suggest PII field
 
 - Single component (no variants)
 - Node: `8820:13334` | Key: `3b2848d77b98a22dfa31033342ae67f84dee3c0b`
+
+### user-info-add
+
+Assign
+
+- Single component (no variants)
+- Node: `22284:6096` | Key: `691135f1a6dfc54fce73354587475424718fd79d`
 
 ### user-single
 

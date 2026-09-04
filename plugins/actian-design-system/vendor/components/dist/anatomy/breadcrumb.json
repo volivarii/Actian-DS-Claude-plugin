@@ -2,15 +2,15 @@
   "_schema_version": 1,
   "slug": "breadcrumb",
   "kit": "dskit",
-  "synced_at": "2026-09-01T12:19:06.354Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13792:15246"
   },
   "quality": {
     "nodesTotal": 16,
-    "nodesNormalized": 1,
-    "ratio": 0.06,
+    "nodesNormalized": 2,
+    "ratio": 0.13,
     "degraded": []
   },
   "root": {
@@ -60,15 +60,23 @@
         "id": "13792:15244"
       },
       {
-        "name": ".breadcrumb-node",
+        "name": "Button",
         "kind": "instance",
-        "unresolved": true,
+        "slug": "button",
         "props": {
-          "Show digram": false,
-          "Type": "Link",
+          "Show trailing icon": false,
+          "Show label": true,
+          "Show leading icon": false,
+          "Label": "...",
+          "Intent": "Default",
+          "Emphasis": "Outlined",
+          "Size": "Default",
           "State": "Default"
         },
-        "id": "19230:22906"
+        "id": "19230:22906",
+        "appearance": {
+          "radius": "9999px"
+        }
       },
       {
         "name": ".Breadcrumb-node",

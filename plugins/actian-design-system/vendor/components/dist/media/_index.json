@@ -120,6 +120,9 @@
       "parts": [
         "components/dist/media/breadcrumb/parts-0.webp"
       ],
+      "variations": [
+        "components/dist/media/breadcrumb/variations-0.webp"
+      ],
       "behavior": [
         "components/dist/media/breadcrumb/behavior-0.webp",
         "components/dist/media/breadcrumb/behavior-1.webp"
@@ -450,6 +453,16 @@
     "hive": {
       "default": "components/dist/media/hive/default.webp"
     },
+    "identification-key": {
+      "preview": "components/dist/media/identification-key/preview.webp",
+      "parts": [
+        "components/dist/media/identification-key/parts-0.webp"
+      ],
+      "spacing": [
+        "components/dist/media/identification-key/spacing-0.webp"
+      ],
+      "default": "components/dist/media/identification-key/default.webp"
+    },
     "illustration": {
       "default": "components/dist/media/illustration/default.webp"
     },
@@ -573,7 +586,8 @@
       ],
       "behavior": [
         "components/dist/media/link/behavior-0.webp",
-        "components/dist/media/link/behavior-1.webp"
+        "components/dist/media/link/behavior-1.webp",
+        "components/dist/media/link/behavior-2.webp"
       ],
       "default": "components/dist/media/link/default.webp"
     },
@@ -622,6 +636,17 @@
     },
     "matillion": {
       "default": "components/dist/media/matillion/default.webp"
+    },
+    "menu-dropdown": {
+      "preview": "components/dist/media/menu-dropdown/preview.webp",
+      "parts": [
+        "components/dist/media/menu-dropdown/parts-0.webp",
+        "components/dist/media/menu-dropdown/parts-1.webp"
+      ],
+      "variations": [
+        "components/dist/media/menu-dropdown/variations-0.webp"
+      ],
+      "default": "components/dist/media/menu-dropdown/default.webp"
     },
     "message": {
       "preview": "components/dist/media/message/preview.webp",
@@ -798,6 +823,10 @@
     "rich-text": {
       "preview": "components/dist/media/rich-text/preview.webp",
       "default": "components/dist/media/rich-text/default.webp"
+    },
+    "rich-text-froala": {
+      "preview": "components/dist/media/rich-text-froala/preview.webp",
+      "default": "components/dist/media/rich-text-froala/default.webp"
     },
     "s-grid": {
       "default": "components/dist/media/s-grid/default.webp"
