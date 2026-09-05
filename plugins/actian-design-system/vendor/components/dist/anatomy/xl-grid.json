@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "xl-grid",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12054:30623",
@@ -18,13 +18,27 @@
         "prop": "Property",
         "value": "Side nav collapsed",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "container:Coumns"
+        ],
+        "variant": [
+          "instance:XL grid",
+          "vector:Side nav collapsed"
+        ]
       },
       {
         "prop": "Property",
         "value": "Side nav expanded",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "container:Coumns"
+        ],
+        "variant": [
+          "instance:XL grid",
+          "vector:Side nav expanded"
+        ]
       }
     ]
   },
@@ -51,7 +65,62 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
-      }
+      },
+      "size": {
+        "h": "276px"
+      },
+      "variants": [
+        {
+          "prop": "Property",
+          "values": [
+            "Side nav collapsed"
+          ],
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "64px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "1920px",
+            "h": "276px"
+          }
+        },
+        {
+          "prop": "Property",
+          "values": [
+            "Side nav expanded"
+          ],
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "240px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "1920px",
+            "h": "276px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -74,6 +143,9 @@
           "sizing": {
             "h": "hug",
             "v": "fixed"
+          },
+          "size": {
+            "h": "276px"
           }
         },
         "children": [

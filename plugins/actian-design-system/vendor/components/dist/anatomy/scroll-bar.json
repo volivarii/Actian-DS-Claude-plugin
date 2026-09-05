@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "scroll-bar",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:17639",
@@ -28,6 +28,8 @@
       "layoutMode": "NONE",
       "x": 2930,
       "y": 1689,
+      "w": 12,
+      "h": 160,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "link",
   "kit": "dskit",
-  "synced_at": "2026-09-01T12:19:06.354Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8346:6897",
@@ -18,25 +18,69 @@
         "prop": "State",
         "value": "Expanded",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ]
       },
       {
         "prop": "State",
         "value": "Focus",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ]
       },
       {
         "prop": "State",
         "value": "Hover",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ]
       },
       {
         "prop": "State",
         "value": "Pressed",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:back",
+          "text:Link",
+          "instance:arrow-alt"
+        ]
       }
     ]
   },
@@ -45,7 +89,7 @@
     "kind": "container",
     "id": "8346:6896",
     "appearance": {
-      "radius": "6px"
+      "radius": "4px"
     },
     "layout": {
       "axis": "row",
@@ -63,6 +107,9 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "size": {
+        "h": "24px"
       },
       "paddingTokens": {
         "top": "--zen-spacing-2xs",

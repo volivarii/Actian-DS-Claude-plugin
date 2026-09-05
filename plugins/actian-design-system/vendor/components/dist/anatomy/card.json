@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "card",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "21781:16248",
@@ -61,7 +61,27 @@
         "right": "--zen-spacing-xs",
         "bottom": "--zen-spacing-xs",
         "left": "--zen-spacing-xs"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Size",
+          "values": [
+            "Large"
+          ],
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-md",
+            "right": "--zen-spacing-md",
+            "bottom": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          }
+        }
+      ]
     },
     "children": [
       {

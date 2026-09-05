@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "progress-bar-small",
   "kit": "dskit",
-  "synced_at": "2026-07-06T13:21:40.803Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14136:1615",
@@ -31,13 +31,23 @@
         "prop": "Completeness",
         "value": "0%",
         "path": "0",
-        "reason": "childCount:1!=0"
+        "reason": "childCount:1!=0",
+        "base": [
+          "vector:Complete"
+        ],
+        "variant": []
       },
       {
         "prop": "Size",
         "value": "Large",
         "path": "1",
-        "reason": "kind:text!=container"
+        "reason": "kind:text!=container",
+        "base": [
+          "text:50%"
+        ],
+        "variant": [
+          "container:Values"
+        ]
       }
     ]
   },
@@ -61,7 +71,27 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "size": {
+        "w": "74px"
+      },
+      "variants": [
+        {
+          "prop": "Size",
+          "values": [
+            "Large"
+          ],
+          "axis": "column",
+          "gapToken": "--zen-spacing-2xs",
+          "align": {
+            "main": "center",
+            "cross": "start"
+          },
+          "size": {
+            "w": "233px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -81,6 +111,8 @@
           "layoutMode": "NONE",
           "x": 5091,
           "y": -1079,
+          "w": 40,
+          "h": 6,
           "constraints": {
             "vertical": "TOP",
             "horizontal": "LEFT"

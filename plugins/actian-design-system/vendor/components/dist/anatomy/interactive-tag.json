@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "interactive-tag",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13845:33759",
@@ -18,31 +18,82 @@
         "prop": "State",
         "value": "Focus",
         "path": "",
-        "reason": "childCount:3!=5"
+        "reason": "childCount:3!=5",
+        "base": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon",
+          "vector:Focus",
+          "vector:State"
+        ]
       },
       {
         "prop": "State",
         "value": "Hover",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon",
+          "vector:State"
+        ]
       },
       {
         "prop": "State",
         "value": "Pressed",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon",
+          "vector:State"
+        ]
       },
       {
         "prop": "Type",
         "value": "Selectable",
         "path": "",
-        "reason": "childCount:3!=1"
+        "reason": "childCount:3!=1",
+        "base": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "text:Tag-Name"
+        ]
       },
       {
         "prop": "Type",
         "value": "Selectable-selected",
         "path": "",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "instance:Leading icon",
+          "text:Tag-Name",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Leading icon",
+          "text:Tag-Name"
+        ]
       }
     ]
   },
@@ -113,6 +164,9 @@
       "sizing": {
         "h": "hug",
         "v": "fixed"
+      },
+      "size": {
+        "h": "24px"
       },
       "gapToken": "--zen-spacing-2xs",
       "paddingTokens": {

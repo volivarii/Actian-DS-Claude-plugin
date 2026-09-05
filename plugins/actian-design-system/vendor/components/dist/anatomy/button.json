@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "button",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7206:2643",
@@ -18,37 +18,98 @@
         "prop": "Emphasis",
         "value": "Icon-only",
         "path": "",
-        "reason": "childCount:3!=1"
+        "reason": "childCount:3!=1",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Icon"
+        ]
       },
       {
         "prop": "State",
         "value": "Expanded",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ]
       },
       {
         "prop": "State",
         "value": "Focus",
         "path": "",
-        "reason": "childCount:3!=5"
+        "reason": "childCount:3!=5",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "vector:Focus",
+          "vector:State",
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ]
       },
       {
         "prop": "State",
         "value": "Hover",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ]
       },
       {
         "prop": "State",
         "value": "Loading",
         "path": "",
-        "reason": "childCount:3!=1"
+        "reason": "childCount:3!=1",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "instance:Spinner"
+        ]
       },
       {
         "prop": "State",
         "value": "Pressed",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "vector:State",
+          "instance:Leading icon",
+          "text:Button",
+          "instance:Trailing icon"
+        ]
       }
     ]
   },
@@ -127,11 +188,74 @@
         "h": "hug",
         "v": "fixed"
       },
+      "size": {
+        "h": "32px"
+      },
       "gapToken": "--zen-spacing-xs",
       "paddingTokens": {
         "right": "--zen-spacing-sm",
         "left": "--zen-spacing-sm"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Emphasis",
+          "values": [
+            "Icon-only"
+          ],
+          "gap": "0px",
+          "gapToken": null,
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "paddingTokens": null,
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "32px",
+            "h": "32px"
+          }
+        },
+        {
+          "prop": "Size",
+          "values": [
+            "Small"
+          ],
+          "gap": "4px",
+          "gapToken": "--zen-spacing-2xs",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-xs",
+            "left": "--zen-spacing-xs"
+          },
+          "size": {
+            "h": "24px"
+          }
+        },
+        {
+          "prop": "State",
+          "values": [
+            "Loading"
+          ],
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "132px",
+            "h": "32px"
+          }
+        }
+      ]
     },
     "children": [
       {

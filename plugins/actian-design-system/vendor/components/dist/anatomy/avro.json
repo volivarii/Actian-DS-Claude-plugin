@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "avro",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8400:25205"
@@ -31,6 +31,8 @@
       "layoutMode": "NONE",
       "x": -948,
       "y": 1228.4285888671875,
+      "w": 24,
+      "h": 21.14285659790039,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -46,6 +48,8 @@
           "layoutMode": "NONE",
           "x": -946,
           "y": 1230.4285888671875,
+          "w": 20,
+          "h": 17.14285659790039,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "CENTER"

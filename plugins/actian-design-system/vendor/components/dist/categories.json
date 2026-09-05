@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-09-01T12:19:34.366Z",
+  "generatedAt": "2026-09-04T12:01:11.781Z",
   "categories": {
     "Action": {
       "components": [
@@ -34,6 +34,7 @@
         "digram-item-types",
         "digram-topic",
         "glossary-item-hierarchy",
+        "identification-key",
         "interactive-tag",
         "item-type-tag",
         "line-graph",
@@ -50,7 +51,7 @@
         "table",
         "toolbar"
       ],
-      "count": 26
+      "count": 27
     },
     "Feedback": {
       "components": [
@@ -69,12 +70,11 @@
     },
     "Form": {
       "components": [
+        "calendar",
         "calendar-data-selector",
-        "calendar-date-input",
         "checkbox",
         "checkbox-card",
         "checkbox-group",
-        "dropdown",
         "dropdown-select-default",
         "field",
         "label",
@@ -82,7 +82,7 @@
         "radio",
         "radio-card",
         "radio-group",
-        "rich-text",
+        "rich-text-froala",
         "search",
         "search-dropdown-menu",
         "text-area",
@@ -90,7 +90,7 @@
         "textfield-buttons",
         "toggle"
       ],
-      "count": 20
+      "count": 19
     },
     "Icons": {
       "components": [
@@ -116,7 +116,6 @@
         "book-text",
         "boolean-type",
         "business-contract-give",
-        "calendar",
         "cash-briefcase",
         "catalog",
         "catalog-design",
@@ -168,7 +167,6 @@
         "hierarchy",
         "history",
         "home",
-        "icon",
         "idea",
         "info",
         "info-filled",
@@ -184,6 +182,7 @@
         "map",
         "more",
         "move",
+        "new-conversation",
         "notifications-setting",
         "null-type",
         "open",
@@ -238,6 +237,7 @@
         "user-add",
         "user-group",
         "user-info",
+        "user-info-add",
         "user-single",
         "view",
         "view-detail",
@@ -275,11 +275,12 @@
     "Overlays": {
       "components": [
         "drawer",
+        "menu-dropdown",
         "modal",
         "popover",
         "tooltip-default"
       ],
-      "count": 4
+      "count": 5
     },
     "Product logos": {
       "components": [

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "pagination",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15295:14916"
@@ -33,6 +33,9 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "size": {
+        "w": "711px"
       }
     },
     "children": [
@@ -85,6 +88,9 @@
               "sizing": {
                 "h": "hug",
                 "v": "fixed"
+              },
+              "size": {
+                "h": "40px"
               }
             },
             "children": [
@@ -174,6 +180,10 @@
               "sizing": {
                 "h": "fixed",
                 "v": "fixed"
+              },
+              "size": {
+                "w": "40px",
+                "h": "40px"
               }
             },
             "children": [
@@ -229,6 +239,10 @@
               "sizing": {
                 "h": "fixed",
                 "v": "fixed"
+              },
+              "size": {
+                "w": "40px",
+                "h": "40px"
               }
             },
             "children": [

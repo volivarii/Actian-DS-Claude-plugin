@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "dropdown-select-default",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13972:708",
@@ -18,25 +18,59 @@
         "prop": "State",
         "value": "Active",
         "path": "",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "container:Label + description",
+          "container:input field",
+          "text:helper text"
+        ],
+        "variant": [
+          "container:Label + description",
+          "container:input field"
+        ]
       },
       {
         "prop": "State",
         "value": "Filled",
         "path": "1.1",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "text:Label text",
+          "instance:Trailing icon"
+        ],
+        "variant": [
+          "text:Label text",
+          "instance:Trailing icon",
+          "instance:Trailing icon"
+        ]
       },
       {
         "prop": "Type",
         "value": "Compact/Custom",
         "path": "",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "container:Label + description",
+          "container:input field",
+          "text:helper text"
+        ],
+        "variant": [
+          "text:Label",
+          "container:input field"
+        ]
       },
       {
         "prop": "Type",
         "value": "Search/Multiple",
         "path": "1",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "instance:close",
+          "container:.menu item"
+        ],
+        "variant": [
+          "container:.menu item"
+        ]
       }
     ],
     "uncapturedValues": [
@@ -68,7 +102,28 @@
         "h": "fixed",
         "v": "hug"
       },
-      "gapToken": "--zen-spacing-xs"
+      "size": {
+        "w": "320px"
+      },
+      "gapToken": "--zen-spacing-xs",
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Compact/Custom"
+          ],
+          "axis": "row",
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          },
+          "size": null
+        }
+      ]
     },
     "children": [
       {
@@ -299,6 +354,9 @@
             "h": "fill",
             "v": "fixed"
           },
+          "size": {
+            "h": "40px"
+          },
           "paddingTokens": {
             "top": "--zen-spacing-2xs",
             "bottom": "--zen-spacing-2xs"
@@ -343,6 +401,9 @@
               "sizing": {
                 "h": "fill",
                 "v": "fixed"
+              },
+              "size": {
+                "h": "32px"
               },
               "gapToken": "--zen-spacing-2xs",
               "paddingTokens": {

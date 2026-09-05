@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "checkbox-group",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "20428:27850",
@@ -34,6 +34,9 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "size": {
+        "w": "357px"
       },
       "gapToken": "--zen-spacing-2xs"
     },
@@ -74,7 +77,18 @@
             "h": "fill",
             "v": "hug"
           },
-          "gapToken": "--zen-spacing-2xs"
+          "gapToken": "--zen-spacing-2xs",
+          "variants": [
+            {
+              "prop": "Orientation",
+              "values": [
+                "Orientation"
+              ],
+              "axis": "row",
+              "gap": "24px",
+              "gapToken": "--zen-spacing-lg"
+            }
+          ]
         },
         "children": [
           {

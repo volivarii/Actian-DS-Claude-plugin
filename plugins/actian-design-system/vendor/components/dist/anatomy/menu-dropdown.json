@@ -1,8 +1,8 @@
 {
   "_schema_version": 1,
-  "slug": "dropdown",
+  "slug": "menu-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "21982:71973"
@@ -14,7 +14,7 @@
     "degraded": []
   },
   "root": {
-    "name": "Dropdown",
+    "name": "Menu (Dropdown)",
     "kind": "container",
     "id": "21982:71973",
     "appearance": {
@@ -25,9 +25,9 @@
       "axis": "column",
       "gap": "0px",
       "padding": {
-        "top": "4px",
+        "top": "8px",
         "right": "0px",
-        "bottom": "4px",
+        "bottom": "8px",
         "left": "0px"
       },
       "align": {
@@ -39,8 +39,8 @@
         "v": "hug"
       },
       "paddingTokens": {
-        "top": "--zen-spacing-2xs",
-        "bottom": "--zen-spacing-2xs"
+        "top": "--zen-spacing-xs",
+        "bottom": "--zen-spacing-xs"
       }
     },
     "children": [
@@ -68,56 +68,60 @@
         },
         "children": [
           {
-            "name": ".dropdown-menu-item",
+            "name": ".menu item",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Show trailing icon": false,
+              "Show support text": false,
               "Show leading icon": false,
-              "Label text": "All items",
-              "Type": "Selectable item",
+              "Type": "Default",
               "State": "Selected"
             },
+            "tokenRefs": [
+              "--zen-border-selected"
+            ],
             "id": "21982:72019",
             "appearance": {
-              "background": "#ecfdff"
+              "background": "#ecfdff",
+              "border": {
+                "color": "#0f5fdc",
+                "colorToken": "--zen-border-selected",
+                "width": "1px"
+              }
             }
           },
           {
-            "name": ".dropdown-menu-item",
+            "name": ".menu item",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Show trailing icon": false,
+              "Show support text": false,
               "Show leading icon": false,
-              "Label text": "Datasets",
-              "Type": "Selectable item",
+              "Type": "Default",
               "State": "Default"
             },
             "id": "21982:72024"
           },
           {
-            "name": ".dropdown-menu-item",
+            "name": ".menu item",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Show trailing icon": false,
+              "Show support text": false,
               "Show leading icon": false,
-              "Label text": "Fields",
-              "Type": "Selectable item",
+              "Type": "Default",
               "State": "Default"
             },
             "id": "21982:72028"
           },
           {
-            "name": ".dropdown-menu-item",
+            "name": ".menu item",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Show trailing icon": false,
+              "Show support text": false,
               "Show leading icon": false,
-              "Label text": "Visualization",
-              "Type": "Selectable item",
+              "Type": "Default",
               "State": "Default"
             },
             "id": "21982:72032"

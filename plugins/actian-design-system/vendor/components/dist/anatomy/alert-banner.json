@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "alert-banner",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13732:3056",
@@ -69,11 +69,34 @@
         "h": "fixed",
         "v": "hug"
       },
+      "size": {
+        "w": "562px"
+      },
       "gapToken": "--zen-spacing-2xs",
       "paddingTokens": {
         "top": "--zen-spacing-xs",
         "bottom": "--zen-spacing-xs"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Orientation'",
+          "values": [
+            "Vertical"
+          ],
+          "axis": "column",
+          "padding": {
+            "top": "10px",
+            "right": "32px",
+            "bottom": "10px",
+            "left": "32px"
+          },
+          "paddingTokens": null,
+          "align": {
+            "main": "center",
+            "cross": "start"
+          }
+        }
+      ]
     },
     "children": [
       {

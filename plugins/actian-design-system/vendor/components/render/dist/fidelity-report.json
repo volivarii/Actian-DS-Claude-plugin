@@ -8,16 +8,16 @@
     "verified": 79,
     "verifiedViaTokenName": 6,
     "mismatch": 0,
-    "unverifiable": 332,
+    "unverifiable": 333,
     "overridden": 0,
-    "oracleCoverage": 0.2038,
+    "oracleCoverage": 0.2033,
     "verifiedFidelity": 0.9294,
-    "examined": 417
+    "examined": 418
   },
   "reasons": {
     "root-is-variant-instance": 21,
     "no-matching-variant": 16,
-    "element-no-node-mapping": 231,
+    "element-no-node-mapping": 232,
     "no-fact-of-kind": 21,
     "root-is-non-default-state": 4,
     "state-unreachable": 37,
@@ -42,7 +42,7 @@
       "verified": 0,
       "verifiedViaTokenName": 2,
       "mismatch": 0,
-      "unverifiable": 11,
+      "unverifiable": 12,
       "overridden": 0,
       "blind": false
     },
@@ -101,6 +101,17 @@
       "overridden": 0,
       "blind": false
     },
+    "calendar": {
+      "prefixes": [
+        "ds-calendar"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": true
+    },
     "calendar-data-selector": {
       "prefixes": [
         "ds-calendar-data-selector"
@@ -111,17 +122,6 @@
       "unverifiable": 9,
       "overridden": 0,
       "blind": false
-    },
-    "calendar-date-input": {
-      "prefixes": [
-        "ds-calendar-date-input"
-      ],
-      "verified": 0,
-      "verifiedViaTokenName": 0,
-      "mismatch": 0,
-      "unverifiable": 7,
-      "overridden": 0,
-      "blind": true
     },
     "card-for-grouped-content": {
       "prefixes": [
@@ -453,9 +453,9 @@
       "overridden": 0,
       "blind": false
     },
-    "rich-text": {
+    "rich-text-froala": {
       "prefixes": [
-        "ds-rich-text"
+        "ds-rich-text-froala"
       ],
       "verified": 2,
       "verifiedViaTokenName": 0,
@@ -644,7 +644,7 @@
   "blind": [
     "avatar",
     "breadcrumb",
-    "calendar-date-input",
+    "calendar",
     "checkbox",
     "collapse",
     "confirmation",

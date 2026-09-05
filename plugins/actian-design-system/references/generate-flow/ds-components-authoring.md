@@ -17,8 +17,8 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 | `badge` | Badge | **BUILT** | Type |
 | `breadcrumb` | Breadcrumb | **BUILT** | — |
 | `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
-| `calendar-data-selector` | Calendar data selector | **BUILT** | Type / Selection |
-| `calendar-date-input` | Calendar date input | **BUILT** | Type / States |
+| `calendar` | Calendar | **BUILT** | Type / States |
+| `calendar-data-selector` | Calendar data selector | **BUILT** | Type |
 | `card` | Card | appearance | Elevation / Size |
 | `card-for-grouped-content` | Card for grouped content | **BUILT** | Property 1 |
 | `card-for-perimeter` | Card for perimeter | **BUILT** | Property 1 |
@@ -32,7 +32,6 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 | `digram-item-types` | Digram, Item types | **BUILT** | Item type / Size |
 | `digram-topic` | Digram, Topic | **BUILT** | Type |
 | `drawer` | Drawer | **BUILT** | App |
-| `dropdown` | Dropdown | chip | — |
 | `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
 | `empty-state` | Empty state | **BUILT** | Empty / Size |
 | `error-state` | Error state | **BUILT** | Size |
@@ -40,6 +39,7 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `global-header-account-dropdown` | Global header account dropdown | **BUILT** | — |
 | `glossary-item-hierarchy` | Glossary item hierarchy | chip | — |
+| `identification-key` | Identification key | appearance | — |
 | `interactive-tag` | Interactive tag | **BUILT** | State / Type |
 | `item-type-tag` | Item type tag | **BUILT** | Type |
 | `label` | Label | appearance | State |
@@ -52,6 +52,7 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 | `loader-with-logo` | Loader with logo | **BUILT** | App |
 | `loading-skeleton` | Loading skeleton | **BUILT** | Transition |
 | `maintenance-state` | Maintenance state | **BUILT** | Size |
+| `menu-dropdown` | Menu (Dropdown) | chip | — |
 | `message` | Message | appearance | Type |
 | `metamodel` | Metamodel | **BUILT** | Type |
 | `modal` | Modal | **BUILT** | Size & Type / Dev status |
@@ -64,7 +65,7 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 | `radio-card` | Radio card | appearance | Selection / State |
 | `radio-group` | Radio group | appearance | Orientation |
 | `read-only-tag` | Read only tag | **BUILT** | Type |
-| `rich-text` | Rich text | **BUILT** | State |
+| `rich-text-froala` | Rich text (Froala) | **BUILT** | State |
 | `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
 | `search` | Search | **BUILT** | Type / State |
 | `search-dropdown-menu` | Search dropdown menu | **BUILT** | Type |
@@ -90,7 +91,7 @@ The table below covers the 73 authorable slugs (registry `section:"Components"`)
 All 56 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 166 prop bindings in total.
+parenthesised value renders nothing until you supply it. 174 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -98,15 +99,15 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 
 | Slug | Props (fallback) | Variant axes | Renders the same as |
 |---|---|---|---|
-| `action-bar` | `Primary` ("Save"), `Secondary` ("Cancel") | none | none |
-| `alert-banner` | `Message` ("Info"), `Title` | `Type` = Info / Success / Warning / Error<br>`Orientation'` = Horizontal / Vertical | Vertical = Horizontal |
+| `action-bar` | `Destructive`, `Primary` ("Save"), `Secondary` ("Cancel") | none | none |
+| `alert-banner` | `Action`, `Message` ("Info"), `Show Icon`, `Show action`, `Show close button`, `Title` | `Type` = Info / Success / Warning / Error<br>`Orientation'` = Horizontal / Vertical | Vertical = Horizontal |
 | `app-switcher-dropdown` | `Items` | none | none |
 | `avatar` | `Count` ("3"), `Initials` ("AV") | `State` = Default / Hover / Focus / Pressed / Disabled / Expanded<br>`Type` = One group / Two groups / Default | Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default |
 | `badge` | `Label` | `Type` = Number / Dot | none |
-| `breadcrumb` | `Items` | none | none |
+| `breadcrumb` | `BadgeType`, `Badges`, `Items` | none | none |
 | `button` | `Label`, `Leading icon show`, `Trailing icon show` | `Intent` = Default / Critical<br>`Emphasis` = Filled / Outlined / Ghost / Icon-only<br>`Size` = Default / Small<br>`State` = Default / Hover / Focus / Pressed / Expanded / Disabled / Loading | Icon-only = Filled<br>Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default<br>Loading = Default |
-| `calendar-data-selector` | `Month` ("June 2026") | `Type` = Single date select / Date / Month / Single<br>`Selection` = Single / Range / Year | Date = Single date select<br>Month = Single date select<br>Single = Single date select<br>Year = Single |
-| `calendar-date-input` | `Helper`, `Label` ("Date"), `Placeholder text` ("MM/DD/YYYY") | `Type` = Single date / Date range<br>`States` = Enabled / Hovered / Focused / Error / Disabled / Fille / Activ | Hovered = Enabled<br>Focused = Enabled<br>Error = Enabled<br>Fille = Enabled<br>Activ = Enabled |
+| `calendar` | `Helper`, `Label` ("Date"), `Placeholder text` ("MM/DD/YYYY"), `Show message` | `Type` = Single date / Date range<br>`States` = Default / Hover / Focus / Active / Filled / Error / Disabled | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default |
+| `calendar-data-selector` | `Month` ("June 2026") | `Type` = Dates / Months / Years | Months = Dates<br>Years = Dates |
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
 | `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
@@ -137,7 +138,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `progress-bar-small` | `Percent` | `Size` = Default / Large<br>`Completeness` = 0% / 100% / 50% | none |
 | `radio` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `read-only-tag` | `Label`, `Leading icon show` | `Type` = Default / Catalog / Shared / Stage-1 / Stage-2 / Stage-3 / Stage-4 / Stage-5 / Stage-6 / Stage-7 / Stage-8 / Status-error / Status-warning / Status-success | none |
-| `rich-text` | none | `State` = Expanded / Default | none |
+| `rich-text-froala` | none | `State` = Expanded / Default | none |
 | `scroll-bar` | `Label` ("Scroll region"), `Length`, `Orientation`, `Position` | `Property 1` = Default | none |
 | `search` | `Placeholder text` ("Search") | `Type` = Explorer home / Global header / Inline<br>`State` = Hovered / Focused / Filled / Active / Dsiabled / Default | Focused = Hovered<br>Filled = Hovered<br>Active = Hovered<br>Default = Hovered |
 | `search-dropdown-menu` | `Heading`, `Items`, `Query` ("orders"), `Results` | `Type` = No result / Before typed / After typed / Explorer home | none |
@@ -545,7 +546,7 @@ The AI surface panel (Studio / Explorer). Renders an elevated `<aside>` with a s
 ## Available icon slugs
 
 <!-- BEGIN GENERATED icons: node scripts/renderers/render-authoring-table.js -->
-155 icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in
+156 icons are vendored (`vendor/components/dist/icons/icons.json`). Use these slug values in
 `renderIcon()` calls or when setting icon-bearing props. An unknown slug renders nothing, with no
 error, so check against this list.
 
@@ -623,7 +624,6 @@ help-circle
 hierarchy
 history
 home
-icon
 idea
 info
 info-filled
@@ -640,6 +640,7 @@ maintenance
 map
 more
 move
+new-conversation
 notifications-setting
 null-type
 open
@@ -696,6 +697,7 @@ user
 user-add
 user-group
 user-info
+user-info-add
 user-single
 view
 view-detail

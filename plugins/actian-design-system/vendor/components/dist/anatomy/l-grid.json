@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "l-grid",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12054:30598",
@@ -23,13 +23,39 @@
         "prop": "Property",
         "value": "Side nav collapsed",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "container:Columns"
+        ],
+        "variant": [
+          "instance:L grid",
+          "vector:Side nav collapsed"
+        ]
+      },
+      {
+        "prop": "Property",
+        "value": "Side nav collapsed",
+        "path": "",
+        "reason": "layout:none!=row"
       },
       {
         "prop": "Property",
         "value": "Side nav expanded",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "container:Columns"
+        ],
+        "variant": [
+          "instance:L grid",
+          "vector:Side nav expanded"
+        ]
+      },
+      {
+        "prop": "Property",
+        "value": "Side nav expanded",
+        "path": "",
+        "reason": "layout:none!=row"
       }
     ]
   },
@@ -45,6 +71,8 @@
       "layoutMode": "NONE",
       "x": 2079,
       "y": 1240,
+      "w": 1440,
+      "h": 276,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -71,6 +99,10 @@
           "sizing": {
             "h": "fixed",
             "v": "fixed"
+          },
+          "size": {
+            "w": "1440px",
+            "h": "276px"
           }
         },
         "children": [

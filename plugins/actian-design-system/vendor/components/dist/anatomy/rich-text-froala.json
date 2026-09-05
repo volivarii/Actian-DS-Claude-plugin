@@ -1,8 +1,8 @@
 {
   "_schema_version": 1,
-  "slug": "rich-text",
+  "slug": "rich-text-froala",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9480:17723",
@@ -243,13 +243,30 @@
         "prop": "State",
         "value": "Expanded",
         "path": "0.0",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "container:div.fr-btn-grp",
+          "container:Text positioning",
+          "container:Insert options"
+        ],
+        "variant": [
+          "container:Left toolbar",
+          "container:Right toolbar"
+        ]
       },
       {
         "prop": "State",
         "value": "Expanded",
         "path": "0.1",
-        "reason": "childCount:3!=1"
+        "reason": "childCount:3!=1",
+        "base": [
+          "container:Backwards arrow",
+          "container:Forwards arrow",
+          "instance:more"
+        ],
+        "variant": [
+          "container:Frame 2"
+        ]
       }
     ]
   },
@@ -285,7 +302,24 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
-      }
+      },
+      "size": {
+        "w": "845px",
+        "h": "280px"
+      },
+      "variants": [
+        {
+          "prop": "State",
+          "values": [
+            "Expanded"
+          ],
+          "axis": "column",
+          "size": {
+            "w": "844px",
+            "h": "280px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -327,7 +361,21 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "variants": [
+            {
+              "prop": "State",
+              "values": [
+                "Expanded"
+              ],
+              "axis": "column",
+              "gap": "0px",
+              "align": {
+                "main": "start",
+                "cross": "start"
+              }
+            }
+          ]
         },
         "children": [
           {
@@ -350,7 +398,27 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Expanded"
+                  ],
+                  "gap": "169px",
+                  "align": {
+                    "main": "space-between",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  },
+                  "size": {
+                    "h": "48px"
+                  }
+                }
+              ]
             },
             "children": [
               {
@@ -385,6 +453,8 @@
                       "layoutMode": "NONE",
                       "x": 4742,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -400,6 +470,8 @@
                           "layoutMode": "NONE",
                           "x": 4742,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -431,6 +503,8 @@
                       "layoutMode": "NONE",
                       "x": 4784,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -446,6 +520,8 @@
                           "layoutMode": "NONE",
                           "x": 4784,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -477,6 +553,8 @@
                       "layoutMode": "NONE",
                       "x": 4826,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -492,6 +570,8 @@
                           "layoutMode": "NONE",
                           "x": 4826,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -523,6 +603,8 @@
                       "layoutMode": "NONE",
                       "x": 4868,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -538,6 +620,8 @@
                           "layoutMode": "NONE",
                           "x": 4868,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -617,6 +701,8 @@
                           "layoutMode": "NONE",
                           "x": 4922,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "LEFT"
@@ -632,6 +718,8 @@
                               "layoutMode": "NONE",
                               "x": 4922,
                               "y": 757,
+                              "w": 24,
+                              "h": 24,
                               "constraints": {
                                 "vertical": "TOP",
                                 "horizontal": "CENTER"
@@ -700,6 +788,8 @@
                           "layoutMode": "NONE",
                           "x": 4972,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "LEFT"
@@ -715,6 +805,8 @@
                               "layoutMode": "NONE",
                               "x": 4972,
                               "y": 757,
+                              "w": 24,
+                              "h": 24,
                               "constraints": {
                                 "vertical": "TOP",
                                 "horizontal": "CENTER"
@@ -783,6 +875,8 @@
                           "layoutMode": "NONE",
                           "x": 5022,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "LEFT"
@@ -798,6 +892,8 @@
                               "layoutMode": "NONE",
                               "x": 5022,
                               "y": 757,
+                              "w": 24,
+                              "h": 24,
                               "constraints": {
                                 "vertical": "TOP",
                                 "horizontal": "CENTER"
@@ -892,6 +988,9 @@
                   "sizing": {
                     "h": "hug",
                     "v": "fixed"
+                  },
+                  "size": {
+                    "h": "48px"
                   }
                 },
                 "children": [
@@ -904,6 +1003,8 @@
                       "layoutMode": "NONE",
                       "x": 5084,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -919,6 +1020,8 @@
                           "layoutMode": "NONE",
                           "x": 5084,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -950,6 +1053,8 @@
                       "layoutMode": "NONE",
                       "x": 5127,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -965,6 +1070,8 @@
                           "layoutMode": "NONE",
                           "x": 5127,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -996,6 +1103,8 @@
                       "layoutMode": "NONE",
                       "x": 5170,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -1011,6 +1120,8 @@
                           "layoutMode": "NONE",
                           "x": 5170,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -1042,6 +1153,8 @@
                       "layoutMode": "NONE",
                       "x": 5213,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "LEFT"
@@ -1057,6 +1170,8 @@
                           "layoutMode": "NONE",
                           "x": 5213,
                           "y": 757,
+                          "w": 24,
+                          "h": 24,
                           "constraints": {
                             "vertical": "TOP",
                             "horizontal": "CENTER"
@@ -1103,7 +1218,31 @@
               "sizing": {
                 "h": "hug",
                 "v": "hug"
-              }
+              },
+              "variants": [
+                {
+                  "prop": "State",
+                  "values": [
+                    "Expanded"
+                  ],
+                  "axis": "column",
+                  "gap": "10px",
+                  "padding": {
+                    "top": "12px",
+                    "right": "12px",
+                    "bottom": "12px",
+                    "left": "12px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                }
+              ]
             },
             "children": [
               {
@@ -1115,6 +1254,8 @@
                   "layoutMode": "NONE",
                   "x": 5461,
                   "y": 757,
+                  "w": 24,
+                  "h": 24,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -1130,6 +1271,8 @@
                       "layoutMode": "NONE",
                       "x": 5461,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "CENTER"
@@ -1161,6 +1304,8 @@
                   "layoutMode": "NONE",
                   "x": 5503,
                   "y": 757,
+                  "w": 24,
+                  "h": 24,
                   "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -1176,6 +1321,8 @@
                       "layoutMode": "NONE",
                       "x": 5503,
                       "y": 757,
+                      "w": 24,
+                      "h": 24,
                       "constraints": {
                         "vertical": "TOP",
                         "horizontal": "CENTER"

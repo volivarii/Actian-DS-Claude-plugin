@@ -11,6 +11,9 @@
       "group": "Action",
       "props": [
         {
+          "name": "Destructive"
+        },
+        {
           "name": "Primary",
           "default": "Save"
         },
@@ -25,8 +28,20 @@
       "group": "Feedback",
       "props": [
         {
+          "name": "Action"
+        },
+        {
           "name": "Message",
           "default": "Info"
+        },
+        {
+          "name": "Show Icon"
+        },
+        {
+          "name": "Show action"
+        },
+        {
+          "name": "Show close button"
         },
         {
           "name": "Title"
@@ -122,6 +137,12 @@
       "group": "Navigation",
       "props": [
         {
+          "name": "BadgeType"
+        },
+        {
+          "name": "Badges"
+        },
+        {
           "name": "Items"
         }
       ],
@@ -186,41 +207,7 @@
         }
       }
     },
-    "calendar-data-selector": {
-      "group": "Form",
-      "props": [
-        {
-          "name": "Month",
-          "default": "June 2026"
-        }
-      ],
-      "variants": {
-        "Type": {
-          "values": [
-            "Single date select",
-            "Date",
-            "Month",
-            "Single"
-          ],
-          "rendersAs": {
-            "Date": "Single date select",
-            "Month": "Single date select",
-            "Single": "Single date select"
-          }
-        },
-        "Selection": {
-          "values": [
-            "Single",
-            "Range",
-            "Year"
-          ],
-          "rendersAs": {
-            "Year": "Single"
-          }
-        }
-      }
-    },
-    "calendar-date-input": {
+    "calendar": {
       "group": "Form",
       "props": [
         {
@@ -233,6 +220,9 @@
         {
           "name": "Placeholder text",
           "default": "MM/DD/YYYY"
+        },
+        {
+          "name": "Show message"
         }
       ],
       "variants": {
@@ -245,20 +235,42 @@
         },
         "States": {
           "values": [
-            "Enabled",
-            "Hovered",
-            "Focused",
+            "Default",
+            "Hover",
+            "Focus",
+            "Active",
+            "Filled",
             "Error",
-            "Disabled",
-            "Fille",
-            "Activ"
+            "Disabled"
           ],
           "rendersAs": {
-            "Hovered": "Enabled",
-            "Focused": "Enabled",
-            "Error": "Enabled",
-            "Fille": "Enabled",
-            "Activ": "Enabled"
+            "Hover": "Default",
+            "Focus": "Default",
+            "Active": "Default",
+            "Filled": "Default",
+            "Error": "Default"
+          }
+        }
+      }
+    },
+    "calendar-data-selector": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Month",
+          "default": "June 2026"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Dates",
+            "Months",
+            "Years"
+          ],
+          "rendersAs": {
+            "Months": "Dates",
+            "Years": "Dates"
           }
         }
       }
@@ -1313,7 +1325,7 @@
         }
       }
     },
-    "rich-text": {
+    "rich-text-froala": {
       "group": "Form",
       "props": [],
       "variants": {

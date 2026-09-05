@@ -15,9 +15,9 @@ title: "Text input usage guidelines"
 
 * Don't use it to query or filter the content of the page: use [search](search).
 
-* Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text).
+* Don't use it for multi-line or formatted content such as data product descriptions: use [rich text](rich-text-froala).
 
-* Don't use it for dates: use the [date input](calendar-date-input).
+* Don't use it for dates: use the [date input](calendar).
 
 * Don't ask for freeform text when a yes/no answer is enough: use a [checkbox](checkbox) or [toggle](toggle).
 

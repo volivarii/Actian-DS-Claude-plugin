@@ -316,10 +316,17 @@
     "Glossary 1": "--zen-color-warning-800",
     "Glossary 2": "--zen-color-warning-800",
   };
-  function digramItemTypeStyle(itemType) {
+  // `bgTokenOverride` is for a HOST whose own capture binds this badge to a
+  // variable the badge's component does not bind for itself: search-result-card
+  // binds its Glossary badge to --zen-color-warning-25, while
+  // digram-item-types' capture leaves Glossary 1 unbound. Putting it in
+  // DIGRAM_ITEM_TYPE_TOKENS would claim a binding the component that table
+  // quotes does not have; post-processing the returned string would no-op
+  // silently the day this function's output shape changes.
+  function digramItemTypeStyle(itemType, bgTokenOverride) {
     var bg =
       DIGRAM_ITEM_TYPE_COLORS[itemType] || DIGRAM_ITEM_TYPE_COLORS.Category;
-    var token = DIGRAM_ITEM_TYPE_TOKENS[itemType];
+    var token = bgTokenOverride || DIGRAM_ITEM_TYPE_TOKENS[itemType];
     var style = token
       ? "background:var(" + token + ", " + bg + ")"
       : "background:" + bg;
@@ -360,6 +367,40 @@
     Field: { color: "#145f04", token: "--zen-color-success-800" },
     Visualisation: { color: "#7900cb", token: null },
   };
+  // Captured resolved-appearance backgrounds for the nested digram-item-types
+  // badge in metamodel's header, one per Type
+  // (components/dist/anatomy/metamodel.json, the "Digram, Item types" node:
+  // its own appearance.background for the Dataset default, appearance.variants
+  // for the other four).
+  //
+  // Quoted as colours rather than mapped through the Item type vocabulary,
+  // because that vocabulary has no "Business Term". Three of the five Types do
+  // name an item type (Dataset, Field, Visualisation as "Visualization") and
+  // two do not, so a name mapping would have to invent the missing two out of a
+  // colour coincidence: #fff9e5 is also Glossary 1 and Use case, #ffd6d8 is
+  // also Custom 2. Naming one would assert a taxonomy the capture never states.
+  //
+  // The defect this replaces: the case read `v["Item type"]`, an axis metamodel
+  // does not publish, so every render fell through to digram-item-types' own
+  // documented Category fallback and painted all five #ffdacf, peach, while the
+  // border 2px away was correct per Type.
+  var METAMODEL_BADGE_FILLS = {
+    Dataset: { color: "#cfeafd", token: null },
+    "Business Term": { color: "#fff9e5", token: null },
+    "Data Process": { color: "#ffd6d8", token: null },
+    Field: { color: "#d3efcd", token: "--zen-color-success-50" },
+    Visualisation: { color: "#eed7ff", token: null },
+  };
+  function metamodelBadgeStyle(type) {
+    // Same fall-through as metamodelBorderStyle: the Connector values carry no
+    // entry on this node at all (not an explicit null, as they do on the card),
+    // so they take the captured default rather than an invented absence.
+    var f = METAMODEL_BADGE_FILLS[type] || METAMODEL_BADGE_FILLS.Dataset;
+    return f.token
+      ? "background:var(" + f.token + ", " + f.color + ")"
+      : "background:" + f.color;
+  }
+
   // The Connector group is captured as `{background: null, radius: null,
   // border: null}`: connectors are lines between nodes, not boxes, so the
   // capture is stating an absence rather than failing to record one. Falling
@@ -1006,7 +1047,16 @@
           if (v.State === "Disabled") linCls += " ds-lineage-node--disabled";
           if (v.Fields === "Expanded") linCls += " ds-lineage-node--expanded";
 
-          var linItemType = v["Item type"] || "Category";
+          // The capture records ONE background for this badge and no
+          // per-variant override: #cfeafd, which is digram-item-types' own
+          // Dataset (components/dist/anatomy/lineage.json, "Card > Header >
+          // Digram, Item types"). Named rather than quoted as a hex, because
+          // here the captured colour and the item-type vocabulary agree, so the
+          // badge also picks up Dataset's captured text colour.
+          //
+          // It read `v["Item type"]`, an axis lineage does not publish, so all
+          // six cells fell through to the Category fallback and painted peach.
+          var linItemType = v["Item type"] || "Dataset";
           var linBadge =
             '<span class="ds-item-type" style="' +
             digramItemTypeStyle(linItemType) +
@@ -1054,6 +1104,18 @@
           var lgnCls = "ds-lineage-group";
           if (v.State === "Expanded") lgnCls += " ds-lineage-group--expanded";
 
+          // Category here is the CAPTURE, not the fallback firing: this
+          // badge is captured at #ffdacf with no per-variant override
+          // (components/dist/anatomy/lineage-grouped-node.json, "Card > Header
+          // > Digram, Item types"), and #ffdacf is Category. Written out so it
+          // stops being right by coincidence, and so the capture-join gate has
+          // a case that is correct BEFORE the fix as well as after: a gate whose
+          // every subject was broken cannot show it is asserting the capture
+          // rather than the absence of peach.
+          //
+          // The initials read DS, which is what suggested Dataset when this was
+          // filed. The initials are the record's own name, not the badge's type,
+          // and the capture is the only thing that states the type.
           var lgnItemType = v["Item type"] || "Category";
           var lgnBadge =
             '<span class="ds-item-type" style="' +
@@ -1106,10 +1168,9 @@
 
         case "metamodel": {
           var mwType = v.Type || "Dataset";
-          var mwItemType = v["Item type"] || "Category";
           var mwBadge =
             '<span class="ds-item-type" style="' +
-            digramItemTypeStyle(mwItemType) +
+            metamodelBadgeStyle(mwType) +
             '">' +
             // derived from the variant, not captured: the anatomy JSON has no
             // initials layer, and this component's Type axis IS the item-type
@@ -1434,6 +1495,28 @@
 
         case "breadcrumb": {
           var crumbItems = parseItems(props.Items, "Home, Section, Page");
+          // The registry publishes digram-item-types as a nested component of
+          // breadcrumb, and the default capture shows one per crumb but the
+          // first: a small item-type badge carrying the record's initials. It is
+          // per-crumb CONTENT (which record each crumb names), so it is
+          // positional, one entry per crumb, and an empty entry means that crumb
+          // has none. No badges given -> the crumbs render exactly as the plain
+          // links they were.
+          //
+          // An ARRAY is accepted alongside the comma string (the shape `table`'s
+          // Rows already uses) because parseItems drops empty entries, so only
+          // the array form can say "this crumb has no badge" -- which the
+          // default capture needs: `Home` carries none and every crumb after it
+          // does.
+          var crumbBadges = Array.isArray(props.Badges)
+            ? props.Badges
+            : props.Badges === undefined
+              ? []
+              : parseItems(props.Badges, "");
+          // One item type for the row, not one per crumb: in the capture every
+          // badge is the same type. Absent -> digram-item-types' own documented
+          // fallback, rather than a type invented here.
+          var crumbBadgeType = props.BadgeType ? String(props.BadgeType) : "";
           var crumbSep =
             '<span class="ds-breadcrumbs__sep">' +
             renderIcon("arrow-left", { rotate: 180 }) +
@@ -1444,12 +1527,27 @@
               var crumbCls = "ds-breadcrumbs__crumb";
               if (isLast) crumbCls += " ds-breadcrumbs__crumb--current";
               var tag = isLast ? "span" : "a";
+              // String(): Badges is flow data, and a non-string entry would
+              // throw on .trim() -- caught by the interpreter's never-throws
+              // seam, but at the cost of degrading the whole breadcrumb to a
+              // graceful chip over one bad cell.
+              var badge = String(crumbBadges[i] || "").trim();
+              var badgeHtml = badge
+                ? renderDSComponent({
+                    dsSlug: "digram-item-types",
+                    variant:
+                      "Size=XS" +
+                      (crumbBadgeType ? ", Item type=" + crumbBadgeType : ""),
+                    props: { Initials: badge },
+                  })
+                : "";
               return (
                 "<" +
                 tag +
                 ' class="' +
                 crumbCls +
                 '">' +
+                badgeHtml +
                 esc(label) +
                 "</" +
                 tag +
@@ -1669,21 +1767,67 @@
           // default variant (Type=Info), so the message mirrors the type name.
           // matrix.js supplies the per-Type value; this is the no-props fallback.
           var alertMsg = esc(props.Message || "Info");
+          // The registry publishes `Show Icon`, `Show action` and
+          // `Show close button` as BOOLEAN component properties, all defaulting
+          // to true, and the isolated default capture shows all three. The
+          // renderer implemented only the icon, and that one unconditionally.
+          // Reading the published default means a caller passing no props gets
+          // what Figma documents, and a caller turning one off gets the
+          // component without it -- a slot, not a fixture.
+          // `!== false` is this renderer's default-TRUE idiom (see
+          // props["Leading icon show"] on text-input), and the literal bracket
+          // reads are what derive-contract's BRACKET_READ picks up, so all three
+          // appear in the published contract rather than only in the code.
+          var alertIconHtml =
+            props["Show Icon"] !== false
+              ? '<span class="ds-alert__icon">' +
+                renderIcon(alertIconSlug) +
+                "</span>"
+              : "";
+          // An ordinary DS button: it needs no positional CSS of its own, and a
+          // modifier class with no rule behind it is the thing this renderer
+          // already refuses to emit elsewhere.
+          //
+          // The LABEL is not defaulted. Figma's own default reads "Button",
+          // which is placeholder text, and a literal fallback here would hand
+          // that word to every caller who asked for no optional parts -- the
+          // specimen-vs-runtime defect the sparse-render ratchet exists to
+          // block. So the boolean gates the slot and the caller names it; the
+          // gallery's "Button" lives in matrix.js, where the specimen belongs
+          // and the caller keeps the choice.
+          var alertActionHtml =
+            props["Show action"] !== false && props.Action
+              ? '<button class="ds-button ds-button--tertiary">' +
+                esc(props.Action) +
+                "</button>"
+              : "";
+          var alertCloseHtml =
+            props["Show close button"] !== false
+              ? '<button class="ds-alert__close" aria-label="Dismiss">' +
+                renderIcon("close") +
+                "</button>"
+              : "";
+          var alertActionsHtml =
+            alertActionHtml || alertCloseHtml
+              ? '<div class="ds-alert__actions">' +
+                alertActionHtml +
+                alertCloseHtml +
+                "</div>"
+              : "";
           return (
             '<div class="' +
             alertCls +
             '" role="' +
             alertRole +
             '">' +
-            '<span class="ds-alert__icon">' +
-            renderIcon(alertIconSlug) +
-            "</span>" +
+            alertIconHtml +
             '<div class="ds-alert__content">' +
             alertTitleHtml +
             '<p class="ds-alert__message">' +
             alertMsg +
             "</p>" +
             "</div>" +
+            alertActionsHtml +
             "</div>"
           );
         }
@@ -1835,25 +1979,28 @@
           );
         }
 
-        case "calendar-date-input": {
-          // Registry axes: Type = Single date | Date range; States = Enabled |
-          // Disabled | Error | … . Anatomy: container{ container[Label]{text},
+        case "calendar": {
+          // Registry axes: Type = Single date | Date range; States = Default |
+          // Hover | Focus | Active | Filled | Error | Disabled (the 2026-09-03
+          // sync renamed Enabled/Hovered/Focused/Activ/Fille to the first five;
+          // Error and Disabled are unchanged, and Disabled is the only one this
+          // branch reads). Anatomy: container{ container[Label]{text},
           // container[Input + icon button]{ inputfield, instance[Button] } } —
           // a labeled date input with a trailing calendar icon button. Mirrors
           // the .ds-field/.ds-input idiom; Date range adds a second input.
           var dateRange = v.Type === "Date range";
           var dateDisabled = v.States === "Disabled";
-          var dateCls = "ds-calendar-date-input";
-          if (dateRange) dateCls += " ds-calendar-date-input--range";
+          var dateCls = "ds-calendar";
+          if (dateRange) dateCls += " ds-calendar--range";
           if (dateDisabled) dateCls += " is-disabled";
           var datePlaceholder = esc(props["Placeholder text"] || "MM/DD/YYYY");
           function dateInput() {
             return (
-              '<div class="ds-calendar-date-input__field">' +
-              '<span class="ds-calendar-date-input__value">' +
+              '<div class="ds-calendar__field">' +
+              '<span class="ds-calendar__value">' +
               datePlaceholder +
               "</span>" +
-              '<span class="ds-calendar-date-input__calendar" aria-hidden="true">' +
+              '<span class="ds-calendar__calendar" aria-hidden="true">' +
               renderIcon("calendar") +
               "</span>" +
               "</div>"
@@ -1861,13 +2008,18 @@
           }
           var dateInputs = dateRange
             ? dateInput() +
-              '<span class="ds-calendar-date-input__sep">–</span>' +
+              '<span class="ds-calendar__sep">–</span>' +
               dateInput()
             : dateInput();
           // Optional slot: the capture holds no helper layer at all. The
           // gallery's helper string lives in matrix.js SPECIMEN_PROPS.
-          var dateHelper = props.Helper
-            ? '<span class="ds-calendar-date-input__helper">' +
+          // `Show message` arrived as a default-TRUE BOOLEAN in the 2026-09-03
+          // sync. Read as a literal bracket access so derive-contract's
+          // BRACKET_READ publishes it, and gating rather than defaulting: the
+          // caller still names the message, the switch only turns it off.
+          var dateHelper =
+            props.Helper && props["Show message"] !== false
+            ? '<span class="ds-calendar__helper">' +
               esc(props.Helper) +
               "</span>"
             : "";
@@ -1875,10 +2027,10 @@
             '<div class="' +
             dateCls +
             '">' +
-            '<div class="ds-calendar-date-input__label-row"><span class="ds-calendar-date-input__label">' +
+            '<div class="ds-calendar__label-row"><span class="ds-calendar__label">' +
             esc(props.Label || "Date") +
             "</span></div>" +
-            '<div class="ds-calendar-date-input__inputs">' +
+            '<div class="ds-calendar__inputs">' +
             dateInputs +
             "</div>" +
             dateHelper +
@@ -1886,17 +2038,17 @@
           );
         }
 
-        case "rich-text": {
+        case "rich-text-froala": {
           // Registry axis: State = Default | Expanded. Anatomy: container[State]{
           // container[Toolbar]{ container[Left toolbar], container[Right toolbar]
           // } } — an editor toolbar shell with grouped controls. Expanded shows
           // a content area below the toolbar.
           var rtExpanded = v.State === "Expanded";
           var rtCls =
-            "ds-rich-text" + (rtExpanded ? " ds-rich-text--expanded" : "");
+            "ds-rich-text-froala" + (rtExpanded ? " ds-rich-text-froala--expanded" : "");
           function rtBtn(iconSlug, label) {
             return (
-              '<button class="ds-rich-text__btn" type="button" aria-label="' +
+              '<button class="ds-rich-text-froala__btn" type="button" aria-label="' +
               esc(label) +
               '">' +
               renderIcon(iconSlug) +
@@ -1904,23 +2056,23 @@
             );
           }
           var rtLeft =
-            '<div class="ds-rich-text__group ds-rich-text__group--left">' +
+            '<div class="ds-rich-text-froala__group ds-rich-text-froala__group--left">' +
             rtBtn("text-type", "Text style") +
             rtBtn("list-bullets", "Bulleted list") +
             rtBtn("list-numbers", "Numbered list") +
             "</div>";
           var rtRight =
-            '<div class="ds-rich-text__group ds-rich-text__group--right">' +
+            '<div class="ds-rich-text-froala__group ds-rich-text-froala__group--right">' +
             rtBtn("link-type", "Insert link") +
             "</div>";
           var rtBody = rtExpanded
-            ? '<div class="ds-rich-text__content" aria-label="Editor"></div>'
+            ? '<div class="ds-rich-text-froala__content" aria-label="Editor"></div>'
             : "";
           return (
             '<div class="' +
             rtCls +
             '">' +
-            '<div class="ds-rich-text__toolbar">' +
+            '<div class="ds-rich-text-froala__toolbar">' +
             rtLeft +
             rtRight +
             "</div>" +
@@ -2753,8 +2905,22 @@
           // props override the labels.
           var sfPrimary = esc(props.Primary || "Save");
           var sfSecondary = esc(props.Secondary || "Cancel");
+          // The default capture pins a destructive action to the leading edge.
+          // The registry publishes no boolean for it, so it is CONTENT, not a
+          // documented toggle: the slot renders only when a caller supplies a
+          // label. .ds-action-bar's justify-content stays flex-end and the slot
+          // carries margin-right:auto, so a bar with no destructive action lays
+          // out exactly as before.
+          var sfLeading = props.Destructive
+            ? '<div class="ds-action-bar__leading">' +
+              '<button class="ds-button ds-button--critical-secondary">' +
+              esc(props.Destructive) +
+              "</button>" +
+              "</div>"
+            : "";
           return (
             '<div class="ds-action-bar">' +
+            sfLeading +
             '<div class="ds-action-bar__actions">' +
             '<button class="ds-button ds-button--secondary">' +
             sfSecondary +
@@ -2840,8 +3006,15 @@
         }
 
         case "calendar-data-selector": {
-          // Registry axes: Type = Single date select | Date | Month | Single;
-          // Selection = Single | Range | Year. A static month grid
+          // Registry axis: Type = Dates | Months | Years (the 2026-09-03 sync
+          // replaced Single date select | Date | Month | Single and RETIRED the
+          // Selection axis entirely). `v.Selection` is still read below: it is
+          // flow data as well as registry data, so a flow authored against the
+          // retired axis keeps its range rendering rather than silently losing
+          // it — the same reason alert-banner keeps its Primary/Danger aliases.
+          // Months and Years render as Dates today; both now carry captured
+          // evidence (layout + structural), so they are workable under #550
+          // rather than needing an invented appearance. A static month grid
           // (DETERMINISTIC — no Date()): header (month/year + prev/next nav) +
           // weekday row + day cells. Range renders a start→end band; else a
           // single selected day. Month label is overridable via props.Month.
@@ -3202,7 +3375,17 @@
           // that is DIGRAM_ITEM_TYPE_COLORS["Glossary 1"] (also shared by
           // "Use case"), NOT "Category" (#ffdacf); "Glossary 1" is the
           // itemType that actually reproduces the captured color.
-          var srcGlossaryBadge = digramItemTypeStyle("Glossary 1");
+          //
+          // The token is bound HERE rather than in DIGRAM_ITEM_TYPE_TOKENS
+          // because it is this instance that carries it: search-result-card's
+          // capture binds the badge to --zen-color-warning-25, while
+          // digram-item-types' own capture leaves Glossary 1 unbound. Adding it
+          // to the shared table would claim a binding the component the table
+          // quotes does not have. Value-only, the badge could not re-theme.
+          var srcGlossaryBadge = digramItemTypeStyle(
+            "Glossary 1",
+            "--zen-color-warning-25",
+          );
 
           return (
             '<div class="' +
@@ -3314,8 +3497,8 @@
     "toast",
     "stepper",
     "tooltip-default",
-    "calendar-date-input",
-    "rich-text",
+    "calendar",
+    "rich-text-froala",
     "dropdown-select-default",
     "progress-bar-small",
     "interactive-tag",

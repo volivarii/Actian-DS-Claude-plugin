@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "avatar",
   "kit": "dskit",
-  "synced_at": "2026-08-31T11:39:48.734Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7384:14212",
@@ -43,13 +43,29 @@
         "prop": "State",
         "value": "Default",
         "path": "",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "vector:State",
+          "text:Initial"
+        ],
+        "variant": [
+          "text:Initial"
+        ]
       },
       {
         "prop": "State",
         "value": "Focus",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "vector:State",
+          "text:Initial"
+        ],
+        "variant": [
+          "vector:State",
+          "text:Initial",
+          "vector:Focus"
+        ]
       }
     ],
     "uncapturedValues": [
@@ -82,6 +98,8 @@
       "layoutMode": "NONE",
       "x": 6240,
       "y": 231,
+      "w": 32,
+      "h": 32,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
