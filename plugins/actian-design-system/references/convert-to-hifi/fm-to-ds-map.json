@@ -300,19 +300,19 @@
     "fmDateInput": {
       "defaultVariant": {
         "Type": "Single date",
-        "States": "Enabled"
+        "States": "Default"
       },
       "variantMap": {
         "State": {
-          "Default": "Enabled",
-          "Open": "Activ",
-          "Placeholder": "Enabled"
+          "Default": "Default",
+          "Open": "Active",
+          "Placeholder": "Default"
         }
       },
       "propertyMap": {
         "Input Text": null
       },
-      "notes": "FM 'State' maps to DS 'States' axis. Note DS uses 'Activ' (typo) for active state and 'Fille' (typo) for filled.",
+      "notes": "FM 'State' maps to DS 'States' axis. The DS component is 'calendar' since the 2026-09-03 breaking sync (was 'calendar-date-input', and 'input-date' before that); this entry keys on dsKey, which never moved. The axis is now Default, Hover, Focus, Active, Filled, Error, Disabled: Figma fixed the 'Activ' and 'Fille' typos this note used to record, and renamed 'Enabled' to 'Default'. FM 'Placeholder' targets 'Default' rather than 'Filled', because a placeholder is an empty field.",
       "dsKey": "9eafdb6242837b591ba5f39959150b53e40ef02d"
     },
     "fmAlert": {

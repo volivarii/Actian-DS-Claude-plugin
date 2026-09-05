@@ -2378,23 +2378,23 @@ describe("ds-html-map: tooltip-default (Task 4)", function () {
   });
 });
 
-describe("ds-html-map: calendar-date-input (Task 4)", function () {
+describe("ds-html-map: calendar (Task 4)", function () {
   it("renders a date field — not a chip — label + input + calendar button", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar-date-input",
+      dsSlug: "calendar",
       variant: "Type=Single date,States=Enabled",
       props: { Label: "Start date", Helper: "MM/DD/YYYY" },
     });
     assert.ok(
-      html.indexOf("ds-calendar-date-input") !== -1,
-      "calendar-date-input built leaf class",
+      html.indexOf("ds-calendar") !== -1,
+      "calendar built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "calendar-date-input not a chip");
+    assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
     assert.ok(html.indexOf("Start date") !== -1, "label text");
     assert.ok(
-      html.indexOf("ds-calendar-date-input__calendar") !== -1,
+      html.indexOf("ds-calendar__calendar") !== -1,
       "calendar icon button",
     );
     assert.ok(html.indexOf("MM/DD/YYYY") !== -1, "helper text");
@@ -2404,18 +2404,18 @@ describe("ds-html-map: calendar-date-input (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar-date-input",
+      dsSlug: "calendar",
       variant: "Type=Date range,States=Enabled",
       props: { Label: "Range" },
     });
-    assert.ok(html.indexOf("ds-calendar-date-input--range") !== -1, "range modifier");
+    assert.ok(html.indexOf("ds-calendar--range") !== -1, "range modifier");
   });
 
   it("States=Disabled adds the disabled flag", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "calendar-date-input",
+      dsSlug: "calendar",
       variant: "States=Disabled",
       props: { Label: "Start date" },
     });
@@ -2423,20 +2423,20 @@ describe("ds-html-map: calendar-date-input (Task 4)", function () {
   });
 });
 
-describe("ds-html-map: rich-text (Task 4)", function () {
+describe("ds-html-map: rich-text-froala (Task 4)", function () {
   it("renders an editor toolbar shell — not a chip — with grouped controls", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "rich-text",
+      dsSlug: "rich-text-froala",
       props: {},
     });
     assert.ok(
-      html.indexOf("ds-rich-text") !== -1,
-      "rich-text built leaf class",
+      html.indexOf("ds-rich-text-froala") !== -1,
+      "rich-text-froala built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "rich-text not a chip");
-    assert.ok(html.indexOf("ds-rich-text__toolbar") !== -1, "toolbar present");
+    assert.ok(html.indexOf("ds-component") === -1, "rich-text-froala not a chip");
+    assert.ok(html.indexOf("ds-rich-text-froala__toolbar") !== -1, "toolbar present");
     assert.ok(html.indexOf("ds-icon") !== -1, "toolbar control glyphs");
   });
 
@@ -2444,12 +2444,12 @@ describe("ds-html-map: rich-text (Task 4)", function () {
     var html = render({
       type: "INSTANCE",
       library: "ds",
-      dsSlug: "rich-text",
+      dsSlug: "rich-text-froala",
       variant: "State=Expanded",
       props: {},
     });
     assert.ok(
-      html.indexOf("ds-rich-text--expanded") !== -1,
+      html.indexOf("ds-rich-text-froala--expanded") !== -1,
       "expanded modifier",
     );
   });

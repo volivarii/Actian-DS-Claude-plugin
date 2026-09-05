@@ -139,6 +139,29 @@ function replaceIcons(md) {
   );
 }
 
+// The sentence introducing the table states the same count the rows are
+// generated from, and it was hand-maintained. It drifted twice: 71 against a
+// published 73, then 73 against 74 when the 2026-09-03 breaking sync landed
+// three renames and one new component. A number a person has to remember to
+// bump after every sync is a number that will be wrong, in the file the screen
+// generator reads as its DS vocabulary, so the generator writes it now.
+var COUNT_RE = /covers the \d+ authorable slugs/;
+function replaceCount(md) {
+  if (!COUNT_RE.test(md)) {
+    throw new Error(
+      "the sentence stating the authorable slug count was not found in " +
+        MD_PATH +
+        ". Expected to match " +
+        COUNT_RE +
+        ", which tests/integration/authoring-table-sync.test.js also reads.",
+    );
+  }
+  return md.replace(
+    COUNT_RE,
+    "covers the " + authorableEntries().length + " authorable slugs",
+  );
+}
+
 module.exports = {
   authorableEntries: authorableEntries,
   renderTableRows: renderTableRows,
@@ -146,6 +169,7 @@ module.exports = {
   statusFor: statusFor,
   iconSlugs: iconSlugs,
   replaceIcons: replaceIcons,
+  replaceCount: replaceCount,
   MD_PATH: MD_PATH,
   TABLE_HEADER: TABLE_HEADER,
   ICONS_BEGIN: ICONS_BEGIN,
@@ -154,7 +178,7 @@ module.exports = {
 
 if (require.main === module) {
   var md = fs.readFileSync(MD_PATH, "utf8");
-  var out = replaceIcons(replaceTable(md, renderTableRows()));
+  var out = replaceCount(replaceIcons(replaceTable(md, renderTableRows())));
   if (out !== md) {
     fs.writeFileSync(MD_PATH, out);
     console.log(

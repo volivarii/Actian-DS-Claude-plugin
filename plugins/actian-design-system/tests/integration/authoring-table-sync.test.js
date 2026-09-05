@@ -15,10 +15,12 @@ var unpublished = require("../helpers/unpublished.js");
 var BUILT_SLUGS = require("../../scripts/lib/renderer.js").dsHtmlMap
   .BUILT_SLUGS;
 
-test("ds-components-authoring.md vocabulary table and icon list are in sync with registry + BUILT_SLUGS + icons.json", function () {
+test("ds-components-authoring.md vocabulary table, icon list and slug count are in sync with registry + BUILT_SLUGS + icons.json", function () {
   var md = fs.readFileSync(gen.MD_PATH, "utf8");
-  var regenerated = gen.replaceIcons(
-    gen.replaceTable(md, gen.renderTableRows()),
+  // replaceCount too, and in the same order the CLI applies them, or the
+  // generated sentence would be the one thing this file could not vouch for.
+  var regenerated = gen.replaceCount(
+    gen.replaceIcons(gen.replaceTable(md, gen.renderTableRows())),
   );
   assert.equal(
     regenerated,
@@ -30,11 +32,13 @@ test("ds-components-authoring.md vocabulary table and icon list are in sync with
 
 test("the prose slug count matches the table the generator writes", function () {
   // replaceTable() swaps only the rows between the header and the first
-  // non-pipe line, so the sentence introducing the table is hand-maintained
-  // and drifts silently: it said 71 while the registry published 73, in a
-  // file the screen generator reads as its DS vocabulary. Read the number
-  // back out of the prose and join it against the same source the rows come
-  // from, so the sentence cannot disagree with the table beneath it.
+  // non-pipe line, so the sentence introducing the table used to be
+  // hand-maintained, and it drifted twice in a file the screen generator reads
+  // as its DS vocabulary: 71 against a published 73, then 73 against 74 when
+  // the 2026-09-03 breaking sync landed three renames and one new component.
+  // The generator writes the sentence now (replaceCount), so this reads the
+  // number back out of the prose and joins it against the same source the rows
+  // come from, which is what catches the generator itself going wrong.
   var md = fs.readFileSync(gen.MD_PATH, "utf8");
   var m = md.match(/covers the (\d+) authorable slugs/);
   assert.ok(

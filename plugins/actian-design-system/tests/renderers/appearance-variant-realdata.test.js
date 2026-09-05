@@ -68,6 +68,41 @@ function firstVariantEntry(node) {
   return null;
 }
 
+// Every node in a doc that carries an APPEARANCE variants[] entry naming a prop
+// and at least one value. Independent of firstVariantEntry above, which stops at
+// the first match and returns one node: this visits the whole tree, which is
+// what makes it able to catch a candidate walk that stops short.
+//
+// 🚨 It reads appearance.variants specifically, and that is the whole point of
+// this function existing rather than a regex over the raw file. Since knowledge
+// v0.34.179 the capture ALSO records per-variant LAYOUT deltas, as
+// `layout.variants[]` alongside align/sizing/gapToken. A text scan for
+// `"variants": [ {` matches both, so checkbox-group, radio-group and xl-grid
+// entered this population carrying only layout variants and could never be
+// exercised: appearanceToDecls has nothing to say about a gap or a fixed height,
+// so the seam under test here does not reach them. Those layout deltas are a
+// real seam and nothing here exercises them yet.
+function appearanceVariantNodes(node, out) {
+  out = out || [];
+  if (!node || typeof node !== "object") return out;
+  var ap = node.appearance;
+  if (ap && Array.isArray(ap.variants)) {
+    for (var i = 0; i < ap.variants.length; i++) {
+      var e = ap.variants[i];
+      if (e && e.prop && Array.isArray(e.values) && e.values.length) {
+        out.push(node);
+        break;
+      }
+    }
+  }
+  if (Array.isArray(node.children)) {
+    for (var c = 0; c < node.children.length; c++) {
+      appearanceVariantNodes(node.children[c], out);
+    }
+  }
+  return out;
+}
+
 // "Prop=Value, Other=Value" <-> { Prop: Value, Other: Value }
 function parseVariant(str) {
   var out = {};
@@ -179,15 +214,21 @@ test("appearance variant deltas resolve correctly on real vendored data (non-def
   }
 
   // Population guard, computed from the data by a route independent of the
-  // tree walk above: every non-BUILT doc whose FILE carries a variants[] entry
-  // must have been exercised. A walk that stops short (say, root only) shrinks
-  // the exercised list and fails here by slug. When gray-box-to-zero empties
-  // this population the test needs retiring, which is a decision, not a pass.
-  var expected = Object.keys(raw)
+  // tree walk above: every non-BUILT doc carrying an APPEARANCE variants[]
+  // entry must have been exercised. A walk that stops short (say, root only)
+  // shrinks the exercised list and fails here by slug. When gray-box-to-zero
+  // empties this population the test needs retiring, which is a decision, not a
+  // pass.
+  //
+  // It used to be a text scan of the raw file for `"variants": [ {`, which was
+  // the same subject until knowledge v0.34.179 taught the capture to record
+  // per-variant LAYOUT deltas under the same key name. Three slugs then entered
+  // the population that this seam can never reach. See appearanceVariantNodes.
+  var expected = Object.keys(docs)
     .filter(function (slug) {
       return (
         ds.BUILT_SLUGS.indexOf(slug) === -1 &&
-        /"variants"\s*:\s*\[\s*\{/.test(raw[slug])
+        appearanceVariantNodes(docs[slug].root).length > 0
       );
     })
     .sort();
