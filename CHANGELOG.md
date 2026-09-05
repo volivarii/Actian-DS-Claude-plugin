@@ -21,6 +21,53 @@ are summarized at the release level.
 
 ### Fixed
 
+- **The vendor lane had been red for two days, and this is the THIRD refresh in a row to break in
+  the same shape.**
+  ([#340](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/340)) The nightly kept opening a PR against knowledge `v0.34.184` and then `v0.34.186`
+  and both failed the same 16 assertions, so nothing merged and the plugin stayed pinned at
+  `v0.34.178` from 2026-09-03. It does not self-heal: the next night reopens a PR that fails
+  identically. Same cause as #327 (32 assertions on `v0.34.157`) and #332 (26 on `v0.34.165`), and
+  the entry below already names it: the renderer resolves a retired slug through
+  `ds-retired-slugs.js` and never notices, while everything that reads the anatomy, the registry or a
+  hand-kept list BY SLUG breaks. Nothing has been done about the lists themselves, and the
+  2026-09-05 breaking sync upstream carries thirteen more renames.
+
+  What the knowledge `v0.34.183` sync renamed, verified by Figma key rather than by name:
+  `calendar-date-input` to **`calendar`** (taking the slug the calendar ICON held in the components
+  map; the icon survives in its own namespace, and the FM map's `dsKey` `9eafdb62...` still resolves
+  to it), and `rich-text` to **`rich-text-froala`**. The authorable set moved 73 to 74: three renames
+  and one genuinely new component, `identification-key`.
+
+  Repointed: the two `ds-html-map` describe blocks and the leaf classes they assert
+  (`ds-calendar__calendar`, `ds-rich-text-froala--expanded`), the `NO_ROOT_APPEARANCE` allowlist
+  entry, and `PILOT` in `quality-gates-cli.js`, whose own startup check is what named this one
+  ("a chip would score as a leaf"). The allowlist entry is now on its third name for one component
+  and the capture was checked against the deleted `calendar-date-input.json` at knowledge `0e088405^`
+  to confirm it carried no root appearance there either, so nothing was lost.
+
+  **The FM date-input map was pointing at variant values Figma has since corrected.** Its own note
+  recorded that "DS uses `Activ` (typo) for active state and `Fille` (typo) for filled". Those typos
+  are fixed upstream and `Enabled` is now `Default`, so the map's `Enabled` and `Activ` targets
+  matched nothing. FM `Placeholder` now targets `Default` rather than a value meaning filled, because
+  a placeholder is an empty field.
+
+  **Four alert-banner goldens moved, and the movement is the point of them.** Each gained a
+  `ds-alert__actions` block carrying a dismiss button: knowledge #648 found that Figma publishes that
+  control as a switch that is on by default and the render step had never read it. Nothing was
+  removed from any of the four, and 4 of 83 goldens changed in total, each inspected before being
+  regenerated.
+
+  **Two guards were repaired rather than repointed.** The appearance-variant population guard counted
+  its subject with a text scan for `"variants": [ {`, which was the same subject until knowledge
+  `v0.34.179` taught the capture to record per-variant LAYOUT deltas under that same key name.
+  `checkbox-group`, `radio-group` and `xl-grid` then entered a population the appearance seam can
+  never reach, since `appearanceToDecls` has nothing to say about a gap or a fixed height. It now
+  scans for `appearance.variants` specifically, by a walk that visits the whole tree so it can still
+  catch a candidate walk that stops short. Those layout deltas are a real seam and nothing exercises
+  them yet. And the sentence introducing the authoring vocabulary table stated a slug count by hand;
+  it had drifted twice (71 against 73, then 73 against 74), in the file the screen generator reads as
+  its DS vocabulary, so the generator writes it now.
+
 - **A rename reaches the plugin through hand-written slug lists, which do not resolve through the
   identity ledger the renderer reads.** ([#332](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/332)) The refresh moves the vendored snapshot from
   `v0.34.157` to `v0.34.165`, which renames eleven components and dissolves the `Tooltip` set. Both

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "component-1",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8927:9233",
@@ -64,6 +64,8 @@
       "layoutMode": "NONE",
       "x": 1293.7906494140625,
       "y": -83,
+      "w": 324,
+      "h": 125,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -79,6 +81,8 @@
           "layoutMode": "NONE",
           "x": 1418.2177734375,
           "y": -82.99739074707031,
+          "w": 74.61112976074219,
+          "h": 63.539058685302734,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -117,6 +121,8 @@
           "layoutMode": "NONE",
           "x": 1293.2431640625,
           "y": 6.5416717529296875,
+          "w": 324.55267333984375,
+          "h": 26.63541603088379,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -212,6 +218,8 @@
               "layoutMode": "NONE",
               "x": 1484.346923828125,
               "y": 6.562503814697266,
+              "w": 133.44886779785156,
+              "h": 26.598962783813477,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"

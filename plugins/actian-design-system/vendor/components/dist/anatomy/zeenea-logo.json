@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "zeenea-logo",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "12770:6651",
@@ -131,85 +131,203 @@
         "prop": "Type",
         "value": "Dev Logo Explorer",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "container:Logo Explorer Icon",
+          "container:Group",
+          "container:Group"
+        ],
+        "variant": [
+          "container:Logo Explorer Icon",
+          "container:Group",
+          "container:Group",
+          "container:Dev"
+        ]
       },
       {
         "prop": "Type",
         "value": "Dev Logo Studio",
         "path": "",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "container:Logo Explorer Icon",
+          "container:Group",
+          "container:Group"
+        ],
+        "variant": [
+          "container:Logo Studio Icon",
+          "container:Group",
+          "container:Group",
+          "container:Dev"
+        ]
       },
       {
         "prop": "Type",
         "value": "Dev Logo Zenea Corporate",
         "path": "2",
-        "reason": "childCount:8!=3"
+        "reason": "childCount:8!=3",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Explorer",
         "path": "0",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Logo Explorer Icon"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Explorer",
         "path": "1",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Explorer",
         "path": "2",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Studio",
         "path": "0",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Logo Explorer Icon"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Studio",
         "path": "1",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Studio",
         "path": "2",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Zeenea 1",
         "path": "0",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Logo Explorer Icon"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Zeenea 1",
         "path": "1",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Favicon Zeenea 1",
         "path": "2",
-        "reason": "kind:container!=vector"
+        "reason": "kind:container!=vector",
+        "base": [
+          "container:Group"
+        ],
+        "variant": [
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Logo Studio",
         "path": "2",
-        "reason": "childCount:8!=6"
+        "reason": "childCount:8!=6",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Logo Zenea Corporate",
         "path": "",
-        "reason": "childCount:3!=2"
+        "reason": "childCount:3!=2",
+        "base": [
+          "container:Logo Explorer Icon",
+          "container:Group",
+          "container:Group"
+        ],
+        "variant": [
+          "container:Logo Zeenea Corporate Icon",
+          "container:Group"
+        ]
       }
     ]
   },
@@ -222,6 +340,8 @@
       "layoutMode": "NONE",
       "x": -880,
       "y": 187,
+      "w": 180,
+      "h": 65,
       "constraints": {
         "vertical": "SCALE",
         "horizontal": "SCALE"
@@ -237,6 +357,8 @@
           "layoutMode": "NONE",
           "x": -880,
           "y": 187,
+          "w": 31.174020767211914,
+          "h": 59.55202102661133,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -313,6 +435,8 @@
           "layoutMode": "NONE",
           "x": -828.817626953125,
           "y": 206.65029907226562,
+          "w": 128.78016662597656,
+          "h": 20.06357765197754,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -378,6 +502,8 @@
           "layoutMode": "NONE",
           "x": -829.1173706054688,
           "y": 228.59246826171875,
+          "w": 104.20065307617188,
+          "h": 23.407516479492188,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"

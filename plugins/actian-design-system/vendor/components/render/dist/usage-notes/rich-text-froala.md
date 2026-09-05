@@ -1,4 +1,4 @@
-# Rich text: usage notes
+# Rich text (Froala): usage notes
 
 The rich text editor allows users to write and format long-form content such as descriptions, notes, and documentation.
 

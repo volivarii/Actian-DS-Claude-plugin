@@ -37,7 +37,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="collapse">Collapse</a>
   <a href="combo-box">Combo box</a>
   <a href="confirmation">Confirmation</a>
-  <a href="calendar-date-input">Calendar date input</a>
+  <a href="calendar">Calendar</a>
   <a href="dropdown-select">Dropdown / Select</a>
   <a href="drawer">Drawer</a>
   <a href="empty-and-system-states">Empty and system states</a>
@@ -69,7 +69,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="progress-bar-small">Progress bar</a>
   <a href="radio">Radio</a>
   <a href="related-content-panels">Related content panels</a>
-  <a href="rich-text">Rich text</a>
+  <a href="rich-text-froala">Rich text (Froala)</a>
   <a href="scroll-bar">Scroll bar</a>
   <a href="search">Search</a>
   <a href="search-dropdown-menu">Search dropdown menu</a>

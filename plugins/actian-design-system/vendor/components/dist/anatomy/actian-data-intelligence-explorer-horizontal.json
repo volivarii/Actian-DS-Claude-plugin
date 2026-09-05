@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "actian-data-intelligence-explorer-horizontal",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "21084:2319"
@@ -47,6 +47,8 @@
       "layoutMode": "NONE",
       "x": -1821,
       "y": 2896,
+      "w": 360.5706787109375,
+      "h": 63.40623092651367,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -62,6 +64,8 @@
           "layoutMode": "NONE",
           "x": -1821,
           "y": 2895.802490234375,
+          "w": 66.97804260253906,
+          "h": 57.111167907714844,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -100,6 +104,8 @@
           "layoutMode": "NONE",
           "x": -1735.8184814453125,
           "y": 2895.800048828125,
+          "w": 274.70068359375,
+          "h": 24.933324813842773,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"
@@ -195,6 +201,8 @@
               "layoutMode": "NONE",
               "x": -1591.1923828125,
               "y": 2895.800048828125,
+              "w": 130.07472229003906,
+              "h": 24.933324813842773,
               "constraints": {
                 "vertical": "SCALE",
                 "horizontal": "SCALE"
@@ -310,6 +318,8 @@
           "layoutMode": "NONE",
           "x": -1735.81396484375,
           "y": 2929.679443359375,
+          "w": 114.16114044189453,
+          "h": 29.53049087524414,
           "constraints": {
             "vertical": "SCALE",
             "horizontal": "SCALE"

@@ -138,11 +138,19 @@ var NO_ROOT_APPEARANCE = {
   checkbox: "box is a child",
   toggle: "track and knob are children",
   "text-input": "field box is a child",
-  // Keyed `input-date` until the 2026-08-26 Figma v2.7.0 reorg renamed the
-  // component to "Date input" (knowledge c8340c77, same dsKey). The capture is
-  // unchanged across the rename: it carried no root appearance before either,
-  // so this is the same entry under the current name, not a new loss.
-  "calendar-date-input": "field box is a child",
+  // Third name for one component, same dsKey throughout: `input-date` until
+  // the 2026-08-26 Figma v2.7.0 reorg made it "Date input"
+  // (knowledge c8340c77), then `calendar-date-input`, and since the 2026-09-03
+  // breaking sync simply `calendar`, taking the slug the calendar ICON used to
+  // hold in the components map (knowledge #650). The icon survives in the icon
+  // namespace, so nothing was lost there either.
+  //
+  // The capture is unchanged in shape across all three: verified against the
+  // deleted `calendar-date-input.json` at knowledge 0e088405^, which carried no
+  // root appearance either and painted on the same `Field` child. Same profile
+  // as `text-input` two lines above. This is the same entry under the current
+  // name, not a new loss.
+  calendar: "field box is a child, same as text-input",
 
   // Arrived with the same reorg. Its root is a bare wrapper: the `Pagination`
   // child paints #ffffff and the Previous/Next buttons carry the borders, so

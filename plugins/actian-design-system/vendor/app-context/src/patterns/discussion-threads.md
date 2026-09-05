@@ -13,7 +13,7 @@ tags:
   - collaboration
   - single-object
 components:
-  - rich-text
+  - rich-text-froala
   - avatar
   - text-input
   - button

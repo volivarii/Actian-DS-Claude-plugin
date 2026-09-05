@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "13599:20120",
@@ -18,19 +18,72 @@
         "prop": "App",
         "value": "Admin",
         "path": "0",
-        "reason": "childCount:8!=12"
+        "reason": "childCount:8!=12",
+        "base": [
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "container:Divider",
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item"
+        ],
+        "variant": [
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "vector:Rectangle 5598",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "vector:Rectangle 5598",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item",
+          "instance:.side nav menu item"
+        ]
       },
       {
         "prop": "App",
         "value": "Admin",
         "path": "1",
-        "reason": "childCount:5!=2"
+        "reason": "childCount:5!=2",
+        "base": [
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "container:Divider",
+          "instance:Button"
+        ],
+        "variant": [
+          "container:Divider",
+          "instance:Button"
+        ]
       },
       {
         "prop": "View",
         "value": "Collapsed",
         "path": "0",
-        "reason": "childCount:8!=6"
+        "reason": "childCount:8!=6",
+        "base": [
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "container:Divider",
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item"
+        ],
+        "variant": [
+          "instance:nav item",
+          "instance:nav item",
+          "instance:nav item",
+          "container:Divider",
+          "instance:nav item",
+          "instance:nav item"
+        ]
       }
     ]
   },
@@ -66,12 +119,36 @@
         "h": "fixed",
         "v": "fixed"
       },
+      "size": {
+        "w": "240px",
+        "h": "826px"
+      },
       "paddingTokens": {
         "top": "--zen-spacing-md",
         "right": "--zen-spacing-md",
         "bottom": "--zen-spacing-md",
         "left": "--zen-spacing-md"
-      }
+      },
+      "variants": [
+        {
+          "prop": "App",
+          "values": [
+            "Admin"
+          ],
+          "paddingTokens": null
+        },
+        {
+          "prop": "View",
+          "values": [
+            "Collapsed"
+          ],
+          "paddingTokens": null,
+          "size": {
+            "w": "64px",
+            "h": "826px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -95,7 +172,23 @@
             "h": "fill",
             "v": "hug"
           },
-          "gapToken": "--zen-spacing-2xs"
+          "gapToken": "--zen-spacing-2xs",
+          "variants": [
+            {
+              "prop": "App",
+              "values": [
+                "Admin"
+              ],
+              "gapToken": null
+            },
+            {
+              "prop": "View",
+              "values": [
+                "Collapsed"
+              ],
+              "gapToken": null
+            }
+          ]
         },
         "children": [
           {
@@ -284,7 +377,27 @@
             "h": "fill",
             "v": "hug"
           },
-          "gapToken": "--zen-spacing-2xs"
+          "gapToken": "--zen-spacing-2xs",
+          "variants": [
+            {
+              "prop": "App",
+              "values": [
+                "Admin"
+              ],
+              "gapToken": null
+            },
+            {
+              "prop": "View",
+              "values": [
+                "Collapsed"
+              ],
+              "gapToken": null,
+              "align": {
+                "main": "center",
+                "cross": "center"
+              }
+            }
+          ]
         },
         "children": [
           {

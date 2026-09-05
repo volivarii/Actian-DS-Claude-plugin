@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "modal",
   "kit": "dskit",
-  "synced_at": "2026-08-24T12:29:56.337Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14175:14426",
@@ -18,37 +18,92 @@
         "prop": "Size & Type",
         "value": "450px confirm",
         "path": "",
-        "reason": "childCount:3!=5"
+        "reason": "childCount:3!=5",
+        "base": [
+          "container:Header",
+          "container:Body",
+          "container:Footer"
+        ],
+        "variant": [
+          "text:Title",
+          "text:Sub title",
+          "instance:Text input",
+          "container:Actions",
+          "instance:Button"
+        ]
       },
       {
         "prop": "Size & Type",
         "value": "450px warning",
         "path": "",
-        "reason": "childCount:3!=5"
+        "reason": "childCount:3!=5",
+        "base": [
+          "container:Header",
+          "container:Body",
+          "container:Footer"
+        ],
+        "variant": [
+          "text:Title",
+          "text:Sub title",
+          "text:Warning message",
+          "container:Actions",
+          "instance:Button"
+        ]
       },
       {
         "prop": "Size & Type",
         "value": "700px create",
         "path": "1",
-        "reason": "childCount:1!=5"
+        "reason": "childCount:1!=5",
+        "base": [
+          "instance:Rich text"
+        ],
+        "variant": [
+          "text:Sub title",
+          "instance:Text input",
+          "instance:Text input",
+          "container:Name",
+          "instance:Text input"
+        ]
       },
       {
         "prop": "Size & Type",
         "value": "700px setting",
         "path": "1",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "instance:Rich text"
+        ],
+        "variant": [
+          "container:Column 1",
+          "container:Column 2"
+        ]
       },
       {
         "prop": "Size & Type",
         "value": "900px create",
         "path": "1",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "instance:Rich text"
+        ],
+        "variant": [
+          "container:Column 1",
+          "container:Column 2"
+        ]
       },
       {
         "prop": "Size & Type",
         "value": "900px edit",
         "path": "1",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "instance:Rich text"
+        ],
+        "variant": [
+          "container:Column 1",
+          "container:Column 2"
+        ]
       }
     ]
   },
@@ -76,7 +131,69 @@
       "sizing": {
         "h": "fixed",
         "v": "fixed"
-      }
+      },
+      "size": {
+        "w": "1200px",
+        "h": "482px"
+      },
+      "variants": [
+        {
+          "prop": "Size & Type",
+          "values": [
+            "450px confirm",
+            "450px warning"
+          ],
+          "gap": "16px",
+          "gapToken": "--zen-spacing-md",
+          "padding": {
+            "top": "24px",
+            "right": "24px",
+            "bottom": "24px",
+            "left": "24px"
+          },
+          "paddingTokens": {
+            "top": "--zen-spacing-lg",
+            "right": "--zen-spacing-lg",
+            "bottom": "--zen-spacing-lg",
+            "left": "--zen-spacing-lg"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          },
+          "size": {
+            "w": "450px"
+          }
+        },
+        {
+          "prop": "Size & Type",
+          "values": [
+            "700px create",
+            "700px setting"
+          ],
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          },
+          "size": {
+            "w": "700px"
+          }
+        },
+        {
+          "prop": "Size & Type",
+          "values": [
+            "900px create",
+            "900px edit"
+          ],
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          },
+          "size": {
+            "w": "900px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -198,13 +315,47 @@
             "right": "--zen-spacing-lg",
             "bottom": "--zen-spacing-lg",
             "left": "--zen-spacing-lg"
-          }
+          },
+          "variants": [
+            {
+              "prop": "Size & Type",
+              "values": [
+                "700px create"
+              ],
+              "axis": "column",
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            {
+              "prop": "Size & Type",
+              "values": [
+                "700px setting",
+                "900px create",
+                "900px edit"
+              ],
+              "gap": "0px",
+              "gapToken": null,
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "paddingTokens": null,
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            }
+          ]
         },
         "children": [
           {
             "name": "Rich text",
             "kind": "instance",
-            "slug": "rich-text",
+            "slug": "rich-text-froala",
             "props": {
               "State": "Default"
             },

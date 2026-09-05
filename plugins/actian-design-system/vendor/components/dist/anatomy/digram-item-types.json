@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "digram-item-types",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14007:23209",
@@ -18,61 +18,131 @@
         "prop": "Item type",
         "value": "Topic 1",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 10",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 2",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 3",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 4",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 5",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 6",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 7",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 8",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       },
       {
         "prop": "Item type",
         "value": "Topic 9",
         "path": "",
-        "reason": "childCount:1!=2"
+        "reason": "childCount:1!=2",
+        "base": [
+          "text:Tag-Name"
+        ],
+        "variant": [
+          "text:Tag-Name",
+          "vector:Border"
+        ]
       }
     ]
   },
@@ -308,11 +378,37 @@
         "h": "fixed",
         "v": "fixed"
       },
+      "size": {
+        "w": "24px",
+        "h": "24px"
+      },
       "gapToken": "--zen-spacing-2xs",
       "paddingTokens": {
         "right": "--zen-spacing-xs",
         "left": "--zen-spacing-xs"
-      }
+      },
+      "variants": [
+        {
+          "prop": "Size",
+          "values": [
+            "MD"
+          ],
+          "size": {
+            "w": "32px",
+            "h": "32px"
+          }
+        },
+        {
+          "prop": "Size",
+          "values": [
+            "XS"
+          ],
+          "size": {
+            "w": "20px",
+            "h": "20px"
+          }
+        }
+      ]
     },
     "children": [
       {

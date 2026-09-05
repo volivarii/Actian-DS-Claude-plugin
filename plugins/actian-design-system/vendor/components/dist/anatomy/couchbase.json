@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "couchbase",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8400:25230"
@@ -31,6 +31,8 @@
       "layoutMode": "NONE",
       "x": -948,
       "y": 1955,
+      "w": 24,
+      "h": 24,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"

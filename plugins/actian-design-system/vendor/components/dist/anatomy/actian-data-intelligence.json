@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "actian-data-intelligence",
   "kit": "dskit",
-  "synced_at": "2026-07-05T11:32:12.359Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "7764:7617",
@@ -123,37 +123,164 @@
         "prop": "Orientation",
         "value": "Vertical",
         "path": "0",
-        "reason": "childCount:13!=3"
+        "reason": "childCount:13!=3",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Orientation",
         "value": "Vertical",
         "path": "1",
-        "reason": "childCount:12!=11"
+        "reason": "childCount:12!=11",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "container:Group"
+        ]
       },
       {
         "prop": "Type",
         "value": "Admin",
         "path": "",
-        "reason": "childCount:2!=1"
+        "reason": "childCount:2!=1",
+        "base": [
+          "container:Group",
+          "container:Group"
+        ],
+        "variant": [
+          "container:Group 6"
+        ]
       },
       {
         "prop": "Type",
         "value": "Explorer",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:Group",
+          "container:Group"
+        ],
+        "variant": [
+          "container:Group",
+          "container:Group",
+          "container:Group"
+        ]
       },
       {
         "prop": "Type",
         "value": "Studio",
         "path": "0",
-        "reason": "childCount:13!=28"
+        "reason": "childCount:13!=28",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ]
       },
       {
         "prop": "Type",
         "value": "Studio",
         "path": "1",
-        "reason": "childCount:12!=3"
+        "reason": "childCount:12!=3",
+        "base": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ],
+        "variant": [
+          "vector:Vector",
+          "vector:Vector",
+          "vector:Vector"
+        ]
       }
     ]
   },
@@ -166,6 +293,8 @@
       "layoutMode": "NONE",
       "x": -2783,
       "y": 5,
+      "w": 431,
+      "h": 63,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"
@@ -181,6 +310,8 @@
           "layoutMode": "NONE",
           "x": -2783.001953125,
           "y": 5.000002861022949,
+          "w": 253.94168090820312,
+          "h": 57.110008239746094,
           "constraints": {
             "vertical": "CENTER",
             "horizontal": "SCALE"
@@ -299,6 +430,8 @@
           "layoutMode": "NONE",
           "x": -2515.726806640625,
           "y": 19.767261505126953,
+          "w": 163.7024383544922,
+          "h": 31.346267700195312,
           "constraints": {
             "vertical": "CENTER",
             "horizontal": "SCALE"

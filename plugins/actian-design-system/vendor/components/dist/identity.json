@@ -6,11 +6,6 @@
   },
   "schemaVersion": "1.0.0",
   "entries": {
-    "00302ca7dc4298c719f19ca4766029909ecbeb9d": {
-      "slug": "illustration",
-      "nodeId": "8837:9945",
-      "previousSlugs": []
-    },
     "00c5456a3ebf1b03ba2541a3793fd7a9bf580655": {
       "slug": "speakerphone",
       "nodeId": "8:20834",
@@ -1437,6 +1432,11 @@
       "nodeId": "14294:7650",
       "previousSlugs": []
     },
+    "691135f1a6dfc54fce73354587475424718fd79d": {
+      "slug": "user-info-add",
+      "nodeId": "22284:6096",
+      "previousSlugs": []
+    },
     "696ef83ffe2d0af84432b8f12cc15b43e0b25a15": {
       "slug": "fm-menu",
       "nodeId": "8:21644",
@@ -1727,11 +1727,6 @@
     "7f6e32e201a4930cebf3e0daf022b615c8ff2a74": {
       "slug": "greenplum",
       "nodeId": "8400:25073",
-      "previousSlugs": []
-    },
-    "805cb80b498052ea49f63c3123e9491808d6d8ef": {
-      "slug": "calendar",
-      "nodeId": "7378:5041",
       "previousSlugs": []
     },
     "80d8ab0ae5eb4b99708994aba332ba345b442ed3": {
@@ -2129,11 +2124,12 @@
       "previousSlugs": []
     },
     "9eafdb6242837b591ba5f39959150b53e40ef02d": {
-      "slug": "calendar-date-input",
+      "slug": "calendar",
       "nodeId": "8194:7305",
       "previousSlugs": [
         "input-date",
-        "date-input"
+        "date-input",
+        "calendar-date-input"
       ]
     },
     "9ed31a542256e1d255e30e00bae6c625d8688b00": {
@@ -2167,9 +2163,11 @@
       "previousSlugs": []
     },
     "a38a874d532ced8607f8632d0aa9cdf2dec39484": {
-      "slug": "dropdown",
+      "slug": "menu-dropdown",
       "nodeId": "21982:71973",
-      "previousSlugs": []
+      "previousSlugs": [
+        "dropdown"
+      ]
     },
     "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766": {
       "slug": "fm-input-label",
@@ -2398,6 +2396,11 @@
       "nodeId": "8400:25212",
       "previousSlugs": []
     },
+    "b952fe74e9ca263e4a378f24982ab02fa22e114a": {
+      "slug": "illustration",
+      "nodeId": "22325:8253",
+      "previousSlugs": []
+    },
     "ba24134a55744773e55c841ad48eacb6dd978664": {
       "slug": "briefcase",
       "nodeId": "8:20600",
@@ -2479,9 +2482,11 @@
       "previousSlugs": []
     },
     "c18a5a8af71f7f5adfc2f17b61bb7d8aa8e4f2c9": {
-      "slug": "icon",
+      "slug": "new-conversation",
       "nodeId": "22258:8789",
-      "previousSlugs": []
+      "previousSlugs": [
+        "icon"
+      ]
     },
     "c1f9f7a550ed686f3abf9d75d13feeafad0302d7": {
       "slug": "eye",
@@ -2971,9 +2976,11 @@
       "previousSlugs": []
     },
     "e904c7b5c3ef6d223d9743546484e5a99b7a7808": {
-      "slug": "rich-text",
+      "slug": "rich-text-froala",
       "nodeId": "9480:17723",
-      "previousSlugs": []
+      "previousSlugs": [
+        "rich-text"
+      ]
     },
     "e939d776621f097562d024535a10d5c011fd493c": {
       "slug": "xs-grid",
@@ -3273,6 +3280,11 @@
     "ffa8798d9b0a3d22602ed2d39fcb551af4c01992": {
       "slug": "server-warning",
       "nodeId": "20633:53",
+      "previousSlugs": []
+    },
+    "fff06ba00e1d5317d3112c722a8434f765194909": {
+      "slug": "identification-key",
+      "nodeId": "14349:15322",
       "previousSlugs": []
     }
   }

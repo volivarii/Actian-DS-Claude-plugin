@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "soda",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8400:25188"
@@ -35,6 +35,8 @@
       "layoutMode": "NONE",
       "x": -620,
       "y": 2799.432861328125,
+      "w": 24,
+      "h": 15.134500503540039,
       "constraints": {
         "vertical": "TOP",
         "horizontal": "LEFT"

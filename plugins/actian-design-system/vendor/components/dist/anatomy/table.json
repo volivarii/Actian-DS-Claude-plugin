@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "table",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "15295:14902",
@@ -18,7 +18,23 @@
         "prop": "Built type",
         "value": "By rows",
         "path": "1",
-        "reason": "childCount:8!=4"
+        "reason": "childCount:8!=4",
+        "base": [
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column",
+          "instance:.Table column"
+        ],
+        "variant": [
+          "instance:.table-row-header",
+          "instance:.table-row-body",
+          "instance:.table-row-body",
+          "instance:.table-row-body"
+        ]
       }
     ]
   },
@@ -74,7 +90,20 @@
           "sizing": {
             "h": "fill",
             "v": "hug"
-          }
+          },
+          "variants": [
+            {
+              "prop": "Built type",
+              "values": [
+                "By rows"
+              ],
+              "axis": "column",
+              "align": {
+                "main": "center",
+                "cross": "start"
+              }
+            }
+          ]
         },
         "children": [
           {

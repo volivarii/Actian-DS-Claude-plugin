@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n* When users need to select a date or date range and seeing surrounding days adds context.\n\n* For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar-date-input) instead.\n\n## Style\n\n* Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n\n* Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n\n* For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n* Highlight today's date for orientation.\n\n* Disable dates that are not selectable rather than allowing selection and then showing an error.\n\n* For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do                                 | Don't          |\n| ---------------------------------- | -------------- |\n| Start date                         | Select date    |\n| Jun 28, 2026                       | 06/28/26       |\n| End date must be after start date. | Invalid range. |",
+      "markdown": "# Calendar\n\nThe calendar lets users pick a date or date range from a visual month view. It appears on its own or attached to a date input.\n\n***\n\n## When to use\n\n* When users need to select a date or date range and seeing surrounding days adds context.\n\n* For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar) instead.\n\n## Style\n\n* Label the action by what the date represents. For example, \"Start date\" or \"Effective date\", not \"Select date\".\n\n* Use a single, consistent date format across the product. Spell out or abbreviate the month to avoid ambiguity. For example, \"Jun 28, 2026\".\n\n* For a range, label both ends clearly as \"Start date\" and \"End date\".\n\n## Behavior\n\n* Highlight today's date for orientation.\n\n* Disable dates that are not selectable rather than allowing selection and then showing an error.\n\n* For a range, show the span between the two selected dates.\n\n## Do / Don't\n\n| Do                                 | Don't          |\n| ---------------------------------- | -------------- |\n| Start date                         | Select date    |\n| Jun 28, 2026                       | 06/28/26       |\n| End date must be after start date. | Invalid range. |",
       "sections": [
         {
           "heading": "",
@@ -35,7 +35,7 @@
             {
               "bullets": [
                 "When users need to select a date or date range and seeing surrounding days adds context.",
-                "For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar-date-input) instead."
+                "For a compact single-date entry where a visual month view is unnecessary, use a [date input](calendar) instead."
               ]
             }
           ]
@@ -85,7 +85,7 @@
     },
     "usage": {
       "status": "approved",
-      "markdown": "## When to use\n\n* Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).\n\n* Use it to pick a date range where the span between start and end should stay visible while choosing.\n\n* Use it attached to a [date input](calendar-date-input) as the picking surface, or on its own when the month view is the main content of the screen.\n\n## When not to use\n\n* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar-date-input), which pairs typing with an attached calendar.\n\n* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar-date-input) is faster.\n\n* Don't use it to display schedules or events: it is a picking control, not a timeline view.\n\n## Variant selection\n\n* **Single selection:** picking one date; the standard mode when attached to a date input.\n\n* **Range selection:** picking a start and an end; the calendar shows the span between them while choosing.\n\n* **Month view:** the default granularity for picking individual days.\n\n* **Year view:** quick jumps to distant dates without paging month by month.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight today's date for orientation | Leave the user hunting for the current day |\n| Disable dates that cannot be chosen | Accept any date and show an error afterwards |\n| Show the span while a range is being picked | Reveal the range only after both ends are set |\n| Open on the month of the current or previously chosen value | Always open on the same fixed month |\n| Keep the week layout consistent across the product | Change the first day of the week between screens |\n\n> Date format and range label wording rules (**Start date**, **End date**; displayed format Jun 28, 2026, typed format YYYY-MM-DD) live in the Content guidelines for calendars.",
+      "markdown": "## When to use\n\n* Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).\n\n* Use it to pick a date range where the span between start and end should stay visible while choosing.\n\n* Use it attached to a [date input](calendar) as the picking surface, or on its own when the month view is the main content of the screen.\n\n## When not to use\n\n* Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar), which pairs typing with an attached calendar.\n\n* Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar) is faster.\n\n* Don't use it to display schedules or events: it is a picking control, not a timeline view.\n\n## Variant selection\n\n* **Single selection:** picking one date; the standard mode when attached to a date input.\n\n* **Range selection:** picking a start and an end; the calendar shows the span between them while choosing.\n\n* **Month view:** the default granularity for picking individual days.\n\n* **Year view:** quick jumps to distant dates without paging month by month.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight today's date for orientation | Leave the user hunting for the current day |\n| Disable dates that cannot be chosen | Accept any date and show an error afterwards |\n| Show the span while a range is being picked | Reveal the range only after both ends are set |\n| Open on the month of the current or previously chosen value | Always open on the same fixed month |\n| Keep the week layout consistent across the product | Change the first day of the week between screens |\n\n> Date format and range label wording rules (**Start date**, **End date**; displayed format Jun 28, 2026, typed format YYYY-MM-DD) live in the Content guidelines for calendars.",
       "sections": [
         {
           "heading": "When to use",
@@ -94,7 +94,7 @@
               "bullets": [
                 "Use a calendar when seeing surrounding days adds context to the choice (for example scheduling a metadata scan relative to a weekend or month end).",
                 "Use it to pick a date range where the span between start and end should stay visible while choosing.",
-                "Use it attached to a [date input](calendar-date-input) as the picking surface, or on its own when the month view is the main content of the screen."
+                "Use it attached to a [date input](calendar) as the picking surface, or on its own when the month view is the main content of the screen."
               ]
             }
           ]
@@ -104,8 +104,8 @@
           "content": [
             {
               "bullets": [
-                "Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar-date-input), which pairs typing with an attached calendar.",
-                "Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar-date-input) is faster.",
+                "Don't use a standalone calendar for compact single-date entry in a form: use a [date input](calendar), which pairs typing with an attached calendar.",
+                "Don't lead with a calendar for dates the user already knows exactly (a documented cutoff, a date from a report): typing into a [date input](calendar) is faster.",
                 "Don't use it to display schedules or events: it is a picking control, not a timeline view."
               ]
             }
@@ -164,5 +164,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-31T21:06:17+02:00"
+  "updated_at": "2026-09-03T19:11:59+02:00"
 }

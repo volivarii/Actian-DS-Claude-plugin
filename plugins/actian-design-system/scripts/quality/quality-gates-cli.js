@@ -31,8 +31,13 @@ var PILOT = [
   "toast",
   "stepper",
   "tooltip-default",
-  "calendar-date-input",
-  "rich-text",
+  // Both renamed by the 2026-09-03 breaking sync, and both caught by the
+  // BUILT_SLUGS check below rather than scoring a chip as a leaf:
+  // calendar-date-input -> calendar (taking the slug the calendar ICON held in
+  // the components map; the icon survives in its own namespace), and
+  // rich-text -> rich-text-froala.
+  "calendar",
+  "rich-text-froala",
   "dropdown-select-default",
   "progress-bar-small",
   "interactive-tag",

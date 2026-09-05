@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "label",
   "kit": "dskit",
-  "synced_at": "2026-07-23T09:22:37.724Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "20353:18566",
@@ -34,6 +34,9 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
+      },
+      "size": {
+        "w": "320px"
       },
       "gapToken": "--zen-spacing-2xs"
     },

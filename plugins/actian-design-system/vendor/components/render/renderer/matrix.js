@@ -290,19 +290,59 @@ var MATRIX_OVERRIDES = {
   // (Type=Info), so in the design file the message mirrors the type name.
   // Anatomy captures only the default variant, so the same rule is applied to
   // the other three rather than repeating one message across four cells.
+  // Action: "Button" is Figma's own placeholder label on the nested Button
+  // instance, shown in the default capture. It is SPECIMEN content and lives
+  // here rather than as a renderer fallback, so a caller who asks for no
+  // optional parts is not handed the word "Button".
   "alert-banner": [
-    { label: "Info", variant: "Type=Info", props: { Message: "Info" } },
+    {
+      label: "Info",
+      variant: "Type=Info",
+      props: { Message: "Info", Action: "Button" },
+    },
     {
       label: "Success",
       variant: "Type=Success",
-      props: { Message: "Success" },
+      props: { Message: "Success", Action: "Button" },
     },
     {
       label: "Warning",
       variant: "Type=Warning",
-      props: { Message: "Warning" },
+      props: { Message: "Warning", Action: "Button" },
     },
-    { label: "Error", variant: "Type=Error", props: { Message: "Error" } },
+    {
+      label: "Error",
+      variant: "Type=Error",
+      props: { Message: "Error", Action: "Button" },
+    },
+  ],
+
+  // The default capture (components/dist/media/action-bar/default.webp) pins a
+  // destructive `Delete` left of Cancel/Save. Without a specimen that fills it,
+  // the leading slot exists in the renderer and appears in no fragment, which is
+  // how a slot goes back to being invisible.
+  "action-bar": [
+    {
+      label: "Default",
+      variant: "",
+      props: { Destructive: "Delete" },
+    },
+  ],
+
+  // The default capture shows eight items: `Home`, an elided `…`, five `Link`s
+  // and the current page, each but the first carrying a Dataset item-type badge
+  // reading `Ds`. The generic derivation produced three plain crumbs, so the
+  // fragment showed neither the badge slot nor the overflow.
+  breadcrumb: [
+    {
+      label: "Default",
+      variant: "",
+      props: {
+        Items: "Home, …, Link, Link, Link, Link, Link, Current page",
+        Badges: ["", "", "Ds", "Ds", "Ds", "Ds", "Ds", "Ds"],
+        BadgeType: "Dataset",
+      },
+    },
   ],
 
   button: [
@@ -768,7 +808,7 @@ var SPECIMEN_PROPS = {
   stepper: { Body: "Optional body" },
 
   // authored: the capture holds "Date", "*" and "mm/dd/yyyy" but no helper layer
-  "calendar-date-input": { Helper: "Use MM/DD/YYYY." },
+  "calendar": { Helper: "Use MM/DD/YYYY." },
 
   "dropdown-select-default": {
     // capture: anatomy/dropdown-select-default.json layer "description"

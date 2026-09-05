@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://actian-ds.example.com/schemas/app-context-app.json",
   "title": "App-context app (per-record frontmatter)",
-  "description": "Frontmatter of app-context/src/apps/<slug>.md. Describes an Actian application's identity, header variant, navigation structure, and behavioural signals.",
+  "description": "Frontmatter of app-context/src/apps/<slug>.md: the app's identity, header variant, navigation structure and use cases. It does NOT describe purpose, users or signals. Those three are authored as BODY sections (## Purpose, ## Users, ## Signals), lifted by scripts/app-context/derive-app-context.js, and declared on the derived shape at schemas/app-context.json#/$defs/app. additionalProperties is false here, so declaring them in this file would permit frontmatter keys that can never legally appear.",
   "type": "object",
   "required": ["_schema_version", "slug", "label", "header", "sidebar"],
   "additionalProperties": false,

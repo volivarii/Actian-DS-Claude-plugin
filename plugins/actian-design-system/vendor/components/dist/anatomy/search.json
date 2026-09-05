@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "search",
   "kit": "dskit",
-  "synced_at": "2026-08-12T12:00:22.180Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "8589:11055",
@@ -18,31 +18,74 @@
         "prop": "State",
         "value": "Active",
         "path": "1",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:search 2",
+          "text:Input text",
+          "instance:Button"
+        ],
+        "variant": [
+          "instance:search 2",
+          "text:Input text",
+          "instance:Close",
+          "instance:Button"
+        ]
       },
       {
         "prop": "State",
         "value": "Filled",
         "path": "1",
-        "reason": "childCount:3!=4"
+        "reason": "childCount:3!=4",
+        "base": [
+          "instance:search 2",
+          "text:Input text",
+          "instance:Button"
+        ],
+        "variant": [
+          "instance:search 2",
+          "text:Input text",
+          "instance:Close",
+          "instance:Button"
+        ]
       },
       {
         "prop": "Type",
         "value": "Explorer home",
         "path": "0",
-        "reason": "kind:container!=instance"
+        "reason": "kind:container!=instance",
+        "base": [
+          "container:dropdown"
+        ],
+        "variant": [
+          "instance:search 2"
+        ]
       },
       {
         "prop": "Type",
         "value": "Explorer home",
         "path": "1",
-        "reason": "kind:container!=text"
+        "reason": "kind:container!=text",
+        "base": [
+          "container:search input"
+        ],
+        "variant": [
+          "text:Search items"
+        ]
       },
       {
         "prop": "Type",
         "value": "Inline",
         "path": "",
-        "reason": "childCount:2!=3"
+        "reason": "childCount:2!=3",
+        "base": [
+          "container:dropdown",
+          "container:search input"
+        ],
+        "variant": [
+          "instance:search",
+          "text:Input text",
+          "instance:stars-filled"
+        ]
       }
     ]
   },
@@ -101,7 +144,66 @@
       "sizing": {
         "h": "fixed",
         "v": "hug"
-      }
+      },
+      "size": {
+        "w": "568px"
+      },
+      "variants": [
+        {
+          "prop": "Type",
+          "values": [
+            "Explorer home"
+          ],
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "16px",
+            "bottom": "0px",
+            "left": "16px"
+          },
+          "paddingTokens": {
+            "right": "--zen-spacing-md",
+            "left": "--zen-spacing-md"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "640px",
+            "h": "60px"
+          }
+        },
+        {
+          "prop": "Type",
+          "values": [
+            "Inline"
+          ],
+          "gap": "4px",
+          "padding": {
+            "top": "6px",
+            "right": "8px",
+            "bottom": "6px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          },
+          "size": {
+            "w": "360px",
+            "h": "40px"
+          }
+        }
+      ]
     },
     "children": [
       {
@@ -150,6 +252,10 @@
           "sizing": {
             "h": "fixed",
             "v": "fixed"
+          },
+          "size": {
+            "w": "128px",
+            "h": "40px"
           },
           "paddingTokens": {
             "right": "--zen-spacing-md",
@@ -280,6 +386,9 @@
           "sizing": {
             "h": "fill",
             "v": "fixed"
+          },
+          "size": {
+            "h": "40px"
           },
           "gapToken": "--zen-spacing-2xs",
           "paddingTokens": {

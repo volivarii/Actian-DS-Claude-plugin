@@ -10,8 +10,8 @@
 | Badges | approved | approved | inherited | inherited | approved |
 | Breadcrumbs | approved | approved | inherited | inherited | approved |
 | Buttons | approved | approved | draft | draft | approved |
+| Calendar | approved | approved | inherited | inherited | not started |
 | Calendar data selector | approved | approved | inherited | inherited | not started |
-| Calendar date input | approved | approved | inherited | inherited | not started |
 | Cards | approved | approved | inherited | inherited | approved |
 | Chat with AI Steward | draft | approved | draft | not started | not started |
 | Checkboxes | approved | approved | inherited | inherited | approved |
@@ -37,7 +37,7 @@
 | Popover | approved | approved | inherited | inherited | not started |
 | Progress bar | approved | approved | inherited | inherited | not started |
 | Radio | approved | approved | inherited | inherited | not started |
-| Rich text | approved | approved | inherited | inherited | not started |
+| Rich text (Froala) | approved | approved | inherited | inherited | not started |
 | Scroll bar | approved | approved | inherited | inherited | not started |
 | Search | approved | approved | inherited | inherited | approved |
 | Search dropdown menu | approved | approved | inherited | inherited | not started |

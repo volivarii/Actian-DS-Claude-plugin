@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "app-switcher-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-08-26T14:16:00.631Z",
+  "synced_at": "2026-09-03T15:32:36.959Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "9118:17666"
@@ -46,27 +46,35 @@
     },
     "children": [
       {
-        "name": ".dropdown-menu-item",
+        "name": ".menu item",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Show trailing icon": false,
+          "Show support text": false,
           "Show leading icon": true,
-          "Label text": "Administration",
-          "Type": "Selectable item",
+          "Type": "Default",
           "State": "Selected"
         },
-        "id": "9085:21604"
+        "tokenRefs": [
+          "--zen-border-selected"
+        ],
+        "id": "9085:21604",
+        "appearance": {
+          "border": {
+            "color": "#0f5fdc",
+            "colorToken": "--zen-border-selected",
+            "width": "1px"
+          }
+        }
       },
       {
-        "name": ".dropdown-menu-item",
+        "name": ".menu item",
         "kind": "instance",
         "unresolved": true,
         "props": {
-          "Show trailing icon": false,
+          "Show support text": false,
           "Show leading icon": true,
-          "Label text": "Explorer",
-          "Type": "Selectable item",
+          "Type": "Default",
           "State": "Default"
         },
         "id": "9085:21605"
