@@ -21,7 +21,8 @@ are summarized at the release level.
 
 ### Changed
 
-- **Tier provenance no longer reaches the deliverable at all**. The tier a screen was
+- **Tier provenance no longer reaches the deliverable at all**
+  ([#342](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/342)). The tier a screen was
   classified as, the recipe it matched, the confidence and the justification are for the person who
   ran the generation. They were rendered into every screen, inside `.screen__content-area`, at all
   three of `screen()`'s render paths. `flow-renderer.js` no longer emits the badge and
