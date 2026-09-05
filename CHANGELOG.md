@@ -22,7 +22,8 @@ are summarized at the release level.
 ### Fixed
 
 - **The vendor lane had been red for two days, and this is the THIRD refresh in a row to break in
-  the same shape.** The nightly kept opening a PR against knowledge `v0.34.184` and then `v0.34.186`
+  the same shape.**
+  ([#340](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/340)) The nightly kept opening a PR against knowledge `v0.34.184` and then `v0.34.186`
   and both failed the same 16 assertions, so nothing merged and the plugin stayed pinned at
   `v0.34.178` from 2026-09-03. It does not self-heal: the next night reopens a PR that fails
   identically. Same cause as #327 (32 assertions on `v0.34.157`) and #332 (26 on `v0.34.165`), and
