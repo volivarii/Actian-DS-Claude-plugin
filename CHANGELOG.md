@@ -21,7 +21,8 @@ are summarized at the release level.
 
 ### Changed
 
-- **The tier badge shows on the Overview contact sheet only, not on the screens themselves.**
+- **The tier badge shows on the Overview contact sheet only, not on the screens themselves**
+  ([#341](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/341)).
   It is author provenance: the tier a screen was classified as, the recipe it matched, the
   confidence, and whether it carried a justification, all four in its title attribute. It was
   emitted inside `.screen__content-area` at every one of `screen()`'s three render paths and shown
