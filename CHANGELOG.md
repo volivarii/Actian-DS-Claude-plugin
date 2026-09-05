@@ -19,6 +19,19 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **The tier badge shows on the Overview contact sheet only, not on the screens themselves.**
+  It is author provenance: the tier a screen was classified as, the recipe it matched, the
+  confidence, and whether it carried a justification, all four in its title attribute. It was
+  emitted inside `.screen__content-area` at every one of `screen()`'s three render paths and shown
+  in both views, so a prototype shared with anyone outside the team carried "tier 2" next to the
+  breadcrumb of every screen. The markup is unchanged and the same four fields stay in
+  `flow-data.json`; only the stylesheet changed, revealing the badge under
+  `.proto-stage--overview`. `tests/renderers/tier-badge-author-only.test.js` asserts both
+  directions, because a guard that only checked "hidden by default" would pass on a stylesheet
+  that never shows it at all, which silently deletes a signal the author uses.
+
 ### Fixed
 
 - **The vendor lane had been red for two days, and this is the THIRD refresh in a row to break in
