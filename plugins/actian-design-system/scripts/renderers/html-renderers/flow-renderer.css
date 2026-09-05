@@ -136,45 +136,6 @@
   color: var(--fm-base-500);
 }
 
-/* ── Tier badge ──
-   Author provenance: which tier the screen was classified as, the recipe it
-   matched, the confidence, and whether it carried a justification (all four
-   are in the title attribute). It is not part of the screen being reviewed,
-   and it used to render inside .screen__content-area in BOTH views, so a
-   prototype shared with anyone outside the team carried "tier 2" next to its
-   breadcrumb. It now appears only on the Overview contact sheet, whose reader
-   is the person who generated the flow. The same four fields stay in
-   flow-data.json either way, so nothing is lost by hiding it here.
-   Scope note: the reveal keys on the flow-share wrapper's view class, so on an
-   `assemble-preview --type flow` bundle the badge stays hidden with no way to
-   show it. That path assembles no deliverable anyone reviews (two renderer-
-   wiring tests are its only callers), so it is left alone rather than given a
-   second selector to keep in step. */
-.tier-badge {
-  display: none;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  background: var(--fm-base-200);
-  color: var(--fm-text-secondary);
-  border: 1px solid var(--fm-base-300);
-}
-.tier-badge[data-tier="adapted"] {
-  background: var(--fm-brand-light);
-  border-color: var(--fm-brand);
-  color: var(--fm-brand-dark);
-}
-.tier-badge[data-tier="improvised"] {
-  background: var(--fm-base-300);
-  border-color: var(--fm-base-500);
-  color: var(--fm-text-primary);
-}
-.proto-stage--overview .tier-badge {
-  display: inline-block;
-}
-
 /* ── FM Skeleton (Tier B streaming placeholder) ──────────────────────────
    Token-bound (no hardcoded colors → passes the token-resolution gate).
    Shimmer is CSS-only, so the rendered HTML string stays deterministic. */
