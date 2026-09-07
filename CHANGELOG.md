@@ -19,6 +19,34 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **A pattern's own components now reach the screen-generator.** `_glossary.patterns[]` gained a
+  `components` field. app-context has carried each UX pattern's component list the whole time and
+  `resolvePatterns` dropped it building its own object, so a screen-generator that had already
+  decided which pattern its screen realizes still could not ask what that pattern is made of. The
+  list is deduped to match the knowledge repo's own graph derive, which treats the authored array as
+  a set (`access-request-management`: 7 authored entries, 5 `uses_component` edges); handing over
+  the repeat would read as an instruction to place the component twice.
+
+- **Generation can now reach the design system from the domain model.** `resolve-patterns.js`
+  gained an `--entity <slug>` mode returning `{ entity, patterns, components, join }`: the UX
+  patterns whose page shape shows an entity, and the DS components those shapes are built from.
+  The components answer is a traversal, entity to pattern to component, because a pattern already
+  owns its `components[]` and the knowledge repo authors the edge on the entity alone rather than
+  restating a list per entity. `generate-flow` Step 3.5 sets `_glossary.entityPatterns` and
+  `_glossary.entityComponents`. The screen-generator takes the narrower answer where it has one,
+  the chosen pattern's own `components`, and falls back to the entity-wide union when no pattern
+  fits the screen. Before this, every grounding signal in the pipeline was about words, page shape
+  or chrome, and nothing told a screen which components the substrate says draw the thing it
+  displays.
+
+  The mode reports which of three states an empty answer is in, because they are different facts
+  and only one is about the entity: the vendored snapshot predates the edge, the entity is unknown,
+  or the substrate genuinely says no captured page shape shows it. Requires knowledge v0.34.191 or
+  later in `vendor/`; on an older pin it degrades to empty and says so on stderr rather than
+  reporting "no components".
+
 ### Fixed
 
 - **Every generated screen showed the same four navigation items, in every app**

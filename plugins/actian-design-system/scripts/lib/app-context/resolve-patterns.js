@@ -430,6 +430,22 @@ function pageRecipeReport(app, patterns, pageRecipeIndex) {
   };
 }
 
+// The substrate authors `components[]` as a list of USES, so a page with two
+// tables carries "table" twice. Its own graph derive treats the array as a set
+// (access-request-management: 7 entries, 5 uses_component edges), so this
+// matches that rather than handing a generator a repeat it would read as an
+// instruction to place the component twice.
+function dedupeComponents(list) {
+  var seen = Object.create(null);
+  var out = [];
+  (Array.isArray(list) ? list : []).forEach(function (c) {
+    if (typeof c !== "string" || !c || seen[c]) return;
+    seen[c] = true;
+    out.push(c);
+  });
+  return out;
+}
+
 function resolvePatterns(appName, ctx, recipeIndex, pageRecipeIndex) {
   var key = normalizeApp(appName);
   if (!key) return [];
@@ -458,9 +474,98 @@ function resolvePatterns(appName, ctx, recipeIndex, pageRecipeIndex) {
       // the plugin's own guess and stays readable as such, while this is the
       // substrate's answer. Precedence is stated once, in screen-generator.md.
       pageRecipe: selectPageRecipe(slug, key, pageRecipeIndex),
+      // The DS components the substrate says this pattern is built from. It was
+      // in app-context the whole time and this object dropped it, so a
+      // screen-generator that had already decided WHICH pattern its screen
+      // realizes still had no way to ask what that pattern is made of. Carried
+      // here so the per-screen answer is the pattern's own list rather than the
+      // entity-wide union, which is broader than any one screen.
+      components: dedupeComponents(p.components),
     });
   });
   return out;
+}
+
+// The domain-model side of the substrate: which UX patterns show a given entity,
+// and, through them, which DS components draw it.
+//
+// The knowledge repo authors this edge on the ENTITY (`entities[].patterns`) and
+// stops there, because a pattern already owns its own `components[]`. So the
+// component answer is a TRAVERSAL, entity -> pattern -> component, and doing it
+// here rather than asking authors to restate a component list per entity is the
+// whole reason the edge is shaped that way upstream. This function performs the
+// traversal so a caller never has to know it is two hops.
+//
+// Degrades to [] on a vendored snapshot older than the edge, rather than
+// throwing: `patterns` is optional in the entity schema and simply absent from
+// every entity before knowledge v0.34.191. A caller cannot tell "this entity is
+// shown by nothing" from "this snapshot predates the join", which is why
+// entityJoinState() below exists and is asserted by the tests.
+function resolveEntityPatterns(entitySlug, ctx) {
+  var key = normalizeSlug(entitySlug);
+  if (!key) return [];
+  var data = loadAppContext(ctx);
+  if (!data || !data.entities || !data.patterns) return [];
+  var e = data.entities[key];
+  if (!e || !Array.isArray(e.patterns)) return [];
+
+  var out = [];
+  e.patterns.forEach(function (raw) {
+    var slug = normalizeSlug(raw);
+    var p = data.patterns[slug];
+    // An unresolvable slug is DROPPED here rather than surfaced as an empty
+    // shell. The knowledge repo fails its own derive on a dangling reference, so
+    // one reaching this far means the vendored snapshot is internally
+    // inconsistent, and a half-populated pattern object would be composed from
+    // as if it were real.
+    if (!p) return;
+    out.push({
+      slug: slug,
+      label: p.label || "",
+      apps: Array.isArray(p.apps) ? p.apps.slice() : [],
+      components: dedupeComponents(p.components),
+    });
+  });
+  return out;
+}
+
+// The components that draw an entity, deduped, in first-seen order across its
+// patterns. Order is stable so a generated prompt does not churn between runs.
+function resolveEntityComponents(entitySlug, ctx) {
+  // Each pattern's list is already deduped; this dedupes ACROSS them, where the
+  // same component legitimately appears in two page shapes. Same helper, so the
+  // two cannot drift apart.
+  return dedupeComponents(
+    resolveEntityPatterns(entitySlug, ctx).reduce(function (acc, p) {
+      return acc.concat(p.components);
+    }, []),
+  );
+}
+
+// The entity slugs the vendored snapshot carries, so a caller can tell a typo
+// from a real entity no pattern shows. Parity with resolve-relationships.js.
+function listEntities(ctx) {
+  var data = loadAppContext(ctx);
+  return data && data.entities ? Object.keys(data.entities).sort() : [];
+}
+
+// Is the join present in the vendored snapshot at all? Callers and tests use
+// this to tell "no pattern shows this entity", which is a real answer the schema
+// allows, from "this snapshot predates the join", which is not an answer.
+// Reported rather than inferred, because the two look identical at the call site.
+function entityJoinState(ctx) {
+  var data = loadAppContext(ctx);
+  if (!data || !data.entities) return { present: false, entities: 0, joined: 0 };
+  var slugs = Object.keys(data.entities);
+  var joined = slugs.filter(function (s) {
+    var p = data.entities[s] && data.entities[s].patterns;
+    return Array.isArray(p) && p.length > 0;
+  });
+  return {
+    present: joined.length > 0,
+    entities: slugs.length,
+    joined: joined.length,
+  };
 }
 
 function resolveUseCases(appName, ctx) {
@@ -501,10 +606,15 @@ module.exports = {
   },
   patternSlugsFor: patternSlugsFor,
   selectPageRecipe: selectPageRecipe,
+  resolveEntityPatterns: resolveEntityPatterns,
+  resolveEntityComponents: resolveEntityComponents,
+  entityJoinState: entityJoinState,
+  listEntities: listEntities,
 };
 
-// Thin CLI: `resolve-patterns.js --app studio` → { app, patterns, useCases }.
-// Parity with resolve-chrome.js --app.
+// Thin CLI. `--app studio` → { app, patterns, useCases }, parity with
+// resolve-chrome.js --app. `--entity dataset` → { entity, patterns, components,
+// join }, parity with resolve-relationships.js --entity.
 function main() {
   var args = process.argv.slice(2);
   var appIdx = args.indexOf("--app");
@@ -629,7 +739,98 @@ function main() {
     process.exitCode = known ? 0 : 1;
     return;
   }
-  process.stderr.write("usage: resolve-patterns.js --app <name>\n");
+  // `--entity <slug>` -> the page shapes that show this thing, and the DS
+  // components that draw it. Parity with resolve-relationships.js --entity.
+  //
+  // This branch is what makes the join reachable from generation. Exporting the
+  // resolvers alone would have left them called by nothing but their own tests,
+  // which proves the function works and never that the pipeline reads it.
+  var entIdx = args.indexOf("--entity");
+  if (entIdx !== -1 && args[entIdx + 1]) {
+    var ent = args[entIdx + 1];
+    var entKey = normalizeSlug(ent);
+    // `--context <path>` reads an app-context JSON other than the vendored one,
+    // through the seam loadAppContext() already has. It exists so the tests can
+    // drive the states this branch reports on: the vendored snapshot is one
+    // state at a time, so without it the PRESENT path and the dangling-slug path
+    // are both unreachable until a refresh lands, and a diagnostic that cannot
+    // be exercised is a diagnostic nobody knows is broken.
+    var ctxIdx = args.indexOf("--context");
+    var entCtx = ctxIdx !== -1 && args[ctxIdx + 1] ? args[ctxIdx + 1] : undefined;
+    var entKnown = listEntities(entCtx).indexOf(entKey) !== -1;
+    var pats2 = resolveEntityPatterns(ent, entCtx);
+    var comps = resolveEntityComponents(ent, entCtx);
+    var join = entityJoinState(entCtx);
+
+    // A pattern slug the snapshot cannot resolve is dropped by the resolver, so
+    // without this line the count just comes back smaller than the entity
+    // authored and nothing says why. The knowledge repo fails its own derive on
+    // a dangling reference, so reaching here means the vendored snapshot is
+    // internally inconsistent, which is worth a word.
+    var authored = (function () {
+      var d = loadAppContext(entCtx);
+      var e = d && d.entities && d.entities[entKey];
+      return e && Array.isArray(e.patterns) ? e.patterns.length : 0;
+    })();
+    if (authored > pats2.length) {
+      process.stderr.write(
+        "entity join: " + (authored - pats2.length) + " of " + authored +
+          " pattern slugs on '" + entKey + "' resolve to nothing in this " +
+          "snapshot and were dropped. The vendored snapshot is internally " +
+          "inconsistent; refresh it.\n",
+      );
+    }
+
+    // An empty result has three different causes and they are not the same
+    // answer. Saying which one it is here is the whole point of the line: an
+    // agent reading `[]` off stdout otherwise reports "no components draw this"
+    // when the truth is that the vendored snapshot predates the edge.
+    if (!entKnown) {
+      process.stderr.write(
+        "entity join: '" + entKey + "' is not an entity in this snapshot (" +
+          join.entities + " known)\n",
+      );
+    } else if (!join.present) {
+      process.stderr.write(
+        "entity join: ABSENT from this vendored snapshot. Not one of " +
+          join.entities + " entities names a pattern, so an empty result here " +
+          "is a fact about the vendor pin and NOT about the entity. Refresh " +
+          "the vendor snapshot to knowledge v0.34.191 or later.\n",
+      );
+    } else {
+      process.stderr.write(
+        "entity join: " + join.joined + " of " + join.entities +
+          " entities name a pattern; '" + entKey + "' names " + pats2.length +
+          ", reaching " + comps.length + " components\n",
+      );
+      if (!pats2.length) {
+        process.stderr.write(
+          "  no pattern shows '" + entKey + "'. The join is present, so this " +
+            "is the substrate's answer: nothing in the captured page shapes " +
+            "displays it.\n",
+        );
+      }
+    }
+
+    process.stdout.write(
+      JSON.stringify(
+        {
+          entity: entKey,
+          patterns: pats2,
+          components: comps,
+          join: join,
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+    process.exitCode = entKnown ? 0 : 1;
+    return;
+  }
+
+  process.stderr.write(
+    "usage: resolve-patterns.js --app <name> | --entity <slug> [--context <path>]\n",
+  );
   process.exitCode = 2;
 }
 

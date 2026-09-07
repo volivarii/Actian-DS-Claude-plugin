@@ -371,7 +371,7 @@ On **refine / iterate** of an existing flow, preserve any existing `_glossary.ch
 source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>
 ```
 
-Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags,tagSource,recipe,pageRecipe}]`, carried through whole: a field dropped here is a field the screen-generator cannot read) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns: a pattern not scoped to this app never appears (the app boundary is firm). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
+Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags,tagSource,recipe,pageRecipe,components}]`, where `components` is the DS components the substrate says that pattern is built from, carried through whole: a field dropped here is a field the screen-generator cannot read) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns: a pattern not scoped to this app never appears (the app boundary is firm). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
 
 Each pattern carries a `recipe` decision, already ranked by how many tags it shares with each archetype in `recipes/flow/_index.json`. **Use it rather than matching tags yourself, but read the next paragraph first: the decision belongs to the pattern, not to the screen.**
 
@@ -397,6 +397,16 @@ source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolv
 ```
 
 Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory, never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
+
+**Entity to components (the join into the design system, S3).** Using the same entity slug again, resolve the page shapes that show it and the components those shapes are built from:
+
+```bash
+source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --entity <slug>
+```
+
+Returns `{ entity, patterns, components, join }`. Set `_glossary.entityPatterns` to `patterns` (`[{slug,label,apps,components}]`) and `_glossary.entityComponents` to `components`, the deduped traversal across them. This is the one edge from the domain model into the DS: an entity names its page shapes, each page shape already names its components, so `entityComponents` is what the substrate says draws this thing anywhere it appears. It is the entity-wide union and therefore broader than any single screen, so a screen-generator that has settled on a pattern reads that pattern's own `components` instead; `entityComponents` is the answer when no pattern fits.
+
+Read the `join` object and the stderr line before trusting an empty answer. `join.present: false` means the **vendored snapshot predates the edge**, not that nothing shows the entity, and the two are not the same fact: report the pin, do not report "no components". `join.present: true` with an empty `patterns` is the substrate's real answer: some entities are only ever shown inside another object's page and carry no join by design. The `join` object reports how many of the snapshot's entities are joined, so read that rather than assuming a count. On **refine / iterate**, preserve existing `_glossary.entityPatterns` / `_glossary.entityComponents` rather than re-resolving.
 
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
