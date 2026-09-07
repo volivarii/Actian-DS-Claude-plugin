@@ -21,7 +21,8 @@ are summarized at the release level.
 
 ### Fixed
 
-- **Every generated screen showed the same four navigation items, in every app.** The side rail read
+- **Every generated screen showed the same four navigation items, in every app**
+  ([#351](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/351)). The side rail read
   `Catalog, Pipelines, Connections, Settings` on every screen of every flow. Those four are the
   side-nav leaf's own specimen default and they belong to no Actian product: Studio's navigation is
   seven items and does not include Pipelines, Administration's is eight, and Explorer is on record
