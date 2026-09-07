@@ -39,6 +39,61 @@ function appProfile(appHeaderType) {
 }
 
 // ---------------------------------------------------------------------------
+// App context injection
+// ---------------------------------------------------------------------------
+//
+// This module runs in the browser as well as in Node (see the UMD dance in
+// flow-renderer.js), so it cannot read app-context off disk itself. The caller
+// injects it, the same way ds-html-map takes its icons and anatomy doc map.
+//
+// What it is for: each app's REAL navigation. app-context is the substrate's
+// record of how Actian's products are actually laid out, and until this existed
+// the render path had no way to reach it, so every screen of every app rendered
+// the side-nav leaf's own four-item default ("Catalog, Pipelines, Connections,
+// Settings"). Studio has seven items and none of them is Pipelines;
+// Administration has eight; Explorer declares none at all.
+var APP_CONTEXT = null;
+
+function setAppContext(ctx) {
+  APP_CONTEXT = ctx || null;
+}
+
+// The app a template speaks for, or null when the template describes a shape
+// rather than a product. `administration` is here because TEMPLATE_CHROME only
+// ever had `admin`, so a screen authored with the full app name fell through to
+// no chrome at all.
+var TEMPLATE_APP = {
+  studio: "studio",
+  explorer: "explorer",
+  admin: "administration",
+  administration: "administration",
+};
+
+// The app's sidebar labels, or null when we cannot ground them.
+//
+// null and [] mean different things and the caller must keep them apart:
+//   []   the app is on record as having no side rail (Explorer)
+//   null no app context was injected, so we do not know
+// Neither is an invitation to fall back to the leaf's default. A rail we cannot
+// ground is a rail we should not draw: four invented items read as product
+// truth to anyone looking at the screen.
+function appSidebarLabels(templateName) {
+  var appKey = TEMPLATE_APP[templateName];
+  if (!appKey) return null;
+  if (!APP_CONTEXT || !APP_CONTEXT.apps || !APP_CONTEXT.apps[appKey]) {
+    return null;
+  }
+  var entries = APP_CONTEXT.apps[appKey].sidebar;
+  if (!Array.isArray(entries)) return null;
+  var labels = [];
+  for (var i = 0; i < entries.length; i++) {
+    var label = entries[i] && entries[i].label;
+    if (label) labels.push(label);
+  }
+  return labels;
+}
+
+// ---------------------------------------------------------------------------
 // TEMPLATE_CHROME + resolveChrome
 // ---------------------------------------------------------------------------
 
@@ -55,9 +110,45 @@ var TEMPLATE_CHROME = {
 };
 
 function resolveChrome(s) {
-  if (s.template && TEMPLATE_CHROME[s.template]) {
-    return TEMPLATE_CHROME[s.template];
+  var tpl = s.template;
+
+  // `administration` was never in TEMPLATE_CHROME, only `admin`, so a screen
+  // authored with the app's full name got no chrome at all. Resolve the alias
+  // before the lookup rather than adding a second entry that could drift.
+  var tplKey =
+    tpl === "administration" && !TEMPLATE_CHROME[tpl] ? "admin" : tpl;
+
+  if (tplKey && TEMPLATE_CHROME[tplKey]) {
+    var base = TEMPLATE_CHROME[tplKey];
+    var labels = appSidebarLabels(tpl);
+
+    // A template that names a real app defers to app-context on whether that
+    // app has a rail, because app-context is the record of how the product is
+    // laid out and this table is a hand-kept restatement of it. `labels` is
+    // null when the template names no app or nothing was injected; then the
+    // table stands, which keeps every existing non-app template unchanged.
+    // Precedence: an authored screen wins. app-context is the DEFAULT for a
+    // screen that says nothing about its rail, never an override of one that
+    // does. A screen carrying `sidebar: { items: [...] }` has stated its own
+    // navigation and must render it, including on an app the substrate records
+    // as having no rail. Missing this is what suppressed the rail on the
+    // explorer golden, which authors two items of its own.
+    var authored =
+      s.sidebar &&
+      typeof s.sidebar === "object" &&
+      ((Array.isArray(s.sidebar.items) && s.sidebar.items.length > 0) ||
+        (Array.isArray(s.sidebar.groups) && s.sidebar.groups.length > 0));
+
+    if (labels !== null && !authored) {
+      return {
+        appHeaderType: base.appHeaderType,
+        hasSidebar: labels.length > 0,
+        sidebarLabels: labels,
+      };
+    }
+    return base;
   }
+
   // Backward compat: derive from legacy s.appHeader / s.sidebar
   return {
     appHeaderType: s.appHeader || null,
@@ -136,7 +227,20 @@ function chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig) {
         sidebarProps.Groups = JSON.stringify([{ items: items }]);
       } else if (labels.length) {
         sidebarProps.Items = labels.join(", ");
+      } else if (chrome.sidebarLabels && chrome.sidebarLabels.length) {
+        // Nothing authored on the screen, but the app is on record. Use the
+        // product's own navigation rather than letting the leaf fall back to
+        // its four-item default, which belongs to no app.
+        sidebarProps.Items = chrome.sidebarLabels.join(", ");
       }
+      // No else. When nothing is grounded the props stay empty and the leaf
+      // uses its own default, which is what happened before this change and is
+      // wrong. It is left alone deliberately: sending `Items: ""` does not stop
+      // it (parseItems treats empty as absent, verified), and suppressing the
+      // rail here would change the Figma emit path too, which does not inject.
+      // The place this is made safe is the guard: a test asserts the real
+      // assembler path renders the app's OWN labels, so a broken injection
+      // fails CI rather than quietly reinstating the four invented items.
       if (active) sidebarProps.Active = active;
     }
 
@@ -284,6 +388,8 @@ function screenTree(s) {
 
 module.exports = {
   appProfile: appProfile,
+  setAppContext: setAppContext,
+  TEMPLATE_APP: TEMPLATE_APP,
   TEMPLATE_CHROME: TEMPLATE_CHROME,
   resolveChrome: resolveChrome,
   chromeNodes: chromeNodes,

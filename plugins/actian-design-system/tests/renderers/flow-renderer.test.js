@@ -466,7 +466,30 @@ assert(
   explorerChrome.appHeaderType === "Explorer",
   "explorer → Explorer header",
 );
-assert(explorerChrome.hasSidebar === true, "explorer → sidebar present");
+// Explorer's rail now follows app-context, which records `sidebar: []` for it.
+// This assertion used to read `=== true`, taken from the hardcoded
+// TEMPLATE_CHROME table. That table was the only thing saying Explorer has a
+// rail, and because nothing filled it, every Explorer screen rendered the
+// side-nav leaf's specimen default: "Catalog, Pipelines, Connections,
+// Settings", which is Studio's shape and belongs to no app.
+//
+// This is not a claim that Explorer can never have a rail. A screen that
+// authors `sidebar: { items: [...] }` still gets one (asserted below and in the
+// explorer HTML golden, which authors two items), and if Explorer turns out to
+// have standing navigation the fix is to author it in app-context, where the
+// other two apps already declare theirs. The plugin follows the substrate
+// rather than carrying its own answer.
+assert(
+  explorerChrome.hasSidebar === false,
+  "explorer → no standing rail, because app-context records none",
+);
+assert(
+  resolveChrome({
+    template: "explorer",
+    sidebar: { items: [{ label: "Marketplace" }] },
+  }).hasSidebar === true,
+  "explorer + an authored sidebar → rail present (authored wins over app-context)",
+);
 
 const noSidebarChrome = resolveChrome({ template: "no-sidebar" });
 assert(noSidebarChrome.appHeaderType !== null, "no-sidebar → has app header");
