@@ -19,6 +19,40 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Every generated screen showed the same four navigation items, in every app.** The side rail read
+  `Catalog, Pipelines, Connections, Settings` on every screen of every flow. Those four are the
+  side-nav leaf's own specimen default and they belong to no Actian product: Studio's navigation is
+  seven items and does not include Pipelines, Administration's is eight, and Explorer is on record
+  as having none. app-context has held each app's real navigation the whole time and the render path
+  never read it.
+
+  The chain, none of which errored: `ds-screen-tree.js` kept its own hardcoded `TEMPLATE_CHROME` and
+  its own `resolveChrome`, while the app-context-reading `resolveChrome` in `scripts/lib/app-context/`
+  was never called from a render; `screenTree` defaulted the sidebar config to the **number** 6;
+  `chromeNodes` tested `Array.isArray` on it, set nothing, and shipped empty props; and the leaf
+  substituted its default for the empty props.
+
+  Chrome is now resolved from app-context, injected process-wide in `scripts/lib/renderer.js`
+  alongside the existing icon injection. Studio and Administration render their own navigation.
+  `administration` resolves as a template name, which it never did before (only `admin` was in the
+  table, so a screen authored with the app's full name got no chrome at all). Explorer renders no
+  standing rail, because app-context records none; if that turns out to be wrong, the fix is to
+  author Explorer's sidebar in app-context, where the other two apps already declare theirs, and the
+  plugin follows.
+
+  **An authored screen still wins.** A screen carrying `sidebar: { items: [...] }` renders those
+  items on any app, including Explorer. app-context is the default for a screen that says nothing
+  about its rail, never an override of one that does. That precedence was missing from the first cut
+  of this change and the explorer HTML golden caught it, because that fixture authors two items of
+  its own and had its rail suppressed.
+
+  `tests/renderers/screen-chrome-is-grounded.test.js` asserts the join in both directions: the rail
+  carries the app's own labels, read from app-context rather than typed into the test, and it does
+  not carry the leaf's default. Both halves are needed, because "Catalog" appears in Studio's real
+  list *and* in the default, which is how this went unnoticed.
+
 ### Changed
 
 - **Tier provenance no longer reaches the deliverable at all**

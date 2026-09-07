@@ -88,6 +88,33 @@ var defaultProps = JSON.parse(
 // glyph would silently blank. That is the failure this whole task exists to
 // prevent, so a wrong shape must be loud. Mirrors knowledge's canonical caller,
 // scripts/render/derive-from-renderer.js.
+// --- App context injection ------------------------------------------------
+// ds-screen-tree builds the chrome nodes for every generated screen and runs in
+// the browser as well as in Node, so it cannot read app-context itself. This is
+// the process-wide load point (same reasoning as the icon injection above), and
+// every render path reaches it: flow-renderer.js pulls dsHtmlMap from here, so
+// requiring this module is what arms the chrome.
+//
+// Without it, ds-screen-tree has no app record, chromeNodes sends the side-nav
+// leaf empty props, and the leaf falls back to its own specimen default of
+// "Catalog, Pipelines, Connections, Settings". That default belongs to no app:
+// Studio's real navigation is seven items and does not include Pipelines,
+// Administration's is eight, and Explorer is on record as having none. Every
+// generated screen of every app shipped those four items.
+//
+// Loaded, not asserted-non-empty: an app-context that fails to parse leaves the
+// chrome ungrounded rather than blank, which is the pre-existing behaviour, and
+// tests/renderers/screen-chrome-is-grounded.test.js is what makes a broken
+// injection fail loudly rather than silently reinstating the four items.
+var dsScreenTree = require("../renderers/html-renderers/ds-screen-tree.js");
+var appContext = null;
+try {
+  appContext = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
+} catch (e) {
+  appContext = null;
+}
+dsScreenTree.setAppContext(appContext);
+
 var iconsFile = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
 var icons = iconsFile.icons;
 if (!icons || typeof icons !== "object" || Object.keys(icons).length === 0) {
