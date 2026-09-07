@@ -930,15 +930,26 @@
 }
 
 /* ============ Side nav (left rail — chrome) ============ */
-/* anatomy: 240×~896, flex-column, justify-content:space-between,
-   padding:16px (--zen-spacing-md), bg:--zen-color-bg-default,
-   border-right:1px solid --zen-border-default.
+/* anatomy: 240×~896, flex-column, padding:16px (--zen-spacing-md),
+   bg:--zen-color-bg-default, border-right:1px solid --zen-border-default.
    Groups mode (real Studio sidebar) uses ds-sidenav__top + ds-sidenav__bottom
-   to split the flex space. Legacy Items mode renders flat rows directly. */
+   to split the flex space. Legacy Items mode renders flat rows directly.
+   The capture records the rail as justify-content:space-between, which
+   describes the two-child Groups shape. Realising it that way is what broke
+   Items mode, so the split is expressed as `__bottom { margin-top: auto }`
+   instead: same result for two children, correct for seven. */
 .ds-sidenav {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* pushes bottom group down */
+  /* Items stack from the top in BOTH modes. This used to be
+     `justify-content: space-between`, which is right only for Groups mode
+     (two children, so the pair splits). Items mode emits every row as a
+     direct child, and space-between then spread 7 rows of 32px across the
+     full 896px rail at a 139px pitch, on every screen of every generated
+     flow. The bottom group is pushed down by its own margin below, which
+     works whatever the child count. */
+  justify-content: flex-start;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px row gap, Items mode */
   width: 240px; /* anatomy: expanded rail width (raw px) */
   padding: var(--zen-spacing-md); /* anatomy: 16px container padding */
   background: var(--zen-color-bg-default);
@@ -958,6 +969,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-2xs); /* 4px */
+  margin-top: auto; /* pins the bottom group to the rail's foot, Groups mode */
 }
 /* Group container — anatomy: gap 4px between items within a group */
 .ds-sidenav__group {
