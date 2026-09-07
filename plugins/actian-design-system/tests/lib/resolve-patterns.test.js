@@ -161,6 +161,125 @@ describe("resolve-patterns (CLI)", function () {
     assert.strictEqual(code, 1);
   });
 
+  // The --entity branch is the surface generate-flow Step 3.5 actually calls.
+  // Testing only the exported resolvers would prove the functions work and
+  // never that anything reachable from the pipeline reads them.
+  it("--entity prints { entity, patterns, components, join } and exits 0", function () {
+    var res = require("child_process").spawnSync(
+      NODE, [CLI, "--entity", "dataset"], { encoding: "utf8" },
+    );
+    assert.strictEqual(res.status, 0);
+    var parsed = JSON.parse(res.stdout);
+    assert.strictEqual(parsed.entity, "dataset");
+    assert.ok(Array.isArray(parsed.patterns), "patterns must be an array");
+    assert.ok(Array.isArray(parsed.components), "components must be an array");
+    assert.ok(parsed.join && typeof parsed.join.present === "boolean");
+    assert.ok(
+      parsed.join.entities > 0,
+      "the vendored snapshot carries no entities, so this assertion is vacuous",
+    );
+
+    // Both vendored states are asserted, neither is skipped. Whichever one this
+    // snapshot is in, stderr has to NAME it: an empty `components` array read
+    // off stdout with no cause on stderr is the reported-as-fact failure this
+    // whole branch exists to prevent.
+    if (parsed.join.present) {
+      assert.match(res.stderr, /entity join: \d+ of \d+ entities name a pattern/);
+      assert.ok(
+        parsed.patterns.length > 0,
+        "the refresh has landed and no pattern shows `dataset`, the most " +
+          "central entity in the model. That is a substrate answer worth " +
+          "reading before assuming this test is wrong.",
+      );
+      assert.ok(
+        parsed.components.length > 0,
+        "`dataset` names " + parsed.patterns.length + " patterns and reaches " +
+          "no component, so the traversal is decoration",
+      );
+    } else {
+      assert.match(res.stderr, /entity join: ABSENT from this vendored snapshot/);
+      assert.deepStrictEqual(parsed.patterns, []);
+      assert.deepStrictEqual(parsed.components, []);
+    }
+  });
+
+  // `--context` drives the states the vendored snapshot cannot be in right now.
+  // Without it the PRESENT branch and the dangling-slug line are both dead until
+  // a refresh lands, which is how a diagnostic ships broken.
+  function writeCtx(name, obj) {
+    var f = path.join(
+      fs.mkdtempSync(path.join(require("os").tmpdir(), "rp-entity-")),
+      name,
+    );
+    fs.writeFileSync(f, JSON.stringify(obj));
+    return f;
+  }
+
+  it("--entity on a joined snapshot traverses to components and names the state", function () {
+    var f = writeCtx("ctx.json", {
+      apps: { studio: {} },
+      entities: { dataset: { apps: ["studio"], patterns: ["a", "b"] } },
+      patterns: {
+        a: { label: "A", apps: ["studio"], components: ["tabs", "page-header"] },
+        b: { label: "B", apps: ["studio"], components: ["page-header", "side-nav"] },
+      },
+    });
+    var res = require("child_process").spawnSync(
+      NODE, [CLI, "--entity", "dataset", "--context", f], { encoding: "utf8" },
+    );
+    assert.strictEqual(res.status, 0);
+    var parsed = JSON.parse(res.stdout);
+    assert.deepStrictEqual(parsed.join, { present: true, entities: 1, joined: 1 });
+    assert.deepStrictEqual(parsed.components, ["tabs", "page-header", "side-nav"]);
+    assert.match(res.stderr, /entity join: 1 of 1 entities name a pattern/);
+    assert.match(res.stderr, /reaching 3 components/);
+  });
+
+  it("--entity says a known entity nothing shows is the substrate's own answer", function () {
+    var f = writeCtx("ctx.json", {
+      apps: { studio: {} },
+      entities: {
+        shown: { apps: ["studio"], patterns: ["a"] },
+        hidden: { apps: ["studio"] },
+      },
+      patterns: { a: { label: "A", apps: ["studio"], components: ["tabs"] } },
+    });
+    var res = require("child_process").spawnSync(
+      NODE, [CLI, "--entity", "hidden", "--context", f], { encoding: "utf8" },
+    );
+    assert.strictEqual(res.status, 0, "a known entity is not an error");
+    assert.deepStrictEqual(JSON.parse(res.stdout).components, []);
+    // The join IS present here, so the empty answer is about the entity. That
+    // must not read the same as the pin being old.
+    assert.match(res.stderr, /no pattern shows 'hidden'/);
+    assert.doesNotMatch(res.stderr, /ABSENT from this vendored snapshot/);
+  });
+
+  it("--entity reports a dropped pattern slug rather than a quietly shorter list", function () {
+    var f = writeCtx("ctx.json", {
+      apps: { studio: {} },
+      entities: { dataset: { apps: ["studio"], patterns: ["a", "ghost"] } },
+      patterns: { a: { label: "A", apps: ["studio"], components: ["tabs"] } },
+    });
+    var res = require("child_process").spawnSync(
+      NODE, [CLI, "--entity", "dataset", "--context", f], { encoding: "utf8" },
+    );
+    assert.strictEqual(res.status, 0);
+    assert.deepStrictEqual(
+      JSON.parse(res.stdout).patterns.map(function (p) { return p.slug; }),
+      ["a"],
+    );
+    assert.match(res.stderr, /1 of 2 pattern slugs on 'dataset' resolve to nothing/);
+  });
+
+  it("--entity <unknown> exits 1, and says so rather than printing a bare []", function () {
+    var res = require("child_process").spawnSync(
+      NODE, [CLI, "--entity", "not-an-entity"], { encoding: "utf8" },
+    );
+    assert.strictEqual(res.status, 1, "an unknown entity is not a usage error");
+    assert.match(res.stderr, /is not an entity in this snapshot/);
+  });
+
   it("with no --app, exits 2, so the two failures stay distinguishable", function () {
     var code = null;
     try {
@@ -169,6 +288,15 @@ describe("resolve-patterns (CLI)", function () {
       code = e.status;
     }
     assert.strictEqual(code, 2);
+  });
+
+  it("the usage line names both modes, so --entity is discoverable", function () {
+    var res = require("child_process").spawnSync(NODE, [CLI], { encoding: "utf8" });
+    assert.strictEqual(res.status, 2);
+    assert.match(
+      res.stderr,
+      /--app <name> \| --entity <slug> \[--context <path>\]/,
+    );
   });
 
   it("never calls process.exit after writing the payload", function () {
@@ -1079,6 +1207,215 @@ describe("resolve-patterns (captured page recipes)", function () {
       process.stderr.write = realWrite;
       PATHS.appContextRecipes = saved;
       resolver._resetPageRecipeCache();
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The domain-model join: entity -> pattern -> component.
+//
+// The knowledge repo authors this edge on the ENTITY and stops there, because a
+// pattern already owns its components[]. The component answer is therefore a
+// traversal, and resolveEntityComponents performs it so a caller never has to
+// know it is two hops.
+//
+// Every test below drives a FIXTURE rather than the vendored substrate, on
+// purpose: the vendored snapshot only gained `entities[].patterns` in knowledge
+// v0.34.191, so a suite written against real data would have asserted nothing at
+// all until the refresh landed and would have read as a pass throughout. The one
+// test that does read the vendor tree asserts the state it finds and says which
+// state that was.
+describe("resolve-patterns (pattern components)", function () {
+  var CTX = {
+    apps: { studio: {} },
+    patterns: {
+      dupes: {
+        label: "Dupes",
+        apps: ["studio"],
+        components: ["table", "table", "button", "table"],
+      },
+      bare: { label: "Bare", apps: ["studio"] },
+      junk: { label: "Junk", apps: ["studio"], components: ["a", "", null, 3, "a"] },
+    },
+  };
+
+  it("carries each pattern's own components, which the object used to drop", function () {
+    var byslug = {};
+    resolver.resolvePatterns("studio", CTX, [], {}).forEach(function (p) {
+      byslug[p.slug] = p;
+    });
+    assert.deepStrictEqual(byslug.dupes.components, ["table", "button"]);
+    assert.deepStrictEqual(
+      byslug.bare.components,
+      [],
+      "a pattern with no components key gets an empty array, never undefined",
+    );
+    assert.deepStrictEqual(byslug.junk.components, ["a"]);
+  });
+
+  it("dedupes to match the substrate's own derived view of the same array", function () {
+    // app-context authors `components[]` as a list of USES, so a page with two
+    // tables carries "table" twice. The knowledge repo's graph derive turns that
+    // into a SET: access-request-management has 7 entries and 5 uses_component
+    // edges. Handing a generator the repeat would read as "place two tables".
+    var real = resolver.resolvePatterns("studio").find(function (p) {
+      return p.slug === "access-request-management";
+    });
+    assert.ok(real, "fixture sanity: access-request-management is a Studio pattern");
+    assert.deepStrictEqual(
+      real.components,
+      ["table", "button", "dropdown-select-default", "interactive-tag", "read-only-tag"],
+      "5 distinct components, matching the 5 uses_component edges the graph derives",
+    );
+  });
+});
+
+describe("resolve-patterns (entity join)", function () {
+  var CTX = {
+    apps: { studio: {}, explorer: {} },
+    entities: {
+      dataset: { apps: ["studio"], patterns: ["asset-detail-360", "faceted-browse"] },
+      "no-pattern": { apps: ["studio"] },
+      "empty-pattern": { apps: ["studio"], patterns: [] },
+      dangling: { apps: ["studio"], patterns: ["ghost-pattern"] },
+      overlapping: { apps: ["studio"], patterns: ["asset-detail-360", "faceted-browse"] },
+    },
+    patterns: {
+      "asset-detail-360": {
+        label: "360 detail",
+        apps: ["studio", "explorer"],
+        components: ["tabs", "page-header", "breadcrumb"],
+      },
+      "faceted-browse": {
+        label: "Faceted browse",
+        apps: ["studio"],
+        components: ["page-header", "side-nav"],
+      },
+      "no-components": { label: "Bare", apps: ["studio"] },
+    },
+  };
+
+  it("resolves an entity to the patterns that show it, carrying their components", function () {
+    var ps = resolver.resolveEntityPatterns("dataset", CTX);
+    assert.deepStrictEqual(
+      ps.map(function (p) {
+        return p.slug;
+      }),
+      ["asset-detail-360", "faceted-browse"],
+      "authored order is preserved",
+    );
+    assert.deepStrictEqual(ps[0].components, ["tabs", "page-header", "breadcrumb"]);
+    assert.strictEqual(ps[0].label, "360 detail");
+  });
+
+  it("traverses to components, deduped, in first-seen order", function () {
+    // page-header is in BOTH patterns. Without the dedupe a caller composing
+    // from this list would be told to place it twice, and the order has to be
+    // stable or a generated prompt churns between runs for no reason.
+    assert.deepStrictEqual(
+      resolver.resolveEntityComponents("overlapping", CTX),
+      ["tabs", "page-header", "breadcrumb", "side-nav"],
+    );
+  });
+
+  it("returns [] for an entity no pattern shows, without throwing", function () {
+    // patterns[] is OPTIONAL in the entity schema: five entities carry no join
+    // on purpose, being shown within another object's page. This is a real
+    // answer, not a failure.
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("no-pattern", CTX), []);
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("empty-pattern", CTX), []);
+    assert.deepStrictEqual(resolver.resolveEntityComponents("no-pattern", CTX), []);
+  });
+
+  it("drops a pattern slug that resolves to nothing rather than composing an empty shell", function () {
+    // The knowledge repo fails its own derive on a dangling reference, so one
+    // reaching here means the vendored snapshot is internally inconsistent. A
+    // half-populated pattern object would be composed from as if it were real.
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("dangling", CTX), []);
+  });
+
+  it("is defensive about the shapes a caller and a snapshot can actually produce", function () {
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("", CTX), []);
+    assert.deepStrictEqual(resolver.resolveEntityPatterns(null, CTX), []);
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("dataset", null), []);
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("dataset", {}), []);
+    assert.deepStrictEqual(resolver.resolveEntityPatterns("nope", CTX), []);
+    // Slugs are normalized the same way every other slug in this file is.
+    assert.strictEqual(resolver.resolveEntityPatterns("  DATASET  ", CTX).length, 2);
+  });
+
+  it("listEntities names the snapshot's entities, so a typo is not silence", function () {
+    assert.deepStrictEqual(resolver.listEntities(CTX), [
+      "dangling",
+      "dataset",
+      "empty-pattern",
+      "no-pattern",
+      "overlapping",
+    ]);
+    assert.deepStrictEqual(resolver.listEntities({}), []);
+    assert.ok(
+      resolver.listEntities().length > 0,
+      "the vendored app-context lists no entities, so the CLI could never tell " +
+        "an unknown slug from a known one",
+    );
+  });
+
+  it("entityJoinState distinguishes an absent join from an empty one", function () {
+    assert.deepStrictEqual(resolver.entityJoinState(CTX), {
+      present: true,
+      entities: 5,
+      joined: 3,
+    });
+    // A snapshot predating the edge: every entity present, none joined. A caller
+    // cannot tell this from "nothing shows these entities" at the call site,
+    // which is the whole reason this function exists.
+    assert.deepStrictEqual(
+      resolver.entityJoinState({
+        apps: {},
+        entities: { a: { apps: ["studio"] }, b: { apps: ["studio"] } },
+        patterns: {},
+      }),
+      { present: false, entities: 2, joined: 0 },
+    );
+  });
+
+  it("reports the state of the VENDORED substrate rather than assuming it", function () {
+    var state = resolver.entityJoinState();
+    assert.ok(
+      state.entities > 0,
+      "the vendored app-context carries no entities at all, so every assertion " +
+        "in this file about real data would be vacuous",
+    );
+    if (state.present) {
+      // The refresh has landed. Then the join must actually traverse: an entity
+      // that names patterns has to reach at least one component, or the edge is
+      // decoration.
+      var ctx = null;
+      var reached = 0;
+      Object.keys(require(PATHS.appContext).entities).forEach(function (slug) {
+        if (resolver.resolveEntityComponents(slug, ctx).length > 0) reached++;
+      });
+      assert.ok(
+        reached > 0,
+        "the vendored substrate carries the join (" +
+          state.joined +
+          " of " +
+          state.entities +
+          " entities) but no entity reaches a component through it",
+      );
+    } else {
+      // The refresh has NOT landed. Then the only correct behaviour is to
+      // degrade to empty for every entity, and this asserts that rather than
+      // skipping, so the file cannot go green having exercised nothing.
+      Object.keys(require(PATHS.appContext).entities).forEach(function (slug) {
+        assert.deepStrictEqual(
+          resolver.resolveEntityPatterns(slug, null),
+          [],
+          "vendored snapshot predates the join, so " +
+            slug +
+            " must resolve to [] rather than throwing or inventing",
+        );
+      });
     }
   });
 });
