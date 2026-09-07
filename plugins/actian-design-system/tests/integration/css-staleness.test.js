@@ -44,7 +44,33 @@ function extractClassesFromJS(jsPath) {
   var re = /class="([^"]*)"/g;
   var match;
   while ((match = re.exec(src)) !== null) {
-    var parts = match[1].split(/\s+/);
+    // Only the STATIC prefix of the attribute is a class list. The capture is
+    // line-agnostic, so `class="' + cls + '"` captures the concatenation itself,
+    // and the old code tried to salvage class names token by token out of it.
+    // That is not analysable: everything after the first quote or `+` is a JS
+    // expression, and its identifiers are variables, not classes. Two rounds of
+    // filters were added to guess which tokens to drop (a bare `?` from a
+    // multi-line ternary, then camelCase names like `alertType`), and both were
+    // patching symptoms. A lowercase, hyphen-free variable such as `cls` slipped
+    // through every one of them and the gate reported a missing rule for it.
+    //
+    // Cutting at the first marker is exact rather than heuristic. It keeps the
+    // real half: `class="ds-x ' + extra + '"` still yields `ds-x` and is still
+    // checked. It only drops what static analysis genuinely cannot see.
+    var staticPrefix = match[1].split(/['"`+(]/)[0];
+    var parts = staticPrefix.split(/\s+/);
+    // If the static half does not end at a space, the expression CONTINUES its
+    // last token, so that token is a truncated stem and not a class. This is the
+    // `class="fm-button fm-button--' + variant + '"` case: `fm-button` is a real
+    // class and `fm-button--` is half of one. The old code got this right only by
+    // accident, because it split before stripping the quote and the surviving
+    // `fm-button--'` was then dropped for containing a quote.
+    // Only when something was actually cut off. A fully static attribute was not
+    // truncated, so its last token is a real class: popping unconditionally made
+    // `class="ds-foo"` extract nothing, which a positive control caught.
+    if (staticPrefix !== match[1] && parts.length && !/\s$/.test(staticPrefix)) {
+      parts.pop();
+    }
     for (var i = 0; i < parts.length; i++) {
       var cls = parts[i].trim();
       // Skip dynamic parts (contain JS variable concatenation)

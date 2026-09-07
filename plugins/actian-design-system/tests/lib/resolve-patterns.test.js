@@ -1338,7 +1338,12 @@ describe("resolve-patterns (entity join)", function () {
   it("is defensive about the shapes a caller and a snapshot can actually produce", function () {
     assert.deepStrictEqual(resolver.resolveEntityPatterns("", CTX), []);
     assert.deepStrictEqual(resolver.resolveEntityPatterns(null, CTX), []);
-    assert.deepStrictEqual(resolver.resolveEntityPatterns("dataset", null), []);
+    // NOT `resolveEntityPatterns("dataset", null)`. A null ctx does not mean
+    // "empty context", it means "read the VENDORED file", so asserting [] there
+    // was asserting that the vendor pin predates the join. It passed only
+    // because that happened to be true when it was written, and went red the
+    // moment the refresh it was waiting for arrived. The vendored state has its
+    // own test below, which asserts whichever state it finds and names it.
     assert.deepStrictEqual(resolver.resolveEntityPatterns("dataset", {}), []);
     assert.deepStrictEqual(resolver.resolveEntityPatterns("nope", CTX), []);
     // Slugs are normalized the same way every other slug in this file is.
