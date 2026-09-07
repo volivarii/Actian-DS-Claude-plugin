@@ -532,16 +532,14 @@ function resolveEntityPatterns(entitySlug, ctx) {
 // The components that draw an entity, deduped, in first-seen order across its
 // patterns. Order is stable so a generated prompt does not churn between runs.
 function resolveEntityComponents(entitySlug, ctx) {
-  var seen = Object.create(null);
-  var out = [];
-  resolveEntityPatterns(entitySlug, ctx).forEach(function (p) {
-    p.components.forEach(function (c) {
-      if (typeof c !== "string" || !c || seen[c]) return;
-      seen[c] = true;
-      out.push(c);
-    });
-  });
-  return out;
+  // Each pattern's list is already deduped; this dedupes ACROSS them, where the
+  // same component legitimately appears in two page shapes. Same helper, so the
+  // two cannot drift apart.
+  return dedupeComponents(
+    resolveEntityPatterns(entitySlug, ctx).reduce(function (acc, p) {
+      return acc.concat(p.components);
+    }, []),
+  );
 }
 
 // The entity slugs the vendored snapshot carries, so a caller can tell a typo

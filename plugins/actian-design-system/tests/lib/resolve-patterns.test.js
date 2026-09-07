@@ -1319,9 +1319,10 @@ describe("resolve-patterns (entity join)", function () {
   });
 
   it("returns [] for an entity no pattern shows, without throwing", function () {
-    // patterns[] is OPTIONAL in the entity schema: five entities carry no join
-    // on purpose, being shown within another object's page. This is a real
-    // answer, not a failure.
+    // patterns[] is OPTIONAL in the entity schema: an entity shown only within
+    // another object's page carries no join on purpose. This is a real answer,
+    // not a failure. The count of those belongs to the knowledge repo, so it is
+    // deliberately not restated here.
     assert.deepStrictEqual(resolver.resolveEntityPatterns("no-pattern", CTX), []);
     assert.deepStrictEqual(resolver.resolveEntityPatterns("empty-pattern", CTX), []);
     assert.deepStrictEqual(resolver.resolveEntityComponents("no-pattern", CTX), []);
