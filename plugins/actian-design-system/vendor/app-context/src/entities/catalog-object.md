@@ -28,5 +28,11 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - faceted-browse
+  - asset-detail-360
+  - activity-timeline
+  - bulk-edit
+  - right-sliding-drawer
 ---
 Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item

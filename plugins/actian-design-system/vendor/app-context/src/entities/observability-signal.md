@@ -13,5 +13,7 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - analytics-dashboard
 ---
 Quality score, freshness, usage stats attached to assets

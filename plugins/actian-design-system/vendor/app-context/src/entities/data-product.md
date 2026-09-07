@@ -22,5 +22,9 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - faceted-browse
+  - marketplace-browsing
 ---
 Curated, business-ready asset. Contains Input Ports and Output Ports. Published to the marketplace via an ODPS YAML descriptor; access requests target the output-port level (each governed by a data-contract).

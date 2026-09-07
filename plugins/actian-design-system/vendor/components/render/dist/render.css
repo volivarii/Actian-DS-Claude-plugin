@@ -1296,6 +1296,230 @@
   user-select: none;
 }
 
+/* ============ Form groups and inputs (blank-box slice) ============ */
+/* Source: components/dist/anatomy/{checkbox-group,radio-group,field,text-area}
+ * .json, the per-component geometry tree, read declaration by declaration. A
+ * `default.webp` also exists for each of these four under components/dist/media
+ * and was NOT consulted; the notes below quote the anatomy, so that is what they
+ * name.
+ * All four rendered from Figma geometry until now and emitted empty grey boxes
+ * in every generated form: 5 per group, 3 for text-area, 2 for field.
+ * Every root is a 4px-gap flex (--zen-spacing-2xs), and field/text-area carry a
+ * 1px --zen-border-subtle box.
+ * The label and helper type scales are RESTATED under each prefix rather than
+ * shared with .ds-field__label / .ds-field__helper. That is the file's
+ * convention and what CSS_OWNERS expects: .ds-checkbox__label, .ds-radio__label
+ * and .ds-toggle__label already each carry their own copy, and a selector list
+ * spanning two owners would put a rule owned by text-input in charge of
+ * painting checkbox-group. */
+
+/* checkbox-group + radio-group share a shape, so they share these rules; only
+ * the class prefix differs (one leaf builds both). */
+.ds-checkbox-group,
+.ds-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  font-family: var(--zen-font-family-text);
+}
+.ds-checkbox-group__items,
+.ds-radio-group__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px between inputs */
+}
+/* The published Orientation axis. checkbox-group's second value is literally
+   "Orientation" and radio-group's is "Horizontal"; the leaf treats anything not
+   Vertical as horizontal, so the Figma slip is not load-bearing here.
+   The anatomy holds only each group's Vertical variant, so the row gap is
+   AUTHORED, not quoted: the captured 4px reads as one run-on line once the
+   items sit side by side. */
+.ds-checkbox-group--horizontal .ds-checkbox-group__items,
+.ds-radio-group--horizontal .ds-radio-group__items {
+  flex-direction: row;
+  gap: var(--zen-spacing-md); /* authored: 16 */
+}
+.ds-checkbox-group__label,
+.ds-radio-group__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+.ds-checkbox-group__helper,
+.ds-radio-group__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+
+/* The bordered input BOX. `ds-field` is text-input's outer wrapper (its anatomy
+   is Label + Field + Helper text, so text-input NESTS this component), which is
+   why this prefix is `ds-fieldbox` and is declared in matrix.js CSS_OWNERS. */
+.ds-fieldbox {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  height: 40px;
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-subtle); /* capture: #e1e1e6 */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-fieldbox--compact {
+  height: 32px;
+}
+.ds-fieldbox__text {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-placeholder);
+}
+.ds-fieldbox__icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zen-color-icon-default);
+}
+/* Every state below is quoted from anatomy/field.json's per-State variants
+   rather than reasoned from the token names. Two of them would have been wrong
+   by reasoning: Error is error-700 (#c12c11), NOT the general --zen-border-error
+   (#dc3514) the name suggests, which the fidelity gate caught; and Focus is a
+   2px ring while Active is a 1px border in the same colour, so lumping them
+   together loses the distinction. */
+.ds-fieldbox--active {
+  border-color: var(--zen-border-primary); /* capture: #0f5fdc, 1px */
+}
+.ds-fieldbox--focus {
+  border-color: var(--zen-focus-ring-primary); /* capture: #0f5fdc */
+  border-width: 2px; /* capture: Focus is a 2px ring, Active is 1px */
+}
+.ds-fieldbox--error {
+  border-color: var(--zen-color-error-700); /* capture: #c12c11 */
+}
+.ds-fieldbox--warning {
+  border-color: var(--zen-border-warning); /* capture: #d27b00 */
+}
+/* capture: Read-only sets background AND border to null, i.e. neither is
+   painted. It is not a tinted box; it is an unboxed value. */
+.ds-fieldbox--readonly {
+  background: none;
+  border-color: transparent;
+}
+.ds-fieldbox.is-disabled {
+  background: var(--zen-color-bg-disabled); /* capture: #e1e1e6 */
+  border-color: var(--zen-border-disabled); /* capture: #c7c7ce */
+}
+/* The input TEXT has its own per-State table in the capture, separate from the
+   box's. It is the whole of what Filled changes, which is why Filled draws a
+   class at all: without this rule Filled renders identically to Default, and no
+   gate would say so (variant-collapse.js exempts State axes wholesale, so a
+   static fragment is not failed for being unable to show hover). */
+.ds-fieldbox--active .ds-fieldbox__text,
+.ds-fieldbox--error .ds-fieldbox__text,
+.ds-fieldbox--filled .ds-fieldbox__text,
+.ds-fieldbox--warning .ds-fieldbox__text {
+  color: var(--zen-color-text-default); /* capture: #000000 on these four States */
+}
+.ds-fieldbox.is-disabled .ds-fieldbox__text {
+  color: var(--zen-color-text-disabled); /* capture: #656574 */
+}
+
+.ds-text-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  font-family: var(--zen-font-family-text);
+}
+.ds-text-area__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-medium);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+/* capture: text-area's ROOT records no appearance; the box is its nested
+   "Field" instance, which carries #ffffff / 6px / #e1e1e6, the same treatment as
+   the field component. Read from that child rather than assumed from field. */
+.ds-text-area__box {
+  display: flex;
+  align-items: flex-start;
+  min-height: 96px;
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-subtle); /* capture: #e1e1e6 */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-sizing: border-box;
+}
+.ds-text-area__text {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-placeholder);
+}
+/* anatomy: the helper is a ROW carrying the helper text and a character count,
+   8px apart, the count pushed to the trailing edge. */
+.ds-text-area__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+}
+.ds-text-area__helper,
+.ds-text-area__count {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-text-area--active .ds-text-area__box {
+  border-color: var(--zen-border-primary);
+}
+.ds-text-area--focus .ds-text-area__box {
+  border-color: var(--zen-focus-ring-primary); /* capture: #0f5fdc */
+  border-width: 2px; /* capture: Focus is a 2px ring, Active is 1px */
+}
+.ds-text-area--error .ds-text-area__box {
+  border-color: var(--zen-color-error-700);
+}
+.ds-text-area--warning .ds-text-area__box {
+  border-color: var(--zen-border-warning);
+}
+.ds-text-area--readonly .ds-text-area__box {
+  background: none;
+  border-color: transparent;
+}
+.ds-text-area.is-disabled .ds-text-area__box {
+  background: var(--zen-color-bg-disabled);
+  border-color: var(--zen-border-disabled);
+}
+/* Mirrors the field rule above. text-area's capture nests a `field` instance
+   for its box and carries no text layer of its own, so these per-State text
+   colours come from that nesting rather than from a text-area capture. Stated
+   because it is an inference, not a quote. */
+.ds-text-area--active .ds-text-area__text,
+.ds-text-area--error .ds-text-area__text,
+.ds-text-area--filled .ds-text-area__text,
+.ds-text-area--warning .ds-text-area__text {
+  color: var(--zen-color-text-default);
+}
+.ds-text-area.is-disabled .ds-text-area__text {
+  color: var(--zen-color-text-disabled);
+}
+
 /* ============ Side nav (left rail — chrome) ============ */
 /* anatomy: 240×~896, flex-column, padding:16px (--zen-spacing-md),
    bg:--zen-color-bg-default, border-right:1px solid --zen-border-default.
@@ -1303,8 +1527,10 @@
    to split the flex space. Legacy Items mode renders flat rows directly.
    The capture records the rail as justify-content:space-between, which
    describes the two-child Groups shape. Realising it that way is what broke
-   Items mode, so the split is expressed as `__bottom { margin-top: auto }`
-   instead: same result for two children, correct for seven. */
+   Items mode, and dropping it costs Groups mode nothing: `__top` already
+   carries `flex: 1 1 auto`, so it absorbs the rail's free space and the
+   bottom group sits at the foot whatever the child count. Measured, not
+   assumed: neutralising the pin leaves __bottom at the same 711px offset. */
 .ds-sidenav {
   display: flex;
   flex-direction: column;
@@ -1329,6 +1555,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-2xs); /* 4px between groups */
+  /* This is what anchors the utilities group to the rail's foot in Groups
+     mode: __top absorbs every spare pixel, so __bottom is pushed down by the
+     ordinary flow. It predates the space-between removal and survived it. */
   flex: 1 1 auto;
 }
 /* Bottom section (secondary items + collapse) */
@@ -1336,7 +1565,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--zen-spacing-2xs); /* 4px */
-  margin-top: auto; /* pins the bottom group to the rail's foot, Groups mode */
 }
 /* Group container — anatomy: gap 4px between items within a group */
 .ds-sidenav__group {

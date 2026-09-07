@@ -117,6 +117,12 @@ var CSS_OWNERS = {
   "segmented-control": ["ds-segmented"],
   "side-nav": ["ds-sidenav"],
   "read-only-tag": ["ds-tag"],
+  // `field` is the bordered input BOX. text-input NESTS it (text-input's
+  // anatomy is Label + Field + Helper text) and already owns `ds-field` for
+  // its outer wrapper, so the ds-<slug> default would collide. Declared
+  // rather than renamed: text-input's markup and rules are correct as they
+  // stand, and moving a working prefix to free up a name is the larger risk.
+  field: ["ds-fieldbox"],
   "text-input": ["ds-field"],
   "whats-new-dropdown": ["ds-whatsnew"],
 };
@@ -786,6 +792,56 @@ var MATRIX_OVERRIDES = {
 var SPECIMEN_PROPS = {
   // capture: anatomy/radio.json text layer "Description"
   radio: { "Helper text": "Description" },
+
+  // Both groups capture the same three parts: a `label` instance, a slot holding
+  // three input instances with no labels of their own, and a `message` instance
+  // carrying no string. So the option names and the helper are authored here.
+  //
+  // NO `Label` ENTRY, for these or for text-area below, and the omission is the
+  // point. variantMatrix already sets Label on every cell to that cell's own
+  // variant value ("Vertical", "Focus"), which is how the gallery says which
+  // variant a cell is, and a specimen prop LOSES to a prop the cell already
+  // sets. A Label here would therefore never reach a single rendered cell. It
+  // was written, and it took rendering the fragment and reading it to see that
+  // it changed nothing: the omission test iterates this map and probes each
+  // prop with a sentinel, so it passes on an entry that is inert in the
+  // gallery. Do not add one back without first checking variantMatrix.
+  //
+  // Without these the leaf renders an empty items slot and no helper element at
+  // all. That is correct for a caller who sets no props (see inputGroup in
+  // ds-html-map.js) and a poor specimen, which is the split this map exists for.
+  "checkbox-group": {
+    // authored
+    Items: "Datasets, Dashboards, Reports",
+    // authored: the capture's helper is a `message` with Type="Error", no text
+    "Helper text": "Select at least one.",
+  },
+  // Selected is deliberately NOT a specimen prop: it sets a variant on a
+  // child rather than adding an element of its own, so it cannot satisfy
+  // "every specimen slot resolves to an element of its own". The capture
+  // records no selected state either.
+  "radio-group": {
+    // authored
+    Items: "Everyone, My team, Only me",
+    // authored: the capture's helper is a `message` with Type="Helper text"
+    "Helper text": "You can change this later.",
+  },
+
+  // capture: anatomy/field.json layer "Input text" reads "Placeholder text"
+  field: { Slot: "Placeholder text" },
+
+  // text-area's strings come from three places in its capture: the nested
+  // `field` instance, whose own capture carries the placeholder; the `message`
+  // instance, which carries no string; and the "Character count" text layer,
+  // which does.
+  "text-area": {
+    // capture: via the nested field instance, anatomy/field.json "Input text"
+    Slot: "Placeholder text",
+    // authored: the capture's helper is a `message` with no text
+    "Helper text": "Markdown is supported.",
+    // capture: anatomy/text-area.json layer "Character count" reads "0/1000"
+    "Character count": "0/1000",
+  },
 
   // authored: toggle has no helper layer in the capture; mirrors radio's
   // captured "Description" so the two form controls read consistently

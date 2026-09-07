@@ -13,5 +13,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - topic-browse
+  - faceted-browse
 ---
 A curated collection of catalog items for business-user navigation in Explorer (carousel + browse). Created and curated by stewards in Studio. Replaces the deprecated "Category" concept.

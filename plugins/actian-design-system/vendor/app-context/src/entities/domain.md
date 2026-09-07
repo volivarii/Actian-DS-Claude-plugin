@@ -14,5 +14,7 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - faceted-browse
 ---
 Organizational/business unit owning a set of data assets

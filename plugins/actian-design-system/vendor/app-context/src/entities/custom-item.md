@@ -10,5 +10,8 @@ properties:
 relationships: {}
 apps:
   - studio
+patterns:
+  - metamodel-designer
+  - type-picker-grid
 ---
 A user-defined custom item type extending the catalog metamodel.

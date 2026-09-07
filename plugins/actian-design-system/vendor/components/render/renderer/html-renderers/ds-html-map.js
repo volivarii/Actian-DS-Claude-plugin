@@ -479,6 +479,79 @@
       });
   }
 
+  // checkbox-group and radio-group are one shape with two child types: an
+  // optional label, a slot of N inputs, an optional helper. Written once here
+  // and wired from both cases; see the cases for why they are not one
+  // fall-through branch.
+  //
+  // Nothing here invents content. `Show label` and `Show helper text` are
+  // published booleans defaulting to true, so the part is enabled unless the
+  // caller turns it off; but an enabled part with no text is no element at all.
+  // Defaulting the text to "Label" would turn the prop into a REPLACEMENT for
+  // renderer-authored content rather than an addition, which is exactly what
+  // sparse-render-ratchet.test.js exists to catch. The gallery's strings live
+  // in matrix.js SPECIMEN_PROPS.
+  function inputGroup(o) {
+    var cls = o.cls;
+    // Orientation publishes Vertical plus one horizontal value, spelled
+    // "Horizontal" on radio-group and literally "Orientation" on
+    // checkbox-group. That second spelling is a slip in that component's
+    // variant set, and it is read as authored rather than corrected here: the
+    // registry is what a caller sends, so anything that is not Vertical turns
+    // the row. Vertical is the default, so an absent axis stays a column.
+    if (o.orientation && o.orientation !== "Vertical") {
+      cls += " " + o.cls + "--horizontal";
+    }
+
+    var grpLabel =
+      o.showLabel !== false && o.label
+        ? '<span class="' + o.cls + '__label">' + esc(o.label) + "</span>"
+        : "";
+    var grpHelper =
+      o.showHelper !== false && o.helper
+        ? '<span class="' + o.cls + '__helper">' + esc(o.helper) + "</span>"
+        : "";
+
+    // The children are real components, rendered by recursing rather than by
+    // restating a checkbox's markup here (same idiom as card-for-items). A
+    // group whose checkbox drifts from the checkbox leaf is a defect this
+    // makes impossible.
+    // `Selected` is a LIST, not a single value: checking more than one box is
+    // the whole point of a checkbox group, and a scalar here would have made
+    // that unrepresentable. radio-group shares the code and a caller naming two
+    // values there gets two selected radios, which is their error to make and
+    // not one worth a second code path.
+    var grpSelected = parseItems(o.selected, "").map(function (sel) {
+      return sel.toLowerCase();
+    });
+    var grpItems = parseItems(o.items, "")
+      .map(function (item) {
+        return renderDSComponent({
+          type: "INSTANCE",
+          library: "ds",
+          dsSlug: o.child,
+          variant:
+            grpSelected.indexOf(item.toLowerCase()) !== -1 ? o.selectedKey : "",
+          props: { Label: item },
+        });
+      })
+      .join("");
+
+    return (
+      '<div class="' +
+      cls +
+      '">' +
+      grpLabel +
+      '<div class="' +
+      o.cls +
+      '__items">' +
+      grpItems +
+      "</div>" +
+      grpHelper +
+      "</div>"
+    );
+  }
+
   // Resolve the active item for a list prop: the trimmed Active value when it
   // matches an item (case-insensitive), else the first item. Falls back to
   // first on absent OR non-matching Active, so a stale/renamed Active never
@@ -753,6 +826,185 @@
             rbHelper +
             "</span>" +
             "</label>"
+          );
+        }
+
+        // ── Form groups and inputs (blank-box slice) ───────────────────
+        //
+        // These four rendered from Figma geometry until now, which is why a
+        // generated form showed empty grey boxes: 5 for each group (label,
+        // three inputs, helper), 3 for text-area, 2 for field. Every structural
+        // decision below is quoted from the component's own anatomy, and the
+        // `Show label` / `Show helper text` booleans are PUBLISHED registry
+        // properties defaulting to true, not an authoring guess.
+
+        // checkbox-group and radio-group share a shape: a label, a slot of N
+        // inputs, a helper. They are TWO cases rather than one fallthrough
+        // because the contract deriver attributes a fallthrough group's props
+        // to a single slug, so a shared case reported checkbox-group as reading
+        // no Items at all. The shape lives in one function; only the wiring is
+        // duplicated, and each case names the props it reads.
+        case "checkbox-group": {
+          return inputGroup({
+            cls: "ds-checkbox-group",
+            child: "checkbox",
+            selectedKey: "Selection=Checked",
+            orientation: v.Orientation,
+            showLabel: props["Show label"],
+            showHelper: props["Show helper text"],
+            label: props.Label,
+            helper: props["Helper text"],
+            items: props.Items,
+            selected: props.Selected,
+          });
+        }
+
+        case "radio-group": {
+          return inputGroup({
+            cls: "ds-radio-group",
+            child: "radio",
+            selectedKey: "Selection=Selected",
+            orientation: v.Orientation,
+            showLabel: props["Show label"],
+            showHelper: props["Show helper text"],
+            label: props.Label,
+            helper: props["Helper text"],
+            items: props.Items,
+            selected: props.Selected,
+          });
+        }
+
+        // The bordered input BOX. Distinct from text-input, which nests this
+        // one (text-input's anatomy is Label + Field + Helper text) and already
+        // owns the `ds-field` prefix for that outer wrapper. So this leaf emits
+        // `ds-fieldbox` and declares it in matrix.js CSS_OWNERS: the default
+        // `ds-<slug>` would be `ds-field`, which is taken.
+        case "field": {
+          var fbCls = "ds-fieldbox";
+          if (v.Size === "Compact") fbCls += " ds-fieldbox--compact";
+          // The State axis publishes nine values. Only the ones the sheet draws
+          // differently get a class; the rest fall through to the default box
+          // rather than inventing a treatment the capture does not record.
+          // Each branch is a State the capture records a treatment for. Focus
+          // and Active are NOT the same: the capture gives Focus a 2px ring and
+          // Active a 1px border in the same colour, so folding them together
+          // would lose a distinction the design file makes. Hover records only a
+          // background (#fbfbff) that binds to no published token, so it is left
+          // unpainted rather than hardcoded: an inline hex is the thing the
+          // re-theming census counts against us.
+          //
+          // Filled IS drawn, even though it shares the box treatment: the
+          // capture moves the input text from placeholder to default colour,
+          // both published tokens. It is worth calling out because the collapse
+          // census cannot see this one either way: variant-collapse.js exempts
+          // State axes wholesale, on the grounds that a static fragment cannot
+          // show hover or focus. Filled is neither, so the exemption covers it
+          // by accident and no gate would have reported it collapsed onto
+          // Default. The capture said so; nothing else would have.
+          if (v.State === "Error") fbCls += " ds-fieldbox--error";
+          else if (v.State === "Warning") fbCls += " ds-fieldbox--warning";
+          else if (v.State === "Focus") fbCls += " ds-fieldbox--focus";
+          else if (v.State === "Active") fbCls += " ds-fieldbox--active";
+          else if (v.State === "Filled") fbCls += " ds-fieldbox--filled";
+          else if (v.State === "Disabled") fbCls += " is-disabled";
+          else if (v.State === "Read-only") fbCls += " ds-fieldbox--readonly";
+
+          // All three icon booleans are published default FALSE, so a plain
+          // field is the box and its text. Rendering them unconditionally is
+          // what makes a text input look like a select.
+          var fbLead =
+            props["Show leading icon"] === true
+              ? '<span class="ds-fieldbox__icon">' +
+                renderIcon(props["Leading icon"] || "search") +
+                "</span>"
+              : "";
+          // The capture records the clear affordance as a `button` instance
+          // (Emphasis=Icon-only, Size=Small), not a bare icon. It is rendered
+          // as an icon anyway, because the button leaf's Icon-only path maps to
+          // `ds-button--primary` and draws a hardcoded "add" glyph, so
+          // recursing into it would put a filled blue Add button inside the
+          // field. That is a gap in the button leaf, not in this one. Carrying
+          // a `ds-fieldbox__clear` hook for it was worse than either: the class
+          // had no rule in the sheet, and no DS-tier gate reports an unstyled
+          // modifier (the unowned-modifier census is FM-tier only).
+          var fbClear =
+            props["Show clear button"] === true
+              ? '<span class="ds-fieldbox__icon">' + renderIcon("close") + "</span>"
+              : "";
+          var fbTrail =
+            props["Show trailing icon"] === true
+              ? '<span class="ds-fieldbox__icon">' +
+                renderIcon(props["Trailing icon"] || "arrow-down") +
+                "</span>"
+              : "";
+          // anatomy: the Slot holds a text node reading "Placeholder text".
+          // No literal fallback: an absent Slot renders no text node. The
+          // capture's "Placeholder text" string is specimen content and lives
+          // in matrix.js SPECIMEN_PROPS.
+          var fbText = props.Slot
+            ? '<span class="ds-fieldbox__text">' + esc(props.Slot) + "</span>"
+            : "";
+
+          return (
+            '<div class="' + fbCls + '">' +
+            fbLead +
+            fbText +
+            fbClear +
+            fbTrail +
+            "</div>"
+          );
+        }
+
+        case "text-area": {
+          // anatomy: Label, a bordered Field, then a helper ROW carrying the
+          // helper text and a character count reading "0/1000".
+          var taCls = "ds-text-area";
+          // Same States axis as field (spelled "States" here, a Figma
+          // inconsistency), and the same reasoning about Focus vs Active.
+          if (v.States === "Error") taCls += " ds-text-area--error";
+          else if (v.States === "Warning") taCls += " ds-text-area--warning";
+          else if (v.States === "Focus") taCls += " ds-text-area--focus";
+          else if (v.States === "Active") taCls += " ds-text-area--active";
+          else if (v.States === "Filled") taCls += " ds-text-area--filled";
+          else if (v.States === "Disabled") taCls += " is-disabled";
+          else if (v.States === "Read-only") taCls += " ds-text-area--readonly";
+
+          // `Show label` is published default TRUE, so the label is part of
+          // the component; but with no Label prop there is no text to draw, and
+          // inventing one would make the prop a replacement rather than an
+          // addition. Both conditions have to hold.
+          var taLabel =
+            props["Show label"] !== false && props.Label
+              ? '<span class="ds-text-area__label">' + esc(props.Label) + "</span>"
+              : "";
+
+          // The count is part of the helper ROW in the capture, so it goes with
+          // the helper: hiding the helper hides the row it lives in.
+          var taHelperText = props["Helper text"]
+            ? '<span class="ds-text-area__helper">' +
+              esc(props["Helper text"]) +
+              "</span>"
+            : "";
+          var taCount = props["Character count"]
+            ? '<span class="ds-text-area__count">' +
+              esc(props["Character count"]) +
+              "</span>"
+            : "";
+          var taHelper =
+            props["Show helper text"] !== false && (taHelperText || taCount)
+              ? '<div class="ds-text-area__footer">' + taHelperText + taCount + "</div>"
+              : "";
+
+          return (
+            '<div class="' + taCls + '">' +
+            taLabel +
+            '<div class="ds-text-area__box">' +
+            (props.Slot
+              ? '<span class="ds-text-area__text">' + esc(props.Slot) + "</span>"
+              : "") +
+            "</div>" +
+            taHelper +
+            "</div>"
           );
         }
 
@@ -3544,6 +3796,13 @@
     "link",
     "avatar",
     "collapse",
+    // Blank-box slice, form controls. These four are what a request-access or
+    // any other form screen is made of, and until now every one of them
+    // rendered from captured geometry as an empty grey box.
+    "field",
+    "text-area",
+    "checkbox-group",
+    "radio-group",
   ];
 
   exports.renderDSComponent = renderDSComponent;

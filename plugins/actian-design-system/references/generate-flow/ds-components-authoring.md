@@ -24,7 +24,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `card-for-perimeter` | Card for perimeter | **BUILT** | Property 1 |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
 | `checkbox-card` | Checkbox card | appearance | Selection / State |
-| `checkbox-group` | Checkbox group | appearance | Orientation |
+| `checkbox-group` | Checkbox group | **BUILT** | Orientation |
 | `collapse` | Collapse | **BUILT** | State |
 | `confirmation` | Confirmation | **BUILT** | Size |
 | `data-quality-checks-graph` | Data quality checks graph | appearance | — |
@@ -35,7 +35,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `dropdown-select-default` | Dropdown, Select, default | **BUILT** | Type / State |
 | `empty-state` | Empty state | **BUILT** | Empty / Size |
 | `error-state` | Error state | **BUILT** | Size |
-| `field` | Field | appearance | Size / State |
+| `field` | Field | **BUILT** | Size / State |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `global-header-account-dropdown` | Global header account dropdown | **BUILT** | — |
 | `glossary-item-hierarchy` | Glossary item hierarchy | chip | — |
@@ -63,7 +63,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio` | Radio | **BUILT** | Selection / State |
 | `radio-card` | Radio card | appearance | Selection / State |
-| `radio-group` | Radio group | appearance | Orientation |
+| `radio-group` | Radio group | **BUILT** | Orientation |
 | `read-only-tag` | Read only tag | **BUILT** | Type |
 | `rich-text-froala` | Rich text (Froala) | **BUILT** | State |
 | `scroll-bar` | Scroll bar | **BUILT** | Property 1 |
@@ -76,7 +76,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `stepper` | Stepper | **BUILT** | State |
 | `table` | Table | **BUILT** | Built type |
 | `tabs` | Tabs | **BUILT** | — |
-| `text-area` | Text area | appearance | States |
+| `text-area` | Text area | **BUILT** | States |
 | `text-input` | Text input | **BUILT** | States |
 | `textfield-buttons` | Textfield buttons | appearance | — |
 | `toast` | Toast | **BUILT** | Type |
@@ -88,10 +88,10 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 ## Built leaf props
 
 <!-- BEGIN GENERATED props: node scripts/renderers/render-authoring-props.js -->
-All 56 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
+All 60 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 174 prop bindings in total.
+parenthesised value renders nothing until you supply it. 198 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -111,6 +111,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
 | `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `checkbox-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Orientation | none |
 | `collapse` | `Body`, `Title` ("Advanced settings") | `State` = Collapsed / Expanede | none |
 | `confirmation` | `Body` ("The selected items will be imported into the catalog. You will be notified once the import is complete."), `Cta` ("Open the catalog"), `Headline`, `Illustration` ("illustration-success"), `Primary`, `Secondary` ("Learn more"), `Title` ("Success!") | `Size` = Large | none |
 | `digram-item-types` | `Initials`, `Label` | `Item type` = Dataset / Data process / Data product / Field / Output port / Use case / Visualization / Category / Custom 1 / Custom 2 / Custom 3 / Custom 4 / Custom 5 / Custom 6 / Custom 7 / Custom 8 / Custom 9 / Custom 10 / Custom 11 / Custom 12 / Custom 13 / Custom 14 / Custom 16 / Glossary 1 / Glossary 2 / Glossary 3 / Glossary 4 / Glossary 5 / Topic 10 / Topic 1 / Topic 2 / Topic 3 / Topic 4 / Topic 5 / Topic 6 / Topic 7 / Topic 8 / Topic 9<br>`Size` = XS / SM / MD | Custom 1 = Category<br>Custom 2 = Data process<br>Custom 3 = Output port<br>Custom 6 = Output port |
@@ -119,6 +120,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `dropdown-select-default` | `Description`, `Helper`, `Label` ("Label"), `Placeholder` ("Select…"), `Value` | `Type` = Default / Search/Multiple / With avatar / Compact/Custom<br>`State` = Default / Hover / Focus / Active / Filled / Disabled | Search/Multiple = Default<br>With avatar = Default<br>Compact/Custom = Default<br>Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default |
 | `empty-state` | `Body` ("Create policies to define how your platform operates."), `Cta` ("Create policy"), `Headline` ("No policies available"), `Illustration` ("illustration-empty-state"), `Primary`, `Secondary` ("Learn more"), `Title` | `Empty` = Default / Maintenance / Error state / Confirmation<br>`Size` = Large / Medium / Small | Maintenance = Default<br>Error state = Default<br>Confirmation = Default<br>Medium = Large<br>Small = Large |
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
+| `field` | `Leading icon` ("search"), `Show clear button`, `Show leading icon`, `Show trailing icon`, `Slot`, `Trailing icon` ("arrow-down") | `Size` = Compact / Default<br>`State` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default |
 | `global-header` | `Account` ("AU"), `App`, `Context` ("Catalog"), `ContextValue` ("Default"), `Logo` ("actian-pyramid"), `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
 | `global-header-account-dropdown` | `Email`, `Items`, `Name` ("Account user") | none | none |
 | `interactive-tag` | `Label`, `Leading icon show`, `Trailing icon show` | `State` = Default / Disabled / Focus / Hover / Pressed<br>`Type` = Dismissible / Selectable / Dropdown-expanded / Dropdown / Selectable-selected | Focus = Default<br>Hover = Default<br>Pressed = Default<br>Selectable = Dismissible |
@@ -137,6 +139,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `popover` | `Body`, `Show info icon`, `Title` ("Popover") | `Type` = Interaction guide / Advanced search | none |
 | `progress-bar-small` | `Percent` | `Size` = Default / Large<br>`Completeness` = 0% / 100% / 50% | none |
 | `radio` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `radio-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Horizontal | none |
 | `read-only-tag` | `Label`, `Leading icon show` | `Type` = Default / Catalog / Shared / Stage-1 / Stage-2 / Stage-3 / Stage-4 / Stage-5 / Stage-6 / Stage-7 / Stage-8 / Status-error / Status-warning / Status-success | none |
 | `rich-text-froala` | none | `State` = Expanded / Default | none |
 | `scroll-bar` | `Label` ("Scroll region"), `Length`, `Orientation`, `Position` | `Property 1` = Default | none |
@@ -149,6 +152,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `stepper` | `Body`, `Step` ("1"), `Title` ("Connect source") | `State` = Complete / Active / Default / State5 | State5 = Default |
 | `table` | `Columns`, `Rows` | `Built type` = By columns / By rows | By rows = By columns |
 | `tabs` | `Active`, `Items` | none | none |
+| `text-area` | `Character count`, `Helper text`, `Label`, `Show helper text`, `Show label`, `Slot` | `States` = Default / Warning / Hover / Focus / Active / Filled / Error / Disabled / Read-only | Hover = Default |
 | `text-input` | `Label` ("Label"), `Placeholder text` ("Placeholder text"), `Trailing icon` | `States` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default<br>Warning = Default<br>Read-only = Default |
 | `toast` | `Action`, `Message` ("Item deleted") | `Type` = Default / Critical | none |
 | `toggle` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Toggle position` = On right (default) / On left<br>`Selection` = Off / On<br>`State` = Default / Hover / Focus / Pressed / Disabled | On left = On right (default)<br>Hover = Default<br>Focus = Default<br>Pressed = Default |

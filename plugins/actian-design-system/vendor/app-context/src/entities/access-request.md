@@ -18,5 +18,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - access-request-workflow
+  - access-request-management
 ---
 Consumer request for data-product/item access, submitted in Explorer with a required use-case justification. Accepted ≠ Granted (provisioned); processing happens in external systems (ServiceNow/Jira/owner) and status is tracked in Explorer.

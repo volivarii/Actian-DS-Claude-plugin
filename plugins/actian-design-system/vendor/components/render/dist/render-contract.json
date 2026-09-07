@@ -369,6 +369,38 @@
         }
       }
     },
+    "checkbox-group": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper text"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Selected"
+        },
+        {
+          "name": "Show helper text"
+        },
+        {
+          "name": "Show label"
+        }
+      ],
+      "variants": {
+        "Orientation": {
+          "values": [
+            "Vertical",
+            "Orientation"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
     "collapse": {
       "group": "Data Display",
       "props": [
@@ -695,6 +727,56 @@
             "Medium"
           ],
           "rendersAs": {}
+        }
+      }
+    },
+    "field": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Leading icon",
+          "default": "search"
+        },
+        {
+          "name": "Show clear button"
+        },
+        {
+          "name": "Show leading icon"
+        },
+        {
+          "name": "Show trailing icon"
+        },
+        {
+          "name": "Slot"
+        },
+        {
+          "name": "Trailing icon",
+          "default": "arrow-down"
+        }
+      ],
+      "variants": {
+        "Size": {
+          "values": [
+            "Compact",
+            "Default"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Active",
+            "Filled",
+            "Error",
+            "Warning",
+            "Disabled",
+            "Read-only"
+          ],
+          "rendersAs": {
+            "Hover": "Default"
+          }
         }
       }
     },
@@ -1293,6 +1375,38 @@
         }
       }
     },
+    "radio-group": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Helper text"
+        },
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Selected"
+        },
+        {
+          "name": "Show helper text"
+        },
+        {
+          "name": "Show label"
+        }
+      ],
+      "variants": {
+        "Orientation": {
+          "values": [
+            "Vertical",
+            "Horizontal"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
     "read-only-tag": {
       "group": "Data Display",
       "props": [
@@ -1640,6 +1754,47 @@
         }
       ],
       "variants": {}
+    },
+    "text-area": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Character count"
+        },
+        {
+          "name": "Helper text"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Show helper text"
+        },
+        {
+          "name": "Show label"
+        },
+        {
+          "name": "Slot"
+        }
+      ],
+      "variants": {
+        "States": {
+          "values": [
+            "Default",
+            "Warning",
+            "Hover",
+            "Focus",
+            "Active",
+            "Filled",
+            "Error",
+            "Disabled",
+            "Read-only"
+          ],
+          "rendersAs": {
+            "Hover": "Default"
+          }
+        }
+      }
     },
     "text-input": {
       "group": "Form",

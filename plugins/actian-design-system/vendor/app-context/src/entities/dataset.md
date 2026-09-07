@@ -19,5 +19,11 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - faceted-browse
+  - lineage-graph
+  - discussion-threads
+  - data-profiling-sampling
 ---
 A dataset asset contained by a data product; a type of catalog object. Has a schema of Fields; becomes an orphan when removed from its source connection.

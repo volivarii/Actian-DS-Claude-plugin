@@ -12,5 +12,8 @@ relationships:
     - property
 apps:
   - studio
+patterns:
+  - template-builder
+  - metamodel-designer
 ---
 The documentation structure (ordered sections + properties) applied to an item type. Authored in Studio Catalog Design.

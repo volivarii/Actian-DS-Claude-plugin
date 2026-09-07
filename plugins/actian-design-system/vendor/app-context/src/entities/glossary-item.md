@@ -15,5 +15,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - faceted-browse
 ---
 A glossary item — business term, KPI, report, or domain — in the business glossary, linked to technical assets. Glossary item types are tenant-defined, with parent-child hierarchies (e.g. Business Object → Business Attribute); domain is a built-in sub-type.

@@ -12,5 +12,7 @@ relationships:
     - connection
 apps:
   - administration
+patterns:
+  - search-filtered-table
 ---
 External data ingestion agent that discovers and imports metadata from connections

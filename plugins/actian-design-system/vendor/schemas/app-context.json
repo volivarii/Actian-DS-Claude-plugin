@@ -521,6 +521,19 @@
               "explorer"
             ]
           ]
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "UX pattern slugs (from the `patterns` map) whose page shape shows this entity. Each of those patterns carries its own components[], so a consumer resolves an entity to components by following this edge and then that one, rather than reading a component list restated here. Absent when no pattern shows the entity.",
+          "examples": [
+            [
+              "asset-detail-360",
+              "faceted-browse"
+            ]
+          ]
         }
       }
     },
