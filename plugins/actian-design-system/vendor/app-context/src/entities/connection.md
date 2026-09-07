@@ -13,5 +13,7 @@ relationships:
     - catalog-object
 apps:
   - administration
+patterns:
+  - search-filtered-table
 ---
 Configuration for a data source connector (91 pre-built across 16 categories)

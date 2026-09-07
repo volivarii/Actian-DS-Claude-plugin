@@ -16,5 +16,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - faceted-browse
 ---
 A BI report or dashboard catalog item (Power BI, Tableau, Looker, Qlik…), auto-discovered by a connector and surfaced in lineage. Distinct from a dataset.

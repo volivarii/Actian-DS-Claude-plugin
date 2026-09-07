@@ -14,5 +14,8 @@ relationships:
     - governance-policy
 apps:
   - administration
+patterns:
+  - search-filtered-table
+  - table-with-tabs
 ---
 Identity and role assignments. Groups: Explorer, Data Steward, Super Admin

@@ -15,5 +15,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - search-filtered-table
+  - lineage-graph
 ---
 A column within a dataset's schema. Auto-created on import; participates in field-level lineage. Business keys (BK) are editable by Data Stewards.

@@ -10,5 +10,7 @@ properties:
 relationships: {}
 apps:
   - studio
+patterns:
+  - analytics-dashboard
 ---
 Saved filter shortcut on Studio Dashboard

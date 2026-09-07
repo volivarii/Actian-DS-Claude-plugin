@@ -11,5 +11,7 @@ relationships: {}
 apps:
   - studio
   - explorer
+patterns:
+  - lineage-graph
 ---
 Field-level transformation tracking from source to downstream

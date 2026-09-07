@@ -14020,6 +14020,582 @@
     },
     {
       "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:access-request",
+      "target": "pattern:access-request-management",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:access-request",
+      "target": "pattern:access-request-workflow",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:api-key",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:catalog-object",
+      "target": "pattern:activity-timeline",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:catalog-object",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:catalog-object",
+      "target": "pattern:bulk-edit",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:catalog-object",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:catalog-object",
+      "target": "pattern:right-sliding-drawer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:connection",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:custom-item",
+      "target": "pattern:metamodel-designer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:custom-item",
+      "target": "pattern:type-picker-grid",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-process",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-process",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-process",
+      "target": "pattern:lineage-graph",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-product",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-product",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:data-product",
+      "target": "pattern:marketplace-browsing",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:dataset",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:dataset",
+      "target": "pattern:data-profiling-sampling",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:dataset",
+      "target": "pattern:discussion-threads",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:dataset",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:dataset",
+      "target": "pattern:lineage-graph",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:discussion-thread",
+      "target": "pattern:discussion-threads",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:domain",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:field",
+      "target": "pattern:lineage-graph",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:field",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:glossary-item",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:glossary-item",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:governance-policy",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:lineage",
+      "target": "pattern:lineage-graph",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:observability-signal",
+      "target": "pattern:analytics-dashboard",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:property",
+      "target": "pattern:metamodel-designer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:property",
+      "target": "pattern:template-builder",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:responsibility",
+      "target": "pattern:metamodel-designer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:scanner",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:suggestion",
+      "target": "pattern:smart-suggestions",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:suggestion",
+      "target": "pattern:suggestion-workflow",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:template",
+      "target": "pattern:metamodel-designer",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:template",
+      "target": "pattern:template-builder",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:topic",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:topic",
+      "target": "pattern:topic-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:use-case",
+      "target": "pattern:access-request-workflow",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:use-case",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:user-group",
+      "target": "pattern:search-filtered-table",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:user-group",
+      "target": "pattern:table-with-tabs",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:visualization",
+      "target": "pattern:asset-detail-360",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:visualization",
+      "target": "pattern:faceted-browse",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
+      "edgeType": "shown_in",
+      "source": "entity:watchlist",
+      "target": "pattern:analytics-dashboard",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "@type": "Edge",
       "edgeType": "term_about",
       "source": "term:administration",
       "target": "app:administration",

@@ -11,5 +11,7 @@ relationships:
     - contact
 apps:
   - studio
+patterns:
+  - metamodel-designer
 ---
 A named contact role-type (Data Owner, Data Steward, Reader…), defined in Studio Catalog Design and assignable to any catalog item. Tenant-configurable.

@@ -264,6 +264,10 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "access-request-workflow",
+        "access-request-management"
+      ],
       "description": "Consumer request for data-product/item access, submitted in Explorer with a required use-case justification. Accepted ≠ Granted (provisioned); processing happens in external systems (ServiceNow/Jira/owner) and status is tracked in Explorer."
     },
     "api-key": {
@@ -276,6 +280,9 @@
       "relationships": {},
       "apps": [
         "administration"
+      ],
+      "patterns": [
+        "search-filtered-table"
       ],
       "description": "Machine-to-machine auth with 5 scopes"
     },
@@ -321,6 +328,13 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "faceted-browse",
+        "asset-detail-360",
+        "activity-timeline",
+        "bulk-edit",
+        "right-sliding-drawer"
+      ],
       "description": "Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item"
     },
     "connection": {
@@ -350,6 +364,9 @@
       },
       "apps": [
         "administration"
+      ],
+      "patterns": [
+        "search-filtered-table"
       ],
       "description": "Configuration for a data source connector (91 pre-built across 16 categories)"
     },
@@ -385,6 +402,10 @@
       "relationships": {},
       "apps": [
         "studio"
+      ],
+      "patterns": [
+        "metamodel-designer",
+        "type-picker-grid"
       ],
       "description": "A user-defined custom item type extending the catalog metamodel."
     },
@@ -444,6 +465,11 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "asset-detail-360",
+        "faceted-browse",
+        "lineage-graph"
+      ],
       "description": "A transformation/pipeline catalog item. Its input/output connections to datasets (and custom items) generate the horizontal data lineage graph; supports field-level lineage."
     },
     "data-product": {
@@ -499,6 +525,11 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "asset-detail-360",
+        "faceted-browse",
+        "marketplace-browsing"
+      ],
       "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Published to the marketplace via an ODPS YAML descriptor; access requests target the output-port level (each governed by a data-contract)."
     },
     "dataset": {
@@ -543,6 +574,13 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "asset-detail-360",
+        "faceted-browse",
+        "lineage-graph",
+        "discussion-threads",
+        "data-profiling-sampling"
+      ],
       "description": "A dataset asset contained by a data product; a type of catalog object. Has a schema of Fields; becomes an orphan when removed from its source connection."
     },
     "discussion-thread": {
@@ -561,6 +599,9 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "patterns": [
+        "discussion-threads"
       ],
       "description": "Conversation thread on Dataset detail pages"
     },
@@ -581,6 +622,9 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "patterns": [
+        "faceted-browse"
       ],
       "description": "Organizational/business unit owning a set of data assets"
     },
@@ -622,6 +666,10 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "search-filtered-table",
+        "lineage-graph"
+      ],
       "description": "A column within a dataset's schema. Auto-created on import; participates in field-level lineage. Business keys (BK) are editable by Data Stewards."
     },
     "glossary-item": {
@@ -643,6 +691,10 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "asset-detail-360",
+        "faceted-browse"
+      ],
       "description": "A glossary item — business term, KPI, report, or domain — in the business glossary, linked to technical assets. Glossary item types are tenant-defined, with parent-child hierarchies (e.g. Business Object → Business Attribute); domain is a built-in sub-type."
     },
     "governance-policy": {
@@ -661,6 +713,9 @@
       "apps": [
         "studio",
         "administration"
+      ],
+      "patterns": [
+        "search-filtered-table"
       ],
       "description": "Access rules, quality rules, compliance constraints"
     },
@@ -684,6 +739,9 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "patterns": [
+        "lineage-graph"
       ],
       "description": "Field-level transformation tracking from source to downstream"
     },
@@ -712,6 +770,9 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "patterns": [
+        "analytics-dashboard"
       ],
       "description": "Quality score, freshness, usage stats attached to assets"
     },
@@ -760,6 +821,10 @@
       "apps": [
         "studio"
       ],
+      "patterns": [
+        "metamodel-designer",
+        "template-builder"
+      ],
       "description": "A typed metadata field definition in the catalog metamodel (8 value types). Importance (Standard/Important/Required) feeds the documentation-completion score. Configured in Studio Catalog Design."
     },
     "responsibility": {
@@ -780,6 +845,9 @@
       "apps": [
         "studio"
       ],
+      "patterns": [
+        "metamodel-designer"
+      ],
       "description": "A named contact role-type (Data Owner, Data Steward, Reader…), defined in Studio Catalog Design and assignable to any catalog item. Tenant-configurable."
     },
     "scanner": {
@@ -797,6 +865,9 @@
       "apps": [
         "administration"
       ],
+      "patterns": [
+        "search-filtered-table"
+      ],
       "description": "External data ingestion agent that discovers and imports metadata from connections"
     },
     "suggestion": {
@@ -805,6 +876,10 @@
       "relationships": {},
       "apps": [
         "studio"
+      ],
+      "patterns": [
+        "smart-suggestions",
+        "suggestion-workflow"
       ],
       "description": "A suggested enrichment or change on a catalog object, pending steward review."
     },
@@ -826,6 +901,10 @@
       },
       "apps": [
         "studio"
+      ],
+      "patterns": [
+        "template-builder",
+        "metamodel-designer"
       ],
       "description": "The documentation structure (ordered sections + properties) applied to an item type. Authored in Studio Catalog Design."
     },
@@ -849,6 +928,10 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "topic-browse",
+        "faceted-browse"
+      ],
       "description": "A curated collection of catalog items for business-user navigation in Explorer (carousel + browse). Created and curated by stewards in Studio. Replaces the deprecated \"Category\" concept."
     },
     "use-case": {
@@ -866,6 +949,10 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "patterns": [
+        "asset-detail-360",
+        "access-request-workflow"
       ],
       "description": "A built-in catalog item describing an analytical use case. Required as justification when a consumer submits an access request in Explorer."
     },
@@ -885,6 +972,10 @@
       },
       "apps": [
         "administration"
+      ],
+      "patterns": [
+        "search-filtered-table",
+        "table-with-tabs"
       ],
       "description": "Identity and role assignments. Groups: Explorer, Data Steward, Super Admin"
     },
@@ -912,6 +1003,10 @@
         "studio",
         "explorer"
       ],
+      "patterns": [
+        "asset-detail-360",
+        "faceted-browse"
+      ],
       "description": "A BI report or dashboard catalog item (Power BI, Tableau, Looker, Qlik…), auto-discovered by a connector and surfaced in lineage. Distinct from a dataset."
     },
     "watchlist": {
@@ -924,6 +1019,9 @@
       "relationships": {},
       "apps": [
         "studio"
+      ],
+      "patterns": [
+        "analytics-dashboard"
       ],
       "description": "Saved filter shortcut on Studio Dashboard"
     }

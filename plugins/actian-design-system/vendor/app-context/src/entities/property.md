@@ -12,5 +12,8 @@ relationships:
     - template
 apps:
   - studio
+patterns:
+  - metamodel-designer
+  - template-builder
 ---
 A typed metadata field definition in the catalog metamodel (8 value types). Importance (Standard/Important/Required) feeds the documentation-completion score. Configured in Studio Catalog Design.

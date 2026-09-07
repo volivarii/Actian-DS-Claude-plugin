@@ -13,5 +13,8 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - access-request-workflow
 ---
 A built-in catalog item describing an analytical use case. Required as justification when a consumer submits an access request in Explorer.

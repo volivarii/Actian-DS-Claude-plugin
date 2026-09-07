@@ -14,5 +14,7 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - discussion-threads
 ---
 Conversation thread on Dataset detail pages

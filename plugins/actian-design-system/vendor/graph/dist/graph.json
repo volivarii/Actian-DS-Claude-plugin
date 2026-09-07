@@ -12896,6 +12896,534 @@
       "type": "related"
     },
     {
+      "source": "entity:access-request",
+      "target": "pattern:access-request-management",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:access-request",
+      "target": "pattern:access-request-workflow",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:api-key",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:catalog-object",
+      "target": "pattern:activity-timeline",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:catalog-object",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:catalog-object",
+      "target": "pattern:bulk-edit",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:catalog-object",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:catalog-object",
+      "target": "pattern:right-sliding-drawer",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:connection",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:custom-item",
+      "target": "pattern:metamodel-designer",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:custom-item",
+      "target": "pattern:type-picker-grid",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-process",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-process",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-process",
+      "target": "pattern:lineage-graph",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-product",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-product",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:data-product",
+      "target": "pattern:marketplace-browsing",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:dataset",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:dataset",
+      "target": "pattern:data-profiling-sampling",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:dataset",
+      "target": "pattern:discussion-threads",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:dataset",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:dataset",
+      "target": "pattern:lineage-graph",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:discussion-thread",
+      "target": "pattern:discussion-threads",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:domain",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:field",
+      "target": "pattern:lineage-graph",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:field",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:glossary-item",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:glossary-item",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:governance-policy",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:lineage",
+      "target": "pattern:lineage-graph",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:observability-signal",
+      "target": "pattern:analytics-dashboard",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:property",
+      "target": "pattern:metamodel-designer",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:property",
+      "target": "pattern:template-builder",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:responsibility",
+      "target": "pattern:metamodel-designer",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:scanner",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:suggestion",
+      "target": "pattern:smart-suggestions",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:suggestion",
+      "target": "pattern:suggestion-workflow",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:template",
+      "target": "pattern:metamodel-designer",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:template",
+      "target": "pattern:template-builder",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:topic",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:topic",
+      "target": "pattern:topic-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:use-case",
+      "target": "pattern:access-request-workflow",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:use-case",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:user-group",
+      "target": "pattern:search-filtered-table",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:user-group",
+      "target": "pattern:table-with-tabs",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:visualization",
+      "target": "pattern:asset-detail-360",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:visualization",
+      "target": "pattern:faceted-browse",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
+      "source": "entity:watchlist",
+      "target": "pattern:analytics-dashboard",
+      "type": "shown_in",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "entities.patterns"
+      }
+    },
+    {
       "source": "term:administration",
       "target": "app:administration",
       "type": "term_about",

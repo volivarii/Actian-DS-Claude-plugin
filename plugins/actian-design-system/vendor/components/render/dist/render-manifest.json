@@ -103,6 +103,14 @@
       "source": "rendered"
     },
     {
+      "slug": "checkbox-group",
+      "tagName": "zen-checkbox-group",
+      "group": "Form",
+      "fragment": "fragments/checkbox-group.html",
+      "tokensConsumed": 13,
+      "source": "rendered"
+    },
+    {
       "slug": "collapse",
       "tagName": "zen-collapse",
       "group": "Data Display",
@@ -164,6 +172,14 @@
       "group": "Feedback",
       "fragment": "fragments/error-state.html",
       "tokensConsumed": 13,
+      "source": "rendered"
+    },
+    {
+      "slug": "field",
+      "tagName": "zen-field",
+      "group": "Form",
+      "fragment": "fragments/field.html",
+      "tokensConsumed": 20,
       "source": "rendered"
     },
     {
@@ -311,6 +327,14 @@
       "source": "rendered"
     },
     {
+      "slug": "radio-group",
+      "tagName": "zen-radio-group",
+      "group": "Form",
+      "fragment": "fragments/radio-group.html",
+      "tokensConsumed": 13,
+      "source": "rendered"
+    },
+    {
       "slug": "read-only-tag",
       "tagName": "zen-read-only-tag",
       "group": "Data Display",
@@ -404,6 +428,14 @@
       "group": "Navigation",
       "fragment": "fragments/tabs.html",
       "tokensConsumed": 14,
+      "source": "rendered"
+    },
+    {
+      "slug": "text-area",
+      "tagName": "zen-text-area",
+      "group": "Form",
+      "fragment": "fragments/text-area.html",
+      "tokensConsumed": 24,
       "source": "rendered"
     },
     {

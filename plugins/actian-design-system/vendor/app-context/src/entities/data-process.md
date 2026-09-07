@@ -16,5 +16,9 @@ relationships:
 apps:
   - studio
   - explorer
+patterns:
+  - asset-detail-360
+  - faceted-browse
+  - lineage-graph
 ---
 A transformation/pipeline catalog item. Its input/output connections to datasets (and custom items) generate the horizontal data lineage graph; supports field-level lineage.

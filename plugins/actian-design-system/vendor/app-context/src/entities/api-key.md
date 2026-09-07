@@ -10,5 +10,7 @@ properties:
 relationships: {}
 apps:
   - administration
+patterns:
+  - search-filtered-table
 ---
 Machine-to-machine auth with 5 scopes

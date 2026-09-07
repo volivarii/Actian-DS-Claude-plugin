@@ -14,5 +14,7 @@ relationships:
 apps:
   - studio
   - administration
+patterns:
+  - search-filtered-table
 ---
 Access rules, quality rules, compliance constraints

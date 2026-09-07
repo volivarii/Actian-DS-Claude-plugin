@@ -103,6 +103,12 @@
       "items": { "type": "string" },
       "description": "App slugs where this entity is surfaced.",
       "examples": [["studio", "explorer"]]
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "UX pattern slugs whose page shape shows this entity. The join from the domain model to the design system is made HERE and only here: a pattern already carries its own components[], so an entity reaches its components through its patterns rather than by restating a list the pattern owns. Optional: an entity no pattern shows carries no key.",
+      "examples": [["asset-detail-360", "faceted-browse"]]
     }
   }
 }
