@@ -99,7 +99,6 @@ const {
   buildTextStyle,
   resolveChrome,
   screen,
-  tierBadge,
 } = mockWindow._testExports || {};
 
 assert(typeof renderContentNode === "function", "renderContentNode exported");
@@ -108,7 +107,6 @@ assert(typeof parseVariant === "function", "parseVariant exported");
 assert(typeof buildFrameStyle === "function", "buildFrameStyle exported");
 assert(typeof buildTextStyle === "function", "buildTextStyle exported");
 assert(typeof resolveChrome === "function", "resolveChrome exported");
-assert(typeof tierBadge === "function", "tierBadge exported");
 
 // ---------------------------------------------------------------------------
 // FRAME node
@@ -692,11 +690,14 @@ const screenTier1 = screen({
   confidence: 0.92,
   content: [],
 });
-assertContains(screenTier1, 'class="tier-badge"', "tier-1 badge present");
-assertContains(screenTier1, 'data-tier="recognized"', "tier-1 data attr");
-assertContains(screenTier1, "tier 1", "tier-1 label");
-assertContains(screenTier1, "table-list", "tier-1 includes recipe in title");
-assertContains(screenTier1, "0.92", "tier-1 confidence in title");
+// The screen carries full tier data and NONE of it may reach the markup. The
+// deliverable is one file with a Prototype/Overview toggle, handed to anyone
+// outside the team, so there is no view in it that is author-only: provenance
+// stays in flow-data.json, which the author keeps and the recipient never gets.
+assertNotContains(screenTier1, "tier-badge", "no tier badge in the markup");
+assertNotContains(screenTier1, "data-tier", "no tier data attribute");
+assertNotContains(screenTier1, "table-list", "matched recipe does not reach the markup");
+assertNotContains(screenTier1, "0.92", "confidence does not reach the markup");
 
 // Tier 2 (adapted, composition)
 const screenTier2 = screen({
@@ -709,11 +710,11 @@ const screenTier2 = screen({
   justification: "Composition: form + sticky footer for confirmation.",
   content: [],
 });
-assertContains(screenTier2, 'data-tier="adapted"', "tier-2 data attr");
-assertContains(
+assertNotContains(screenTier2, "data-tier", "tier-2 exposes no data attr");
+assertNotContains(
   screenTier2,
   "form-create+sticky-footer",
-  "tier-2 composition in title",
+  "tier-2 composition does not reach the markup",
 );
 
 // Tier 3 (improvised)
@@ -727,8 +728,8 @@ const screenTier3 = screen({
     "Considered detail-page; auth-pre-empts query. Improvising auth-block-with-cta.",
   content: [],
 });
-assertContains(screenTier3, 'data-tier="improvised"', "tier-3 data attr");
-assertContains(screenTier3, "tier 3", "tier-3 label");
+assertNotContains(screenTier3, "data-tier", "tier-3 exposes no data attr");
+assertNotContains(screenTier3, "tier 3", "tier-3 exposes no label");
 
 // No tier — no badge
 const screenNoTier = screen({
@@ -737,7 +738,7 @@ const screenNoTier = screen({
   pageHeader: { title: "Plain" },
   content: [],
 });
-assertNotContains(screenNoTier, "tier-badge", "no badge when tier missing");
+assertNotContains(screenNoTier, "tier-badge", "no badge when tier missing either");
 
 // ---------------------------------------------------------------------------
 // Contract drift regressions — screen-generator emits richer Figma-shaped data

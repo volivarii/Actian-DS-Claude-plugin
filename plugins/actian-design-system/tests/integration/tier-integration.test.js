@@ -36,6 +36,13 @@ function assertContains(str, substr, message) {
   );
 }
 
+function assertNotContains(str, substr, message) {
+  assert(
+    !String(str).includes(substr),
+    message + " (found " + JSON.stringify(substr) + ", which must not reach the markup)",
+  );
+}
+
 function section(name) {
   process.stdout.write("\n" + name + "\n");
 }
@@ -181,17 +188,16 @@ section("buildTierSummary — tier-3 fixture includes Justifications block");
 }
 
 // ---------------------------------------------------------------------------
-section("flow-renderer screen() — emits tier-badge for each fixture");
+section("flow-renderer screen(): tier data stays OUT of the markup");
 
+// Every fixture carries a tier, a recipe and a confidence, and the rendered
+// screen must expose none of them. The two-view deliverable ships to people
+// outside the team, so "hidden on one of its two tabs" is not a boundary.
 for (const name of FIXTURES) {
   const data = loadFixture(name);
   const html = screen(data.screens[0]);
-  assertContains(html, 'class="tier-badge"', name + " HTML contains tier-badge");
-  assertContains(
-    html,
-    'data-tier="' + data.screens[0].tier + '"',
-    name + " HTML carries data-tier attribute",
-  );
+  assertNotContains(html, "tier-badge", name + " HTML has no tier badge");
+  assertNotContains(html, "data-tier", name + " HTML has no data-tier attribute");
 }
 
 // ---------------------------------------------------------------------------

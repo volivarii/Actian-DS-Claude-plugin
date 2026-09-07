@@ -21,17 +21,27 @@ are summarized at the release level.
 
 ### Changed
 
-- **The tier badge shows on the Overview contact sheet only, not on the screens themselves**
-  ([#341](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/341)).
-  It is author provenance: the tier a screen was classified as, the recipe it matched, the
-  confidence, and whether it carried a justification, all four in its title attribute. It was
-  emitted inside `.screen__content-area` at every one of `screen()`'s three render paths and shown
-  in both views, so a prototype shared with anyone outside the team carried "tier 2" next to the
-  breadcrumb of every screen. The markup is unchanged and the same four fields stay in
-  `flow-data.json`; only the stylesheet changed, revealing the badge under
-  `.proto-stage--overview`. `tests/renderers/tier-badge-author-only.test.js` asserts both
-  directions, because a guard that only checked "hidden by default" would pass on a stylesheet
-  that never shows it at all, which silently deletes a signal the author uses.
+- **Tier provenance no longer reaches the deliverable at all**
+  ([#342](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/342)). The tier a screen was
+  classified as, the recipe it matched, the confidence and the justification are for the person who
+  ran the generation. They were rendered into every screen, inside `.screen__content-area`, at all
+  three of `screen()`'s render paths. `flow-renderer.js` no longer emits the badge and
+  `flow-renderer.css` no longer styles it.
+
+  An intermediate attempt ([#341](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/341))
+  hid the badge in the Prototype view and revealed it under `.proto-stage--overview`, on the
+  reasoning that the Overview contact sheet's reader is the author. **That reasoning was wrong and
+  the entry describing it was too.** The deliverable is one HTML file whose own top bar carries a
+  Prototype/Overview toggle, both buttons always rendered and always enabled, and
+  `references/generate-flow/share.md` says that file is the artifact handed to stakeholders and
+  reviewers. Hiding the badge behind a tab in a file you send someone moves the leak one click away
+  instead of closing it. There is no author-only view inside an artifact you hand to someone else.
+
+  Nothing is lost: the boundary that does exist is the file boundary. All five fields stay in
+  `flow-data.json`, which never ships.
+  `tests/renderers/tier-provenance-stays-with-the-author.test.js` asserts both halves, because
+  either alone is satisfiable by a mistake. Absent-from-the-markup also passes if the classifier
+  stopped running; present-in-flow-data also passes if the badge came back.
 
 ### Fixed
 

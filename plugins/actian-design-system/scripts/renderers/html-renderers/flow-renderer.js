@@ -216,40 +216,6 @@
   }
 
   // -------------------------------------------------------------------------
-  // Tier badge
-  // -------------------------------------------------------------------------
-
-  function tierBadge(s) {
-    if (!s.tier) return "";
-    var num = s.tier === "recognized" ? 1 : s.tier === "adapted" ? 2 : 3;
-    var conf = typeof s.confidence === "number" ? s.confidence.toFixed(2) : "?";
-    var recipe =
-      s.matchedRecipe ||
-      (s.composition && s.composition.length
-        ? s.composition.join("+")
-        : "custom");
-    var hasJustification = s.justification ? "yes" : "no";
-    var title =
-      "tier " +
-      num +
-      " • " +
-      recipe +
-      " • conf " +
-      conf +
-      " • justification: " +
-      hasJustification;
-    return (
-      '<span class="tier-badge" data-tier="' +
-      esc(s.tier) +
-      '" title="' +
-      esc(title) +
-      '">tier ' +
-      num +
-      "</span>"
-    );
-  }
-
-  // -------------------------------------------------------------------------
   // Screen renderer
   // -------------------------------------------------------------------------
 
@@ -311,7 +277,6 @@
         "px;height:" +
         h +
         'px;">' +
-        tierBadge(s) +
         contentHtml +
         "</div>"
       );
@@ -355,7 +320,6 @@
         '<div class="screen__content">' +
         dsPageHeaderHtml +
         '<div class="screen__content-area">' +
-        tierBadge(s) +
         contentHtml +
         "</div>" +
         "</div></div>";
@@ -471,7 +435,6 @@
       '<div class="screen__content">' +
       pageHeader(s.pageHeader) +
       '<div class="screen__content-area">' +
-      tierBadge(s) +
       contentHtml +
       "</div>" +
       "</div></div></div>"
@@ -546,7 +509,6 @@
       buildFrameStyle: buildFrameStyle,
       buildTextStyle: buildTextStyle,
       resolveChrome: resolveChrome,
-      tierBadge: tierBadge,
       screen: screen,
       renderScreen: renderScreen,
     };
@@ -565,7 +527,6 @@
       buildFrameStyle: buildFrameStyle,
       buildTextStyle: buildTextStyle,
       resolveChrome: resolveChrome,
-      tierBadge: tierBadge,
       screen: screen,
       renderScreen: renderScreen,
     };
