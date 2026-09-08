@@ -487,6 +487,21 @@ as the Figma property contract.
 - `props.Title` / `props.Body`: dialog heading + supporting copy.
 - `props.Actions`: array of bare-label strings or `{label, variant}` objects; first defaults to `primary`, rest `secondary`. Renders a static `role="dialog" aria-modal="true"` over a backdrop. Use `variant:"critical"` for destructive confirmation.
 
+### `drawer`
+
+```json
+{
+  "type": "INSTANCE",
+  "library": "ds",
+  "dsSlug": "drawer",
+  "variant": "App=Studio",
+  "props": { "Name": "Q1 Revenue Forecast", "Type": "Dataset", "Show Back": false }
+}
+```
+
+- `props.Name`: the header title. `props.Type`: item-type badge (`Dataset`, `Category`, `Data process`, `Data product`, `Field`, `Output port`, `Use case`, `Visualization`; unknown values fall back to `Dataset`). `props["Show Back"]`: default-true, set `false` to hide the back button.
+- **Header strip only.** The renderer draws a real header from these props, then a fixed specimen body ("Technical name: able_agency", a Finance/24-7/Powerbi meta line, a hardcoded date and description) that no prop or child reaches. Author the drawer's actual content as frame content in the screen rather than through `drawer` props.
+
 ### `empty-state`
 
 ```json

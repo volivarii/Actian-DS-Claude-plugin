@@ -58,7 +58,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 Parse args. Note which flags are explicitly passed:
 
-- `--push` / `--no-push` — parsed via `scripts/lib/parse-push.js` → `parsePush(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
+- `--push` / `--no-push` — parsed via `require("scripts/lib/parse-push.js")(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
 - `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses the Step 3 config questions + the Step 7.5 gate.
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
@@ -131,7 +131,7 @@ step-by-step behavior.
        --type flow --partials-dir {project_working_directory}/flows/.partial \
        --output {project_working_directory}/flows/flow-data.json
      ```
-     Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
+     Sequential mode (<6 screens): build flow-data.json directly, following `references/generate-flow/html-reference.md` for the content node spec and `schemas/flow-data.schema.json` for the schema (the screen-generator agent reads both in parallel mode; sequential mode has no agent dispatch, so the main skill reads them itself) — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
    - **Progress (chat) + live streaming:** this is the longest silent phase — keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands (parallel batches: as each batch's partials merge; sequential: as each screen object is authored): `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live — parallel: re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials become ready, the rest stay shimmer); sequential: replace that screen's pending stub with its real content (drop `status`) in `flow-data.json`, then re-run `assemble-preview.js … --type flow-share -o {project_working_directory}/flows/[feature].html`. Every streaming render is fail-open (a render error never blocks the build).
 6. **Validate flow data** — run the validation script before rendering the final deliverable / pushing:
 

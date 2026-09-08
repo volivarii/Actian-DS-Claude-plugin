@@ -1,10 +1,10 @@
 # Prototype Wiring Reference
 
-Programmatic Figma prototype wiring via `setReactionsAsync`. Makes flow frames playable in Figma's Presentation mode. Used by generate-flow Step 5.5 (new flows) and standalone wiring (existing flows via Figma URL).
+Programmatic Figma prototype wiring via `setReactionsAsync`. Makes flow frames playable in Figma's Presentation mode. Used by generate-flow's push step (SKILL.md step 7, new flows) and standalone wiring (existing flows via Figma URL).
 
 ## Two Entry Points
 
-### Fast path (new flows — Step 5.5)
+### Fast path (new flows, the push step: SKILL.md step 7)
 
 The skill already has screen frame IDs, names, order, and button labels from Step 5. Skip analysis Steps 1-3 and build the wiring plan directly. Run Steps 4-6 only if floating overlays exist.
 

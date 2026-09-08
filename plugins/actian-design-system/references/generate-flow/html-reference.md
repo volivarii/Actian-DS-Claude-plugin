@@ -37,7 +37,7 @@ These exist in the FM Kit Figma library and can be imported with `getComponentBy
 | **FM Chip** | Outline: False / True | — | |
 | **FM Alert** | Type: Success / Error / Warning | — | Persistent inline feedback. Left color bar indicates type. For brief confirmations use FM Toast instead |
 | **FM Banner** | Single component (no variants) | — | Page-level persistent notice bar. Import via `importComponentByKeyAsync` |
-| **FM Dialog** | Single component (no variants) | — | 484px confirmation dialog with title, body, FM Button instances. Import via `importComponentByKeyAsync` (not component set) |
+| **FM Dialog** | Single component (no variants) | — | **Compose from frames instead of this component.** The `fmDialog` HTML renderer prints the literal title "Dialog" and an empty body, reading no text props. Build the dialog as a `FRAME` with title and body `TEXT` children plus FM Button instances, at 484px width. |
 | **FM Stepper** | State: Active / Complete / Upcoming | — | Step indicator for wizard flows. One instance per step in a horizontal row. Complete shows checkmark |
 | **FM Menu** | Single component (no variants) | — | Dropdown menu container. Use with FM Menu item children |
 | **FM Rich text field** | Single component (no variants) | `Input Text` | Multi-line rich text input with formatting |
@@ -49,7 +49,7 @@ These exist in the FM Kit Figma library and can be imported with `getComponentBy
 | **FM Side navigation bar** | Property 1: Default / Slim | — | |
 | **FM Side navigation item** | State: On / Off / Placeholder | `Label` | On = active page, Placeholder = filler items |
 | **FM Tab** | State: On / Off / Placeholder | — | On = active tab, Placeholder = future tabs. **No text override** — set label via `findOne(n => n.type === "TEXT").characters` in Figma, or inner text in HTML |
-| **FM Empty State** | Property 1: Default / Variant2 | — | Default = centered icon + text. Variant2 = compact. Use Default unless space-constrained. |
+| **FM Empty State** | Property 1: Default / Variant2 | — | **Compose from frames instead of this component.** The `fmEmptyState` HTML renderer always prints "No items", reading no text props. Build the empty state as a `FRAME` with an icon child, headline `TEXT`, and an FM Button for the CTA. |
 | **FM Placeholder** | Type: Label+1line / Label+3lines / Label+6lines / Label+avatars / metric | — | For non-essential content areas in wireframes |
 | **FM Progress bar** | Completion: 10% through 100% | — | |
 | **FM Menu item** | State: Default / Hover / Active | — | |
@@ -209,14 +209,15 @@ generate-presentation). It handles these `node.type` values:
 |---|---|---|
 | `FRAME` | `<div class="fm-frame">` | Layout/sizing/fills/radius/stroke/opacity from `node.layout`, `node.sizing`, `node.fills`, etc.; renders `node.children[]` recursively |
 | `TEXT` | `<span class="fm-text">` | Font/size/color/align from `node.font`, `node.size`, `node.color`, `node.textAlign`; text from `node.content` |
-| `INSTANCE` | (delegated) | Dispatched to `renderFMComponent` in `fm-html-map.js` (the FM component → HTML map) |
+| `INSTANCE` | (delegated) | Dispatched to `renderFMComponent`, which lives in the vendored renderer's `html-renderers/fm-html-map.js` (the FM component → HTML map), reached in code through `scripts/lib/renderer.js` |
 | `ELLIPSE` | `<div class="fm-ellipse">` | Circle from `node.width`/`node.height`/`node.fills` |
 | `RECT` | `<div class="fm-rect">` | Rectangle from `node.width`/`node.height`/`node.fills`/`node.cornerRadius` |
 | `DIVIDER` | `<hr class="fm-divider">` | Horizontal rule |
 | _(other)_ | children only | Unknown types render their `children[]`, otherwise nothing |
 
 Chrome (App header, sidebar, page header) is added by `flow-renderer.js` around this content
-based on the screen `template` — see the `TEMPLATE_CHROME` map in that file. The structured
+based on the screen `template`; see the `TEMPLATE_CHROME` map in
+`scripts/renderers/html-renderers/ds-screen-tree.js`. The structured
 content area is `.screen__content-area`; `bare`/`mobile`/`tablet`/`compact`/`custom` templates
 emit the content with no chrome wrapper.
 
