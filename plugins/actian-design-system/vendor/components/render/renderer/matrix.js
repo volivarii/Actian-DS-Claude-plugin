@@ -125,6 +125,11 @@ var CSS_OWNERS = {
   field: ["ds-fieldbox"],
   "text-input": ["ds-field"],
   "whats-new-dropdown": ["ds-whatsnew"],
+  // The two long names among the four drawings. `ds-data-quality-checks-graph__`
+  // and `ds-glossary-item-hierarchy__` would put a 30-character prefix in front
+  // of every element class in a chart that has a dozen of them.
+  "data-quality-checks-graph": ["ds-quality-graph"],
+  "glossary-item-hierarchy": ["ds-glossary-hierarchy"],
 };
 
 function ownedPrefixes(slug) {
@@ -292,6 +297,44 @@ function disabledValue(values) {
 // registry derivation, so it is authored here rather than derived. Kept in the
 // deriver so a re-run of --all reproduces it instead of clobbering it.
 var MATRIX_OVERRIDES = {
+  // The two charts' DATA, and it lives HERE rather than in SPECIMEN_PROPS
+  // because it is not a text slot. SPECIMEN_PROPS is probed by supplying a
+  // sentinel STRING and finding it in the markup
+  // (tests/render/optional-slot-omission.test.js); a list of numbers is parsed,
+  // the sentinel is dropped as not-a-number, and the probe correctly reports
+  // that it never reached the markup. An override is safe for these two for the
+  // reason it is unsafe in general: neither publishes a variant axis, so there
+  // is no cell list to replace.
+  //
+  // Authored, and it has to be. The capture holds the frame, the axis, the
+  // labels and the series colours, and no numbers. The bar heights it does hold
+  // (215.179px, 167px, ...) are PIXELS in a 264px frame, and reading data back
+  // out of them is inferring a fact from a measurement of a drawing of it. Both
+  // charts render their full chrome with no props, so a caller who supplies
+  // nothing gets an empty chart and not an empty box; these numbers exist so
+  // the gallery shows one with something plotted.
+  "data-quality-checks-graph": [
+    {
+      label: "Default",
+      variant: "",
+      props: {
+        Error: "21, 17, 40, 12, 2",
+        Warning: "10, 17, 40, 8, 1",
+        OK: "57, 34, 8, 73, 51",
+      },
+    },
+  ],
+  "line-graph": [
+    {
+      label: "Default",
+      variant: "",
+      props: {
+        Series: "79, 74, 73, 76, 71, 76, 72, 66, 69, 65, 27, 15, 61, 51, 72, 74, 71, 75, 74, 62, 75, 77, 72, 77, 72, 48, 58, 61, 60, 64, 60, 67, 75, 70",
+        Comparison: "74, 64, 65, 78, 74, 77, 73, 68, 68, 71, 74, 73, 63, 76, 78, 76, 79, 76, 75, 74, 76, 75, 77, 72, 68, 72, 53, 58, 71, 74, 72, 77, 78, 80",
+      },
+    },
+  ],
+
   // The capture holds one text node reading "Info" on the default variant
   // (Type=Info), so in the design file the message mirrors the type name.
   // Anatomy captures only the default variant, so the same rule is applied to
@@ -376,6 +419,17 @@ var MATRIX_OVERRIDES = {
       label: "Critical secondary",
       variant: "Intent=Critical, Emphasis=Outlined",
       props: { Label: "Critical secondary" },
+    },
+    {
+      // The fourth Emphasis value, and the only one that changes the button's
+      // STRUCTURE rather than its colour: button.json#quality.structuralVariants
+      // records it as one [instance:Icon] child against a base of [Leading icon,
+      // text:Button, Trailing icon]. It was absent from this gallery while the
+      // renderer drew it identically to Filled, so nothing on a human-visible
+      // surface could have shown the collapse.
+      label: "Icon-only",
+      variant: "Emphasis=Icon-only",
+      props: { Label: "Add" },
     },
     {
       label: "Disabled",
@@ -829,6 +883,20 @@ var SPECIMEN_PROPS = {
 
   // capture: anatomy/field.json layer "Input text" reads "Placeholder text"
   field: { Slot: "Placeholder text" },
+
+  // The three SLOT surfaces. All authored: none of the three captures holds a
+  // single text layer (card is two containers and no text at all), because the
+  // slot is where the CALLER's content goes. The renderer therefore invents
+  // nothing for them -- it does not even emit the slot element when the prop is
+  // unset -- and these strings exist so the gallery shows a card with something
+  // in it rather than an empty rectangle.
+  card: { Slot: "Rows read in the last 30 days" },
+  "checkbox-card": {
+    Slot: "Includes every dataset in the Finance catalog.",
+  },
+  "radio-card": {
+    Slot: "Anyone in your organization can find and request access.",
+  },
 
   // text-area's strings come from three places in its capture: the nested
   // `field` instance, whose own capture carries the placeholder; the `message`

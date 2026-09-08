@@ -152,7 +152,8 @@
       "group": "Action",
       "props": [
         {
-          "name": "Label"
+          "name": "Label",
+          "default": "Button"
         },
         {
           "name": "Leading icon show"
@@ -176,9 +177,7 @@
             "Ghost",
             "Icon-only"
           ],
-          "rendersAs": {
-            "Icon-only": "Filled"
-          }
+          "rendersAs": {}
         },
         "Size": {
           "values": [
@@ -272,6 +271,30 @@
             "Months": "Dates",
             "Years": "Dates"
           }
+        }
+      }
+    },
+    "card": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Slot"
+        }
+      ],
+      "variants": {
+        "Elevation": {
+          "values": [
+            "Flat with border",
+            "Raised with shadow"
+          ],
+          "rendersAs": {}
+        },
+        "Size": {
+          "values": [
+            "Small",
+            "Large"
+          ],
+          "rendersAs": {}
         }
       }
     },
@@ -369,6 +392,36 @@
         }
       }
     },
+    "checkbox-card": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Slot"
+        }
+      ],
+      "variants": {
+        "Selection": {
+          "values": [
+            "Unselected",
+            "Selected",
+            "Indeterminate"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Focus": "Default"
+          }
+        }
+      }
+    },
     "checkbox-group": {
       "group": "Form",
       "props": [
@@ -456,6 +509,67 @@
         "Size": {
           "values": [
             "Large"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "data-quality-checks-graph": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Categories"
+        },
+        {
+          "name": "Error"
+        },
+        {
+          "name": "Max"
+        },
+        {
+          "name": "OK"
+        },
+        {
+          "name": "Support text",
+          "default": "Support text"
+        },
+        {
+          "name": "Title",
+          "default": "Data Quality Status"
+        },
+        {
+          "name": "Warning"
+        },
+        {
+          "name": "X label",
+          "default": "Type"
+        },
+        {
+          "name": "Y label",
+          "default": "Number of Data quality checks"
+        }
+      ],
+      "variants": {}
+    },
+    "data-viz-legend": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Color"
+        },
+        {
+          "name": "Series",
+          "default": "All"
+        }
+      ],
+      "variants": {
+        "Property 1": {
+          "values": [
+            "Default",
+            "Focused",
+            "Hovered",
+            "Pressed",
+            "Selected"
           ],
           "rendersAs": {}
         }
@@ -788,9 +902,6 @@
           "default": "AU"
         },
         {
-          "name": "App"
-        },
-        {
           "name": "Context",
           "default": "Catalog"
         },
@@ -799,8 +910,7 @@
           "default": "Default"
         },
         {
-          "name": "Logo",
-          "default": "actian-pyramid"
+          "name": "Logo"
         },
         {
           "name": "Search"
@@ -840,6 +950,24 @@
           "default": "Account user"
         }
       ],
+      "variants": {}
+    },
+    "glossary-item-hierarchy": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Main",
+          "default": "Account"
+        }
+      ],
+      "variants": {}
+    },
+    "identification-key": {
+      "group": "Data Display",
+      "props": [],
       "variants": {}
     },
     "interactive-tag": {
@@ -937,6 +1065,66 @@
         }
       }
     },
+    "label": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "* (Asterisk)"
+        },
+        {
+          "name": "Description"
+        },
+        {
+          "name": "Description text",
+          "default": "A description helps users to define and understand the purpose of the input."
+        },
+        {
+          "name": "Info icon"
+        },
+        {
+          "name": "Label"
+        },
+        {
+          "name": "Label text",
+          "default": "Label"
+        }
+      ],
+      "variants": {
+        "State": {
+          "values": [
+            "Default",
+            "Disabled"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
+    "line-graph": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Comparison"
+        },
+        {
+          "name": "Labels"
+        },
+        {
+          "name": "Max"
+        },
+        {
+          "name": "Range",
+          "default": "May 07, 2025 to June 07, 2025"
+        },
+        {
+          "name": "Series"
+        },
+        {
+          "name": "Title",
+          "default": "Total incidents over timeframe"
+        }
+      ],
+      "variants": {}
+    },
     "lineage": {
       "group": "Data Display",
       "props": [
@@ -996,6 +1184,35 @@
             "Disabled": "Collapsed",
             "n/a": "Collapsed"
           }
+        }
+      }
+    },
+    "lineage-connecting-line": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Show icon"
+        }
+      ],
+      "variants": {
+        "Direction": {
+          "values": [
+            "Down",
+            "Straight",
+            "up",
+            "Up"
+          ],
+          "rendersAs": {
+            "Up": "up"
+          }
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Selected",
+            "Disabled"
+          ],
+          "rendersAs": {}
         }
       }
     },
@@ -1155,6 +1372,38 @@
         }
       }
     },
+    "menu-dropdown": {
+      "group": "Overlays",
+      "props": [
+        {
+          "name": "Items"
+        },
+        {
+          "name": "Selected"
+        }
+      ],
+      "variants": {}
+    },
+    "message": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Message"
+        }
+      ],
+      "variants": {
+        "Type": {
+          "values": [
+            "Helper text",
+            "Error",
+            "Warning",
+            "Success",
+            "Info"
+          ],
+          "rendersAs": {}
+        }
+      }
+    },
     "metamodel": {
       "group": "Data Display",
       "props": [
@@ -1288,6 +1537,20 @@
         }
       }
     },
+    "pagination": {
+      "group": "Data Display",
+      "props": [
+        {
+          "name": "Page",
+          "default": "1"
+        },
+        {
+          "name": "Pages",
+          "default": "2"
+        }
+      ],
+      "variants": {}
+    },
     "popover": {
       "group": "Overlays",
       "props": [
@@ -1371,6 +1634,35 @@
             "Hover": "Default",
             "Focus": "Default",
             "Pressed": "Default"
+          }
+        }
+      }
+    },
+    "radio-card": {
+      "group": "Form",
+      "props": [
+        {
+          "name": "Slot"
+        }
+      ],
+      "variants": {
+        "Selection": {
+          "values": [
+            "Unselected",
+            "Selected"
+          ],
+          "rendersAs": {}
+        },
+        "State": {
+          "values": [
+            "Default",
+            "Hover",
+            "Focus",
+            "Pressed",
+            "Disabled"
+          ],
+          "rendersAs": {
+            "Focus": "Default"
           }
         }
       }
@@ -1835,6 +2127,11 @@
           }
         }
       }
+    },
+    "textfield-buttons": {
+      "group": "Form",
+      "props": [],
+      "variants": {}
     },
     "toast": {
       "group": "Feedback",

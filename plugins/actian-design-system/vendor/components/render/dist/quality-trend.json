@@ -3,13 +3,18 @@
     "auto_generated": true,
     "source": "scripts/render/derive-quality-trend.js",
     "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
-    "sourcesLastChangedAt": "2026-09-07"
+    "sourcesLastChangedAt": "2026-09-08"
   },
   "measures": {
     "unexplainedCollapses": {
-      "value": 42,
+      "value": 41,
       "direction": "unchanged",
-      "previous": 42
+      "previous": 41
+    },
+    "structuralCollapses": {
+      "value": 20,
+      "direction": "unchanged",
+      "previous": 20
     },
     "fmUnexplainedCollapses": {
       "value": 55,
@@ -22,32 +27,69 @@
       "previous": 56
     },
     "inlineHex": {
-      "value": 57,
-      "direction": "unknown",
-      "previous": null
+      "value": 47,
+      "direction": "unchanged",
+      "previous": 47,
+      "definitionEpoch": "2026-09-07"
     },
     "oracleVerified": {
-      "value": 87,
-      "direction": "unchanged",
+      "value": 97,
+      "direction": "better",
       "previous": 87
     },
     "oracleExamined": {
-      "value": 447,
-      "direction": "unchanged",
+      "value": 532,
+      "direction": "changed",
       "previous": 447
+    },
+    "geometryVerified": {
+      "value": 150,
+      "direction": "better",
+      "previous": 99
+    },
+    "geometryExamined": {
+      "value": 703,
+      "direction": "changed",
+      "previous": 591
+    },
+    "geometryMismatch": {
+      "value": 91,
+      "direction": "unchanged",
+      "previous": 91
     }
   },
   "detail": {
     "inlineHexBySlug": {
       "breadcrumb": 12,
       "card-for-perimeter": 2,
-      "digram-item-types": 10,
+      "digram-item-types": 8,
       "digram-topic": 5,
       "lineage": 12,
       "lineage-grouped-node": 2,
-      "metamodel": 10,
-      "search-result-card": 4
+      "metamodel": 6
     },
+    "structuralCollapseKeys": [
+      "calendar-data-selector Type=Months",
+      "calendar-data-selector Type=Years",
+      "dropdown-select-default Type=Compact/Custom",
+      "dropdown-select-default Type=Search/Multiple",
+      "empty-state Size=Medium",
+      "empty-state Size=Small",
+      "interactive-tag Type=Selectable",
+      "lineage Type=Group main item",
+      "lineage Type=Group sub item",
+      "modal Size & Type=450px confirm",
+      "modal Size & Type=450px warning",
+      "modal Size & Type=700px create",
+      "modal Size & Type=900px create",
+      "modal Size & Type=900px edit",
+      "page-header Type=Details page",
+      "page-header Type=Explorer detail",
+      "page-header Type=Explorer home",
+      "table Built type=By rows",
+      "toolbar Type=Combined",
+      "toolbar Type=Group"
+    ],
     "fmUnownedModifiers": [
       {
         "class": "fm-alert--success",
@@ -288,6 +330,13 @@
   },
   "oracleSeries": [
     {
+      "date": "2026-09-08",
+      "version": "0.34.201",
+      "sha": "e1fe7c34",
+      "verified": 97,
+      "examined": 532
+    },
+    {
       "date": "2026-09-07",
       "version": "0.34.189",
       "sha": "5afbb177",
@@ -363,16 +412,27 @@
       "sha": "0026726b",
       "verified": 49,
       "examined": 415
-    },
-    {
-      "date": "2026-07-24",
-      "version": "0.34.118",
-      "sha": "69241f83",
-      "verified": 49,
-      "examined": 417
     }
   ],
   "collapseSeries": [
+    {
+      "date": "2026-09-08",
+      "version": "0.34.201",
+      "sha": "e1fe7c34",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-07",
+      "version": "0.34.198",
+      "sha": "c74e42c9",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-07",
+      "version": "0.34.195",
+      "sha": "453116a0",
+      "unexplained": 41
+    },
     {
       "date": "2026-09-07",
       "version": "0.34.189",
@@ -425,24 +485,6 @@
       "date": "2026-08-15",
       "version": "0.34.133",
       "sha": "da3f3805",
-      "unexplained": 50
-    },
-    {
-      "date": "2026-08-15",
-      "version": "0.34.132",
-      "sha": "0fce3c94",
-      "unexplained": 50
-    },
-    {
-      "date": "2026-08-14",
-      "version": "0.34.132",
-      "sha": "152cb159",
-      "unexplained": 50
-    },
-    {
-      "date": "2026-08-14",
-      "version": "0.34.128",
-      "sha": "e10c392b",
       "unexplained": 50
     }
   ]

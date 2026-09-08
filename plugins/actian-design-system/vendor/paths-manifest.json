@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.191",
+  "knowledge_version": "0.34.202",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -648,6 +648,13 @@
       "origin": "ci",
       "generator": "scripts/render/derive-canonical.js",
       "description": "The embedded latin woff2 subsets (Roboto for the DS hi-fi text face, Inter for the FM tier) as base64 data URIs, held apart from the component stylesheet: it is 337 KB of type against render.css's 141 KB of CSS. A consumer that needs standalone offline files inlines this alongside render.css, which is what build-bundle.js does, and a card built that way measures about 479 KB. A consumer with its own font pipeline, such as a docs site, takes render.css alone and the type falls back to the system stack."
+    },
+    "components.render.geometryReport": {
+      "path": "components/render/dist/geometry-report.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/render/derive-geometry-fidelity.js",
+      "description": "The SHAPE half of render fidelity, alongside fidelityReport's colour half. Every gap, padding and fixed-height declaration in each render's owned CSS, classified verified / verifiedViaTokenName / mismatch / unverifiable / overridden against the Figma capture's layout facts. The capture records gap, padding and size on every node and names the design token behind many of those values (gapToken, paddingTokens); before this artifact nothing read any of it, so a component could draw the wrong shape with every colour correct. Width is deliberately not read: a captured width is where the instance sat on the Figma canvas, not a property of the component. Reports rather than blocks; tests/render/geometry-ratchet.test.js is the gate, letting the mismatch count fall and never rise. A mismatch names a disagreement, not a verdict: it can mean the CSS has the shape wrong, that the renderer flattened a structure Figma splits across nested frames, or that the Figma component itself is off the spacing scale."
     },
     "components.render.manifest": {
       "path": "components/render/dist/render-manifest.json",

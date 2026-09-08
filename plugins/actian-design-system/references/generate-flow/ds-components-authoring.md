@@ -19,16 +19,16 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `button` | Button | **BUILT** | Intent / Emphasis / Size / State |
 | `calendar` | Calendar | **BUILT** | Type / States |
 | `calendar-data-selector` | Calendar data selector | **BUILT** | Type |
-| `card` | Card | appearance | Elevation / Size |
+| `card` | Card | **BUILT** | Elevation / Size |
 | `card-for-grouped-content` | Card for grouped content | **BUILT** | Property 1 |
 | `card-for-perimeter` | Card for perimeter | **BUILT** | Property 1 |
 | `checkbox` | Checkbox | **BUILT** | Selection / State |
-| `checkbox-card` | Checkbox card | appearance | Selection / State |
+| `checkbox-card` | Checkbox card | **BUILT** | Selection / State |
 | `checkbox-group` | Checkbox group | **BUILT** | Orientation |
 | `collapse` | Collapse | **BUILT** | State |
 | `confirmation` | Confirmation | **BUILT** | Size |
-| `data-quality-checks-graph` | Data quality checks graph | appearance | — |
-| `data-viz-legend` | Data viz legend | appearance | Property 1 |
+| `data-quality-checks-graph` | Data quality checks graph | **BUILT** | — |
+| `data-viz-legend` | Data viz legend | **BUILT** | Property 1 |
 | `digram-item-types` | Digram, Item types | **BUILT** | Item type / Size |
 | `digram-topic` | Digram, Topic | **BUILT** | Type |
 | `drawer` | Drawer | **BUILT** | App |
@@ -38,31 +38,31 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `field` | Field | **BUILT** | Size / State |
 | `global-header` | Global header | **BUILT** | App type / Breakpoints |
 | `global-header-account-dropdown` | Global header account dropdown | **BUILT** | — |
-| `glossary-item-hierarchy` | Glossary item hierarchy | chip | — |
-| `identification-key` | Identification key | appearance | — |
+| `glossary-item-hierarchy` | Glossary item hierarchy | **BUILT** | — |
+| `identification-key` | Identification key | **BUILT** | — |
 | `interactive-tag` | Interactive tag | **BUILT** | State / Type |
 | `item-type-tag` | Item type tag | **BUILT** | Type |
-| `label` | Label | appearance | State |
-| `line-graph` | Line graph | appearance | — |
+| `label` | Label | **BUILT** | State |
+| `line-graph` | Line graph | **BUILT** | — |
 | `lineage` | Lineage | **BUILT** | Type / State / Fields |
-| `lineage-connecting-line` | Lineage connecting line | chip | Direction / State |
+| `lineage-connecting-line` | Lineage connecting line | **BUILT** | Direction / State |
 | `lineage-grouped-node` | Lineage grouped node | **BUILT** | State / Type |
 | `link` | Link | **BUILT** | State |
 | `loader` | Loader | **BUILT** | Percent |
 | `loader-with-logo` | Loader with logo | **BUILT** | App |
 | `loading-skeleton` | Loading skeleton | **BUILT** | Transition |
 | `maintenance-state` | Maintenance state | **BUILT** | Size |
-| `menu-dropdown` | Menu (Dropdown) | chip | — |
-| `message` | Message | appearance | Type |
+| `menu-dropdown` | Menu (Dropdown) | **BUILT** | — |
+| `message` | Message | **BUILT** | Type |
 | `metamodel` | Metamodel | **BUILT** | Type |
 | `modal` | Modal | **BUILT** | Size & Type / Dev status |
 | `notification-dropdown` | Notification dropdown | **BUILT** | Property 1 |
 | `page-header` | Page header | **BUILT** | Type |
-| `pagination` | Pagination | appearance | — |
+| `pagination` | Pagination | **BUILT** | — |
 | `popover` | Popover | **BUILT** | Type |
 | `progress-bar-small` | Progress bar small | **BUILT** | Size / Completeness |
 | `radio` | Radio | **BUILT** | Selection / State |
-| `radio-card` | Radio card | appearance | Selection / State |
+| `radio-card` | Radio card | **BUILT** | Selection / State |
 | `radio-group` | Radio group | **BUILT** | Orientation |
 | `read-only-tag` | Read only tag | **BUILT** | Type |
 | `rich-text-froala` | Rich text (Froala) | **BUILT** | State |
@@ -78,7 +78,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 | `tabs` | Tabs | **BUILT** | — |
 | `text-area` | Text area | **BUILT** | States |
 | `text-input` | Text input | **BUILT** | States |
-| `textfield-buttons` | Textfield buttons | appearance | — |
+| `textfield-buttons` | Textfield buttons | **BUILT** | — |
 | `toast` | Toast | **BUILT** | Type |
 | `toggle` | Toggle | **BUILT** | Toggle position / Selection / State |
 | `toolbar` | Toolbar | **BUILT** | Type / Orientation |
@@ -88,10 +88,10 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 ## Built leaf props
 
 <!-- BEGIN GENERATED props: node scripts/renderers/render-authoring-props.js -->
-All 60 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
+All 74 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 198 prop bindings in total.
+parenthesised value renders nothing until you supply it. 231 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -105,15 +105,19 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `avatar` | `Count` ("3"), `Initials` ("AV") | `State` = Default / Hover / Focus / Pressed / Disabled / Expanded<br>`Type` = One group / Two groups / Default | Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default |
 | `badge` | `Label` | `Type` = Number / Dot | none |
 | `breadcrumb` | `BadgeType`, `Badges`, `Items` | none | none |
-| `button` | `Label`, `Leading icon show`, `Trailing icon show` | `Intent` = Default / Critical<br>`Emphasis` = Filled / Outlined / Ghost / Icon-only<br>`Size` = Default / Small<br>`State` = Default / Hover / Focus / Pressed / Expanded / Disabled / Loading | Icon-only = Filled<br>Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default<br>Loading = Default |
+| `button` | `Label` ("Button"), `Leading icon show`, `Trailing icon show` | `Intent` = Default / Critical<br>`Emphasis` = Filled / Outlined / Ghost / Icon-only<br>`Size` = Default / Small<br>`State` = Default / Hover / Focus / Pressed / Expanded / Disabled / Loading | Hover = Default<br>Focus = Default<br>Pressed = Default<br>Expanded = Default<br>Loading = Default |
 | `calendar` | `Helper`, `Label` ("Date"), `Placeholder text` ("MM/DD/YYYY"), `Show message` | `Type` = Single date / Date range<br>`States` = Default / Hover / Focus / Active / Filled / Error / Disabled | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default |
 | `calendar-data-selector` | `Month` ("June 2026") | `Type` = Dates / Months / Years | Months = Dates<br>Years = Dates |
+| `card` | `Slot` | `Elevation` = Flat with border / Raised with shadow<br>`Size` = Small / Large | none |
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
 | `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `checkbox-card` | `Slot` | `Selection` = Unselected / Selected / Indeterminate<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
 | `checkbox-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Orientation | none |
 | `collapse` | `Body`, `Title` ("Advanced settings") | `State` = Collapsed / Expanede | none |
 | `confirmation` | `Body` ("The selected items will be imported into the catalog. You will be notified once the import is complete."), `Cta` ("Open the catalog"), `Headline`, `Illustration` ("illustration-success"), `Primary`, `Secondary` ("Learn more"), `Title` ("Success!") | `Size` = Large | none |
+| `data-quality-checks-graph` | `Categories`, `Error`, `Max`, `OK`, `Support text` ("Support text"), `Title` ("Data Quality Status"), `Warning`, `X label` ("Type"), `Y label` ("Number of Data quality checks") | none | none |
+| `data-viz-legend` | `Color`, `Series` ("All") | `Property 1` = Default / Focused / Hovered / Pressed / Selected | none |
 | `digram-item-types` | `Initials`, `Label` | `Item type` = Dataset / Data process / Data product / Field / Output port / Use case / Visualization / Category / Custom 1 / Custom 2 / Custom 3 / Custom 4 / Custom 5 / Custom 6 / Custom 7 / Custom 8 / Custom 9 / Custom 10 / Custom 11 / Custom 12 / Custom 13 / Custom 14 / Custom 16 / Glossary 1 / Glossary 2 / Glossary 3 / Glossary 4 / Glossary 5 / Topic 10 / Topic 1 / Topic 2 / Topic 3 / Topic 4 / Topic 5 / Topic 6 / Topic 7 / Topic 8 / Topic 9<br>`Size` = XS / SM / MD | Custom 1 = Category<br>Custom 2 = Data process<br>Custom 3 = Output port<br>Custom 6 = Output port |
 | `digram-topic` | `Initials`, `Label` | `Type` = Light purple / Dark purple / Light blue / Dark blue / Light green / Dark green / Yellow / Orange / Red / Dark orange | none |
 | `drawer` | `Name` ("Name"), `Show Back`, `Type` ("Dataset") | `App` = Studio / Explorer | none |
@@ -121,24 +125,33 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `empty-state` | `Body` ("Create policies to define how your platform operates."), `Cta` ("Create policy"), `Headline` ("No policies available"), `Illustration` ("illustration-empty-state"), `Primary`, `Secondary` ("Learn more"), `Title` | `Empty` = Default / Maintenance / Error state / Confirmation<br>`Size` = Large / Medium / Small | Maintenance = Default<br>Error state = Default<br>Confirmation = Default<br>Medium = Large<br>Small = Large |
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
 | `field` | `Leading icon` ("search"), `Show clear button`, `Show leading icon`, `Show trailing icon`, `Slot`, `Trailing icon` ("arrow-down") | `Size` = Compact / Default<br>`State` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default |
-| `global-header` | `Account` ("AU"), `App`, `Context` ("Catalog"), `ContextValue` ("Default"), `Logo` ("actian-pyramid"), `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
+| `global-header` | `Account` ("AU"), `Context` ("Catalog"), `ContextValue` ("Default"), `Logo`, `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
 | `global-header-account-dropdown` | `Email`, `Items`, `Name` ("Account user") | none | none |
+| `glossary-item-hierarchy` | `Items`, `Main` ("Account") | none | none |
+| `identification-key` | none | none | none |
 | `interactive-tag` | `Label`, `Leading icon show`, `Trailing icon show` | `State` = Default / Disabled / Focus / Hover / Pressed<br>`Type` = Dismissible / Selectable / Dropdown-expanded / Dropdown / Selectable-selected | Focus = Default<br>Hover = Default<br>Pressed = Default<br>Selectable = Dismissible |
 | `item-type-tag` | `Counter` ("00"), `Label`, `Show Counter`, `Show counter` | `Type` = Glossary-1 / Glossary-2 / Glossary-3 / Glossary-4 / Glossary-5 / Category / Custom-1 / Custom-2 / Custom-3 / Custom-4 / Custom-5 / Custom-6 / Custom-7 / Custom-8 / Custom-9 / Custom-10 / Custom-11 / Custom-12 / Custom-13 / Custom-14 / Custom-15 / Dataset / Data process / Data product / Field / Output port / Use case / Visualization | none |
+| `label` | `* (Asterisk)`, `Description`, `Description text` ("A description helps users to define and understand the purpose of the input."), `Info icon`, `Label`, `Label text` ("Label") | `State` = Default / Disabled | none |
+| `line-graph` | `Comparison`, `Labels`, `Max`, `Range` ("May 07, 2025 to June 07, 2025"), `Series`, `Title` ("Total incidents over timeframe") | none | none |
 | `lineage` | `Item type initials` ("PB"), `Label`, `Title` | `Type` = Individual main node / Individual sub item / Group sub item / Group main item / Connector up / Connector down / Connector straight<br>`State` = Default / Selected / Disabled / Expanded<br>`Fields` = Collapsed / Expanded / Default / Selected / Disabled / n/a | Group sub item = Individual sub item<br>Group main item = Individual main node<br>Connector up = Individual main node<br>Connector down = Individual main node<br>Connector straight = Individual main node<br>Expanded = Default<br>Default = Collapsed<br>Selected = Collapsed<br>Disabled = Collapsed<br>n/a = Collapsed |
+| `lineage-connecting-line` | `Show icon` | `Direction` = Down / Straight / up / Up<br>`State` = Default / Selected / Disabled | Up = up |
 | `lineage-grouped-node` | `Child initials`, `Child label`, `Item type initials` ("DS"), `Label`, `Title` | `State` = Default / Expanded<br>`Type` = Main item / Sub item | Sub item = Main item |
 | `link` | `Label` ("Link") | `State` = Default / Hover / Focus / Pressed / Expanded / Visited / Disabled | none |
 | `loader` | `Label` ("Loading") | `Percent` = 99% / 10% / 50 | 50 = 99%<br>10% = 99% |
 | `loader-with-logo` | `Label` ("Loading") | `App` = Actian Data Intelligence / Studio / Explorer / Admin | none |
 | `loading-skeleton` | none | `Transition` = 1 / 2 | none |
 | `maintenance-state` | `Body` ("Reports may be unavailable. Refresh or check back when the maintenance window is complete."), `Cta` ("Create policy"), `Headline` ("Scheduled maintenance in progress until 12:00 PM EST"), `Illustration` ("illustration-maintenance"), `Primary`, `Secondary` ("Learn more"), `Title` | `Size` = Large | none |
+| `menu-dropdown` | `Items`, `Selected` | none | none |
+| `message` | `Message` | `Type` = Helper text / Error / Warning / Success / Info | none |
 | `metamodel` | `Item type initials`, `Label`, `Section body`, `Show Section`, `Title` | `Type` = Dataset / Business Term / Data Process / Field / Visualisation / Connector 4 / Connector 1 / Connector 2 / Connector 3 | none |
 | `modal` | `Actions`, `Body`, `Title` ("Dialog") | `Size & Type` = 700px setting / 1200px / 900px create / 900px edit / 700px create / 450px warning / 450px confirm<br>`Dev status` = 🟢 Ready | 1200px = 700px setting<br>900px create = 700px setting<br>900px edit = 700px setting<br>700px create = 700px setting<br>450px warning = 700px setting<br>450px confirm = 700px setting |
 | `notification-dropdown` | `Empty` ("You're all caught up."), `Header` ("Notifications"), `Items` | `Property 1` = Empty / List | none |
 | `page-header` | `Actions`, `Description`, `Title` ("Page title") | `Type` = Default / Details page / Explorer home / Explorer detail | Details page = Default<br>Explorer home = Default<br>Explorer detail = Default |
+| `pagination` | `Page` ("1"), `Pages` ("2") | none | none |
 | `popover` | `Body`, `Show info icon`, `Title` ("Popover") | `Type` = Interaction guide / Advanced search | none |
 | `progress-bar-small` | `Percent` | `Size` = Default / Large<br>`Completeness` = 0% / 100% / 50% | none |
 | `radio` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `radio-card` | `Slot` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
 | `radio-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Horizontal | none |
 | `read-only-tag` | `Label`, `Leading icon show` | `Type` = Default / Catalog / Shared / Stage-1 / Stage-2 / Stage-3 / Stage-4 / Stage-5 / Stage-6 / Stage-7 / Stage-8 / Status-error / Status-warning / Status-success | none |
 | `rich-text-froala` | none | `State` = Expanded / Default | none |
@@ -154,6 +167,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `tabs` | `Active`, `Items` | none | none |
 | `text-area` | `Character count`, `Helper text`, `Label`, `Show helper text`, `Show label`, `Slot` | `States` = Default / Warning / Hover / Focus / Active / Filled / Error / Disabled / Read-only | Hover = Default |
 | `text-input` | `Label` ("Label"), `Placeholder text` ("Placeholder text"), `Trailing icon` | `States` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default<br>Warning = Default<br>Read-only = Default |
+| `textfield-buttons` | none | none | none |
 | `toast` | `Action`, `Message` ("Item deleted") | `Type` = Default / Critical | none |
 | `toggle` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Toggle position` = On right (default) / On left<br>`Selection` = Off / On<br>`State` = Default / Hover / Focus / Pressed / Disabled | On left = On right (default)<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `toolbar` | `Show View scale` | `Type` = Single / Combined / Group<br>`Orientation` = Horizontal / Vertical | Combined = Single<br>Group = Single |
