@@ -18,6 +18,7 @@
 .fm-text {
   display: inline;
   line-height: 1.5;
+  color: var(--fm-text-primary);
 }
 .fm-ellipse {
   border-radius: 50%;
