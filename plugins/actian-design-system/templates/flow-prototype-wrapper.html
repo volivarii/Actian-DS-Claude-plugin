@@ -23,14 +23,6 @@
       flex-direction: column;
     }
 
-    /* The dark top bar, screen nav, indicator and keyboard hint sit directly on the
-       dark #1a1d23 body background, so they alone need the near-white text color that
-       used to live on body (and leaked into every FM text node that had no color of
-       its own, rendering it near-invisible on the white screen canvas). */
-    .proto-topbar, .proto-nav, .proto-indicator, .proto-hint {
-      color: #f0f2f5;
-    }
-
     /* ─── Stage — holds all screens, scrolls horizontally if needed ─────────── */
     .proto-stage {
       display: flex;
