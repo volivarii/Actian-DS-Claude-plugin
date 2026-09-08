@@ -180,7 +180,7 @@ function chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig) {
       props: {
         App: prof.headerApp,
         Search: c.search !== false,
-        Account: c.account || "VO",
+        Account: c.account || "JD",
         Context: c.context || "Catalog",
         ContextValue: c.contextValue || "Default",
       },
