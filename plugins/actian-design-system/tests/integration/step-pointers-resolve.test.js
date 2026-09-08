@@ -13,16 +13,21 @@
  *       references/ (e.g. `agents/screen-generator.md`,
  *       `skills/generate-flow/SKILL.md`, `references/figma/prototype-wiring.md`),
  *       optionally backtick-wrapped, followed within 60 characters on the
- *       same line by "Step N": the target is that path; or
+ *       same line by "Step N" (either case, "Step" or "step"): the target
+ *       is that path; or
  *   (b) a bare `<skill-name>` (a directory under skills/, e.g.
  *       "generate-flow Step 5.5" or "`/component-brief` Step 1.5"),
  *       optionally backtick-wrapped and/or slash-prefixed, followed within
- *       60 characters by "Step N": the target is that skill's SKILL.md.
+ *       60 characters by "Step N" (either case): the target is that
+ *       skill's SKILL.md.
  *       The skill-name alternation is built from the filesystem at
  *       describe time, so a new skill is covered without editing this
  *       test.
  * N may be negative or dotted (-1, 0, 5.5, 7). A bare "Step N" matching
  * neither form on the line is skipped. It names no document to check.
+ * A pointer whose target document does not exist on disk registers as a
+ * single failing test naming the missing target, instead of aborting the
+ * whole file.
  *
  * Run: node --test tests/integration/step-pointers-resolve.test.js
  */
@@ -52,7 +57,7 @@ function escapeRe(s) {
 }
 
 // Form (a): an explicit agents/|skills/|references/ markdown path.
-var PATH_RE = /`?((?:agents|skills|references)\/[\w-]+(?:\/[\w-]+)*\.md)`?[^\n]{0,60}?Step (-?\d+(?:\.\d+)?)/g;
+var PATH_RE = /`?((?:agents|skills|references)\/[\w-]+(?:\/[\w-]+)*\.md)`?[^\n]{0,60}?[Ss]tep (-?\d+(?:\.\d+)?)/g;
 
 // Form (b): a bare skill-name shorthand, built from the filesystem so a new
 // skill is covered automatically. Sorted longest-first so no alternative
@@ -71,7 +76,7 @@ var SKILL_ALT = SKILL_NAMES.slice()
   .map(escapeRe)
   .join("|");
 var SKILL_RE = new RegExp(
-  "(?<![\\w/])`?\\/?(" + SKILL_ALT + ")`?(?![\\w-])[^\\n]{0,60}?Step (-?\\d+(?:\\.\\d+)?)",
+  "(?<![\\w/])`?\\/?(" + SKILL_ALT + ")`?(?![\\w-])[^\\n]{0,60}?[Ss]tep (-?\\d+(?:\\.\\d+)?)",
   "g",
 );
 
@@ -94,7 +99,15 @@ describe("step pointers resolve", function () {
   });
 
   function registerPointer(source, target, step) {
-    var body = fs.readFileSync(path.join(PLUGIN_ROOT, target), "utf8");
+    var body;
+    try {
+      body = fs.readFileSync(path.join(PLUGIN_ROOT, target), "utf8");
+    } catch (e) {
+      it(source + " -> " + target + " Step " + step, function () {
+        assert.fail("target document does not exist: " + target);
+      });
+      return;
+    }
     var ok = new RegExp("^#+ .*Step " + step.replace(".", "\\.") + "\\b", "m").test(body) ||
              new RegExp("^\\s*" + step.replace(".", "\\.") + "\\.\\s", "m").test(body);
     it(source + " -> " + target + " Step " + step, function () { assert.ok(ok, "no heading or numbered item for Step " + step + " in " + target); });
