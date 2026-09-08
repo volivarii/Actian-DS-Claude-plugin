@@ -78,44 +78,44 @@ are summarized at the release level.
 
 ### Fixed
 
-- **Lo-fi text is visible again.** FM TEXT nodes authored without an explicit color inherited the
+- **Lo-fi text is visible again** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). FM TEXT nodes authored without an explicit color inherited the
   share wrapper's near-white body color and rendered invisible on the white screen canvas.
   `.fm-text` now reads `--fm-text-primary` and the wrapper's `body` rule carries no color of its
   own.
 
-- **The validator resolves FM tokens.** `validate-flow-data.js` read token names from `tokens.css`
+- **The validator resolves FM tokens** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). `validate-flow-data.js` read token names from `tokens.css`
   alone, so every `--fm-*` reference in a lo-fi flow read as an unresolved-token P1, 113 of them on
   the audit flow. It now reads the FM sheet through the renderer accessor too and unions both
   sources before flagging a token as unknown.
 
-- **Enum slots are not placeholder text.** The placeholder-text check flagged `state`, `template`
+- **Enum slots are not placeholder text** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). The placeholder-text check flagged `state`, `template`
   and `status` values such as `"default"` as leaked specimen copy, matching the same patterns real
   placeholder text does. Those three keys are now skipped by name; `navItems[].label` still trips
   the check, since it carries real user-visible copy.
 
-- **A required override accepts its plain prop name.** The missing-required-override check compared
+- **A required override accepts its plain prop name** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). The missing-required-override check compared
   an authored prop only against its exact hashed registry name, `Label#1411:32`, while the
   generate-flow skill's own examples and the renderer both accept the plain name, `Label`. A prop
   authored either way now satisfies the requirement; an override missing under both spellings is
   still a P0.
 
-- **The share view stops baking specimen data.** The generated flow's header avatar defaulted to a
+- **The share view stops baking specimen data** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). The generated flow's header avatar defaulted to a
   real person's initials, and the generated-on stamp printed a full ISO timestamp down to the
   millisecond. The avatar now defaults to `JD` and the stamp prints the calendar date alone.
 
-- **Screen ids reach flow-data.json.** Stable screen ids were computed during validation but never
+- **Screen ids reach flow-data.json** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). Stable screen ids were computed during validation but never
   written back to the file, so a refine command had no id to scope to. `validate-flow-data.js
   --write-ids` now writes the stamped ids back, both the incremental and plain `merge-partials.js`
   paths stamp them, and the generate-flow skill's Step 6 commands and its sequential stub carry the
   flag through. A screen without an id derives one that skips any id another screen in the same
   flow already carries, so inserting a screen ahead of an existing one never stamps a duplicate.
 
-- **Terminology and avoid-word findings name the word and the fix.** The CLI printed only the
+- **Terminology and avoid-word findings name the word and the fix** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). The CLI printed only the
   sentence a finding pointed at, leaving a designer to find which word triggered it. A line ending
   in a matched word now reads `(found "dataset", use "Data product")`; a finding with no matched
   word prints exactly as before.
 
-- **Flow recipes carry tokens, not hex.** 57 fills and strokes across the 8 flow recipes were
+- **Flow recipes carry tokens, not hex** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). 57 fills and strokes across the 8 flow recipes were
   authored as hardcoded hex values instead of `--fm-*` tokens, and two `fmTextInput` nodes in
   `form-create.json` carried a `State` axis the registry does not define, instead of its real
   `Type` axis. Recipes now read tokens throughout and the real axis, and
