@@ -1196,7 +1196,9 @@ function checkRecipeAdherence(screen, findings) {
 // as a graceful chip (warning — telemetry for leaf prioritization).
 var BUILT_DS_SLUGS = (function () {
   try {
-    return require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || [];
+    return (
+      require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || []
+    );
   } catch (e) {
     return [];
   }

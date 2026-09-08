@@ -254,6 +254,10 @@ function main() {
     fs.mkdirSync(outDir, { recursive: true });
   }
 
+  // Stamp stable screen ids on the plain flow merge too, so every write
+  // site (incremental and plain) leaves flow-data.json with ids to refine.
+  if (args.type === "flow") require("../lib/screen-id.js").stampScreenIds(result);
+
   fs.writeFileSync(args.output, JSON.stringify(result, null, 2));
 }
 
