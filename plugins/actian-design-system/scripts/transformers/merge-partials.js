@@ -219,6 +219,10 @@ function main() {
     if (args.type !== "flow")
       die("--incremental is only supported for --type flow");
     const result = mergeIncrementalFlow(args.partialsDir, args.screenList);
+    // Stamp stable screen ids (feature-slug-index) onto every screen,
+    // pending stubs included, so a later --scope single-unit:<id> refine
+    // has a handle even before that screen is generated.
+    require("../lib/screen-id.js").stampScreenIds(result);
     const outDir = path.dirname(args.output);
     if (outDir && !fs.existsSync(outDir)) {
       fs.mkdirSync(outDir, { recursive: true });

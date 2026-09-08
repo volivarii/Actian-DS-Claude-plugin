@@ -143,10 +143,20 @@ describe("merge-partials --incremental (flow skeleton-fill)", function () {
     );
     assert.equal(r2.status, 0, r2.stderr);
     var full = JSON.parse(fs.readFileSync(out2, "utf8"));
+    // The incremental path stamps screen ids (feature-slug-index) on every
+    // merge; the plain non-incremental merge does not. Set ids aside before
+    // comparing so this asserts parity on everything else.
+    assert.strictEqual(incr.screens[0].id, "cat-1");
+    assert.strictEqual(incr.screens[1].id, "cat-2");
+    var incrWithoutIds = incr.screens.map(function (s) {
+      var copy = Object.assign({}, s);
+      delete copy.id;
+      return copy;
+    });
     assert.deepEqual(
-      incr.screens,
+      incrWithoutIds,
       full.screens,
-      "incremental(all present) screens == non-incremental merge screens",
+      "incremental(all present) screens == non-incremental merge screens, ids aside",
     );
   });
 

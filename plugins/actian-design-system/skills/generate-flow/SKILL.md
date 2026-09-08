@@ -118,7 +118,7 @@ step-by-step behavior.
     {project_working_directory}/flows/flow-data.json --type flow-share \
     -o {project_working_directory}/flows/[feature].html
   ```
-- **Sequential mode (<6):** author `flow-data.json` with one `{ "name": …, "template": …, "status": "pending" }` stub per screen (the skeleton), then run the same `assemble-preview.js … --type flow-share` render to `flows/[feature].html`.
+- **Sequential mode (<6):** author `flow-data.json` with one `{ "id": "<feature-slug>-<n>", "name": …, "template": …, "content": [], "status": "pending" }` stub per screen (the skeleton), then run the same `assemble-preview.js … --type flow-share` render to `flows/[feature].html`.
 - Tell the user: `Preview ready (skeleton) → {project_working_directory}/flows/[feature].html — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
 
 5. Build `flow-data.json`
@@ -138,7 +138,8 @@ step-by-step behavior.
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
-     {project_working_directory}/flows/flow-data.json
+     {project_working_directory}/flows/flow-data.json \
+     --write-ids
    ```
 
    - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
@@ -151,12 +152,14 @@ step-by-step behavior.
    # Single-screen refine
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
-     --scope single-unit:notification-preferences-2
+     --scope single-unit:notification-preferences-2 \
+     --write-ids
 
    # Multi-screen refine
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
-     --scope multi-unit:[notification-preferences-1,notification-preferences-3]
+     --scope multi-unit:[notification-preferences-1,notification-preferences-3] \
+     --write-ids
    ```
 
    Scope is a runtime flag, not a data field — flow-data.json itself does not carry scope. Set `meta.mode = "refine"` on the artifact when applicable (that's the artifact-level signal).

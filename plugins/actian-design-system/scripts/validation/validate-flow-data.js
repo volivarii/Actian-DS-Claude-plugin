@@ -1196,9 +1196,7 @@ function checkRecipeAdherence(screen, findings) {
 // as a graceful chip (warning — telemetry for leaf prioritization).
 var BUILT_DS_SLUGS = (function () {
   try {
-    return (
-      require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || []
-    );
+    return require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || [];
   } catch (e) {
     return [];
   }
@@ -2146,6 +2144,10 @@ if (require.main === module) {
             "Filter findings by scope: 'full' (default) | 'single-unit:<id>' | 'multi-unit:[<id>,<id>]'",
         },
         { name: "--json", description: "Output issues as JSON" },
+        {
+          name: "--write-ids",
+          description: "Write the stamped screen ids back to the input file",
+        },
         { name: "--help", description: "Show this help" },
       ],
     };
@@ -2165,6 +2167,7 @@ if (require.main === module) {
   var skipTerminology = flags.indexOf("--skip-terminology") !== -1;
   var skipAvoidWords = flags.indexOf("--skip-avoid-words") !== -1;
   var jsonOutput = flags.indexOf("--json") !== -1;
+  var writeIds = flags.indexOf("--write-ids") !== -1;
   var scopeIdx = flags.indexOf("--scope");
   var scope =
     scopeIdx !== -1 && flags[scopeIdx + 1] ? flags[scopeIdx + 1] : "full";
@@ -2224,6 +2227,14 @@ if (require.main === module) {
     skipAvoidWords: skipAvoidWords,
     scope: scope,
   });
+
+  // validate() stamps stable screen ids onto `data` in place (B-refine.1).
+  // --write-ids persists that stamp back to the input file so a later
+  // --scope single-unit:<id> run has an id to name. This runs regardless of
+  // findings or exit code: ids land even when the flow has P0s.
+  if (writeIds) {
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  }
 
   // Severity tier mapping for the legacy CLI shape:
   //   error   → P0 (blocking; exit 1)
