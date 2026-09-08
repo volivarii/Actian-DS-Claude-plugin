@@ -16,7 +16,7 @@ var SKILL = path.resolve(__dirname, "../../skills/companion/SKILL.md");
  *    ONLY — no Figma push implied.
  * 2. Explicit-Figma-prose requests ("push to figma" / "in figma") route with
  *    --push (row 2a).
- * 3. hifi / audit rows imply push (row 3 / rows 8+10) — not broken.
+ * 3. hifi/audit rows imply push (rows 8+10); row 3 routes hi-fi HTML, push opt-in via --push.
  * 4. Refine / iterate / branch rows (5, 6, 7) still always push (explicit
  *    Figma path — not broken by the opt-in model).
  * 5. The companion description line carries "HTML-first" framing.
@@ -107,35 +107,19 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
     );
   });
 
-  // ─── hifi / audit rows still imply push ─────────────────────────────────────
+  // ─── row 3 routes hi-fi HTML, --audit stays incompatible ────────────────────
 
-  it("row 3 (hifi + audit) still implies push via --hifi/--audit", function () {
-    var lines = src.split("\n");
-    var row3Line = lines.find(function (l) {
-      return /^\|\s*3\s*\|/.test(l);
-    });
-    assert.ok(
-      row3Line,
-      "companion/SKILL.md must contain routing table row numbered 3",
-    );
-    var hasHifiAudit = /--hifi/.test(row3Line) && /--audit/.test(row3Line);
-    assert.ok(
-      hasHifiAudit,
-      "Row 3 must still route with --hifi and --audit. Got: " + row3Line,
-    );
+  it("row 3 (ship-ready) routes hi-fi HTML and never the incompatible --audit", function () {
+    var row3Line = src.split("\n").find(function (l) { return /^\|\s*3\s*\|/.test(l); });
+    assert.ok(row3Line, "row 3 must exist");
+    assert.match(row3Line, /--hifi/);
+    assert.match(row3Line, /--no-prompt/);
+    assert.doesNotMatch(row3Line, /--audit/, "SKILL.md declares --hifi --audit incompatible; row 3 must not emit it");
   });
-
-  it("hifi/audit imply-push annotation is present in the routing table", function () {
-    // The --hifi/--audit row must carry a note that these flags imply push,
-    // so the designer + companion both understand why no --push flag is needed.
-    var hasImplyPush =
-      /--hifi.*imply.*push|--audit.*imply.*push/i.test(src) ||
-      /hifi.*audit.*imply push/i.test(src) ||
-      /imply push/i.test(src);
-    assert.ok(
-      hasImplyPush,
-      "companion/SKILL.md must note that --hifi/--audit imply push",
-    );
+  it("no companion row emits --hifi together with --audit", function () {
+    src.split("\n").forEach(function (l) {
+      if (/^\|\s*\d+\s*\|/.test(l)) assert.ok(!(/--hifi/.test(l) && /--audit/.test(l)), l);
+    });
   });
 
   // ─── Refine / iterate / branch rows still always push ───────────────────────
