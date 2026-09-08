@@ -33,4 +33,10 @@ describe("assembleFlowShare (direct)", function () {
     assert.match(out, /2026-09-08(?!T)/);
     assert.doesNotMatch(out, /11:18:41\.503Z/);
   });
+  it("overview has a zoom control driven by --ov-scale", function () {
+    var html = assembleFlowShare(data);
+    assert.match(html, /--ov-scale/);
+    assert.match(html, /ovScale/);
+    assert.match(html, /data-ov="0\.5"/);
+  });
 });
