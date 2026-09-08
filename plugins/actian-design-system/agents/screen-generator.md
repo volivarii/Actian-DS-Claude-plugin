@@ -97,69 +97,71 @@ Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }`
 
 **Why this matters:** the validator (`scripts/validation/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. **One CLI call per screen replaces dozens of registry reads.**
 
-0. **Classify each screen into a tier before generating.**
+## Step 0: Classify each screen into a tier
 
-   For each screen in your batch, decide which tier the screen falls into based on these signals:
+For each screen in your batch, decide which tier the screen falls into based on these signals:
 
-   - **Recipe match** — does any single recipe in `recipes/flow/_index.json` (entries WITHOUT `kind: "composition"`) cleanly fit the screen's purpose?
-   - **Composition fit** — does the screen need 2 recipes composed? Check `recipes/flow/_index.json` entries WITH `kind: "composition"`. The composition's `composes` array names the base recipes; if both base recipes describe parts of the screen, this composition is a fit.
-   - **App-context precedent** — read `vendor/app-context/dist/app-context.json`. Does the feature have precedent in Studio / Explorer / Administration? Strong precedent → tier 1; no precedent → tier 3.
-   - **App-pattern grounding (S2)**: read `meta._glossary.patterns` (the app's idiomatic UX patterns, each carrying `tags[]`, a pre-ranked `recipe` decision, and a `pageRecipe` naming a captured composition when one exists). **First decide which of those patterns THIS screen realizes**, then read only that pattern's `recipe` and `pageRecipe`; the list is app-scoped and holds every pattern, so a decisive archetype on an unrelated pattern is not guidance for this screen (`faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen must not inherit it). **When the pattern you landed on carries a non-null `pageRecipe`, compose the screen from that capture, not from the archetype.** Read `vendor/app-context/dist/recipes/<pageRecipe>.json` and build from its `skeleton`, honouring its `renderNotes` (they record what the renderer actually reads, so a prop named there renders and one invented does not). **The skeleton is a template, not finished content.** It carries `{{token}}` placeholders, and nothing downstream catches an unsubstituted one: `validate-flow-data.js` has no `{{` check, so a screen reading `{{result_count}} results` passes every gate and reaches Figma. Replace every token, and use the capture's `slots` to decide what each region should actually hold. Copy only keys the flow schema defines: the skeleton's top-level `appHeader` is not a screen field and is silently ignored.
+- **Recipe match** — does any single recipe in `recipes/flow/_index.json` (entries WITHOUT `kind: "composition"`) cleanly fit the screen's purpose?
+- **Composition fit** — does the screen need 2 recipes composed? Check `recipes/flow/_index.json` entries WITH `kind: "composition"`. The composition's `composes` array names the base recipes; if both base recipes describe parts of the screen, this composition is a fit.
+- **App-context precedent** — read `vendor/app-context/dist/app-context.json`. Does the feature have precedent in Studio / Explorer / Administration? Strong precedent → tier 1; no precedent → tier 3.
+- **App-pattern grounding (S2)**: read `meta._glossary.patterns` (the app's idiomatic UX patterns, each carrying `tags[]`, a pre-ranked `recipe` decision, and a `pageRecipe` naming a captured composition when one exists). **First decide which of those patterns THIS screen realizes**, then read only that pattern's `recipe` and `pageRecipe`; the list is app-scoped and holds every pattern, so a decisive archetype on an unrelated pattern is not guidance for this screen (`faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen must not inherit it). **When the pattern you landed on carries a non-null `pageRecipe`, compose the screen from that capture, not from the archetype.** Read `vendor/app-context/dist/recipes/<pageRecipe>.json` and build from its `skeleton`, honouring its `renderNotes` (they record what the renderer actually reads, so a prop named there renders and one invented does not). **The skeleton is a template, not finished content.** It carries `{{token}}` placeholders, and nothing downstream catches an unsubstituted one: `validate-flow-data.js` has no `{{` check, so a screen reading `{{result_count}} results` passes every gate and reaches Figma. Replace every token, and use the capture's `slots` to decide what each region should actually hold. Copy only keys the flow schema defines: the skeleton's top-level `appHeader` is not a screen field and is silently ignored.
 
-     **A capture speaks the product's vocabulary, not the design system's, and that is the cost of taking it from a real screen.** Composed verbatim, `faceted-browse` raises 7 terminology plus 2 avoid-word findings and `asset-detail-360` raises 9 plus 1, where both `browse-search` and `detail-view` raise none: the captures say `Dataset`, `Category`, `Schema`, `Item` and `Type to search`, which the terminology map re-terms to `Data product`, `Topic`, `Metamodel` and `Catalog object`. Re-term every literal string against `meta._glossary` as you compose. Two of these are blocking rather than advisory, so check both: a bare `"Description"` trips `P0 [placeholder-text]`, and `fmButton` still needs its `Label#1411:32` override or you get `P0 [missing-required-override]`. Preferring the capture is about structure, which it has 34 real instances of against 9 padded with placeholders; it does not make its content ready to ship. A capture was composed from the running product and carries `derivedFrom` naming the surface and the date; an archetype is a generic shape with no such provenance. Measured 2026-08-19, when both shapes holding a capture also ranked `decisive` to a generic archetype: `faceted-browse` was offered 9 component instances of which 3 were placeholders, against 34 with none in the capture, and `asset-detail-360` was offered 6 with 1, against 22. **Classification is unchanged: still set `matchedRecipe` to the archetype**, because the capture supplies the composition, not the tier, and the flow validators key their detail-screen and pattern-grounding checks on archetype IDs. When the capture sits on a pattern whose `recipe.status` is `tie` or `no-match`, `recipe.archetype` is `null`: choose the closest archetype from `recipe.candidates`, or on the pattern description when there are none, and set `matchedRecipe` to that. Never leave it `null` on a screen you composed from a capture, or both validator checks lose their subject and pass by skipping. The one exception is a screen that is ALSO a composition: there the **Composition fit** rule wins, `matchedRecipe` stays `null` and `composition` carries the IDs, because `flow-data.schema.json` requires that. The capture still supplies how the parts are built. When `pageRecipe` is `null`, nothing about the rules below changes. If no pattern describes the screen, there is no recipe guidance and the "Recipe match, does it fit the screen's purpose" test above governs alone. **Then take `recipe.archetype` when that pattern's `recipe.status` is `decisive`** (one archetype sharing two or more tags); the ranking is by overlap size and has already been done for you. When it is `weak`, one archetype leads on a single shared tag: that is a best guess, so read the pattern `description` before taking it. When it is `tie`, `archetype` is `null` and you choose between `recipe.candidates` on the description, saying which and why. When it is `no-match`, no archetype guidance exists: choose on the description alone and do not report the screen as grounded. Compositions never appear in the ranked `recipe` decision, so `matchedRecipe` is never set to one; composition selection is unchanged and stays with the **Composition fit** bullet, where `matchedRecipe` is `null` and `composition` carries the IDs. Weight the patterns named in the chosen `meta._glossary.useCases[].patterns` shortlist first. Set `matchedRecipe` to the archetype you land on. A recipe sharing **no** tag with any app pattern is likely off-idiom, and the validator flags it `pattern-ungrounded` (advisory). Also orient each screen's empty state + primary CTA around the `jobs` in `meta._glossary.useCases[].jobs`.
-   - **Reference URLs (`--ref` from prompt)** — if the prompt provides reference URLs, weigh whether they confirm the matched recipe (tier 1 still valid) or signal deviation desire (tier 2 minimum).
-   - **Domain novelty** — is the feature in app-context's entity set, or new? Novel domain → tier 3.
+  **A capture speaks the product's vocabulary, not the design system's, and that is the cost of taking it from a real screen.** Composed verbatim, `faceted-browse` raises 7 terminology plus 2 avoid-word findings and `asset-detail-360` raises 9 plus 1, where both `browse-search` and `detail-view` raise none: the captures say `Dataset`, `Category`, `Schema`, `Item` and `Type to search`, which the terminology map re-terms to `Data product`, `Topic`, `Metamodel` and `Catalog object`. Re-term every literal string against `meta._glossary` as you compose. Two of these are blocking rather than advisory, so check both: a bare `"Description"` trips `P0 [placeholder-text]`, and `fmButton` still needs its `Label#1411:32` override or you get `P0 [missing-required-override]`. Preferring the capture is about structure, which it has 34 real instances of against 9 padded with placeholders; it does not make its content ready to ship. A capture was composed from the running product and carries `derivedFrom` naming the surface and the date; an archetype is a generic shape with no such provenance. Measured 2026-08-19, when both shapes holding a capture also ranked `decisive` to a generic archetype: `faceted-browse` was offered 9 component instances of which 3 were placeholders, against 34 with none in the capture, and `asset-detail-360` was offered 6 with 1, against 22. **Classification is unchanged: still set `matchedRecipe` to the archetype**, because the capture supplies the composition, not the tier, and the flow validators key their detail-screen and pattern-grounding checks on archetype IDs. When the capture sits on a pattern whose `recipe.status` is `tie` or `no-match`, `recipe.archetype` is `null`: choose the closest archetype from `recipe.candidates`, or on the pattern description when there are none, and set `matchedRecipe` to that. Never leave it `null` on a screen you composed from a capture, or both validator checks lose their subject and pass by skipping. The one exception is a screen that is ALSO a composition: there the **Composition fit** rule wins, `matchedRecipe` stays `null` and `composition` carries the IDs, because `flow-data.schema.json` requires that. The capture still supplies how the parts are built. When `pageRecipe` is `null`, nothing about the rules below changes. If no pattern describes the screen, there is no recipe guidance and the "Recipe match, does it fit the screen's purpose" test above governs alone. **Then take `recipe.archetype` when that pattern's `recipe.status` is `decisive`** (one archetype sharing two or more tags); the ranking is by overlap size and has already been done for you. When it is `weak`, one archetype leads on a single shared tag: that is a best guess, so read the pattern `description` before taking it. When it is `tie`, `archetype` is `null` and you choose between `recipe.candidates` on the description, saying which and why. When it is `no-match`, no archetype guidance exists: choose on the description alone and do not report the screen as grounded. Compositions never appear in the ranked `recipe` decision, so `matchedRecipe` is never set to one; composition selection is unchanged and stays with the **Composition fit** bullet, where `matchedRecipe` is `null` and `composition` carries the IDs. Weight the patterns named in the chosen `meta._glossary.useCases[].patterns` shortlist first. Set `matchedRecipe` to the archetype you land on. A recipe sharing **no** tag with any app pattern is likely off-idiom, and the validator flags it `pattern-ungrounded` (advisory). Also orient each screen's empty state + primary CTA around the `jobs` in `meta._glossary.useCases[].jobs`.
+- **Reference URLs (`--ref` from prompt)** — if the prompt provides reference URLs, weigh whether they confirm the matched recipe (tier 1 still valid) or signal deviation desire (tier 2 minimum).
+- **Domain novelty** — is the feature in app-context's entity set, or new? Novel domain → tier 3.
 
-   ### Tier definitions
+### Tier definitions
 
-   | Tier | Trigger | Confidence range |
-   |---|---|---|
-   | **`recognized`** | Single recipe matches + app-context precedent + no `--ref` deviation signal | 0.90–1.0 typical |
-   | **`adapted`** | Composition matches (use the matched composition's `archetype` ID), OR app-context suggests density/tone deviation, OR `--ref` shifts signal away from the matched recipe | 0.70–0.89 typical |
-   | **`improvised`** | No recipe scores well | 0.50–0.69 typical. **Required:** `justification` field listing which archetypes were considered + why each failed (≥30 chars). |
+| Tier | Trigger | Confidence range |
+|---|---|---|
+| **`recognized`** | Single recipe matches + app-context precedent + no `--ref` deviation signal | 0.90–1.0 typical |
+| **`adapted`** | Composition matches (use the matched composition's `archetype` ID), OR app-context suggests density/tone deviation, OR `--ref` shifts signal away from the matched recipe | 0.70–0.89 typical |
+| **`improvised`** | No recipe scores well | 0.50–0.69 typical. **Required:** `justification` field listing which archetypes were considered + why each failed (≥30 chars). |
 
-   When raw signal score lands in a borderline band, the dominant signal decides: recipe match dominates → tier 1; composition match or app-context density/tone deviation dominates → tier 2; absence of both → tier 3.
+When raw signal score lands in a borderline band, the dominant signal decides: recipe match dominates → tier 1; composition match or app-context density/tone deviation dominates → tier 2; absence of both → tier 3.
 
-   ### Critical: avoid over-picking compositions
+### Critical: avoid over-picking compositions
 
-   Compositions share most tags with their base recipes (e.g., `composition-detail-table` shares `detail` and `table` tags with `detail-view` and `table-list`). The disambiguators are the `composition` and `hybrid` tags plus the EXPLICIT presence of BOTH composed concepts in the prompt. Weight rule:
+Compositions share most tags with their base recipes (e.g., `composition-detail-table` shares `detail` and `table` tags with `detail-view` and `table-list`). The disambiguators are the `composition` and `hybrid` tags plus the EXPLICIT presence of BOTH composed concepts in the prompt. Weight rule:
 
-   - Pick a composition only when both base concepts are EXPLICITLY required by the screen's purpose (e.g., "user profile WITH a list of owned datasets" → composition-detail-table; just "user profile" → plain detail-view).
-   - The `composition` and `hybrid` tags are GATES (must be applicable to the screen), not just additive scoring tags.
-   - When in doubt, prefer a single recipe at tier 1 over a composition at tier 2.
+- Pick a composition only when both base concepts are EXPLICITLY required by the screen's purpose (e.g., "user profile WITH a list of owned datasets" → composition-detail-table; just "user profile" → plain detail-view).
+- The `composition` and `hybrid` tags are GATES (must be applicable to the screen), not just additive scoring tags.
+- When in doubt, prefer a single recipe at tier 1 over a composition at tier 2.
 
-   ### Per-screen output of this step
+### Per-screen output of this step
 
-   Carry into each screen object:
+Carry into each screen object:
 
-   ```json
-   {
-     "tier": "recognized" | "adapted" | "improvised",
-     "confidence": 0.0,
-     "matchedRecipe": "<recipe-archetype>" | null,
-     "composition": ["<base-archetype>", "<base-archetype>"] | null,
-     "justification": "<string of >=30 chars>" | null
-   }
-   ```
+```json
+{
+  "tier": "recognized" | "adapted" | "improvised",
+  "confidence": 0.0,
+  "matchedRecipe": "<recipe-archetype>" | null,
+  "composition": ["<base-archetype>", "<base-archetype>"] | null,
+  "justification": "<string of >=30 chars>" | null
+}
+```
 
-   Field rules:
-   - **Tier 1 (recognized):** `matchedRecipe` is the recipe's archetype string (e.g., `"table-list"`); `composition` is null; `justification` is null.
-   - **Tier 2 (adapted — composition):** `matchedRecipe` is null; `composition` is the composition's `composes` array (e.g., `["detail-view", "table-list"]`); `justification` REQUIRED — explain the composition choice (≥30 chars).
-   - **Tier 2 (adapted — deviation from base):** `matchedRecipe` is the deviated-from recipe's archetype ID; `composition` is null; `justification` REQUIRED — explain the density/tone shift or `--ref` divergence from the base recipe (≥30 chars).
-   - **Tier 3 (improvised):** `matchedRecipe` is null; `composition` is null; `justification` REQUIRED — list which archetypes were considered + why each failed.
+Field rules:
+- **Tier 1 (recognized):** `matchedRecipe` is the recipe's archetype string (e.g., `"table-list"`); `composition` is null; `justification` is null.
+- **Tier 2 (adapted — composition):** `matchedRecipe` is null; `composition` is the composition's `composes` array (e.g., `["detail-view", "table-list"]`); `justification` REQUIRED — explain the composition choice (≥30 chars).
+- **Tier 2 (adapted — deviation from base):** `matchedRecipe` is the deviated-from recipe's archetype ID; `composition` is null; `justification` REQUIRED — explain the density/tone shift or `--ref` divergence from the base recipe (≥30 chars).
+- **Tier 3 (improvised):** `matchedRecipe` is null; `composition` is null; `justification` REQUIRED — list which archetypes were considered + why each failed.
 
-   These five fields populate the corresponding properties on each screen in your output JSON. The schema (`schemas/flow-data.schema.json`) accepts them as optional fields; the validator (`scripts/validation/validate-flow-data.js`) enforces tier-2 and tier-3 justifications.
+These five fields populate the corresponding properties on each screen in your output JSON. The schema (`schemas/flow-data.schema.json`) accepts them as optional fields; the validator (`scripts/validation/validate-flow-data.js`) enforces tier-2 and tier-3 justifications.
 
-   ### Examples
+### Examples
 
-   - Pipeline Detail screen with `table-list` recipe + Studio precedent → tier 1, confidence 0.93, matchedRecipe `"table-list"`
-   - Onboarding wizard combining `form-create` + `sticky-footer` → tier 2 (composition), confidence 0.78, composition `["form-create", "sticky-footer"]`
-   - Compact `table-list` with denser rows for power-user audit log → tier 2 (deviation from base), confidence 0.74, matchedRecipe `"table-list"`, justification "App-context signals power-user density; deviates from default table padding to fit audit row count."
-   - Real-time pipeline monitor with no matching recipe and no app-context precedent → tier 3, confidence 0.55, justification "Streaming visualization not covered by table-list, detail-view, or wizard-stepper — none model live event streams."
+- Pipeline Detail screen with `table-list` recipe + Studio precedent → tier 1, confidence 0.93, matchedRecipe `"table-list"`
+- Onboarding wizard combining `form-create` + `sticky-footer` → tier 2 (composition), confidence 0.78, composition `["form-create", "sticky-footer"]`
+- Compact `table-list` with denser rows for power-user audit log → tier 2 (deviation from base), confidence 0.74, matchedRecipe `"table-list"`, justification "App-context signals power-user density; deviates from default table padding to fit audit row count."
+- Real-time pipeline monitor with no matching recipe and no app-context precedent → tier 3, confidence 0.55, justification "Streaming visualization not covered by table-list, detail-view, or wizard-stepper — none model live event streams."
 
-   ### Output ordering
+### Output ordering
 
-   You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see the Tier-aware generation rules section below).
+You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see the Tier-aware generation rules section below).
+
+## Step 1: Generate each screen
 
 1. Read `references/generate-flow/html-reference.md` for the content node spec and FM component table
 2. Read `recipes/flow/_index.json` — if an archetype matches a screen's purpose, read that recipe and use its skeleton as a starting point

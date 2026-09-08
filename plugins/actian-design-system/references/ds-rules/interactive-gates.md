@@ -88,7 +88,7 @@ Examples:
 
 The companion skill (`skills/companion/SKILL.md`) routes designer prose to specific skills. When companion routes:
 
-- **Pass `--no-prompt`** when ALL flags relevant to the route's intent have been confidently extracted from prose. Example: companion row 3 ("ship-ready X") extracts `--hifi --audit`, so it routes `/generate-flow X --hifi --audit --no-prompt`.
+- **Pass `--no-prompt`** when ALL flags relevant to the route's intent have been confidently extracted from prose. Example: companion row 3 ("ship-ready X") extracts `--hifi`, so it routes `/generate-flow X --hifi --no-prompt`.
 - **Don't pass `--no-prompt`** when intent is partial or vague. Let the downstream skill gate. Example: companion row 1 ("design me a settings page") extracts no flags; routes `/generate-flow "settings page"` (no `--no-prompt`), letting the skill gate on output mode, variants, refs, and breakpoints.
 
 The downstream skill gate is the canonical UX. Companion's job is intent classification and partial-flag pre-fill, not UX duplication.
@@ -98,7 +98,7 @@ The downstream skill gate is the canonical UX. Companion's job is intent classif
 | Companion row | Relevant flags | Pass `--no-prompt`? |
 |---|---|---|
 | 1 ("design me X") | none | No — let skill gate everything |
-| 3 ("ship-ready X") | `--hifi`, `--audit` | Yes — append `--hifi --audit --no-prompt` |
+| 3 ("ship-ready X") | `--hifi` | Yes: append `--hifi --no-prompt` |
 | 4 ("variants of X") | `--variants` | Yes — append `--variants 3 --no-prompt` |
 | 9 ("match this style" + refs) | `--ref` | Conditional — only if no other intent missing |
 | 18 ("add empty + error states") | `--states` | Yes — append `--states empty,error --no-prompt` |

@@ -252,7 +252,7 @@ Design a table view for the Administration users page with filters and bulk acti
 
 At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
 
-**HiFi conversion:** Add `--hifi` to also generate a DS Kit high-fidelity version alongside the wireframe. Or convert an existing wireframe later with `/convert-to-hifi`.
+**HiFi conversion:** Add `--hifi` for a DS-native hi-fi HTML deliverable; add `--push` for a Figma artifact. Or convert an existing wireframe later with `/convert-to-hifi`.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
@@ -441,7 +441,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
-| `/generate-flow [description] --hifi --audit` | Lo-fi → hifi → audit chain |
+| `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
 | `/convert-to-hifi [URL] [--ref URL]` | Convert FM wireframe to DS Kit hifi |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |

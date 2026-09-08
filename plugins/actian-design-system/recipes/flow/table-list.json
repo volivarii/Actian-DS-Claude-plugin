@@ -129,7 +129,7 @@
     "Table is full-width (FILL), not constrained to 480px",
     "Repeat data rows as needed — skeleton shows 3 as minimum",
     "Use fmTableCell Type=Pill for status columns, Type=Placeholder for de-emphasized rows",
-    "Add fmEmptyState as alternate body-section for zero-results state",
+    "For the zero-results state, compose a FRAME with a TEXT headline, a TEXT body, and an FM Button as an alternate body-section",
     "Control bar items are flexible — add/remove filters and toggles as needed",
     "For sortable columns, note sort direction in the header label (e.g., 'Name ▾')"
   ],

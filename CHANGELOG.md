@@ -47,6 +47,35 @@ are summarized at the release level.
   later in `vendor/`; on an older pin it degrades to empty and says so on stderr rather than
   reporting "no components".
 
+### Added
+
+- **The overview view zooms** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). Three buttons, 25, 50, and 100 percent, drive a `--ov-scale` custom
+  property on the overview grid, so a PM can read a screen from the overview instead of a fixed 25
+  percent thumbnail. The prototype view is untouched.
+
+### Fixed
+
+- **The companion's ship-ready route emits a valid flag pair** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). Row 3 routed `--hifi --audit
+  --no-prompt`, a pair generate-flow declares incompatible. It now routes `--hifi --no-prompt` for a
+  hi-fi HTML deliverable, `--push` adds a Figma artifact, and the interactive-gates reference follows
+  the same routing.
+
+- **The use case defaults instead of asking a fourth question** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). When neither keyword list matches,
+  the skill takes `useCases[0]` and names it in the app announcement. The "(inferred, ...)"
+  parenthesis appears only when the app itself was inferred.
+
+- **Every step pointer resolves** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). screen-generator's tier classification is a `## Step 0` heading,
+  the skill's parse-push pointer names the real export, and the HTML reference says where
+  `TEMPLATE_CHROME` and `renderFMComponent` live. "Step 5.5" references point at the push step, the
+  unreferenced `studio-chrome-anatomy.md` is deleted, and a guard test asserts every `<doc> Step N`
+  and `<skill> Step N` pointer, either case of "step", under skills, references and agents resolves
+  to a heading or numbered item.
+
+- **Authoring notes for three leaves that render literals** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). The HTML reference marks `fmDialog` and
+  `fmEmptyState` as compose-from-frames and the DS authoring reference marks `drawer` as header strip
+  only, because the vendored leaves read none of their text props (the drawer header still reads
+  Name, Type and Show Back).
+
 ### Fixed
 
 - **Lo-fi text is visible again** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). FM TEXT nodes authored without an explicit color inherited the

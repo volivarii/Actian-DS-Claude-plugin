@@ -228,17 +228,18 @@
 
     /* ─── Overview (contact sheet) ────────────────────────────────────────── */
     .proto-stage--overview {
+      --ov-scale: 0.25;
       display: grid; align-content: start;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(calc(1440px * var(--ov-scale)), 1fr));
       gap: 24px; padding: 72px 24px 24px; overflow: auto;
     }
     .proto-screen-cell { display: contents; }
     .proto-stage--overview .proto-screen-cell {
       display: block; cursor: pointer; position: relative;
-      height: 240px; overflow: hidden; border-radius: 8px;
+      height: calc(960px * var(--ov-scale)); overflow: hidden; border-radius: 8px;
     }
     .proto-stage--overview .proto-screen {
-      width: 1440px; transform: scale(0.25); transform-origin: top left;
+      width: 1440px; transform: scale(var(--ov-scale)); transform-origin: top left;
       pointer-events: none; box-shadow: none; border-radius: 0;
       min-height: 0;
     }
@@ -255,6 +256,9 @@
 
     /* ── Active view: 'prototype' (one at a time) | 'overview' (contact sheet) ── */
     view: 'prototype',
+
+    /* ── Overview zoom level: 0.25 | 0.5 | 1 ── */
+    ovScale: 0.25,
 
     /* ── Navigation path taken through the flow (e.g. 'happy', 'error') ── */
     path: '',
@@ -312,6 +316,11 @@
       <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'prototype' }" @click="view = 'prototype'" :aria-selected="view === 'prototype'">Prototype</button>
       <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'overview' }" @click="view = 'overview'" :aria-selected="view === 'overview'">Overview</button>
     </div>
+    <div class="proto-toggle" role="group" aria-label="Overview zoom" x-show="view === 'overview'">
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.25 }" type="button" data-ov="0.25" @click="ovScale = 0.25" :aria-pressed="ovScale === 0.25">25%</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.5 }" type="button" data-ov="0.5" @click="ovScale = 0.5" :aria-pressed="ovScale === 0.5">50%</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 1 }" type="button" data-ov="1" @click="ovScale = 1" :aria-pressed="ovScale === 1">100%</button>
+    </div>
   </header>
 
   <!-- ── Screen indicator (top-right): shows "N / total" ────────────────────── -->
@@ -331,9 +340,10 @@
                 :aria-hidden="view === 'prototype' && screen !== N"> … </div>
          </div>
        In Prototype view the cell is display:contents and one screen shows; in Overview the
-       cell is a fixed overflow:hidden grid item and the screen is transform:scale(0.25).
+       cell is a fixed overflow:hidden grid item and the screen is transform:scale(var(--ov-scale)),
+       default 0.25, adjustable via the 25/50/100 zoom buttons.
   ASSEMBLER-STRIP-END -->
-  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }">
+  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }" :style="view === 'overview' ? '--ov-scale:' + ovScale : ''">
     <!-- {{SCREENS}} -->
   </main>
 
