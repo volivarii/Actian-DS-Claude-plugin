@@ -2,26 +2,27 @@
 "use strict";
 
 /**
- * step-pointers-resolve.test.js — Every "<doc> ... Step N" pointer in
+ * step-pointers-resolve.test.js: every "<doc> ... Step N" pointer in
  * skills/, references/, and agents/ prose must resolve to a heading or a
  * numbered list item in its target document. Catches drift like an agent
- * doc naming a step number the skill no longer uses under that number.
+ * doc naming a step number absent from the target doc's headings and
+ * numbered items.
  *
  * A pointer is either:
  *   (a) an explicit path to a markdown doc under agents/, skills/, or
  *       references/ (e.g. `agents/screen-generator.md`,
  *       `skills/generate-flow/SKILL.md`, `references/figma/prototype-wiring.md`),
  *       optionally backtick-wrapped, followed within 60 characters on the
- *       same line by "Step N" — the target is that path; or
+ *       same line by "Step N": the target is that path; or
  *   (b) a bare `<skill-name>` (a directory under skills/, e.g.
  *       "generate-flow Step 5.5" or "`/component-brief` Step 1.5"),
  *       optionally backtick-wrapped and/or slash-prefixed, followed within
- *       60 characters by "Step N" — the target is that skill's SKILL.md.
+ *       60 characters by "Step N": the target is that skill's SKILL.md.
  *       The skill-name alternation is built from the filesystem at
  *       describe time, so a new skill is covered without editing this
  *       test.
  * N may be negative or dotted (-1, 0, 5.5, 7). A bare "Step N" matching
- * neither form on the line is skipped — it names no document to check.
+ * neither form on the line is skipped. It names no document to check.
  *
  * Run: node --test tests/integration/step-pointers-resolve.test.js
  */
