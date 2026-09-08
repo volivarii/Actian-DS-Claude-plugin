@@ -39,4 +39,20 @@ describe("placeholder-text walker", function () {
     });
     assert.match(r.out, /P0 \[placeholder-text\]/);
   });
+  it("navItems[].label reading Nav Item is still a leak (label is user-visible copy)", function () {
+    var r = validate({
+      meta: { feature: "T", app: "Studio" },
+      screens: [
+        {
+          name: "S1",
+          template: "studio",
+          navItems: [{ label: "Nav Item", state: "on" }],
+          content: [
+            { type: "TEXT", content: "Hello", color: "var(--fm-text-primary)" },
+          ],
+        },
+      ],
+    });
+    assert.match(r.out, /P0 \[placeholder-text\].*navItems\[0\]\.label/);
+  });
 });

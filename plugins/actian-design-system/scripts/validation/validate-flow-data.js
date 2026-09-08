@@ -169,17 +169,20 @@ function walkStringValues(node, currentPath, callback, parentKey) {
 // Enum slots the schema itself fills with a placeholder-looking word (e.g.
 // navItems[].state = "Placeholder" marks a muted sidebar item). The
 // placeholder-text check (Pass 2, below) walks every string in the flow;
-// these keys hold a fixed vocabulary, not user-visible copy, so a value
-// that matches PLACEHOLDER_PATTERNS there is not a leak. This gate applies
-// only inside the placeholder-text branch, not to the other checks that
-// scan flow strings (banned-text, terminology, avoid-word, hardcoded-color
-// each read data.screens directly, not through walkStringValues).
-var PLACEHOLDER_SKIP_KEYS = { state: 1, variant: 1, template: 1, status: 1 };
+// a string whose own key is one of these holds a fixed vocabulary, not
+// user-visible copy, so a value that matches PLACEHOLDER_PATTERNS there is
+// not a leak. The rule keys on the slot itself, not on any ancestor: a
+// sibling string under the same parent (navItems[].label, for example) is
+// genuine copy and stays fully checked. This gate applies only inside the
+// placeholder-text branch, not to the other checks that scan flow strings
+// (banned-text, terminology, avoid-word, hardcoded-color each read
+// data.screens directly, not through walkStringValues). `variant` is not
+// listed here: walkStringValues already excludes it via
+// STRUCTURAL_FIELD_KEYS (its callback never runs for a `variant` string).
+var PLACEHOLDER_SKIP_KEYS = { state: 1, template: 1, status: 1 };
 function isEnumSlot(pathSegs) {
   var last = pathSegs[pathSegs.length - 1];
-  return (
-    PLACEHOLDER_SKIP_KEYS[last] === 1 || pathSegs.indexOf("navItems") !== -1
-  );
+  return PLACEHOLDER_SKIP_KEYS[last] === 1;
 }
 
 // ---------------------------------------------------------------------------
