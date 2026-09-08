@@ -317,9 +317,9 @@
       <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'overview' }" @click="view = 'overview'" :aria-selected="view === 'overview'">Overview</button>
     </div>
     <div class="proto-toggle" role="group" aria-label="Overview zoom" x-show="view === 'overview'">
-      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.25 }" type="button" data-ov="0.25" @click="ovScale = 0.25">25%</button>
-      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.5 }" type="button" data-ov="0.5" @click="ovScale = 0.5">50%</button>
-      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 1 }" type="button" data-ov="1" @click="ovScale = 1">100%</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.25 }" type="button" data-ov="0.25" @click="ovScale = 0.25" :aria-pressed="ovScale === 0.25">25%</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 0.5 }" type="button" data-ov="0.5" @click="ovScale = 0.5" :aria-pressed="ovScale === 0.5">50%</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': ovScale === 1 }" type="button" data-ov="1" @click="ovScale = 1" :aria-pressed="ovScale === 1">100%</button>
     </div>
   </header>
 
