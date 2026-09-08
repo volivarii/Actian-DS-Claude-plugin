@@ -900,7 +900,15 @@ var FLOW_FILES = fs
   })
   .sort();
 
-var FILL_KEYS = ["fills", "fill", "color", "stroke", "background"];
+var FILL_KEYS = [
+  "fills",
+  "fill",
+  "color",
+  "stroke",
+  "background",
+  "backgroundColor",
+  "borderColor",
+];
 var HEX_LITERAL_RE = /#[0-9a-f]{3,8}\b/i;
 
 function collectHexFills(node, nodePath, out) {
