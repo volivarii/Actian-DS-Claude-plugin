@@ -344,13 +344,14 @@ function findBannedTextRaw(data) {
 
 function loadTokenNames() {
   // DS tokens are declared in tokens.css; Fat Marker (lo-fi) tokens are
-  // declared in the vendored renderer's own stylesheet, fm-base.css. Neither
-  // file declares the other kit's names, so both sources are read and their
-  // declared names unioned. The trailing "\s*:" requires a DECLARATION
-  // ("--x:"), not merely a var() usage: a name only ever referenced inside a
-  // var() call in either file used to count as known, which hid a token that
-  // is used but never defined anywhere.
-  var sources = [PATHS.tokens.css, PATHS.render.fmBaseCss];
+  // declared in the vendored renderer's own stylesheet, fm-base.css, read
+  // through the renderer accessor (scripts/lib/renderer.js) rather than a
+  // second direct path into the vendored renderer. Neither file declares
+  // the other kit's names, so both sources are read and their declared
+  // names unioned. The trailing "\s*:" requires a DECLARATION ("--x:"): it
+  // matches only a defined token name, never a var() reference to one.
+  var renderer = require("../lib/renderer.js");
+  var sources = [PATHS.tokens.css, renderer.cssPaths.fmBase];
   var names = {};
   var re = /(--(?:zen|fm)-[a-z0-9-]+)\s*:/g;
   sources.forEach(function (cssPath) {

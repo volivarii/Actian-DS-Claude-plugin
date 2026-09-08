@@ -10,7 +10,10 @@
 //
 // validate(data) writes data to a fresh fs.mkdtempSync directory and runs the
 // validator with process.execPath (the Node binary already running this test,
-// so no NODE_BIN resolution is needed here).
+// so no NODE_BIN resolution is needed here). The temp directory is removed in
+// a finally block (tests/validation/validate-enum-typing.test.js sets the
+// precedent) so a leaf calling validate() repeatedly does not litter the OS
+// temp directory with fixtures.
 
 var fs = require("fs");
 var os = require("os");
@@ -29,8 +32,14 @@ function validate(data) {
   var dir = fs.mkdtempSync(path.join(os.tmpdir(), "val-"));
   var input = path.join(dir, "flow-data.json");
   fs.writeFileSync(input, JSON.stringify(data));
-  var r = spawnSync(process.execPath, [VALIDATE, input], { encoding: "utf8" });
-  return { status: r.status, out: r.stdout + r.stderr };
+  try {
+    var r = spawnSync(process.execPath, [VALIDATE, input], {
+      encoding: "utf8",
+    });
+    return { status: r.status, out: r.stdout + r.stderr };
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 }
 
 function flowWithText(color) {

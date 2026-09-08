@@ -156,21 +156,6 @@ if (typeof PATHS.content.section === "function") {
   PATHS.content.bySlug = PATHS.content.section;
 }
 
-// Plugin-derived overlay: the leaf path to the lo-fi Fat Marker renderer
-// stylesheet, which declares the --fm-* token names. Already reachable via
-// the manifest-driven components.render.renderer collection above (called
-// with the member name fm-base.css), but validate-flow-data.js needs a
-// plain leaf path rather than a collection call, so it is overlaid here
-// beside the other renderer-related entries.
-PATHS.render = PATHS.render || {};
-PATHS.render.fmBaseCss = path.join(
-  VENDOR,
-  "components",
-  "render",
-  "renderer",
-  "fm-base.css",
-);
-
 // Top-level convenience constants (not in manifest — direct access for plugin internals).
 PATHS.pluginRoot = PLUGIN_ROOT;
 PATHS.vendor = VENDOR;
