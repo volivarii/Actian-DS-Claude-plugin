@@ -73,7 +73,7 @@
                     "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                     "children": [
                       { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result1_type}}" } },
-                      { "type": "TEXT", "content": "{{result1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-secondary)" }
+                      { "type": "TEXT", "content": "{{result1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" }
                     ]
                   },
                   { "type": "TEXT", "content": "{{result1_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }
@@ -94,7 +94,7 @@
                     "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                     "children": [
                       { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result2_type}}" } },
-                      { "type": "TEXT", "content": "{{result2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-secondary)" }
+                      { "type": "TEXT", "content": "{{result2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" }
                     ]
                   },
                   { "type": "TEXT", "content": "{{result2_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }

@@ -31,7 +31,7 @@
             "sizing": { "horizontal": "FILL", "vertical": "HUG" },
             "children": [
               { "type": "TEXT", "content": "{{metric1_label}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" },
-              { "type": "TEXT", "content": "{{metric1_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-secondary)" }
+              { "type": "TEXT", "content": "{{metric1_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-primary)" }
             ]
           },
           {
@@ -44,7 +44,7 @@
             "sizing": { "horizontal": "FILL", "vertical": "HUG" },
             "children": [
               { "type": "TEXT", "content": "{{metric2_label}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" },
-              { "type": "TEXT", "content": "{{metric2_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-secondary)" }
+              { "type": "TEXT", "content": "{{metric2_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-primary)" }
             ]
           },
           {
@@ -57,7 +57,7 @@
             "sizing": { "horizontal": "FILL", "vertical": "HUG" },
             "children": [
               { "type": "TEXT", "content": "{{metric3_label}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" },
-              { "type": "TEXT", "content": "{{metric3_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-secondary)" }
+              { "type": "TEXT", "content": "{{metric3_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "var(--fm-text-primary)" }
             ]
           }
         ]
@@ -83,7 +83,7 @@
                 "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [12, 16, 12, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
                 "sizing": { "horizontal": "FILL", "vertical": 48 },
                 "children": [
-                  { "type": "TEXT", "content": "{{card1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-secondary)" },
+                  { "type": "TEXT", "content": "{{card1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" },
                   { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "View all", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
                 ]
               },
@@ -114,7 +114,7 @@
                 "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [12, 16, 12, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
                 "sizing": { "horizontal": "FILL", "vertical": 48 },
                 "children": [
-                  { "type": "TEXT", "content": "{{card2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-secondary)" }
+                  { "type": "TEXT", "content": "{{card2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" }
                 ]
               },
               { "type": "DIVIDER" },
