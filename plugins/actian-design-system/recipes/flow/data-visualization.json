@@ -56,10 +56,10 @@
         "type": "FRAME",
         "name": "Graph canvas",
         "layout": { "mode": "VERTICAL", "spacing": 0 },
-        "fills": ["#F8F8FC"],
+        "fills": ["var(--fm-bg-grey)"],
         "sizing": { "horizontal": "FILL", "vertical": "FILL" },
         "children": [
-          { "type": "TEXT", "content": "{{visualization_description}}", "font": "Inter:Regular", "size": 13, "color": "#9999A6" }
+          { "type": "TEXT", "content": "{{visualization_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-light)" }
         ]
       }
     ]

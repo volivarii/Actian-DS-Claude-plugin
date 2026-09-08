@@ -35,7 +35,7 @@
                 "content": "{{panel_title}}",
                 "font": "Inter:Semi Bold",
                 "size": 18,
-                "color": "var(--fm-text-secondary)"
+                "color": "var(--fm-text-primary)"
               },
               {
                 "type": "INSTANCE",
@@ -132,7 +132,7 @@
                 "content": "{{confirm_title}}",
                 "font": "Inter:Semi Bold",
                 "size": 18,
-                "color": "var(--fm-text-secondary)"
+                "color": "var(--fm-text-primary)"
               },
               {
                 "type": "INSTANCE",
