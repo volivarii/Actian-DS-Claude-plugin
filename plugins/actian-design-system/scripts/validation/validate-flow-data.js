@@ -1645,6 +1645,17 @@ function checkChromeCoherence(screen, glossaryChrome, findings) {
 // thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
+// A required-override prop is authored under its exact hashed registry name
+// (e.g. "Label#1411:32") or under its base name before the "#" (e.g.
+// "Label"). The generate-flow skill's own Examples author the base name and
+// the renderer reads it the same way, so the missing-required-override check
+// (Pass 1 below) accepts either spelling as satisfying the override.
+function hasOverride(props, propName) {
+  if (props[propName] !== undefined) return true;
+  var base = propName.split("#")[0];
+  return base !== propName && props[base] !== undefined;
+}
+
 function validate(data, opts) {
   opts = opts || {};
   var findings = [];
@@ -1739,7 +1750,7 @@ function validate(data, opts) {
       var required = rules.getRequiredOverrideProps(componentDef);
       var props = instNode.props || {};
       for (var i = 0; i < required.length; i++) {
-        if (props[required[i].propName] === undefined) {
+        if (!hasOverride(props, required[i].propName)) {
           findings.push({
             kind: "missing-required-override",
             severity: "error",
