@@ -96,7 +96,7 @@ step-by-step behavior.
 
 1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration). Disambiguate the app against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps[*].signals` (e.g. `studio`: steward/govern/curate/lineage…; `explorer`: browse/discover/marketplace…). An explicit app in the prompt ("in Studio") always wins.
 
-   **Announce the app (S2).** State one line — `Generating for **<App>** (inferred — say "use Explorer" / "use Administration" to switch).` — then continue without waiting. Accept an override only if it matches a known app (`scripts/lib/app-context/resolve-patterns.js` / `resolve-chrome.js` list the apps). **Hard-ask** which app *only* when signals match **zero** apps, or **two or more** apps with equal strength. This keeps the HTML-first "no new mandatory gate" rule — it's an announcement with an escape hatch, not a gate.
+   **Announce the app (S2).** State one line: `Generating for **<App>**`. Add the parenthesis `(inferred, say "use Explorer" to switch)` only when the app was inferred, never when the prompt named it, then continue without waiting. Accept an override only if it matches a known app (`scripts/lib/app-context/resolve-patterns.js` / `resolve-chrome.js` list the apps). **Hard-ask** which app *only* when signals match **zero** apps, or **two or more** apps with equal strength. This keeps the HTML-first "no new mandatory gate" rule: it's an announcement with an escape hatch, not a gate.
 
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
@@ -274,7 +274,7 @@ This single gate covers screen approval, detail level, AND generation config (th
 - "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
 - "with empty state", "add error state", "loading state" → infer `--states <list>`
 
-**Frame by use case (S2).** Resolve the app's use cases — `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords — `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if still ambiguous, ask in one short line. Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
+**Frame by use case (S2).** Resolve the app's use cases: `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if neither list matches, take `useCases[0]` and name it in the announcement: `Generating for **Studio**, steward use case (say "engineer use case" to switch).` Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
 
 Present a numbered screen list, then copy verbatim:
 
