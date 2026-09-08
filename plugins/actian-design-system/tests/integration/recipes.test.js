@@ -12,6 +12,7 @@
 const assert = require("node:assert");
 const fs = require("node:fs");
 const path = require("node:path");
+const PATHS = require("../../scripts/lib/paths.js");
 
 const RECIPES_DIR = path.resolve(__dirname, "..", "..", "recipes");
 const INDEX_PATH = path.join(RECIPES_DIR, "flow", "_index.json");
@@ -887,6 +888,180 @@ if (stickyTestErrors.length === 0) {
     "FAIL  sticky-footer.json destructiveSkeleton intent annotations",
   );
   stickyTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── Task 0.12: no recipe fill under recipes/flow/ is a hex literal ─────
+
+var FLOW_FILES = fs
+  .readdirSync(path.join(RECIPES_DIR, "flow"))
+  .filter(function (f) {
+    return f.endsWith(".json") && f !== "_index.json";
+  })
+  .sort();
+
+var FILL_KEYS = ["fills", "fill", "color", "stroke", "background"];
+var HEX_LITERAL_RE = /#[0-9a-f]{3,8}\b/i;
+
+function collectHexFills(node, nodePath, out) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectHexFills(child, `${nodePath}[${i}]`, out);
+    });
+    return;
+  }
+  Object.keys(node).forEach(function (key) {
+    var val = node[key];
+    if (FILL_KEYS.indexOf(key) !== -1) {
+      if (typeof val === "string" && HEX_LITERAL_RE.test(val)) {
+        out.push({ path: `${nodePath}.${key}`, value: val });
+      } else if (Array.isArray(val)) {
+        val.forEach(function (v, i) {
+          if (typeof v === "string" && HEX_LITERAL_RE.test(v)) {
+            out.push({ path: `${nodePath}.${key}[${i}]`, value: v });
+          }
+        });
+      }
+    }
+    collectHexFills(val, `${nodePath}.${key}`, out);
+  });
+}
+
+var hexTestErrors = [];
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    hexTestErrors.push(`${file}: could not be parsed: ${err.message}`);
+    return;
+  }
+  var hits = [];
+  collectHexFills(recipe, "$", hits);
+  hits.forEach(function (hit) {
+    hexTestErrors.push(
+      `${file} ${hit.path}: hardcoded hex ${hit.value} (bind a var(--fm-*) token instead)`,
+    );
+  });
+});
+
+if (hexTestErrors.length === 0) {
+  console.log("PASS  no recipe fill under recipes/flow/ is a hex literal");
+  passed++;
+} else {
+  console.log("FAIL  no recipe fill under recipes/flow/ is a hex literal");
+  hexTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── Task 0.12: every FM variant axis value exists in the fmkit registry ─
+
+// Mirrors scripts/lib/shared-constants.js `slugToRef` (also duplicated in
+// fm-coverage.test.js) so this gate stays dependency-free.
+function slugToFmRef(slug) {
+  var prefix = "fm";
+  var stripped =
+    slug.indexOf(prefix + "-") === 0 ? slug.slice(prefix.length + 1) : slug;
+  return (
+    prefix +
+    stripped.charAt(0).toUpperCase() +
+    stripped.slice(1).replace(/-([a-z])/g, function (_, c) {
+      return c.toUpperCase();
+    })
+  );
+}
+
+var fmkitRegistry = JSON.parse(
+  fs.readFileSync(PATHS.components.registries.fmkit, "utf8"),
+);
+var fmRefToVariants = {};
+Object.keys(fmkitRegistry.components).forEach(function (slug) {
+  if (slug.indexOf("fm-") !== 0) return;
+  fmRefToVariants[slugToFmRef(slug)] =
+    fmkitRegistry.components[slug].variants || {};
+});
+
+var axisTestErrors = [];
+
+function collectFmVariantIssues(node, nodePath, file) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectFmVariantIssues(child, `${nodePath}[${i}]`, file);
+    });
+    return;
+  }
+  if (
+    node.type === "INSTANCE" &&
+    typeof node.ref === "string" &&
+    node.ref.indexOf("fm") === 0 &&
+    typeof node.variant === "string"
+  ) {
+    var variants = fmRefToVariants[node.ref];
+    node.variant
+      .split(",")
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean)
+      .forEach(function (pair) {
+        var eq = pair.indexOf("=");
+        if (eq === -1) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): unparseable variant segment "${pair}"`,
+          );
+          return;
+        }
+        var axis = pair.slice(0, eq).trim();
+        var value = pair.slice(eq + 1).trim();
+        if (!variants) {
+          axisTestErrors.push(
+            `${file} ${nodePath}: ref "${node.ref}" not found in the fmkit registry`,
+          );
+          return;
+        }
+        if (!variants[axis]) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): axis "${axis}" does not exist (available: ${Object.keys(variants).join(", ")})`,
+          );
+          return;
+        }
+        if (variants[axis].indexOf(value) === -1) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): value "${axis}=${value}" not in the fmkit registry (available: ${variants[axis].join(", ")})`,
+          );
+        }
+      });
+  }
+  Object.keys(node).forEach(function (key) {
+    if (key === "variant") return;
+    collectFmVariantIssues(node[key], `${nodePath}.${key}`, file);
+  });
+}
+
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    return; // already reported above
+  }
+  collectFmVariantIssues(recipe, "$", file);
+});
+
+if (axisTestErrors.length === 0) {
+  console.log(
+    "PASS  every FM variant axis value in a recipe exists in the fmkit registry",
+  );
+  passed++;
+} else {
+  console.log(
+    "FAIL  every FM variant axis value in a recipe exists in the fmkit registry",
+  );
+  axisTestErrors.forEach((e) => console.log(`        ${e}`));
   failed++;
 }
 

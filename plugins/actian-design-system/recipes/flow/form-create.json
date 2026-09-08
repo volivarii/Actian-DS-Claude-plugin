@@ -29,7 +29,7 @@
           {
             "type": "INSTANCE",
             "ref": "fmTextInput",
-            "variant": "State=Default",
+            "variant": "Type=Default",
             "name": "Input: {{field1_label}}",
             "props": {
               "Label Text": "{{field1_label}}",
@@ -42,7 +42,7 @@
           {
             "type": "INSTANCE",
             "ref": "fmTextInput",
-            "variant": "State=Default",
+            "variant": "Type=Default",
             "name": "Input: {{field2_label}}",
             "props": {
               "Label Text": "{{field2_label}}",
