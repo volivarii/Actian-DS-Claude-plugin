@@ -78,7 +78,8 @@ are summarized at the release level.
   written back to the file, so a refine command had no id to scope to. `validate-flow-data.js
   --write-ids` now writes the stamped ids back, both the incremental and plain `merge-partials.js`
   paths stamp them, and the generate-flow skill's Step 6 commands and its sequential stub carry the
-  flag through.
+  flag through. A screen without an id derives one that skips any id another screen in the same
+  flow already carries, so inserting a screen ahead of an existing one never stamps a duplicate.
 
 - **Terminology and avoid-word findings name the word and the fix.** The CLI printed only the
   sentence a finding pointed at, leaving a designer to find which word triggered it. A line ending

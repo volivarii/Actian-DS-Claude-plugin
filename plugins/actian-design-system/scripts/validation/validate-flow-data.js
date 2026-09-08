@@ -369,8 +369,14 @@ function loadTokenNames() {
   // the other kit's names, so both sources are read and their declared
   // names unioned. The trailing "\s*:" requires a DECLARATION ("--x:"): it
   // matches only a defined token name, never a var() reference to one.
-  var renderer = require("../lib/renderer.js");
-  var sources = [PATHS.tokens.css, renderer.cssPaths.fmBase];
+  var sources = [PATHS.tokens.css];
+  try {
+    sources.push(require("../lib/renderer.js").cssPaths.fmBase);
+  } catch (e) {
+    // Same degrade as the BUILT_DS_SLUGS accessor below: a vendored
+    // snapshot missing the render package leaves the DS token sheet as
+    // the sole source.
+  }
   var names = {};
   var re = /(--(?:zen|fm)-[a-z0-9-]+)\s*:/g;
   sources.forEach(function (cssPath) {

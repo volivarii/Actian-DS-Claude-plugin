@@ -96,4 +96,49 @@ describe("stampScreenIds", function () {
     stampScreenIds(data);
     assert.strictEqual(data.screens[1].id, "test-2");
   });
+
+  it("a derived id skips one another screen already carries", function () {
+    var data = {
+      meta: { feature: "f" },
+      screens: [
+        { id: "f-1", name: "S1", content: [] },
+        { name: "S2", content: [] },
+        { id: "f-2", name: "S3", content: [] },
+      ],
+    };
+    stampScreenIds(data);
+    assert.strictEqual(data.screens[0].id, "f-1");
+    assert.strictEqual(data.screens[1].id, "f-3");
+    assert.strictEqual(data.screens[2].id, "f-2");
+  });
+
+  it("a flow with no ids still gets slug-1..slug-n", function () {
+    var data = {
+      meta: { feature: "f" },
+      screens: [
+        { name: "S1", content: [] },
+        { name: "S2", content: [] },
+        { name: "S3", content: [] },
+      ],
+    };
+    stampScreenIds(data);
+    assert.strictEqual(data.screens[0].id, "f-1");
+    assert.strictEqual(data.screens[1].id, "f-2");
+    assert.strictEqual(data.screens[2].id, "f-3");
+  });
+
+  it("stamping twice with a collision resolved is a no-op", function () {
+    var data = {
+      meta: { feature: "f" },
+      screens: [
+        { id: "f-1", name: "S1", content: [] },
+        { name: "S2", content: [] },
+        { id: "f-2", name: "S3", content: [] },
+      ],
+    };
+    stampScreenIds(data);
+    var snapshot = JSON.parse(JSON.stringify(data));
+    stampScreenIds(data);
+    assert.deepStrictEqual(data, snapshot);
+  });
 });
