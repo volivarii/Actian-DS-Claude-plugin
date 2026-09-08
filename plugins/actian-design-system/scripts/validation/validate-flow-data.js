@@ -166,6 +166,22 @@ function walkStringValues(node, currentPath, callback, parentKey) {
   }
 }
 
+// Enum slots the schema itself fills with a placeholder-looking word (e.g.
+// navItems[].state = "Placeholder" marks a muted sidebar item). The
+// placeholder-text check (Pass 2, below) walks every string in the flow;
+// these keys hold a fixed vocabulary, not user-visible copy, so a value
+// that matches PLACEHOLDER_PATTERNS there is not a leak. This gate applies
+// only inside the placeholder-text branch, not to the other checks that
+// scan flow strings (banned-text, terminology, avoid-word, hardcoded-color
+// each read data.screens directly, not through walkStringValues).
+var PLACEHOLDER_SKIP_KEYS = { state: 1, variant: 1, template: 1, status: 1 };
+function isEnumSlot(pathSegs) {
+  var last = pathSegs[pathSegs.length - 1];
+  return (
+    PLACEHOLDER_SKIP_KEYS[last] === 1 || pathSegs.indexOf("navItems") !== -1
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Banned placeholder strings (P0 — blocks push)
 // ---------------------------------------------------------------------------
@@ -1762,6 +1778,7 @@ function validate(data, opts) {
   // Pass 2: walk all string values in screens (excludes meta block by design)
   if (data.screens) {
     walkStringValues(data.screens, "screens", function (str, p) {
+      if (isEnumSlot(p.split(/[.[\]]+/).filter(Boolean))) return;
       if (rules.isPlaceholderDefault(str)) {
         findings.push({
           kind: "placeholder-text",
