@@ -37,7 +37,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--states <list>`      | string list | none    | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants.                                                                                                                                                           |
 | `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is **HTML only, no push** — `--push` (or prose "push to figma", or `--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/generate-flow/push-opt-in.md`.                                            |
 | `--no-push`            | bool        | off     | Absolute veto. Overrides every push trigger (`--push`, prose intent, `--audit`, and the gate). Wins ties when both `--push` and `--no-push` are present.                                                                                                                                               |
-| `--no-prompt`          | boolean     | false   | Skip the interactive gates (the Step 3 config questions AND the Step 7.5 combined post-build gate). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit).                                                                    |
+| `--no-prompt`          | boolean     | false   | Skip the interactive gates (the Gate 3 config questions AND the Step 7.5 combined post-build gate). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit).                                                                    |
 
 ### Flag interaction matrix
 
@@ -59,7 +59,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 Parse args. Note which flags are explicitly passed:
 
 - `--push` / `--no-push`: parsed via `require("scripts/lib/parse-push.js")(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
-- `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses the Step 3 config questions + the Step 7.5 gate.
+- `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses the Gate 3 config questions + the Step 7.5 gate.
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
 
@@ -274,7 +274,7 @@ This single gate covers screen approval, detail level, AND generation config (th
 - "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
 - "with empty state", "add error state", "loading state" → infer `--states <list>`
 
-**Frame by use case (S2).** Resolve the app's use cases: `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if neither list matches, take `useCases[0]` and name it in the announcement: `Generating for **Studio**, steward use case (say "engineer use case" to switch).` Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
+**Frame by use case (S2).** Resolve the app's use cases: `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if neither list matches, take `useCases[0]` and state it on its own line when presenting the screen list: `Use case: steward (say "engineer use case" to switch).` Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
 
 Present a numbered screen list, then copy verbatim:
 
@@ -460,6 +460,8 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 ## References
 
 - `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
+- `references/generate-flow/html-reference.md`: HTML template structure, FM component table, content node spec
+- `references/generate-flow/ds-components-authoring.md`: DS Kit component vocabulary for `--hifi` DS-native authoring
 - `references/generate-flow/push-opt-in.md` — Figma push opt-in model, triggers, `--no-push` veto, combined gate prompt
 - `references/generate-flow/refine.md` — refine detection + behavior (explicit-Figma path)
 - `references/generate-flow/vision-refs.md` — `--ref` vision fingerprinting loop

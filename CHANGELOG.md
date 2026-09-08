@@ -68,12 +68,13 @@ are summarized at the release level.
   the skill's parse-push pointer names the real export, and the HTML reference says where
   `TEMPLATE_CHROME` and `renderFMComponent` live. "Step 5.5" references point at the push step, the
   unreferenced `studio-chrome-anatomy.md` is deleted, and a guard test asserts every `<doc> Step N`
-  and `<skill> Step N` pointer under skills, references and agents resolves to a heading or numbered
-  item.
+  and `<skill> Step N` pointer, either case of "step", under skills, references and agents resolves
+  to a heading or numbered item.
 
 - **Authoring notes for three leaves that render literals.** The HTML reference marks `fmDialog` and
   `fmEmptyState` as compose-from-frames and the DS authoring reference marks `drawer` as header strip
-  only, because the vendored leaves print fixed text and read none of their props.
+  only, because the vendored leaves read none of their text props (the drawer header still reads
+  Name, Type and Show Back).
 
 ### Fixed
 

@@ -137,7 +137,7 @@
     "Card sizes are flexible — use FILL on all cards in a row and let auto-layout distribute",
     "For fixed-width cards, set sizing.horizontal to a pixel value (200, 570, 790)",
     "Card anatomy: header (48px, SPACE_BETWEEN for title + action) → divider → body (padded)",
-    "Empty states inside cards: use fmEmptyState Type=Compact centered in card body",
+    "Empty states inside cards: compose a FRAME with a TEXT headline, a TEXT body, and an FM Button, centered in card body",
     "List-style card bodies: rows with HORIZONTAL layout, 24-32px row height",
     "Metric cards can use fmPlaceholder Type=metric for placeholder treatment",
     "Add/remove metric cards and grid cards as needed — skeleton shows a 3+2 layout"

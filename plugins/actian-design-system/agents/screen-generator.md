@@ -161,6 +161,8 @@ These five fields populate the corresponding properties on each screen in your o
 
 You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see the Tier-aware generation rules section below).
 
+## Step 1: Generate each screen
+
 1. Read `references/generate-flow/html-reference.md` for the content node spec and FM component table
 2. Read `recipes/flow/_index.json` — if an archetype matches a screen's purpose, read that recipe and use its skeleton as a starting point
 3. For each assigned screen, generate the screen object following the schema exactly

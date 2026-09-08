@@ -252,7 +252,7 @@ Design a table view for the Administration users page with filters and bulk acti
 
 At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
 
-**HiFi conversion:** Add `--hifi` to also generate a DS Kit high-fidelity version alongside the wireframe. Or convert an existing wireframe later with `/convert-to-hifi`.
+**HiFi conversion:** Add `--hifi` for a DS-native hi-fi HTML deliverable; add `--push` for a Figma artifact. Or convert an existing wireframe later with `/convert-to-hifi`.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
