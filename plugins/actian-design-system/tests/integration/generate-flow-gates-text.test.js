@@ -2,7 +2,7 @@
 "use strict";
 
 /**
- * generate-flow-gates-text.test.js — The "Frame by use case (S2)" paragraph
+ * generate-flow-gates-text.test.js: The "Frame by use case (S2)" paragraph
  * must not add a fourth, default-less question ("if still ambiguous, ask in
  * one short line"): when neither use-case keyword list matches, the skill
  * takes useCases[0] and names it in the announcement instead of stopping to
