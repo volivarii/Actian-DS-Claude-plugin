@@ -46,7 +46,7 @@
                 "sizing": { "horizontal": "FILL", "vertical": 40 },
                 "children": [
                   { "type": "INSTANCE", "ref": "fmCheckbox", "variant": "State=Off", "props": {} },
-                  { "type": "TEXT", "content": "Sort by", "font": "Inter:Regular", "size": 13, "color": "#595968" },
+                  { "type": "TEXT", "content": "Sort by", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" },
                   {
                     "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled",
                     "sizing": { "horizontal": 120 },
@@ -62,8 +62,8 @@
                 "type": "FRAME",
                 "name": "Result card: {{result1_title}}",
                 "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
-                "fills": ["#FFFFFF"],
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "fills": ["var(--fm-base-white)"],
+                "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
                 "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                 "children": [
                   {
@@ -73,18 +73,18 @@
                     "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                     "children": [
                       { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result1_type}}" } },
-                      { "type": "TEXT", "content": "{{result1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" }
+                      { "type": "TEXT", "content": "{{result1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" }
                     ]
                   },
-                  { "type": "TEXT", "content": "{{result1_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                  { "type": "TEXT", "content": "{{result1_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }
                 ]
               },
               {
                 "type": "FRAME",
                 "name": "Result card: {{result2_title}}",
                 "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
-                "fills": ["#FFFFFF"],
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "fills": ["var(--fm-base-white)"],
+                "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
                 "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                 "children": [
                   {
@@ -94,10 +94,10 @@
                     "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                     "children": [
                       { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result2_type}}" } },
-                      { "type": "TEXT", "content": "{{result2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" }
+                      { "type": "TEXT", "content": "{{result2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" }
                     ]
                   },
-                  { "type": "TEXT", "content": "{{result2_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                  { "type": "TEXT", "content": "{{result2_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }
                 ]
               }
             ]

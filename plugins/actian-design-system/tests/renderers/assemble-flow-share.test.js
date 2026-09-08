@@ -28,4 +28,9 @@ describe("assembleFlowShare (direct)", function () {
     var html = assembleFlowShare({ meta: { feature: "E" }, screens: [] });
     assert.ok(html.indexOf("<!DOCTYPE html>") !== -1 && html.indexOf("proto-stage") !== -1, "valid shell");
   });
+  it("the visible date is a calendar date, not an ISO timestamp", function () {
+    var out = assembleFlowShare({ meta: { feature: "T", app: "Studio", generatedAt: "2026-09-08T11:18:41.503Z" }, screens: [] });
+    assert.match(out, /2026-09-08(?!T)/);
+    assert.doesNotMatch(out, /11:18:41\.503Z/);
+  });
 });

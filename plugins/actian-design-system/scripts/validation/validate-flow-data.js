@@ -166,6 +166,25 @@ function walkStringValues(node, currentPath, callback, parentKey) {
   }
 }
 
+// Enum slots the schema itself fills with a placeholder-looking word (e.g.
+// navItems[].state = "Placeholder" marks a muted sidebar item). The
+// placeholder-text check (Pass 2, below) walks every string in the flow;
+// a string whose own key is one of these holds a fixed vocabulary, not
+// user-visible copy, so a value that matches PLACEHOLDER_PATTERNS there is
+// not a leak. The rule keys on the slot itself, not on any ancestor: a
+// sibling string under the same parent (navItems[].label, for example) is
+// genuine copy and stays fully checked. This gate applies only inside the
+// placeholder-text branch, not to the other checks that scan flow strings
+// (banned-text, terminology, avoid-word, hardcoded-color each read
+// data.screens directly, not through walkStringValues). `variant` is not
+// listed here: walkStringValues already excludes it via
+// STRUCTURAL_FIELD_KEYS (its callback never runs for a `variant` string).
+var PLACEHOLDER_SKIP_KEYS = { state: 1, template: 1, status: 1 };
+function isEnumSlot(pathSegs) {
+  var last = pathSegs[pathSegs.length - 1];
+  return PLACEHOLDER_SKIP_KEYS[last] === 1;
+}
+
 // ---------------------------------------------------------------------------
 // Banned placeholder strings (P0 — blocks push)
 // ---------------------------------------------------------------------------
@@ -343,19 +362,36 @@ function findBannedTextRaw(data) {
 // ---------------------------------------------------------------------------
 
 function loadTokenNames() {
-  var cssPath = PATHS.tokens.css;
+  // DS tokens are declared in tokens.css; Fat Marker (lo-fi) tokens are
+  // declared in the vendored renderer's own stylesheet, fm-base.css, read
+  // through the renderer accessor (scripts/lib/renderer.js) rather than a
+  // second direct path into the vendored renderer. Neither file declares
+  // the other kit's names, so both sources are read and their declared
+  // names unioned. The trailing "\s*:" requires a DECLARATION ("--x:"): it
+  // matches only a defined token name, never a var() reference to one.
+  var sources = [PATHS.tokens.css];
   try {
-    var css = fs.readFileSync(cssPath, "utf8");
-    var names = {};
-    var re = /(--(?:zen|fm)-[a-z0-9-]+)/g;
+    sources.push(require("../lib/renderer.js").cssPaths.fmBase);
+  } catch (e) {
+    // Same degrade as the BUILT_DS_SLUGS accessor below: a vendored
+    // snapshot missing the render package leaves the DS token sheet as
+    // the sole source.
+  }
+  var names = {};
+  var re = /(--(?:zen|fm)-[a-z0-9-]+)\s*:/g;
+  sources.forEach(function (cssPath) {
+    var css;
+    try {
+      css = fs.readFileSync(cssPath, "utf8");
+    } catch (e) {
+      return;
+    }
     var m;
     while ((m = re.exec(css)) !== null) {
       names[m[1]] = true;
     }
-    return names;
-  } catch (e) {
-    return null;
-  }
+  });
+  return names;
 }
 
 function extractTokenRefs(obj) {
@@ -1615,6 +1651,17 @@ function checkChromeCoherence(screen, glossaryChrome, findings) {
 // thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
+// A required-override prop is authored under its exact hashed registry name
+// (e.g. "Label#1411:32") or under its base name before the "#" (e.g.
+// "Label"). The generate-flow skill's own Examples author the base name and
+// the renderer reads it the same way, so the missing-required-override check
+// (Pass 1 below) accepts either spelling as satisfying the override.
+function hasOverride(props, propName) {
+  if (props[propName] !== undefined) return true;
+  var base = propName.split("#")[0];
+  return base !== propName && props[base] !== undefined;
+}
+
 function validate(data, opts) {
   opts = opts || {};
   var findings = [];
@@ -1709,7 +1756,7 @@ function validate(data, opts) {
       var required = rules.getRequiredOverrideProps(componentDef);
       var props = instNode.props || {};
       for (var i = 0; i < required.length; i++) {
-        if (props[required[i].propName] === undefined) {
+        if (!hasOverride(props, required[i].propName)) {
           findings.push({
             kind: "missing-required-override",
             severity: "error",
@@ -1751,6 +1798,7 @@ function validate(data, opts) {
   // Pass 2: walk all string values in screens (excludes meta block by design)
   if (data.screens) {
     walkStringValues(data.screens, "screens", function (str, p) {
+      if (isEnumSlot(p.split(/[.[\]]+/).filter(Boolean))) return;
       if (rules.isPlaceholderDefault(str)) {
         findings.push({
           kind: "placeholder-text",
@@ -2104,6 +2152,10 @@ if (require.main === module) {
             "Filter findings by scope: 'full' (default) | 'single-unit:<id>' | 'multi-unit:[<id>,<id>]'",
         },
         { name: "--json", description: "Output issues as JSON" },
+        {
+          name: "--write-ids",
+          description: "Write the stamped screen ids back to the input file",
+        },
         { name: "--help", description: "Show this help" },
       ],
     };
@@ -2123,6 +2175,7 @@ if (require.main === module) {
   var skipTerminology = flags.indexOf("--skip-terminology") !== -1;
   var skipAvoidWords = flags.indexOf("--skip-avoid-words") !== -1;
   var jsonOutput = flags.indexOf("--json") !== -1;
+  var writeIds = flags.indexOf("--write-ids") !== -1;
   var scopeIdx = flags.indexOf("--scope");
   var scope =
     scopeIdx !== -1 && flags[scopeIdx + 1] ? flags[scopeIdx + 1] : "full";
@@ -2183,6 +2236,14 @@ if (require.main === module) {
     scope: scope,
   });
 
+  // validate() stamps stable screen ids onto `data` in place (B-refine.1).
+  // --write-ids persists that stamp back to the input file so a later
+  // --scope single-unit:<id> run has an id to name. This runs regardless of
+  // findings or exit code: ids land even when the flow has P0s.
+  if (writeIds) {
+    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  }
+
   // Severity tier mapping for the legacy CLI shape:
   //   error   → P0 (blocking; exit 1)
   //   warning → P1 (designer attention; exit 2)
@@ -2222,18 +2283,27 @@ if (require.main === module) {
       );
       for (var i = 0; i < allIssues.length; i++) {
         var issue = allIssues[i];
-        process.stderr.write(
+        var line =
           issue.severity +
-            " [" +
-            issue.check +
-            "] " +
-            issue.screen +
-            " → " +
-            issue.path +
-            " = " +
-            JSON.stringify(issue.value) +
-            "\n",
-        );
+          " [" +
+          issue.check +
+          "] " +
+          issue.screen +
+          " → " +
+          issue.path +
+          " = " +
+          JSON.stringify(issue.value);
+        if (typeof issue.found === "string" && issue.found.length > 0) {
+          line += ' (found "' + issue.found + '"';
+          if (
+            typeof issue.suggestion === "string" &&
+            issue.suggestion.length > 0
+          ) {
+            line += ", " + issue.suggestion;
+          }
+          line += ")";
+        }
+        process.stderr.write(line + "\n");
       }
     }
   }

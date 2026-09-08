@@ -16,10 +16,10 @@
         "type": "FRAME",
         "name": "Hero area",
         "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [32, 32, 32, 32] },
-        "fills": ["#F0F8F8"],
+        "fills": ["var(--fm-brand-light)"],
         "sizing": { "horizontal": "FILL", "vertical": "HUG" },
         "children": [
-          { "type": "TEXT", "content": "{{hero_title}}", "font": "Inter:Bold", "size": 28, "color": "#1A1A2E" },
+          { "type": "TEXT", "content": "{{hero_title}}", "font": "Inter:Bold", "size": 28, "color": "var(--fm-text-primary)" },
           { "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty", "props": { "Placeholder": "Search items..." } }
         ]
       },
@@ -35,7 +35,7 @@
             "layout": { "mode": "HORIZONTAL", "spacing": 8, "primaryAxisAlignItems": "SPACE_BETWEEN" },
             "sizing": { "horizontal": "FILL", "vertical": 32 },
             "children": [
-              { "type": "TEXT", "content": "{{section1_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+              { "type": "TEXT", "content": "{{section1_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "var(--fm-text-primary)" },
               { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Browse all", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
             ]
           },
@@ -49,28 +49,28 @@
                 "type": "FRAME",
                 "name": "Tile: {{tile1_title}}",
                 "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
-                "fills": ["#FFFFFF"],
+                "fills": ["var(--fm-base-white)"],
                 "cornerRadius": 8,
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
                 "sizing": { "horizontal": 240, "vertical": "HUG" },
                 "children": [
                   { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{tile1_type}}" } },
-                  { "type": "TEXT", "content": "{{tile1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" },
-                  { "type": "TEXT", "content": "{{tile1_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                  { "type": "TEXT", "content": "{{tile1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" },
+                  { "type": "TEXT", "content": "{{tile1_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }
                 ]
               },
               {
                 "type": "FRAME",
                 "name": "Tile: {{tile2_title}}",
                 "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
-                "fills": ["#FFFFFF"],
+                "fills": ["var(--fm-base-white)"],
                 "cornerRadius": 8,
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
                 "sizing": { "horizontal": 240, "vertical": "HUG" },
                 "children": [
                   { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{tile2_type}}" } },
-                  { "type": "TEXT", "content": "{{tile2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" },
-                  { "type": "TEXT", "content": "{{tile2_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                  { "type": "TEXT", "content": "{{tile2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "var(--fm-text-primary)" },
+                  { "type": "TEXT", "content": "{{tile2_description}}", "font": "Inter:Regular", "size": 13, "color": "var(--fm-text-tertiary)" }
                 ]
               }
             ]

@@ -37,8 +37,8 @@
           "padding": [16, 32, 16, 32],
           "primaryAxisAlignItems": "MAX"
         },
-        "fills": ["#FFFFFF"],
-        "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+        "fills": ["var(--fm-base-white)"],
+        "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
         "sizing": { "horizontal": "FILL", "vertical": 64 },
         "children": [
           {
@@ -94,8 +94,8 @@
           "padding": [16, 32, 16, 32],
           "primaryAxisAlignItems": "MAX"
         },
-        "fills": ["#FFFFFF"],
-        "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+        "fills": ["var(--fm-base-white)"],
+        "stroke": { "color": "var(--fm-border)", "weight": 1, "align": "INSIDE" },
         "sizing": { "horizontal": "FILL", "vertical": 64 },
         "children": [
           {

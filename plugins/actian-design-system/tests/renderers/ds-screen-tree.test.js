@@ -252,6 +252,17 @@ test("chromeNodes — sidebar comma-list branch (no icons)", function () {
   assert.ok(nodes.sidebar.props.Items.indexOf("Catalog") >= 0);
 });
 
+test("chromeNodes: the header avatar does not default to a real person's initials", function () {
+  var chrome = chromeTree.resolveChrome({
+    name: "S",
+    template: "studio",
+    library: "ds",
+    content: [],
+  });
+  var nodes = chromeTree.chromeNodes(chrome, null, null, {});
+  assert.equal(nodes.header.props.Account, "JD");
+});
+
 // ---------------------------------------------------------------------------
 // (4) screenTree()
 // ---------------------------------------------------------------------------

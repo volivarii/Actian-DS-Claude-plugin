@@ -154,7 +154,7 @@ function assembleFlowShare(data) {
   // Audience-safe visible meta (NO prompt, NO model).
   var shareMeta = [
     meta.app || "",
-    meta.generatedAt || meta.date || "",
+    String(meta.generatedAt || meta.date || "").slice(0, 10),
     meta.pluginVersion ? "v" + meta.pluginVersion : "",
   ]
     .filter(Boolean)
@@ -174,7 +174,7 @@ function assembleFlowShare(data) {
     maskComment(meta.prompt || "") +
     "\n" +
     "  date:     " +
-    maskComment(meta.generatedAt || meta.date || "") +
+    maskComment(String(meta.generatedAt || meta.date || "").slice(0, 10)) +
     "\n" +
     "  duration: " +
     maskComment(meta.duration || "") +

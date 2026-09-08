@@ -16,7 +16,7 @@
         "type": "FRAME",
         "name": "Side panel (550px)",
         "layout": { "mode": "VERTICAL", "spacing": 0 },
-        "fills": ["#FFFFFF"],
+        "fills": ["var(--fm-base-white)"],
         "sizing": { "horizontal": 550, "vertical": 896 },
         "children": [
           {
@@ -35,7 +35,7 @@
                 "content": "{{panel_title}}",
                 "font": "Inter:Semi Bold",
                 "size": 18,
-                "color": "#1A1A2E"
+                "color": "var(--fm-text-primary)"
               },
               {
                 "type": "INSTANCE",
@@ -113,7 +113,7 @@
         "name": "Confirmation modal (450px)",
         "intent": "destructive-action",
         "layout": { "mode": "VERTICAL", "spacing": 0 },
-        "fills": ["#FFFFFF"],
+        "fills": ["var(--fm-base-white)"],
         "sizing": { "horizontal": 450, "vertical": "HUG" },
         "children": [
           {
@@ -132,7 +132,7 @@
                 "content": "{{confirm_title}}",
                 "font": "Inter:Semi Bold",
                 "size": 18,
-                "color": "#1A1A2E"
+                "color": "var(--fm-text-primary)"
               },
               {
                 "type": "INSTANCE",
