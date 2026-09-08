@@ -441,7 +441,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
-| `/generate-flow [description] --hifi --audit` | Lo-fi → hifi → audit chain |
+| `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
 | `/convert-to-hifi [URL] [--ref URL]` | Convert FM wireframe to DS Kit hifi |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
