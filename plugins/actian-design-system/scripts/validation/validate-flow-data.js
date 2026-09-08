@@ -2277,18 +2277,27 @@ if (require.main === module) {
       );
       for (var i = 0; i < allIssues.length; i++) {
         var issue = allIssues[i];
-        process.stderr.write(
+        var line =
           issue.severity +
-            " [" +
-            issue.check +
-            "] " +
-            issue.screen +
-            " → " +
-            issue.path +
-            " = " +
-            JSON.stringify(issue.value) +
-            "\n",
-        );
+          " [" +
+          issue.check +
+          "] " +
+          issue.screen +
+          " → " +
+          issue.path +
+          " = " +
+          JSON.stringify(issue.value);
+        if (typeof issue.found === "string" && issue.found.length > 0) {
+          line += ' (found "' + issue.found + '"';
+          if (
+            typeof issue.suggestion === "string" &&
+            issue.suggestion.length > 0
+          ) {
+            line += ", " + issue.suggestion;
+          }
+          line += ")";
+        }
+        process.stderr.write(line + "\n");
       }
     }
   }
