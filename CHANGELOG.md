@@ -21,6 +21,18 @@ are summarized at the release level.
 
 ### Added
 
+- **A design proposal board for component-scale tickets.** `/design-proposal` frames the ticket, offers
+  one research gate, presents two to four concepts with a recommendation, then authors
+  `proposals/proposal-data.json` and renders `proposals/<slug>.html`: the screens side by side at their
+  own width, each under an app header strip rendered from app-context, with a caption naming the
+  decision it shows, plus the recommendation. Fragments are authored Fat Marker HTML; the validator runs
+  the flow validator's terminology and avoid-word gates over the extracted text and adds checks for
+  hard-coded colours, scripts, external loads, unbalanced tags, toggle targets, bounds and em dashes.
+  Why: on 2026-09-09 a hand-built board read better than the flow deliverable for a dropdown ticket,
+  and every defect the hand-built file had was a grounding defect. The board keeps the freedom and adds
+  the grounding. HTML only; the companion routes "approaches", "concepts", "options", "proposal" and
+  "three ways to do X" here.
+
 - **A pattern's own components now reach the screen-generator.** `_glossary.patterns[]` gained a
   `components` field. app-context has carried each UX pattern's component list the whole time and
   `resolvePatterns` dropped it building its own object, so a screen-generator that had already
