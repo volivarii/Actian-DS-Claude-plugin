@@ -79,6 +79,14 @@
       "source": "rendered"
     },
     {
+      "slug": "card",
+      "tagName": "zen-card",
+      "group": "Data Display",
+      "fragment": "fragments/card.html",
+      "tokensConsumed": 7,
+      "source": "rendered"
+    },
+    {
       "slug": "card-for-grouped-content",
       "tagName": "zen-card-for-grouped-content",
       "group": "Data Display",
@@ -103,6 +111,14 @@
       "source": "rendered"
     },
     {
+      "slug": "checkbox-card",
+      "tagName": "zen-checkbox-card",
+      "group": "Form",
+      "fragment": "fragments/checkbox-card.html",
+      "tokensConsumed": 7,
+      "source": "rendered"
+    },
+    {
       "slug": "checkbox-group",
       "tagName": "zen-checkbox-group",
       "group": "Form",
@@ -124,6 +140,22 @@
       "group": "Feedback",
       "fragment": "fragments/confirmation.html",
       "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
+      "slug": "data-quality-checks-graph",
+      "tagName": "zen-data-quality-checks-graph",
+      "group": "Data Display",
+      "fragment": "fragments/data-quality-checks-graph.html",
+      "tokensConsumed": 23,
+      "source": "rendered"
+    },
+    {
+      "slug": "data-viz-legend",
+      "tagName": "zen-data-viz-legend",
+      "group": "Data Display",
+      "fragment": "fragments/data-viz-legend.html",
+      "tokensConsumed": 13,
       "source": "rendered"
     },
     {
@@ -199,6 +231,22 @@
       "source": "rendered"
     },
     {
+      "slug": "glossary-item-hierarchy",
+      "tagName": "zen-glossary-item-hierarchy",
+      "group": "Data Display",
+      "fragment": "fragments/glossary-item-hierarchy.html",
+      "tokensConsumed": 13,
+      "source": "rendered"
+    },
+    {
+      "slug": "identification-key",
+      "tagName": "zen-identification-key",
+      "group": "Data Display",
+      "fragment": "fragments/identification-key.html",
+      "tokensConsumed": 7,
+      "source": "rendered"
+    },
+    {
       "slug": "interactive-tag",
       "tagName": "zen-interactive-tag",
       "group": "Data Display",
@@ -215,11 +263,35 @@
       "source": "rendered"
     },
     {
+      "slug": "label",
+      "tagName": "zen-label",
+      "group": "Form",
+      "fragment": "fragments/label.html",
+      "tokensConsumed": 12,
+      "source": "rendered"
+    },
+    {
+      "slug": "line-graph",
+      "tagName": "zen-line-graph",
+      "group": "Data Display",
+      "fragment": "fragments/line-graph.html",
+      "tokensConsumed": 22,
+      "source": "rendered"
+    },
+    {
       "slug": "lineage",
       "tagName": "zen-lineage",
       "group": "Data Display",
       "fragment": "fragments/lineage.html",
       "tokensConsumed": 13,
+      "source": "rendered"
+    },
+    {
+      "slug": "lineage-connecting-line",
+      "tagName": "zen-lineage-connecting-line",
+      "group": "Data Display",
+      "fragment": "fragments/lineage-connecting-line.html",
+      "tokensConsumed": 4,
       "source": "rendered"
     },
     {
@@ -271,6 +343,22 @@
       "source": "rendered"
     },
     {
+      "slug": "menu-dropdown",
+      "tagName": "zen-menu-dropdown",
+      "group": "Overlays",
+      "fragment": "fragments/menu-dropdown.html",
+      "tokensConsumed": 12,
+      "source": "rendered"
+    },
+    {
+      "slug": "message",
+      "tagName": "zen-message",
+      "group": "Form",
+      "fragment": "fragments/message.html",
+      "tokensConsumed": 10,
+      "source": "rendered"
+    },
+    {
       "slug": "metamodel",
       "tagName": "zen-metamodel",
       "group": "Data Display",
@@ -303,6 +391,14 @@
       "source": "rendered"
     },
     {
+      "slug": "pagination",
+      "tagName": "zen-pagination",
+      "group": "Data Display",
+      "fragment": "fragments/pagination.html",
+      "tokensConsumed": 16,
+      "source": "rendered"
+    },
+    {
       "slug": "popover",
       "tagName": "zen-popover",
       "group": "Overlays",
@@ -324,6 +420,14 @@
       "group": "Form",
       "fragment": "fragments/radio.html",
       "tokensConsumed": 20,
+      "source": "rendered"
+    },
+    {
+      "slug": "radio-card",
+      "tagName": "zen-radio-card",
+      "group": "Form",
+      "fragment": "fragments/radio-card.html",
+      "tokensConsumed": 7,
       "source": "rendered"
     },
     {
@@ -444,6 +548,14 @@
       "group": "Form",
       "fragment": "fragments/text-input.html",
       "tokensConsumed": 16,
+      "source": "rendered"
+    },
+    {
+      "slug": "textfield-buttons",
+      "tagName": "zen-textfield-buttons",
+      "group": "Form",
+      "fragment": "fragments/textfield-buttons.html",
+      "tokensConsumed": 4,
       "source": "rendered"
     },
     {

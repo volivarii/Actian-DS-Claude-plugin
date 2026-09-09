@@ -637,6 +637,12 @@ body {
   font-size: 14px;
   color: var(--fm-text-tertiary);
 }
+.fm-empty-state__body {
+  font-size: 14px;
+  color: var(--fm-text-tertiary);
+  max-width: 360px;
+  text-align: center;
+}
 
 /* ── FM Placeholder ── */
 .fm-placeholder {
