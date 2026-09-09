@@ -34,7 +34,7 @@ Analyze Figma output screenshots for common rendering issues. The main agent tak
 You will receive:
 - **Screenshots** — one or more Figma screenshot images (provided as file paths or inline)
 - **Expected content** — what should be in each frame (from the data model or screen list)
-- **Skill context** — which skill produced this output (generate-flow, component-brief, generate-presentation)
+- **Skill context** — which skill produced this output (generate-flow, component-brief)
 
 ## Process
 
@@ -73,7 +73,7 @@ If expected content is provided, compare:
 - Token swatches show colors (not blank rectangles)
 - Anatomy badges are positioned near their parts (not clustered)
 
-**generate-presentation:**
+**generate-presentation (retired 2026-09-10, kept for the deletion PR):**
 - Every slide is 1920x1080
 - Cover slide has title and subtitle
 - Charts show data (not empty containers)
