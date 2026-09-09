@@ -434,6 +434,19 @@
 .ds-button--small {
   height: var(--zen-size-lg);
 } /* 24 */
+/* Emphasis=Icon-only carries one child and no label
+   (button.json#quality.structuralVariants: base [Leading icon, text:Button,
+   Trailing icon] -> variant [Icon]), so its box is square rather than a text
+   box with horizontal padding. Same round 32px chrome `.ds-collapse__toggle`
+   already mirrors from this component's capture. */
+.ds-button--icon-only {
+  width: var(--zen-size-xl); /* 32: square, matches the base height */
+  padding: 0;
+  gap: 0;
+}
+.ds-button--icon-only.ds-button--small {
+  width: var(--zen-size-lg); /* 24, tracking the small height */
+}
 .ds-button.is-disabled,
 .ds-button[disabled] {
   opacity: 0.4;
@@ -4505,4 +4518,866 @@
   font-size: var(--zen-font-size-sm);
   line-height: var(--zen-font-lineheight-sm);
   letter-spacing: var(--zen-font-letterspacing-wide-3);
+}
+
+/* ============ The last ten UI leaves ============ */
+/* Source: components/dist/anatomy/{card,checkbox-card,radio-card,label,message,
+ * textfield-buttons,pagination,identification-key,data-viz-legend,
+ * menu-dropdown}.json, read declaration by declaration. Where a value is NOT in
+ * the capture the comment says so and names where it came from instead; the two
+ * recurring reasons are that the anatomy schema has no shadow field at all (no
+ * file in components/dist/anatomy contains one) and that a `vector` node carries
+ * a fill and no geometry.
+ *
+ * WHERE A CAPTURED COLOUR AND ITS BOUND TOKEN DISAGREE, THE PAINT WINS. Three
+ * of these components bind a text colour to --zen-color-text-error /
+ * -warning / -success and paint a different value: the capture's #c12c11,
+ * #83551f and #047800 are error-700, warning-900 and success-700, while those
+ * three semantic tokens resolve to #dc3514, #a76605 and #098900. Rendering the
+ * bound token would repaint the component in a colour it does not use, and the
+ * fidelity oracle compares against the paint. #678 hit the same disagreement on
+ * field's error border. */
+
+/* Card: a surface for somebody else's content. Elevation = Flat with border |
+   Raised with shadow, Size = Small | Large. */
+.ds-card {
+  display: flex;
+  flex-direction: row; /* anatomy: axis row */
+  align-items: flex-start; /* anatomy: align.cross start */
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+  padding: var(--zen-spacing-xs); /* anatomy: 8px, Size=Small */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-subtle); /* capture: #e1e1e6 */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-card--large {
+  padding: var(--zen-spacing-md); /* anatomy: Size=Large is 16px */
+}
+/* Elevation=Raised records only `border: null` -- the border goes away. The
+   shadow it is named for is NOT captured, because the anatomy schema has no
+   shadow field, so the elevation is authored with the same --zen-shadow-sm
+   idiom .ds-popover and .ds-dropdown-select use. */
+.ds-card--raised {
+  border-color: transparent; /* capture: Elevation=Raised sets border null */
+  box-shadow: var(--zen-shadow-sm); /* authored: no shadow is ever captured */
+}
+.ds-card__slot {
+  display: flex;
+  flex-direction: column; /* anatomy: Slot axis column */
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+}
+
+/* checkbox-card and radio-card: the same bordered 316px surface holding a
+   control plus a slot. The two differ in exactly two measured places, and both
+   are captured: the gap under the control (8px vs 4px) and the slot's left
+   inset (32px vs 0). Selection is NOT painted on either root -- it selects the
+   nested control -- so it has no rule here. */
+.ds-checkbox-card,
+.ds-radio-card {
+  display: flex;
+  flex-direction: column; /* anatomy: axis column */
+  align-items: flex-start;
+  width: 316px; /* anatomy: sizing.h fixed, size.w 316px */
+  padding: var(--zen-spacing-md); /* anatomy: 16px */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-subtle); /* capture: #e1e1e6 */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-checkbox-card {
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+}
+.ds-radio-card {
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+}
+/* The slot is 284px inside a 316px card. checkbox-card insets it 32px on the
+   left so the body lines up under the checkbox label; radio-card does not
+   (316 - 32 = 284 either way, one by padding, the other by the card's own 16px
+   sides). Both numbers are captured. */
+.ds-checkbox-card__slot {
+  align-self: stretch;
+  padding-left: 32px; /* anatomy: Dynamic content padding.left 32px */
+}
+.ds-radio-card__slot {
+  align-self: stretch;
+}
+.ds-checkbox-card--hover,
+.ds-radio-card--hover {
+  background: rgba(0, 0, 0, 0.05); /* capture: State=Hover */
+}
+.ds-checkbox-card--pressed,
+.ds-radio-card--pressed {
+  background: rgba(0, 0, 0, 0.1); /* capture: State=Pressed */
+}
+.ds-checkbox-card--disabled,
+.ds-radio-card--disabled {
+  border-color: var(--zen-border-disabled); /* capture: #c7c7ce */
+}
+
+/* Label: the field label ABOVE an input, not a tag. State = Default |
+   Disabled. */
+.ds-label {
+  display: flex;
+  flex-direction: column; /* anatomy: axis column */
+  align-items: flex-start;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  width: 320px; /* anatomy: sizing.h fixed, size.w 320px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-label__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* anatomy: align.cross center */
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  align-self: stretch; /* anatomy: sizing.h fill */
+}
+.ds-label__text {
+  font-size: var(--zen-font-size-md); /* capture: 14px */
+  font-weight: var(--zen-font-weight-medium); /* capture: 500 */
+  line-height: var(--zen-font-lineheight-md); /* capture: 20px */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* capture: 0.2px */
+  color: var(--zen-color-text-default); /* capture: #000000 */
+}
+/* error-700, not --zen-color-text-error: the capture binds the asterisk to the
+   semantic token and paints #c12c11, which is what error-700 resolves to.
+   --zen-color-text-error resolves to #dc3514, a colour this component does not
+   use. See the block header. */
+.ds-label__required {
+  font-size: var(--zen-font-size-md); /* capture: 14px */
+  font-weight: var(--zen-font-weight-medium); /* capture: 500 */
+  line-height: var(--zen-font-lineheight-md); /* capture: 20px */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* capture: 0.2px */
+  color: var(--zen-color-error-700); /* capture: #c12c11 */
+}
+/* The info instance carries no size in the capture (an instance node records
+   its slug, not its box), so 16px is authored to the file's icon convention. */
+.ds-label__info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* authored: the capture sizes no instance */
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(
+    --zen-color-icon-subtle
+  ); /* authored: an instance node records a slug and no appearance */
+}
+.ds-label__desc {
+  font-size: var(--zen-font-size-md); /* capture: 14px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-md); /* capture: 20px */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* capture: 0.2px */
+  color: var(--zen-color-text-tertiary); /* capture: #50505d */
+}
+/* State=Disabled repaints all three text layers to one colour; the capture
+   records the same #656574 on each. */
+.ds-label.is-disabled .ds-label__text,
+.ds-label.is-disabled .ds-label__required,
+.ds-label.is-disabled .ds-label__desc {
+  color: var(--zen-color-text-disabled); /* capture: #656574 */
+}
+
+/* Message: the inline validation line under a field. Type = Helper text |
+   Error | Warning | Success | Info. The colour sits on the ROOT modifier and
+   both children inherit it, because the capture gives the icon no appearance of
+   its own and the file has no evidence for painting it differently. */
+.ds-message {
+  display: inline-flex;
+  flex-direction: row; /* anatomy: axis row */
+  align-items: flex-start; /* anatomy: align.cross start */
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  font-family: var(--zen-font-family-text);
+}
+.ds-message__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* authored: the capture sizes no instance */
+  height: 16px;
+  flex: 0 0 auto;
+}
+.ds-message__text {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* capture: 0.3px */
+}
+/* warning-900 / error-700 / success-700 rather than the three semantic text
+   tokens the capture binds: see the block header. */
+.ds-message--warning {
+  color: var(--zen-color-warning-900); /* capture: #83551f */
+}
+.ds-message--error {
+  color: var(--zen-color-error-700); /* capture: #c12c11 */
+}
+.ds-message--success {
+  color: var(--zen-color-success-700); /* capture: #047800 */
+}
+/* Info's captured #3c515a is bound to no token and matches none in tokens.css,
+   so it is emitted raw, the way the tag family's untokened fills are. */
+.ds-message--info {
+  color: #3c515a; /* capture: Type=Info, no token bound */
+}
+/* Helper text is a STRUCTURAL variant (the capture records it as text with no
+   icon) and the capture holds no colour for it, so this one is authored. */
+.ds-message--helper-text {
+  color: var(--zen-color-text-secondary); /* authored: not captured */
+}
+
+/* Textfield buttons: the confirm/cancel pill at the right end of an inline
+   edit. No axes, no props. */
+.ds-textfield-buttons {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center; /* anatomy: align.cross center */
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  height: 32px; /* anatomy: sizing.v fixed, size.h 32px */
+  padding: var(--zen-spacing-2xs); /* anatomy: 4px */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border-radius: var(--zen-border-radius-full); /* capture: 9999px */
+  box-sizing: border-box;
+}
+/* 24px = the 32px pill less its two captured 4px insets. The captured Button
+   instances carry a radius and no box, so the size is derived from the
+   container rather than read off the child. */
+.ds-textfield-buttons__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: var(--zen-border-radius-full); /* capture: on both Buttons */
+  color: var(--zen-color-icon-default);
+}
+
+/* Pagination: the table pager. The capture's root is 711px wide with the pager
+   itself set to fill and align to its END, which is the example frame's width
+   rather than a constraint of the component -- so the root fills its container
+   and pushes its content right, which is what that pair of captured facts
+   means. */
+.ds-pagination {
+  display: flex;
+  flex-direction: row; /* anatomy: axis row */
+  align-items: center; /* anatomy: align.cross center */
+  justify-content: flex-end; /* anatomy: inner Pagination align.main end */
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-pagination__current {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* anatomy: align.cross center */
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+  height: 40px; /* anatomy: sizing.v fixed, size.h 40px */
+  padding: 0 var(--zen-spacing-md); /* anatomy: 0 top/bottom, 16px sides */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  box-sizing: border-box;
+}
+/* #12131f is bound to no token and matches none in tokens.css. */
+.ds-pagination__page {
+  font-size: var(--zen-font-size-md); /* capture: 14px */
+  font-weight: var(--zen-font-weight-semibold); /* capture: 600 */
+  line-height: var(--zen-font-lineheight-md); /* capture: 20px */
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* capture: 0.2px */
+  color: #12131f; /* capture: no token bound */
+}
+.ds-pagination__of {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  letter-spacing: var(--zen-font-letterspacing-wide-1); /* capture: 0.1px */
+  color: var(--zen-color-text-default); /* capture: #000000 */
+}
+.ds-pagination__picker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* raw px: the captured icon-only Button's chrome box */
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: var(--zen-border-radius-full); /* capture: on the Button */
+  color: var(--zen-color-icon-default);
+}
+/* Previous and Next are captured as 40x40 fixed frames with 20px padding on
+   every side. That padding is how Figma centres a single child in a fixed box;
+   written into CSS it would leave a 0x0 content box, so the box is centred with
+   flex and the padding is deliberately NOT declared. */
+.ds-pagination__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* anatomy: size.w 40px */
+  height: 40px; /* anatomy: size.h 40px */
+  flex: 0 0 auto;
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-default); /* capture: #c7c7ce */
+  box-sizing: border-box;
+  color: var(--zen-color-icon-default);
+}
+/* The two steps sit side by side and share an edge, so the right one drops its
+   duplicate left border. Authored: the capture holds two separate frames and
+   says nothing about how they meet. */
+.ds-pagination__step--next {
+  border-left: none;
+}
+
+/* Identification key: the small pill marking a primary-key column. Its three
+   colours are bound to no token and match none in tokens.css (turquoise-800 and
+   turquoise-50 exist as PRIMITIVES only, and #006563/#d0efed are what
+   --zen-color-primary-800/-50 resolve to in the teal theme, not the default
+   one), so they are emitted raw. .ds-tag--catalog already carries the same
+   #ecffff/#d0efed pair for the same reason. */
+.ds-identification-key {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center; /* anatomy: align.cross center */
+  height: 24px; /* anatomy: sizing.v fixed, size.h 24px */
+  padding: 0 var(--zen-spacing-2xs); /* anatomy: 0 top/bottom, 4px sides */
+  background: #ecffff; /* capture: no token bound */
+  border: 1px solid #d0efed; /* capture: no token bound */
+  border-radius: var(--zen-border-radius-xs); /* capture: 4px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* capture: 0.3px */
+  color: #006563; /* capture: no token bound */
+}
+
+/* Data viz legend: one entry in a chart legend. The axis is literally named
+   "Property 1" (Default | Focused | Hovered | Pressed | Selected) and four of
+   the five carry a captured background, so all five render distinctly. */
+.ds-data-viz-legend {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center; /* anatomy: align.cross center */
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* anatomy: 4px / 8px */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border-radius: var(--zen-border-radius-xs); /* capture: 4px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+/* The dot is a `vector` node: the capture gives its fill and no geometry at
+   all, so the 8px diameter is authored and the colour is the captured token. */
+.ds-data-viz-legend__dot {
+  width: 8px; /* authored: a captured vector carries no geometry */
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-primary-500); /* capture: #0f5fdc */
+}
+.ds-data-viz-legend__label {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* capture: 0.3px */
+  color: var(--zen-color-text-default); /* capture: #000000 */
+}
+.ds-data-viz-legend--hovered {
+  background: rgba(0, 0, 0, 0.05); /* capture: Property 1=Hovered */
+}
+.ds-data-viz-legend--pressed {
+  background: rgba(0, 0, 0, 0.1); /* capture: Property 1=Pressed */
+}
+/* #ecfdff is bound to no token and matches none in tokens.css. */
+.ds-data-viz-legend--selected {
+  background: #ecfdff; /* capture: Property 1=Selected, no token bound */
+}
+/* Focused is captured as a 2px stroke. It renders as an inset outline rather
+   than a border so the pill does not grow by 4px the moment it is focused, and
+   so the base rule needs no transparent border to hold the space. */
+.ds-data-viz-legend--focused {
+  background: rgba(0, 0, 0, 0.05); /* capture: Property 1=Focused */
+  outline: 2px solid var(--zen-focus-ring-primary); /* capture: #0f5fdc, 2px */
+  outline-offset: -2px;
+}
+
+/* Menu (Dropdown): the floating menu panel. Its four children are instances of
+   `.menu item`, whose name starts with a dot, so it is unpublished and has no
+   capture of its own -- the panel below is captured, the ROW is not. Row height
+   and horizontal padding are read off media/menu-dropdown/preview.webp and
+   marked accordingly. */
+.ds-menu-dropdown {
+  display: flex;
+  flex-direction: column; /* anatomy: axis column */
+  align-items: flex-start;
+  padding: var(--zen-spacing-xs) 0; /* anatomy: 8px top/bottom, 0 sides */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-shadow: var(--zen-shadow-md); /* authored: no shadow is ever captured */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-menu-dropdown__item {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  min-height: 40px; /* preview: the row box */
+  padding: 0 var(--zen-spacing-sm); /* preview: 12px sides */
+  box-sizing: border-box;
+  font-size: var(--zen-font-size-md); /* preview: 14px, the file's row size */
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-default);
+}
+/* The capture records the selected row as a 1px --zen-border-selected stroke
+   over #ecfdff. The preview draws that stroke on the LEFT EDGE ONLY, as an
+   accent bar; the anatomy schema flattens a per-side stroke to one border
+   object, which is why the capture cannot say so. Rendered as a left border at
+   the width the preview draws. */
+.ds-menu-dropdown__item.is-selected {
+  background: #ecfdff; /* capture: State=Selected, no token bound */
+  border-left: 2px solid var(--zen-border-selected); /* capture: #0f5fdc */
+  padding-left: 10px; /* keeps the 12px text inset with the 2px accent */
+}
+
+/* ============ The four drawings ============ */
+/* Source: components/dist/anatomy/{data-quality-checks-graph,line-graph,
+ * glossary-item-hierarchy,lineage-connecting-line}.json. These four are the ten
+ * above's opposite case: their marks are `vector` nodes, and a captured vector
+ * carries a fill and NO path data, so the capture cannot say what shape to draw.
+ * It says everything else, and that is what these rules quote: the frame, the
+ * header type, every axis tick's type and its rule colour, the category labels,
+ * and the SERIES COLOURS off the vectors it could not give geometry for.
+ *
+ * THE GRID METRIC IS THE LOAD-BEARING QUOTE. Both charts capture the same axis:
+ * rows 22px tall, 12px apart, each row a right-aligned number and a 1px rule
+ * with the last one lighter. So n ticks put the first rule at 11px and the last
+ * at (n-1)*34+11, and the plot is inset 11px top and bottom to sit between them.
+ * The marks land on the labels because both are measured from those two numbers,
+ * not because a value was nudged until it looked right. */
+
+/* Shared by both charts: the axis column, its rows, and the plot laid over it. */
+.ds-quality-graph__grid,
+.ds-line-graph__grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-sm); /* anatomy: 12px between Y-axis lines */
+  align-self: stretch;
+}
+.ds-quality-graph__row,
+.ds-line-graph__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* anatomy: 8px between number and rule */
+  height: 22px; /* anatomy: every Y-axis line is 22px */
+}
+.ds-quality-graph__tick,
+.ds-line-graph__tick {
+  flex: 0 0 28px; /* authored: the capture sizes no text node */
+  text-align: right;
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  color: var(--zen-color-text-secondary); /* capture: #40404a */
+  font-variant-numeric: tabular-nums;
+}
+.ds-quality-graph__rule,
+.ds-line-graph__rule {
+  flex: 1 1 auto;
+  height: 1px; /* capture: the Stroke vector is a 1px border */
+  background: var(--zen-border-default); /* capture: #c7c7ce */
+}
+/* The last rule is the baseline, and the capture paints it lighter than the
+   gridlines above it. */
+.ds-quality-graph__rule.is-baseline,
+.ds-line-graph__rule.is-baseline {
+  background: var(--zen-border-subtle); /* capture: #e1e1e6 on the Baseline */
+}
+/* 36px = the 28px tick column plus the captured 8px gap, so the plot starts
+   exactly where the rules do. */
+.ds-quality-graph__plot,
+.ds-line-graph__plot {
+  position: absolute;
+  left: 36px;
+  right: 0;
+  top: 11px; /* half the captured 22px row: the first rule's centre */
+  bottom: 11px;
+}
+
+/* Both chart frames and their headers. */
+.ds-quality-graph,
+.ds-line-graph {
+  display: flex;
+  flex-direction: column; /* anatomy: axis column */
+  gap: var(--zen-spacing-md); /* anatomy: 16px */
+  padding: var(--zen-spacing-md); /* authored: the capture insets by frame */
+  background: var(--zen-color-bg-default); /* capture: #ffffff */
+  border: 1px solid var(--zen-border-default); /* capture: #c7c7ce */
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px on line-graph */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+/* The captured widths are 598px and 1051px. Written as a MAXIMUM rather than a
+   width: both are the width of the Figma frame the component was drawn in, and
+   a chart that cannot narrow is a chart that overflows the first screen that
+   puts two of them side by side. */
+.ds-quality-graph {
+  width: 100%;
+  max-width: 598px; /* capture: size.w */
+}
+.ds-line-graph {
+  width: 100%;
+  max-width: 1051px; /* capture: size.w */
+}
+.ds-quality-graph__header,
+.ds-line-graph__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+}
+.ds-quality-graph__title,
+.ds-line-graph__title {
+  font-size: var(--zen-font-size-lg); /* capture: 16px */
+  font-weight: var(--zen-font-weight-semibold); /* capture: 600 */
+  line-height: var(--zen-font-lineheight-lg); /* capture: 24px */
+  color: var(--zen-color-text-default); /* capture: #000000 */
+}
+/* Pushed to the right by the capture's own layout: the header is a row of
+   title, secondary and menu, and the preview puts the last two at the far end. */
+.ds-quality-graph__secondary,
+.ds-line-graph__secondary {
+  margin-left: auto;
+  font-size: var(--zen-font-size-md); /* capture: 14px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-md); /* capture: 20px */
+  color: var(--zen-color-text-default); /* capture: #000000 */
+}
+.ds-quality-graph__menu,
+.ds-line-graph__menu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* raw px: the captured icon-only Button's chrome box */
+  height: 24px;
+  flex: 0 0 auto;
+  border-radius: var(--zen-border-radius-full);
+  color: var(--zen-color-icon-default);
+}
+
+/* Bar chart: the plot is a row of category columns sitting on the baseline, and
+   each bar stacks its three series. Every height is a percentage of the axis, so
+   the bars and the rules share one scale. */
+.ds-quality-graph__y-label,
+.ds-quality-graph__x-label {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-medium); /* capture: 500 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  color: var(--zen-color-text-secondary); /* capture: #40404a */
+}
+.ds-quality-graph__x-label {
+  align-self: center;
+}
+.ds-quality-graph__plot {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+.ds-quality-graph__bar-cell {
+  display: flex;
+  flex-direction: column; /* anatomy: Bar + label is a column, gap 8px */
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* anatomy: 8px */
+  width: 56px; /* anatomy: size.w on every Bar + label */
+  height: 100%;
+  justify-content: flex-end;
+}
+.ds-quality-graph__bar {
+  display: flex;
+  flex-direction: column; /* anatomy: Bar is a column, gap 0 */
+  justify-content: flex-end;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+/* The three series colours are the only thing the capture could give about the
+   bars: they are the fills on the Series 1/2/3 vectors. None is bound to a token
+   and none matches one in tokens.css, so all three are emitted raw, the way the
+   tag family's untokened fills are. They sit HERE rather than in a style
+   attribute because the series are fixed by the component: a bar chart of
+   Error/Warning/OK has three colours, not N, so they are chrome and they
+   re-theme with the sheet. */
+.ds-quality-graph__seg {
+  display: block;
+  width: 100%;
+}
+.ds-quality-graph__seg--error {
+  background: #eb0909; /* capture: Series 1 fill, no token bound */
+}
+.ds-quality-graph__seg--warning {
+  background: #ffaf38; /* capture: Series 2 fill, no token bound */
+}
+.ds-quality-graph__seg--ok {
+  background: #029c54; /* capture: Series 3 fill, no token bound */
+}
+/* The legend rows repeat those three colours on an 8px dot, the same dot
+   data-viz-legend draws. Its diameter is authored there and quoted here. */
+.ds-quality-graph__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px, from data-viz-legend */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-default);
+}
+.ds-quality-graph__legend-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: var(--zen-border-radius-full);
+}
+.ds-quality-graph__legend-dot--error {
+  background: #eb0909; /* capture: Series 1 fill, no token bound */
+}
+.ds-quality-graph__legend-dot--warning {
+  background: #ffaf38; /* capture: Series 2 fill, no token bound */
+}
+.ds-quality-graph__legend-dot--ok {
+  background: #029c54; /* capture: Series 3 fill, no token bound */
+}
+.ds-quality-graph__cat {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  color: var(--zen-color-text-secondary); /* capture: #40404a */
+  white-space: nowrap;
+}
+/* The legend is three real data-viz-legend components, not a restatement of
+   one: the capture's three children are .data-viz-legend-item instances. */
+.ds-quality-graph__legend {
+  display: flex;
+  flex-direction: row;
+  gap: var(--zen-spacing-xs);
+  align-self: center;
+}
+
+/* Line chart: one svg stretched over the plot. preserveAspectRatio="none" is
+   what makes the marks land on the captured grid, and non-scaling-stroke is
+   what stops the 1px line stretching with it. */
+.ds-line-graph__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.ds-line-graph__line {
+  fill: none;
+  stroke: var(--zen-color-primary-500); /* capture: #0f5fdc on the Line vector */
+  stroke-width: 1; /* capture: 1px */
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+/* The band under the primary series. The capture's "Shodowing line" [sic] group
+   records no fill at all, so this is AUTHORED from media/line-graph/preview.webp,
+   which draws a pale wash of the line's own colour. */
+.ds-line-graph__area {
+  fill: var(--zen-color-primary-500);
+  opacity: 0.08; /* authored: the capture records no fill for the band */
+  stroke: none;
+}
+/* The comparison trend. The capture gives its colour and the preview gives the
+   dash: it is drawn dotted so the two series stay apart without a second hue. */
+.ds-line-graph__compare {
+  fill: none;
+  stroke: var(--zen-color-error-700); /* capture: #c12c11 on the Line vector */
+  stroke-width: 1; /* capture: 1px */
+  stroke-dasharray: 2 3; /* preview: the comparison trend is dotted */
+  vector-effect: non-scaling-stroke;
+}
+.ds-line-graph__x {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 36px; /* the tick column, so the labels sit under the plot */
+}
+.ds-line-graph__x-tick {
+  font-size: var(--zen-font-size-sm); /* capture: 12px */
+  font-weight: var(--zen-font-weight-regular); /* capture: 400 */
+  line-height: var(--zen-font-lineheight-sm); /* capture: 16px */
+  color: var(--zen-color-text-secondary); /* capture: #40404a */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glossary item hierarchy: a term and the terms around it. The capture holds
+   ten pills -- one Type=Main item on #a76605, nine Type=Sub items on #fff9e5,
+   all radius 9999 -- and nine connectors, and no position or text for any of
+   them. So the two fills and the radius are quoted and the LAYOUT is authored
+   from media/preview.webp, which splits the branches either side of the term. */
+.ds-glossary-hierarchy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--zen-spacing-lg); /* authored */
+  padding: var(--zen-spacing-md);
+  border-radius: var(--zen-border-radius-sm); /* capture: 6px */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+/* The nine connectors. The capture names them (typed Straight, Going up and
+   Going down) and gives them no geometry and no colour, so they are drawn as a
+   spine and a stub per item: the classic tree connector, which is what those
+   three types describe and what media/preview.webp draws as curves. Both the
+   line colour and the 16px stub are authored; the colour is the main term's own
+   captured #a76605, which is what the preview draws them in. */
+.ds-glossary-hierarchy__branch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* authored */
+}
+/* The spine stops 12px short at each end, which is half a pill, so it runs
+   between the first and last items' centres rather than past them. */
+.ds-glossary-hierarchy__branch::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: #a76605; /* authored: the main item's captured fill */
+}
+.ds-glossary-hierarchy__item {
+  position: relative;
+}
+.ds-glossary-hierarchy__item::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 1px;
+  background: #a76605; /* authored */
+}
+.ds-glossary-hierarchy__branch--left {
+  align-items: flex-end;
+  padding-right: 16px;
+}
+.ds-glossary-hierarchy__branch--left::before {
+  right: 0;
+}
+.ds-glossary-hierarchy__branch--left .ds-glossary-hierarchy__item::after {
+  left: 100%;
+}
+.ds-glossary-hierarchy__branch--right {
+  align-items: flex-start;
+  padding-left: 16px;
+}
+.ds-glossary-hierarchy__branch--right::before {
+  left: 0;
+}
+.ds-glossary-hierarchy__branch--right .ds-glossary-hierarchy__item::after {
+  right: 100%;
+}
+/* The two stubs from the term to each spine, so the middle is joined to the
+   sides rather than floating between them.
+   Each stub is hung off the branch it reaches, NOT off the term: the left one on
+   `--left + __main` and the right one on the right branch itself, so a side the
+   renderer did not emit draws no connector to nothing. A one-item hierarchy used
+   to show a stub sticking out into empty space. */
+.ds-glossary-hierarchy__main {
+  position: relative;
+}
+.ds-glossary-hierarchy__branch--left + .ds-glossary-hierarchy__main::before,
+.ds-glossary-hierarchy__branch--right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* both stubs reach LEFT: one out of the term, one out of the
+                  right branch, so the two are one rule */
+  width: var(--zen-spacing-lg); /* the row gap, so the stub spans it */
+  height: 1px;
+  background: #a76605; /* authored */
+}
+.ds-glossary-hierarchy__item,
+.ds-glossary-hierarchy__main {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-sm); /* authored */
+  border-radius: var(--zen-border-radius-full); /* capture: 9999px */
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  white-space: nowrap;
+}
+/* Both fills are bound to no token and match none in tokens.css. #fff9e5 is the
+   same value .ds-tag--stage-3 and the Glossary item type badge carry. */
+.ds-glossary-hierarchy__item {
+  background: #fff9e5; /* capture: Type=Sub items, no token bound */
+  color: var(--zen-color-text-default);
+}
+.ds-glossary-hierarchy__main {
+  background: #a76605; /* capture: Type=Main item, no token bound */
+  color: var(--zen-color-text-reverse);
+  font-weight: var(--zen-font-weight-medium);
+}
+
+/* Lineage connecting line: one 2px stroke and an optional node. */
+.ds-lineage-connecting-line {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+.ds-lineage-connecting-line__svg {
+  width: 120px; /* authored: the capture sizes no vector */
+  height: 40px;
+  display: block;
+  overflow: visible;
+}
+.ds-lineage-connecting-line__path {
+  fill: none;
+  stroke: var(--zen-border-default); /* capture: #c7c7ce */
+  stroke-width: 2; /* capture: 2px */
+  stroke-linecap: round;
+}
+.ds-lineage-connecting-line__head {
+  fill: var(--zen-border-default); /* capture: the stroke's own colour */
+}
+/* The `.lineage connector icon` instance the capture names is an unpublished
+   component with no capture of its own; the preview draws it as a small diamond
+   on the line, which is what this is. */
+.ds-lineage-connecting-line__node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  transform: rotate(45deg);
+  background: var(--zen-color-bg-default);
+  border: 2px solid var(--zen-border-default); /* capture: #c7c7ce, 2px */
+  box-sizing: border-box;
+}
+/* State recolours all three parts, and each takes the property that paints it:
+   a path takes stroke, a fill takes fill, a div takes border-color. Grouping
+   them into one rule per state set two inert declarations on every element. */
+.ds-lineage-connecting-line--selected .ds-lineage-connecting-line__path {
+  stroke: var(--zen-border-selected); /* capture: State=Selected */
+}
+.ds-lineage-connecting-line--selected .ds-lineage-connecting-line__head {
+  fill: var(--zen-border-selected);
+}
+.ds-lineage-connecting-line--selected .ds-lineage-connecting-line__node {
+  border-color: var(--zen-border-selected);
+}
+.ds-lineage-connecting-line--disabled .ds-lineage-connecting-line__path {
+  stroke: var(--zen-border-disabled); /* capture: State=Disabled */
+}
+.ds-lineage-connecting-line--disabled .ds-lineage-connecting-line__head {
+  fill: var(--zen-border-disabled);
+}
+.ds-lineage-connecting-line--disabled .ds-lineage-connecting-line__node {
+  border-color: var(--zen-border-disabled);
 }

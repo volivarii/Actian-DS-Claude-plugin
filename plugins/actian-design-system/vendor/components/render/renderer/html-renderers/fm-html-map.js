@@ -330,10 +330,18 @@
         }
 
         case "fmDialog": {
+          // Reads Title and Body. A dialog authored with neither renders its
+          // panel and nothing else: the leaf printed the word "Dialog" and an
+          // empty body whatever the caller passed (plugin skill audit,
+          // 2026-09-08), so every generated dialog said "Dialog".
+          var dlgTitle = esc(props.Title || props.Label || props.Heading || "");
+          var dlgBody = esc(props.Body || props.Text || props.Message || "");
           return (
             '<div class="fm-dialog">' +
-            '<div class="fm-dialog__title">Dialog</div>' +
-            '<div class="fm-dialog__body"></div>' +
+            (dlgTitle
+              ? '<div class="fm-dialog__title">' + dlgTitle + "</div>"
+              : "") +
+            (dlgBody ? '<div class="fm-dialog__body">' + dlgBody + "</div>" : "") +
             "</div>"
           );
         }
@@ -445,10 +453,30 @@
         }
 
         case "fmEmptyState": {
+          // Reads Headline, Body and Cta; the call to action reuses fmButton's
+          // markup verbatim (fm-base.css already styles it) rather than
+          // recursing. Without props the icon well renders alone: the leaf
+          // printed "No items" whatever the caller passed (plugin skill audit,
+          // 2026-09-08).
+          var esHeadline = esc(
+            props.Headline || props.Title || props.Text || props.Label || "",
+          );
+          var esBody = esc(props.Body || props.Description || "");
+          var esCta = esc(props.Cta || props.Action || props.Button || "");
           return (
             '<div class="fm-empty-state">' +
             '<div class="fm-empty-state__icon"></div>' +
-            '<div class="fm-empty-state__text">No items</div>' +
+            (esHeadline
+              ? '<div class="fm-empty-state__text">' + esHeadline + "</div>"
+              : "") +
+            (esBody
+              ? '<div class="fm-empty-state__body">' + esBody + "</div>"
+              : "") +
+            (esCta
+              ? '<div class="fm-button fm-button--primary fm-button--md">' +
+                esCta +
+                "</div>"
+              : "") +
             "</div>"
           );
         }

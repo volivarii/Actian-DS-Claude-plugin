@@ -1,0 +1,1771 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/render/renderer/ds-base.css, components/render/renderer/html-renderers/ds-html-map.js, components/dist/anatomy/, tokens/tokens.json",
+    "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten."
+  },
+  "schemaVersion": "1.0.0",
+  "generatedBy": "scripts/render/derive-geometry-fidelity.js",
+  "scope": "gap, padding and fixed height, on the capture root and on per-variant layout entries. Width is not read: a captured width is where the instance sat on the Figma canvas, not a property of the component.",
+  "totals": {
+    "examined": 703,
+    "verified": 150,
+    "verifiedViaTokenName": 0,
+    "mismatch": 91,
+    "unverifiable": 462,
+    "overridden": 0
+  },
+  "reasons": {
+    "element-no-node-mapping": 380,
+    "selector-not-attributable": 35,
+    "root-is-non-default-state": 7,
+    "no-matching-variant": 20,
+    "no-fact-of-kind": 16,
+    "state-unreachable": 4
+  },
+  "bySlug": {
+    "action-bar": {
+      "prefixes": [
+        "ds-action-bar"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "alert-banner": {
+      "prefixes": [
+        "ds-alert"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": false
+    },
+    "app-switcher-dropdown": {
+      "prefixes": [
+        "ds-app-switcher"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 13,
+      "overridden": 0,
+      "blind": false
+    },
+    "avatar": {
+      "prefixes": [
+        "ds-avatar"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": true
+    },
+    "badge": {
+      "prefixes": [
+        "ds-badge"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 5,
+      "overridden": 0,
+      "blind": false
+    },
+    "breadcrumb": {
+      "prefixes": [
+        "ds-breadcrumbs"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": false
+    },
+    "button": {
+      "prefixes": [
+        "ds-button"
+      ],
+      "verified": 12,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "calendar": {
+      "prefixes": [
+        "ds-calendar"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 10,
+      "overridden": 0,
+      "blind": false
+    },
+    "calendar-data-selector": {
+      "prefixes": [
+        "ds-calendar-data-selector"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 4,
+      "unverifiable": 14,
+      "overridden": 0,
+      "blind": false
+    },
+    "card": {
+      "prefixes": [
+        "ds-card"
+      ],
+      "verified": 9,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "card-for-grouped-content": {
+      "prefixes": [
+        "ds-card-grouped"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 12,
+      "overridden": 0,
+      "blind": true
+    },
+    "card-for-perimeter": {
+      "prefixes": [
+        "ds-card-perimeter"
+      ],
+      "verified": 3,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "checkbox": {
+      "prefixes": [
+        "ds-checkbox"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "checkbox-card": {
+      "prefixes": [
+        "ds-checkbox-card"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "checkbox-group": {
+      "prefixes": [
+        "ds-checkbox-group"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "collapse": {
+      "prefixes": [
+        "ds-collapse"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": true
+    },
+    "confirmation": {
+      "prefixes": [
+        "ds-confirmation"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 4,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "data-quality-checks-graph": {
+      "prefixes": [
+        "ds-quality-graph"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 16,
+      "overridden": 0,
+      "blind": false
+    },
+    "data-viz-legend": {
+      "prefixes": [
+        "ds-data-viz-legend"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "digram-item-types": {
+      "prefixes": [
+        "ds-item-type"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "digram-topic": {
+      "prefixes": [
+        "ds-topic"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "drawer": {
+      "prefixes": [
+        "ds-drawer"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 46,
+      "overridden": 0,
+      "blind": true
+    },
+    "dropdown-select-default": {
+      "prefixes": [
+        "ds-dropdown-select"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 9,
+      "overridden": 0,
+      "blind": false
+    },
+    "empty-state": {
+      "prefixes": [
+        "ds-empty-state"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 4,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "error-state": {
+      "prefixes": [
+        "ds-error-state"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": false
+    },
+    "field": {
+      "prefixes": [
+        "ds-fieldbox"
+      ],
+      "verified": 7,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "global-header": {
+      "prefixes": [
+        "ds-header"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 35,
+      "overridden": 0,
+      "blind": false
+    },
+    "global-header-account-dropdown": {
+      "prefixes": [
+        "ds-account-menu"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 12,
+      "overridden": 0,
+      "blind": false
+    },
+    "glossary-item-hierarchy": {
+      "prefixes": [
+        "ds-glossary-hierarchy"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 14,
+      "overridden": 0,
+      "blind": true
+    },
+    "identification-key": {
+      "prefixes": [
+        "ds-identification-key"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "interactive-tag": {
+      "prefixes": [
+        "ds-interactive-tag"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 8,
+      "overridden": 0,
+      "blind": false
+    },
+    "item-type-tag": {
+      "prefixes": [
+        "ds-item-type-tag"
+      ],
+      "verified": 3,
+      "verifiedViaTokenName": 0,
+      "mismatch": 3,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "label": {
+      "prefixes": [
+        "ds-label"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "line-graph": {
+      "prefixes": [
+        "ds-line-graph"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 8,
+      "overridden": 0,
+      "blind": false
+    },
+    "lineage": {
+      "prefixes": [
+        "ds-lineage-node"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": false
+    },
+    "lineage-connecting-line": {
+      "prefixes": [
+        "ds-lineage-connecting-line"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": true
+    },
+    "lineage-grouped-node": {
+      "prefixes": [
+        "ds-lineage-group"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 8,
+      "overridden": 0,
+      "blind": false
+    },
+    "link": {
+      "prefixes": [
+        "ds-link"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "loader": {
+      "prefixes": [
+        "ds-loader"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": true
+    },
+    "loader-with-logo": {
+      "prefixes": [
+        "ds-loader-with-logo"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "loading-skeleton": {
+      "prefixes": [
+        "ds-loading-skeleton"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": true
+    },
+    "maintenance-state": {
+      "prefixes": [
+        "ds-maintenance-state"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 4,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "menu-dropdown": {
+      "prefixes": [
+        "ds-menu-dropdown"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 6,
+      "overridden": 0,
+      "blind": false
+    },
+    "message": {
+      "prefixes": [
+        "ds-message"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "metamodel": {
+      "prefixes": [
+        "ds-metamodel"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": false
+    },
+    "modal": {
+      "prefixes": [
+        "ds-modal"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "notification-dropdown": {
+      "prefixes": [
+        "ds-notification-menu"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 16,
+      "overridden": 0,
+      "blind": false
+    },
+    "page-header": {
+      "prefixes": [
+        "ds-page-header"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 4,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "pagination": {
+      "prefixes": [
+        "ds-pagination"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 8,
+      "overridden": 0,
+      "blind": true
+    },
+    "popover": {
+      "prefixes": [
+        "ds-popover"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 4,
+      "overridden": 0,
+      "blind": false
+    },
+    "progress-bar-small": {
+      "prefixes": [
+        "ds-progress"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": false
+    },
+    "radio": {
+      "prefixes": [
+        "ds-radio"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 7,
+      "overridden": 0,
+      "blind": false
+    },
+    "radio-card": {
+      "prefixes": [
+        "ds-radio-card"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "radio-group": {
+      "prefixes": [
+        "ds-radio-group"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "read-only-tag": {
+      "prefixes": [
+        "ds-tag"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "rich-text-froala": {
+      "prefixes": [
+        "ds-rich-text-froala"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 17,
+      "overridden": 0,
+      "blind": true
+    },
+    "scroll-bar": {
+      "prefixes": [
+        "ds-scroll-bar"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": true
+    },
+    "search": {
+      "prefixes": [
+        "ds-search"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 3,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": false
+    },
+    "search-dropdown-menu": {
+      "prefixes": [
+        "ds-search-menu"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 15,
+      "overridden": 0,
+      "blind": false
+    },
+    "search-result-card": {
+      "prefixes": [
+        "ds-search-result-card"
+      ],
+      "verified": 5,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 5,
+      "overridden": 0,
+      "blind": false
+    },
+    "segmented-control": {
+      "prefixes": [
+        "ds-segmented"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 4,
+      "overridden": 0,
+      "blind": false
+    },
+    "side-nav": {
+      "prefixes": [
+        "ds-sidenav"
+      ],
+      "verified": 4,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 16,
+      "overridden": 0,
+      "blind": false
+    },
+    "spinner": {
+      "prefixes": [
+        "ds-spinner"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": true
+    },
+    "stepper": {
+      "prefixes": [
+        "ds-stepper"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 5,
+      "overridden": 0,
+      "blind": true
+    },
+    "table": {
+      "prefixes": [
+        "ds-table"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 8,
+      "overridden": 0,
+      "blind": true
+    },
+    "tabs": {
+      "prefixes": [
+        "ds-tabs"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 5,
+      "overridden": 0,
+      "blind": false
+    },
+    "text-area": {
+      "prefixes": [
+        "ds-text-area"
+      ],
+      "verified": 1,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 6,
+      "overridden": 0,
+      "blind": false
+    },
+    "text-input": {
+      "prefixes": [
+        "ds-field"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 2,
+      "overridden": 0,
+      "blind": false
+    },
+    "textfield-buttons": {
+      "prefixes": [
+        "ds-textfield-buttons"
+      ],
+      "verified": 6,
+      "verifiedViaTokenName": 0,
+      "mismatch": 0,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "toast": {
+      "prefixes": [
+        "ds-toast"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 5,
+      "unverifiable": 0,
+      "overridden": 0,
+      "blind": false
+    },
+    "toggle": {
+      "prefixes": [
+        "ds-toggle"
+      ],
+      "verified": 0,
+      "verifiedViaTokenName": 0,
+      "mismatch": 1,
+      "unverifiable": 3,
+      "overridden": 0,
+      "blind": false
+    },
+    "toolbar": {
+      "prefixes": [
+        "ds-toolbar"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 3,
+      "unverifiable": 9,
+      "overridden": 0,
+      "blind": false
+    },
+    "tooltip-default": {
+      "prefixes": [
+        "ds-tooltip-default"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 1,
+      "overridden": 0,
+      "blind": false
+    },
+    "whats-new-dropdown": {
+      "prefixes": [
+        "ds-whatsnew"
+      ],
+      "verified": 2,
+      "verifiedViaTokenName": 0,
+      "mismatch": 2,
+      "unverifiable": 23,
+      "overridden": 0,
+      "blind": false
+    }
+  },
+  "blind": [
+    "avatar",
+    "card-for-grouped-content",
+    "collapse",
+    "drawer",
+    "glossary-item-hierarchy",
+    "lineage-connecting-line",
+    "loader",
+    "loading-skeleton",
+    "pagination",
+    "rich-text-froala",
+    "scroll-bar",
+    "spinner",
+    "stepper",
+    "table"
+  ],
+  "mismatches": [
+    {
+      "slug": "action-bar",
+      "selector": ".ds-action-bar",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "action-bar .ds-action-bar {padding-bottom}: states --zen-spacing-sm=12px but the capture measured 16px"
+    },
+    {
+      "slug": "action-bar",
+      "selector": ".ds-action-bar",
+      "property": "padding-top",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "action-bar .ds-action-bar {padding-top}: states --zen-spacing-sm=12px but the capture measured 16px"
+    },
+    {
+      "slug": "alert-banner",
+      "selector": ".ds-alert",
+      "property": "gap",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "alert-banner .ds-alert {gap}: states --zen-spacing-sm=12px but the capture measured 4px"
+    },
+    {
+      "slug": "alert-banner",
+      "selector": ".ds-alert",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "alert-banner .ds-alert {padding-bottom}: states --zen-spacing-md=16px but the capture measured 8px"
+    },
+    {
+      "slug": "alert-banner",
+      "selector": ".ds-alert",
+      "property": "padding-left",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 32,
+      "factToken": null,
+      "message": "alert-banner .ds-alert {padding-left}: states --zen-spacing-md=16px but the capture measured 32px"
+    },
+    {
+      "slug": "alert-banner",
+      "selector": ".ds-alert",
+      "property": "padding-right",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 32,
+      "factToken": null,
+      "message": "alert-banner .ds-alert {padding-right}: states --zen-spacing-md=16px but the capture measured 32px"
+    },
+    {
+      "slug": "alert-banner",
+      "selector": ".ds-alert",
+      "property": "padding-top",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "alert-banner .ds-alert {padding-top}: states --zen-spacing-md=16px but the capture measured 8px"
+    },
+    {
+      "slug": "app-switcher-dropdown",
+      "selector": ".ds-app-switcher",
+      "property": "padding-left",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "app-switcher-dropdown .ds-app-switcher {padding-left}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "app-switcher-dropdown",
+      "selector": ".ds-app-switcher",
+      "property": "padding-right",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "app-switcher-dropdown .ds-app-switcher {padding-right}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "badge",
+      "selector": ".ds-badge--dot",
+      "property": "height",
+      "token": null,
+      "painted": 8,
+      "fact": 6,
+      "factToken": null,
+      "message": "badge .ds-badge--dot {height}: states 8px but the capture measured 6px"
+    },
+    {
+      "slug": "breadcrumb",
+      "selector": ".ds-breadcrumbs",
+      "property": "gap",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "breadcrumb .ds-breadcrumbs {gap}: states --zen-spacing-2xs=4px but the capture measured 8px"
+    },
+    {
+      "slug": "calendar",
+      "selector": ".ds-calendar",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "calendar .ds-calendar {gap}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "calendar-data-selector",
+      "selector": ".ds-calendar-data-selector",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 8,
+      "factToken": null,
+      "message": "calendar-data-selector .ds-calendar-data-selector {padding-bottom}: states --zen-spacing-sm=12px but the capture measured 8px"
+    },
+    {
+      "slug": "calendar-data-selector",
+      "selector": ".ds-calendar-data-selector",
+      "property": "padding-left",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 8,
+      "factToken": null,
+      "message": "calendar-data-selector .ds-calendar-data-selector {padding-left}: states --zen-spacing-sm=12px but the capture measured 8px"
+    },
+    {
+      "slug": "calendar-data-selector",
+      "selector": ".ds-calendar-data-selector",
+      "property": "padding-right",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 8,
+      "factToken": null,
+      "message": "calendar-data-selector .ds-calendar-data-selector {padding-right}: states --zen-spacing-sm=12px but the capture measured 8px"
+    },
+    {
+      "slug": "calendar-data-selector",
+      "selector": ".ds-calendar-data-selector",
+      "property": "padding-top",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 8,
+      "factToken": null,
+      "message": "calendar-data-selector .ds-calendar-data-selector {padding-top}: states --zen-spacing-sm=12px but the capture measured 8px"
+    },
+    {
+      "slug": "card-for-perimeter",
+      "selector": ".ds-card-perimeter",
+      "property": "padding-left",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "card-for-perimeter .ds-card-perimeter {padding-left}: states --zen-spacing-sm=12px but the capture measured 16px"
+    },
+    {
+      "slug": "card-for-perimeter",
+      "selector": ".ds-card-perimeter",
+      "property": "padding-right",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "card-for-perimeter .ds-card-perimeter {padding-right}: states --zen-spacing-sm=12px but the capture measured 16px"
+    },
+    {
+      "slug": "confirmation",
+      "selector": ".ds-confirmation",
+      "property": "padding-bottom",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "confirmation .ds-confirmation {padding-bottom}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "confirmation",
+      "selector": ".ds-confirmation",
+      "property": "padding-left",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "confirmation .ds-confirmation {padding-left}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "confirmation",
+      "selector": ".ds-confirmation",
+      "property": "padding-right",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "confirmation .ds-confirmation {padding-right}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "confirmation",
+      "selector": ".ds-confirmation",
+      "property": "padding-top",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "confirmation .ds-confirmation {padding-top}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "digram-item-types",
+      "selector": ".ds-item-type--xs",
+      "property": "height",
+      "token": "--zen-size-md",
+      "painted": 16,
+      "fact": 20,
+      "factToken": null,
+      "message": "digram-item-types .ds-item-type--xs {height}: states --zen-size-md=16px but the capture measured 20px"
+    },
+    {
+      "slug": "empty-state",
+      "selector": ".ds-empty-state",
+      "property": "padding-bottom",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "empty-state .ds-empty-state {padding-bottom}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "empty-state",
+      "selector": ".ds-empty-state",
+      "property": "padding-left",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "empty-state .ds-empty-state {padding-left}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "empty-state",
+      "selector": ".ds-empty-state",
+      "property": "padding-right",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "empty-state .ds-empty-state {padding-right}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "empty-state",
+      "selector": ".ds-empty-state",
+      "property": "padding-top",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "empty-state .ds-empty-state {padding-top}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "global-header-account-dropdown",
+      "selector": ".ds-account-menu",
+      "property": "padding-left",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "global-header-account-dropdown .ds-account-menu {padding-left}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "global-header-account-dropdown",
+      "selector": ".ds-account-menu",
+      "property": "padding-right",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "global-header-account-dropdown .ds-account-menu {padding-right}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "interactive-tag",
+      "selector": ".ds-interactive-tag",
+      "property": "padding-right",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "interactive-tag .ds-interactive-tag {padding-right}: states --zen-spacing-2xs=4px but the capture measured 8px"
+    },
+    {
+      "slug": "item-type-tag",
+      "selector": ".ds-item-type-tag",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "item-type-tag .ds-item-type-tag {gap}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "item-type-tag",
+      "selector": ".ds-item-type-tag",
+      "property": "padding-left",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "item-type-tag .ds-item-type-tag {padding-left}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "item-type-tag",
+      "selector": ".ds-item-type-tag",
+      "property": "padding-right",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "item-type-tag .ds-item-type-tag {padding-right}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "lineage",
+      "selector": ".ds-lineage-node",
+      "property": "gap",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage .ds-lineage-node {gap}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage",
+      "selector": ".ds-lineage-node",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage .ds-lineage-node {padding-bottom}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage",
+      "selector": ".ds-lineage-node",
+      "property": "padding-left",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage .ds-lineage-node {padding-left}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage",
+      "selector": ".ds-lineage-node",
+      "property": "padding-right",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage .ds-lineage-node {padding-right}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage",
+      "selector": ".ds-lineage-node",
+      "property": "padding-top",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage .ds-lineage-node {padding-top}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage-grouped-node",
+      "selector": ".ds-lineage-group",
+      "property": "gap",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage-grouped-node .ds-lineage-group {gap}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage-grouped-node",
+      "selector": ".ds-lineage-group",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage-grouped-node .ds-lineage-group {padding-bottom}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage-grouped-node",
+      "selector": ".ds-lineage-group",
+      "property": "padding-left",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage-grouped-node .ds-lineage-group {padding-left}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage-grouped-node",
+      "selector": ".ds-lineage-group",
+      "property": "padding-right",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage-grouped-node .ds-lineage-group {padding-right}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "lineage-grouped-node",
+      "selector": ".ds-lineage-group",
+      "property": "padding-top",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "lineage-grouped-node .ds-lineage-group {padding-top}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "loader-with-logo",
+      "selector": ".ds-loader-with-logo",
+      "property": "gap",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 32,
+      "factToken": "--zen-spacing-xl",
+      "message": "loader-with-logo .ds-loader-with-logo {gap}: states --zen-spacing-sm=12px but the capture measured 32px"
+    },
+    {
+      "slug": "maintenance-state",
+      "selector": ".ds-maintenance-state",
+      "property": "padding-bottom",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "maintenance-state .ds-maintenance-state {padding-bottom}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "maintenance-state",
+      "selector": ".ds-maintenance-state",
+      "property": "padding-left",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "maintenance-state .ds-maintenance-state {padding-left}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "maintenance-state",
+      "selector": ".ds-maintenance-state",
+      "property": "padding-right",
+      "token": null,
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "maintenance-state .ds-maintenance-state {padding-right}: states 32px but the capture measured 0px"
+    },
+    {
+      "slug": "maintenance-state",
+      "selector": ".ds-maintenance-state",
+      "property": "padding-top",
+      "token": null,
+      "painted": 48,
+      "fact": 0,
+      "factToken": null,
+      "message": "maintenance-state .ds-maintenance-state {padding-top}: states 48px but the capture measured 0px"
+    },
+    {
+      "slug": "modal",
+      "selector": ".ds-modal",
+      "property": "gap",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 0,
+      "factToken": null,
+      "message": "modal .ds-modal {gap}: states --zen-spacing-md=16px but the capture measured 0px"
+    },
+    {
+      "slug": "modal",
+      "selector": ".ds-modal",
+      "property": "padding-bottom",
+      "token": null,
+      "painted": 24,
+      "fact": 0,
+      "factToken": null,
+      "message": "modal .ds-modal {padding-bottom}: states 24px but the capture measured 0px"
+    },
+    {
+      "slug": "modal",
+      "selector": ".ds-modal",
+      "property": "padding-left",
+      "token": null,
+      "painted": 24,
+      "fact": 0,
+      "factToken": null,
+      "message": "modal .ds-modal {padding-left}: states 24px but the capture measured 0px"
+    },
+    {
+      "slug": "modal",
+      "selector": ".ds-modal",
+      "property": "padding-right",
+      "token": null,
+      "painted": 24,
+      "fact": 0,
+      "factToken": null,
+      "message": "modal .ds-modal {padding-right}: states 24px but the capture measured 0px"
+    },
+    {
+      "slug": "modal",
+      "selector": ".ds-modal",
+      "property": "padding-top",
+      "token": null,
+      "painted": 24,
+      "fact": 0,
+      "factToken": null,
+      "message": "modal .ds-modal {padding-top}: states 24px but the capture measured 0px"
+    },
+    {
+      "slug": "page-header",
+      "selector": ".ds-page-header",
+      "property": "gap",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "page-header .ds-page-header {gap}: states --zen-spacing-md=16px but the capture measured 8px"
+    },
+    {
+      "slug": "page-header",
+      "selector": ".ds-page-header",
+      "property": "padding-left",
+      "token": "--zen-spacing-xl",
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "page-header .ds-page-header {padding-left}: states --zen-spacing-xl=32px but the capture measured 0px"
+    },
+    {
+      "slug": "page-header",
+      "selector": ".ds-page-header",
+      "property": "padding-right",
+      "token": "--zen-spacing-xl",
+      "painted": 32,
+      "fact": 0,
+      "factToken": null,
+      "message": "page-header .ds-page-header {padding-right}: states --zen-spacing-xl=32px but the capture measured 0px"
+    },
+    {
+      "slug": "page-header",
+      "selector": ".ds-page-header",
+      "property": "padding-top",
+      "token": "--zen-spacing-lg",
+      "painted": 24,
+      "fact": 0,
+      "factToken": null,
+      "message": "page-header .ds-page-header {padding-top}: states --zen-spacing-lg=24px but the capture measured 0px"
+    },
+    {
+      "slug": "popover",
+      "selector": ".ds-popover",
+      "property": "gap",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "popover .ds-popover {gap}: states --zen-spacing-2xs=4px but the capture measured 16px"
+    },
+    {
+      "slug": "popover",
+      "selector": ".ds-popover",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 16,
+      "factToken": "--zen-spacing-md",
+      "message": "popover .ds-popover {padding-bottom}: states --zen-spacing-sm=12px but the capture measured 16px"
+    },
+    {
+      "slug": "popover",
+      "selector": ".ds-popover",
+      "property": "padding-left",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 0,
+      "factToken": null,
+      "message": "popover .ds-popover {padding-left}: states --zen-spacing-md=16px but the capture measured 0px"
+    },
+    {
+      "slug": "popover",
+      "selector": ".ds-popover",
+      "property": "padding-right",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 0,
+      "factToken": null,
+      "message": "popover .ds-popover {padding-right}: states --zen-spacing-md=16px but the capture measured 0px"
+    },
+    {
+      "slug": "popover",
+      "selector": ".ds-popover",
+      "property": "padding-top",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 0,
+      "factToken": null,
+      "message": "popover .ds-popover {padding-top}: states --zen-spacing-sm=12px but the capture measured 0px"
+    },
+    {
+      "slug": "progress-bar-small",
+      "selector": ".ds-progress",
+      "property": "gap",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 4,
+      "factToken": null,
+      "message": "progress-bar-small .ds-progress {gap}: states --zen-spacing-sm=12px but the capture measured 4px"
+    },
+    {
+      "slug": "radio",
+      "selector": ".ds-radio",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "radio .ds-radio {gap}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "read-only-tag",
+      "selector": ".ds-tag",
+      "property": "padding-left",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "read-only-tag .ds-tag {padding-left}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "read-only-tag",
+      "selector": ".ds-tag",
+      "property": "padding-right",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "read-only-tag .ds-tag {padding-right}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "search",
+      "selector": ".ds-search",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "search .ds-search {gap}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "search",
+      "selector": ".ds-search",
+      "property": "padding-left",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 0,
+      "factToken": null,
+      "message": "search .ds-search {padding-left}: states --zen-spacing-sm=12px but the capture measured 0px"
+    },
+    {
+      "slug": "search",
+      "selector": ".ds-search",
+      "property": "padding-right",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 0,
+      "factToken": null,
+      "message": "search .ds-search {padding-right}: states --zen-spacing-sm=12px but the capture measured 0px"
+    },
+    {
+      "slug": "segmented-control",
+      "selector": ".ds-segmented",
+      "property": "gap",
+      "token": "--zen-spacing-3xs",
+      "painted": 2,
+      "fact": 0,
+      "factToken": null,
+      "message": "segmented-control .ds-segmented {gap}: states --zen-spacing-3xs=2px but the capture measured 0px"
+    },
+    {
+      "slug": "segmented-control",
+      "selector": ".ds-segmented",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-3xs",
+      "painted": 2,
+      "fact": 0,
+      "factToken": null,
+      "message": "segmented-control .ds-segmented {padding-bottom}: states --zen-spacing-3xs=2px but the capture measured 0px"
+    },
+    {
+      "slug": "segmented-control",
+      "selector": ".ds-segmented",
+      "property": "padding-left",
+      "token": "--zen-spacing-3xs",
+      "painted": 2,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "segmented-control .ds-segmented {padding-left}: states --zen-spacing-3xs=2px but the capture measured 4px"
+    },
+    {
+      "slug": "segmented-control",
+      "selector": ".ds-segmented",
+      "property": "padding-right",
+      "token": "--zen-spacing-3xs",
+      "painted": 2,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "segmented-control .ds-segmented {padding-right}: states --zen-spacing-3xs=2px but the capture measured 4px"
+    },
+    {
+      "slug": "segmented-control",
+      "selector": ".ds-segmented",
+      "property": "padding-top",
+      "token": "--zen-spacing-3xs",
+      "painted": 2,
+      "fact": 0,
+      "factToken": null,
+      "message": "segmented-control .ds-segmented {padding-top}: states --zen-spacing-3xs=2px but the capture measured 0px"
+    },
+    {
+      "slug": "side-nav",
+      "selector": ".ds-sidenav",
+      "property": "gap",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 8,
+      "factToken": null,
+      "message": "side-nav .ds-sidenav {gap}: states --zen-spacing-2xs=4px but the capture measured 8px"
+    },
+    {
+      "slug": "tabs",
+      "selector": ".ds-tabs",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 0,
+      "factToken": null,
+      "message": "tabs .ds-tabs {gap}: states --zen-spacing-xs=8px but the capture measured 0px"
+    },
+    {
+      "slug": "tabs",
+      "selector": ".ds-tabs",
+      "property": "height",
+      "token": "--zen-size-xl",
+      "painted": 32,
+      "fact": 40,
+      "factToken": null,
+      "message": "tabs .ds-tabs {height}: states --zen-size-xl=32px but the capture measured 40px"
+    },
+    {
+      "slug": "text-input",
+      "selector": ".ds-field",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "text-input .ds-field {gap}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "toast",
+      "selector": ".ds-toast",
+      "property": "gap",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 14,
+      "factToken": null,
+      "message": "toast .ds-toast {gap}: states --zen-spacing-sm=12px but the capture measured 14px"
+    },
+    {
+      "slug": "toast",
+      "selector": ".ds-toast",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 9,
+      "factToken": null,
+      "message": "toast .ds-toast {padding-bottom}: states --zen-spacing-sm=12px but the capture measured 9px"
+    },
+    {
+      "slug": "toast",
+      "selector": ".ds-toast",
+      "property": "padding-left",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 14,
+      "factToken": null,
+      "message": "toast .ds-toast {padding-left}: states --zen-spacing-md=16px but the capture measured 14px"
+    },
+    {
+      "slug": "toast",
+      "selector": ".ds-toast",
+      "property": "padding-right",
+      "token": "--zen-spacing-md",
+      "painted": 16,
+      "fact": 14,
+      "factToken": null,
+      "message": "toast .ds-toast {padding-right}: states --zen-spacing-md=16px but the capture measured 14px"
+    },
+    {
+      "slug": "toast",
+      "selector": ".ds-toast",
+      "property": "padding-top",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 9,
+      "factToken": null,
+      "message": "toast .ds-toast {padding-top}: states --zen-spacing-sm=12px but the capture measured 9px"
+    },
+    {
+      "slug": "toggle",
+      "selector": ".ds-toggle",
+      "property": "gap",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "toggle .ds-toggle {gap}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "toolbar",
+      "selector": ".ds-toolbar",
+      "property": "gap",
+      "token": "--zen-spacing-sm",
+      "painted": 12,
+      "fact": 0,
+      "factToken": null,
+      "message": "toolbar .ds-toolbar {gap}: states --zen-spacing-sm=12px but the capture measured 0px"
+    },
+    {
+      "slug": "toolbar",
+      "selector": ".ds-toolbar",
+      "property": "padding-left",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "toolbar .ds-toolbar {padding-left}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "toolbar",
+      "selector": ".ds-toolbar",
+      "property": "padding-right",
+      "token": "--zen-spacing-xs",
+      "painted": 8,
+      "fact": 4,
+      "factToken": "--zen-spacing-2xs",
+      "message": "toolbar .ds-toolbar {padding-right}: states --zen-spacing-xs=8px but the capture measured 4px"
+    },
+    {
+      "slug": "tooltip-default",
+      "selector": ".ds-tooltip-default",
+      "property": "padding-bottom",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "tooltip-default .ds-tooltip-default {padding-bottom}: states --zen-spacing-2xs=4px but the capture measured 8px"
+    },
+    {
+      "slug": "tooltip-default",
+      "selector": ".ds-tooltip-default",
+      "property": "padding-top",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 8,
+      "factToken": "--zen-spacing-xs",
+      "message": "tooltip-default .ds-tooltip-default {padding-top}: states --zen-spacing-2xs=4px but the capture measured 8px"
+    },
+    {
+      "slug": "whats-new-dropdown",
+      "selector": ".ds-whatsnew",
+      "property": "padding-left",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "whats-new-dropdown .ds-whatsnew {padding-left}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    },
+    {
+      "slug": "whats-new-dropdown",
+      "selector": ".ds-whatsnew",
+      "property": "padding-right",
+      "token": "--zen-spacing-2xs",
+      "painted": 4,
+      "fact": 0,
+      "factToken": null,
+      "message": "whats-new-dropdown .ds-whatsnew {padding-right}: states --zen-spacing-2xs=4px but the capture measured 0px"
+    }
+  ],
+  "tokenNameAgreements": []
+}

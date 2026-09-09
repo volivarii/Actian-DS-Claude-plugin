@@ -662,6 +662,57 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/card.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Card",
+          "tagName": "zen-card",
+          "description": "Card component.",
+          "attributes": [
+            {
+              "name": "elevation",
+              "type": {
+                "text": "Flat with border | Raised with shadow"
+              }
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "Small | Large"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-shadow-sm"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/card-for-grouped-content.html",
       "declarations": [
         {
@@ -857,6 +908,57 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/checkbox-card.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "CheckboxCard",
+          "tagName": "zen-checkbox-card",
+          "description": "CheckboxCard component.",
+          "attributes": [
+            {
+              "name": "selection",
+              "type": {
+                "text": "Unselected | Selected | Indeterminate"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-disabled"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/checkbox-group.html",
       "declarations": [
         {
@@ -1045,6 +1147,155 @@
             },
             {
               "name": "--zen-spacing-sm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/data-quality-checks-graph.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DataQualityChecksGraph",
+          "tagName": "zen-data-quality-checks-graph",
+          "description": "DataQualityChecksGraph component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/data-viz-legend.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DataVizLegend",
+          "tagName": "zen-data-viz-legend",
+          "description": "DataVizLegend component.",
+          "attributes": [
+            {
+              "name": "property 1",
+              "type": {
+                "text": "Default | Focused | Hovered | Pressed | Selected"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-focus-ring-primary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-xs"
             }
           ]
         }
@@ -1726,6 +1977,100 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/glossary-item-hierarchy.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "GlossaryItemHierarchy",
+          "tagName": "zen-glossary-item-hierarchy",
+          "description": "GlossaryItemHierarchy component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-reverse"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-lg"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/identification-key.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "IdentificationKey",
+          "tagName": "zen-identification-key",
+          "description": "IdentificationKey component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-xs"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/interactive-tag.html",
       "declarations": [
         {
@@ -1873,6 +2218,149 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/label.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Label",
+          "tagName": "zen-label",
+          "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-error-700"
+            },
+            {
+              "name": "--zen-color-icon-subtle"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-disabled"
+            },
+            {
+              "name": "--zen-color-text-tertiary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-medium"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/line-graph.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LineGraph",
+          "tagName": "zen-line-graph",
+          "description": "LineGraph component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-error-700"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-primary-500"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-lineheight-lg"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-lg"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/lineage.html",
       "declarations": [
         {
@@ -1941,6 +2429,48 @@
             },
             {
               "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/lineage-connecting-line.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LineageConnectingLine",
+          "tagName": "zen-lineage-connecting-line",
+          "description": "LineageConnectingLine component.",
+          "attributes": [
+            {
+              "name": "direction",
+              "type": {
+                "text": "Down | Straight | up | Up"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Selected | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-disabled"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-default"
             }
           ]
         }
@@ -2242,6 +2772,113 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/menu-dropdown.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "MenuDropdown",
+          "tagName": "zen-menu-dropdown",
+          "description": "MenuDropdown component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-selected"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-shadow-md"
+            },
+            {
+              "name": "--zen-spacing-sm"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/message.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Message",
+          "tagName": "zen-message",
+          "description": "Message component.",
+          "attributes": [
+            {
+              "name": "type",
+              "type": {
+                "text": "Helper text | Error | Warning | Success | Info"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-color-error-700"
+            },
+            {
+              "name": "--zen-color-success-700"
+            },
+            {
+              "name": "--zen-color-text-secondary"
+            },
+            {
+              "name": "--zen-color-warning-900"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-3"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/metamodel.html",
       "declarations": [
         {
@@ -2527,6 +3164,71 @@
     },
     {
       "kind": "javascript-module",
+      "path": "components/render/dist/fragments/pagination.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Pagination",
+          "tagName": "zen-pagination",
+          "description": "Pagination component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-default"
+            },
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-1"
+            },
+            {
+              "name": "--zen-font-letterspacing-wide-2"
+            },
+            {
+              "name": "--zen-font-lineheight-md"
+            },
+            {
+              "name": "--zen-font-lineheight-sm"
+            },
+            {
+              "name": "--zen-font-size-md"
+            },
+            {
+              "name": "--zen-font-size-sm"
+            },
+            {
+              "name": "--zen-font-weight-regular"
+            },
+            {
+              "name": "--zen-font-weight-semibold"
+            },
+            {
+              "name": "--zen-spacing-md"
+            },
+            {
+              "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "components/render/dist/fragments/popover.html",
       "declarations": [
         {
@@ -2748,6 +3450,57 @@
             },
             {
               "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/radio-card.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "RadioCard",
+          "tagName": "zen-radio-card",
+          "description": "RadioCard component.",
+          "attributes": [
+            {
+              "name": "selection",
+              "type": {
+                "text": "Unselected | Selected"
+              }
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "Default | Hover | Focus | Pressed | Disabled"
+              }
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-disabled"
+            },
+            {
+              "name": "--zen-border-radius-sm"
+            },
+            {
+              "name": "--zen-border-subtle"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-font-family-text"
+            },
+            {
+              "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-md"
             }
           ]
         }
@@ -3790,6 +4543,35 @@
             },
             {
               "name": "--zen-spacing-xs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "components/render/dist/fragments/textfield-buttons.html",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextfieldButtons",
+          "tagName": "zen-textfield-buttons",
+          "description": "TextfieldButtons component.",
+          "attributes": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--zen-border-radius-full"
+            },
+            {
+              "name": "--zen-color-bg-default"
+            },
+            {
+              "name": "--zen-color-icon-default"
+            },
+            {
+              "name": "--zen-spacing-2xs"
             }
           ]
         }
