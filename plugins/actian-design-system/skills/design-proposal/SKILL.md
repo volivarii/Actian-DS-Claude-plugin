@@ -21,8 +21,9 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 
 One offline HTML board at `{project_working_directory}/proposals/<slug>.html`: the screens of the
 proposal side by side at their own width, each under its app header strip with a numbered label and a
-one-sentence caption, and a recommendation block. Its source is `proposals/proposal-data.json`, which you
-author. Use this skill for component-scale questions (a menu, a field, a card, a badge, a dialog). A
+one-sentence caption, and a recommendation block. `<slug>` is the ticket id lower-cased when there is
+one, else a kebab-case of the title, for example `dip-i-496.html`; a re-render with `--from` lands on
+the same file. Its source is `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a field, a card, a badge, a dialog). A
 multi-screen product flow is `/generate-flow`; a Figma push is `/generate-flow --push`. A board never
 pushes: when the request says "push to Figma" or "in Figma", say so in one line and offer `/generate-flow`.
 
@@ -81,8 +82,9 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 ```
 
 Fix every P0 and P1 the validator prints (a P1 terminology or avoid-word line names the word and the
-replacement), re-run until it prints `0 findings`, then assemble. Never hand-edit the HTML output; edit
-the data file and re-assemble.
+replacement). Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a
+ticket's own word kept over a terminology hit); P2 is voice, fix it when cheap. Never hand-edit the
+HTML output; edit the data file and re-assemble.
 
 **Step 5, share.** Say: `Board ready: {project_working_directory}/proposals/<slug>.html (opens offline; in
 Cowork it appears in the panel)`. Then offer, in one line each: "make it a flow" (`/generate-flow` with
@@ -96,7 +98,8 @@ the recommended concept as the brief) and "adjust <screen>" (edit the data file,
 - No hex colours, no scripts, no external loads, no em dashes, no invented product names: the validator
   checks each, and a board that needed a second validator pass is still fine. Report the pass count.
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
-  keep the ticket's words in the caption and say so in chat, do not silence the gate.
+  keep the ticket's words in the caption and say so in chat, do not silence the gate. Stop when no P0
+  remains and every remaining P1 is one you have explained; P2 is voice, fix it when cheap.
 
 ## References
 

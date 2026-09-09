@@ -22,7 +22,9 @@ what goes inside each screen. Schema: `schemas/proposal-data.schema.json`.
   `--fm-brand-light`, `--fm-radius`. A hex or rgb value in a `style` attribute is a P1 finding.
 - No `<script>`, no `onclick`, no `javascript:` URL (P0). Clicks are declared: put `data-toggle="<id>"`
   on the control and `id="<id>"` on the element it shows or hides, in the same screen. The board's one
-  listener flips the `hidden` attribute. Start a panel hidden by adding the `hidden` attribute.
+  listener flips the `hidden` attribute. Start a panel hidden by adding the `hidden` attribute. Ids are
+  board-wide (P1 if reused): a state copied into a second screen for "States as screens" must rename its
+  ids, not just its toggle targets.
 - No `src` or `href` that starts with `http`, `https` or `//` (P0). The board opens offline.
 - Every opened `div`, `span`, `p`, `section`, `button`, `a`, `ul`, `ol`, `li`, `table`, `tr`, `td`, `th`,
   `label` and heading is closed (P0).
@@ -58,4 +60,5 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" proposals/proposal-data.json --type proposal -o proposals/<slug>.html
 ```
 
-Fix every P0 and P1 before assembling; P2 lines are voice. Re-run until the validator prints `0 findings`.
+Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a ticket's own word
+kept over a terminology hit); P2 is voice, fix it when cheap.

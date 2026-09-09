@@ -306,7 +306,12 @@ function main() {
     }
     var proposalData = JSON.parse(fs.readFileSync(args.input, "utf8"));
     var assembleProposal = require("./assemble-proposal.js").assembleProposal;
-    writeOutput(args.output, assembleProposal(proposalData));
+    try {
+      writeOutput(args.output, assembleProposal(proposalData));
+    } catch (e) {
+      process.stderr.write("ERROR: " + e.message + "\n");
+      process.exit(1);
+    }
     return;
   }
 

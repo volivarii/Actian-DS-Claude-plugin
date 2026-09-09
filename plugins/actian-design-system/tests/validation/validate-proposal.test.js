@@ -172,6 +172,73 @@ describe("validateProposal", function () {
     assert.strictEqual(f.length, 1);
     assert.strictEqual(f[0].severity, "P0");
   });
+  it("a recommendation with a <script> is P0 (check script)", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.meta.recommendation = "<p>Ship it<script>alert(1)</script></p>";
+    var f = only(d, "script");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P0");
+    assert.strictEqual(f[0].path, "meta.recommendation");
+  });
+  it("a recommendation with an unbalanced div is P0 (check unbalanced)", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.meta.recommendation = "<p>Ship it</p><div>unclosed";
+    var f = only(d, "unbalanced");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P0");
+    assert.strictEqual(f[0].path, "meta.recommendation");
+  });
+  it("url(https://...) in a style attribute is P0 (check external-load)", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[0].html +=
+      '<div style="background:url(https://cdn.test/a.png)">x</div>';
+    var f = only(d, "external-load");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P0");
+  });
+  it("srcset= with an absolute target is P0 (check external-load)", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[0].html += '<img srcset="https://cdn.test/a.png 1x">';
+    var f = only(d, "external-load");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P0");
+  });
+  it("a commented-out <div> is not a finding", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[0].html += "<!-- <div> -->";
+    var f = validateProposal(d).findings;
+    assert.deepEqual(f, [], JSON.stringify(f, null, 1));
+  });
+  it("an em dash in name is P2 (check em-dash, path screens[0].name)", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[0].name = "Admin \u2014 create group";
+    var f = only(d, "em-dash");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P2");
+    assert.strictEqual(f[0].path, "screens[0].name");
+  });
+  it("an id repeated across two screens is P1 (check toggle-target), naming both screens", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[2].html = d.screens[2].html.replace(
+      /menu-expanded/g,
+      "menu-default",
+    );
+    var f = only(d, "toggle-target").filter(function (x) {
+      return x.value === "menu-default" && x.path === "screens[2].html";
+    });
+    assert.strictEqual(f.length, 1, JSON.stringify(only(d, "toggle-target")));
+    assert.ok(f[0].suggestion.indexOf(d.screens[1].id) !== -1, f[0].suggestion);
+    assert.ok(f[0].suggestion.indexOf("board-wide") !== -1, f[0].suggestion);
+  });
+  it('meta.apps: ["nope"] is P1 (check app-unknown)', function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.meta.apps = ["nope"];
+    var f = only(d, "app-unknown");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P1");
+    assert.strictEqual(f[0].path, "meta.apps[0]");
+    assert.strictEqual(f[0].value, "nope");
+  });
 });
 
 describe("validate-proposal.js CLI", function () {

@@ -99,7 +99,7 @@ Invoke the chosen skill via the Skill tool with the user's message as argument. 
 `/generate-flow`, `/design-audit` and `/design-proposal` adopt the interactive-gate convention defined in `references/ds-rules/interactive-gates.md`. Each gates on missing flags by default.
 
 When companion routes:
-- **Append `--no-prompt`** when ALL flags relevant to the row's intent are extracted from prose. This suppresses the downstream gate and uses defaults for any unset flags (since intent is fully captured). See rows 3, 4, 11, 12, 13, 14, 18, 20: they all carry `--no-prompt`.
+- **Append `--no-prompt`** when ALL flags relevant to the row's intent are extracted from prose. This suppresses the downstream gate and uses defaults for any unset flags (since intent is fully captured). See rows 3, 11, 12, 13, 14, 18, 20: they all carry `--no-prompt`.
 - **Don't append `--no-prompt`** when intent is vague or partial. Let the downstream skill gate the designer through the missing options. Rows 1, 2, 2a, 8, 9, 10, 17, 22 fall back to gates; designers benefit from option discovery.
 - **Refine paths** (rows 5, 6, 7, 19) — already explicit (URL + prose); no gate fires regardless.
 

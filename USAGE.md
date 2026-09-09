@@ -25,6 +25,7 @@ Build me a ship-ready user registration flow end-to-end
 ```
 Show me three ways to do a notification preferences page
 ```
+*Proposal: three concepts with a recommendation, then a board (`/design-proposal`).*
 
 ```
 Show a logged-in user their roles and permissions in the account menu, a few approaches
@@ -261,7 +262,7 @@ At every level, only the feature you're designing gets detailed content — side
 Show me three takes on the data contract creation page
 ```
 
-Routes to `/generate-flow ... --variants 3`. Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
+Reached by the explicit `--variants 3` flag on `/generate-flow` (the companion sends "three ways to do X" to `/design-proposal`). Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
 
 ### State coverage and responsive breakpoints
 
