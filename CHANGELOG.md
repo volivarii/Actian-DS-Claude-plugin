@@ -78,6 +78,17 @@ are summarized at the release level.
 
 ### Fixed
 
+- **Every skill finds the plugin root inside the Cowork VM.** In Cowork, Read and Glob see the
+  Mac-side plugin path while bash runs in a VM where the plugin is mounted under a sessions
+  directory. A session on 2026-09-09 concluded the renderer scripts were not available and
+  hand-built its deliverable. Each `SKILL.md` now opens with one "Where the plugin lives" block
+  (canonical copy in `references/context/plugin-root.md`) whose bash line sets `CLAUDE_PLUGIN_ROOT`
+  by locating the mounted manifest, and `scripts/lib/plugin-root.sh` does the same for scripts.
+  A test runs the resolver in three simulated layouts and asserts every skill carries the block
+  verbatim.
+
+### Fixed
+
 - **Lo-fi text is visible again** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). FM TEXT nodes authored without an explicit color inherited the
   share wrapper's near-white body color and rendered invisible on the white screen canvas.
   `.fm-text` now reads `--fm-text-primary` and the wrapper's `body` rule carries no color of its
