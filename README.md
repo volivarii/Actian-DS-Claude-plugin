@@ -28,7 +28,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**2026.7.13** · 6 skills (tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility); Section 6 (real platform examples) deferred
+**2026.7.13** · 7 skills (tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility); Section 6 (real platform examples) deferred
 
 ---
 
@@ -177,6 +177,7 @@ Every capability is also available as a direct command. Use these when you know 
 | Command | What it does |
 |---------|-------------|
 | `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
+| `/design-proposal` | Propose: concepts with a recommendation, then a Fat Marker board (screens at their own width, a caption each, app header strips from app-context). HTML only, opens offline; for component-scale tickets. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
 **Supporting:**
@@ -302,7 +303,7 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 6 skills (companion + 5 specialized)
+│   ├── skills/                            # 7 skills (companion + 6 specialized)
 │   ├── agents/                            # parallel-generation + validation/research agents
 │   ├── recipes/                           # flow + brief + presentation recipes
 │   ├── scripts/
@@ -320,9 +321,10 @@ actian-design-system-plugin/
 │   │   ├── component-brief/               # skill-specific
 │   │   ├── create-component/              # skill-specific
 │   │   ├── design-audit/                  # skill-specific
-│   │   └── generate-flow/                 # skill-specific
-│   ├── schemas/                           # JSON schemas (brief-data, flow-data, slide-data)
-│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer)
+│   │   ├── generate-flow/                 # skill-specific
+│   │   └── design-proposal/               # skill-specific
+│   ├── schemas/                           # JSON schemas (brief-data, flow-data, proposal-data, slide-data)
+│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer, proposal-board)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs
