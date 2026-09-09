@@ -25,6 +25,12 @@ Build me a ship-ready user registration flow end-to-end
 ```
 Show me three ways to do a notification preferences page
 ```
+*Proposal: three concepts with a recommendation, then a board (`/design-proposal`).*
+
+```
+Show a logged-in user their roles and permissions in the account menu, a few approaches
+```
+*Proposal: concepts with a recommendation, then a Fat Marker board (`/design-proposal`).*
 
 Single-screen output is first-class — `mock me X` produces one screen, `design a flow for X` produces multiple.
 
@@ -256,7 +262,7 @@ At every level, only the feature you're designing gets detailed content — side
 Show me three takes on the data contract creation page
 ```
 
-Routes to `/generate-flow ... --variants 3`. Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
+Reached by the explicit `--variants 3` flag on `/generate-flow` (the companion sends "three ways to do X" to `/design-proposal`). Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
 
 ### State coverage and responsive breakpoints
 
@@ -347,6 +353,14 @@ What's the best practice for destructive action confirmation?
 Research wizard patterns for multi-step configuration
 ```
 
+### Proposals: concepts and a board for a ticket
+
+```
+DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
+```
+
+Routes to `/design-proposal`. One optional research gate, then two to four concepts in chat with a recommendation, then `proposals/<slug>.html`: the screens side by side at their own width, each under its app header strip with a caption, plus the recommendation. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands the recommended concept to `/generate-flow`.
+
 ### Component specs — brief, document, create
 
 ```
@@ -417,6 +431,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
+| `/design-proposal [ticket or request] [--concepts N]` | Concepts with a recommendation, then an offline proposal board |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 | `/create-component [description]` | Jump to component creation |

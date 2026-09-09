@@ -158,6 +158,29 @@ Make this flow interactive https://figma.com/design/FILEKEY/Flow?node-id=123-456
 
 ---
 
+## Design proposals
+
+### From a ticket
+
+```
+/design-proposal DIP-I-496 Ability to show user roles and permissions for a logged-in user
+```
+
+### With research and a chosen count
+
+```
+/design-proposal show a user their roles in the account menu --concepts 2
+```
+(answer "yes" at the research gate)
+
+### Re-render after editing the data file
+
+```
+/design-proposal --from proposals/proposal-data.json
+```
+
+---
+
 ## Copy review
 
 ```

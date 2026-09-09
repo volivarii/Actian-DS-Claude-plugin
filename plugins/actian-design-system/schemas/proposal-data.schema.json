@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "proposal-data.schema.json",
+  "title": "Proposal Data",
+  "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal board is a row of authored Fat Marker screens with captions, for component-scale tickets.",
+  "type": "object",
+  "required": ["meta", "screens"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Board-level context printed in the header and the provenance comment",
+      "required": ["title", "date", "skill"],
+      "properties": {
+        "title": { "type": "string", "description": "Board title, printed as the page H1 and the document title", "examples": ["DIP-I-496: show role and permission for a logged-in user"] },
+        "ticket": { "type": "string", "description": "Ticket or story id the proposal answers", "examples": ["DIP-I-496"] },
+        "date": { "type": "string", "description": "Authoring date, YYYY-MM-DD, printed in the header. Never a render-time clock, so a re-render is byte-identical", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "examples": ["2026-09-09"] },
+        "apps": { "type": "array", "description": "App slugs the board touches, printed in the header context line", "items": { "type": "string", "description": "An app slug the vendored app-context knows", "examples": ["administration", "explorer", "studio"] } },
+        "prompt": { "type": "string", "description": "The request the board answers, kept in the provenance comment only", "examples": ["find a simple and elegant solution for showing a user's roles"] },
+        "model": { "type": "string", "description": "Model that authored the board, provenance comment only", "examples": ["claude-sonnet-5"] },
+        "skill": { "type": "string", "description": "Always design-proposal; lets a reader tell this file from a flow-data.json", "enum": ["design-proposal"] },
+        "recommendation": { "type": "string", "description": "Optional HTML fragment rendered after the screens: which concept to ship and why", "examples": ["<p>Ship the badge, designed to grow into the My access panel.</p>"] }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "description": "The screens on the board, left to right. One to eight; the validator enforces the upper bound",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "description": "One authored screen: a Fat Marker fragment with a caption, rendered at its own width under an app header strip",
+        "required": ["id", "name", "app", "html"],
+        "properties": {
+          "id": { "type": "string", "description": "Slug unique in the file; the screen's anchor and data-name", "pattern": "^[a-z0-9][a-z0-9-]*$", "examples": ["create-group", "account-menu-default"] },
+          "name": { "type": "string", "description": "Short label printed above the screen with its number", "examples": ["Admin, create group", "Explorer, account menu (one group)"] },
+          "app": { "type": "string", "description": "App slug from the vendored app-context; the assembler renders that app's header strip and refuses an unknown slug", "examples": ["administration", "explorer", "studio"] },
+          "chrome": { "type": "string", "description": "header renders the app header strip above the fragment; none renders the fragment alone", "enum": ["header", "none"] },
+          "width": { "type": "integer", "description": "Screen width in px, 240 to 720 (validator-enforced); 360 suits a form region, 320 a menu, 720 a page region" },
+          "caption": { "type": "string", "description": "One sentence under the screen naming the decision it shows", "examples": ["Single-group case: the badge is the whole answer, no extra click."] },
+          "html": { "type": "string", "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, no script, no external loads; see references/design-proposal/board-authoring.md", "examples": ["<div class=\"fm-page-header\"><div class=\"fm-page-header__title\">Create group</div></div>"] }
+        }
+      }
+    }
+  }
+}

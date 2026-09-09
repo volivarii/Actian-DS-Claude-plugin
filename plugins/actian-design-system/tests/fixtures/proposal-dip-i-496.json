@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "title": "DIP-I-496: show role and permission for a logged-in user",
+    "ticket": "DIP-I-496",
+    "date": "2026-09-09",
+    "apps": ["administration", "explorer"],
+    "prompt": "find a simple and elegant solution for showing a logged-in user their roles and permissions",
+    "model": "claude-sonnet-5",
+    "skill": "design-proposal",
+    "recommendation": "<p>Ship the badge as the default, designed to grow into the My access panel: single-group users get the answer at a glance, multi-group users expand into the detail and its links.</p>"
+  },
+  "screens": [
+    {
+      "id": "create-group",
+      "name": "Admin, create group",
+      "app": "administration",
+      "chrome": "header",
+      "width": 400,
+      "caption": "One new optional field. Existing groups keep their name as the default display name.",
+      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Create group: Steward</div></div></div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group name</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div></div>\n<div style=\"border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:12px;margin:12px 0\">\n  <div class=\"fm-input-label\"><span style=\"display:flex;gap:6px;align-items:center\"><span class=\"fm-input-label__text\">Display name</span><span class=\"fm-badge\">New</span></span></div>\n  <div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);margin-top:6px\">Shown to users in their account menu. Defaults to the group name.</div>\n</div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group code</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">data-steward</span></div></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>Catalog design</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>User and group administration</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;gap:8px;justify-content:flex-end;margin-top:16px\"><span class=\"fm-button fm-button--secondary\">Cancel</span><span class=\"fm-button fm-button--primary\">Create group</span></div>"
+    },
+    {
+      "id": "account-menu-default",
+      "name": "Explorer, account menu (one group)",
+      "app": "explorer",
+      "chrome": "header",
+      "width": 360,
+      "caption": "Single-group case: the badge is the whole answer, no extra click.",
+      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Marketplace</div></div></div>\n<div style=\"position:relative;min-height:220px\">\n  <button class=\"fm-button fm-button--secondary\" data-toggle=\"menu-default\" style=\"position:absolute;top:0;right:12px\">VO</button>\n  <div id=\"menu-default\" class=\"fm-menu\" style=\"position:absolute;top:44px;right:12px;width:240px;z-index:2\">\n    <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n    <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 8px\">vincent.olivari@example.com</div>\n    <div style=\"padding:0 12px 8px\"><span class=\"fm-badge\">Data Steward</span></div>\n    <div class=\"fm-menu-item\">Support</div>\n    <div class=\"fm-menu-item\">Logout</div>\n  </div>\n</div>"
+    },
+    {
+      "id": "account-menu-expanded",
+      "name": "Explorer, account menu (several groups)",
+      "app": "explorer",
+      "chrome": "header",
+      "width": 360,
+      "caption": "Click My access to collapse or expand the scoped breakdown.",
+      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Marketplace</div></div></div>\n<div style=\"position:relative;min-height:360px\">\n  <button class=\"fm-button fm-button--secondary\" data-toggle=\"menu-expanded\" style=\"position:absolute;top:0;right:12px\">VO</button>\n  <div id=\"menu-expanded\" class=\"fm-menu\" style=\"position:absolute;top:44px;right:12px;width:260px;z-index:2\">\n    <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n    <div class=\"fm-menu-item\" data-toggle=\"access-panel\" style=\"font-weight:600\">My access: Data Steward +1</div>\n    <div id=\"access-panel\" style=\"margin:0 12px 8px;padding:8px;background:var(--fm-bg-grey);border-radius:var(--fm-radius)\">\n      <div style=\"font-size:12px;font-weight:600\">Data Steward</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">Finance catalog</div>\n      <div style=\"font-size:12px;font-weight:600;margin-top:8px\">Explorer</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">All other catalogs</div>\n    </div>\n    <div class=\"fm-menu-item\">Support</div>\n    <div class=\"fm-menu-item\">Logout</div>\n  </div>\n</div>"
+    }
+  ]
+}

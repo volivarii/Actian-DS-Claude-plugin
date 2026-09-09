@@ -14,7 +14,8 @@ file_path=$(echo "$input" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([
 # Block writes that look like generated output going to plugin cache
 if [[ "$file_path" == "$plugin_root"/components/* ]] || \
    [[ "$file_path" == "$plugin_root"/presentations/* ]] || \
-   [[ "$file_path" == "$plugin_root"/flows/* ]]; then
+   [[ "$file_path" == "$plugin_root"/flows/* ]] || \
+   [[ "$file_path" == "$plugin_root"/proposals/* ]]; then
   echo '{"decision":"block","reason":"Write generated files to the project directory, not the plugin cache. Use {project_working_directory} for output paths."}'
   exit 2
 fi

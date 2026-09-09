@@ -529,6 +529,7 @@
       resolveChrome: resolveChrome,
       screen: screen,
       renderScreen: renderScreen,
+      appHeader: appHeader,
     };
   }
 })();

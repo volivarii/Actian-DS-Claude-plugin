@@ -1,0 +1,50 @@
+{{META_COMMENT}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE}}</title>
+  <style>
+{{FM_CSS}}
+  </style>
+  <style>
+    /* Board layout. The FM sheet above owns every component style; this block only places screens. */
+    body { background: var(--fm-base-200); color: var(--fm-text-primary); padding: 32px 40px 80px; }
+    .board__head { max-width: 1400px; margin: 0 auto 24px; }
+    .board__title { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+    .board__context { font-size: 13px; color: var(--fm-text-secondary); margin: 0; }
+    .board { max-width: 1400px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+    .proposal-screen__col { display: flex; flex-direction: column; }
+    .proposal-screen__label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--fm-text-secondary); margin-bottom: 8px; }
+    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: hidden; }
+    .proposal-screen .fm-app-header { width: 100%; }
+    .proposal-screen__body { position: relative; padding: 16px; }
+    .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
+    .proposal-screen__caption { font-size: 12.5px; line-height: 1.5; color: var(--fm-text-secondary); margin: 10px 0 0; }
+    .board__recommendation { max-width: 1400px; margin: 32px auto 0; padding: 16px 20px; background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; font-size: 13.5px; line-height: 1.55; }
+    .board__recommendation h2 { font-size: 14px; margin: 0 0 8px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="board__head">
+    <h1 class="board__title">{{TITLE}}</h1>
+    <p class="board__context">{{CONTEXT}}</p>
+  </header>
+  <main class="board">
+<!-- {{SCREENS}} -->
+  </main>
+{{RECOMMENDATION}}
+  <script>
+    // One delegated listener: any element with data-toggle="<id>" toggles the hidden attribute of #<id>.
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-toggle]");
+      if (!t) return;
+      var el = document.getElementById(t.getAttribute("data-toggle"));
+      if (el) el.hidden = !el.hidden;
+    });
+  </script>
+</body>
+</html>

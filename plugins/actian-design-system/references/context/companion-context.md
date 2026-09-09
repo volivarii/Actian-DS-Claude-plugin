@@ -129,7 +129,7 @@ Counts and full membership: `vendor/components/dist/categories.json` (source of 
 
 ## Interactive Gates
 
-`/generate-flow` and `/design-audit` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
+`/generate-flow`, `/design-audit` and `/design-proposal` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
 
 ## Figma Output
 
