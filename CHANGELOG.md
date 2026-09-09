@@ -87,6 +87,13 @@ are summarized at the release level.
   A test runs the resolver in three simulated layouts and asserts every skill carries the block
   verbatim.
 
+### Removed
+
+- **generate-presentation and convert-to-hifi leave the skill set.** Both directories and the
+  slide-generator agent moved to `plugins/actian-design-system/retired/` (hidden, not deleted:
+  the plugin registers skills by directory). "Make it hifi" now routes to `generate-flow --hifi`.
+  Code, schemas, templates and recipes stay until the deletion PR after the 2026-09-15 demo.
+
 ### Fixed
 
 - **Lo-fi text is visible again** ([#359](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/359)). FM TEXT nodes authored without an explicit color inherited the
