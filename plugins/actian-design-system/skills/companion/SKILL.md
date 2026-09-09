@@ -70,7 +70,7 @@ The companion is the API. Match the user's prose against this table; pick the mo
 | 2 | "design a flow for X" / "create the X flow" / "wizard for X" | no | `/generate-flow X` (multi-screen) — HTML deliverable only, no Figma push |
 | 2a | same as 1 or 2 **but** prose contains "push to figma" / "in figma" / "as a figma file" | no | `/generate-flow X --push` (opt-in Figma push; HTML still produced) |
 | 3 | "build me X end-to-end" / "ship-ready X" / "production version of X" | no | `/generate-flow X --hifi --no-prompt` (hi-fi HTML deliverable; add `--push` for a Figma artifact) |
-| 4 | "show me alternatives" / "different angles" / "three ways to do X" | no | `/design-proposal X --concepts 3` (concepts in chat, then a board; `/generate-flow X` still supports the page-scale multi-screen path by explicit flag, separate from this route) |
+| 4 | "show me alternatives" / "different angles" / "three ways to do X" | no | `/design-proposal X --concepts 3` (concepts in chat, then a board; `/generate-flow X --variants 3` stays available by explicit flag for page-scale variants) |
 | 5 | "edit this" / "change X to Y" / "swap" / "move" / "rename" / "fix" | yes | `/generate-flow <url> "instruction"` (refine — always pushes; explicit Figma path; surgical: only changed frames recreated; `flow-data.snapshot.json`; `--scope single-unit:<id>`/`multi-unit:[…]`) |
 | 6 | "try a different angle on this" / "what else" / "another version" | yes | `/generate-flow --from <url>` (iterate — always pushes; explicit Figma path) |
 | 7 | "branch this for X variant" / "fork this as Y" | yes | `/generate-flow --from <url> --branch X` (always pushes; explicit Figma path) |

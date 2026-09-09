@@ -256,13 +256,14 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
       src.split("\n").filter(function (l) {
         return /^\| 4 \|/.test(l);
       })[0] || "";
+    var route4 = (row4.match(/\| no \| `([^`]+)`/) || [])[1] || "";
     assert.ok(
-      /\/design-proposal/.test(row4),
-      "Row 4 must route to /design-proposal. Got: " + row4,
+      /^\/design-proposal/.test(route4),
+      "Row 4 must route to /design-proposal. Got: " + route4,
     );
     assert.ok(
-      row4.indexOf("--variants") === -1,
-      "Row 4 must not route to --variants. Got: " + row4,
+      route4.indexOf("--variants") === -1,
+      "Row 4 must not route to --variants. Got: " + route4,
     );
   });
   it("row 22 (approaches / concepts / options / proposal) routes to design-proposal with no push", function () {
