@@ -56,7 +56,7 @@ The proven precedent: `/component-brief` Step 1.5 batches card selection + resea
 **Per-skill batching:**
 - `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
-- /design-proposal: 1 single gate, research skip or yes, before the concepts.
+- `/design-proposal`: 1 single gate, research skip or yes, before the concepts.
 
 ## Gate prompt shape
 

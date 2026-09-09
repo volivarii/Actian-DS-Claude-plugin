@@ -3,10 +3,7 @@
     "title": "DIP-I-496: show role and permission for a logged-in user",
     "ticket": "DIP-I-496",
     "date": "2026-09-09",
-    "apps": [
-      "administration",
-      "explorer"
-    ],
+    "apps": ["administration", "explorer"],
     "prompt": "find a simple and elegant solution for showing a logged-in user their roles and permissions",
     "model": "claude-sonnet-5",
     "skill": "design-proposal",
@@ -20,7 +17,7 @@
       "chrome": "header",
       "width": 400,
       "caption": "One new optional field. Existing groups keep their name as the default display name.",
-      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Create group: Steward</div></div></div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group name</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div></div>\n<div style=\"border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:12px;margin:12px 0\">\n  <div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Display name</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);margin-top:6px\">Shown to users in their account menu. Defaults to the group name.</div>\n</div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group code</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">data-steward</span></div></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>Catalog design</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>User and group administration</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;gap:8px;justify-content:flex-end;margin-top:16px\"><span class=\"fm-button fm-button--secondary\">Cancel</span><span class=\"fm-button fm-button--primary\">Create group</span></div>"
+      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Create group: Steward</div></div></div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group name</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div></div>\n<div style=\"border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:12px;margin:12px 0\">\n  <div class=\"fm-input-label\"><span style=\"display:flex;gap:6px;align-items:center\"><span class=\"fm-input-label__text\">Display name</span><span class=\"fm-badge\">New</span></span></div>\n  <div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);margin-top:6px\">Shown to users in their account menu. Defaults to the group name.</div>\n</div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group code</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">data-steward</span></div></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>Catalog design</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>User and group administration</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;gap:8px;justify-content:flex-end;margin-top:16px\"><span class=\"fm-button fm-button--secondary\">Cancel</span><span class=\"fm-button fm-button--primary\">Create group</span></div>"
     },
     {
       "id": "account-menu-default",

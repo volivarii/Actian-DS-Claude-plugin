@@ -315,7 +315,7 @@ function main() {
     process.stderr.write(
       'ERROR: Unknown type "' +
         args.type +
-        '". Must be one of: flow, brief, presentation, flow-share.\n',
+        '". Must be one of: flow, brief, presentation, flow-share, proposal.\n',
     );
     process.exit(1);
   }
