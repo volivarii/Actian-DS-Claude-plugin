@@ -45,10 +45,6 @@ var SKILL_FILES = [
     name: "component-brief",
     path: path.join(PLUGIN_ROOT, "skills", "component-brief", "SKILL.md"),
   },
-  {
-    name: "generate-presentation",
-    path: path.join(PLUGIN_ROOT, "skills", "generate-presentation", "SKILL.md"),
-  },
 ];
 
 /**
