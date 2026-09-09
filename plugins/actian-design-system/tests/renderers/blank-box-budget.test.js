@@ -85,14 +85,51 @@ function ratchetHint() {
 describe("blank-box budget", function () {
   it("POSITIVE CONTROL: the anatomy doc map is actually live", function () {
     // Without this, a broken/unset doc map chips every slug, emits zero blank
-    // boxes, and the budget below passes while measuring NOTHING. Assert the
-    // anatomy marker attribute (data-ds-slug=) is present in real output.
+    // boxes, and the budget below passes while measuring NOTHING. The anatomy
+    // path only runs for slugs without a built leaf, so the control has two
+    // real shapes. While any slug is unbuilt, its render must carry the
+    // anatomy marker attribute (data-ds-slug=). Once every slug is built
+    // (knowledge v0.34.202 built the last 14) nothing goes through that path,
+    // and the control asserts that the loader the path would read through
+    // still resolves the measured slugs, so a later demotion is measured
+    // against a live map and not chipped by an empty one. The map builder
+    // skips built slugs itself, so it is asked with an empty built list: every
+    // slug then goes through the loader and the R2 ratio gate, and a dead or
+    // unset loader resolves none.
     var r = renderAll();
-    assert.ok(
-      r.anyAnatomy,
-      "no slug rendered anatomy markup, so the doc map is not live and the " +
-        "blank-box budget would pass vacuously",
-    );
+    var unbuilt = r.slugs.filter(function (s) {
+      return r.builtSlugs.indexOf(s) === -1;
+    });
+    if (unbuilt.length) {
+      assert.ok(
+        r.anyAnatomy,
+        "no slug rendered anatomy markup (" +
+          unbuilt.length +
+          " unbuilt), so the doc map is not live and the blank-box budget " +
+          "would pass vacuously",
+      );
+    } else {
+      var docMap =
+        require("../../scripts/lib/renderer.js").dsAnatomyMap.buildDsAnatomyDocMap(
+          r.slugs,
+          { builtSlugs: [] },
+        );
+      var resolved = r.slugs.filter(function (s) {
+        return docMap && docMap[s];
+      });
+      // A majority floor, not "any": a loader that lost most of its docs (a
+      // moved anatomy directory, a mis-tuned ratio gate) resolves a few and
+      // would pass a floor of one. 58 of 74 resolved on knowledge v0.34.205.
+      assert.ok(
+        resolved.length * 2 > r.slugs.length,
+        "every slug is built, so the anatomy path is idle on this pin; the " +
+          "doc map it would read resolves only " +
+          resolved.length +
+          " of " +
+          r.slugs.length +
+          " slugs, which is not live",
+      );
+    }
   });
 
   it("the authorable vocabulary is non-empty (guards a silent parse break)", function () {
@@ -264,7 +301,10 @@ describe("blank-box budget", function () {
   // Drives the real --write-baseline against a COPY of the committed record,
   // via BLANK_BOX_BASELINE, so the committed file is never touched, and
   // removes the copy afterwards.
-  function runBank(edit, env) {
+  // `measure`, when given, is handed to the command as BLANK_BOX_MEASURE in
+  // place of a live render, so a test can put a chip or a blank box in front
+  // of the bank on a pin whose real output has none.
+  function runBank(edit, env, measure) {
     var spawnSync = require("node:child_process").spawnSync;
     var fs = require("node:fs");
     var os = require("node:os");
@@ -272,6 +312,8 @@ describe("blank-box budget", function () {
     var copy = path.join(dir, "baseline.json");
     var summary = path.join(dir, "summary.md");
     var output = path.join(dir, "output.txt");
+    var measurePath = path.join(dir, "measure.json");
+    if (measure) fs.writeFileSync(measurePath, JSON.stringify(measure) + "\n");
     var record = JSON.parse(JSON.stringify(BASELINE));
     var written = edit(record);
     if (written !== false)
@@ -298,11 +340,17 @@ describe("blank-box budget", function () {
         ],
         {
           encoding: "utf8",
-          env: Object.assign({}, process.env, env || {}, {
-            GITHUB_STEP_SUMMARY: summary,
-            GITHUB_OUTPUT: output,
-            BLANK_BOX_BASELINE: copy,
-          }),
+          env: Object.assign(
+            {},
+            process.env,
+            env || {},
+            {
+              GITHUB_STEP_SUMMARY: summary,
+              GITHUB_OUTPUT: output,
+              BLANK_BOX_BASELINE: copy,
+            },
+            measure ? { BLANK_BOX_MEASURE: measurePath } : {},
+          ),
         },
       );
       return {
@@ -323,14 +371,17 @@ describe("blank-box budget", function () {
     // Plugin #318. The vendor job rewrites the baseline before the tests run,
     // so a newcomer never reaches a failing assertion; the run summary and the
     // PR body (fed from the step output) are where a reader sees it.
-    var chip = BASELINE.chipSlugs[0];
-    assert.ok(chip, "the committed baseline lists at least one chip to forget");
-    var r = runBank(function (record) {
-      delete record.perSlug[chip];
-      record.chipSlugs = record.chipSlugs.filter(function (s) {
-        return s !== chip;
-      });
-    });
+    //
+    // The newcomer is put into the MEASUREMENT (a copy of the live one plus one
+    // chip the record has never seen), not taken from the committed record:
+    // since knowledge v0.34.202 every slug is built and the record lists no
+    // chip, so the real render has no positive to lend.
+    var chip = "zz-newcomer-chip";
+    var measured = JSON.parse(JSON.stringify(renderAll()));
+    measured.slugs = measured.slugs.concat([chip]);
+    measured.perSlug[chip] = 0;
+    measured.chipSlugs = measured.chipSlugs.concat([chip]);
+    var r = runBank(function () {}, null, measured);
     assert.equal(r.status, 0, r.stderr);
     assert.ok(
       r.stdout.indexOf("bare chip") !== -1 &&
@@ -345,23 +396,27 @@ describe("blank-box budget", function () {
     );
     assert.deepEqual(
       JSON.parse(r.after).chipSlugs,
-      BASELINE.chipSlugs,
+      measured.chipSlugs,
       "the copy was rewritten with the chip banked",
     );
   });
 
   it("refuses a regression through the real command, leaves the record untouched, and exits 1", function () {
-    var slug = Object.keys(BASELINE.perSlug).filter(function (s) {
-      return BASELINE.perSlug[s] > 0;
-    })[0];
-    assert.ok(
-      slug,
-      "the committed baseline has a slug with blank boxes to under-record",
+    // Same shape as the newcomer above: the regression is a slug the record
+    // holds at zero and the measurement (a copy of the live one) reports at
+    // three, because the committed record has no slug with blank boxes left.
+    var slug = "zz-regressed-leaf";
+    var measured = JSON.parse(JSON.stringify(renderAll()));
+    measured.slugs = measured.slugs.concat([slug]);
+    measured.perSlug[slug] = 3;
+    measured.total += 3;
+    var r = runBank(
+      function (record) {
+        record.perSlug[slug] = 0;
+      },
+      null,
+      measured,
     );
-    var r = runBank(function (record) {
-      record.perSlug[slug] = 0;
-      record.total -= BASELINE.perSlug[slug];
-    });
     assert.equal(r.status, 1, r.stdout);
     assert.match(r.stderr, /REFUSING/);
     assert.ok(r.stderr.indexOf(slug) !== -1, r.stderr);
@@ -720,17 +775,26 @@ describe("the built-slug record's own input", function () {
       Array.isArray(real) && real.length > 0,
       "the real export must be non-empty, or this control proves nothing",
     );
-    var stub = { slugs: ["button"], render: function () { return "<div></div>"; } };
+    var stub = {
+      slugs: ["button"],
+      render: function () {
+        return "<div></div>";
+      },
+    };
     try {
       dsMap.BUILT_SLUGS = [];
       assert.throws(
-        function () { measureBlankBoxes(stub); },
+        function () {
+          measureBlankBoxes(stub);
+        },
         /no BUILT_SLUGS \(empty array\)/,
         "an empty export must refuse, not measure",
       );
       dsMap.BUILT_SLUGS = undefined;
       assert.throws(
-        function () { measureBlankBoxes(stub); },
+        function () {
+          measureBlankBoxes(stub);
+        },
         /no BUILT_SLUGS \(undefined\)/,
         "a missing export must refuse too",
       );

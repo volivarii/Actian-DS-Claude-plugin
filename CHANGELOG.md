@@ -67,6 +67,20 @@ are summarized at the release level.
 
 ### Fixed
 
+- **The vendor refresh no longer goes red on facts the substrate changed on purpose.**
+  ([#366](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/366)) Knowledge v0.34.202 built
+  the last 14 leaves and v0.34.205 redrew the global header with per-app lockups, built the plain card
+  family on a single `Slot` prop, and made the FM dialog and empty state read their copy from props.
+  Eighteen plugin tests pinned the older facts, so #358 and #363 stayed red and the nightly could not
+  self-heal. The tests now read the contract they run against: the header tests feature-detect a
+  captured lockup, the card family escapes through `Slot`, the FM tests author the copy they assert,
+  and the blank-box positive control asks the anatomy loader directly once every slug is built (its
+  bank tests feed the command a recorded measurement through `BLANK_BOX_MEASURE`, since a fully built
+  renderer has no chip or blank box left to lend). The workflow gained a "Re-capture the renderer
+  goldens" step after the baseline re-bank, so a refresh carries the goldens it changes instead of
+  failing on them. The one real gap the refresh found, four drawer classes emitted without a CSS
+  rule, is fixed upstream in knowledge and stays refused here until a tag carries it.
+
 - **The companion's ship-ready route emits a valid flag pair** ([#360](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/360)). Row 3 routed `--hifi --audit
   --no-prompt`, a pair generate-flow declares incompatible. It now routes `--hifi --no-prompt` for a
   hi-fi HTML deliverable, `--push` adds a Figma artifact, and the interactive-gates reference follows

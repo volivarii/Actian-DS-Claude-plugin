@@ -198,6 +198,38 @@ jobs:
         run: |
           node scripts/renderers/ds-coverage-report.js --write-baseline
 
+      - name: Re-capture the renderer goldens
+        id: goldens
+        # Only on a night the vendor changed, like the bank above.
+        if: steps.diff.outputs.changed == 'true'
+        # The goldens are byte copies of what the vendored renderer emits for a
+        # fixed input, kept so a plugin-side refactor cannot change that output
+        # unnoticed. A refresh changes the output on purpose (knowledge owns the
+        # render facts), so the refresh re-captures them the way it re-banks the
+        # baseline, and the PR diff shows every golden that moved. Without this
+        # a glyph or leaf change upstream left the refresh red on goldens no PR
+        # could update (#358, #363). The PR auto-merges, so the list of goldens
+        # that moved goes to the PR body (through this step's `notes` output,
+        # like the bank's) and not only to the run summary.
+        working-directory: plugins/actian-design-system
+        run: |
+          npm run update-snapshots
+          stat="$(git diff --stat -- tests/renderers/__goldens__ tests/renderers/fixtures)"
+          if [ -z "$stat" ]; then stat="no golden moved"; fi
+          {
+            echo "### Renderer goldens re-captured"
+            echo '```'
+            echo "$stat"
+            echo '```'
+          } > goldens-notes.md
+          cat goldens-notes.md >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "notes<<GOLDENS_NOTES"
+            cat goldens-notes.md
+            echo "GOLDENS_NOTES"
+          } >> "$GITHUB_OUTPUT"
+          rm goldens-notes.md
+
       - name: Auto-bump plugin.json (calendar)
         if: steps.diff.outputs.changed == 'true'
         # Calendar versioning (YYYY.MM.PATCH) — same month bumps PATCH, a new
@@ -229,6 +261,8 @@ jobs:
             Auto-bumps plugin.json (calendar `YYYY.MM.PATCH`) so the marketplace cache propagates the new content to designers.
 
             ${{ steps.bank.outputs.notes }}
+
+            ${{ steps.goldens.outputs.notes }}
           branch: "vendor/refresh-${{ steps.target.outputs.short_sha }}"
           labels: vendor,knowledge-snapshot,auto-merge
           delete-branch: true
@@ -244,6 +278,8 @@ jobs:
             plugins/actian-design-system/references/figma/figma-push-patterns.md
             plugins/actian-design-system/references/generate-flow/ds-components-authoring.md
             plugins/actian-design-system/tests/renderers/blank-box-baseline.json
+            plugins/actian-design-system/tests/renderers/__goldens__/**
+            plugins/actian-design-system/tests/renderers/fixtures/**
 
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
