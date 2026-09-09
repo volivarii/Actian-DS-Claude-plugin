@@ -110,15 +110,22 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
   // ─── row 3 routes hi-fi HTML, --audit stays incompatible ────────────────────
 
   it("row 3 (ship-ready) routes hi-fi HTML and never the incompatible --audit", function () {
-    var row3Line = src.split("\n").find(function (l) { return /^\|\s*3\s*\|/.test(l); });
+    var row3Line = src.split("\n").find(function (l) {
+      return /^\|\s*3\s*\|/.test(l);
+    });
     assert.ok(row3Line, "row 3 must exist");
     assert.match(row3Line, /--hifi/);
     assert.match(row3Line, /--no-prompt/);
-    assert.doesNotMatch(row3Line, /--audit/, "SKILL.md declares --hifi --audit incompatible; row 3 must not emit it");
+    assert.doesNotMatch(
+      row3Line,
+      /--audit/,
+      "SKILL.md declares --hifi --audit incompatible; row 3 must not emit it",
+    );
   });
   it("no companion row emits --hifi together with --audit", function () {
     src.split("\n").forEach(function (l) {
-      if (/^\|\s*\d+\s*\|/.test(l)) assert.ok(!(/--hifi/.test(l) && /--audit/.test(l)), l);
+      if (/^\|\s*\d+\s*\|/.test(l))
+        assert.ok(!(/--hifi/.test(l) && /--audit/.test(l)), l);
     });
   });
 
@@ -198,8 +205,7 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
     var desc = descMatch[1];
     // Must NOT say "Pushes to Figma" without a qualifier like "on request"
     var unconditional =
-      /pushes to figma(?! on request)/i.test(desc) &&
-      !/on request/i.test(desc);
+      /pushes to figma(?! on request)/i.test(desc) && !/on request/i.test(desc);
     assert.ok(
       !unconditional,
       "description must not imply unconditional Figma push. Got: " + desc,
@@ -211,6 +217,36 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
     assert.ok(
       hasOnRequest,
       "description must frame push as optional/on-request. Got: " + desc,
+    );
+  });
+
+  // ─── row 8 after the 2026-09-10 retirement of convert-to-hifi ──────────────
+  it("row 8 (make it hifi) routes to generate-flow --hifi, never to convert-to-hifi", function () {
+    var row8 =
+      src.split("\n").filter(function (l) {
+        return /^\| 8 \|/.test(l);
+      })[0] || "";
+    assert.ok(
+      /\/generate-flow[^|]*--hifi/.test(row8),
+      "Row 8 must route to /generate-flow with --hifi. Got: " + row8,
+    );
+    assert.ok(
+      row8.indexOf("convert-to-hifi") === -1,
+      "Row 8 must not mention convert-to-hifi. Got: " + row8,
+    );
+  });
+  it("row 9 keeps only its generate-flow half", function () {
+    var row9 =
+      src.split("\n").filter(function (l) {
+        return /^\| 9 \|/.test(l);
+      })[0] || "";
+    assert.ok(
+      /\/generate-flow[^|]*--ref/.test(row9),
+      "Row 9 routes to /generate-flow --ref. Got: " + row9,
+    );
+    assert.ok(
+      row9.indexOf("convert-to-hifi") === -1,
+      "Row 9 must not mention convert-to-hifi. Got: " + row9,
     );
   });
 });

@@ -74,8 +74,8 @@ The companion is the API. Match the user's prose against this table; pick the mo
 | 5 | "edit this" / "change X to Y" / "swap" / "move" / "rename" / "fix" | yes | `/generate-flow <url> "instruction"` (refine — always pushes; explicit Figma path; surgical: only changed frames recreated; `flow-data.snapshot.json`; `--scope single-unit:<id>`/`multi-unit:[…]`) |
 | 6 | "try a different angle on this" / "what else" / "another version" | yes | `/generate-flow --from <url>` (iterate — always pushes; explicit Figma path) |
 | 7 | "branch this for X variant" / "fork this as Y" | yes | `/generate-flow --from <url> --branch X` (always pushes; explicit Figma path) |
-| 8 | "make it hifi" / "convert to hifi" / "DS version" / "polish this up" | yes | `/convert-to-hifi <url>` |
-| 9 | "make it feel like X" / "match this style" / "match the density of this" + ref URLs | yes + refs | `/generate-flow X --ref <refs>` (gates on remaining flags) or `/convert-to-hifi <url> --ref <refs> --no-prompt` (v1.57.0+: vision-extracts a 4-field structural fingerprint per ref and biases recipe + density; cached on `meta.references[].fingerprint` for refine reuse) |
+| 8 | "make it hifi" / "DS version" / "polish this up" | no or yes | `/generate-flow X --hifi` (hi-fi HTML deliverable regenerated from the brief; with a Figma URL, say that Figma-URL conversion is retired and offer the same command from the flow's `flow-data.json`) |
+| 9 | "make it feel like X" / "match this style" / "match the density of this" + ref URLs | yes + refs | `/generate-flow X --ref <refs>` (gates on remaining flags; vision-extracts a 4-field structural fingerprint per ref and biases recipe + density; cached on `meta.references[].fingerprint` for refine reuse) |
 | 10 | "is this any good?" / "review this" / "audit this" | yes | `/design-audit <url>` |
 | 11 | "is the copy ok?" / "review the copy" / "content check" | yes | `/design-audit <url> --scope copy --no-prompt` |
 | 12 | "fix the copy" / "rewrite the text" | yes | `/design-audit <url> --scope copy --fix all --no-prompt` |
@@ -95,11 +95,11 @@ Invoke the chosen skill via the Skill tool with the user's message as argument. 
 
 ### 3.0 The `--no-prompt` rule (interactive gates)
 
-`/generate-flow`, `/design-audit`, `/convert-to-hifi` adopt the interactive-gate convention defined in `references/ds-rules/interactive-gates.md`. Each gates on missing flags by default.
+`/generate-flow` and `/design-audit` adopt the interactive-gate convention defined in `references/ds-rules/interactive-gates.md`. Each gates on missing flags by default.
 
 When companion routes:
 - **Append `--no-prompt`** when ALL flags relevant to the row's intent are extracted from prose. This suppresses the downstream gate and uses defaults for any unset flags (since intent is fully captured). See rows 3, 4, 9 (convert-to-hifi half), 11, 12, 13, 14, 18, 20 — they all carry `--no-prompt`.
-- **Don't append `--no-prompt`** when intent is vague or partial. Let the downstream skill gate the designer through the missing options. Rows 1, 2, 2a, 8, 9 (generate-flow half), 10, 17 fall back to gates — designers benefit from option discovery.
+- **Don't append `--no-prompt`** when intent is vague or partial. Let the downstream skill gate the designer through the missing options. Rows 1, 2, 2a, 8, 9, 10, 17 fall back to gates — designers benefit from option discovery.
 - **Refine paths** (rows 5, 6, 7, 19) — already explicit (URL + prose); no gate fires regardless.
 
 ### 3.1 URL classification
