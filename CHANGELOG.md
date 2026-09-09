@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Added
 
-- **A design proposal board for component-scale tickets.** `/design-proposal` frames the ticket, offers
+- **A design proposal board for component-scale tickets.** ([#365](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/365)) `/design-proposal` frames the ticket, offers
   one research gate, presents two to four concepts with a recommendation, then authors
   `proposals/proposal-data.json` and renders `proposals/<slug>.html`: the screens side by side at their
   own width, each under an app header strip rendered from app-context, with a caption naming the
