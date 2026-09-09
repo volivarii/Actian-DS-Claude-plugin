@@ -54,7 +54,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Combination                         | Behavior                                                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--hifi --audit`                    | **Incompatible** — audit needs a lo-fi FM-pushed frame to analyze; `--hifi` is DS-native. Warn, run `--hifi` (HTML deliverable, `--push` still applies), and drop `--audit`. For an audited DS frame, run lo-fi `--push` → `/convert-to-hifi` → `/design-audit`. |
+| `--hifi --audit`                    | **Incompatible**: audit needs a lo-fi FM-pushed frame to analyze; `--hifi` is DS-native. Warn, run `--hifi` (HTML deliverable, `--push` still applies), and drop `--audit`. For an audited DS frame, run lo-fi `--push` → `--hifi --push` on the same brief → `/design-audit`. |
 | `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants (no Figma push unless `--push` is added)                                      |
 | `--from <url> --variants 3`         | 3 alternative iterations on the existing flow                                                                |
 | `--from <url> --branch X`           | Single fork named X. `--variants` is ignored when `--branch` is set.                                         |

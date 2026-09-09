@@ -129,7 +129,7 @@ Counts and full membership: `vendor/components/dist/categories.json` (source of 
 
 ## Interactive Gates
 
-`/generate-flow`, `/design-audit`, and `/convert-to-hifi` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
+`/generate-flow` and `/design-audit` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
 
 ## Figma Output
 
@@ -139,7 +139,6 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 |-------|----------------------|------------|
 | component-brief | `references/component-brief/push-patterns.md` | brief-data.json |
 | generate-flow | `references/figma/figma-push-patterns.md` | flow-data.json |
-| generate-presentation | `references/figma/figma-push-patterns.md` | slide-data.json |
 | create-component | `references/create-component/push-patterns.md` | component-spec.json |
 
 ## On-Demand References
