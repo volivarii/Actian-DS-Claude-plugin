@@ -477,6 +477,10 @@ Click directly on elements in the preview instead of describing issues in text:
 
 **Change** = modify the element. **Note** = carry forward to Figma without changing.
 
+### Running in Cowork
+
+In the Cowork tab, bash runs inside a VM where the plugin is mounted under a sessions directory, not at the path the skill header names. Every skill now starts with a "Where the plugin lives" block that sets `CLAUDE_PLUGIN_ROOT` for that shell, so the renderer and validator scripts are found on the first try. If a run ever says the scripts are not available, run that block's bash line by hand and retry.
+
 ---
 
 ## Three Actian apps
