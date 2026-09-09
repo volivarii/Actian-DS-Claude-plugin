@@ -679,13 +679,20 @@ describe("ds-html-map: built card family (leaf + hostile heading)", function () 
     var props = contract[slug].props.map(function (p) {
       return p.name;
     });
-    var heading = ["Title", "Name", "Label"].filter(function (p) {
+    // The plain card family (card, checkbox-card, radio-card, built in
+    // knowledge v0.34.205) is a surface for somebody else's content and
+    // exposes one prop, Slot, which the leaf escapes like a heading; it is the
+    // injection point where no heading prop exists.
+    var heading = ["Title", "Name", "Label", "Slot"].filter(function (p) {
       return props.indexOf(p) !== -1;
     })[0];
     it(
       slug + " renders a leaf, not a chip, and escapes a hostile " + heading,
       function () {
-        assert.ok(heading, slug + " exposes no Title/Name/Label prop to test");
+        assert.ok(
+          heading,
+          slug + " exposes no Title/Name/Label/Slot prop to test",
+        );
         var hostile = {};
         hostile[heading] = "<svg onload=1>";
         var html = render({ dsSlug: slug, variant: "", props: hostile });
@@ -702,6 +709,22 @@ describe("ds-html-map: built card family (leaf + hostile heading)", function () 
 });
 
 describe("ds-html-map: global-header", function () {
+  // Since knowledge v0.34.205 the brand block DRAWS the app: the three apps
+  // with a captured lockup (components/src/graphics-svg.json, slugs
+  // zeenea-logo-studio, -admin, -explorer) render the lockup and no text
+  // label, an app without one keeps the Actian mark plus the text label, and
+  // the App prop left the render contract. Older pins draw the mark and always
+  // write the label. Which contract this checkout carries is read from the
+  // vendored graphics map, so each assertion below states the state it found
+  // instead of pinning one pin's markup.
+  var GRAPHICS = JSON.parse(
+    fs.readFileSync(PATHS.components.graphics.svg, "utf8"),
+  ).graphics;
+  function lockupOf(app) {
+    var slug = "zeenea-logo-" + String(app).toLowerCase();
+    return GRAPHICS[slug] ? slug : null;
+  }
+
   it("default: emits a <header> with brand, center, actions, and avatar", function () {
     var html = render({
       dsSlug: "global-header",
@@ -714,38 +737,76 @@ describe("ds-html-map: global-header", function () {
     );
     assert.ok(html.indexOf("ds-header__brand") !== -1, "has brand");
     assert.ok(html.indexOf("ds-header__logo") !== -1, "has logo");
-    assert.ok(html.indexOf("ds-header__app") !== -1, "has app label");
+    if (lockupOf("Studio")) {
+      assert.ok(
+        html.indexOf("ds-header__app") === -1,
+        "the drawn Studio lockup names the app; no text label beside it",
+      );
+    } else {
+      assert.ok(html.indexOf("ds-header__app") !== -1, "has app label");
+    }
     assert.ok(html.indexOf("ds-header__center") !== -1, "has center block");
     assert.ok(html.indexOf("ds-header__actions") !== -1, "has actions");
     assert.ok(html.indexOf("ds-header__avatar") !== -1, "has avatar");
     assert.ok(html.indexOf("</header>") !== -1, "closes header tag");
   });
 
-  it("App label defaults to the App type variant value", function () {
-    var html = render({
+  it("the App type variant names the app: a drawn lockup where one is captured, a text label otherwise", function () {
+    var explorer = render({
       dsSlug: "global-header",
       variant: "App type=Explorer",
       props: {},
     });
-    assert.ok(html.indexOf(">Explorer</span>") !== -1, "uses App type value");
+    if (lockupOf("Explorer")) {
+      var admin = render({
+        dsSlug: "global-header",
+        variant: "App type=Admin",
+        props: {},
+      });
+      assert.ok(explorer.indexOf("ds-header__app") === -1, "no text label");
+      // Not "an <svg> is present": the header draws icons on every pin. The
+      // Explorer lockup's own artwork, read from the graphics map, must land.
+      assert.ok(explorer.indexOf('class="ds-graphic"') !== -1, "a graphic");
+      assert.ok(
+        explorer.indexOf(GRAPHICS[lockupOf("Explorer")].body) !== -1,
+        "the Explorer lockup artwork is drawn",
+      );
+      assert.notStrictEqual(
+        explorer,
+        admin,
+        "Explorer and Admin draw different lockups",
+      );
+    } else {
+      assert.ok(
+        explorer.indexOf(">Explorer</span>") !== -1,
+        "uses App type value",
+      );
+    }
   });
 
-  it("App prop overrides the App type variant value", function () {
+  it("an app without a captured lockup keeps the text label", function () {
     var html = render({
       dsSlug: "global-header",
-      variant: "App type=Studio",
-      props: { App: "My Workspace" },
+      variant: "App type=Marketplace",
+      props: {},
     });
-    assert.ok(html.indexOf("My Workspace") !== -1, "renders App prop");
     assert.ok(
-      html.indexOf(">Studio</span>") === -1,
-      "App prop wins over variant",
+      html.indexOf('<span class="ds-header__app">Marketplace</span>') !== -1,
+      "a fourth app is never unnamed",
     );
   });
 
-  it("falls back to 'Studio' when neither App prop nor variant present", function () {
+  it("falls back to 'Studio' when no App type variant is present", function () {
     var html = render({ dsSlug: "global-header", variant: "", props: {} });
-    assert.ok(html.indexOf(">Studio</span>") !== -1, "default app label");
+    var studio = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {},
+    });
+    assert.strictEqual(html, studio, "the default app is Studio");
+    if (!lockupOf("Studio")) {
+      assert.ok(html.indexOf(">Studio</span>") !== -1, "default app label");
+    }
   });
 
   it("Account prop sets the avatar initials; defaults to 'AU'", function () {
@@ -763,11 +824,16 @@ describe("ds-html-map: global-header", function () {
     assert.ok(html2.indexOf(">AU</span>") !== -1, "default avatar initials");
   });
 
-  it("escapes a hostile App label", function () {
+  it("escapes a hostile app name", function () {
+    // The name reaches the text label through the App type variant, which is
+    // the one path every pin still writes (an unknown app has no lockup). The
+    // payload carries no "=" or ",": parseVariant splits on both and drops an
+    // axis with more than one "=", which would fall back to Studio and prove
+    // nothing.
     var html = render({
       dsSlug: "global-header",
-      variant: "App type=Studio",
-      props: { App: "<img src=x onerror=1>" },
+      variant: "App type=<img src onerror>",
+      props: {},
     });
     assert.ok(html.indexOf("&lt;img") !== -1, "app label escaped");
     assert.ok(html.indexOf("<img") === -1, "no raw injection");
@@ -2287,10 +2353,7 @@ describe("ds-html-map: toast (Task 4)", function () {
         Action: "View",
       },
     });
-    assert.ok(
-      html.indexOf("ds-toast") !== -1,
-      "toast built leaf class",
-    );
+    assert.ok(html.indexOf("ds-toast") !== -1, "toast built leaf class");
     assert.ok(html.indexOf("ds-component") === -1, "toast not a chip");
     assert.ok(html.indexOf("Your export is ready") !== -1, "message text");
     assert.ok(
@@ -2307,10 +2370,7 @@ describe("ds-html-map: toast (Task 4)", function () {
       variant: "Type=Critical",
       props: { Message: "Pipeline failed." },
     });
-    assert.ok(
-      html.indexOf("ds-toast--critical") !== -1,
-      "critical modifier",
-    );
+    assert.ok(html.indexOf("ds-toast--critical") !== -1, "critical modifier");
     assert.ok(html.indexOf('role="alert"') !== -1, "critical uses role=alert");
   });
 
@@ -2372,7 +2432,10 @@ describe("ds-html-map: tooltip-default (Task 4)", function () {
       html.indexOf('class="ds-tooltip-default"') !== -1,
       "tooltip-default built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "tooltip-default not a chip");
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "tooltip-default not a chip",
+    );
     assert.ok(html.indexOf("Only admins") !== -1, "body text present");
     assert.ok(html.indexOf('role="tooltip"') !== -1, "has tooltip role");
   });
@@ -2387,10 +2450,7 @@ describe("ds-html-map: calendar (Task 4)", function () {
       variant: "Type=Single date,States=Enabled",
       props: { Label: "Start date", Helper: "MM/DD/YYYY" },
     });
-    assert.ok(
-      html.indexOf("ds-calendar") !== -1,
-      "calendar built leaf class",
-    );
+    assert.ok(html.indexOf("ds-calendar") !== -1, "calendar built leaf class");
     assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
     assert.ok(html.indexOf("Start date") !== -1, "label text");
     assert.ok(
@@ -2435,8 +2495,14 @@ describe("ds-html-map: rich-text-froala (Task 4)", function () {
       html.indexOf("ds-rich-text-froala") !== -1,
       "rich-text-froala built leaf class",
     );
-    assert.ok(html.indexOf("ds-component") === -1, "rich-text-froala not a chip");
-    assert.ok(html.indexOf("ds-rich-text-froala__toolbar") !== -1, "toolbar present");
+    assert.ok(
+      html.indexOf("ds-component") === -1,
+      "rich-text-froala not a chip",
+    );
+    assert.ok(
+      html.indexOf("ds-rich-text-froala__toolbar") !== -1,
+      "toolbar present",
+    );
     assert.ok(html.indexOf("ds-icon") !== -1, "toolbar control glyphs");
   });
 
@@ -3003,10 +3069,19 @@ describe("ds-html-map: calendar-data-selector (A1)", function () {
       variant: "Selection=Single",
       props: {},
     });
-    assert.ok(html.indexOf("ds-calendar-data-selector") !== -1, "calendar leaf class");
+    assert.ok(
+      html.indexOf("ds-calendar-data-selector") !== -1,
+      "calendar leaf class",
+    );
     assert.ok(html.indexOf("ds-component") === -1, "calendar not a chip");
-    assert.ok(html.indexOf("ds-calendar-data-selector__month") !== -1, "month header");
-    assert.ok(html.indexOf("ds-calendar-data-selector__weekdays") !== -1, "weekday row");
+    assert.ok(
+      html.indexOf("ds-calendar-data-selector__month") !== -1,
+      "month header",
+    );
+    assert.ok(
+      html.indexOf("ds-calendar-data-selector__weekdays") !== -1,
+      "weekday row",
+    );
     assert.ok(html.indexOf("is-selected") !== -1, "a selected day");
     assert.ok(html.indexOf(">15</button>") !== -1, "renders day cells");
     assert.ok(html.indexOf("ds-icon") !== -1, "nav chevrons");

@@ -972,9 +972,35 @@ if (require.main === module) {
     }
     var m;
     try {
-      m = measureBlankBoxes();
+      // BLANK_BOX_MEASURE hands the command a recorded measurement in place of
+      // a live render, so a test can drive the bank's newcomer and regression
+      // paths on a pin whose real output has no chip and no blank box left
+      // (every slug built since knowledge v0.34.202). Same family of seam as
+      // BLANK_BOX_BASELINE and BLANK_BOX_LEDGER below; the workflow never sets
+      // it.
+      m = process.env.BLANK_BOX_MEASURE
+        ? JSON.parse(
+            fsW.readFileSync(
+              pathW.resolve(process.env.BLANK_BOX_MEASURE),
+              "utf8",
+            ),
+          )
+        : measureBlankBoxes();
     } catch (e) {
       refuse(e.message);
+    }
+    if (
+      !m ||
+      typeof m.perSlug !== "object" ||
+      !Array.isArray(m.slugs) ||
+      !Array.isArray(m.chipSlugs)
+    ) {
+      refuse(
+        (process.env.BLANK_BOX_MEASURE
+          ? "BLANK_BOX_MEASURE " + process.env.BLANK_BOX_MEASURE
+          : "the live render") +
+          " does not carry a measurement (perSlug, slugs, chipSlugs)",
+      );
     }
     // BLANK_BOX_BASELINE points the read and the write elsewhere, so a test
     // that drives this command never touches the committed record.

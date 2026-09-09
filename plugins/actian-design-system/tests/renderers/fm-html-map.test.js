@@ -302,15 +302,35 @@ assertContains(banner, "fm-banner", "banner class");
 
 section("fmDialog");
 
+// Authored with a Title and a Body: since knowledge v0.34.205 the leaf reads
+// both and prints nothing for a dialog authored with neither (it used to print
+// the word "Dialog" and an empty body whatever the caller passed), so a bare
+// render no longer proves the two parts exist.
 const dialog = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmDialog",
+  variant: "",
+  props: { Title: "Delete this dataset?", Body: "This cannot be undone." },
+});
+assertContains(dialog, "fm-dialog", "dialog class");
+assertContains(dialog, "fm-dialog__title", "dialog title");
+assertContains(dialog, "fm-dialog__body", "dialog body");
+assertNotContains(dialog, "undefined", "no literal undefined in a dialog");
+// Which contract this pin carries is read from a bare render: the leaf that
+// reads its props emits no title element for a dialog authored without one,
+// the older leaf prints "Dialog" whatever it is given. On the reading leaf
+// the authored copy must land, or a leaf that ignores its props and prints a
+// literal would pass on the very pin this guards.
+const bareDialog = renderFMComponent({
   type: "INSTANCE",
   ref: "fmDialog",
   variant: "",
   props: {},
 });
-assertContains(dialog, "fm-dialog", "dialog class");
-assertContains(dialog, "fm-dialog__title", "dialog title");
-assertContains(dialog, "fm-dialog__body", "dialog body");
+if (bareDialog.indexOf("fm-dialog__title") === -1) {
+  assertContains(dialog, "Delete this dataset?", "authored dialog title");
+  assertContains(dialog, "This cannot be undone.", "authored dialog body");
+}
 
 // ---------------------------------------------------------------------------
 // fmStepper
@@ -431,15 +451,32 @@ assertContains(toastStd, "fm-toast--standard", "standard toast");
 
 section("fmEmptyState");
 
+// Authored with a Headline: since knowledge v0.34.205 the leaf reads Headline,
+// Body and Cta and renders the icon well alone without them (it used to print
+// "No items" whatever the caller passed), so the text element is asserted on
+// an authored headline rather than on the old literal.
 const empty = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmEmptyState",
+  variant: "",
+  props: { Headline: "No datasets yet" },
+});
+assertContains(empty, "fm-empty-state", "empty state class");
+assertContains(empty, "fm-empty-state__icon", "icon element");
+assertContains(empty, "fm-empty-state__text", "headline element");
+assertNotContains(empty, "undefined", "no literal undefined in an empty state");
+// Same detection as the dialog above: the reading leaf emits no text element
+// for an empty state authored without a headline, and on that leaf the
+// authored headline must land.
+const bareEmpty = renderFMComponent({
   type: "INSTANCE",
   ref: "fmEmptyState",
   variant: "",
   props: {},
 });
-assertContains(empty, "fm-empty-state", "empty state class");
-assertContains(empty, "fm-empty-state__icon", "icon element");
-assertContains(empty, "No items", "default text");
+if (bareEmpty.indexOf("fm-empty-state__text") === -1) {
+  assertContains(empty, "No datasets yet", "authored headline");
+}
 
 // ---------------------------------------------------------------------------
 // fmPlaceholder
