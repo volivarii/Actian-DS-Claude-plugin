@@ -6,7 +6,7 @@
  * from a data JSON file + static assets (CSS, renderers, annotation layer).
  *
  * Usage:
- *   node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>
+ *   node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>
  *
  * Supported types:
  *   flow-share    — CANONICAL deliverable: self-contained two-view file
@@ -16,6 +16,7 @@
  *   flow          — INTERNAL strip renderer retained for streaming-fallback and
  *                   existing tests; NOT the canonical pipeline output.
  *                   (fm-flow.css, fm-html-map + flow-renderer)
+ *   proposal      : design proposal board (authored FM screens with captions; assemble-proposal.js)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
  *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
  *
@@ -231,7 +232,7 @@ function main() {
               name: "--type",
               required: true,
               description:
-                "Preview type. Canonical deliverable: flow-share (two-view encapsulated offline file). " +
+                "Preview type. Canonical deliverables: flow-share (two-view encapsulated offline file), proposal (design proposal board). " +
                 "Internal/fallback renderer: flow. Also: brief, presentation.",
             },
             {
@@ -252,7 +253,7 @@ function main() {
                 "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
           ],
-          types: ["flow-share"].concat(Object.keys(TYPE_CONFIGS)),
+          types: ["flow-share", "proposal"].concat(Object.keys(TYPE_CONFIGS)),
         },
         null,
         2,
@@ -265,21 +266,21 @@ function main() {
   if (!args.input) {
     process.stderr.write("ERROR: Missing input JSON file.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.type) {
     process.stderr.write("ERROR: Missing --type argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.output) {
     process.stderr.write("ERROR: Missing -o / --output argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
@@ -294,6 +295,18 @@ function main() {
     var assembleFlowShare =
       require("./assemble-flow-share.js").assembleFlowShare;
     writeOutput(args.output, assembleFlowShare(shareData));
+    return;
+  }
+
+  if (args.type === "proposal") {
+    process.stderr.write("Reading data: " + args.input + "\n");
+    if (!fs.existsSync(args.input)) {
+      process.stderr.write("ERROR: Input file not found: " + args.input + "\n");
+      process.exit(1);
+    }
+    var proposalData = JSON.parse(fs.readFileSync(args.input, "utf8"));
+    var assembleProposal = require("./assemble-proposal.js").assembleProposal;
+    writeOutput(args.output, assembleProposal(proposalData));
     return;
   }
 
