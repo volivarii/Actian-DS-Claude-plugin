@@ -52,12 +52,6 @@ branch this for the admin variant
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
-make it hifi
-```
-*Convert — FM wireframe → DS Kit hifi (`/convert-to-hifi`).*
-
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
 audit this — fix the copy
 ```
 *Audit with focused scope (`/design-audit --scope copy --fix all`).*
@@ -107,13 +101,13 @@ rename "Submit" to "Connect" and tighten the help text under the password field
 
 `resolve-unit.js` maps the URL to a `pushedNodes` entry → derives `single-unit:<id>` scope → loads the cached data model from `flow-data.snapshot.json` → applies the edit → recreates only that screen frame. Other screens stay byte-identical. Validator findings stay scoped to the changed screen so you don't drown in noise from screens you didn't touch.
 
-### 4. Convert to hifi
+### 4. Make it hifi
 
 ```
-make this hifi
+make it hifi
 ```
 
-Routes to `/convert-to-hifi`. The FM wireframe becomes DS Kit hifi — real components, real tokens, mapped via `fm-to-ds-map.json`. The original wireframe is never modified; the hifi version lands alongside.
+Routes to `/generate-flow X --hifi`. The same screens are authored against the DS Kit vocabulary and rendered with real components and tokens in a new HTML deliverable next to the wireframe. Add "push to Figma" to also get the frames.
 
 ### 5. Audit before ship
 
@@ -252,7 +246,7 @@ Design a table view for the Administration users page with filters and bulk acti
 
 At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
 
-**HiFi conversion:** Add `--hifi` for a DS-native hi-fi HTML deliverable; add `--push` for a Figma artifact. Or convert an existing wireframe later with `/convert-to-hifi`.
+**HiFi conversion:** Add `--hifi` for a DS-native hi-fi HTML deliverable; add `--push` for a Figma artifact. Or regenerate later with `--hifi` from the same brief.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
@@ -353,15 +347,6 @@ What's the best practice for destructive action confirmation?
 Research wizard patterns for multi-step configuration
 ```
 
-### Convert wireframes to hifi — FM → DS Kit
-
-```
-Convert this wireframe to high-fidelity
-https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
-Pipeline: extract FM tree → deterministic transform via `fm-to-ds-map.json` → LLM polish for unmapped components and layout → push DS Kit hifi alongside the original. The wireframe is never modified.
-
 ### Component specs — brief, document, create
 
 ```
@@ -387,16 +372,6 @@ https://figma.com/design/FILEKEY/File?node-id=333-444
 
 ```
 Which version is better for onboarding? v1: [URL1] v2: [URL2]
-```
-
-### Presentations — decks from content
-
-```
-Create a presentation about Q1 design system adoption
-```
-
-```
-Present the migration plan to engineering leads
 ```
 
 ### Design system sync — keep tokens and docs current
@@ -442,12 +417,10 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
-| `/convert-to-hifi [URL] [--ref URL]` | Convert FM wireframe to DS Kit hifi |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 | `/create-component [description]` | Jump to component creation |
 | `/compare-flows [URL1] [URL2]` | Side-by-side diff (also works between branches/variants) |
-| `/generate-presentation [topic]` | Jump to deck creation |
 
 ---
 

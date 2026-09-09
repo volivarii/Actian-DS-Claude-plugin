@@ -90,7 +90,7 @@ Items specific to the `generate-flow` skill, in addition to Universal.
 
 ---
 
-## Generate Presentation
+## Generate Presentation (retired 2026-09-10, kept for the deletion PR)
 
 Items specific to the `generate-presentation` skill, in addition to Universal.
 

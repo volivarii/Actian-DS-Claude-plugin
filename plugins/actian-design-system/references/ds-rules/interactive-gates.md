@@ -56,7 +56,6 @@ The proven precedent: `/component-brief` Step 1.5 batches card selection + resea
 **Per-skill batching:**
 - `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
-- `/convert-to-hifi`: 1 single-flag gate — ref at start.
 
 ## Gate prompt shape
 
@@ -116,7 +115,7 @@ This table is the source of truth for "what does the skill do when a flag is mis
 | `--hifi` | `/generate-flow` | false (lo-fi output) |
 | `--audit` | `/generate-flow` | false (skip post-gen audit). Implies a Figma push when set. |
 | `--variants <N>` | `/generate-flow` | 1 |
-| `--ref <url>` | `/generate-flow`, `/convert-to-hifi` | none |
+| `--ref <url>` | `/generate-flow` | none |
 | `--breakpoints <list>` | `/generate-flow` | desktop only |
 | `--from <url>` | `/generate-flow` | none |
 | `--branch <name>` | `/generate-flow` | none |

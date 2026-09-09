@@ -23,13 +23,12 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 - Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
 - Compare two competing designs side by side (also works between branches and variants)
 - Research UX patterns and competitor approaches on demand
-- Build presentations using Actian slide templates
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**2026.7.13** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**2026.7.13** · 6 skills (tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility); Section 6 (real platform examples) deferred
 
 ---
 
@@ -178,7 +177,6 @@ Every capability is also available as a direct command. Use these when you know 
 | Command | What it does |
 |---------|-------------|
 | `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
-| `/convert-to-hifi` | Hifi — convert FM wireframe to DS Kit hifi. `--ref <url>` biases density/variant choices. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
 **Supporting:**
@@ -188,7 +186,6 @@ Every capability is also available as a direct command. Use these when you know 
 | `/component-brief` | Component spec organized into 6 sections (v1.67.0+): Header → §1 Anatomy / Variation / Tokens / Specs (single supercard with sub-section dividers and Draft tags on generated content) → §2 Usages → §3 Content guidelines & examples → §4 Motion (conditional, only when a motion pattern exists) → §5 Accessibility → §6 Real platform examples (deferred). Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
 | `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
-| `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
 
 ---
 
@@ -247,7 +244,6 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
 | `card-generator` | Generate brief cards in parallel batches (Phase B only) | Brief generation (5+ Phase B cards) |
 | `screen-generator` | Generate flow screens in parallel batches | Flow generation (6+ screens) |
-| `slide-generator` | Generate presentation slides in parallel batches | Presentation generation (6+ slides) |
 
 ---
 
@@ -292,7 +288,7 @@ Companion + skills read at runtime
 - **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
-**FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps FM components to DS Kit equivalents via `fm-to-ds-map.json` (resolved at runtime via immutable `dsKey`, v1.61.1+), and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
+**Hi-fi:** `/generate-flow X --hifi` authors the same screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
 
 ---
 
@@ -306,7 +302,7 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 8 skills (companion + 7 specialized)
+│   ├── skills/                            # 6 skills (companion + 5 specialized)
 │   ├── agents/                            # parallel-generation + validation/research agents
 │   ├── recipes/                           # flow + brief + presentation recipes
 │   ├── scripts/
@@ -324,8 +320,7 @@ actian-design-system-plugin/
 │   │   ├── component-brief/               # skill-specific
 │   │   ├── create-component/              # skill-specific
 │   │   ├── design-audit/                  # skill-specific
-│   │   ├── generate-flow/                 # skill-specific
-│   │   └── generate-presentation/         # skill-specific
+│   │   └── generate-flow/                 # skill-specific
 │   ├── schemas/                           # JSON schemas (brief-data, flow-data, slide-data)
 │   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate

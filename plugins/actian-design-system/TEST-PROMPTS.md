@@ -371,39 +371,14 @@ Fix all auto-fixable findings
 
 ---
 
-## Convert wireframes to hifi
-
-### From a Figma URL
-
-```
-/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
-```
-Convert this wireframe to hifi
-https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
-### At the confirmation gate
-
-```
-push https://figma.com/design/FILEKEY/File?node-id=123-456    # Handle unmapped creatively and push
-skip unmapped                                                    # Omit unmapped, push mapped only
-abort                                                            # Stop
-```
-
----
-
 ## Direct skill invocation (power-user shortcuts)
 
 ```
 /generate-flow Admin Dashboard for Administration
 /generate-flow Connection settings in Studio --hifi
-/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
 /component-brief Button
 /design-audit https://figma.com/design/FILEKEY/File?node-id=123-456
 /compare-flows https://figma.com/design/FILEKEY/File?node-id=111-222 https://figma.com/design/FILEKEY/File?node-id=333-444
-/generate-presentation Q1 design system review
 /create-component Status Badge with info, success, warning, error types
 /release-notes
 ```

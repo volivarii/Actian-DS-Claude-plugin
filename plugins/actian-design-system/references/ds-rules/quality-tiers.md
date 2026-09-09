@@ -46,8 +46,8 @@ Non-feature chrome is ALWAYS placeholder — muted text, generic labels, greyed-
 
 ## Other skill tiers
 
-| Tier | component-brief | create-component | generate-presentation |
-|------|-----------------|------------------|-----------------------|
-| **Draft** | Cards 1-5 only, simplified tables | Component only, skip build plan gate | 5-8 slides, stat cards only (no charts) |
-| **Standard** | All 9 cards, full Meta Kit components | Component + gen log + standard cleanup | 8-15 slides, full chart selection |
-| **Production** | Standard + variable binding + golden reference | Standard + variable binding + research step | 8-20 slides with speaker notes, slide-by-slide check |
+| Tier | component-brief | create-component |
+|------|-----------------|------------------|
+| **Draft** | Cards 1-5 only, simplified tables | Component only, skip build plan gate |
+| **Standard** | All 9 cards, full Meta Kit components | Component + gen log + standard cleanup |
+| **Production** | Standard + variable binding + golden reference | Standard + variable binding + research step |
