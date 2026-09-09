@@ -249,4 +249,34 @@ describe("companion push-routing contract (HTML-first / opt-in push)", function 
       "Row 9 must not mention convert-to-hifi. Got: " + row9,
     );
   });
+
+  // ─── design-proposal (2026-09-11) ───────────────────────────────────────────
+  it("row 4 (alternatives / three ways) routes to design-proposal, not to --variants", function () {
+    var row4 =
+      src.split("\n").filter(function (l) {
+        return /^\| 4 \|/.test(l);
+      })[0] || "";
+    assert.ok(
+      /\/design-proposal/.test(row4),
+      "Row 4 must route to /design-proposal. Got: " + row4,
+    );
+    assert.ok(
+      row4.indexOf("--variants") === -1,
+      "Row 4 must not route to --variants. Got: " + row4,
+    );
+  });
+  it("row 22 (approaches / concepts / options / proposal) routes to design-proposal with no push", function () {
+    var row22 =
+      src.split("\n").filter(function (l) {
+        return /^\| 22 \|/.test(l);
+      })[0] || "";
+    assert.ok(
+      /\/design-proposal X/.test(row22),
+      "Row 22 must route to /design-proposal X. Got: " + row22,
+    );
+    assert.ok(
+      /no push|HTML only/i.test(row22),
+      "Row 22 says the board never pushes. Got: " + row22,
+    );
+  });
 });
