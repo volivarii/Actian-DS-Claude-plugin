@@ -75,8 +75,8 @@ describe("retired skills stay hidden", function () {
     assert.ok(files.length > 0, "file list must not be empty");
     assert.strictEqual(
       skillFiles.length,
-      6,
-      "expected 6 skills/*/SKILL.md files, found " + skillFiles.length,
+      7,
+      "expected 7 skills/*/SKILL.md files, found " + skillFiles.length,
     );
     assert.strictEqual(
       agentFiles.length,
