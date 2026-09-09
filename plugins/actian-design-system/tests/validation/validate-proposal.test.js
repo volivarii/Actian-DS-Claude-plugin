@@ -230,6 +230,11 @@ describe("validateProposal", function () {
     assert.ok(f[0].suggestion.indexOf(d.screens[1].id) !== -1, f[0].suggestion);
     assert.ok(f[0].suggestion.indexOf("board-wide") !== -1, f[0].suggestion);
   });
+  it("a commented-out id in another screen is not a collision", function () {
+    var d = JSON.parse(JSON.stringify(load()));
+    d.screens[0].html += '\n<!-- <div id="menu-default">old state</div> -->';
+    assert.deepStrictEqual(only(d, "toggle-target"), []);
+  });
   it('meta.apps: ["nope"] is P1 (check app-unknown)', function () {
     var d = JSON.parse(JSON.stringify(load()));
     d.meta.apps = ["nope"];

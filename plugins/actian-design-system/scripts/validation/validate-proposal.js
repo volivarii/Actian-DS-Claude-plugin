@@ -157,7 +157,7 @@ function validateProposal(data) {
       if (!new RegExp('\\sid\\s*=\\s*"' + id + '"').test(s.html))
         findings.push(finding("P1", "toggle-target", s.id, sp + ".html", 'data-toggle="' + id + '" has no id="' + id + '" in the same screen', id, "add the id or drop the toggle"));
     });
-    var ids = s.html.match(/\sid\s*=\s*"([^"]+)"/g) || [];
+    var ids = stripComments(s.html).match(/\sid\s*=\s*"([^"]+)"/g) || [];
     ids.forEach(function (t) {
       var id = t.replace(/^.*"([^"]+)"$/, "$1");
       if (idSeen[id]) findings.push(finding("P1", "toggle-target", s.id, sp + ".html", id, id, 'id "' + id + '" also appears in screen "' + idSeen[id] + '"; ids are board-wide, rename one'));
@@ -183,7 +183,7 @@ function validateProposal(data) {
     checkFragment(data.meta.recommendation, "", "meta.recommendation", findings);
     if (extractText(data.meta.recommendation).indexOf(EM_DASH) !== -1)
       findings.push(finding("P2", "em-dash", "", "meta.recommendation", "em dash in recommendation", EM_DASH, "use a colon, comma or period"));
-    var recIds = data.meta.recommendation.match(/\sid\s*=\s*"([^"]+)"/g) || [];
+    var recIds = stripComments(data.meta.recommendation).match(/\sid\s*=\s*"([^"]+)"/g) || [];
     recIds.forEach(function (t) {
       var id = t.replace(/^.*"([^"]+)"$/, "$1");
       if (idSeen[id]) findings.push(finding("P1", "toggle-target", "", "meta.recommendation", id, id, 'id "' + id + '" also appears in screen "' + idSeen[id] + '"; ids are board-wide, rename one'));
