@@ -447,6 +447,41 @@ describe("validate-flow-data", function () {
       assert.strictEqual(issues.length, 0);
     });
 
+    it("exempts fmNavItem whose label matches a real meta._glossary.chrome.sidebar item", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { chrome: { sidebar: [{ label: "Catalog", id: "catalog" }, { label: "Pipelines", id: "pipelines" }] } },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("flags fmNavItem whose label is not in meta._glossary.chrome.sidebar", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { chrome: { sidebar: [{ label: "Catalog", id: "catalog" }] } },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Widgets" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].value, "Widgets");
+    });
+
     it("flags non-active nav items even when sidebarActive is set", function () {
       var issues = validate.findUnmutedChrome(
         fixture({
@@ -529,6 +564,40 @@ describe("validate-flow-data", function () {
       );
       assert.strictEqual(issues.length, 1);
       assert.strictEqual(issues[0].ref, "fmTab");
+    });
+
+    it('flags fmTab whether it carries the renderer\'s "Tab Text" prop or the older "Tab label" prop, identically', function () {
+      var withTabText = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab Text": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(withTabText.length, 1);
+      assert.strictEqual(withTabText[0].ref, "fmTab");
+      assert.strictEqual(withTabText[0].value, "Overview");
+
+      var withTabLabel = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab label": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(withTabLabel.length, 1);
+      assert.strictEqual(withTabLabel[0].ref, "fmTab");
+      assert.strictEqual(withTabLabel[0].value, "Overview");
     });
 
     it("does NOT flag fmTab with State=Placeholder", function () {

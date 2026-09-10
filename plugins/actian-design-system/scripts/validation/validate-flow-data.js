@@ -230,7 +230,7 @@ var BANNED_PROP_KEYS = [
 // Seeded from BANNED_PROP_KEYS (the existing copy-bearing prop allowlist for
 // the banned-text check) plus additional common copy prop names seen in FM Kit
 // and DS Kit: Text, Body, Placeholder, Description, Message, Heading,
-// Helper Text, Content, Tab label, Value.
+// Helper Text, Content, Tab Text, Tab label, Value.
 // Keep conservative: when in doubt, omit rather than include a structural axis.
 var COPY_PROP_KEYS_LOWER = (function () {
   var base = BANNED_PROP_KEYS.concat([
@@ -242,6 +242,7 @@ var COPY_PROP_KEYS_LOWER = (function () {
     "Heading",
     "Helper Text",
     "Content",
+    "Tab Text",
     "Tab label",
     "Value",
   ]);
@@ -492,6 +493,55 @@ function buildTerminologyRules(terminology) {
   return rules;
 }
 
+var TERMINOLOGY_SKIP_PROPS = {
+  variant: 1,
+  name: 1,
+  template: 1,
+  id: 1,
+  dsslug: 1,
+};
+
+function knownTermsFrom(data, terminology) {
+  var out = [],
+    seen = {};
+  function add(t) {
+    if (typeof t !== "string") return;
+    var s = t.trim();
+    if (s.length < 3 || seen[s.toLowerCase()]) return;
+    seen[s.toLowerCase()] = 1;
+    out.push(s);
+  }
+  Object.keys(terminology || {}).forEach(function (k) {
+    add(terminology[k] && terminology[k].use);
+  });
+  var g = data && data.meta && data.meta._glossary ? data.meta._glossary : {};
+  if (g.chrome) {
+    if (g.chrome.header) add(g.chrome.header.type);
+    (g.chrome.sidebar || []).forEach(function (s) {
+      add(s && s.label);
+    });
+  }
+  (g.entityProperties || []).forEach(function (p) {
+    add(p && p.label);
+  });
+  (g.relationships || []).forEach(function (r) {
+    add(r && r.label);
+  });
+  return out;
+}
+
+function maskKnownTerms(text, knownTerms) {
+  var out = text;
+  for (var i = 0; i < knownTerms.length; i++) {
+    var escaped = knownTerms[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    var re = new RegExp("\\b" + escaped + "s?\\b", "gi");
+    out = out.replace(re, function (m) {
+      return new Array(m.length + 1).join(" ");
+    });
+  }
+  return out;
+}
+
 function findTerminologyIssuesRaw(data) {
   var terminology = loadTerminology();
   if (!terminology) return [];
@@ -499,12 +549,14 @@ function findTerminologyIssuesRaw(data) {
   var rules = buildTerminologyRules(terminology);
   if (rules.length === 0) return [];
 
+  var known = knownTermsFrom(data, terminology);
   var issues = [];
 
   function checkText(text, screenName, nodePath) {
     if (!text || typeof text !== "string") return;
+    var masked = maskKnownTerms(text, known);
     for (var r = 0; r < rules.length; r++) {
-      if (rules[r].pattern.test(text)) {
+      if (rules[r].pattern.test(masked)) {
         issues.push({
           severity: "P1",
           check: "terminology",
@@ -539,6 +591,8 @@ function findTerminologyIssuesRaw(data) {
         if (node.props) {
           var propKeys = Object.keys(node.props);
           for (var pk = 0; pk < propKeys.length; pk++) {
+            if (TERMINOLOGY_SKIP_PROPS[String(propKeys[pk]).toLowerCase()])
+              continue;
             var val = node.props[propKeys[pk]];
             if (typeof val === "string") {
               checkText(val, sName, nPath + ".props." + propKeys[pk]);
@@ -858,7 +912,9 @@ var CHROME_RULES = [
   },
   {
     refs: ["fmTab"],
-    textProp: "Tab label",
+    // Renderer reads "Tab Text" (fm-html-map.js); "Tab label" is the older
+    // recipe-authored name still present in some flow-data until re-generated.
+    textProp: ["Tab Text", "Tab label"],
     defaultText: null,
     mutedVariant: "Placeholder",
     variantAxis: "State",
@@ -905,12 +961,39 @@ function findPropValue(props, propName) {
   return undefined;
 }
 
+// Tries each candidate prop name in order, returning the first defined value.
+// propNameOrNames may be a single string (every existing caller) or an array
+// of synonyms (a prop renamed in the renderer, e.g. fmTab's "Tab Text", while
+// older flow-data or recipes still carry the prior name, "Tab label").
+function findPropValueAny(props, propNameOrNames) {
+  var names = Array.isArray(propNameOrNames)
+    ? propNameOrNames
+    : [propNameOrNames];
+  for (var i = 0; i < names.length; i++) {
+    var v = findPropValue(props, names[i]);
+    if (v !== undefined) return v;
+  }
+  return undefined;
+}
+
 function findUnmutedChromeRaw(data) {
   var issues = [];
   if (!data || !Array.isArray(data.screens)) return issues;
 
   var glossary = (data.meta && data.meta._glossary) || {};
+  // The active fmNavItem is exempt when its label names a real sidebar item
+  // (meta._glossary.chrome.sidebar[].label, matched case-insensitively): the
+  // chrome is what a producer actually writes (resolve-chrome.js /
+  // prepare-flow.js). glossary.sidebarActive stays as a secondary source for
+  // any flow-data that still carries it, back-compat only -- no current
+  // producer writes that key.
   var sidebarActive = glossary.sidebarActive || null;
+  var chromeSidebarLabels = {};
+  if (glossary.chrome && Array.isArray(glossary.chrome.sidebar)) {
+    glossary.chrome.sidebar.forEach(function (item) {
+      if (item && typeof item.label === "string") chromeSidebarLabels[item.label.toLowerCase()] = 1;
+    });
+  }
   var featureContext = [
     (data.meta && data.meta.feature) || "",
     (data.meta && data.meta.flow) || "",
@@ -939,15 +1022,16 @@ function findUnmutedChromeRaw(data) {
           var stateValue = parseVariantAxis(instNode.variant, rule.variantAxis);
           if (stateValue === rule.mutedVariant) return;
 
-          var labelValue = findPropValue(instNode.props, rule.textProp);
+          var labelValue = findPropValueAny(instNode.props, rule.textProp);
           if (typeof labelValue !== "string" || labelValue === "") return;
           if (rule.defaultText && labelValue === rule.defaultText) return;
-          if (
-            rule.activeMarker === "sidebarActive" &&
-            sidebarActive &&
-            labelValue === sidebarActive
-          ) {
-            return; // canonical active-marker exemption
+          if (rule.activeMarker === "sidebarActive") {
+            if (chromeSidebarLabels[labelValue.toLowerCase()]) {
+              return; // canonical active-marker exemption: a real chrome sidebar item
+            }
+            if (sidebarActive && labelValue === sidebarActive) {
+              return; // back-compat: an explicit sidebarActive key, if still present
+            }
           }
 
           issues.push({
@@ -1194,6 +1278,60 @@ function checkRecipeAdherence(screen, findings) {
 }
 
 // ---------------------------------------------------------------------------
+// Check: TEXT node font/color shape (non-blocking — render-node.js's
+// buildTextStyle tolerates the object-form font and passes an invalid color
+// straight into a style attribute instead of throwing, so this is the only
+// place either gets flagged for the designer).
+// ---------------------------------------------------------------------------
+//
+// font must be the schema's "Family:Weight" string (the object form
+// { family?, weight? } renders fine but isn't the authored shape); color,
+// when set, must be a var(--zen-*)/var(--fm-*) token or a hex literal — a
+// bare keyword like "muted" is neither a token nor something
+// findHardcodedColorsRaw recognizes as hardcoded, so it would otherwise
+// leak into the style attribute unnoticed.
+var TEXT_STYLE_MSG_PREFIX = "TEXT ";
+
+function checkTextStyle(screen, findings) {
+  if (!screen || !Array.isArray(screen.content)) return;
+  walkNodes(screen.content, screen.name || "", "content", function (node) {
+    if (!node || node.type !== "TEXT") return;
+    if (node.font !== undefined && typeof node.font !== "string") {
+      findings.push({
+        kind: "text-style",
+        severity: "warning",
+        screen: screen.id || "",
+        message:
+          TEXT_STYLE_MSG_PREFIX +
+          'font must be "Family:Weight": ' +
+          JSON.stringify({ font: node.font }),
+      });
+    }
+    if (node.color != null && node.color !== "") {
+      var colorStr = String(node.color).trim();
+      // Same allowance as findHardcodedColorsRaw's describeHardcodedColor:
+      // a CSS keyword in COLOR_LITERAL_OK is a legitimate value, not a
+      // hardcoded literal or an invalid shape.
+      var validColor =
+        colorStr.indexOf("var(--") === 0 ||
+        /^#[0-9a-f]{3,8}$/i.test(colorStr) ||
+        COLOR_LITERAL_OK.indexOf(colorStr) !== -1;
+      if (!validColor) {
+        findings.push({
+          kind: "text-style",
+          severity: "warning",
+          screen: screen.id || "",
+          message:
+            TEXT_STYLE_MSG_PREFIX +
+            "color must be a var(--zen-*) token, hex, or a CSS keyword: " +
+            JSON.stringify({ color: node.color }),
+        });
+      }
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
 // DS-native slug check helpers (Task 3)
 // ---------------------------------------------------------------------------
 //
@@ -1329,13 +1467,14 @@ function checkPatternGrounding(data, findings, opts) {
 // Relationship grounding (S3) -------------------------------------------
 var DETAIL_RECIPES = { "detail-view": true };
 
-// Collect fmTab "Tab label" values from a screen's content (reuses the
-// existing INSTANCE walker + prop reader — no new walker).
+// Collect fmTab tab-label values from a screen's content (reuses the
+// existing INSTANCE walker + prop reader — no new walker). Reads either the
+// renderer's "Tab Text" or the older recipe-authored "Tab label".
 function collectTabLabels(content) {
   var labels = [];
   walkInstanceNodes(content, "", function (instNode) {
     if (!instNode || instNode.ref !== "fmTab") return;
-    var v = findPropValue(instNode.props, "Tab label");
+    var v = findPropValueAny(instNode.props, ["Tab Text", "Tab label"]);
     if (typeof v === "string" && v) labels.push(v);
   });
   return labels;
@@ -1651,11 +1790,12 @@ function checkChromeCoherence(screen, glossaryChrome, findings) {
 // thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
-// A required-override prop is authored under its exact hashed registry name
-// (e.g. "Label#1411:32") or under its base name before the "#" (e.g.
-// "Label"). The generate-flow skill's own Examples author the base name and
-// the renderer reads it the same way, so the missing-required-override check
-// (Pass 1 below) accepts either spelling as satisfying the override.
+// A prop is authored under its exact hashed registry name (e.g.
+// "Label#1411:32") or under its base name before the "#" (e.g. "Label").
+// The generate-flow skill's own Examples author the base name and the
+// renderer reads it the same way, so both the missing-required-override
+// check and the default-true-boolean-unset check (Pass 1 below) accept
+// either spelling as satisfying the override.
 function hasOverride(props, propName) {
   if (props[propName] !== undefined) return true;
   var base = propName.split("#")[0];
@@ -1694,6 +1834,7 @@ function validate(data, opts) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
       checkChromeCoherence(data.screens[si], glossaryChrome, findings);
+      checkTextStyle(data.screens[si], findings);
     }
   }
 
@@ -1774,10 +1915,13 @@ function validate(data, opts) {
         }
       }
 
-      // Check for unset default-true booleans (warning severity)
+      // Check for unset default-true booleans (warning severity). Same
+      // base-name tolerance as hasOverride() above — a boolean authored
+      // under its plain name (e.g. "Show Avatar" for registry name
+      // "Show Avatar#14797:1") counts as set.
       var defaultTrue = rules.getDefaultTrueBooleans(componentDef);
       for (var b = 0; b < defaultTrue.length; b++) {
-        if (props[defaultTrue[b].propName] === undefined) {
+        if (!hasOverride(props, defaultTrue[b].propName)) {
           findings.push({
             kind: "default-true-boolean-unset",
             severity: "warning",
@@ -1797,8 +1941,33 @@ function validate(data, opts) {
 
   // Pass 2: walk all string values in screens (excludes meta block by design)
   if (data.screens) {
+    // Text that names a known entity property or sidebar item is authored
+    // copy, not a leaked component default, even when it happens to match a
+    // PLACEHOLDER_PATTERNS shape (e.g. the entity property literally called
+    // "Description"). Built once from the flow's own substrate grounding.
+    var flowGlossary = (data.meta && data.meta._glossary) || {};
+    // Object.create(null): a plain {} would let a string like "constructor"
+    // or "toString" false-match an inherited Object.prototype key.
+    var knownLabels = Object.create(null);
+    (Array.isArray(flowGlossary.entityProperties)
+      ? flowGlossary.entityProperties
+      : []
+    ).forEach(function (prop) {
+      if (prop && typeof prop.label === "string")
+        knownLabels[prop.label.toLowerCase()] = true;
+    });
+    (flowGlossary.chrome && Array.isArray(flowGlossary.chrome.sidebar)
+      ? flowGlossary.chrome.sidebar
+      : []
+    ).forEach(function (item) {
+      if (item && typeof item.label === "string")
+        knownLabels[item.label.toLowerCase()] = true;
+    });
+
     walkStringValues(data.screens, "screens", function (str, p) {
       if (isEnumSlot(p.split(/[.[\]]+/).filter(Boolean))) return;
+      if (typeof str === "string" && knownLabels[str.trim().toLowerCase()])
+        return;
       if (rules.isPlaceholderDefault(str)) {
         findings.push({
           kind: "placeholder-text",
@@ -2109,6 +2278,8 @@ module.exports = {
   findHardcodedColors: findHardcodedColors,
   findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
+  knownTermsFrom: knownTermsFrom,
+  maskKnownTerms: maskKnownTerms,
   findAvoidWords: findAvoidWords,
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
@@ -2226,6 +2397,7 @@ if (require.main === module) {
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
     "enum-not-typed": true,
+    "text-style": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;

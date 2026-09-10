@@ -26,19 +26,19 @@
             "type": "INSTANCE",
             "ref": "fmTab",
             "variant": "State=On",
-            "props": { "Tab label": "{{tab1_label}}" }
+            "props": { "Tab Text": "{{tab1_label}}" }
           },
           {
             "type": "INSTANCE",
             "ref": "fmTab",
             "variant": "State=Off",
-            "props": { "Tab label": "{{tab2_label}}" }
+            "props": { "Tab Text": "{{tab2_label}}" }
           },
           {
             "type": "INSTANCE",
             "ref": "fmTab",
             "variant": "State=Off",
-            "props": { "Tab label": "{{tab3_label}}" }
+            "props": { "Tab Text": "{{tab3_label}}" }
           },
           {
             "type": "INSTANCE",

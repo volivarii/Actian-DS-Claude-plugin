@@ -46,3 +46,52 @@ describe("SKILL.md size ceiling (progressive disclosure)", () => {
     });
   }
 });
+
+const MAX_BYTES = 30000;
+const MAX_REACHABLE_BYTES = 48000;
+const HTML_ONLY_SET = [
+  "skills/generate-flow/SKILL.md",
+  "references/generate-flow/gates.md",
+  "references/generate-flow/share.md",
+  "references/ds-rules/quality-tiers.md",
+];
+
+describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
+  it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "skills/generate-flow/SKILL.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_BYTES,
+      `generate-flow/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
+    );
+  });
+  it(`the HTML-only reachable set is under ${MAX_REACHABLE_BYTES} bytes`, () => {
+    const total = HTML_ONLY_SET.reduce(
+      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
+      0,
+    );
+    assert.ok(
+      total < MAX_REACHABLE_BYTES,
+      `reachable set is ${total} bytes (ceiling ${MAX_REACHABLE_BYTES}): ${HTML_ONLY_SET.join(", ")}`,
+    );
+  });
+});
+
+// screen-generator is dispatched once per screen (in parallel); it reads only
+// its own brief slice plus html-reference.md (and ds-components-authoring.md
+// under --hifi), never the full brief, so it carries a much smaller ceiling
+// than a skill body loaded once per run.
+const MAX_AGENT_BYTES = 22000;
+
+describe("screen-generator agent byte ceiling", () => {
+  it(`agents/screen-generator.md is under ${MAX_AGENT_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "agents/screen-generator.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_AGENT_BYTES,
+      `agents/screen-generator.md is ${bytes} bytes (ceiling ${MAX_AGENT_BYTES})`,
+    );
+  });
+});

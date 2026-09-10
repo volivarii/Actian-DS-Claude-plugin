@@ -2,6 +2,8 @@
 "use strict";
 
 var crypto = require("crypto");
+var fs = require("fs");
+var PATHS = require("../lib/paths.js");
 
 // ---------------------------------------------------------------------------
 // Placeholder default detection
@@ -128,12 +130,66 @@ function propertyDefaultsHash(registry) {
   return crypto.createHash("sha256").update(canon).digest("hex");
 }
 
+// ---------------------------------------------------------------------------
+// Bulk slug inspection
+// ---------------------------------------------------------------------------
+//
+// The --inspect lookup (registry load, FM vs DS branch, required-override +
+// default-true-boolean extraction), shared by the CLI's --json output and by
+// callers like prepare-flow.js that need the same per-slug answer without
+// shelling out to this file. A slug the registries do not know is left out of
+// the result; the CLI's text output still reports it as an error (see below).
+// ---------------------------------------------------------------------------
+
+function loadKit(registryPath) {
+  try {
+    return JSON.parse(fs.readFileSync(registryPath, "utf8"));
+  } catch (e) {
+    return { components: {} };
+  }
+}
+
+function indexBoth(kit) {
+  var index = {};
+  var keys = Object.keys(kit);
+  for (var k = 0; k < keys.length; k++) {
+    index[keys[k]] = kit[keys[k]]; // kebab
+    var camel = keys[k].replace(/-([a-z])/g, function (_, c) {
+      return c.toUpperCase();
+    });
+    index[camel] = kit[keys[k]];
+  }
+  return index;
+}
+
+function inspectSlugs(slugs) {
+  var fm = loadKit(PATHS.components.registries.fmkit).components || {};
+  var ds = loadKit(PATHS.components.registries.dskit).components || {};
+  var combined = Object.assign({}, indexBoth(fm), indexBoth(ds));
+  var out = {};
+  for (var i = 0; i < slugs.length; i++) {
+    var slug = slugs[i];
+    var def = combined[slug];
+    if (!def) continue;
+    out[slug] = {
+      required: getRequiredOverrideProps(def).map(function (r) {
+        return r.propName;
+      }),
+      defaultTrueBooleans: getDefaultTrueBooleans(def).map(function (b) {
+        return b.propName;
+      }),
+    };
+  }
+  return out;
+}
+
 module.exports = {
   PLACEHOLDER_PATTERNS: PLACEHOLDER_PATTERNS,
   isPlaceholderDefault: isPlaceholderDefault,
   getRequiredOverrideProps: getRequiredOverrideProps,
   getDefaultTrueBooleans: getDefaultTrueBooleans,
   propertyDefaultsHash: propertyDefaultsHash,
+  inspectSlugs: inspectSlugs,
 };
 
 // ---------------------------------------------------------------------------
@@ -152,8 +208,6 @@ module.exports = {
 // ---------------------------------------------------------------------------
 
 if (require.main === module) {
-  var fs = require("fs");
-  var PATHS = require("../lib/paths.js");
   var args = process.argv.slice(2);
 
   var slugs = null;
@@ -188,49 +242,19 @@ if (require.main === module) {
     process.exit(1);
   }
 
-  function loadKit(registryPath) {
-    try {
-      return JSON.parse(fs.readFileSync(registryPath, "utf8"));
-    } catch (e) {
-      return { components: {} };
-    }
-  }
-  var fm = loadKit(PATHS.components.registries.fmkit).components || {};
-  var ds = loadKit(PATHS.components.registries.dskit).components || {};
-
-  function indexBoth(kit) {
-    var index = {};
-    var keys = Object.keys(kit);
-    for (var k = 0; k < keys.length; k++) {
-      index[keys[k]] = kit[keys[k]]; // kebab
-      var camel = keys[k].replace(/-([a-z])/g, function (_, c) {
-        return c.toUpperCase();
-      });
-      index[camel] = kit[keys[k]];
-    }
-    return index;
-  }
-  var combined = Object.assign({}, indexBoth(fm), indexBoth(ds));
-
+  var found = inspectSlugs(slugs);
   var results = {};
   for (var s = 0; s < slugs.length; s++) {
     var slug = slugs[s];
-    var def = combined[slug];
-    if (!def) {
+    if (!found[slug]) {
       results[slug] = { error: "not found in fmkit.json or dskit.json" };
       continue;
     }
-    var required = getRequiredOverrideProps(def).map(function (r) {
-      return r.propName;
-    });
-    var booleans = getDefaultTrueBooleans(def).map(function (b) {
-      return b.propName;
-    });
-    results[slug] = { required: required, defaultTrueBooleans: booleans };
+    results[slug] = found[slug];
   }
 
   if (jsonOutput) {
-    process.stdout.write(JSON.stringify(results, null, 2) + "\n");
+    process.stdout.write(JSON.stringify(found, null, 2) + "\n");
   } else {
     var lines = [];
     var resultSlugs = Object.keys(results);
