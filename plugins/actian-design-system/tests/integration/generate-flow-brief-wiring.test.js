@@ -29,12 +29,14 @@ describe("generate-flow wires the brief", () => {
   it("Step 5 authors every screen count in the agent and merges incrementally", () => {
     assert.doesNotMatch(skill, /Sequential mode/);
     assert.doesNotMatch(skill, /Parallel mode \(6\+/);
-    assert.match(skill, /batches of at most 3/);
+    assert.match(skill, /one .* per screen/i);
+    assert.match(skill, /flows\/\.brief\//);
     assert.match(skill, /--incremental --screen-list/);
   });
   it("the agent reads the brief and no longer opens app-context.json or runs the inspector by default", () => {
     assert.match(agent, /Brief path/);
     assert.match(agent, /propertyRules/);
+    assert.match(agent, /flows\/\.brief\//);
     assert.doesNotMatch(
       agent,
       /read `vendor\/app-context\/dist\/app-context\.json`/,

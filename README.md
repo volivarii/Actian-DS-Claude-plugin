@@ -244,7 +244,7 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
 | `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
 | `card-generator` | Generate brief cards in parallel batches (Phase B only) | Brief generation (5+ Phase B cards) |
-| `screen-generator` | Generate flow screens in parallel batches | Flow generation (every screen count, batches of 3) |
+| `screen-generator` | Generate one flow screen per instance, all in parallel | Flow generation (every screen count, one agent per screen) |
 
 ---
 
@@ -279,7 +279,7 @@ Companion + skills read at runtime
 
 **Pipeline quality gates:**
 - **Foundations MD-as-SoT** (v1.60.0+): `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
-- **Substrate-grounded glossary**: before authoring, `prepare-flow.js` writes one brief (`flows/.brief.json`) joining the app chrome, the matched UX pattern, the entity's relationships and typed properties, the page recipe or archetype per screen, and the property rules of the components each screen needs; the `screen-generator` agent authors every screen from that brief in batches of three, so screens are idiomatic to the app with consistent terminology.
+- **Substrate-grounded glossary**: before authoring, `prepare-flow.js` writes one brief (`flows/.brief.json`) joining the app chrome, the matched UX pattern, the entity's relationships and typed properties, the page recipe or archetype per screen, and the property rules of the components each screen needs, plus a per-screen slice (`flows/.brief/<n>.json`); a `screen-generator` agent authors each screen from its own slice, one agent per screen, in parallel, so screens are idiomatic to the app with consistent terminology.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
 - **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
 - **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.

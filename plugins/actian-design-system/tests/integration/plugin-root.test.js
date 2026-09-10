@@ -215,6 +215,13 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
       };
     });
 
+    // No agent in this plugin carries Bash in its `tools:` frontmatter (they
+    // are Read/Grep/Glob/Write/WebFetch/WebSearch only), so none can
+    // legitimately run a plugin script via `${CLAUDE_PLUGIN_ROOT}/scripts` —
+    // an agent that named this pattern in prose without Bash access would
+    // itself be a defect (an instruction the agent has no tool to carry
+    // out). This loop still enforces the canonical block wherever an
+    // agents/*.md DOES carry the pattern; it is not required that one does.
     fs.readdirSync(AGENTS_DIR).forEach(function (f) {
       if (!/\.md$/.test(f)) return;
       var full = path.join(AGENTS_DIR, f);
@@ -223,12 +230,6 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
         files.push({ path: full, label: "agents/" + f });
       }
     });
-    assert.ok(
-      files.some(function (f) {
-        return f.label.indexOf("agents/") === 0;
-      }),
-      "expected at least one agents/*.md that names ${CLAUDE_PLUGIN_ROOT}/scripts",
-    );
 
     files.forEach(function (f) {
       var src = fs.readFileSync(f.path, "utf8");

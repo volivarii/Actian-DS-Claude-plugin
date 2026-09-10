@@ -77,3 +77,21 @@ describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
     );
   });
 });
+
+// screen-generator is dispatched once per screen (in parallel); it reads only
+// its own brief slice plus html-reference.md (and ds-components-authoring.md
+// under --hifi), never the full brief, so it carries a much smaller ceiling
+// than a skill body loaded once per run.
+const MAX_AGENT_BYTES = 22000;
+
+describe("screen-generator agent byte ceiling", () => {
+  it(`agents/screen-generator.md is under ${MAX_AGENT_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "agents/screen-generator.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_AGENT_BYTES,
+      `agents/screen-generator.md is ${bytes} bytes (ceiling ${MAX_AGENT_BYTES})`,
+    );
+  });
+});
