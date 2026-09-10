@@ -253,6 +253,86 @@ describe("prepare-flow (brief per flow)", function () {
   });
 });
 
+describe("entity-aware routing (Task 13): a screen named after the entity reaches its own collection or detail pattern", function () {
+  var patternsResolver = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "resolve-patterns.js"));
+
+  it("with entity data-product: collection, both detail spellings, and a name that is not just the entity's words", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      entity: "data-product",
+      screens: [
+        { name: "Data products", template: "studio" },
+        { name: "Data product details", template: "studio" },
+        { name: "Data product overview", template: "studio" },
+        { name: "Data product published", template: "studio" },
+        { name: "Readiness check", template: "studio" },
+        { name: "Confirm publication", template: "studio" },
+      ],
+    });
+    var byName = {};
+    brief.screens.forEach(function (s) {
+      byName[s.name] = s;
+    });
+
+    // Collection: "Data products" is the entity's own name with nothing left
+    // over once the entity's words are subtracted, so it picks the first
+    // entityPatterns entry tagged browse, list or search. Assert the RULE,
+    // not a slug that could move if the vendored substrate re-authors tags
+    // -- but print the slug so a failure shows what it actually picked.
+    var collection = byName["Data products"];
+    console.log("Data products -> pattern:", collection.pattern && collection.pattern.slug);
+    assert.ok(collection.pattern, "\"Data products\" matches an entity pattern");
+    var collectionTags = patternsResolver.patternTags(collection.pattern, collection.pattern.slug);
+    assert.ok(
+      collectionTags.indexOf("browse") !== -1 || collectionTags.indexOf("list") !== -1 || collectionTags.indexOf("search") !== -1,
+      "the matched pattern's tags carry browse, list or search: " + JSON.stringify(collectionTags),
+    );
+    assert.ok(collection.pageRecipe, "the collection screen carries a page recipe");
+
+    // Detail: two spellings of "the entity's detail page" land on the same
+    // pattern, on the vendored data.
+    ["Data product details", "Data product overview"].forEach(function (name) {
+      var s = byName[name];
+      assert.strictEqual(s.pattern && s.pattern.slug, "asset-detail-360", name + " routes to the entity's detail pattern");
+      assert.strictEqual(s.pageRecipe && s.pageRecipe.slug, "asset-detail-360", name + " carries the detail page recipe");
+    });
+
+    // "Data product published" is neither the collection nor the detail page
+    // (R = ["published"], not empty and not a DETAIL_WORDS subset): entity
+    // routing does not apply, it falls through to the exact-label pass and
+    // the scoring, matches no pattern, and lands on detail-view -- the
+    // fallback keyword table's default, not the old raw-token ranker
+    // matching "data".
+    var published = byName["Data product published"];
+    assert.strictEqual(published.pattern, null);
+    assert.strictEqual(published.archetype.archetype, "detail-view");
+
+    // Unaffected by entity-aware routing: neither name is just the entity's
+    // own words, so both fall through exactly as before.
+    assert.strictEqual(byName["Readiness check"].archetype.archetype, "detail-view");
+    assert.strictEqual(byName["Confirm publication"].archetype.archetype, "detail-view");
+  });
+
+  it("without entity: the plural default and the extended keyword table apply generically, no entity routing involved", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      screens: [
+        { name: "Data products", template: "studio" },
+        { name: "Data product details", template: "studio" },
+      ],
+    });
+    // No entity to route against (entity is null): "Data products" exercises
+    // fallbackArchetype's new plural-last-word default directly -- no
+    // keyword hits "data" or "products", and "products" ends in "s" (not
+    // "ss").
+    assert.strictEqual(brief.screens[0].pattern, null, "no app pattern matches this name");
+    assert.strictEqual(brief.screens[0].archetype.archetype, "table-list");
+    // "details" hits the keyword table's now-explicit detail-view row before
+    // the plural default ever runs (which would otherwise say table-list).
+    assert.strictEqual(brief.screens[1].archetype.archetype, "detail-view");
+  });
+});
+
 describe("pickPattern (reweighted tag/label scoring)", function () {
   var appPatternsResolver = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "resolve-patterns.js"));
   var studioPatterns = appPatternsResolver.resolvePatterns("studio");

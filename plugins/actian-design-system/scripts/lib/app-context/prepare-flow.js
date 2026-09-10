@@ -15,6 +15,36 @@ var rules = require("../../validation/component-property-rules.js");
 var STOP = { the: 1, a: 1, an: 1, of: 1, to: 1, for: 1, with: 1, and: 1, in: 1, on: 1 };
 var RECIPES_DIR = path.join(__dirname, "..", "..", "..", "recipes", "flow");
 
+// Words dropped when deriving R (a screen's name with the entity's own words
+// subtracted) in the entity-aware routing below. Distinct from STOP: STOP
+// feeds tag/label scoring and stays conservative, this list is local to the
+// collection-vs-detail decision.
+var ENTITY_ROUTING_STOP = { the: 1, a: 1, of: 1, all: 1, page: 1, view: 1 };
+
+// R made entirely of these words names the entity's own detail page.
+var DETAIL_WORDS = { detail: 1, overview: 1, general: 1 };
+
+// A token ending in "s" (not "ss") also names its singular ("products" /
+// "product", "details" / "detail"). A blunt trailing-s strip, not real
+// pluralisation, but good enough for the word forms screen names use.
+function singularize(t) {
+  if (t.length > 1 && t.charAt(t.length - 1) === "s" && t.charAt(t.length - 2) !== "s") {
+    return t.slice(0, -1);
+  }
+  return t;
+}
+
+// The plain split-and-filter, one token per word, in name order. tokens()
+// below augments this with singular forms for tag/label scoring; the
+// entity-aware routing uses this unaugmented form directly (see
+// canonicalWords) so a plural/singular pair collapses to one word instead
+// of surviving a set difference as two.
+function baseTokens(name) {
+  return String(name || "").toLowerCase().split(/[^a-z]+/).filter(function (t) {
+    return t.length >= 3 && !STOP[t];
+  });
+}
+
 // Archetype fallback: when no app pattern matches a screen name AND the
 // recipe ranker itself finds no archetype (no-match or a tie), pick by
 // keyword so every screen still gets a skeleton. First category whose
@@ -22,7 +52,7 @@ var RECIPES_DIR = path.join(__dirname, "..", "..", "..", "recipes", "flow");
 var FALLBACK_ARCHETYPES = [
   { words: ["list", "table", "browse", "catalog", "results"], archetype: "table-list" },
   { words: ["create", "new", "setup", "edit", "configure", "wizard", "form", "settings"], archetype: "form-create" },
-  { words: ["confirm", "success", "done", "complete"], archetype: "detail-view" },
+  { words: ["confirm", "success", "done", "complete", "detail", "details", "overview"], archetype: "detail-view" },
   { words: ["review", "summary"], archetype: "composition-form-with-footer" },
   { words: ["dashboard", "overview", "home"], archetype: "dashboard" },
 ];
@@ -34,6 +64,14 @@ function fallbackArchetype(name) {
     for (var t = 0; t < toks.length; t++) {
       if (cat.words.indexOf(toks[t]) !== -1) return cat.archetype;
     }
+  }
+  // No keyword hit at all: a name whose last original word is plural (ends
+  // in "s", not "ss") reads as a collection with nothing else to go on
+  // ("Data products", "Access requests"). Anything else stays detail-view.
+  var base = baseTokens(name);
+  var last = base.length ? base[base.length - 1] : "";
+  if (last.length > 1 && last.charAt(last.length - 1) === "s" && last.charAt(last.length - 2) !== "s") {
+    return "table-list";
   }
   return "detail-view";
 }
@@ -49,9 +87,86 @@ function stripPropId(name) {
 }
 
 function tokens(name) {
-  return String(name || "").toLowerCase().split(/[^a-z]+/).filter(function (t) {
-    return t.length >= 3 && !STOP[t];
+  var base = baseTokens(name);
+  var seen = {};
+  var out = [];
+  base.forEach(function (t) {
+    if (!seen[t]) {
+      seen[t] = 1;
+      out.push(t);
+    }
+    var s = singularize(t);
+    if (s !== t && s.length >= 3 && !seen[s]) {
+      seen[s] = 1;
+      out.push(s);
+    }
   });
+  return out;
+}
+
+// Canonical (singularised, deduped) content words of a name: one entry per
+// word, not the plural-plus-singular pair tokens() carries for scoring. The
+// entity-aware routing below needs one form per word so a plain set
+// difference against the entity's own words (also canonical) actually
+// empties out when the whole name is just the entity's name.
+function canonicalWords(name) {
+  var seen = {};
+  var out = [];
+  baseTokens(name).forEach(function (t) {
+    var c = singularize(t);
+    if (!seen[c]) {
+      seen[c] = 1;
+      out.push(c);
+    }
+  });
+  return out;
+}
+
+// The first of an entity's own patterns (resolveEntityPatterns's plain
+// {slug,label,apps,components} objects) whose tags include one of wantTags.
+// patternTags falls back to the slug's own words when the substrate carries
+// no authored tags on that shape, so this still works on an unauthored
+// pattern.
+function firstEntityPatternByTag(entityPatterns, wantTags) {
+  for (var i = 0; i < entityPatterns.length; i++) {
+    var p = entityPatterns[i];
+    var tags = patterns.patternTags(p, p.slug);
+    for (var w = 0; w < wantTags.length; w++) {
+      if (tags.indexOf(wantTags[w]) !== -1) return p;
+    }
+  }
+  return null;
+}
+
+// A screen named after the entity itself, before the exact-label pass and
+// the scoring ever run. R is the name's words with the entity's own words
+// and a short stoplist removed:
+//   R empty            -> the entity's collection page (browse/list/search).
+//   R subset of DETAIL_WORDS -> the entity's detail page.
+//   otherwise          -> null, entity routing does not apply; the caller
+//                          falls through to pickPattern as today.
+// A collection/detail decision that finds no tagged entityPatterns entry
+// still returns a decision (archetypeId set, pattern left for the caller to
+// treat as null) rather than falling through -- an entity-named screen with
+// an unauthored pattern set should not silently drop back to the raw name
+// scoring, which is the coincidence this task removes.
+function routeEntityScreen(name, entitySlug, entityPatterns) {
+  var E = canonicalWords(entitySlug);
+  var R = canonicalWords(name).filter(function (t) {
+    return E.indexOf(t) === -1 && !ENTITY_ROUTING_STOP[t];
+  });
+  if (R.length === 0) {
+    var collection = firstEntityPatternByTag(entityPatterns, ["browse", "list", "search"]);
+    return collection ? { pattern: collection } : { archetypeId: "table-list" };
+  }
+  var isDetail = R.every(function (t) {
+    return !!DETAIL_WORDS[t];
+  });
+  if (isDetail) {
+    var detail = firstEntityPatternByTag(entityPatterns, ["detail"]);
+    return detail ? { pattern: detail } : { archetypeId: "detail-view" };
+  }
+  return null;
 }
 
 // Whitespace-normalised, case-insensitive label equality. A screen name is
@@ -156,10 +271,25 @@ function prepareFlow(options) {
   );
 
   var screens = (options.screens || []).map(function (s) {
-    var p = pickPattern(s.name, appPatterns, entityPatternSlugs);
-    var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : patterns.selectRecipe(tokens(s.name));
+    // Entity-aware routing runs first (Task 13): a screen named after the
+    // entity itself ("Data products", "Data product details") reaches the
+    // entity's own collection or detail pattern, not whatever the raw name
+    // happens to overlap. route is null when entity routing does not apply
+    // (no entity, or the name is not just the entity's own words), in which
+    // case the exact-label pass and the scoring below run as today.
+    var route = entity ? routeEntityScreen(s.name, entity, entityPatterns) : null;
+    var p = route && route.pattern ? route.pattern : null;
+    if (!route) {
+      p = pickPattern(s.name, appPatterns, entityPatternSlugs);
+    }
+    // No raw-token ranker on the no-pattern branch: an unmatched screen goes
+    // straight to the keyword table (fallbackArchetype below), never to
+    // patterns.selectRecipe(tokens(s.name)) -- that ranker matching on a
+    // single generic word ("data") was the routing defect this task closes.
+    var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : null;
     var components = p ? uniq(p.components || []) : [];
-    var archetype = loadArchetype(sel);
+    var archetype =
+      route && !p && route.archetypeId ? loadArchetype({ archetype: route.archetypeId }) : loadArchetype(sel);
     if (!archetype) {
       // Applies whenever the ranker found nothing usable, whether or not a
       // pattern matched by name (a matched pattern's own tags can still
