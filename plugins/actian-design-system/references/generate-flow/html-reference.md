@@ -215,14 +215,14 @@ generate-presentation). It handles these `node.type` values:
 | `DIVIDER` | `<hr class="fm-divider">` | Horizontal rule |
 | _(other)_ | children only | Unknown types render their `children[]`, otherwise nothing |
 
-**TEXT node shape** — the exact fields the renderer reads:
+**TEXT node shape**: the exact fields the renderer reads:
 
 ```json
 { "type": "TEXT", "content": "…", "size": 14, "font": "Inter:Semi Bold", "color": "var(--zen-color-text-primary)" }
 ```
 
 `font` is a `Family:Weight` string, never an object; `color` is a token, never a word like muted.
-`render-node.js`'s `FONT_WEIGHT_MAP` accepts several weight names — the four common ones are
+`render-node.js`'s `FONT_WEIGHT_MAP` accepts several weight names; the four common ones are
 `Regular`, `Medium`, `Semi Bold`, `Bold`. `size` is a px number, not a string. Under `--hifi` the
 same shape applies; `ds-components-authoring.md` points here rather than repeating it.
 

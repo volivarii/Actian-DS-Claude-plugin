@@ -29,7 +29,7 @@ describe("generate-flow wires the brief", () => {
   it("Step 5 authors every screen count in the agent and merges incrementally", () => {
     assert.doesNotMatch(skill, /Sequential mode/);
     assert.doesNotMatch(skill, /Parallel mode \(6\+/);
-    assert.match(skill, /one .* per screen/i);
+    assert.match(skill, /dispatch one `screen-generator` agent per screen/i);
     assert.match(skill, /flows\/\.brief\//);
     assert.match(skill, /--incremental --screen-list/);
   });

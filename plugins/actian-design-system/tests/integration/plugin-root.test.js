@@ -198,7 +198,7 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
     assert.equal(fs.realpathSync(r.out), t.ours);
   });
 
-  it("is copied verbatim, exactly once, after the H1 of every skills/*/SKILL.md and any agents/*.md that runs a plugin script", function () {
+  it("is copied verbatim, exactly once, after the H1 of every skills/*/SKILL.md and any agents/*.md that carries the block", function () {
     var block = canonicalBlock();
     var dirs = fs.readdirSync(SKILLS_DIR).filter(function (d) {
       return fs.existsSync(path.join(SKILLS_DIR, d, "SKILL.md"));
@@ -217,16 +217,20 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
 
     // No agent in this plugin carries Bash in its `tools:` frontmatter (they
     // are Read/Grep/Glob/Write/WebFetch/WebSearch only), so none can
-    // legitimately run a plugin script via `${CLAUDE_PLUGIN_ROOT}/scripts` —
+    // legitimately run a plugin script via `${CLAUDE_PLUGIN_ROOT}/scripts`:
     // an agent that named this pattern in prose without Bash access would
     // itself be a defect (an instruction the agent has no tool to carry
-    // out). This loop still enforces the canonical block wherever an
-    // agents/*.md DOES carry the pattern; it is not required that one does.
+    // out), and indeed as of this writing none does. Collecting by that
+    // substring would therefore silently drop every agent from this loop,
+    // including one (screen-generator) that still carries the canonical
+    // block for its general "paths are plugin-root-relative" framing even
+    // without a script to run. Key on the block's own marker instead, so
+    // any agent that carries it stays checked regardless of why.
     fs.readdirSync(AGENTS_DIR).forEach(function (f) {
       if (!/\.md$/.test(f)) return;
       var full = path.join(AGENTS_DIR, f);
       var text = fs.readFileSync(full, "utf8");
-      if (text.indexOf("${CLAUDE_PLUGIN_ROOT}/scripts") !== -1) {
+      if (text.indexOf("<!-- plugin-root:begin -->") !== -1) {
         files.push({ path: full, label: "agents/" + f });
       }
     });

@@ -71,14 +71,14 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 
 ## Pipeline (3 gates, then build + render; push opt-in) — for prompt + greenfield generation
 
-1. Determine the app (Studio/Explorer/Administration). An explicit app in the prompt ("in Studio") always wins — read `references/context/app-context.md` only when the prompt does not name the app. Disambiguate against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps.<id>.signals` (an object keyed by app id, e.g. `apps.studio.signals`: steward/govern/curate/lineage…; `apps.explorer.signals`: browse/discover/marketplace…).
+1. Determine the app (Studio/Explorer/Administration). An explicit app in the prompt ("in Studio") always wins: read `references/context/app-context.md` only when the prompt does not name the app. Disambiguate against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps.<id>.signals` (an object keyed by app id, e.g. `apps.studio.signals`: steward/govern/curate/lineage…; `apps.explorer.signals`: browse/discover/marketplace…).
 
    **Announce the app (S2).** State one line: `Generating for **<App>**`. Add the parenthesis `(inferred, say "use Explorer" to switch)` only when the app was inferred, never when the prompt named it, then continue without waiting. Accept an override only if it matches a known app (`scripts/lib/app-context/resolve-patterns.js` / `resolve-chrome.js` list the apps). **Hard-ask** which app *only* when signals match **zero** apps, or **two or more** apps with equal strength. This keeps the HTML-first "no new mandatory gate" rule: it's an announcement with an escape hatch, not a gate.
 
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail + config** (single merged gate — screen approval, detail level, AND generation config; see below). Prose pre-inference runs first.
-   4.5. **Vision analysis on `meta.references[]`** (C-vision, opt-in) — when `--ref <url>` was provided and `meta.references[]` is non-empty, extract a structural fingerprint per reference before building flow-data; skip entirely when empty. **REQUIRED:** read `references/generate-flow/vision-refs.md` for the per-ref loop, the vision-extraction prompt template, and failure-mode handling.
+   4.5. **Vision analysis on `meta.references[]`** (C-vision, opt-in): when `--ref <url>` was provided and `meta.references[]` is non-empty, extract a structural fingerprint per reference before building flow-data; skip entirely when empty. **REQUIRED:** read `references/generate-flow/vision-refs.md` for the per-ref loop, the vision-extraction prompt template, and failure-mode handling.
 
 5.0. **Skeleton — render the encapsulated deliverable immediately.** As soon as the screen list is approved (Gate 3), render the structure to the canonical artifact so the user sees it instantly instead of an empty panel:
 
@@ -95,10 +95,11 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
     -o {project_working_directory}/flows/[feature].html
   ```
 - Tell the user: `Preview ready (skeleton) → {project_working_directory}/flows/[feature].html — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
+- Then run `## Step 3.5` below to write the brief and its per-screen slices; Step 5's screen-generator dispatch reads what it writes.
 
 5. Build `flow-data.json`
    - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how the screen's content is authored.
-   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel — screen count does not change the shape of the dispatch. Each instance gets only its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number, and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` under `--hifi`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses its screen's `archetype.skeleton` or `pageRecipe.skeleton` from the slice as the starting point. Merge as instances land:
+   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets only its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number, and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` under `--hifi`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses its screen's `archetype.skeleton` or `pageRecipe.skeleton` from the slice as the starting point. Merge as instances land:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
@@ -107,7 +108,7 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
        --incremental --screen-list {project_working_directory}/flows/screen-list.json
      ```
      The main agent prepares, merges, validates and renders; it does not author screen content.
-   - **Progress (chat) + live streaming:** this is the longest silent phase — keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands, as each batch's partials merge: `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live — re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials become ready, the rest stay shimmer). Every streaming render is fail-open (a render error never blocks the build).
+   - **Progress (chat) + live streaming:** this is the longest silent phase, so keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands, as each screen's partial merges: `✓ <N>/<M> <screen name>`. Lead with `Building <feature> (<M> screens)` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live: re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials become ready, the rest stay shimmer). Every streaming render is fail-open (a render error never blocks the build).
 6. **Validate flow data** — run the validation script before rendering the final deliverable / pushing:
 
    ```bash
@@ -149,9 +150,9 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 - **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
 - **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
 
-For warning-level findings (`default-true-boolean-unset`, `token`, `terminology`, `avoid-word`, `unmuted-chrome` — the validator's own CLI bracket labels): exit 2, proceeds. Findings surface in the GenLog text node (and in the deliverable when pushed).
+For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`): exit 2, proceeds. `default-true-boolean-unset` also fires as a warning, but stays silent on the CLI by design (too high-volume) and surfaces only in the raw findings JSON `validate()` returns to a programmatic caller. Findings surface in the GenLog text node (and in the deliverable when pushed).
 
-**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker — the sidebar item in the slice's `glossary.chrome.sidebar` the feature lives under (Catalog for catalog objects in Studio). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/ds-rules/quality-tiers.md`.
+**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker: the sidebar item in the slice's `glossary.chrome.sidebar` the feature lives under (Catalog for catalog objects in Studio). This honors the rule that non-feature chrome is ALWAYS placeholder; see `references/ds-rules/quality-tiers.md`.
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
@@ -188,7 +189,7 @@ The three interactive gates are presented verbatim from `references/generate-flo
 
 ## Step 3.5 — Build flow glossary
 
-After the screen list of Step 5.0 (`screen-list.json` already written), run once, using the app from Pipeline step 1 and the entity slug (the `entities` key of app-context naming the feature's primary object — `prepare-flow.js --list-entities` prints them):
+Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1 and the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them):
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
