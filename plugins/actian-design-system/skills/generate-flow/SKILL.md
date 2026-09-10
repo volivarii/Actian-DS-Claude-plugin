@@ -76,32 +76,13 @@ Parse args. Note which flags are explicitly passed:
 
 Classify input shape (Prompt / Refine / Iterate per the table above). **Refine and Iterate paths skip Gate 3 entirely** — URL + prose (refine) or `--from <url>` (iterate) are already explicit intent.
 
-## Push opt-in (resolve before Step 7)
+## Push opt-in
 
-The default greenfield run is **HTML only — no push**. A Figma push happens **only if** one of these resolves push to true:
-
-- `--push` flag set.
-- Prose intent in the prompt: "push to figma", "in figma", "as a figma file".
-- `--audit` set (runs a post-push design audit → implies push). `--hifi` does NOT imply push — it selects DS-native authoring mode; the deliverable is hi-fi HTML.
-- The designer accepts push at the Step 7.5 combined gate.
-
-**`--no-push` overrides all of the above** (wins ties with `--push`).
-
-**Explicit-Figma exemption:** refine / iterate / branch on an existing Figma URL **always push** — the designer is already editing a Figma artifact, so push is unconditional regardless of the opt-in default. (`--no-push` still vetoes as a power-user override.)
-
-**REQUIRED:** read `references/generate-flow/push-opt-in.md` for the full trigger table, the `--no-push` veto rules, and the verbatim Step 7.5 combined gate prompt.
+Push is opt-in and resolved before Step 7; the detection rules, the `--push` / `--no-push` precedence and the Cowork note are in `references/generate-flow/push-opt-in.md`; the push sequence itself is in `references/generate-flow/figma-push.md` (read it only when push resolved to true).
 
 ## Refine shape
 
-Refine activates when ALL of: a Figma URL is provided, a prose instruction is
-provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the
-wrapper `pageNodeId`) in `.last-push.json`. Refine edits the existing
-`flow-data.json` in place and re-pushes — it does not regenerate. Refine is on
-the explicit-Figma path, so it **always pushes** (unless `--no-push`).
-
-**REQUIRED:** before running a Refine, read
-`references/generate-flow/refine.md` for the full detection rules and the
-step-by-step behavior.
+A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; detection and behaviour are in `references/generate-flow/refine.md`, and the push half in `references/generate-flow/figma-push.md`.
 
 ## Pipeline (3 gates, then build + render; push opt-in) — for prompt + greenfield generation
 
@@ -216,106 +197,11 @@ Tell the user: `Your flow is ready → {project_working_directory}/flows/[featur
 
 ## Step 7.5 — Combined post-build gate (interactive)
 
-**Skipped if:** `--no-prompt` is set, OR refine/iterate/branch path (designer-driven, push already happened — at most offer audit per the reference).
+Presented verbatim from `references/generate-flow/gates.md` after the final render: done (default), push to Figma, or push to Figma + audit. Read it at that moment, not before.
 
-After the `flows/[feature].html` deliverable is rendered (Step 6.5), present a **single combined gate** offering both push-to-Figma and audit. `--push` already resolved → skip the push offer (still offer audit unless `--audit` also set). `--audit` set → audit auto-runs (and implies push); skip that offer.
+## Gates
 
-**REQUIRED:** present the verbatim combined gate prompt from
-`references/generate-flow/push-opt-in.md` ("Combined post-build gate") and use
-its parser. The choices it offers are: `done` (default — keep the HTML),
-`push` (push to Figma), and `push + audit` (push to Figma, then audit the
-pushed result). Audit always implies a push — `/design-audit` operates on a
-Figma URL, not local HTML; typing "audit" is treated as "push + audit".
-
-When `--audit` is set explicitly, skip this gate and run the push + audit pipeline immediately after the final render (existing behavior preserved).
-
----
-
-## Gate 1 — Research
-
-**MANDATORY** unless prompt contains "no research", "skip research", "just build it", or provides references. Copy verbatim:
-
-```
-Should I research UX patterns for this?
-- **Yes** — I'll research competitor and best-in-class SaaS patterns
-- **No, here are references:** — share URLs, screenshots, or files
-- **No, just build it** — I'll use Actian conventions only
-```
-
-**Yes** → dispatch `flow-researcher` agent, then present findings (Gate 2). **References** → analyze + screen list. **No** → screen list directly. Layers: see `references/generate-flow/research-guide.md`.
-
-## Gate 2 — Research findings (mandatory when opted-in)
-
-Do NOT internalize the research. Present verbatim:
-
-```
-### Research findings: [Feature]
-
-**How competitors handle this:**
-- [Product A]: [approach — 1-2 sentences] — [source URL]
-- [Product B]: [approach — 1-2 sentences] — [source URL]
-- [Product C]: [approach — 1-2 sentences] — [source URL]
-
-**Common patterns:**
-- [Pattern 1]
-- [Pattern 2]
-- [Pattern 3]
-
-**What I'll apply to our flow:**
-- [Specific recommendation 1]
-- [Specific recommendation 2]
-
-**What I'll skip and why:**
-- [Pattern that doesn't fit Actian conventions]
-
-**Sources:** [all URLs as clickable links]
-```
-
-**ALWAYS include source URLs.** Wait for acknowledgment before proceeding to Gate 3.
-
-## Gate 3 — Screen list + detail + config (SINGLE merged gate)
-
-This single gate covers screen approval, detail level, AND generation config (the config questions folded in from the old pre-gen step). **Skipped if:** input is Refine or Iterate shape, OR all gateable config flags (`--hifi`, `--variants`, `--ref`, `--breakpoints`, `--states`) are explicitly passed, OR `--no-prompt` is set.
-
-**Pre-flight prose inference** (run FIRST, before showing the gate; suppresses any config question whose value is confidently inferable from prose):
-
-- "ship-ready", "production", "make it real" → infer `--hifi`
-- "alternatives", "show me variants", "different angles" → infer `--variants 3`
-- Trailing Figma URLs after the feature prompt → infer `--ref <urls>`
-- "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
-- "with empty state", "add error state", "loading state" → infer `--states <list>`
-
-**Frame by use case (S2).** Resolve the app's use cases: `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; if neither list matches, take `useCases[0]` and state it on its own line when presenting the screen list: `Use case: steward (say "engineer use case" to switch).` Carry the chosen use case forward to Step 3.5 as `_glossary.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
-
-Present a numbered screen list, then copy verbatim:
-
-```
-Does this work, or would you like to adjust?
-
-**Screens:** approve all, scope down ("just 1 & 2"), or describe changes
-
-**Detail level:**
-- **draft** — feature area only, minimal content, placeholder chrome
-- **standard** — feature fully detailed, contextual labels and data (default)
-- **production** — all states, edge cases, loading, empty, error
-
-**Config (defaults shown; only answer to change):**
-- Output:        **Fat Marker** (fast lo-fi wireframe, FM palette; default) | **hi-fi** (DS-native, themed, share-ready)
-- Variants:      1 (default) | 2 | 3
-- References:    none (default) | <paste Figma URL(s)>
-- Breakpoints:   desktop (default) | + tablet | + mobile | all
-- State coverage: none (default) | empty | error | loading | populated | all
-
-**Actions:**
-- **"approve"** — standard detail, all config defaults, build the HTML deliverable
-- **"approve draft"** or **"approve production"** — specify detail level
-- **"approve hifi 3 empty,error"** — approve + set config inline (hi-fi = DS-native HTML; add `--push` for one-step whole-tree Figma artifact)
-- **"push [Figma URL]"** — approve standard + push directly to Figma
-```
-
-Parse the response for screen approval, detail level, AND config tokens (`hifi`, bare `1-3`, `ref:<url>`, `tablet`/`mobile`/`all`, `empty`/`error`/`loading`/`populated`). Default detail to **Standard**; default config to all-defaults. Invalid config token → re-prompt: "Unknown token `foo`. Valid: hifi, 1-3, ref:<url>, tablet, mobile, all, empty, error, loading, populated." 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use defaults, or pass flags directly." Full config grammar: `references/ds-rules/interactive-gates.md`.
-
-**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
+The three interactive gates are presented verbatim from `references/generate-flow/gates.md`: Gate 1 (research; default when the user gives no answer or `--no-prompt` is set: "No, just build it", say so in one line), Gate 2 (findings, only when research was opted in), Gate 3 (screen list + detail + config; the use case line defaults to `useCases[0]` and is stated only when the app was inferred). Read `gates.md` at the moment each gate is due, not before.
 
 ## Step 3.5 — Build flow glossary
 
@@ -428,28 +314,7 @@ Set `meta._glossary` before dispatching screen-generators or building flow-data 
 
 ## Push to Figma
 
-Push is **opt-in** — only run this section when push resolved to true (see **Push opt-in** above). Read `references/figma/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
-
-**REQUIRED:** read `references/generate-flow/push-sequence.md` for the full push
-sequence (wrapper + GenLog → tier/scope annotations → research/cover cards →
-per-screen frame + chrome `setProperties` + the deterministic content emitter →
-designer report) and the push rules.
-
-### DS-native authoring (if --hifi flag)
-
-When `--hifi` is set, every content INSTANCE node must carry `library:"ds"` and `dsSlug` from the vocabulary doc `references/generate-flow/ds-components-authoring.md`. Set `meta.library:"ds"` on the flow-data when writing it — the renderer picks up the DS chrome branch and applies themed hi-fi HTML automatically.
-
-**Vocabulary and built leaves:** read `references/generate-flow/ds-components-authoring.md` FIRST. Favor BUILT leaves (they produce full CSS-styled HTML); unbuilt slugs with a vendored appearance doc render their real captured colors (and real icon glyphs where anatomy resolves one), with the labeled chip only as the last-resort fallback when no appearance doc exists. Validation adds `unknown-ds-slug` (hard error: the slug is not in the DS registry) and `ds-slug-unbuilt` (warning: slug is valid but not yet a built leaf; renders from its captured appearance doc when one exists, chip only as last resort; prefer a built leaf when one exists that covers the use case).
-
-**The HTML deliverable IS the hi-fi artifact.** The `flows/[feature].html` file is themed and fully styled — it is what you share. No separate conversion step is needed.
-
-**Figma push for DS-native flows uses the whole-tree emitter.** `--hifi --push` is supported: for each screen with `library:"ds"`, the push step builds the full node tree via `screenTree(screen)` and emits it in ONE `use_figma` call appended to the wrapper — chrome (app header, sidebar, page header) and content together, all DS Kit instances. Read `references/generate-flow/push-sequence.md` step 6 DS-screen path for the exact shell command. `--hifi` alone does NOT imply a push — Figma output requires explicit `--push`.
-
-### Audit pass (if --audit flag)
-
-After lo-fi push (or hifi push when `--hifi` is also set), invoke `/design-audit <pushed-url>`. Audit reports findings without modifying the design. To auto-fix, the designer follows up with `/design-audit <url> --fix all` or `--fix N`. (`--audit` implies a push.)
-
----
+Only when push resolved to true: read `references/generate-flow/figma-push.md` and follow its sequence (DS-native authoring under `--hifi`, the audit pass under `--audit`, parity, wiring).
 
 ## Examples
 
