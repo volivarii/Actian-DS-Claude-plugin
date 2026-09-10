@@ -19,6 +19,18 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **A generate-flow run reads one brief instead of the substrate's prose.** ([#369](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/369)) `prepare-flow.js`
+  joins the chrome, patterns, use cases, entity properties, relationships, the captured page recipe or
+  archetype per screen, and the property rules of the components each screen needs, into
+  `flows/.brief.json`. Step 3.5 of the skill is that one command; every screen is authored by the
+  `screen-generator` agent in batches of three from the brief; the push, refine and gate prose moved out
+  of `SKILL.md` into references read when due. The terminology gate now masks the substrate's own terms
+  (its `use` words, the sidebar labels, the entity's property and relationship labels) before matching,
+  so "Input ports (2)" and "Api version" stop being findings (#346). Measured on the two audit prompts:
+  see the PR body.
+
 ### Fixed
 
 - **The authoring references say what the vendored leaves read.** ([#368](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/368)) Rerunning the
