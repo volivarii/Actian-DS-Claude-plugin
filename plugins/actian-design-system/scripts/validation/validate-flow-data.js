@@ -492,6 +492,55 @@ function buildTerminologyRules(terminology) {
   return rules;
 }
 
+var TERMINOLOGY_SKIP_PROPS = {
+  variant: 1,
+  name: 1,
+  template: 1,
+  id: 1,
+  dsslug: 1,
+};
+
+function knownTermsFrom(data, terminology) {
+  var out = [],
+    seen = {};
+  function add(t) {
+    if (typeof t !== "string") return;
+    var s = t.trim();
+    if (s.length < 3 || seen[s.toLowerCase()]) return;
+    seen[s.toLowerCase()] = 1;
+    out.push(s);
+  }
+  Object.keys(terminology || {}).forEach(function (k) {
+    add(terminology[k] && terminology[k].use);
+  });
+  var g = data && data.meta && data.meta._glossary ? data.meta._glossary : {};
+  if (g.chrome) {
+    if (g.chrome.header) add(g.chrome.header.type);
+    (g.chrome.sidebar || []).forEach(function (s) {
+      add(s && s.label);
+    });
+  }
+  (g.entityProperties || []).forEach(function (p) {
+    add(p && p.label);
+  });
+  (g.relationships || []).forEach(function (r) {
+    add(r && r.label);
+  });
+  return out;
+}
+
+function maskKnownTerms(text, knownTerms) {
+  var out = text;
+  for (var i = 0; i < knownTerms.length; i++) {
+    var escaped = knownTerms[i].replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    var re = new RegExp("\\b" + escaped + "s?\\b", "gi");
+    out = out.replace(re, function (m) {
+      return new Array(m.length + 1).join(" ");
+    });
+  }
+  return out;
+}
+
 function findTerminologyIssuesRaw(data) {
   var terminology = loadTerminology();
   if (!terminology) return [];
@@ -499,12 +548,14 @@ function findTerminologyIssuesRaw(data) {
   var rules = buildTerminologyRules(terminology);
   if (rules.length === 0) return [];
 
+  var known = knownTermsFrom(data, terminology);
   var issues = [];
 
   function checkText(text, screenName, nodePath) {
     if (!text || typeof text !== "string") return;
+    var masked = maskKnownTerms(text, known);
     for (var r = 0; r < rules.length; r++) {
-      if (rules[r].pattern.test(text)) {
+      if (rules[r].pattern.test(masked)) {
         issues.push({
           severity: "P1",
           check: "terminology",
@@ -539,6 +590,8 @@ function findTerminologyIssuesRaw(data) {
         if (node.props) {
           var propKeys = Object.keys(node.props);
           for (var pk = 0; pk < propKeys.length; pk++) {
+            if (TERMINOLOGY_SKIP_PROPS[String(propKeys[pk]).toLowerCase()])
+              continue;
             var val = node.props[propKeys[pk]];
             if (typeof val === "string") {
               checkText(val, sName, nPath + ".props." + propKeys[pk]);
@@ -2109,6 +2162,8 @@ module.exports = {
   findHardcodedColors: findHardcodedColors,
   findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
+  knownTermsFrom: knownTermsFrom,
+  maskKnownTerms: maskKnownTerms,
   findAvoidWords: findAvoidWords,
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
