@@ -1259,6 +1259,8 @@ function checkRecipeAdherence(screen, findings) {
 // bare keyword like "muted" is neither a token nor something
 // findHardcodedColorsRaw recognizes as hardcoded, so it would otherwise
 // leak into the style attribute unnoticed.
+var TEXT_STYLE_MSG_PREFIX = "TEXT ";
+
 function checkTextStyle(screen, findings) {
   if (!screen || !Array.isArray(screen.content)) return;
   walkNodes(screen.content, screen.name || "", "content", function (node) {
@@ -1269,7 +1271,8 @@ function checkTextStyle(screen, findings) {
         severity: "warning",
         screen: screen.id || "",
         message:
-          'TEXT font must be "Family:Weight" and color a var(--zen-*) token: ' +
+          TEXT_STYLE_MSG_PREFIX +
+          'font must be "Family:Weight": ' +
           JSON.stringify({ font: node.font }),
       });
     }
@@ -1288,7 +1291,8 @@ function checkTextStyle(screen, findings) {
           severity: "warning",
           screen: screen.id || "",
           message:
-            'TEXT font must be "Family:Weight" and color a var(--zen-*) token: ' +
+            TEXT_STYLE_MSG_PREFIX +
+            "color must be a var(--zen-*) token, hex, or a CSS keyword: " +
             JSON.stringify({ color: node.color }),
         });
       }
@@ -1910,7 +1914,9 @@ function validate(data, opts) {
     // PLACEHOLDER_PATTERNS shape (e.g. the entity property literally called
     // "Description"). Built once from the flow's own substrate grounding.
     var flowGlossary = (data.meta && data.meta._glossary) || {};
-    var knownLabels = {};
+    // Object.create(null): a plain {} would let a string like "constructor"
+    // or "toString" false-match an inherited Object.prototype key.
+    var knownLabels = Object.create(null);
     (Array.isArray(flowGlossary.entityProperties)
       ? flowGlossary.entityProperties
       : []

@@ -126,7 +126,11 @@ function prepareFlow(options) {
     var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : patterns.selectRecipe(tokens(s.name));
     var components = p ? uniq(p.components || []) : [];
     var archetype = loadArchetype(sel);
-    if (!p && !archetype) {
+    if (!archetype) {
+      // Applies whenever the ranker found nothing usable, whether or not a
+      // pattern matched by name (a matched pattern's own tags can still
+      // rank to a tie or no-match -- e.g. "Activity timeline", "Discussion
+      // threads" among Studio's patterns), so every screen gets a skeleton.
       archetype = loadArchetype({ archetype: fallbackArchetype(s.name) });
     }
     var rawPropertyRules = rules.inspectSlugs(components);

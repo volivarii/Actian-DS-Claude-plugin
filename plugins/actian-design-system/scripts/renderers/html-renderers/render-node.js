@@ -243,8 +243,9 @@
     // a screen-generator occasionally authors the object form instead
     // ({ family?, weight? }) — accepted here so that shape renders instead
     // of throwing into the catch-all render-error below. Anything else
-    // (number, array, ...) is silently ignored, also no throw.
-    if (typeof node.font === "string") {
+    // (number, array, an empty string, ...) is silently ignored, also no
+    // throw -- font: "" keeps its old behaviour of emitting nothing.
+    if (typeof node.font === "string" && node.font) {
       var fontParts = node.font.split(":");
       var family = fontParts[0] ? fontParts[0].trim() : defaultFont;
       var weightName = fontParts[1] ? fontParts[1].trim() : "Regular";

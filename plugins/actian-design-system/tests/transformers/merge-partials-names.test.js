@@ -126,4 +126,41 @@ describe("merge-partials --incremental: tolerant name matching", function () {
     assert.equal(res.screens[0].name, "Data products");
     assert.ok(!("status" in res.screens[0]));
   });
+
+  it('a decimal sub-numbered name like "Screen 2.1: Foo" is not over-stripped to "1: Foo"', function () {
+    var dir = mk();
+    fs.writeFileSync(
+      path.join(dir, ".partial", "p1.json"),
+      JSON.stringify({
+        _index: 1,
+        meta: { feature: "Cat" },
+        screens: [
+          { name: "Screen 2.1: Foo", template: "studio", content: [] },
+        ],
+      }),
+    );
+    // The list does NOT hold "Foo" (what the old, over-eager stripping would
+    // have canonicalized down to) — it holds the name verbatim, so the only
+    // way this partial matches is if canonicalName leaves it untouched.
+    var lp = writeList(dir, {
+      meta: { feature: "Cat" },
+      screens: [
+        { name: "Foo", template: "studio" },
+        { name: "Screen 2.1: Foo", template: "studio" },
+      ],
+    });
+    var res = runIncremental(dir, lp);
+    assert.equal(res.screens.length, 2);
+    assert.equal(res.screens[0].name, "Foo");
+    assert.equal(
+      res.screens[0].status,
+      "pending",
+      '"Foo" must stay pending — the partial is NOT a match for it',
+    );
+    assert.equal(res.screens[1].name, "Screen 2.1: Foo");
+    assert.ok(
+      !("status" in res.screens[1]),
+      'the partial matches the list entry that holds "Screen 2.1: Foo" verbatim',
+    );
+  });
 });

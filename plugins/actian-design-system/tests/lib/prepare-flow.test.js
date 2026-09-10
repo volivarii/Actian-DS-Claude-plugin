@@ -130,6 +130,18 @@ describe("prepare-flow (brief per flow)", function () {
     assert.ok(brief.screens[1].archetype.skeleton, "detail-view archetype carries a skeleton");
   });
 
+  it("archetype fallback also applies when a pattern matched by name but the recipe ranker found nothing usable", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      screens: [{ name: "Activity timeline", template: "studio" }],
+    });
+    var s = brief.screens[0];
+    assert.ok(s.pattern, "\"Activity timeline\" matches a Studio pattern by name");
+    assert.ok(s.archetype, "the fallback still applies even though a pattern matched");
+    assert.ok(typeof s.archetype.archetype === "string" && s.archetype.archetype.length > 0);
+    assert.ok(s.archetype.skeleton, "fallback archetype carries a skeleton");
+  });
+
   it("plain rule names: propertyRules.required and .defaultTrueBooleans both drop the Figma id suffix", function () {
     var brief = prepare.prepareFlow({
       app: "studio",

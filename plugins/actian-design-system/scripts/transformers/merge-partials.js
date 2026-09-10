@@ -152,8 +152,13 @@ function mergeArray(partials, arrayKey) {
 // "Screen 2: Data product detail" still fills the list entry
 // "Data product detail".
 function canonicalName(s) {
+  // Separator after the digits must be ":" or "-", or "." followed by
+  // whitespace -- plain "." would also match the "." in a decimal
+  // sub-numbering scheme like "Screen 2.1: Foo", over-stripping down to
+  // "1: Foo". Requiring whitespace after "." keeps "2.1" intact while
+  // still stripping "Screen 2. Foo".
   return String(s)
-    .replace(/^\s*screen\s*\d+\s*[:.\-]\s*/i, "")
+    .replace(/^\s*screen\s*\d+\s*(?::|-|\.(?=\s))\s*/i, "")
     .trim();
 }
 
