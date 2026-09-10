@@ -45,12 +45,11 @@ describe("prepare-flow (brief per flow)", function () {
       screens: [{ name: "Access request management", template: "studio" }],
     });
     var s = brief.screens[0];
-    // access-request-workflow carries "request" as an authored tag (+2);
-    // access-request-management's tags (queue/review/approve/table/requests)
-    // never match the singular token "request" exactly, so it scores only
-    // on whole-word label overlap (+3) -- a real tag hit outranks it under
-    // the reweighted scoring (pickPattern in prepare-flow.js).
-    assert.strictEqual(s.pattern.slug, "access-request-workflow");
+    // The screen name equals access-request-management's label verbatim, so
+    // the exact-label first pass in pickPattern wins outright, even though
+    // access-request-workflow's authored "request" tag would otherwise
+    // outscore it under the tag/label weighting.
+    assert.strictEqual(s.pattern.slug, "access-request-management");
     assert.ok(Array.isArray(s.components) && s.components.length > 0);
     Object.keys(s.propertyRules).forEach(function (slug) {
       assert.ok(Array.isArray(s.propertyRules[slug].required));
@@ -199,7 +198,7 @@ describe("prepare-flow (brief per flow)", function () {
     assert.strictEqual(slice1.total, 2);
     assert.deepStrictEqual(slice1.screen, brief.screens[0]);
     assert.strictEqual(slice1.glossary.patterns.length, 1);
-    assert.strictEqual(slice1.glossary.patterns[0].slug, "access-request-workflow");
+    assert.strictEqual(slice1.glossary.patterns[0].slug, "access-request-management");
     assert.strictEqual(slice1.app, brief.app);
     assert.strictEqual(slice1.entity, brief.entity);
     assert.deepStrictEqual(slice1.labels, brief.labels);
@@ -267,6 +266,22 @@ describe("pickPattern (reweighted tag/label scoring)", function () {
     var p = prepare.pickPattern("Data products list", studioPatterns);
     assert.ok(p, "expected a match");
     assert.strictEqual(p.slug, "search-filtered-table");
+  });
+
+  it("an exact label match wins outright, even over a tag-heavy neighbour that would otherwise outscore it", function () {
+    // access-request-workflow's authored "request" tag scores higher than
+    // access-request-management's label-only overlap under the tag/label
+    // weighting alone (4 vs 3) -- but the screen name equals
+    // access-request-management's label verbatim, so the exact-label first
+    // pass must win before scoring ever runs.
+    var p = prepare.pickPattern("Access request management", studioPatterns);
+    assert.ok(p, "expected a match");
+    assert.strictEqual(p.slug, "access-request-management");
+
+    // Case- and whitespace-insensitive too.
+    var p2 = prepare.pickPattern("  ACCESS   request Management  ", studioPatterns);
+    assert.ok(p2, "expected a match");
+    assert.strictEqual(p2.slug, "access-request-management");
   });
 
   it("on a tie, the pattern named in the entity's own patterns[] wins over an equally-scored one that comes first", function () {

@@ -54,6 +54,18 @@ function tokens(name) {
   });
 }
 
+// Whitespace-normalised, case-insensitive label equality. A screen name is
+// frequently authored as the pattern's own label verbatim (the designer
+// copied it from the pattern catalog); that is a certain match and must win
+// outright, before scoring ever runs -- otherwise a pattern with a heavier
+// tag vocabulary on a shared word can outscore the pattern the name actually
+// names (e.g. "Access request management" naming access-request-management
+// exactly, while access-request-workflow's authored "request" tag alone
+// scores higher under the tag/label weighting below).
+function normalizeLabel(s) {
+  return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
 // Score = 2 per tag hit (an authored/derived pattern tag exactly matching a
 // name token) + 1 per whole-word label hit (the label carries the token as
 // its own word, not merely as a substring -- "data" no longer drags in
@@ -62,8 +74,13 @@ function tokens(name) {
 // candidates at all. On a tie, a pattern the entity itself names in its own
 // patterns[] (entityPatternSlugs, default empty) wins over one the name
 // alone happens to score equally -- entity ownership is a stronger signal
-// than generic word overlap.
+// than generic word overlap. An exact label match (above) always wins first.
 function pickPattern(name, appPatterns, entityPatternSlugs) {
+  var normName = normalizeLabel(name);
+  for (var e = 0; e < appPatterns.length; e++) {
+    if (normalizeLabel(appPatterns[e].label) === normName) return appPatterns[e];
+  }
+
   var entitySlugs = {};
   (entityPatternSlugs || []).forEach(function (s) { entitySlugs[s] = 1; });
   var toks = tokens(name);
