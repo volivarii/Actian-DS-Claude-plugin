@@ -80,7 +80,15 @@ When the fingerprint pushes you off the obvious tier-1 recipe and the screen end
 
 ## Step -1: Property completeness pre-check
 
-Read `propertyRules` for your screen from the brief: `required` props must be set on every INSTANCE of that slug, `defaultTrueBooleans` must be set explicitly (true or false). Run the inspector only for a slug the brief does not list:
+The brief's `propertyRules` (keyed by component slug: `{ required: [...], defaultTrueBooleans: [...] }`) is your pre-check result: read it before writing INSTANCE nodes. For every INSTANCE of a slug `propertyRules` lists, write its `{ type: "INSTANCE", ref: "<slug>", props: {...} }` node correctly:
+
+1. **Required overrides**: every prop name in that slug's `required` array (TEXT props with placeholder defaults like `"Page Title"`, `"Button label"`, `"Label"`, etc.), include a real value in `props` keyed by the EXACT prop name shown (with hash suffix).
+2. **Default-true booleans**: every prop name in that slug's `defaultTrueBooleans` array, decide explicitly:
+   - If the design needs the element visible: set `props["<exact prop name>"]: true`
+   - If the design does NOT need it visible: set `props["<exact prop name>"]: false`
+   - Omitting these produces a warning at the validator gate (not an error, but visible in GenLog).
+
+Run the inspector only as a fallback, for a slug your screen uses that `propertyRules` does not list (one call per screen covers every such slug):
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -88,7 +96,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   --inspect <slug1>,<slug2>,<slug3>,...
 ```
 
-Pass every component slug you plan to use in the screen, comma-separated. Output is ~3 lines per slug:
+Pass the missing slugs, comma-separated. Output is ~3 lines per slug:
 
 ```
 fmButton
@@ -99,15 +107,9 @@ fmPageHeader
   default-true booleans: (none)
 ```
 
-Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }` node correctly:
+Read its `required overrides` / `default-true booleans` lines the same way you'd read `propertyRules[slug].required` / `.defaultTrueBooleans`, and apply the same two rules above.
 
-1. **Required overrides** (TEXT props with placeholder defaults like `"Page Title"`, `"Button label"`, `"Label"`, etc.) — include a real value in `props` keyed by the EXACT prop name shown (with hash suffix).
-2. **Default-true booleans** — decide explicitly:
-   - If the design needs the element visible: set `props["<exact prop name>"]: true`
-   - If the design does NOT need it visible: set `props["<exact prop name>"]: false`
-   - Omitting these produces a warning at the validator gate (not an error, but visible in GenLog).
-
-**Why this matters:** the validator (`scripts/validation/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. **One CLI call per screen replaces dozens of registry reads.**
+**Why this matters:** the validator (`scripts/validation/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. The brief's `propertyRules` already carries this for every slug the substrate knows; the inspector only fills the gap for one it doesn't.
 
 ## Step 0: Classify each screen into a tier
 
@@ -116,7 +118,7 @@ For each screen in your batch, decide which tier the screen falls into based on 
 - **Recipe match** — does any single recipe in `recipes/flow/_index.json` (entries WITHOUT `kind: "composition"`) cleanly fit the screen's purpose?
 - **Composition fit** — does the screen need 2 recipes composed? Check `recipes/flow/_index.json` entries WITH `kind: "composition"`. The composition's `composes` array names the base recipes; if both base recipes describe parts of the screen, this composition is a fit.
 - **App-context precedent** — read the brief's `glossary.patterns` and your screen's `pattern`, `pageRecipe` and `archetype`; do not open `app-context.json`. Strong precedent → tier 1; no precedent → tier 3.
-- **App-pattern grounding (S2)**: read `meta._glossary.patterns` (the app's idiomatic UX patterns, each carrying `tags[]`, a pre-ranked `recipe` decision, and a `pageRecipe` naming a captured composition when one exists). **First decide which of those patterns THIS screen realizes**, then read only that pattern's `recipe` and `pageRecipe`; the list is app-scoped and holds every pattern, so a decisive archetype on an unrelated pattern is not guidance for this screen (`faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen must not inherit it). **When the pattern you landed on carries a non-null `pageRecipe`, compose the screen from that capture, not from the archetype.** Read `vendor/app-context/dist/recipes/<pageRecipe>.json` and build from its `skeleton`, honouring its `renderNotes` (they record what the renderer actually reads, so a prop named there renders and one invented does not). **The skeleton is a template, not finished content.** It carries `{{token}}` placeholders, and nothing downstream catches an unsubstituted one: `validate-flow-data.js` has no `{{` check, so a screen reading `{{result_count}} results` passes every gate and reaches Figma. Replace every token, and use the capture's `slots` to decide what each region should actually hold. Copy only keys the flow schema defines: the skeleton's top-level `appHeader` is not a screen field and is silently ignored.
+- **App-pattern grounding (S2)**: read `meta._glossary.patterns` (the app's idiomatic UX patterns, each carrying `tags[]`, a pre-ranked `recipe` decision, and a `pageRecipe` naming a captured composition when one exists). **First decide which of those patterns THIS screen realizes**, then read only that pattern's `recipe` and `pageRecipe`; the list is app-scoped and holds every pattern, so a decisive archetype on an unrelated pattern is not guidance for this screen (`faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen must not inherit it). **When the pattern you landed on carries a non-null `pageRecipe`, compose the screen from that capture, not from the archetype.** Build from your screen's `pageRecipe.skeleton` in the brief, honouring its `slots` and `renderNotes` (they record what the renderer actually reads, so a prop named there renders and one invented does not); never open the vendored recipe file. **The skeleton is a template, not finished content.** It carries `{{token}}` placeholders, and nothing downstream catches an unsubstituted one: `validate-flow-data.js` has no `{{` check, so a screen reading `{{result_count}} results` passes every gate and reaches Figma. Replace every token, and use the capture's `slots` to decide what each region should actually hold. Copy only keys the flow schema defines: the skeleton's top-level `appHeader` is not a screen field and is silently ignored.
 
   **A capture speaks the product's vocabulary, not the design system's, and that is the cost of taking it from a real screen.** Composed verbatim, `faceted-browse` raises 7 terminology plus 2 avoid-word findings and `asset-detail-360` raises 9 plus 1, where both `browse-search` and `detail-view` raise none: the captures say `Dataset`, `Category`, `Schema`, `Item` and `Type to search`, which the terminology map re-terms to `Data product`, `Topic`, `Metamodel` and `Catalog object`. Re-term every literal string against `meta._glossary` as you compose. Two of these are blocking rather than advisory, so check both: a bare `"Description"` trips `P0 [placeholder-text]`, and `fmButton` still needs its `Label#1411:32` override or you get `P0 [missing-required-override]`. Preferring the capture is about structure, which it has 34 real instances of against 9 padded with placeholders; it does not make its content ready to ship. A capture was composed from the running product and carries `derivedFrom` naming the surface and the date; an archetype is a generic shape with no such provenance. Measured 2026-08-19, when both shapes holding a capture also ranked `decisive` to a generic archetype: `faceted-browse` was offered 9 component instances of which 3 were placeholders, against 34 with none in the capture, and `asset-detail-360` was offered 6 with 1, against 22. **Classification is unchanged: still set `matchedRecipe` to the archetype**, because the capture supplies the composition, not the tier, and the flow validators key their detail-screen and pattern-grounding checks on archetype IDs. When the capture sits on a pattern whose `recipe.status` is `tie` or `no-match`, `recipe.archetype` is `null`: choose the closest archetype from `recipe.candidates`, or on the pattern description when there are none, and set `matchedRecipe` to that. Never leave it `null` on a screen you composed from a capture, or both validator checks lose their subject and pass by skipping. The one exception is a screen that is ALSO a composition: there the **Composition fit** rule wins, `matchedRecipe` stays `null` and `composition` carries the IDs, because `flow-data.schema.json` requires that. The capture still supplies how the parts are built. When `pageRecipe` is `null`, nothing about the rules below changes. If no pattern describes the screen, there is no recipe guidance and the "Recipe match, does it fit the screen's purpose" test above governs alone. **Then take `recipe.archetype` when that pattern's `recipe.status` is `decisive`** (one archetype sharing two or more tags); the ranking is by overlap size and has already been done for you. When it is `weak`, one archetype leads on a single shared tag: that is a best guess, so read the pattern `description` before taking it. When it is `tie`, `archetype` is `null` and you choose between `recipe.candidates` on the description, saying which and why. When it is `no-match`, no archetype guidance exists: choose on the description alone and do not report the screen as grounded. Compositions never appear in the ranked `recipe` decision, so `matchedRecipe` is never set to one; composition selection is unchanged and stays with the **Composition fit** bullet, where `matchedRecipe` is `null` and `composition` carries the IDs. Weight the patterns named in the chosen `meta._glossary.useCases[].patterns` shortlist first. Set `matchedRecipe` to the archetype you land on. A recipe sharing **no** tag with any app pattern is likely off-idiom, and the validator flags it `pattern-ungrounded` (advisory). Also orient each screen's empty state + primary CTA around the `jobs` in `meta._glossary.useCases[].jobs`.
 - **Reference URLs (`--ref` from prompt)** — if the prompt provides reference URLs, weigh whether they confirm the matched recipe (tier 1 still valid) or signal deviation desire (tier 2 minimum).
@@ -187,7 +189,7 @@ Apply different rules for content generation per the classified tier:
 ### Tier 1 — Recognized
 
 - Follow the `matchedRecipe` skeleton exactly. Don't add or remove top-level sections.
-- Variant selection, copy, density follow defaults from `vendor/app-context/dist/app-context.json` and `vendor/components/dist/guidelines/<slug>.json` (per-component merged multi-domain doc).
+- Variant selection, copy, density follow defaults from your screen's `pattern` and `pageRecipe` in the brief and `vendor/components/dist/guidelines/<slug>.json` (per-component merged multi-domain doc); do not open `app-context.json`.
 - Minor deviations within slots (column count in a table, button order in a toolbar) allowed without justification — these are creative latitude, not soft deviation.
 - **Boundary:** "minor" means the change does not add or remove a content section from the recipe's top-level slots. If you find yourself adding a slot that wasn't in the recipe (e.g., a sidebar to a `table-list` recipe), that's no longer minor — escalate to tier 2 deviation and justify, or pick a different (composition) recipe.
 

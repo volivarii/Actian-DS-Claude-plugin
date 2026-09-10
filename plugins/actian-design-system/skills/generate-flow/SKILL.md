@@ -113,8 +113,7 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 
 5. Build `flow-data.json`
    - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how each screen's content is authored.
-   - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
-   - **Authoring (every screen count):** dispatch `screen-generator` in batches of at most 3 screens, in parallel, each with: the brief path `{project_working_directory}/flows/.brief.json`, its screen numbers and names, `_index`, the output path `{project_working_directory}/flows/.partial/screens-<a>-<b>.json`, `meta`, and `meta.references[]` when fingerprints exist (see `references/generate-flow/vision-refs.md`). The agent reads the brief and `references/generate-flow/html-reference.md` (plus `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else. Merge as each batch lands:
+   - **Authoring (every screen count):** dispatch `screen-generator` in batches of at most 3 screens, in parallel, each with: the brief path `{project_working_directory}/flows/.brief.json`, its screen numbers and names, `_index`, the output path `{project_working_directory}/flows/.partial/screens-<a>-<b>.json`, `meta`, and `meta.references[]` when fingerprints exist (see `references/generate-flow/vision-refs.md`). The agent reads the brief and `references/generate-flow/html-reference.md` (plus `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses each screen's `archetype.skeleton` or `pageRecipe.skeleton` from the brief as the starting point. Merge as each batch lands:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
@@ -204,7 +203,7 @@ The three interactive gates are presented verbatim from `references/generate-flo
 
 ## Step 3.5 — Build flow glossary
 
-After Gate 3, run once (the app from Pipeline step 1, the entity slug from Pipeline step 3, the screen list written at Step 5.0):
+After Gate 3, run once (the app from Pipeline step 1, the entity slug resolved in the Pipeline's entity step, the screen list written at Step 5.0):
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -214,7 +213,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   -o {project_working_directory}/flows/.brief.json
 ```
 
-Omit `--entity` when the feature has no primary entity. Copy `brief.glossary` into `meta._glossary` of `flow-data.json` as is (chrome, patterns, useCases, entityProperties, relationships, entityPatterns, entityComponents); the chrome is the authoritative shell every screen shares, do not add, remove, rename or reorder sidebar items unless the prompt asks to restructure the app. Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agent reads.
+Omit `--entity` when the feature has no primary entity. Copy `brief.glossary` into `meta._glossary` of `flow-data.json` as is (chrome, patterns, useCases, entityProperties, relationships, entityPatterns, entityComponents); the chrome is the authoritative shell every screen shares, do not add, remove, rename or reorder sidebar items unless the prompt asks to restructure the app. Then set `meta._glossary.useCases` to a one-element array holding the use case chosen at Gate 3 (the brief carries every use case of the app; the gate is where the choice is made). Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agent reads.
 
 ---
 
