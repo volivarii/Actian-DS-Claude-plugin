@@ -46,3 +46,34 @@ describe("SKILL.md size ceiling (progressive disclosure)", () => {
     });
   }
 });
+
+const MAX_BYTES = 30000;
+const MAX_REACHABLE_BYTES = 48000;
+const HTML_ONLY_SET = [
+  "skills/generate-flow/SKILL.md",
+  "references/generate-flow/gates.md",
+  "references/generate-flow/share.md",
+  "references/ds-rules/quality-tiers.md",
+];
+
+describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
+  it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "skills/generate-flow/SKILL.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_BYTES,
+      `generate-flow/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
+    );
+  });
+  it(`the HTML-only reachable set is under ${MAX_REACHABLE_BYTES} bytes`, () => {
+    const total = HTML_ONLY_SET.reduce(
+      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
+      0,
+    );
+    assert.ok(
+      total < MAX_REACHABLE_BYTES,
+      `reachable set is ${total} bytes (ceiling ${MAX_REACHABLE_BYTES}): ${HTML_ONLY_SET.join(", ")}`,
+    );
+  });
+});
