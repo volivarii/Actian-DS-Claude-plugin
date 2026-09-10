@@ -259,7 +259,8 @@ function uniq(list) {
 // default when the prompt names no audience keyword.
 function matchesUseCaseAudience(uc, word) {
   var audience = (uc && Array.isArray(uc.audience)) ? uc.audience : [];
-  var re = new RegExp("\\b" + word.toLowerCase() + "\\b");
+  var escaped = word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  var re = new RegExp("\\b" + escaped + "\\b");
   for (var i = 0; i < audience.length; i++) {
     if (re.test(String(audience[i]).toLowerCase())) return true;
   }
