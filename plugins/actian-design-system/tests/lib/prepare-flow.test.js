@@ -38,6 +38,33 @@ describe("prepare-flow (brief per flow)", function () {
     assert.strictEqual(brief.screens[0].template, "studio");
   });
 
+  it("--use-case narrows glossary.useCases (and every slice's) to the one audience[0] matches; an unknown audience keeps all", function () {
+    var narrowed = prepare.prepareFlow({
+      app: "studio",
+      screens: [
+        { name: "Data products", template: "studio" },
+        { name: "Import wizard", template: "studio" },
+      ],
+      useCase: "steward",
+    });
+    assert.strictEqual(narrowed.glossary.useCases.length, 1);
+    assert.match(narrowed.glossary.useCases[0].audience[0], /steward/i);
+    var slice1 = prepare.sliceBrief(narrowed, 1);
+    assert.strictEqual(slice1.glossary.useCases.length, 1);
+    assert.match(slice1.glossary.useCases[0].audience[0], /steward/i);
+
+    var all = prepare.prepareFlow({
+      app: "studio",
+      screens: [{ name: "Data products", template: "studio" }],
+    });
+    var unmatched = prepare.prepareFlow({
+      app: "studio",
+      screens: [{ name: "Data products", template: "studio" }],
+      useCase: "spaceman",
+    });
+    assert.strictEqual(unmatched.glossary.useCases.length, all.glossary.useCases.length, "an audience matching nothing keeps every use case");
+  });
+
   it("picks a pattern by name overlap and carries its recipe, components and property rules", function () {
     var brief = prepare.prepareFlow({
       app: "studio",

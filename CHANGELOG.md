@@ -21,16 +21,26 @@ are summarized at the release level.
 
 ### Changed
 
-- **A generate-flow run reads one brief instead of the substrate's prose.** ([#369](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/369)) `prepare-flow.js`
+- **A generate-flow run reads one brief instead of the substrate's prose.** ([#370](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/370)) `prepare-flow.js`
   joins the chrome, patterns, use cases, entity properties, relationships, the captured page recipe or
   archetype per screen, and the property rules of the components each screen needs, into
   `flows/.brief.json`, plus one per-screen slice under `flows/.brief/<n>.json`. Step 3.5 of the skill is
   that one command; every screen is authored by its own `screen-generator` agent, one per screen, in
-  parallel, from its brief slice; the push, refine and gate prose moved out of `SKILL.md` into
-  references read when due. The terminology gate now masks the substrate's own terms
-  (its `use` words, the sidebar labels, the entity's property and relationship labels) before matching,
-  so "Input ports (2)" and "Api version" stop being findings (#346). Measured on the two audit prompts:
-  see the PR body.
+  parallel, from its brief slice, with the agent's tools cut to `Read` and `Write` only; the push,
+  refine and gate prose moved out of `SKILL.md` into references read when due. The terminology gate
+  now masks the substrate's own terms (its `use` words, the sidebar labels, the entity's property and
+  relationship labels) before matching, so "Input ports (2)" and "Api version" stop being findings
+  (#346). Measured on the two audit prompts: see the PR body.
+
+  Every screen now gets an archetype (a recipe-matched pattern's own, or a keyword fallback), and a
+  screen named after the entity itself routes to the entity's own collection or detail pattern before
+  the raw-token scoring ever runs. `html-reference.md` names every key the renderer reads, including
+  the TEXT node's `font`/`color` shape, and the validator gained a `text-style` warning for a `font`
+  that is not a `Family:Weight` string or a `color` that is not a token. The `default-true-boolean-unset`
+  check now matches by base name the same way `missing-required-override` already did, the
+  `placeholder-text` check now reads the entity's own property and relationship labels, and the
+  `fmTab` recipe prop moved from `Tab label` to the renderer's own `Tab Text`, with the validator
+  reading both.
 
 ### Fixed
 

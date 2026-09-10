@@ -150,9 +150,11 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 - **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
 - **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
 
-For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`): exit 2, proceeds. `default-true-boolean-unset` also fires as a warning, but stays silent on the CLI by design (too high-volume) and surfaces only in the raw findings JSON `validate()` returns to a programmatic caller. Findings surface in the GenLog text node (and in the deliverable when pushed). Info-level grounding advisories (`chrome-ungrounded`, `chrome-divergence`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed`) print the same way and never block (exit 0).
+For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`, `text-style`): exit 2, proceeds. `default-true-boolean-unset` also fires as a warning, but stays silent on the CLI by design (too high-volume) and surfaces only in the raw findings JSON `validate()` returns to a programmatic caller. Findings surface in the GenLog text node (and in the deliverable when pushed). Info-level grounding advisories (`chrome-ungrounded`, `chrome-divergence`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed`) print the same way and never block (exit 0).
 
 **`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker: the sidebar item in the slice's `glossary.chrome.sidebar` the feature lives under (Catalog for catalog objects in Studio). This honors the rule that non-feature chrome is ALWAYS placeholder; see `references/ds-rules/quality-tiers.md`.
+
+**`text-style` warning recovery:** make `font` a `Family:Weight` string and `color` a `var(--zen-color-text-*)` token.
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
@@ -189,17 +191,17 @@ The three interactive gates are presented verbatim from `references/generate-flo
 
 ## Step 3.5 — Build flow glossary
 
-Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1 and the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them):
+Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1, the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them), and `--use-case <audience>` (the audience of the use case chosen at Gate 3):
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/prepare-flow.js" \
-  --app <app> --entity <slug> \
+  --app <app> --entity <slug> --use-case <audience> \
   --screen-list {project_working_directory}/flows/screen-list.json \
   -o {project_working_directory}/flows/.brief.json
 ```
 
-Omit `--entity` when the feature has no primary entity. This also writes one `flows/.brief/<n>.json` slice per screen (n = 1-based screen index) for the `screen-generator` agents dispatched at Step 5. Copy `brief.glossary` into `meta._glossary` of `screen-list.json` (merge-partials carries `meta` from the screen list on every incremental merge, so setting it once here on `screen-list.json` propagates to every later `flow-data.json` merge) and then set `useCases` to the one chosen at Gate 3 (the brief carries every use case of the app; the gate is where the choice is made). The chrome is the authoritative shell every screen shares; do not add, remove, rename or reorder sidebar items unless the prompt asks to restructure the app. Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agents read, each through its own slice.
+Omit `--entity` when the feature has no primary entity. This also writes one `flows/.brief/<n>.json` slice per screen (n = 1-based screen index) for the `screen-generator` agents dispatched at Step 5. Copy `brief.glossary` into `meta._glossary` of `screen-list.json` (merge-partials carries `meta` from the screen list on every incremental merge, so setting it once here on `screen-list.json` propagates to every later `flow-data.json` merge; the brief copy already carries the one use case chosen at Gate 3). The chrome is the authoritative shell every screen shares; do not add, remove, rename or reorder sidebar items unless the prompt asks to restructure the app. Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agents read, each through its own slice.
 
 ---
 
@@ -209,11 +211,7 @@ Only when push resolved to true: read `references/generate-flow/figma-push.md` a
 
 ## Examples
 
-Button — icons hidden: `{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default", "props": { "Label": "Save changes", "👁 Leading Icon": false, "👁 Trailing Icon": false } }`
-
 Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "variant": "Type=Default", "name": "Input: Platform name", "props": { "Input Text": "Actian Data Intelligence", "Label Text": "Platform name", "Caption Text": "Displayed in the header", "Show label": true, "Caption": true, "Required": false } }`
-
-Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "HORIZONTAL", "primaryAxisAlignItems": "SPACE_BETWEEN" }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [...] }`
 
 ## Key rules
 

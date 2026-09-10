@@ -447,6 +447,41 @@ describe("validate-flow-data", function () {
       assert.strictEqual(issues.length, 0);
     });
 
+    it("exempts fmNavItem whose label matches a real meta._glossary.chrome.sidebar item", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { chrome: { sidebar: [{ label: "Catalog", id: "catalog" }, { label: "Pipelines", id: "pipelines" }] } },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("flags fmNavItem whose label is not in meta._glossary.chrome.sidebar", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { chrome: { sidebar: [{ label: "Catalog", id: "catalog" }] } },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Widgets" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].value, "Widgets");
+    });
+
     it("flags non-active nav items even when sidebarActive is set", function () {
       var issues = validate.findUnmutedChrome(
         fixture({

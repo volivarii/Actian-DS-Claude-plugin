@@ -981,7 +981,19 @@ function findUnmutedChromeRaw(data) {
   if (!data || !Array.isArray(data.screens)) return issues;
 
   var glossary = (data.meta && data.meta._glossary) || {};
+  // The active fmNavItem is exempt when its label names a real sidebar item
+  // (meta._glossary.chrome.sidebar[].label, matched case-insensitively): the
+  // chrome is what a producer actually writes (resolve-chrome.js /
+  // prepare-flow.js). glossary.sidebarActive stays as a secondary source for
+  // any flow-data that still carries it, back-compat only -- no current
+  // producer writes that key.
   var sidebarActive = glossary.sidebarActive || null;
+  var chromeSidebarLabels = {};
+  if (glossary.chrome && Array.isArray(glossary.chrome.sidebar)) {
+    glossary.chrome.sidebar.forEach(function (item) {
+      if (item && typeof item.label === "string") chromeSidebarLabels[item.label.toLowerCase()] = 1;
+    });
+  }
   var featureContext = [
     (data.meta && data.meta.feature) || "",
     (data.meta && data.meta.flow) || "",
@@ -1013,12 +1025,13 @@ function findUnmutedChromeRaw(data) {
           var labelValue = findPropValueAny(instNode.props, rule.textProp);
           if (typeof labelValue !== "string" || labelValue === "") return;
           if (rule.defaultText && labelValue === rule.defaultText) return;
-          if (
-            rule.activeMarker === "sidebarActive" &&
-            sidebarActive &&
-            labelValue === sidebarActive
-          ) {
-            return; // canonical active-marker exemption
+          if (rule.activeMarker === "sidebarActive") {
+            if (chromeSidebarLabels[labelValue.toLowerCase()]) {
+              return; // canonical active-marker exemption: a real chrome sidebar item
+            }
+            if (sidebarActive && labelValue === sidebarActive) {
+              return; // back-compat: an explicit sidebarActive key, if still present
+            }
           }
 
           issues.push({

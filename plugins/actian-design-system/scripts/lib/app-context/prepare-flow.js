@@ -249,6 +249,17 @@ function uniq(list) {
   return out;
 }
 
+// True when word (case-insensitive, whole word) appears in a use case's
+// primary audience (audience[0]). Studio's two use cases both carry "Data
+// steward" as audience[0] (the shared persona; audience[1] is what actually
+// differs, "Data architect" vs "Data engineer") -- iteration order means the
+// first entry wins a shared-word match, same as Gate 3's own default
+// (useCases[0]) when the prompt names no audience keyword.
+function matchesUseCaseAudience(uc, word) {
+  var a0 = uc && uc.audience && uc.audience[0] ? String(uc.audience[0]) : "";
+  return new RegExp("\\b" + word.toLowerCase() + "\\b").test(a0.toLowerCase());
+}
+
 function prepareFlow(options) {
   var app = options.app;
   var entity = options.entity || null;
@@ -256,6 +267,20 @@ function prepareFlow(options) {
   var chromeOut = chrome.resolveChrome(app);
   var appPatterns = patterns.resolvePatterns(app, ctx) || [];
   var useCases = patterns.resolveUseCases(app, ctx) || [];
+  if (options.useCase) {
+    var matchedUseCase = null;
+    for (var u = 0; u < useCases.length; u++) {
+      if (matchesUseCaseAudience(useCases[u], options.useCase)) {
+        matchedUseCase = useCases[u];
+        break;
+      }
+    }
+    if (matchedUseCase) {
+      useCases = [matchedUseCase];
+    } else {
+      process.stderr.write("prepare-flow: no use case matches " + options.useCase + ", keeping all\n");
+    }
+  }
   var entityProperties = entity ? properties.resolveProperties(entity, ctx) || [] : [];
   var rels = entity ? relationships.resolveRelationships(entity, ctx) || [] : [];
   var entityPatterns = entity ? patterns.resolveEntityPatterns(entity, ctx) || [] : [];
@@ -373,7 +398,7 @@ function sliceBrief(brief, n) {
   };
 }
 
-var USAGE = "usage: prepare-flow.js --app <app> [--entity <slug>] --screen-list <file> [-o <out>] | --list-entities\n";
+var USAGE = "usage: prepare-flow.js --app <app> [--entity <slug>] [--use-case <audience>] --screen-list <file> [-o <out>] | --list-entities\n";
 
 function main(argv) {
   var args = argv.slice();
@@ -382,7 +407,7 @@ function main(argv) {
     properties.listEntities().forEach(function (name) { process.stdout.write(name + "\n"); });
     return 0;
   }
-  var app = take("--app"), entity = take("--entity"), list = take("--screen-list"), out = take("-o");
+  var app = take("--app"), entity = take("--entity"), list = take("--screen-list"), out = take("-o"), useCase = take("--use-case");
   if (!app || !list) { process.stderr.write(USAGE); return 1; }
   var screens;
   try {
@@ -391,7 +416,7 @@ function main(argv) {
     process.stderr.write("prepare-flow: cannot read " + list + ": " + e.message + "\n");
     return 1;
   }
-  var brief = prepareFlow({ app: app, entity: entity, screens: screens });
+  var brief = prepareFlow({ app: app, entity: entity, screens: screens, useCase: useCase });
   var json = JSON.stringify(brief, null, 2);
   if (out) {
     fs.writeFileSync(out, json);
