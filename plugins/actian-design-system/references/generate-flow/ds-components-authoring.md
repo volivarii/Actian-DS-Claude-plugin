@@ -509,12 +509,35 @@ as the Figma property contract.
   "library": "ds",
   "dsSlug": "drawer",
   "variant": "App=Studio",
-  "props": { "Name": "Q1 Revenue Forecast", "Type": "Dataset", "Show Back": false }
+  "props": {
+    "Name": "Q1 Revenue Forecast",
+    "Type": "Dataset",
+    "Show Back": false,
+    "Technical name": "q1_revenue_forecast",
+    "Catalog": "Default",
+    "Category": "Finance",
+    "Connection": "snowflake_prod",
+    "Last updated": "Sep 8",
+    "Fields": "12 fields",
+    "Completion": 62,
+    "Glossary items": "Revenue, Forecast",
+    "Description": "Quarterly revenue forecast by region and product line."
+  }
 }
 ```
 
 - `props.Name`: the header title. `props.Type`: item-type badge (`Dataset`, `Category`, `Data process`, `Data product`, `Field`, `Output port`, `Use case`, `Visualization`; unknown values keep their own text but take the Dataset badge style (the renderer clamps only the CSS class and prints the raw value)). `props["Show Back"]`: default-true, set `false` to hide the back button.
-- **Header strip only.** The renderer draws a real header from these props, then a fixed specimen body ("Technical name: able_agency", a Finance/24-7/Powerbi meta line, a hardcoded date and description) that no prop or child reaches. Author the drawer's actual content as frame content in the screen rather than through `drawer` props.
+- **The leaf draws the whole panel, and only from props.** Body facts come from `Technical name`, `Catalog`, `Category`, `Connection`; the meta row from `Last updated`, `Fields`, `Completion` (0 to 100, drives the bar); the sections from `Glossary items`, `Description`, `Source description`. Every one is optional and its element is omitted when absent. The tab strip (Overview / Lineage / Quality), the `Shared` pill, the favourite button and the close button are fixed.
+- **The leaf reads no children.** A FRAME placed under a `drawer` INSTANCE renders below the panel, outside it, and the screen shows two stacked drawers. Do not author a "drawer body" frame. Content the props cannot carry (a checklist, a form) belongs in a plain panel FRAME styled as a side sheet, without the `drawer` leaf.
+
+### `progress-bar-small`
+
+```json
+{ "type": "INSTANCE", "library": "ds", "dsSlug": "progress-bar-small", "variant": "Size=Default", "props": { "Percent": 62 } }
+```
+
+- `props.Percent` (0 to 100) sets the fill and the printed label; it overrides the `Completeness` variant, which only offers 0%, 50% and 100%.
+- **The leaf prints its own percent label** (`62%`) to the right of the track. Do not add a TEXT beside it; the screen would read "62% 62%".
 
 ### `empty-state`
 

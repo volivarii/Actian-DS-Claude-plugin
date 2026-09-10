@@ -19,6 +19,18 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **The authoring references say what the vendored leaves read.** ([#368](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/368)) Rerunning the
+  generate-flow audit on knowledge v0.34.207 and looking at the HTML found a doubled drawer on the
+  hi-fi flow: the drawer note still said "header strip only, author the body as frames", while the
+  leaf has drawn the whole panel from thirteen props since v0.34.205 and reads no children. The note
+  now lists the props and says where a checklist goes. Three more rows caught by the same look: the
+  `progress-bar-small` leaf prints its own percent (authors were adding a second one), and the FM
+  Dialog and FM Empty State renderers read `Title`/`Body` and `Headline`/`Body`/`Cta` rather than
+  printing fixed words. The generate-flow skill now names the valid `template` values, which no skill
+  file stated before.
+
 ### Added
 
 - **A design proposal board for component-scale tickets.** ([#365](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/365)) `/design-proposal` frames the ticket, offers

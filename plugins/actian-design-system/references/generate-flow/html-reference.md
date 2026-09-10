@@ -37,7 +37,7 @@ These exist in the FM Kit Figma library and can be imported with `getComponentBy
 | **FM Chip** | Outline: False / True | — | |
 | **FM Alert** | Type: Success / Error / Warning | — | Persistent inline feedback. Left color bar indicates type. For brief confirmations use FM Toast instead |
 | **FM Banner** | Single component (no variants) | — | Page-level persistent notice bar. Import via `importComponentByKeyAsync` |
-| **FM Dialog** | Single component (no variants) | — | **Compose from frames instead of this component.** The `fmDialog` HTML renderer prints the literal title "Dialog" and an empty body, reading no text props. Build the dialog as a `FRAME` with title and body `TEXT` children plus FM Button instances, at 484px width. |
+| **FM Dialog** | Single component (no variants) | `Title`, `Body` | The `fmDialog` HTML renderer prints `Title` (also read as `Heading` or `Label`) and `Body` (also `Text` or `Message`); without them it prints an empty panel. It renders no buttons: put the FM Button instances in a footer `FRAME` under it. |
 | **FM Stepper** | State: Active / Complete / Upcoming | — | Step indicator for wizard flows. One instance per step in a horizontal row. Complete shows checkmark |
 | **FM Menu** | Single component (no variants) | — | Dropdown menu container. Use with FM Menu item children |
 | **FM Rich text field** | Single component (no variants) | `Input Text` | Multi-line rich text input with formatting |
@@ -49,7 +49,7 @@ These exist in the FM Kit Figma library and can be imported with `getComponentBy
 | **FM Side navigation bar** | Property 1: Default / Slim | — | |
 | **FM Side navigation item** | State: On / Off / Placeholder | `Label` | On = active page, Placeholder = filler items |
 | **FM Tab** | State: On / Off / Placeholder | — | On = active tab, Placeholder = future tabs. **No text override** — set label via `findOne(n => n.type === "TEXT").characters` in Figma, or inner text in HTML |
-| **FM Empty State** | Property 1: Default / Variant2 | — | **Compose from frames instead of this component.** The `fmEmptyState` HTML renderer always prints "No items", reading no text props. Build the empty state as a `FRAME` with an icon child, headline `TEXT`, and an FM Button for the CTA. |
+| **FM Empty State** | Property 1: Default / Variant2 | `Headline`, `Body`, `Cta` | The `fmEmptyState` HTML renderer prints `Headline` (also `Title`, `Text` or `Label`), `Body` (also `Description`) and a primary button from `Cta` (also `Action` or `Button`); each part is omitted when its prop is empty, so without props it prints only the icon. |
 | **FM Placeholder** | Type: Label+1line / Label+3lines / Label+6lines / Label+avatars / metric | — | For non-essential content areas in wireframes |
 | **FM Progress bar** | Completion: 10% through 100% | — | |
 | **FM Menu item** | State: Default / Hover / Active | — | |

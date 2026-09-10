@@ -116,7 +116,7 @@ step-by-step behavior.
 
 5.0. **Skeleton — render the encapsulated deliverable immediately.** As soon as the screen list is approved (Gate 3), render the structure to the canonical artifact so the user sees it instantly instead of an empty panel:
 
-- Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>" }, …] }` (one entry per approved screen, in final order; carry the known `meta`).
+- Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>" }, …] }` (one entry per approved screen, in final order; carry the known `meta`). `template` is one of `studio`, `explorer`, `admin` (alias `administration`), `no-sidebar`, `bare`, `compact`, `mobile`, `tablet`, `custom` (the chrome vocabulary in `scripts/renderers/html-renderers/ds-screen-tree.js`); any other value, such as an archetype name like `browse-search`, falls back to the legacy `appHeader`/`sidebar` fields and a screen carrying neither renders no chrome.
 - **Parallel mode (6+):** merge the screen list into `flow-data.json` (pending stubs) via the incremental merge against the (empty) partials dir, then render `--type flow-share`:
   ```bash
   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
