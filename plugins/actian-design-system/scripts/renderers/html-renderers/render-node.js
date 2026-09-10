@@ -63,6 +63,17 @@
     "Extra Bold": "800",
   };
 
+  // A screen-generator sometimes authors `font` as the object form
+  // { family?, weight? } instead of the schema's "Family:Weight" string.
+  // These are the lowercase weight aliases that shape tolerates in that
+  // object form; "semibold" lands on the map's "Semi Bold" entry.
+  var FONT_WEIGHT_ALIASES = {
+    regular: "Regular",
+    medium: "Medium",
+    semibold: "Semi Bold",
+    bold: "Bold",
+  };
+
   // Normalize one fill entry to a CSS color string. Fills arrive either as a
   // bare CSS string (a hex value or token reference) or a Figma-shaped object
   // { type:"SOLID", color:"…" } when a screen-generator emits richer data.
@@ -228,14 +239,35 @@
     var parts = [];
     var defaultFont = (opts && opts.defaultFont) || "Inter";
 
-    // Font family + weight
-    if (node.font) {
+    // Font family + weight. The schema shape is a "Family:Weight" string;
+    // a screen-generator occasionally authors the object form instead
+    // ({ family?, weight? }) — accepted here so that shape renders instead
+    // of throwing into the catch-all render-error below. Anything else
+    // (number, array, ...) is silently ignored, also no throw.
+    if (typeof node.font === "string") {
       var fontParts = node.font.split(":");
       var family = fontParts[0] ? fontParts[0].trim() : defaultFont;
       var weightName = fontParts[1] ? fontParts[1].trim() : "Regular";
       var weight = FONT_WEIGHT_MAP[weightName] || "400";
       parts.push("font-family:" + family);
       parts.push("font-weight:" + weight);
+    } else if (
+      node.font &&
+      typeof node.font === "object" &&
+      !Array.isArray(node.font)
+    ) {
+      var objFamily =
+        typeof node.font.family === "string" && node.font.family
+          ? node.font.family
+          : defaultFont;
+      var objWeightName =
+        typeof node.font.weight === "string" ? node.font.weight : "Regular";
+      var objWeight =
+        FONT_WEIGHT_MAP[objWeightName] ||
+        FONT_WEIGHT_MAP[FONT_WEIGHT_ALIASES[objWeightName.toLowerCase()]] ||
+        "400";
+      parts.push("font-family:" + objFamily);
+      parts.push("font-weight:" + objWeight);
     }
 
     // Size — flow supplies a number; presentation may supply an object {value}.

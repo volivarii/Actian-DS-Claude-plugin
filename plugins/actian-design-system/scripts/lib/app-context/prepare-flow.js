@@ -15,6 +15,37 @@ var rules = require("../../validation/component-property-rules.js");
 var STOP = { the: 1, a: 1, an: 1, of: 1, to: 1, for: 1, with: 1, and: 1, in: 1, on: 1 };
 var RECIPES_DIR = path.join(__dirname, "..", "..", "..", "recipes", "flow");
 
+// Archetype fallback: when no app pattern matches a screen name AND the
+// recipe ranker itself finds no archetype (no-match or a tie), pick by
+// keyword so every screen still gets a skeleton. First category whose
+// words overlap the screen-name tokens wins; order is the priority.
+var FALLBACK_ARCHETYPES = [
+  { words: ["list", "table", "browse", "catalog", "results"], archetype: "table-list" },
+  { words: ["create", "new", "setup", "edit", "configure", "wizard", "form", "settings"], archetype: "form-create" },
+  { words: ["review", "confirm", "summary"], archetype: "composition-form-with-footer" },
+  { words: ["dashboard", "overview", "home"], archetype: "dashboard" },
+];
+
+function fallbackArchetype(name) {
+  var toks = tokens(name);
+  for (var i = 0; i < FALLBACK_ARCHETYPES.length; i++) {
+    var cat = FALLBACK_ARCHETYPES[i];
+    for (var t = 0; t < toks.length; t++) {
+      if (cat.words.indexOf(toks[t]) !== -1) return cat.archetype;
+    }
+  }
+  return "detail-view";
+}
+
+// A rule name as it appears in the registry carries the Figma node id
+// suffix ("Show Avatar#14797:1"). The screen-generator agent authors props
+// by their plain name, matching the established convention documented at
+// validate-flow-data.js's hasOverride() (a required-override prop is
+// accepted under its exact hashed name OR its base name before "#").
+function stripPropId(name) {
+  return String(name).replace(/#[\d:]+$/, "");
+}
+
 function tokens(name) {
   return String(name || "").toLowerCase().split(/[^a-z]+/).filter(function (t) {
     return t.length >= 3 && !STOP[t];
@@ -40,7 +71,10 @@ function pickPattern(name, appPatterns) {
 
 function loadArchetype(sel) {
   if (!sel || typeof sel.archetype !== "string") return null;
-  if (sel.status !== "decisive" && sel.status !== "weak") return null;
+  // A caller that already knows the archetype id (the keyword fallback
+  // above) passes no status at all; only reject a status that says the
+  // ranker itself found no usable winner ("no-match" / "tie").
+  if (sel.status && sel.status !== "decisive" && sel.status !== "weak") return null;
   try {
     var idx = JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
     var row = idx.filter(function (r) { return r.archetype === sel.archetype; })[0];
@@ -90,14 +124,34 @@ function prepareFlow(options) {
     var p = pickPattern(s.name, appPatterns);
     var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : patterns.selectRecipe(tokens(s.name));
     var components = p ? uniq(p.components || []) : [];
+    var archetype = loadArchetype(sel);
+    if (!p && !archetype) {
+      archetype = loadArchetype({ archetype: fallbackArchetype(s.name) });
+    }
+    var rawPropertyRules = rules.inspectSlugs(components);
+    var propertyRules = {};
+    Object.keys(rawPropertyRules).forEach(function (slug) {
+      var r = rawPropertyRules[slug];
+      propertyRules[slug] = {
+        // Plain names: validate-flow-data.js's missing-required-override
+        // check (hasOverride) accepts the base name before "#" as
+        // satisfying the override, so the agent can author these verbatim.
+        required: r.required.map(stripPropId),
+        // Kept suffixed: the default-true-boolean-unset check looks the
+        // authored prop up by its exact registry name, with no base-name
+        // fallback, so the plain form would silently miss and false-warn.
+        defaultTrueBooleans: r.defaultTrueBooleans,
+        plain: { defaultTrueBooleans: r.defaultTrueBooleans.map(stripPropId) },
+      };
+    });
     return {
       name: s.name,
       template: s.template,
       pattern: p ? { slug: p.slug, label: p.label } : null,
-      archetype: loadArchetype(sel),
+      archetype: archetype,
       pageRecipe: p ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app)) : null,
       components: components,
-      propertyRules: rules.inspectSlugs(components),
+      propertyRules: propertyRules,
     };
   });
 
@@ -119,11 +173,46 @@ function prepareFlow(options) {
   };
 }
 
-var USAGE = "usage: prepare-flow.js --app <app> [--entity <slug>] --screen-list <file> [-o <out>]\n";
+// Per-screen slice of a full brief: everything a single author agent needs
+// and nothing it doesn't. glossary.patterns drops the whole app's pattern
+// catalog down to just this screen's match (or empty), which is most of the
+// context-size saving over handing every agent the full brief.
+function sliceBrief(brief, n) {
+  var idx = n - 1;
+  var screen = brief.screens[idx];
+  var slug = screen && screen.pattern ? screen.pattern.slug : null;
+  var patternsForScreen = slug
+    ? brief.glossary.patterns.filter(function (pat) { return pat.slug === slug; })
+    : [];
+  return {
+    app: brief.app,
+    entity: brief.entity,
+    index: n,
+    total: brief.screens.length,
+    glossary: {
+      chrome: brief.glossary.chrome,
+      useCases: brief.glossary.useCases,
+      entityProperties: brief.glossary.entityProperties,
+      relationships: brief.glossary.relationships,
+      entityPatterns: brief.glossary.entityPatterns,
+      entityComponents: brief.glossary.entityComponents,
+      patterns: patternsForScreen,
+    },
+    join: brief.join,
+    labels: brief.labels,
+    screen: screen,
+  };
+}
+
+var USAGE = "usage: prepare-flow.js --app <app> [--entity <slug>] --screen-list <file> [-o <out>] | --list-entities\n";
 
 function main(argv) {
   var args = argv.slice();
   function take(flag) { var i = args.indexOf(flag); return i !== -1 && i + 1 < args.length ? args[i + 1] : null; }
+  if (args.indexOf("--list-entities") !== -1) {
+    properties.listEntities().forEach(function (name) { process.stdout.write(name + "\n"); });
+    return 0;
+  }
   var app = take("--app"), entity = take("--entity"), list = take("--screen-list"), out = take("-o");
   if (!app || !list) { process.stderr.write(USAGE); return 1; }
   var screens;
@@ -137,14 +226,24 @@ function main(argv) {
   var json = JSON.stringify(brief, null, 2);
   if (out) {
     fs.writeFileSync(out, json);
-    process.stderr.write("prepare-flow: wrote " + out + " (" + screens.length + " screens)\n");
+    var briefDir = path.join(path.dirname(out), ".brief");
+    fs.mkdirSync(briefDir, { recursive: true });
+    fs.readdirSync(briefDir).forEach(function (f) {
+      if (f.endsWith(".json")) fs.unlinkSync(path.join(briefDir, f));
+    });
+    var sliceCount = 0;
+    for (var n = 1; n <= brief.screens.length; n++) {
+      fs.writeFileSync(path.join(briefDir, n + ".json"), JSON.stringify(sliceBrief(brief, n), null, 2));
+      sliceCount++;
+    }
+    process.stderr.write("prepare-flow: wrote " + out + " (" + screens.length + " screens, " + sliceCount + " slices)\n");
   } else {
     process.stdout.write(json + "\n");
   }
   return 0;
 }
 
-module.exports = { prepareFlow: prepareFlow, pickPattern: pickPattern, tokens: tokens, main: main };
+module.exports = { prepareFlow: prepareFlow, pickPattern: pickPattern, tokens: tokens, sliceBrief: sliceBrief, main: main };
 
 if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));

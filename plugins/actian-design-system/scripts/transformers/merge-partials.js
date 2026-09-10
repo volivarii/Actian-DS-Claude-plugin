@@ -146,6 +146,17 @@ function mergeArray(partials, arrayKey) {
   return result;
 }
 
+// A partial's screen name is sometimes authored with the agent's own
+// "Screen N: " (or ". " / "- ") prefix rather than the screen list's plain
+// name verbatim. Strip that prefix before matching so a partial named
+// "Screen 2: Data product detail" still fills the list entry
+// "Data product detail".
+function canonicalName(s) {
+  return String(s)
+    .replace(/^\s*screen\s*\d+\s*[:.\-]\s*/i, "")
+    .trim();
+}
+
 // Incremental skeleton-fill (flow only): given the ordered screen list and
 // whatever partials exist so far, emit a renderable flow-data where present
 // screens are ready (verbatim, NO status field) and not-yet-generated slots are
@@ -177,14 +188,14 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
       if (p.meta && !meta) meta = p.meta;
       const arr = Array.isArray(p.screens) ? p.screens : [];
       for (const sc of arr) {
-        if (sc && sc.name != null) byName[sc.name] = sc;
+        if (sc && sc.name != null) byName[canonicalName(sc.name)] = sc;
       }
     }
   }
 
   const screens = listScreens.map((entry) => {
-    const real = byName[entry.name];
-    if (real) return real;
+    const real = byName[canonicalName(entry.name)];
+    if (real) return { ...real, name: entry.name };
     const stub = { name: entry.name, status: "pending" };
     if (entry.template != null) stub.template = entry.template;
     return stub;

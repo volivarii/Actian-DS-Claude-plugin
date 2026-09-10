@@ -1247,6 +1247,51 @@ function checkRecipeAdherence(screen, findings) {
 }
 
 // ---------------------------------------------------------------------------
+// Check: TEXT node font/color shape (non-blocking — render-node.js's
+// buildTextStyle tolerates the object-form font and passes an invalid color
+// straight into a style attribute instead of throwing, so this is the only
+// place either gets flagged for the designer).
+// ---------------------------------------------------------------------------
+//
+// font must be the schema's "Family:Weight" string (the object form
+// { family?, weight? } renders fine but isn't the authored shape); color,
+// when set, must be a var(--zen-*)/var(--fm-*) token or a hex literal — a
+// bare keyword like "muted" is neither a token nor something
+// findHardcodedColorsRaw recognizes as hardcoded, so it would otherwise
+// leak into the style attribute unnoticed.
+function checkTextStyle(screen, findings) {
+  if (!screen || !Array.isArray(screen.content)) return;
+  walkNodes(screen.content, screen.name || "", "content", function (node) {
+    if (!node || node.type !== "TEXT") return;
+    if (node.font !== undefined && typeof node.font !== "string") {
+      findings.push({
+        kind: "text-style",
+        severity: "warning",
+        screen: screen.id || "",
+        message:
+          'TEXT font must be "Family:Weight" and color a var(--zen-*) token: ' +
+          JSON.stringify({ font: node.font }),
+      });
+    }
+    if (node.color != null && node.color !== "") {
+      var colorStr = String(node.color);
+      var validColor =
+        colorStr.indexOf("var(--") === 0 || /^#[0-9a-f]{3,8}$/i.test(colorStr);
+      if (!validColor) {
+        findings.push({
+          kind: "text-style",
+          severity: "warning",
+          screen: screen.id || "",
+          message:
+            'TEXT font must be "Family:Weight" and color a var(--zen-*) token: ' +
+            JSON.stringify({ color: node.color }),
+        });
+      }
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
 // DS-native slug check helpers (Task 3)
 // ---------------------------------------------------------------------------
 //
@@ -1747,6 +1792,7 @@ function validate(data, opts) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
       checkChromeCoherence(data.screens[si], glossaryChrome, findings);
+      checkTextStyle(data.screens[si], findings);
     }
   }
 
@@ -1850,8 +1896,31 @@ function validate(data, opts) {
 
   // Pass 2: walk all string values in screens (excludes meta block by design)
   if (data.screens) {
+    // Text that names a known entity property or sidebar item is authored
+    // copy, not a leaked component default, even when it happens to match a
+    // PLACEHOLDER_PATTERNS shape (e.g. the entity property literally called
+    // "Description"). Built once from the flow's own substrate grounding.
+    var flowGlossary = (data.meta && data.meta._glossary) || {};
+    var knownLabels = {};
+    (Array.isArray(flowGlossary.entityProperties)
+      ? flowGlossary.entityProperties
+      : []
+    ).forEach(function (prop) {
+      if (prop && typeof prop.label === "string")
+        knownLabels[prop.label.toLowerCase()] = true;
+    });
+    (flowGlossary.chrome && Array.isArray(flowGlossary.chrome.sidebar)
+      ? flowGlossary.chrome.sidebar
+      : []
+    ).forEach(function (item) {
+      if (item && typeof item.label === "string")
+        knownLabels[item.label.toLowerCase()] = true;
+    });
+
     walkStringValues(data.screens, "screens", function (str, p) {
       if (isEnumSlot(p.split(/[.[\]]+/).filter(Boolean))) return;
+      if (typeof str === "string" && knownLabels[str.trim().toLowerCase()])
+        return;
       if (rules.isPlaceholderDefault(str)) {
         findings.push({
           kind: "placeholder-text",
@@ -2281,6 +2350,7 @@ if (require.main === module) {
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
     "enum-not-typed": true,
+    "text-style": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;

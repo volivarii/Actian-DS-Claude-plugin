@@ -94,7 +94,7 @@ describe("prepare-flow (brief per flow)", function () {
       var out = path.join(dir, ".brief.json");
       var r = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--entity", "data-product", "--screen-list", list, "-o", out], { encoding: "utf8" });
       assert.strictEqual(r.status, 0, r.stderr);
-      assert.match(r.stderr, /prepare-flow: wrote .*\.brief\.json \(1 screens\)/);
+      assert.match(r.stderr, /prepare-flow: wrote .*\.brief\.json \(1 screens, 1 slices\)/);
       var brief = JSON.parse(fs.readFileSync(out, "utf8"));
       assert.strictEqual(brief.screens.length, 1);
 
@@ -109,6 +109,121 @@ describe("prepare-flow (brief per flow)", function () {
       var r4 = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--screen-list", path.join(dir, "missing.json")], { encoding: "utf8" });
       assert.strictEqual(r4.status, 1);
       assert.match(r4.stderr, /prepare-flow: cannot read/);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("archetype fallback: a screen name matching no app pattern still gets an archetype, chosen by keyword", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      screens: [
+        { name: "Publish setup", template: "studio" },
+        { name: "Published", template: "studio" },
+      ],
+    });
+    assert.strictEqual(brief.screens[0].pattern, null, "no app pattern matches either name");
+    assert.strictEqual(brief.screens[1].pattern, null);
+    assert.strictEqual(brief.screens[0].archetype.archetype, "form-create");
+    assert.ok(brief.screens[0].archetype.skeleton, "form-create archetype carries a skeleton");
+    assert.strictEqual(brief.screens[1].archetype.archetype, "detail-view");
+    assert.ok(brief.screens[1].archetype.skeleton, "detail-view archetype carries a skeleton");
+  });
+
+  it("plain rule names: propertyRules.required drops the Figma id suffix; defaultTrueBooleans keeps it, with a plain alias", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      entity: "data-product",
+      screens: [{ name: "Access request management", template: "studio" }],
+    });
+    var button = brief.screens[0].propertyRules.button;
+    assert.ok(button, "button is one of this screen's components");
+    button.required.forEach(function (name) {
+      assert.ok(name.indexOf("#") === -1, "required name '" + name + "' must be plain (validator's hasOverride accepts the base name)");
+    });
+    assert.ok(button.required.indexOf("Label") !== -1);
+    assert.ok(
+      button.defaultTrueBooleans.some(function (name) { return name.indexOf("#") !== -1; }),
+      "defaultTrueBooleans keeps the suffix (validator's default-true-boolean-unset check has no base-name fallback)",
+    );
+    assert.deepStrictEqual(
+      button.plain.defaultTrueBooleans,
+      button.defaultTrueBooleans.map(function (name) { return name.replace(/#[\d:]+$/, ""); }),
+    );
+  });
+
+  it("--list-entities prints app-context entity keys, one per line, exit 0", function () {
+    var r = spawnSync(process.execPath, [SCRIPT, "--list-entities"], { encoding: "utf8" });
+    assert.strictEqual(r.status, 0, r.stderr);
+    var lines = r.stdout.trim().split("\n");
+    assert.ok(lines.indexOf("data-product") !== -1, "data-product is a known entity");
+    var properties = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "resolve-properties.js"));
+    assert.deepStrictEqual(lines, properties.listEntities());
+  });
+
+  it("sliceBrief: keeps only this screen's pattern, carries index/total/screen", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      entity: "data-product",
+      screens: [
+        { name: "Access request management", template: "studio" },
+        { name: "Zzzz qqqq", template: "bare" },
+      ],
+    });
+    var slice1 = prepare.sliceBrief(brief, 1);
+    assert.strictEqual(slice1.index, 1);
+    assert.strictEqual(slice1.total, 2);
+    assert.deepStrictEqual(slice1.screen, brief.screens[0]);
+    assert.strictEqual(slice1.glossary.patterns.length, 1);
+    assert.strictEqual(slice1.glossary.patterns[0].slug, "access-request-management");
+    assert.strictEqual(slice1.app, brief.app);
+    assert.strictEqual(slice1.entity, brief.entity);
+    assert.deepStrictEqual(slice1.labels, brief.labels);
+    assert.deepStrictEqual(slice1.join, brief.join);
+
+    var slice2 = prepare.sliceBrief(brief, 2);
+    assert.strictEqual(slice2.index, 2);
+    assert.strictEqual(slice2.total, 2);
+    assert.deepStrictEqual(slice2.screen, brief.screens[1]);
+    assert.deepStrictEqual(slice2.glossary.patterns, [], "unmatched screen carries no patterns");
+  });
+
+  it("CLI writes N slices beside -o, one per screen, and removes stale slices from a prior run", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "prep-slices-"));
+    try {
+      var list = path.join(dir, "screen-list.json");
+      fs.writeFileSync(list, JSON.stringify({
+        screens: [
+          { name: "Data products", template: "studio" },
+          { name: "Data product detail", template: "studio" },
+        ],
+      }));
+      var out = path.join(dir, ".brief.json");
+      var briefDir = path.join(dir, ".brief");
+      fs.mkdirSync(briefDir, { recursive: true });
+      fs.writeFileSync(path.join(briefDir, "stale.json"), "{}");
+      var r = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--entity", "data-product", "--screen-list", list, "-o", out], { encoding: "utf8" });
+      assert.strictEqual(r.status, 0, r.stderr);
+      assert.match(r.stderr, /prepare-flow: wrote .*\.brief\.json \(2 screens, 2 slices\)/);
+      var files = fs.readdirSync(briefDir).sort();
+      assert.deepStrictEqual(files, ["1.json", "2.json"], "stale slice removed, exactly one slice per screen");
+      var slice1 = JSON.parse(fs.readFileSync(path.join(briefDir, "1.json"), "utf8"));
+      assert.strictEqual(slice1.index, 1);
+      assert.strictEqual(slice1.total, 2);
+      assert.strictEqual(slice1.screen.name, "Data products");
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("stdout mode (-o omitted) writes no .brief slices", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "prep-noout-"));
+    try {
+      var list = path.join(dir, "screen-list.json");
+      fs.writeFileSync(list, JSON.stringify({ screens: [{ name: "Data products", template: "studio" }] }));
+      var r = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--screen-list", list], { encoding: "utf8" });
+      assert.strictEqual(r.status, 0, r.stderr);
+      assert.ok(!fs.existsSync(path.join(dir, ".brief")), "no .brief dir created in stdout mode");
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
