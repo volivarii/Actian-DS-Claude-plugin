@@ -230,7 +230,7 @@ var BANNED_PROP_KEYS = [
 // Seeded from BANNED_PROP_KEYS (the existing copy-bearing prop allowlist for
 // the banned-text check) plus additional common copy prop names seen in FM Kit
 // and DS Kit: Text, Body, Placeholder, Description, Message, Heading,
-// Helper Text, Content, Tab label, Value.
+// Helper Text, Content, Tab Text, Tab label, Value.
 // Keep conservative: when in doubt, omit rather than include a structural axis.
 var COPY_PROP_KEYS_LOWER = (function () {
   var base = BANNED_PROP_KEYS.concat([
@@ -242,6 +242,7 @@ var COPY_PROP_KEYS_LOWER = (function () {
     "Heading",
     "Helper Text",
     "Content",
+    "Tab Text",
     "Tab label",
     "Value",
   ]);
@@ -911,7 +912,9 @@ var CHROME_RULES = [
   },
   {
     refs: ["fmTab"],
-    textProp: "Tab label",
+    // Renderer reads "Tab Text" (fm-html-map.js); "Tab label" is the older
+    // recipe-authored name still present in some flow-data until re-generated.
+    textProp: ["Tab Text", "Tab label"],
     defaultText: null,
     mutedVariant: "Placeholder",
     variantAxis: "State",
@@ -958,6 +961,21 @@ function findPropValue(props, propName) {
   return undefined;
 }
 
+// Tries each candidate prop name in order, returning the first defined value.
+// propNameOrNames may be a single string (every existing caller) or an array
+// of synonyms (a prop renamed in the renderer, e.g. fmTab's "Tab Text", while
+// older flow-data or recipes still carry the prior name, "Tab label").
+function findPropValueAny(props, propNameOrNames) {
+  var names = Array.isArray(propNameOrNames)
+    ? propNameOrNames
+    : [propNameOrNames];
+  for (var i = 0; i < names.length; i++) {
+    var v = findPropValue(props, names[i]);
+    if (v !== undefined) return v;
+  }
+  return undefined;
+}
+
 function findUnmutedChromeRaw(data) {
   var issues = [];
   if (!data || !Array.isArray(data.screens)) return issues;
@@ -992,7 +1010,7 @@ function findUnmutedChromeRaw(data) {
           var stateValue = parseVariantAxis(instNode.variant, rule.variantAxis);
           if (stateValue === rule.mutedVariant) return;
 
-          var labelValue = findPropValue(instNode.props, rule.textProp);
+          var labelValue = findPropValueAny(instNode.props, rule.textProp);
           if (typeof labelValue !== "string" || labelValue === "") return;
           if (rule.defaultText && labelValue === rule.defaultText) return;
           if (
@@ -1436,13 +1454,14 @@ function checkPatternGrounding(data, findings, opts) {
 // Relationship grounding (S3) -------------------------------------------
 var DETAIL_RECIPES = { "detail-view": true };
 
-// Collect fmTab "Tab label" values from a screen's content (reuses the
-// existing INSTANCE walker + prop reader — no new walker).
+// Collect fmTab tab-label values from a screen's content (reuses the
+// existing INSTANCE walker + prop reader — no new walker). Reads either the
+// renderer's "Tab Text" or the older recipe-authored "Tab label".
 function collectTabLabels(content) {
   var labels = [];
   walkInstanceNodes(content, "", function (instNode) {
     if (!instNode || instNode.ref !== "fmTab") return;
-    var v = findPropValue(instNode.props, "Tab label");
+    var v = findPropValueAny(instNode.props, ["Tab Text", "Tab label"]);
     if (typeof v === "string" && v) labels.push(v);
   });
   return labels;

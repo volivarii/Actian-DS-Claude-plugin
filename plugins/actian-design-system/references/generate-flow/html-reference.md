@@ -226,8 +226,7 @@ generate-presentation). It handles these `node.type` values:
 `Regular`, `Medium`, `Semi Bold`, `Bold`. `size` is a px number, not a string. Under `--hifi` the
 same shape applies; `ds-components-authoring.md` points here rather than repeating it.
 
-**Content node keys**: every key `render-node.js` reads off a `content[]` node, so this is the
-whole authoring surface (an unlisted key is never read):
+**Content node keys**: the keys below are the ones the renderer and the gates read:
 
 | Key | Values / shape | Notes |
 |---|---|---|
@@ -235,14 +234,20 @@ whole authoring surface (an unlisted key is never read):
 | `name` | string | Figma layer name |
 | `children` | `contentNode[]` | FRAME only |
 | `content` | string | TEXT only |
-| `font` | `Family:Weight` | weights: `Regular`, `Medium`, `Semi Bold`, `Bold` |
+| `font` | `Family:Weight` | weights: `Regular`, `Medium`, `Semi Bold`, `Bold` (the four common ones; the map also accepts Light, Thin, Extra Bold, SemiBold) |
 | `size` | number (px) | TEXT only |
 | `color` | token, e.g. `var(--zen-color-text-default)` | never a hex literal or a word like "muted" |
+| `textCase` | `"UPPER"` | TEXT only; only `"UPPER"` has an effect (uppercase transform) |
+| `textAlign` | `{ horizontal: "LEFT" \| "CENTER" \| "RIGHT" }` | TEXT only |
+| `letterSpacing` | number (px) or `{ value }` | TEXT only |
+| `lineHeight` | number (px) or `{ value, unit }` | TEXT only; `unit: "PERCENT"` renders as `%`, otherwise px |
 | `layout` | `{ mode, spacing, padding, primaryAxisAlignItems, counterAxisAlignItems }` | `mode`: `VERTICAL` \| `HORIZONTAL`; `padding`: number or `[t,r,b,l]` |
-| `sizing` | `{ horizontal, vertical }` | each: `FILL` \| `HUG` \| `FIXED` (a number) |
+| `sizing` | `{ horizontal, vertical }` | each: `FILL` \| `HUG` \| a px number |
 | `fills`, `stroke`, `cornerRadius` | array / object / number | fill and stroke colors |
+| `clipsContent` | boolean | FRAME only; `true` sets `overflow:hidden` |
 | `width`, `height` | number (px) | explicit size; used when `sizing` omits that axis |
 | `opacity` | number 0-1 | |
+| `intent` | `"destructive-action"` \| `"success-confirmation"` \| `"error-state"` \| `"default"` | inherited by descendants unless overridden at a leaf (`intent-resolver.js`); drives the `intent-mismatch` gate under `--hifi` |
 
 INSTANCE nodes additionally carry `ref` (FM slug), `variant`, `props`; under `--hifi`,
 `library: "ds"` + `dsSlug` replace `ref`.

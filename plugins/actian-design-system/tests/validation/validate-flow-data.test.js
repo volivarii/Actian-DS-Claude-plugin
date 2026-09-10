@@ -531,6 +531,40 @@ describe("validate-flow-data", function () {
       assert.strictEqual(issues[0].ref, "fmTab");
     });
 
+    it('flags fmTab whether it carries the renderer\'s "Tab Text" prop or the older "Tab label" prop, identically', function () {
+      var withTabText = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab Text": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(withTabText.length, 1);
+      assert.strictEqual(withTabText[0].ref, "fmTab");
+      assert.strictEqual(withTabText[0].value, "Overview");
+
+      var withTabLabel = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab label": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(withTabLabel.length, 1);
+      assert.strictEqual(withTabLabel[0].ref, "fmTab");
+      assert.strictEqual(withTabLabel[0].value, "Overview");
+    });
+
     it("does NOT flag fmTab with State=Placeholder", function () {
       var issues = validate.findUnmutedChrome(
         fixture({
