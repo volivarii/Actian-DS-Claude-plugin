@@ -249,15 +249,21 @@ function uniq(list) {
   return out;
 }
 
-// True when word (case-insensitive, whole word) appears in a use case's
-// primary audience (audience[0]). Studio's two use cases both carry "Data
-// steward" as audience[0] (the shared persona; audience[1] is what actually
-// differs, "Data architect" vs "Data engineer") -- iteration order means the
-// first entry wins a shared-word match, same as Gate 3's own default
-// (useCases[0]) when the prompt names no audience keyword.
+// True when word (case-insensitive, whole word) appears in ANY entry of a
+// use case's audience, not just audience[0]. Studio's two use cases both
+// carry "Data steward" as audience[0] (the shared persona), so a word that
+// only names the differing role -- "architect" or "engineer" -- lives in
+// audience[1] ("Data architect" / "Data engineer") and would never match if
+// this only read audience[0]. The caller walks useCases in order and keeps
+// the first hit, so "steward" still yields useCases[0], same as Gate 3's own
+// default when the prompt names no audience keyword.
 function matchesUseCaseAudience(uc, word) {
-  var a0 = uc && uc.audience && uc.audience[0] ? String(uc.audience[0]) : "";
-  return new RegExp("\\b" + word.toLowerCase() + "\\b").test(a0.toLowerCase());
+  var audience = (uc && Array.isArray(uc.audience)) ? uc.audience : [];
+  var re = new RegExp("\\b" + word.toLowerCase() + "\\b");
+  for (var i = 0; i < audience.length; i++) {
+    if (re.test(String(audience[i]).toLowerCase())) return true;
+  }
+  return false;
 }
 
 function prepareFlow(options) {

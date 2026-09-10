@@ -191,7 +191,7 @@ The three interactive gates are presented verbatim from `references/generate-flo
 
 ## Step 3.5 — Build flow glossary
 
-Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1, the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them), and `--use-case <audience>` (the audience of the use case chosen at Gate 3):
+Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1, the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them), and `--use-case <audience>` (a word of the chosen use case's audience, e.g. steward, engineer, ...):
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"

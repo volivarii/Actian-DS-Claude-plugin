@@ -38,7 +38,7 @@ describe("prepare-flow (brief per flow)", function () {
     assert.strictEqual(brief.screens[0].template, "studio");
   });
 
-  it("--use-case narrows glossary.useCases (and every slice's) to the one audience[0] matches; an unknown audience keeps all", function () {
+  it("--use-case narrows glossary.useCases (and every slice's) to the one match; matches any audience word, not just audience[0]; an unknown audience keeps all", function () {
     var narrowed = prepare.prepareFlow({
       app: "studio",
       screens: [
@@ -48,10 +48,25 @@ describe("prepare-flow (brief per flow)", function () {
       useCase: "steward",
     });
     assert.strictEqual(narrowed.glossary.useCases.length, 1);
-    assert.match(narrowed.glossary.useCases[0].audience[0], /steward/i);
+    assert.match(narrowed.glossary.useCases[0].audience[0], /steward/i, "'steward' (shared by both use cases' audience[0]) yields the first");
     var slice1 = prepare.sliceBrief(narrowed, 1);
     assert.strictEqual(slice1.glossary.useCases.length, 1);
     assert.match(slice1.glossary.useCases[0].audience[0], /steward/i);
+
+    // Studio's two use cases share "Data steward" as audience[0]; only
+    // audience[1] differs ("Data architect" vs "Data engineer"). "engineer"
+    // must still resolve to the second use case, proving the match walks the
+    // whole audience array, not just its first entry.
+    var engineerMatch = prepare.prepareFlow({
+      app: "studio",
+      screens: [{ name: "Data products", template: "studio" }],
+      useCase: "engineer",
+    });
+    assert.strictEqual(engineerMatch.glossary.useCases.length, 1);
+    assert.ok(
+      engineerMatch.glossary.useCases[0].audience.indexOf("Data engineer") !== -1,
+      "'engineer' (only in audience[1]) must still pick the use case that names it",
+    );
 
     var all = prepare.prepareFlow({
       app: "studio",
