@@ -52,7 +52,7 @@ describe("terminology gate masks known terms", function () {
 
   it("never scans variant, name, template, id or dsSlug props", function () {
     var data = flow([]);
-    data.screens[0].content = [{ type: "INSTANCE", ref: "fmButton", props: { variant: "policy", name: "policy", template: "policy", Label: "Save" } }];
+    data.screens[0].content = [{ type: "INSTANCE", ref: "fmButton", props: { variant: "policy", name: "policy", template: "policy", id: "policy", dsSlug: "policy", Label: "Save" } }];
     var r = validate(data);
     assert.ok(!/\[terminology\]/.test(r.out), r.out);
   });
