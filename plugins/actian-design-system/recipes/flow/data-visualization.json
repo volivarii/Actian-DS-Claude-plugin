@@ -21,7 +21,7 @@
         "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 16, 16, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
         "sizing": { "horizontal": "FILL", "vertical": 64 },
         "children": [
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=On", "props": { "Tab label": "{{view_mode}}" } },
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=On", "props": { "Tab Text": "{{view_mode}}" } },
           { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=sm, Shape=Regular, State=Default", "props": { "Label": "{{primary_action}}", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
         ]
       },

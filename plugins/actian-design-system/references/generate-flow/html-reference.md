@@ -226,6 +226,33 @@ generate-presentation). It handles these `node.type` values:
 `Regular`, `Medium`, `Semi Bold`, `Bold`. `size` is a px number, not a string. Under `--hifi` the
 same shape applies; `ds-components-authoring.md` points here rather than repeating it.
 
+**Content node keys**: every key `render-node.js` reads off a `content[]` node, so this is the
+whole authoring surface (an unlisted key is never read):
+
+| Key | Values / shape | Notes |
+|---|---|---|
+| `type` | `FRAME` \| `TEXT` \| `INSTANCE` \| `DIVIDER` | (also `ELLIPSE`, `RECT`) |
+| `name` | string | Figma layer name |
+| `children` | `contentNode[]` | FRAME only |
+| `content` | string | TEXT only |
+| `font` | `Family:Weight` | weights: `Regular`, `Medium`, `Semi Bold`, `Bold` |
+| `size` | number (px) | TEXT only |
+| `color` | token, e.g. `var(--zen-color-text-default)` | never a hex literal or a word like "muted" |
+| `layout` | `{ mode, spacing, padding, primaryAxisAlignItems, counterAxisAlignItems }` | `mode`: `VERTICAL` \| `HORIZONTAL`; `padding`: number or `[t,r,b,l]` |
+| `sizing` | `{ horizontal, vertical }` | each: `FILL` \| `HUG` \| `FIXED` (a number) |
+| `fills`, `stroke`, `cornerRadius` | array / object / number | fill and stroke colors |
+| `width`, `height` | number (px) | explicit size; used when `sizing` omits that axis |
+| `opacity` | number 0-1 | |
+
+INSTANCE nodes additionally carry `ref` (FM slug), `variant`, `props`; under `--hifi`,
+`library: "ds"` + `dsSlug` replace `ref`.
+
+**Text colour tokens (the complete list):** `--zen-color-text-default`, `--zen-color-text-primary`,
+`--zen-color-text-secondary`, `--zen-color-text-tertiary`, `--zen-color-text-placeholder`,
+`--zen-color-text-placeholder-subtle`, `--zen-color-text-disabled`, `--zen-color-text-error`,
+`--zen-color-text-success`, `--zen-color-text-warning`, `--zen-color-text-reverse`. This is the
+whole list; no other text colour token exists.
+
 Chrome (App header, sidebar, page header) is added by `flow-renderer.js` around this content
 based on the screen `template`; see the `TEMPLATE_CHROME` map in
 `scripts/renderers/html-renderers/ds-screen-tree.js`. The structured

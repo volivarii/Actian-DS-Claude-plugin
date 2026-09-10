@@ -22,7 +22,8 @@ var RECIPES_DIR = path.join(__dirname, "..", "..", "..", "recipes", "flow");
 var FALLBACK_ARCHETYPES = [
   { words: ["list", "table", "browse", "catalog", "results"], archetype: "table-list" },
   { words: ["create", "new", "setup", "edit", "configure", "wizard", "form", "settings"], archetype: "form-create" },
-  { words: ["review", "confirm", "summary"], archetype: "composition-form-with-footer" },
+  { words: ["confirm", "success", "done", "complete"], archetype: "detail-view" },
+  { words: ["review", "summary"], archetype: "composition-form-with-footer" },
   { words: ["dashboard", "overview", "home"], archetype: "dashboard" },
 ];
 
@@ -53,7 +54,18 @@ function tokens(name) {
   });
 }
 
-function pickPattern(name, appPatterns) {
+// Score = 2 per tag hit (an authored/derived pattern tag exactly matching a
+// name token) + 1 per whole-word label hit (the label carries the token as
+// its own word, not merely as a substring -- "data" no longer drags in
+// "data-profiling-sampling" just because both strings contain "data").
+// Below 2, nothing scored highly enough to justify a match: null, same as no
+// candidates at all. On a tie, a pattern the entity itself names in its own
+// patterns[] (entityPatternSlugs, default empty) wins over one the name
+// alone happens to score equally -- entity ownership is a stronger signal
+// than generic word overlap.
+function pickPattern(name, appPatterns, entityPatternSlugs) {
+  var entitySlugs = {};
+  (entityPatternSlugs || []).forEach(function (s) { entitySlugs[s] = 1; });
   var toks = tokens(name);
   var best = null, bestScore = 0;
   for (var i = 0; i < appPatterns.length; i++) {
@@ -62,12 +74,16 @@ function pickPattern(name, appPatterns) {
     var label = String(p.label || "").toLowerCase();
     var score = 0;
     for (var t = 0; t < toks.length; t++) {
-      if (tags.indexOf(toks[t]) !== -1) score++;
-      if (label.indexOf(toks[t]) !== -1) score++;
+      if (tags.indexOf(toks[t]) !== -1) score += 2;
+      if (new RegExp("\\b" + toks[t] + "\\b").test(label)) score += 1;
     }
-    if (score > bestScore) { best = p; bestScore = score; }
+    if (score > bestScore) {
+      best = p; bestScore = score;
+    } else if (score > 0 && score === bestScore && best && entitySlugs[p.slug] && !entitySlugs[best.slug]) {
+      best = p;
+    }
   }
-  return best;
+  return bestScore >= 2 ? best : null;
 }
 
 function loadArchetype(sel) {
@@ -113,6 +129,7 @@ function prepareFlow(options) {
   var entityPatterns = entity ? patterns.resolveEntityPatterns(entity, ctx) || [] : [];
   var entityComponents = entity ? patterns.resolveEntityComponents(entity, ctx) || [] : [];
   var join = entity ? patterns.entityJoinState(ctx) : null;
+  var entityPatternSlugs = entityPatterns.map(function (p) { return p.slug; });
 
   var labels = uniq(
     (chromeOut && chromeOut.sidebar ? chromeOut.sidebar.map(function (s) { return s.label; }) : [])
@@ -122,7 +139,7 @@ function prepareFlow(options) {
   );
 
   var screens = (options.screens || []).map(function (s) {
-    var p = pickPattern(s.name, appPatterns);
+    var p = pickPattern(s.name, appPatterns, entityPatternSlugs);
     var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : patterns.selectRecipe(tokens(s.name));
     var components = p ? uniq(p.components || []) : [];
     var archetype = loadArchetype(sel);

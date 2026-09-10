@@ -964,6 +964,65 @@ if (hexTestErrors.length === 0) {
   failed++;
 }
 
+// ── Task 11: no fmTab instance under recipes/flow/ carries the unread
+// "Tab label" prop -- fm-html-map.js's fmTab case reads "Tab Text", "Label"
+// or "Text"; "Tab label" was never one of them, so every recipe that set it
+// rendered an empty tab. ─────────────────────────────────────────────────
+
+var UNREAD_TAB_PROP = "Tab label";
+
+function collectUnreadTabLabel(node, nodePath, out) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectUnreadTabLabel(child, `${nodePath}[${i}]`, out);
+    });
+    return;
+  }
+  if (
+    node.type === "INSTANCE" &&
+    node.ref === "fmTab" &&
+    node.props &&
+    Object.prototype.hasOwnProperty.call(node.props, UNREAD_TAB_PROP)
+  ) {
+    out.push({ path: `${nodePath}.props`, value: UNREAD_TAB_PROP });
+  }
+  Object.keys(node).forEach(function (key) {
+    collectUnreadTabLabel(node[key], `${nodePath}.${key}`, out);
+  });
+}
+
+var tabLabelTestErrors = [];
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    return; // already reported above
+  }
+  var hits = [];
+  collectUnreadTabLabel(recipe, "$", hits);
+  hits.forEach(function (hit) {
+    tabLabelTestErrors.push(
+      `${file} ${hit.path}: carries "${hit.value}" (fm-html-map.js's fmTab case reads "Tab Text", never "Tab label")`,
+    );
+  });
+});
+
+if (tabLabelTestErrors.length === 0) {
+  console.log(
+    'PASS  no fmTab instance under recipes/flow/ carries the unread "Tab label" prop',
+  );
+  passed++;
+} else {
+  console.log(
+    'FAIL  no fmTab instance under recipes/flow/ carries the unread "Tab label" prop',
+  );
+  tabLabelTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
 // ── Task 0.12: every FM variant axis value exists in the fmkit registry ─
 
 // Mirrors scripts/lib/shared-constants.js `slugToRef` (also duplicated in

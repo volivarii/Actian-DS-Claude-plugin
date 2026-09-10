@@ -13,7 +13,7 @@ description: |
   </example>
 model: sonnet
 color: cyan
-tools: ["Read", "Grep", "Glob", "Write"]
+tools: ["Read", "Write"]
 ---
 
 # Screen Generator
@@ -35,7 +35,7 @@ Generate one flow screen and write the result as a partial JSON file.
 
 At dispatch you receive:
 - **Brief path** (your slice, not the full brief): `flows/.brief/<n>.json` (`n` = your screen's 1-based index), written by `prepare-flow.js`
-- **`_index`**: your screen's 1-based number, matching the slice's own `index`. `merge-partials.js`'s plain array merge sorts by it; this skill's incremental flow merge instead orders from the screen list and matches partials by name.
+- **`_index`**: your screen's 1-based number; the same number the slice itself carries as `index`. The main agent merges partials in screen-list order and matches them by name, not by this number.
 - **Output path**: `flows/.partial/screens-<n>.json`, where you write your result
 - **`library: "ds"`**: present only on a `--hifi` run; switches you into DS-native authoring (see below)
 - **`references`**: array of `{ url, weight, fingerprint }` entries (Step 4.5's vision extraction, the run's `meta.references[]`) when that array is non-empty; omitted when the run had no `--ref` URLs
@@ -49,6 +49,8 @@ The dispatcher pastes none of the brief or slice content; read the slice file yo
 - Under `library: "ds"`, also `references/generate-flow/ds-components-authoring.md`.
 
 Nothing else. Never open `recipes/**`, `schemas/**`, `vendor/**`, `scripts/**`, or the full `.brief.json`. The slice already carries everything your screen needs.
+
+**No search tools, by design.** This agent carries no Grep or Glob: the slice and the two references above hold everything a screen needs, so there is nothing to go looking for. When a fact seems missing, use the stated default instead of searching for it: text colour `var(--zen-color-text-default)`, font `Inter:Regular`, an FM ref from the html-reference component table (or a DS slug from `ds-components-authoring.md` under `--hifi`), `layout.mode: "VERTICAL"` with `spacing: 12`. Never open another file to look for it.
 
 ## Reference fingerprints (`references` input)
 
@@ -69,7 +71,7 @@ Your slice's `screen.propertyRules` (keyed by component slug: `{ required: [...]
 
 For a slug your screen uses that `propertyRules` does not list, set every text prop and every boolean you use explicitly. You have no Bash tool, so there is no inspector fallback to run.
 
-**Why this matters:** the validator (`scripts/validation/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings in any string content → P0. Default-true booleans unset → P1 warning.
+**Why this matters:** the validator enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings in any string content → P0. Default-true booleans unset → P1 warning.
 
 ## Step 0: Classify your screen into a tier
 
@@ -91,7 +93,7 @@ Your screen's tier records how directly a known shape covers it: the schema acce
 }
 ```
 
-**A `pageRecipe` skeleton is a template, not finished content.** It carries `{{token}}` placeholders and nothing downstream catches an unsubstituted one. `validate-flow-data.js` has no `{{` check, so an unreplaced token reaches Figma. Replace every token; use `slots` to decide what each region holds; copy only keys the flow schema defines (an extra top-level key like `appHeader` is silently ignored). **A capture speaks the product's vocabulary, not the design system's**: re-term every literal string against your slice's `glossary` as you compose (the terminology map re-terms captured words like `Dataset` to `Data product`). A bare leftover `"Description"` trips `P0 [placeholder-text]`; a component still missing a required override trips `P0 [missing-required-override]`. Classification stays with the archetype even when content comes from a capture: the capture supplies structure, not the tier.
+**A `pageRecipe` skeleton is a template, not finished content.** It carries `{{token}}` placeholders and nothing downstream catches an unsubstituted one: no later step checks for a stray `{{`, so an unreplaced token reaches Figma as literal text. Replace every token; use `slots` to decide what each region holds; copy only keys the flow schema defines (an extra top-level key like `appHeader` is silently ignored). **A capture speaks the product's vocabulary, not the design system's**: re-term every literal string against your slice's `glossary` as you compose (the terminology map re-terms captured words like `Dataset` to `Data product`). A bare leftover `"Description"` trips `P0 [placeholder-text]`; a component still missing a required override trips `P0 [missing-required-override]`. Classification stays with the archetype even when content comes from a capture: the capture supplies structure, not the tier.
 
 Also orient the screen's empty state + primary CTA around the `jobs` in `glossary.useCases[].jobs`.
 

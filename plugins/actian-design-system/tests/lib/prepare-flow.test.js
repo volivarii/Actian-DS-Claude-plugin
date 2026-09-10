@@ -45,7 +45,12 @@ describe("prepare-flow (brief per flow)", function () {
       screens: [{ name: "Access request management", template: "studio" }],
     });
     var s = brief.screens[0];
-    assert.strictEqual(s.pattern.slug, "access-request-management");
+    // access-request-workflow carries "request" as an authored tag (+2);
+    // access-request-management's tags (queue/review/approve/table/requests)
+    // never match the singular token "request" exactly, so it scores only
+    // on whole-word label overlap (+3) -- a real tag hit outranks it under
+    // the reweighted scoring (pickPattern in prepare-flow.js).
+    assert.strictEqual(s.pattern.slug, "access-request-workflow");
     assert.ok(Array.isArray(s.components) && s.components.length > 0);
     Object.keys(s.propertyRules).forEach(function (slug) {
       assert.ok(Array.isArray(s.propertyRules[slug].required));
@@ -142,6 +147,16 @@ describe("prepare-flow (brief per flow)", function () {
     assert.ok(s.archetype.skeleton, "fallback archetype carries a skeleton");
   });
 
+  it("fallback keyword table: \"confirm\" now falls under detail-view, split out of the form-composition bucket", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      screens: [{ name: "Confirm publishing", template: "studio" }],
+    });
+    var s = brief.screens[0];
+    assert.strictEqual(s.pattern, null, "no app pattern matches this name");
+    assert.strictEqual(s.archetype.archetype, "detail-view");
+  });
+
   it("plain rule names: propertyRules.required and .defaultTrueBooleans both drop the Figma id suffix", function () {
     var brief = prepare.prepareFlow({
       app: "studio",
@@ -184,7 +199,7 @@ describe("prepare-flow (brief per flow)", function () {
     assert.strictEqual(slice1.total, 2);
     assert.deepStrictEqual(slice1.screen, brief.screens[0]);
     assert.strictEqual(slice1.glossary.patterns.length, 1);
-    assert.strictEqual(slice1.glossary.patterns[0].slug, "access-request-management");
+    assert.strictEqual(slice1.glossary.patterns[0].slug, "access-request-workflow");
     assert.strictEqual(slice1.app, brief.app);
     assert.strictEqual(slice1.entity, brief.entity);
     assert.deepStrictEqual(slice1.labels, brief.labels);
@@ -236,6 +251,32 @@ describe("prepare-flow (brief per flow)", function () {
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
+  });
+});
+
+describe("pickPattern (reweighted tag/label scoring)", function () {
+  var appPatternsResolver = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "resolve-patterns.js"));
+  var studioPatterns = appPatternsResolver.resolvePatterns("studio");
+
+  it("a single generic word no longer drags in an unrelated pattern", function () {
+    assert.strictEqual(prepare.pickPattern("Data product overview", studioPatterns), null, "today: data-profiling-sampling on the word \"data\"");
+    assert.strictEqual(prepare.pickPattern("Published data product", studioPatterns), null);
+  });
+
+  it("a real multi-word overlap still matches", function () {
+    var p = prepare.pickPattern("Data products list", studioPatterns);
+    assert.ok(p, "expected a match");
+    assert.strictEqual(p.slug, "search-filtered-table");
+  });
+
+  it("on a tie, the pattern named in the entity's own patterns[] wins over an equally-scored one that comes first", function () {
+    var noEntity = prepare.pickPattern("Approve properties", studioPatterns);
+    assert.ok(noEntity, "expected a match");
+    assert.strictEqual(noEntity.slug, "access-request-management", "first-encountered tied pattern wins with no entity signal");
+
+    var withEntity = prepare.pickPattern("Approve properties", studioPatterns, ["asset-detail-360"]);
+    assert.ok(withEntity, "expected a match");
+    assert.strictEqual(withEntity.slug, "asset-detail-360", "the entity's own pattern wins the tie");
   });
 });
 
