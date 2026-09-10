@@ -1274,9 +1274,14 @@ function checkTextStyle(screen, findings) {
       });
     }
     if (node.color != null && node.color !== "") {
-      var colorStr = String(node.color);
+      var colorStr = String(node.color).trim();
+      // Same allowance as findHardcodedColorsRaw's describeHardcodedColor:
+      // a CSS keyword in COLOR_LITERAL_OK is a legitimate value, not a
+      // hardcoded literal or an invalid shape.
       var validColor =
-        colorStr.indexOf("var(--") === 0 || /^#[0-9a-f]{3,8}$/i.test(colorStr);
+        colorStr.indexOf("var(--") === 0 ||
+        /^#[0-9a-f]{3,8}$/i.test(colorStr) ||
+        COLOR_LITERAL_OK.indexOf(colorStr) !== -1;
       if (!validColor) {
         findings.push({
           kind: "text-style",
@@ -1749,11 +1754,12 @@ function checkChromeCoherence(screen, glossaryChrome, findings) {
 // thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
-// A required-override prop is authored under its exact hashed registry name
-// (e.g. "Label#1411:32") or under its base name before the "#" (e.g.
-// "Label"). The generate-flow skill's own Examples author the base name and
-// the renderer reads it the same way, so the missing-required-override check
-// (Pass 1 below) accepts either spelling as satisfying the override.
+// A prop is authored under its exact hashed registry name (e.g.
+// "Label#1411:32") or under its base name before the "#" (e.g. "Label").
+// The generate-flow skill's own Examples author the base name and the
+// renderer reads it the same way, so both the missing-required-override
+// check and the default-true-boolean-unset check (Pass 1 below) accept
+// either spelling as satisfying the override.
 function hasOverride(props, propName) {
   if (props[propName] !== undefined) return true;
   var base = propName.split("#")[0];
@@ -1873,10 +1879,13 @@ function validate(data, opts) {
         }
       }
 
-      // Check for unset default-true booleans (warning severity)
+      // Check for unset default-true booleans (warning severity). Same
+      // base-name tolerance as hasOverride() above — a boolean authored
+      // under its plain name (e.g. "Show Avatar" for registry name
+      // "Show Avatar#14797:1") counts as set.
       var defaultTrue = rules.getDefaultTrueBooleans(componentDef);
       for (var b = 0; b < defaultTrue.length; b++) {
-        if (props[defaultTrue[b].propName] === undefined) {
+        if (!hasOverride(props, defaultTrue[b].propName)) {
           findings.push({
             kind: "default-true-boolean-unset",
             severity: "warning",

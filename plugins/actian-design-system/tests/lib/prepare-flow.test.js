@@ -130,7 +130,7 @@ describe("prepare-flow (brief per flow)", function () {
     assert.ok(brief.screens[1].archetype.skeleton, "detail-view archetype carries a skeleton");
   });
 
-  it("plain rule names: propertyRules.required drops the Figma id suffix; defaultTrueBooleans keeps it, with a plain alias", function () {
+  it("plain rule names: propertyRules.required and .defaultTrueBooleans both drop the Figma id suffix", function () {
     var brief = prepare.prepareFlow({
       app: "studio",
       entity: "data-product",
@@ -142,14 +142,11 @@ describe("prepare-flow (brief per flow)", function () {
       assert.ok(name.indexOf("#") === -1, "required name '" + name + "' must be plain (validator's hasOverride accepts the base name)");
     });
     assert.ok(button.required.indexOf("Label") !== -1);
-    assert.ok(
-      button.defaultTrueBooleans.some(function (name) { return name.indexOf("#") !== -1; }),
-      "defaultTrueBooleans keeps the suffix (validator's default-true-boolean-unset check has no base-name fallback)",
-    );
-    assert.deepStrictEqual(
-      button.plain.defaultTrueBooleans,
-      button.defaultTrueBooleans.map(function (name) { return name.replace(/#[\d:]+$/, ""); }),
-    );
+    button.defaultTrueBooleans.forEach(function (name) {
+      assert.ok(name.indexOf("#") === -1, "defaultTrueBooleans name '" + name + "' must be plain too (validator's default-true-boolean-unset now uses the same base-name tolerance as hasOverride)");
+    });
+    assert.ok(button.defaultTrueBooleans.indexOf("Show leading icon") !== -1);
+    assert.strictEqual(button.plain, undefined, "no separate .plain alias — the list itself is plain");
   });
 
   it("--list-entities prints app-context entity keys, one per line, exit 0", function () {

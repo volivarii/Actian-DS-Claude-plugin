@@ -40,8 +40,9 @@ function fallbackArchetype(name) {
 // A rule name as it appears in the registry carries the Figma node id
 // suffix ("Show Avatar#14797:1"). The screen-generator agent authors props
 // by their plain name, matching the established convention documented at
-// validate-flow-data.js's hasOverride() (a required-override prop is
-// accepted under its exact hashed name OR its base name before "#").
+// validate-flow-data.js's hasOverride() (a required-override prop AND a
+// default-true boolean are both accepted under either the exact hashed
+// name or the base name before "#").
 function stripPropId(name) {
   return String(name).replace(/#[\d:]+$/, "");
 }
@@ -133,15 +134,15 @@ function prepareFlow(options) {
     Object.keys(rawPropertyRules).forEach(function (slug) {
       var r = rawPropertyRules[slug];
       propertyRules[slug] = {
-        // Plain names: validate-flow-data.js's missing-required-override
-        // check (hasOverride) accepts the base name before "#" as
-        // satisfying the override, so the agent can author these verbatim.
+        // Plain names for both lists: validate-flow-data.js's hasOverride()
+        // accepts the base name before "#" as satisfying an override, and
+        // that same tolerance now covers the default-true-boolean-unset
+        // check too (the DS leaf renderer itself reads these booleans by
+        // their plain name, e.g. ds-html-map.js's
+        // props["Leading icon show"] -- the suffixed form was never what
+        // actually got read at render time).
         required: r.required.map(stripPropId),
-        // Kept suffixed: the default-true-boolean-unset check looks the
-        // authored prop up by its exact registry name, with no base-name
-        // fallback, so the plain form would silently miss and false-warn.
-        defaultTrueBooleans: r.defaultTrueBooleans,
-        plain: { defaultTrueBooleans: r.defaultTrueBooleans.map(stripPropId) },
+        defaultTrueBooleans: r.defaultTrueBooleans.map(stripPropId),
       };
     });
     return {

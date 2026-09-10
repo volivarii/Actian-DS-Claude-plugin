@@ -53,6 +53,12 @@ describe("text-style finding: TEXT font/color shape", function () {
     assert.strictEqual(textStyleFindings(result).length, 0);
   });
 
+  it("a CSS colour keyword findHardcodedColorsRaw already treats as fine (transparent) is accepted too", function () {
+    var data = flowWithTextNode("Inter:Regular", "transparent");
+    var result = validate.validate(data, QUIET);
+    assert.strictEqual(textStyleFindings(result).length, 0);
+  });
+
   it("an object-form font alone (valid color) yields exactly one finding naming font", function () {
     var data = flowWithTextNode({ weight: "bold" }, "var(--zen-color-text-primary)");
     var result = validate.validate(data, QUIET);
