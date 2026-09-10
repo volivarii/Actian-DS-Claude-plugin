@@ -38,6 +38,7 @@ At dispatch you receive:
 - **`_index`** — your screen's 1-based number, matching the slice's own `index` (for merge ordering)
 - **Output path** — `flows/.partial/screens-<n>.json`, where you write your result
 - **`library: "ds"`** — present only on a `--hifi` run; switches you into DS-native authoring (see below)
+- **`references`** — array of `{ url, weight, fingerprint }` entries (Step 4.5's vision extraction, the run's `meta.references[]`) when that array is non-empty; omitted when the run had no `--ref` URLs
 
 The dispatcher pastes none of the brief or slice content — read the slice file yourself.
 
@@ -48,6 +49,14 @@ The dispatcher pastes none of the brief or slice content — read the slice file
 - Under `library: "ds"`, also `references/generate-flow/ds-components-authoring.md`.
 
 Nothing else. Never open `recipes/**`, `schemas/**`, `vendor/**`, `scripts/**`, or the full `.brief.json` — the slice already carries everything your screen needs.
+
+## Reference fingerprints (`references` input)
+
+When dispatch carries `references`, each entry's `fingerprint` (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) is a **soft hint biasing your structural choices**, not a mandate:
+
+- **Prompt/slice wins on feature intent.** Your screen's matched `pattern`/`archetype` from the slice is authoritative; a fingerprint never overrides it, only tie-breaks an ambiguous tier-0 match or biases density/hierarchy/component count within the shape you already landed on.
+- **Multi-ref:** prefer the entry with the highest `weight`; on a tie, judge per-screen by which entry's `layout_archetype` fits this screen's apparent function.
+- When a fingerprint pushes you off the obvious `recognized` shape into `adapted`, say so in `justification` (e.g. "reference density argues for a denser table than the base recipe's default").
 
 ## Process
 
