@@ -1,4 +1,4 @@
-# generate-flow — interactive gates
+# generate-flow: interactive gates
 
 This file holds the generate-flow interactive gates, presented verbatim: Gate 1
 (research opt-in), Gate 2 (research findings), Gate 3 (screen list, detail

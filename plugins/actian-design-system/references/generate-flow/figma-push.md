@@ -1,4 +1,4 @@
-# generate-flow — Figma push, refine shape, and push sequence
+# generate-flow: Figma push, refine shape and push sequence
 
 This file holds the push opt-in resolution, the refine shape detection and
 behavior, and the full push-to-Figma sequence (lo-fi push, DS-native hifi

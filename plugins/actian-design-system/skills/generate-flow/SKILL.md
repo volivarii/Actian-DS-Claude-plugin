@@ -78,7 +78,7 @@ Classify input shape (Prompt / Refine / Iterate per the table above). **Refine a
 
 ## Push opt-in
 
-Push is opt-in and resolved before Step 7; the detection rules, the `--push` / `--no-push` precedence and the Cowork note are in `references/generate-flow/push-opt-in.md`; the push sequence itself is in `references/generate-flow/figma-push.md` (read it only when push resolved to true).
+Push is opt-in and resolved before Step 7; the detection rules and the `--push` / `--no-push` precedence are in `references/generate-flow/push-opt-in.md`; the push sequence itself is in `references/generate-flow/figma-push.md` (read it only when push resolved to true).
 
 ## Refine shape
 
