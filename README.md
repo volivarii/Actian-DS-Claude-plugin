@@ -244,7 +244,7 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
 | `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
 | `card-generator` | Generate brief cards in parallel batches (Phase B only) | Brief generation (5+ Phase B cards) |
-| `screen-generator` | Generate flow screens in parallel batches | Flow generation (6+ screens) |
+| `screen-generator` | Generate flow screens in parallel batches | Flow generation (every screen count, batches of 3) |
 
 ---
 

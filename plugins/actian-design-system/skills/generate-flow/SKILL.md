@@ -98,33 +98,32 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 5.0. **Skeleton — render the encapsulated deliverable immediately.** As soon as the screen list is approved (Gate 3), render the structure to the canonical artifact so the user sees it instantly instead of an empty panel:
 
 - Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>" }, …] }` (one entry per approved screen, in final order; carry the known `meta`). `template` is one of `studio`, `explorer`, `admin` (alias `administration`), `no-sidebar`, `bare`, `compact`, `mobile`, `tablet`, `custom` (the chrome vocabulary in `scripts/renderers/html-renderers/ds-screen-tree.js`); any other value, such as an archetype name like `browse-search`, falls back to the legacy `appHeader`/`sidebar` fields and a screen carrying neither renders no chrome.
-- **Parallel mode (6+):** merge the screen list into `flow-data.json` (pending stubs) via the incremental merge against the (empty) partials dir, then render `--type flow-share`:
+- **Every screen count:** merge the screen list into `flow-data.json` (pending stubs) via the incremental merge against the (empty) partials dir, then render `--type flow-share`:
   ```bash
   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
-    --type flow --incremental \
-    --screen-list {project_working_directory}/flows/screen-list.json \
-    --partials-dir {project_working_directory}/flows/.partial \
-    --output {project_working_directory}/flows/flow-data.json
+    --type flow --partials-dir {project_working_directory}/flows/.partial \
+    --output {project_working_directory}/flows/flow-data.json \
+    --incremental --screen-list {project_working_directory}/flows/screen-list.json
   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
     {project_working_directory}/flows/flow-data.json --type flow-share \
     -o {project_working_directory}/flows/[feature].html
   ```
-- **Sequential mode (<6):** author `flow-data.json` with one `{ "id": "<feature-slug>-<n>", "name": …, "template": …, "content": [], "status": "pending" }` stub per screen (the skeleton), then run the same `assemble-preview.js … --type flow-share` render to `flows/[feature].html`.
 - Tell the user: `Preview ready (skeleton) → {project_working_directory}/flows/[feature].html — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
 
 5. Build `flow-data.json`
-   - **Tier classification (REQUIRED — runs in BOTH modes before generating screen content):** Read `agents/screen-generator.md` Step 0 and apply the classifier per-screen. Every screen object in the output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section. Then read `agents/screen-generator.md` "Tier-aware generation rules" section and apply the rules matching each screen's tier when authoring its content. **Parallel and sequential modes both apply the classifier — sequential does NOT skip Step 0.**
+   - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how each screen's content is authored.
    - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
-   - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3. **When `meta.references[]` has fingerprints attached (C-vision step 4.5)**, copy the full `meta.references[]` array into each batch's dispatch prompt as a "Reference fingerprints" input block — see `agents/screen-generator.md`. Without this, the agent will report empty fingerprints even though step 4.5 persisted them. Merge with:
+   - **Authoring (every screen count):** dispatch `screen-generator` in batches of at most 3 screens, in parallel, each with: the brief path `{project_working_directory}/flows/.brief.json`, its screen numbers and names, `_index`, the output path `{project_working_directory}/flows/.partial/screens-<a>-<b>.json`, `meta`, and `meta.references[]` when fingerprints exist (see `references/generate-flow/vision-refs.md`). The agent reads the brief and `references/generate-flow/html-reference.md` (plus `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else. Merge as each batch lands:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
        --type flow --partials-dir {project_working_directory}/flows/.partial \
-       --output {project_working_directory}/flows/flow-data.json
+       --output {project_working_directory}/flows/flow-data.json \
+       --incremental --screen-list {project_working_directory}/flows/screen-list.json
      ```
-     Sequential mode (<6 screens): build flow-data.json directly, following `references/generate-flow/html-reference.md` for the content node spec and `schemas/flow-data.schema.json` for the schema (the screen-generator agent reads both in parallel mode; sequential mode has no agent dispatch, so the main skill reads them itself); but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
-   - **Progress (chat) + live streaming:** this is the longest silent phase — keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands (parallel batches: as each batch's partials merge; sequential: as each screen object is authored): `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live — parallel: re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials become ready, the rest stay shimmer); sequential: replace that screen's pending stub with its real content (drop `status`) in `flow-data.json`, then re-run `assemble-preview.js … --type flow-share -o {project_working_directory}/flows/[feature].html`. Every streaming render is fail-open (a render error never blocks the build).
+     The main agent prepares, merges, validates and renders; it does not author screen content.
+   - **Progress (chat) + live streaming:** this is the longest silent phase — keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands, as each batch's partials merge: `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live — re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials become ready, the rest stay shimmer). Every streaming render is fail-open (a render error never blocks the build).
 6. **Validate flow data** — run the validation script before rendering the final deliverable / pushing:
 
    ```bash
@@ -205,110 +204,17 @@ The three interactive gates are presented verbatim from `references/generate-flo
 
 ## Step 3.5 — Build flow glossary
 
-After the screen list is approved, build a `_glossary` object and set it on `meta._glossary`. This ensures all screen-generators use identical terminology.
-
-**Build from:**
-
-1. Feature description → extract the primary entity name (e.g., "Data Product", "Dataset", "Scanner")
-2. App context (from Gate 1) → verify the entity name matches `references/context/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
-3. Approved screen list → extract page titles and CTA labels already visible in screen names
-
-**Glossary fields:**
-
-```json
-{
-  "_glossary": {
-    "entity": "Data Product",
-    "entityPlural": "Data Products",
-    "entityLower": "data product",
-    "entityPluralLower": "data products",
-    "createVerb": "Create",
-    "editVerb": "Edit",
-    "deleteVerb": "Delete",
-    "primaryCTA": "Create data product",
-    "pageTitle": "Data Products",
-    "sidebarActive": "Catalog",
-    "app": "Studio",
-    "entityProperties": [
-      { "name": "name", "label": "Name", "type": "string" },
-      { "name": "description", "label": "Description", "type": "string" },
-      { "name": "status", "label": "Status", "type": "enum", "states": ["Draft", "Published", "Deprecated"] },
-      { "name": "datasets", "label": "Datasets", "type": "reference" }
-    ]
-  }
-}
-```
-
-**Entity properties (grounded table columns + form fields, S3b).** Using the same entity slug as the relationships lookup, resolve the primary entity's standard fields:
+After Gate 3, run once (the app from Pipeline step 1, the entity slug from Pipeline step 3, the screen list written at Step 5.0):
 
 ```bash
-source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-properties.js --entity <slug>
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/prepare-flow.js" \
+  --app <app> --entity <slug> \
+  --screen-list {project_working_directory}/flows/screen-list.json \
+  -o {project_working_directory}/flows/.brief.json
 ```
 
-Set `_glossary.entityProperties` to the returned `properties` array (`[{name, label, type, states?, example?}]`). These are the entity's standard fields from the substrate (e.g. `data-product` → Name, Description, Status, Datasets, …). Screen-generators use them **verbatim** for table column headers and form field labels instead of generic placeholders; the validator flags the flow as `properties-ungrounded` (info, advisory, never blocks) when **no** table or form in it reflects them. On **refine / iterate**, preserve existing `_glossary.entityProperties` rather than re-resolving.
-
-If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
-
-**App chrome (grounded shell):** set `_glossary.chrome` to the canonical app shell. Get it deterministically by running:
-
-```bash
-source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-chrome.js --app <app>
-```
-
-(or read `vendor/app-context/dist/app-context.json` → `apps[<app lowercased>]` and copy its `header` + `sidebar` verbatim). Set:
-
-```json
-"chrome": { "app": "studio", "header": { "type": "Studio" }, "sidebar": [ { "label": "Dashboard", "id": "dashboard" }, … ] }
-```
-
-This is the authoritative shell every screen shares. **Do not invent, add, remove, rename, or reorder sidebar items** unless the prompt explicitly asks to restructure the navigation (e.g. "add a Reports section", "redesign the nav", "no app shell"). When it does, modify `_glossary.chrome` accordingly **and** set `_glossary.chromeJustification` to a one-line reason (30+ chars) — the change then applies flow-wide. The validator reports an ungrounded change without a justification as `chrome-drift` (warning).
-
-On **refine / iterate** of an existing flow, preserve any existing `_glossary.chrome` + `_glossary.chromeJustification` rather than re-resolving from scratch — only re-ground the screens you actually regenerate.
-
-**App patterns + use cases (grounded shortlist, S2).** After resolving chrome, resolve the app's idiomatic UX patterns and use cases:
-
-```bash
-source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>
-```
-
-Set `_glossary.patterns` to the returned `patterns` array (`[{slug,label,description,tags,tagSource,recipe,pageRecipe,components}]`, where `components` is the DS components the substrate says that pattern is built from, carried through whole: a field dropped here is a field the screen-generator cannot read) and `_glossary.useCases` to the chosen use case from Gate 3 (a one-element array). These are the **app-scoped** patterns: a pattern not scoped to this app never appears (the app boundary is firm). On **refine / iterate**, preserve existing `_glossary.patterns` / `_glossary.useCases` rather than re-resolving.
-
-Each pattern carries a `recipe` decision, already ranked by how many tags it shares with each archetype in `recipes/flow/_index.json`. **Use it rather than matching tags yourself, but read the next paragraph first: the decision belongs to the pattern, not to the screen.**
-
-`_glossary.patterns` holds every pattern scoped to the app, each with its own decision, and a flow has many screens. A screen-generator therefore decides **which pattern the screen it is building actually realizes** and reads only that pattern's `recipe` and `pageRecipe`. Where that pattern carries a `pageRecipe`, the screen is composed from the captured recipe in `vendor/app-context/dist/recipes/` rather than from the ranked archetype, because the capture was taken from the running product; the archetype still supplies the tier classification. Taking a decisive archetype from an unrelated pattern is the same failure this replaced, moved one step along: `faceted-browse` carries a decisive `browse-search`, and a "Create data product" form screen in the same Studio flow must not inherit it. If no pattern in the list describes the screen, there is no recipe guidance for it, and the screen's own purpose governs as it did before.
-
-`pageRecipe` is read FIRST and outranks every row of this table: when it is non-null the composition comes from that capture, and `recipe.status` then only classifies the screen. The rows below govern whenever `pageRecipe` is `null`.
-
-| `recipe.status` | What it means | What a screen-generator does |
-| --- | --- | --- |
-| `decisive` | one archetype shares two or more tags, more than any other | take `recipe.archetype` for a screen realizing THAT pattern |
-| `weak` | one archetype leads, but on a single shared tag | it is the best guess and no more: read the pattern `description` before taking it, and say so if you do |
-| `tie` | several share the top score, and `archetype` is `null` | choose between `recipe.candidates` on the pattern description, and say which and why |
-| `no-match` | the pattern shares no tag with any recipe | no archetype guidance exists; pick on the description alone and do not pretend it was grounded |
-
-`tagSource` is `authored` when the substrate tagged the pattern and `slug` when the tags were derived from its slug words as a fallback. A `slug` source is weaker evidence and worth naming when the choice was close.
-
-The old instruction was to bias toward "the recipe whose `tags[]` overlap", which is a set membership test: `faceted-browse` overlapped both `table-list` and `browse-search` on the single word "browse", and the tie resolved to the wrong one, which is how a Studio Catalog request produced a two-pane CRUD table at confidence 0.93. Ranking by overlap size scores `browse-search` 4 against `table-list` 1. Compositions are never ranked: they are a separate branch of the pipeline and `matchedRecipe` must be `null` for one. The validator still flags any screen whose recipe shares **no** tag as `pattern-ungrounded` (info, advisory, never blocks).
-
-**Entity relationships (grounded detail tabs, S3).** Using the same entity slug as the `entityProperties` lookup above, resolve the primary entity's relationships:
-
-```bash
-source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-relationships.js --entity <slug>
-```
-
-Set `_glossary.relationships` to the returned array (`[{relationship, relatedEntity, label}]`). These are **all** of the entity's relationships from the substrate (e.g. `catalog-object` → Lineage, Glossary items, Governance policies, Discussions, …). Screen-generators draw detail-view tabs + related sub-lists from them (selecting the subset that fits each screen); the validator flags the flow as `relationships-ungrounded` (info, advisory, never blocks) when **no** detail-view screen in it surfaces any of them. On **refine / iterate**, preserve existing `_glossary.relationships` rather than re-resolving.
-
-**Entity to components (the join into the design system, S3).** Using the same entity slug again, resolve the page shapes that show it and the components those shapes are built from:
-
-```bash
-source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --entity <slug>
-```
-
-Returns `{ entity, patterns, components, join }`. Set `_glossary.entityPatterns` to `patterns` (`[{slug,label,apps,components}]`) and `_glossary.entityComponents` to `components`, the deduped traversal across them. This is the one edge from the domain model into the DS: an entity names its page shapes, each page shape already names its components, so `entityComponents` is what the substrate says draws this thing anywhere it appears. It is the entity-wide union and therefore broader than any single screen, so a screen-generator that has settled on a pattern reads that pattern's own `components` instead; `entityComponents` is the answer when no pattern fits.
-
-Read the `join` object and the stderr line before trusting an empty answer. `join.present: false` means the **vendored snapshot predates the edge**, not that nothing shows the entity, and the two are not the same fact: report the pin, do not report "no components". `join.present: true` with an empty `patterns` is the substrate's real answer: some entities are only ever shown inside another object's page and carry no join by design. The `join` object reports how many of the snapshot's entities are joined, so read that rather than assuming a count. On **refine / iterate**, preserve existing `_glossary.entityPatterns` / `_glossary.entityComponents` rather than re-resolving.
-
-Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
+Omit `--entity` when the feature has no primary entity. Copy `brief.glossary` into `meta._glossary` of `flow-data.json` as is (chrome, patterns, useCases, entityProperties, relationships, entityPatterns, entityComponents); the chrome is the authoritative shell every screen shares, do not add, remove, rename or reorder sidebar items unless the prompt asks to restructure the app. Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agent reads.
 
 ---
 

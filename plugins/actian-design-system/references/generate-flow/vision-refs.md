@@ -59,4 +59,4 @@ when `meta.references` is empty.
    | Some refs fail | Proceed with successful subset. Surface a list of which URLs failed and why. |
    | `kind === "image"` URL provided | Loud error per Sprint A v1: "Image URLs not yet supported. Screenshot into a Figma frame first." Abort. |
 
-   **Pass through to screen-generators:** the persisted `meta.references[]` (with fingerprints attached) flows into screen-generator agents' input as the "Reference fingerprints" block (see `agents/screen-generator.md`). Sequential mode reads them inline; parallel mode includes them in each batch's dispatch payload.
+   **Pass through to screen-generators:** the persisted `meta.references[]` (with fingerprints attached) flows into screen-generator agents' input as the "Reference fingerprints" block (see `agents/screen-generator.md`), included in each batch's dispatch payload.
