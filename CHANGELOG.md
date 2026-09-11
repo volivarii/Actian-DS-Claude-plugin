@@ -19,6 +19,19 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **Sections in the brief.** ([#371](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/371))
+  `prepare-flow.js` lists, per screen, the captured sections the screen is made of (from the page
+  recipe's `sections` stamp, or from the flow archetype's new role map in
+  `recipes/flow/_index.json`), withholds the archetype's generic `pageHeader` when a header section
+  is present, and emits `sectionsByScreen` for the validator. `resolve-patterns.js` reads the
+  vendored `appContextSections` collection through the manifest and degrades to none with one
+  warning on a snapshot that predates it. The validator's info-level `section-ungrounded` names a
+  screen that ignored or doubled its captured header. The screen-generator agent composes sections
+  by role and, under `--hifi`, authors the `ds` leaf each section instance names. Requires knowledge
+  v0.34.208 for the sections to appear; on v0.34.207 every screen carries `sections: []`.
+
 ### Changed
 
 - **A generate-flow run reads one brief instead of the substrate's prose.** ([#370](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/370)) `prepare-flow.js`
