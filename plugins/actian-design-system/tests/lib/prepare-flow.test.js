@@ -425,3 +425,79 @@ describe("component-property-rules inspectSlugs", function () {
     assert.ok(Array.isArray(r.fmButton.defaultTrueBooleans));
   });
 });
+
+describe("resolveSections (Slice 6B)", function () {
+  var SECTIONS = {
+    "item-header": { slug: "item-header", role: "header", label: "Item header", slots: { a: "b" }, renderNotes: ["n"],
+      skeleton: { content: [{ type: "FRAME", name: "Item header", children: [] }] } },
+    "facet-tabs": { slug: "facet-tabs", role: "tabs", label: "Facet tabs",
+      skeleton: { content: [{ type: "FRAME", name: "Tab bar", children: [] }] } },
+    "control-bar": { slug: "control-bar", role: "control-bar", label: "Control bar",
+      skeleton: { content: [{ type: "FRAME", name: "Results header" }, { type: "FRAME", name: "Bulk action bar" }] } },
+  };
+  var DETAIL_ROW = { archetype: "detail-view", sections: { header: "item-header", tabs: "facet-tabs", aside: "properties-panel" } };
+
+  it("a captured screen lists the page recipe's sections in order, source capture", function () {
+    var out = prepare.resolveSections({
+      pageRecipe: { slug: "asset-detail-360", sections: ["item-header", "facet-tabs"] },
+      archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: SECTIONS,
+    });
+    assert.deepStrictEqual(out.map(function (s) { return [s.slug, s.role, s.source]; }),
+      [["item-header", "header", "capture"], ["facet-tabs", "tabs", "capture"]]);
+    assert.deepStrictEqual(out[0].roots, ["Item header"]);
+    // Ruling: content travels only on the archetype path. A captured page
+    // recipe already carries the section's skeleton inlined in its own
+    // content, so repeating it here would ship the same nodes twice.
+    assert.strictEqual(out[0].content, null);
+    assert.deepStrictEqual(out[0].slots, { a: "b" });
+  });
+
+  it("an archetype screen with an entity gets the role map's sections, skipping slugs the collection lacks", function () {
+    var out = prepare.resolveSections({ pageRecipe: null, archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: SECTIONS });
+    assert.deepStrictEqual(out.map(function (s) { return s.slug; }), ["item-header", "facet-tabs"]);
+    assert.strictEqual(out[0].source, "archetype");
+    assert.strictEqual(out[0].content, SECTIONS["item-header"].skeleton.content);
+  });
+
+  it("without an entity the header, tabs and aside roles are withheld; control-bar is not", function () {
+    var none = prepare.resolveSections({ pageRecipe: null, archetypeRow: DETAIL_ROW, hasEntity: false, bySlug: SECTIONS });
+    assert.deepStrictEqual(none, []);
+    var bar = prepare.resolveSections({ pageRecipe: null, archetypeRow: { archetype: "table-list", sections: { "control-bar": "control-bar" } }, hasEntity: false, bySlug: SECTIONS });
+    assert.deepStrictEqual(bar.map(function (s) { return s.slug; }), ["control-bar"]);
+    assert.deepStrictEqual(bar[0].roots, ["Results header", "Bulk action bar"]);
+  });
+
+  it("no recipe, no row, or an empty collection yields []", function () {
+    assert.deepStrictEqual(prepare.resolveSections({ pageRecipe: null, archetypeRow: null, hasEntity: true, bySlug: SECTIONS }), []);
+    assert.deepStrictEqual(prepare.resolveSections({ pageRecipe: null, archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: {} }), []);
+  });
+});
+
+describe("prepareFlow carries sections (Slice 6B)", function () {
+  it("every screen has a sections array and the brief has sectionsByScreen; a header section nulls the archetype pageHeader", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio", entity: "data-product",
+      screens: [{ name: "Data product detail", template: "studio" }, { name: "Zzzz qqqq", template: "bare" }],
+    });
+    brief.screens.forEach(function (s) { assert.ok(Array.isArray(s.sections), s.name + " must carry sections[]"); });
+    assert.ok(brief.sectionsByScreen && typeof brief.sectionsByScreen === "object");
+    assert.deepStrictEqual(Object.keys(brief.sectionsByScreen), ["Data product detail", "Zzzz qqqq"]);
+    var PATHS = require(path.join(PLUGIN_ROOT, "scripts", "lib", "paths.js"));
+    if (typeof PATHS.appContextSections !== "function") {
+      console.log("  (sections collection not vendored yet: the detail screen's sections are [] by construction, real-data assertions skipped)");
+      assert.deepStrictEqual(brief.screens[0].sections, []);
+      return;
+    }
+    var detail = brief.screens[0];
+    var roles = detail.sections.map(function (s) { return s.role; });
+    assert.ok(roles.indexOf("header") !== -1, "a data-product detail screen must carry a header section, got " + JSON.stringify(roles));
+    assert.strictEqual(detail.archetype.skeleton.pageHeader, null, "the generic pageHeader must be withheld when a header section is present");
+    assert.deepStrictEqual(brief.sectionsByScreen["Data product detail"].map(function (s) { return s.slug; }), detail.sections.map(function (s) { return s.slug; }));
+  });
+
+  it("the slice carries the screen's sections", function () {
+    var brief = prepare.prepareFlow({ app: "studio", screens: [{ name: "Data products", template: "studio" }] });
+    var slice = prepare.sliceBrief(brief, 1);
+    assert.ok(Array.isArray(slice.screen.sections));
+  });
+});
