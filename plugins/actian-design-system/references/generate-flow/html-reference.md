@@ -250,7 +250,7 @@ same shape applies; `ds-components-authoring.md` points here rather than repeati
 | `intent` | `"destructive-action"` \| `"success-confirmation"` \| `"error-state"` \| `"default"` | inherited by descendants unless overridden at a leaf (`intent-resolver.js`); drives the `intent-mismatch` gate under `--hifi` |
 
 INSTANCE nodes additionally carry `ref` (FM slug), `variant`, `props`; under `--hifi`,
-`library: "ds"` + `dsSlug` replace `ref`.
+`library: "ds"` + `dsSlug` replace `ref`. Nodes that arrive inside a captured section (`screen.sections[].content`) carry `ref` (FM) and, where a DS leaf exists, `ds` (its slug); under `--hifi` author the `ds` leaf and drop `ref`.
 
 **Text colour tokens (the complete list):** `--zen-color-text-default`, `--zen-color-text-primary`,
 `--zen-color-text-secondary`, `--zen-color-text-tertiary`, `--zen-color-text-placeholder`,

@@ -95,6 +95,8 @@ Your screen's tier records how directly a known shape covers it: the schema acce
 
 **A `pageRecipe` skeleton is a template, not finished content.** It carries `{{token}}` placeholders and nothing downstream catches an unsubstituted one: no later step checks for a stray `{{`, so an unreplaced token reaches Figma as literal text. Replace every token; use `slots` to decide what each region holds; copy only keys the flow schema defines (an extra top-level key like `appHeader` is silently ignored). **A capture speaks the product's vocabulary, not the design system's**: re-term every literal string against your slice's `glossary` as you compose (the terminology map re-terms captured words like `Dataset` to `Data product`). A bare leftover `"Description"` trips `P0 [placeholder-text]`; a component still missing a required override trips `P0 [missing-required-override]`. Classification stays with the archetype even when content comes from a capture: the capture supplies structure, not the tier.
 
+**A section is a capture: compose it, do not redraw it.** `screen.sections[]` lists the product's parts this screen is made of, each with `role`, `roots` (the names of its root nodes), `content` (the nodes, spliced in verbatim with `{{placeholders}}` substituted from the slice; `null` when the screen has a `pageRecipe`, whose skeleton already holds them under the FRAMEs named in `roots`), `slots` and `renderNotes`. Place them by role: `header` first, then `tabs`, a `control-bar` above the results, `aside` as the right column, `footer` last, `drawer-header` at the top of the overlay. When a `header` section is present the slice's `archetype.skeleton.pageHeader` is `null` on purpose: author no `pageHeader`, no `page-header` leaf and no `breadcrumb` beside the section's own rows; the validator's `section-ungrounded` advisory names a screen that ignored or doubled its header. A captured page recipe already holds its sections inline; its `sections` names them so you know which parts not to re-term. Under `--hifi`, every INSTANCE inside a section carries `ds` beside its FM `ref`: author the `ds` leaf with the FM props translated per `ds-components-authoring.md` (`Tag Text` → `Label`, `Tabs`/`Active` → the tabs leaf's items, `Name` → the avatar's initials); an INSTANCE without `ds` keeps its FM ref.
+
 Also orient the screen's empty state + primary CTA around the `jobs` in `glossary.useCases[].jobs`.
 
 ## Step 1: Generate your screen
@@ -157,7 +159,7 @@ The DS detail bar is higher than the FM deliberate-simplicity bar:
 
 ### Chrome rule (DS mode)
 
-Do **not** author `global-header` or `side-nav` INSTANCE nodes in screen content arrays. The renderer's DS chrome branch supplies them automatically when `library: "ds"` is set. Author only feature-content INSTANCE nodes. `page-header` and `breadcrumb` ARE authored in screen content (they are page-level feature chrome, not the global shell).
+Do **not** author `global-header` or `side-nav` INSTANCE nodes in screen content arrays. The renderer's DS chrome branch supplies them automatically when `library: "ds"` is set. Author only feature-content INSTANCE nodes. `page-header` and `breadcrumb` ARE authored in screen content (they are page-level feature chrome, not the global shell). Exception: when `screen.sections` carries a `header` section, that section IS the page header; author neither.
 
 ## Output format
 
