@@ -1,0 +1,144 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "kind": "section",
+  "slug": "facet-tabs",
+  "label": "Facet tabs",
+  "description": "The facet tab bar of a catalog object page: one tab per facet of the object, some carrying a count, and opposite them two avatar stacks, curators and contacts.",
+  "role": "tabs",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "asset-detail-360"
+  ],
+  "tags": [
+    "tabs",
+    "facets",
+    "people"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog > Dataset > General",
+    "capturedOn": "2026-08-18",
+    "productVersion": "next.dev.zeenea.app"
+  },
+  "slots": {
+    "tabs": "One fmTabs instance listing the object's facets in the product's order, counts in parentheses, the first tab active. {{facets}} is the entity's facets: General first, then one tab per relationship the entity holds (for a Dataset: Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions; for a Data Product: Input ports, Output ports, View 360, Activity), never invented names such as Overview or Schema. {{first_facet}} is the label of the first tab, which is the active one.",
+    "people": "Two short avatar stacks on the right: Curators then Contacts, three `fmUser` each at most."
+  },
+  "renderNotes": [
+    "`fmTabs` reads `Tabs` (comma-separated or array) and `Active`; it has no per-tab children and no count badge, so a count is written into the label text.",
+    "`fmUser` always renders initials AND the name, so a stack draws as a row of name chips. Keep stacks to three.",
+    "Captured value on the Dataset page, 2026-08-18: 'General, Fields (2), Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions (0)', Active 'General'."
+  ],
+  "skeleton": {
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Tab bar",
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 0,
+          "primaryAxisAlignItems": "SPACE_BETWEEN",
+          "counterAxisAlignItems": "CENTER"
+        },
+        "children": [
+          {
+            "type": "INSTANCE",
+            "ref": "fmTabs",
+            "ds": "tabs",
+            "props": {
+              "Tabs": "{{facets}}",
+              "Active": "{{first_facet}}"
+            }
+          },
+          {
+            "type": "FRAME",
+            "name": "Responsibility stacks",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 12,
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Curators",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 4,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Thomas Desvenain"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Florent Aubertin"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Faten Habachi"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Contacts",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 4,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Alexis Thomas"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Alexis Resp"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmUser",
+                    "ds": "avatar",
+                    "props": {
+                      "Name": "Florian Thierry"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

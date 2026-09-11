@@ -1,0 +1,189 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "kind": "section",
+  "slug": "item-header",
+  "label": "Item header",
+  "description": "The top of every catalog object page: identity row (type tag, sharing tag, item name; status tag and an Actions button on the right) over three metadata lines: technical name, a catalog / category / connection path with links, and a last-updated date.",
+  "role": "header",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "asset-detail-360"
+  ],
+  "tags": [
+    "header",
+    "identity",
+    "detail"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog > Dataset > General",
+    "capturedOn": "2026-08-18",
+    "productVersion": "next.dev.zeenea.app"
+  },
+  "slots": {
+    "identity": "Type tag (light), sharing tag (filled), item name at 22px; on the right a status tag (outline) and the Actions button. There is no primary button here: the product's page-level actions live in the Actions menu.",
+    "meta": "Three 13px lines under the identity row: 'Technical name: …', 'Catalog: … / Category: … / Connection: …' (category and connection are links), 'Last updated: …'."
+  },
+  "renderNotes": [
+    "The whole part is one VERTICAL frame with spacing 6; nothing inside sets sizing.horizontal.",
+    "`fmTag` reads `Tag Text`; the three tags differ by `Style=` variant only (Light, Filled, Outline).",
+    "`fmButton` `Type=Outline, Size=sm, Shape=Pill` is the product's Actions control; do not add a primary button beside it."
+  ],
+  "skeleton": {
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Item header",
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 6
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Identity row",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 0,
+              "primaryAxisAlignItems": "SPACE_BETWEEN",
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Identity left",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 8,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "ds": "read-only-tag",
+                    "variant": "Style=Light",
+                    "props": {
+                      "Tag Text": "Dataset"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "ds": "read-only-tag",
+                    "variant": "Style=Filled",
+                    "props": {
+                      "Tag Text": "Shared"
+                    }
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_name}}",
+                    "font": "Inter:Semi Bold",
+                    "size": 22,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Identity right",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 8,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTag",
+                    "ds": "read-only-tag",
+                    "variant": "Style=Outline",
+                    "props": {
+                      "Tag Text": "{{status}}"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmButton",
+                    "ds": "button",
+                    "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
+                    "props": {
+                      "Label": "Actions"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEXT",
+            "content": "Technical name: {{technical_name}}",
+            "font": "Inter:Regular",
+            "size": 13,
+            "color": "var(--zen-color-text-secondary)"
+          },
+          {
+            "type": "FRAME",
+            "name": "Source path",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 6,
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "Catalog: {{catalog}}",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-secondary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "/",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-tertiary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "Category: {{category}}",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-primary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "/",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-tertiary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "Connection: {{connection}}",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-primary)"
+              }
+            ]
+          },
+          {
+            "type": "TEXT",
+            "content": "Last updated: {{last_updated}}",
+            "font": "Inter:Regular",
+            "size": 12,
+            "color": "var(--zen-color-text-tertiary)"
+          }
+        ]
+      }
+    ]
+  }
+}

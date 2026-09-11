@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-section.json",
+  "title": "App-context section recipe",
+  "description": "A section recipe: a captured, addressable sub-page composition (an item header, a facet tab bar, a control bar) that page recipes reference by slug and the derive inlines. Authored at app-context/src/sections/<slug>.json and derived per slug to app-context/dist/sections/<slug>.json. Like a page recipe it is taken from the running product, never invented, so derivedFrom is required.",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "kind",
+    "slug",
+    "label",
+    "description",
+    "role",
+    "apps",
+    "derivedFrom",
+    "skeleton"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "_meta": {
+      "type": "object",
+      "description": "Stamped by the derive on the dist leaf only; absent from the authored source. Declared because the root is additionalProperties:false.",
+      "examples": [{ "auto_generated": true, "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file." }]
+    },
+    "kind": { "const": "section" },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier; must equal the filename minus .json. Page recipes reference it in a SECTION node.",
+      "examples": ["item-header", "facet-tabs", "control-bar"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable name of the part.",
+      "examples": ["Item header", "Facet tabs"]
+    },
+    "description": {
+      "type": "string",
+      "description": "What the part is and what it holds, in the product's order.",
+      "examples": ["Identity row (type tag, sharing tag, title, status tag, Actions button) over three metadata lines."]
+    },
+    "role": {
+      "type": "string",
+      "enum": ["header", "tabs", "aside", "control-bar", "drawer-header", "footer"],
+      "description": "Where the part sits on a page. A consumer that composes a screen from an archetype rather than a capture picks sections by role."
+    },
+    "apps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "App slugs where this part appears. Must resolve against app-context apps.",
+      "examples": [["studio"]]
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Slugs of the app-context patterns whose pages carry this part. Must resolve against app-context patterns.",
+      "examples": [["asset-detail-360"]]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Free tags.",
+      "examples": [["header", "identity"]]
+    },
+    "derivedFrom": {
+      "type": "object",
+      "required": ["surface", "capturedOn"],
+      "additionalProperties": false,
+      "description": "Provenance. A section never compared against the product is a guess.",
+      "examples": [{ "surface": "Studio > New Item", "capturedOn": "2026-09-11" }],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "description": "The product surface the part was taken from, as a person would navigate to it.",
+          "examples": ["Studio > Catalog > Dataset > General"]
+        },
+        "capturedOn": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "description": "ISO date the product screen was captured.",
+          "examples": ["2026-09-11"]
+        },
+        "productVersion": {
+          "type": "string",
+          "description": "Version or environment of the product captured, when known.",
+          "examples": ["next.dev.zeenea.app"]
+        }
+      }
+    },
+    "slots": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Named sub-regions and what each holds, plus the product rule behind any {{placeholder}} the skeleton carries.",
+      "examples": [{ "identity": "Type tag, sharing tag, item name; status tag and Actions on the right." }]
+    },
+    "renderNotes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Renderer behaviours an author must know for this part to draw correctly.",
+      "examples": [["`fmTabs` reads `Tabs` and `Active`; a count goes into the label text."]]
+    },
+    "skeleton": {
+      "type": "object",
+      "required": ["content"],
+      "additionalProperties": false,
+      "description": "The part itself: `content` holds one or more sibling nodes that the derive splices in place of the SECTION node that references this section. No chrome, no appHeader: a section is not a page. Node-level shape is owned by the consuming renderer; every INSTANCE keeps its FM `ref` and may carry a `ds` slug for the DS-tier path.",
+      "examples": [{ "content": [{ "type": "FRAME", "name": "Item header", "children": [] }] }],
+      "properties": {
+        "content": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Sibling nodes spliced in document order. A section holds at least one root node: an empty section splices nothing and is not a capture of anything.",
+          "examples": [[{ "type": "FRAME", "name": "Results header", "children": [] }]]
+        }
+      }
+    }
+  }
+}

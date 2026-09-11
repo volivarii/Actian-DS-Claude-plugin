@@ -1,0 +1,262 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "kind": "section",
+  "slug": "drawer-header",
+  "label": "Drawer header",
+  "description": "The header of the Studio quick-edit drawer: qualifier tags and an editable title with two icon buttons, a 'Catalog: …' line, and a three-metric strip (Last updated, Linked items, Completion).",
+  "role": "drawer-header",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "right-sliding-drawer"
+  ],
+  "tags": [
+    "drawer",
+    "header",
+    "metrics"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog > result row body > quick edit drawer",
+    "capturedOn": "2026-08-20",
+    "productVersion": "manufacturing.zeenea.app/studio"
+  },
+  "slots": {
+    "title": "Qualifier tags then the item name as an editable text input; two icon buttons on the right.",
+    "catalog": "'Catalog: {{catalog_name}}'.",
+    "metrics": "Three label-over-value pairs; Completion holds a progress bar and its percent."
+  },
+  "renderNotes": [
+    "`fmIconButtons` renders an empty div; the two header actions read as blank squares in lo-fi.",
+    "`fmIconButtons` maps to the DS `button` leaf at `Emphasis=Icon-only`, but the capture carries no icon identity, so a hi-fi author chooses the icon from the action's meaning (the two header actions are edit and close on the product's drawer).",
+    "`fmTextInput` reads `Input Text`; the title is an input because the drawer edits in place."
+  ],
+  "skeleton": {
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Drawer header",
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 12,
+          "padding": [
+            16,
+            16,
+            12,
+            16
+          ]
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Title row",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Title block",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 4
+                },
+                "sizing": {
+                  "horizontal": "FILL"
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Qualifier tags",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmTag",
+                        "ds": "read-only-tag",
+                        "variant": "Style=Light",
+                        "props": {
+                          "Tag Text": "{{item_type}}"
+                        }
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmTag",
+                        "ds": "read-only-tag",
+                        "variant": "Style=Filled",
+                        "props": {
+                          "Tag Text": "Shared"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmTextInput",
+                    "ds": "text-input",
+                    "variant": "Type=Default",
+                    "props": {
+                      "Input Text": "{{item_name}}"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Header actions",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 4
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmIconButtons",
+                    "ds": "button",
+                    "variant": "Type=Secondary",
+                    "props": {}
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmIconButtons",
+                    "ds": "button",
+                    "variant": "Type=Secondary",
+                    "props": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "TEXT",
+            "content": "Catalog: {{catalog_name}}",
+            "font": "Inter:Regular",
+            "size": 14,
+            "color": "var(--zen-color-text-secondary)"
+          },
+          {
+            "type": "FRAME",
+            "name": "Metric strip",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 24
+            },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Metric: Last updated",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 2
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Last updated",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-secondary)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{last_updated}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Metric: Linked items",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 2
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Linked items",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-secondary)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{linked_items_count}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-primary)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Metric: Completion",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 2
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Completion",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-secondary)"
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Completion value",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Completion bar",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 0
+                        },
+                        "sizing": {
+                          "horizontal": 80
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "ref": "fmProgressBar",
+                            "ds": "progress-bar-small",
+                            "variant": "Completion={{completion_percent}}",
+                            "props": {}
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "{{completion_percent}}",
+                        "font": "Inter:Regular",
+                        "size": 14,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

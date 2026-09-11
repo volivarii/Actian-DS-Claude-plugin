@@ -1,0 +1,540 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "kind": "section",
+  "slug": "properties-panel",
+  "label": "Properties panel",
+  "description": "The right column of a catalog object page: a completion meter, then a Properties / People / Suggestions tab set, with Properties as a long label-and-control form.",
+  "role": "aside",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "asset-detail-360"
+  ],
+  "tags": [
+    "properties",
+    "completion",
+    "aside"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog > Dataset > General",
+    "capturedOn": "2026-08-18",
+    "productVersion": "next.dev.zeenea.app"
+  },
+  "slots": {
+    "completion": "'Completion Level' heading, a progress bar with its percent printed once.",
+    "tabs": "Properties, People, Suggestions (count).",
+    "form": "Label-and-control pairs: selects, multi-selects, plain values, date inputs with a format caption, and unset properties reading 'No data has been registered.'"
+  },
+  "renderNotes": [
+    "`fmProgressBar` reads the `Completion=` variant, not props, and collapses to zero width in a centred row unless hosted in a fixed-width frame.",
+    "`fmDropdown` carries its own label and caption via `Label Text` / `Caption Text`; `fmDateInput` does not, its caption ('YYYY/MM/DD') is a sibling TEXT.",
+    "`fmEmptyState` takes no props and always renders 'No items'; an empty state with real copy is `fmPlaceholder` plus a TEXT sibling."
+  ],
+  "skeleton": {
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Right column",
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 18
+        },
+        "sizing": {
+          "horizontal": "FILL",
+          "vertical": "HUG"
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Completion",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 8
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "Completion Level",
+                "font": "Inter:Semi Bold",
+                "size": 15,
+                "color": "var(--zen-color-text-default)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Completion meter",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Meter track",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 320,
+                      "vertical": "HUG"
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "ref": "fmProgressBar",
+                        "ds": "progress-bar-small",
+                        "variant": "Completion=20%",
+                        "props": {}
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{completion_percent}}",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTabs",
+            "ds": "tabs",
+            "props": {
+              "Tabs": "Properties, People, Suggestions (3)",
+              "Active": "Properties"
+            }
+          },
+          {
+            "type": "FRAME",
+            "name": "Property form",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 16
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "text text text",
+                "font": "Inter:Semi Bold",
+                "size": 13,
+                "color": "var(--zen-color-text-tertiary)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: ConorNewCustomItem?",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "ConorNewCustomItem?",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "ds": "dropdown-select-default",
+                    "variant": "Type=Filled",
+                    "props": {
+                      "Dropdown Text": "ArthurWasHere",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: ZEE-9321-custom",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "ZEE-9321-custom",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "ds": "dropdown-select-default",
+                    "variant": "Type=Filled",
+                    "props": {
+                      "Dropdown Text": "9321_A",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: AAA Multi-select property",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "AAA Multi-select property",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "ds": "dropdown-select-default",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: my property",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "my property",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "4e-10",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-secondary)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: ZEE-5461",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "ZEE-5461",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDateInput",
+                    "ds": "calendar",
+                    "variant": "State=Default",
+                    "props": {
+                      "Input Text": ""
+                    }
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "YYYY/MM/DD",
+                    "font": "Inter:Regular",
+                    "size": 12,
+                    "color": "var(--zen-color-text-tertiary)"
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: Domain",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Domain",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmDropdown",
+                    "ds": "dropdown-select-default",
+                    "variant": "Type=Placeholder",
+                    "props": {
+                      "Dropdown Text": "Add Domain",
+                      "Show label": false
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Property: URL link",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "URL link",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "No data has been registered.",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-tertiary)"
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "TEXT",
+                "content": "Source properties",
+                "font": "Inter:Semi Bold",
+                "size": 15,
+                "color": "var(--zen-color-text-default)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Source property list",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8
+                },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Type",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Type",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "BASE TABLE",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Is dynamic table",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Is dynamic table",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "False",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Schema",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Schema",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "PUBLIC",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Catalog",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Catalog",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "ZEENEA_PS_TEST",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Table",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Table",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "{{technical_name}}",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Source: Account",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 6,
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "TEXT",
+                        "content": "Account",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": ":",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-tertiary)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "KN67972",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

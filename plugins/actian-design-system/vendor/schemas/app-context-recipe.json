@@ -109,6 +109,12 @@
       "type": "object",
       "description": "The composition itself: the node tree a consumer renders. Node-level shape is owned by the consuming renderer, so it is intentionally not constrained here beyond being an object.",
       "examples": [{ "chrome": "standard", "content": [] }]
+    },
+    "sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Stamped by the derive on the dist leaf: the section slugs it inlined into skeleton.content, each slug once, in first-occurrence order, even when a recipe splices a section more than once. Authored source references sections with { \"type\": \"SECTION\", \"section\": \"<slug>\" } nodes instead; a value written here by hand is overwritten.",
+      "examples": [["item-header", "facet-tabs", "properties-panel"]]
     }
   }
 }

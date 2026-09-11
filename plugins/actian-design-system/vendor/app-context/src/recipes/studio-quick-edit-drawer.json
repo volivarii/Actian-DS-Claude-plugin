@@ -4,9 +4,21 @@
   "label": "Studio quick edit drawer",
   "description": "A non-modal panel docked to the right edge of Studio, 550px wide, opened by clicking the body of a Catalog result row. It shares its shell with Explorer's quick view (the same 550px dialog, the same inset of 70px 0 0 0, the same suppressed backdrop) and carries a different body: the title is editable in place, the properties are editable fields rather than read-only pairs, and two of the four tabs exist to assign people and to moderate suggestions. The page behind it stays live, so the clicked row keeps its highlight and the filter rail keeps working.",
   "when": "Use when a Studio user needs to inspect or correct one catalog item without losing the result list they found it in. Do NOT use the Explorer capture `right-sliding-drawer`, which is a DIFFERENT RECIPE for the same pattern, not a different pattern: this recipe declares `right-sliding-drawer` too, and the selector tells the two apart by `apps`. That capture is Explorer's quick VIEW of the same shell. Its body is read-only, it carries a favourite button Studio does not have, and it puts result counts on its tab labels where Studio's carry none. Explorer's five tabs read `Description`, `Fields 2`, `Properties 18`, `Contacts 6`, `Suggestions 1`, so the count is on four of the five and `Description` leads; Studio's four are `General`, `Properties`, `People`, `Suggestions`. Both apps carry Properties and Suggestions, so a Suggestions tab does NOT tell the two apart. Those differences were re-verified on 2026-08-20 with BOTH apps open on the SAME host, `manufacturing.zeenea.app`, so they are a difference between the apps and not between two environments; the Explorer recipe's own `derivedFrom` still names the `next.dev` host it was originally captured on. Do NOT use asset-detail-360: that is the full item page this drawer previews, reached by clicking the item TITLE rather than the row body. Do NOT use a modal: the product renders this as a drawer deliberately, and the stylesheet says so, `.zng-drawer::backdrop { display: none }` against `.zng-dialog::backdrop` at 60 percent black. A modal would take the list away, which is the one thing this surface exists to preserve.",
-  "apps": ["studio"],
-  "patterns": ["right-sliding-drawer"],
-  "tags": ["drawer", "overlay", "panel", "quick-edit", "non-modal", "inline-edit", "single-object"],
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "right-sliding-drawer"
+  ],
+  "tags": [
+    "drawer",
+    "overlay",
+    "panel",
+    "quick-edit",
+    "non-modal",
+    "inline-edit",
+    "single-object"
+  ],
   "derivedFrom": {
     "surface": "Studio > Catalog > result row body > quick edit drawer",
     "capturedOn": "2026-08-20",
@@ -42,162 +54,18 @@
       {
         "type": "FRAME",
         "name": "Quick edit drawer",
-        "layout": { "mode": "VERTICAL", "spacing": 0 },
-        "sizing": { "horizontal": 550, "vertical": "FILL" },
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 0
+        },
+        "sizing": {
+          "horizontal": 550,
+          "vertical": "FILL"
+        },
         "children": [
           {
-            "type": "FRAME",
-            "name": "Drawer header",
-            "layout": { "mode": "VERTICAL", "spacing": 12, "padding": [16, 16, 12, 16] },
-            "children": [
-              {
-                "type": "FRAME",
-                "name": "Title row",
-                "layout": { "mode": "HORIZONTAL", "spacing": 8 },
-                "children": [
-                  {
-                    "type": "FRAME",
-                    "name": "Title block",
-                    "layout": { "mode": "VERTICAL", "spacing": 4 },
-                    "sizing": { "horizontal": "FILL" },
-                    "children": [
-                      {
-                        "type": "FRAME",
-                        "name": "Qualifier tags",
-                        "layout": { "mode": "HORIZONTAL", "spacing": 8 },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
-                            "props": { "Tag Text": "{{item_type}}" }
-                          },
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Filled",
-                            "props": { "Tag Text": "Shared" }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "INSTANCE",
-                        "ref": "fmTextInput",
-                        "variant": "Type=Default",
-                        "props": { "Input Text": "{{item_name}}" }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Header actions",
-                    "layout": { "mode": "HORIZONTAL", "spacing": 4 },
-                    "children": [
-                      { "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Secondary", "props": {} },
-                      { "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Secondary", "props": {} }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "TEXT",
-                "content": "Catalog: {{catalog_name}}",
-                "font": "Inter:Regular",
-                "size": 14,
-                "color": "var(--zen-color-text-secondary)"
-              },
-              {
-                "type": "FRAME",
-                "name": "Metric strip",
-                "layout": { "mode": "HORIZONTAL", "spacing": 24 },
-                "children": [
-                  {
-                    "type": "FRAME",
-                    "name": "Metric: Last updated",
-                    "layout": { "mode": "VERTICAL", "spacing": 2 },
-                    "children": [
-                      {
-                        "type": "TEXT",
-                        "content": "Last updated",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "{{last_updated}}",
-                        "font": "Inter:Regular",
-                        "size": 14,
-                        "color": "var(--zen-color-text-default)"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Metric: Linked items",
-                    "layout": { "mode": "VERTICAL", "spacing": 2 },
-                    "children": [
-                      {
-                        "type": "TEXT",
-                        "content": "Linked items",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "{{linked_items_count}}",
-                        "font": "Inter:Regular",
-                        "size": 14,
-                        "color": "var(--zen-color-text-primary)"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Metric: Completion",
-                    "layout": { "mode": "VERTICAL", "spacing": 2 },
-                    "children": [
-                      {
-                        "type": "TEXT",
-                        "content": "Completion",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "FRAME",
-                        "name": "Completion value",
-                        "layout": { "mode": "HORIZONTAL", "spacing": 8 },
-                        "children": [
-                          {
-                            "type": "FRAME",
-                            "name": "Completion bar",
-                            "layout": { "mode": "HORIZONTAL", "spacing": 0 },
-                            "sizing": { "horizontal": 80 },
-                            "children": [
-                              {
-                                "type": "INSTANCE",
-                                "ref": "fmProgressBar",
-                                "variant": "Completion={{completion_percent}}",
-                                "props": {}
-                              }
-                            ]
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "{{completion_percent}}",
-                            "font": "Inter:Regular",
-                            "size": 14,
-                            "color": "var(--zen-color-text-default)"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+            "type": "SECTION",
+            "section": "drawer-header"
           },
           {
             "type": "INSTANCE",
@@ -211,12 +79,24 @@
           {
             "type": "FRAME",
             "name": "Tab panel: General",
-            "layout": { "mode": "VERTICAL", "spacing": 20, "padding": [16, 16, 16, 16] },
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 20,
+              "padding": [
+                16,
+                16,
+                16,
+                16
+              ]
+            },
             "children": [
               {
                 "type": "FRAME",
                 "name": "Section: Glossary items",
-                "layout": { "mode": "VERTICAL", "spacing": 8 },
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8
+                },
                 "children": [
                   {
                     "type": "TEXT",
@@ -229,14 +109,19 @@
                     "type": "INSTANCE",
                     "ref": "fmDropdown",
                     "variant": "Type=Placeholder",
-                    "props": { "Dropdown Text": "Search for Glossary Items" }
+                    "props": {
+                      "Dropdown Text": "Search for Glossary Items"
+                    }
                   }
                 ]
               },
               {
                 "type": "FRAME",
                 "name": "Section: Description",
-                "layout": { "mode": "VERTICAL", "spacing": 8 },
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8
+                },
                 "children": [
                   {
                     "type": "TEXT",

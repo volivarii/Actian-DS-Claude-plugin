@@ -791,6 +791,7 @@
                   {
                     "type": "INSTANCE",
                     "ref": "fmButton",
+                    "ds": "button",
                     "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
                     "props": {
                       "Label#1411:32": "Save filters",
@@ -828,6 +829,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmCheckbox",
+                        "ds": "checkbox",
                         "variant": "State=Off",
                         "props": {}
                       },
@@ -1368,5 +1370,8 @@
         }
       }
     ]
-  }
+  },
+  "sections": [
+    "control-bar"
+  ]
 }
