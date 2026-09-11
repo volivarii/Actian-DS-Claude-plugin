@@ -59,7 +59,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 Say: `Proposal for <ticket or request>: <app label>, <anchor surface>, <entity or "no entity">. Question: <one sentence>.`
 
 **Step 2, product read.** From app-context (the chrome you just read, the entity when there is one through
-`resolve-patterns.js --app <app>`, and `vendor/app-context/dist/sections/<slug>.json` when the anchor is
+`resolve-patterns.js --entity <slug>`, and `vendor/app-context/dist/sections/<slug>.json` when the anchor is
 a captured part) and from the attachment. Three to six sentences: the anchor surface, the data model
 behind it, what an admin and a user see today. List the sources. When the anchor has no capture, say so
 in one sentence; that sentence becomes `context.gap`. Ask for nothing.
@@ -73,10 +73,11 @@ where it breaks. Then one paragraph: the recommendation and why. No file yet. Th
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
 `references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
-`schemas/proposal-data.schema.json`: `meta.date` is today's date, `meta.skill` is `design-proposal`,
-`meta.apps` lists the app slugs; `context`, `research`, `approaches` (each drawn inside its anchor, in
-flow, `width` sized to the idea, with its `screens[]` list), `comparison` (criteria from the ticket's goal,
-the product read, or cost) and `recommendation` (reasons that argue from the table). Then:
+`schemas/proposal-data.schema.json`: `meta.title` is the document title, `meta.date` is today's date,
+`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `context`, `research`, `approaches`
+(each drawn inside its anchor, in flow, `width` sized to the idea, with its `screens[]` list), `comparison`
+(criteria from the ticket's goal, the product read, or cost) and `recommendation` (reasons that argue from
+the table). Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
