@@ -1485,7 +1485,7 @@ function contentHasPageHeaderInstance(nodes) {
     if (found || !v) return;
     if (Array.isArray(v)) { v.forEach(walk); return; }
     if (typeof v !== "object") return;
-    if (v.type === "INSTANCE" && (v.dsSlug === "page-header" || v.ref === "page-header" || v.ref === "fmPageHeader")) { found = true; return; }
+    if (v.type === "INSTANCE" && (v.dsSlug === "page-header" || v.ref === "page-header" || v.ref === "fmPageHeader" || v.ref === "fm-page-header")) { found = true; return; }
     if (Array.isArray(v.children)) walk(v.children);
   })(nodes);
   return found;

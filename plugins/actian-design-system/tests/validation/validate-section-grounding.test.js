@@ -42,6 +42,11 @@ describe("validate-section-grounding (Slice 6B, advisory)", function () {
     assert.strictEqual(out.length, 1);
     assert.ok(/page-header instance/.test(out[0].message), out[0].message);
   });
+  it("header section composed AND a kebab fm-page-header ref authored: one finding", function () {
+    var out = sectionFindings(flow(HEADER, { content: [{ type: "INSTANCE", ref: "fm-page-header" }, { type: "FRAME", name: "Item header" }] }));
+    assert.strictEqual(out.length, 1);
+    assert.ok(/page-header instance/.test(out[0].message), out[0].message);
+  });
   it("a non-header role never fires", function () {
     var f = flow({ Detail: [{ slug: "control-bar", role: "control-bar", roots: ["Results header"] }] }, { content: [] });
     assert.deepStrictEqual(sectionFindings(f), []);
