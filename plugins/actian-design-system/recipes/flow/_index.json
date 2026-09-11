@@ -3,19 +3,22 @@
     "file": "table-list.json",
     "archetype": "table-list",
     "pattern": 6,
-    "tags": ["table", "list", "data", "crud", "browse"]
+    "tags": ["table", "list", "data", "crud", "browse"],
+    "sections": { "control-bar": "control-bar" }
   },
   {
     "file": "form-create.json",
     "archetype": "form-create",
     "pattern": 4,
-    "tags": ["form", "create", "wizard", "input", "edit"]
+    "tags": ["form", "create", "wizard", "input", "edit"],
+    "sections": { "footer": "action-footer" }
   },
   {
     "file": "detail-view.json",
     "archetype": "detail-view",
     "pattern": 3,
-    "tags": ["detail", "tabs", "profile", "settings", "entity"]
+    "tags": ["detail", "tabs", "profile", "settings", "entity"],
+    "sections": { "header": "item-header", "tabs": "facet-tabs", "aside": "properties-panel" }
   },
   {
     "file": "dashboard.json",
@@ -27,13 +30,15 @@
     "file": "browse-search.json",
     "archetype": "browse-search",
     "pattern": 2,
-    "tags": ["search", "browse", "catalog", "results", "filter"]
+    "tags": ["search", "browse", "catalog", "results", "filter"],
+    "sections": { "control-bar": "control-bar" }
   },
   {
     "file": "overlay.json",
     "archetype": "overlay",
     "pattern": 7,
-    "tags": ["modal", "panel", "dialog", "drawer", "side-panel"]
+    "tags": ["modal", "panel", "dialog", "drawer", "side-panel"],
+    "sections": { "drawer-header": "drawer-header" }
   },
   {
     "file": "data-visualization.json",
@@ -45,7 +50,8 @@
     "file": "sticky-footer.json",
     "archetype": "sticky-footer",
     "pattern": 8,
-    "tags": ["footer", "action-bar", "save", "submit", "sticky"]
+    "tags": ["footer", "action-bar", "save", "submit", "sticky"],
+    "sections": { "footer": "action-footer" }
   },
   {
     "file": "explorer-homepage.json",
@@ -84,7 +90,8 @@
       "composition",
       "hybrid",
       "sticky"
-    ]
+    ],
+    "sections": { "footer": "action-footer" }
   },
   {
     "file": "search-results-ai.json",

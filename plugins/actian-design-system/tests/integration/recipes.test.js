@@ -119,6 +119,20 @@ for (const entry of index) {
   if (!Array.isArray(entry.tags))
     errors.push('index entry missing "tags" (array)');
 
+  // ── sections role map (Slice 6B) ──
+  const ROLES = new Set(["header", "tabs", "aside", "control-bar", "drawer-header", "footer"]);
+  if (entry.sections !== undefined) {
+    if (!entry.sections || typeof entry.sections !== "object" || Array.isArray(entry.sections)) {
+      errors.push('"sections" must be an object of role -> section slug');
+    } else {
+      for (const [role, slug] of Object.entries(entry.sections)) {
+        if (!ROLES.has(role)) errors.push(`sections role "${role}" is not one of ${[...ROLES].join(", ")}`);
+        if (typeof slug !== "string" || !/^[a-z][a-z0-9-]*$/.test(slug))
+          errors.push(`sections["${role}"] must be a kebab-case section slug, got ${JSON.stringify(slug)}`);
+      }
+    }
+  }
+
   // ── recipe file existence ──
   const recipePath = path.join(RECIPES_DIR, "flow", entry.file);
   if (!fs.existsSync(recipePath)) {
@@ -204,6 +218,23 @@ for (const entry of index) {
     console.log(`FAIL  ${label}`);
     errors.forEach((e) => console.log(`        ${e}`));
     failed++;
+  }
+}
+
+// Every section slug an archetype names must exist in the vendored
+// collection, once the snapshot ships one. Before that, say so and assert
+// nothing (absence must not read as a pass on the join).
+{
+  const named = new Set();
+  for (const entry of index) for (const slug of Object.values(entry.sections || {})) named.add(slug);
+  if (typeof PATHS.appContextSections !== "function") {
+    console.log("INFO  sections collection not vendored yet; " + named.size + " archetype section slugs unchecked against dist");
+  } else {
+    for (const slug of named) {
+      const file = PATHS.appContextSections(slug);
+      assert.ok(file && fs.existsSync(file), `archetype names section "${slug}" but the vendored collection has no ${slug}.json`);
+    }
+    assert.ok(named.size > 0, "no archetype names a section; the join is vacuous");
   }
 }
 
