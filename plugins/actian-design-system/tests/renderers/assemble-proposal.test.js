@@ -81,6 +81,18 @@ describe("assembleProposal (document)", function () {
     assert.ok(html.indexOf('<td class="tone-good">') !== -1 && html.indexOf('<td class="tone-bad">') !== -1 && html.indexOf('<td class="tone-mixed">') !== -1, "tones");
     assert.strictEqual(count(html, "<td"), d.comparison.criteria.length * d.approaches.length, "cell count");
   });
+  it("renders an empty cell when an approach has no entry for a criterion, and when it has no cells at all", function () {
+    var d = load();
+    delete d.comparison.cells.b["literal-ask"];
+    var out = assembleProposal(d);
+    assert.strictEqual(count(out, "<td"), d.comparison.criteria.length * d.approaches.length, "cell count unchanged, missing entry");
+    assert.strictEqual(count(out, "<td></td>"), 1, "exactly one empty cell");
+    d = load();
+    delete d.comparison.cells.b;
+    out = assembleProposal(d);
+    assert.strictEqual(count(out, "<td"), d.comparison.criteria.length * d.approaches.length, "cell count unchanged, missing row");
+    assert.strictEqual(count(out, "<td></td>"), d.comparison.criteria.length, "b's whole row renders empty");
+  });
   it("renders the recommendation with the picked approach's name, the summary, the reasons as cards and the change scope", function () {
     var d = load();
     assert.ok(html.indexOf("<h2>Role badges</h2>") !== -1, "picked name");
@@ -88,6 +100,17 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(html, 'class="rec__reason"'), d.recommendation.reasons.length);
     assert.ok(html.indexOf("<b>Admin side.</b> " + d.recommendation.change.adminSide) !== -1, "admin side");
     assert.ok(html.indexOf("<b>User side.</b> " + d.recommendation.change.userSide) !== -1, "user side");
+  });
+  it("omits the change scope when the recommendation has no change, and prints only the side given", function () {
+    var d = load();
+    delete d.recommendation.change;
+    var out = assembleProposal(d);
+    assert.ok(out.indexOf('class="rec__change"') === -1, "no change paragraph when change is absent");
+    d = load();
+    d.recommendation.change = { userSide: "Only users." };
+    out = assembleProposal(d);
+    assert.ok(out.indexOf("<b>User side.</b> Only users.") !== -1, "the given side is printed");
+    assert.ok(out.indexOf("<b>Admin side.</b>") === -1, "the missing side is omitted");
   });
   it("prints the authored date, never a render-time clock, and names the follow-ups in the footer", function () {
     assert.ok(html.indexOf("2026-09-11") !== -1, "date from meta");
