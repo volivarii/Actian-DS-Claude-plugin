@@ -1464,6 +1464,64 @@ function checkPatternGrounding(data, findings, opts) {
   });
 }
 
+// Section grounding (Slice 6B) -------------------------------------------
+// The brief handed the agent the product's captured header for this screen;
+// the composed screen must hold a FRAME named after that section's root, and
+// must not draw a second, generic page header beside it. Advisory only.
+function contentHasFrameNamed(nodes, name) {
+  var found = false;
+  (function walk(v) {
+    if (found || !v) return;
+    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (typeof v !== "object") return;
+    if (v.type === "FRAME" && v.name === name) { found = true; return; }
+    if (Array.isArray(v.children)) walk(v.children);
+  })(nodes);
+  return found;
+}
+function contentHasPageHeaderInstance(nodes) {
+  var found = false;
+  (function walk(v) {
+    if (found || !v) return;
+    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (typeof v !== "object") return;
+    if (v.type === "INSTANCE" && (v.dsSlug === "page-header" || v.ref === "page-header" || v.ref === "fmPageHeader")) { found = true; return; }
+    if (Array.isArray(v.children)) walk(v.children);
+  })(nodes);
+  return found;
+}
+function checkSectionGrounding(data, findings) {
+  var byName = data && data.meta && data.meta._sections;
+  if (!byName || typeof byName !== "object" || !Array.isArray(data.screens)) return; // backward-compat
+  data.screens.forEach(function (screen) {
+    if (!screen || typeof screen.name !== "string") return;
+    var list = Array.isArray(byName[screen.name]) ? byName[screen.name] : [];
+    list.forEach(function (sec) {
+      if (!sec || sec.role !== "header") return;
+      var roots = Array.isArray(sec.roots) ? sec.roots : [];
+      var root = roots[0];
+      var content = Array.isArray(screen.content) ? screen.content : [];
+      if (root && !contentHasFrameNamed(content, root)) {
+        findings.push({
+          kind: "section-ungrounded",
+          severity: "info",
+          screen: screen.id || "",
+          message: "Screen '" + screen.name + "' carries header section '" + sec.slug + "' but no FRAME named '" + root + "' is in its content",
+        });
+      }
+      var drawn = screen.pageHeader ? "pageHeader" : contentHasPageHeaderInstance(content) ? "page-header instance" : null;
+      if (drawn) {
+        findings.push({
+          kind: "section-ungrounded",
+          severity: "info",
+          screen: screen.id || "",
+          message: "Screen '" + screen.name + "' carries header section '" + sec.slug + "' and also draws its own page header (" + drawn + ")",
+        });
+      }
+    });
+  });
+}
+
 // Relationship grounding (S3) -------------------------------------------
 var DETAIL_RECIPES = { "detail-view": true };
 
@@ -1816,6 +1874,7 @@ function validate(data, opts) {
   checkRelationshipGrounding(data, findings);
   checkPropertiesGrounding(data, findings);
   checkEnumTyping(data, findings);
+  checkSectionGrounding(data, findings);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -2397,6 +2456,7 @@ if (require.main === module) {
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
     "enum-not-typed": true,
+    "section-ungrounded": true,
     "text-style": true,
   };
 
