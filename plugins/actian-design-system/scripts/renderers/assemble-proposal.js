@@ -34,7 +34,7 @@ var BALANCED_TAGS = ["div", "span", "p", "section", "button", "a", "ul", "ol", "
 var TONES = { good: "tone-good", mixed: "tone-mixed", bad: "tone-bad" };
 
 function maskComment(s) {
-  return String(s == null ? "" : s).replace(/-(?=-)/g, "-​");
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-\u200b");
 }
 
 function stripComments(s) {
@@ -128,7 +128,8 @@ function recommendationHtml(rec, approaches) {
   }).join("") + "</div>";
   if (rec.change && (rec.change.adminSide || rec.change.userSide)) {
     inner += '<p class="rec__change">';
-    if (rec.change.adminSide) inner += "<b>Admin side.</b> " + esc(rec.change.adminSide) + " ";
+    if (rec.change.adminSide) inner += "<b>Admin side.</b> " + esc(rec.change.adminSide);
+    if (rec.change.adminSide && rec.change.userSide) inner += "<br>";
     if (rec.change.userSide) inner += "<b>User side.</b> " + esc(rec.change.userSide);
     inner += "</p>";
   }

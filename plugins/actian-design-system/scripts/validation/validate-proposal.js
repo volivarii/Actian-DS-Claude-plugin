@@ -165,6 +165,8 @@ function validateProposal(data) {
     findings.push(finding("P0", "research", "", "research.skippedBecause", "research did not run and says not why", "", "set skippedBecause (--no-research, the request said skip research, no web search in this session)"));
   if (data.research.findings.length > MAX_FINDINGS)
     findings.push(finding("P0", "bounds", "", "research.findings", data.research.findings.length + " findings; at most " + MAX_FINDINGS));
+  if (data.research.ran === false && data.research.findings.length > 0)
+    findings.push(finding("P1", "research", "", "research.findings", "findings present while ran is false; they are not rendered", "", "set ran true or empty the findings"));
   data.research.findings.forEach(function (f, i) { checkProse(f.claim, "", "research.findings[" + i + "].claim", findings); });
   addPseudo("doc:research", "Research", data.research.findings.map(function (f, i) { return { path: "research.findings[" + i + "].claim", text: f.claim }; }));
 
@@ -179,10 +181,10 @@ function validateProposal(data) {
     if (a.screen.width < MIN_WIDTH || a.screen.width > MAX_WIDTH)
       findings.push(finding("P0", "bounds", a.id, ap + ".screen.width", "width " + a.screen.width + " outside " + MIN_WIDTH + " to " + MAX_WIDTH));
     checkFragment(a.screen.html, a.id, ap + ".screen.html", findings);
-    var toggles = a.screen.html.match(/data-toggle\s*=\s*"([^"]+)"/g) || [];
+    var toggles = stripComments(a.screen.html).match(/data-toggle\s*=\s*"([^"]+)"/g) || [];
     toggles.forEach(function (t) {
       var id = t.replace(/^.*"([^"]+)"$/, "$1");
-      if (!new RegExp('\\sid\\s*=\\s*"' + id + '"').test(a.screen.html))
+      if (!new RegExp('\\sid\\s*=\\s*"' + id + '"').test(stripComments(a.screen.html)))
         findings.push(finding("P1", "toggle-target", a.id, ap + ".screen.html", 'data-toggle="' + id + '" has no id="' + id + '" in the same drawing', id, "add the id or drop the toggle"));
     });
     (stripComments(a.screen.html).match(/\sid\s*=\s*"([^"]+)"/g) || []).forEach(function (t) {
@@ -225,7 +227,7 @@ function validateProposal(data) {
     checkProse(c.label, "", cp + ".label", findings);
     var texts = [c.label];
     Object.keys(data.comparison.cells || {}).forEach(function (aid) {
-      var cell = data.comparison.cells[aid][c.id];
+      var cell = (data.comparison.cells[aid] || {})[c.id];
       if (!cell) return;
       if (TONES.indexOf(cell.tone) === -1)
         findings.push(finding("P0", "bounds", aid, "comparison.cells." + aid + "." + c.id + ".tone", "tone " + JSON.stringify(cell.tone) + " is not one of " + TONES.join(", ")));

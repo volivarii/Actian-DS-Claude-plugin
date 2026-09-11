@@ -54,7 +54,7 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(html, 'class="proposal-screen"'), d.approaches.length);
     d.approaches.forEach(function (a, i) {
       assert.ok(html.indexOf('style="width:' + a.screen.width + 'px"') !== -1, a.id + " width");
-      assert.ok(html.indexOf(">" + (i + 1) + "</span>") !== -1, a.id + " number");
+      assert.ok(html.indexOf('<span class="proposal-screen__num">' + (i + 1) + "</span>") !== -1, a.id + " number");
       assert.ok(html.indexOf('data-name="' + a.id + '"') !== -1, a.id + " data-name");
       assert.ok(html.indexOf(a.whatItIs) !== -1 && html.indexOf(a.breaksWhen) !== -1, a.id + " lines");
       assert.ok(html.indexOf('<span class="fm-tag">' + a.verdict + "</span>") !== -1, a.id + " verdict");
@@ -71,6 +71,10 @@ describe("assembleProposal (document)", function () {
     var rule = /\.proposal-screen\s*\{[^}]*\}/.exec(css)[0];
     assert.ok(rule.indexOf("overflow: visible") !== -1, rule);
     assert.ok(rule.indexOf("height") === -1, rule);
+    var bodyRule = /\.proposal-screen__body\s*\{[^}]*\}/.exec(css)[0];
+    assert.ok(bodyRule.indexOf("position: relative") !== -1, bodyRule);
+    var labelRule = /\.proposal-screen__label\s*\{[^}]*\}/.exec(css)[0];
+    assert.ok(labelRule.indexOf("flex-wrap: wrap") !== -1, labelRule);
   });
   it("renders the comparison as a table: one column per approach, one row per criterion, tone classes, the source under the label", function () {
     var d = load();

@@ -125,7 +125,7 @@ This table is the source of truth for "what does the skill do when a flag is mis
 | `--fix <N\|all>` | `/design-audit` | skip |
 | `--concepts <N>` | `/design-proposal` | 3 |
 | `--from <path>` | `/design-proposal` | none (re-render an edited data file) |
-| `--no-research` | `/design-proposal` | default off, "skip the web research; the document says so" |
+| `--no-research` | `/design-proposal` | off; `--no-prompt` implies it (research skipped, the document says so) |
 
 These match silent-default behavior pre-v1.63.0. No behavior change for automation that already passes flags.
 

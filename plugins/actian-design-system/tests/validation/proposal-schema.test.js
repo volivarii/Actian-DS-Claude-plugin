@@ -41,6 +41,9 @@ describe("proposal-data.schema.json (document shape)", function () {
     assert.ok(errorsOf(function (d) { d.approaches = [d.approaches[0]]; }).some(function (e) { return /approaches/.test(e); }));
     assert.ok(errorsOf(function (d) { d.comparison.criteria[0].source = "vibes"; }).some(function (e) { return /source/.test(e); }));
   });
+  it("rejects a recommendation with fewer than two reasons", function () {
+    assert.ok(errorsOf(function (d) { d.recommendation.reasons = [d.recommendation.reasons[0]]; }).some(function (e) { return /reasons/.test(e); }));
+  });
   it("rejects a research block without ran, and a finding without a source", function () {
     assert.ok(errorsOf(function (d) { delete d.research.ran; }).some(function (e) { return /ran/.test(e); }));
     assert.ok(errorsOf(function (d) { delete d.research.findings[0].source; }).some(function (e) { return /source/.test(e); }));

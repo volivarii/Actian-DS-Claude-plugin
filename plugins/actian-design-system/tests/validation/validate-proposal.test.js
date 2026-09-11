@@ -56,10 +56,18 @@ describe("validateProposal (document)", function () {
     assert.ok(bounds(function (d) { d.comparison.cells.zz = { "literal-ask": { text: "x", tone: "good" } }; }).some(function (f) { return /does not exist/.test(f.value); }));
     assert.ok(bounds(function (d) { d.comparison.cells.a["ghost-criterion"] = { text: "x", tone: "good" }; }).some(function (f) { return /criterion that does not exist/.test(f.value) && f.screen === "a"; }));
   });
+  it("a null cells entry for a known approach does not crash the comparison pass", function () {
+    var d = withMutation(function (d) { d.comparison.cells.a = null; });
+    assert.doesNotThrow(function () { validateProposal(d); });
+  });
   it("research that did not run must say why (check research, P0); with a reason it is quiet", function () {
     var f = only(withMutation(function (d) { d.research = { ran: false, findings: [] }; }), "research");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0");
     assert.deepEqual(only(withMutation(function (d) { d.research = { ran: false, findings: [], skippedBecause: "--no-research" }; }), "research"), []);
+  });
+  it("findings present while research did not run is a P1 (check research); they are not rendered", function () {
+    var f = only(withMutation(function (d) { d.research = { ran: false, findings: [{ claim: "x", source: "y" }], skippedBecause: "--no-research" }; }), "research");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1");
   });
   it("a recommendation naming no approach is P0 (check recommendation)", function () {
     var f = only(withMutation(function (d) { d.recommendation.approachId = "zz"; }), "recommendation");
@@ -125,6 +133,7 @@ describe("validateProposal (document)", function () {
   });
   it("a commented-out tag or id is not a finding", function () {
     assert.deepEqual(validateProposal(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div id="access-panel-c"> -->'; })).findings, []);
+    assert.deepEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div data-toggle="ghost">x</div> -->'; }), "toggle-target"), []);
   });
   it("an em dash in a drawing, the title, a claim, a cell or a reason is P2 (check em-dash) with the field path", function () {
     [
