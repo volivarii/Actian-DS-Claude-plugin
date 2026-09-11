@@ -353,7 +353,7 @@ What's the best practice for destructive action confirmation?
 Research wizard patterns for multi-step configuration
 ```
 
-### Proposals: concepts and a board for a ticket
+### Proposals: a reasoned document for a ticket
 
 ```
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
