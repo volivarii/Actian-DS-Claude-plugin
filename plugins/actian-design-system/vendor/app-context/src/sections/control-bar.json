@@ -1,0 +1,141 @@
+{
+  "_schema_version": 1,
+  "kind": "section",
+  "slug": "control-bar",
+  "label": "Control bar",
+  "description": "The two rows above a result list: the results header ('N results' and Save filters) and the bulk action bar (select-all checkbox, Edit, Move to catalog, Delete, Export selection; Sort on the right).",
+  "role": "control-bar",
+  "apps": [
+    "studio"
+  ],
+  "patterns": [
+    "faceted-browse"
+  ],
+  "tags": [
+    "results",
+    "bulk",
+    "sort"
+  ],
+  "derivedFrom": {
+    "surface": "Studio > Catalog",
+    "capturedOn": "2026-08-18",
+    "productVersion": "studio-dev"
+  },
+  "slots": {
+    "results-header": "'{{result_count}} results' at 22px on the left, an outline pill 'Save filters' on the right.",
+    "bulk-bar": "A checkbox followed by the bulk verbs as plain text, and the sort control as text on the right."
+  },
+  "renderNotes": [
+    "Two sibling frames, spliced in this order; the DIVIDER that follows them belongs to the page recipe.",
+    "`fmCheckbox` renders no text: the verbs are TEXT siblings."
+  ],
+  "skeleton": {
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Results header",
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 0,
+          "primaryAxisAlignItems": "SPACE_BETWEEN",
+          "counterAxisAlignItems": "CENTER"
+        },
+        "children": [
+          {
+            "type": "TEXT",
+            "content": "{{result_count}} results",
+            "font": "Inter:Semi Bold",
+            "size": 22,
+            "color": "var(--zen-color-text-default)"
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmButton",
+            "ds": "button",
+            "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
+            "props": {
+              "Label#1411:32": "Save filters",
+              "👁 Leading Icon": false,
+              "👁 Trailing Icon": false
+            }
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Bulk action bar",
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 0,
+          "padding": [
+            10,
+            0,
+            10,
+            0
+          ],
+          "primaryAxisAlignItems": "SPACE_BETWEEN",
+          "counterAxisAlignItems": "CENTER"
+        },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Bulk left",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 18,
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "INSTANCE",
+                "ref": "fmCheckbox",
+                "ds": "checkbox",
+                "variant": "State=Off",
+                "props": {}
+              },
+              {
+                "type": "TEXT",
+                "content": "Edit",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-secondary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "Move to catalog",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-secondary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "Delete",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-secondary)"
+              },
+              {
+                "type": "TEXT",
+                "content": "Export selection",
+                "font": "Inter:Regular",
+                "size": 13,
+                "color": "var(--zen-color-text-secondary)"
+              }
+            ],
+            "sizing": {
+              "horizontal": "HUG",
+              "vertical": "HUG"
+            }
+          },
+          {
+            "type": "TEXT",
+            "content": "Sort by  Name ASC",
+            "font": "Inter:Regular",
+            "size": 13,
+            "color": "var(--zen-color-text-default)"
+          }
+        ]
+      }
+    ]
+  }
+}

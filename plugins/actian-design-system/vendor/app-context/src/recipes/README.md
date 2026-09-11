@@ -133,6 +133,23 @@ Two things that shipping it established, both worth knowing before authoring the
 
 Step three of the sequence, retiring a flow archetype, is deliberately not started.
 
+## Sections: the parts a page repeats (2026-09-11)
+
+The 09-10 audit of the plugin's output found every defect in the same place: a leaf right in
+content, wrong in composition, and wrong differently on every screen. Two screens composed from
+this very capture drew two different headers, because the header was a subtree trapped inside one
+page recipe: not addressable, not reusable by a wizard step or another entity page.
+
+`../sections/` fixes the ownership. A recurring part is one file with its own `derivedFrom`; a page
+recipe references it with `{ "type": "SECTION", "section": "<slug>" }` and the derive splices it in,
+so the dist recipe a consumer reads is unchanged in shape (proven byte-for-byte at the extraction
+commit). Six exist: `item-header`, `facet-tabs`, `properties-panel`, `control-bar`, `drawer-header`,
+`action-footer`. The dist recipe also lists them in `sections`, in document order.
+
+The fragments this file said belong with the renderer (`overlay`, `action-bar`, the two
+`composition-*` archetypes) are still not captures, and that position stands for them. A section is
+the other thing: a capture of a part. See `../sections/README.md` for the rules.
+
 ## Known gap in the pattern set
 
 `faceted-browse` now exists in `../patterns/`, added here because the derive refuses to emit a recipe

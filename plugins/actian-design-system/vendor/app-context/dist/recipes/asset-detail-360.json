@@ -93,6 +93,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmTag",
+                        "ds": "read-only-tag",
                         "variant": "Style=Light",
                         "props": {
                           "Tag Text": "Dataset"
@@ -101,6 +102,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmTag",
+                        "ds": "read-only-tag",
                         "variant": "Style=Filled",
                         "props": {
                           "Tag Text": "Shared"
@@ -127,6 +129,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmTag",
+                        "ds": "read-only-tag",
                         "variant": "Style=Outline",
                         "props": {
                           "Tag Text": "{{status}}"
@@ -135,6 +138,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmButton",
+                        "ds": "button",
                         "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
                         "props": {
                           "Label": "Actions"
@@ -219,9 +223,10 @@
               {
                 "type": "INSTANCE",
                 "ref": "fmTabs",
+                "ds": "tabs",
                 "props": {
-                  "Tabs": "General, Fields (2), Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions (0)",
-                  "Active": "General"
+                  "Tabs": "{{facets}}",
+                  "Active": "{{first_facet}}"
                 }
               },
               {
@@ -245,6 +250,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Thomas Desvenain"
                         }
@@ -252,6 +258,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Florent Aubertin"
                         }
@@ -259,6 +266,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Faten Habachi"
                         }
@@ -277,6 +285,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Alexis Thomas"
                         }
@@ -284,6 +293,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Alexis Resp"
                         }
@@ -291,6 +301,7 @@
                       {
                         "type": "INSTANCE",
                         "ref": "fmUser",
+                        "ds": "avatar",
                         "props": {
                           "Name": "Florian Thierry"
                         }
@@ -545,6 +556,7 @@
                               {
                                 "type": "INSTANCE",
                                 "ref": "fmProgressBar",
+                                "ds": "progress-bar-small",
                                 "variant": "Completion=20%",
                                 "props": {}
                               }
@@ -552,7 +564,7 @@
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{completion_pct}}",
+                            "content": "{{completion_percent}}",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -564,6 +576,7 @@
                   {
                     "type": "INSTANCE",
                     "ref": "fmTabs",
+                    "ds": "tabs",
                     "props": {
                       "Tabs": "Properties, People, Suggestions (3)",
                       "Active": "Properties"
@@ -602,6 +615,7 @@
                           {
                             "type": "INSTANCE",
                             "ref": "fmDropdown",
+                            "ds": "dropdown-select-default",
                             "variant": "Type=Filled",
                             "props": {
                               "Dropdown Text": "ArthurWasHere",
@@ -628,6 +642,7 @@
                           {
                             "type": "INSTANCE",
                             "ref": "fmDropdown",
+                            "ds": "dropdown-select-default",
                             "variant": "Type=Filled",
                             "props": {
                               "Dropdown Text": "9321_A",
@@ -654,6 +669,7 @@
                           {
                             "type": "INSTANCE",
                             "ref": "fmDropdown",
+                            "ds": "dropdown-select-default",
                             "variant": "Type=Placeholder",
                             "props": {
                               "Dropdown Text": "",
@@ -704,6 +720,7 @@
                           {
                             "type": "INSTANCE",
                             "ref": "fmDateInput",
+                            "ds": "calendar",
                             "variant": "State=Default",
                             "props": {
                               "Input Text": ""
@@ -736,6 +753,7 @@
                           {
                             "type": "INSTANCE",
                             "ref": "fmDropdown",
+                            "ds": "dropdown-select-default",
                             "variant": "Type=Placeholder",
                             "props": {
                               "Dropdown Text": "Add Domain",
@@ -989,5 +1007,10 @@
         ]
       }
     ]
-  }
+  },
+  "sections": [
+    "item-header",
+    "facet-tabs",
+    "properties-panel"
+  ]
 }

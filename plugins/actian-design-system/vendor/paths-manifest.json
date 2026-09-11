@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.207",
+  "knowledge_version": "0.34.209",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -19,6 +19,8 @@
       "appContextBundle",
       "appContextRecipes",
       "appContextRecipesSrc",
+      "appContextSections",
+      "appContextSectionsSrc",
       "appContextSrc",
       "tokens"
     ],
@@ -927,6 +929,21 @@
       "type": "json",
       "origin": "human",
       "description": "Authoring surface for page recipes: the composition for a page shape named by an app-context pattern. Governed by schemas/app-context-recipe.json. Derived per slug to app-context/dist/recipes. See README.md in that directory."
+    },
+    "appContextSections": {
+      "dir": "app-context/dist/sections",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/app-context/derive-app-context.js",
+      "description": "Per-slug section recipe JSONs (validated + stamped). A page recipe's dist leaf already has these inlined; a consumer composing from a generic archetype reads them here by role."
+    },
+    "appContextSectionsSrc": {
+      "dir": "app-context/src/sections",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Authoring surface for section recipes: captured sub-page compositions (item header, facet tabs, control bar, properties panel, drawer header, action footer) that page recipes reference with a SECTION node and the derive inlines. Governed by schemas/app-context-section.json. See README.md in that directory."
     },
     "appContextSrc": {
       "dir": "app-context/src",

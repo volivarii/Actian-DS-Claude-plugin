@@ -12,9 +12,9 @@ Sources last changed **2026-09-09**. Values are derived from the tree this ran a
 | FM modifier classes with no rule | 56 | flat (was 56) |
 | Inline-style hex (cannot re-theme) | 47 | flat (was 47) |
 | Verified colour declarations (oracle numerator) | 97 | flat (was 97) |
-| Examined colour declarations (oracle denominator) | 534 | changed (was 532) |
+| Examined colour declarations (oracle denominator) | 534 | flat (was 534) |
 | Verified shape declarations (geometry numerator) | 150 | flat (was 150) |
-| Examined shape declarations (geometry denominator) | 704 | changed (was 703) |
+| Examined shape declarations (geometry denominator) | 704 | flat (was 704) |
 | Shape declarations the capture contradicts | 91 | flat (was 91) |
 
 Oracle coverage is **97 of 534** declarations. It is stated as a pair on purpose: the ratio improves when declarations leave the denominator, which is not progress.
@@ -25,7 +25,7 @@ Geometry coverage is **150 of 704** gap, padding and fixed-height declarations, 
 
 | Date | Version | Verified | Examined |
 | --- | --- | --- | --- |
-| 2026-09-09 | v0.34.206 | 97 | 534 |
+| 2026-09-09 | v0.34.207 | 97 | 534 |
 | 2026-09-08 | v0.34.202 | 97 | 532 |
 | 2026-09-07 | v0.34.189 | 87 | 447 |
 | 2026-09-03 | v0.34.180 | 85 | 418 |
