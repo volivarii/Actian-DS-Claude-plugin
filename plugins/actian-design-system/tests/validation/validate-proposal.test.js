@@ -43,7 +43,7 @@ describe("validateProposal (document)", function () {
     f = only(withMutation(function (d) { d.approaches[1].screens[0].app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.strictEqual(f[0].screen, "b");
   });
-  it("bounds are P0: more than 4 approaches, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate approach or criterion ids, an unknown tone, cells for an unknown approach", function () {
+  it("bounds are P0: more than 4 approaches, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate approach or criterion ids, an unknown tone, cells for an unknown approach, a cell for an unknown criterion", function () {
     function bounds(mutate) { return only(withMutation(mutate), "bounds"); }
     assert.ok(bounds(function (d) { d.approaches.push(Object.assign({}, d.approaches[0], { id: "d" }), Object.assign({}, d.approaches[0], { id: "e" })); }).some(function (f) { return /approaches; at most 4/.test(f.value); }));
     assert.ok(bounds(function (d) { for (var i = 0; i < 6; i++) d.research.findings.push({ claim: "c" + i, source: "s" }); }).some(function (f) { return /findings; at most 5/.test(f.value); }));
@@ -54,6 +54,7 @@ describe("validateProposal (document)", function () {
     assert.ok(bounds(function (d) { d.comparison.criteria[1].id = "literal-ask"; }).some(function (f) { return /duplicate criterion id/.test(f.value); }));
     assert.ok(bounds(function (d) { d.comparison.cells.a["literal-ask"].tone = "great"; }).some(function (f) { return /tone "great"/.test(f.value); }));
     assert.ok(bounds(function (d) { d.comparison.cells.zz = { "literal-ask": { text: "x", tone: "good" } }; }).some(function (f) { return /does not exist/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.comparison.cells.a["ghost-criterion"] = { text: "x", tone: "good" }; }).some(function (f) { return /criterion that does not exist/.test(f.value) && f.screen === "a"; }));
   });
   it("research that did not run must say why (check research, P0); with a reason it is quiet", function () {
     var f = only(withMutation(function (d) { d.research = { ran: false, findings: [] }; }), "research");
@@ -79,6 +80,17 @@ describe("validateProposal (document)", function () {
     f = only(withMutation(function (d) { d.recommendation.reasons[0].why += " The scope grows."; }), "terminology");
     assert.ok(f.length >= 1, "reason: " + JSON.stringify(f));
     assert.strictEqual(f[0].screen, ""); assert.strictEqual(f[0].path, "recommendation.reasons[0]");
+  });
+  it("an approach id that shadows a document-level pseudo id does not swallow the document-level finding (check terminology)", function () {
+    var f = only(withMutation(function (d) {
+      d.approaches[0].id = "context";
+      d.comparison.cells.context = d.comparison.cells.a;
+      delete d.comparison.cells.a;
+      d.context.question += " The scope grows.";
+    }), "terminology");
+    assert.strictEqual(f.length, 1, JSON.stringify(f));
+    assert.strictEqual(f[0].path, "context.question");
+    assert.strictEqual(f[0].screen, "");
   });
   it("avoid-words fire on the context and on a comparison cell (check avoid-word)", function () {
     var f = only(withMutation(function (d) { d.context.product += " Please simply click here."; }), "avoid-word");

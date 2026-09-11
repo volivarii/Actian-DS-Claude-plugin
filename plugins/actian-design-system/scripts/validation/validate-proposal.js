@@ -134,7 +134,9 @@ function validateProposal(data) {
   var idSeen = {}; // html ids are document-wide: id -> the approach it first appeared in
   var approachIds = {};
 
-  // pseudo screens for the flow gates: one per approach plus four document-level ones.
+  // pseudo screens for the flow gates: one per approach plus four document-level ones,
+  // the latter prefixed "doc:" (a colon the approach id pattern forbids) so an approach
+  // id such as "context" can never collide with the document-level pseudo screen id.
   // content[n] maps back to a field through PATHS_BY_SCREEN.
   var pseudo = { meta: { feature: data.meta.title }, screens: [] };
   var pathsByScreen = {};
@@ -152,7 +154,7 @@ function validateProposal(data) {
   checkProse(data.context.question, "", "context.question", findings);
   checkProse(data.context.product, "", "context.product", findings);
   checkProse(data.context.gap, "", "context.gap", findings);
-  addPseudo("context", "Context", [
+  addPseudo("doc:context", "Context", [
     { path: "context.question", text: data.context.question },
     { path: "context.product", text: data.context.product },
     { path: "context.gap", text: data.context.gap || "" },
@@ -164,7 +166,7 @@ function validateProposal(data) {
   if (data.research.findings.length > MAX_FINDINGS)
     findings.push(finding("P0", "bounds", "", "research.findings", data.research.findings.length + " findings; at most " + MAX_FINDINGS));
   data.research.findings.forEach(function (f, i) { checkProse(f.claim, "", "research.findings[" + i + "].claim", findings); });
-  addPseudo("research", "Research", data.research.findings.map(function (f, i) { return { path: "research.findings[" + i + "].claim", text: f.claim }; }));
+  addPseudo("doc:research", "Research", data.research.findings.map(function (f, i) { return { path: "research.findings[" + i + "].claim", text: f.claim }; }));
 
   // approaches
   if (data.approaches.length > MAX_APPROACHES)
@@ -233,9 +235,12 @@ function validateProposal(data) {
     compEntries.push({ path: cp, text: texts.join(". ") });
   });
   Object.keys(data.comparison.cells || {}).forEach(function (aid) {
-    if (!approachIds[aid]) findings.push(finding("P0", "bounds", aid, "comparison.cells." + aid, "cells for an approach that does not exist"));
+    if (!approachIds[aid]) { findings.push(finding("P0", "bounds", aid, "comparison.cells." + aid, "cells for an approach that does not exist")); return; }
+    Object.keys(data.comparison.cells[aid] || {}).forEach(function (cid) {
+      if (!critSeen[cid]) findings.push(finding("P0", "bounds", aid, "comparison.cells." + aid + "." + cid, "cell for a criterion that does not exist"));
+    });
   });
-  addPseudo("comparison", "Comparison", compEntries);
+  addPseudo("doc:comparison", "Comparison", compEntries);
 
   // recommendation
   if (!approachIds[data.recommendation.approachId])
@@ -254,7 +259,7 @@ function validateProposal(data) {
     checkProse(data.recommendation.change.userSide, "", "recommendation.change.userSide", findings);
     recEntries.push({ path: "recommendation.change", text: [data.recommendation.change.adminSide, data.recommendation.change.userSide].filter(Boolean).join(" ") });
   }
-  addPseudo("recommendation", "Recommendation", recEntries);
+  addPseudo("doc:recommendation", "Recommendation", recEntries);
 
   // The flow gates report screenId plus content[n]; map back to the field path.
   function mapPath(issue) {
