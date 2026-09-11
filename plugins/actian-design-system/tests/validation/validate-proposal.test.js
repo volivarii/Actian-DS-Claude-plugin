@@ -5,265 +5,157 @@ var fs = require("fs");
 var os = require("os");
 var path = require("path");
 var { spawnSync } = require("node:child_process");
-var {
-  validateProposal,
-  extractText,
-} = require("../../scripts/validation/validate-proposal.js");
+var { validateProposal, extractText } = require("../../scripts/validation/validate-proposal.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var SCRIPT = path.join(ROOT, "scripts", "validation", "validate-proposal.js");
 var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
-function load() {
-  return JSON.parse(fs.readFileSync(FIXTURE, "utf8"));
-}
+var EM_DASH = "\u2014";
+function load() { return JSON.parse(fs.readFileSync(FIXTURE, "utf8")); }
 function only(data, check) {
-  return validateProposal(data).findings.filter(function (f) {
-    return f.check === check;
-  });
+  return validateProposal(data).findings.filter(function (f) { return f.check === check; });
 }
+function withMutation(mutate) { var d = load(); mutate(d); return d; }
 
 describe("extractText", function () {
   it("keeps visible text and alt, title, placeholder, aria-label; drops tags, script and style; decodes entities", function () {
-    var t = extractText(
-      '<div title="Tip">Hello &amp; <b>world</b><img alt="Logo"><input placeholder="Search"><span aria-label="Close">x</span><style>.a{}</style><script>bad()</script></div>',
-    );
+    var t = extractText('<div title="Tip">Hello &amp; <b>world</b><img alt="Logo"><input placeholder="Search"><span aria-label="Close">x</span><style>.a{}</style><script>bad()</script></div>');
     assert.ok(/Hello & world/.test(t), t);
-    ["Tip", "Logo", "Search", "Close"].forEach(function (w) {
-      assert.ok(t.indexOf(w) !== -1, w + " in " + t);
-    });
-    assert.ok(
-      t.indexOf("bad()") === -1 && t.indexOf(".a{}") === -1,
-      "script/style dropped: " + t,
-    );
+    ["Tip", "Logo", "Search", "Close"].forEach(function (w) { assert.ok(t.indexOf(w) !== -1, w + " in " + t); });
+    assert.ok(t.indexOf("bad()") === -1 && t.indexOf(".a{}") === -1, "script/style dropped: " + t);
   });
 });
 
-describe("validateProposal", function () {
+describe("validateProposal (document)", function () {
   it("is quiet on the clean fixture", function () {
     var f = validateProposal(load()).findings;
     assert.deepEqual(f, [], JSON.stringify(f, null, 1));
   });
-  it("schema errors are P0 (check schema)", function () {
-    var d = load();
-    delete d.screens[0].html;
-    var f = only(d, "schema");
-    assert.ok(f.length >= 1 && f[0].severity === "P0", JSON.stringify(f));
+  it("schema errors are P0 (check schema) and stop the other checks", function () {
+    var f = validateProposal(withMutation(function (d) { delete d.comparison; })).findings;
+    assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));
   });
-  it("unknown app slug is P0 (check app-unknown)", function () {
-    var d = load();
-    d.screens[1].app = "nope";
-    var f = only(d, "app-unknown");
+  it("an unknown anchor app or meta.apps entry is P0; an unknown screens[].app entry is P1 (check app-unknown)", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].anchor.app = "nope"; }), "app-unknown");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].screen, "a");
+    f = only(withMutation(function (d) { d.meta.apps.push("nope"); }), "app-unknown");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].path, "meta.apps[2]");
+    f = only(withMutation(function (d) { d.approaches[1].screens[0].app = "nope"; }), "app-unknown");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.strictEqual(f[0].screen, "b");
+  });
+  it("bounds are P0: more than 4 approaches, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate approach or criterion ids, an unknown tone, cells for an unknown approach, a cell for an unknown criterion", function () {
+    function bounds(mutate) { return only(withMutation(mutate), "bounds"); }
+    assert.ok(bounds(function (d) { d.approaches.push(Object.assign({}, d.approaches[0], { id: "d" }), Object.assign({}, d.approaches[0], { id: "e" })); }).some(function (f) { return /approaches; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { for (var i = 0; i < 6; i++) d.research.findings.push({ claim: "c" + i, source: "s" }); }).some(function (f) { return /findings; at most 5/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.recommendation.reasons.push({ title: "t", why: "w" }); }).some(function (f) { return /reasons; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { for (var i = 0; i < 4; i++) d.approaches[0].screens.push(d.approaches[0].screens[0]); }).some(function (f) { return /screens; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.approaches[0].screen.width = 900; }).some(function (f) { return /outside 240 to 720/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.approaches[1].id = "a"; }).some(function (f) { return /duplicate id a/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.comparison.criteria[1].id = "literal-ask"; }).some(function (f) { return /duplicate criterion id/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.comparison.cells.a["literal-ask"].tone = "great"; }).some(function (f) { return /tone "great"/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.comparison.cells.zz = { "literal-ask": { text: "x", tone: "good" } }; }).some(function (f) { return /does not exist/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.comparison.cells.a["ghost-criterion"] = { text: "x", tone: "good" }; }).some(function (f) { return /criterion that does not exist/.test(f.value) && f.screen === "a"; }));
+  });
+  it("a null cells entry for a known approach does not crash the comparison pass", function () {
+    var d = withMutation(function (d) { d.comparison.cells.a = null; });
+    assert.doesNotThrow(function () { validateProposal(d); });
+  });
+  it("research that did not run must say why (check research, P0); with a reason it is quiet", function () {
+    var f = only(withMutation(function (d) { d.research = { ran: false, findings: [] }; }), "research");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0");
+    assert.deepEqual(only(withMutation(function (d) { d.research = { ran: false, findings: [], skippedBecause: "--no-research" }; }), "research"), []);
+  });
+  it("findings present while research did not run is a P1 (check research); they are not rendered", function () {
+    var f = only(withMutation(function (d) { d.research = { ran: false, findings: [{ claim: "x", source: "y" }], skippedBecause: "--no-research" }; }), "research");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1");
+  });
+  it("a recommendation naming no approach is P0 (check recommendation)", function () {
+    var f = only(withMutation(function (d) { d.recommendation.approachId = "zz"; }), "recommendation");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0");
+    assert.ok(/one of a, b, c/.test(f[0].suggestion), f[0].suggestion);
+  });
+  it("a flow screen with an unknown template or entity is P1 (checks template-unknown, entity-unknown); a known entity and null are quiet", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].screens[0].template = "wizard"; }), "template-unknown");
+    assert.strictEqual(f.length, 1); assert.ok(/overlay/.test(f[0].suggestion), f[0].suggestion);
+    f = only(withMutation(function (d) { d.approaches[0].screens[0].entity = "unicorn"; }), "entity-unknown");
     assert.strictEqual(f.length, 1);
-    assert.strictEqual(f[0].severity, "P0");
+    assert.deepEqual(only(withMutation(function (d) { d.approaches[0].screens[0].entity = "data-product"; }), "entity-unknown"), []);
   });
-  it("width outside 240 to 720, more than 8 screens, and duplicate ids are P0 (check bounds)", function () {
-    var d = load();
-    d.screens[0].width = 100;
-    assert.ok(only(d, "bounds").length === 1, "width low");
-    d = load();
-    d.screens[0].width = 900;
-    assert.ok(only(d, "bounds").length === 1, "width high");
-    d = load();
-    for (var i = 0; i < 9; i++)
-      d.screens.push(Object.assign({}, d.screens[0], { id: "dup-" + i }));
-    assert.ok(
-      only(d, "bounds").some(function (f) {
-        return /8/.test(f.value);
-      }),
-      "count",
-    );
-    d = load();
-    d.screens[1].id = d.screens[0].id;
-    assert.ok(
-      only(d, "bounds").some(function (f) {
-        return /duplicate/.test(f.value);
-      }),
-      "duplicate id",
-    );
+  it("terminology fires on a drawing's text and on a reason through the flow validator's own gate (check terminology)", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].screen.html += "<div>scope of the change</div>"; }), "terminology");
+    assert.ok(f.length >= 1, "drawing: " + JSON.stringify(f));
+    assert.strictEqual(f[0].screen, "a"); assert.strictEqual(f[0].path, "approaches[0].screen.html");
+    f = only(withMutation(function (d) { d.recommendation.reasons[0].why += " The scope grows."; }), "terminology");
+    assert.ok(f.length >= 1, "reason: " + JSON.stringify(f));
+    assert.strictEqual(f[0].screen, ""); assert.strictEqual(f[0].path, "recommendation.reasons[0]");
   });
-  it("terminology fires on fragment text through the flow validator's own gate (check terminology)", function () {
-    var d = load();
-    d.screens[0].html += "<p>Open the tool to continue</p>";
-    var f = only(d, "terminology");
+  it("an approach id that shadows a document-level pseudo id does not swallow the document-level finding (check terminology)", function () {
+    var f = only(withMutation(function (d) {
+      d.approaches[0].id = "context";
+      d.comparison.cells.context = d.comparison.cells.a;
+      delete d.comparison.cells.a;
+      d.context.question += " The scope grows.";
+    }), "terminology");
     assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].found, "the tool");
-    assert.strictEqual(f[0].path, "screens[0].html");
+    assert.strictEqual(f[0].path, "context.question");
+    assert.strictEqual(f[0].screen, "");
   });
-  it("terminology fires on the recommendation too (probed: scope is a notUse term)", function () {
-    var d = load();
-    d.meta.recommendation = "<p>Grouped by scope</p>";
-    var f = only(d, "terminology");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].path, "meta.recommendation");
-    assert.strictEqual(f[0].found, "scope");
+  it("avoid-words fire on the context and on a comparison cell (check avoid-word)", function () {
+    var f = only(withMutation(function (d) { d.context.product += " Please simply click here."; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.product");
+    f = only(withMutation(function (d) { d.comparison.cells.b["literal-ask"].text = "Please click here"; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "comparison.criteria[0]");
   });
-  it("avoid-words fire on captions too (check avoid-word)", function () {
-    var d = load();
-    d.screens[2].caption = "Please click My access";
-    var f = only(d, "avoid-word");
-    assert.ok(f.length >= 1, JSON.stringify(f));
-    assert.strictEqual(f[0].path, "screens[2].caption");
+  it("a hex or rgb colour in a drawing's style or in any prose field is P1 (check hardcoded-color)", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="color:#fff;background:rgb(1,2,3)">x</div>'; }), "hardcoded-color");
+    assert.strictEqual(f.length, 2);
+    f = only(withMutation(function (d) { d.recommendation.summary += " Use #0F5FDC."; }), "hardcoded-color");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].path, "recommendation.summary");
   });
-  it("a hex or rgb colour in a style attribute or style block is P1 (check hardcoded-color)", function () {
-    var d = load();
-    d.screens[0].html +=
-      '<div style="color:#E6E3FB">x</div><style>.k{background:rgb(1,2,3)}</style>';
-    var f = only(d, "hardcoded-color");
-    assert.strictEqual(f.length, 2, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P1");
-    d = load();
-    d.screens[0].html += '<a href="#top">top</a>';
-    assert.strictEqual(
-      only(d, "hardcoded-color").length,
-      0,
-      "an anchor href is not a colour",
-    );
+  it("position:absolute in a drawing is P1 (check in-flow)", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="position:absolute;top:0">x</div>'; }), "in-flow");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.ok(/in flow/.test(f[0].suggestion));
   });
-  it("script, inline handlers and javascript: URLs are P0 (check script)", function () {
+  it("script, inline handlers, javascript: URLs, external loads and unbalanced tags are P0 on a drawing", function () {
+    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += "<script>x()</script>"; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<div onclick="x()">x</div>'; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<a href="javascript:x()">x</a>'; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<img src="https://x.test/a.png">'; }), "external-load").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="background:url(https://x.test/a.png)">x</div>'; }), "external-load").length, 1);
+    var f = only(withMutation(function (d) { d.approaches[2].screen.html = "<div><span>open"; }), "unbalanced");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].screen, "c");
+  });
+  it("a data-toggle without its id, and an id reused across approaches, are P1 (check toggle-target)", function () {
+    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div data-toggle="ghost">x</div>'; }), "toggle-target");
+    assert.strictEqual(f.length, 1); assert.ok(/no id="ghost"/.test(f[0].value));
+    f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div id="access-panel-c">x</div>'; }), "toggle-target");
+    assert.strictEqual(f.length, 1); assert.ok(/also appears in approach "a"/.test(f[0].suggestion), f[0].suggestion);
+  });
+  it("a commented-out tag or id is not a finding", function () {
+    assert.deepEqual(validateProposal(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div id="access-panel-c"> -->'; })).findings, []);
+    assert.deepEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div data-toggle="ghost">x</div> -->'; }), "toggle-target"), []);
+  });
+  it("an em dash in a drawing, the title, a claim, a cell or a reason is P2 (check em-dash) with the field path", function () {
     [
-      "<script>x()</script>",
-      '<div onclick="x()">a</div>',
-      '<a href="javascript:void(0)">a</a>',
-    ].forEach(function (bad) {
-      var d = load();
-      d.screens[0].html += bad;
-      var f = only(d, "script");
-      assert.strictEqual(f.length, 1, bad);
-      assert.strictEqual(f[0].severity, "P0");
+      function (d) { d.approaches[0].screen.html += "<div>a " + EM_DASH + " b</div>"; },
+      function (d) { d.meta.title += " " + EM_DASH + " x"; },
+      function (d) { d.research.findings[0].claim += " " + EM_DASH; },
+      function (d) { d.comparison.cells.a["literal-ask"].text += " " + EM_DASH; },
+      function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; },
+    ].forEach(function (m, i) {
+      var f = only(withMutation(m), "em-dash");
+      assert.strictEqual(f.length, 1, "case " + i + ": " + JSON.stringify(f));
+      assert.strictEqual(f[0].severity, "P2");
     });
-  });
-  it("an external src or href is P0 (check external-load)", function () {
-    [
-      '<img src="https://x.test/a.png">',
-      '<link href="//cdn.test/a.css">',
-      '<a href="http://x.test">a</a>',
-    ].forEach(function (bad) {
-      var d = load();
-      d.screens[0].html += bad;
-      var f = only(d, "external-load");
-      assert.strictEqual(f.length, 1, bad);
-      assert.strictEqual(f[0].severity, "P0");
-    });
-  });
-  it("an em dash in visible text, a caption, the title or the recommendation is P2 (check em-dash)", function () {
-    var d = load();
-    d.screens[0].html += "<p>A \u2014 B</p>";
-    d.screens[1].caption = "C \u2014 D";
-    d.meta.title = "T \u2014 U";
-    d.meta.recommendation = "<p>R \u2014 S</p>";
-    var f = only(d, "em-dash");
-    assert.strictEqual(f.length, 4, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P2");
-  });
-  it("a data-toggle without a matching id in the same fragment is P1 (check toggle-target)", function () {
-    var d = load();
-    d.screens[1].html = d.screens[1].html.replace(
-      'id="menu-default"',
-      'id="menu-x"',
-    );
-    var f = only(d, "toggle-target");
-    assert.strictEqual(f.length, 1);
-    assert.strictEqual(f[0].found, "menu-default");
-  });
-  it("an unbalanced fragment is P0 (check unbalanced)", function () {
-    var d = load();
-    d.screens[0].html = "<div><span>open</div>";
-    var f = only(d, "unbalanced");
-    assert.strictEqual(f.length, 1);
-    assert.strictEqual(f[0].severity, "P0");
-  });
-  it("a recommendation with a <script> is P0 (check script)", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.meta.recommendation = "<p>Ship it<script>alert(1)</script></p>";
-    var f = only(d, "script");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P0");
-    assert.strictEqual(f[0].path, "meta.recommendation");
-  });
-  it("a recommendation with an unbalanced div is P0 (check unbalanced)", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.meta.recommendation = "<p>Ship it</p><div>unclosed";
-    var f = only(d, "unbalanced");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P0");
-    assert.strictEqual(f[0].path, "meta.recommendation");
-  });
-  it("url(https://...) in a style attribute is P0 (check external-load)", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[0].html +=
-      '<div style="background:url(https://cdn.test/a.png)">x</div>';
-    var f = only(d, "external-load");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P0");
-  });
-  it("srcset= with an absolute target is P0 (check external-load)", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[0].html += '<img srcset="https://cdn.test/a.png 1x">';
-    var f = only(d, "external-load");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P0");
-  });
-  it("a commented-out <div> is not a finding", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[0].html += "<!-- <div> -->";
-    var f = validateProposal(d).findings;
-    assert.deepEqual(f, [], JSON.stringify(f, null, 1));
-  });
-  it("an em dash in name is P2 (check em-dash, path screens[0].name)", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[0].name = "Admin \u2014 create group";
-    var f = only(d, "em-dash");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P2");
-    assert.strictEqual(f[0].path, "screens[0].name");
-  });
-  it("an id repeated across two screens is P1 (check toggle-target), naming both screens", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[2].html = d.screens[2].html.replace(
-      /menu-expanded/g,
-      "menu-default",
-    );
-    var f = only(d, "toggle-target").filter(function (x) {
-      return x.value === "menu-default" && x.path === "screens[2].html";
-    });
-    assert.strictEqual(f.length, 1, JSON.stringify(only(d, "toggle-target")));
-    assert.ok(f[0].suggestion.indexOf(d.screens[1].id) !== -1, f[0].suggestion);
-    assert.ok(f[0].suggestion.indexOf("board-wide") !== -1, f[0].suggestion);
-  });
-  it("a commented-out id in another screen is not a collision", function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.screens[0].html += '\n<!-- <div id="menu-default">old state</div> -->';
-    assert.deepStrictEqual(only(d, "toggle-target"), []);
-  });
-  it('meta.apps: ["nope"] is P1 (check app-unknown)', function () {
-    var d = JSON.parse(JSON.stringify(load()));
-    d.meta.apps = ["nope"];
-    var f = only(d, "app-unknown");
-    assert.strictEqual(f.length, 1, JSON.stringify(f));
-    assert.strictEqual(f[0].severity, "P1");
-    assert.strictEqual(f[0].path, "meta.apps[0]");
-    assert.strictEqual(f[0].value, "nope");
+    assert.strictEqual(only(withMutation(function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; }), "em-dash")[0].path, "recommendation.reasons[1].why");
   });
 });
 
 describe("validate-proposal.js CLI", function () {
-  function run(args) {
-    return spawnSync(process.execPath, [SCRIPT].concat(args), {
-      encoding: "utf8",
-    });
-  }
+  function run(args) { return spawnSync(process.execPath, [SCRIPT].concat(args), { encoding: "utf8" }); }
   function tmpWith(mutate) {
-    var d = load();
-    mutate(d);
-    var p = path.join(
-      os.tmpdir(),
-      "proposal-" +
-        Date.now() +
-        "-" +
-        Math.random().toString(36).slice(2) +
-        ".json",
-    );
-    fs.writeFileSync(p, JSON.stringify(d));
+    var p = path.join(os.tmpdir(), "proposal-" + Date.now() + "-" + Math.random().toString(36).slice(2) + ".json");
+    fs.writeFileSync(p, JSON.stringify(withMutation(mutate)));
     return p;
   }
   it("exits 0 on the clean fixture and says so", function () {
@@ -271,41 +163,22 @@ describe("validate-proposal.js CLI", function () {
     assert.strictEqual(r.status, 0, r.stderr + r.stdout);
     assert.ok(/0 findings/.test(r.stdout), r.stdout);
   });
-  it("exits 1 on a P0 and prints the finding line", function () {
-    var r = run([
-      tmpWith(function (d) {
-        d.screens[0].html += "<script>x()</script>";
-      }),
-    ]);
+  it("exits 1 on a P0 and prints the finding line with the approach", function () {
+    var r = run([tmpWith(function (d) { d.approaches[1].screen.html += "<script>x()</script>"; })]);
     assert.strictEqual(r.status, 1);
-    assert.ok(/P0 \[script\]/.test(r.stdout), r.stdout);
+    assert.ok(/P0 \[script\] approach "b"/.test(r.stdout), r.stdout);
   });
   it("exits 0 on P1 only, still printing it", function () {
-    var r = run([
-      tmpWith(function (d) {
-        d.screens[0].html += '<div style="color:#fff">x</div>';
-      }),
-    ]);
+    var r = run([tmpWith(function (d) { d.approaches[0].screen.html += '<div style="color:#fff">x</div>'; })]);
     assert.strictEqual(r.status, 0);
     assert.ok(/P1 \[hardcoded-color\]/.test(r.stdout), r.stdout);
   });
   it("--json prints the findings array; --help prints the contract", function () {
-    var r = run([
-      tmpWith(function (d) {
-        d.screens[0].html += "<script>x()</script>";
-      }),
-      "--json",
-    ]);
+    var r = run([tmpWith(function (d) { d.recommendation.approachId = "zz"; }), "--json"]);
     var out = JSON.parse(r.stdout);
-    assert.ok(
-      Array.isArray(out.findings) && out.findings[0].check === "script",
-    );
+    assert.ok(Array.isArray(out.findings) && out.findings[0].check === "recommendation");
     var h = JSON.parse(run(["--help"]).stdout);
     assert.strictEqual(h.name, "validate-proposal");
-    assert.ok(
-      h.flags.some(function (f) {
-        return f.name === "--json";
-      }),
-    );
+    assert.ok(h.flags.some(function (f) { return f.name === "--json"; }));
   });
 });

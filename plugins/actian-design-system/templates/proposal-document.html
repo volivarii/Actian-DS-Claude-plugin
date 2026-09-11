@@ -1,0 +1,73 @@
+{{META_COMMENT}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE}}</title>
+  <style>
+{{FM_CSS}}
+  </style>
+  <style>
+    /* Document layout. The FM sheet above owns every component style; this block places the sections. */
+    body { background: var(--fm-base-200); color: var(--fm-text-primary); padding: 32px 40px 80px; }
+    .doc { max-width: 1200px; margin: 0 auto; }
+    .doc__head { margin: 0 0 24px; }
+    .doc__title { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+    .doc__context { font-size: 13px; color: var(--fm-text-secondary); margin: 0; }
+    .doc__section { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; padding: 18px 20px; margin: 0 0 20px; font-size: 13.5px; line-height: 1.55; }
+    .doc__section h2 { font-size: 15px; margin: 0 0 10px; }
+    .doc__section p { margin: 0 0 8px; }
+    .doc__question { font-weight: 600; }
+    .doc__muted { font-size: 12px; color: var(--fm-text-tertiary); margin: 6px 0 0; }
+    .doc__list { margin: 0; padding-left: 18px; }
+    .doc__list li { margin: 0 0 6px; }
+    .doc__source { color: var(--fm-text-tertiary); font-size: 12px; }
+    .approaches { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+    .proposal-screen__col { display: flex; flex-direction: column; }
+    .proposal-screen__label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; max-width: 100%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--fm-text-secondary); margin-bottom: 8px; }
+    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; }
+    .proposal-screen .fm-app-header { width: 100%; }
+    .proposal-screen__body { position: relative; padding: 16px; }
+    .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
+    .approach__lines { font-size: 12.5px; line-height: 1.5; color: var(--fm-text-secondary); margin: 10px 0 0; max-width: 360px; }
+    .approach__lines b { color: var(--fm-text-primary); }
+    .approach__verdict { margin: 8px 0 0; }
+    .compare { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .compare th, .compare td { text-align: left; vertical-align: top; padding: 8px 10px; border-top: 1px solid var(--fm-base-300); }
+    .compare th { font-weight: 600; }
+    .compare thead th { border-top: 0; color: var(--fm-text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .compare__source { display: block; font-size: 11px; color: var(--fm-text-tertiary); font-weight: 400; }
+    .tone-good { color: var(--fm-text-success); }
+    .tone-mixed { color: var(--fm-text-secondary); }
+    .tone-bad { color: var(--fm-text-error); }
+    .rec { border-color: var(--fm-brand); }
+    .rec__pick { font-size: 12px; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 6px; }
+    .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 12px 0 0; }
+    .rec__reason { border: 1px solid var(--fm-base-300); border-radius: 6px; padding: 10px 12px; }
+    .rec__reason b { display: block; margin: 0 0 4px; }
+    .rec__change { margin: 12px 0 0; }
+    .doc__footer { font-size: 12px; color: var(--fm-text-tertiary); text-align: center; margin: 28px 0 0; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="doc">
+    <header class="doc__head">
+      <h1 class="doc__title">{{TITLE}}</h1>
+      <p class="doc__context">{{CONTEXT}}</p>
+    </header>
+<!-- {{SECTIONS}} -->
+  </main>
+  <script>
+    // One delegated listener: any element with data-toggle="<id>" toggles the hidden attribute of #<id>.
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-toggle]");
+      if (!t) return;
+      var el = document.getElementById(t.getAttribute("data-toggle"));
+      if (el) el.hidden = !el.hidden;
+    });
+  </script>
+</body>
+</html>

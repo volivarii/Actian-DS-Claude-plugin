@@ -2,42 +2,83 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "proposal-data.schema.json",
   "title": "Proposal Data",
-  "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal board is a row of authored Fat Marker screens with captions, for component-scale tickets.",
+  "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal is a reasoned document for a component-scale ticket: context, research, approaches drawn inside one anchor surface, a comparison and a recommendation with reasons.",
   "type": "object",
-  "required": ["meta", "screens"],
+  "required": ["meta", "context", "research", "approaches", "comparison", "recommendation"],
   "properties": {
     "meta": {
       "type": "object",
-      "description": "Board-level context printed in the header and the provenance comment",
-      "required": ["title", "date", "skill"],
+      "description": "Document-level context printed in the title strip and the provenance comment",
+      "required": ["title", "date", "apps", "skill"],
       "properties": {
-        "title": { "type": "string", "description": "Board title, printed as the page H1 and the document title", "examples": ["DIP-I-496: show role and permission for a logged-in user"] },
+        "title": { "type": "string", "description": "Document title, printed as the page H1 and the document title", "examples": ["DIP-I-496: show role and permission for a logged-in user"] },
         "ticket": { "type": "string", "description": "Ticket or story id the proposal answers", "examples": ["DIP-I-496"] },
-        "date": { "type": "string", "description": "Authoring date, YYYY-MM-DD, printed in the header. Never a render-time clock, so a re-render is byte-identical", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "examples": ["2026-09-09"] },
-        "apps": { "type": "array", "description": "App slugs the board touches, printed in the header context line", "items": { "type": "string", "description": "An app slug the vendored app-context knows", "examples": ["administration", "explorer", "studio"] } },
-        "prompt": { "type": "string", "description": "The request the board answers, kept in the provenance comment only", "examples": ["find a simple and elegant solution for showing a user's roles"] },
-        "model": { "type": "string", "description": "Model that authored the board, provenance comment only", "examples": ["claude-sonnet-5"] },
-        "skill": { "type": "string", "description": "Always design-proposal; lets a reader tell this file from a flow-data.json", "enum": ["design-proposal"] },
-        "recommendation": { "type": "string", "description": "Optional HTML fragment rendered after the screens: which concept to ship and why", "examples": ["<p>Ship the badge, designed to grow into the My access panel.</p>"] }
+        "date": { "type": "string", "description": "Authoring date, YYYY-MM-DD, printed in the title strip. Never a render-time clock, so a re-render is byte-identical", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "examples": ["2026-09-11"] },
+        "apps": { "type": "array", "description": "App slugs the ticket lives in, printed in the title strip", "minItems": 1, "items": { "type": "string", "description": "An app slug the vendored app-context knows", "examples": ["administration", "explorer", "studio"] } },
+        "prompt": { "type": "string", "description": "The request the document answers, kept in the provenance comment only", "examples": ["Propose a design for this ticket: DIP-I-496"] },
+        "model": { "type": "string", "description": "Model that authored the document, provenance comment only", "examples": ["claude-sonnet-5"] },
+        "skill": { "type": "string", "description": "Always design-proposal; lets a reader tell this file from a flow-data.json", "enum": ["design-proposal"], "examples": ["design-proposal"] }
       }
     },
-    "screens": {
+    "context": {
+      "type": "object",
+      "description": "Where the ticket lives and the question it asks, from the app-context and whatever the request attached",
+      "required": ["question", "product", "sources"],
+      "properties": {
+        "question": { "type": "string", "description": "The design question in one sentence, as said in Step 1", "examples": ["How does a logged-in user see their assigned role and permission group?"] },
+        "product": { "type": "string", "description": "Three to six sentences on how the product handles this today: the anchor surface, the data model behind it, what an admin or a user sees", "examples": ["In Administration a permission group is a Group record. Its name shows in the Users table, so admins see who has what. A user can belong to more than one group."] },
+        "sources": { "type": "array", "description": "Where the product read came from: app-context facts and attachments, one line each", "minItems": 1, "items": { "type": "string", "description": "One source, prefixed app-context: or attachment:", "examples": ["app-context: explorer chrome", "attachment: DIP-I-496.pdf"] } },
+        "gap": { "type": "string", "description": "One sentence naming what the substrate has no capture of, when the anchor surface is uncaptured; absent otherwise", "examples": ["The account dropdown has no capture in app-context."] }
+      }
+    },
+    "research": {
+      "type": "object",
+      "description": "What comparable products do, bounded to five findings with a source each; always present, and honest when it did not run",
+      "required": ["ran", "findings"],
+      "properties": {
+        "ran": { "type": "boolean", "description": "true when the web research ran; false when it was turned off or unavailable" },
+        "findings": { "type": "array", "description": "At most five findings (validator-enforced); empty when ran is false", "items": { "type": "object", "description": "One finding with its source", "required": ["claim", "source"], "properties": { "claim": { "type": "string", "description": "One sentence in the reader's words", "examples": ["Role sits under the name as a secondary identity signal, never above it."] }, "source": { "type": "string", "description": "The product or article the claim comes from, as text (the document loads nothing)", "examples": ["SaaS Permissions and Roles UX Patterns, SaaSUI Design"] } } } },
+        "skippedBecause": { "type": "string", "description": "Required when ran is false (validator-enforced): why the research did not run", "examples": ["--no-research", "the request said skip research", "no web search in this session"] }
+      }
+    },
+    "approaches": {
       "type": "array",
-      "description": "The screens on the board, left to right. One to eight; the validator enforces the upper bound",
-      "minItems": 1,
+      "description": "Two to four approaches (validator-enforced upper bound), each drawn inside its anchor surface",
+      "minItems": 2,
       "items": {
         "type": "object",
-        "description": "One authored screen: a Fat Marker fragment with a caption, rendered at its own width under an app header strip",
-        "required": ["id", "name", "app", "html"],
+        "description": "One approach: a name, an anchor, two lines, a verdict, a drawing and the screen list a flow would render",
+        "required": ["id", "name", "anchor", "whatItIs", "breaksWhen", "verdict", "screen", "screens"],
         "properties": {
-          "id": { "type": "string", "description": "Slug unique in the file; the screen's anchor and data-name", "pattern": "^[a-z0-9][a-z0-9-]*$", "examples": ["create-group", "account-menu-default"] },
-          "name": { "type": "string", "description": "Short label printed above the screen with its number", "examples": ["Admin, create group", "Explorer, account menu (one group)"] },
-          "app": { "type": "string", "description": "App slug from the vendored app-context; the assembler renders that app's header strip and refuses an unknown slug", "examples": ["administration", "explorer", "studio"] },
-          "chrome": { "type": "string", "description": "header renders the app header strip above the fragment; none renders the fragment alone", "enum": ["header", "none"] },
-          "width": { "type": "integer", "description": "Screen width in px, 240 to 720 (validator-enforced); 360 suits a form region, 320 a menu, 720 a page region" },
-          "caption": { "type": "string", "description": "One sentence under the screen naming the decision it shows", "examples": ["Single-group case: the badge is the whole answer, no extra click."] },
-          "html": { "type": "string", "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, no script, no external loads; see references/design-proposal/board-authoring.md", "examples": ["<div class=\"fm-page-header\"><div class=\"fm-page-header__title\">Create group</div></div>"] }
+          "id": { "type": "string", "description": "Slug unique in the file; the approach's anchor id and the key of its comparison cells", "pattern": "^[a-z0-9][a-z0-9-]*$", "examples": ["a", "role-badge"] },
+          "name": { "type": "string", "description": "Short name printed on the card and in the comparison header", "examples": ["Role badge"] },
+          "anchor": { "type": "object", "description": "The surface the approach is drawn inside; usually the same for every approach", "required": ["app", "surface"], "properties": { "app": { "type": "string", "description": "App slug from the vendored app-context; the assembler renders that app's header strip", "examples": ["explorer"] }, "surface": { "type": "string", "description": "The product surface in the product's words", "examples": ["account dropdown", "create group form"] } } },
+          "whatItIs": { "type": "string", "description": "One line: what the approach is", "examples": ["Each assigned group as a small pill under the name."] },
+          "breaksWhen": { "type": "string", "description": "One line: the case where it breaks", "examples": ["A user in many groups: the pills wrap into a paragraph."] },
+          "verdict": { "type": "string", "description": "A few words printed as a tag on the card", "examples": ["Scans well, scales to a few groups"] },
+          "screen": { "type": "object", "description": "The drawing: a Fat Marker fragment rendered at its width under the anchor app's header strip", "required": ["width", "html"], "properties": { "width": { "type": "integer", "description": "Drawing width in px, 240 to 720 (validator-enforced); 320 suits a menu, 360 a form region, 720 a page region", "minimum": 240, "examples": [320, 360, 720] }, "html": { "type": "string", "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, drawn in flow, no script, no external loads; see references/design-proposal/document-authoring.md", "examples": ["<div class=\"fm-menu\"><div class=\"fm-menu-item\">Support</div></div>"] } } },
+          "screens": { "type": "array", "description": "The screen list a flow of this approach would render, in generate-flow's screen-list shape; one to four entries", "minItems": 1, "items": { "type": "object", "description": "One screen the flow would author", "required": ["name", "template", "app"], "properties": { "name": { "type": "string", "description": "Screen name", "examples": ["Explorer catalog, account menu open"] }, "template": { "type": "string", "description": "A flow archetype from recipes/flow/_index.json (validator-checked)", "examples": ["overlay", "form-create", "detail-view"] }, "app": { "type": "string", "description": "App slug", "examples": ["explorer"] }, "entity": { "type": ["string", "null"], "description": "An app-context entity slug, or null when the screen has no primary entity", "examples": ["data-product", null] }, "note": { "type": "string", "description": "What this approach changes on the screen, for the flow's author", "examples": ["The account menu shows the role badge under the name."] } } } }
         }
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "description": "The approaches against criteria that come from the ticket's goal, the product's facts, or cost",
+      "required": ["criteria", "cells"],
+      "properties": {
+        "criteria": { "type": "array", "description": "Rows of the comparison table, in reading order", "minItems": 1, "items": { "type": "object", "description": "One criterion and where it comes from", "required": ["id", "label", "source"], "properties": { "id": { "type": "string", "description": "Slug unique among criteria; the key of the cells", "pattern": "^[a-z0-9][a-z0-9-]*$", "examples": ["multi-group"] }, "label": { "type": "string", "description": "The row label", "examples": ["Multiple groups (2 to 3)"] }, "source": { "type": "string", "description": "Why this criterion is here", "enum": ["ticket goal", "product fact", "cost"], "examples": ["product fact"] } } } },
+        "cells": { "type": "object", "description": "Keyed by approach id, then criterion id; each value is { text, tone } with tone one of good, mixed, bad (validator-enforced)" }
+      }
+    },
+    "recommendation": {
+      "type": "object",
+      "description": "Which approach to ship, why, and what changes",
+      "required": ["approachId", "summary", "reasons"],
+      "properties": {
+        "approachId": { "type": "string", "description": "The id of the recommended approach (validator-checked)", "examples": ["b"] },
+        "summary": { "type": "string", "description": "One paragraph: the recommendation and the case it covers", "examples": ["Ship the badge as the default; most accounts hold one group, so a glance answers the ticket."] },
+        "reasons": { "type": "array", "description": "Two to four reasons, printed as small cards", "minItems": 2, "items": { "type": "object", "description": "One reason", "required": ["title", "why"], "properties": { "title": { "type": "string", "description": "The reason in a few words", "examples": ["It is simple where simple is correct"] }, "why": { "type": "string", "description": "Two sentences", "examples": ["One group is the common case today. A badge costs one row and no interaction."] } } } },
+        "change": { "type": "object", "description": "The scope of the change, when it is two-sided", "properties": { "adminSide": { "type": "string", "description": "What changes for administrators", "examples": ["One optional Display name field on the group form."] }, "userSide": { "type": "string", "description": "What changes for users", "examples": ["The display name surfaces under the name in the account menu."] } } }
       }
     }
   }

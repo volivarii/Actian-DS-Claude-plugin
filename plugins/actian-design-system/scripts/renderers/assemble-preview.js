@@ -16,7 +16,7 @@
  *   flow          — INTERNAL strip renderer retained for streaming-fallback and
  *                   existing tests; NOT the canonical pipeline output.
  *                   (fm-flow.css, fm-html-map + flow-renderer)
- *   proposal      : design proposal board (authored FM screens with captions; assemble-proposal.js)
+ *   proposal      : design proposal document (context, research, approaches, comparison, recommendation; assemble-proposal.js)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
  *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
  *
@@ -232,7 +232,7 @@ function main() {
               name: "--type",
               required: true,
               description:
-                "Preview type. Canonical deliverables: flow-share (two-view encapsulated offline file), proposal (design proposal board). " +
+                "Preview type. Canonical deliverables: flow-share (two-view encapsulated offline file), proposal (design proposal document). " +
                 "Internal/fallback renderer: flow. Also: brief, presentation.",
             },
             {

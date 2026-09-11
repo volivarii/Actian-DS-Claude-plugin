@@ -56,7 +56,7 @@ The proven precedent: `/component-brief` Step 1.5 batches card selection + resea
 **Per-skill batching:**
 - `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
-- `/design-proposal`: 1 single gate, research skip or yes, before the concepts.
+- `/design-proposal`: no gate. Research runs by default; `--no-research` (or "skip research" in the request) turns it off and the document says so.
 
 ## Gate prompt shape
 
@@ -99,7 +99,7 @@ The downstream skill gate is the canonical UX. Companion's job is intent classif
 |---|---|---|
 | 1 ("design me X") | none | No — let skill gate everything |
 | 3 ("ship-ready X") | `--hifi` | Yes: append `--hifi --no-prompt` |
-| 4 ("alternatives", "three ways to do X") | `--concepts` | No: route to `/design-proposal X --concepts 3`, the skill gates (`--variants` stays on `/generate-flow` by explicit flag) |
+| 4 ("alternatives", "three ways to do X") | `--concepts` | No: route to `/design-proposal X --concepts 3`, no gate (`--variants` stays on `/generate-flow` by explicit flag) |
 | 9 ("match this style" + refs) | `--ref` | Conditional — only if no other intent missing |
 | 18 ("add empty + error states") | `--states` | Yes — append `--states empty,error --no-prompt` |
 | 20 ("responsive") | `--breakpoints` | Yes — append `--breakpoints tablet,mobile --no-prompt` |
@@ -125,6 +125,7 @@ This table is the source of truth for "what does the skill do when a flag is mis
 | `--fix <N\|all>` | `/design-audit` | skip |
 | `--concepts <N>` | `/design-proposal` | 3 |
 | `--from <path>` | `/design-proposal` | none (re-render an edited data file) |
+| `--no-research` | `/design-proposal` | off; `--no-prompt` implies it (research skipped, the document says so) |
 
 These match silent-default behavior pre-v1.63.0. No behavior change for automation that already passes flags.
 

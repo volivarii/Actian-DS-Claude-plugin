@@ -2,40 +2,121 @@
   "meta": {
     "title": "DIP-I-496: show role and permission for a logged-in user",
     "ticket": "DIP-I-496",
-    "date": "2026-09-09",
-    "apps": ["administration", "explorer"],
-    "prompt": "find a simple and elegant solution for showing a logged-in user their roles and permissions",
+    "date": "2026-09-11",
+    "apps": ["explorer", "administration"],
+    "prompt": "Propose a design for this ticket: DIP-I-496",
     "model": "claude-sonnet-5",
-    "skill": "design-proposal",
-    "recommendation": "<p>Ship the badge as the default, designed to grow into the My access panel: single-group users get the answer at a glance, multi-group users expand into the detail and its links.</p>"
+    "skill": "design-proposal"
   },
-  "screens": [
+  "context": {
+    "question": "How does a logged-in user see which permission group they belong to, and where its guidelines are?",
+    "product": "In Administration a permission group is a Group, and its name shows in the Users table, so an admin already sees who has what. A user can belong to more than one group, and a Steward group scopes its catalog access per catalog. The user never sees the group name, and some group names are technical, so the ticket asks for a separate display name set by an admin. The account menu in Explorer shows the avatar, the name, the email, Support and Logout.",
+    "sources": ["app-context: explorer chrome", "app-context: administration chrome", "attachment: DIP-I-496.pdf"],
+    "gap": "The account menu has no capture in app-context; its rows come from the attachment."
+  },
+  "research": {
+    "ran": true,
+    "findings": [
+      { "claim": "Account menus show the role as a secondary identity signal under the name, never above it.", "source": "SaaS Permissions and Roles UX Patterns, SaaSUI Design" },
+      { "claim": "The menu shows the compact signal; a profile page holds the full breakdown of scopes.", "source": "Managing roles and permissions, flow examples, Nicelydone" },
+      { "claim": "Multi-role products summarise the count and let the user drill in instead of listing every permission.", "source": "User permissions settings UX, setting.page" }
+    ]
+  },
+  "approaches": [
     {
-      "id": "create-group",
-      "name": "Admin, create group",
-      "app": "administration",
-      "chrome": "header",
-      "width": 400,
-      "caption": "One new optional field. Existing groups keep their name as the default display name.",
-      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Create group: Steward</div></div></div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group name</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div></div>\n<div style=\"border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:12px;margin:12px 0\">\n  <div class=\"fm-input-label\"><span style=\"display:flex;gap:6px;align-items:center\"><span class=\"fm-input-label__text\">Display name</span><span class=\"fm-badge\">New</span></span></div>\n  <div class=\"fm-input\"><span class=\"fm-input__text\">Data Steward</span></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);margin-top:6px\">Shown to users in their account menu. Defaults to the group name.</div>\n</div>\n<div class=\"fm-field-group\"><div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Group code</span></div><div class=\"fm-input\"><span class=\"fm-input__text\">data-steward</span></div></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>Catalog design</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;justify-content:space-between;align-items:center;padding:8px 0\"><span>User and group administration</span><span class=\"fm-toggle\"></span></div>\n<div style=\"display:flex;gap:8px;justify-content:flex-end;margin-top:16px\"><span class=\"fm-button fm-button--secondary\">Cancel</span><span class=\"fm-button fm-button--primary\">Create group</span></div>"
+      "id": "a",
+      "name": "Role line",
+      "anchor": { "app": "explorer", "surface": "account menu" },
+      "whatItIs": "One plain text line under the email, showing the group's display name.",
+      "breaksWhen": "A user in more than one group: one line cannot list several names without wrapping.",
+      "verdict": "Simple, caps at one group",
+      "screen": {
+        "width": 320,
+        "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px;font-size:12px\">Role: Data Steward <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+      },
+      "screens": [
+        { "name": "Explorer catalog, account menu open", "template": "overlay", "app": "explorer", "entity": null, "note": "The account menu shows one role line under the email." }
+      ]
     },
     {
-      "id": "account-menu-default",
-      "name": "Explorer, account menu (one group)",
-      "app": "explorer",
-      "chrome": "header",
-      "width": 360,
-      "caption": "Single-group case: the badge is the whole answer, no extra click.",
-      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Marketplace</div></div></div>\n<div style=\"position:relative;min-height:220px\">\n  <button class=\"fm-button fm-button--secondary\" data-toggle=\"menu-default\" style=\"position:absolute;top:0;right:12px\">VO</button>\n  <div id=\"menu-default\" class=\"fm-menu\" style=\"position:absolute;top:44px;right:12px;width:240px;z-index:2\">\n    <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n    <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 8px\">vincent.olivari@example.com</div>\n    <div style=\"padding:0 12px 8px\"><span class=\"fm-badge\">Data Steward</span></div>\n    <div class=\"fm-menu-item\">Support</div>\n    <div class=\"fm-menu-item\">Logout</div>\n  </div>\n</div>"
+      "id": "b",
+      "name": "Role badges",
+      "anchor": { "app": "explorer", "surface": "account menu" },
+      "whatItIs": "Each assigned group as a small pill under the email.",
+      "breaksWhen": "A user in many groups: the pills wrap into a paragraph.",
+      "verdict": "Scans well, scales to a few groups",
+      "screen": {
+        "width": 320,
+        "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><span class=\"fm-badge\">Data Steward</span> <span class=\"fm-badge\">Explorer</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+      },
+      "screens": [
+        { "name": "Explorer catalog, account menu open", "template": "overlay", "app": "explorer", "entity": null, "note": "The account menu shows one pill per assigned group under the email." }
+      ]
     },
     {
-      "id": "account-menu-expanded",
-      "name": "Explorer, account menu (several groups)",
-      "app": "explorer",
-      "chrome": "header",
-      "width": 360,
-      "caption": "Click My access to collapse or expand the scoped breakdown.",
-      "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">Marketplace</div></div></div>\n<div style=\"position:relative;min-height:360px\">\n  <button class=\"fm-button fm-button--secondary\" data-toggle=\"menu-expanded\" style=\"position:absolute;top:0;right:12px\">VO</button>\n  <div id=\"menu-expanded\" class=\"fm-menu\" style=\"position:absolute;top:44px;right:12px;width:260px;z-index:2\">\n    <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n    <div class=\"fm-menu-item\" data-toggle=\"access-panel\" style=\"font-weight:600\">My access: Data Steward +1</div>\n    <div id=\"access-panel\" style=\"margin:0 12px 8px;padding:8px;background:var(--fm-bg-grey);border-radius:var(--fm-radius)\">\n      <div style=\"font-size:12px;font-weight:600\">Data Steward</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">Finance catalog</div>\n      <div style=\"font-size:12px;font-weight:600;margin-top:8px\">Explorer</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">All other catalogs</div>\n    </div>\n    <div class=\"fm-menu-item\">Support</div>\n    <div class=\"fm-menu-item\">Logout</div>\n  </div>\n</div>"
+      "id": "c",
+      "name": "My access panel",
+      "anchor": { "app": "explorer", "surface": "account menu" },
+      "whatItIs": "A collapsible row that expands to every group, the catalogs it covers and a link to its guidelines.",
+      "breaksWhen": "One group, one catalog: the row is heavier than the answer needs.",
+      "verdict": "Full picture, costs one click",
+      "screen": {
+        "width": 320,
+        "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\">\n    <div class=\"fm-menu-item\" data-toggle=\"access-panel-c\" style=\"font-weight:600;padding:0\">My access: Data Steward +1 <span class=\"fm-badge\">New</span></div>\n    <div id=\"access-panel-c\" style=\"margin-top:8px;padding:8px;background:var(--fm-bg-grey);border-radius:var(--fm-radius)\">\n      <div style=\"font-size:12px;font-weight:600\">Data Steward</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">Finance catalog. View guidelines</div>\n      <div style=\"font-size:12px;font-weight:600;margin-top:8px\">Explorer</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">All other catalogs. View guidelines</div>\n    </div>\n  </div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+      },
+      "screens": [
+        { "name": "Explorer catalog, account menu open", "template": "overlay", "app": "explorer", "entity": null, "note": "The account menu shows a My access row that expands to the groups and their catalog scope." }
+      ]
     }
-  ]
+  ],
+  "comparison": {
+    "criteria": [
+      { "id": "literal-ask", "label": "Matches the ticket's literal ask", "source": "ticket goal" },
+      { "id": "single-group", "label": "One group, one catalog", "source": "product fact" },
+      { "id": "multi-group", "label": "Several groups (2 to 3)", "source": "product fact" },
+      { "id": "scoped", "label": "Permissions scoped per catalog", "source": "product fact" },
+      { "id": "guidelines", "label": "Finds the internal guidelines", "source": "ticket goal" },
+      { "id": "build-cost", "label": "Build cost", "source": "cost" }
+    ],
+    "cells": {
+      "a": {
+        "literal-ask": { "text": "Exact match", "tone": "good" },
+        "single-group": { "text": "Nothing simpler", "tone": "good" },
+        "multi-group": { "text": "The line wraps or gets crowded", "tone": "bad" },
+        "scoped": { "text": "Cannot express per catalog access", "tone": "bad" },
+        "guidelines": { "text": "No link surface", "tone": "bad" },
+        "build-cost": { "text": "Lowest: one text node", "tone": "good" }
+      },
+      "b": {
+        "literal-ask": { "text": "Close: same information, another form", "tone": "mixed" },
+        "single-group": { "text": "Ideal", "tone": "good" },
+        "multi-group": { "text": "Wraps into pills cleanly", "tone": "good" },
+        "scoped": { "text": "Group visible, per catalog access still hidden", "tone": "mixed" },
+        "guidelines": { "text": "Needs a click-through added to the badge", "tone": "mixed" },
+        "build-cost": { "text": "Low: a badge and the wrap rule", "tone": "good" }
+      },
+      "c": {
+        "literal-ask": { "text": "Close: one click deeper", "tone": "mixed" },
+        "single-group": { "text": "Heavier than needed", "tone": "mixed" },
+        "multi-group": { "text": "Lists cleanly, always readable", "tone": "good" },
+        "scoped": { "text": "Shows group and access per catalog", "tone": "good" },
+        "guidelines": { "text": "The link is built into the row", "tone": "good" },
+        "build-cost": { "text": "Moderate: panel state and data per catalog", "tone": "mixed" }
+      }
+    }
+  },
+  "recommendation": {
+    "approachId": "b",
+    "summary": "Ship the badges as the default under the name: for the many users who hold one group, that answers the ticket in the same glance as their email. When a user holds more than one group, or a group is scoped per catalog, the badge row becomes the way into the My access panel, so the detail exists when it is needed and never before.",
+    "reasons": [
+      { "title": "It is simple where simple is correct", "why": "One group is the common case today. A badge costs one row and no interaction, so the common case does not pay for the rare one." },
+      { "title": "It does not break as the data changes", "why": "Groups are multi-valued and scoped per catalog. A plain text line has no room to grow into that; badges wrap and open into the panel." },
+      { "title": "It finishes the ticket's request", "why": "The ticket asks for a way to find the internal guidelines. The panel gives every group its link without cluttering the default view." },
+      { "title": "It reuses what exists", "why": "Badge and expandable row are existing kit patterns, so no new kind of component, and the change sits inside the current account menu." }
+    ],
+    "change": {
+      "adminSide": "One optional Display name field on the create and edit group form, defaulting to the group name.",
+      "userSide": "That display name, or names, surfaces as badges under the name in the account menu, opening into the My access panel when there is more than one."
+    }
+  }
 }
