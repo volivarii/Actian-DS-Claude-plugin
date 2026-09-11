@@ -11,7 +11,9 @@
 
 const assert = require("node:assert");
 const fs = require("node:fs");
+const os = require("node:os");
 const path = require("node:path");
+const { describe, it } = require("node:test");
 const PATHS = require("../../scripts/lib/paths.js");
 
 const RECIPES_DIR = path.resolve(__dirname, "..", "..", "recipes");
@@ -86,6 +88,55 @@ function validateContentNode(node, nodePath) {
 
   return errors;
 }
+
+// Pure: an archetype's section role must equal the section file's own role.
+// entries is [role, slug] pairs (an archetype index's sections map,
+// flattened); readSection(slug) resolves the file's own {role, ...}. One
+// error string per pair whose file disagrees; empty when every pair agrees.
+function checkSectionRoles(entries, readSection) {
+  const errors = [];
+  for (const [role, slug] of entries) {
+    const section = readSection(slug);
+    if (section && section.role !== role) {
+      errors.push(
+        `section "${slug}" is mapped to role "${role}" but the file's own role is "${section.role}"`,
+      );
+    }
+  }
+  return errors;
+}
+
+module.exports = { checkSectionRoles };
+
+// The present-collection branch below cannot run on this branch's snapshot
+// (the sections collection is not vendored yet), so the join it performs is
+// proven here instead: a temp fixture with one matching and one mismatching
+// section file, read through the same readSection seam.
+describe("checkSectionRoles (Slice 6B follow-through)", function () {
+  it("flags a section whose own role disagrees with the archetype's role key; agreement flags nothing", function () {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "section-roles-"));
+    fs.writeFileSync(
+      path.join(dir, "item-header.json"),
+      JSON.stringify({ role: "header" }),
+    );
+    fs.writeFileSync(
+      path.join(dir, "facet-tabs.json"),
+      JSON.stringify({ role: "control-bar" }),
+    );
+    const readSection = (slug) =>
+      JSON.parse(fs.readFileSync(path.join(dir, `${slug}.json`), "utf8"));
+    const errors = checkSectionRoles(
+      [
+        ["header", "item-header"],
+        ["tabs", "facet-tabs"],
+      ],
+      readSection,
+    );
+    assert.deepStrictEqual(errors, [
+      'section "facet-tabs" is mapped to role "tabs" but the file\'s own role is "control-bar"',
+    ]);
+  });
+});
 
 // ── main ─────────────────────────────────────────────────────────────
 
@@ -235,6 +286,10 @@ for (const entry of index) {
       assert.ok(file && fs.existsSync(file), `archetype names section "${slug}" but the vendored collection has no ${slug}.json`);
     }
     assert.ok(named.size > 0, "no archetype names a section; the join is vacuous");
+    const roleEntries = [];
+    for (const entry of index) for (const pair of Object.entries(entry.sections || {})) roleEntries.push(pair);
+    const roleErrors = checkSectionRoles(roleEntries, (slug) => JSON.parse(fs.readFileSync(PATHS.appContextSections(slug), "utf8")));
+    assert.deepStrictEqual(roleErrors, [], roleErrors.join("; "));
   }
 }
 
