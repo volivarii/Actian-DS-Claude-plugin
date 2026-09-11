@@ -282,8 +282,8 @@ function sectionView(section, role, source) {
 function resolveSections(ctx) {
   var bySlug = ctx.bySlug || {};
   var out = [];
-  if (ctx.pageRecipe && Array.isArray(ctx.pageRecipe.sections) && ctx.pageRecipe.sections.length) {
-    ctx.pageRecipe.sections.forEach(function (slug) {
+  if (ctx.pageRecipe) {
+    (ctx.pageRecipe.sections || []).forEach(function (slug) {
       var s = bySlug[slug];
       if (s) out.push(sectionView(s, s.role, "capture"));
     });

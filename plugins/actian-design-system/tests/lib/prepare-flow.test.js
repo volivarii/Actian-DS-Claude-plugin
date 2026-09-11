@@ -471,6 +471,19 @@ describe("resolveSections (Slice 6B)", function () {
     assert.deepStrictEqual(prepare.resolveSections({ pageRecipe: null, archetypeRow: null, hasEntity: true, bySlug: SECTIONS }), []);
     assert.deepStrictEqual(prepare.resolveSections({ pageRecipe: null, archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: {} }), []);
   });
+
+  it("a captured screen keeps its own sections, even none; the role map never fills in for a present pageRecipe", function () {
+    var noneStamped = prepare.resolveSections({
+      pageRecipe: { slug: "right-sliding-drawer", sections: [] },
+      archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: SECTIONS,
+    });
+    assert.deepStrictEqual(noneStamped, []);
+    var noKey = prepare.resolveSections({
+      pageRecipe: { slug: "right-sliding-drawer" },
+      archetypeRow: DETAIL_ROW, hasEntity: true, bySlug: SECTIONS,
+    });
+    assert.deepStrictEqual(noKey, []);
+  });
 });
 
 describe("prepareFlow carries sections (Slice 6B)", function () {
