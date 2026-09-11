@@ -34,6 +34,16 @@ are summarized at the release level.
 
 ### Changed
 
+- **A design proposal is a reasoned document.** ([#374](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/374)) `/design-proposal` writes where the ticket lives
+  today (from the app context and whatever the request attaches), what comparable products do
+  (research on by default, bounded to two searches and five findings, `--no-research` to skip), two to
+  four approaches drawn in flow inside the surface the ticket lives on with a verdict each, a
+  comparison table on criteria from the ticket's goal, the product's facts or cost, and a
+  recommendation with its reasons and the scope of the change. The research question is gone. The
+  validator runs its terminology and avoid-word gates over every text field and flags an absolutely
+  positioned drawing; the frame no longer clips. Every approach carries the screen list a flow of it
+  would render, the bridge to `/generate-flow` that lands after the demo.
+
 - **A generate-flow run reads one brief instead of the substrate's prose.** ([#370](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/370)) `prepare-flow.js`
   joins the chrome, patterns, use cases, entity properties, relationships, the captured page recipe or
   archetype per screen, and the property rules of the components each screen needs, into
