@@ -1425,3 +1425,45 @@ describe("resolve-patterns (entity join)", function () {
     }
   });
 });
+
+describe("loadSections (captured sections, Slice 6B)", function () {
+  it("returns an injected index as-is and never touches the vendor tree", function () {
+    var injected = [{ slug: "item-header", role: "header", skeleton: { content: [] } }];
+    assert.deepStrictEqual(resolver.loadSections(injected), injected);
+    assert.deepStrictEqual(resolver.loadSections("nope"), []);
+  });
+
+  it("degrades to none, with a stderr line naming the sections collection, when the manifest declares none", function () {
+    var saved = PATHS.appContextSections;
+    var savedWrite = process.stderr.write;
+    var captured = "";
+    process.stderr.write = function (s) { captured += s; return true; };
+    try {
+      delete PATHS.appContextSections;
+      resolver._resetSectionCache();
+      assert.deepStrictEqual(resolver.loadSections(), []);
+      assert.ok(/sections collection/.test(captured), "stderr must say the SECTIONS collection is missing, got: " + captured);
+    } finally {
+      process.stderr.write = savedWrite;
+      if (saved !== undefined) PATHS.appContextSections = saved;
+      resolver._resetSectionCache();
+    }
+  });
+
+  it("reads the vendored sections when the snapshot declares the collection", function () {
+    if (typeof PATHS.appContextSections !== "function") {
+      console.log("  (sections collection not vendored yet: real-data assertions skipped, unit seams cover the loader)");
+      return;
+    }
+    resolver._resetSectionCache();
+    var all = resolver.loadSections();
+    assert.ok(all.length > 0, "the vendored substrate declares a sections collection but it is empty");
+    all.forEach(function (s) {
+      assert.strictEqual(s.kind, "section", s.slug + " must be kind section");
+      assert.ok(Array.isArray(s.skeleton && s.skeleton.content), s.slug + " must carry skeleton.content[]");
+      assert.ok(typeof s.role === "string", s.slug + " must carry a role");
+    });
+    var by = resolver.sectionsBySlug(all);
+    assert.ok(by["item-header"], "item-header must be among the vendored sections");
+  });
+});

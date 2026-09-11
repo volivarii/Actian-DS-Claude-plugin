@@ -247,6 +247,73 @@ function loadPageRecipes(pageRecipeIndex) {
   return _pageRecipeCache;
 }
 
+// Captured sections (Slice 6B): the parts a page repeats, published by
+// knowledge under the appContextSections collection. Same three-way guard
+// as loadPageRecipes and the same rule: an unreadable or undeclared
+// collection is a SNAPSHOT fact, said once on stderr, never "no sections".
+var _sectionCache = null;
+var _sectionWarned = false;
+function warnSectionsOnce(message) {
+  if (_sectionWarned) return;
+  _sectionWarned = true;
+  process.stderr.write(message);
+}
+function loadSections(sectionIndex) {
+  if (sectionIndex !== undefined) {
+    return Array.isArray(sectionIndex) ? sectionIndex : [];
+  }
+  if (_sectionCache) return _sectionCache;
+  var dir;
+  try {
+    if (typeof PATHS.appContextSections !== "function") {
+      throw new Error("this vendor snapshot declares no sections collection");
+    }
+    var probe = PATHS.appContextSections("_");
+    if (typeof probe !== "string" || !probe) {
+      throw new Error("the sections collection cannot address a member");
+    }
+    dir = path.dirname(probe);
+  } catch (e) {
+    warnSectionsOnce(
+      "resolve-patterns: cannot locate the captured sections (" + e.message +
+        "); none will be offered. That is a SNAPSHOT or MANIFEST problem, not " +
+        "an absence of captures.\n",
+    );
+    return [];
+  }
+  var files;
+  try {
+    files = fs.readdirSync(dir);
+  } catch (e) {
+    warnSectionsOnce(
+      "resolve-patterns: cannot read " + dir + " (" + e.message +
+        "); no captured sections will be offered\n",
+    );
+    return [];
+  }
+  var out = [];
+  files
+    .filter(function (f) { return /\.json$/.test(f); })
+    .forEach(function (f) {
+      try {
+        out.push(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")));
+      } catch (e) {
+        process.stderr.write(
+          "resolve-patterns: skipping unparseable section " + f + " (" + e.message + ")\n",
+        );
+      }
+    });
+  _sectionCache = out;
+  return _sectionCache;
+}
+function sectionsBySlug(list) {
+  var by = {};
+  (Array.isArray(list) ? list : []).forEach(function (s) {
+    if (s && typeof s.slug === "string") by[s.slug] = s;
+  });
+  return by;
+}
+
 // Trim + lowercase, so the pattern side of the join is compared on the same
 // footing as the app side. Comparing slugs verbatim while normalizing apps meant
 // a capture authoring "Faceted-Browse" joined nothing, and a library caller of
@@ -603,6 +670,13 @@ module.exports = {
     _pageRecipeCache = null;
     _pageRecipeWarned = false;
     _pageRecipeDegraded = false;
+  },
+  loadSections: loadSections,
+  sectionsBySlug: sectionsBySlug,
+  // Test seam, mirrors _resetPageRecipeCache: the cache is process-lifetime.
+  _resetSectionCache: function () {
+    _sectionCache = null;
+    _sectionWarned = false;
   },
   patternSlugsFor: patternSlugsFor,
   selectPageRecipe: selectPageRecipe,
