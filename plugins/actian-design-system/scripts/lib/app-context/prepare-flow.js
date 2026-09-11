@@ -247,14 +247,20 @@ function loadPageRecipe(slug) {
 // generic list or form has no item to head.
 var ENTITY_ROLES = { header: true, tabs: true, aside: true };
 
-function loadArchetypeRow(archetypeId) {
-  if (!archetypeId) return null;
+// _index.json parsed once per brief (loadArchetype still re-reads it per
+// screen for its own selection lookup; that read is out of this fix's
+// scope). archetypeRowFromIndex is the pure row lookup against it.
+function loadArchetypeIndex() {
   try {
-    var idx = JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
-    return idx.filter(function (r) { return r.archetype === archetypeId; })[0] || null;
+    return JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
   } catch (e) {
     return null;
   }
+}
+
+function archetypeRowFromIndex(idx, archetypeId) {
+  if (!archetypeId || !Array.isArray(idx)) return null;
+  return idx.filter(function (r) { return r.archetype === archetypeId; })[0] || null;
 }
 
 // roots names a section's top-level nodes for both paths. content is the
@@ -350,6 +356,8 @@ function prepareFlow(options) {
   var entityComponents = entity ? patterns.resolveEntityComponents(entity, ctx) || [] : [];
   var join = entity ? patterns.entityJoinState(ctx) : null;
   var entityPatternSlugs = entityPatterns.map(function (p) { return p.slug; });
+  var archetypeIndex = loadArchetypeIndex();
+  var sectionsBySlugMap = patterns.sectionsBySlug(patterns.loadSections());
 
   var labels = uniq(
     (chromeOut && chromeOut.sidebar ? chromeOut.sidebar.map(function (s) { return s.label; }) : [])
@@ -404,9 +412,9 @@ function prepareFlow(options) {
     var pageRecipe = p ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app)) : null;
     var sections = resolveSections({
       pageRecipe: pageRecipe,
-      archetypeRow: archetype ? loadArchetypeRow(archetype.archetype) : null,
+      archetypeRow: archetype ? archetypeRowFromIndex(archetypeIndex, archetype.archetype) : null,
       hasEntity: !!entity,
-      bySlug: patterns.sectionsBySlug(patterns.loadSections()),
+      bySlug: sectionsBySlugMap,
     });
     var hasHeaderSection = sections.some(function (s) { return s.role === "header"; });
     if (hasHeaderSection && archetype && archetype.skeleton && archetype.skeleton.pageHeader) {
