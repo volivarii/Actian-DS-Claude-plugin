@@ -341,3 +341,25 @@ describe("Pattern 14 + Pattern 9 module exports", function () {
     assert.strictEqual(typeof mod.pickClosestEdge, "function");
   });
 });
+
+describe("design-proposal is a document, not a gated board", function () {
+  var skill = fs.readFileSync(path.join(PLUGIN_ROOT, "skills", "design-proposal", "SKILL.md"), "utf8");
+  it("asks no research question and names --no-research", function () {
+    assert.ok(skill.indexOf("Research patterns before proposing?") === -1, "the gate question is gone");
+    assert.ok(skill.indexOf("--no-research") !== -1, "the flag is documented");
+  });
+  it("stays under 150 lines and keeps the plugin-root block", function () {
+    assert.ok(skill.split("\n").length < 150, "line count");
+    assert.ok(skill.indexOf("<!-- plugin-root:begin -->") !== -1 && skill.indexOf("<!-- plugin-root:end -->") !== -1);
+  });
+  it("names references that exist and no retired one", function () {
+    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "references", "design-proposal", "document-authoring.md")));
+    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "references", "design-proposal", "board-authoring.md")));
+    assert.ok(skill.indexOf("board-authoring.md") === -1);
+    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "templates", "proposal-document.html")));
+  });
+  it("the gate reference no longer lists the proposal as gated", function () {
+    var gates = fs.readFileSync(path.join(PLUGIN_ROOT, "references", "ds-rules", "interactive-gates.md"), "utf8");
+    assert.ok(gates.indexOf("1 single gate, research skip or yes") === -1, gates.split("\n").filter(function (l) { return l.indexOf("design-proposal") !== -1; }).join("\n"));
+  });
+});

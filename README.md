@@ -177,7 +177,7 @@ Every capability is also available as a direct command. Use these when you know 
 | Command | What it does |
 |---------|-------------|
 | `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
-| `/design-proposal` | Propose: concepts with a recommendation, then a Fat Marker board (screens at their own width, a caption each, app header strips from app-context). HTML only, opens offline; for component-scale tickets. |
+| `/design-proposal` | Propose: a reasoned document (where the ticket lives today, what comparable products do, two to four approaches drawn inside the surface the ticket lives on, a comparison, a recommendation with reasons). HTML only, opens offline; for component-scale tickets. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
 **Supporting:**
@@ -324,7 +324,7 @@ actian-design-system-plugin/
 │   │   ├── generate-flow/                 # skill-specific
 │   │   └── design-proposal/               # skill-specific
 │   ├── schemas/                           # JSON schemas (brief-data, flow-data, proposal-data, slide-data)
-│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer, proposal-board)
+│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer, proposal-document)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs
