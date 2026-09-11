@@ -240,7 +240,69 @@ function loadPageRecipe(slug) {
   var all = patterns.loadPageRecipes();
   var r = all.filter(function (x) { return x && x.slug === slug; })[0];
   if (!r) return null;
-  return { slug: r.slug, label: r.label, slots: r.slots || null, renderNotes: r.renderNotes || [], skeleton: r.skeleton || null };
+  return { slug: r.slug, label: r.label, slots: r.slots || null, renderNotes: r.renderNotes || [], skeleton: r.skeleton || null, sections: Array.isArray(r.sections) ? r.sections : [] };
+}
+
+// Roles a section can only fill when the screen is about one entity: a
+// generic list or form has no item to head.
+var ENTITY_ROLES = { header: true, tabs: true, aside: true };
+
+// _index.json parsed once per brief (loadArchetype still re-reads it per
+// screen for its own selection lookup; that read is out of this fix's
+// scope). archetypeRowFromIndex is the pure row lookup against it.
+function loadArchetypeIndex() {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
+  } catch (e) {
+    return null;
+  }
+}
+
+function archetypeRowFromIndex(idx, archetypeId) {
+  if (!archetypeId || !Array.isArray(idx)) return null;
+  return idx.filter(function (r) { return r.archetype === archetypeId; })[0] || null;
+}
+
+// roots names a section's top-level nodes for both paths. content is the
+// nodes themselves, but only on the archetype path: a captured page recipe
+// already carries this section's skeleton inlined in its own content, so
+// repeating it here would ship the same bytes twice.
+function sectionView(section, role, source) {
+  var content = section.skeleton && Array.isArray(section.skeleton.content) ? section.skeleton.content : [];
+  return {
+    slug: section.slug,
+    role: role,
+    label: section.label || section.slug,
+    slots: section.slots || null,
+    renderNotes: Array.isArray(section.renderNotes) ? section.renderNotes : [],
+    roots: content.map(function (n) { return (n && n.name) || (n && n.type) || ""; }),
+    content: source === "archetype" ? content : null,
+    source: source,
+  };
+}
+
+// Pure: which sections a screen is made of. A captured page recipe already
+// has them inlined and lists them in `sections`; an archetype names them by
+// role. Both resolve against the vendored collection; a slug the collection
+// lacks is skipped (the snapshot may predate the section).
+function resolveSections(ctx) {
+  var bySlug = ctx.bySlug || {};
+  var out = [];
+  if (ctx.pageRecipe) {
+    (ctx.pageRecipe.sections || []).forEach(function (slug) {
+      var s = bySlug[slug];
+      if (s) out.push(sectionView(s, s.role, "capture"));
+    });
+    return out;
+  }
+  var row = ctx.archetypeRow;
+  if (!row || !row.sections || typeof row.sections !== "object") return out;
+  Object.keys(row.sections).forEach(function (role) {
+    if (ENTITY_ROLES[role] && !ctx.hasEntity) return;
+    var s = bySlug[row.sections[role]];
+    if (s) out.push(sectionView(s, role, "archetype"));
+  });
+  return out;
 }
 
 function uniq(list) {
@@ -294,6 +356,8 @@ function prepareFlow(options) {
   var entityComponents = entity ? patterns.resolveEntityComponents(entity, ctx) || [] : [];
   var join = entity ? patterns.entityJoinState(ctx) : null;
   var entityPatternSlugs = entityPatterns.map(function (p) { return p.slug; });
+  var archetypeIndex = loadArchetypeIndex();
+  var sectionsBySlugMap = patterns.sectionsBySlug(patterns.loadSections());
 
   var labels = uniq(
     (chromeOut && chromeOut.sidebar ? chromeOut.sidebar.map(function (s) { return s.label; }) : [])
@@ -345,12 +409,28 @@ function prepareFlow(options) {
         defaultTrueBooleans: r.defaultTrueBooleans.map(stripPropId),
       };
     });
+    var pageRecipe = p ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app)) : null;
+    var sections = resolveSections({
+      pageRecipe: pageRecipe,
+      archetypeRow: archetype ? archetypeRowFromIndex(archetypeIndex, archetype.archetype) : null,
+      hasEntity: !!entity,
+      bySlug: sectionsBySlugMap,
+    });
+    var hasHeaderSection = sections.some(function (s) { return s.role === "header"; });
+    if (hasHeaderSection && archetype && archetype.skeleton && archetype.skeleton.pageHeader) {
+      // Enforced by data, not by agent text: with the product's item header
+      // in the slice there is no generic header left to copy.
+      archetype = Object.assign({}, archetype, {
+        skeleton: Object.assign({}, archetype.skeleton, { pageHeader: null }),
+      });
+    }
     return {
       name: s.name,
       template: s.template,
       pattern: p ? { slug: p.slug, label: p.label } : null,
       archetype: archetype,
-      pageRecipe: p ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app)) : null,
+      pageRecipe: pageRecipe,
+      sections: sections,
       components: components,
       propertyRules: propertyRules,
     };
@@ -371,6 +451,10 @@ function prepareFlow(options) {
     join: join,
     labels: labels,
     screens: screens,
+    sectionsByScreen: screens.reduce(function (acc, s) {
+      acc[s.name] = s.sections.map(function (x) { return { slug: x.slug, role: x.role, roots: x.roots }; });
+      return acc;
+    }, {}),
   };
 }
 
@@ -444,7 +528,7 @@ function main(argv) {
   return 0;
 }
 
-module.exports = { prepareFlow: prepareFlow, pickPattern: pickPattern, tokens: tokens, sliceBrief: sliceBrief, main: main };
+module.exports = { prepareFlow: prepareFlow, pickPattern: pickPattern, tokens: tokens, sliceBrief: sliceBrief, resolveSections: resolveSections, main: main };
 
 if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));
