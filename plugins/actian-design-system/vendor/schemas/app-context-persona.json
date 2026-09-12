@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-persona.json",
+  "title": "App-context persona (per-record frontmatter)",
+  "description": "Frontmatter of app-context/src/personas/<slug>.md. A persona is one role that uses the products. Its `apps` is the only authored statement of which personas use an app: each app's `users` is derived from it, and a use case's `audience` must name a persona label scoped to that app. The prose `description` lives in the markdown body, not here.",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "slug",
+    "label",
+    "apps"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier for the persona; used as the filename (minus .md) and the graph node id (persona:<slug>).",
+      "examples": [
+        "data-steward",
+        "business-user"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The persona's name as the use cases say it. A use case's `audience` must match it exactly, and no two personas may share one.",
+      "examples": [
+        "Data steward",
+        "Business user"
+      ]
+    },
+    "apps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "App slugs this persona works in. The only place that says so: each app's `users` list is derived from these.",
+      "examples": [
+        [
+          "studio"
+        ],
+        [
+          "explorer"
+        ]
+      ]
+    },
+    "permissionGroup": {
+      "enum": [
+        "Explorer",
+        "Data Steward",
+        "Super Admin"
+      ],
+      "description": "The product permission group this persona is given, as named in app-context/src/entities/user-group.md. Omit until a source says which one. Adding a group is a deliberate edit to this list.",
+      "examples": [
+        "Data Steward"
+      ]
+    },
+    "literacy": {
+      "enum": [
+        "technical",
+        "business"
+      ],
+      "description": "How the persona reads data vocabulary: `technical` reads schema, lineage and pipeline terms unaided; `business` needs them explained in plain words. Omit until sourced.",
+      "examples": [
+        "technical"
+      ]
+    },
+    "frequency": {
+      "enum": [
+        "daily",
+        "occasional"
+      ],
+      "description": "How often the persona uses the product: `daily` works in it as part of the job; `occasional` comes in for a specific task. Omit until sourced.",
+      "examples": [
+        "daily"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Where this record's facts come from: repo paths, research references, or a plain statement such as a general role definition, so a reader can tell product research from a definition.",
+      "examples": [
+        [
+          "app-context/src/apps/studio.md",
+          "General role definition, not Actian user research"
+        ]
+      ]
+    }
+  }
+}

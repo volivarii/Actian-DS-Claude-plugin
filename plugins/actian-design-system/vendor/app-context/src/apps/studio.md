@@ -39,13 +39,6 @@ useCases:
 
 Data governance, catalog management, stewardship, lineage, glossary admin, metadata enrichment
 
-## Users
-
-- Data steward
-- Data engineer
-- Data architect
-- Domain expert
-
 ## Signals
 
 - steward

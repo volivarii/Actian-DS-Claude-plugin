@@ -9,7 +9,8 @@
     "apps",
     "entities",
     "terminology",
-    "patterns"
+    "patterns",
+    "personas"
   ],
   "additionalProperties": false,
   "properties": {
@@ -145,6 +146,39 @@
       "additionalProperties": {
         "$ref": "#/$defs/pattern"
       }
+    },
+    "personas": {
+      "type": "object",
+      "description": "Catalogue of the roles that use the products, keyed by persona slug. A persona's `apps` is the only authored statement of who uses an app: each app's `users` is derived from it, and each persona's `useCases` is joined from the app use cases whose audience names its label.",
+      "examples": [
+        {
+          "data-steward": {
+            "label": "Data steward",
+            "apps": [
+              "studio"
+            ],
+            "permissionGroup": "Data Steward",
+            "sources": [
+              "app-context/src/apps/studio.md"
+            ],
+            "description": "Looks after the quality, meaning and correct use of an organization's data.",
+            "useCases": [
+              {
+                "app": "studio",
+                "jobs": [
+                  "Govern and curate the catalog"
+                ],
+                "patterns": [
+                  "asset-detail-360"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "additionalProperties": {
+        "$ref": "#/$defs/persona"
+      }
     }
   },
   "$defs": {
@@ -229,7 +263,7 @@
           "items": {
             "type": "string"
           },
-          "description": "Primary user roles served by this app.",
+          "description": "Labels of the personas whose `apps` include this app, sorted. Derived from app-context/src/personas/, never authored in the app file.",
           "examples": [
             [
               "Data steward",
@@ -651,6 +685,138 @@
           "description": "Selection guidance: when this shape applies and which neighbouring shape to use instead. Absent where the running product has not been observed closely enough to say, which is deliberate: an absent `when` is a visible gap and an invented one is not.",
           "examples": [
             "Use when the user narrows a large collection by several independent facets at once. Do not use search-filtered-table, which is explicitly the single-search-no-facets case."
+          ]
+        }
+      }
+    },
+    "persona": {
+      "type": "object",
+      "description": "One role that uses the products.",
+      "required": [
+        "label",
+        "apps",
+        "description",
+        "useCases"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "The persona's name; a use case's audience matches it exactly.",
+          "examples": [
+            "Data steward",
+            "Business user"
+          ]
+        },
+        "apps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "App slugs (from the `apps` map) this persona works in.",
+          "examples": [
+            [
+              "studio"
+            ]
+          ]
+        },
+        "permissionGroup": {
+          "type": "string",
+          "description": "The product permission group the persona is given. The allowed values are enforced on the source by schemas/app-context-persona.json.",
+          "examples": [
+            "Data Steward"
+          ]
+        },
+        "literacy": {
+          "type": "string",
+          "description": "`technical` or `business`. Absent until sourced.",
+          "examples": [
+            "technical"
+          ]
+        },
+        "frequency": {
+          "type": "string",
+          "description": "`daily` or `occasional`. Absent until sourced.",
+          "examples": [
+            "daily"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Where the record's facts come from.",
+          "examples": [
+            [
+              "app-context/src/apps/studio.md",
+              "General role definition, not Actian user research"
+            ]
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "Prose definition of the role, from the markdown body.",
+          "examples": [
+            "Looks after the quality, meaning and correct use of an organization's data."
+          ]
+        },
+        "useCases": {
+          "type": "array",
+          "description": "Derived: every app use case whose audience names this persona, with the app it belongs to, in app-slug then authored order.",
+          "items": {
+            "type": "object",
+            "required": [
+              "app",
+              "jobs"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "app": {
+                "type": "string",
+                "description": "Slug of the app the use case belongs to.",
+                "examples": [
+                  "studio"
+                ]
+              },
+              "jobs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The use case's jobs, as authored on the app.",
+                "examples": [
+                  [
+                    "Govern and curate the catalog"
+                  ]
+                ]
+              },
+              "patterns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The use case's pattern slugs, present when the app names any.",
+                "examples": [
+                  [
+                    "asset-detail-360"
+                  ]
+                ]
+              }
+            }
+          },
+          "examples": [
+            [
+              {
+                "app": "studio",
+                "jobs": [
+                  "Govern and curate the catalog"
+                ],
+                "patterns": [
+                  "asset-detail-360"
+                ]
+              }
+            ]
           ]
         }
       }

@@ -18,6 +18,7 @@
     "entity": "https://ds.actian.com/id/entity/",
     "term": "https://ds.actian.com/id/term/",
     "pattern": "https://ds.actian.com/id/pattern/",
+    "persona": "https://ds.actian.com/id/persona/",
 
     "Component": "actian-ds:Component",
     "Category": "actian-ds:Category",
@@ -28,6 +29,7 @@
     "App": "actian-ds:App",
     "DomainEntity": "actian-ds:DomainEntity",
     "UXPattern": "actian-ds:UXPattern",
+    "Persona": "actian-ds:Persona",
     "Term": "skos:Concept",
     "Edge": "actian-ds:Edge",
 

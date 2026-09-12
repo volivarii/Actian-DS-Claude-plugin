@@ -5594,6 +5594,42 @@
       "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile."
     },
     {
+      "id": "persona:administrator",
+      "type": "persona",
+      "title": "Administrator",
+      "description": "Configures and operates the platform for everyone else: users and groups, sign-in and permissions, connections, scanners and system settings. An administrator is responsible for the product being available, secure and correctly set up, rather than for what the catalog contains. Also referred to as IT operations.\n\nIn the product the administrator works in Administration: configuring connections and scanners, managing users, groups and permissions, and setting governance policies and maintenance windows."
+    },
+    {
+      "id": "persona:analyst",
+      "type": "persona",
+      "title": "Analyst",
+      "description": "Turns data into answers: explores datasets, builds reports and dashboards, and checks whether figures can be trusted before sharing them. An analyst needs to know where data comes from, what its fields mean, and how complete and current it is.\n\nIn the product the analyst works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data a question needs, and asking AI for help finding and understanding data."
+    },
+    {
+      "id": "persona:business-user",
+      "type": "persona",
+      "title": "Business user",
+      "description": "Someone whose work depends on data but whose job is not data itself, such as a marketing lead, a finance controller or an operations manager. A business user wants to find data they can trust, understand what it means in business terms, and get access to it without needing to know how it is produced. Also referred to as a data consumer.\n\nIn the product the business user works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data they need, and asking AI for help finding and understanding data."
+    },
+    {
+      "id": "persona:data-architect",
+      "type": "persona",
+      "title": "Data architect",
+      "description": "Designs how an organization's data is structured and related: the models, the relationships between concepts, and the standards other teams build on. A data architect cares about consistency across domains more than about any single dataset.\n\nIn the product the architect works in Studio: governing and curating the catalog, managing lineage and the business glossary, and enriching metadata and designing catalog structure."
+    },
+    {
+      "id": "persona:data-engineer",
+      "type": "persona",
+      "title": "Data engineer",
+      "description": "Builds and runs the systems that move and prepare data: connections to sources, ingestion and transformation pipelines, and the technical metadata those systems produce. A data engineer is responsible for data arriving reliably and in the expected shape.\n\nIn the product the engineer works in Studio: importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity."
+    },
+    {
+      "id": "persona:data-steward",
+      "type": "persona",
+      "title": "Data steward",
+      "description": "Looks after the quality, meaning and correct use of an organization's data. A data steward documents assets, keeps definitions and the business glossary consistent, names the people responsible for each item, and weighs who should be allowed to use what.\n\nIn the product the steward works in Studio: governing and curating the catalog, managing lineage and the business glossary, enriching metadata and designing catalog structure, importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity."
+    },
+    {
       "id": "term:access-request-policy",
       "type": "terminology_term",
       "title": "Access Request Policy",
@@ -10564,6 +10600,72 @@
         "source_file": "app-context/dist/app-context.json",
         "deriver": "derive-graph.js",
         "method": "patterns.apps"
+      }
+    },
+    {
+      "source": "persona:administrator",
+      "target": "app:administration",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
+      }
+    },
+    {
+      "source": "persona:analyst",
+      "target": "app:explorer",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
+      }
+    },
+    {
+      "source": "persona:business-user",
+      "target": "app:explorer",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
+      }
+    },
+    {
+      "source": "persona:data-architect",
+      "target": "app:studio",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
+      }
+    },
+    {
+      "source": "persona:data-engineer",
+      "target": "app:studio",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
+      }
+    },
+    {
+      "source": "persona:data-steward",
+      "target": "app:studio",
+      "type": "in_app",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "app-context/dist/app-context.json",
+        "deriver": "derive-graph.js",
+        "method": "personas.apps"
       }
     },
     {

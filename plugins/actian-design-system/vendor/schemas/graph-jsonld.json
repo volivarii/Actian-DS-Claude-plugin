@@ -65,7 +65,8 @@
                   "DomainEntity",
                   "Term",
                   "App",
-                  "UXPattern"
+                  "UXPattern",
+                  "Persona"
                 ]
               }
             },
