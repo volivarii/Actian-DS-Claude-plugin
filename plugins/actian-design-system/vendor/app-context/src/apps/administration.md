@@ -23,7 +23,7 @@ sidebar:
   - label: Maintenance mode
     id: maintenance-mode
 useCases:
-  - audience: [Administrator, IT operations]
+  - audience: [Administrator]
     jobs:
       - Configure connections and scanners
       - Manage users, groups and permissions
@@ -34,11 +34,6 @@ useCases:
 ## Purpose
 
 User management, connections, catalog configuration, system settings
-
-## Users
-
-- Admin
-- IT ops
 
 ## Signals
 

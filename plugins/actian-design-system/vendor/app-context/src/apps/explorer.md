@@ -7,7 +7,7 @@ header:
   type: Explorer
 sidebar: []
 useCases:
-  - audience: [Business user, Analyst, Data consumer]
+  - audience: [Business user, Analyst]
     jobs:
       - Discover and browse data products in the marketplace
       - Understand an asset before using it
@@ -19,12 +19,6 @@ useCases:
 ## Purpose
 
 Data marketplace, discovery, consumption, business glossary browsing, data product access
-
-## Users
-
-- Business user
-- Analyst
-- Data consumer
 
 ## Signals
 

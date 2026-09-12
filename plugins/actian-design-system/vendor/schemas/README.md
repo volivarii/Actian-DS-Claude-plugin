@@ -17,7 +17,7 @@ JSON Schemas (draft 2020-12) for artifacts in this knowledge repo. Surfaces:
 | `guideline-meta.json` | `components/src/<slug>/_meta.yml` (per-component metadata + domain status matrix) | Yes, post-derive |
 | `guideline-tokens.json` | `components/src/<slug>/tokens.yml` (component-specific token bindings) | Yes, post-derive |
 | `guideline-component.json` | `components/dist/guidelines/<slug>.json` (CI-derived merged multi-domain guideline object) | Yes, post-derive |
-| `app-context.json` | `app-context/app-context.json` (Class C — apps, entities, terminology, patterns) | Yes, on every PR |
+| `app-context.json` | `app-context/app-context.json` (Class C — apps, entities, terminology, patterns, personas) | Yes, on every PR |
 | `icon-groups.json` | `components/src/icon-groups.json` (Class C — semantic icon groups, key-order is meaningful) | Yes, on every PR |
 
 ## Class C — hand-maintained JSON
