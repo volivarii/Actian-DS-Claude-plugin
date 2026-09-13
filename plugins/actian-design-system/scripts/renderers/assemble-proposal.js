@@ -119,12 +119,16 @@ function comparisonHtml(cmp, approaches) {
   return section("How they compare", '<table class="compare"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table>");
 }
 
-function recommendationHtml(rec, approaches) {
+function recommendationLeadHtml(rec, approaches) {
   var pick = null;
   approaches.forEach(function (a) { if (a.id === rec.approachId) pick = a; });
   if (!pick) throw new Error('proposal-data: recommendation.approachId "' + rec.approachId + '" names no approach');
   var inner = '<p class="rec__pick">Recommendation</p><h2>' + esc(pick.name) + "</h2><p>" + esc(rec.summary) + "</p>";
-  inner += '<div class="rec__reasons">' + rec.reasons.map(function (r) {
+  return section("", inner, "doc__section--rec");
+}
+
+function recommendationDetailHtml(rec) {
+  var inner = '<div class="rec__reasons">' + rec.reasons.map(function (r) {
     return '<div class="rec__reason"><b>' + esc(r.title) + "</b>" + esc(r.why) + "</div>";
   }).join("") + "</div>";
   if (rec.change && (rec.change.adminSide || rec.change.userSide)) {
@@ -134,7 +138,7 @@ function recommendationHtml(rec, approaches) {
     if (rec.change.userSide) inner += "<b>User side.</b> " + esc(rec.change.userSide);
     inner += "</p>";
   }
-  return section("", inner, "doc__section--rec");
+  return section("Why this one, and what it changes", inner);
 }
 
 function footerHtml(meta, pick) {
@@ -153,11 +157,12 @@ function assembleProposal(data) {
   var pick = null;
   data.approaches.forEach(function (a) { if (a.id === data.recommendation.approachId) pick = a; });
   var sections =
+    recommendationLeadHtml(data.recommendation, data.approaches) +
     contextHtml(data.context) +
     researchHtml(data.research) +
     section("Approaches", '<div class="approaches">' + approaches + "</div>") +
     comparisonHtml(data.comparison, data.approaches) +
-    recommendationHtml(data.recommendation, data.approaches) +
+    recommendationDetailHtml(data.recommendation) +
     footerHtml(meta, pick);
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]
     .filter(Boolean).join("  ·  ");

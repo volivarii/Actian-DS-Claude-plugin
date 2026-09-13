@@ -22,14 +22,32 @@ describe("assembleProposal (document)", function () {
     assert.ok(!/\{\{[A-Z_]+\}\}/.test(html), "no placeholder leak");
     assert.strictEqual(count(html, "<script"), 1, "only the toggle listener");
   });
-  it("lays out the five sections in order: context, research, approaches, comparison, recommendation", function () {
-    var order = ["Where this lives today", "What comparable products do", "Approaches", "How they compare", 'class="rec__pick"'];
+  it("leads with the recommendation, then context, research, approaches, comparison, and closes with the case", function () {
+    var order = [
+      'class="rec__pick"',
+      "Where this lives today",
+      "What comparable products do",
+      "Approaches",
+      "How they compare",
+      "Why this one, and what it changes",
+    ];
     var last = -1;
     order.forEach(function (marker) {
       var at = html.indexOf(marker);
-      assert.ok(at > last, marker + " in order");
+      assert.ok(at > last, marker + " in order (found at " + at + ", previous " + last + ")");
       last = at;
     });
+  });
+
+  it("puts the pick and the summary up top and the reasons below the evidence", function () {
+    var d = load();
+    var lead = html.indexOf('class="rec__pick"');
+    var reasons = html.indexOf('class="rec__reason"');
+    var table = html.indexOf('class="compare"');
+    assert.ok(lead < table, "the pick is stated before the comparison");
+    assert.ok(reasons > table, "the reasons argue after the table they cite");
+    assert.ok(html.indexOf(d.recommendation.summary) < table, "the summary is up top");
+    assert.strictEqual(count(html, "<h2>Role badges</h2>"), 1, "the pick is named once");
   });
   it("prints the context question, the product paragraph, the sources and the gap", function () {
     var d = load();
@@ -213,9 +231,10 @@ describe("document setting", function () {
     assert.ok(base.indexOf("border-radius") === -1, "sections carry no radius: " + base);
     assert.match(base, /border-top:\s*1px solid/, base);
     assert.match(rule(".doc__section--rec"), /background:\s*var\(--fm-base-white\)/);
-    // Five sections today. Task 4 splits the recommendation (6), Task 7 adds scope (7),
-    // Task 8 adds open questions (8). Each of those tasks raises this number in its own commit.
-    assert.strictEqual(count(html, 'class="doc__section'), 5, "five sections");
+    // Task 4 split the recommendation into a lead and a detail section (6). Task 7 adds
+    // scope (7), Task 8 adds open questions (8). Each of those tasks raises this number
+    // in its own commit.
+    assert.strictEqual(count(html, 'class="doc__section'), 6, "six sections");
     assert.strictEqual(count(html, 'doc__section--rec"'), 1, "one of them is the card, in the markup, not the two CSS selectors that also name it");
   });
 
