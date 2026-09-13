@@ -249,6 +249,13 @@ describe("document setting", function () {
     assert.deepStrictEqual(offScale, [], "font-size not set through a token: " + offScale.join(" | "));
   });
 
+  it("leaves no font: shorthand, which would carry a size past the font-size gate", function () {
+    // The gate above only reads font-size:. A `font: 12px/1.4 Inter` sets a size it never
+    // sees, so the shorthand is barred outright rather than parsed.
+    var shorthand = docCss.match(/(^|[;{\s])font:[^;}]*/g) || [];
+    assert.deepStrictEqual(shorthand, [], "font shorthand in the document sheet: " + shorthand.join(" | "));
+  });
+
   it("sets running prose at 16px and holds it to the measure", function () {
     assert.match(rule("body"), /font-size:\s*var\(--doc-body\)/);
     assert.match(rule("body"), /line-height:\s*1\.6/);

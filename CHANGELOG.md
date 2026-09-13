@@ -26,8 +26,10 @@ are summarized at the release level.
   optional `openQuestions` (at most four rabbit holes or open questions, omitted rather than
   padded when there are none). Google's design-doc convention pairs goals with explicit
   non-goals and Shape Up's pitch carries rabbit holes and no-gos; the document had neither, so
-  a reader could not tell an omission from a decision. **Breaking for stored data:** a
-  `proposal-data.json` authored before `2026.9.28` fails validation until it gains a `scope`.
+  a reader could not tell an omission from a decision. The skill states the goals and non-goals
+  in chat before it writes the file, so a reader can contest a non-goal while it is still cheap.
+  **Breaking for stored data:** a `proposal-data.json` authored before `2026.9.28` fails
+  validation until it gains a `scope`, and `--from` on one says so.
 
 ### Changed
 
@@ -43,8 +45,13 @@ are summarized at the release level.
   verdicts carry a glyph as well as a colour (check, open circle, cross, written as CSS escapes so
   the file stays byte-safe), the difference that lets the table survive greyscale and print. The
   recommendation is split so its pick and summary lead the document, and its reasons close it,
-  after the comparison table they argue from. Presentation only: an existing `proposal-data.json`
-  renders the same content.
+  after the comparison table they argue from. The register is written into the stylesheet rather
+  than left implied: body is running prose at the measure, caption is anything in a column or a
+  note, micro is uppercase tracked labels. Following it, the recommendation card hugs its measure
+  instead of spanning the page, its heading carries the word Recommendation inside it so the
+  document outline opens with what the section is, the open questions read as prose, and the note
+  on what changes reads at the same size as the reasons above it. Presentation only: an existing
+  `proposal-data.json` renders the same content.
 
 ### Added
 

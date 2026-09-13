@@ -15,10 +15,13 @@
 
        Size encodes role, not section, so a new section reads its size off this list and not
        off the section beside it. --doc-body (16px) is running prose at the measure: section
-       paragraphs, the research list, the open-questions list. --doc-caption (13px) is
-       anything in a column or a note: the scope columns, the approach lines, the comparison
-       table, the reason bodies, the change note, the sources, the footer. --doc-micro (11px)
-       is uppercase tracked labels and nothing else.
+       paragraphs, the research list, the open-questions list. A caption block's own title
+       steps back up to body, which is why a reason title is body inside a caption block.
+       --doc-caption (13px) is anything in a column or a note: the scope columns, the approach
+       lines, the comparison table, the reason bodies, the change note, the sources, the
+       footer. --doc-micro (11px) is uppercase tracked labels, plus the two marks that sit at
+       label scale without being words: the approach numeral in its badge and the criterion
+       source under a comparison row heading.
 
        The document has no h3-level heading. The only h3 elements in it are the scope column
        labels, which are labels, which is why they are micro. --doc-lede is the one step
