@@ -2,8 +2,9 @@
 
 /**
  * assemble-proposal.js: assembles a design proposal document, one offline HTML
- * file, from proposals/proposal-data.json: context, research, the approaches
- * drawn inside their anchor, a comparison table and the recommendation.
+ * file, from proposals/proposal-data.json: the recommendation, the goals and
+ * non-goals, the context, the research, the approaches drawn inside their
+ * anchor, a comparison table, the open questions and the reasons for the pick.
  *
  * Grounding the author does not have to think about: the app header strip is
  * the flow renderer's own appHeader markup for the anchor's app (so the label

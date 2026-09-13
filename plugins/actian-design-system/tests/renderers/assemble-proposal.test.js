@@ -22,7 +22,7 @@ describe("assembleProposal (document)", function () {
     assert.ok(!/\{\{[A-Z_]+\}\}/.test(html), "no placeholder leak");
     assert.strictEqual(count(html, "<script"), 1, "only the toggle listener");
   });
-  it("leads with the recommendation, then context, research, approaches, comparison, and closes with the case", function () {
+  it("leads with the recommendation, then where this lives, what others do, the approaches and the table, and closes with the case", function () {
     var order = [
       'class="rec__pick"',
       "Where this lives today",

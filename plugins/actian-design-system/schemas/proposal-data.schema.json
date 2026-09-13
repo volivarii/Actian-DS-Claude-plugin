@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "proposal-data.schema.json",
   "title": "Proposal Data",
-  "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal is a reasoned document for a component-scale ticket: context, research, approaches drawn inside one anchor surface, a comparison and a recommendation with reasons.",
+  "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal is a reasoned document for a component-scale ticket: a recommendation with its reasons, the goals and non-goals, the context, the research, two to four approaches drawn inside one anchor surface, a comparison, and the open questions.",
   "type": "object",
   "required": ["meta", "context", "scope", "research", "approaches", "comparison", "recommendation"],
   "properties": {

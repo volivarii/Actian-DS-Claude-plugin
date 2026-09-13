@@ -36,7 +36,7 @@ are summarized at the release level.
   headings at 1.11x body size read as bold body text. The document now holds a 512px measure
   (about 66 characters at 16px), a 1.25 type scale of 13/16/20/25/31, and `--doc-micro: 11px` for
   uppercase tracked labels, all named tokens; a test gate asserts every `font-size` in the document
-  stylesheet resolves to a `var(--doc-*)` token, with no literal px size left in the file. A card now
+  stylesheet resolves to a `var(--doc-*)` token, with no literal font-size left in the file. A card now
   sits only on the recommendation; every other section is a rule and space, and sources and the gap
   note read in their own register instead of as body prose. An approach column is sized to its
   drawing rather than the label, so three approaches stop wrapping to three rows. Comparison

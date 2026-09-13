@@ -136,7 +136,7 @@ function validateProposal(data) {
   var idSeen = {}; // html ids are document-wide: id -> the approach it first appeared in
   var approachIds = {};
 
-  // pseudo screens for the flow gates: one per approach plus four document-level ones,
+  // pseudo screens for the flow gates: one per approach plus six document-level ones,
   // the latter prefixed "doc:" (a colon the approach id pattern forbids) so an approach
   // id such as "context" can never collide with the document-level pseudo screen id.
   // content[n] maps back to a field through PATHS_BY_SCREEN.

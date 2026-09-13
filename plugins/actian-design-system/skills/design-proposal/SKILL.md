@@ -25,11 +25,11 @@ comparable products do, the approaches drawn inside one anchor surface with a ve
 compare in a table; what the proposal is not yet sure about follows the table when anything is left open,
 then the recommendation's reasons and what it changes close it, argued from the table before them.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
-`dip-i-496.html`; a re-render with `--from`
-lands on the same file. Its source is `proposals/proposal-data.json`, which you author. Use this skill
-for component-scale questions (a menu, a field, a card, a badge, a dialog). A multi-screen product flow
-is `/generate-flow`; a Figma push is `/generate-flow --push`. A proposal never pushes: when the request
-says "push to Figma" or "in Figma", say so in one line and offer `/generate-flow`.
+`dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
+`proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
+field, a card, a badge, a dialog). A multi-screen product flow is `/generate-flow`; a Figma push is
+`/generate-flow --push`. A proposal never pushes: when the request says "push to Figma" or "in Figma", say
+so in one line and offer `/generate-flow`.
 
 ## Input shapes
 
@@ -79,11 +79,11 @@ where it breaks. Then one paragraph: the recommendation and why. No file yet. Th
 `schemas/proposal-data.schema.json`: `meta.title` is the document title, `meta.date` is today's date,
 `meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `context`, `scope` (one to four
 goals and one to four non-goals, both from the ticket, never invented: the non-goals are what stops
-a reviewer scoping the work sideways), `research`, `approaches`
-(each drawn inside its anchor, in flow, `width` sized to the idea, with its `screens[]` list), `comparison`
-(criteria from the ticket's goal, the product read, or cost), `openQuestions` (at most four rabbit holes or
-open questions; omit the field when the proposal genuinely settles everything, never invent one) and
-`recommendation` (reasons that argue from the table). Then:
+a reviewer scoping the work sideways), `research`, `approaches` (each drawn inside its anchor, in flow,
+`width` sized to the idea, with its `screens[]` list), `comparison` (criteria from the ticket's goal, the
+product read, or cost), `openQuestions` (at most four rabbit holes or open questions; omit the field when
+the proposal genuinely settles everything, never invent one) and `recommendation` (reasons that argue from
+the table). Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
