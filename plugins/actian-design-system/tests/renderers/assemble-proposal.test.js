@@ -234,7 +234,7 @@ describe("document setting", function () {
     // Task 4 split the recommendation into a lead and a detail section (6). Task 7 adds
     // scope (7), Task 8 adds open questions (8). Each of those tasks raises this number
     // in its own commit.
-    assert.strictEqual(count(html, 'class="doc__section'), 6, "six sections");
+    assert.strictEqual(count(html, 'class="doc__section'), 7, "seven sections");
     assert.strictEqual(count(html, 'doc__section--rec"'), 1, "one of them is the card, in the markup, not the two CSS selectors that also name it");
   });
 
@@ -245,6 +245,18 @@ describe("document setting", function () {
     assert.match(rule(".doc__gap"), /border-left:\s*2px solid var\(--fm-brand\)/);
     assert.ok(html.indexOf('<p class="doc__gap">Gap: ' + d.context.gap) !== -1, "gap has its own class");
     assert.ok(html.indexOf('<p class="doc__muted">Sources: ') !== -1, "sources stay muted");
+  });
+
+  it("renders goals and non-goals as two labelled columns, after the context", function () {
+    var d = load();
+    var at = html.indexOf("What this is for");
+    assert.ok(at > html.indexOf("Where this lives today"), "scope follows context");
+    assert.ok(at < html.indexOf("What comparable products do"), "scope precedes research");
+    d.scope.goals.forEach(function (g) { assert.ok(html.indexOf(g) !== -1, g); });
+    d.scope.nonGoals.forEach(function (n) { assert.ok(html.indexOf(n) !== -1, n); });
+    assert.strictEqual(count(html, 'class="scope__col"'), 2, "two columns");
+    assert.ok(html.indexOf("<h3>Goals</h3>") !== -1 && html.indexOf("<h3>Not doing</h3>") !== -1, "both labelled");
+    assert.match(rule(".scope"), /display:\s*grid/);
   });
 
   it("sizes an approach column to its drawing so the label wraps instead of widening the row", function () {

@@ -77,6 +77,15 @@ function contextHtml(c) {
   return section("Where this lives today", inner);
 }
 
+function scopeHtml(scope) {
+  function col(label, lines) {
+    return '<div class="scope__col"><h3>' + esc(label) + "</h3><ul class=\"doc__list\">" +
+      lines.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("") + "</ul></div>";
+  }
+  var inner = '<div class="scope">' + col("Goals", scope.goals) + col("Not doing", scope.nonGoals) + "</div>";
+  return section("What this is for", inner);
+}
+
 function researchHtml(r) {
   if (!r.ran) return section("What comparable products do", '<p class="doc__muted">Not researched: ' + esc(r.skippedBecause || "") + "</p>");
   var items = r.findings.map(function (f) {
@@ -159,6 +168,7 @@ function assembleProposal(data) {
   var sections =
     recommendationLeadHtml(data.recommendation, data.approaches) +
     contextHtml(data.context) +
+    scopeHtml(data.scope) +
     researchHtml(data.research) +
     section("Approaches", '<div class="approaches">' + approaches + "</div>") +
     comparisonHtml(data.comparison, data.approaches) +
