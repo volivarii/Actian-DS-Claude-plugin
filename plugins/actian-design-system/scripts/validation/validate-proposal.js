@@ -161,17 +161,18 @@ function validateProposal(data) {
     { path: "context.gap", text: data.context.gap || "" },
   ]);
 
-  // scope: goals and non-goals, bounded, and prose-checked like every other text field
-  var scope = data.scope || { goals: [], nonGoals: [] };
+  // scope: goals and non-goals, bounded, and prose-checked like every other text field.
+  // No guard here: scope is schema-required with its own required goals/nonGoals, and any
+  // schema error already returned above, so data.scope is a well-formed object by this line.
   ["goals", "nonGoals"].forEach(function (key) {
-    var list = scope[key] || [];
+    var list = data.scope[key];
     if (list.length > MAX_SCOPE)
       findings.push(finding("P0", "bounds", "", "scope." + key, list.length + " entries; at most " + MAX_SCOPE));
     list.forEach(function (line, i) { checkProse(line, "", "scope." + key + "[" + i + "]", findings); });
   });
-  addPseudo("doc:scope", "Scope", (scope.goals || []).map(function (g, i) {
+  addPseudo("doc:scope", "Scope", data.scope.goals.map(function (g, i) {
     return { path: "scope.goals[" + i + "]", text: g };
-  }).concat((scope.nonGoals || []).map(function (n, i) {
+  }).concat(data.scope.nonGoals.map(function (n, i) {
     return { path: "scope.nonGoals[" + i + "]", text: n };
   })));
 

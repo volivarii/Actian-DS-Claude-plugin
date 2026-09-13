@@ -35,20 +35,22 @@ describe("validateProposal (document)", function () {
     var f = validateProposal(withMutation(function (d) { delete d.comparison; })).findings;
     assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));
   });
-  it("requires scope with at least one goal and one non-goal, and bounds both at four", function () {
+  it("missing scope is a P0", function () {
     var d = load();
     delete d.scope;
     assert.ok(validateProposal(d).findings.some(function (f) {
       return f.severity === "P0" && /scope/.test(f.path + " " + f.value);
     }), "missing scope is a P0");
-
-    d = load();
+  });
+  it("more than four goals is a P0 (check bounds, path scope.goals)", function () {
+    var d = load();
     d.scope = { goals: ["a", "b", "c", "d", "e"], nonGoals: ["x"] };
     assert.ok(validateProposal(d).findings.some(function (f) {
       return f.severity === "P0" && f.path === "scope.goals";
     }), "five goals is a P0");
-
-    d = load();
+  });
+  it("more than four non-goals is a P0 (check bounds, path scope.nonGoals)", function () {
+    var d = load();
     d.scope = { goals: ["a"], nonGoals: ["x", "y", "z", "w", "v"] };
     assert.ok(validateProposal(d).findings.some(function (f) {
       return f.severity === "P0" && f.path === "scope.nonGoals";

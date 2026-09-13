@@ -16,7 +16,7 @@
   },
   "scope": {
     "goals": [
-      "A user can read the name of their permission group from the Profile dropdown.",
+      "A user can read the name of their permission group from the account menu.",
       "A permission group carries a human readable display name, not an internal key."
     ],
     "nonGoals": [
