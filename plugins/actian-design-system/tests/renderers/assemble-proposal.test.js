@@ -189,12 +189,17 @@ describe("document setting", function () {
     assert.match(root, /--doc-h1:\s*31px/, root);
   });
 
+  it("sets every size through a token, so nothing drifts off the scale", function () {
+    var literals = docCss.match(/font-size:\s*[0-9.]+px/g) || [];
+    assert.deepStrictEqual(literals, [], "literal font sizes in the document stylesheet: " + literals.join(", "));
+    var root = rule(":root");
+    assert.match(root, /--doc-micro:\s*11px/, root);
+  });
+
   it("sets running prose at 16px and holds it to the measure", function () {
     assert.match(rule("body"), /font-size:\s*var\(--doc-body\)/);
     assert.match(rule("body"), /line-height:\s*1\.6/);
     assert.match(rule(".doc__section > p, .doc__section > ul"), /max-width:\s*var\(--doc-measure\)/);
-    assert.ok(docCss.indexOf("13.5px") === -1, "no 13.5px survives");
-    assert.ok(docCss.indexOf("12.5px") === -1, "no 12.5px survives");
   });
 
   it("makes a section heading read as a heading, not as bold body text", function () {
@@ -217,7 +222,7 @@ describe("document setting", function () {
   it("sets sources and the gap in their own register, not as body prose", function () {
     var d = load();
     assert.match(rule(".doc__muted"), /font-size:\s*var\(--doc-caption\)/);
-    assert.match(rule(".doc__muted"), /border-left:/);
+    assert.match(rule(".doc__muted"), /border-left:\s*2px solid var\(--fm-base-300\)/);
     assert.match(rule(".doc__gap"), /border-left:\s*2px solid var\(--fm-brand\)/);
     assert.ok(html.indexOf('<p class="doc__gap">Gap: ' + d.context.gap) !== -1, "gap has its own class");
     assert.ok(html.indexOf('<p class="doc__muted">Sources: ') !== -1, "sources stay muted");

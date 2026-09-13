@@ -16,6 +16,7 @@
       --doc-measure: 512px;   /* about 66 characters at 16px Inter; 45 to 75 is the readable band */
       --doc-body: 16px;
       --doc-caption: 13px;
+      --doc-micro: 11px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below caption is correct here, not drift */
       --doc-h3: 20px;
       --doc-h2: 25px;
       --doc-h1: 31px;
@@ -43,8 +44,8 @@
 
     .approaches { display: flex; flex-wrap: wrap; gap: 32px 24px; align-items: flex-start; }
     .proposal-screen__col { display: flex; flex-direction: column; }
-    .proposal-screen__label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; max-width: 100%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
-    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    .proposal-screen__label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
+    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
     .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
@@ -56,13 +57,13 @@
     .compare { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
     .compare th, .compare td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--fm-base-300); }
     .compare tbody th { font-weight: 600; padding-right: 24px; }
-    .compare thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .compare__source { display: block; font-size: 11px; color: var(--fm-text-tertiary); font-weight: 400; margin-top: 2px; }
+    .compare thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.05em; }
+    .compare__source { display: block; font-size: var(--doc-micro); color: var(--fm-text-tertiary); font-weight: 400; margin-top: 2px; }
     .tone-good { color: var(--fm-text-success); }
     .tone-mixed { color: var(--fm-text-secondary); }
     .tone-bad { color: var(--fm-text-error); }
 
-    .rec__pick { font-size: 11px; font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
+    .rec__pick { font-size: var(--doc-micro); font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
     .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 24px; margin: 18px 0 0; }
     .rec__reason { border-top: 2px solid var(--fm-base-400); padding: 12px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
     .rec__reason b { display: block; margin: 0 0 6px; font-size: var(--doc-body); color: var(--fm-text-primary); }
