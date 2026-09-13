@@ -142,7 +142,10 @@ function recommendationLeadHtml(rec, approaches) {
   var pick = null;
   approaches.forEach(function (a) { if (a.id === rec.approachId) pick = a; });
   if (!pick) throw new Error('proposal-data: recommendation.approachId "' + rec.approachId + '" names no approach');
-  var inner = '<p class="rec__pick">Recommendation</p><h2>' + esc(pick.name) + "</h2><p>" + esc(rec.summary) + "</p>";
+  // The eyebrow sits inside the heading, so the outline a screen reader or a print TOC
+  // builds opens with "Recommendation" and not with a bare approach name. .rec__pick is
+  // display: block, so it keeps its own line and its margin, and the card looks the same.
+  var inner = '<h2><span class="rec__pick">Recommendation</span>' + esc(pick.name) + "</h2><p>" + esc(rec.summary) + "</p>";
   return section("", inner, "doc__section--rec");
 }
 

@@ -11,13 +11,24 @@
   <style>
     /* Document setting. The FM sheet above owns every component style; this block sets the
        document: one measure, one 1.25 scale off 16px, and a card only where a card means
-       something. Section registers follow the readability findings of 2026-09-13. */
+       something. Section registers follow the readability findings of 2026-09-13.
+
+       Size encodes role, not section, so a new section reads its size off this list and not
+       off the section beside it. --doc-body (16px) is running prose at the measure: section
+       paragraphs, the research list, the open-questions list. --doc-caption (13px) is
+       anything in a column or a note: the scope columns, the approach lines, the comparison
+       table, the reason bodies, the change note, the sources, the footer. --doc-micro (11px)
+       is uppercase tracked labels and nothing else.
+
+       The document has no h3-level heading. The only h3 elements in it are the scope column
+       labels, which are labels, which is why they are micro. --doc-lede is the one step
+       above body, and the context question is its single use. */
     :root {
       --doc-measure: 512px;   /* about 66 characters at 16px Inter; 45 to 75 is the readable band */
       --doc-body: 16px;
       --doc-caption: 13px;
       --doc-micro: 11px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below caption is correct here, not drift */
-      --doc-h3: 20px;
+      --doc-lede: 20px;
       --doc-h2: 25px;
       --doc-h1: 31px;
     }
@@ -33,7 +44,7 @@
     .doc__section > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 14px; max-width: var(--doc-measure); }
     .doc__section > p, .doc__section > ul { max-width: var(--doc-measure); }
     .doc__section p { margin: 0 0 12px; }
-    .doc__question { font-size: var(--doc-h3); font-weight: 600; line-height: 1.4; margin: 0 0 14px; }
+    .doc__question { font-size: var(--doc-lede); font-weight: 600; line-height: 1.4; margin: 0 0 14px; }
 
     /* Apparatus: what the document says about itself reads as a note, never as prose. */
     .doc__muted { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); border-left: 2px solid var(--fm-base-300); padding-left: 12px; margin: 14px 0 0; }
@@ -41,7 +52,7 @@
     .doc__list { margin: 0; padding-left: 20px; }
     .doc__list li { margin: 0 0 10px; }
     .doc__source { color: var(--fm-text-tertiary); font-size: var(--doc-caption); }
-    .scope { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; max-width: 860px; }
+    .scope { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; max-width: 860px; } /* the one raw width in the file: two columns of short labels are not running prose, so the measure does not bind them */
     .scope__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .scope__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
@@ -73,17 +84,19 @@
     .tone-bad { color: var(--fm-text-error); }
     .tone-bad::before { content: "\2717"; }
 
-    .rec__pick { font-size: var(--doc-micro); font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
+    .rec__pick { display: block; font-size: var(--doc-micro); font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
     .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 24px; margin: 18px 0 0; }
     .rec__reason { border-top: 2px solid var(--fm-base-400); padding: 12px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
     .rec__reason b { display: block; margin: 0 0 6px; font-size: var(--doc-body); color: var(--fm-text-primary); }
-    .rec__change { margin: 18px 0 0; }
+    .rec__change { margin: 18px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
-    .oq li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); max-width: var(--doc-measure); }
     .oq__kind { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin-bottom: 2px; }
 
-    /* After .doc__section: same specificity, so the card has to win on order. */
-    .doc__section--rec { background: var(--fm-base-white); border: 1px solid var(--fm-brand); border-left-width: 4px; border-radius: 6px; padding: 22px 24px; margin: 0 0 40px; }
+    /* After .doc__section: same specificity, so the card has to win on order. The card
+       hugs the measure instead of the 1200px .doc width: 512 measure + 24 + 24 padding + a
+       4px left border + a 1px right border = 565, so its contents still get a full 512.
+       box-sizing: border-box comes from the FM reset's universal selector. */
+    .doc__section--rec { background: var(--fm-base-white); border: 1px solid var(--fm-brand); border-left-width: 4px; border-radius: 6px; padding: 22px 24px; margin: 0 0 40px; max-width: calc(var(--doc-measure) + 53px); }
     .doc__section--rec > h2 { margin: 0 0 10px; }
 
     .doc__footer { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--fm-base-300); max-width: var(--doc-measure); }

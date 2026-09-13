@@ -47,7 +47,7 @@ describe("assembleProposal (document)", function () {
     assert.ok(lead < table, "the pick is stated before the comparison");
     assert.ok(reasons > table, "the reasons argue after the table they cite");
     assert.ok(html.indexOf(d.recommendation.summary) < table, "the summary is up top");
-    assert.strictEqual(count(html, "<h2>Role badges</h2>"), 1, "the pick is named once");
+    assert.strictEqual(count(html, "</span>Role badges</h2>"), 1, "the pick is named once");
   });
   it("prints the context question, the product paragraph, the sources and the gap", function () {
     var d = load();
@@ -117,7 +117,7 @@ describe("assembleProposal (document)", function () {
   });
   it("renders the recommendation with the picked approach's name, the summary, the reasons as cards and the change scope", function () {
     var d = load();
-    assert.ok(html.indexOf("<h2>Role badges</h2>") !== -1, "picked name");
+    assert.ok(html.indexOf('<h2><span class="rec__pick">Recommendation</span>Role badges</h2>') !== -1, "picked name, inside the heading with its eyebrow");
     assert.ok(html.indexOf(d.recommendation.summary) !== -1, "summary");
     assert.strictEqual(count(html, 'class="rec__reason"'), d.recommendation.reasons.length);
     assert.ok(html.indexOf("<b>Admin side.</b> " + d.recommendation.change.adminSide) !== -1, "admin side");
@@ -218,7 +218,7 @@ describe("document setting", function () {
     assert.match(root, /--doc-measure:\s*512px/, root);
     assert.match(root, /--doc-body:\s*16px/, root);
     assert.match(root, /--doc-caption:\s*13px/, root);
-    assert.match(root, /--doc-h3:\s*20px/, root);
+    assert.match(root, /--doc-lede:\s*20px/, root);
     assert.match(root, /--doc-h2:\s*25px/, root);
     assert.match(root, /--doc-h1:\s*31px/, root);
   });
