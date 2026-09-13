@@ -4,10 +4,18 @@
  * examples array, so an authoring agent reads the examples rather than the renderer.
  * Nothing enforced it: this gate does, for proposal-data.schema.json.
  *
- * Scoped deliberately. Under this same rule the other three schemas are 310 violations
- * short between them (brief-data 198, flow-data 81, slide-data 31), which is real debt
- * but is not this branch's to pay, and a repo-wide gate that fails on day one teaches
- * everyone to skip it.
+ * Scoped deliberately. Measured 2026-09-14 under the rule below, the other three schemas
+ * are 373 violations short between them (brief-data 235, flow-data 103, slide-data 35),
+ * which is real debt but is not this branch's to pay, and a repo-wide gate that fails on
+ * day one teaches everyone to skip it. The figure is dated because it is a measurement,
+ * not a property: widening the rule moves it, and it already did once. An earlier draft
+ * of this comment carried the count from before the items check existed.
+ *
+ * Known and currently latent: walk() visits a properties map and an items schema, which is
+ * every way this file nests. A schema using $defs, $ref, oneOf, anyOf, allOf or
+ * patternProperties would have subtrees it never reaches. proposal-data.schema.json uses
+ * none of them; a future one that does needs walk() widened before this gate means
+ * anything for it.
  */
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
