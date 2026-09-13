@@ -46,7 +46,7 @@ so in one line and offer `/generate-flow`.
 | `--concepts N` | 3 | Number of approaches, 2 to 4 |
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
 | `--no-prompt` | off | Kept for compatibility; same as `--no-research` (this skill asks no question) |
-| `--from <path>` | none | Validate and assemble an existing data file; no reading, no approaches in chat |
+| `--from <path>` | none | Validate and assemble an existing data file; no reading, no approaches in chat. A file authored before `2026.9.28` has no `scope`, so add goals and non-goals from the ticket before re-rendering |
 
 ## Pipeline
 
@@ -71,8 +71,10 @@ in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 five findings, each with a source named as text. Present them in chat in five lines or fewer. When it did
 not run, the document says `Not researched: <why>`.
 
-**Step 4, approaches in chat.** N approaches, each a bold name and two lines: what it is, and the case
-where it breaks. Then one paragraph: the recommendation and why. No file yet. The reader pushes back here.
+**Step 4, scope and approaches in chat.** First the scope in two lines: what this is for (the goals, from
+the ticket) and what it is not doing (the non-goals). Then N approaches, each a bold name and two lines:
+what it is, and the case where it breaks. Then one paragraph: the recommendation and why. No file yet. The
+reader pushes back here, on the non-goals as much as on the approaches.
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
 `references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
