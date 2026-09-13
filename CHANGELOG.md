@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Added
 
-- **design-proposal states its scope and its uncertainty** (PR link to be added when the PR is opened):
+- **design-proposal states its scope and its uncertainty** ([#377](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/377)):
   a proposal now carries a required `scope` (one to four goals, one to four non-goals) and an
   optional `openQuestions` (at most four rabbit holes or open questions, omitted rather than
   padded when there are none). Google's design-doc convention pairs goals with explicit
@@ -33,7 +33,7 @@ are summarized at the release level.
 
 ### Changed
 
-- **design-proposal document is set to be read** (PR link to be added when the PR is opened):
+- **design-proposal document is set to be read** ([#377](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/377)):
   body prose ran 178 characters per line at 13.5px against a readable ceiling of 75, and section
   headings at 1.11x body size read as bold body text. The document now holds a 512px measure
   (about 66 characters at 16px), a 1.25 type scale of 13/16/20/25/31, and `--doc-micro: 11px` for
