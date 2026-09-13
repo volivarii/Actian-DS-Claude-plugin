@@ -116,7 +116,7 @@
     }
   },
   "openQuestions": [
-    { "kind": "rabbit hole", "text": "Truncating a long group list needs a hover affordance the Profile dropdown does not carry today." },
+    { "kind": "rabbit hole", "text": "Truncating a long group list needs a hover affordance the account menu does not carry today." },
     { "kind": "open question", "text": "Who sets the display name on an existing permission group, and what it defaults to before anyone does." }
   ],
   "recommendation": {
