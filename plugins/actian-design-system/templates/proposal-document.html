@@ -61,7 +61,11 @@
 
     .approaches { display: flex; flex-wrap: wrap; gap: 32px 24px; align-items: flex-start; }
     .proposal-screen__col { display: flex; flex-direction: column; }
-    .proposal-screen__label { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
+    /* Two rows by construction, so every approach label is the same height and the drawings
+       share a top edge. One row that wrapped used to push its drawing down by a line. */
+    .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
+    .proposal-screen__name { display: flex; align-items: center; gap: 8px; }
+    .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
     .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
     .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; }
     .proposal-screen .fm-app-header { width: 100%; }
@@ -91,7 +95,10 @@
     .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 24px; margin: 18px 0 0; }
     .rec__reason { border-top: 2px solid var(--fm-base-400); padding: 12px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
     .rec__reason b { display: block; margin: 0 0 6px; font-size: var(--doc-body); color: var(--fm-text-primary); }
-    .rec__change { margin: 18px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
+    /* A note about the whole recommendation, not a fifth reason: the rule separates it from the
+       grid above, which otherwise runs straight into the tallest column. The selector carries
+       .doc__section because `.doc__section p` is (0,1,1) and would otherwise win the margin. */
+    .doc__section > .rec__change { margin: 24px 0 0; padding: 14px 0 0; border-top: 1px solid var(--fm-base-300); font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
     .oq__kind { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin-bottom: 2px; }
 

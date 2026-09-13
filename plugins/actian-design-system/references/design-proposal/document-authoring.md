@@ -66,6 +66,10 @@ an app name, a nav bar or an avatar strip.
 ## Conventions that make the document read as a proposal
 
 - **Width to the idea.** 320 for a menu or popover, 360 to 400 for a form region, 720 for a page region.
+  The approaches sit in one row of a 1200px document with a 24px gap, so the count caps the width:
+  two approaches fit at 588 each, three at 384, four at 282. Go wider than that and the row wraps,
+  which costs the reader the side-by-side comparison the section exists for. A page-region width is
+  therefore only ever a two-approach choice.
 - **Emphasise the thing the ticket adds.** Wrap it in
   `style="border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px"`
   and add `<span class="fm-badge">New</span>` beside it. One emphasis per drawing.

@@ -19,6 +19,20 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **design-proposal document, three things a real proposal found** (PR link to be added when the PR is
+  opened): running the skill on a ticket that spans two apps surfaced defects a fixture does not. An
+  approach label was one wrapping row, so a long anchor pushed that drawing a line below its neighbours
+  and the drawings a reader is meant to compare stopped sharing a top edge; the label is now a name row
+  and an anchor row, the same height for every approach by construction. The note on what the change
+  means for an admin and a user ran straight into the reasons grid above it and read as a fourth reason;
+  it now sits under a rule. And the authoring reference gave widths per idea with no mention that the
+  approach count caps them: three approaches in a 1200px document fit at 384px each, four at 282, so a
+  720px page region is only ever a two-approach choice.
+- **`proposals/` is git-ignored**: the skill writes its data file and its document into the project
+  working directory, which in a git repository left two untracked files behind after every run.
+
 ### Added
 
 - **design-proposal states its scope and its uncertainty** ([#377](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/377)):

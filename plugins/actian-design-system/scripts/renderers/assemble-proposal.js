@@ -106,8 +106,9 @@ function approachHtml(a, index, apps) {
   var colWidth = Math.max(width, 280); // a narrow drawing still needs room to caption
   return (
     '<div class="proposal-screen__col" style="width:' + colWidth + 'px">' +
-    '<span class="proposal-screen__label"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(a.name) +
-    ' <span class="doc__source">' + esc(appLabel(apps, a.anchor.app) + ", " + a.anchor.surface) + "</span></span>" +
+    '<span class="proposal-screen__label">' +
+    '<span class="proposal-screen__name"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(a.name) + "</span>" +
+    '<span class="proposal-screen__anchor">' + esc(appLabel(apps, a.anchor.app) + ", " + a.anchor.surface) + "</span></span>" +
     '<div class="proposal-screen" data-name="' + esc(a.id) + '" style="width:' + width + 'px">' + strip +
     '<div class="proposal-screen__body">' + a.screen.html + "</div></div>" +
     '<p class="approach__lines"><b>What it is.</b> ' + esc(a.whatItIs) + "<br><b>Breaks when.</b> " + esc(a.breaksWhen) + "</p>" +

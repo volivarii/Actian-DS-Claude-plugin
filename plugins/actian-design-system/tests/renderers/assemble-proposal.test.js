@@ -92,7 +92,7 @@ describe("assembleProposal (document)", function () {
     var bodyRule = /\.proposal-screen__body\s*\{[^}]*\}/.exec(css)[0];
     assert.ok(bodyRule.indexOf("position: relative") !== -1, bodyRule);
     var labelRule = /\.proposal-screen__label\s*\{[^}]*\}/.exec(css)[0];
-    assert.ok(labelRule.indexOf("flex-wrap: wrap") !== -1, labelRule);
+    assert.ok(labelRule.indexOf("flex-direction: column") !== -1, labelRule);
   });
   it("renders the comparison as a table: one column per approach, one row per criterion, tone classes, the source under the label", function () {
     var d = load();
@@ -319,7 +319,7 @@ describe("document setting", function () {
     });
   });
 
-  it("sizes an approach column to its drawing so the label wraps instead of widening the row", function () {
+  it("sizes an approach column to its drawing rather than to its label", function () {
     var d = load();
     d.approaches.forEach(function (a) {
       var w = Math.max(Number(a.screen.width) || 360, 280);
@@ -336,6 +336,24 @@ describe("document setting", function () {
       "240px drawing gets a 280px column"
     );
     assert.match(rule(".approach__lines"), /max-width:\s*100%/);
+  });
+
+  it("splits an approach label into a name row and an anchor row, so every label is the same height", function () {
+    var d = load();
+    d.approaches.forEach(function (a, i) {
+      var nameRow = '<span class="proposal-screen__name"><span class="proposal-screen__num">' + (i + 1) + "</span>" + a.name + "</span>";
+      assert.ok(html.indexOf(nameRow) !== -1, a.id + " name row");
+      var anchorRow = '<span class="proposal-screen__anchor">';
+      var at = html.indexOf(anchorRow, html.indexOf(nameRow));
+      assert.ok(at !== -1, a.id + " anchor row follows the name row");
+      assert.ok(
+        html.slice(html.indexOf(nameRow), at).indexOf(a.anchor.surface) === -1,
+        a.id + ": the anchor text must not sit inside the name row, which is what used to wrap"
+      );
+    });
+    // Two rows by construction is what makes the drawings share a top edge.
+    assert.match(rule(".proposal-screen__label"), /flex-direction:\s*column/);
+    assert.match(rule(".proposal-screen__anchor"), /font-weight:\s*400/);
   });
 
   it("pairs every comparison verdict with a glyph, so the table survives greyscale", function () {
