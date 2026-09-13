@@ -19,6 +19,16 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **design-proposal states its scope and its uncertainty** (PR link to be added when the PR is opened):
+  a proposal now carries a required `scope` (one to four goals, one to four non-goals) and an
+  optional `openQuestions` (at most four rabbit holes or open questions, omitted rather than
+  padded when there are none). Google's design-doc convention pairs goals with explicit
+  non-goals and Shape Up's pitch carries rabbit holes and no-gos; the document had neither, so
+  a reader could not tell an omission from a decision. **Breaking for stored data:** a
+  `proposal-data.json` authored before `2026.9.28` fails validation until it gains a `scope`.
+
 ### Changed
 
 - **design-proposal document is set to be read** (PR link to be added when the PR is opened):

@@ -141,6 +141,35 @@ Use `$CLAUDE_PLUGIN_ROOT` (set by the Claude harness) — never `$PLUGIN_ROOT`
 For intentional anti-pattern examples (e.g. CLAUDE.md showing "what NOT to
 do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
+## Schema migrations
+
+### `scope` required (2026.9.28)
+
+`proposal-data.json`'s schema gained a required `scope` object (one to four
+`goals`, one to four `nonGoals`) in `2026.9.28`. A `proposal-data.json`
+authored before that version fails validation with a schema P0 at `scope`.
+The fix is to add two goals and two non-goals to the file; it is not to
+relax the schema.
+
+This carries the same adoption gap Rule 1 exists for. The schema, the
+validator, and the renderer are all tested: a fixture with `scope` validates,
+a fixture without it fails at `scope`, and the document renders the two
+columns. None of that proves an authoring agent writes `scope` (or the
+optional `openQuestions`) when it drafts a real proposal from a real ticket,
+as opposed to a test fixture built to already satisfy the schema. The skill
+and the authoring reference were updated to instruct the agent to write
+both, but instructing is not adopting; per Rule 1, that instruction is
+unproven until a real run shows it taken.
+
+**The check, not yet run:** after `2026.9.28` is installed, run
+`/design-proposal` against a real ticket and read the authored
+`proposal-data.json`. It passes if `scope` carries goals and non-goals drawn
+from that ticket rather than boilerplate, and `openQuestions` is either
+populated with real rabbit holes or open questions, or the agent says in
+chat that it is deliberately leaving the field absent. If the agent skips
+`scope` or invents filler to pass validation, the skill's wording is the
+defect, not the schema.
+
 ## Teaching case — v1.71.0 → v1.71.1
 
 What shipped in v1.71.0:
