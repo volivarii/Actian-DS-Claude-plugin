@@ -74,11 +74,40 @@ describe("proposal-approaches-to-decisions", function () {
     });
   });
 
-  it("drops the three retired top-level keys", function () {
+  // Strengthened from "the three retired keys are absent", which convert() could not fail:
+  // it builds its output field by field and never spreads the input, so no plausible typo
+  // leaks a key back. Asserting the exact key SET does catch an accidental addition.
+  it("emits exactly the top-level keys of the new shape, and no others", function () {
     var out = mig.convert(legacy());
-    ["approaches", "comparison", "recommendation"].forEach(function (k) {
-      assert.strictEqual(out[k], undefined, k + " is gone from the top level");
-    });
+    assert.deepStrictEqual(Object.keys(out).sort(), [
+      "answer", "change", "context", "decisions", "latitude", "meta", "openQuestions", "research", "scope",
+    ], "an unexpected or missing top-level key");
+  });
+
+  // decisions[0].id is load-bearing: the idempotence test above compares a fresh conversion
+  // against the committed fixture, and that only holds while both say "the-decision". A
+  // reviewer changed this literal and every one of the nine tests still passed.
+  it("names the single decision `the-decision`, which the committed fixture also uses", function () {
+    assert.strictEqual(mig.convert(legacy()).decisions[0].id, "the-decision");
+    assert.strictEqual(target().decisions[0].id, "the-decision", "the fixture agrees");
+  });
+
+  it("does not split a sentence at a period that ends an abbreviation", function () {
+    function productOf(text) {
+      var d = legacy();
+      d.context.product = text;
+      return mig.convert(d).context.product;
+    }
+    assert.deepStrictEqual(productOf("See Fig. 2 for the shape."), ["See Fig. 2 for the shape."]);
+    assert.deepStrictEqual(productOf("Use a badge, e.g. a pill. It wraps."), ["Use a badge, e.g. a pill.", "It wraps."]);
+    assert.deepStrictEqual(productOf("The value is 3.5 today."), ["The value is 3.5 today."]);
+    assert.deepStrictEqual(productOf("One fact. Two facts."), ["One fact.", "Two facts."], "a real boundary still splits");
+  });
+
+  it("passes an already-array product through instead of gluing it with a comma", function () {
+    var d = legacy();
+    d.context.product = ["Already an array.", "With two facts."];
+    assert.deepStrictEqual(mig.convert(d).context.product, ["Already an array.", "With two facts."]);
   });
 
   it("moves recommendation.change to the top level", function () {

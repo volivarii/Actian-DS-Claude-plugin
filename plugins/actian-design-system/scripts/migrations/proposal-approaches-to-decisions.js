@@ -24,14 +24,28 @@ function isOldShape(data) {
   return !!(data && Array.isArray(data.approaches) && !Array.isArray(data.decisions));
 }
 
+// Words that end in a period without ending a sentence. It cannot be exhaustive, and the
+// point is not to be: a naive split on every period turns "See Fig. 2 for the shape." into
+// two fragments that are each non-empty, trimmed and terminated, so they pass every gate
+// downstream and the corruption never surfaces. The common cases stop being silent, and
+// the CLI prints the resulting count so an author can see one it did not catch.
+var NOT_A_SENTENCE_END =
+  /(?:^|\s)(?:[A-Z]|e\.g|i\.e|etc|vs|cf|al|Fig|No|Vol|Dr|Mr|Mrs|Ms|St|Inc|Ltd|Co|Corp|Jr|Sr|approx|dept|est)\.$/;
+
 // One fact per sentence. Keeps the terminator, so joining the result with a
 // single space reproduces the paragraph exactly; the test asserts that.
 function sentences(text) {
-  return String(text == null ? "" : text)
-    .trim()
-    .split(/(?<=[.!?])\s+/)
-    .map(function (s) { return s.trim(); })
-    .filter(Boolean);
+  // Already an array: a hand-edited or half-migrated file. String() on an array joins with
+  // a bare comma and no space, which then does not split at all and ships as one glued fact.
+  if (Array.isArray(text)) return text.slice();
+  var parts = String(text == null ? "" : text).trim().split(/(?<=[.!?])\s+/);
+  var merged = [];
+  parts.forEach(function (part) {
+    var prev = merged.length ? merged[merged.length - 1] : null;
+    if (prev !== null && NOT_A_SENTENCE_END.test(prev)) merged[merged.length - 1] = prev + " " + part;
+    else merged.push(part);
+  });
+  return merged.map(function (s) { return s.trim(); }).filter(Boolean);
 }
 
 function pickKeys(src, keys) {
@@ -88,14 +102,21 @@ if (require.main === module) {
   var inPath = path.resolve(args[0]);
   var oi = args.indexOf("-o");
   var outPath = oi !== -1 && args[oi + 1] ? path.resolve(args[oi + 1]) : inPath;
+  if (outPath !== inPath && fs.existsSync(outPath)) {
+    process.stderr.write(outPath + " already exists; remove it or convert in place by dropping -o\n");
+    process.exit(1);
+  }
   var src = JSON.parse(fs.readFileSync(inPath, "utf8"));
   if (!isOldShape(src)) {
     process.stderr.write(inPath + " is already in the decisions[] shape; nothing to do\n");
     process.exit(0);
   }
-  fs.writeFileSync(outPath, JSON.stringify(convert(src), null, 2) + "\n");
+  fs.writeFileSync(outPath, JSON.stringify(converted, null, 2) + "\n");
+  var converted = convert(src);
   process.stdout.write(
     "Converted " + inPath + " to " + outPath + ".\n" +
+    "context.product split into " + converted.context.product.length + " facts; read them, a period\n" +
+    "inside an abbreviation this does not know would have split one fact into two.\n" +
     "Three fields are empty because the old shape never carried them, and are yours to write:\n" +
     "  decisions[0].pick.reasons[].criterionId  which comparison row each reason argues from\n" +
     "  decisions[0].pick.cost                   what this pick costs\n" +
