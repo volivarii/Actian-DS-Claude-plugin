@@ -19,6 +19,18 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **design-proposal document is set to be read** (PR link to be added when the PR is opened):
+  body prose ran 178 characters per line at 13.5px against a readable ceiling of 75,
+  and section headings at 1.11x body size read as bold body text. The document now
+  holds a 512px measure (about 66 characters), a 1.25 type scale of 13/16/20/25/31,
+  and a card only on the recommendation instead of five identical ones. Sources and
+  the gap note get their own register, an approach column is as wide as its drawing
+  (three approaches no longer wrap to three rows), comparison verdicts carry a glyph
+  as well as a colour, and the recommendation leads the document instead of closing it.
+  Presentation only: an existing `proposal-data.json` renders the same content.
+
 ### Added
 
 - **Sections in the brief.** ([#371](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/371))
