@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a reasoned document. Context from the app context and what you attach, bounded research, two to four approaches drawn inside the surface the ticket lives on, a comparison, a recommendation with reasons. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a reasoned document. A recommendation with reasons, then context from the app context and what you attach, bounded research, two to four approaches drawn inside the surface the ticket lives on, and a comparison. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--from proposals/proposal-data.json]"
 ---
 
@@ -19,14 +19,17 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 
 ## What this produces
 
-One offline HTML document at `{project_working_directory}/proposals/<slug>.html`: where the ticket lives
-today, what comparable products do, the approaches drawn inside one anchor surface with a verdict each,
-a comparison table, and a recommendation with its reasons. `<slug>` is the ticket id lower-cased when
-there is one, else a kebab-case of the title, for example `dip-i-496.html`; a re-render with `--from`
-lands on the same file. Its source is `proposals/proposal-data.json`, which you author. Use this skill
-for component-scale questions (a menu, a field, a card, a badge, a dialog). A multi-screen product flow
-is `/generate-flow`; a Figma push is `/generate-flow --push`. A proposal never pushes: when the request
-says "push to Figma" or "in Figma", say so in one line and offer `/generate-flow`.
+One offline HTML document at `{project_working_directory}/proposals/<slug>.html`: the recommendation
+leads the document, then where this lives today, what this is for in its goals and non-goals, what
+comparable products do, the approaches drawn inside one anchor surface with a verdict each, and how they
+compare in a table; what the proposal is not yet sure about follows the table when anything is left open,
+then the recommendation's reasons and what it changes close it, argued from the table before them.
+`<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
+`dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
+`proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
+field, a card, a badge, a dialog). A multi-screen product flow is `/generate-flow`; a Figma push is
+`/generate-flow --push`. A proposal never pushes: when the request says "push to Figma" or "in Figma", say
+so in one line and offer `/generate-flow`.
 
 ## Input shapes
 
@@ -43,7 +46,7 @@ says "push to Figma" or "in Figma", say so in one line and offer `/generate-flow
 | `--concepts N` | 3 | Number of approaches, 2 to 4 |
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
 | `--no-prompt` | off | Kept for compatibility; same as `--no-research` (this skill asks no question) |
-| `--from <path>` | none | Validate and assemble an existing data file; no reading, no approaches in chat |
+| `--from <path>` | none | Validate and assemble an existing data file; no reading, no approaches in chat. A file authored before `2026.9.28` has no `scope`, so add goals and non-goals from the ticket before re-rendering |
 
 ## Pipeline
 
@@ -68,15 +71,20 @@ in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 five findings, each with a source named as text. Present them in chat in five lines or fewer. When it did
 not run, the document says `Not researched: <why>`.
 
-**Step 4, approaches in chat.** N approaches, each a bold name and two lines: what it is, and the case
-where it breaks. Then one paragraph: the recommendation and why. No file yet. The reader pushes back here.
+**Step 4, scope and approaches in chat.** First the scope in two lines: what this is for (the goals, from
+the ticket) and what it is not doing (the non-goals). Then N approaches, each a bold name and two lines:
+what it is, and the case where it breaks. Then one paragraph: the recommendation and why. No file yet. The
+reader pushes back here, on the non-goals as much as on the approaches.
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
 `references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
 `schemas/proposal-data.schema.json`: `meta.title` is the document title, `meta.date` is today's date,
-`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `context`, `research`, `approaches`
-(each drawn inside its anchor, in flow, `width` sized to the idea, with its `screens[]` list), `comparison`
-(criteria from the ticket's goal, the product read, or cost) and `recommendation` (reasons that argue from
+`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `context`, `scope` (one to four
+goals and one to four non-goals, both from the ticket, never invented: the non-goals are what stops
+a reviewer scoping the work sideways), `research`, `approaches` (each drawn inside its anchor, in flow,
+`width` sized to the idea, with its `screens[]` list), `comparison` (criteria from the ticket's goal, the
+product read, or cost), `openQuestions` (at most four rabbit holes or open questions; omit the field when
+the proposal genuinely settles everything, never invent one) and `recommendation` (reasons that argue from
 the table). Then:
 
 ```bash

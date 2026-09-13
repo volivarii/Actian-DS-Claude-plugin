@@ -359,7 +359,7 @@ Research wizard patterns for multi-step configuration
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
 ```
 
-Routes to `/design-proposal`. Two to four approaches in chat with a recommendation, then `proposals/<slug>.html`: the context, the research (on by default, `--no-research` to skip), the approaches drawn inside the surface the ticket lives on, a comparison table and the recommendation with its reasons. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands the recommended concept to `/generate-flow`.
+Routes to `/design-proposal`. Two to four approaches in chat with a recommendation, then `proposals/<slug>.html`: the recommendation leads, then the context, what it is for and what it is not doing, the research (on by default, `--no-research` to skip), the approaches drawn inside the surface the ticket lives on, a comparison table, and what is still open; why this one closes it. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands the recommended concept to `/generate-flow`.
 
 ### Component specs — brief, document, create
 
@@ -431,7 +431,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
-| `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A reasoned document: context, research, approaches, comparison, recommendation |
+| `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A reasoned document: the recommendation, where this lives today, what this is for, what comparable products do, the approaches, how they compare, what we are not sure about, why this one |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 | `/create-component [description]` | Jump to component creation |

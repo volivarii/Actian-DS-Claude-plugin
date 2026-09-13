@@ -21,8 +21,8 @@ describe("proposal-data.schema.json (document shape)", function () {
     var errors = validate(load(FIXTURE_PATH), load(SCHEMA_PATH));
     assert.deepEqual(errors, [], errors.join("\n"));
   });
-  it("requires context, research, approaches, comparison and recommendation at the root", function () {
-    ["context", "research", "approaches", "comparison", "recommendation"].forEach(function (k) {
+  it("requires context, scope, research, approaches, comparison and recommendation at the root", function () {
+    ["context", "scope", "research", "approaches", "comparison", "recommendation"].forEach(function (k) {
       var errors = errorsOf(function (d) { delete d[k]; });
       assert.ok(errors.some(function (e) { return e.indexOf(k) !== -1; }), k + ": " + errors.join("\n"));
     });

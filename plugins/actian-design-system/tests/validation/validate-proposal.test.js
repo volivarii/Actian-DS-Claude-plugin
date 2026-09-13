@@ -35,6 +35,27 @@ describe("validateProposal (document)", function () {
     var f = validateProposal(withMutation(function (d) { delete d.comparison; })).findings;
     assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));
   });
+  it("missing scope is a P0", function () {
+    var d = load();
+    delete d.scope;
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && /scope/.test(f.path + " " + f.value);
+    }), "missing scope is a P0");
+  });
+  it("more than four goals is a P0 (check bounds, path scope.goals)", function () {
+    var d = load();
+    d.scope = { goals: ["a", "b", "c", "d", "e"], nonGoals: ["x"] };
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "scope.goals";
+    }), "five goals is a P0");
+  });
+  it("more than four non-goals is a P0 (check bounds, path scope.nonGoals)", function () {
+    var d = load();
+    d.scope = { goals: ["a"], nonGoals: ["x", "y", "z", "w", "v"] };
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "scope.nonGoals";
+    }), "five non-goals is a P0");
+  });
   it("an unknown anchor app or meta.apps entry is P0; an unknown screens[].app entry is P1 (check app-unknown)", function () {
     var f = only(withMutation(function (d) { d.approaches[0].anchor.app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].screen, "a");
@@ -148,6 +169,22 @@ describe("validateProposal (document)", function () {
       assert.strictEqual(f[0].severity, "P2");
     });
     assert.strictEqual(only(withMutation(function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; }), "em-dash")[0].path, "recommendation.reasons[1].why");
+  });
+  it("bounds open questions at four and rejects an unknown kind", function () {
+    var d = load();
+    d.openQuestions = [1, 2, 3, 4, 5].map(function (n) { return { kind: "open question", text: "q" + n }; });
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "openQuestions";
+    }), "five is a P0");
+
+    d = load();
+    d.openQuestions = [{ kind: "maybe", text: "q" }];
+    // A schema check (validate-schema.js) always reports path "" and carries the
+    // JSON-pointer-style location in .value instead: verified against the real
+    // validator output, not assumed.
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && /openQuestions\/\[0\]\/kind/.test(f.value);
+    }), "an unknown kind is a P0");
   });
 });
 

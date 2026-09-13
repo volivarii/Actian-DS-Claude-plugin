@@ -27,6 +27,8 @@ var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractU
 var SCHEMA_PATH = path.join(__dirname, "..", "..", "schemas", "proposal-data.schema.json");
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
 var MAX_APPROACHES = 4;
+var MAX_SCOPE = 4;
+var MAX_OPEN_QUESTIONS = 4;
 var MAX_FINDINGS = 5;
 var MAX_REASONS = 4;
 var MAX_FLOW_SCREENS = 4;
@@ -134,7 +136,7 @@ function validateProposal(data) {
   var idSeen = {}; // html ids are document-wide: id -> the approach it first appeared in
   var approachIds = {};
 
-  // pseudo screens for the flow gates: one per approach plus four document-level ones,
+  // pseudo screens for the flow gates: one per approach plus six document-level ones,
   // the latter prefixed "doc:" (a colon the approach id pattern forbids) so an approach
   // id such as "context" can never collide with the document-level pseudo screen id.
   // content[n] maps back to a field through PATHS_BY_SCREEN.
@@ -159,6 +161,21 @@ function validateProposal(data) {
     { path: "context.product", text: data.context.product },
     { path: "context.gap", text: data.context.gap || "" },
   ]);
+
+  // scope: goals and non-goals, bounded, and prose-checked like every other text field.
+  // No guard here: scope is schema-required with its own required goals/nonGoals, and any
+  // schema error already returned above, so data.scope is a well-formed object by this line.
+  ["goals", "nonGoals"].forEach(function (key) {
+    var list = data.scope[key];
+    if (list.length > MAX_SCOPE)
+      findings.push(finding("P0", "bounds", "", "scope." + key, list.length + " entries; at most " + MAX_SCOPE));
+    list.forEach(function (line, i) { checkProse(line, "", "scope." + key + "[" + i + "]", findings); });
+  });
+  addPseudo("doc:scope", "Scope", data.scope.goals.map(function (g, i) {
+    return { path: "scope.goals[" + i + "]", text: g };
+  }).concat(data.scope.nonGoals.map(function (n, i) {
+    return { path: "scope.nonGoals[" + i + "]", text: n };
+  })));
 
   // research
   if (data.research.ran === false && !data.research.skippedBecause)
@@ -243,6 +260,18 @@ function validateProposal(data) {
     });
   });
   addPseudo("doc:comparison", "Comparison", compEntries);
+
+  // openQuestions: optional, bounded, prose-checked. Absence is honest; invention is not.
+  var openQuestions = data.openQuestions || [];
+  if (openQuestions.length > MAX_OPEN_QUESTIONS)
+    findings.push(finding("P0", "bounds", "", "openQuestions", openQuestions.length + " entries; at most " + MAX_OPEN_QUESTIONS));
+  openQuestions.forEach(function (q, i) {
+    checkProse(q.text, "", "openQuestions[" + i + "].text", findings);
+  });
+  if (openQuestions.length)
+    addPseudo("doc:open-questions", "Open questions", openQuestions.map(function (q, i) {
+      return { path: "openQuestions[" + i + "].text", text: q.text };
+    }));
 
   // recommendation
   if (!approachIds[data.recommendation.approachId])

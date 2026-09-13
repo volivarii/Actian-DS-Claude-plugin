@@ -6,10 +6,16 @@ every field; read its examples, not the renderer.
 
 ## The sections and what each one is for
 
+The order below is the data's. The document leads with the recommendation and closes with its
+reasons.
+
 - **context**: `question` (the one sentence from Step 1), `product` (three to six sentences on how the
   product handles this today: the anchor surface, the data model behind it, what an admin and a user see),
   `sources` (one line each, `app-context: ...` or `attachment: ...`), `gap` (one sentence, only when the
   anchor surface has no capture in app-context).
+- **scope**: one to four goals and one to four non-goals. A goal comes from the ticket. A non-goal is
+  a thing a reviewer would plausibly ask for that this change deliberately does not do; naming it is
+  what stops the ask. Do not invent either to fill the slots; two of each is a full answer.
 - **research**: `ran` and up to five `findings` of `{ claim, source }`, the source as text (the document
   loads nothing). When research did not run: `ran: false`, `findings: []`, `skippedBecause`.
 - **approaches**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
@@ -19,6 +25,10 @@ every field; read its examples, not the renderer.
 - **comparison**: `criteria` rows (`id`, `label`, `source` one of `ticket goal`, `product fact`, `cost`)
   and `cells[approachId][criterionId] = { text, tone }` with `tone` one of `good`, `mixed`, `bad`. Every
   criterion comes from the ticket's stated goal, a fact the product read established, or cost; never taste.
+- **openQuestions**: at most four. A rabbit hole is a detail of the recommended approach that will cost
+  more than it looks (a missing affordance, an unstated default). An open question is a decision the
+  reader has to make. Omit the whole field when there are none; an invented question reads as padding
+  and costs the document its credibility.
 - **recommendation**: `approachId`, a `summary` paragraph, two to four `reasons` of `{ title, why }`, and
   `change` (`adminSide`, `userSide`) when the change is two-sided.
 

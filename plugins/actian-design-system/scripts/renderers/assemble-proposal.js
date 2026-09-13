@@ -2,8 +2,9 @@
 
 /**
  * assemble-proposal.js: assembles a design proposal document, one offline HTML
- * file, from proposals/proposal-data.json: context, research, the approaches
- * drawn inside their anchor, a comparison table and the recommendation.
+ * file, from proposals/proposal-data.json: the recommendation, the context, the
+ * goals and non-goals, the research, the approaches drawn inside their anchor,
+ * a comparison table, the open questions and the reasons for the pick.
  *
  * Grounding the author does not have to think about: the app header strip is
  * the flow renderer's own appHeader markup for the anchor's app (so the label
@@ -73,8 +74,17 @@ function section(title, inner, extraClass) {
 function contextHtml(c) {
   var inner = '<p class="doc__question">' + esc(c.question) + "</p><p>" + esc(c.product) + "</p>";
   inner += '<p class="doc__muted">Sources: ' + esc(c.sources.join("; ")) + "</p>";
-  if (c.gap) inner += '<p class="doc__muted">Gap: ' + esc(c.gap) + "</p>";
+  if (c.gap) inner += '<p class="doc__gap">Gap: ' + esc(c.gap) + "</p>";
   return section("Where this lives today", inner);
+}
+
+function scopeHtml(scope) {
+  function col(label, lines) {
+    return '<div class="scope__col"><h3>' + esc(label) + "</h3><ul class=\"doc__list\">" +
+      lines.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("") + "</ul></div>";
+  }
+  var inner = '<div class="scope">' + col("Goals", scope.goals) + col("Not doing", scope.nonGoals) + "</div>";
+  return section("What this is for", inner);
 }
 
 function researchHtml(r) {
@@ -93,8 +103,9 @@ function approachHtml(a, index, apps) {
   var type = flowRenderer.resolveChrome({ template: templateForApp(a.anchor.app) }).appHeaderType;
   var strip = flowRenderer.appHeader(type);
   var width = Number(a.screen.width) || 360;
+  var colWidth = Math.max(width, 280); // a narrow drawing still needs room to caption
   return (
-    '<div class="proposal-screen__col">' +
+    '<div class="proposal-screen__col" style="width:' + colWidth + 'px">' +
     '<span class="proposal-screen__label"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(a.name) +
     ' <span class="doc__source">' + esc(appLabel(apps, a.anchor.app) + ", " + a.anchor.surface) + "</span></span>" +
     '<div class="proposal-screen" data-name="' + esc(a.id) + '" style="width:' + width + 'px">' + strip +
@@ -118,12 +129,28 @@ function comparisonHtml(cmp, approaches) {
   return section("How they compare", '<table class="compare"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table>");
 }
 
-function recommendationHtml(rec, approaches) {
+function openQuestionsHtml(list) {
+  if (!list || !list.length) return "";
+  var items = list.map(function (q) {
+    var kind = q.kind === "rabbit hole" ? "Rabbit hole" : "Open question";
+    return '<li><span class="oq__kind">' + kind + "</span>" + esc(q.text) + "</li>";
+  }).join("");
+  return section("What we are not sure about", '<ul class="doc__list oq">' + items + "</ul>");
+}
+
+function recommendationLeadHtml(rec, approaches) {
   var pick = null;
   approaches.forEach(function (a) { if (a.id === rec.approachId) pick = a; });
   if (!pick) throw new Error('proposal-data: recommendation.approachId "' + rec.approachId + '" names no approach');
-  var inner = '<p class="rec__pick">Recommendation</p><h2>' + esc(pick.name) + "</h2><p>" + esc(rec.summary) + "</p>";
-  inner += '<div class="rec__reasons">' + rec.reasons.map(function (r) {
+  // The eyebrow sits inside the heading, so the outline a screen reader or a print TOC
+  // builds opens with "Recommendation" and not with a bare approach name. .rec__pick is
+  // display: block, so it keeps its own line and its margin, and the card looks the same.
+  var inner = '<h2><span class="rec__pick">Recommendation</span>' + esc(pick.name) + "</h2><p>" + esc(rec.summary) + "</p>";
+  return section("", inner, "doc__section--rec");
+}
+
+function recommendationDetailHtml(rec) {
+  var inner = '<div class="rec__reasons">' + rec.reasons.map(function (r) {
     return '<div class="rec__reason"><b>' + esc(r.title) + "</b>" + esc(r.why) + "</div>";
   }).join("") + "</div>";
   if (rec.change && (rec.change.adminSide || rec.change.userSide)) {
@@ -133,7 +160,7 @@ function recommendationHtml(rec, approaches) {
     if (rec.change.userSide) inner += "<b>User side.</b> " + esc(rec.change.userSide);
     inner += "</p>";
   }
-  return section("", inner, "rec");
+  return section("Why this one, and what it changes", inner);
 }
 
 function footerHtml(meta, pick) {
@@ -152,11 +179,14 @@ function assembleProposal(data) {
   var pick = null;
   data.approaches.forEach(function (a) { if (a.id === data.recommendation.approachId) pick = a; });
   var sections =
+    recommendationLeadHtml(data.recommendation, data.approaches) +
     contextHtml(data.context) +
+    scopeHtml(data.scope) +
     researchHtml(data.research) +
     section("Approaches", '<div class="approaches">' + approaches + "</div>") +
     comparisonHtml(data.comparison, data.approaches) +
-    recommendationHtml(data.recommendation, data.approaches) +
+    openQuestionsHtml(data.openQuestions) +
+    recommendationDetailHtml(data.recommendation) +
     footerHtml(meta, pick);
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]
     .filter(Boolean).join("  ·  ");
