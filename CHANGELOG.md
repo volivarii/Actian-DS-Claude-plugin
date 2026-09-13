@@ -22,14 +22,19 @@ are summarized at the release level.
 ### Changed
 
 - **design-proposal document is set to be read** (PR link to be added when the PR is opened):
-  body prose ran 178 characters per line at 13.5px against a readable ceiling of 75,
-  and section headings at 1.11x body size read as bold body text. The document now
-  holds a 512px measure (about 66 characters), a 1.25 type scale of 13/16/20/25/31,
-  and a card only on the recommendation instead of five identical ones. Sources and
-  the gap note get their own register, an approach column is as wide as its drawing
-  (three approaches no longer wrap to three rows), comparison verdicts carry a glyph
-  as well as a colour, and the recommendation leads the document instead of closing it.
-  Presentation only: an existing `proposal-data.json` renders the same content.
+  body prose ran 178 characters per line at 13.5px against a readable ceiling of 75, and section
+  headings at 1.11x body size read as bold body text. The document now holds a 512px measure
+  (about 66 characters at 16px), a 1.25 type scale of 13/16/20/25/31, and `--doc-micro: 11px` for
+  uppercase tracked labels, all named tokens; a test gate asserts every `font-size` in the document
+  stylesheet resolves to a `var(--doc-*)` token, with no literal px size left in the file. A card now
+  sits only on the recommendation; every other section is a rule and space, and sources and the gap
+  note read in their own register instead of as body prose. An approach column is sized to its
+  drawing rather than the label, so three approaches stop wrapping to three rows. Comparison
+  verdicts carry a glyph as well as a colour (check, open circle, cross, written as CSS escapes so
+  the file stays byte-safe), the difference that lets the table survive greyscale and print. The
+  recommendation is split so its pick and summary lead the document, and its reasons close it,
+  after the comparison table they argue from. Presentation only: an existing `proposal-data.json`
+  renders the same content.
 
 ### Added
 

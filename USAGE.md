@@ -359,7 +359,7 @@ Research wizard patterns for multi-step configuration
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
 ```
 
-Routes to `/design-proposal`. Two to four approaches in chat with a recommendation, then `proposals/<slug>.html`: the context, the research (on by default, `--no-research` to skip), the approaches drawn inside the surface the ticket lives on, a comparison table and the recommendation with its reasons. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands the recommended concept to `/generate-flow`.
+Routes to `/design-proposal`. Two to four approaches in chat with a recommendation, then `proposals/<slug>.html`: the recommendation leads, then the context, the research (on by default, `--no-research` to skip), the approaches drawn inside the surface the ticket lives on, and a comparison table; why this one closes it. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands the recommended concept to `/generate-flow`.
 
 ### Component specs — brief, document, create
 

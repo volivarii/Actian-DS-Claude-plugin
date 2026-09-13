@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a reasoned document. Context from the app context and what you attach, bounded research, two to four approaches drawn inside the surface the ticket lives on, a comparison, a recommendation with reasons. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a reasoned document. A recommendation with reasons, then context from the app context and what you attach, bounded research, two to four approaches drawn inside the surface the ticket lives on, and a comparison. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--from proposals/proposal-data.json]"
 ---
 
@@ -19,9 +19,10 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 
 ## What this produces
 
-One offline HTML document at `{project_working_directory}/proposals/<slug>.html`: where the ticket lives
-today, what comparable products do, the approaches drawn inside one anchor surface with a verdict each,
-a comparison table, and a recommendation with its reasons. `<slug>` is the ticket id lower-cased when
+One offline HTML document at `{project_working_directory}/proposals/<slug>.html`: the recommendation
+leads the document, then where the ticket lives today, what comparable products do, the approaches drawn
+inside one anchor surface with a verdict each, and a comparison table; the recommendation's reasons and
+change scope close it, after the table they argue from. `<slug>` is the ticket id lower-cased when
 there is one, else a kebab-case of the title, for example `dip-i-496.html`; a re-render with `--from`
 lands on the same file. Its source is `proposals/proposal-data.json`, which you author. Use this skill
 for component-scale questions (a menu, a field, a card, a badge, a dialog). A multi-screen product flow
