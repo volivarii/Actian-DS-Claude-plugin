@@ -227,4 +227,23 @@ describe("document setting", function () {
     assert.ok(html.indexOf('<p class="doc__gap">Gap: ' + d.context.gap) !== -1, "gap has its own class");
     assert.ok(html.indexOf('<p class="doc__muted">Sources: ') !== -1, "sources stay muted");
   });
+
+  it("sizes an approach column to its drawing so the label wraps instead of widening the row", function () {
+    var d = load();
+    d.approaches.forEach(function (a) {
+      var w = Math.max(Number(a.screen.width) || 360, 280);
+      assert.ok(
+        html.indexOf('<div class="proposal-screen__col" style="width:' + w + 'px">') !== -1,
+        a.id + " column at " + w + "px"
+      );
+    });
+    // A narrow drawing still gets a column wide enough to caption.
+    var narrow = load();
+    narrow.approaches[0].screen.width = 240;
+    assert.ok(
+      assembleProposal(narrow).indexOf('<div class="proposal-screen__col" style="width:280px">') !== -1,
+      "240px drawing gets a 280px column"
+    );
+    assert.match(rule(".approach__lines"), /max-width:\s*100%/);
+  });
 });
