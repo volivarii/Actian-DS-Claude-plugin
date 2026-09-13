@@ -10,28 +10,34 @@
   </style>
   <style>
     /* Document setting. The FM sheet above owns every component style; this block sets the
-       document: one measure, one 1.25 scale off 16px, and a card only where a card means
-       something. Section registers follow the readability findings of 2026-09-13.
+       document: one measure and one 1.25 scale off 16px, and no card, because the answer is
+       the first element and nothing has to be lifted off the page to find it. Section
+       registers follow the readability findings of 2026-09-13.
 
        Size encodes role, not section, so a new section reads its size off this list and not
        off the section beside it. --doc-body (16px) is running prose at the measure: section
-       paragraphs, the research list, the open-questions list. A caption block's own title
-       steps back up to body, which is why a reason title is body inside a caption block.
-       --doc-caption (13px) is anything in a column or a note: the scope columns, the approach
-       lines, the comparison table, the reason bodies, the change note, the sources, the
-       footer. --doc-micro (11px) is uppercase tracked labels, plus the two marks that sit at
-       label scale without being words: the approach numeral in its badge and the criterion
-       source under a comparison row heading.
+       paragraphs and the open-questions list. A caption block's own title steps back up to
+       body, which is why the pick lead is body above caption-sized reasons. --doc-caption
+       (13px) is anything in a column or a note: the answer picks, the briefing columns, the
+       decision table, the approach lines, the comparison table, the pick reasons and its
+       cost, the blocker, the change columns, the sources, the latitude line, the footer.
+       --doc-micro (11px) is uppercase tracked labels, plus the three marks that sit at label
+       scale without being words: the option numeral in its badge, the criterion source under
+       a comparison row heading, and the phrases annotating a drawing.
 
-       The document has no h3-level heading. The only h3 elements in it are the scope column
-       labels, which are labels, which is why they are micro. --doc-lede is the one step
-       above body, and the context question is its single use. */
+       The h3 elements are the briefing and change column labels, which are labels, which is
+       why they are micro. --doc-h2 carries the answer and every decision question alike:
+       those are the document's load-bearing statements and neither outranks the other.
+
+       One size is drawn rather than set. .bb__name, the place name inside a breadboard box,
+       is 15px: it is an SVG text node that has to read louder than the affordances under it
+       and quieter than a heading, and no step on this scale lands there. The test names that
+       one exception by value, so it cannot spread. */
     :root {
       --doc-measure: 512px;   /* about 66 characters at 16px Inter; 45 to 75 is the readable band */
       --doc-body: 16px;
       --doc-caption: 13px;
       --doc-micro: 11px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below caption is correct here, not drift */
-      --doc-lede: 20px;
       --doc-h2: 25px;
       --doc-h1: 31px;
     }
@@ -42,12 +48,12 @@
     .doc__title { font-size: var(--doc-h1); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 6px; max-width: 22ch; }
     .doc__context { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 0; letter-spacing: 0.02em; }
 
-    /* A section is a rule and space. Only the recommendation is lifted. */
+    /* A section is a rule and space. Nothing is lifted: the answer opens the document,
+       so no card has to tell a reader where to start. */
     .doc__section { border-top: 1px solid var(--fm-base-400); padding: 28px 0 0; margin: 0 0 40px; }
     .doc__section > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 14px; max-width: var(--doc-measure); }
     .doc__section > p, .doc__section > ul { max-width: var(--doc-measure); }
     .doc__section p { margin: 0 0 12px; }
-    .doc__question { font-size: var(--doc-lede); font-weight: 600; line-height: 1.4; margin: 0 0 14px; }
 
     /* Apparatus: what the document says about itself reads as a note, never as prose. */
     .doc__muted { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); border-left: 2px solid var(--fm-base-300); padding-left: 12px; margin: 14px 0 0; }
@@ -55,9 +61,6 @@
     .doc__list { margin: 0; padding-left: 20px; }
     .doc__list li { margin: 0 0 10px; }
     .doc__source { color: var(--fm-text-tertiary); font-size: var(--doc-caption); }
-    .scope { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; max-width: 860px; } /* the one raw width in the file: two columns of short labels are not running prose, so the measure does not bind them */
-    .scope__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
-    .scope__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
     .approaches { display: flex; flex-wrap: wrap; gap: 32px 24px; align-items: flex-start; }
     .proposal-screen__col { display: flex; flex-direction: column; }
@@ -91,25 +94,77 @@
     .tone-bad { color: var(--fm-text-error); }
     .tone-bad::before { content: "\2717"; }
 
-    .rec__pick { display: block; font-size: var(--doc-micro); font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
-    .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 24px; margin: 18px 0 0; }
-    .rec__reason { border-top: 2px solid var(--fm-base-400); padding: 12px 0 0; font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
-    .rec__reason b { display: block; margin: 0 0 6px; font-size: var(--doc-body); color: var(--fm-text-primary); }
-    /* A note about the whole recommendation, not a fifth reason: the rule separates it from the
-       grid above, which otherwise runs straight into the tallest column. The selector carries
-       .doc__section because `.doc__section p` is (0,1,1) and would otherwise win the margin. */
-    .doc__section > .rec__change { margin: 24px 0 0; padding: 14px 0 0; border-top: 1px solid var(--fm-base-300); font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
-
     .oq__kind { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin-bottom: 2px; }
 
-    /* After .doc__section: same specificity, so the card has to win on order. The card
-       hugs the measure instead of the 1200px .doc width: 512 measure + 24 + 24 padding + a
-       4px left border + a 1px right border = 565, so its contents still get a full 512.
-       box-sizing: border-box comes from the FM reset's universal selector. */
-    .doc__section--rec { background: var(--fm-base-white); border: 1px solid var(--fm-brand); border-left-width: 4px; border-radius: 6px; padding: 22px 24px; margin: 0 0 40px; max-width: calc(var(--doc-measure) + 53px); }
-    .doc__section--rec > h2 { margin: 0 0 10px; }
-
     .doc__footer { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--fm-base-300); max-width: var(--doc-measure); }
+
+    /* The answer. One sentence at h2 scale is the document's first element, tied with a
+       decision question rather than with the title above it; the picks under it are a list
+       of what was decided, not a summary paragraph. */
+    .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
+    .answer-picks { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; max-width: var(--doc-measure); }
+    .answer-picks li { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); }
+    .answer-picks b { color: var(--fm-text-primary); }
+
+    /* The terrain. The SVG carries no colour of its own; every value it draws with is here. */
+    .bb { width: 100%; overflow-x: auto; margin: 0 0 14px; }
+    .bb__svg { display: block; max-width: 100%; height: auto; }
+    .bb__box { stroke: var(--fm-base-400); stroke-width: 1; }
+    .bb__box--new { stroke: var(--fm-brand); stroke-width: 2; stroke-dasharray: 6 4; }
+    .bb__app { font-size: var(--doc-micro); font-weight: 700; letter-spacing: 0.08em; fill: var(--fm-text-tertiary); }
+    .bb__name { font-size: 15px; font-weight: 700; fill: var(--fm-text-primary); }
+    .bb__rule { stroke: var(--fm-base-300); stroke-width: 1; }
+    .bb__aff { font-size: var(--doc-caption); fill: var(--fm-text-secondary); }
+    .bb__line { stroke: var(--fm-base-600); stroke-width: 2; }
+    .bb__line--new { stroke: var(--fm-brand); stroke-dasharray: 6 4; }
+    .bb__label { font-size: var(--doc-micro); font-weight: 700; letter-spacing: 0.06em; fill: var(--fm-text-tertiary); }
+    .bb__head path { fill: var(--fm-base-600); }
+    .bb__head--new path { fill: var(--fm-brand); }
+    .bb__legend { display: flex; gap: 20px; flex-wrap: wrap; margin: 0; font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); font-weight: 700; }
+    .bb__legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .bb__swatch { width: 22px; border-top: 2px solid var(--fm-base-600); }
+    .bb__swatch--new { border-top: 2px dashed var(--fm-brand); }
+
+    /* The decision table: what was decided, at a glance, before any of it is argued. */
+    .decisions-at-a-glance { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
+    .decisions-at-a-glance th, .decisions-at-a-glance td { text-align: left; vertical-align: top; padding: 10px 24px 10px 0; border-top: 1px solid var(--fm-base-300); }
+    .decisions-at-a-glance thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+    .decisions-at-a-glance tbody th { font-weight: 600; color: var(--fm-text-primary); }
+    .decisions-at-a-glance td { color: var(--fm-text-secondary); }
+
+    /* The briefing: four short columns, none of them running prose. */
+    .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; }
+    .briefing__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
+    .briefing__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
+
+    /* A decision block. The question is the heading; the number tells a reader where
+       they are in a document that may hold four of these. */
+    .decision { border-top: 2px solid var(--fm-base-500); padding: 24px 0 0; margin: 0 0 44px; }
+    .decision__kicker { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 6px; }
+    .decision > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
+    .decision__blocker { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
+    .decision__blocker b { color: var(--fm-text-primary); }
+
+    /* Annotations on a drawing: phrases, never sentences. */
+    .option__notes { margin: 10px 0 0; padding: 0; list-style: none; }
+    .option__notes li { font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* The pick. One line per reason, each naming the row it argues from, then the cost. */
+    .pick { margin: 22px 0 0; border-top: 1px solid var(--fm-base-400); padding: 16px 0 0; max-width: var(--doc-measure); }
+    .pick__lead { font-size: var(--doc-body); font-weight: 600; margin: 0 0 12px; }
+    .pick__lead .decision__kicker { color: var(--fm-brand-dark); }
+    .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .pick__reasons li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
+    .pick__crit { font-weight: 700; color: var(--fm-text-primary); }
+    .pick__cost { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 14px 0 0; }
+    .pick__cost b { color: var(--fm-text-primary); }
+
+    /* What this changes, and the latitude line that closes the document. */
+    .change { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; }
+    .change__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 8px; }
+    .change__col p { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 0; }
+    .doc__latitude { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-tertiary); margin: 0; max-width: var(--doc-measure); font-style: italic; }
+
     [hidden] { display: none !important; }
   </style>
 </head>
