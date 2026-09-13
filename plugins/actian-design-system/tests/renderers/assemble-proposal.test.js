@@ -147,10 +147,12 @@ describe("assembleProposal (document)", function () {
     d.meta.title = 'x" onload="y';
     d.approaches[0].name = "<b>bold</b>";
     d.context.question = "<script>bad()</script>";
+    d.openQuestions[0].text = "<script>openQuestion()</script>";
     var out = assembleProposal(d);
     assert.ok(out.indexOf('x" onload="y') === -1, "title escaped");
     assert.ok(out.indexOf("&lt;b&gt;bold&lt;/b&gt;") !== -1, "name escaped");
-    assert.strictEqual(count(out, "<script"), 1, "prose escaped");
+    assert.ok(out.indexOf("&lt;script&gt;openQuestion()&lt;/script&gt;") !== -1, "open question text escaped");
+    assert.strictEqual(count(out, "<script"), 1, "prose escaped, script count unchanged");
   });
   it("renders rabbit holes and open questions, and omits the section entirely when there are none", function () {
     var d = load();
@@ -207,27 +209,44 @@ describe("document setting", function () {
   // The FM base sheet has its own :root and its own body rule. Pin to the
   // document stylesheet, which is the LAST <style> before </head>.
   var docCss = html.slice(html.lastIndexOf("<style>"), html.indexOf("</head>"));
-  function rule(sel) {
-    var m = new RegExp(sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\{[^}]*\\}").exec(docCss);
-    assert.ok(m, "no rule for " + sel + " in the document stylesheet");
-    return m[0];
+  // Anchored on the start of the block, a newline or a closing brace, so a selector can
+  // only match at the start of a rule. Unanchored, rule("body") matches the tail of
+  // .proposal-screen__body and passes today only because the body rule happens to come
+  // first in source order: the gate would match the wrong occurrence the day that changes.
+  function ruleIn(css, sel) {
+    var m = new RegExp("(?:^|[\\n}])\\s*(" + sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\{[^}]*\\})").exec(css);
+    assert.ok(m, "no rule for " + sel + " in the stylesheet");
+    return m[1];
   }
+  function rule(sel) { return ruleIn(docCss, sel); }
+
+  it("anchors rule() to the start of a rule, so a selector cannot match inside a longer one", function () {
+    assert.match(rule("body"), /^body\s*\{/, "the body element rule, not the tail of another selector");
+    // Same two rules, opposite source order. Anchored still finds body; unanchored does not.
+    var swapped = ".proposal-screen__body { padding: 16px; }\nbody { background: red; }";
+    assert.strictEqual(ruleIn(swapped, "body"), "body { background: red; }", "anchored: the body rule");
+    var unanchored = new RegExp("body\\s*\\{[^}]*\\}").exec(swapped)[0];
+    assert.strictEqual(unanchored, "body { padding: 16px; }", "unanchored: the tail of .proposal-screen__body");
+  });
 
   it("declares the scale and the measure as tokens, and nothing off the scale", function () {
     var root = rule(":root");
     assert.match(root, /--doc-measure:\s*512px/, root);
     assert.match(root, /--doc-body:\s*16px/, root);
     assert.match(root, /--doc-caption:\s*13px/, root);
+    assert.match(root, /--doc-micro:\s*11px/, root);
     assert.match(root, /--doc-lede:\s*20px/, root);
     assert.match(root, /--doc-h2:\s*25px/, root);
     assert.match(root, /--doc-h1:\s*31px/, root);
   });
 
-  it("sets every size through a token, so nothing drifts off the scale", function () {
-    var literals = docCss.match(/font-size:\s*[0-9.]+px/g) || [];
-    assert.deepStrictEqual(literals, [], "literal font sizes in the document stylesheet: " + literals.join(", "));
-    var root = rule(":root");
-    assert.match(root, /--doc-micro:\s*11px/, root);
+  it("sets every font-size through a token, so nothing drifts off the scale", function () {
+    // The promise is that every size resolves to a --doc-* token, so the gate asks for
+    // var( and nothing else. A px-only gate let a rem, an em, a pt or a keyword through.
+    // The whitespace sits INSIDE the lookahead: /font-size:\s*(?!var\()/ backtracks \s*
+    // to empty and then the lookahead passes on " var(", so it matches every declaration.
+    var offScale = docCss.match(/font-size:(?!\s*var\()[^;}]*/g) || [];
+    assert.deepStrictEqual(offScale, [], "font-size not set through a token: " + offScale.join(" | "));
   });
 
   it("sets running prose at 16px and holds it to the measure", function () {
@@ -273,6 +292,24 @@ describe("document setting", function () {
     assert.strictEqual(count(html, 'class="scope__col"'), 2, "two columns");
     assert.ok(html.indexOf("<h3>Goals</h3>") !== -1 && html.indexOf("<h3>Not doing</h3>") !== -1, "both labelled");
     assert.match(rule(".scope"), /display:\s*grid/);
+  });
+
+  it("puts every goal under Goals and no non-goal there, so the two columns cannot swap", function () {
+    // Both lists appearing somewhere in the document is not the claim. Swapping the two
+    // col() arguments in the renderer would tell a reviewer the goals are the non-goals,
+    // so slice the column and bind each line to its own heading.
+    var d = load();
+    var goalsAt = html.indexOf("<h3>Goals</h3>");
+    var notDoingAt = html.indexOf("<h3>Not doing</h3>");
+    assert.ok(goalsAt !== -1 && notDoingAt !== -1, "both headings present");
+    assert.ok(goalsAt < notDoingAt, "Goals is the first column");
+    var goalsCol = html.slice(goalsAt, notDoingAt);
+    d.scope.goals.forEach(function (g) {
+      assert.ok(goalsCol.indexOf(g) !== -1, "goal under the Goals heading: " + g);
+    });
+    d.scope.nonGoals.forEach(function (n) {
+      assert.ok(goalsCol.indexOf(n) === -1, "non-goal must not sit under the Goals heading: " + n);
+    });
   });
 
   it("sizes an approach column to its drawing so the label wraps instead of widening the row", function () {
