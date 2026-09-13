@@ -160,7 +160,7 @@
         },
         "product": {
           "type": "array",
-          "description": "Three to six facts about how the product handles this today, one line each: the anchor surface, the data model behind it, what an admin and a user see. Facts, not a paragraph",
+          "description": "Facts about how the product handles this today, one line each: the anchor surface, the data model behind it, what an admin and a user see. Three to six is the useful range and six is the ceiling; fewer than three usually means the product read stopped early. Facts, not a paragraph",
           "minItems": 1,
           "maxItems": 6,
           "items": {
@@ -423,6 +423,7 @@
       "type": "array",
       "description": "One to four decisions the feature forces. Each is self-contained: its own question, options, comparison and pick. A simple ticket has one, which is the old single-decision document exactly",
       "minItems": 1,
+      "maxItems": 4,
       "items": {
         "type": "object",
         "description": "One decision",
@@ -637,8 +638,9 @@
             "properties": {
               "criteria": {
                 "type": "array",
-                "description": "Rows of the comparison table, in reading order; three to six",
+                "description": "Rows of the comparison table, in reading order. Three to six: the ceiling is enforced here, and a table of fewer than three rows is a validator finding, because it does not separate the options, which is what it is for",
                 "minItems": 1,
+                "maxItems": 6,
                 "items": {
                   "type": "object",
                   "description": "One criterion and where it comes from",
@@ -793,7 +795,7 @@
     },
     "change": {
       "type": "object",
-      "description": "What this proposal changes, on each side. At least one side is required: a change that changes nothing anywhere is not a proposal",
+      "description": "What this proposal changes, on each side. At least one side must say something (validator-enforced): a change that changes nothing anywhere is not a proposal",
       "properties": {
         "adminSide": {
           "description": "What changes for administrators, one or two lines",

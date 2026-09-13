@@ -28,7 +28,11 @@ describe("proposal-data.schema.json", function () {
     });
   });
 
-  it("rejects the retired top-level keys by not describing them", function () {
+  // Named for what it checks. The schema does not REJECT the retired keys: it sets no
+  // additionalProperties and validate-schema.js does not implement the keyword, so a
+  // half-converted file carrying both shapes passes here. Catching that is the validator's
+  // job, and Task 5 owns it; this test only pins that the keys are no longer described.
+  it("no longer describes the retired top-level keys", function () {
     assert.ok(!SCHEMA.properties.approaches, "approaches is gone");
     assert.ok(!SCHEMA.properties.comparison, "comparison is gone");
     assert.ok(!SCHEMA.properties.recommendation, "recommendation is gone");
@@ -56,6 +60,24 @@ describe("proposal-data.schema.json", function () {
     var d = load();
     delete d.decisions[0].pick.reasons[0].criterionId;
     assert.ok(errors(d).length > 0, "reasons[].criterionId is required");
+  });
+
+  it("bounds decisions to four, which is the number its own description claims", function () {
+    var d = load();
+    assert.deepStrictEqual(errors(d), [], "the fixture's one decision is fine");
+    while (d.decisions.length < 5) d.decisions.push(JSON.parse(JSON.stringify(d.decisions[0])));
+    var e = errors(d);
+    assert.strictEqual(e.length, 1, "five decisions is one error, got: " + e.join("; "));
+    assert.ok(e[0].indexOf("decisions") !== -1 && e[0].indexOf("maximum is 4") !== -1, e[0]);
+  });
+
+  it("bounds a decision's criteria to six, the ceiling its description claims", function () {
+    var d = load();
+    var crit = d.decisions[0].comparison.criteria;
+    while (crit.length < 7) crit.push({ id: "filler" + crit.length, label: "Filler", source: "cost" });
+    var e = errors(d);
+    assert.ok(e.some(function (x) { return x.indexOf("criteria") !== -1 && x.indexOf("maximum is 6") !== -1; }),
+      "seven criteria is refused, got: " + e.join("; "));
   });
 
   it("bounds context.product to six facts and requires it to be an array", function () {

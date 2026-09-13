@@ -4,9 +4,10 @@
  * examples array, so an authoring agent reads the examples rather than the renderer.
  * Nothing enforced it: this gate does, for proposal-data.schema.json.
  *
- * Scoped deliberately. The other three schemas violate the convention 370 times between
- * them, which is real debt but is not this branch's to pay, and a repo-wide gate that
- * fails on day one teaches everyone to skip it.
+ * Scoped deliberately. Under this same rule the other three schemas are 310 violations
+ * short between them (brief-data 198, flow-data 81, slide-data 31), which is real debt
+ * but is not this branch's to pay, and a repo-wide gate that fails on day one teaches
+ * everyone to skip it.
  */
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -22,18 +23,29 @@ function isContainer(node) {
   return node.type === "array" && !!node.items;
 }
 
+function check(node, at, missing) {
+  if (!node.description) missing.push(at + ": no description");
+  if (node.examples === undefined && !isContainer(node)) missing.push(at + ": no examples");
+}
+
+// Descends both ways a schema nests: a properties map, and an items schema. The items
+// schema is checked as well as descended into. It used to be only descended into, which
+// granted the array exemption on a premise ("its items carry theirs") that nothing
+// verified: every array of scalars in the file was unchecked.
 function walk(node, where, missing) {
   if (!node || typeof node !== "object") return;
   if (node.properties) {
     Object.keys(node.properties).forEach(function (key) {
       var prop = node.properties[key];
       var at = where + "." + key;
-      if (!prop.description) missing.push(at + ": no description");
-      if (prop.examples === undefined && !isContainer(prop)) missing.push(at + ": no examples");
+      check(prop, at, missing);
       walk(prop, at, missing);
     });
   }
-  if (node.items) walk(node.items, where + "[]", missing);
+  if (node.items) {
+    check(node.items, where + "[]", missing);
+    walk(node.items, where + "[]", missing);
+  }
 }
 
 describe("proposal-data.schema.json authoring convention", function () {
@@ -63,11 +75,39 @@ describe("proposal-data.schema.json authoring convention", function () {
     assert.ok(schema.properties.decisions.items.properties.id.examples, "its items do carry them");
   });
 
-  it("still demands examples from a leaf inside a container", function () {
+  it("still demands examples from a leaf reached through a properties map", function () {
     var mutated = JSON.parse(fs.readFileSync(SCHEMA, "utf8"));
     delete mutated.properties.decisions.items.properties.id.examples;
     var missing = [];
     walk(mutated, "", missing);
     assert.deepStrictEqual(missing, [".decisions[].id: no examples"], "a container is not a blanket exemption");
+  });
+
+  // The array exemption is granted because the items schema carries the examples. That
+  // premise has to be checked, or the exemption is unconditional: these are the cases
+  // that used to return an empty list while the examples they were exempted for were gone.
+  it("still demands examples from an items schema, which is what the array exemption rests on", function () {
+    [
+      ["meta", "apps"],
+      ["context", "product"],
+      ["context", "sources"],
+      ["scope", "goals"],
+      ["scope", "nonGoals"],
+    ].forEach(function (pair) {
+      var mutated = JSON.parse(fs.readFileSync(SCHEMA, "utf8"));
+      delete mutated.properties[pair[0]].properties[pair[1]].items.examples;
+      var missing = [];
+      walk(mutated, "", missing);
+      assert.deepStrictEqual(missing, ["." + pair[0] + "." + pair[1] + "[]: no examples"],
+        pair.join(".") + " items stripped of examples is reported");
+    });
+  });
+
+  it("still demands a description from an items schema", function () {
+    var mutated = JSON.parse(fs.readFileSync(SCHEMA, "utf8"));
+    delete mutated.properties.decisions.items.description;
+    var missing = [];
+    walk(mutated, "", missing);
+    assert.deepStrictEqual(missing, [".decisions[]: no description"], "an object items schema is described too");
   });
 });
