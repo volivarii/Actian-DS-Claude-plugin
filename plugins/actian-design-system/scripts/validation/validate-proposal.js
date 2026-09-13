@@ -27,6 +27,7 @@ var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractU
 var SCHEMA_PATH = path.join(__dirname, "..", "..", "schemas", "proposal-data.schema.json");
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
 var MAX_APPROACHES = 4;
+var MAX_SCOPE = 4;
 var MAX_FINDINGS = 5;
 var MAX_REASONS = 4;
 var MAX_FLOW_SCREENS = 4;
@@ -159,6 +160,20 @@ function validateProposal(data) {
     { path: "context.product", text: data.context.product },
     { path: "context.gap", text: data.context.gap || "" },
   ]);
+
+  // scope: goals and non-goals, bounded, and prose-checked like every other text field
+  var scope = data.scope || { goals: [], nonGoals: [] };
+  ["goals", "nonGoals"].forEach(function (key) {
+    var list = scope[key] || [];
+    if (list.length > MAX_SCOPE)
+      findings.push(finding("P0", "bounds", "", "scope." + key, list.length + " entries; at most " + MAX_SCOPE));
+    list.forEach(function (line, i) { checkProse(line, "", "scope." + key + "[" + i + "]", findings); });
+  });
+  addPseudo("doc:scope", "Scope", (scope.goals || []).map(function (g, i) {
+    return { path: "scope.goals[" + i + "]", text: g };
+  }).concat((scope.nonGoals || []).map(function (n, i) {
+    return { path: "scope.nonGoals[" + i + "]", text: n };
+  })));
 
   // research
   if (data.research.ran === false && !data.research.skippedBecause)

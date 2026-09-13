@@ -14,6 +14,16 @@
     "sources": ["app-context: explorer chrome", "app-context: administration chrome", "attachment: DIP-I-496.pdf"],
     "gap": "The account menu has no capture in app-context; its rows come from the attachment."
   },
+  "scope": {
+    "goals": [
+      "A user can read the name of their permission group from the Profile dropdown.",
+      "A permission group carries a human readable display name, not an internal key."
+    ],
+    "nonGoals": [
+      "Changing who can assign a permission group; assignment stays in Administration.",
+      "Showing the permissions a group grants, only the group's name."
+    ]
+  },
   "research": {
     "ran": true,
     "findings": [

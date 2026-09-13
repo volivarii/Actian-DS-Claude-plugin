@@ -4,7 +4,7 @@
   "title": "Proposal Data",
   "description": "Schema for proposals/proposal-data.json, the input of assemble-preview.js --type proposal and validate-proposal.js. A proposal is a reasoned document for a component-scale ticket: context, research, approaches drawn inside one anchor surface, a comparison and a recommendation with reasons.",
   "type": "object",
-  "required": ["meta", "context", "research", "approaches", "comparison", "recommendation"],
+  "required": ["meta", "context", "scope", "research", "approaches", "comparison", "recommendation"],
   "properties": {
     "meta": {
       "type": "object",
@@ -29,6 +29,27 @@
         "product": { "type": "string", "description": "Three to six sentences on how the product handles this today: the anchor surface, the data model behind it, what an admin or a user sees", "examples": ["In Administration a permission group is a Group record. Its name shows in the Users table, so admins see who has what. A user can belong to more than one group."] },
         "sources": { "type": "array", "description": "Where the product read came from: app-context facts and attachments, one line each", "minItems": 1, "items": { "type": "string", "description": "One source, prefixed app-context: or attachment:", "examples": ["app-context: explorer chrome", "attachment: DIP-I-496.pdf"] } },
         "gap": { "type": "string", "description": "One sentence naming what the substrate has no capture of, when the anchor surface is uncaptured; absent otherwise", "examples": ["The account dropdown has no capture in app-context."] }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "description": "What the proposal is for and what it deliberately leaves out. Non-goals are what stops a reviewer scoping the work sideways; they are as load-bearing as the goals.",
+      "required": ["goals", "nonGoals"],
+      "properties": {
+        "goals": {
+          "type": "array",
+          "description": "One to four things the change must achieve, each in one line, drawn from the ticket rather than invented",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "description": "One goal in one line", "examples": ["A user can read their permission group without leaving the dropdown."] }
+        },
+        "nonGoals": {
+          "type": "array",
+          "description": "One to four things this change deliberately does not do, each in one line; the reviewer reads these to know what not to ask for",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "description": "One non-goal in one line", "examples": ["Editing a permission group from the dropdown; assignment stays in Administration."] }
+        }
       }
     },
     "research": {

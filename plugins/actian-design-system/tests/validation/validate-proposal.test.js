@@ -35,6 +35,25 @@ describe("validateProposal (document)", function () {
     var f = validateProposal(withMutation(function (d) { delete d.comparison; })).findings;
     assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));
   });
+  it("requires scope with at least one goal and one non-goal, and bounds both at four", function () {
+    var d = load();
+    delete d.scope;
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && /scope/.test(f.path + " " + f.value);
+    }), "missing scope is a P0");
+
+    d = load();
+    d.scope = { goals: ["a", "b", "c", "d", "e"], nonGoals: ["x"] };
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "scope.goals";
+    }), "five goals is a P0");
+
+    d = load();
+    d.scope = { goals: ["a"], nonGoals: ["x", "y", "z", "w", "v"] };
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "scope.nonGoals";
+    }), "five non-goals is a P0");
+  });
   it("an unknown anchor app or meta.apps entry is P0; an unknown screens[].app entry is P1 (check app-unknown)", function () {
     var f = only(withMutation(function (d) { d.approaches[0].anchor.app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].screen, "a");
