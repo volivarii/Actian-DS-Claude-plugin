@@ -152,6 +152,22 @@ describe("assembleProposal (document)", function () {
     assert.ok(out.indexOf("&lt;b&gt;bold&lt;/b&gt;") !== -1, "name escaped");
     assert.strictEqual(count(out, "<script"), 1, "prose escaped");
   });
+  it("renders rabbit holes and open questions, and omits the section entirely when there are none", function () {
+    var d = load();
+    d.openQuestions.forEach(function (q) { assert.ok(html.indexOf(q.text) !== -1, q.text); });
+    assert.ok(html.indexOf("What we are not sure about") !== -1, "section present");
+    assert.ok(html.indexOf('<span class="oq__kind">Rabbit hole</span>') !== -1, "kind labelled");
+    var at = html.indexOf("What we are not sure about");
+    assert.ok(at > html.indexOf("How they compare") && at < html.indexOf("Why this one"), "sits between the table and the case");
+
+    var none = load();
+    delete none.openQuestions;
+    var out = assembleProposal(none);
+    assert.ok(out.indexOf("What we are not sure about") === -1, "absent when there are none");
+    none = load();
+    none.openQuestions = [];
+    assert.ok(assembleProposal(none).indexOf("What we are not sure about") === -1, "absent when empty");
+  });
   it("refuses an unknown anchor app, a schema error, an unbalanced fragment and an unresolved recommendation", function () {
     var d = load();
     d.approaches[0].anchor.app = "nope";
@@ -234,7 +250,7 @@ describe("document setting", function () {
     // Task 4 split the recommendation into a lead and a detail section (6). Task 7 adds
     // scope (7), Task 8 adds open questions (8). Each of those tasks raises this number
     // in its own commit.
-    assert.strictEqual(count(html, 'class="doc__section'), 7, "seven sections");
+    assert.strictEqual(count(html, 'class="doc__section'), 8, "eight sections");
     assert.strictEqual(count(html, 'doc__section--rec"'), 1, "one of them is the card, in the markup, not the two CSS selectors that also name it");
   });
 

@@ -28,6 +28,7 @@ var SCHEMA_PATH = path.join(__dirname, "..", "..", "schemas", "proposal-data.sch
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
 var MAX_APPROACHES = 4;
 var MAX_SCOPE = 4;
+var MAX_OPEN_QUESTIONS = 4;
 var MAX_FINDINGS = 5;
 var MAX_REASONS = 4;
 var MAX_FLOW_SCREENS = 4;
@@ -259,6 +260,18 @@ function validateProposal(data) {
     });
   });
   addPseudo("doc:comparison", "Comparison", compEntries);
+
+  // openQuestions: optional, bounded, prose-checked. Absence is honest; invention is not.
+  var openQuestions = data.openQuestions || [];
+  if (openQuestions.length > MAX_OPEN_QUESTIONS)
+    findings.push(finding("P0", "bounds", "", "openQuestions", openQuestions.length + " entries; at most " + MAX_OPEN_QUESTIONS));
+  openQuestions.forEach(function (q, i) {
+    checkProse(q.text, "", "openQuestions[" + i + "].text", findings);
+  });
+  if (openQuestions.length)
+    addPseudo("doc:open-questions", "Open questions", openQuestions.map(function (q, i) {
+      return { path: "openQuestions[" + i + "].text", text: q.text };
+    }));
 
   // recommendation
   if (!approachIds[data.recommendation.approachId])

@@ -115,6 +115,10 @@
       }
     }
   },
+  "openQuestions": [
+    { "kind": "rabbit hole", "text": "Truncating a long group list needs a hover affordance the Profile dropdown does not carry today." },
+    { "kind": "open question", "text": "Who sets the display name on an existing permission group, and what it defaults to before anyone does." }
+  ],
   "recommendation": {
     "approachId": "b",
     "summary": "Ship the badges as the default under the name: for the many users who hold one group, that answers the ticket in the same glance as their email. When a user holds more than one group, or a group is scoped per catalog, the badge row becomes the way into the My access panel, so the detail exists when it is needed and never before.",

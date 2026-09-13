@@ -170,6 +170,22 @@ describe("validateProposal (document)", function () {
     });
     assert.strictEqual(only(withMutation(function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; }), "em-dash")[0].path, "recommendation.reasons[1].why");
   });
+  it("bounds open questions at four and rejects an unknown kind", function () {
+    var d = load();
+    d.openQuestions = [1, 2, 3, 4, 5].map(function (n) { return { kind: "open question", text: "q" + n }; });
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && f.path === "openQuestions";
+    }), "five is a P0");
+
+    d = load();
+    d.openQuestions = [{ kind: "maybe", text: "q" }];
+    // A schema check (validate-schema.js) always reports path "" and carries the
+    // JSON-pointer-style location in .value instead: verified against the real
+    // validator output, not assumed.
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && /openQuestions\/\[0\]\/kind/.test(f.value);
+    }), "an unknown kind is a P0");
+  });
 });
 
 describe("validate-proposal.js CLI", function () {

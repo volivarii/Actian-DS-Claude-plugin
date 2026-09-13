@@ -128,6 +128,15 @@ function comparisonHtml(cmp, approaches) {
   return section("How they compare", '<table class="compare"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table>");
 }
 
+function openQuestionsHtml(list) {
+  if (!list || !list.length) return "";
+  var items = list.map(function (q) {
+    var kind = q.kind === "rabbit hole" ? "Rabbit hole" : "Open question";
+    return '<li><span class="oq__kind">' + kind + "</span>" + esc(q.text) + "</li>";
+  }).join("");
+  return section("What we are not sure about", '<ul class="doc__list oq">' + items + "</ul>");
+}
+
 function recommendationLeadHtml(rec, approaches) {
   var pick = null;
   approaches.forEach(function (a) { if (a.id === rec.approachId) pick = a; });
@@ -172,6 +181,7 @@ function assembleProposal(data) {
     researchHtml(data.research) +
     section("Approaches", '<div class="approaches">' + approaches + "</div>") +
     comparisonHtml(data.comparison, data.approaches) +
+    openQuestionsHtml(data.openQuestions) +
     recommendationDetailHtml(data.recommendation) +
     footerHtml(meta, pick);
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]

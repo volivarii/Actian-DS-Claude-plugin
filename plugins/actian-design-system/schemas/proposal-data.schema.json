@@ -91,6 +91,20 @@
         "cells": { "type": "object", "description": "Keyed by approach id, then criterion id; each value is { text, tone } with tone one of good, mixed, bad (validator-enforced)" }
       }
     },
+    "openQuestions": {
+      "type": "array",
+      "description": "At most four things the proposal does not settle: a rabbit hole is a detail of the chosen approach worth flagging so nobody falls in, an open question is something a reader has to decide. Omit the field when there are none; never invent one.",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "description": "One rabbit hole or one open question",
+        "required": ["kind", "text"],
+        "properties": {
+          "kind": { "type": "string", "description": "Which of the two this is", "enum": ["rabbit hole", "open question"], "examples": ["rabbit hole"] },
+          "text": { "type": "string", "description": "One or two sentences, in the reader's words", "examples": ["Truncating a long group list needs a hover affordance the dropdown does not have today."] }
+        }
+      }
+    },
     "recommendation": {
       "type": "object",
       "description": "Which approach to ship, why, and what changes",
