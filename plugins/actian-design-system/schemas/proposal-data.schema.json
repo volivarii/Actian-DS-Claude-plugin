@@ -240,7 +240,11 @@
       "properties": {
         "ran": {
           "description": "true when the web research ran; false when it was turned off or unavailable",
-          "type": "boolean"
+          "type": "boolean",
+          "examples": [
+            true,
+            false
+          ]
         },
         "findings": {
           "type": "array",
