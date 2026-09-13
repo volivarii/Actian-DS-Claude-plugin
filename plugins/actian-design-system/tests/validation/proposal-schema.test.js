@@ -3,71 +3,76 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-var validate = require("../../scripts/validation/validate-schema.js");
+var validateSchema = require("../../scripts/validation/validate-schema.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
-var SCHEMA_PATH = path.join(ROOT, "schemas", "proposal-data.schema.json");
-var FIXTURE_PATH = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
-
-function load(p) { return JSON.parse(fs.readFileSync(p, "utf8")); }
-function errorsOf(mutate) {
-  var data = load(FIXTURE_PATH);
-  mutate(data);
-  return validate(data, load(SCHEMA_PATH));
+var SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", "proposal-data.schema.json"), "utf8"));
+var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-one-decision.json");
+function load() { return JSON.parse(fs.readFileSync(FIXTURE, "utf8")); }
+function errors(d) {
+  return validateSchema(d, SCHEMA).filter(function (e) { return e.indexOf("(warning)") === -1; });
 }
 
-describe("proposal-data.schema.json (document shape)", function () {
-  it("accepts the DIP-I-496 fixture with zero errors", function () {
-    var errors = validate(load(FIXTURE_PATH), load(SCHEMA_PATH));
-    assert.deepEqual(errors, [], errors.join("\n"));
+describe("proposal-data.schema.json", function () {
+  it("accepts the one-decision fixture", function () {
+    assert.deepStrictEqual(errors(load()), []);
   });
-  it("requires context, scope, research, approaches, comparison and recommendation at the root", function () {
-    ["context", "scope", "research", "approaches", "comparison", "recommendation"].forEach(function (k) {
-      var errors = errorsOf(function (d) { delete d[k]; });
-      assert.ok(errors.some(function (e) { return e.indexOf(k) !== -1; }), k + ": " + errors.join("\n"));
+
+  it("requires answer, decisions and change at the top level", function () {
+    ["answer", "decisions", "change"].forEach(function (key) {
+      var d = load();
+      delete d[key];
+      var e = errors(d);
+      assert.ok(e.length > 0, key + " is required");
+      assert.ok(e.join(" ").indexOf(key) !== -1, "the error names " + key + ", got: " + e.join(" "));
     });
   });
-  it("rejects the old board shape (meta.recommendation string, root screens)", function () {
-    var old = { meta: { title: "x", date: "2026-09-09", apps: ["explorer"], skill: "design-proposal", recommendation: "<p>x</p>" }, screens: [] };
-    var errors = validate(old, load(SCHEMA_PATH));
-    assert.ok(errors.length >= 1, "the board shape must not validate");
+
+  it("rejects the retired top-level keys by not describing them", function () {
+    assert.ok(!SCHEMA.properties.approaches, "approaches is gone");
+    assert.ok(!SCHEMA.properties.comparison, "comparison is gone");
+    assert.ok(!SCHEMA.properties.recommendation, "recommendation is gone");
+    assert.strictEqual(SCHEMA.required.indexOf("approaches"), -1, "approaches is not required");
   });
-  it("rejects an approach without an anchor, a screen without html, and an id that is not a slug", function () {
-    assert.ok(errorsOf(function (d) { delete d.approaches[0].anchor; }).some(function (e) { return /anchor/.test(e); }));
-    assert.ok(errorsOf(function (d) { delete d.approaches[0].screen.html; }).some(function (e) { return /html/.test(e); }));
-    assert.ok(errorsOf(function (d) { d.approaches[0].id = "Role Line"; }).some(function (e) { return /id/.test(e); }));
+
+  it("requires a decision to carry its own question, options, comparison and pick", function () {
+    ["question", "options", "comparison", "pick"].forEach(function (key) {
+      var d = load();
+      delete d.decisions[0][key];
+      var e = errors(d);
+      assert.ok(e.length > 0, "decisions[0]." + key + " is required, got no error");
+    });
   });
-  it("rejects fewer than two approaches and a criterion with an unknown source", function () {
-    assert.ok(errorsOf(function (d) { d.approaches = [d.approaches[0]]; }).some(function (e) { return /approaches/.test(e); }));
-    assert.ok(errorsOf(function (d) { d.comparison.criteria[0].source = "vibes"; }).some(function (e) { return /source/.test(e); }));
+
+  it("requires a pick to carry optionId, reasons and cost", function () {
+    ["optionId", "reasons", "cost"].forEach(function (key) {
+      var d = load();
+      delete d.decisions[0].pick[key];
+      assert.ok(errors(d).length > 0, "pick." + key + " is required");
+    });
   });
-  it("rejects a recommendation with fewer than two reasons", function () {
-    assert.ok(errorsOf(function (d) { d.recommendation.reasons = [d.recommendation.reasons[0]]; }).some(function (e) { return /reasons/.test(e); }));
+
+  it("requires every reason to name a criterion", function () {
+    var d = load();
+    delete d.decisions[0].pick.reasons[0].criterionId;
+    assert.ok(errors(d).length > 0, "reasons[].criterionId is required");
   });
-  it("rejects a research block without ran, and a finding without a source", function () {
-    assert.ok(errorsOf(function (d) { delete d.research.ran; }).some(function (e) { return /ran/.test(e); }));
-    assert.ok(errorsOf(function (d) { delete d.research.findings[0].source; }).some(function (e) { return /source/.test(e); }));
+
+  it("bounds context.product to six facts and requires it to be an array", function () {
+    var d = load();
+    assert.ok(Array.isArray(d.context.product), "product is an array in the fixture");
+    d.context.product = ["a", "b", "c", "d", "e", "f", "g"];
+    assert.ok(errors(d).length > 0, "seven facts is too many");
+    var s = load();
+    s.context.product = "one paragraph of prose";
+    assert.ok(errors(s).length > 0, "a string is the old shape and must not validate");
   });
-  it("accepts entity null and entity as a string in an approach's screen list", function () {
-    assert.deepEqual(errorsOf(function (d) { d.approaches[0].screens[0].entity = "data-product"; }), []);
-    assert.deepEqual(errorsOf(function (d) { d.approaches[0].screens[0].entity = null; }), []);
-  });
-  it("every property carries a description, every text property carries examples", function () {
-    var schema = load(SCHEMA_PATH);
-    var missing = [];
-    function walk(node, p) {
-      if (!node || typeof node !== "object") return;
-      if (node.properties) {
-        Object.keys(node.properties).forEach(function (k) {
-          var prop = node.properties[k];
-          if (!prop.description) missing.push(p + k + ": description");
-          if (prop.type === "string" && !prop.enum && !prop.examples) missing.push(p + k + ": examples");
-          walk(prop, p + k + ".");
-        });
-      }
-      if (node.items) walk(node.items, p + "[].");
-    }
-    walk(schema, "");
-    assert.deepEqual(missing, [], missing.join("\n"));
+
+  it("describes a breadboard place with a grid position and an app", function () {
+    var place = SCHEMA.properties.breadboard.properties.places.items;
+    assert.deepStrictEqual(place.required, ["id", "name", "app", "affordances"]);
+    ["row", "col", "isNew"].forEach(function (k) {
+      assert.ok(place.properties[k], "place describes " + k);
+    });
   });
 });

@@ -8,7 +8,7 @@ var { assembleProposal } = require("../../scripts/renderers/assemble-proposal.js
 var flowRenderer = require("../../scripts/renderers/html-renderers/flow-renderer.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
-var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
+var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-one-decision.json");
 function load() { return JSON.parse(fs.readFileSync(FIXTURE, "utf8")); }
 function count(hay, needle) { return hay.split(needle).length - 1; }
 

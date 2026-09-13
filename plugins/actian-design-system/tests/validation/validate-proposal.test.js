@@ -9,7 +9,7 @@ var { validateProposal, extractText } = require("../../scripts/validation/valida
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var SCRIPT = path.join(ROOT, "scripts", "validation", "validate-proposal.js");
-var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
+var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-one-decision.json");
 var EM_DASH = "\u2014";
 function load() { return JSON.parse(fs.readFileSync(FIXTURE, "utf8")); }
 function only(data, check) {

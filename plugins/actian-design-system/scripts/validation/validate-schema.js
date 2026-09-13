@@ -5,7 +5,7 @@
  * validate-schema.js — Lightweight JSON Schema validator (no npm deps).
  *
  * Supports: type, required, properties, enum, const, pattern, minItems,
- *           items, $ref/$defs, deprecated (warning, not error).
+ *           maxItems, items, $ref/$defs, deprecated (warning, not error).
  *
  * Usage as module:
  *   const validate = require('./validate-schema');
@@ -147,7 +147,7 @@ function validate(data, schema, _rootSchema, _path) {
     }
   }
 
-  // array items + minItems
+  // array items + minItems + maxItems
   if (Array.isArray(data)) {
     if (schema.minItems !== undefined && data.length < schema.minItems) {
       errors.push(
@@ -156,6 +156,15 @@ function validate(data, schema, _rootSchema, _path) {
           data.length +
           " items, minimum is " +
           schema.minItems,
+      );
+    }
+    if (schema.maxItems !== undefined && data.length > schema.maxItems) {
+      errors.push(
+        (p || "/") +
+          ": array has " +
+          data.length +
+          " items, maximum is " +
+          schema.maxItems,
       );
     }
     if (schema.items) {
