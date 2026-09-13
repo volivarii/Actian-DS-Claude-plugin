@@ -246,4 +246,14 @@ describe("document setting", function () {
     );
     assert.match(rule(".approach__lines"), /max-width:\s*100%/);
   });
+
+  it("pairs every comparison verdict with a glyph, so the table survives greyscale", function () {
+    assert.match(rule(".tone-good::before"), /content:\s*"\\2713"/);   // check mark
+    assert.match(rule(".tone-mixed::before"), /content:\s*"\\25CB"/);  // open circle
+    assert.match(rule(".tone-bad::before"), /content:\s*"\\2717"/);    // ballot X
+    assert.match(rule(".compare td::before"), /margin-right:/);
+    // The glyphs are CSS escapes, not literal characters: the document must stay
+    // byte-safe whatever charset a reader's tooling assumes.
+    assert.ok(docCss.indexOf("\u2713") === -1 && docCss.indexOf("\u2717") === -1, "no literal glyph in the CSS");
+  });
 });

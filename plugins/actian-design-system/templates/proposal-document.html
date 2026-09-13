@@ -59,9 +59,16 @@
     .compare tbody th { font-weight: 600; padding-right: 24px; }
     .compare thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.05em; }
     .compare__source { display: block; font-size: var(--doc-micro); color: var(--fm-text-tertiary); font-weight: 400; margin-top: 2px; }
+    /* A verdict carries a glyph as well as a colour: WCAG 1.4.1, and the table
+       stays readable in greyscale and in print. CSS escapes, not literal glyphs,
+       so the file is safe whatever charset a reader's tooling assumes. */
+    .compare td::before { font-weight: 700; margin-right: 6px; }
     .tone-good { color: var(--fm-text-success); }
+    .tone-good::before { content: "\2713"; }
     .tone-mixed { color: var(--fm-text-secondary); }
+    .tone-mixed::before { content: "\25CB"; }
     .tone-bad { color: var(--fm-text-error); }
+    .tone-bad::before { content: "\2717"; }
 
     .rec__pick { font-size: var(--doc-micro); font-weight: 700; color: var(--fm-brand-dark); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 8px; }
     .rec__reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 24px; margin: 18px 0 0; }
