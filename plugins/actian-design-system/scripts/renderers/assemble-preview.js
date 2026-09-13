@@ -16,7 +16,7 @@
  *   flow          — INTERNAL strip renderer retained for streaming-fallback and
  *                   existing tests; NOT the canonical pipeline output.
  *                   (fm-flow.css, fm-html-map + flow-renderer)
- *   proposal      : design proposal document (recommendation, scope, context,
+ *   proposal      : design proposal document (recommendation, context, scope,
  *                   research, approaches, comparison, open questions;
  *                   assemble-proposal.js)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)

@@ -177,7 +177,7 @@ Every capability is also available as a direct command. Use these when you know 
 | Command | What it does |
 |---------|-------------|
 | `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
-| `/design-proposal` | Propose: a reasoned document (a recommendation with reasons, what it is for and what it is not doing, where the ticket lives today, what comparable products do, two to four approaches drawn inside the surface the ticket lives on, a comparison, and what is still open). HTML only, opens offline; for component-scale tickets. |
+| `/design-proposal` | Propose: a reasoned document (a recommendation with reasons, where the ticket lives today, what it is for and what it is not doing, what comparable products do, two to four approaches drawn inside the surface the ticket lives on, a comparison, and what is still open). HTML only, opens offline; for component-scale tickets. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
 **Supporting:**
