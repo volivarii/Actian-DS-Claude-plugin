@@ -73,7 +73,7 @@ function section(title, inner, extraClass) {
 function contextHtml(c) {
   var inner = '<p class="doc__question">' + esc(c.question) + "</p><p>" + esc(c.product) + "</p>";
   inner += '<p class="doc__muted">Sources: ' + esc(c.sources.join("; ")) + "</p>";
-  if (c.gap) inner += '<p class="doc__muted">Gap: ' + esc(c.gap) + "</p>";
+  if (c.gap) inner += '<p class="doc__gap">Gap: ' + esc(c.gap) + "</p>";
   return section("Where this lives today", inner);
 }
 
@@ -133,7 +133,7 @@ function recommendationHtml(rec, approaches) {
     if (rec.change.userSide) inner += "<b>User side.</b> " + esc(rec.change.userSide);
     inner += "</p>";
   }
-  return section("", inner, "rec");
+  return section("", inner, "doc__section--rec");
 }
 
 function footerHtml(meta, pick) {

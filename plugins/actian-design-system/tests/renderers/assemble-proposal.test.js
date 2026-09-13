@@ -167,3 +167,59 @@ describe("assemble-preview.js --type proposal", function () {
     assert.ok(help.types.indexOf("proposal") !== -1, JSON.stringify(help.types));
   });
 });
+
+describe("document setting", function () {
+  var html = assembleProposal(load());
+  // The FM base sheet has its own :root and its own body rule. Pin to the
+  // document stylesheet, which is the LAST <style> before </head>.
+  var docCss = html.slice(html.lastIndexOf("<style>"), html.indexOf("</head>"));
+  function rule(sel) {
+    var m = new RegExp(sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\{[^}]*\\}").exec(docCss);
+    assert.ok(m, "no rule for " + sel + " in the document stylesheet");
+    return m[0];
+  }
+
+  it("declares the scale and the measure as tokens, and nothing off the scale", function () {
+    var root = rule(":root");
+    assert.match(root, /--doc-measure:\s*512px/, root);
+    assert.match(root, /--doc-body:\s*16px/, root);
+    assert.match(root, /--doc-caption:\s*13px/, root);
+    assert.match(root, /--doc-h3:\s*20px/, root);
+    assert.match(root, /--doc-h2:\s*25px/, root);
+    assert.match(root, /--doc-h1:\s*31px/, root);
+  });
+
+  it("sets running prose at 16px and holds it to the measure", function () {
+    assert.match(rule("body"), /font-size:\s*var\(--doc-body\)/);
+    assert.match(rule("body"), /line-height:\s*1\.6/);
+    assert.match(rule(".doc__section > p, .doc__section > ul"), /max-width:\s*var\(--doc-measure\)/);
+    assert.ok(docCss.indexOf("13.5px") === -1, "no 13.5px survives");
+    assert.ok(docCss.indexOf("12.5px") === -1, "no 12.5px survives");
+  });
+
+  it("makes a section heading read as a heading, not as bold body text", function () {
+    assert.match(rule(".doc__section > h2"), /font-size:\s*var\(--doc-h2\)/);
+    assert.match(rule(".doc__title"), /font-size:\s*var\(--doc-h1\)/);
+  });
+
+  it("gives only the recommendation a card; every other section is a rule and space", function () {
+    var base = rule(".doc__section");
+    assert.ok(base.indexOf("background") === -1, "sections carry no fill: " + base);
+    assert.ok(base.indexOf("border-radius") === -1, "sections carry no radius: " + base);
+    assert.match(base, /border-top:\s*1px solid/, base);
+    assert.match(rule(".doc__section--rec"), /background:\s*var\(--fm-base-white\)/);
+    // Five sections today. Task 4 splits the recommendation (6), Task 7 adds scope (7),
+    // Task 8 adds open questions (8). Each of those tasks raises this number in its own commit.
+    assert.strictEqual(count(html, 'class="doc__section'), 5, "five sections");
+    assert.strictEqual(count(html, 'doc__section--rec"'), 1, "one of them is the card, in the markup, not the two CSS selectors that also name it");
+  });
+
+  it("sets sources and the gap in their own register, not as body prose", function () {
+    var d = load();
+    assert.match(rule(".doc__muted"), /font-size:\s*var\(--doc-caption\)/);
+    assert.match(rule(".doc__muted"), /border-left:/);
+    assert.match(rule(".doc__gap"), /border-left:\s*2px solid var\(--fm-brand\)/);
+    assert.ok(html.indexOf('<p class="doc__gap">Gap: ' + d.context.gap) !== -1, "gap has its own class");
+    assert.ok(html.indexOf('<p class="doc__muted">Sources: ') !== -1, "sources stay muted");
+  });
+});
