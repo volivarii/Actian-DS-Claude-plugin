@@ -208,6 +208,34 @@ the agent writes a single decision with four options, or if the reasons are
 assigned to criteria round-robin: either way the skill's wording is the defect,
 not the schema.
 
+### `meta.stage`, a release that did not break (2026.9.31)
+
+`proposal-data.json` gains `meta.stage`, and it is **optional**. Absent means
+`"proposal"`, which is what every file written before this release already is,
+so no `proposal-data.json` in any working directory needs touching, no
+converter ships with this change, and `--from` on a stored file behaves exactly
+as it did. The `"evaluation"` value is the one `--evaluate` writes, and it is
+read against `schemas/proposal-evaluation.schema.json` instead.
+
+That is the point of the entry. This is the third schema change in four
+releases and the first that did not break anything, after `scope` (2026.9.28)
+and `decisions[]` (2026.9.30) both did. A discriminator whose default is the
+existing meaning does not need to be required: making it required would have
+broken every stored file to record a fact the absence already records. Rule 2's
+friction asymmetry is the reason to prefer it, and it is the standard to hold a
+future stage against, not an accident.
+
+The adoption gap Rule 1 exists for applies to the new flag rather than to the
+field. A schema, a validator branch and five gates are all tested; none of them
+proves that an authoring agent, given a real ticket, names the decisions a
+careful author names. That comparison was made by hand on 2026-09-14 against
+two tickets, DIP-I-496 and DIP-I-522, and recorded with the branch's SDD ledger
+rather than here, because it is a reading rather than a rule. Its short form:
+on DIP-I-496 the evaluation named the same three decisions the hand-authored
+acceptance document names, in the same order; on DIP-I-522 it named three where
+the 2026-09-13 run, written before `decisions[]` existed, had a single question
+slot and filled it once.
+
 ## Teaching case — v1.71.0 → v1.71.1
 
 What shipped in v1.71.0:

@@ -361,6 +361,8 @@ DIP-I-496: show the user's roles and permissions. Research first, then a few app
 
 Routes to `/design-proposal`. The decisions the ticket forces are named in chat first, each with its two to four options and the one you would pick, then `proposals/<slug>.html`: the answer in one sentence, the terrain, a decision table, the briefing (goals and non-goals, the product facts, the research, which is on by default and `--no-research` to skip), one block per decision with its options drawn inside the surface the question lives on, its comparison and its pick with the cost, then what is still open, what this changes and one line of latitude. Edit `proposals/proposal-data.json` and re-run with `--from` to adjust. No Figma push; "make it a flow" hands a picked option's screen list to `/generate-flow`.
 
+`--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/design-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
+
 ### Component specs — brief, document, create
 
 ```
@@ -432,6 +434,8 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
 | `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A reasoned document: the answer, the terrain, the decision table, the briefing, one block per decision (options, comparison, pick, cost), what is still open, what this changes |
+| `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
+| `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
 | `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 | `/create-component [description]` | Jump to component creation |
