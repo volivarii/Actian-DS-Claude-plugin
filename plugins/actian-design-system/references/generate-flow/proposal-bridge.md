@@ -1,5 +1,8 @@
 # The proposal bridge
 
+> `skills/generate-flow/SKILL.md` is at its 30000-byte ceiling. Anything more about the bridge
+> belongs here, not there.
+
 `--from` a local `proposals/proposal-data.json` seeds the flow from a proposal this plugin already
 wrote. Every option in a proposal carries a `screens[]` list in this skill's own screen-list shape,
 and until the bridge existed nothing read it: a person read the rendered document and retyped the
