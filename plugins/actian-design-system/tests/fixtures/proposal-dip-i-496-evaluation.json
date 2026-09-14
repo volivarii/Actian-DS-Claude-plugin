@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "title": "DIP-I-496: show role and permission for a logged-in user",
+    "ticket": "DIP-I-496",
+    "date": "2026-09-14",
+    "apps": [
+      "explorer",
+      "administration"
+    ],
+    "prompt": "Propose a design for this ticket: DIP-I-496",
+    "model": "claude-opus-5",
+    "skill": "design-proposal",
+    "stage": "evaluation"
+  },
+  "source": {
+    "system": "pasted",
+    "id": "DIP-I-496",
+    "title": "Show role and permission for a logged-in user",
+    "body": "As a logged-in user I want to see which permission group I belong to, so that I know what I am allowed to do in the catalog and where to read the guidelines for it. Today the group is only visible to an administrator, in the Users table in Administration. Group names are set when the group is created and are often technical keys, so the group needs a separate readable name that an administrator can set. Note that a user can hold more than one group, and that a group can grant access in one catalog and not in another."
+  },
+  "context": {
+    "question": "What does a user see about their permission group?",
+    "product": [
+      "A user can belong to several groups.",
+      "Group names are technical keys that scripts reference.",
+      "A group may grant access in one catalog only."
+    ],
+    "sources": [
+      "app-context: explorer chrome",
+      "app-context: administration chrome",
+      "attachment: DIP-I-496.pdf"
+    ],
+    "gap": "The account menu has no capture in app-context."
+  },
+  "scope": {
+    "goals": [
+      "A user reads their group from the account menu.",
+      "A group carries a readable name."
+    ],
+    "nonGoals": [
+      "Assigning groups; that stays in Administration.",
+      "Showing what a group grants."
+    ]
+  },
+  "research": {
+    "ran": false,
+    "findings": [],
+    "skippedBecause": "the evaluation names the decisions first; research runs against them on resume"
+  },
+  "openQuestions": [
+    {
+      "kind": "open question",
+      "text": "Whether a readable name is set once for the group or per catalog."
+    },
+    {
+      "kind": "rabbit hole",
+      "text": "A person in many groups needs a rule for how many the account menu lists before it truncates."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "how-a-user-sees-their-group",
+      "question": "How does a user see which group they belong to?"
+    },
+    {
+      "id": "where-the-readable-name-comes-from",
+      "question": "Where does a readable name come from?"
+    },
+    {
+      "id": "access-scoped-per-catalog",
+      "question": "What shows when access differs between catalogs?"
+    }
+  ]
+}

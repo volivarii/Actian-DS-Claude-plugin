@@ -580,3 +580,37 @@ describe("validate-proposal.js CLI", function () {
     });
   });
 });
+
+// The evaluation stage: what --evaluate writes, read against its own schema. The point
+// of these four is the branch itself, not the evaluation's own gates, which are not here
+// yet: an evaluation passes with nothing missing reported, a proposal is untouched, and
+// the one gate that has to survive the branch, terminology on a question, still fires.
+describe("the evaluation stage", function () {
+  var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
+  function evaluation() { return JSON.parse(fs.readFileSync(EVAL, "utf8")); }
+
+  it("finds nothing at all in the evaluation fixture", function () {
+    assert.deepStrictEqual(validateProposal(evaluation()).findings, []);
+  });
+
+  it("does not ask an evaluation for a pick, a cost or a drawing", function () {
+    var checks = validateProposal(evaluation()).findings.map(function (f) { return f.check; });
+    ["pick", "breadboard", "option-width", "latitude"].forEach(function (c) {
+      assert.strictEqual(checks.indexOf(c), -1, "an evaluation was asked for " + c);
+    });
+  });
+
+  it("still gates a decision question's terminology at the evaluation stage", function () {
+    var d = evaluation();
+    d.decisions[0].question = "Which asset owner sees the workflow first?";
+    var hits = validateProposal(d).findings.filter(function (f) { return f.check === "terminology"; });
+    assert.strictEqual(hits.length, 1);
+    assert.strictEqual(hits[0].found, "owner");
+  });
+
+  it("a file with no stage is still read as a proposal", function () {
+    var d = load();
+    assert.strictEqual(d.meta.stage, undefined, "the proposal fixture carries no stage");
+    assert.deepStrictEqual(only(d, "schema"), [], "and validates against the proposal schema");
+  });
+});
