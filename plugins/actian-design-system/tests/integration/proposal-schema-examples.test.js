@@ -2,7 +2,8 @@
 /**
  * The repo convention is that every schema property carries both a description and an
  * examples array, so an authoring agent reads the examples rather than the renderer.
- * Nothing enforced it: this gate does, for proposal-data.schema.json.
+ * Nothing enforced it: this gate does, for proposal-data.schema.json and
+ * proposal-evaluation.schema.json.
  *
  * Scoped deliberately. Measured 2026-09-14 under the rule below, the other three schemas
  * are 373 violations short between them (brief-data 235, flow-data 103, slide-data 35),
@@ -23,6 +24,10 @@ var fs = require("fs");
 var path = require("path");
 
 var SCHEMA = path.join(__dirname, "..", "..", "schemas", "proposal-data.schema.json");
+var SCHEMAS = [
+  SCHEMA,
+  path.join(__dirname, "..", "..", "schemas", "proposal-evaluation.schema.json"),
+];
 
 // A container describes itself through its children, so asking it for its own examples
 // would duplicate them: an object with properties, or an array whose items carry theirs.
@@ -60,9 +65,13 @@ describe("proposal-data.schema.json authoring convention", function () {
   var schema = JSON.parse(fs.readFileSync(SCHEMA, "utf8"));
 
   it("gives every property a description and an examples array", function () {
-    var missing = [];
-    walk(schema, "", missing);
-    assert.deepStrictEqual(missing, [], missing.length + " properties short of the convention");
+    SCHEMAS.forEach(function (schemaPath) {
+      var target = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
+      var missing = [];
+      walk(target, "", missing);
+      assert.deepStrictEqual(missing, [],
+        path.basename(schemaPath) + ": " + missing.length + " properties short of the convention");
+    });
   });
 
   it("can fail: a property stripped of its examples is reported", function () {
