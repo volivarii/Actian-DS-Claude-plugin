@@ -35,13 +35,19 @@ describe("proposal-to-flow: what the picks imply", function () {
       "one note, so no question prefix: it would be noise");
   });
 
-  it("keeps the merged screen's template, app and entity", function () {
+  it("emits the app as template (the chrome name) and keeps the archetype separately", function () {
     var out = compose(flat(), {});
-    assert.deepStrictEqual(named(out.screens, MENU), {
-      name: MENU, template: "overlay", app: "explorer", entity: null,
-      note: named(out.screens, MENU).note,
-    });
-    assert.strictEqual(named(out.screens, FORM).entity, "user-group");
+    var menu = named(out.screens, MENU);
+    assert.strictEqual(menu.template, "explorer", "template is the chrome name /generate-flow reads");
+    assert.strictEqual(menu.archetype, "overlay", "the proposal's archetype is kept, not dropped");
+    assert.strictEqual(menu.app, "explorer");
+    assert.strictEqual(menu.entity, null);
+
+    var form = named(out.screens, FORM);
+    assert.strictEqual(form.template, "administration");
+    assert.strictEqual(form.archetype, "form-create");
+    assert.strictEqual(form.app, "administration");
+    assert.strictEqual(form.entity, "user-group");
   });
 });
 

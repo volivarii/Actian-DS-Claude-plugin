@@ -23,7 +23,7 @@ are summarized at the release level.
 
 - **`/generate-flow --from proposals/proposal-data.json` builds the flow the proposal already describes**
   (PR link to be added when the PR is opened). Every option in a proposal has carried a `screens[]` list
-  in `generate-flow`'s own screen-list shape since the document shipped, and nothing read it: a person
+  naming a flow archetype, an app and an entity since the document shipped, and nothing read it: a person
   read the document, retyped the screens into a request, and hoped they transcribed the anchor and the
   note correctly. `scripts/bridges/proposal-to-flow.js` composes it instead, printing
   `{ screens, brief, findings }`; `--decision <id>` seeds from one decision alone, and `--option <id>`
@@ -35,13 +35,22 @@ are summarized at the release level.
   question it answers when there is more than one; a single note is left unprefixed. Two picks that
   disagree on a merged screen's `template`, `app` or `entity` are a P0 naming both decisions, because
   guessing a winner builds a flow nobody asked for. The brief comes from the answer, each question, its
-  reasons and its cost: no prose is invented, so a thin proposal makes a thin brief.
+  reasons and its cost: no prose is invented, so a thin proposal makes a thin brief, and the answer is
+  left out when the run draws no pick at all.
+
+  A proposal's `screens[].template` names a flow archetype, `generate-flow`'s own screen-list `template`
+  names chrome, and those are two different vocabularies over the same key. The emitted screen carries
+  its `app` forward as `template`, which `generate-flow` renders chrome from, and keeps the proposal's
+  archetype under its own `archetype` key rather than losing it: `{ name, template, archetype, app,
+  entity, note? }`.
 
   `anchor` gains an optional `place` naming a `breadboard.places[].id`, and the order follows the
   breadboard's connections when the document drew one. The link is declared rather than guessed: matching
   `anchor.surface` against `place.name` holds on the acceptance document by coincidence, not by contract.
   A `place` naming nothing is a P0, the same defect a connection naming nothing already is; an anchor with
   no place while a board is drawn is a P1, because the order then degrades to declaration order silently.
+  Any P0, including a merge conflict or a composed seed that draws no screens at all, refuses the whole
+  seed rather than writing a guess: no file, no screens, no brief.
 
 ### Changed
 

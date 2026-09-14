@@ -589,7 +589,7 @@
                 },
                 "screens": {
                   "type": "array",
-                  "description": "The screen list a flow of this option would render, in generate-flow's screen-list shape; one to four entries",
+                  "description": "The screen list a flow of this option would render: each entry names a flow archetype (its own `template`, from recipes/flow/_index.json), an app and an entity. scripts/bridges/proposal-to-flow.js composes this into generate-flow's own screen-list shape, which reads `template` as a chrome name rather than an archetype; one to four entries",
                   "minItems": 1,
                   "items": {
                     "type": "object",

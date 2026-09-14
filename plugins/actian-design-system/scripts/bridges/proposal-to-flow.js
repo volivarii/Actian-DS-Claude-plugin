@@ -5,9 +5,13 @@
  * proposal-to-flow.js: composes a proposals/proposal-data.json into the seed
  * /generate-flow already takes, a screen list and a brief.
  *
- * Every option in a proposal carries a screens[] list in generate-flow's own screen-list
- * shape, and until this script nothing read it: a person read the document and retyped it,
- * so the most expensive judgement in the pipeline was made twice.
+ * Every option in a proposal carries a screens[] list naming a flow archetype (its
+ * `template`, from recipes/flow/_index.json: overlay, form-create, detail-view), an app
+ * and an entity, and until this script nothing read it: a person read the document and
+ * retyped it, so the most expensive judgement in the pipeline was made twice. That
+ * archetype is not generate-flow's own screen-list `template`, which names chrome
+ * (studio, explorer, administration, ...): toScreen() below carries the app forward as
+ * `template` and keeps the archetype under its own `archetype` key.
  *
  * The composition is the part with rules, which is why this is a function and not prose in
  * a skill. On the acceptance document three picks resolve to two screens across two apps,
@@ -138,11 +142,18 @@ function merge(selected, findings) {
 // A merged screen's notes are attributed, because a screen carrying two changes from two
 // decisions is exactly where a reader needs to know which change answers which question.
 // A single-note screen is not prefixed; it would be noise.
+//
+// The proposal's screens[].template names a flow archetype (recipes/flow/_index.json:
+// overlay, form-create, detail-view). generate-flow's own screen-list template names chrome
+// instead (studio, explorer, administration, ...; SKILL.md's Flags table + ds-screen-tree.js
+// TEMPLATE_CHROME). Those are two different vocabularies over the same key, so the emitted
+// screen carries the app as template, which resolveChrome() already knows how to render, and
+// keeps the proposal's archetype under its own key rather than dropping it.
 function toScreen(m) {
   var note = m.notes.length > 1
     ? m.notes.map(function (n) { return n.question + " " + n.note; }).join(" ")
     : m.notes.map(function (n) { return n.note; }).join(" ");
-  var screen = { name: m.name, template: m.template, app: m.app, entity: m.entity };
+  var screen = { name: m.name, template: m.app, archetype: m.template, app: m.app, entity: m.entity };
   if (note) screen.note = note;
   return screen;
 }
