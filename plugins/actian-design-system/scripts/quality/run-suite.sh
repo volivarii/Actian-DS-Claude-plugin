@@ -11,7 +11,9 @@
 # run, which covers both a failing test and a suite that never built.
 set -uo pipefail
 
-log="$(mktemp -t adsp-suite.XXXXXX)"
+# Plain mktemp: `-t` means a template on GNU coreutils and a prefix on BSD, and CI is
+# Linux while most authoring here is macOS.
+log="$(mktemp)"
 trap 'rm -f "$log"' EXIT
 
 find tests -name '*.test.js' -type f -print0 | xargs -0 node --test | tee "$log"
