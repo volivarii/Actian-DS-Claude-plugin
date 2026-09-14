@@ -215,6 +215,38 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
 - **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
   not the drawing; `note` says what the option changes on that page.
 
+## The document proposes; the reader decides
+
+Nothing a reader sees says the decision has been made. The summary is **What we propose**, a
+block is **Question N of M**, the winning column is **Proposed**, and the lead is **We propose**.
+The data model still calls them `decisions[]` and `pick`, because that is what the author is
+choosing between and what `--decision` and `--option` address by id, but those names never reach
+the page. If you write "we decided" or "the decision" into a text field, you have handed the
+reader a verdict instead of an argument.
+
+## A decision block leads with the proposal
+
+The block renders in three parts, in this order, and the renderer does it for you:
+
+1. **The proposal.** The picked option's drawing, with the case for it beside it: the reasons,
+   the cost, and the blocker when there is one.
+2. **Also considered.** Every other option, smaller, equal to each other, one line of annotation.
+3. **How they compare.** The full table, with the proposed column marked.
+
+What this asks of your authoring: the picked option's `whatItIs` and `breaksWhen` are read
+directly under the drawing a reader is looking at, so `breaksWhen` on the pick is the most
+load-bearing line in the block. It says where the thing we are proposing fails. Do not soften it.
+
+A rejected option is skimmed, not weighed, so its `verdict` is what a reader actually reads of
+it. Make the verdict the sentence you would say out loud if someone asked why it lost.
+
+## A comparison cell is scanned, not read
+
+Each cell renders as a mark on its own line with the phrase quiet beneath it, so the row of marks
+reads in one pass. That only works if the phrase is short: **two to four words**, a fragment, no
+sentence. "Three names, no total" works. "This option would require the user to open each group
+in turn" does not, and pushes every cell in its row down a line.
+
 ## Length is a design constraint, not a preference
 
 The document's job is to be read by someone who did not write it, in one sitting, before a

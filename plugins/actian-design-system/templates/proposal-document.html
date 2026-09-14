@@ -79,15 +79,20 @@
     /* Two rows by construction, so every approach label is the same height and the drawings
        share a top edge. One row that wrapped used to push its drawing down by a line. */
     .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
-    .proposal-screen__name { display: flex; align-items: center; gap: 8px; }
+    /* Two lines reserved for the name, so a name that wraps does not push its own drawing
+       below its neighbour's. The comment above has always said the drawings share a top
+       edge; at the Also considered width, names wrap often enough that it needed saying in
+       CSS as well as in prose. */
+    .proposal-screen__name { display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; min-height: 3.2em; }
+    .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
     .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
     .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
     .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
-    .approach__lines { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 12px 0 0; max-width: 100%; }
-    .approach__lines b { color: var(--fm-text-primary); }
+    .approach__lines { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 10px 0 0; max-width: 100%; }
+    .approach__breaks { color: var(--fm-text-tertiary); font-weight: 600; }
     /* The verdict is the card's conclusion, so it carries a fill and reads as one object.
        The negative margin cancels the tag's own left padding, which otherwise indents it
        against the two lines above it by exactly the amount that looks like a mistake. The
@@ -107,16 +112,22 @@
     .compare th.compare__pick, .compare td.compare__pick { padding-left: 12px; }
     .compare thead th.compare__pick { border-top: 2px solid var(--fm-base-800); color: var(--fm-text-primary); }
     .compare__picked { display: block; font-size: var(--doc-micro); font-weight: 700; letter-spacing: 0.06em; color: var(--fm-brand-dark); margin-top: 2px; }
-    /* A verdict carries a glyph as well as a colour: WCAG 1.4.1, and the table
-       stays readable in greyscale and in print. CSS escapes, not literal glyphs,
-       so the file is safe whatever charset a reader's tooling assumes. */
-    .compare td::before { font-weight: 700; margin-right: 6px; }
-    .tone-good { color: var(--fm-text-success); }
-    .tone-good::before { content: "\2713"; }
-    .tone-mixed { color: var(--fm-text-secondary); }
-    .tone-mixed::before { content: "\25CB"; }
-    .tone-bad { color: var(--fm-text-error); }
-    .tone-bad::before { content: "\2717"; }
+    /* A verdict carries a glyph as well as a colour: WCAG 1.4.1, and the table stays readable
+       in greyscale and in print. CSS escapes, not literal glyphs, so the file is safe whatever
+       charset a reader's tooling assumes.
+
+       The glyph sits on its own line above the phrase, so the table has a row of marks that
+       can be scanned in one pass and the words are there for whoever wants them. Fifteen
+       written phrases laid out as prose is a table that has to be READ, which is the one
+       thing a comparison table exists not to be. */
+    .compare__mark { display: block; font-weight: 700; font-size: var(--doc-body); line-height: 1.2; }
+    .compare__text { display: block; font-size: var(--doc-micro); line-height: 1.45; color: var(--fm-text-tertiary); margin-top: 2px; }
+    .tone-good .compare__mark { color: var(--fm-text-success); }
+    .tone-good .compare__mark::before { content: "\2713"; }
+    .tone-mixed .compare__mark { color: var(--fm-text-secondary); }
+    .tone-mixed .compare__mark::before { content: "\25CB"; }
+    .tone-bad .compare__mark { color: var(--fm-text-error); }
+    .tone-bad .compare__mark::before { content: "\2717"; }
 
     .oq__kind { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin-bottom: 2px; }
 
@@ -129,7 +140,7 @@
 
     /* The answer. One sentence at h2 scale is the document's first element, tied with a
        decision question rather than with the title above it, and nothing follows it inside
-       its own section: "What we decided" is the summary and this is the statement. */
+       its own section: "What we propose" is the summary and this is the statement. */
     .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0; max-width: var(--doc-measure); }
 
     /* The terrain. The SVG carries no colour of its own; every value it draws with is here. */
@@ -178,13 +189,31 @@
     .decision__blocker { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
     .decision__blocker b { color: var(--fm-text-primary); }
 
-    /* Annotations on a drawing: phrases, never sentences. */
-    .option__notes { margin: 10px 0 0; padding: 0; list-style: none; }
-    .option__notes li { font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
+    /* Annotations on a drawing: phrases, never sentences, and one quiet run rather than a
+       stacked uppercase list. Uppercase is the least readable setting in the document and
+       there were three lines of it under every drawing, above two more lines of prose and a
+       tag: four treatments where one idea was being explained. */
+    .option__notes { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); }
+
+    /* A decision block runs proposal, alternatives, evidence. The proposal is a two-column
+       row: the drawing on the left at the width the author asked for, the case for it on the
+       right, so a reader meets the answer and its argument together instead of reconstructing
+       the answer from three equal options and a table. Both columns wrap to one on a narrow
+       canvas. */
+    .decision__lead { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; margin: 0 0 40px; }
+    .decision__case { flex: 1 1 340px; min-width: 0; max-width: var(--doc-measure); }
+
+    /* What the proposal was chosen over. Smaller drawings, one line of annotation, and a
+       heading that says what they are, because a reader who has read the proposal should be
+       able to skim these rather than weigh them again. */
+    .also { margin: 0 0 32px; }
+    .also > h3, .compare-block > h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 16px; }
+    .also .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
+    .compare-block { margin: 0; }
 
     /* The pick. One line per reason, each naming the row it argues from, then the cost. */
-    .pick { margin: 22px 0 0; border-top: 1px solid var(--fm-base-400); padding: 16px 0 0; max-width: var(--doc-measure); }
-    .pick__lead { font-size: var(--doc-body); font-weight: 600; margin: 0 0 12px; }
+    .pick { margin: 0; border-top: 0; padding: 0; max-width: var(--doc-measure); }
+    .pick__lead { font-size: var(--doc-body); font-weight: 600; margin: 0 0 14px; }
     .pick__lead .decision__kicker { color: var(--fm-brand-dark); }
     .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .pick__reasons li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }

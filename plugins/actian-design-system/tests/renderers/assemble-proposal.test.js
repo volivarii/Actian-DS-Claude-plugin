@@ -203,6 +203,30 @@ describe("assembleProposal (document)", function () {
     });
   });
 
+  it("leads a decision with the proposal, then what it was chosen over, then the evidence", function () {
+    var d = load();
+    var out = assembleProposal(d);
+    d.decisions.forEach(function (dec) {
+      var block = out.slice(at(out, 'id="' + dec.id + '"'));
+      block = block.slice(0, at(block, "</section>"));
+      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
+      var lead = at(block, 'class="decision__lead"');
+      var also = at(block, 'class="also"');
+      var table = at(block, 'class="compare-block"');
+      assert.ok(lead !== -1 && also !== -1 && table !== -1, dec.id + ": all three parts render");
+      assert.ok(lead < also && also < table, dec.id + ": proposal, then alternatives, then comparison");
+      assert.ok(at(block, "We propose") < also, dec.id + ": the case is made before the alternatives, not after them");
+      assert.ok(
+        at(block, 'data-name="' + win.id + '"') < also,
+        dec.id + ": and the proposed drawing is the one that leads",
+      );
+      dec.options.forEach(function (o) {
+        if (o.id === win.id) return;
+        assert.ok(at(block, 'data-name="' + o.id + '"') > also, dec.id + ": " + o.id + " sits under Also considered");
+      });
+    });
+  });
+
   it("prints each reason beside the criterion it argues from", function () {
     var d = load();
     var dec = d.decisions[0];
@@ -246,19 +270,26 @@ describe("assembleProposal (document)", function () {
     assert.throws(function () { assembleProposal(bad2); }, /proposal-data:.*nope/);
   });
 
-  it("gives every option in a decision the same width, whatever the author declared", function () {
+  it("equalises the options a decision did not propose, whatever the author declared", function () {
     var d = load();
     d.decisions[0].options[0].screen.width = 320;
     d.decisions[0].options[1].screen.width = 560;
     var out = assembleProposal(d);
-    var widths = (out.match(/class="proposal-screen" data-name="[^"]+" style="width:(\d+)px"/g) || [])
-      .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
-    var cols = (out.match(/class="proposal-screen__col" style="width:(\d+)px"/g) || [])
-      .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
-    assert.deepStrictEqual(cols, widths, "the column and the drawing inside it carry the same width");
-    assert.strictEqual(widths.length, d.decisions[0].options.length, "one width per option");
-    widths.forEach(function (w) { assert.strictEqual(w, widths[0], "every option at the same width"); });
-    assert.ok(widths[0] >= 320, "and at least the widest the author asked for, or the row budget");
+    var block = out.slice(at(out, 'id="' + d.decisions[0].id + '"'));
+    block = block.slice(0, at(block, "</section>"));
+    var widths = (block.match(/class="proposal-screen" data-name="([^"]+)" style="width:(\d+)px"/g) || []).map(function (m) {
+      var p = /data-name="([^"]+)" style="width:(\d+)px/.exec(m);
+      return { id: p[1], w: Number(p[2]) };
+    });
+    assert.strictEqual(widths.length, d.decisions[0].options.length, "one drawing per option");
+    var lead = widths.filter(function (x) { return x.id === d.decisions[0].pick.optionId; });
+    var rest = widths.filter(function (x) { return x.id !== d.decisions[0].pick.optionId; });
+    assert.strictEqual(lead.length, 1, "the proposed option is drawn once");
+    rest.forEach(function (x) {
+      assert.strictEqual(x.w, rest[0].w, "every option it was chosen over is drawn at one width: " + x.id);
+    });
+    assert.ok(lead[0].w > rest[0].w, "and the proposal leads at a larger one");
+    assert.ok(lead[0].w >= 320, "never below the widest the author asked for, or the row budget");
   });
 
   it("caps the equalised width at the row budget for the option count", function () {
@@ -271,12 +302,16 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(w, budget, n + " options fit at " + budget + ", so 720 is capped");
   });
 
-  it("prints an option's annotations as phrases under its drawing, at most three", function () {
+  it("prints an option's annotations as one quiet run, not an uppercase list", function () {
     var d = load();
     d.decisions[0].options[0].screen.notes = ["Group name, not its id", "One row, always"];
     var out = assembleProposal(d);
-    assert.ok(at(out, "Group name, not its id") !== -1);
-    assert.strictEqual(count(out, '<ul class="option__notes">'), 1, "only the option that has notes gets a list");
+    assert.ok(at(out, "Group name, not its id &middot; One row, always") !== -1, "joined by middots, in the order authored");
+    assert.strictEqual(count(out, '<ul class="option__notes">'), 0, "no list: that was the third voice under one drawing");
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    var i = tpl.indexOf("\n    .option__notes {");
+    assert.ok(i !== -1, "the annotations still have a rule");
+    assert.strictEqual(tpl.slice(i, tpl.indexOf("}", i)).indexOf("uppercase"), -1, "and it is not uppercase");
   });
 
   it("prints a blocker inside its decision, and never in the open questions", function () {
@@ -318,13 +353,27 @@ describe("assembleProposal (document)", function () {
     });
   });
 
-  it("keeps the comparison table's glyphs so it survives greyscale", function () {
+  it("keeps the comparison scannable: a glyph on its own line over the phrase", function () {
     var doc = html();
     var body = doc.slice(doc.indexOf("<body>"));
     assert.ok(at(body, "tone-good") !== -1 || at(body, "tone-mixed") !== -1,
       "a tone class reaches the table, not just the stylesheet that defines it");
+    assert.ok(at(body, '<span class="compare__mark"></span>') !== -1, "every cell carries its mark as its own element");
     var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
-    assert.ok(at(tpl, '.tone-good::before') !== -1, "the glyph rule survives");
+    assert.ok(at(tpl, ".tone-good .compare__mark::before") !== -1, "the glyph rule survives, so it reads in greyscale and print");
+    var i = tpl.indexOf("\n    .compare__mark {");
+    assert.ok(tpl.slice(i, tpl.indexOf("}", i)).indexOf("display: block") !== -1, "and the mark is on its own line, not inline with the words");
+  });
+
+  it("never tells a reader the decision is made: the document proposes, the reader decides", function () {
+    var d = twoDecisions();
+    var out = body(assembleProposal(d));
+    ["What we decided", "What we picked", "We pick", ">Picked<", "Decision 1 of"].forEach(function (past) {
+      assert.strictEqual(out.indexOf(past), -1, "nothing a reader sees says: " + past);
+    });
+    ["What we propose", "We propose", ">Proposed<", "Question 1 of 2"].forEach(function (now) {
+      assert.ok(out.indexOf(now) !== -1, "the reader sees: " + now);
+    });
   });
 
   it("ranks a section label below a decision question, so only the statements are loud", function () {

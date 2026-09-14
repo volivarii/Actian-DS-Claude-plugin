@@ -111,7 +111,7 @@ function questionHtml(data) {
 }
 
 // The answer is one sentence and nothing else. It used to carry a question-and-pick list
-// under it, which "What we decided" printed again ten lines later with the cost added:
+// under it, which "What we propose" printed again ten lines later with the cost added:
 // measured on the acceptance document, every question was printed three times and every
 // pick five. The table is the summary; this is the statement.
 //
@@ -135,6 +135,12 @@ function terrainHtml(board) {
   return section("The terrain", '<div class="bb">' + svg + "</div>" + legend);
 }
 
+// The document PROPOSES; the reader decides. So nothing a reader sees says "decided" or
+// "picked": the summary is "What we propose", a block is "Question N of M", the winning
+// column is "Proposed" and the lead is "We propose". The data model still calls them
+// decisions[] and pick, because that is what the author is choosing between and what the
+// flow bridge addresses by id, and renaming those would break every authored file and both
+// --decision and --option for no reader.
 function glanceHtml(decisions) {
   if (decisions.length < 2) return "";
   var rows = decisions.map(function (d) {
@@ -142,9 +148,9 @@ function glanceHtml(decisions) {
     return "<tr><th>" + esc(d.question) + "</th><td>" + esc(win.name) + "</td><td>" + esc(d.pick.cost) + "</td></tr>";
   }).join("");
   var table =
-    '<table class="decisions-at-a-glance"><thead><tr><th>Decision</th><th>What we picked</th><th>What it costs</th></tr></thead>' +
+    '<table class="decisions-at-a-glance"><thead><tr><th>The question</th><th>What we propose</th><th>What it costs</th></tr></thead>' +
     "<tbody>" + rows + "</tbody></table>";
-  return section("What we decided", table);
+  return section("What we propose", table);
 }
 
 function briefingHtml(data) {
@@ -167,48 +173,57 @@ function briefingHtml(data) {
   return section("The briefing", inner);
 }
 
-function optionHtml(o, index, apps, width) {
+function optionHtml(o, index, apps, width, lead) {
   if (!apps[o.anchor.app])
     throw new Error('proposal-data: unknown app "' + o.anchor.app + '" in option "' + o.id + '"; known: ' + Object.keys(apps).join(", "));
   var bad = unbalancedTag(o.screen.html);
   if (bad) throw new Error("proposal-data: unbalanced <" + bad + '> in option "' + o.id + '"');
   var type = flowRenderer.resolveChrome({ template: templateForApp(o.anchor.app) }).appHeaderType;
   var strip = flowRenderer.appHeader(type);
+  // One voice under a drawing, not three. The annotations used to be an uppercase list, the
+  // two lines carried bold black labels, and the verdict floated as a fourth thing: four
+  // treatments for "tell me about this option", the loudest of them the hardest to read.
+  // Now it is a sentence, a qualifier, and a quiet run of the annotations joined by middots.
   var notes = (o.screen.notes || []).length
-    ? '<ul class="option__notes">' + o.screen.notes.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul>"
+    ? '<p class="option__notes">' + o.screen.notes.map(esc).join(" &middot; ") + "</p>"
     : "";
+  // The proposed option is named and judged in the case beside it, so its own card carries
+  // neither: a name printed twice a hand's width apart, and a verdict tag over three reasons
+  // that say the same thing at length, are both the document agreeing with itself.
+  var label = lead
+    ? '<span class="proposal-screen__label proposal-screen__label--lead">' +
+      '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span></span>"
+    : '<span class="proposal-screen__label">' +
+      '<span class="proposal-screen__name"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(o.name) + "</span>" +
+      '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span></span>";
+  var verdict = lead ? "" : '<p class="approach__verdict"><span class="fm-tag">' + esc(o.verdict) + "</span></p>";
   return (
-    '<div class="proposal-screen__col" style="width:' + width + 'px">' +
-    '<span class="proposal-screen__label">' +
-    '<span class="proposal-screen__name"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(o.name) + "</span>" +
-    '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span></span>" +
+    '<div class="proposal-screen__col" style="width:' + width + 'px">' + label +
     '<div class="proposal-screen" data-name="' + esc(o.id) + '" style="width:' + width + 'px">' + strip +
     '<div class="proposal-screen__body">' + o.screen.html + "</div></div>" + notes +
-    '<p class="approach__lines"><b>What it is.</b> ' + esc(o.whatItIs) + "<br><b>Breaks when.</b> " + esc(o.breaksWhen) + "</p>" +
-    '<p class="approach__verdict"><span class="fm-tag">' + esc(o.verdict) + "</span></p>" +
+    '<p class="approach__lines">' + esc(o.whatItIs) + '<br><span class="approach__breaks">Breaks when.</span> ' + esc(o.breaksWhen) + "</p>" +
+    verdict +
     "</div>\n"
   );
 }
 
-// The picked column is marked in the table itself. A reader used to scan three columns of
-// evidence with no idea which one had won, and find out in the paragraph underneath; the
-// mark lets the evidence and the verdict be read together. The tint is not the only signal:
-// the header carries the word, so the column survives greyscale and print, the same reason
-// every cell carries a glyph as well as a colour.
 function comparisonHtml(cmp, options, pickedId) {
   var head =
     "<tr><th></th>" +
     options.map(function (o) {
       if (o.id !== pickedId) return "<th>" + esc(o.name) + "</th>";
-      return '<th class="compare__pick">' + esc(o.name) + '<span class="compare__picked">Picked</span></th>';
+      return '<th class="compare__pick">' + esc(o.name) + '<span class="compare__picked">Proposed</span></th>';
     }).join("") +
     "</tr>";
   var rows = cmp.criteria.map(function (c) {
     var cells = options.map(function (o) {
       var mark = o.id === pickedId ? " compare__pick" : "";
       var cell = (cmp.cells[o.id] || {})[c.id];
-      if (!cell) return '<td class="' + ("tone-mixed" + mark) + '"></td>';
-      return '<td class="' + (TONES[cell.tone] || "tone-mixed") + mark + '">' + esc(cell.text) + "</td>";
+      var tone = cell ? TONES[cell.tone] || "tone-mixed" : "tone-mixed";
+      return (
+        '<td class="' + tone + mark + '"><span class="compare__mark"></span>' +
+        '<span class="compare__text">' + esc(cell ? cell.text : "") + "</span></td>"
+      );
     }).join("");
     return "<tr><th>" + esc(c.label) + '<span class="compare__source">' + esc(c.source) + "</span></th>" + cells + "</tr>";
   }).join("");
@@ -224,24 +239,52 @@ function pickHtml(d) {
     return '<li><span class="pick__crit">' + esc(crit.label) + "</span> " + esc(r.text) + "</li>";
   }).join("");
   var inner =
-    '<div class="pick"><p class="pick__lead"><span class="decision__kicker">We pick</span>' + esc(win.name) + "</p>" +
+    '<div class="pick"><p class="pick__lead"><span class="decision__kicker">We propose</span>' + esc(win.name) + "</p>" +
     '<ul class="pick__reasons">' + reasons + "</ul>" +
     '<p class="pick__cost"><b>What it costs.</b> ' + esc(d.pick.cost) + "</p></div>";
   if (d.blocker) inner += '<p class="decision__blocker"><b>Blocker.</b> ' + esc(d.blocker) + "</p>";
   return inner;
 }
 
+// A decision block leads with what we propose and argues for it, then shows what it was
+// chosen over, then the evidence. It used to run the other way: the question, three options
+// at one width, a fifteen-cell table, and only at the bottom "We pick". A reader did the
+// comparison themselves and then learned it had already been done, and two thirds of the
+// drawings on the page were things we are not doing, at the same size as the thing we are.
+//
+// The rejected options still render at ONE width as each other, so none of them is flattered
+// over its peers; what changed is that the proposal leads and they follow, smaller, under a
+// heading that says what they are. The comparison below is unchanged and complete, which is
+// what keeps this a proposal rather than a sales sheet.
+var ALSO_SCALE = 0.72;
+
 function decisionHtml(d, index, apps, total) {
   var budget = ROW_BUDGET[d.options.length] || ROW_BUDGET[4];
   var widest = 0;
   d.options.forEach(function (o) { widest = Math.max(widest, Number(o.screen.width) || 360); });
   var width = Math.min(Math.max(widest, 280), budget);
-  var kicker = total > 1 ? '<span class="decision__kicker">Decision ' + (index + 1) + " of " + total + "</span>" : "";
-  var options = d.options.map(function (o, i) { return optionHtml(o, i, apps, width); }).join("");
+  var alsoWidth = Math.max(240, Math.round(width * ALSO_SCALE));
+  var kicker = total > 1 ? '<span class="decision__kicker">Question ' + (index + 1) + " of " + total + "</span>" : "";
+
+  var win = findById(d.options, d.pick.optionId);
+  var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
+  var leadHtml =
+    '<div class="decision__lead">' +
+    optionHtml(win, d.options.indexOf(win), apps, width, true) +
+    '<div class="decision__case">' + pickHtml(d) + "</div></div>";
+  var alsoHtml = rest.length
+    ? '<div class="also"><h3>Also considered</h3><div class="approaches">' +
+      rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
+      "</div></div>"
+    : "";
+  var compareHtml =
+    '<div class="compare-block"><h3>How they compare</h3>' +
+    comparisonHtml(d.comparison, d.options, d.pick.optionId) +
+    "</div>";
+
   return (
     '  <section class="decision" id="' + esc(d.id) + '">' + kicker + "<h2>" + esc(d.question) + "</h2>" +
-    '<div class="approaches">' + options + "</div>" +
-    comparisonHtml(d.comparison, d.options, d.pick.optionId) + pickHtml(d) + "</section>\n"
+    leadHtml + alsoHtml + compareHtml + "</section>\n"
   );
 }
 

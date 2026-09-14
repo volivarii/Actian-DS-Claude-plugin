@@ -21,6 +21,27 @@ are summarized at the release level.
 
 ### Changed
 
+- **A proposal leads with the proposal, and never tells a reader the decision is made**
+  (PR link to be added when the PR is opened). A decision block ran question, three options at
+  one width, a fifteen-cell table, and only then "We pick": the reader did the comparison
+  themselves and then learned it had already been done, with two thirds of the drawings on the
+  page being options we are not taking, at the same size as the one we are. A block now runs
+  **the proposal** (the picked option's drawing with the reasons, the cost and any blocker
+  beside it), then **Also considered** (the rest, smaller, equal to each other, one line each),
+  then **How they compare** (the full table, unchanged, with the proposed column marked). And
+  the vocabulary is honest about what the document is: **What we propose**, **Question N of M**,
+  **We propose**, **Proposed**. The data model keeps `decisions[]` and `pick`, which is what the
+  author chooses between and what `--decision` and `--option` address, but neither word reaches
+  the page.
+- **One voice under a drawing, and a comparison that can be scanned**
+  (PR link to be added when the PR is opened). An option carried three uppercase annotation
+  lines over two bold-labelled sentences over a tag: four treatments for one idea, the loudest
+  of them the least readable setting in the document. The annotations are one quiet run joined
+  by middots, in sentence case. In the comparison, the mark moves onto its own line above the
+  phrase, so the row of marks reads in one pass instead of fifteen written phrases having to be
+  read; the phrase stays, quiet, for whoever wants it.
+
+
 - **The proposal document reads as sections, says less twice, and cites the substrate at the end**
   (PR link to be added when the PR is opened). Three things a reader hit on the DIP-I-496 run.
   The answer block listed every question and pick, and "What we decided" listed them again with the
