@@ -279,3 +279,89 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(assembleProposal(load()), assembleProposal(load()));
   });
 });
+
+describe("assembleProposal, the DIP-I-496 acceptance document", function () {
+  var FULL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
+  function full() { return JSON.parse(fs.readFileSync(FULL, "utf8")); }
+  var html = assembleProposal(full());
+
+  // Prose the reader reads, counted from the data rather than from the rendered HTML.
+  // A drawing's words are labels in a picture, and a breadboard affordance is a label on
+  // a box: neither is prose to wade through, and neither counts. Counting the HTML instead
+  // would mean matching the end of a fragment with a regex, which a fragment's own nested
+  // divs defeat, so the number would move with the drawings rather than with the writing.
+  function proseWords(d) {
+    var text = [];
+    function push() {
+      for (var i = 0; i < arguments.length; i++) if (arguments[i]) text.push(String(arguments[i]));
+    }
+    push(d.answer, d.latitude, d.context.question, d.context.gap,
+         (d.change || {}).adminSide, (d.change || {}).userSide);
+    (d.context.product || []).forEach(function (f) { push(f); });
+    (d.scope.goals || []).forEach(function (g) { push(g); });
+    (d.scope.nonGoals || []).forEach(function (g) { push(g); });
+    (d.research.findings || []).forEach(function (f) { push(f.claim); });
+    push(d.research.skippedBecause);
+    (d.openQuestions || []).forEach(function (q) { push(q.text); });
+    (d.decisions || []).forEach(function (dec) {
+      push(dec.question, dec.blocker, dec.pick.cost);
+      dec.options.forEach(function (o) {
+        push(o.name, o.whatItIs, o.breaksWhen, o.verdict);
+        (o.screen.notes || []).forEach(function (n) { push(n); });
+      });
+      dec.comparison.criteria.forEach(function (c) {
+        push(c.label);
+        dec.options.forEach(function (o) {
+          var cell = (dec.comparison.cells[o.id] || {})[c.id];
+          if (cell) push(cell.text);
+        });
+      });
+      dec.pick.reasons.forEach(function (r) { push(r.text); });
+    });
+    return text.join(" ").split(/\s+/).filter(Boolean).length;
+  }
+
+  it("carries three decisions", function () {
+    assert.strictEqual(full().decisions.length, 3);
+    assert.strictEqual(count(html, '<section class="decision"'), 3);
+  });
+
+  it("puts the first drawing in the second element", function () {
+    // Read the BODY. The stylesheet above it defines .decisions-at-a-glance and .bb__svg,
+    // so the first hit for either in the whole file is its CSS rule, and an order read off
+    // the file compares the sheet's declaration order, not the document's.
+    var out = body(html);
+    var answer = at(out, 'class="answer"');
+    var terrain = at(out, 'class="bb__svg"');
+    var glance = at(out, "decisions-at-a-glance");
+    assert.ok(answer !== -1 && terrain !== -1 && glance !== -1, "all three present");
+    assert.ok(answer < terrain, "the answer opens the document");
+    assert.ok(terrain < glance, "the drawing arrives before the table, which is the second element");
+  });
+
+  it("stays under 400 words of prose", function () {
+    var n = proseWords(full());
+    assert.ok(n < 400, "prose words: " + n + ", against about 950 in the shape this replaces");
+  });
+
+  it("reads as a short document when the same ticket carries one decision", function () {
+    var one = full();
+    one.decisions = [one.decisions[0]];
+    delete one.breadboard;
+    var out = body(assembleProposal(one));
+    assert.strictEqual(at(out, "decisions-at-a-glance"), -1, "no table indexing a single decision");
+    assert.strictEqual(at(out, "bb__svg"), -1, "no terrain");
+    assert.strictEqual(at(out, "Decision 1 of"), -1, "no count on the only decision");
+    assert.ok(proseWords(one) < proseWords(full()), "and it is shorter, not a truncated long document");
+  });
+
+  it("gives every decision a pick whose reasons all name a criterion in that decision", function () {
+    full().decisions.forEach(function (d) {
+      var ids = d.comparison.criteria.map(function (c) { return c.id; });
+      d.pick.reasons.forEach(function (r) {
+        assert.ok(ids.indexOf(r.criterionId) !== -1, d.id + ": " + r.criterionId + " is one of " + ids.join(", "));
+      });
+      assert.ok(d.pick.cost.trim().length > 0, d.id + " states a cost");
+    });
+  });
+});

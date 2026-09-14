@@ -1,0 +1,512 @@
+{
+  "meta": {
+    "title": "DIP-I-496: show role and permission for a logged-in user",
+    "ticket": "DIP-I-496",
+    "date": "2026-09-14",
+    "apps": [
+      "explorer",
+      "administration"
+    ],
+    "prompt": "Propose a design for this ticket: DIP-I-496",
+    "model": "claude-opus-5",
+    "skill": "design-proposal"
+  },
+  "answer": "Badge each group under the name, named by an admin, with its catalogs.",
+  "context": {
+    "question": "What does a user see about their permission group?",
+    "product": [
+      "A user can belong to several groups.",
+      "Group names are technical keys that scripts reference.",
+      "A group may grant access in one catalog only."
+    ],
+    "sources": [
+      "app-context: explorer chrome",
+      "app-context: administration chrome",
+      "attachment: DIP-I-496.pdf"
+    ],
+    "gap": "The account menu has no capture in app-context."
+  },
+  "scope": {
+    "goals": [
+      "A user reads their group from the account menu.",
+      "A group carries a readable name."
+    ],
+    "nonGoals": [
+      "Assigning groups; that stays in Administration.",
+      "Showing what a group grants."
+    ]
+  },
+  "research": {
+    "ran": true,
+    "findings": [
+      {
+        "claim": "Account menus put the role under the name.",
+        "source": "SaaS Permissions and Roles UX Patterns, SaaSUI Design"
+      },
+      {
+        "claim": "A profile page holds the detail.",
+        "source": "Managing roles and permissions, flow examples, Nicelydone"
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "how-a-user-sees-their-group",
+      "question": "How does a user see which group they belong to?",
+      "options": [
+        {
+          "id": "a",
+          "name": "Role line",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "A line under the email.",
+          "breaksWhen": "Two groups crowd it.",
+          "verdict": "Caps at one",
+          "screen": {
+            "width": 320,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px;font-size:12px\">Role: Data Steward <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "The account menu shows one role line under the email."
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "name": "Role badges",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "A pill per group.",
+          "breaksWhen": "Many groups wrap.",
+          "verdict": "Scans, then wraps",
+          "screen": {
+            "width": 320,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><span class=\"fm-badge\">Data Steward</span> <span class=\"fm-badge\">Explorer</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "The account menu shows one pill per group under the email."
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "name": "My access panel",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "A row expanding to every group.",
+          "breaksWhen": "Heavier than one group needs.",
+          "verdict": "Complete, one click",
+          "screen": {
+            "width": 320,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\">\n    <div class=\"fm-menu-item\" data-toggle=\"access-panel-c\" style=\"font-weight:600;padding:0\">My access: Data Steward +1 <span class=\"fm-badge\">New</span></div>\n    <div id=\"access-panel-c\" style=\"margin-top:8px;padding:8px;background:var(--fm-bg-grey);border-radius:var(--fm-radius)\">\n      <div style=\"font-size:12px;font-weight:600\">Data Steward</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">Finance catalog. View guidelines</div>\n      <div style=\"font-size:12px;font-weight:600;margin-top:8px\">Explorer</div>\n      <div style=\"font-size:11px;color:var(--fm-text-tertiary)\">All other catalogs. View guidelines</div>\n    </div>\n  </div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "The account menu shows a My access row that expands to the groups and their catalogs."
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "criteria": [
+          {
+            "id": "single-group",
+            "label": "One group",
+            "source": "product fact"
+          },
+          {
+            "id": "multi-group",
+            "label": "Several groups",
+            "source": "product fact"
+          },
+          {
+            "id": "build-cost",
+            "label": "Build cost",
+            "source": "cost"
+          }
+        ],
+        "cells": {
+          "a": {
+            "single-group": {
+              "text": "Simplest",
+              "tone": "good"
+            },
+            "multi-group": {
+              "text": "Crowds",
+              "tone": "bad"
+            },
+            "build-cost": {
+              "text": "One text node",
+              "tone": "good"
+            }
+          },
+          "b": {
+            "single-group": {
+              "text": "As short",
+              "tone": "good"
+            },
+            "multi-group": {
+              "text": "Wraps cleanly",
+              "tone": "good"
+            },
+            "build-cost": {
+              "text": "A wrap rule",
+              "tone": "good"
+            }
+          },
+          "c": {
+            "single-group": {
+              "text": "Too heavy",
+              "tone": "mixed"
+            },
+            "multi-group": {
+              "text": "Lists cleanly",
+              "tone": "good"
+            },
+            "build-cost": {
+              "text": "Panel state",
+              "tone": "mixed"
+            }
+          }
+        }
+      },
+      "pick": {
+        "optionId": "b",
+        "reasons": [
+          {
+            "criterionId": "multi-group",
+            "text": "A line crowds at two groups; pills wrap."
+          },
+          {
+            "criterionId": "single-group",
+            "text": "One group is common; a panel is heavier."
+          }
+        ],
+        "cost": "A pill cannot name the catalogs it covers."
+      }
+    },
+    {
+      "id": "where-the-readable-name-comes-from",
+      "question": "Where does a readable name come from?",
+      "options": [
+        {
+          "id": "group-name-as-is",
+          "name": "The group's own name",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "The badge prints the stored name.",
+          "breaksWhen": "Usually a technical key.",
+          "verdict": "Free, unreadable",
+          "screen": {
+            "width": 384,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><span class=\"fm-badge\">GRP-STEW-FIN-02</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>",
+            "notes": []
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "The badge prints the group name exactly as it is stored."
+            }
+          ]
+        },
+        {
+          "id": "optional-display-name",
+          "name": "An optional Display name",
+          "anchor": {
+            "app": "administration",
+            "surface": "create group form"
+          },
+          "whatItIs": "A second field on the group form.",
+          "breaksWhen": "Left empty, the key shows.",
+          "verdict": "Readable, needs filling",
+          "screen": {
+            "width": 384,
+            "html": "<div class=\"fm-page-header\"><div class=\"fm-page-header__text\"><div class=\"fm-page-header__title\">New group</div><div class=\"fm-page-header__subtitle\">Administration, groups</div></div></div>\n<div class=\"fm-field-group\" style=\"margin-bottom:14px\">\n  <div class=\"fm-input-label\"><span class=\"fm-input-label__text\">Name</span><span class=\"fm-input-label__caption\">Referenced by scanners and scripts</span></div>\n  <div class=\"fm-input\"><span class=\"fm-input__text\">GRP-STEW-FIN-02</span></div>\n</div>\n<div style=\"border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\">\n  <div class=\"fm-field-group\">\n    <div class=\"fm-input-label\"><span style=\"display:flex;gap:6px;align-items:center\"><span class=\"fm-input-label__text\">Display name</span><span class=\"fm-badge\">New</span></span><span class=\"fm-input-label__caption\">What a member reads in the account menu</span></div>\n    <div class=\"fm-input\"><span class=\"fm-input__text\">Finance Data Steward</span></div>\n  </div>\n</div>",
+            "notes": []
+          },
+          "screens": [
+            {
+              "name": "Administration, create a group",
+              "template": "form-create",
+              "app": "administration",
+              "entity": "user-group",
+              "note": "The group form gains an optional Display name under Name."
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "criteria": [
+          {
+            "id": "recognisable",
+            "label": "Recognisable",
+            "source": "ticket goal"
+          },
+          {
+            "id": "identifier-safe",
+            "label": "Keeps the key",
+            "source": "product fact"
+          },
+          {
+            "id": "admin-cost",
+            "label": "Admin work",
+            "source": "cost"
+          }
+        ],
+        "cells": {
+          "group-name-as-is": {
+            "recognisable": {
+              "text": "Rarely",
+              "tone": "bad"
+            },
+            "identifier-safe": {
+              "text": "Renaming breaks references",
+              "tone": "bad"
+            },
+            "admin-cost": {
+              "text": "None",
+              "tone": "good"
+            }
+          },
+          "optional-display-name": {
+            "recognisable": {
+              "text": "Once set",
+              "tone": "good"
+            },
+            "identifier-safe": {
+              "text": "Key untouched",
+              "tone": "good"
+            },
+            "admin-cost": {
+              "text": "One field each",
+              "tone": "mixed"
+            }
+          }
+        }
+      },
+      "pick": {
+        "optionId": "optional-display-name",
+        "reasons": [
+          {
+            "criterionId": "recognisable",
+            "text": "A key answers with a string nobody reads."
+          },
+          {
+            "criterionId": "identifier-safe",
+            "text": "Renaming the group breaks what references it."
+          }
+        ],
+        "cost": "Someone must write one for every existing group."
+      }
+    },
+    {
+      "id": "access-scoped-per-catalog",
+      "question": "What shows when access differs between catalogs?",
+      "options": [
+        {
+          "id": "group-without-scope",
+          "name": "The group alone",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "The badge names the group.",
+          "breaksWhen": "False where it grants nothing.",
+          "verdict": "Short, sometimes false",
+          "screen": {
+            "width": 384,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><span class=\"fm-badge\">Finance Data Steward</span> <span class=\"fm-badge\">Explorer</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>",
+            "notes": []
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "The account menu shows one pill per group and no catalog."
+            }
+          ]
+        },
+        {
+          "id": "group-with-catalog",
+          "name": "Group and catalogs",
+          "anchor": {
+            "app": "explorer",
+            "surface": "account menu"
+          },
+          "whatItIs": "Each group carries its catalogs.",
+          "breaksWhen": "Ten catalogs will not fit.",
+          "verdict": "True, costs width",
+          "screen": {
+            "width": 384,
+            "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><div style=\"display:flex;justify-content:space-between;align-items:center;gap:10px\"><span class=\"fm-badge\">Finance Data Steward</span><span style=\"font-size:11px;color:var(--fm-text-tertiary)\">Finance, Marketing</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px\"><span class=\"fm-badge\">Explorer</span><span style=\"font-size:11px;color:var(--fm-text-tertiary)\">All catalogs</span></div><div style=\"display:flex;justify-content:flex-end;margin-top:8px\"><span class=\"fm-badge\">New</span></div></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>",
+            "notes": []
+          },
+          "screens": [
+            {
+              "name": "Explorer catalog, account menu open",
+              "template": "overlay",
+              "app": "explorer",
+              "entity": null,
+              "note": "Each group in the account menu is followed by the catalogs it covers."
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "criteria": [
+          {
+            "id": "honest",
+            "label": "True everywhere",
+            "source": "ticket goal"
+          },
+          {
+            "id": "actionable",
+            "label": "Says where",
+            "source": "product fact"
+          },
+          {
+            "id": "fits-the-menu",
+            "label": "Fits the menu",
+            "source": "product fact"
+          }
+        ],
+        "cells": {
+          "group-without-scope": {
+            "honest": {
+              "text": "Sometimes false",
+              "tone": "bad"
+            },
+            "actionable": {
+              "text": "Silent",
+              "tone": "bad"
+            },
+            "fits-the-menu": {
+              "text": "One line",
+              "tone": "good"
+            }
+          },
+          "group-with-catalog": {
+            "honest": {
+              "text": "Always true",
+              "tone": "good"
+            },
+            "actionable": {
+              "text": "Names the catalogs",
+              "tone": "good"
+            },
+            "fits-the-menu": {
+              "text": "Two lines each",
+              "tone": "mixed"
+            }
+          }
+        }
+      },
+      "pick": {
+        "optionId": "group-with-catalog",
+        "reasons": [
+          {
+            "criterionId": "honest",
+            "text": "A badge that is wrong where it is read fails."
+          },
+          {
+            "criterionId": "actionable",
+            "text": "The catalogs are what a user acts on."
+          }
+        ],
+        "cost": "The account menu grows a line for every group."
+      },
+      "blocker": "If access cannot differ per catalog, the group alone wins."
+    }
+  ],
+  "change": {
+    "adminSide": "An optional Display name on the group form.",
+    "userSide": "One badge per group, with its catalogs."
+  },
+  "latitude": "The drawings are one placement; the picks are fixed.",
+  "source": {
+    "system": "pasted",
+    "id": "DIP-I-496",
+    "title": "Show role and permission for a logged-in user",
+    "body": "As a logged-in user I want to see which permission group I belong to, so that I know what I am allowed to do in the catalog and where to read the guidelines for it. Today the group is only visible to an administrator, in the Users table in Administration. Group names are set when the group is created and are often technical keys, so the group needs a separate readable name that an administrator can set. Note that a user can hold more than one group, and that a group can grant access in one catalog and not in another."
+  },
+  "breadboard": {
+    "places": [
+      {
+        "id": "account-menu",
+        "name": "Account menu",
+        "app": "explorer",
+        "affordances": [
+          "Name and email",
+          "Group badges",
+          "Support and Logout"
+        ],
+        "row": 0,
+        "col": 0
+      },
+      {
+        "id": "group-record",
+        "name": "Group",
+        "app": "administration",
+        "affordances": [
+          "Members",
+          "Permissions per catalog",
+          "No readable name today"
+        ],
+        "row": 0,
+        "col": 1
+      },
+      {
+        "id": "group-form",
+        "name": "Create group form",
+        "app": "administration",
+        "affordances": [
+          "Name",
+          "Display name"
+        ],
+        "row": 1,
+        "col": 1
+      }
+    ],
+    "connections": [
+      {
+        "from": "account-menu/2",
+        "to": "group-record",
+        "label": "reads",
+        "isNew": true
+      },
+      {
+        "from": "group-form/2",
+        "to": "group-record",
+        "label": "names",
+        "isNew": true
+      }
+    ]
+  }
+}
