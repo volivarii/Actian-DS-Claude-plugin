@@ -1,5 +1,5 @@
 "use strict";
-var { describe, it } = require("node:test");
+var { describe, it, after } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
@@ -262,5 +262,96 @@ describe("proposal-to-flow: placeOrder", function () {
       out.filter(function (id) { return id !== "feeder"; }),
       ["cycle-a", "cycle-b", "cycle-c"],
       "the cycle should keep declaration order: " + JSON.stringify(out));
+  });
+});
+
+describe("proposal-to-flow: the CLI", function () {
+  var { spawnSync } = require("node:child_process");
+  var os = require("os");
+  var CLI = path.join(ROOT, "scripts", "bridges", "proposal-to-flow.js");
+  var made = [];
+  function run(args) {
+    return spawnSync(process.execPath, [CLI].concat(args), { encoding: "utf8" });
+  }
+  function tmp() {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "proposal-bridge-"));
+    made.push(dir);
+    return dir;
+  }
+  function fileAt(dir, name, data) {
+    var p = path.join(dir, name);
+    fs.writeFileSync(p, JSON.stringify(data, null, 2) + "\n");
+    return p;
+  }
+  after(function () {
+    made.forEach(function (dir) { fs.rmSync(dir, { recursive: true, force: true }); });
+  });
+
+  it("prints the composed seed as JSON on stdout and exits 0", function () {
+    var r = run([FIXTURE]);
+    assert.strictEqual(r.status, 0, r.stderr);
+    var out = JSON.parse(r.stdout);
+    assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }),
+      ["Explorer catalog, account menu open", "Administration, create a group"]);
+    assert.ok(out.brief.length > 0, "a brief");
+    assert.deepStrictEqual(out.findings, []);
+  });
+
+  it("writes the seed to -o, and what it writes is the document, not the string undefined", function () {
+    var dir = tmp();
+    var out = path.join(dir, "seed.json");
+    var r = run([FIXTURE, "-o", out]);
+    assert.strictEqual(r.status, 0, r.stderr);
+    var written = fs.readFileSync(out, "utf8");
+    assert.ok(written.length > 200, "wrote " + written.length + " bytes: " + written);
+    assert.strictEqual(JSON.parse(written).screens.length, 2);
+  });
+
+  it("passes --decision and --option through to the composition", function () {
+    var r = run([FIXTURE, "--decision", "how-a-user-sees-their-group", "--option", "c"]);
+    assert.strictEqual(r.status, 0, r.stderr);
+    var out = JSON.parse(r.stdout);
+    assert.strictEqual(out.screens.length, 1);
+    assert.ok(out.screens[0].note.indexOf("My access row") !== -1, out.screens[0].note);
+  });
+
+  it("exits 1 on a P0 and prints it on stderr, where a piped stdout cannot hide it", function () {
+    var r = run([FIXTURE, "--decision", "no-such-decision"]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf("P0") !== -1, r.stderr);
+    assert.ok(r.stderr.indexOf("no-such-decision") !== -1, r.stderr);
+    assert.deepStrictEqual(JSON.parse(r.stdout).screens, [], "still prints the seed it could build");
+  });
+
+  it("refuses an evaluation file by name and says how to resume it", function () {
+    var dir = tmp();
+    var d = load();
+    d.meta.stage = "evaluation";
+    var r = run([fileAt(dir, "evaluation.json", d)]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf("evaluation") !== -1, r.stderr);
+    assert.ok(r.stderr.indexOf("--from") !== -1, r.stderr);
+  });
+
+  it("refuses to overwrite an existing -o, and says so before composing anything", function () {
+    var dir = tmp();
+    var out = path.join(dir, "taken.json");
+    fs.writeFileSync(out, "keep me\n");
+    var r = run([FIXTURE, "-o", out]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.strictEqual(fs.readFileSync(out, "utf8"), "keep me\n");
+  });
+
+  it("prints a usage line with no arguments, and exits non-zero", function () {
+    var r = run([]);
+    assert.notStrictEqual(r.status, 0);
+    assert.ok((r.stdout + r.stderr).indexOf("--decision") !== -1, r.stdout + r.stderr);
+  });
+
+  it("names the file it could not read instead of printing a stack", function () {
+    var r = run([path.join(tmp(), "absent.json")]);
+    assert.strictEqual(r.status, 1);
+    assert.ok(r.stderr.indexOf("absent.json") !== -1, r.stderr);
+    assert.strictEqual(r.stderr.indexOf("at Object."), -1, "a stack trace, not a message: " + r.stderr);
   });
 });

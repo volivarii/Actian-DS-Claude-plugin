@@ -266,3 +266,44 @@ function compose(data, options) {
 }
 
 module.exports = { compose: compose, placeOrder: placeOrder };
+
+if (require.main === module) {
+  var args = process.argv.slice(2);
+  var USAGE = "Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]\n";
+  if (!args.length || args.indexOf("--help") !== -1) {
+    process.stdout.write(USAGE);
+    process.exit(args.length ? 0 : 1);
+  }
+  function valueOf(flag) {
+    var i = args.indexOf(flag);
+    return i !== -1 && args[i + 1] && args[i + 1].indexOf("-") !== 0 ? args[i + 1] : undefined;
+  }
+  var inPath = path.resolve(args[0]);
+  var outPath = valueOf("-o") ? path.resolve(valueOf("-o")) : null;
+  if (outPath && fs.existsSync(outPath)) {
+    process.stderr.write(outPath + " already exists; remove it or drop -o to print the seed\n");
+    process.exit(1);
+  }
+  var data;
+  try {
+    data = JSON.parse(fs.readFileSync(inPath, "utf8"));
+  } catch (e) {
+    process.stderr.write("Error reading " + inPath + ": " + e.message + "\n");
+    process.exit(1);
+  }
+  var seed = compose(data, { decision: valueOf("--decision"), option: valueOf("--option") });
+  var json = JSON.stringify(seed, null, 2) + "\n";
+  if (outPath) {
+    fs.writeFileSync(outPath, json);
+    process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
+  } else {
+    process.stdout.write(json);
+  }
+  // Findings go to stderr so they stay visible when stdout is piped into a file or a
+  // reader, which is the normal way this is called.
+  seed.findings.forEach(function (f) {
+    process.stderr.write(f.severity + " [" + f.check + "] " + f.path + ": " + f.value +
+      (f.suggestion ? ", " + f.suggestion : "") + "\n");
+  });
+  process.exit(seed.findings.some(function (f) { return f.severity === "P0"; }) ? 1 : 0);
+}
