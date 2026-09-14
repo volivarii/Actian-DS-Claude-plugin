@@ -234,7 +234,7 @@ function validateProposal(data) {
     // An evaluation names the questions a ticket forces, and nothing else. A statement, a
     // question with its answer attached, and the same question twice are each a pick that
     // arrived without its work, which is the one thing this stage exists to stop.
-    var seenQ = {};
+    var seenQ = Object.create(null);
     data.decisions.forEach(function (d, di) {
       var q = String(d.question || "").trim();
       var qkey = q.toLowerCase().replace(/\s+/g, " ");
@@ -243,7 +243,7 @@ function validateProposal(data) {
       if (sentenceCount(q) > 1)
         findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "is more than one sentence", q, "one question per decision; two sentences is two decisions or a question with its answer attached"));
       if (seenQ[qkey] !== undefined)
-        findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "repeats decisions[" + seenQ[qkey] + "]", q, "two decisions that ask the same thing are one decision"));
+        findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "repeats the question in decisions[" + seenQ[qkey] + "]", "decisions[" + seenQ[qkey] + "]", "two decisions that ask the same thing are one decision"));
       else seenQ[qkey] = di;
     });
     // Where this came from. Both schemas share one source definition, verbatim, and it
@@ -264,14 +264,18 @@ function validateProposal(data) {
   var entities = ctx.entities || {};
   var appList = Object.keys(apps).join(", ");
   var archetypes = loadArchetypes();
-  var idSeen = {}; // html ids are document-wide: id -> the option it first appeared in
+  // Every lookup map in this file is keyed by a string an author wrote, so a plain object
+  // hands back Object.prototype's members as if the author had declared them: a decision
+  // asking "Constructor" reported "repeats decisions[function Object() { [native code] }]",
+  // and one decision with id "constructor" reported a duplicate of itself.
+  var idSeen = Object.create(null); // html ids are document-wide: id -> the option it first appeared in
 
   // pseudo screens for the flow gates: one per option plus the document-level ones,
   // the latter prefixed "doc:" (a colon the option id pattern forbids) so an option
   // id such as "context" can never collide with a document-level pseudo screen id.
   var pseudo = { meta: { feature: data.meta.title }, screens: [] };
   var pathsByScreen = {};
-  var optionIds = {};
+  var optionIds = Object.create(null);
   function addPseudo(id, name, entries) {
     pathsByScreen[id] = entries.map(function (e) { return e.path; });
     pseudo.screens.push({ id: id, name: name, content: entries.map(function (e) { return { type: "TEXT", content: String(e.text == null ? "" : e.text) }; }) });
@@ -334,7 +338,7 @@ function validateProposal(data) {
     // affordance suffix is always checked, whatever number it carries, exactly as the
     // renderer checks it: "place/0" is a suffix an author meant, not an absent one.
     if (data.breadboard) {
-      var placeIds = {};
+      var placeIds = Object.create(null);
       data.breadboard.places.forEach(function (pl, i) {
         if (placeIds[pl.id] !== undefined) findings.push(finding("P0", "bounds", "", "breadboard.places[" + i + "].id", "duplicate place id " + pl.id));
         placeIds[pl.id] = (pl.affordances || []).length;
@@ -347,7 +351,7 @@ function validateProposal(data) {
       // place, which is how a copied entry reads. Both throw in layout(); neither was
       // screened here, so the validator said the file was clean and the assembler died
       // naming an internal module.
-      var cellOf = {};
+      var cellOf = Object.create(null);
       data.breadboard.places.forEach(function (pl, i) {
         var cell = (pl.row === undefined ? i : pl.row) + "," + (pl.col === undefined ? 0 : pl.col);
         if (cellOf[cell] !== undefined)
@@ -384,7 +388,7 @@ function validateProposal(data) {
   }
 
   // decisions
-  var decisionIds = {};
+  var decisionIds = Object.create(null);
   if (data.decisions.length > MAX_DECISIONS)
     findings.push(finding("P0", "bounds", "", "decisions", data.decisions.length + " decisions; at most " + MAX_DECISIONS));
   data.decisions.forEach(function (d, di) {
@@ -413,7 +417,7 @@ function validateProposal(data) {
       if (d.options.length > MAX_OPTIONS)
         findings.push(finding("P0", "bounds", "", dp + ".options", d.options.length + " options; at most " + MAX_OPTIONS));
 
-      var seenHere = {};
+      var seenHere = Object.create(null);
       var widths = [];
       d.options.forEach(function (o, oi) {
         var op = dp + ".options[" + oi + "]";
@@ -465,7 +469,7 @@ function validateProposal(data) {
         findings.push(finding("P1", "option-width", "", dp + ".options", "declared widths " + widths.join(", ") + " differ", "", "the renderer equalises them to the widest, capped at the row budget; declare one width unless you mean the drawings to differ"));
 
       // comparison, scoped to this decision
-      var critHere = {};
+      var critHere = Object.create(null);
       var compEntries = [];
       if (d.comparison.criteria.length > MAX_CRITERIA)
         findings.push(finding("P0", "bounds", "", dp + ".comparison.criteria", d.comparison.criteria.length + " criteria; at most " + MAX_CRITERIA));

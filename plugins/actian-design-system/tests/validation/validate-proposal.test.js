@@ -718,6 +718,82 @@ describe("the evaluation stage gates", function () {
       delete d.source[key];
       fires(d, atPath("source." + key), "P0", "an evaluation cannot claim what a ticket forces without naming the ticket");
     });
+
+    // Deleting the key is the shape a human produces. An empty string is the shape a
+    // FETCHER produces, and project D is a fetcher: it fills source and stops, and it
+    // will write "" the first time a ticket body comes back empty. The gate reads
+    // .trim() for exactly that, and nothing exercised it, so narrowing the condition to
+    // an undefined check left the whole suite green.
+    //
+    // The two are not caught in the same place, and the test says which. `system` is an
+    // enum, so the schema rejects a blank one first and returns, exactly as it does for
+    // the bounds this file marks "also schema"; `id` and `body` are free strings, so the
+    // stage gate is the only thing between a blank one and a valid-looking evaluation.
+    // Asserting a stage P0 for all three would have been asserting a message no author
+    // ever sees.
+    it("an evaluation whose source." + key + " is blank is refused, by whichever layer gets there first", function () {
+      var d = evaluation();
+      d.source[key] = "   ";
+      var all = validateProposal(d).findings;
+      if (key === "system") {
+        var schema = all.filter(function (f) { return f.check === "schema" && f.value.indexOf("/source/system") === 0; });
+        assert.strictEqual(schema.length, 1, "the enum rejects a blank system before the stage gate runs");
+        assert.strictEqual(schema[0].severity, "P0");
+      } else {
+        fires(d, atPath("source." + key), "P0", "a fetcher writes an empty string where a person omits the key");
+      }
+    });
+  });
+
+  // A P0 that fires on an ordinary question is worse than no gate: it blocks the file and
+  // says something false about the input. The one-sentence rule reads a shared regex whose
+  // leading (?:^|\s) means a letter has to start a word, so in "the U.S." the S sits behind
+  // a dot and matched nothing. This is a product with US and EU tenants; these are questions
+  // an author writes.
+  [
+    "Where does the U.S. admin see the share reach?",
+    "Is it the U.K. or the E.U. tenant?",
+    "Where does the Jan. release land?",
+    "Does Fig. 2 show the shape?",
+    "Does J. Smith own the catalog?",
+  ].forEach(function (question) {
+    it("does not call one question two sentences: " + question, function () {
+      var d = evaluation();
+      d.decisions[0].question = question;
+      var hits = validateProposal(d).findings.filter(function (f) {
+        return f.check === "stage" && f.path.indexOf("decisions[0].question") === 0;
+      });
+      assert.deepStrictEqual(hits, [], "an ordinary question was rejected");
+    });
+  });
+
+  it("still refuses a question with a second sentence attached", function () {
+    var d = evaluation();
+    d.decisions[0].question = "Where does it come from? And who sets it?";
+    fires(d, atPath("decisions[0].question"), "P0", "two sentences is two decisions, or a question with its answer attached");
+  });
+
+  // Lookup maps here are keyed by strings an author wrote, so a plain object hands back
+  // Object.prototype's members as though the author had declared them.
+  it("does not report a question repeating a decision that does not exist", function () {
+    ["Constructor", "__proto__", "toString"].forEach(function (text) {
+      var d = evaluation();
+      d.decisions[0].question = text;
+      validateProposal(d).findings.forEach(function (f) {
+        assert.ok(f.value.indexOf("native code") === -1 && f.value.indexOf("[object Object]") === -1,
+          "a prototype member leaked into a finding: " + f.value);
+      });
+    });
+  });
+
+  it("does not report a lone decision as a duplicate of itself", function () {
+    var d = evaluation();
+    d.decisions = [d.decisions[0]];
+    d.decisions[0].id = "constructor";
+    var dupes = validateProposal(d).findings.filter(function (f) {
+      return f.check === "bounds" && f.value.indexOf("duplicate decision id") !== -1;
+    });
+    assert.deepStrictEqual(dupes, [], "one decision cannot duplicate anything");
   });
 
   it("a gap in the product read with nothing left open is a P1", function () {
@@ -763,5 +839,19 @@ describe("the Checks list in the validator's header", function () {
     assert.ok(emitted.length > 10, "the emitted set was read, and is " + emitted.join(", "));
     assert.deepStrictEqual(listed, emitted,
       "the header lists " + listed.join(", ") + " and the file emits " + emitted.join(", "));
+  });
+
+  // The gate above reads literal finding("P0", "name" call sites, so it is blind to a call
+  // that passes either argument in a variable: such a check would exist, emit, and never be
+  // held against the header. Every call site is literal today. This is what keeps it that
+  // way, so the gate guards itself rather than resting on a habit nobody stated.
+  it("holds every emitted finding to the literal shape the gate above can read", function () {
+    var pushes = matches(/findings\.push\(finding\(([^,]+), ([^,]+),/g, SOURCE, 0);
+    assert.ok(pushes.length > 10, "the push sites were read, and there are " + pushes.length);
+    pushes.forEach(function (site) {
+      assert.match(site, /findings\.push\(finding\("P[012]", "[a-z-]+",/,
+        "this call passes a severity or a check name the header gate cannot see, so it would" +
+        " emit a check nothing holds against the header: " + site);
+    });
   });
 });
