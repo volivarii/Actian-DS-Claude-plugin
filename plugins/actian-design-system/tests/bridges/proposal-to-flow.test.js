@@ -3,7 +3,7 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-var { compose } = require("../../scripts/bridges/proposal-to-flow.js");
+var { compose, placeOrder } = require("../../scripts/bridges/proposal-to-flow.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var FIXTURE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
@@ -219,7 +219,7 @@ describe("proposal-to-flow: order", function () {
     assert.ok(p1[0].suggestion.indexOf("declaration order") !== -1, p1[0].suggestion);
   });
 
-  it("orders a cycle by declaration order rather than refusing it", function () {
+  it("composes a cycle instead of throwing or refusing it", function () {
     var d = load();
     d.breadboard.connections = [
       { from: "account-menu", to: "group-form" },
@@ -229,5 +229,38 @@ describe("proposal-to-flow: order", function () {
     assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }),
       ["Explorer catalog, account menu open", "Administration, create a group"]);
     assert.deepStrictEqual(sev(out.findings, "P0"), [], JSON.stringify(out.findings));
+  });
+});
+
+describe("proposal-to-flow: placeOrder", function () {
+  it("keeps every place through a cycle: the feeder first, the cycle in declaration order", function () {
+    var board = {
+      places: [
+        { id: "feeder" },
+        { id: "cycle-a" },
+        { id: "cycle-b" },
+        { id: "cycle-c" },
+      ],
+      connections: [
+        { from: "feeder", to: "cycle-a" },
+        { from: "cycle-a", to: "cycle-b" },
+        { from: "cycle-b", to: "cycle-c" },
+        { from: "cycle-c", to: "cycle-a" },
+      ],
+    };
+    var out = placeOrder(board);
+    assert.strictEqual(out.length, board.places.length,
+      "every place should come back: " + JSON.stringify(out));
+    assert.strictEqual(new Set(out).size, board.places.length,
+      "no place dropped or repeated: " + JSON.stringify(out));
+    var feederIndex = out.indexOf("feeder");
+    ["cycle-a", "cycle-b", "cycle-c"].forEach(function (id) {
+      assert.ok(feederIndex < out.indexOf(id),
+        "the feeder should precede " + id + ": " + JSON.stringify(out));
+    });
+    assert.deepStrictEqual(
+      out.filter(function (id) { return id !== "feeder"; }),
+      ["cycle-a", "cycle-b", "cycle-c"],
+      "the cycle should keep declaration order: " + JSON.stringify(out));
   });
 });

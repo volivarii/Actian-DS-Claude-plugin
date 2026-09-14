@@ -19,6 +19,10 @@
  * does not. The link is anchor.place, declared, because guessing it from anchor.surface
  * reading like place.name holds on the acceptance document by coincidence, not contract.
  *
+ * placeOrder is exported alongside compose because the cycle rule (every place kept, none
+ * repeated, a cycle falling back to declaration order) is an invariant over the whole place
+ * list, and testing it through compose cannot see it.
+ *
  * No side effects at load.
  * Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]
  */
@@ -222,9 +226,9 @@ function checkAnchors(data, selected, findings) {
     if (place) {
       if (!known[place]) {
         findings.push(finding("P0", "anchor", p, place + " names no place in the breadboard",
-          places.length ? "one of " + ids(places) : "the document draws no breadboard; add one, or drop anchor.place"));
+          "one of " + ids(places)));
       }
-    } else if (places.length) {
+    } else {
       findings.push(finding("P1", "anchor", p,
         "the document draws a terrain and this anchor names no place on it",
         "set anchor.place to a breadboard place id; without it this screen keeps declaration order"));
@@ -261,4 +265,4 @@ function compose(data, options) {
   };
 }
 
-module.exports = { compose: compose };
+module.exports = { compose: compose, placeOrder: placeOrder };
