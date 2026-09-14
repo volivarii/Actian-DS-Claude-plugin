@@ -104,12 +104,9 @@
     .doc__question { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
 
     /* The answer. One sentence at h2 scale is the document's first element, tied with a
-       decision question rather than with the title above it; the picks under it are a list
-       of what was decided, not a summary paragraph. */
-    .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
-    .answer-picks { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; max-width: var(--doc-measure); }
-    .answer-picks li { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); }
-    .answer-picks b { color: var(--fm-text-primary); }
+       decision question rather than with the title above it, and nothing follows it inside
+       its own section: "What we decided" is the summary and this is the statement. */
+    .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0; max-width: var(--doc-measure); }
 
     /* The terrain. The SVG carries no colour of its own; every value it draws with is here. */
     .bb { width: 100%; overflow-x: auto; margin: 0 0 14px; }
@@ -169,6 +166,14 @@
     .change__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 8px; }
     .change__col p { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 0; }
     .doc__latitude { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-tertiary); margin: 0; max-width: var(--doc-measure); font-style: italic; }
+
+    /* Where this came from. A two-column grid rather than a list, so the kinds stack into
+       one narrow column and the eye reads down the texts beside them. The kind column is
+       sized to its content and capped, so one long kind cannot push every citation right. */
+    .citations { display: grid; grid-template-columns: minmax(0, max-content) 1fr; gap: 6px 20px; max-width: var(--doc-measure); }
+    .citations__row { display: contents; }
+    .citations__kind { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-text-tertiary); line-height: 1.7; white-space: nowrap; }
+    .citations__text { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); }
 
     [hidden] { display: none !important; }
   </style>

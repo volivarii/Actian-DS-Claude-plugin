@@ -59,7 +59,7 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(html(), "<script"), 1, "only the toggle listener");
   });
 
-  it("renders the eight elements in order, answer first and latitude last", function () {
+  it("renders the nine elements in order, answer first and latitude last", function () {
     var d = twoDecisions();
     d.breadboard = {
       places: [
@@ -76,6 +76,7 @@ describe("assembleProposal (document)", function () {
       'class="briefing"',
       'class="decision"',
       'class="change"',
+      'class="citations"',
       'class="doc__latitude"',
     ];
     var last = -1;
@@ -100,14 +101,19 @@ describe("assembleProposal (document)", function () {
     assert.ok(at(out, 'class="bb__svg"') < at(out, 'class="proposal-screen"'), "and precedes every option drawing");
   });
 
-  it("states the answer once, with one pick line per decision", function () {
+  it("states the answer once and never restates the picks beneath it", function () {
     var d = twoDecisions();
     var out = assembleProposal(d);
     assert.strictEqual(count(out, d.answer), 1, "the answer is stated once");
-    assert.strictEqual(count(out, '<li class="answer-pick">'), d.decisions.length, "one pick line per decision");
+    assert.strictEqual(count(out, "answer-pick"), 0, "the picks are not listed under the answer");
+    assert.ok(at(out, 'class="decisions-at-a-glance"') !== -1, "the table is the summary instead");
+  });
+
+  it("prints each decision's question twice at most: the summary row and its own heading", function () {
+    var d = twoDecisions();
+    var out = body(assembleProposal(d));
     d.decisions.forEach(function (dec) {
-      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
-      assert.ok(at(out, "<b>" + win.name + "</b>") !== -1, dec.id + " names its winner in the picks");
+      assert.strictEqual(count(out, dec.question), 2, dec.id + ": summary row and heading, nothing more");
     });
   });
 
@@ -149,7 +155,32 @@ describe("assembleProposal (document)", function () {
     d.scope.nonGoals.forEach(function (n) { assert.ok(at(brief, n) !== -1, "non-goal: " + n); });
     d.context.product.forEach(function (f) { assert.ok(at(brief, f) !== -1, "fact: " + f); });
     d.research.findings.forEach(function (f) { assert.ok(at(brief, f.claim) !== -1, "finding: " + f.claim); });
-    assert.ok(at(brief, "Sources: " + d.context.sources.join("; ")) !== -1, "sources");
+    assert.strictEqual(count(brief, "Sources:"), 0, "the sources moved to the citations section");
+  });
+
+  it("cites every source once, at the end, split into its kind and its text", function () {
+    var d = load();
+    var doc = html();
+    var cites = doc.slice(at(doc, 'class="citations"'));
+    assert.ok(at(doc, 'class="citations"') > at(doc, 'class="change"'), "citations come after what this changes");
+    assert.ok(at(doc, 'class="citations"') < at(doc, 'class="doc__latitude"'), "and before the latitude line");
+    d.context.sources.forEach(function (src) {
+      var cut = src.indexOf(": ");
+      var kind = cut === -1 ? "" : src.slice(0, cut);
+      var text = cut === -1 ? src : src.slice(cut + 2);
+      assert.strictEqual(count(doc, text), 1, "cited once in the whole document: " + text);
+      assert.ok(at(cites, text) !== -1, "cited in the citations section: " + text);
+      if (kind) assert.ok(at(cites, ">" + kind + "<") !== -1, "kind rendered as its own label: " + kind);
+    });
+  });
+
+  it("keeps the gap note in the briefing, because it qualifies the read rather than sourcing it", function () {
+    var d = load();
+    d.context.gap = "The account menu has no capture.";
+    var out = assembleProposal(d);
+    var brief = out.slice(at(out, 'class="briefing"'), at(out, 'class="decision"'));
+    assert.ok(at(brief, d.context.gap) !== -1, "the gap stays in the briefing");
+    assert.strictEqual(count(out, d.context.gap), 1, "and is not repeated in the citations");
   });
 
   it("renders one block per decision, each with its question, options, table and pick", function () {

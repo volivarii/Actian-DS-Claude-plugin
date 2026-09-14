@@ -110,13 +110,20 @@ function questionHtml(data) {
   return '<p class="doc__question">' + esc(data.context.question) + "</p>";
 }
 
+// The answer is one sentence and nothing else. It used to carry a question-and-pick list
+// under it, which "What we decided" printed again ten lines later with the cost added:
+// measured on the acceptance document, every question was printed three times and every
+// pick five. The table is the summary; this is the statement.
+//
+// The pick lookup stays, because it is the only place that catches a pick naming an option
+// that does not exist before the decision blocks render. Dropping the list must not drop
+// the check with it.
 function answerHtml(data) {
-  var picks = data.decisions.map(function (d) {
-    var win = findById(d.options, d.pick.optionId);
-    if (!win) throw new Error('proposal-data: decision "' + d.id + '" picks optionId "' + d.pick.optionId + '", which names no option in it');
-    return '<li class="answer-pick">' + esc(d.question) + " <b>" + esc(win.name) + "</b></li>";
-  }).join("");
-  return section("", questionHtml(data) + '<p class="answer">' + esc(data.answer) + '</p><ul class="answer-picks">' + picks + "</ul>");
+  data.decisions.forEach(function (d) {
+    if (!findById(d.options, d.pick.optionId))
+      throw new Error('proposal-data: decision "' + d.id + '" picks optionId "' + d.pick.optionId + '", which names no option in it');
+  });
+  return section("", questionHtml(data) + '<p class="answer">' + esc(data.answer) + "</p>");
 }
 
 function terrainHtml(board) {
@@ -156,7 +163,6 @@ function briefingHtml(data) {
     col("How it works today", list("doc__list", data.context.product.map(esc))) +
     col("What comparable products do", research) +
     "</div>";
-  inner += '<p class="doc__muted">Sources: ' + esc(data.context.sources.join("; ")) + "</p>";
   if (data.context.gap) inner += '<p class="doc__gap">Gap: ' + esc(data.context.gap) + "</p>";
   return section("The briefing", inner);
 }
@@ -244,6 +250,31 @@ function changeHtml(change) {
   return section("What this changes", inner);
 }
 
+// Where the assessment meets the substrate. These used to be one semicolon-joined run-on
+// inside the briefing, which is where a reader is still learning the problem and has no use
+// for a bibliography. Each source is one row of kind and text, and the kind is the prefix
+// the schema already asks for, so the rows line up instead of repeating "app-context:" five
+// times down the left. A source with no recognised prefix renders as its own text, unkinded,
+// rather than being dropped: an unlabelled citation is still a citation.
+//
+// context.gap stays in the briefing. It says what the product read could NOT reach, which
+// qualifies the read rather than sourcing it, and a reader needs it beside the facts it
+// qualifies rather than at the end.
+function citationsHtml(sources) {
+  if (!sources || !sources.length) return "";
+  var rows = sources.map(function (src) {
+    var cut = src.indexOf(": ");
+    var kind = cut === -1 ? "" : src.slice(0, cut);
+    var text = cut === -1 ? src : src.slice(cut + 2);
+    return (
+      '<div class="citations__row">' +
+      '<span class="citations__kind">' + esc(kind) + "</span>" +
+      '<span class="citations__text">' + esc(text) + "</span></div>"
+    );
+  }).join("");
+  return section("Where this came from", '<div class="citations">' + rows + "</div>");
+}
+
 function latitudeHtml(text) {
   if (!text) return "";
   return section("", '<p class="doc__latitude">' + esc(text) + "</p>");
@@ -273,6 +304,7 @@ function assembleProposal(data) {
     data.decisions.map(function (d, i) { return decisionHtml(d, i, apps, total); }).join("") +
     openQuestionsHtml(data.openQuestions) +
     changeHtml(data.change) +
+    citationsHtml(data.context.sources) +
     latitudeHtml(data.latitude) +
     footerHtml(meta);
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]
