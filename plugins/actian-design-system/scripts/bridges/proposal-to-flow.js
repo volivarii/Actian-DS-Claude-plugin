@@ -249,11 +249,27 @@ function compose(data, options) {
   var selected = select(data, opts, findings);
   if (!selected.length) return { screens: [], brief: "", findings: findings };
   checkAnchors(data, selected, findings);
+  var merged = merge(selected, findings);
+  // Every picked option can carry an empty screens[] (the P1 above), and when every one of
+  // them does, merged is empty: not thin, nothing. That is the same silent pass already
+  // closed for the no-decisions case, at the other entrance, so it gets the same severity.
+  if (!merged.length) {
+    findings.push(finding("P0", "screens", "screens",
+      "the proposal's picks draw no screens between them, so there is no flow to seed",
+      "give at least one picked option a screens[] entry, or pick decisions that do"));
+  }
+  // A P0 anywhere above (selection, merge conflict, a dangling anchor.place, or the empty
+  // list just above) means the seed is wrong, not thin: guessing a partial flow out of it
+  // builds something nobody asked for, so the whole seed comes back empty and the caller
+  // reads why from findings instead of from a flow that was never asked for.
+  if (findings.some(function (f) { return f.severity === "P0"; })) {
+    return { screens: [], brief: "", findings: findings };
+  }
   var rank = Object.create(null);
   placeOrder(data && data.breadboard).forEach(function (id, i) { rank[id] = i; });
   // A merged screen ranks by the earliest place any of its sources anchors to. Screens that
   // resolve to no place rank Infinity and keep declaration order among themselves.
-  var ordered = merge(selected, findings).map(function (m, i) {
+  var ordered = merged.map(function (m, i) {
     var r = Infinity;
     m.places.forEach(function (id) { if (rank[id] !== undefined && rank[id] < r) r = rank[id]; });
     return { m: m, rank: r, i: i };
@@ -302,15 +318,20 @@ if (require.main === module) {
     process.exit(1);
   }
   var seed = compose(data, { decision: decisionVal, option: optionVal });
+  var hasP0 = seed.findings.some(function (f) { return f.severity === "P0"; });
   var json = JSON.stringify(seed, null, 2) + "\n";
+  // A P0 refuses outright: no file, no success line. The findings on stderr and a non-zero
+  // exit are the whole output, so a caller cannot mistake a guess for an answer.
   if (outPath) {
-    try {
-      fs.writeFileSync(outPath, json);
-    } catch (e) {
-      process.stderr.write("Error writing " + outPath + ": " + e.message + "\n");
-      process.exit(1);
+    if (!hasP0) {
+      try {
+        fs.writeFileSync(outPath, json);
+      } catch (e) {
+        process.stderr.write("Error writing " + outPath + ": " + e.message + "\n");
+        process.exit(1);
+      }
+      process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
     }
-    process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
   } else {
     process.stdout.write(json);
   }
@@ -320,5 +341,5 @@ if (require.main === module) {
     process.stderr.write(f.severity + " [" + f.check + "] " + f.path + ": " + f.value +
       (f.suggestion ? ", " + f.suggestion : "") + "\n");
   });
-  process.exit(seed.findings.some(function (f) { return f.severity === "P0"; }) ? 1 : 0);
+  process.exit(hasP0 ? 1 : 0);
 }

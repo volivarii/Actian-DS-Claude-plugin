@@ -93,6 +93,18 @@ describe("proposal-to-flow: selection", function () {
     assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }), [MENU],
       "the other two picks still build");
   });
+
+  it("P0s a composed seed that draws no screens at all, instead of seeding nothing quietly", function () {
+    var d = flat();
+    d.decisions.forEach(function (dec) {
+      dec.options.forEach(function (o) { o.screens = []; });
+    });
+    var out = compose(d, {});
+    var p0 = sev(out.findings, "P0").filter(function (f) { return f.check === "screens"; });
+    assert.strictEqual(p0.length, 1, JSON.stringify(out.findings));
+    assert.deepStrictEqual(out.screens, []);
+    assert.strictEqual(out.brief, "");
+  });
 });
 
 describe("proposal-to-flow: what it refuses", function () {
@@ -119,6 +131,8 @@ describe("proposal-to-flow: what it refuses", function () {
     assert.strictEqual(p0[0].check, "merge");
     assert.ok(p0[0].value.indexOf("how-a-user-sees-their-group") !== -1, p0[0].value);
     assert.ok(p0[0].value.indexOf("access-scoped-per-catalog") !== -1, p0[0].value);
+    assert.deepStrictEqual(out.screens, [], "a P0 refuses instead of guessing which side wins");
+    assert.strictEqual(out.brief, "", "no brief either: the whole seed is wrong, not thin");
   });
 
   it("treats a missing entity and a null entity as the same absence, not a conflict", function () {
@@ -340,6 +354,33 @@ describe("proposal-to-flow: the CLI", function () {
     var r = run([FIXTURE, "-o", out]);
     assert.strictEqual(r.status, 1, r.stdout);
     assert.strictEqual(fs.readFileSync(out, "utf8"), "keep me\n");
+  });
+
+  it("refuses to write -o when the composed seed carries a P0, and prints no success line", function () {
+    var dir = tmp();
+    var out = path.join(dir, "seed.json");
+    var d = load();
+    d.decisions[2].options.forEach(function (o) {
+      if (o.id === "group-with-catalog") o.screens[0].template = "detail-view";
+    });
+    var r = run([fileAt(dir, "conflict.json", d), "-o", out]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(!fs.existsSync(out), "should not have written a file when the seed carries a P0");
+    assert.strictEqual(r.stdout, "", "no success line when a P0 refuses the write");
+    assert.ok(r.stderr.indexOf("P0") !== -1, r.stderr);
+  });
+
+  it("refuses to write -o when the picks draw no screens at all", function () {
+    var dir = tmp();
+    var out = path.join(dir, "seed.json");
+    var d = load();
+    d.decisions.forEach(function (dec) {
+      dec.options.forEach(function (o) { o.screens = []; });
+    });
+    var r = run([fileAt(dir, "empty.json", d), "-o", out]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(!fs.existsSync(out), "should not have written a file when the picks draw no screens");
+    assert.strictEqual(r.stdout, "", "no success line when a P0 refuses the write");
   });
 
   it("prints a usage line with no arguments, and exits non-zero", function () {
