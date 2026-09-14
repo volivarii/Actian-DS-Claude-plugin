@@ -16,6 +16,25 @@ function only(data, check) {
   return validateProposal(data).findings.filter(function (f) { return f.check === check; });
 }
 function withMutation(mutate) { var d = load(); mutate(d); return d; }
+function find(findings, check) {
+  return findings.filter(function (f) { return f.check === check; })[0];
+}
+// Two P1 advisories stand on the clean fixture, both real, neither a blocker:
+//   breadboard   the ticket spans two apps and the fixture draws no terrain
+//   terminology  the pick's cost says "scope", and cost is prose-gated as of this
+//                change; the fixture's own wording is the thing to fix, not the gate
+// They are dropped by check AND path, never by check alone, so no other finding of
+// either kind can hide behind them. Every "the document is quiet" assertion below
+// stays as tight as the deepEqual it replaces.
+var STANDING = [
+  { check: "breadboard", path: "breadboard" },
+  { check: "terminology", path: "decisions[0].pick.cost" },
+];
+function withoutStandingAdvice(findings) {
+  return findings.filter(function (f) {
+    return !STANDING.some(function (k) { return k.check === f.check && k.path === f.path; });
+  });
+}
 
 describe("extractText", function () {
   it("keeps visible text and alt, title, placeholder, aria-label; drops tags, script and style; decodes entities", function () {
@@ -27,12 +46,14 @@ describe("extractText", function () {
 });
 
 describe("validateProposal (document)", function () {
-  it("is quiet on the clean fixture", function () {
+  it("carries nothing on the clean fixture beyond the two P1 advisories it earns", function () {
     var f = validateProposal(load()).findings;
-    assert.deepEqual(f, [], JSON.stringify(f, null, 1));
+    assert.deepEqual(withoutStandingAdvice(f), [], JSON.stringify(f, null, 1));
+    assert.strictEqual(f.length, STANDING.length, JSON.stringify(f, null, 1));
+    assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1", "P1"], JSON.stringify(f, null, 1));
   });
   it("schema errors are P0 (check schema) and stop the other checks", function () {
-    var f = validateProposal(withMutation(function (d) { delete d.comparison; })).findings;
+    var f = validateProposal(withMutation(function (d) { delete d.decisions[0].comparison; })).findings;
     assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));
   });
   it("missing scope is a P0", function () {
@@ -42,43 +63,43 @@ describe("validateProposal (document)", function () {
       return f.severity === "P0" && /scope/.test(f.path + " " + f.value);
     }), "missing scope is a P0");
   });
-  it("more than four goals is a P0 (check bounds, path scope.goals)", function () {
+  it("more than four goals is a P0 naming scope.goals", function () {
     var d = load();
     d.scope = { goals: ["a", "b", "c", "d", "e"], nonGoals: ["x"] };
     assert.ok(validateProposal(d).findings.some(function (f) {
-      return f.severity === "P0" && f.path === "scope.goals";
+      return f.severity === "P0" && /scope.goals/.test(f.path + " " + f.value);
     }), "five goals is a P0");
   });
-  it("more than four non-goals is a P0 (check bounds, path scope.nonGoals)", function () {
+  it("more than four non-goals is a P0 naming scope.nonGoals", function () {
     var d = load();
     d.scope = { goals: ["a"], nonGoals: ["x", "y", "z", "w", "v"] };
     assert.ok(validateProposal(d).findings.some(function (f) {
-      return f.severity === "P0" && f.path === "scope.nonGoals";
+      return f.severity === "P0" && /scope.nonGoals/.test(f.path + " " + f.value);
     }), "five non-goals is a P0");
   });
   it("an unknown anchor app or meta.apps entry is P0; an unknown screens[].app entry is P1 (check app-unknown)", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].anchor.app = "nope"; }), "app-unknown");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].anchor.app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].screen, "a");
     f = only(withMutation(function (d) { d.meta.apps.push("nope"); }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0"); assert.strictEqual(f[0].path, "meta.apps[2]");
-    f = only(withMutation(function (d) { d.approaches[1].screens[0].app = "nope"; }), "app-unknown");
+    f = only(withMutation(function (d) { d.decisions[0].options[1].screens[0].app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.strictEqual(f[0].screen, "b");
   });
-  it("bounds are P0: more than 4 approaches, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate approach or criterion ids, an unknown tone, cells for an unknown approach, a cell for an unknown criterion", function () {
+  it("bounds are P0: more than 4 options, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate option or criterion ids, an unknown tone, cells for an unknown option, a cell for an unknown criterion", function () {
     function bounds(mutate) { return only(withMutation(mutate), "bounds"); }
-    assert.ok(bounds(function (d) { d.approaches.push(Object.assign({}, d.approaches[0], { id: "d" }), Object.assign({}, d.approaches[0], { id: "e" })); }).some(function (f) { return /approaches; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].options.push(Object.assign({}, d.decisions[0].options[0], { id: "d" }), Object.assign({}, d.decisions[0].options[0], { id: "e" })); }).some(function (f) { return /options; at most 4/.test(f.value); }));
     assert.ok(bounds(function (d) { for (var i = 0; i < 6; i++) d.research.findings.push({ claim: "c" + i, source: "s" }); }).some(function (f) { return /findings; at most 5/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.recommendation.reasons.push({ title: "t", why: "w" }); }).some(function (f) { return /reasons; at most 4/.test(f.value); }));
-    assert.ok(bounds(function (d) { for (var i = 0; i < 4; i++) d.approaches[0].screens.push(d.approaches[0].screens[0]); }).some(function (f) { return /screens; at most 4/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.approaches[0].screen.width = 900; }).some(function (f) { return /outside 240 to 720/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.approaches[1].id = "a"; }).some(function (f) { return /duplicate id a/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.comparison.criteria[1].id = "literal-ask"; }).some(function (f) { return /duplicate criterion id/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.comparison.cells.a["literal-ask"].tone = "great"; }).some(function (f) { return /tone "great"/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.comparison.cells.zz = { "literal-ask": { text: "x", tone: "good" } }; }).some(function (f) { return /does not exist/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.comparison.cells.a["ghost-criterion"] = { text: "x", tone: "good" }; }).some(function (f) { return /criterion that does not exist/.test(f.value) && f.screen === "a"; }));
+    assert.ok(bounds(function (d) { d.decisions[0].pick.reasons.push({ criterionId: "literal-ask", text: "w" }); }).some(function (f) { return /reasons; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { for (var i = 0; i < 4; i++) d.decisions[0].options[0].screens.push(d.decisions[0].options[0].screens[0]); }).some(function (f) { return /screens; at most 4/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].options[0].screen.width = 900; }).some(function (f) { return /outside 240 to 720/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].options[1].id = "a"; }).some(function (f) { return /duplicate option id a/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].comparison.criteria[1].id = "literal-ask"; }).some(function (f) { return /duplicate criterion id/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].comparison.cells.a["literal-ask"].tone = "great"; }).some(function (f) { return /tone "great"/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].comparison.cells.zz = { "literal-ask": { text: "x", tone: "good" } }; }).some(function (f) { return /not in this decision/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].comparison.cells.a["ghost-criterion"] = { text: "x", tone: "good" }; }).some(function (f) { return /criterion that is not in this decision/.test(f.value) && f.screen === "a"; }));
   });
-  it("a null cells entry for a known approach does not crash the comparison pass", function () {
-    var d = withMutation(function (d) { d.comparison.cells.a = null; });
+  it("a null cells entry for a known option does not crash the comparison pass", function () {
+    var d = withMutation(function (d) { d.decisions[0].comparison.cells.a = null; });
     assert.doesNotThrow(function () { validateProposal(d); });
   });
   it("research that did not run must say why (check research, P0); with a reason it is quiet", function () {
@@ -90,91 +111,91 @@ describe("validateProposal (document)", function () {
     var f = only(withMutation(function (d) { d.research = { ran: false, findings: [{ claim: "x", source: "y" }], skippedBecause: "--no-research" }; }), "research");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1");
   });
-  it("a recommendation naming no approach is P0 (check recommendation)", function () {
-    var f = only(withMutation(function (d) { d.recommendation.approachId = "zz"; }), "recommendation");
+  it("a pick naming no option in its own decision is P0 (check pick)", function () {
+    var f = only(withMutation(function (d) { d.decisions[0].pick.optionId = "zz"; }), "pick");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P0");
     assert.ok(/one of a, b, c/.test(f[0].suggestion), f[0].suggestion);
   });
   it("a flow screen with an unknown template or entity is P1 (checks template-unknown, entity-unknown); a known entity and null are quiet", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].screens[0].template = "wizard"; }), "template-unknown");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screens[0].template = "wizard"; }), "template-unknown");
     assert.strictEqual(f.length, 1); assert.ok(/overlay/.test(f[0].suggestion), f[0].suggestion);
-    f = only(withMutation(function (d) { d.approaches[0].screens[0].entity = "unicorn"; }), "entity-unknown");
+    f = only(withMutation(function (d) { d.decisions[0].options[0].screens[0].entity = "unicorn"; }), "entity-unknown");
     assert.strictEqual(f.length, 1);
-    assert.deepEqual(only(withMutation(function (d) { d.approaches[0].screens[0].entity = "data-product"; }), "entity-unknown"), []);
+    assert.deepEqual(only(withMutation(function (d) { d.decisions[0].options[0].screens[0].entity = "data-product"; }), "entity-unknown"), []);
   });
   it("terminology fires on a drawing's text and on a reason through the flow validator's own gate (check terminology)", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].screen.html += "<div>scope of the change</div>"; }), "terminology");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += "<div>scope of the change</div>"; }), "terminology");
     assert.ok(f.length >= 1, "drawing: " + JSON.stringify(f));
-    assert.strictEqual(f[0].screen, "a"); assert.strictEqual(f[0].path, "approaches[0].screen.html");
-    f = only(withMutation(function (d) { d.recommendation.reasons[0].why += " The scope grows."; }), "terminology");
+    assert.strictEqual(f[0].screen, "a"); assert.strictEqual(f[0].path, "decisions[0].options[0].screen.html");
+    f = only(withMutation(function (d) { d.decisions[0].pick.reasons[0].text += " The scope grows."; }), "terminology");
     assert.ok(f.length >= 1, "reason: " + JSON.stringify(f));
-    assert.strictEqual(f[0].screen, ""); assert.strictEqual(f[0].path, "recommendation.reasons[0]");
+    assert.strictEqual(f[0].screen, ""); assert.strictEqual(f[0].path, "decisions[0].pick.reasons[0]");
   });
-  it("an approach id that shadows a document-level pseudo id does not swallow the document-level finding (check terminology)", function () {
-    var f = only(withMutation(function (d) {
-      d.approaches[0].id = "context";
-      d.comparison.cells.context = d.comparison.cells.a;
-      delete d.comparison.cells.a;
+  it("an option id that shadows a document-level pseudo id does not swallow the document-level finding (check terminology)", function () {
+    var f = withoutStandingAdvice(only(withMutation(function (d) {
+      d.decisions[0].options[0].id = "context";
+      d.decisions[0].comparison.cells.context = d.decisions[0].comparison.cells.a;
+      delete d.decisions[0].comparison.cells.a;
       d.context.question += " The scope grows.";
-    }), "terminology");
+    }), "terminology"));
     assert.strictEqual(f.length, 1, JSON.stringify(f));
     assert.strictEqual(f[0].path, "context.question");
     assert.strictEqual(f[0].screen, "");
   });
   it("avoid-words fire on the context and on a comparison cell (check avoid-word)", function () {
-    var f = only(withMutation(function (d) { d.context.product += " Please simply click here."; }), "avoid-word");
-    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.product");
-    f = only(withMutation(function (d) { d.comparison.cells.b["literal-ask"].text = "Please click here"; }), "avoid-word");
-    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "comparison.criteria[0]");
+    var f = only(withMutation(function (d) { d.context.product[0] += " Please simply click here."; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.product[0]");
+    f = only(withMutation(function (d) { d.decisions[0].comparison.cells.b["literal-ask"].text = "Please click here"; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "decisions[0].comparison.criteria[0]");
   });
   it("a hex or rgb colour in a drawing's style or in any prose field is P1 (check hardcoded-color)", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="color:#fff;background:rgb(1,2,3)">x</div>'; }), "hardcoded-color");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="color:#fff;background:rgb(1,2,3)">x</div>'; }), "hardcoded-color");
     assert.strictEqual(f.length, 2);
-    f = only(withMutation(function (d) { d.recommendation.summary += " Use #0F5FDC."; }), "hardcoded-color");
-    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].path, "recommendation.summary");
+    f = only(withMutation(function (d) { d.answer += " Use #0F5FDC."; }), "hardcoded-color");
+    assert.strictEqual(f.length, 1); assert.strictEqual(f[0].path, "answer");
   });
   it("position:absolute in a drawing is P1 (check in-flow)", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="position:absolute;top:0">x</div>'; }), "in-flow");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="position:absolute;top:0">x</div>'; }), "in-flow");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.ok(/in flow/.test(f[0].suggestion));
   });
   it("script, inline handlers, javascript: URLs, external loads and unbalanced tags are P0 on a drawing", function () {
-    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += "<script>x()</script>"; }), "script").length, 1);
-    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<div onclick="x()">x</div>'; }), "script").length, 1);
-    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<a href="javascript:x()">x</a>'; }), "script").length, 1);
-    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<img src="https://x.test/a.png">'; }), "external-load").length, 1);
-    assert.strictEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<div style="background:url(https://x.test/a.png)">x</div>'; }), "external-load").length, 1);
-    var f = only(withMutation(function (d) { d.approaches[2].screen.html = "<div><span>open"; }), "unbalanced");
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += "<script>x()</script>"; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div onclick="x()">x</div>'; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<a href="javascript:x()">x</a>'; }), "script").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<img src="https://x.test/a.png">'; }), "external-load").length, 1);
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="background:url(https://x.test/a.png)">x</div>'; }), "external-load").length, 1);
+    var f = only(withMutation(function (d) { d.decisions[0].options[2].screen.html = "<div><span>open"; }), "unbalanced");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].screen, "c");
   });
-  it("a data-toggle without its id, and an id reused across approaches, are P1 (check toggle-target)", function () {
-    var f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div data-toggle="ghost">x</div>'; }), "toggle-target");
+  it("a data-toggle without its id, and an id reused across options, are P1 (check toggle-target)", function () {
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div data-toggle="ghost">x</div>'; }), "toggle-target");
     assert.strictEqual(f.length, 1); assert.ok(/no id="ghost"/.test(f[0].value));
-    f = only(withMutation(function (d) { d.approaches[0].screen.html += '<div id="access-panel-c">x</div>'; }), "toggle-target");
-    assert.strictEqual(f.length, 1); assert.ok(/also appears in approach "a"/.test(f[0].suggestion), f[0].suggestion);
+    f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div id="access-panel-c">x</div>'; }), "toggle-target");
+    assert.strictEqual(f.length, 1); assert.ok(/also appears in option "a"/.test(f[0].suggestion), f[0].suggestion);
   });
   it("a commented-out tag or id is not a finding", function () {
-    assert.deepEqual(validateProposal(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div id="access-panel-c"> -->'; })).findings, []);
-    assert.deepEqual(only(withMutation(function (d) { d.approaches[0].screen.html += '<!-- <div data-toggle="ghost">x</div> -->'; }), "toggle-target"), []);
+    assert.deepEqual(withoutStandingAdvice(validateProposal(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<!-- <div id="access-panel-c"> -->'; })).findings), []);
+    assert.deepEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<!-- <div data-toggle="ghost">x</div> -->'; }), "toggle-target"), []);
   });
   it("an em dash in a drawing, the title, a claim, a cell or a reason is P2 (check em-dash) with the field path", function () {
     [
-      function (d) { d.approaches[0].screen.html += "<div>a " + EM_DASH + " b</div>"; },
+      function (d) { d.decisions[0].options[0].screen.html += "<div>a " + EM_DASH + " b</div>"; },
       function (d) { d.meta.title += " " + EM_DASH + " x"; },
       function (d) { d.research.findings[0].claim += " " + EM_DASH; },
-      function (d) { d.comparison.cells.a["literal-ask"].text += " " + EM_DASH; },
-      function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; },
+      function (d) { d.decisions[0].comparison.cells.a["literal-ask"].text += " " + EM_DASH; },
+      function (d) { d.decisions[0].pick.reasons[1].text += " " + EM_DASH; },
     ].forEach(function (m, i) {
       var f = only(withMutation(m), "em-dash");
       assert.strictEqual(f.length, 1, "case " + i + ": " + JSON.stringify(f));
       assert.strictEqual(f[0].severity, "P2");
     });
-    assert.strictEqual(only(withMutation(function (d) { d.recommendation.reasons[1].why += " " + EM_DASH; }), "em-dash")[0].path, "recommendation.reasons[1].why");
+    assert.strictEqual(only(withMutation(function (d) { d.decisions[0].pick.reasons[1].text += " " + EM_DASH; }), "em-dash")[0].path, "decisions[0].pick.reasons[1].text");
   });
   it("bounds open questions at four and rejects an unknown kind", function () {
     var d = load();
     d.openQuestions = [1, 2, 3, 4, 5].map(function (n) { return { kind: "open question", text: "q" + n }; });
     assert.ok(validateProposal(d).findings.some(function (f) {
-      return f.severity === "P0" && f.path === "openQuestions";
+      return f.severity === "P0" && /openQuestions/.test(f.path + " " + f.value);
     }), "five is a P0");
 
     d = load();
@@ -186,6 +207,165 @@ describe("validateProposal (document)", function () {
       return f.severity === "P0" && /openQuestions\/\[0\]\/kind/.test(f.value);
     }), "an unknown kind is a P0");
   });
+
+  it("names the converter when handed a file that predates decisions[]", function () {
+    var old = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-legacy.json"), "utf8"));
+    var f = find(validateProposal(old).findings, "old-shape");
+    assert.ok(f, "the old shape is recognised, not reported as twelve schema errors");
+    assert.strictEqual(f.severity, "P0");
+    assert.ok(f.suggestion.indexOf("proposal-approaches-to-decisions") !== -1, "the message names the converter");
+  });
+
+  it("names the retired keys on a half-converted file carrying both shapes", function () {
+    var d = load();
+    d.approaches = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-legacy.json"), "utf8")).approaches;
+    var hits = validateProposal(d).findings.filter(function (x) { return x.check === "retired-key"; });
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].severity, "P0");
+    assert.ok(hits[0].path.indexOf("approaches") !== -1, hits[0].path);
+    assert.ok(hits[0].suggestion.indexOf("delete") !== -1, hits[0].suggestion);
+  });
+
+  it("fails a pick that names an option outside its own decision", function () {
+    var d = load();
+    d.decisions[0].pick.optionId = "not-an-option";
+    var f = find(validateProposal(d).findings, "pick");
+    assert.ok(f && f.severity === "P0", "P0");
+    assert.ok(f.path.indexOf("pick.optionId") !== -1, "the path names the field");
+  });
+
+  it("fails a reason that names a criterion outside its own decision", function () {
+    var d = load();
+    d.decisions[0].pick.reasons[0].criterionId = "not-a-criterion";
+    var hits = validateProposal(d).findings.filter(function (x) {
+      return x.check === "pick" && x.path.indexOf("criterionId") !== -1;
+    });
+    assert.strictEqual(hits.length, 1, "one finding, naming the one bad reason");
+    assert.strictEqual(hits[0].severity, "P0");
+  });
+
+  it("does not let a criterion from another decision satisfy a reason", function () {
+    var d = load();
+    var second = JSON.parse(JSON.stringify(d.decisions[0]));
+    second.id = "second";
+    second.comparison.criteria[0].id = "only-in-the-second";
+    d.decisions.push(second);
+    d.decisions[0].pick.reasons[0].criterionId = "only-in-the-second";
+    var hits = validateProposal(d).findings.filter(function (x) {
+      return x.check === "pick" && x.path.indexOf("decisions[0]") !== -1;
+    });
+    assert.ok(hits.length > 0, "a criterion in a sibling decision does not count");
+  });
+
+  it("fails an empty cost", function () {
+    var d = load();
+    d.decisions[0].pick.cost = "   ";
+    var f = find(validateProposal(d).findings, "pick");
+    assert.ok(f && f.severity === "P0" && f.path.indexOf("cost") !== -1, "P0 naming cost");
+  });
+
+  it("fails a duplicate decision id and a duplicate option id", function () {
+    var d = load();
+    d.decisions.push(JSON.parse(JSON.stringify(d.decisions[0])));
+    assert.ok(find(validateProposal(d).findings, "bounds"), "duplicate decision id");
+    var e = load();
+    e.decisions[0].options[1].id = e.decisions[0].options[0].id;
+    assert.ok(find(validateProposal(e).findings, "bounds"), "duplicate option id");
+  });
+
+  it("fails a breadboard connection naming a place that does not exist", function () {
+    var d = load();
+    d.breadboard = {
+      places: [
+        { id: "a", name: "A", app: "explorer", affordances: ["one"] },
+        { id: "b", name: "B", app: "explorer", affordances: ["one"] },
+      ],
+      connections: [{ from: "a", to: "nowhere" }],
+    };
+    var f = find(validateProposal(d).findings, "breadboard");
+    assert.ok(f && f.severity === "P0", "P0");
+    assert.ok(f.value.indexOf("nowhere") !== -1, "names the bad id");
+  });
+
+  it("fails a breadboard connection naming an affordance index that does not exist", function () {
+    var d = load();
+    d.breadboard = {
+      places: [
+        { id: "a", name: "A", app: "explorer", affordances: ["one"] },
+        { id: "b", name: "B", app: "explorer", affordances: ["one"] },
+      ],
+      connections: [{ from: "a/4", to: "b" }],
+    };
+    var f = find(validateProposal(d).findings, "breadboard");
+    assert.ok(f && f.severity === "P0", "P0");
+    assert.ok(f.value.indexOf("a/4") !== -1, f.value);
+  });
+
+  it("asks for a breadboard when the ticket spans more than one app", function () {
+    var d = load();
+    delete d.breadboard;
+    assert.ok(d.meta.apps.length > 1, "the fixture spans two apps");
+    var f = find(validateProposal(d).findings, "breadboard");
+    assert.ok(f && f.severity === "P1", "P1, not a blocker");
+  });
+
+  it("flags a comparison of fewer than three criteria", function () {
+    var d = load();
+    d.decisions[0].comparison.criteria = d.decisions[0].comparison.criteria.slice(0, 2);
+    var keep = {};
+    d.decisions[0].comparison.criteria.forEach(function (c) { keep[c.id] = true; });
+    Object.keys(d.decisions[0].comparison.cells).forEach(function (oid) {
+      Object.keys(d.decisions[0].comparison.cells[oid]).forEach(function (cid) {
+        if (!keep[cid]) delete d.decisions[0].comparison.cells[oid][cid];
+      });
+    });
+    d.decisions[0].pick.reasons.forEach(function (r) { r.criterionId = d.decisions[0].comparison.criteria[0].id; });
+    var f = validateProposal(d).findings.filter(function (x) {
+      return x.check === "decision" && x.path.indexOf("criteria") !== -1;
+    })[0];
+    assert.ok(f && f.severity === "P1", "P1 on a two-row table");
+  });
+
+  // The brief asked for a P1 here. The schema's own options.minItems of 2 refuses
+  // the document first, so what an author actually reads is that P0: the document
+  // is still stopped, and by the stricter of the two. The validator keeps its P1
+  // as a safety net for the day the schema relaxes.
+  it("refuses a decision with one option, the schema's own minimum reaching it first", function () {
+    var d = load();
+    d.decisions[0].options = [d.decisions[0].options[0]];
+    d.decisions[0].pick.optionId = d.decisions[0].options[0].id;
+    var f = validateProposal(d).findings.filter(function (x) { return x.severity === "P0"; })[0];
+    assert.ok(f, "one option is not a decision");
+    assert.ok(/decisions\/\[0\]\/options/.test(f.path + " " + f.value), f.path + " " + f.value);
+  });
+
+  it("reports unequal declared widths without blocking, since the renderer equalises", function () {
+    var d = load();
+    d.decisions[0].options[0].screen.width = 320;
+    d.decisions[0].options[1].screen.width = 480;
+    var f = find(validateProposal(d).findings, "option-width");
+    assert.ok(f && f.severity === "P1", "P1");
+    assert.ok(f.suggestion.indexOf("equalis") !== -1 || f.suggestion.indexOf("equaliz") !== -1, "says the renderer handles it");
+  });
+
+  it("asks for a latitude line when it is missing", function () {
+    var d = load();
+    d.latitude = "";
+    assert.ok(find(validateProposal(d).findings, "latitude"), "P1 on an empty latitude");
+  });
+
+  it("runs the prose gates over every new field", function () {
+    var d = load();
+    d.answer = "An answer with an em dash \u2014 here.";
+    d.decisions[0].pick.cost = "A cost with an em dash \u2014 here.";
+    d.latitude = "Latitude with an em dash \u2014 here.";
+    var paths = validateProposal(d).findings
+      .filter(function (f) { return f.check === "em-dash"; })
+      .map(function (f) { return f.path; });
+    assert.ok(paths.indexOf("answer") !== -1, "answer is prose-checked");
+    assert.ok(paths.some(function (p) { return p.indexOf("cost") !== -1; }), "cost is prose-checked");
+    assert.ok(paths.indexOf("latitude") !== -1, "latitude is prose-checked");
+  });
 });
 
 describe("validate-proposal.js CLI", function () {
@@ -195,25 +375,27 @@ describe("validate-proposal.js CLI", function () {
     fs.writeFileSync(p, JSON.stringify(withMutation(mutate)));
     return p;
   }
-  it("exits 0 on the clean fixture and says so", function () {
+  it("exits 0 on the clean fixture, printing its two P1 advisories", function () {
     var r = run([FIXTURE]);
     assert.strictEqual(r.status, 0, r.stderr + r.stdout);
-    assert.ok(/0 findings/.test(r.stdout), r.stdout);
+    assert.ok(/2 findings \(P0 0, P1 2, P2 0\)/.test(r.stdout), r.stdout);
+    assert.ok(/P1 \[breadboard\]/.test(r.stdout), r.stdout);
+    assert.ok(/P1 \[terminology\] decisions\[0\].pick.cost/.test(r.stdout), r.stdout);
   });
-  it("exits 1 on a P0 and prints the finding line with the approach", function () {
-    var r = run([tmpWith(function (d) { d.approaches[1].screen.html += "<script>x()</script>"; })]);
+  it("exits 1 on a P0 and prints the finding line with the option", function () {
+    var r = run([tmpWith(function (d) { d.decisions[0].options[1].screen.html += "<script>x()</script>"; })]);
     assert.strictEqual(r.status, 1);
-    assert.ok(/P0 \[script\] approach "b"/.test(r.stdout), r.stdout);
+    assert.ok(/P0 \[script\] option "b"/.test(r.stdout), r.stdout);
   });
   it("exits 0 on P1 only, still printing it", function () {
-    var r = run([tmpWith(function (d) { d.approaches[0].screen.html += '<div style="color:#fff">x</div>'; })]);
+    var r = run([tmpWith(function (d) { d.decisions[0].options[0].screen.html += '<div style="color:#fff">x</div>'; })]);
     assert.strictEqual(r.status, 0);
     assert.ok(/P1 \[hardcoded-color\]/.test(r.stdout), r.stdout);
   });
   it("--json prints the findings array; --help prints the contract", function () {
-    var r = run([tmpWith(function (d) { d.recommendation.approachId = "zz"; }), "--json"]);
+    var r = run([tmpWith(function (d) { d.decisions[0].pick.optionId = "zz"; }), "--json"]);
     var out = JSON.parse(r.stdout);
-    assert.ok(Array.isArray(out.findings) && out.findings[0].check === "recommendation");
+    assert.ok(Array.isArray(out.findings) && out.findings.some(function (f) { return f.check === "pick"; }), r.stdout);
     var h = JSON.parse(run(["--help"]).stdout);
     assert.strictEqual(h.name, "validate-proposal");
     assert.ok(h.flags.some(function (f) { return f.name === "--json"; }));
