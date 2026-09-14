@@ -35,6 +35,34 @@ describe("proposal-to-flow: what the picks imply", function () {
       "one note, so no question prefix: it would be noise");
   });
 
+  it("does not prefix two notes that land on one screen from the same decision", function () {
+    var d = {
+      meta: { stage: "proposal" },
+      answer: "x",
+      decisions: [
+        {
+          id: "d1",
+          question: "Q1?",
+          pick: { optionId: "o1" },
+          options: [
+            {
+              id: "o1",
+              anchor: {},
+              screens: [
+                { name: "Screen", template: "overlay", app: "explorer", entity: null, note: "note A" },
+                { name: "Screen", template: "overlay", app: "explorer", entity: null, note: "note B" },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    var out = compose(d, {});
+    assert.strictEqual(out.screens.length, 1);
+    assert.strictEqual(out.screens[0].note, "note A note B",
+      "one decision, so no question prefix even though the screen carries two notes");
+  });
+
   it("emits the app as template (the chrome name) and keeps the archetype separately", function () {
     var out = compose(flat(), {});
     var menu = named(out.screens, MENU);

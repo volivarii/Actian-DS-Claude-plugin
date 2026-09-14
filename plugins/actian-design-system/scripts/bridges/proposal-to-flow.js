@@ -131,7 +131,9 @@ function merge(selected, findings) {
               "one screen has one " + pair[0] + "; give the two changes two screen names, or agree on one"));
           });
       }
-      if (screen.note) m.notes.push({ question: sel.decision.question, note: screen.note });
+      if (screen.note) {
+        m.notes.push({ question: sel.decision.question, note: screen.note, decisionId: sel.decision.id });
+      }
       var place = sel.option.anchor && sel.option.anchor.place;
       if (place && m.places.indexOf(place) === -1) m.places.push(place);
     });
@@ -141,7 +143,9 @@ function merge(selected, findings) {
 
 // A merged screen's notes are attributed, because a screen carrying two changes from two
 // decisions is exactly where a reader needs to know which change answers which question.
-// A single-note screen is not prefixed; it would be noise.
+// The count that matters is distinct decisions, not notes: one option can list the same
+// screen name twice (the schema allows it), and two notes from the same decision are not
+// two questions, so prefixing them would print the same question twice.
 //
 // The proposal's screens[].template names a flow archetype (recipes/flow/_index.json:
 // overlay, form-create, detail-view). generate-flow's own screen-list template names chrome
@@ -150,7 +154,14 @@ function merge(selected, findings) {
 // screen carries the app as template, which resolveChrome() already knows how to render, and
 // keeps the proposal's archetype under its own key rather than dropping it.
 function toScreen(m) {
-  var note = m.notes.length > 1
+  var seenDecisions = Object.create(null);
+  var distinctDecisions = 0;
+  m.notes.forEach(function (n) {
+    if (seenDecisions[n.decisionId]) return;
+    seenDecisions[n.decisionId] = true;
+    distinctDecisions += 1;
+  });
+  var note = distinctDecisions > 1
     ? m.notes.map(function (n) { return n.question + " " + n.note; }).join(" ")
     : m.notes.map(function (n) { return n.note; }).join(" ");
   var screen = { name: m.name, template: m.app, archetype: m.template, app: m.app, entity: m.entity };
