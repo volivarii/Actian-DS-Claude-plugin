@@ -83,9 +83,16 @@ function select(data, opts, findings) {
     var wanted = opts.option || pickId;
     var option = (d.options || []).filter(function (o) { return o.id === wanted; })[0];
     if (!option) {
+      // wanted is undefined here whenever the decision carries no pick.optionId at all
+      // (no pick object, or a pick with no optionId) and --option did not stand in for it.
+      // "undefined names no option" would blame a value that was never named; say what is
+      // actually wrong instead.
+      var noPick = !opts.option && !wanted;
       findings.push(finding("P0", "selection",
         opts.option ? "--option" : "decisions[" + d.id + "].pick.optionId",
-        String(wanted) + " names no option in decision " + d.id,
+        noPick
+          ? "decision " + d.id + " carries no pick, so there is no option to draw"
+          : String(wanted) + " names no option in decision " + d.id,
         "one of " + ids(d.options)));
       return;
     }

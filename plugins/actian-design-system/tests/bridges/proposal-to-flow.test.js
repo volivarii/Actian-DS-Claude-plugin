@@ -117,6 +117,18 @@ describe("proposal-to-flow: selection", function () {
     assert.ok(c.findings[0].value.indexOf("without naming its decision") !== -1, c.findings[0].value);
   });
 
+  it("names what is wrong when a decision carries no pick at all, not the string undefined", function () {
+    var d = flat();
+    delete d.decisions[0].pick;
+    var out = compose(d, {});
+    var p0 = sev(out.findings, "P0").filter(function (f) {
+      return f.path.indexOf(d.decisions[0].id) !== -1;
+    });
+    assert.strictEqual(p0.length, 1, JSON.stringify(out.findings));
+    assert.strictEqual(p0[0].value.indexOf("undefined"), -1, p0[0].value);
+    assert.ok(p0[0].value.indexOf("no pick") !== -1, p0[0].value);
+  });
+
   it("P1s a picked option that draws no screens", function () {
     var d = flat();
     d.decisions[1].options.forEach(function (o) { if (o.id === "optional-display-name") o.screens = []; });
