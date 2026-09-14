@@ -275,31 +275,25 @@ if (require.main === module) {
     process.stdout.write(USAGE);
     process.exit(args.length ? 0 : 1);
   }
-  var MISSING = {};
   function valueOf(flag) {
     var i = args.indexOf(flag);
     if (i === -1) return undefined;
     var next = args[i + 1];
-    if (next === undefined) return MISSING;
-    return next.indexOf("-") !== 0 ? next : undefined;
-  }
-  function requiredValueOf(flag) {
-    var v = valueOf(flag);
-    if (v === MISSING) {
+    if (next === undefined || next.indexOf("-") === 0) {
       process.stderr.write(flag + " needs a value after it\n");
       process.exit(1);
     }
-    return v;
+    return next;
   }
   var inPath = path.resolve(args[0]);
-  var outVal = requiredValueOf("-o");
+  var outVal = valueOf("-o");
   var outPath = outVal ? path.resolve(outVal) : null;
   if (outPath && fs.existsSync(outPath)) {
     process.stderr.write(outPath + " already exists; remove it or drop -o to print the seed\n");
     process.exit(1);
   }
-  var decisionVal = requiredValueOf("--decision");
-  var optionVal = requiredValueOf("--option");
+  var decisionVal = valueOf("--decision");
+  var optionVal = valueOf("--option");
   var data;
   try {
     data = JSON.parse(fs.readFileSync(inPath, "utf8"));

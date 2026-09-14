@@ -371,4 +371,22 @@ describe("proposal-to-flow: the CLI", function () {
     assert.ok(r.stderr.indexOf("--decision") !== -1, r.stderr);
     assert.strictEqual(r.stdout, "", "should not have composed or printed anything: " + r.stdout);
   });
+
+  it("names -o instead of silently dropping it and printing to stdout when its value starts with a dash", function () {
+    var wouldBe = path.resolve(ROOT, "--decision");
+    if (fs.existsSync(wouldBe)) { fs.unlinkSync(wouldBe); }
+    var r = run([FIXTURE, "-o", "--decision", "how-a-user-sees-their-group"]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf("-o") !== -1, r.stderr);
+    assert.strictEqual(r.stdout, "", "should not have composed or printed anything: " + r.stdout);
+    assert.ok(!fs.existsSync(wouldBe),
+      "should not have written a file at the would-be path a wrong rule would resolve -o to");
+  });
+
+  it("treats --decision followed by --option as --decision missing its value, not as --option without a decision", function () {
+    var r = run([FIXTURE, "--decision", "--option", "b"]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf("--decision") !== -1, r.stderr);
+    assert.strictEqual(r.stdout, "", "should not have composed or printed anything: " + r.stdout);
+  });
 });
