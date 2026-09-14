@@ -100,38 +100,86 @@ describe("proposal-breadboard layout", function () {
     assert.strictEqual(into.points[into.points.length - 1][1], l.boxes.group.y + l.boxes.group.h / 2);
   });
 
-  // Every bend between adjacent cells lands in a gutter, which is empty by construction.
-  // Between non-adjacent cells it did not: a run from column 0 to column 2 crossed whatever
-  // sat in column 1, for the full width of that box, on every board of that shape.
-  it("never runs a route through a box that is not its own end", function () {
-    function crossings(board) {
-      var l = bb.layout(board);
-      var c = board.connections[0];
-      var ends = [String(c.from).split("/")[0], c.to];
-      var hits = [];
-      for (var i = 0; i < l.edges[0].points.length - 1; i++) {
-        var p = l.edges[0].points[i];
-        var q = l.edges[0].points[i + 1];
-        Object.keys(l.boxes).forEach(function (id) {
-          if (ends.indexOf(id) !== -1) return;
-          var b = l.boxes[id];
-          if (Math.min(p[0], q[0]) < b.x + b.w && Math.max(p[0], q[0]) > b.x &&
-              Math.min(p[1], q[1]) < b.y + b.h && Math.max(p[1], q[1]) > b.y) hits.push(id);
-        });
+  function crossings(board, idx) {
+    idx = idx || 0;
+    var l = bb.layout(board);
+    var c = board.connections[idx];
+    var ends = [String(c.from).split("/")[0], c.to];
+    var hits = {};
+    var e = l.edges[idx];
+    for (var i = 0; i < e.points.length - 1; i++) {
+      var p = e.points[i];
+      var q = e.points[i + 1];
+      Object.keys(l.boxes).forEach(function (id) {
+        if (ends.indexOf(id) !== -1) return;
+        var b = l.boxes[id];
+        if (Math.min(p[0], q[0]) < b.x + b.w && Math.max(p[0], q[0]) > b.x &&
+            Math.min(p[1], q[1]) < b.y + b.h && Math.max(p[1], q[1]) > b.y) hits[id] = true;
+      });
+    }
+    return Object.keys(hits);
+  }
+
+  // A route between adjacent cells bends in a gutter, which holds no box at any row. A
+  // route between non-adjacent cells used to cut straight through whatever lay between.
+  //
+  // The first version of this test named three boards and passed on all three, while the
+  // fix it was guarding was still wrong on any grid with a box below the source or beside
+  // it: a property test only covers the shapes its table names. So the table is gone. This
+  // enumerates every ordered pair of cells on a FULLY populated grid, which is the densest
+  // board the bounds allow and the one where a route has the fewest places to go.
+  it("never runs a route through a box that is not its own end, on any pair of cells", function () {
+    var places = [];
+    var ids = [];
+    for (var r = 0; r < 3; r++) {
+      for (var c = 0; c < 3; c++) {
+        var id = "p" + r + c;
+        ids.push(id);
+        places.push({ id: id, name: "P" + r + c, app: "studio", row: r, col: c, affordances: ["one", "two"] });
       }
-      return hits;
     }
-    function three(positions) {
-      return {
-        places: positions.map(function (pos, i) {
-          return { id: "abc"[i], name: "ABC"[i], app: "studio", row: pos[0], col: pos[1], affordances: ["x"] };
-        }),
-        connections: [{ from: "a", to: "c", label: "skips" }],
-      };
-    }
-    assert.deepStrictEqual(crossings(three([[0, 0], [0, 1], [0, 2]])), [], "a column skip clears the box between");
-    assert.deepStrictEqual(crossings(three([[0, 0], [1, 0], [2, 0]])), [], "a row skip clears the box between");
-    assert.deepStrictEqual(crossings(three([[0, 0], [0, 1], [1, 2]])), [], "a diagonal skip clears it too");
+    var offenders = [];
+    var checked = 0;
+    ids.forEach(function (from) {
+      ids.forEach(function (to) {
+        if (from === to) return;
+        checked += 1;
+        var board = { places: places, connections: [{ from: from, to: to, label: "link" }] };
+        var hit = crossings(board);
+        if (hit.length) offenders.push(from + " to " + to + " crosses " + hit.join(", "));
+        var l = bb.layout(board);
+        l.edges[0].points.forEach(function (p) {
+          if (p[0] < 0 || p[1] < 0 || p[0] > l.width || p[1] > l.height) {
+            offenders.push(from + " to " + to + " leaves the canvas at " + p.join(","));
+          }
+        });
+      });
+    });
+    assert.strictEqual(checked, 72, "every ordered pair of nine cells");
+    assert.deepStrictEqual(offenders, [], offenders.length + " route(s) crossed a box or left the canvas");
+  });
+
+  it("keeps two routes sharing the corridor in their own lanes", function () {
+    var places = [[0, 0], [0, 1], [0, 2], [1, 0]].map(function (pos, i) {
+      return { id: "abcd"[i], name: "ABCD"[i], app: "studio", row: pos[0], col: pos[1], affordances: ["one"] };
+    });
+    var l = bb.layout({ places: places, connections: [
+      { from: "a", to: "c", label: "one" }, { from: "d", to: "c", label: "two" },
+    ] });
+    var arrive = l.edges.map(function (e) { return e.points[e.points.length - 1].join(","); });
+    assert.notStrictEqual(arrive[0], arrive[1], "they arrive at different points");
+    var anchors = l.edges.map(function (e) { return e.labelAnchor.x + "," + e.labelAnchor.y; });
+    assert.notStrictEqual(anchors[0], anchors[1], "and their labels do not stack on one point");
+  });
+
+  it("leaves room for a long label on a route running beside a column", function () {
+    var l = bb.layout({ places: [[0, 0], [1, 0], [2, 0]].map(function (pos, i) {
+      return { id: "abc"[i], name: "ABC"[i], app: "studio", row: pos[0], col: pos[1], affordances: ["x"] };
+    }), connections: [{ from: "a", to: "c", label: "reads and then writes back" }] });
+    var a = l.edges[0].labelAnchor;
+    assert.strictEqual(a.anchor, "start", "it is anchored at the start, so it runs rightwards");
+    var needs = a.x + 0.62 * 11 * "reads and then writes back".length;
+    assert.ok(needs <= l.width, "and the canvas is wide enough for it: needs " + Math.round(needs) + ", has " + l.width);
   });
 
   it("grows the canvas to hold the corridor a long route travels in", function () {

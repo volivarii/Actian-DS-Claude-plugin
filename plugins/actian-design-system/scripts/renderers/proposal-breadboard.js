@@ -34,7 +34,9 @@ var AFF_STEP = 24;
 var DESCENDER = 15;
 var LABEL_LIFT = 9;   // a connection label sits this far above its segment
 var ARROW_GAP = 4;    // a line leaving an affordance sits just above its baseline
-var CORRIDOR = 32;    // how far outside the diagram a non-adjacent route travels
+var CORRIDOR = 32;    // how far below the diagram a route between non-adjacent columns runs
+var GUTTER = GAP_X / 2; // the middle of a column gutter, which holds no box at any row
+var LANE = 24;        // vertical distance between two routes sharing the corridor
 
 function boxHeight(n) {
   return (n ? AFF_FIRST + AFF_STEP * (n - 1) : RULE_Y) + DESCENDER;
@@ -95,10 +97,12 @@ function layout(board) {
   }
 
   // Which edge of the target a connection arrives on, from the relative grid position.
+  // A pair in one column meets top to bottom, unless they are not adjacent: a direct line
+  // would cross every box between them, so a long route comes in from the side instead.
   function sideOf(A, Z) {
     if (Z.col > A.col) return "left";
     if (Z.col < A.col) return "right";
-    return Z.row > A.row ? "top" : "bottom";
+    return Math.abs(Z.row - A.row) > 1 ? "right" : (Z.row > A.row ? "top" : "bottom");
   }
 
   // Two arrows arriving at one place used to land on the same point, which reads as
@@ -153,9 +157,23 @@ function layout(board) {
   }
 
   var baseWidth = maxCol * (BOX_W + GAP_X) + BOX_W;
-  var corridor = { h: false, v: false };
-  var corridorY = height + CORRIDOR;
-  var corridorX = baseWidth + CORRIDOR;
+  // One lane per route that needs the corridor, so two of them neither overlap nor land
+  // their labels on the same point. The fan-out across an arrival edge and the spread
+  // across a gutter both exist for that reason; the corridor needed its own.
+  var lanes = 0;
+  connections.forEach(function (c) {
+    var A = need(parseEnd(c.from));
+    var Z = need(parseEnd(c.to));
+    if (Math.abs(Z.col - A.col) > 1) lanes++;
+  });
+  var laneTaken = 0;
+  var corridorTop = height + CORRIDOR;
+  var sideWidth = 0; // how far right a route beside a column has to reach, label included
+
+  // A label anchored at the start of a line needs room after it or the viewBox clips it.
+  function labelRoom(label) {
+    return label ? 8 + Math.ceil(0.62 * 11 * String(label).length) + 8 : 8;
+  }
 
   // Orthogonal router. The exit and entry edges follow the relative grid position, so a
   // diagram never routes a line back through a box it did not come from.
@@ -178,15 +196,26 @@ function layout(board) {
     var pts;
     var labelAnchor = null;
     if (Math.abs(dCol) > 1) {
-      corridor.h = true;
-      var ax = A.x + A.w / 2;
-      var zx = Z.x + Z.w / 2;
-      pts = [[ax, A.y + A.h], [ax, corridorY], [zx, corridorY], [zx, Z.y + Z.h]];
-      labelAnchor = { x: (ax + zx) / 2, y: corridorY - LABEL_LIFT, anchor: "middle" };
+      // Down the gutter beside the source, along the corridor under every box, up the
+      // gutter beside the target. Gutters hold no boxes at any row and the corridor is
+      // below the last one, so every segment is in free space whatever else is on the
+      // grid. An earlier version dropped straight out of the box, which crossed whatever
+      // sat under it, and passed a test whose three boards happened to have nothing there.
+      var corridorY = corridorTop + laneTaken * LANE;
+      laneTaken += 1;
+      var outX = dCol > 0 ? A.x + A.w + GUTTER : A.x - GUTTER;
+      var inX = dCol > 0 ? Z.x - GUTTER : Z.x + Z.w + GUTTER;
+      pts = [[dCol > 0 ? A.x + A.w : A.x, yA], [outX, yA], [outX, corridorY],
+             [inX, corridorY], [inX, yZ], [e.x, yZ]];
+      labelAnchor = { x: (outX + inX) / 2, y: corridorY - LABEL_LIFT, anchor: "middle" };
     } else if (dCol === 0 && Math.abs(dRow) > 1) {
-      corridor.v = true;
-      pts = [[A.x + A.w, yA], [corridorX, yA], [corridorX, yZ], [Z.x + Z.w, yZ]];
-      labelAnchor = { x: corridorX + 8, y: (yA + yZ) / 2, anchor: "start" };
+      // Out into the gutter beside the column, along it, and back in. The gutter is free
+      // at every row; running to the right of the whole diagram instead would have crossed
+      // every box between this column and the edge.
+      var gx = A.x + A.w + GUTTER;
+      sideWidth = Math.max(sideWidth, gx + labelRoom(c.label));
+      pts = [[A.x + A.w, yA], [gx, yA], [gx, yZ], [e.x, yZ]];
+      labelAnchor = { x: gx + 8, y: (yA + yZ) / 2, anchor: "start" };
     } else if (dCol > 0) {
       var mx = bendX(A, Z);
       pts = yA === yZ ? [[A.x + A.w, yA], [e.x, yZ]] : [[A.x + A.w, yA], [mx, yA], [mx, yZ], [e.x, yZ]];
@@ -204,8 +233,8 @@ function layout(board) {
   });
 
   return {
-    width: baseWidth + (corridor.v ? CORRIDOR + 80 : 0),
-    height: height + (corridor.h ? CORRIDOR + LABEL_LIFT : 0),
+    width: Math.max(baseWidth, sideWidth),
+    height: height + (lanes ? CORRIDOR + (lanes - 1) * LANE + LABEL_LIFT : 0),
     boxes: boxes,
     edges: edges,
   };
