@@ -249,9 +249,12 @@ function latitudeHtml(text) {
   return section("", '<p class="doc__latitude">' + esc(text) + "</p>");
 }
 
+// Provenance is one line saying who and when. The follow-ups that used to sit here
+// named the data file, the --from flag and a slash command: build instructions, in the
+// last thing a PM reads, addressed to the one reader who is not reading. The skill
+// offers them in chat, where the author already is.
 function footerHtml(meta) {
-  var next = "Follow-ups: adjust (edit proposals/proposal-data.json, re-run with --from); make a decision a flow (/generate-flow with the picked option's screen list).";
-  return '  <p class="doc__footer">' + esc(meta.skill + (meta.model ? ", " + meta.model : "") + ", " + meta.date + ". " + next) + "</p>\n";
+  return '  <p class="doc__footer">' + esc(meta.skill + (meta.model ? ", " + meta.model : "") + ", " + meta.date + ".") + "</p>\n";
 }
 
 function assembleProposal(data) {

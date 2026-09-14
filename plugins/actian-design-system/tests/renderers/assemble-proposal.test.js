@@ -364,4 +364,31 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
       assert.ok(d.pick.cost.trim().length > 0, d.id + " states a cost");
     });
   });
+  // The spec's Voice rule: the document never describes how it was made, and provenance
+  // is one line saying who and when. The footer used to close every document with the
+  // data file's path, the --from flag and a slash command, and nothing asserted against
+  // it. These names are how-it-was-made, so they are checked over the whole document,
+  // not only the footer.
+  describe("voice", function () {
+    var MADE_OF = ["proposal-data.json", "--from", "/generate-flow", "assemble-preview", "schemas/", "Follow-ups"];
+    it("never names the file, the flag or the command that built it", function () {
+      [load(), twoDecisions()].forEach(function (d) {
+        var out = body(assembleProposal(d));
+        MADE_OF.forEach(function (needle) {
+          assert.strictEqual(at(out, needle), -1, "the document says " + needle);
+        });
+      });
+    });
+
+    it("still signs itself, with who and when and nothing after the date", function () {
+      var d = load();
+      var out = body(assembleProposal(d));
+      var i = at(out, 'class="doc__footer"');
+      assert.notStrictEqual(i, -1, "there is a footer");
+      var line = out.slice(i, out.indexOf("</p>", i));
+      assert.ok(line.indexOf(d.meta.skill) !== -1, "names the skill");
+      assert.ok(line.indexOf(d.meta.date) !== -1, "names the date");
+      assert.match(line, new RegExp(d.meta.date.replace(/-/g, "\\-") + "\\.<?$"), "the date ends it");
+    });
+  });
 });
