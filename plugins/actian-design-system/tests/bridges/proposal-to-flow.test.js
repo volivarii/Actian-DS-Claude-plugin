@@ -173,3 +173,61 @@ describe("proposal-to-flow: the brief", function () {
     });
   });
 });
+
+describe("proposal-to-flow: order", function () {
+  it("walks the breadboard, so a place fed by another comes after it", function () {
+    var d = load();
+    // The walk is [account-menu, group-form, group-record]: both of the first two start
+    // with no arrow into them, and declaration order breaks that tie. So put the decision
+    // that draws the form FIRST, and declaration order says [form, menu] while the walk
+    // says [menu, form]. Without this the two orders agree and the test proves nothing.
+    d.decisions.unshift(d.decisions.splice(1, 1)[0]);
+    assert.strictEqual(d.decisions[0].id, "where-the-readable-name-comes-from");
+    var out = compose(d, {});
+    assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }),
+      ["Explorer catalog, account menu open", "Administration, create a group"],
+      "the walk orders these, not the file: declaration order here is the other way round");
+    assert.deepStrictEqual(sev(out.findings, "P0"), [], JSON.stringify(out.findings));
+  });
+
+  it("keeps declaration order with no breadboard, and draws no advisory about one", function () {
+    var out = compose(flat(), {});
+    assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }),
+      ["Explorer catalog, account menu open", "Administration, create a group"]);
+    assert.deepStrictEqual(out.findings.filter(function (f) { return f.check === "anchor"; }), [],
+      "no terrain, so there is no ordering it could have degraded from");
+  });
+
+  it("P0s an anchor.place that names no place, and still composes the rest", function () {
+    var d = load();
+    d.decisions[1].options.forEach(function (o) {
+      if (o.id === "optional-display-name") o.anchor.place = "nowhere";
+    });
+    var out = compose(d, {});
+    var p0 = sev(out.findings, "P0");
+    assert.strictEqual(p0.length, 1, JSON.stringify(out.findings));
+    assert.strictEqual(p0[0].check, "anchor");
+    assert.ok(p0[0].value.indexOf("nowhere") !== -1, p0[0].value);
+  });
+
+  it("P1s an absent anchor.place while a breadboard is drawn", function () {
+    var d = load();
+    d.decisions[0].options.forEach(function (o) { delete o.anchor.place; });
+    var out = compose(d, { decision: "how-a-user-sees-their-group" });
+    var p1 = sev(out.findings, "P1").filter(function (f) { return f.check === "anchor"; });
+    assert.strictEqual(p1.length, 1, JSON.stringify(out.findings));
+    assert.ok(p1[0].suggestion.indexOf("declaration order") !== -1, p1[0].suggestion);
+  });
+
+  it("orders a cycle by declaration order rather than refusing it", function () {
+    var d = load();
+    d.breadboard.connections = [
+      { from: "account-menu", to: "group-form" },
+      { from: "group-form", to: "account-menu" },
+    ];
+    var out = compose(d, {});
+    assert.deepStrictEqual(out.screens.map(function (s) { return s.name; }),
+      ["Explorer catalog, account menu open", "Administration, create a group"]);
+    assert.deepStrictEqual(sev(out.findings, "P0"), [], JSON.stringify(out.findings));
+  });
+});

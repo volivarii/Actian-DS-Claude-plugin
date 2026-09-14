@@ -15,6 +15,10 @@
  * screens[] would emit the account menu twice, as two screens differing only in a note,
  * and a reader would hunt for a difference that is not there.
  *
+ * Order follows the breadboard when the document draws one, and declaration order when it
+ * does not. The link is anchor.place, declared, because guessing it from anchor.surface
+ * reading like place.name holds on the acceptance document by coincidence, not contract.
+ *
  * No side effects at load.
  * Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]
  */
@@ -163,6 +167,71 @@ function composeBrief(data, selected) {
   return lines.join("\n");
 }
 
+// The order the terrain implies: Kahn over the connections, declaration order breaking
+// every tie so the same document always composes the same way. A connection endpoint is
+// "<placeId>" or "<placeId>/<1-based affordance>", the spelling validate-proposal.js
+// already resolves. Places a cycle leaves unemitted keep declaration order and follow: a
+// breadboard with a loop in it is still a terrain, and refusing to order it helps nobody.
+function placeOrder(board) {
+  var places = (board && board.places) || [];
+  var index = Object.create(null);
+  places.forEach(function (pl, i) { index[pl.id] = i; });
+  var indegree = places.map(function () { return 0; });
+  var edges = places.map(function () { return []; });
+  ((board && board.connections) || []).forEach(function (c) {
+    var from = index[String(c.from == null ? "" : c.from).split("/")[0]];
+    var to = index[String(c.to == null ? "" : c.to).split("/")[0]];
+    if (from === undefined || to === undefined || from === to) return;
+    edges[from].push(to);
+    indegree[to] += 1;
+  });
+  var ready = [];
+  var seen = places.map(function () { return false; });
+  var out = [];
+  places.forEach(function (pl, i) { if (indegree[i] === 0) ready.push(i); });
+  while (ready.length) {
+    ready.sort(function (a, b) { return a - b; });
+    var i = ready.shift();
+    if (seen[i]) continue;
+    seen[i] = true;
+    out.push(places[i].id);
+    edges[i].forEach(function (j) {
+      indegree[j] -= 1;
+      if (indegree[j] === 0) ready.push(j);
+    });
+  }
+  places.forEach(function (pl, i) { if (!seen[i]) out.push(pl.id); });
+  return out;
+}
+
+// The anchor resolves to a place explicitly. A place naming nothing is a P0, the same
+// defect a connection naming nothing is. An anchor with no place while a board is drawn is
+// a P1, because the ordering then degrades silently to declaration order and the author
+// should know that it did.
+function checkAnchors(data, selected, findings) {
+  var board = data && data.breadboard;
+  var places = (board && board.places) || [];
+  // No breadboard at all is not a defect this check owns: there is no terrain to be wrong
+  // about yet, so an anchor.place here is neither confirmed nor contradicted.
+  if (!places.length) return;
+  var known = Object.create(null);
+  places.forEach(function (pl) { known[pl.id] = true; });
+  selected.forEach(function (sel) {
+    var p = "decisions[" + sel.decision.id + "].options[" + sel.option.id + "].anchor.place";
+    var place = sel.option.anchor && sel.option.anchor.place;
+    if (place) {
+      if (!known[place]) {
+        findings.push(finding("P0", "anchor", p, place + " names no place in the breadboard",
+          places.length ? "one of " + ids(places) : "the document draws no breadboard; add one, or drop anchor.place"));
+      }
+    } else if (places.length) {
+      findings.push(finding("P1", "anchor", p,
+        "the document draws a terrain and this anchor names no place on it",
+        "set anchor.place to a breadboard place id; without it this screen keeps declaration order"));
+    }
+  });
+}
+
 function compose(data, options) {
   var opts = options || {};
   var findings = [];
@@ -175,8 +244,18 @@ function compose(data, options) {
   }
   var selected = select(data, opts, findings);
   if (!selected.length) return { screens: [], brief: "", findings: findings };
+  checkAnchors(data, selected, findings);
+  var rank = Object.create(null);
+  placeOrder(data && data.breadboard).forEach(function (id, i) { rank[id] = i; });
+  // A merged screen ranks by the earliest place any of its sources anchors to. Screens that
+  // resolve to no place rank Infinity and keep declaration order among themselves.
+  var ordered = merge(selected, findings).map(function (m, i) {
+    var r = Infinity;
+    m.places.forEach(function (id) { if (rank[id] !== undefined && rank[id] < r) r = rank[id]; });
+    return { m: m, rank: r, i: i };
+  }).sort(function (a, b) { return a.rank === b.rank ? a.i - b.i : a.rank - b.rank; });
   return {
-    screens: merge(selected, findings).map(toScreen),
+    screens: ordered.map(function (o) { return toScreen(o.m); }),
     brief: composeBrief(data, selected),
     findings: findings,
   };
