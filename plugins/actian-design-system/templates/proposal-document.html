@@ -90,9 +90,11 @@
     .approach__lines b { color: var(--fm-text-primary); }
     /* The verdict is the card's conclusion, so it carries a fill and reads as one object.
        The negative margin cancels the tag's own left padding, which otherwise indents it
-       against the two lines above it by exactly the amount that looks like a mistake. */
+       against the two lines above it by exactly the amount that looks like a mistake. The
+       fill is base-white over a border, not a grey: the document's own ground is base-200,
+       so a base-200 tag is an invisible tag. */
     .approach__verdict { margin: 12px 0 0 -10px; }
-    .approach__verdict .fm-tag { background: var(--fm-base-200); color: var(--fm-base-800); }
+    .approach__verdict .fm-tag { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); color: var(--fm-base-800); }
 
     .compare { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
     .compare th, .compare td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--fm-base-300); }
