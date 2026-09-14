@@ -815,6 +815,56 @@ describe("the evaluation stage gates", function () {
     assert.strictEqual(d.meta.stage, undefined, "the proposal fixture carries no stage");
     assert.deepStrictEqual(only(d, "stage"), []);
   });
+
+  // Two findings the Task 4 review produced by following the prose rather than reading it.
+  describe("what the terminal actually shows", function () {
+    var CLI = path.join(ROOT, "scripts", "validation", "validate-proposal.js");
+    function runOn(data) {
+      var file = path.join(os.tmpdir(), "proposal-cli-" + process.pid + ".json");
+      fs.writeFileSync(file, JSON.stringify(data, null, 2));
+      var out = spawnSync(process.execPath, [CLI, file], { encoding: "utf8" });
+      fs.rmSync(file, { force: true });
+      return out;
+    }
+
+    // The printer showed a suggestion only beside a `found` value, so every finding that
+    // names no offending token dropped its advice. A reader who completed an evaluation
+    // without flipping meta.stage got fourteen P0s and, on screen, not one word about
+    // meta.stage. The advice was in --json the whole time, which is not where they were.
+    it("prints the advice on a finding that names no offending token", function () {
+      var d = evaluation();
+      d.answer = "We are doing this.";
+      var r = runOn(d);
+      assert.match(r.stdout, /P0 \[stage\] answer: an evaluation carries no answer/);
+      assert.match(r.stdout, /set meta\.stage to "proposal"/,
+        "the way out of this wall of P0s never reached the terminal: " + r.stdout);
+    });
+
+    it("still prints the advice beside a found value, as it always did", function () {
+      var d = evaluation();
+      d.decisions[0].question = "Which asset owner sees the workflow first?";
+      var r = runOn(d);
+      assert.match(r.stdout, /found "owner", use "Curator"/);
+    });
+  });
+
+  // research is a node BOTH schemas carry, so the derived forbidden set structurally cannot
+  // reach it: an evaluation claiming it researched is the one stage lie that needs saying
+  // out loud. The spec is explicit that an evaluation carries ran false, and the whole
+  // point of the stage is that research runs afterwards, aimed at the decisions it named.
+  it("refuses an evaluation that claims research already ran", function () {
+    var d = evaluation();
+    d.research = { ran: true, findings: [{ claim: "Collibra queues a revoke.", source: "Collibra docs" }] };
+    fires(d, atPath("research.ran"), "P0", "the stage exists so research can come after the decomposition");
+  });
+
+  it("leaves a proposal free to say research ran", function () {
+    var d = load();
+    var hits = validateProposal(d).findings.filter(function (f) {
+      return f.check === "stage" && f.path.indexOf("research") === 0;
+    });
+    assert.deepStrictEqual(hits, [], "the gate is the evaluation stage's, not every stage's");
+  });
 });
 
 // The header names the checks this file emits. It has been wrong once already, and a list

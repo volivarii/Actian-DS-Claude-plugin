@@ -323,6 +323,8 @@ function validateProposal(data) {
     findings.push(finding("P0", "bounds", "", "research.findings", data.research.findings.length + " findings; at most " + MAX_FINDINGS));
   if (data.research.ran === false && data.research.findings.length > 0)
     findings.push(finding("P1", "research", "", "research.findings", "findings present while ran is false; they are not rendered", "", "set ran true or empty the findings"));
+  if (stage === "evaluation" && data.research.ran === true)
+    findings.push(finding("P0", "stage", "", "research.ran", "an evaluation has not researched anything yet", "", 'set ran false with a skippedBecause; research runs on the resume, against the decisions this names'));
   if (data.research.ran === true && data.research.findings.length === 0)
     findings.push(finding("P1", "research", "", "research.findings", "ran is true and nothing was found; the document draws the heading over an empty list", "", "set ran false with a skippedBecause, or record what the research found"));
   data.research.findings.forEach(function (f, i) { checkProse(f.claim, "", "research.findings[" + i + "].claim", findings); });
@@ -601,7 +603,14 @@ if (require.main === module) {
   } else {
     result.findings.forEach(function (f) {
       var where = (f.screen ? 'option "' + f.screen + '" ' : "") + f.path;
-      var tail = f.found ? ': found "' + f.found + '"' + (f.suggestion ? ", " + f.suggestion : "") : ": " + f.value;
+      // The advice prints whenever there is advice. It used to print only alongside a
+      // `found` value, so every finding that names no offending token dropped its
+      // suggestion on the floor: twelve at the evaluation stage alone, including the one
+      // that says to set meta.stage, which is the way out of the wall of P0s a reader
+      // gets for completing an evaluation without flipping it. --json always carried it.
+      // A suggestion nothing prints is advice the author never receives.
+      var tail = f.found ? ': found "' + f.found + '"' : ": " + f.value;
+      if (f.suggestion) tail += ", " + f.suggestion;
       process.stdout.write(f.severity + " [" + f.check + "] " + where + tail + "\n");
     });
     var counts = ["P0", "P1", "P2"].map(function (s) {

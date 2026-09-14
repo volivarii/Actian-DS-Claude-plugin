@@ -82,7 +82,7 @@ decision, N options, each a bold name and two lines: what it is, and the case wh
 sentence on which one you would pick and what it costs. No file yet. The decomposition is what the reader
 pushes back on here, and that is far cheaper than pushing back on three rendered blocks.
 
-**The evaluation stage.** Skipped by a run with neither `--evaluate` nor `--from`. `--evaluate` stops
+**The evaluation stage.** Only `--evaluate`, and `--from` a file at `stage: evaluation`, come here. `--evaluate` stops
 here: write the decisions to `proposals/proposal-data.json` at `stage: evaluation`, validate it and say
 what the ticket forces, as "The evaluation stage" in `references/design-proposal/document-authoring.md`
 says; do not research, draw, compare, pick or write a document. `--from` a file already at that stage
@@ -144,5 +144,5 @@ when none is named).
 
 - `references/design-proposal/document-authoring.md`, the sections, the fragment contract, the conventions
 - `references/ds-rules/fm-css-reference.md`, the Fat Marker palette and component styles
-- `schemas/proposal-{data,evaluation}.schema.json`, the two stages' contracts, an example on every field
+- `schemas/proposal-data.schema.json` and `schemas/proposal-evaluation.schema.json`, an example on every field
 - `references/context/ux-patterns.md`, when research runs

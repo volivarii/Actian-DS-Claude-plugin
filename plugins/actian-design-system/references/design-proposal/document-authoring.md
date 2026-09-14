@@ -29,14 +29,28 @@ numbered, the scope in one line, anything the product read could not ground, and
 `--evaluate` is accepted and does nothing, research being off already. `--from` alongside it is refused
 in one line: `--from` runs the other way, and re-evaluating a ticket is another `--evaluate`.
 
+**What it draws.** Expect terminology and avoid-word P1s at this stage too, and expect most of them
+on the ticket's own words: they run over `context.question`, `context.product[]`, `scope.goals[]`,
+`decisions[].question` and `openQuestions[].text`, which is most of what an evaluation is. Read the
+paragraph below on what a terminology P1 means; the answer is usually to keep the word and say so.
+
 **Resuming one.** `--from` a file at `stage: evaluation` skips the frame and the product read. They are
 recorded in `source` and `context`, reading the ticket or the product a second time produces a second,
 different read, and neither field is rewritten. Run the research now instead, aimed at the decisions
 the file names rather than at the ticket in general, and set `research.ran` true with its findings.
-Then restate the decisions in one line each and author the options, the comparisons and the picks
-against them. Adding, dropping or rewording a decision here is expected: the evaluation fixed the
+Then restate the decisions in one line each, author the options, the comparisons and the picks
+against them, and set `meta.stage` to `proposal`. That last one is the step to miss: a complete,
+correct proposal still marked `evaluation` draws a wall of P0s, one per field an evaluation may not
+carry, and the way out is in each finding's advice rather than in any of their headlines. Adding, dropping or rewording a decision here is expected: the evaluation fixed the
 framing, which is expensive, not the decomposition, which is judgement and may improve once the options
 exist.
+
+**A question that would change a pick** is a decision or that decision's `blocker` in a proposal.
+An evaluation has no `blocker`, and carrying one is a P0, because a stage that has not weighed any
+options cannot know which question would change a pick. So at this stage it is either its own
+decision, when it is really a separate question, or an `openQuestions` entry, when it is a doubt
+about a decision already named. The resume is where it becomes a `blocker`, once there are options
+for it to block.
 
 **A strict prefix.** Every key an evaluation carries has the same name, the same shape and the same
 meaning it has in a finished document. Completing one adds keys and sets `meta.stage` to `"proposal"`;
