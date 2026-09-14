@@ -397,12 +397,17 @@ function validateProposal(data) {
     // caught and terminology and avoid-words were not, while this file said in three
     // places that those gates run over every text field.
     addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]);
-    checkProse(d.blocker, "", dp + ".blocker", findings);
 
     // An evaluation has named the decisions and nothing else, so every check that reads an
     // option, a comparison, a pick, a drawing or a closing line has nothing to read. Skipped
     // as a block: guarding field by field would leave each check looking like it ran.
     if (stage === "proposal") {
+      // blocker moved inside the guard with the rest of the pick's prose. It sat outside,
+      // which read as "gate its prose at both stages" and was not that: checkProse caught an
+      // em dash there at either stage while the terminology and avoid-word scanner, fed by
+      // the addPseudo below, only ran at the proposal stage. A blocker in an evaluation is a
+      // P0 now, so the split had no reachable case left, only a misleading shape.
+      checkProse(d.blocker, "", dp + ".blocker", findings);
       if (d.options.length < MIN_OPTIONS)
         findings.push(finding("P1", "decision", "", dp + ".options", d.options.length + " option; a decision with one option is a statement", "", "give it a second option, or fold it into another decision's cost"));
       if (d.options.length > MAX_OPTIONS)
