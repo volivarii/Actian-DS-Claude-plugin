@@ -314,59 +314,73 @@ if (require.main === module) {
   var args = process.argv.slice(2);
   var USAGE = "Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]\n" +
     "A flag given more than once keeps its first occurrence.\n";
-  if (!args.length || args.indexOf("--help") !== -1) {
-    process.stdout.write(USAGE);
-    process.exit(args.length ? 0 : 1);
+  // process.exit() truncates a piped stdout at libuv's 65536-byte flush limit: a large seed
+  // can print in full to a file and only partially to a pipe, still exit 0, with no way for
+  // the reader to know it was cut. bail() sets process.exitCode and throws a local sentinel
+  // instead, so every early return below still stops the script exactly where it used to,
+  // but the process exits by letting the event loop drain rather than by cutting it off.
+  var BAIL = {};
+  function bail(code) {
+    process.exitCode = code;
+    throw BAIL;
   }
-  function valueOf(flag) {
-    var i = args.indexOf(flag);
-    if (i === -1) return undefined;
-    var next = args[i + 1];
-    if (next === undefined || next.indexOf("-") === 0) {
-      process.stderr.write(flag + " needs a value after it\n");
-      process.exit(1);
-    }
-    return next;
-  }
-  var inPath = path.resolve(args[0]);
-  var outVal = valueOf("-o");
-  var outPath = outVal ? path.resolve(outVal) : null;
-  if (outPath && fs.existsSync(outPath)) {
-    process.stderr.write(outPath + " already exists; remove it or drop -o to print the seed\n");
-    process.exit(1);
-  }
-  var decisionVal = valueOf("--decision");
-  var optionVal = valueOf("--option");
-  var data;
   try {
-    data = JSON.parse(fs.readFileSync(inPath, "utf8"));
-  } catch (e) {
-    process.stderr.write("Error reading " + inPath + ": " + e.message + "\n");
-    process.exit(1);
-  }
-  var seed = compose(data, { decision: decisionVal, option: optionVal });
-  var hasP0 = seed.findings.some(function (f) { return f.severity === "P0"; });
-  var json = JSON.stringify(seed, null, 2) + "\n";
-  // A P0 refuses outright: no file, no success line. The findings on stderr and a non-zero
-  // exit are the whole output, so a caller cannot mistake a guess for an answer.
-  if (outPath) {
-    if (!hasP0) {
-      try {
-        fs.writeFileSync(outPath, json);
-      } catch (e) {
-        process.stderr.write("Error writing " + outPath + ": " + e.message + "\n");
-        process.exit(1);
-      }
-      process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
+    if (!args.length || args.indexOf("--help") !== -1) {
+      process.stdout.write(USAGE);
+      bail(args.length ? 0 : 1);
     }
-  } else {
-    process.stdout.write(json);
+    function valueOf(flag) {
+      var i = args.indexOf(flag);
+      if (i === -1) return undefined;
+      var next = args[i + 1];
+      if (next === undefined || next.indexOf("-") === 0) {
+        process.stderr.write(flag + " needs a value after it\n");
+        bail(1);
+      }
+      return next;
+    }
+    var inPath = path.resolve(args[0]);
+    var outVal = valueOf("-o");
+    var outPath = outVal ? path.resolve(outVal) : null;
+    if (outPath && fs.existsSync(outPath)) {
+      process.stderr.write(outPath + " already exists; remove it or drop -o to print the seed\n");
+      bail(1);
+    }
+    var decisionVal = valueOf("--decision");
+    var optionVal = valueOf("--option");
+    var data;
+    try {
+      data = JSON.parse(fs.readFileSync(inPath, "utf8"));
+    } catch (e) {
+      process.stderr.write("Error reading " + inPath + ": " + e.message + "\n");
+      bail(1);
+    }
+    var seed = compose(data, { decision: decisionVal, option: optionVal });
+    var hasP0 = seed.findings.some(function (f) { return f.severity === "P0"; });
+    var json = JSON.stringify(seed, null, 2) + "\n";
+    // A P0 refuses outright: no file, no success line. The findings on stderr and a non-zero
+    // exit are the whole output, so a caller cannot mistake a guess for an answer.
+    if (outPath) {
+      if (!hasP0) {
+        try {
+          fs.writeFileSync(outPath, json);
+        } catch (e) {
+          process.stderr.write("Error writing " + outPath + ": " + e.message + "\n");
+          bail(1);
+        }
+        process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
+      }
+    } else {
+      process.stdout.write(json);
+    }
+    // Findings go to stderr so they stay visible when stdout is piped into a file or a
+    // reader, which is the normal way this is called.
+    seed.findings.forEach(function (f) {
+      process.stderr.write(f.severity + " [" + f.check + "] " + f.path + ": " + f.value +
+        (f.suggestion ? ", " + f.suggestion : "") + "\n");
+    });
+    process.exitCode = hasP0 ? 1 : 0;
+  } catch (e) {
+    if (e !== BAIL) throw e;
   }
-  // Findings go to stderr so they stay visible when stdout is piped into a file or a
-  // reader, which is the normal way this is called.
-  seed.findings.forEach(function (f) {
-    process.stderr.write(f.severity + " [" + f.check + "] " + f.path + ": " + f.value +
-      (f.suggestion ? ", " + f.suggestion : "") + "\n");
-  });
-  process.exit(hasP0 ? 1 : 0);
 }

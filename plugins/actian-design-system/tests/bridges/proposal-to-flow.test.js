@@ -466,4 +466,39 @@ describe("proposal-to-flow: the CLI", function () {
     assert.ok(r.stderr.indexOf("--decision") !== -1, r.stderr);
     assert.strictEqual(r.stdout, "", "should not have composed or printed anything: " + r.stdout);
   });
+
+  it("does not truncate a large piped stdout write, where process.exit() used to cut it off", function () {
+    var dir = tmp();
+    var d = { meta: { stage: "proposal" }, answer: "x", decisions: [] };
+    for (var i = 0; i < 400; i++) {
+      d.decisions.push({
+        id: "d" + i,
+        question: "Decision " + i + "?",
+        pick: { optionId: "o" + i },
+        options: [
+          {
+            id: "o" + i,
+            anchor: {},
+            screens: [
+              {
+                name: "Screen " + i,
+                template: "overlay",
+                app: "explorer",
+                entity: null,
+                note: "A fairly long note describing what changes for decision " + i +
+                  ", padded so 400 of these push the composed seed well past the 65536-byte pipe buffer.",
+              },
+            ],
+          },
+        ],
+      });
+    }
+    var r = run([fileAt(dir, "large.json", d)]);
+    assert.strictEqual(r.status, 0, r.stderr);
+    assert.ok(r.stdout.length > 65536, "fixture should exceed the pipe buffer: " + r.stdout.length + " bytes");
+    var parsed;
+    assert.doesNotThrow(function () { parsed = JSON.parse(r.stdout); },
+      "stdout should be complete, valid JSON: " + r.stdout.length + " bytes");
+    assert.strictEqual(parsed.screens.length, 400);
+  });
 });
