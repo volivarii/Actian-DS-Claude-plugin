@@ -115,7 +115,11 @@ describe("assembleProposal (document)", function () {
   it("derives the decision table from decisions[], never from an authored field", function () {
     var d = twoDecisions();
     var out = assembleProposal(d);
-    var table = out.slice(at(out, "decisions-at-a-glance"), at(out, 'class="briefing"'));
+    // Slice the BODY. The first "decisions-at-a-glance" in the file is the CSS rule, so a
+    // slice from there begins inside the stylesheet and swallows the answer section, and
+    // two of the three assertions below were satisfied by the answer picks instead.
+    var body = out.slice(out.indexOf("<body>"));
+    var table = body.slice(at(body, "decisions-at-a-glance"), at(body, 'class="briefing"'));
     d.decisions.forEach(function (dec) {
       var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
       assert.ok(at(table, dec.question) !== -1, dec.id + " question in the table");
@@ -140,14 +144,17 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(out, '<section class="decision"'), 2);
     d.decisions.forEach(function (dec) {
       assert.ok(at(out, dec.question) !== -1, dec.id + " question");
-      assert.ok(at(out, 'id="' + dec.id + '"') !== -1, dec.id + " is addressable by its id");
+      assert.ok(at(out, '<section class="decision" id="' + dec.id + '"') !== -1,
+        dec.id + " is addressable by its id on the section itself");
       dec.options.forEach(function (o) {
         assert.ok(at(out, 'data-name="' + o.id + '"') !== -1, o.id + " drawn");
       });
       dec.pick.reasons.forEach(function (r) {
         assert.ok(at(out, r.text) !== -1, dec.id + " reason: " + r.text);
       });
-      assert.ok(at(out, dec.pick.cost) !== -1, dec.id + " cost");
+      var block = out.slice(at(out, '<section class="decision" id="' + dec.id + '"'));
+      block = block.slice(0, block.indexOf("</section>"));
+      assert.ok(at(block, dec.pick.cost) !== -1, dec.id + " states its cost inside its own block, not only in the glance table");
     });
   });
 
@@ -161,6 +168,28 @@ describe("assembleProposal (document)", function () {
       var line = '<span class="pick__crit">' + crit.label + "</span>";
       assert.ok(at(out, line) !== -1, "reason carries its criterion label: " + crit.label);
     });
+  });
+
+  it("prints the framing question unless a decision already asks it word for word", function () {
+    var one = load();
+    assert.strictEqual(one.decisions[0].question, one.context.question, "the fixture's decision repeats it");
+    assert.strictEqual(at(assembleProposal(one).slice(at(assembleProposal(one), "<body>")), "doc__question"), -1,
+      "so it is not printed twice");
+
+    var narrower = load();
+    narrower.decisions[0].question = "Which surface carries the badge?";
+    var out = assembleProposal(narrower);
+    assert.ok(at(out.slice(at(out, "<body>")), "doc__question") !== -1,
+      "a single decision narrower than the framing question does not swallow it");
+    assert.ok(at(out, narrower.context.question) !== -1, "and the question itself is in the document");
+
+    var two = twoDecisions();
+    two.context.question = "How should a user understand their access?";
+    var t = assembleProposal(two);
+    assert.ok(at(t.slice(at(t, "<body>")), "doc__question") !== -1, "two decisions, neither repeating it: printed");
+    two.decisions[1].question = two.context.question;
+    var r = assembleProposal(two);
+    assert.strictEqual(at(r.slice(at(r, "<body>")), "doc__question"), -1, "the second decision repeating it: not printed");
   });
 
   it("throws when a pick names an option or a criterion that does not exist", function () {
@@ -179,6 +208,9 @@ describe("assembleProposal (document)", function () {
     var out = assembleProposal(d);
     var widths = (out.match(/class="proposal-screen" data-name="[^"]+" style="width:(\d+)px"/g) || [])
       .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
+    var cols = (out.match(/class="proposal-screen__col" style="width:(\d+)px"/g) || [])
+      .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
+    assert.deepStrictEqual(cols, widths, "the column and the drawing inside it carry the same width");
     assert.strictEqual(widths.length, d.decisions[0].options.length, "one width per option");
     widths.forEach(function (w) { assert.strictEqual(w, widths[0], "every option at the same width"); });
     assert.ok(widths[0] >= 320, "and at least the widest the author asked for, or the row budget");
@@ -219,7 +251,9 @@ describe("assembleProposal (document)", function () {
   });
 
   it("keeps the comparison table's glyphs so it survives greyscale", function () {
-    assert.ok(at(html, "tone-good") !== -1 || at(html, "tone-mixed") !== -1, "tone classes still emitted");
+    var body = html.slice(html.indexOf("<body>"));
+    assert.ok(at(body, "tone-good") !== -1 || at(body, "tone-mixed") !== -1,
+      "a tone class reaches the table, not just the stylesheet that defines it");
     var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
     assert.ok(at(tpl, '.tone-good::before') !== -1, "the glyph rule survives");
   });

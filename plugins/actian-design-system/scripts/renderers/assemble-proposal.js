@@ -95,14 +95,18 @@ function findById(arr, id) {
   return hit;
 }
 
-// context.question is the feature's framing question, and it is schema-required, so leaving
-// it unrendered loses data an author was made to write. It earns its place above the answer
-// only when the document holds more than one decision: with a single decision the two are
-// the same sentence (the converter even derives one from the other), and printing it twice
-// costs the reader a line and tells them nothing.
+// context.question is the feature's framing question and the schema requires it, so the
+// only honest reason not to render it is that the reader is already reading it: some
+// decision asks the same thing word for word, which is what the converter produces when
+// it derives decisions[0].question from this field. Anything else gets rendered.
+//
+// An earlier version suppressed it for every one-decision document, on the theory that the
+// two are always the same sentence there. They are only the same in a CONVERTED file. A
+// freshly authored one-decision proposal whose decision is narrower than its framing
+// question lost that question entirely, and no test noticed.
 function questionHtml(data) {
-  if (data.decisions.length < 2) return "";
-  if (data.decisions.some(function (d) { return d.question === data.context.question; })) return "";
+  var repeated = data.decisions.some(function (d) { return d.question === data.context.question; });
+  if (repeated) return "";
   return '<p class="doc__question">' + esc(data.context.question) + "</p>";
 }
 
