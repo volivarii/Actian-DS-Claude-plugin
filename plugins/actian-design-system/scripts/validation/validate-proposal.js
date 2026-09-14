@@ -10,7 +10,9 @@
  *
  * Checks: old-shape (P0), retired-key (P0), schema (P0), bounds (P0),
  * app-unknown (P0 on meta.apps and on an anchor, P1 on screens[].app),
- * research (P0), pick (P0: an optionId or a criterionId that names nothing in
+ * research (P0), stage (P0 on a field an evaluation must not carry, a question
+ * that is not one, or a repeated question; P1 on an ungrounded evaluation with
+ * nothing open), pick (P0: an optionId or a criterionId that names nothing in
  * its OWN decision, and an empty cost), breadboard (P0 on a connection naming
  * nothing, P1 when absent across apps), unbalanced (P0), script (P0),
  * external-load (P0), decision (P1), option-width (P1), latitude (P1),
@@ -54,6 +56,7 @@ var validateSchema = require("./validate-schema.js");
 var flowGates = require("./validate-flow-data.js");
 var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractUnbalancedTag;
 var isOldShape = require("../migrations/proposal-approaches-to-decisions.js").isOldShape;
+var NOT_A_SENTENCE_END = require("../migrations/proposal-approaches-to-decisions.js").NOT_A_SENTENCE_END;
 
 var SCHEMA_DIR = path.join(__dirname, "..", "..", "schemas");
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
@@ -148,6 +151,37 @@ function checkProse(text, approachId, p, findings) {
   });
 }
 
+// What a proposal may carry and an evaluation may not is the difference between the two
+// schemas, so it is read from them rather than restated here. A list written out by hand
+// is a claim about another file, and this file has already shipped one of those that was
+// wrong about three of six entries. Add a field to the proposal schema and the evaluation
+// rejects it the day it lands, with nobody remembering to come back to this line.
+function forbiddenAtEvaluation() {
+  var pr = JSON.parse(fs.readFileSync(path.join(SCHEMA_DIR, "proposal-data.schema.json"), "utf8"));
+  var ev = JSON.parse(fs.readFileSync(path.join(SCHEMA_DIR, "proposal-evaluation.schema.json"), "utf8"));
+  function extra(a, b) {
+    return Object.keys(a.properties || {}).filter(function (k) { return !(b.properties || {})[k]; });
+  }
+  return {
+    root: extra(pr, ev),
+    decision: extra(pr.properties.decisions.items, ev.properties.decisions.items),
+  };
+}
+
+// The codebase has one sentence-boundary rule and it stays one. A second regex here
+// would disagree with the converter's on the first abbreviation either of them met,
+// and that rule exists because a naive split turned one fact into two, silently.
+function sentenceCount(text) {
+  var parts = String(text || "").split(/(?<=[.?!])\s+/);
+  var n = 0;
+  parts.forEach(function (part, i) {
+    if (!part.trim()) return;
+    if (i < parts.length - 1 && NOT_A_SENTENCE_END.test(part)) return;
+    n += 1;
+  });
+  return n;
+}
+
 function loadApps() {
   try { return JSON.parse(fs.readFileSync(PATHS.appContext, "utf8")); } catch (e) { return {}; }
 }
@@ -181,6 +215,49 @@ function validateProposal(data) {
   var errors = validateSchema(data, schema).filter(function (e) { return e.indexOf("(warning)") === -1; });
   errors.forEach(function (e) { findings.push(finding("P0", "schema", "", "", e)); });
   if (errors.length) return { findings: findings };
+
+  // The gates that only exist at the evaluation stage. meta.stage is a claim about where
+  // the file is in the pipeline, and the resume reads it to skip the ticket read and the
+  // product read, so a half-filled evaluation is a file lying about where it is.
+  if (stage === "evaluation") {
+    var forbidden = forbiddenAtEvaluation();
+    forbidden.root.forEach(function (key) {
+      if (data[key] !== undefined)
+        findings.push(finding("P0", "stage", "", key, "an evaluation carries no " + key, "", 'drop it, or set meta.stage to "proposal" and finish the file'));
+    });
+    data.decisions.forEach(function (d, di) {
+      forbidden.decision.forEach(function (key) {
+        if (d[key] !== undefined)
+          findings.push(finding("P0", "stage", "", "decisions[" + di + "]." + key, "an evaluation carries no " + key, "", 'drop it, or set meta.stage to "proposal" and finish the file'));
+      });
+    });
+    // An evaluation names the questions a ticket forces, and nothing else. A statement, a
+    // question with its answer attached, and the same question twice are each a pick that
+    // arrived without its work, which is the one thing this stage exists to stop.
+    var seenQ = {};
+    data.decisions.forEach(function (d, di) {
+      var q = String(d.question || "").trim();
+      var qkey = q.toLowerCase().replace(/\s+/g, " ");
+      if (q.slice(-1) !== "?")
+        findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "does not end in a question mark", q, "an evaluation names questions; a statement is a pick without its work"));
+      if (sentenceCount(q) > 1)
+        findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "is more than one sentence", q, "one question per decision; two sentences is two decisions or a question with its answer attached"));
+      if (seenQ[qkey] !== undefined)
+        findings.push(finding("P0", "stage", "", "decisions[" + di + "].question", "repeats decisions[" + seenQ[qkey] + "]", q, "two decisions that ask the same thing are one decision"));
+      else seenQ[qkey] = di;
+    });
+    // Where this came from. Both schemas share one source definition, verbatim, and it
+    // declares no required members, so requiring these three there would require them of
+    // every proposal ever written. The rule is the evaluation's alone, so it lives here.
+    ["system", "id", "body"].forEach(function (key) {
+      if (!String((data.source || {})[key] || "").trim())
+        findings.push(finding("P0", "stage", "", "source." + key, "the evaluation does not say which ticket it read", "", "an evaluation claims what a ticket forces, and cannot make that claim without naming the ticket"));
+    });
+    // The product read found no capture, and the evaluation still leaves nothing open.
+    // Advisory, because the right answer is sometimes that the gap does not matter here.
+    if (String(data.context.gap || "").trim() && !(data.openQuestions || []).length)
+      findings.push(finding("P1", "stage", "", "openQuestions", "the product read found no capture and the evaluation leaves nothing open", "", "name what the gap leaves unresolved, or say in chat why it does not"));
+  }
 
   var ctx = loadApps();
   var apps = ctx.apps || {};

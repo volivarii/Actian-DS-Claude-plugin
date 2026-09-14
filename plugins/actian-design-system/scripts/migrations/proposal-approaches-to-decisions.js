@@ -91,7 +91,10 @@ function convert(data) {
   return out;
 }
 
-module.exports = { convert: convert, isOldShape: isOldShape };
+// NOT_A_SENTENCE_END is exported because validate-proposal.js needs the same rule to count
+// the sentences in a decision's question. Two regexes would disagree on the first
+// abbreviation either of them met, and this one is the codebase's sentence boundary.
+module.exports = { convert: convert, isOldShape: isOldShape, NOT_A_SENTENCE_END: NOT_A_SENTENCE_END };
 
 if (require.main === module) {
   var args = process.argv.slice(2);

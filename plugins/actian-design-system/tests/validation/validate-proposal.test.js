@@ -582,9 +582,10 @@ describe("validate-proposal.js CLI", function () {
 });
 
 // The evaluation stage: what --evaluate writes, read against its own schema. The point
-// of these four is the branch itself, not the evaluation's own gates, which are not here
-// yet: an evaluation passes with nothing missing reported, a proposal is untouched, and
-// the one gate that has to survive the branch, terminology on a question, still fires.
+// of these four is the branch itself, not the evaluation's own gates, which the next
+// describe covers: an evaluation passes with nothing missing reported, a proposal is
+// untouched, and the one gate that has to survive the branch, terminology on a question,
+// still fires.
 describe("the evaluation stage", function () {
   var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
   function evaluation() { return JSON.parse(fs.readFileSync(EVAL, "utf8")); }
@@ -612,5 +613,155 @@ describe("the evaluation stage", function () {
     var d = load();
     assert.strictEqual(d.meta.stage, undefined, "the proposal fixture carries no stage");
     assert.deepStrictEqual(only(d, "schema"), [], "and validates against the proposal schema");
+  });
+});
+
+// The gates that only exist at the evaluation stage. Every case below produced zero
+// findings before they landed: the evaluation schema declares no additionalProperties,
+// the hand-rolled validator has no such keyword, and the stage branch then skips the
+// blocks that would have read the field. Each gate is asserted twice, on the mutation
+// and on the clean fixture, because a gate that fires on both is not a gate.
+describe("the evaluation stage gates", function () {
+  var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
+  var PROPOSAL_SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", "proposal-data.schema.json"), "utf8"));
+  var EVALUATION_SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", "proposal-evaluation.schema.json"), "utf8"));
+  function evaluation() { return JSON.parse(fs.readFileSync(EVAL, "utf8")); }
+  function stageHits(d) {
+    return validateProposal(d).findings.filter(function (f) { return f.check === "stage"; });
+  }
+  function atPath(p) {
+    return function (f) { return f.path === p; };
+  }
+  function fires(d, match, severity, why) {
+    var hits = stageHits(d).filter(match);
+    assert.strictEqual(hits.length, 1, why + "; stage findings were " + JSON.stringify(stageHits(d)));
+    assert.strictEqual(hits[0].severity, severity, JSON.stringify(hits[0]));
+    assert.deepStrictEqual(stageHits(evaluation()).filter(match), [],
+      "and the clean evaluation fixture must not carry it");
+  }
+
+  it("finds nothing to say about the clean evaluation fixture", function () {
+    assert.deepStrictEqual(stageHits(evaluation()), []);
+  });
+
+  // Derived from the two schemas, never restated. A field added to the proposal schema is
+  // covered here the day it lands, with nobody editing this test; the spec wrote this list
+  // out by hand and left out blocker, which is how a list about another file goes stale.
+  function extraProperties(a, b) {
+    return Object.keys(a.properties).filter(function (k) { return !b.properties[k]; });
+  }
+  function sample(node) {
+    return node.examples ? node.examples[0] : "x";
+  }
+
+  it("forbids every root field the proposal schema has and the evaluation schema does not", function () {
+    var extra = extraProperties(PROPOSAL_SCHEMA, EVALUATION_SCHEMA);
+    assert.ok(extra.length >= 4, "the two schemas differ at the root, and here differ by " + extra.join(", "));
+    extra.forEach(function (key) {
+      var d = evaluation();
+      d[key] = sample(PROPOSAL_SCHEMA.properties[key]);
+      fires(d, atPath(key), "P0",
+        key + " is in the proposal schema, absent from the evaluation schema, and nothing rejects it");
+    });
+  });
+
+  it("forbids every decision field the proposal schema has and the evaluation schema does not", function () {
+    var pr = PROPOSAL_SCHEMA.properties.decisions.items;
+    var ev = EVALUATION_SCHEMA.properties.decisions.items;
+    var extra = extraProperties(pr, ev);
+    assert.ok(extra.length >= 4, "the two schemas differ on a decision, and here differ by " + extra.join(", "));
+    extra.forEach(function (key) {
+      var d = evaluation();
+      d.decisions[0][key] = sample(pr.properties[key]);
+      fires(d, atPath("decisions[0]." + key), "P0",
+        key + " is in the proposal schema's decision, absent from the evaluation schema's, and nothing rejects it");
+    });
+  });
+
+  it("a decision question that is a statement is a P0", function () {
+    var d = evaluation();
+    d.decisions[0].question = "The account menu shows the group.";
+    fires(d, atPath("decisions[0].question"), "P0", "a statement is a pick without its work");
+  });
+
+  it("a decision question carrying a second sentence is a P0", function () {
+    var d = evaluation();
+    d.decisions[0].question = "Where does it come from? And who sets it?";
+    fires(d, atPath("decisions[0].question"), "P0", "two sentences is two decisions, or a question with its answer attached");
+  });
+
+  // The sentence count comes from the converter's rule, the codebase's only one, because a
+  // second regex would disagree with it on the first abbreviation either of them met.
+  it("counts an abbreviation inside a question as one sentence", function () {
+    var d = evaluation();
+    d.decisions[0].question = "Does Fig. 2 show the shape?";
+    assert.deepStrictEqual(stageHits(d), [], "an abbreviation is not a sentence boundary");
+  });
+
+  it("two decisions asking the same thing is a P0 on the second", function () {
+    var d = evaluation();
+    d.decisions[1].question = "  How does a USER see which group they belong to?  ";
+    fires(d, atPath("decisions[1].question"), "P0", "a repeat is one decision written twice");
+  });
+
+  // Why the rule is here and not in the schema, asserted rather than said in a comment:
+  // the two schemas share one source definition and it requires nothing of its members,
+  // so an evaluation schema that required them would require them of every proposal.
+  it("shares one source definition with the proposal schema, and it requires nothing", function () {
+    assert.deepStrictEqual(EVALUATION_SCHEMA.properties.source, PROPOSAL_SCHEMA.properties.source);
+    assert.strictEqual(EVALUATION_SCHEMA.properties.source.required, undefined);
+  });
+
+  ["system", "id", "body"].forEach(function (key) {
+    it("an evaluation that does not say which ticket it read is a P0 on source." + key, function () {
+      var d = evaluation();
+      delete d.source[key];
+      fires(d, atPath("source." + key), "P0", "an evaluation cannot claim what a ticket forces without naming the ticket");
+    });
+  });
+
+  it("a gap in the product read with nothing left open is a P1", function () {
+    var d = evaluation();
+    assert.ok(String(d.context.gap || "").trim(), "the fixture's product read found a gap");
+    d.openQuestions = [];
+    fires(d, atPath("openQuestions"), "P1", "the product read found no capture and the evaluation left nothing open");
+  });
+
+  it("says nothing about an evaluation with no gap and nothing open", function () {
+    var d = evaluation();
+    delete d.context.gap;
+    d.openQuestions = [];
+    assert.deepStrictEqual(stageHits(d), [], "the advisory is about the gap, not about openQuestions alone");
+  });
+
+  it("leaves a proposal alone: none of these gates run at the proposal stage", function () {
+    var d = load();
+    assert.strictEqual(d.meta.stage, undefined, "the proposal fixture carries no stage");
+    assert.deepStrictEqual(only(d, "stage"), []);
+  });
+});
+
+// The header names the checks this file emits. It has been wrong once already, and a list
+// about another part of the file is a claim, so it is read against the source in both
+// directions rather than trusted.
+describe("the Checks list in the validator's header", function () {
+  var SOURCE = fs.readFileSync(path.join(ROOT, "scripts", "validation", "validate-proposal.js"), "utf8");
+  function unique(list) {
+    return list.filter(function (x, i) { return list.indexOf(x) === i; }).sort();
+  }
+  function matches(re, text, group) {
+    var out = [];
+    var m;
+    while ((m = re.exec(text)) !== null) out.push(m[group]);
+    return out;
+  }
+
+  it("names every check the file can emit, and no check it cannot", function () {
+    var emitted = unique(matches(/finding\("P[012]", "([a-z-]+)"/g, SOURCE, 1));
+    var header = SOURCE.split("Checks:")[1].split("Two things")[0];
+    var listed = unique(matches(/([a-z-]+) \(P[012]/g, header, 1));
+    assert.ok(emitted.length > 10, "the emitted set was read, and is " + emitted.join(", "));
+    assert.deepStrictEqual(listed, emitted,
+      "the header lists " + listed.join(", ") + " and the file emits " + emitted.join(", "));
   });
 });
