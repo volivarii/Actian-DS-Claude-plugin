@@ -22,7 +22,7 @@ are summarized at the release level.
 ### Added
 
 - **`/generate-flow --from proposals/proposal-data.json` builds the flow the proposal already describes**
-  (PR link to be added when the PR is opened). Every option in a proposal has carried a `screens[]` list
+  ([#380](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/380)). Every option in a proposal has carried a `screens[]` list
   naming a flow archetype, an app and an entity since the document shipped, and nothing read it: a person
   read the document, retyped the screens into a request, and hoped they transcribed the anchor and the
   note correctly. `scripts/bridges/proposal-to-flow.js` composes it instead, printing
@@ -55,7 +55,7 @@ are summarized at the release level.
 ### Changed
 
 - **BREAKING: a design proposal is a set of decisions, not one question with N answers**
-  (PR link to be added when the PR is opened). `proposal-data.json` loses three top-level keys,
+  ([#378](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/378)). `proposal-data.json` loses three top-level keys,
   `approaches`, `comparison` and `recommendation`, and gains `decisions[]`: one to four entries, each
   self-contained with its own `question`, two to four `options[]`, its own `comparison`, and a `pick` of
   `{ optionId, reasons[{ criterionId, text }], cost }` plus an optional `blocker`. Five more top-level
@@ -93,7 +93,7 @@ are summarized at the release level.
   shipped it.
 
 - **The schema validator implements `maxItems`, which turns three declared bounds live**
-  (PR link to be added when the PR is opened). `scripts/validation/validate-schema.js` is hand-rolled
+  ([#378](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/378)). `scripts/validation/validate-schema.js` is hand-rolled
   and silently ignored the `maxItems` keyword, while `proposal-data.schema.json` already declared it on
   `scope.goals`, `scope.nonGoals` and `openQuestions`. So a proposal with five goals rendered: the
   validator reported a P0 from its own bounds pass and the assembler, which throws on any schema error,
@@ -104,7 +104,7 @@ are summarized at the release level.
   now is.
 
 - **`npm test` runs `scripts/quality/run-suite.sh`, and both CI workflows run `npm test`**
-  (PR link to be added when the PR is opened). The old script was a raw `find | xargs` pipeline into
+  ([#378](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/378)). The old script was a raw `find | xargs` pipeline into
   the Node test runner, and that runner exits 0 when a `describe` body throws: the file never builds,
   none of its tests run, and the summary still reads `# fail 0`. A whole renderer suite that could not
   even require its subject read green that way. The runner now fails on five things instead of one: a
@@ -114,8 +114,7 @@ are summarized at the release level.
 
 ### Fixed
 
-- **design-proposal document, three things a real proposal found** (PR link to be added when the PR is
-  opened): running the skill on a ticket that spans two apps surfaced defects a fixture does not. An
+- **design-proposal document, three things a real proposal found** ([#378](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/378)): running the skill on a ticket that spans two apps surfaced defects a fixture does not. An
   option label (an approach, before the rename below) was one wrapping row, so a long anchor pushed that
   drawing a line below its neighbours and the drawings a reader is meant to compare stopped sharing a top
   edge; the label is now a name row and an anchor row, the same height for every option by construction.
@@ -129,7 +128,7 @@ are summarized at the release level.
 ### Added
 
 - **`/design-proposal --evaluate`: what a ticket forces, before anything is drawn**
-  (PR link to be added when the PR is opened). `/design-proposal DIP-I-522 --evaluate` runs the frame,
+  ([#379](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/379)). `/design-proposal DIP-I-522 --evaluate` runs the frame,
   the product read and the decomposition, writes `proposals/proposal-data.json`, says in under fifteen
   lines what the ticket forces, and stops. No research, no options, no comparison, no picks, no
   document. Resume it with `/design-proposal --from proposals/proposal-data.json`: the resume skips the
