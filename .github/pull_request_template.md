@@ -19,7 +19,7 @@ that any pattern migration must follow.
 
 <!-- Bulleted checklist. Mark [x] for what you did, [ ] for what's deferred. -->
 
-- [ ] Full plugin test suite passes locally (`find tests -name '*.test.js' -print0 | xargs -0 "$NODE_BIN" --test`).
+- [ ] Full plugin test suite passes locally (`npm test`, from `plugins/actian-design-system`).
 - [ ] Doc-conventions test passes (catches bare `node` / `$PLUGIN_ROOT` / unresolved `$NODE_BIN`).
 - [ ] If touching push patterns or skills: ran the affected skill end-to-end on a real component.
 - [ ] If touching tokens / registries: verified no schema-shape regressions in `docs/generated/*.json`.

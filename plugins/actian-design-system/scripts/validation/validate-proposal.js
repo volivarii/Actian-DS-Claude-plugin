@@ -226,6 +226,8 @@ function validateProposal(data) {
     findings.push(finding("P0", "bounds", "", "research.findings", data.research.findings.length + " findings; at most " + MAX_FINDINGS));
   if (data.research.ran === false && data.research.findings.length > 0)
     findings.push(finding("P1", "research", "", "research.findings", "findings present while ran is false; they are not rendered", "", "set ran true or empty the findings"));
+  if (data.research.ran === true && data.research.findings.length === 0)
+    findings.push(finding("P1", "research", "", "research.findings", "ran is true and nothing was found; the document draws the heading over an empty list", "", "set ran false with a skippedBecause, or record what the research found"));
   data.research.findings.forEach(function (f, i) { checkProse(f.claim, "", "research.findings[" + i + "].claim", findings); });
   addPseudo("doc:research", "Research", data.research.findings.map(function (f, i) { return { path: "research.findings[" + i + "].claim", text: f.claim }; }));
 
@@ -243,8 +245,24 @@ function validateProposal(data) {
       checkProse(pl.name, "", "breadboard.places[" + i + "].name", findings);
       (pl.affordances || []).forEach(function (af, j) { checkProse(af, "", "breadboard.places[" + i + "].affordances[" + j + "]", findings); });
     });
+    // Two places on the same row and col are one cell to the renderer, and a connection
+    // touching that cell has nowhere to go. So is a connection whose ends are the same
+    // place, which is how a copied entry reads. Both throw in layout(); neither was
+    // screened here, so the validator said the file was clean and the assembler died
+    // naming an internal module.
+    var cellOf = {};
+    data.breadboard.places.forEach(function (pl, i) {
+      var cell = (pl.row === undefined ? i : pl.row) + "," + (pl.col === undefined ? 0 : pl.col);
+      if (cellOf[cell] !== undefined)
+        findings.push(finding("P0", "breadboard", "", "breadboard.places[" + i + "]", "shares row and col with " + cellOf[cell], cell, "give every place its own row and col; two boxes in one cell have no route between them"));
+      else cellOf[cell] = pl.id;
+      if ((pl.row !== undefined && pl.row < 0) || (pl.col !== undefined && pl.col < 0))
+        findings.push(finding("P0", "breadboard", "", "breadboard.places[" + i + "]", "row or col is negative, which lays the box outside the drawing", pl.row + "," + pl.col, "row and col count from 0"));
+    });
     (data.breadboard.connections || []).forEach(function (c, i) {
       var cp = "breadboard.connections[" + i + "]";
+      if (c.from != null && c.to != null && String(c.from).split("/")[0] === String(c.to).split("/")[0])
+        findings.push(finding("P0", "breadboard", "", cp, "leaves and arrives at the same place", String(c.from), "a connection joins two places; delete it or name the other end"));
       ["from", "to"].forEach(function (side) {
         var raw = String(c[side] == null ? "" : c[side]);
         var slash = raw.indexOf("/");
@@ -276,6 +294,11 @@ function validateProposal(data) {
     if (decisionIds[d.id]) findings.push(finding("P0", "bounds", "", dp + ".id", "duplicate decision id " + d.id));
     decisionIds[d.id] = true;
     checkProse(d.question, "", dp + ".question", findings);
+    // The question is this decision's heading, its line in the answer, and the first
+    // column of the table. It went through checkProse alone, so em dashes and hex were
+    // caught and terminology and avoid-words were not, while this file said in three
+    // places that those gates run over every text field.
+    addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]);
     checkProse(d.blocker, "", dp + ".blocker", findings);
 
     if (d.options.length < MIN_OPTIONS)

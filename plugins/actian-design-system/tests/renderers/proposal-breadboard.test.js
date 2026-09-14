@@ -159,7 +159,13 @@ describe("proposal-breadboard layout", function () {
     assert.deepStrictEqual(offenders, [], offenders.length + " route(s) crossed a box or left the canvas");
   });
 
-  it("keeps two routes sharing the corridor in their own lanes", function () {
+  // Named for what it measures. Lanes separate the corridor run, the arrival point and
+  // the label anchor; they do NOT separate the vertical legs, because outX and inX are
+  // computed from the column alone. On this very board the two routes still share x=354
+  // for 79px and x=762 for 205px, drawn as one line. Cosmetic, and pinning the current
+  // overlap as expected would be asserting the defect, so it is recorded here and filed
+  // rather than frozen. The 72-route sweep above cannot see it: one connection per board.
+  it("gives two routes sharing a corridor their own arrival point and label", function () {
     var places = [[0, 0], [0, 1], [0, 2], [1, 0]].map(function (pos, i) {
       return { id: "abcd"[i], name: "ABCD"[i], app: "studio", row: pos[0], col: pos[1], affordances: ["one"] };
     });

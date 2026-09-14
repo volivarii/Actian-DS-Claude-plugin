@@ -514,4 +514,69 @@ describe("validate-proposal.js CLI", function () {
       "the acceptance document must be clean at every severity, and is not: " +
       all.map(function (f) { return f.severity + " [" + f.check + "] " + f.path + ": " + f.value; }).join(" | "));
   });
+  // Four gaps the whole-branch review found by running inputs nobody had run. Three of
+  // them made this file's own header false: it says every case the renderer throws on is
+  // reported here first, so an author reads a finding and never a stack trace.
+  describe("the gaps between this file and what it says it covers", function () {
+    var A = { id: "a", name: "A", app: "explorer", affordances: ["one"] };
+    var B = { id: "b", name: "B", app: "administration", affordances: ["one"] };
+    function board(places, connections) {
+      var d = load();
+      d.breadboard = { places: places, connections: connections };
+      return d;
+    }
+    function at(place, row, col) {
+      var copy = JSON.parse(JSON.stringify(place));
+      copy.row = row;
+      copy.col = col;
+      return copy;
+    }
+    function breadboardP0s(d) {
+      return only(d, "breadboard").filter(function (f) { return f.severity === "P0"; });
+    }
+
+    it("rejects a connection that leaves and arrives at the same place", function () {
+      var hits = breadboardP0s(board([A, B], [{ from: "a", to: "a", label: "loops" }]));
+      assert.strictEqual(hits.length, 1, "one P0, naming the connection");
+      assert.match(hits[0].path, /connections\[0\]/);
+    });
+
+    it("rejects two places sharing one cell, which the renderer cannot route between", function () {
+      var hits = breadboardP0s(board([at(A, 0, 0), at(B, 0, 0)], [{ from: "a", to: "b", label: "x" }]));
+      assert.strictEqual(hits.length, 1);
+      assert.match(hits[0].path, /places\[1\]/);
+    });
+
+    it("rejects a negative row or col, which the schema's minimum does not", function () {
+      var hits = breadboardP0s(board([at(A, 0, 0), at(B, 0, -1)], [{ from: "a", to: "b", label: "x" }]));
+      assert.strictEqual(hits.length, 1);
+      assert.match(hits[0].path, /places\[1\]/);
+    });
+
+    it("advises when research ran and found nothing, which draws a heading over an empty list", function () {
+      var d = load();
+      d.research = { ran: true, findings: [] };
+      var hits = only(d, "research");
+      assert.strictEqual(hits.length, 1);
+      assert.strictEqual(hits[0].severity, "P1");
+    });
+
+    it("runs terminology over a decision's question, which is its heading", function () {
+      var d = load();
+      d.decisions[0].question = "Which asset owner sees the workflow first?";
+      var hits = validateProposal(d).findings.filter(function (f) {
+        return f.check === "terminology" && f.path.indexOf("question") !== -1;
+      });
+      assert.strictEqual(hits.length, 1, 'the question reaches the gates, not just checkProse');
+      assert.strictEqual(hits[0].found, "owner");
+    });
+
+    // The three P0s above are only worth having if the renderer really does die on them,
+    // which is the claim in this file's header. Asserted, rather than taken on trust.
+    it("names inputs the renderer genuinely throws on", function () {
+      var assembleProposal = require("../../scripts/renderers/assemble-proposal.js").assembleProposal;
+      assert.throws(function () { assembleProposal(board([A, B], [{ from: "a", to: "a", label: "loops" }])); }, /breadboard/);
+      assert.throws(function () { assembleProposal(board([at(A, 0, 0), at(B, 0, 0)], [{ from: "a", to: "b", label: "x" }])); }, /breadboard/);
+    });
+  });
 });

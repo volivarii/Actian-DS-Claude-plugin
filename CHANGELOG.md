@@ -25,7 +25,7 @@ are summarized at the release level.
   (PR link to be added when the PR is opened). `proposal-data.json` loses three top-level keys,
   `approaches`, `comparison` and `recommendation`, and gains `decisions[]`: one to four entries, each
   self-contained with its own `question`, two to four `options[]`, its own `comparison`, and a `pick` of
-  `{ optionId, reasons[{ criterionId, text }], cost }` plus an optional `blocker`. Four more top-level
+  `{ optionId, reasons[{ criterionId, text }], cost }` plus an optional `blocker`. Five more top-level
   keys arrive with it: `answer` (one sentence, what we are doing), `breadboard` (two to six places and
   the lines between them, drawn as inline SVG the assembler computes, so the document still opens
   offline with no script), `change`, `latitude`, and the optional `source` record of the ticket.

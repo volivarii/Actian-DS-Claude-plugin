@@ -164,9 +164,11 @@ are P1 rather than P0 because on rationale prose the right answer is often to ke
 recommendation stands" is English, not the product's Suggestion; "it avoids a new API surface" is not an
 Output port. No regex separates a product noun from its ordinary sense, and these do not try.
 
-So they point, they do not rule. Measured on the acceptance document, seven ordinary sentences drew
-seven hits and every one of them was kept. The whole procedure is the skill's: read each P1, keep or
-change the word, and say in chat which ones you kept and why. Do not silence the gate.
+So they point, they do not rule. The acceptance document draws no hits at all, because its wording was
+settled against them. A real ticket is noisier: the DIP-I-522 run drew twenty P1s, seventeen of which
+were the single word "item", which that ticket uses four times in its own text. Expect repetition, and
+expect to keep the ticket's word. The whole procedure is the skill's: read each P1, keep or change the
+word, and say in chat which ones you kept and why. Do not silence the gate.
 
 ## Run
 
