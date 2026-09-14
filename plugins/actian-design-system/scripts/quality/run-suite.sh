@@ -28,7 +28,24 @@ if [ "$files" -eq 0 ]; then
   exit 1
 fi
 
-find tests -name '*.test.js' -type f -print0 | xargs -0 node --test | tee "$log"
+# Bare `node` resolves under `npm test`, which puts it on PATH, and in CI. It does not
+# resolve on Desktop, where this repo's own rule is never to call it bare. This runner is
+# the one gate that catches a suite crashing on load, so a runner that cannot start is the
+# worst way to fail. resolve-node.sh finds the interpreter the same way every script here does.
+# shellcheck source=../lib/resolve-node.sh
+. "$(dirname "$0")/../lib/resolve-node.sh"
+if [ -z "${NODE_BIN:-}" ]; then
+  echo "SUITE FAILED: resolve-node.sh found no node interpreter." >&2
+  exit 1
+fi
+
+# The reporter is pinned, and that is not cosmetic. Every check below reads TAP: it greps
+# "^# tests" for whether anything ran and "^not ok" for a suite that crashed on load. Node
+# 24 made spec the default reporter, which writes neither (it prints an info line and a
+# check mark), so on a machine resolving to node 24 both greps match nothing and the one
+# gate built to catch a silent pass goes silent itself. Pinning makes the output the same
+# shape on every interpreter and on both sides of a pipe.
+find tests -name '*.test.js' -type f -print0 | xargs -0 "$NODE_BIN" --test --test-reporter=tap | tee "$log"
 status=${PIPESTATUS[1]}
 
 crashed="$(grep -cE '^not ok ' "$log" || true)"
