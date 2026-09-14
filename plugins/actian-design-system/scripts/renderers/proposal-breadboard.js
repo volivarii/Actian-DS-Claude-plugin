@@ -34,17 +34,21 @@ var AFF_STEP = 24;
 var DESCENDER = 15;
 var LABEL_LIFT = 9;   // a connection label sits this far above its segment
 var ARROW_GAP = 4;    // a line leaving an affordance sits just above its baseline
+var CORRIDOR = 32;    // how far outside the diagram a non-adjacent route travels
 
 function boxHeight(n) {
   return (n ? AFF_FIRST + AFF_STEP * (n - 1) : RULE_Y) + DESCENDER;
 }
 
-// "studio/3" -> { id: "studio", aff: 3 }; "studio" -> { id: "studio", aff: 0 }
+// "studio/3" -> { id: "studio", aff: 3, suffixed: true }; "studio" -> { aff: 0 }.
+// suffixed is separate from aff because 0 is falsy: "studio/0" used to read as no suffix
+// at all, so an author who meant the first affordance got a line from the box centre and
+// no complaint. A written suffix is always checked, whatever number it carries.
 function parseEnd(ref) {
   var s = String(ref == null ? "" : ref);
   var slash = s.indexOf("/");
-  if (slash === -1) return { id: s, aff: 0, raw: s };
-  return { id: s.slice(0, slash), aff: Number(s.slice(slash + 1)) || 0, raw: s };
+  if (slash === -1) return { id: s, aff: 0, suffixed: false, raw: s };
+  return { id: s.slice(0, slash), aff: Number(s.slice(slash + 1)), suffixed: true, raw: s };
 }
 
 function layout(board) {
@@ -84,8 +88,9 @@ function layout(board) {
   function need(end) {
     var b = boxes[end.id];
     if (!b) throw new Error('breadboard: connection names place "' + end.raw + '", which does not exist');
-    if (end.aff && !b.affY[end.aff - 1])
-      throw new Error('breadboard: connection names "' + end.raw + '", but that place has ' + b.affY.length + " affordances");
+    if (end.suffixed && !(end.aff >= 1 && end.aff <= b.affY.length))
+      throw new Error('breadboard: connection names "' + end.raw + '", but that place has ' + b.affY.length +
+        " affordances; the index is 1-based");
     return b;
   }
 
@@ -119,35 +124,91 @@ function layout(board) {
       : { side: side, x: Z.x + Z.w * t, y: side === "top" ? Z.y : Z.y + Z.h };
   }
 
-  // Orthogonal router with at most two bends. The exit and entry edges follow
-  // the relative grid position, so a diagram never routes a line back through
-  // a box it did not come from.
+  // Two routes spanning the same column pair used to bend on the identical x, because the
+  // bend was the gutter midpoint and the midpoint depends only on the columns. A label on
+  // one then sat squarely on the other's vertical. Count the routes per gutter and spread
+  // their bends across it; a lone route still bends at the middle.
+  function gutterKey(A, Z) {
+    return Math.min(A.col, Z.col) + ":" + Math.max(A.col, Z.col);
+  }
+  var gutterUse = {};
+  connections.forEach(function (c) {
+    var A = need(parseEnd(c.from));
+    var Z = need(parseEnd(c.to));
+    if (A.col === Z.col) return;
+    var k = gutterKey(A, Z);
+    gutterUse[k] = (gutterUse[k] || 0) + 1;
+  });
+  var gutterPlaced = {};
+  function bendX(A, Z) {
+    var left = A.col < Z.col ? A : Z;
+    var right = A.col < Z.col ? Z : A;
+    var from = left.x + left.w;
+    var span = right.x - from;
+    var k = gutterKey(A, Z);
+    var n = gutterUse[k];
+    var i = gutterPlaced[k] || 0;
+    gutterPlaced[k] = i + 1;
+    return from + span * ((i + 1) / (n + 1));
+  }
+
+  var baseWidth = maxCol * (BOX_W + GAP_X) + BOX_W;
+  var corridor = { h: false, v: false };
+  var corridorY = height + CORRIDOR;
+  var corridorX = baseWidth + CORRIDOR;
+
+  // Orthogonal router. The exit and entry edges follow the relative grid position, so a
+  // diagram never routes a line back through a box it did not come from.
+  //
+  // Between adjacent cells every bend lands in a gutter, which is empty by construction.
+  // Between NON-adjacent cells it does not: a run from column 0 to column 2 crossed
+  // whatever sat in column 1, for the full width of that box, on any board of that shape.
+  // Those routes travel in a corridor outside the diagram instead, which is always free,
+  // and the canvas grows to hold it.
   var edges = connections.map(function (c) {
     var a = parseEnd(c.from);
     var z = parseEnd(c.to);
     var A = need(a);
     var Z = need(z);
     var e = entry(A, Z, z);
-    var yA = a.aff ? A.affY[a.aff - 1] - ARROW_GAP : A.y + A.h / 2;
+    var yA = a.suffixed ? A.affY[a.aff - 1] - ARROW_GAP : A.y + A.h / 2;
     var yZ = e.y;
+    var dCol = Z.col - A.col;
+    var dRow = Z.row - A.row;
     var pts;
-    if (Z.col > A.col) {
-      var mx = (A.x + A.w + Z.x) / 2;
+    var labelAnchor = null;
+    if (Math.abs(dCol) > 1) {
+      corridor.h = true;
+      var ax = A.x + A.w / 2;
+      var zx = Z.x + Z.w / 2;
+      pts = [[ax, A.y + A.h], [ax, corridorY], [zx, corridorY], [zx, Z.y + Z.h]];
+      labelAnchor = { x: (ax + zx) / 2, y: corridorY - LABEL_LIFT, anchor: "middle" };
+    } else if (dCol === 0 && Math.abs(dRow) > 1) {
+      corridor.v = true;
+      pts = [[A.x + A.w, yA], [corridorX, yA], [corridorX, yZ], [Z.x + Z.w, yZ]];
+      labelAnchor = { x: corridorX + 8, y: (yA + yZ) / 2, anchor: "start" };
+    } else if (dCol > 0) {
+      var mx = bendX(A, Z);
       pts = yA === yZ ? [[A.x + A.w, yA], [e.x, yZ]] : [[A.x + A.w, yA], [mx, yA], [mx, yZ], [e.x, yZ]];
-    } else if (Z.col < A.col) {
-      var mx2 = (Z.x + Z.w + A.x) / 2;
+    } else if (dCol < 0) {
+      var mx2 = bendX(A, Z);
       pts = yA === yZ ? [[A.x, yA], [e.x, yZ]] : [[A.x, yA], [mx2, yA], [mx2, yZ], [e.x, yZ]];
-    } else if (Z.row > A.row) {
+    } else if (dRow > 0) {
       pts = [[e.x, A.y + A.h], [e.x, e.y]];
-    } else if (Z.row < A.row) {
+    } else if (dRow < 0) {
       pts = [[e.x, A.y], [e.x, e.y]];
     } else {
       throw new Error('breadboard: connection from "' + a.raw + '" to "' + z.raw + '" joins one cell to itself');
     }
-    return { points: pts, label: c.label, isNew: !!c.isNew };
+    return { points: pts, label: c.label, isNew: !!c.isNew, labelAnchor: labelAnchor };
   });
 
-  return { width: maxCol * (BOX_W + GAP_X) + BOX_W, height: height, boxes: boxes, edges: edges };
+  return {
+    width: baseWidth + (corridor.v ? CORRIDOR + 80 : 0),
+    height: height + (corridor.h ? CORRIDOR + LABEL_LIFT : 0),
+    boxes: boxes,
+    edges: edges,
+  };
 }
 
 function ariaLabel(board, l) {
@@ -195,6 +256,10 @@ function edgeSvg(e) {
     var minY = Math.min.apply(null, ys);
     var maxY = Math.max.apply(null, ys);
     var text = esc(String(e.label).toUpperCase());
+    if (e.labelAnchor) {
+      return out + '<text class="bb__label" text-anchor="' + e.labelAnchor.anchor + '" x="' + e.labelAnchor.x +
+        '" y="' + e.labelAnchor.y + '">' + text + "</text>";
+    }
     out += maxX === minX
       ? '<text class="bb__label" text-anchor="start" x="' + (minX + 8) + '" y="' + ((minY + maxY) / 2) + '">' + text + "</text>"
       : '<text class="bb__label" text-anchor="middle" x="' + ((minX + maxX) / 2) + '" y="' + (minY - LABEL_LIFT) + '">' + text + "</text>";

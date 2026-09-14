@@ -100,6 +100,88 @@ describe("proposal-breadboard layout", function () {
     assert.strictEqual(into.points[into.points.length - 1][1], l.boxes.group.y + l.boxes.group.h / 2);
   });
 
+  // Every bend between adjacent cells lands in a gutter, which is empty by construction.
+  // Between non-adjacent cells it did not: a run from column 0 to column 2 crossed whatever
+  // sat in column 1, for the full width of that box, on every board of that shape.
+  it("never runs a route through a box that is not its own end", function () {
+    function crossings(board) {
+      var l = bb.layout(board);
+      var c = board.connections[0];
+      var ends = [String(c.from).split("/")[0], c.to];
+      var hits = [];
+      for (var i = 0; i < l.edges[0].points.length - 1; i++) {
+        var p = l.edges[0].points[i];
+        var q = l.edges[0].points[i + 1];
+        Object.keys(l.boxes).forEach(function (id) {
+          if (ends.indexOf(id) !== -1) return;
+          var b = l.boxes[id];
+          if (Math.min(p[0], q[0]) < b.x + b.w && Math.max(p[0], q[0]) > b.x &&
+              Math.min(p[1], q[1]) < b.y + b.h && Math.max(p[1], q[1]) > b.y) hits.push(id);
+        });
+      }
+      return hits;
+    }
+    function three(positions) {
+      return {
+        places: positions.map(function (pos, i) {
+          return { id: "abc"[i], name: "ABC"[i], app: "studio", row: pos[0], col: pos[1], affordances: ["x"] };
+        }),
+        connections: [{ from: "a", to: "c", label: "skips" }],
+      };
+    }
+    assert.deepStrictEqual(crossings(three([[0, 0], [0, 1], [0, 2]])), [], "a column skip clears the box between");
+    assert.deepStrictEqual(crossings(three([[0, 0], [1, 0], [2, 0]])), [], "a row skip clears the box between");
+    assert.deepStrictEqual(crossings(three([[0, 0], [0, 1], [1, 2]])), [], "a diagonal skip clears it too");
+  });
+
+  it("grows the canvas to hold the corridor a long route travels in", function () {
+    var near = { places: [
+      { id: "a", name: "A", app: "studio", row: 0, col: 0, affordances: ["x"] },
+      { id: "b", name: "B", app: "studio", row: 0, col: 1, affordances: ["x"] },
+    ], connections: [{ from: "a", to: "b" }] };
+    var far = { places: [
+      { id: "a", name: "A", app: "studio", row: 0, col: 0, affordances: ["x"] },
+      { id: "b", name: "B", app: "studio", row: 0, col: 1, affordances: ["x"] },
+      { id: "c", name: "C", app: "studio", row: 0, col: 2, affordances: ["x"] },
+    ], connections: [{ from: "a", to: "c" }] };
+    var n = bb.layout(near);
+    var f = bb.layout(far);
+    assert.strictEqual(n.height, n.boxes.a.h, "an adjacent route needs no corridor, so no extra height");
+    assert.ok(f.height > f.boxes.a.h, "a long route does, and the canvas grows for it");
+    f.edges[0].points.forEach(function (p) {
+      assert.ok(p[1] <= f.height, "and the route stays inside the canvas");
+    });
+  });
+
+  it("spreads two routes across one gutter instead of bending them on the same line", function () {
+    var b = { places: [
+      { id: "a", name: "A", app: "studio", row: 0, col: 0, affordances: ["x", "y"] },
+      { id: "c", name: "C", app: "studio", row: 0, col: 1, affordances: ["x"] },
+      { id: "d", name: "D", app: "studio", row: 1, col: 0, affordances: ["x"] },
+    ], connections: [{ from: "a/2", to: "c", label: "carries" }, { from: "d", to: "c", label: "resolves via" }] };
+    var l = bb.layout(b);
+    var bends = l.edges.map(function (e) { return e.points.length === 4 ? e.points[1][0] : null; });
+    assert.ok(bends[0] !== null && bends[1] !== null, "both routes bend");
+    assert.notStrictEqual(bends[0], bends[1], "on different lines, so a label on one clears the other");
+    bends.forEach(function (x) {
+      assert.ok(x > l.boxes.a.x + l.boxes.a.w && x < l.boxes.c.x, "each bend stays inside the gutter");
+    });
+  });
+
+  it("refuses an affordance index of zero, which used to pass as no index at all", function () {
+    function conn(ref) {
+      return { places: [
+        { id: "s", name: "S", app: "studio", row: 0, col: 0, affordances: ["a", "b", "c"] },
+        { id: "z", name: "Z", app: "studio", row: 0, col: 1, affordances: ["a"] },
+      ], connections: [{ from: ref, to: "z" }] };
+    }
+    assert.throws(function () { bb.layout(conn("s/0")); }, /breadboard:.*s\/0.*1-based/);
+    assert.throws(function () { bb.layout(conn("s/-1")); }, /breadboard:/);
+    assert.throws(function () { bb.layout(conn("s/4")); }, /breadboard:/);
+    assert.doesNotThrow(function () { bb.layout(conn("s/3")); }, "the last affordance is valid");
+    assert.doesNotThrow(function () { bb.layout(conn("s")); }, "and no suffix still means the box centre");
+  });
+
   it("refuses a connection naming a place or an affordance that does not exist", function () {
     var bad = board();
     bad.connections.push({ from: "studio", to: "nowhere" });
