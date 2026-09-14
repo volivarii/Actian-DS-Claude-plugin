@@ -236,6 +236,22 @@ acceptance document names, in the same order; on DIP-I-522 it named three where
 the 2026-09-13 run, written before `decisions[]` existed, had a single question
 slot and filled it once.
 
+**That comparison does not discharge Rule 1, and the person who made it said so
+first.** Three of its six decompositions were contaminated: the evaluation
+schema's `examples` and the design spec both print those decisions verbatim, and
+the author had read both before writing. So the comparison is evidence that the
+machinery and the prose work, and it is not evidence that the stage names what a
+careful author names. What is still owed is a run by a session that has read only
+the skill. That is the same check this file already asks for against `2026.9.28`
+and the `scope` field, so it is one run, not two: install the release, run
+`/design-proposal` on a real ticket, and read what the agent authored.
+
+The one piece of independent support, which is worth more than either half alone:
+a second agent, reviewing the skill's prose and working from the DIP-I-522 ticket
+text alone, reached three questions matching the spec's worked example, and found
+that two of its three name subjects the hand-authored file had demoted into a goal
+and an open question.
+
 ## Teaching case — v1.71.0 → v1.71.1
 
 What shipped in v1.71.0:

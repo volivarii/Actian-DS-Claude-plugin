@@ -10,9 +10,9 @@
  *
  * Checks: old-shape (P0), retired-key (P0), schema (P0), bounds (P0),
  * app-unknown (P0 on meta.apps and on an anchor, P1 on screens[].app),
- * research (P0), stage (P0 on a field an evaluation must not carry, a question
- * that is not one, or a repeated question; P1 on an ungrounded evaluation with
- * nothing open), pick (P0: an optionId or a criterionId that names nothing in
+ * research (P0), stage (P0 on a field an evaluation must not carry, a missing
+ * source.system, id or body, a question that is not one, a repeated question, or
+ * research claiming to have run; P1 on an ungrounded evaluation with nothing open), pick (P0: an optionId or a criterionId that names nothing in
  * its OWN decision, and an empty cost), breadboard (P0 on a connection naming
  * nothing, P1 when absent across apps), unbalanced (P0), script (P0),
  * external-load (P0), decision (P1), option-width (P1), latitude (P1),
@@ -154,8 +154,9 @@ function checkProse(text, approachId, p, findings) {
 // What a proposal may carry and an evaluation may not is the difference between the two
 // schemas, so it is read from them rather than restated here. A list written out by hand
 // is a claim about another file, and this file has already shipped one of those that was
-// wrong about three of six entries. Add a field to the proposal schema and the evaluation
-// rejects it the day it lands, with nobody remembering to come back to this line.
+// wrong about three of six entries. Add a field to the proposal schema, at the root, under
+// a decision or under meta, and the evaluation rejects it the day it lands, with nobody
+// remembering to come back to this line.
 function forbiddenAtEvaluation() {
   var pr = JSON.parse(fs.readFileSync(path.join(SCHEMA_DIR, "proposal-data.schema.json"), "utf8"));
   var ev = JSON.parse(fs.readFileSync(path.join(SCHEMA_DIR, "proposal-evaluation.schema.json"), "utf8"));
@@ -165,6 +166,11 @@ function forbiddenAtEvaluation() {
   return {
     root: extra(pr, ev),
     decision: extra(pr.properties.decisions.items, ev.properties.decisions.items),
+    // meta is the one shared node the strict-prefix test cannot compare, because `stage`
+    // is required here and not there, so a property added under the proposal's meta had
+    // nothing covering it from either side. Diffed the same way, minus the discriminator
+    // that is the only reason the node differs at all.
+    meta: extra(pr.properties.meta, ev.properties.meta).filter(function (k) { return k !== "stage"; }),
   };
 }
 
@@ -224,6 +230,10 @@ function validateProposal(data) {
     forbidden.root.forEach(function (key) {
       if (data[key] !== undefined)
         findings.push(finding("P0", "stage", "", key, "an evaluation carries no " + key, "", 'drop it, or set meta.stage to "proposal" and finish the file'));
+    });
+    forbidden.meta.forEach(function (key) {
+      if ((data.meta || {})[key] !== undefined)
+        findings.push(finding("P0", "stage", "", "meta." + key, "an evaluation carries no meta." + key, "", 'drop it, or set meta.stage to "proposal" and finish the file'));
     });
     data.decisions.forEach(function (d, di) {
       forbidden.decision.forEach(function (key) {
@@ -324,7 +334,7 @@ function validateProposal(data) {
   if (data.research.ran === false && data.research.findings.length > 0)
     findings.push(finding("P1", "research", "", "research.findings", "findings present while ran is false; they are not rendered", "", "set ran true or empty the findings"));
   if (stage === "evaluation" && data.research.ran === true)
-    findings.push(finding("P0", "stage", "", "research.ran", "an evaluation has not researched anything yet", "", 'set ran false with a skippedBecause; research runs on the resume, against the decisions this names'));
+    findings.push(finding("P0", "stage", "", "research.ran", "an evaluation has not researched anything yet", "", 'set ran false with a skippedBecause. If you are resuming and have just run the research, this file is a proposal now: set meta.stage to "proposal" and keep the findings'));
   if (data.research.ran === true && data.research.findings.length === 0)
     findings.push(finding("P1", "research", "", "research.findings", "ran is true and nothing was found; the document draws the heading over an empty list", "", "set ran false with a skippedBecause, or record what the research found"));
   data.research.findings.forEach(function (f, i) { checkProse(f.claim, "", "research.findings[" + i + "].claim", findings); });

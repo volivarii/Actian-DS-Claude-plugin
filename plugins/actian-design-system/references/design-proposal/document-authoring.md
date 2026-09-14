@@ -29,6 +29,11 @@ numbered, the scope in one line, anything the product read could not ground, and
 `--evaluate` is accepted and does nothing, research being off already. `--from` alongside it is refused
 in one line: `--from` runs the other way, and re-evaluating a ticket is another `--evaluate`.
 
+**Research has not run yet, and saying it has is a P0.** `research.ran` is false at this stage with
+a `skippedBecause`; the resume runs the research, aimed at the decisions this file names. That order
+is the reason the stage exists, so claiming research at this stage is refused like any other field
+an evaluation does not carry.
+
 **What it draws.** Expect terminology and avoid-word P1s at this stage too, and expect most of them
 on the ticket's own words: they run over `context.question`, `context.product[]`, `scope.goals[]`,
 `decisions[].question` and `openQuestions[].text`, which is most of what an evaluation is. Read the

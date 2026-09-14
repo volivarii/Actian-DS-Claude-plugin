@@ -665,6 +665,38 @@ describe("the evaluation stage gates", function () {
     });
   });
 
+  // meta had no cover from either side: the derivation skipped it, and the strict-prefix
+  // test in the schema suite deliberately omits it because `stage` is required at one
+  // stage and not the other. A property added under the proposal's meta validated clean on
+  // an evaluation and every suite stayed green. This test is written so it needs no edit
+  // when that happens for real: it adds the property to the schema itself, in memory.
+  it("forbids a meta field the proposal schema gains and the evaluation schema does not", function () {
+    var probe = { type: "string", description: "a property meta gains later", examples: ["x"] };
+    var schemaPath = path.join(ROOT, "schemas", "proposal-data.schema.json");
+    var original = fs.readFileSync(schemaPath, "utf8");
+    var doc = JSON.parse(original);
+    doc.properties.meta.properties.addedLater = probe;
+    fs.writeFileSync(schemaPath, JSON.stringify(doc, null, 2) + "\n");
+    try {
+      var d = evaluation();
+      d.meta.addedLater = "x";
+      var hits = validateProposal(d).findings.filter(function (f) {
+        return f.check === "stage" && f.path === "meta.addedLater";
+      });
+      assert.strictEqual(hits.length, 1,
+        "a property under the proposal's meta is not carried by an evaluation and nothing rejected it");
+    } finally {
+      fs.writeFileSync(schemaPath, original);
+    }
+    assert.strictEqual(fs.readFileSync(schemaPath, "utf8"), original, "the schema is back as it was");
+  });
+
+  it("does not forbid meta.stage itself, which is the discriminator", function () {
+    var d = evaluation();
+    var hits = validateProposal(d).findings.filter(function (f) { return f.path === "meta.stage"; });
+    assert.deepStrictEqual(hits, [], "the field that says which stage this is cannot be forbidden by the stage");
+  });
+
   it("forbids every decision field the proposal schema has and the evaluation schema does not", function () {
     var pr = PROPOSAL_SCHEMA.properties.decisions.items;
     var ev = EVALUATION_SCHEMA.properties.decisions.items;

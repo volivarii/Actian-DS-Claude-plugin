@@ -53,6 +53,10 @@ var ROOT_PREFIXES = [
   "agents/",
   "tests/",
   "release-notes/",
+  // schemas/ was missing, so every bare schemas/... path written in prose had no declared
+  // root and nothing checked it. A brace glob naming two schema files sat in the skill's
+  // References list resolving to nothing, and this gate could not see it twice over.
+  "schemas/",
 ];
 
 // ---------------------------------------------------------------------------

@@ -130,7 +130,7 @@ are summarized at the release level.
   `change` optional so one schema covered both would have stopped enforcing the finished document's
   contract at all, which is the thing that has kept it honest.
 
-  **Five new gates, at the evaluation stage only.** A file at `stage: "evaluation"` carrying `options`,
+  **Six new gates, at the evaluation stage only.** A file at `stage: "evaluation"` carrying `options`,
   `comparison`, `pick`, `answer`, `change`, `latitude`, `breadboard` or a decision's `blocker` is a P0
   naming the field, because a half-filled evaluation is a file lying about where it is and the resume
   would then skip work that was never done; the forbidden set is derived from the difference between the
@@ -143,13 +143,17 @@ are summarized at the release level.
   shape of a confident answer to a question nobody checked. What is *right* is not gated. Whether these
   are the questions the feature forces, whether one of them is two, whether a fifth was missed: no gate
   can read that, and one that pretended to would be a mechanism credited with work it does not do.
+  An evaluation that sets `research.ran` true is a P0 too: research runs on the resume, aimed at
+  the decisions the evaluation named, which is the reason the stage exists. It is the one stage
+  lie the derived set cannot catch, because `research` is a node both schemas carry.
 
   **For contributors: the `Checks:` list in `validate-proposal.js`'s header is now a gate.** A test
   parses that block and compares it, in both directions, against the check names the file actually
   emits, so adding a `finding()` call with a new check name without listing it in the header, or listing
   one the file no longer emits, turns the suite red. It also asserts every call site passes its severity
   and check name as literals, which is what the header gate can see. That header had already been wrong
-  once; it is no longer a comment you can forget.
+  once; the list of check NAMES is no longer a comment you can forget. What each name's
+  parenthetical claims is still prose, and was incomplete twice before this shipped.
 
 - **design-proposal states its scope and its uncertainty** ([#377](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/377)):
   a proposal now carries a required `scope` (one to four goals, one to four non-goals) and an
