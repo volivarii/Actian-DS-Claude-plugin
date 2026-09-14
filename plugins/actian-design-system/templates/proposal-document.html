@@ -195,6 +195,14 @@
        tag: four treatments where one idea was being explained. */
     .option__notes { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); }
 
+    /* What the drawing is made of. Built from is quiet: composing the system is the ordinary
+       case and does not need announcing. Adds is not quiet, because a proposal that needs a
+       component the system does not have is proposing work nobody has costed, and a reader
+       should meet that beside the drawing rather than in a build ticket weeks later. */
+    .option__built { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); }
+    .option__adds { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 6px 8px; }
+    .option__adds-kind { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-brand-dark); }
+
     /* A decision block runs proposal, alternatives, evidence. The proposal is a two-column
        row: the drawing on the left at the width the author asked for, the case for it on the
        right, so a reader meets the answer and its argument together instead of reconstructing

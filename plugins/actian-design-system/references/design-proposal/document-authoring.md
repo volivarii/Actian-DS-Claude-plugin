@@ -215,6 +215,36 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
 - **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
   not the drawing; `note` says what the option changes on that page.
 
+## Draw the design system, or say what you are adding
+
+Every option declares what its drawing is made of, and the validator resolves the claim against
+the vendored component snapshot:
+
+- **`uses`**: the component slugs the drawing composes. A slug the snapshot does not know is a
+  **P0**, because an invented name wearing the shape of a real one is the exact failure this
+  gate exists to catch, and the one a reader is least able to see.
+- **`adds`**: `{ component, why }` for a mechanism the system does not have. This is not a
+  failure. A proposal may argue for a new or changed component; it has to say so, because that
+  is uncosted work and a reader should meet it beside the drawing rather than in a build ticket
+  weeks later. A name the snapshot already knows draws a P1: then it is not an addition.
+- Neither is a **P1**. A drawing that names nothing has not been checked against anything.
+
+List the inventory before you draw, not after:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" -e 'console.log(require(process.env.CLAUDE_PLUGIN_ROOT+"/scripts/lib/ds-components.js").componentList().join(", "))'
+```
+
+**Why this is a gate and not advice.** The failure it catches is silent. A drawing that invents a
+label, a summary line and a small table renders beautifully, validates clean against every other
+check, and reads as a design; the first mechanism that notices the system was never consulted is
+a design lead looking at the finished document. Advice in a reference is read once, by an author
+who is already confident. A P0 fires every time.
+
+The document prints `Built from <slugs>` quietly under each drawing, and prints an `adds` entry
+loudly, in the brand colour, because those are two different messages.
+
 ## The document proposes; the reader decides
 
 Nothing a reader sees says the decision has been made. The summary is **What we propose**, a

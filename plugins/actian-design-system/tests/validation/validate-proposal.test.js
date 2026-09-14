@@ -49,6 +49,58 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(f.length, STANDING.length, JSON.stringify(f, null, 1));
     assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1"], JSON.stringify(f, null, 1));
   });
+  describe("composition: what a drawing is built from", function () {
+    function findings(mutate) {
+      var d = load();
+      mutate(d);
+      return validateProposal(d).findings.filter(function (f) { return f.check === "composition"; });
+    }
+
+    it("passes an option that names components the vendored snapshot knows", function () {
+      var f = findings(function (d) {
+        d.decisions[0].options[0].uses = ["read-only-tag", "tooltip-default"];
+      });
+      assert.deepStrictEqual(f, [], "real slugs draw nothing: " + JSON.stringify(f));
+    });
+
+    it("is a P0 on a slug the snapshot does not know, and says what it might have meant", function () {
+      var f = findings(function (d) {
+        d.decisions[0].options[0].uses = ["read-only-tag", "read-only-summary-row"];
+      });
+      assert.strictEqual(f.length, 1, "one finding: " + JSON.stringify(f));
+      assert.strictEqual(f[0].severity, "P0", "an invented name wearing a real shape is the failure this exists to catch");
+      assert.ok(f[0].value.indexOf("read-only-summary-row") !== -1, "it names the slug");
+      assert.ok(/did you mean .*read-only-tag/.test(f[0].suggestion), "and points at the nearest real one: " + f[0].suggestion);
+    });
+
+    it("is a P1 when an option declares neither what it uses nor what it adds", function () {
+      var f = findings(function (d) { delete d.decisions[0].options[0].uses; });
+      assert.strictEqual(f.length, 1);
+      assert.strictEqual(f[0].severity, "P1");
+      assert.ok(/names no component/.test(f[0].value), f[0].value);
+    });
+
+    it("lets an option argue for something the system does not have", function () {
+      var f = findings(function (d) {
+        delete d.decisions[0].options[0].uses;
+        d.decisions[0].options[0].adds = [
+          { component: "access summary row", why: "no component holds a computed union over several groups" },
+        ];
+      });
+      assert.deepStrictEqual(f, [], "a declared addition is a proposal, not an error: " + JSON.stringify(f));
+    });
+
+    it("is a P1 when a claimed addition already exists", function () {
+      var f = findings(function (d) {
+        delete d.decisions[0].options[0].uses;
+        d.decisions[0].options[0].adds = [{ component: "read-only-tag", why: "we need a tag" }];
+      });
+      assert.strictEqual(f.length, 1);
+      assert.strictEqual(f[0].severity, "P1");
+      assert.ok(/move it to uses/.test(f[0].suggestion), f[0].suggestion);
+    });
+  });
+
   it("schema errors are P0 (check schema) and stop the other checks", function () {
     var f = validateProposal(withMutation(function (d) { delete d.decisions[0].comparison; })).findings;
     assert.ok(f.length >= 1 && f.every(function (x) { return x.check === "schema" && x.severity === "P0"; }), JSON.stringify(f));

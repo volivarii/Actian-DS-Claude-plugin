@@ -173,6 +173,20 @@ function briefingHtml(data) {
   return section("The briefing", inner);
 }
 
+// What a drawing is made of, printed where a reader can see it. "Built from" is quiet, and
+// is the ordinary case. "Adds" is not quiet: a proposal that needs a component the system
+// does not have is proposing work nobody has costed, and that belongs beside the drawing
+// rather than in a build ticket three weeks later.
+function compositionHtml(o) {
+  var out = "";
+  if ((o.uses || []).length)
+    out += '<p class="option__built">Built from ' + o.uses.map(esc).join(", ") + "</p>";
+  (o.adds || []).forEach(function (a) {
+    out += '<p class="option__adds"><span class="option__adds-kind">Adds</span> ' + esc(a.component) + ". " + esc(a.why) + "</p>";
+  });
+  return out;
+}
+
 function optionHtml(o, index, apps, width, lead) {
   if (!apps[o.anchor.app])
     throw new Error('proposal-data: unknown app "' + o.anchor.app + '" in option "' + o.id + '"; known: ' + Object.keys(apps).join(", "));
@@ -202,7 +216,7 @@ function optionHtml(o, index, apps, width, lead) {
     '<div class="proposal-screen" data-name="' + esc(o.id) + '" style="width:' + width + 'px">' + strip +
     '<div class="proposal-screen__body">' + o.screen.html + "</div></div>" + notes +
     '<p class="approach__lines">' + esc(o.whatItIs) + '<br><span class="approach__breaks">Breaks when.</span> ' + esc(o.breaksWhen) + "</p>" +
-    verdict +
+    compositionHtml(o) + verdict +
     "</div>\n"
   );
 }

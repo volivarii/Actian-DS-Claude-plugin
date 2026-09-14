@@ -66,6 +66,11 @@
             "app": "explorer",
             "surface": "account menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "One plain text line under the email, showing the group's display name.",
           "breaksWhen": "A user in more than one group: one line cannot list several names without wrapping.",
           "verdict": "Simple, caps at one group",
@@ -90,6 +95,11 @@
             "app": "explorer",
             "surface": "account menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "Each assigned group as a small pill under the email.",
           "breaksWhen": "A user in many groups: the pills wrap into a paragraph.",
           "verdict": "Scans well, scales to a few groups",
@@ -114,6 +124,12 @@
             "app": "explorer",
             "surface": "account menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag",
+            "tooltip-default"
+          ],
           "whatItIs": "A collapsible row that expands to every group, the catalogs it covers and a link to its guidelines.",
           "breaksWhen": "One group, one catalog: the row is heavier than the answer needs.",
           "verdict": "Full picture, costs one click",

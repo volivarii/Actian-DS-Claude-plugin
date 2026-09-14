@@ -302,6 +302,26 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(w, budget, n + " options fit at " + budget + ", so 720 is capped");
   });
 
+  it("prints what each drawing is built from, and makes a new component loud", function () {
+    var d = load();
+    d.decisions[0].options[0].uses = ["read-only-tag", "tooltip-default"];
+    delete d.decisions[0].options[1].uses;
+    d.decisions[0].options[1].adds = [
+      { component: "access summary row", why: "no component holds a computed union over several groups" },
+    ];
+    var out = assembleProposal(d);
+    assert.ok(at(out, "Built from read-only-tag, tooltip-default") !== -1, "the ordinary case is stated plainly");
+    assert.ok(at(out, "access summary row. no component holds a computed union") !== -1, "an addition names itself and why");
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function rule(sel) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, sel);
+      return tpl.slice(i, tpl.indexOf("}", i));
+    }
+    assert.ok(rule(".option__built").indexOf("--fm-text-tertiary") !== -1, "built-from is quiet");
+    assert.ok(rule(".option__adds").indexOf("--fm-brand") !== -1, "an addition is not, because it is uncosted work");
+  });
+
   it("prints an option's annotations as one quiet run, not an uppercase list", function () {
     var d = load();
     d.decisions[0].options[0].screen.notes = ["Group name, not its id", "One row, always"];

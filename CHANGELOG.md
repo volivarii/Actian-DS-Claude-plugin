@@ -19,6 +19,22 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **A proposal's drawings compose the design system, and the validator checks that they do**
+  (PR link to be added when the PR is opened). An option declares `uses`, the component slugs its
+  drawing composes, or `adds` (`component` and `why`) when the system genuinely has no mechanism:
+  a proposal may still argue for a new or changed component, it just has to say so, and the
+  document prints that loudly because it is uncosted work. A slug the vendored snapshot does not
+  know is a **P0**, because an invented name wearing the shape of a real one is the failure this
+  exists to catch and the one a reader is least able to see; an option declaring neither is a P1.
+  `scripts/lib/ds-components.js` reads the vendored anatomy snapshot, and a missing snapshot
+  checks nothing rather than failing every slug. The document prints `Built from <slugs>` quietly
+  under each drawing. The failure this closes was silent: a drawing that invented a label, a
+  summary line and a small table rendered beautifully, passed every other gate, and the first
+  mechanism to notice the design system had never been consulted was a design lead reading the
+  finished document.
+
 ### Changed
 
 - **A proposal leads with the proposal, and never tells a reader the decision is made**

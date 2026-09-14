@@ -62,6 +62,11 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "A line under the email.",
           "breaksWhen": "Two groups crowd it.",
           "verdict": "Caps at one",
@@ -87,6 +92,11 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "A pill per group.",
           "breaksWhen": "Many groups wrap.",
           "verdict": "Scans, then wraps",
@@ -112,6 +122,12 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag",
+            "tooltip-default"
+          ],
           "whatItIs": "A row expanding to every group.",
           "breaksWhen": "Heavier than one group needs.",
           "verdict": "Complete, one click",
@@ -220,6 +236,11 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "The badge prints the stored name.",
           "breaksWhen": "Usually a technical key.",
           "verdict": "Free, unreadable",
@@ -246,6 +267,10 @@
             "surface": "create group form",
             "place": "group-form"
           },
+          "uses": [
+            "page-header",
+            "text-input"
+          ],
           "whatItIs": "A second field on the group form.",
           "breaksWhen": "Left empty, the key shows.",
           "verdict": "Readable, needs filling",
@@ -341,6 +366,11 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag"
+          ],
           "whatItIs": "The badge names the group.",
           "breaksWhen": "False where it grants nothing.",
           "verdict": "Short, sometimes false",
@@ -367,6 +397,12 @@
             "surface": "account menu",
             "place": "account-menu"
           },
+          "uses": [
+            "global-header-account-dropdown",
+            "avatar",
+            "read-only-tag",
+            "item-type-tag"
+          ],
           "whatItIs": "Each group carries its catalogs.",
           "breaksWhen": "Ten catalogs will not fit.",
           "verdict": "True, costs width",
