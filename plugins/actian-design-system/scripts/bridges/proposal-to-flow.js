@@ -257,7 +257,8 @@ function checkAnchors(data, selected, findings) {
     } else {
       findings.push(finding("P1", "anchor", p,
         "the document draws a terrain and this anchor names no place on it",
-        "set anchor.place to a breadboard place id; without it this screen keeps declaration order"));
+        "set anchor.place to a breadboard place id; without it this option does not help order " +
+          "the screen, which then follows a place another source names, or declaration order if none does"));
     }
   });
 }
