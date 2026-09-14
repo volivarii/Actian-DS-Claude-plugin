@@ -13,8 +13,9 @@
  * research (P0), stage (P0 on a field an evaluation must not carry, a missing
  * source.system, id or body, a question that is not one, a repeated question, or
  * research claiming to have run; P1 on an ungrounded evaluation with nothing open), pick (P0: an optionId or a criterionId that names nothing in
- * its OWN decision, and an empty cost), breadboard (P0 on a connection naming
- * nothing, P1 when absent across apps), unbalanced (P0), script (P0),
+ * its OWN decision, and an empty cost), breadboard (P0 on the board, or a connection or anchor.place that is
+ * malformed or resolves to nothing, P1 wherever the document says less about
+ * the terrain than it could), unbalanced (P0), script (P0),
  * external-load (P0), decision (P1), option-width (P1), latitude (P1),
  * template-unknown (P1), entity-unknown (P1), hardcoded-color (P1),
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
@@ -402,6 +403,8 @@ function validateProposal(data) {
       findings.push(finding("P1", "breadboard", "", "breadboard", "the ticket spans " + data.meta.apps.length + " apps and the document draws no terrain", "", "add breadboard { places, connections }; a cross-app shape is what prose fails on"));
     }
   }
+  // boardPlaceIds is complete by here; computed once rather than once per option below.
+  var boardPlaces = Object.keys(boardPlaceIds);
 
   // decisions
   var decisionIds = Object.create(null);
@@ -447,7 +450,6 @@ function validateProposal(data) {
         // same list, resolved against the same map. Absent while a board is drawn is advice,
         // not a refusal, because the flow bridge then orders by declaration order and the
         // author is the one who should decide whether that is the order they meant.
-        var boardPlaces = Object.keys(boardPlaceIds);
         if (o.anchor.place) {
           if (!boardPlaceIds[o.anchor.place])
             findings.push(finding("P0", "breadboard", o.id, op + ".anchor.place", o.anchor.place + " names no place", o.anchor.place, boardPlaces.length ? "one of " + boardPlaces.join(", ") : "the document draws no breadboard; add one, or drop anchor.place"));
