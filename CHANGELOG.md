@@ -19,6 +19,29 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **The proposal document reads as sections, says less twice, and cites the substrate at the end**
+  (PR link to be added when the PR is opened). Three things a reader hit on the DIP-I-496 run.
+  The answer block listed every question and pick, and "What we decided" listed them again with the
+  cost added: measured on that document, each question was printed three times and each pick five.
+  The answer is now one sentence and the table is the only summary. A section's name ("The briefing",
+  "The terrain") was set at the same size and weight as a decision's question, so a three-decision
+  document had ten headings at one volume; section names are now uppercase labels and the only
+  elements at question scale are the answer and one question per decision, with more air between two
+  sections than inside one and a heavier rule on the decisions, which are the argument. And
+  `context.sources` was a semicolon-joined run-on inside the briefing; it is now **Where this came
+  from**, the last section before the latitude line, one row per source with the schema's own prefix
+  as the row's kind. `context.gap` stays in the briefing, beside the facts it qualifies.
+- **A comparison marks the picked column where the evidence is read**
+  (PR link to be added when the PR is opened). The table gave no sign which option had won, so a
+  reader scanned every column and learned the answer in the paragraph below it. The picked column
+  carries a tint and the word `Picked` in its header, a word as well as a colour so it holds in
+  greyscale and in print, the same reason every cell already carries a glyph. The briefing and
+  "What this changes" drop from four narrow columns to two capped at the measure, which makes their
+  pairs visible: goals with non-goals is the scope, the product read with the research is the
+  evidence.
+
 ### Added
 
 - **`/generate-flow --from proposals/proposal-data.json` builds the flow the proposal already describes**

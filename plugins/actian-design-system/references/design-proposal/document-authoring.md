@@ -90,6 +90,14 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **latitude**: one line saying how much of this is fixed. The drawings are one way to answer the
   questions, not the only way.
 
+`context.sources` is not printed in the briefing. It renders as **Where this came from**, the
+document's last section before the latitude line, one row per source: the prefix becomes the
+row's kind and the rest becomes its text, so `app-context: explorer chrome` reads as a kind
+column beside a text column rather than as five lines each starting "app-context:". Write each
+source as `app-context: <what you read>` or `attachment: <what it was>`. A source with no
+recognised prefix still renders, unkinded. `context.gap` stays in the briefing, beside the facts
+it qualifies: it says what the read could not reach, which is a caveat rather than a citation.
+
 ### Inside a decision
 
 - **options**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
@@ -206,6 +214,27 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
 - **Notes are phrases.** At most three per drawing, each one the rationale of a part of it.
 - **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
   not the drawing; `note` says what the option changes on that page.
+
+## Length is a design constraint, not a preference
+
+The document's job is to be read by someone who did not write it, in one sitting, before a
+meeting. Every field below has a length that the layout was built for, and a field that runs
+past it does not get truncated: it pushes the next thing off the screen.
+
+- **A reason is one line.** It names its criterion and says why that row decided it. If it
+  needs two clauses joined by "and", it is two reasons or it is the cost.
+- **A cost is one line.** What this choice buys trouble on. Not a hedge, not a paragraph, and
+  never a second reason wearing a cost's label.
+- **A product fact is one line, and there are three to six of them.** Six one-line facts read;
+  three three-line facts do not.
+- **`whatItIs` and `breaksWhen` are one line each**, and `verdict` is a few words. The drawing
+  carries the idea; these three say what a reader cannot see in it.
+- **The answer is one sentence.** Nothing else sits in that section: the decision table below
+  it is the summary, and repeating the picks above the table is how the document got long.
+
+The document prints each decision's question exactly twice, once in the table and once as its
+own heading, and each pick's name where a reader needs it: the table, the option card and the
+comparison header. Anything you write that restates one of those is the third copy.
 
 ## Voice
 
