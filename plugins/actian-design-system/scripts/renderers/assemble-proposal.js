@@ -190,13 +190,25 @@ function optionHtml(o, index, apps, width) {
   );
 }
 
-function comparisonHtml(cmp, options) {
-  var head = "<tr><th></th>" + options.map(function (o) { return "<th>" + esc(o.name) + "</th>"; }).join("") + "</tr>";
+// The picked column is marked in the table itself. A reader used to scan three columns of
+// evidence with no idea which one had won, and find out in the paragraph underneath; the
+// mark lets the evidence and the verdict be read together. The tint is not the only signal:
+// the header carries the word, so the column survives greyscale and print, the same reason
+// every cell carries a glyph as well as a colour.
+function comparisonHtml(cmp, options, pickedId) {
+  var head =
+    "<tr><th></th>" +
+    options.map(function (o) {
+      if (o.id !== pickedId) return "<th>" + esc(o.name) + "</th>";
+      return '<th class="compare__pick">' + esc(o.name) + '<span class="compare__picked">Picked</span></th>';
+    }).join("") +
+    "</tr>";
   var rows = cmp.criteria.map(function (c) {
     var cells = options.map(function (o) {
+      var mark = o.id === pickedId ? " compare__pick" : "";
       var cell = (cmp.cells[o.id] || {})[c.id];
-      if (!cell) return "<td></td>";
-      return '<td class="' + (TONES[cell.tone] || "tone-mixed") + '">' + esc(cell.text) + "</td>";
+      if (!cell) return '<td class="' + ("tone-mixed" + mark) + '"></td>';
+      return '<td class="' + (TONES[cell.tone] || "tone-mixed") + mark + '">' + esc(cell.text) + "</td>";
     }).join("");
     return "<tr><th>" + esc(c.label) + '<span class="compare__source">' + esc(c.source) + "</span></th>" + cells + "</tr>";
   }).join("");
@@ -229,7 +241,7 @@ function decisionHtml(d, index, apps, total) {
   return (
     '  <section class="decision" id="' + esc(d.id) + '">' + kicker + "<h2>" + esc(d.question) + "</h2>" +
     '<div class="approaches">' + options + "</div>" +
-    comparisonHtml(d.comparison, d.options) + pickHtml(d) + "</section>\n"
+    comparisonHtml(d.comparison, d.options, d.pick.optionId) + pickHtml(d) + "</section>\n"
   );
 }
 

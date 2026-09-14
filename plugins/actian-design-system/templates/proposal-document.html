@@ -88,13 +88,23 @@
     .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
     .approach__lines { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 12px 0 0; max-width: 100%; }
     .approach__lines b { color: var(--fm-text-primary); }
-    .approach__verdict { margin: 10px 0 0; }
+    /* The verdict is the card's conclusion, so it carries a fill and reads as one object.
+       The negative margin cancels the tag's own left padding, which otherwise indents it
+       against the two lines above it by exactly the amount that looks like a mistake. */
+    .approach__verdict { margin: 12px 0 0 -10px; }
+    .approach__verdict .fm-tag { background: var(--fm-base-200); color: var(--fm-base-800); }
 
     .compare { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
     .compare th, .compare td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--fm-base-300); }
     .compare tbody th { font-weight: 600; padding-right: 24px; }
     .compare thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.05em; }
     .compare__source { display: block; font-size: var(--doc-micro); color: var(--fm-text-tertiary); font-weight: 400; margin-top: 2px; }
+    /* The picked column, marked where the evidence is read rather than only in the
+       paragraph below it. Tint plus a word, so it holds in greyscale and in print. */
+    .compare__pick { background: var(--fm-base-100); }
+    .compare th.compare__pick, .compare td.compare__pick { padding-left: 12px; }
+    .compare thead th.compare__pick { border-top: 2px solid var(--fm-base-800); color: var(--fm-text-primary); }
+    .compare__picked { display: block; font-size: var(--doc-micro); font-weight: 700; letter-spacing: 0.06em; color: var(--fm-brand-dark); margin-top: 2px; }
     /* A verdict carries a glyph as well as a colour: WCAG 1.4.1, and the table
        stays readable in greyscale and in print. CSS escapes, not literal glyphs,
        so the file is safe whatever charset a reader's tooling assumes. */
@@ -146,8 +156,13 @@
     .decisions-at-a-glance tbody th { font-weight: 600; color: var(--fm-text-primary); }
     .decisions-at-a-glance td { color: var(--fm-text-secondary); }
 
-    /* The briefing: four short columns, none of them running prose. */
-    .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; }
+    /* The briefing: four short columns in two pairs, never running prose. The pairing is
+       the point. Goals and Not doing are the scope; how it works today and what comparable
+       products do are the evidence. Four columns across 1200px made each one 260px of
+       ragged 13px text and put a goal beside a research finding as though they answered the
+       same question. Two columns, each capped at the measure, wrap into 2x2 on a wide
+       canvas and stack to one on a narrow one. */
+    .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), var(--doc-measure))); gap: 28px 40px; }
     .briefing__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .briefing__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
@@ -176,7 +191,7 @@
     .pick__cost b { color: var(--fm-text-primary); }
 
     /* What this changes, and the latitude line that closes the document. */
-    .change { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; }
+    .change { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), var(--doc-measure))); gap: 28px 40px; }
     .change__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 8px; }
     .change__col p { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 0; }
     .doc__latitude { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-tertiary); margin: 0; max-width: var(--doc-measure); font-style: italic; }

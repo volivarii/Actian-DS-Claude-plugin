@@ -295,6 +295,29 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(at(out, "oq__kind"), -1, "no empty section");
   });
 
+  it("marks the picked column in every comparison, so the table says who won while it is read", function () {
+    var d = load();
+    var out = assembleProposal(d);
+    var blocks = out.split('<table class="compare">').slice(1);
+    assert.strictEqual(blocks.length, d.decisions.length, "one comparison per decision");
+    blocks.forEach(function (block, i) {
+      var table = block.slice(0, at(block, "</table>"));
+      var dec = d.decisions[i];
+      var head = table.slice(at(table, "<thead>"), at(table, "</thead>"));
+      var marked = head.split('class="compare__pick"').length - 1;
+      assert.strictEqual(marked, 1, dec.id + ": exactly one column is marked");
+      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
+      var cell = head.slice(at(head, 'class="compare__pick"'));
+      assert.ok(at(cell, win.name) !== -1 && at(cell, win.name) < at(cell, "</th>"), dec.id + ": and it is the pick's column");
+      var body = table.slice(at(table, "<tbody>"));
+      assert.strictEqual(
+        body.split("compare__pick").length - 1,
+        dec.comparison.criteria.length,
+        dec.id + ": every row carries the mark down the picked column",
+      );
+    });
+  });
+
   it("keeps the comparison table's glyphs so it survives greyscale", function () {
     var doc = html();
     var body = doc.slice(doc.indexOf("<body>"));
