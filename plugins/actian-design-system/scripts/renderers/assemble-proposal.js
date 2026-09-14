@@ -95,13 +95,24 @@ function findById(arr, id) {
   return hit;
 }
 
+// context.question is the feature's framing question, and it is schema-required, so leaving
+// it unrendered loses data an author was made to write. It earns its place above the answer
+// only when the document holds more than one decision: with a single decision the two are
+// the same sentence (the converter even derives one from the other), and printing it twice
+// costs the reader a line and tells them nothing.
+function questionHtml(data) {
+  if (data.decisions.length < 2) return "";
+  if (data.decisions.some(function (d) { return d.question === data.context.question; })) return "";
+  return '<p class="doc__question">' + esc(data.context.question) + "</p>";
+}
+
 function answerHtml(data) {
   var picks = data.decisions.map(function (d) {
     var win = findById(d.options, d.pick.optionId);
     if (!win) throw new Error('proposal-data: decision "' + d.id + '" picks optionId "' + d.pick.optionId + '", which names no option in it');
     return '<li class="answer-pick">' + esc(d.question) + " <b>" + esc(win.name) + "</b></li>";
   }).join("");
-  return section("", '<p class="answer">' + esc(data.answer) + '</p><ul class="answer-picks">' + picks + "</ul>");
+  return section("", questionHtml(data) + '<p class="answer">' + esc(data.answer) + '</p><ul class="answer-picks">' + picks + "</ul>");
 }
 
 function terrainHtml(board) {

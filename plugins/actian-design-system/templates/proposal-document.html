@@ -98,6 +98,11 @@
 
     .doc__footer { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--fm-base-300); max-width: var(--doc-measure); }
 
+    /* The feature's framing question, above the answer, and only in a document that holds
+       more than one decision: with one decision it is the decision's own heading. Caption
+       scale, because it is the setup and the answer is the statement. */
+    .doc__question { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
+
     /* The answer. One sentence at h2 scale is the document's first element, tied with a
        decision question rather than with the title above it; the picks under it are a list
        of what was decided, not a summary paragraph. */
