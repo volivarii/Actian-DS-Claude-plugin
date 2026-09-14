@@ -118,9 +118,9 @@ output; edit the data file and re-assemble.
 **Step 6, share.** Say: `Proposal ready: {project_working_directory}/proposals/<slug>.html (opens offline;
 in Cowork it appears in the panel)`. The document does not carry these, so say them: offer, one line
 each, "adjust" (add an option, compare on another criterion, show an option in another state, drop the
-research: edit the data file, re-run with `--from`) and "make <option> a flow" (its `screens[]` is the
-brief: `/generate-flow` with those screens and the option's note; the picked option of the first decision
-when none is named).
+research: edit the data file, re-run with `--from`) and "make this a flow" (`/generate-flow --from
+proposals/proposal-data.json` composes every pick into one screen list and a brief; add `--decision <id>`
+for one decision alone, and `--option <id>` with it to draw a rejected option instead of the pick).
 
 ## Rules
 

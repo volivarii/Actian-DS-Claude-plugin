@@ -517,6 +517,13 @@
                         "account dropdown",
                         "create group form"
                       ]
+                    },
+                    "place": {
+                      "description": "Optional id of the breadboard place this option is drawn on; how the flow bridge orders the screens. Without it the bridge falls back to declaration order",
+                      "type": "string",
+                      "examples": [
+                        "account-menu"
+                      ]
                     }
                   }
                 },
@@ -582,7 +589,7 @@
                 },
                 "screens": {
                   "type": "array",
-                  "description": "The screen list a flow of this option would render, in generate-flow's screen-list shape; one to four entries",
+                  "description": "The screen list a flow of this option would render: each entry names a flow archetype (its own `template`, from recipes/flow/_index.json), an app and an entity. scripts/bridges/proposal-to-flow.js composes this into generate-flow's own screen-list shape, which reads `template` as a chrome name rather than an archetype; one to four entries",
                   "minItems": 1,
                   "items": {
                     "type": "object",

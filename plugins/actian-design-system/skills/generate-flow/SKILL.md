@@ -24,13 +24,14 @@ Build one or more lo-fi screens (n≥1, single-screen output is first-class). HT
 
 ## Input shapes
 
-The skill accepts three shapes; detection happens before the pipeline runs.
+The skill accepts four shapes; detection happens before the pipeline runs.
 
 | Shape                | Pattern                         | Example                                                      |
 | -------------------- | ------------------------------- | ------------------------------------------------------------ |
 | **Prompt**           | Feature description, no URL     | `/generate-flow create a data product`                       |
 | **Refine**           | Figma URL + prose instruction   | `/generate-flow <url> "rename the primary CTA to 'Publish'"` |
 | **Iterate / Branch** | `--from <url>` (no instruction) | `/generate-flow --from <url> --branch v2`                    |
+| **Proposal**         | `--from <proposal-data.json>`   | `/generate-flow --from proposals/proposal-data.json`         |
 
 Refine activates when ALL of: a Figma URL is provided, prose instruction is provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the wrapper `pageNodeId`) in `.last-push.json`. See **Refine shape** below for the full detection + behavior spec.
 
@@ -41,9 +42,9 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--hifi`               | bool        | off     | DS-native authoring: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`) and rendered as themed hi-fi HTML (the deliverable). Combines with `--push` for a DS whole-tree Figma push (see push-sequence.md step 6 DS-screen path); incompatible with `--audit` (audit needs a lo-fi pushed frame, not DS-native). To audit a DS-native frame: push lo-fi with `--push`, then run `--hifi --push` on the same brief, then `/design-audit` the result.                        |
 | `--audit`              | bool        | off     | After a lo-fi push, runs `/design-audit` on the pushed Figma frame and reports findings (auto-fix needs `--audit --fix all`). Implies a Figma push, so it does not combine with `--hifi`. Passed together with `--hifi`, the skill warns, keeps `--hifi` (the HTML deliverable; `--push` still applies), and drops `--audit`.                                                                                                             |
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition), laid out side-by-side. Range 2-5; refuse above 5. Ignored when `--branch` is set. Provenance tracked in `.last-push.json`.                                                                              |
-| `--ref <url[,url]>`    | URL list    | none    | v1: Figma URLs only. Biases recipe selection toward the reference frame's structural fingerprint (multi-URL blends). Screenshot external references (Linear, Stripe, etc.) into a Figma frame first. `--states` screens inherit the same reference treatment as the base layout.                                                                                                   |
+| `--ref <url[,url]>`    | URL list    | none    | Biases recipe selection toward a reference's structural fingerprint. See `references/generate-flow/vision-refs.md`. |
 | `--breakpoints <list>` | string list | none    | Comma-separated: `tablet`, `mobile`, `custom-Npx`. Each breakpoint adds a variant alongside the desktop base (collapse/stack decisions only); combined with `--variants`, outputs multiply (3 variants with one breakpoint give 6), hard-capped at 9 total.                                                                                                          |
-| `--from <url>`         | URL         | none    | URL-type detected: Figma URL iterates on the existing flow (preserves data model, re-rolls recipes); Jira/Confluence/Google doc URL is spec input (user story, acceptance criteria); image URL is a primary visual reference.                                                                          |
+| `--from <url>`         | URL         | none    | URL-type detected: Figma URL iterates on the existing flow (preserves data model, re-rolls recipes); Jira/Confluence/Google doc URL is spec input (user story, acceptance criteria); image URL is a primary visual reference. A local `proposal-data.json` is the proposal bridge: see `references/generate-flow/proposal-bridge.md`.                                                                          |
 | `--branch <name>`      | string      | none    | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`; provenance in `.last-push.json` so `/compare-flows` works between branches.                                                                                                                                   |
 | `--states <list>`      | string list | none    | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants.                                                                                                                                                            |
 | `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is HTML only, no push — `--push` (or prose "push to figma", `--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/generate-flow/push-opt-in.md`.                                                     |
@@ -59,7 +60,7 @@ Parse args. Note which flags are explicitly passed:
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
 
-Classify input shape (Prompt / Refine / Iterate per the table above). **Refine and Iterate paths skip Gate 3 entirely** — URL + prose (refine) or `--from <url>` (iterate) are already explicit intent.
+Classify input shape (Prompt / Refine / Iterate / Proposal per the table above). **Refine and Iterate skip Gate 3 entirely**: URL + prose (refine) or `--from <url>` (iterate) are already explicit intent. **Proposal enters at Gate 3** carrying the bridge's seed (`references/generate-flow/proposal-bridge.md`) as the screen list and brief: nothing to research, no app to infer.
 
 ## Push opt-in
 
@@ -228,6 +229,7 @@ Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "varia
 - `references/generate-flow/html-reference.md`: HTML template structure, FM component table, content node spec
 - `references/generate-flow/ds-components-authoring.md`: DS Kit component vocabulary for `--hifi` DS-native authoring
 - `references/generate-flow/push-opt-in.md` — Figma push opt-in model, triggers, `--no-push` veto, combined gate prompt
+- `references/generate-flow/proposal-bridge.md`: seed a flow from a proposal's picked options
 - `references/generate-flow/refine.md` — refine detection + behavior (explicit-Figma path)
 - `references/generate-flow/vision-refs.md` — `--ref` vision fingerprinting loop
 - `references/generate-flow/push-sequence.md` — full Figma push sequence + rules

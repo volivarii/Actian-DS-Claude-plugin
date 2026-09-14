@@ -578,6 +578,34 @@ describe("validate-proposal.js CLI", function () {
       assert.throws(function () { assembleProposal(board([A, B], [{ from: "a", to: "a", label: "loops" }])); }, /breadboard/);
       assert.throws(function () { assembleProposal(board([at(A, 0, 0), at(B, 0, 0)], [{ from: "a", to: "b", label: "x" }])); }, /breadboard/);
     });
+
+    it("P0s an anchor.place that names no place, the way a connection that names none is", function () {
+      var d = board([A, B], [{ from: "a", to: "b" }]);
+      d.decisions[0].options[0].anchor.place = "nowhere";
+      // The other options of the same decision earn the P1 below, on the same path, so
+      // this drops by severity as well: filtering on the path alone can never be 1.
+      var f = only(d, "breadboard").filter(function (x) {
+        return x.path.indexOf(".anchor.place") !== -1 && x.severity === "P0";
+      });
+      assert.strictEqual(f.length, 1, JSON.stringify(only(d, "breadboard"), null, 1));
+      assert.ok(f[0].value.indexOf("nowhere") !== -1, f[0].value);
+      assert.ok(f[0].suggestion.indexOf("a, b") !== -1, f[0].suggestion);
+    });
+
+    it("P1s an anchor that names no place while a breadboard is drawn, and says nothing without one", function () {
+      var withBoard = board([A, B], [{ from: "a", to: "b" }]);
+      withBoard.decisions[0].options.forEach(function (o) { delete o.anchor.place; });
+      var advisories = only(withBoard, "breadboard").filter(function (x) { return x.path.indexOf(".anchor.place") !== -1; });
+      assert.strictEqual(advisories.length, withBoard.decisions[0].options.length, JSON.stringify(advisories, null, 1));
+      advisories.forEach(function (x) { assert.strictEqual(x.severity, "P1"); });
+
+      var noBoard = load();
+      delete noBoard.breadboard;
+      noBoard.decisions[0].options.forEach(function (o) { delete o.anchor.place; });
+      assert.deepStrictEqual(
+        only(noBoard, "breadboard").filter(function (x) { return x.path.indexOf(".anchor.place") !== -1; }),
+        [], "no terrain, no advice: there is no order it could have degraded from");
+    });
   });
 });
 

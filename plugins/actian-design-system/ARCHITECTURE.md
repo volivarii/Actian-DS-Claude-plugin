@@ -46,7 +46,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 | `/companion` | `skills/companion/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md`, `references/context/{companion-context,ux-patterns}.md` |
 | `/compare-flows` | `skills/compare-flows/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md`, `references/ds-rules/quality-checklist.md` |
 
-`/design-proposal` also owns four scripts, which the table's columns do not cover: `scripts/renderers/assemble-proposal.js` (the document, read through `assemble-preview.js --type proposal`), `scripts/renderers/proposal-breadboard.js` (the terrain, one inline SVG the assembler computes from `breadboard.places[]` and `breadboard.connections[]`; no script, no external load, legible in greyscale), `scripts/validation/validate-proposal.js` (the gates) and `scripts/migrations/proposal-approaches-to-decisions.js` (the one-shot converter for a data file written before `decisions[]`).
+`/design-proposal` also owns five scripts, which the table's columns do not cover: `scripts/renderers/assemble-proposal.js` (the document, read through `assemble-preview.js --type proposal`), `scripts/renderers/proposal-breadboard.js` (the terrain, one inline SVG the assembler computes from `breadboard.places[]` and `breadboard.connections[]`; no script, no external load, legible in greyscale), `scripts/validation/validate-proposal.js` (the gates), `scripts/migrations/proposal-approaches-to-decisions.js` (the one-shot converter for a data file written before `decisions[]`), and `scripts/bridges/proposal-to-flow.js` (the bridge into `/generate-flow`).
 
 Retired 2026-09-10 (hidden, not deleted; see `retired/README.md`): `/generate-presentation`, `/convert-to-hifi`, `agents/slide-generator.md`.
 
@@ -81,6 +81,7 @@ Retired 2026-09-10 (hidden, not deleted; see `retired/README.md`): `/generate-pr
 - `transformers/` — Data shape transformations between source formats (Figma → flow-data, flow-data → hifi, recipe partials → final).
 - `migrations/` — One-shot converters for a data file whose schema changed under it. Each exports its `isOldShape` detector so the matching validator can name the converter in one P0 instead of printing a wall of schema errors, and each converts structure only: a field the old shape never carried is written empty for the author, never guessed. `proposal-approaches-to-decisions.js` (pre-`decisions[]` `proposal-data.json`) is the first. New converters go here, one per break, named for the break.
 - `evals/` — Eval lane scripts (component-brief: grading-assertions, grade-locally, run-component-brief).
+- `bridges/`: one skill's output read as another skill's input. `proposal-to-flow.js` composes a `proposals/proposal-data.json` into the screen list and brief `/generate-flow` takes: picks selected, screens sharing a name merged into one carrying every note, disagreeing fields a P0, order following the proposal's breadboard. Exports `compose(data, opts)` and carries a CLI. New cross-skill composers go here, named `<source>-to-<target>.js`.
 
 > **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/`, `changelog/` — moved to `volivarii/actian-ds-knowledge` CI.
 - `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
@@ -92,7 +93,7 @@ Retired 2026-09-10 (hidden, not deleted; see `retired/README.md`): `/generate-pr
 
 Tests mirror `scripts/` 1:1 — open `scripts/<bucket>/foo.js`, the test lives at `tests/<bucket>/foo.test.js`. Plus a cross-cutting `integration/` bucket for tests that exercise multiple scripts/skills.
 
-- `sync/`, `validation/`, `renderers/`, `transformers/`, `migrations/`, `foundations/`, `changelog/`, `lib/`, `lint/`, `quality/`, `fidelity/` — unit tests for the corresponding `scripts/<bucket>/` modules.
+- `sync/`, `validation/`, `renderers/`, `transformers/`, `migrations/`, `bridges/`, `foundations/`, `changelog/`, `lib/`, `lint/`, `quality/`, `fidelity/` — unit tests for the corresponding `scripts/<bucket>/` modules.
 - `integration/` — cross-cutting tests not bound to a single script: recipe shape contracts, schema/tier integration, path-validation across the whole tree, CSS-staleness checks, brief-flow end-to-end, etc. New tests that span ≥2 buckets go here. Two vendor-path guards live in `tests/integration/`: `no-bare-vendor-paths.test.js` (code must use `PATHS`, not literals) + `vendor-paths-resolve.test.js` (every `vendor/…` reference in prose/code — skills, references, agents, scripts, plus the plugin's own docs: `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/` — must resolve). See CLAUDE.md "Knowledge access".
 - `fixtures/` — shared test fixtures (unchanged location; tests reach via `__dirname/../fixtures/...`).
 - `snapshots/` — golden snapshot files (unchanged location).
