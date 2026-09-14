@@ -37,6 +37,7 @@
       --doc-measure: 512px;   /* about 66 characters at 16px Inter; 45 to 75 is the readable band */
       --doc-body: 16px;
       --doc-caption: 13px;
+      --doc-label: 13px;     /* a section's own name: caption scale, but uppercase and tracked, because it labels the section rather than stating anything */
       --doc-micro: 11px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below caption is correct here, not drift */
       --doc-h2: 25px;
       --doc-h1: 31px;
@@ -49,9 +50,20 @@
     .doc__context { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 0; letter-spacing: 0.02em; }
 
     /* A section is a rule and space. Nothing is lifted: the answer opens the document,
-       so no card has to tell a reader where to start. */
-    .doc__section { border-top: 1px solid var(--fm-base-400); padding: 28px 0 0; margin: 0 0 40px; }
-    .doc__section > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 14px; max-width: var(--doc-measure); }
+       so no card has to tell a reader where to start.
+
+       Rank is the whole of the section rhythm. A section's name ("The terrain", "The
+       briefing", "Where this came from") is a LABEL: it says which drawer you are in and
+       states nothing. A decision's question and the answer are STATEMENTS, and they are what
+       a reader came for. Those two were set identically at h2 until 2026-09-14, so a
+       document with three decisions had ten things shouting at the same volume and no way
+       to tell a heading from a claim. Labels now sit on --doc-label, uppercase and tracked,
+       and the only elements left at h2 are the answer and one question per decision.
+
+       Space says the same thing twice: the gap down to the next section's rule is more than
+       twice the gap from a rule to the heading under it, so a boundary is never ambiguous. */
+    .doc__section { border-top: 1px solid var(--fm-base-400); padding: 24px 0 0; margin: 0 0 56px; }
+    .doc__section > h2 { font-size: var(--doc-label); font-weight: 700; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fm-text-primary); margin: 0 0 18px; max-width: var(--doc-measure); }
     .doc__section > p, .doc__section > ul { max-width: var(--doc-measure); }
     .doc__section p { margin: 0 0 12px; }
 
@@ -140,8 +152,10 @@
     .briefing__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
 
     /* A decision block. The question is the heading; the number tells a reader where
-       they are in a document that may hold four of these. */
-    .decision { border-top: 2px solid var(--fm-base-500); padding: 24px 0 0; margin: 0 0 44px; }
+       they are in a document that may hold four of these. The rule is heavier and darker
+       than a framing section's, because these blocks are the argument and the sections
+       around them are the setting. */
+    .decision { border-top: 3px solid var(--fm-base-800); padding: 24px 0 0; margin: 0 0 64px; }
     .decision__kicker { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 6px; }
     .decision > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
     .decision__blocker { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }

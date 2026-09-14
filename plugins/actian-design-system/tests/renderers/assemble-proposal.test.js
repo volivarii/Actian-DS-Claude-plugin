@@ -304,6 +304,49 @@ describe("assembleProposal (document)", function () {
     assert.ok(at(tpl, '.tone-good::before') !== -1, "the glyph rule survives");
   });
 
+  it("ranks a section label below a decision question, so only the statements are loud", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function ruleFor(sel) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, "the template still carries a rule for " + sel);
+      return tpl.slice(i, tpl.indexOf("}", i));
+    }
+    var label = ruleFor(".doc__section > h2");
+    var question = ruleFor(".decision > h2");
+    var answer = ruleFor(".answer");
+    assert.ok(label.indexOf("var(--doc-h2)") === -1, "a section label does not sit at question scale");
+    assert.ok(label.indexOf("var(--doc-label)") !== -1, "it sits on the label register");
+    assert.ok(label.indexOf("uppercase") !== -1, "and reads as a label, not a sentence");
+    assert.ok(question.indexOf("var(--doc-h2)") !== -1, "a decision question stays at h2");
+    assert.ok(answer.indexOf("var(--doc-h2)") !== -1, "and the answer is tied with it");
+  });
+
+  it("gives a decision block a heavier boundary than a framing section", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function px(sel, prop) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, sel);
+      var rule = tpl.slice(i, tpl.indexOf("}", i));
+      var m = rule.match(new RegExp(prop + ":[^;]*?(\\d+)px"));
+      assert.ok(m, prop + " on " + sel);
+      return Number(m[1]);
+    }
+    assert.ok(
+      px(".decision", "border-top") > px(".doc__section", "border-top"),
+      "the argument is bounded more heavily than the framing around it",
+    );
+  });
+
+  it("leaves more air between two sections than inside one", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    var i = tpl.indexOf("\n    .doc__section {");
+    var rule = tpl.slice(i, tpl.indexOf("}", i));
+    var below = Number((rule.match(/margin: 0 0 (\d+)px/) || [])[1]);
+    var above = Number((rule.match(/padding: (\d+)px 0 0/) || [])[1]);
+    assert.ok(below && above, "the section rule still sets both");
+    assert.ok(below > above * 1.5, "the gap to the next section (" + below + ") clears the gap to its own heading (" + above + ")");
+  });
+
   it("binds every size to a token: no raw font-size and no font shorthand", function () {
     var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
     var doc = tpl.slice(at(tpl, "Document setting"));
