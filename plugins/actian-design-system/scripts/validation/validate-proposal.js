@@ -18,6 +18,22 @@
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
  * em-dash (P2).
  *
+ * Two things the check list above does not say on its own.
+ *
+ * The bounds this file declares (decisions 1-4, options 2-4, reasons 2-4,
+ * criteria 3-6, goals and nonGoals 1-4, openQuestions 0-4) are also schema
+ * minItems/maxItems, and the schema runs first and returns. A document that
+ * breaks one is rejected by the schema, never by the line here: these are a
+ * net for a future schema relaxation, not live gates, and the tests assert the
+ * schema-shaped message an author actually gets.
+ *
+ * terminology and avoid-word run over every text field, the rationale prose
+ * included (answer, latitude, pick.cost, pick.reasons[].text, blocker). They
+ * are P1 because on rationale prose the right answer is often to keep the
+ * word: "the recommendation stands" is English, not the product's Suggestion.
+ * No regex separates a product noun from its ordinary sense, and these do not
+ * try. They point; the author rules and says so.
+ *
  * Usage: validate-proposal.js <proposal-data.json> [--json] [--help]
  */
 

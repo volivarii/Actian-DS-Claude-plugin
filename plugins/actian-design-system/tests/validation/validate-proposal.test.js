@@ -19,17 +19,11 @@ function withMutation(mutate) { var d = load(); mutate(d); return d; }
 function find(findings, check) {
   return findings.filter(function (f) { return f.check === check; })[0];
 }
-// Two P1 advisories stand on the clean fixture, both real, neither a blocker:
-//   breadboard   the ticket spans two apps and the fixture draws no terrain
-//   terminology  the pick's cost says "scope", and cost is prose-gated as of this
-//                change; the fixture's own wording is the thing to fix, not the gate
-// They are dropped by check AND path, never by check alone, so no other finding of
-// either kind can hide behind them. Every "the document is quiet" assertion below
-// stays as tight as the deepEqual it replaces.
-// The one-decision fixture spans two apps and deliberately draws no terrain, so the P1
-// asking for one is correct on it and stands. That is the advisory doing its job on real
-// data rather than on a mutation, which is worth keeping. Anything else appearing here
-// would mean the fixture had drifted, so the count is asserted too.
+// One P1 advisory stands on the clean fixture, and it is the advisory doing its job on
+// real data rather than on a mutation: the ticket spans two apps and the fixture draws
+// no terrain, so the gate asking for one is right. It is dropped by check AND path,
+// never by check alone, so no other breadboard finding can hide behind it, and the
+// count is asserted too, because anything else appearing here means the fixture drifted.
 var STANDING = [
   { check: "breadboard", path: "breadboard" },
 ];
@@ -247,17 +241,58 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(hits[0].severity, "P0");
   });
 
-  it("does not let a criterion from another decision satisfy a reason", function () {
+  // Criteria are walked decision by decision, so a document-wide map of criterion ids
+  // would still reject a FORWARD reference (to a decision not yet walked) and silently
+  // accept a BACKWARD one. Testing only forward proves nothing about the scoping: it
+  // passes whether the map is per-decision or shared. Both directions are asserted, on
+  // one document, so neither can be the only one covered.
+  function twoDecisions() {
     var d = load();
     var second = JSON.parse(JSON.stringify(d.decisions[0]));
     second.id = "second";
-    second.comparison.criteria[0].id = "only-in-the-second";
+    renameCriterion(d.decisions[0], "literal-ask", "first-only");
+    renameCriterion(second, "literal-ask", "second-only");
     d.decisions.push(second);
-    d.decisions[0].pick.reasons[0].criterionId = "only-in-the-second";
-    var hits = validateProposal(d).findings.filter(function (x) {
-      return x.check === "pick" && x.path.indexOf("decisions[0]") !== -1;
+    return d;
+  }
+  function renameCriterion(decision, from, to) {
+    decision.comparison.criteria.forEach(function (c) { if (c.id === from) c.id = to; });
+    Object.keys(decision.comparison.cells).forEach(function (oid) {
+      var row = decision.comparison.cells[oid];
+      row[to] = row[from];
+      delete row[from];
     });
-    assert.ok(hits.length > 0, "a criterion in a sibling decision does not count");
+  }
+  function criterionFindings(d, at) {
+    return validateProposal(d).findings.filter(function (x) {
+      return x.check === "pick" && x.path.indexOf("criterionId") !== -1 && x.path.indexOf(at) === 0;
+    });
+  }
+
+  it("does not let a criterion from a LATER decision satisfy a reason", function () {
+    var d = twoDecisions();
+    d.decisions[0].pick.reasons[0].criterionId = "second-only";
+    var hits = criterionFindings(d, "decisions[0]");
+    assert.strictEqual(hits.length, 1, "reaching forward to a sibling is one P0");
+    assert.strictEqual(hits[0].severity, "P0");
+    assert.match(hits[0].value, /decision the-decision/, "and the message names the decision it had to stay inside");
+  });
+
+  it("does not let a criterion from an EARLIER decision satisfy a reason", function () {
+    var d = twoDecisions();
+    d.decisions[1].pick.reasons[0].criterionId = "first-only";
+    var hits = criterionFindings(d, "decisions[1]");
+    assert.strictEqual(hits.length, 1, "reaching back to a sibling already walked is one P0 too");
+    assert.strictEqual(hits[0].severity, "P0");
+    assert.match(hits[0].value, /decision second/);
+  });
+
+  it("still accepts each decision naming its own criterion", function () {
+    var d = twoDecisions();
+    d.decisions[0].pick.reasons[0].criterionId = "first-only";
+    d.decisions[1].pick.reasons[0].criterionId = "second-only";
+    assert.strictEqual(criterionFindings(d, "decisions[0]").length, 0);
+    assert.strictEqual(criterionFindings(d, "decisions[1]").length, 0);
   });
 
   it("fails an empty cost", function () {
