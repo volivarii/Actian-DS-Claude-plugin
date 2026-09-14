@@ -24,13 +24,14 @@ Build one or more lo-fi screens (n≥1, single-screen output is first-class). HT
 
 ## Input shapes
 
-The skill accepts three shapes; detection happens before the pipeline runs.
+The skill accepts four shapes; detection happens before the pipeline runs.
 
 | Shape                | Pattern                         | Example                                                      |
 | -------------------- | ------------------------------- | ------------------------------------------------------------ |
 | **Prompt**           | Feature description, no URL     | `/generate-flow create a data product`                       |
 | **Refine**           | Figma URL + prose instruction   | `/generate-flow <url> "rename the primary CTA to 'Publish'"` |
 | **Iterate / Branch** | `--from <url>` (no instruction) | `/generate-flow --from <url> --branch v2`                    |
+| **Proposal**         | `--from <proposal-data.json>`   | `/generate-flow --from proposals/proposal-data.json`         |
 
 Refine activates when ALL of: a Figma URL is provided, prose instruction is provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the wrapper `pageNodeId`) in `.last-push.json`. See **Refine shape** below for the full detection + behavior spec.
 
@@ -43,7 +44,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition), laid out side-by-side. Range 2-5; refuse above 5. Ignored when `--branch` is set. Provenance tracked in `.last-push.json`.                                                                              |
 | `--ref <url[,url]>`    | URL list    | none    | v1: Figma URLs only. Biases recipe selection toward the reference frame's structural fingerprint (multi-URL blends). Screenshot external references (Linear, Stripe, etc.) into a Figma frame first. `--states` screens inherit the same reference treatment as the base layout.                                                                                                   |
 | `--breakpoints <list>` | string list | none    | Comma-separated: `tablet`, `mobile`, `custom-Npx`. Each breakpoint adds a variant alongside the desktop base (collapse/stack decisions only); combined with `--variants`, outputs multiply (3 variants with one breakpoint give 6), hard-capped at 9 total.                                                                                                          |
-| `--from <url>`         | URL         | none    | URL-type detected: Figma URL iterates on the existing flow (preserves data model, re-rolls recipes); Jira/Confluence/Google doc URL is spec input (user story, acceptance criteria); image URL is a primary visual reference.                                                                          |
+| `--from <url>`         | URL         | none    | URL-type detected: Figma URL iterates on the existing flow (preserves data model, re-rolls recipes); Jira/Confluence/Google doc URL is spec input (user story, acceptance criteria); image URL is a primary visual reference. A local `proposal-data.json` is the proposal bridge (with `--decision` and `--option`): see `references/generate-flow/proposal-bridge.md`.                                                                          |
 | `--branch <name>`      | string      | none    | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`; provenance in `.last-push.json` so `/compare-flows` works between branches.                                                                                                                                   |
 | `--states <list>`      | string list | none    | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants.                                                                                                                                                            |
 | `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is HTML only, no push — `--push` (or prose "push to figma", `--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/generate-flow/push-opt-in.md`.                                                     |
