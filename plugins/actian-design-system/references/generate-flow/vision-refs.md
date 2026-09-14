@@ -10,6 +10,7 @@ when `meta.references` is empty.
 - Vision-extraction prompt template
 - Failure-mode dispatch
 - Pass-through to screen-generators
+- How the fingerprint biases recipe selection, and how --states inherits it
 
 4.5. **Vision analysis on `meta.references[]`** (C-vision, v1.57.0+) — when `--ref <url>` was provided and `meta.references[]` is non-empty, run the vision pipeline before building flow-data. Skip entirely when `meta.references` is missing or empty (C-vision is opt-in).
 
@@ -60,3 +61,5 @@ when `meta.references` is empty.
    | `kind === "image"` URL provided | Loud error per Sprint A v1: "Image URLs not yet supported. Screenshot into a Figma frame first." Abort. |
 
    **Pass through to screen-generators:** the persisted `meta.references[]` (with fingerprints attached) flows into each screen-generator's input as `references` (see the "Reference fingerprints" section of `agents/screen-generator.md`), included in its dispatch payload (alongside its slice path, `_index`, output path, and `library: "ds"` under `--hifi`) whenever the array is non-empty.
+
+   **How the fingerprint biases recipe selection:** each screen-generator biases its recipe pick toward the fingerprint's `layout_archetype`, `density` and `hierarchy_depth` over the recipe's own default scoring. Two or more `--ref` URLs blend: no single reference dominates, the closest match across all of them wins. A `--states` screen (`empty`, `error`, `loading`, ...) is a state of its base-layout screen, not a screen of its own, so it inherits that screen's reference treatment rather than being fingerprinted separately.
