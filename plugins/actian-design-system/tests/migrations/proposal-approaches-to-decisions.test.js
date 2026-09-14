@@ -1,5 +1,5 @@
 "use strict";
-var { describe, it } = require("node:test");
+var { describe, it, after } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var os = require("os");
@@ -132,9 +132,16 @@ describe("proposal-approaches-to-decisions", function () {
     function run(args) {
       return spawnSync(process.execPath, [CLI].concat(args), { encoding: "utf8" });
     }
+    // Four directories per run, in the real tmpdir, so they are tracked and removed.
+    var made = [];
     function tmp() {
-      return fs.mkdtempSync(path.join(os.tmpdir(), "proposal-convert-"));
+      var dir = fs.mkdtempSync(path.join(os.tmpdir(), "proposal-convert-"));
+      made.push(dir);
+      return dir;
     }
+    after(function () {
+      made.forEach(function (dir) { fs.rmSync(dir, { recursive: true, force: true }); });
+    });
 
     it("writes the converted document to -o, not the string undefined", function () {
       var dir = tmp();

@@ -452,8 +452,9 @@
           },
           "options": {
             "type": "array",
-            "description": "Two to four options (validator-enforced upper bound), each drawn inside its anchor surface",
+            "description": "Two to four options, each drawn inside its anchor surface; four is the ceiling the row budget can draw side by side",
             "minItems": 2,
+            "maxItems": 4,
             "items": {
               "type": "object",
               "description": "One option for one decision: a name, an anchor, two lines, a verdict, a drawing and the screen list a flow would render",

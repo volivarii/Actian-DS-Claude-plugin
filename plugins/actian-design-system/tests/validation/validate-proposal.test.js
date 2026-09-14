@@ -82,9 +82,18 @@ describe("validateProposal (document)", function () {
     f = only(withMutation(function (d) { d.decisions[0].options[1].screens[0].app = "nope"; }), "app-unknown");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].severity, "P1"); assert.strictEqual(f[0].screen, "b");
   });
-  it("bounds are P0: more than 4 options, more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate option or criterion ids, an unknown tone, cells for an unknown option, a cell for an unknown criterion", function () {
+  // A fifth option is caught by the schema, not by MAX_OPTIONS here: the schema pass runs
+  // first and returns, so it is the schema message an author reads. Asserted on the message
+  // they actually get, because a test pinned to the unreachable line would pass while the
+  // reachable one drifted.
+  it("a fifth option is a schema P0, the message an author actually gets", function () {
+    var f = only(withMutation(function (d) { d.decisions[0].options.push(Object.assign({}, d.decisions[0].options[0], { id: "d" }), Object.assign({}, d.decisions[0].options[0], { id: "e" })); }), "schema");
+    assert.strictEqual(f.length, 1, "one schema finding, got: " + JSON.stringify(f));
+    assert.strictEqual(f[0].severity, "P0");
+    assert.ok(/decisions\/\[0\]\/options: array has 5 items, maximum is 4/.test(f[0].value), f[0].value);
+  });
+  it("bounds are P0: more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate option or criterion ids, an unknown tone, cells for an unknown option, a cell for an unknown criterion", function () {
     function bounds(mutate) { return only(withMutation(mutate), "bounds"); }
-    assert.ok(bounds(function (d) { d.decisions[0].options.push(Object.assign({}, d.decisions[0].options[0], { id: "d" }), Object.assign({}, d.decisions[0].options[0], { id: "e" })); }).some(function (f) { return /options; at most 4/.test(f.value); }));
     assert.ok(bounds(function (d) { for (var i = 0; i < 6; i++) d.research.findings.push({ claim: "c" + i, source: "s" }); }).some(function (f) { return /findings; at most 5/.test(f.value); }));
     assert.ok(bounds(function (d) { d.decisions[0].pick.reasons.push({ criterionId: "literal-ask", text: "w" }); }).some(function (f) { return /reasons; at most 4/.test(f.value); }));
     assert.ok(bounds(function (d) { for (var i = 0; i < 4; i++) d.decisions[0].options[0].screens.push(d.decisions[0].options[0].screens[0]); }).some(function (f) { return /screens; at most 4/.test(f.value); }));
@@ -437,5 +446,72 @@ describe("validate-proposal.js CLI", function () {
     var h = JSON.parse(run(["--help"]).stdout);
     assert.strictEqual(h.name, "validate-proposal");
     assert.ok(h.flags.some(function (f) { return f.name === "--json"; }));
+  });
+  // The validator's header used to name which of its bounds the schema also declares.
+  // It was wrong about three of six, and by the time that was found it had gone stale a
+  // second time, because the schema moves. A list maintained by hand about another file
+  // is a claim, so this makes it a gate: every bound below is checked in BOTH directions,
+  // marker against schema. Add a bound to the schema without marking the constant, or
+  // mark a constant the schema does not back, and this fails naming the one that drifted.
+  describe("the schema markers on the bounds constants", function () {
+    var SOURCE = fs.readFileSync(path.join(ROOT, "scripts", "validation", "validate-proposal.js"), "utf8");
+    var SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", "proposal-data.schema.json"), "utf8"));
+    var DECISION = SCHEMA.properties.decisions.items.properties;
+    // constant name -> every schema node it must be backed by, and the keyword.
+    // MAX_SCOPE governs two fields, so it is a net only if BOTH of them back it.
+    var BOUNDS = [
+      ["MAX_DECISIONS", [SCHEMA.properties.decisions], "maxItems"],
+      ["MAX_OPTIONS", [DECISION.options], "maxItems"],
+      ["MIN_OPTIONS", [DECISION.options], "minItems"],
+      ["MAX_CRITERIA", [DECISION.comparison.properties.criteria], "maxItems"],
+      ["MIN_CRITERIA", [DECISION.comparison.properties.criteria], "minItems"],
+      ["MAX_REASONS", [DECISION.pick.properties.reasons], "maxItems"],
+      ["MIN_REASONS", [DECISION.pick.properties.reasons], "minItems"],
+      ["MAX_SCOPE", [SCHEMA.properties.scope.properties.goals, SCHEMA.properties.scope.properties.nonGoals], "maxItems"],
+      ["MAX_OPEN_QUESTIONS", [SCHEMA.properties.openQuestions], "maxItems"],
+    ];
+    // A constant is a net rather than a gate only when the schema rejects FIRST, which
+    // needs the schema bound to be at least as strict, not merely present. The schema
+    // floors criteria at 1 where this file wants 3, so that constant is still the only
+    // thing enforcing 3, and marking it "also schema" would be the misreading.
+    function backedBy(node, keyword, value) {
+      var s = node[keyword];
+      if (s === undefined) return false;
+      return keyword === "maxItems" ? s <= value : s >= value;
+    }
+    function declaration(name) {
+      var m = new RegExp("^var " + name + " = (\\d+);(.*)$", "m").exec(SOURCE);
+      assert.ok(m, "no declaration of " + name + " to read");
+      return { value: Number(m[1]), marked: /also schema/.test(m[2]) };
+    }
+
+    BOUNDS.forEach(function (b) {
+      var name = b[0], nodes = b[1], keyword = b[2];
+      it(name + " says whether the schema rejects first, and is right", function () {
+        var d = declaration(name);
+        var backed = nodes.every(function (n) { return backedBy(n, keyword, d.value); });
+        var says = nodes.map(function (n) { return String(n[keyword]); }).join(" and ");
+        if (d.marked)
+          assert.ok(backed,
+            name + ' is marked "also schema", but the schema says ' + keyword + " " + says +
+            " against this file's " + d.value + ", so this line is still the gate. Drop the marker.");
+        else
+          assert.ok(!backed,
+            name + " carries no marker, but the schema says " + keyword + " " + says +
+            " and runs first, so this line can never fire. Mark it, or the next reader takes a net for a gate.");
+      });
+    });
+  });
+
+  // The three-decision acceptance fixture is the branch's flagship artifact and was read
+  // by the assembler tests alone, which validate the SCHEMA and nothing else. A word
+  // neutral terminology regression or a hex colour in one of its drawings shipped green
+  // through every suite. The validator runs over it here, where it does not.
+  it("finds nothing at all in the three-decision acceptance document", function () {
+    var acceptance = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json"), "utf8"));
+    var all = validateProposal(acceptance).findings;
+    assert.deepStrictEqual(all, [],
+      "the acceptance document must be clean at every severity, and is not: " +
+      all.map(function (f) { return f.severity + " [" + f.check + "] " + f.path + ": " + f.value; }).join(" | "));
   });
 });

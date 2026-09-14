@@ -20,12 +20,15 @@
  *
  * Two things the check list above does not say on its own.
  *
- * The bounds this file declares (decisions 1-4, options 2-4, reasons 2-4,
- * criteria 3-6, goals and nonGoals 1-4, openQuestions 0-4) are also schema
- * minItems/maxItems, and the schema runs first and returns. A document that
- * breaks one is rejected by the schema, never by the line here: these are a
- * net for a future schema relaxation, not live gates, and the tests assert the
- * schema-shaped message an author actually gets.
+ * SOME of the bounds below are also schema minItems/maxItems. Where they are,
+ * the schema runs first and returns, so the line here never fires and exists
+ * only as a net for a future schema relaxation; where they are not, the line
+ * here is the only gate. Which is which is NOT written out in prose: an
+ * earlier version of this comment enumerated them, was wrong about three, and
+ * went stale again inside an hour. The constants carry a "// also schema"
+ * marker instead, and validate-proposal.test.js reads those markers against
+ * the schema in both directions, so adding a bound to one side without the
+ * other turns the suite red.
  *
  * terminology and avoid-word run over every text field, the rationale prose
  * included (answer, latitude, pick.cost, pick.reasons[].text, blocker). They
@@ -48,7 +51,7 @@ var isOldShape = require("../migrations/proposal-approaches-to-decisions.js").is
 var SCHEMA_PATH = path.join(__dirname, "..", "..", "schemas", "proposal-data.schema.json");
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
 var MAX_DECISIONS = 4;   // also schema maxItems
-var MAX_OPTIONS = 4;
+var MAX_OPTIONS = 4;     // also schema maxItems
 var MIN_OPTIONS = 2;     // also schema minItems
 var MAX_CRITERIA = 6;    // also schema maxItems
 var MIN_CRITERIA = 3;

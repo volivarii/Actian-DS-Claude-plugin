@@ -13,7 +13,14 @@ function at(hay, needle) { return hay.indexOf(needle); }
 // The stylesheet defines every class the document may emit, so it names classes a
 // given document leaves out. An "is this absent" assertion has to read the emitted
 // document, not the sheet above it, or it can never fail.
-function body(h) { return h.slice(h.indexOf("<body>")); }
+function body(h) {
+  var i = h.indexOf("<body>");
+  // Without this, a document missing <body> slices to its last character and every
+  // "is this absent" assertion built on the helper passes on any input: the same trap
+  // the helper exists to close, one level down.
+  assert.notStrictEqual(i, -1, "the document has no <body> to measure");
+  return h.slice(i);
+}
 
 // A second decision, built from the fixture's own, so a multi-decision document
 // can be rendered without a second fixture file going stale beside the first.
@@ -36,14 +43,20 @@ function twoDecisions() {
 }
 
 describe("assembleProposal (document)", function () {
-  var html = assembleProposal(load());
+  // Built inside the tests, never in the describe body. assembleProposal throws on a
+  // document the schema rejects, and a throw in a describe body cancels every test in the
+  // file while node --test still exits 0 and prints "# fail 0"; the only trace is an
+  // unindented "not ok". The assertions below exist to catch exactly such a document, so
+  // built eagerly they could report a crash but never a failure. Memoised, so still once.
+  var cached = null;
+  function html() { if (!cached) cached = assembleProposal(load()); return cached; }
 
   it("is one offline document with the FM stylesheet inlined and no external loads", function () {
-    assert.ok(at(html, "<!DOCTYPE html>") !== -1, "DOCTYPE");
-    assert.ok(at(html, "--fm-base-white") !== -1, "fm-base.css inlined");
-    assert.ok(!/(src|href)\s*=\s*["']?(https?:)?\/\//i.test(html), "no external src or href");
-    assert.ok(!/\{\{[A-Z_]+\}\}/.test(html), "no placeholder leak");
-    assert.strictEqual(count(html, "<script"), 1, "only the toggle listener");
+    assert.ok(at(html(), "<!DOCTYPE html>") !== -1, "DOCTYPE");
+    assert.ok(at(html(), "--fm-base-white") !== -1, "fm-base.css inlined");
+    assert.ok(!/(src|href)\s*=\s*["']?(https?:)?\/\//i.test(html()), "no external src or href");
+    assert.ok(!/\{\{[A-Z_]+\}\}/.test(html()), "no placeholder leak");
+    assert.strictEqual(count(html(), "<script"), 1, "only the toggle listener");
   });
 
   it("renders the eight elements in order, answer first and latitude last", function () {
@@ -106,7 +119,7 @@ describe("assembleProposal (document)", function () {
   });
 
   it("omits the decision table for a one-decision document and prints it for more", function () {
-    assert.strictEqual(at(body(html), "decisions-at-a-glance"), -1, "one decision needs no index of itself");
+    assert.strictEqual(at(body(html()), "decisions-at-a-glance"), -1, "one decision needs no index of itself");
     var out = assembleProposal(twoDecisions());
     assert.ok(at(out, "decisions-at-a-glance") !== -1, "two decisions get the table");
     assert.strictEqual(count(out, "<tbody>"), 1 + 2, "the glance table plus one comparison per decision");
@@ -130,7 +143,8 @@ describe("assembleProposal (document)", function () {
 
   it("prints the briefing as goals, non-goals, product facts and research", function () {
     var d = load();
-    var brief = html.slice(at(html, 'class="briefing"'), at(html, 'class="decision"'));
+    var doc = html();
+    var brief = doc.slice(at(doc, 'class="briefing"'), at(doc, 'class="decision"'));
     d.scope.goals.forEach(function (g) { assert.ok(at(brief, g) !== -1, "goal: " + g); });
     d.scope.nonGoals.forEach(function (n) { assert.ok(at(brief, n) !== -1, "non-goal: " + n); });
     d.context.product.forEach(function (f) { assert.ok(at(brief, f) !== -1, "fact: " + f); });
@@ -251,7 +265,8 @@ describe("assembleProposal (document)", function () {
   });
 
   it("keeps the comparison table's glyphs so it survives greyscale", function () {
-    var body = html.slice(html.indexOf("<body>"));
+    var doc = html();
+    var body = doc.slice(doc.indexOf("<body>"));
     assert.ok(at(body, "tone-good") !== -1 || at(body, "tone-mixed") !== -1,
       "a tone class reaches the table, not just the stylesheet that defines it");
     var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
@@ -283,7 +298,13 @@ describe("assembleProposal (document)", function () {
 describe("assembleProposal, the DIP-I-496 acceptance document", function () {
   var FULL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
   function full() { return JSON.parse(fs.readFileSync(FULL, "utf8")); }
-  var html = assembleProposal(full());
+  // Built inside the tests, never in the describe body. assembleProposal throws on a
+  // document the schema rejects, and a throw in a describe body cancels every test in the
+  // file while node --test still exits 0 and prints "# fail 0"; the only trace is an
+  // unindented "not ok". The assertions below exist to catch exactly such a document, so
+  // built eagerly they could report a crash but never a failure. Memoised, so still once.
+  var cached = null;
+  function html() { if (!cached) cached = assembleProposal(full()); return cached; }
 
   // Prose the reader reads, counted from the data rather than from the rendered HTML.
   // A drawing's words are labels in a picture, and a breadboard affordance is a label on
@@ -323,14 +344,14 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
 
   it("carries three decisions", function () {
     assert.strictEqual(full().decisions.length, 3);
-    assert.strictEqual(count(html, '<section class="decision"'), 3);
+    assert.strictEqual(count(html(), '<section class="decision"'), 3);
   });
 
   it("puts the first drawing in the second element", function () {
     // Read the BODY. The stylesheet above it defines .decisions-at-a-glance and .bb__svg,
     // so the first hit for either in the whole file is its CSS rule, and an order read off
     // the file compares the sheet's declaration order, not the document's.
-    var out = body(html);
+    var out = body(html());
     var answer = at(out, 'class="answer"');
     var terrain = at(out, 'class="bb__svg"');
     var glance = at(out, "decisions-at-a-glance");
@@ -370,9 +391,13 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
   // it. These names are how-it-was-made, so they are checked over the whole document,
   // not only the footer.
   describe("voice", function () {
+    // A named list, so this is a regression gate on the words that were there, not a
+    // general Voice gate: a document naming some other file still passes. The general
+    // version needs a rule for what counts as a file name, and there is no such rule.
     var MADE_OF = ["proposal-data.json", "--from", "/generate-flow", "assemble-preview", "schemas/", "Follow-ups"];
     it("never names the file, the flag or the command that built it", function () {
-      [load(), twoDecisions()].forEach(function (d) {
+      var FULL_PATH = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
+      [load(), twoDecisions(), JSON.parse(fs.readFileSync(FULL_PATH, "utf8"))].forEach(function (d) {
         var out = body(assembleProposal(d));
         MADE_OF.forEach(function (needle) {
           assert.strictEqual(at(out, needle), -1, "the document says " + needle);
@@ -388,7 +413,7 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
       var line = out.slice(i, out.indexOf("</p>", i));
       assert.ok(line.indexOf(d.meta.skill) !== -1, "names the skill");
       assert.ok(line.indexOf(d.meta.date) !== -1, "names the date");
-      assert.match(line, new RegExp(d.meta.date.replace(/-/g, "\\-") + "\\.<?$"), "the date ends it");
+      assert.match(line, new RegExp(d.meta.date.replace(/-/g, "\\-") + "\\.$"), "the date ends it");
     });
   });
 });
