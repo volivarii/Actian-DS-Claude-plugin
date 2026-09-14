@@ -4,6 +4,45 @@
 `validate-proposal.js` checks it. The schema (`schemas/proposal-data.schema.json`) carries an example on
 every field; read its examples, not the renderer.
 
+## The evaluation stage
+
+`meta.stage` says where the file is. Absent or `"proposal"` is a finished document, which every file
+written before this stage already is. `"evaluation"` is what `--evaluate` writes: the framing, the
+product read, the scope and the questions, with no options, no comparison and no picks. It validates
+against `schemas/proposal-evaluation.schema.json`, with the validator in Run below and only the
+validator: the assembler reads a finished document and refuses an evaluation by the fields it lacks.
+
+**What an evaluation carries.** `meta` as below plus `stage` `"evaluation"`; `source` as the ticket
+arrived, where `system`, `id` and `body` are all required, because an evaluation claims what a ticket
+forces and cannot make that claim without naming it; `context` and `scope` exactly as a document writes
+them; `research` with `ran` false, `findings` empty and `skippedBecause` set to
+`"the evaluation names the decisions first; research runs against them on resume"`; `decisions[]` with
+`id` and `question` alone, one to four, each question one sentence ending in a question mark and no two
+alike; and `openQuestions` for what the product read could not settle, which a `context.gap` makes a P1
+to leave empty. Nothing else: `answer`, `breadboard`, `change`, `latitude`, and a decision's `options`,
+`comparison`, `pick` or `blocker` are each a P0 naming the field, because a half-filled evaluation is a
+file lying about where it is, and the resume would then skip work that was never done.
+
+**What it says in chat.** Under fifteen lines, and no document: the apps and the anchor, the decisions
+numbered, the scope in one line, anything the product read could not ground, and
+`Continue with: /design-proposal --from proposals/proposal-data.json`. `--no-research` alongside
+`--evaluate` is accepted and does nothing, research being off already. `--from` alongside it is refused
+in one line: `--from` runs the other way, and re-evaluating a ticket is another `--evaluate`.
+
+**Resuming one.** `--from` a file at `stage: evaluation` skips the frame and the product read. They are
+recorded in `source` and `context`, reading the ticket or the product a second time produces a second,
+different read, and neither field is rewritten. Run the research now instead, aimed at the decisions
+the file names rather than at the ticket in general, and set `research.ran` true with its findings.
+Then restate the decisions in one line each and author the options, the comparisons and the picks
+against them. Adding, dropping or rewording a decision here is expected: the evaluation fixed the
+framing, which is expensive, not the decomposition, which is judgement and may improve once the options
+exist.
+
+**A strict prefix.** Every key an evaluation carries has the same name, the same shape and the same
+meaning it has in a finished document. Completing one adds keys and sets `meta.stage` to `"proposal"`;
+it never renames or reshapes one. That is what makes the resume trivial and what stops the two stages
+drifting into two data models.
+
 ## The keys and what each one is for
 
 The document leads with the answer, draws the terrain, then argues one decision at a time.
@@ -11,8 +50,8 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **meta**: `title`, `date`, `apps`, `skill`, plus `ticket`, `prompt` and `model` when you have them.
 - **answer**: one sentence, what we are doing. It sits above the picks. If it needs two sentences the
   second one belongs inside a decision.
-- **source** (optional): the ticket as it arrived, `{ system, id, url, title, body }`. Nothing in the
-  document reads it; it is the input record.
+- **source** (optional in a proposal, required in an evaluation): the ticket as it arrived,
+  `{ system, id, url, title, body }`. Nothing in the document reads it; it is the input record.
 - **context**: `question` (the one sentence from Step 1), `product` (three to six facts, **one line
   each, as separate strings, never a paragraph**: the anchor surface, the data model behind it, what an
   admin and a user see today), `sources` (one line each, `app-context: ...` or `attachment: ...`),

@@ -1,7 +1,7 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
-argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--from proposals/proposal-data.json]"
+description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. `--evaluate` stops after the decisions: what the ticket forces, with no options and no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--evaluate] [--from proposals/proposal-data.json]"
 ---
 
 # Design proposal
@@ -31,7 +31,7 @@ changes for an admin and a user; and one line of latitude.
 `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
 field, a card, a badge, a dialog). A multi-screen product flow is `/generate-flow`; a Figma push is
 `/generate-flow --push`. A proposal never pushes: when the request says "push to Figma" or "in Figma", say
-so in one line and offer `/generate-flow`.
+so in one line and offer `/generate-flow`. Under `--evaluate` there is no document, only the data file.
 
 ## Input shapes
 
@@ -48,7 +48,8 @@ so in one line and offer `/generate-flow`.
 | `--concepts N` | 3 | Number of options inside a decision, 2 to 4 |
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
 | `--no-prompt` | off | Kept for compatibility; same as `--no-research` (this skill asks no question) |
-| `--from <path>` | none | Validate and assemble an existing data file; no reading, no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
+| `--evaluate` | off | Stop after the decisions. Writes `proposals/proposal-data.json` at `stage: evaluation`: the framing, the product read, the scope and the questions, with no options, no comparison and no picks. No research and no document. Refused together with `--from` |
+| `--from <path>` | none | Resume a data file. One at `stage: evaluation` resumes into a proposal, without re-reading the ticket or the product (see "The evaluation stage" below); a finished proposal is validated and re-assembled, with no reading and no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
 
 ## Pipeline
 
@@ -71,7 +72,7 @@ in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 
 **Step 3, research** (unless `--no-research` or the request says skip). At most two web searches, at most
 five findings, each with a source named as text. Present them in chat in five lines or fewer. When it did
-not run, the document says `Not researched: <why>`.
+not run, the document says `Not researched: <why>`. Not under `--evaluate`; on a resume it runs here.
 
 **Step 4, decisions in chat.** First the scope in two lines: what this is for (the goals, from the ticket)
 and what it is not doing (the non-goals). Then name the decisions: one per question the feature forces
@@ -80,6 +81,13 @@ change a pick is a decision or that decision's blocker, never an open question. 
 decision, N options, each a bold name and two lines: what it is, and the case where it breaks; and one
 sentence on which one you would pick and what it costs. No file yet. The decomposition is what the reader
 pushes back on here, and that is far cheaper than pushing back on three rendered blocks.
+
+**The evaluation stage.** Skipped by a run with neither `--evaluate` nor `--from`. `--evaluate` stops
+here: write the decisions to `proposals/proposal-data.json` at `stage: evaluation`, validate it and say
+what the ticket forces, as "The evaluation stage" in `references/design-proposal/document-authoring.md`
+says; do not research, draw, compare, pick or write a document. `--from` a file already at that stage
+is the resume, and enters here rather than at Step 1: read that section first, because the ticket and
+the product are recorded in `source` and `context` and must not be read a second time.
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
 `references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
@@ -136,5 +144,5 @@ when none is named).
 
 - `references/design-proposal/document-authoring.md`, the sections, the fragment contract, the conventions
 - `references/ds-rules/fm-css-reference.md`, the Fat Marker palette and component styles
-- `schemas/proposal-data.schema.json`, the data contract, with an example on every field
+- `schemas/proposal-{data,evaluation}.schema.json`, the two stages' contracts, an example on every field
 - `references/context/ux-patterns.md`, when research runs
