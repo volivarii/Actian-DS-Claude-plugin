@@ -173,7 +173,11 @@ function toScreen(m) {
 // in it is the author's. A thin proposal makes a thin brief, and that is honest.
 function composeBrief(data, selected) {
   var lines = [];
-  if (data && data.answer) lines.push(String(data.answer).trim());
+  // The answer argues for the pick, the same way the pick's reasons do below: printing it
+  // above a run that draws no pick at all would read as a case for something this run is
+  // not building. Left out unless at least one selected option is actually the pick.
+  var anyPick = selected.some(function (sel) { return sel.isPick; });
+  if (anyPick && data && data.answer) lines.push(String(data.answer).trim());
   selected.forEach(function (sel) {
     if (lines.length) lines.push("");
     lines.push(sel.decision.question);

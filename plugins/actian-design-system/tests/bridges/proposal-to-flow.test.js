@@ -219,6 +219,8 @@ describe("proposal-to-flow: the brief", function () {
     dec.pick.reasons.forEach(function (r) {
       assert.strictEqual(out.brief.indexOf(r.text), -1, "argues for an option this run is not drawing: " + r.text);
     });
+    assert.strictEqual(out.brief.indexOf(d.answer), -1,
+      "the run draws no pick at all, so the answer that argues for the pick stays out too");
   });
 });
 
