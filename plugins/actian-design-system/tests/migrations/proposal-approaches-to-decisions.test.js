@@ -2,12 +2,16 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
+var os = require("os");
 var path = require("path");
+var { spawnSync } = require("node:child_process");
 var validateSchema = require("../../scripts/validation/validate-schema.js");
 var mig = require("../../scripts/migrations/proposal-approaches-to-decisions.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, "schemas", "proposal-data.schema.json"), "utf8"));
+var CLI = path.join(ROOT, "scripts", "migrations", "proposal-approaches-to-decisions.js");
+var LEGACY = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-legacy.json");
 function legacy() {
   return JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-legacy.json"), "utf8"));
 }
@@ -118,5 +122,63 @@ describe("proposal-approaches-to-decisions", function () {
   it("is idempotent on a file already converted", function () {
     var t = target();
     assert.deepStrictEqual(mig.convert(t), t, "converting a new-shape file returns it unchanged");
+  });
+
+  // The CLI is the whole point of this script, and nothing above touches it: every test
+  // so far calls convert() directly. A write that ran before its own assignment shipped
+  // green under exactly that gap, putting the string "undefined" where the document goes.
+  // These run the binary.
+  describe("the CLI", function () {
+    function run(args) {
+      return spawnSync(process.execPath, [CLI].concat(args), { encoding: "utf8" });
+    }
+    function tmp() {
+      return fs.mkdtempSync(path.join(os.tmpdir(), "proposal-convert-"));
+    }
+
+    it("writes the converted document to -o, not the string undefined", function () {
+      var dir = tmp();
+      var out = path.join(dir, "converted.json");
+      var r = run([LEGACY, "-o", out]);
+      assert.strictEqual(r.status, 0, r.stderr);
+      var text = fs.readFileSync(out, "utf8");
+      assert.notStrictEqual(text.trim(), "undefined", "the file holds a document, not an undefined");
+      var data = JSON.parse(text);
+      assert.strictEqual(data.decisions.length, 1, "one decision");
+      assert.strictEqual(data.decisions[0].options.length, legacy().approaches.length, "every approach became an option");
+      assert.ok(/context.product split into \d+ facts/.test(r.stdout), "and it reports the fact count it actually wrote");
+    });
+
+    it("converts in place, which is the path that would destroy the input", function () {
+      var dir = tmp();
+      var file = path.join(dir, "proposal-data.json");
+      fs.copyFileSync(LEGACY, file);
+      var r = run([file]);
+      assert.strictEqual(r.status, 0, r.stderr);
+      var data = JSON.parse(fs.readFileSync(file, "utf8"));
+      assert.strictEqual(data.decisions.length, 1, "the file that was overwritten is a document");
+      assert.ok(!data.approaches, "and no longer the old shape");
+    });
+
+    it("refuses to clobber an existing -o and leaves it byte for byte", function () {
+      var dir = tmp();
+      var out = path.join(dir, "taken.json");
+      fs.writeFileSync(out, "{ \"mine\": true }\n");
+      var r = run([LEGACY, "-o", out]);
+      assert.strictEqual(r.status, 1, "refused");
+      assert.match(r.stderr, /already exists/);
+      assert.strictEqual(fs.readFileSync(out, "utf8"), "{ \"mine\": true }\n", "untouched");
+    });
+
+    it("says so and changes nothing when the file is already converted", function () {
+      var dir = tmp();
+      var file = path.join(dir, "proposal-data.json");
+      var before = JSON.stringify(target(), null, 2);
+      fs.writeFileSync(file, before);
+      var r = run([file]);
+      assert.strictEqual(r.status, 0);
+      assert.match(r.stderr, /already in the decisions\[\] shape/);
+      assert.strictEqual(fs.readFileSync(file, "utf8"), before, "not rewritten");
+    });
   });
 });

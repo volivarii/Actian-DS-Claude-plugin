@@ -111,8 +111,8 @@ if (require.main === module) {
     process.stderr.write(inPath + " is already in the decisions[] shape; nothing to do\n");
     process.exit(0);
   }
-  fs.writeFileSync(outPath, JSON.stringify(converted, null, 2) + "\n");
   var converted = convert(src);
+  fs.writeFileSync(outPath, JSON.stringify(converted, null, 2) + "\n");
   process.stdout.write(
     "Converted " + inPath + " to " + outPath + ".\n" +
     "context.product split into " + converted.context.product.length + " facts; read them, a period\n" +
