@@ -266,7 +266,7 @@
             "text": "Badge and expandable row are both existing kit patterns, so this ships inside the current account menu with no new component."
           }
         ],
-        "cost": "The badge alone does not show per catalog scope or the guidelines link, so a user who needs either must still open the My access panel, which is one more panel state to build and keep in sync with group data."
+        "cost": "The badge alone does not show which catalogs a group applies to or the guidelines link, so a user who needs either must still open the My access panel, which is one more panel state to build and keep in sync with group data."
       }
     }
   ],

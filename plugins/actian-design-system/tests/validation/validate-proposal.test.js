@@ -26,9 +26,12 @@ function find(findings, check) {
 // They are dropped by check AND path, never by check alone, so no other finding of
 // either kind can hide behind them. Every "the document is quiet" assertion below
 // stays as tight as the deepEqual it replaces.
+// The one-decision fixture spans two apps and deliberately draws no terrain, so the P1
+// asking for one is correct on it and stands. That is the advisory doing its job on real
+// data rather than on a mutation, which is worth keeping. Anything else appearing here
+// would mean the fixture had drifted, so the count is asserted too.
 var STANDING = [
   { check: "breadboard", path: "breadboard" },
-  { check: "terminology", path: "decisions[0].pick.cost" },
 ];
 function withoutStandingAdvice(findings) {
   return findings.filter(function (f) {
@@ -46,11 +49,11 @@ describe("extractText", function () {
 });
 
 describe("validateProposal (document)", function () {
-  it("carries nothing on the clean fixture beyond the two P1 advisories it earns", function () {
+  it("carries nothing on the clean fixture beyond the one advisory it earns", function () {
     var f = validateProposal(load()).findings;
     assert.deepEqual(withoutStandingAdvice(f), [], JSON.stringify(f, null, 1));
     assert.strictEqual(f.length, STANDING.length, JSON.stringify(f, null, 1));
-    assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1", "P1"], JSON.stringify(f, null, 1));
+    assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1"], JSON.stringify(f, null, 1));
   });
   it("schema errors are P0 (check schema) and stop the other checks", function () {
     var f = validateProposal(withMutation(function (d) { delete d.decisions[0].comparison; })).findings;
@@ -375,12 +378,12 @@ describe("validate-proposal.js CLI", function () {
     fs.writeFileSync(p, JSON.stringify(withMutation(mutate)));
     return p;
   }
-  it("exits 0 on the clean fixture, printing its two P1 advisories", function () {
+  it("exits 0 on the clean fixture, printing the one advisory it earns", function () {
     var r = run([FIXTURE]);
     assert.strictEqual(r.status, 0, r.stderr + r.stdout);
-    assert.ok(/2 findings \(P0 0, P1 2, P2 0\)/.test(r.stdout), r.stdout);
+    assert.ok(/1 findings \(P0 0, P1 1, P2 0\)/.test(r.stdout), r.stdout);
     assert.ok(/P1 \[breadboard\]/.test(r.stdout), r.stdout);
-    assert.ok(/P1 \[terminology\] decisions\[0\].pick.cost/.test(r.stdout), r.stdout);
+    assert.ok(!/P1 \[terminology\]/.test(r.stdout), "the fixture's own prose passes the terminology gate: " + r.stdout);
   });
   it("exits 1 on a P0 and prints the finding line with the option", function () {
     var r = run([tmpWith(function (d) { d.decisions[0].options[1].screen.html += "<script>x()</script>"; })]);
