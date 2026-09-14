@@ -269,21 +269,37 @@ module.exports = { compose: compose, placeOrder: placeOrder };
 
 if (require.main === module) {
   var args = process.argv.slice(2);
-  var USAGE = "Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]\n";
+  var USAGE = "Usage: proposal-to-flow.js <proposal-data.json> [--decision <id>] [--option <id>] [-o <out.json>]\n" +
+    "A flag given more than once keeps its first occurrence.\n";
   if (!args.length || args.indexOf("--help") !== -1) {
     process.stdout.write(USAGE);
     process.exit(args.length ? 0 : 1);
   }
+  var MISSING = {};
   function valueOf(flag) {
     var i = args.indexOf(flag);
-    return i !== -1 && args[i + 1] && args[i + 1].indexOf("-") !== 0 ? args[i + 1] : undefined;
+    if (i === -1) return undefined;
+    var next = args[i + 1];
+    if (next === undefined) return MISSING;
+    return next.indexOf("-") !== 0 ? next : undefined;
+  }
+  function requiredValueOf(flag) {
+    var v = valueOf(flag);
+    if (v === MISSING) {
+      process.stderr.write(flag + " needs a value after it\n");
+      process.exit(1);
+    }
+    return v;
   }
   var inPath = path.resolve(args[0]);
-  var outPath = valueOf("-o") ? path.resolve(valueOf("-o")) : null;
+  var outVal = requiredValueOf("-o");
+  var outPath = outVal ? path.resolve(outVal) : null;
   if (outPath && fs.existsSync(outPath)) {
     process.stderr.write(outPath + " already exists; remove it or drop -o to print the seed\n");
     process.exit(1);
   }
+  var decisionVal = requiredValueOf("--decision");
+  var optionVal = requiredValueOf("--option");
   var data;
   try {
     data = JSON.parse(fs.readFileSync(inPath, "utf8"));
@@ -291,10 +307,15 @@ if (require.main === module) {
     process.stderr.write("Error reading " + inPath + ": " + e.message + "\n");
     process.exit(1);
   }
-  var seed = compose(data, { decision: valueOf("--decision"), option: valueOf("--option") });
+  var seed = compose(data, { decision: decisionVal, option: optionVal });
   var json = JSON.stringify(seed, null, 2) + "\n";
   if (outPath) {
-    fs.writeFileSync(outPath, json);
+    try {
+      fs.writeFileSync(outPath, json);
+    } catch (e) {
+      process.stderr.write("Error writing " + outPath + ": " + e.message + "\n");
+      process.exit(1);
+    }
     process.stdout.write("Wrote " + seed.screens.length + " screen(s) and a brief to " + outPath + ".\n");
   } else {
     process.stdout.write(json);

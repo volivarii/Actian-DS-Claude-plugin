@@ -354,4 +354,21 @@ describe("proposal-to-flow: the CLI", function () {
     assert.ok(r.stderr.indexOf("absent.json") !== -1, r.stderr);
     assert.strictEqual(r.stderr.indexOf("at Object."), -1, "a stack trace, not a message: " + r.stderr);
   });
+
+  it("names the path instead of printing a stack when -o points into a directory that does not exist", function () {
+    var dir = tmp();
+    var out = path.join(dir, "no-such-subdir", "seed.json");
+    var r = run([FIXTURE, "-o", out]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf(out) !== -1, r.stderr);
+    assert.strictEqual(r.stderr.indexOf("at Object."), -1, "a stack trace, not a message: " + r.stderr);
+    assert.ok(!fs.existsSync(out), "should not have written anything");
+  });
+
+  it("names the flag when --decision is the last argument and has no value after it", function () {
+    var r = run([FIXTURE, "--decision"]);
+    assert.strictEqual(r.status, 1, r.stdout);
+    assert.ok(r.stderr.indexOf("--decision") !== -1, r.stderr);
+    assert.strictEqual(r.stdout, "", "should not have composed or printed anything: " + r.stdout);
+  });
 });
