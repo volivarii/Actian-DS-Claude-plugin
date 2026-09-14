@@ -83,6 +83,17 @@
           "examples": [
             "design-proposal"
           ]
+        },
+        "stage": {
+          "type": "string",
+          "enum": [
+            "evaluation",
+            "proposal"
+          ],
+          "description": "Which stage of the pipeline this file is at. Absent means proposal, which is what every file authored before the evaluation stage existed is, so nothing needs touching. Only --evaluate writes \"evaluation\".",
+          "examples": [
+            "proposal"
+          ]
         }
       }
     },

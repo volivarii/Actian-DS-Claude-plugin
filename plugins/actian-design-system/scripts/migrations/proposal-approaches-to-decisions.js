@@ -29,8 +29,14 @@ function isOldShape(data) {
 // two fragments that are each non-empty, trimmed and terminated, so they pass every gate
 // downstream and the corruption never surfaces. The common cases stop being silent, and
 // the CLI prints the resulting count so an author can see one it did not catch.
+// `(?:[A-Z]\.)*[A-Z]` rather than a bare `[A-Z]`, so a dotted initialism counts as one
+// abbreviation and not a chain of sentence ends. The leading `(?:^|\s)` means the letter
+// has to start a word, and in "the U.S." the S is preceded by a dot, so a single-letter
+// alternative never matched it: "Where does the U.S. admin see it?" read as two sentences.
+// That was harmless while this rule only split a paragraph, and stopped being harmless
+// when validate-proposal.js began rejecting a decision question with it.
 var NOT_A_SENTENCE_END =
-  /(?:^|\s)(?:[A-Z]|e\.g|i\.e|etc|vs|cf|al|Fig|No|Vol|Dr|Mr|Mrs|Ms|St|Inc|Ltd|Co|Corp|Jr|Sr|approx|dept|est)\.$/;
+  /(?:^|\s)(?:(?:[A-Z]\.)*[A-Z]|e\.g|i\.e|etc|vs|cf|al|Fig|No|Vol|Dr|Mr|Mrs|Ms|St|Inc|Ltd|Co|Corp|Jr|Sr|approx|dept|est|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\.$/;
 
 // One fact per sentence. Keeps the terminator, so joining the result with a
 // single space reproduces the paragraph exactly; the test asserts that.
@@ -91,7 +97,10 @@ function convert(data) {
   return out;
 }
 
-module.exports = { convert: convert, isOldShape: isOldShape };
+// NOT_A_SENTENCE_END is exported because validate-proposal.js needs the same rule to count
+// the sentences in a decision's question. Two regexes would disagree on the first
+// abbreviation either of them met, and this one is the codebase's sentence boundary.
+module.exports = { convert: convert, isOldShape: isOldShape, NOT_A_SENTENCE_END: NOT_A_SENTENCE_END };
 
 if (require.main === module) {
   var args = process.argv.slice(2);

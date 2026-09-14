@@ -95,6 +95,66 @@ are summarized at the release level.
 
 ### Added
 
+- **`/design-proposal --evaluate`: what a ticket forces, before anything is drawn**
+  (PR link to be added when the PR is opened). `/design-proposal DIP-I-522 --evaluate` runs the frame,
+  the product read and the decomposition, writes `proposals/proposal-data.json`, says in under fifteen
+  lines what the ticket forces, and stops. No research, no options, no comparison, no picks, no
+  document. Resume it with `/design-proposal --from proposals/proposal-data.json`: the resume skips the
+  ticket and the product read, which the file already records, runs the research against the decisions
+  the file names rather than against the ticket in general, and authors the rest. `--no-research` and
+  `--concepts N` alongside `--evaluate` are accepted and do nothing, an evaluation running no research
+  and authoring no options; `--from` alongside it is refused in one line, since it runs the other way.
+
+  Why: the skill ran to a finished document or to nothing, so a reader who only wanted to know what a
+  ticket actually forces had to pay for every option and every comparison first. Three cases wanted the
+  cheap half. Triage, where the useful answer for eleven tickets is which are one decision and which are
+  four. A ticket that cannot be answered yet, which today is discovered in the last step after the
+  research, and is discoverable in the first. And research aimed at nothing, which is what researching
+  before the decisions are named amounts to. Note that `--evaluate` is the only place research moves
+  after the decomposition: the default pipeline is deliberately unchanged in the release that introduces
+  the flag.
+
+  **`meta.stage` is new and optional, and nothing you have breaks.** Absent or `"proposal"` means a
+  finished document, which is what every stored `proposal-data.json` already is; `"evaluation"` selects
+  the new contract. It is optional on purpose. A discriminator whose default is the existing meaning
+  does not need to be required, and requiring it would have broken every file in every working directory
+  to record a fact its absence already records. This lane broke stored files twice in three releases,
+  with `scope` and with `decisions[]`; this one does not, and `MIGRATIONS.md` records that as the
+  standard rather than as luck.
+
+  **Two schemas, not one loosened schema.** `schemas/proposal-evaluation.schema.json` sits beside
+  `proposal-data.schema.json`, and `validate-proposal.js` reads `meta.stage` and picks. An evaluation is
+  a strict prefix of a proposal: every key it carries has the same name, the same shape and the same
+  meaning it has in a finished document, so completing one adds keys and never renames one, and a test
+  holds the shared nodes byte-identical between the two files. Making `answer`, `options`, `pick` and
+  `change` optional so one schema covered both would have stopped enforcing the finished document's
+  contract at all, which is the thing that has kept it honest.
+
+  **Six new gates, at the evaluation stage only.** A file at `stage: "evaluation"` carrying `options`,
+  `comparison`, `pick`, `answer`, `change`, `latitude`, `breadboard` or a decision's `blocker` is a P0
+  naming the field, because a half-filled evaluation is a file lying about where it is and the resume
+  would then skip work that was never done; the forbidden set is derived from the difference between the
+  two schemas rather than written out. `source.system`, `source.id` and `source.body` are required here,
+  each an empty string included, because an evaluation claims what a ticket forces and cannot make that
+  claim without naming the ticket. Each `decisions[].question` must end in a question mark, be one
+  sentence, and not repeat another, using the same sentence-boundary rule the converter already carries
+  so that an abbreviation inside a question does not read as two. And a P1 when `context.gap` is set and
+  `openQuestions` is empty: a ticket the product read could not ground, with nothing left open, is the
+  shape of a confident answer to a question nobody checked. What is *right* is not gated. Whether these
+  are the questions the feature forces, whether one of them is two, whether a fifth was missed: no gate
+  can read that, and one that pretended to would be a mechanism credited with work it does not do.
+  An evaluation that sets `research.ran` true is a P0 too: research runs on the resume, aimed at
+  the decisions the evaluation named, which is the reason the stage exists. It is the one stage
+  lie the derived set cannot catch, because `research` is a node both schemas carry.
+
+  **For contributors: the `Checks:` list in `validate-proposal.js`'s header is now a gate.** A test
+  parses that block and compares it, in both directions, against the check names the file actually
+  emits, so adding a `finding()` call with a new check name without listing it in the header, or listing
+  one the file no longer emits, turns the suite red. It also asserts every call site passes its severity
+  and check name as literals, which is what the header gate can see. That header had already been wrong
+  once; the list of check NAMES is no longer a comment you can forget. What each name's
+  parenthetical claims is still prose, and was incomplete twice before this shipped.
+
 - **design-proposal states its scope and its uncertainty** ([#377](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/377)):
   a proposal now carries a required `scope` (one to four goals, one to four non-goals) and an
   optional `openQuestions` (at most four rabbit holes or open questions, omitted rather than
