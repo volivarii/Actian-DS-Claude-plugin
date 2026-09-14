@@ -39,10 +39,7 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Run test suite
         working-directory: plugins/actian-design-system
-        run: |
-          set -euo pipefail
-          find tests -name '*.test.js' -type f -print0 \
-            | xargs -0 node --test
+        run: npm test
 
   notify-red-main:
     # always(): this must run even though the job it watches failed.

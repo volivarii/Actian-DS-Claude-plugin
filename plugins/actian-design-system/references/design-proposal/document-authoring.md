@@ -4,40 +4,105 @@
 `validate-proposal.js` checks it. The schema (`schemas/proposal-data.schema.json`) carries an example on
 every field; read its examples, not the renderer.
 
-## The sections and what each one is for
+## The keys and what each one is for
 
-The order below is the data's. The document leads with the recommendation and closes with its
-reasons.
+The document leads with the answer, draws the terrain, then argues one decision at a time.
 
-- **context**: `question` (the one sentence from Step 1), `product` (three to six sentences on how the
-  product handles this today: the anchor surface, the data model behind it, what an admin and a user see),
-  `sources` (one line each, `app-context: ...` or `attachment: ...`), `gap` (one sentence, only when the
-  anchor surface has no capture in app-context).
+- **meta**: `title`, `date`, `apps`, `skill`, plus `ticket`, `prompt` and `model` when you have them.
+- **answer**: one sentence, what we are doing. It sits above the picks. If it needs two sentences the
+  second one belongs inside a decision.
+- **source** (optional): the ticket as it arrived, `{ system, id, url, title, body }`. Nothing in the
+  document reads it; it is the input record.
+- **context**: `question` (the one sentence from Step 1), `product` (three to six facts, **one line
+  each, as separate strings, never a paragraph**: the anchor surface, the data model behind it, what an
+  admin and a user see today), `sources` (one line each, `app-context: ...` or `attachment: ...`),
+  `gap` (one sentence, only when the anchor surface has no capture in app-context).
 - **scope**: one to four goals and one to four non-goals. A goal comes from the ticket. A non-goal is
   a thing a reviewer would plausibly ask for that this change deliberately does not do; naming it is
   what stops the ask. Do not invent either to fill the slots; two of each is a full answer.
 - **research**: `ran` and up to five `findings` of `{ claim, source }`, the source as text (the document
   loads nothing). When research did not run: `ran: false`, `findings: []`, `skippedBecause`.
-- **approaches**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
-  `surface` in the product's words), `whatItIs` and `breaksWhen` (one line each), a `verdict` (a few words,
-  printed as a tag), a `screen` (`width`, `html`) and `screens` (one to four entries in generate-flow's
-  screen-list shape: `name`, `template` from `recipes/flow/_index.json`, `app`, `entity` or null, `note`).
-- **comparison**: `criteria` rows (`id`, `label`, `source` one of `ticket goal`, `product fact`, `cost`)
-  and `cells[approachId][criterionId] = { text, tone }` with `tone` one of `good`, `mixed`, `bad`. Every
-  criterion comes from the ticket's stated goal, a fact the product read established, or cost; never taste.
-- **openQuestions**: at most four. A rabbit hole is a detail of the recommended approach that will cost
-  more than it looks (a missing affordance, an unstated default). An open question is a decision the
-  reader has to make. Omit the whole field when there are none; an invented question reads as padding
+- **breadboard** (see below): `places[]` and `connections[]`, the terrain the decisions sit on.
+- **decisions**: one to four. Each is self-contained: `id` (a slug), `question`, `options`, `comparison`,
+  `pick`, and an optional `blocker`.
+- **openQuestions**: at most four `{ kind, text }`, `kind` one of `rabbit hole` or `open question`.
+  Non-blocking only. Omit the whole field when there are none; an invented question reads as padding
   and costs the document its credibility.
-- **recommendation**: `approachId`, a `summary` paragraph, two to four `reasons` of `{ title, why }`, and
-  `change` (`adminSide`, `userSide`) when the change is two-sided.
+- **change**: `adminSide` and `userSide`, what this does to each.
+- **latitude**: one line saying how much of this is fixed. The drawings are one way to answer the
+  questions, not the only way.
 
-## One anchor, N variants
+### Inside a decision
 
-Every approach is drawn inside the surface the ticket lives on, in the product's words (`anchor.surface`),
-so the reader compares variants of one thing. When the approaches truly live on different surfaces, each
-names its own anchor. The assembler renders the anchor app's header strip above the drawing; do not draw
-an app name, a nav bar or an avatar strip.
+- **options**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
+  `surface` in the product's words), `whatItIs` and `breaksWhen` (one line each), a `verdict` (a few
+  words, printed as a tag), a `screen` (`width`, `html`, and at most three `notes`, a phrase each) and
+  `screens` (one to four entries in generate-flow's screen-list shape: `name`, `template` from
+  `recipes/flow/_index.json`, `app`, `entity` or null, `note`).
+- **comparison**: `criteria` rows (`id`, `label`, `source` one of `ticket goal`, `product fact`, `cost`)
+  and `cells[optionId][criterionId] = { text, tone }` with `tone` one of `good`, `mixed`, `bad`. Three
+  to six rows. Every criterion comes from the ticket's stated goal, a fact the product read established,
+  or cost; never taste. The criteria are this decision's own: a row in a sibling decision is invisible
+  here.
+- **pick**: `optionId`, two to four `reasons` of `{ criterionId, text }`, and `cost`.
+- **blocker** (optional): one sentence.
+
+## How many decisions
+
+One decision per question the feature forces that a reader could answer differently. Not one per
+screen, not one per option you can think of: a question whose answer a reasonable reader could argue
+with. A ticket that forces one question gets one decision, and that is the common case; the shape
+degrades to a short document rather than a truncated long one.
+
+The failure mode to avoid is the old shape wearing the new schema: a single decision carrying four
+variants of one surface, when the ticket plainly forced a second question that then gets demoted to an
+open question three sections away. If a question would change a pick, it is a decision or a blocker,
+never an open question.
+
+## A reason names the criterion it argues from
+
+Every entry in `pick.reasons[]` carries a `criterionId` naming a row in **its own** decision's
+comparison, and the validator fails a P0 on one that does not. This is the density rule made
+structural: the argument becomes traceable, it renders as one line instead of a paragraph, and a
+reader can check it against the row it claims.
+
+A reason that cannot name a criterion is one of two things. It is taste, in which case it does not
+belong in the document. Or it is a price rather than a win, in which case it belongs in `cost`.
+
+## Every pick states its cost
+
+`pick.cost` is required and an empty one is a P0. What risk ships with this choice is the thing a
+product manager is actually reading for, and it is the half of the argument the old shape had nowhere
+to put. One line: what this choice buys trouble on, not a hedge.
+
+## A blocker is not an open question
+
+A question that would change a pick if answered differently is that decision's `blocker` and lives in
+its block, beside the pick it would change. Everything that does not change a pick is an
+`openQuestions[]` entry at the end of the document. This is the RFC convention: unresolved questions
+are ones that do not block approval, so a question that blocks approval must not be filed as one.
+
+## The breadboard
+
+`breadboard` is `{ places[], connections[] }`. A place is `{ id, name, app, affordances[], row, col,
+isNew }`; a connection is `{ from, to, label, isNew }`. `to` names a place. `from` names a place, or an
+affordance as `<placeId>/<n>` with `n` the 1-based index of the affordance the line leaves from. `row`
+and `col` put the box on a grid, and the assembler computes the coordinates and routes each line
+orthogonally through the gutters; omitting them means one row in declaration order.
+
+**Places are surfaces, not screens.** A place is somewhere in the product a person is: a menu, a
+settings page, a share dialog. Two states of one surface are one place. Two to six of them.
+
+Required when the places span more than one app, which is exactly the case prose fails on, and the
+validator raises a P1 when it is absent there. Omitted entirely for a single place. Optional in
+between, where several places sit in one app.
+
+## One anchor, N options
+
+Inside a decision, every option is drawn inside the surface the question lives on, in the product's
+words (`anchor.surface`), so the reader compares variants of one thing. When the options truly live on
+different surfaces, each names its own anchor. The assembler renders the anchor app's header strip
+above the drawing; do not draw an app name, a nav bar or an avatar strip.
 
 ## The fragment contract
 
@@ -65,16 +130,45 @@ an app name, a nav bar or an avatar strip.
 
 ## Conventions that make the document read as a proposal
 
-- **Width to the idea.** 320 for a menu or popover, 360 to 400 for a form region, 720 for a page region.
+- **Width to the idea, then the row decides.** 320 for a menu or popover, 360 to 400 for a form region,
+  720 for a page region. The options of one decision sit in one row of a 1200px document with a 24px
+  gap, so the count caps the width: two options fit at 588 each, three at 384, four at 282. A page-region
+  width is therefore only ever a two-option choice.
+- **The renderer equalises, it does not trust.** Within a decision the assembler takes the widest
+  declared width, caps it at that row budget, and applies the result to every option in the decision, so
+  the widest option raises its siblings and nobody can draw their favourite at 720 against a rival at
+  320. Presentation quality moves a stakeholder's judgement in both directions, which is why this is
+  enforced rather than asked for. A sibling declared at a different width is an informational P1, not an
+  error: the drawing you get is the equalised one.
 - **Emphasise the thing the ticket adds.** Wrap it in
   `style="border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px"`
   and add `<span class="fm-badge">New</span>` beside it. One emphasis per drawing.
 - **Two lines, one verdict.** `whatItIs` says what it is; `breaksWhen` names the case it does not survive;
   `verdict` is the reader's shorthand ("Simple, caps at one group").
-- **Reasons argue from the table.** Each reason names a criterion the recommended approach wins or a
-  fact from the product read. Two to four; the fourth is usually "it reuses what exists".
-- **The screen list is the bridge.** `screens[]` describes the pages a flow of this approach would show,
-  not the drawing; `note` says what the approach changes on that page.
+- **Notes are phrases.** At most three per drawing, each one the rationale of a part of it.
+- **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
+  not the drawing; `note` says what the option changes on that page.
+
+## Voice
+
+The document never describes how it was made. No renderer, palette, schema, data file, flag or script
+name in anything a reader sees, including the notes, the cells and the latitude line. Provenance is one
+footer line saying who and when; the follow-ups ("adjust this", "make a pick a flow") are offered in
+chat, where the author already is, and never printed in the document.
+
+## What a terminology or avoid-word P1 means
+
+Those two gates run over every text field, the rationale prose included: `answer`, `latitude`,
+`pick.cost`, `pick.reasons[].text` and `blocker` as well as everything a reader sees on a drawing. They
+are P1 rather than P0 because on rationale prose the right answer is often to keep the word. "The
+recommendation stands" is English, not the product's Suggestion; "it avoids a new API surface" is not an
+Output port. No regex separates a product noun from its ordinary sense, and these do not try.
+
+So they point, they do not rule. The acceptance document draws no hits at all, because its wording was
+settled against them. A real ticket is noisier: the DIP-I-522 run drew twenty P1s, seventeen of which
+were the single word "item", which that ticket uses four times in its own text. Expect repetition, and
+expect to keep the ticket's word. The whole procedure is the skill's: read each P1, keep or change the
+word, and say in chat which ones you kept and why. Do not silence the gate.
 
 ## Run
 
@@ -84,5 +178,14 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" proposals/proposal-data.json --type proposal -o proposals/<slug>.html
 ```
 
-Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a ticket's own word
-kept over a terminology hit); P2 is voice, fix it when cheap.
+Re-run until no P0 remains and every remaining P1 is one you have explained in chat; P2 is voice, fix it
+when cheap.
+
+A `proposal-data.json` written before `2026.9.30` carries `approaches`, `comparison` and
+`recommendation` at the top level. Convert it first, then author the three fields the converter leaves
+empty:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/migrations/proposal-approaches-to-decisions.js" proposals/proposal-data.json
+```
