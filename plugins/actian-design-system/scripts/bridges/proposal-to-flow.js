@@ -43,6 +43,12 @@ function entityOf(screen) {
 // we do what this proposal says.
 function select(data, opts, findings) {
   var decisions = (data && data.decisions) || [];
+  if (!decisions.length) {
+    findings.push(finding("P0", "selection", "decisions",
+      "the file carries no decisions, so there is nothing to build a flow from",
+      "a proposal that was never finished, or a file that is not a proposal at all"));
+    return [];
+  }
   if (opts.option && !opts.decision) {
     findings.push(finding("P0", "selection", "--option",
       "names an option without naming its decision",

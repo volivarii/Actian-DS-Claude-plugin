@@ -128,6 +128,24 @@ describe("proposal-to-flow: what it refuses", function () {
     assert.deepStrictEqual(sev(out.findings, "P0"), [], JSON.stringify(out.findings));
     assert.strictEqual(named(out.screens, MENU).entity, null);
   });
+
+  it("P0s a file with no decisions instead of seeding nothing, for both an absent and an empty list", function () {
+    var a = flat();
+    delete a.decisions;
+    var outA = compose(a, {});
+    assert.strictEqual(outA.findings.length, 1, JSON.stringify(outA.findings));
+    assert.strictEqual(outA.findings[0].severity, "P0");
+    assert.strictEqual(outA.findings[0].check, "selection");
+    assert.deepStrictEqual(outA.screens, []);
+
+    var b = flat();
+    b.decisions = [];
+    var outB = compose(b, {});
+    assert.strictEqual(outB.findings.length, 1, JSON.stringify(outB.findings));
+    assert.strictEqual(outB.findings[0].severity, "P0");
+    assert.strictEqual(outB.findings[0].check, "selection");
+    assert.deepStrictEqual(outB.screens, []);
+  });
 });
 
 describe("proposal-to-flow: the brief", function () {
