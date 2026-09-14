@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a reasoned document. A recommendation with reasons, then context from the app context and what you attach, bounded research, two to four approaches drawn inside the surface the ticket lives on, and a comparison. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--from proposals/proposal-data.json]"
 ---
 
@@ -19,11 +19,13 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 
 ## What this produces
 
-One offline HTML document at `{project_working_directory}/proposals/<slug>.html`: the recommendation
-leads the document, then where this lives today, what this is for in its goals and non-goals, what
-comparable products do, the approaches drawn inside one anchor surface with a verdict each, and how they
-compare in a table; what the proposal is not yet sure about follows the table when anything is left open,
-then the recommendation's reasons and what it changes close it, argued from the table before them.
+One offline HTML document at `{project_working_directory}/proposals/<slug>.html`, in eight elements: the
+answer in one sentence above the picks; the terrain, a drawing of the places this touches, omitted when
+there is only one; the decision table of question, pick and cost, omitted when there is one decision; the
+briefing of goals and non-goals, the product facts and the research; then one block per decision, each
+with its options drawn side by side at one width, a comparison, and a pick whose reasons name the rows
+they argue from and whose cost says what ships with it; what is still open, when anything is; what this
+changes for an admin and a user; and one line of latitude.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
 `dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
 `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
@@ -43,10 +45,10 @@ so in one line and offer `/generate-flow`.
 
 | Flag | Default | Behavior |
 |---|---|---|
-| `--concepts N` | 3 | Number of approaches, 2 to 4 |
+| `--concepts N` | 3 | Number of options inside a decision, 2 to 4 |
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
 | `--no-prompt` | off | Kept for compatibility; same as `--no-research` (this skill asks no question) |
-| `--from <path>` | none | Validate and assemble an existing data file; no reading, no approaches in chat. A file authored before `2026.9.28` has no `scope`, so add goals and non-goals from the ticket before re-rendering |
+| `--from <path>` | none | Validate and assemble an existing data file; no reading, no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
 
 ## Pipeline
 
@@ -71,21 +73,28 @@ in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 five findings, each with a source named as text. Present them in chat in five lines or fewer. When it did
 not run, the document says `Not researched: <why>`.
 
-**Step 4, scope and approaches in chat.** First the scope in two lines: what this is for (the goals, from
-the ticket) and what it is not doing (the non-goals). Then N approaches, each a bold name and two lines:
-what it is, and the case where it breaks. Then one paragraph: the recommendation and why. No file yet. The
-reader pushes back here, on the non-goals as much as on the approaches.
+**Step 4, decisions in chat.** First the scope in two lines: what this is for (the goals, from the ticket)
+and what it is not doing (the non-goals). Then name the decisions: one per question the feature forces
+that a reader could answer differently, at most four, and one is the common case. A question that would
+change a pick is a decision or that decision's blocker, never an open question. Then, under each
+decision, N options, each a bold name and two lines: what it is, and the case where it breaks; and one
+sentence on which one you would pick and what it costs. No file yet. The decomposition is what the reader
+pushes back on here, and that is far cheaper than pushing back on three rendered blocks.
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
 `references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
 `schemas/proposal-data.schema.json`: `meta.title` is the document title, `meta.date` is today's date,
-`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `context`, `scope` (one to four
+`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `answer` (one sentence, what we are
+doing), `context` (`product` is three to six facts, one line each, not a paragraph), `scope` (one to four
 goals and one to four non-goals, both from the ticket, never invented: the non-goals are what stops
-a reviewer scoping the work sideways), `research`, `approaches` (each drawn inside its anchor, in flow,
-`width` sized to the idea, with its `screens[]` list), `comparison` (criteria from the ticket's goal, the
-product read, or cost), `openQuestions` (at most four rabbit holes or open questions; omit the field when
-the proposal genuinely settles everything, never invent one) and `recommendation` (reasons that argue from
-the table). Then:
+a reviewer scoping the work sideways), `research`, `breadboard` (two to six places and the lines between
+them, required when the places span more than one app, omitted for a single place), `decisions` (the ones
+you named in Step 4, each with its `options` drawn inside their anchor, in flow, `width` sized to the
+idea, with their `screens[]` lists; its own `comparison` with criteria from the ticket's goal, the product
+read, or cost; and a `pick` whose every reason names a `criterionId` in that same comparison, plus a
+`cost` saying what ships with it; a `blocker` when a question would change the pick), `openQuestions` (at
+most four non-blocking rabbit holes or open questions; omit the field when the proposal genuinely settles
+everything, never invent one), `change` (admin side, user side) and `latitude` (one line). Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -99,10 +108,11 @@ ticket's own word kept over a terminology hit); P2 is voice, fix it when cheap. 
 output; edit the data file and re-assemble.
 
 **Step 6, share.** Say: `Proposal ready: {project_working_directory}/proposals/<slug>.html (opens offline;
-in Cowork it appears in the panel)`. Then offer, one line each: "adjust" (add an approach, compare on
-another criterion, show an approach in another state, drop the research: edit the data file, re-run with
-`--from`) and "make <approach> a flow" (its `screens[]` is the brief: `/generate-flow` with those screens
-and the approach's note; the recommended approach when none is named).
+in Cowork it appears in the panel)`. The document does not carry these, so say them: offer, one line
+each, "adjust" (add an option, compare on another criterion, show an option in another state, drop the
+research: edit the data file, re-run with `--from`) and "make <option> a flow" (its `screens[]` is the
+brief: `/generate-flow` with those screens and the option's note; the picked option of the first decision
+when none is named).
 
 ## Rules
 
@@ -114,7 +124,12 @@ and the approach's note; the recommended approach when none is named).
   checks each, over every text field, and a document that needed a second validator pass is still fine.
   Report the pass count.
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
-  keep the ticket's words and say so in chat, do not silence the gate.
+  keep the ticket's words and say so in chat, do not silence the gate. On rationale prose these gates
+  point rather than rule: keep the word when it is the ordinary English one, and say which ones you kept.
+- A `proposal-data.json` written before `2026.9.30` carries `approaches`, `comparison` and
+  `recommendation`, and is converted with `scripts/migrations/proposal-approaches-to-decisions.js`. It
+  moves the structure only; the three fields it leaves empty (each reason's `criterionId`, `pick.cost`
+  and `latitude`) are yours to write, because the old shape never carried them.
 - The data file is the source. Every follow-up edits it and re-renders; the HTML is never hand-edited.
 
 ## References

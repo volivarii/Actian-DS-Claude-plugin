@@ -161,14 +161,52 @@ and the authoring reference were updated to instruct the agent to write
 both, but instructing is not adopting; per Rule 1, that instruction is
 unproven until a real run shows it taken.
 
-**The check, not yet run:** after `2026.9.28` is installed, run
-`/design-proposal` against a real ticket and read the authored
-`proposal-data.json`. It passes if `scope` carries goals and non-goals drawn
-from that ticket rather than boilerplate, and `openQuestions` is either
-populated with real rabbit holes or open questions, or the agent says in
-chat that it is deliberately leaving the field absent. If the agent skips
-`scope` or invents filler to pass validation, the skill's wording is the
-defect, not the schema.
+**The check, run on 2026-09-13: passed.** `/design-proposal` was run against
+DIP-I-522 (see what a share exposed, and pull back one item) and the authored
+`proposals/proposal-data.json` carried `scope.goals` with three goals in the
+ticket's own words, `scope.nonGoals` with two, and four `openQuestions`, two
+rabbit holes and two open questions, all four of them real. Nothing was
+boilerplate and nothing was invented to satisfy the schema, so the skill's
+wording holds: instructing the agent to write `scope` did produce a written
+`scope` on a real ticket. The data file is git-ignored, so this paragraph is
+the record of it rather than a link.
+
+### `decisions[]` replaces `approaches` (2026.9.30)
+
+`proposal-data.json` lost three top-level keys, `approaches`, `comparison` and
+`recommendation`, and gained `decisions[]`, `answer`, `change`, `latitude`,
+`breadboard` and `source`. A file written before this version fails validation
+with one P0 naming the converter,
+`scripts/migrations/proposal-approaches-to-decisions.js`, rather than a wall of
+schema errors.
+
+This is the second break in three releases, after `scope`, and it is a
+documented exception to Rule 1 for the same reason: the affected population is
+files in user working directories, not a published contract, and the recovery
+is mechanical for everything except three judgements the old shape never
+carried (which criterion each reason argues from, what a pick costs, and the
+latitude line). Those the converter writes empty, because a plausible
+invention in a rationale would ship unread.
+
+The converter's CLI wrote the string `undefined` over its output, in place
+included, in every build between `b506c9ab` and `a7ced118`. Both are inside
+this branch, so no released version shipped it.
+
+The adoption gap Rule 1 exists for is the same one `scope` had, one size
+larger. The schema, the validator, the renderer and the three-decision
+acceptance fixture are all tested. None of that proves an authoring agent
+*decomposes a real ticket into decisions* rather than writing one decision with
+N variants, which is the old shape wearing the new schema.
+
+**The check, not yet run:** after `2026.9.30` is installed, run
+`/design-proposal` against a ticket that plainly forces more than one question,
+and read the authored `proposal-data.json`. It passes if `decisions[]` holds
+one entry per question a reader could answer differently, each with its own
+comparison, and if every `pick.reasons[].criterionId` names a row that reason
+actually argues from rather than the first criterion in the list. It fails if
+the agent writes a single decision with four options, or if the reasons are
+assigned to criteria round-robin: either way the skill's wording is the defect,
+not the schema.
 
 ## Teaching case — v1.71.0 → v1.71.1
 

@@ -19,17 +19,77 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING: a design proposal is a set of decisions, not one question with N answers**
+  (PR link to be added when the PR is opened). `proposal-data.json` loses three top-level keys,
+  `approaches`, `comparison` and `recommendation`, and gains `decisions[]`: one to four entries, each
+  self-contained with its own `question`, two to four `options[]`, its own `comparison`, and a `pick` of
+  `{ optionId, reasons[{ criterionId, text }], cost }` plus an optional `blocker`. Four more top-level
+  keys arrive with it: `answer` (one sentence, what we are doing), `breadboard` (two to six places and
+  the lines between them, drawn as inline SVG the assembler computes, so the document still opens
+  offline with no script), `change`, `latitude`, and the optional `source` record of the ticket.
+
+  Why: the old schema modelled one decision. Run on a ticket that spanned two apps it could express
+  "how does a user see their group" and had nowhere to put "where does the readable name come from" or
+  "what happens when access is scoped per catalog", so both were demoted to open questions three
+  sections away from the pick they would change. Three rules come with the shape. A reason must name
+  the comparison row it argues from, a `criterionId` in its **own** decision, and one that names
+  nothing is a P0. Every pick states its `cost`, which is what a product manager is reading for and
+  which the old shape had nowhere to put. And a question that would change a pick is that decision's
+  `blocker`, beside the pick, rather than an open question at the end. The document now renders in
+  eight elements: the answer, the terrain, a decision table, the briefing, one block per decision, what
+  is still open, what this changes, and one line of latitude. A ticket that forces one question renders
+  without the terrain and without the table, and reads as a short document rather than a truncated
+  long one.
+
+  **Migrating a stored file:** run
+  `plugins/actian-design-system/scripts/migrations/proposal-approaches-to-decisions.js <file>` (in
+  place, or `-o <out>`). It moves the structure, since the old document is a one-decision document
+  exactly: approaches become the decision's options, the comparison and the recommendation move inside
+  it, the product paragraph splits into facts on its sentence boundaries, and the first sentence of the
+  old summary becomes the answer. It leaves **three fields empty**, because the old shape never carried
+  them and a plausible invention in a rationale would ship unread: each reason's `criterionId`,
+  `pick.cost`, and `latitude`. Write those three; the validator names each one. A file that still
+  carries `approaches` is refused with a single P0 naming the converter rather than a wall of schema
+  errors, and a half-converted file with a retired key still sitting beside `decisions[]` gets its own
+  P0. `MIGRATIONS.md` records this as the second break in three releases, after `scope`, and states the
+  adoption gap it cannot close. One note for anyone reading the branch history rather than the release:
+  the converter's CLI wrote the string `undefined` over its output, in place included, between
+  `b506c9ab` and `a7ced118`, both of which are inside this unmerged branch, so no released version
+  shipped it.
+
+- **The schema validator implements `maxItems`, which turns three declared bounds live**
+  (PR link to be added when the PR is opened). `scripts/validation/validate-schema.js` is hand-rolled
+  and silently ignored the `maxItems` keyword, while `proposal-data.schema.json` already declared it on
+  `scope.goals`, `scope.nonGoals` and `openQuestions`. So a proposal with five goals rendered: the
+  validator reported a P0 from its own bounds pass and the assembler, which throws on any schema error,
+  saw none. It now fails assembly outright, and the same is true of the new ceilings on `decisions[]`
+  (four), a decision's `options[]` (four) and its `criteria` (six). If you have a stored proposal with
+  five goals, five non-goals or five open questions, it stops rendering until you cut one. Every other
+  schema in the plugin gains the same enforcement, so a `maxItems` you wrote and assumed was working
+  now is.
+
+- **`npm test` runs `scripts/quality/run-suite.sh`, and both CI workflows run `npm test`**
+  (PR link to be added when the PR is opened). The old script was a raw `find | xargs` pipeline into
+  the Node test runner, and that runner exits 0 when a `describe` body throws: the file never builds,
+  none of its tests run, and the summary still reads `# fail 0`. A whole renderer suite that could not
+  even require its subject read green that way. The runner now fails on five things instead of one: a
+  non-zero exit, any unindented `not ok` line, a run that executed no tests at all, no `tests/`
+  directory, and no test files found. `pr-checks.yml` and `main-health.yml` call `npm test` rather than
+  reimplementing the pipeline, so the gate cannot drift away from what a developer runs locally.
+
 ### Fixed
 
 - **design-proposal document, three things a real proposal found** (PR link to be added when the PR is
   opened): running the skill on a ticket that spans two apps surfaced defects a fixture does not. An
-  approach label was one wrapping row, so a long anchor pushed that drawing a line below its neighbours
-  and the drawings a reader is meant to compare stopped sharing a top edge; the label is now a name row
-  and an anchor row, the same height for every approach by construction. The note on what the change
-  means for an admin and a user ran straight into the reasons grid above it and read as a fourth reason;
-  it now sits under a rule. And the authoring reference gave widths per idea with no mention that the
-  approach count caps them: three approaches in a 1200px document fit at 384px each, four at 282, so a
-  720px page region is only ever a two-approach choice.
+  option label (an approach, before the rename below) was one wrapping row, so a long anchor pushed that
+  drawing a line below its neighbours and the drawings a reader is meant to compare stopped sharing a top
+  edge; the label is now a name row and an anchor row, the same height for every option by construction.
+  The note on what the change means for an admin and a user ran straight into the reasons grid above it
+  and read as a fourth reason; it now sits under a rule. And the authoring reference gave widths per idea
+  with no mention that the option count caps them: three options in a 1200px document fit at 384px each,
+  four at 282, so a 720px page region is only ever a two-option choice.
 - **`proposals/` is git-ignored**: the skill writes its data file and its document into the project
   working directory, which in a git repository left two untracked files behind after every run.
 
