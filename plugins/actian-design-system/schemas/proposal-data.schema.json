@@ -517,6 +517,13 @@
                         "account dropdown",
                         "create group form"
                       ]
+                    },
+                    "place": {
+                      "description": "Optional id of the breadboard place this option is drawn on; how the flow bridge orders the screens. Without it the bridge falls back to declaration order",
+                      "type": "string",
+                      "examples": [
+                        "account-menu"
+                      ]
                     }
                   }
                 },

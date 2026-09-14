@@ -286,6 +286,9 @@ function validateProposal(data) {
   var pseudo = { meta: { feature: data.meta.title }, screens: [] };
   var pathsByScreen = {};
   var optionIds = Object.create(null);
+  // The breadboard's place ids, hoisted: an option's anchor.place resolves against this
+  // same list, and it is checked down in the decisions loop, where the option is.
+  var boardPlaceIds = Object.create(null);
   function addPseudo(id, name, entries) {
     pathsByScreen[id] = entries.map(function (e) { return e.path; });
     pseudo.screens.push({ id: id, name: name, content: entries.map(function (e) { return { type: "TEXT", content: String(e.text == null ? "" : e.text) }; }) });
@@ -354,6 +357,7 @@ function validateProposal(data) {
       data.breadboard.places.forEach(function (pl, i) {
         if (placeIds[pl.id] !== undefined) findings.push(finding("P0", "bounds", "", "breadboard.places[" + i + "].id", "duplicate place id " + pl.id));
         placeIds[pl.id] = (pl.affordances || []).length;
+        boardPlaceIds[pl.id] = true;
         if (!apps[pl.app]) findings.push(finding("P1", "app-unknown", "", "breadboard.places[" + i + "].app", pl.app, pl.app, "one of " + appList));
         checkProse(pl.name, "", "breadboard.places[" + i + "].name", findings);
         (pl.affordances || []).forEach(function (af, j) { checkProse(af, "", "breadboard.places[" + i + "].affordances[" + j + "]", findings); });
@@ -438,6 +442,18 @@ function validateProposal(data) {
         optionIds[o.id] = true;
         widths.push(Number(o.screen.width));
         if (!apps[o.anchor.app]) findings.push(finding("P0", "app-unknown", o.id, op + ".anchor.app", o.anchor.app, o.anchor.app, "one of " + appList));
+        // anchor.place is how a drawing joins the terrain. A dangling one is the same defect
+        // as a connection naming no place, and is caught the same way: a reference into the
+        // same list, resolved against the same map. Absent while a board is drawn is advice,
+        // not a refusal, because the flow bridge then orders by declaration order and the
+        // author is the one who should decide whether that is the order they meant.
+        var boardPlaces = Object.keys(boardPlaceIds);
+        if (o.anchor.place) {
+          if (!boardPlaceIds[o.anchor.place])
+            findings.push(finding("P0", "breadboard", o.id, op + ".anchor.place", o.anchor.place + " names no place", o.anchor.place, boardPlaces.length ? "one of " + boardPlaces.join(", ") : "the document draws no breadboard; add one, or drop anchor.place"));
+        } else if (boardPlaces.length) {
+          findings.push(finding("P1", "breadboard", o.id, op + ".anchor.place", "the document draws a terrain and this anchor names no place on it", "", "set anchor.place to a breadboard place id; without it the flow bridge orders by declaration order"));
+        }
         if (o.screen.width < MIN_WIDTH || o.screen.width > MAX_WIDTH)
           findings.push(finding("P0", "bounds", o.id, op + ".screen.width", "width " + o.screen.width + " outside " + MIN_WIDTH + " to " + MAX_WIDTH));
         checkFragment(o.screen.html, o.id, op + ".screen.html", findings);
@@ -587,7 +603,7 @@ if (require.main === module) {
   if (process.argv.indexOf("--help") !== -1) {
     process.stdout.write(JSON.stringify({
       name: "validate-proposal",
-      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities.",
+      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections and option anchors that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities.",
       flags: [
         { name: "--json", description: "Print { findings } as JSON instead of the table" },
         { name: "--help", description: "Show this help" },

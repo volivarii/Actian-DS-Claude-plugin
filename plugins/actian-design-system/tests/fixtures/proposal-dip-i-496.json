@@ -59,7 +59,8 @@
           "name": "Role line",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "A line under the email.",
           "breaksWhen": "Two groups crowd it.",
@@ -83,7 +84,8 @@
           "name": "Role badges",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "A pill per group.",
           "breaksWhen": "Many groups wrap.",
@@ -107,7 +109,8 @@
           "name": "My access panel",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "A row expanding to every group.",
           "breaksWhen": "Heavier than one group needs.",
@@ -214,7 +217,8 @@
           "name": "The group's own name",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "The badge prints the stored name.",
           "breaksWhen": "Usually a technical key.",
@@ -239,7 +243,8 @@
           "name": "An optional Display name",
           "anchor": {
             "app": "administration",
-            "surface": "create group form"
+            "surface": "create group form",
+            "place": "group-form"
           },
           "whatItIs": "A second field on the group form.",
           "breaksWhen": "Left empty, the key shows.",
@@ -333,7 +338,8 @@
           "name": "The group alone",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "The badge names the group.",
           "breaksWhen": "False where it grants nothing.",
@@ -358,7 +364,8 @@
           "name": "Group and catalogs",
           "anchor": {
             "app": "explorer",
-            "surface": "account menu"
+            "surface": "account menu",
+            "place": "account-menu"
           },
           "whatItIs": "Each group carries its catalogs.",
           "breaksWhen": "Ten catalogs will not fit.",
