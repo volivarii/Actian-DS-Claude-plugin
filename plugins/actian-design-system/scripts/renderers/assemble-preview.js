@@ -155,6 +155,7 @@ function parseArgs(argv) {
     output: null,
     annotations: true,
     refresh: 0,
+    fragment: false,
   };
   var positionals = [];
   var i = 2; // skip node + script
@@ -165,6 +166,8 @@ function parseArgs(argv) {
       args.type = argv[++i];
     } else if ((arg === "-o" || arg === "--output") && i + 1 < argv.length) {
       args.output = argv[++i];
+    } else if (arg === "--fragment") {
+      args.fragment = true;
     } else if (arg === "--no-annotations") {
       args.annotations = false;
     } else if (arg === "--refresh" && i + 1 < argv.length) {
@@ -245,6 +248,13 @@ function main() {
             },
             { name: "--output", required: true, description: "Alias for -o" },
             {
+              name: "--fragment",
+              required: false,
+              description:
+                "proposal only: emit the document without its <!doctype>/<head>/<body> wrapper, " +
+                "for a host that supplies its own (an Artifact publish). Ignored by every other type.",
+            },
+            {
               name: "--no-annotations",
               required: false,
               description: "Skip annotation layer (Alpine.js + UI)",
@@ -310,7 +320,7 @@ function main() {
     var proposalData = JSON.parse(fs.readFileSync(args.input, "utf8"));
     var assembleProposal = require("./assemble-proposal.js").assembleProposal;
     try {
-      writeOutput(args.output, assembleProposal(proposalData));
+      writeOutput(args.output, assembleProposal(proposalData, { fragment: args.fragment }));
     } catch (e) {
       process.stderr.write("ERROR: " + e.message + "\n");
       process.exit(1);

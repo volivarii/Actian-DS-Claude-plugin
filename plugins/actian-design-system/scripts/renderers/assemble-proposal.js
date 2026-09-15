@@ -364,7 +364,41 @@ function footerHtml(meta) {
   return '  <p class="doc__footer">' + esc(meta.skill + (meta.model ? ", " + meta.model : "") + ", " + meta.date + ".") + "</p>\n";
 }
 
-function assembleProposal(data) {
+// The fragment an Artifact publish sends. The host supplies <!doctype>, <head> and
+// <body>, so those have to go or the page renders one document inside another; the title
+// stays, because the gallery reads it out of the first 8KB of what it is given.
+//
+// The three seams below are the template's, and a template edit is exactly what would
+// break this quietly: a slice that stops matching returns the whole document, which
+// publishes and looks right until the nesting bites. So each seam is counted, and a
+// count that is not one throws. The tests doctor each seam in turn to prove it can.
+var FRAGMENT_SEAMS = [
+  { name: "title", re: /<title>/g },
+  { name: "head-to-body", re: /\n<\/head>\n<body>\n/g },
+  // Deliberately not anchored to the end. Anchored, a document carrying the closing tags
+  // twice still counts one match, the guard passes, and the fragment keeps a stray
+  // </body></html> in its middle. Unanchored, a second pair is what it is: a seam that
+  // matched twice, which throws.
+  { name: "closing", re: /\n<\/body>\n<\/html>/g },
+];
+
+function toFragment(html) {
+  FRAGMENT_SEAMS.forEach(function (seam) {
+    var n = (html.match(seam.re) || []).length;
+    if (n !== 1) {
+      throw new Error(
+        "proposal fragment: the " + seam.name + " seam matched " + n + " times, expected 1. " +
+          "templates/proposal-document.html changed shape; update FRAGMENT_SEAMS with it.",
+      );
+    }
+  });
+  return html
+    .slice(html.indexOf("<title>"))
+    .replace(FRAGMENT_SEAMS[1].re, "\n")
+    .replace(FRAGMENT_SEAMS[2].re, "\n");
+}
+
+function assembleProposal(data, options) {
   var errors = validateSchema(data, JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf8"))).filter(function (e) {
     return e.indexOf("(warning)") === -1;
   });
@@ -394,16 +428,18 @@ function assembleProposal(data) {
     "  model:   " + maskComment(meta.model || "") + "\n-->";
   var fmCss = readFileChecked(renderer.cssPaths.fmBase);
   var template = readFileChecked(TEMPLATE_PATH);
-  return template
+  var html = template
     .replace("{{META_COMMENT}}", function () { return metaComment; })
     .replace(/\{\{TITLE\}\}/g, function () { return esc(meta.title); })
     .replace("{{CONTEXT}}", function () { return esc(context); })
     .replace("{{FM_CSS}}", function () { return fmCss; })
     .replace("<!-- {{SECTIONS}} -->", function () { return sections; });
+  return options && options.fragment ? toFragment(html) : html;
 }
 
 module.exports = {
   assembleProposal: assembleProposal,
+  toFragment: toFragment,
   extractUnbalancedTag: unbalancedTag,
   rowBudget: rowBudget,
 };

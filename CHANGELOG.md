@@ -21,6 +21,24 @@ are summarized at the release level.
 
 ### Added
 
+- **A proposal can be published as a page, and read on a phone**
+  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). The document was a file:
+  to show it to someone you sent them HTML, and anything they thought about it came back
+  somewhere else, detached from the pick it argued with. Step 6 now offers to publish it, and
+  `--publish` does it without asking. A reader gets a link, and a comment they send to Claude
+  arrives attached to the decision it is about, which is the loop the document has been missing.
+  The mechanism is `--fragment` on `assemble-preview.js --type proposal`: the same render without
+  the `<!doctype>`, `<head>` and `<body>` a host supplies for itself, written beside the document
+  as `proposals/<slug>.artifact.html`. The three template seams it slices at are counted, and a
+  count that is not one throws, because the silent failure here is a slice that stops matching
+  and publishes a whole document nested inside another one.
+  The document also gained its first `@media` block. Everything in it made of prose already
+  reflowed; the drawings did not, and a three-up row of them is 1152px wide. They keep the width
+  they were drawn at, because that width is the proposal's claim about a real surface and
+  `rowBudget()` exists to hold it honest, and they scroll inside their own box instead, which is
+  the one thing the page itself must never do. Nothing above 640px changed: a re-render of the
+  same data file differs from the shipped document by the added rule and nothing else.
+
 - **The proposal stops once, after the decisions and before anything is drawn**
   ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). The skill already said the decomposition was
   what a reader pushes back on, "far cheaper than pushing back on three rendered blocks", and

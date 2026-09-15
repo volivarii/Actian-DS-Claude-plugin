@@ -319,6 +319,30 @@ were the single word "item", which that ticket uses four times in its own text. 
 expect to keep the ticket's word. The whole procedure is the skill's: read each P1, keep or change the
 word, and say in chat which ones you kept and why. Do not silence the gate.
 
+## Publishing
+
+Step 6 offers the document as a page, and `--publish` takes the offer without asking. What the link buys
+over the file is the way back: a reader can comment on any part of the document and send that thread to
+Claude, where it arrives attached to the decision it argues with. Say that line when you give the link.
+
+The page is a second render of the same data file. `--fragment` drops the `<!doctype>`, `<head>` and
+`<body>`, because the host supplies those and a fragment that keeps them nests one document inside
+another:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" {project_working_directory}/proposals/proposal-data.json --type proposal --fragment -o {project_working_directory}/proposals/<slug>.artifact.html
+```
+
+Then publish that file with the Artifact tool: `favicon` the straightedge emoji, `description` the answer
+sentence, no `title` (the fragment carries one), and the path exactly as written above, because a
+re-publish of the same path redeploys the same link and any other path is a second artifact. On a
+re-publish pass no `favicon`: the emoji is how a reader recognises the page, and a new one reads as a new
+document.
+
+The fragment is a render, not an edit: never hand-write or patch it, the same rule the HTML document
+lives under. A proposal at `stage: evaluation` has no document, so it has no page either.
+
 ## Run
 
 ```bash

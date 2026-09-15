@@ -1,7 +1,7 @@
 ---
 name: design-proposal
 description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. `--evaluate` stops after the decisions: what the ticket forces, with no options and no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
-argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--no-prompt] [--evaluate] [--from proposals/proposal-data.json]"
+argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--no-prompt] [--evaluate] [--publish] [--from proposals/proposal-data.json]"
 ---
 
 # Design proposal
@@ -49,6 +49,7 @@ so in one line and offer `/generate-flow`. Under `--evaluate` there is no docume
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
 | `--no-prompt` | off | Draw straight through: skip the Step 4 stop that asks before anything is drawn |
 | `--evaluate` | off | Stop after the decisions. Writes `proposals/proposal-data.json` at `stage: evaluation`: the framing, the product read, the scope and the questions, with no options, no comparison and no picks. No research and no document. Refused together with `--from` |
+| `--publish` | off | Publish the document as a shareable page at Step 6 without asking first; "Publishing" in `references/design-proposal/document-authoring.md` is the how. Refused together with `--evaluate`, which writes no document |
 | `--from <path>` | none | Resume a data file. One at `stage: evaluation` resumes into a proposal, without re-reading the ticket or the product (see "The evaluation stage" below); a finished proposal is validated and re-assembled, with no reading and no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
 
 ## Pipeline
@@ -124,9 +125,9 @@ output; edit the data file and re-assemble.
 
 **Step 6, share.** Say: `Proposal ready: {project_working_directory}/proposals/<slug>.html (opens offline;
 in Cowork it appears in the panel)`. The document does not carry these, so offer them in one line each:
-"adjust" (add an option, compare on another criterion, drop the research: edit the data file, re-run with
-`--from`) and "make this a flow" (`/generate-flow --from proposals/proposal-data.json` composes every pick
-into one screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draws a rejected one).
+"adjust" (edit the data file, re-run with `--from`), "publish as a page" (`--publish` skips the ask) and
+"make this a flow" (`/generate-flow --from proposals/proposal-data.json` composes every pick into one
+screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draws a rejected one).
 
 ## Rules
 
@@ -138,7 +139,6 @@ into one screen list and a brief; `--decision <id>` takes one alone, `--option <
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
   keep the ticket's words and say so in chat, never silence the gate. On rationale prose these gates point
   rather than rule: keep the ordinary English word, and say which ones you kept.
-- A file written before `2026.9.30` carries `approaches`: convert it as the `--from` row says, then write the three fields the converter leaves empty.
 - The data file is the source: every follow-up edits it and re-renders, never the HTML.
 
 ## References

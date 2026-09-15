@@ -244,6 +244,32 @@
     .citations__text { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); }
 
     [hidden] { display: none !important; }
+
+    /* Narrow screens. The document is read on a phone once it is a link rather than a file,
+       and everything here that is made of prose already reflows: the briefing and change
+       grids are auto-fit, the citations grid is two columns of text, and the terrain SVG scales
+       inside .bb. Three things do not, and this block is those three.
+
+       The drawings are the interesting case. A drawing is a mock of a real surface at a real
+       width, and rowBudget() exists to keep that width honest against the row it sits in;
+       reflowing it at 400px would not be the same proposal shown smaller, it would be a
+       different design, drawn by the browser, arguing for something nobody picked. So the
+       column keeps the width it was drawn at and scrolls inside its own box, which is the
+       one thing the page itself must never do. Same for the comparison table, which is a
+       table and reads as one or not at all.
+
+       The terrain is the exception, and it was tried the other way first. .bb already scrolls,
+       so letting .bb__svg past max-width: 100% should have shown it at full size; what it
+       actually shows is blank, because the breadboard's viewBox carries about 400px of empty
+       space to the left of its first box and that is precisely what a 360px scroll box lands
+       on. So the terrain still scales down, small and complete, until the viewBox is cropped
+       to its content. */
+    @media (max-width: 640px) {
+      body { padding: 16px 16px 64px; }
+      .proposal-screen__col { max-width: 100%; overflow-x: auto; }
+      .compare-block { max-width: 100%; overflow-x: auto; }
+      .decision__lead, .approaches { gap: 24px; }
+    }
   </style>
 </head>
 <body>
