@@ -1,7 +1,7 @@
 ---
 name: design-proposal
 description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. `--evaluate` stops after the decisions: what the ticket forces, with no options and no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
-argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--evaluate] [--from proposals/proposal-data.json]"
+argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--no-prompt] [--evaluate] [--from proposals/proposal-data.json]"
 ---
 
 # Design proposal
@@ -47,7 +47,7 @@ so in one line and offer `/generate-flow`. Under `--evaluate` there is no docume
 |---|---|---|
 | `--concepts N` | 3 | Number of options inside a decision, 2 to 4 |
 | `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
-| `--no-prompt` | off | Kept for compatibility; same as `--no-research` (this skill asks no question) |
+| `--no-prompt` | off | Draw straight through: skip the Step 4 stop that asks before anything is drawn |
 | `--evaluate` | off | Stop after the decisions. Writes `proposals/proposal-data.json` at `stage: evaluation`: the framing, the product read, the scope and the questions, with no options, no comparison and no picks. No research and no document. Refused together with `--from` |
 | `--from <path>` | none | Resume a data file. One at `stage: evaluation` resumes into a proposal, without re-reading the ticket or the product (see "The evaluation stage" below); a finished proposal is validated and re-assembled, with no reading and no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
 
@@ -79,8 +79,10 @@ and what it is not doing (the non-goals). Then name the decisions: one per quest
 that a reader could answer differently, at most four, and one is the common case. A question that would
 change a pick is a decision or that decision's blocker, never an open question. Then, under each
 decision, N options, each a bold name and two lines: what it is, and the case where it breaks; and one
-sentence on which one you would pick and what it costs. No file yet. The decomposition is what the reader
-pushes back on here, and that is far cheaper than pushing back on three rendered blocks.
+sentence on which one you would pick and what it costs. No file yet. **Then stop, ask "change anything
+before I draw these?", and wait for a reply.** The decomposition and the picks are what a reader pushes
+back on, and here it costs a sentence; after Step 5 it costs every drawing. A reader who knows the
+surface catches the pick that is right in the abstract and wrong on their screen. `--no-prompt` skips it.
 
 **The evaluation stage.** Only `--evaluate`, and `--from` a file at `stage: evaluation`, come here. `--evaluate` stops
 here: write the decisions to `proposals/proposal-data.json` at `stage: evaluation`, validate it and say
@@ -136,9 +138,7 @@ into one screen list and a brief; `--decision <id>` takes one alone, `--option <
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
   keep the ticket's words and say so in chat, never silence the gate. On rationale prose these gates point
   rather than rule: keep the ordinary English word, and say which ones you kept.
-- A `proposal-data.json` written before `2026.9.30` carries `approaches` and is converted with
-  `scripts/migrations/proposal-approaches-to-decisions.js`. It moves the structure only; the three fields
-  it leaves empty (each reason's `criterionId`, `pick.cost`, `latitude`) are yours, the old shape had none.
+- A file written before `2026.9.30` carries `approaches`: convert it as the `--from` row says, then write the three fields the converter leaves empty.
 - The data file is the source: every follow-up edits it and re-renders, never the HTML.
 
 ## References

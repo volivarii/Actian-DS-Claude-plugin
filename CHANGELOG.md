@@ -21,6 +21,25 @@ are summarized at the release level.
 
 ### Added
 
+- **The proposal stops once, after the decisions and before anything is drawn**
+  ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). The skill already said the decomposition was
+  what a reader pushes back on, "far cheaper than pushing back on three rendered blocks", and
+  then never paused for them to do it: a real run went from a pasted ticket to a finished
+  document in twelve minutes with two user turns. It now names the decisions, the options and
+  the picks, asks whether to change anything, and waits. `--no-prompt` draws straight through,
+  which is the first thing that flag has actually done on this skill. The cost of this being
+  missing was concrete: a run proposed a fourth tag onto an identity row that already carried
+  three, and the picked option's own `breaksWhen` said so, unread, until the document was done.
+- **A drawing wider than its row is a P1, with both numbers**
+  ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). `option-width` only fired when sibling widths
+  *disagreed*, so three options all declaring 480 sailed through; the renderer then capped every
+  drawing to the 384 a three-option row allows and seven of nine drawings rendered content past
+  their own frame, one of them putting a button on top of the rationale beside it. The budget is
+  arithmetic the author cannot see and the renderer will not negotiate, so it is checked rather
+  than left as a sentence in a reference. `ROW_BUDGET` now has one home, exported from the
+  renderer that enforces it, because a validator holding its own copy of those numbers would
+  drift from the only code that acts on them.
+
 - **A proposal's drawings compose the design system, and the validator checks that they do**
   ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). An option declares `uses`, the component slugs its
   drawing composes, or `adds` (`component` and `why`) when the system genuinely has no mechanism:
