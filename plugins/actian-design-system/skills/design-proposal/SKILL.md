@@ -90,19 +90,24 @@ is the resume, and enters here rather than at Step 1: read that section first, b
 the product are recorded in `source` and `context` and must not be read a second time.
 
 **Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
-`references/ds-rules/fm-css-reference.md` (nothing else). Author `proposals/proposal-data.json` against
-`schemas/proposal-data.schema.json`: `meta.title` is the document title, `meta.date` is today's date,
-`meta.skill` is `design-proposal`, `meta.apps` lists the app slugs; `answer` (one sentence, what we are
-doing), `context` (`product` is three to six facts, one line each, not a paragraph), `scope` (one to four
-goals and one to four non-goals, both from the ticket, never invented: the non-goals are what stops
-a reviewer scoping the work sideways), `research`, `breadboard` (two to six places and the lines between
-them, required when the places span more than one app, omitted for a single place), `decisions` (the ones
-you named in Step 4, each with its `options` drawn inside their anchor, in flow, `width` sized to the
-idea, with their `screens[]` lists; its own `comparison` with criteria from the ticket's goal, the product
-read, or cost; and a `pick` whose every reason names a `criterionId` in that same comparison, plus a
-`cost` saying what ships with it; a `blocker` when a question would change the pick), `openQuestions` (at
-most four non-blocking rabbit holes or open questions; omit the field when the proposal genuinely settles
-everything, never invent one), `change` (admin side, user side) and `latitude` (one line). Then:
+`references/ds-rules/fm-css-reference.md` (nothing else). **Draw from the design system, never from
+imagination:** list the components first, then compose the drawings out of them.
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" -e 'console.log(require(process.env.CLAUDE_PLUGIN_ROOT+"/scripts/lib/ds-components.js").componentList().join(", "))'
+```
+
+Every option declares `uses` (the slugs it composes) or `adds` (`component` and `why`) when the system
+truly has no mechanism: a proposal may argue for a new component, it just has to say so. An unknown slug
+is a P0.
+
+Author `proposals/proposal-data.json` against `schemas/proposal-data.schema.json` (an example on every
+field) and the reference's "The keys and what each one is for". `meta.date` is today. Four things the
+schema cannot say: the `decisions` are the ones you named in Step 4 and no others; every option is drawn
+**inside its anchor, in flow**, at a `width` sized to the idea; every `pick` reason names a `criterionId`
+in that decision's own comparison; and a question that would change a pick is that decision's `blocker`,
+never an `openQuestions` entry. Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -116,33 +121,28 @@ ticket's own word kept over a terminology hit); P2 is voice, fix it when cheap. 
 output; edit the data file and re-assemble.
 
 **Step 6, share.** Say: `Proposal ready: {project_working_directory}/proposals/<slug>.html (opens offline;
-in Cowork it appears in the panel)`. The document does not carry these, so say them: offer, one line
-each, "adjust" (add an option, compare on another criterion, show an option in another state, drop the
-research: edit the data file, re-run with `--from`) and "make this a flow" (`/generate-flow --from
-proposals/proposal-data.json` composes every pick into one screen list and a brief; add `--decision <id>`
-for one decision alone, and `--option <id>` with it to draw a rejected option instead of the pick).
+in Cowork it appears in the panel)`. The document does not carry these, so offer them in one line each:
+"adjust" (add an option, compare on another criterion, drop the research: edit the data file, re-run with
+`--from`) and "make this a flow" (`/generate-flow --from proposals/proposal-data.json` composes every pick
+into one screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draws a rejected one).
 
 ## Rules
 
 - Time budget: Steps 1 to 4 in under three minutes of reading, research included; the two references in
-  Step 5 are the whole read. Do not open the renderer, the schema beyond its examples, or the vendored
-  component map.
+  Step 5 are the whole read. Never open the renderer or the vendored component map.
 - The header strip, the app label and the nav are not yours to draw; the assembler adds the strip.
-- No hex colours, no scripts, no external loads, no em dashes, no invented product names: the validator
-  checks each, over every text field, and a document that needed a second validator pass is still fine.
-  Report the pass count.
+- No hex colours, scripts, external loads, em dashes, invented product names or invented components: the
+  validator checks each. A second pass is fine; report the pass count.
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
-  keep the ticket's words and say so in chat, do not silence the gate. On rationale prose these gates
-  point rather than rule: keep the word when it is the ordinary English one, and say which ones you kept.
-- A `proposal-data.json` written before `2026.9.30` carries `approaches`, `comparison` and
-  `recommendation`, and is converted with `scripts/migrations/proposal-approaches-to-decisions.js`. It
-  moves the structure only; the three fields it leaves empty (each reason's `criterionId`, `pick.cost`
-  and `latitude`) are yours to write, because the old shape never carried them.
-- The data file is the source. Every follow-up edits it and re-renders; the HTML is never hand-edited.
+  keep the ticket's words and say so in chat, never silence the gate. On rationale prose these gates point
+  rather than rule: keep the ordinary English word, and say which ones you kept.
+- A `proposal-data.json` written before `2026.9.30` carries `approaches` and is converted with
+  `scripts/migrations/proposal-approaches-to-decisions.js`. It moves the structure only; the three fields
+  it leaves empty (each reason's `criterionId`, `pick.cost`, `latitude`) are yours, the old shape had none.
+- The data file is the source: every follow-up edits it and re-renders, never the HTML.
 
 ## References
 
-- `references/design-proposal/document-authoring.md`, the sections, the fragment contract, the conventions
+- `references/design-proposal/document-authoring.md`, the sections, fragment contract and conventions
 - `references/ds-rules/fm-css-reference.md`, the Fat Marker palette and component styles
-- `schemas/proposal-data.schema.json` and `schemas/proposal-evaluation.schema.json`, an example on every field
-- `references/context/ux-patterns.md`, when research runs
+- `schemas/proposal-data.schema.json`, `schemas/proposal-evaluation.schema.json`, `references/context/ux-patterns.md`

@@ -527,6 +527,47 @@
                     }
                   }
                 },
+                "uses": {
+                  "type": "array",
+                  "description": "The design system components this drawing composes from, by slug from the vendored registry. Declared, not inferred: a slug the registry does not know is a P0, because an invented name wearing a real one is worse than no claim at all. An option declaring neither uses nor adds draws a P1",
+                  "items": {
+                    "description": "One component slug the vendored anatomy snapshot knows",
+                    "type": "string",
+                    "examples": [
+                      "read-only-tag",
+                      "tooltip-default",
+                      "global-header-account-dropdown"
+                    ]
+                  }
+                },
+                "adds": {
+                  "type": "array",
+                  "description": "Mechanisms this option needs that the design system does not have. A proposal may argue for a new or changed component; it has to say so, because that is a cost a reader must see before the build discovers it",
+                  "items": {
+                    "type": "object",
+                    "description": "One component this option would add to or change in the design system",
+                    "required": [
+                      "component",
+                      "why"
+                    ],
+                    "properties": {
+                      "component": {
+                        "description": "What it would be called. A name the registry already knows draws a P1, because then it is not an addition",
+                        "type": "string",
+                        "examples": [
+                          "access summary row"
+                        ]
+                      },
+                      "why": {
+                        "description": "One line: what no existing component does",
+                        "type": "string",
+                        "examples": [
+                          "no component holds a computed union over several groups"
+                        ]
+                      }
+                    }
+                  }
+                },
                 "whatItIs": {
                   "description": "One line: what the option is",
                   "type": "string",

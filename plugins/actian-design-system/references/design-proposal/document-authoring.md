@@ -90,6 +90,14 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **latitude**: one line saying how much of this is fixed. The drawings are one way to answer the
   questions, not the only way.
 
+`context.sources` is not printed in the briefing. It renders as **Where this came from**, the
+document's last section before the latitude line, one row per source: the prefix becomes the
+row's kind and the rest becomes its text, so `app-context: explorer chrome` reads as a kind
+column beside a text column rather than as five lines each starting "app-context:". Write each
+source as `app-context: <what you read>` or `attachment: <what it was>`. A source with no
+recognised prefix still renders, unkinded. `context.gap` stays in the briefing, beside the facts
+it qualifies: it says what the read could not reach, which is a caveat rather than a citation.
+
 ### Inside a decision
 
 - **options**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
@@ -206,6 +214,89 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
 - **Notes are phrases.** At most three per drawing, each one the rationale of a part of it.
 - **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
   not the drawing; `note` says what the option changes on that page.
+
+## Draw the design system, or say what you are adding
+
+Every option declares what its drawing is made of, and the validator resolves the claim against
+the vendored component snapshot:
+
+- **`uses`**: the component slugs the drawing composes. A slug the snapshot does not know is a
+  **P0**, because an invented name wearing the shape of a real one is the exact failure this
+  gate exists to catch, and the one a reader is least able to see.
+- **`adds`**: `{ component, why }` for a mechanism the system does not have. This is not a
+  failure. A proposal may argue for a new or changed component; it has to say so, because that
+  is uncosted work and a reader should meet it beside the drawing rather than in a build ticket
+  weeks later. A name the snapshot already knows draws a P1: then it is not an addition.
+- Neither is a **P1**. A drawing that names nothing has not been checked against anything.
+
+List the inventory before you draw, not after:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" -e 'console.log(require(process.env.CLAUDE_PLUGIN_ROOT+"/scripts/lib/ds-components.js").componentList().join(", "))'
+```
+
+**Why this is a gate and not advice.** The failure it catches is silent. A drawing that invents a
+label, a summary line and a small table renders beautifully, validates clean against every other
+check, and reads as a design; the first mechanism that notices the system was never consulted is
+a design lead looking at the finished document. Advice in a reference is read once, by an author
+who is already confident. A P0 fires every time.
+
+The document prints `Built from <slugs>` quietly under each drawing, and prints an `adds` entry
+loudly, in the brand colour, because those are two different messages.
+
+## The document proposes; the reader decides
+
+Nothing a reader sees says the decision has been made. The summary is **What we propose**, a
+block is **Question N of M**, the winning column is **Proposed**, and the lead is **We propose**.
+The data model still calls them `decisions[]` and `pick`, because that is what the author is
+choosing between and what `--decision` and `--option` address by id, but those names never reach
+the page. If you write "we decided" or "the decision" into a text field, you have handed the
+reader a verdict instead of an argument.
+
+## A decision block leads with the proposal
+
+The block renders in three parts, in this order, and the renderer does it for you:
+
+1. **The proposal.** The picked option's drawing, with the case for it beside it: the reasons,
+   the cost, and the blocker when there is one.
+2. **Also considered.** Every other option, smaller, equal to each other, one line of annotation.
+3. **How they compare.** The full table, with the proposed column marked.
+
+What this asks of your authoring: the picked option's `whatItIs` and `breaksWhen` are read
+directly under the drawing a reader is looking at, so `breaksWhen` on the pick is the most
+load-bearing line in the block. It says where the thing we are proposing fails. Do not soften it.
+
+A rejected option is skimmed, not weighed, so its `verdict` is what a reader actually reads of
+it. Make the verdict the sentence you would say out loud if someone asked why it lost.
+
+## A comparison cell is scanned, not read
+
+Each cell renders as a mark on its own line with the phrase quiet beneath it, so the row of marks
+reads in one pass. That only works if the phrase is short: **two to four words**, a fragment, no
+sentence. "Three names, no total" works. "This option would require the user to open each group
+in turn" does not, and pushes every cell in its row down a line.
+
+## Length is a design constraint, not a preference
+
+The document's job is to be read by someone who did not write it, in one sitting, before a
+meeting. Every field below has a length that the layout was built for, and a field that runs
+past it does not get truncated: it pushes the next thing off the screen.
+
+- **A reason is one line.** It names its criterion and says why that row decided it. If it
+  needs two clauses joined by "and", it is two reasons or it is the cost.
+- **A cost is one line.** What this choice buys trouble on. Not a hedge, not a paragraph, and
+  never a second reason wearing a cost's label.
+- **A product fact is one line, and there are three to six of them.** Six one-line facts read;
+  three three-line facts do not.
+- **`whatItIs` and `breaksWhen` are one line each**, and `verdict` is a few words. The drawing
+  carries the idea; these three say what a reader cannot see in it.
+- **The answer is one sentence.** Nothing else sits in that section: the decision table below
+  it is the summary, and repeating the picks above the table is how the document got long.
+
+The document prints each decision's question exactly twice, once in the table and once as its
+own heading, and each pick's name where a reader needs it: the table, the option card and the
+comparison header. Anything you write that restates one of those is the third copy.
 
 ## Voice
 

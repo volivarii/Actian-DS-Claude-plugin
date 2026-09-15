@@ -21,6 +21,66 @@ are summarized at the release level.
 
 ### Added
 
+- **A proposal's drawings compose the design system, and the validator checks that they do**
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). An option declares `uses`, the component slugs its
+  drawing composes, or `adds` (`component` and `why`) when the system genuinely has no mechanism:
+  a proposal may still argue for a new or changed component, it just has to say so, and the
+  document prints that loudly because it is uncosted work. A slug the vendored snapshot does not
+  know is a **P0**, because an invented name wearing the shape of a real one is the failure this
+  exists to catch and the one a reader is least able to see; an option declaring neither is a P1.
+  `scripts/lib/ds-components.js` reads the vendored anatomy snapshot, and a missing snapshot
+  checks nothing rather than failing every slug. The document prints `Built from <slugs>` quietly
+  under each drawing. The failure this closes was silent: a drawing that invented a label, a
+  summary line and a small table rendered beautifully, passed every other gate, and the first
+  mechanism to notice the design system had never been consulted was a design lead reading the
+  finished document.
+
+### Changed
+
+- **A proposal leads with the proposal, and never tells a reader the decision is made**
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). A decision block ran question, three options at
+  one width, a fifteen-cell table, and only then "We pick": the reader did the comparison
+  themselves and then learned it had already been done, with two thirds of the drawings on the
+  page being options we are not taking, at the same size as the one we are. A block now runs
+  **the proposal** (the picked option's drawing with the reasons, the cost and any blocker
+  beside it), then **Also considered** (the rest, smaller, equal to each other, one line each),
+  then **How they compare** (the full table, unchanged, with the proposed column marked). And
+  the vocabulary is honest about what the document is: **What we propose**, **Question N of M**,
+  **We propose**, **Proposed**. The data model keeps `decisions[]` and `pick`, which is what the
+  author chooses between and what `--decision` and `--option` address, but neither word reaches
+  the page.
+- **One voice under a drawing, and a comparison that can be scanned**
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). An option carried three uppercase annotation
+  lines over two bold-labelled sentences over a tag: four treatments for one idea, the loudest
+  of them the least readable setting in the document. The annotations are one quiet run joined
+  by middots, in sentence case. In the comparison, the mark moves onto its own line above the
+  phrase, so the row of marks reads in one pass instead of fifteen written phrases having to be
+  read; the phrase stays, quiet, for whoever wants it.
+
+
+- **The proposal document reads as sections, says less twice, and cites the substrate at the end**
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). Three things a reader hit on the DIP-I-496 run.
+  The answer block listed every question and pick, and "What we decided" listed them again with the
+  cost added: measured on that document, each question was printed three times and each pick five.
+  The answer is now one sentence and the table is the only summary. A section's name ("The briefing",
+  "The terrain") was set at the same size and weight as a decision's question, so a three-decision
+  document had ten headings at one volume; section names are now uppercase labels and the only
+  elements at question scale are the answer and one question per decision, with more air between two
+  sections than inside one and a heavier rule on the decisions, which are the argument. And
+  `context.sources` was a semicolon-joined run-on inside the briefing; it is now **Where this came
+  from**, the last section before the latitude line, one row per source with the schema's own prefix
+  as the row's kind. `context.gap` stays in the briefing, beside the facts it qualifies.
+- **A comparison marks the picked column where the evidence is read**
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). The table gave no sign which option had won, so a
+  reader scanned every column and learned the answer in the paragraph below it. The picked column
+  carries a tint and the word `Picked` in its header, a word as well as a colour so it holds in
+  greyscale and in print, the same reason every cell already carries a glyph. The briefing and
+  "What this changes" drop from four narrow columns to two capped at the measure, which makes their
+  pairs visible: goals with non-goals is the scope, the product read with the research is the
+  evidence.
+
+### Added
+
 - **`/generate-flow --from proposals/proposal-data.json` builds the flow the proposal already describes**
   ([#380](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/380)). Every option in a proposal has carried a `screens[]` list
   naming a flow archetype, an app and an entity since the document shipped, and nothing read it: a person

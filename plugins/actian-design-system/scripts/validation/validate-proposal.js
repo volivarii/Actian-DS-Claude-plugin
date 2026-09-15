@@ -19,7 +19,9 @@
  * external-load (P0), decision (P1), option-width (P1), latitude (P1),
  * template-unknown (P1), entity-unknown (P1), hardcoded-color (P1),
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
- * em-dash (P2).
+ * composition (P0 on a slug the vendored component snapshot does not know, P1
+ * on a drawing that declares neither what it is built from nor what it adds,
+ * and P1 on an addition the snapshot already has), em-dash (P2).
  *
  * Two things the check list above does not say on its own.
  *
@@ -57,6 +59,7 @@ var validateSchema = require("./validate-schema.js");
 var flowGates = require("./validate-flow-data.js");
 var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractUnbalancedTag;
 var isOldShape = require("../migrations/proposal-approaches-to-decisions.js").isOldShape;
+var dsComponents = require("../lib/ds-components.js");
 var NOT_A_SENTENCE_END = require("../migrations/proposal-approaches-to-decisions.js").NOT_A_SENTENCE_END;
 
 var SCHEMA_DIR = path.join(__dirname, "..", "..", "schemas");
@@ -118,6 +121,50 @@ function finding(severity, check, screen, p, value, found, suggestion) {
 
 // Structural checks on a drawing: unbalanced tags, script, external loads, hard-coded
 // colour, absolute positioning. Comments are stripped first so a commented-out tag never counts.
+// What a drawing is made of.
+//
+// A proposal's drawings are meant to compose the design system, and until 2026-09-14 nothing
+// said so and nothing checked. A drawing that invented a label, a summary line and a small
+// table rendered perfectly and validated clean; the design lead was the first mechanism in
+// the chain that noticed the system had never been consulted. So an option declares `uses`,
+// or declares `adds`, or draws a P1 for declaring neither.
+//
+// A slug the registry does not know is a P0 rather than a P1 on purpose. An unknown name is
+// either a typo, in which case the claim points at nothing, or an invention wearing the
+// shape of a real component, which is the exact failure this gate exists to catch and the
+// one a reader is least able to see.
+//
+// When the vendored snapshot is missing, componentSlugs() returns null and this checks
+// nothing. A missing snapshot must not fail every slug: that would turn one vendoring
+// problem into a document full of P0s naming components that do exist.
+function checkComposition(o, p, findings) {
+  var uses = o.uses || [];
+  var adds = o.adds || [];
+  if (!uses.length && !adds.length) {
+    findings.push(finding("P1", "composition", o.id, p + ".uses", "the drawing names no component it is built from", "", "list the design system slugs in uses[], or say what it adds in adds[]"));
+    return;
+  }
+  var known = dsComponents.componentSlugs();
+  if (!known) return;
+  var all = dsComponents.componentList();
+  uses.forEach(function (slug, i) {
+    if (!known[slug])
+      findings.push(finding("P0", "composition", o.id, p + ".uses[" + i + "]", slug + " is not a component in this snapshot", slug, near(slug, all)));
+  });
+  adds.forEach(function (a, i) {
+    if (a && known[a.component])
+      findings.push(finding("P1", "composition", o.id, p + ".adds[" + i + "].component", a.component + " already exists in the snapshot", a.component, "it is not an addition; move it to uses[]"));
+  });
+}
+
+// The closest known slugs by shared prefix, so a typo gets pointed somewhere useful rather
+// than at all 180 names.
+function near(slug, all) {
+  var head = String(slug).split("-")[0];
+  var hits = all.filter(function (s) { return s.indexOf(head) !== -1; }).slice(0, 4);
+  return hits.length ? "did you mean " + hits.join(", ") : "not one of the " + all.length + " components in the vendored snapshot";
+}
+
 function checkFragment(html, approachId, p, findings) {
   var bad = extractUnbalancedTag(html);
   if (bad) findings.push(finding("P0", "unbalanced", approachId, p, "<" + bad + "> opened and closed a different number of times"));
@@ -459,6 +506,7 @@ function validateProposal(data) {
         if (o.screen.width < MIN_WIDTH || o.screen.width > MAX_WIDTH)
           findings.push(finding("P0", "bounds", o.id, op + ".screen.width", "width " + o.screen.width + " outside " + MIN_WIDTH + " to " + MAX_WIDTH));
         checkFragment(o.screen.html, o.id, op + ".screen.html", findings);
+        checkComposition(o, op, findings);
         var toggles = stripComments(o.screen.html).match(/data-toggle\s*=\s*"([^"]+)"/g) || [];
         toggles.forEach(function (t) {
           var id = t.replace(/^.*"([^"]+)"$/, "$1");

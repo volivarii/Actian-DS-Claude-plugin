@@ -59,7 +59,7 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(html(), "<script"), 1, "only the toggle listener");
   });
 
-  it("renders the eight elements in order, answer first and latitude last", function () {
+  it("renders the nine elements in order, answer first and latitude last", function () {
     var d = twoDecisions();
     d.breadboard = {
       places: [
@@ -76,6 +76,7 @@ describe("assembleProposal (document)", function () {
       'class="briefing"',
       'class="decision"',
       'class="change"',
+      'class="citations"',
       'class="doc__latitude"',
     ];
     var last = -1;
@@ -100,14 +101,19 @@ describe("assembleProposal (document)", function () {
     assert.ok(at(out, 'class="bb__svg"') < at(out, 'class="proposal-screen"'), "and precedes every option drawing");
   });
 
-  it("states the answer once, with one pick line per decision", function () {
+  it("states the answer once and never restates the picks beneath it", function () {
     var d = twoDecisions();
     var out = assembleProposal(d);
     assert.strictEqual(count(out, d.answer), 1, "the answer is stated once");
-    assert.strictEqual(count(out, '<li class="answer-pick">'), d.decisions.length, "one pick line per decision");
+    assert.strictEqual(count(out, "answer-pick"), 0, "the picks are not listed under the answer");
+    assert.ok(at(out, 'class="decisions-at-a-glance"') !== -1, "the table is the summary instead");
+  });
+
+  it("prints each decision's question twice at most: the summary row and its own heading", function () {
+    var d = twoDecisions();
+    var out = body(assembleProposal(d));
     d.decisions.forEach(function (dec) {
-      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
-      assert.ok(at(out, "<b>" + win.name + "</b>") !== -1, dec.id + " names its winner in the picks");
+      assert.strictEqual(count(out, dec.question), 2, dec.id + ": summary row and heading, nothing more");
     });
   });
 
@@ -149,7 +155,32 @@ describe("assembleProposal (document)", function () {
     d.scope.nonGoals.forEach(function (n) { assert.ok(at(brief, n) !== -1, "non-goal: " + n); });
     d.context.product.forEach(function (f) { assert.ok(at(brief, f) !== -1, "fact: " + f); });
     d.research.findings.forEach(function (f) { assert.ok(at(brief, f.claim) !== -1, "finding: " + f.claim); });
-    assert.ok(at(brief, "Sources: " + d.context.sources.join("; ")) !== -1, "sources");
+    assert.strictEqual(count(brief, "Sources:"), 0, "the sources moved to the citations section");
+  });
+
+  it("cites every source once, at the end, split into its kind and its text", function () {
+    var d = load();
+    var doc = html();
+    var cites = doc.slice(at(doc, 'class="citations"'));
+    assert.ok(at(doc, 'class="citations"') > at(doc, 'class="change"'), "citations come after what this changes");
+    assert.ok(at(doc, 'class="citations"') < at(doc, 'class="doc__latitude"'), "and before the latitude line");
+    d.context.sources.forEach(function (src) {
+      var cut = src.indexOf(": ");
+      var kind = cut === -1 ? "" : src.slice(0, cut);
+      var text = cut === -1 ? src : src.slice(cut + 2);
+      assert.strictEqual(count(doc, text), 1, "cited once in the whole document: " + text);
+      assert.ok(at(cites, text) !== -1, "cited in the citations section: " + text);
+      if (kind) assert.ok(at(cites, ">" + kind + "<") !== -1, "kind rendered as its own label: " + kind);
+    });
+  });
+
+  it("keeps the gap note in the briefing, because it qualifies the read rather than sourcing it", function () {
+    var d = load();
+    d.context.gap = "The account menu has no capture.";
+    var out = assembleProposal(d);
+    var brief = out.slice(at(out, 'class="briefing"'), at(out, 'class="decision"'));
+    assert.ok(at(brief, d.context.gap) !== -1, "the gap stays in the briefing");
+    assert.strictEqual(count(out, d.context.gap), 1, "and is not repeated in the citations");
   });
 
   it("renders one block per decision, each with its question, options, table and pick", function () {
@@ -169,6 +200,30 @@ describe("assembleProposal (document)", function () {
       var block = out.slice(at(out, '<section class="decision" id="' + dec.id + '"'));
       block = block.slice(0, block.indexOf("</section>"));
       assert.ok(at(block, dec.pick.cost) !== -1, dec.id + " states its cost inside its own block, not only in the glance table");
+    });
+  });
+
+  it("leads a decision with the proposal, then what it was chosen over, then the evidence", function () {
+    var d = load();
+    var out = assembleProposal(d);
+    d.decisions.forEach(function (dec) {
+      var block = out.slice(at(out, 'id="' + dec.id + '"'));
+      block = block.slice(0, at(block, "</section>"));
+      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
+      var lead = at(block, 'class="decision__lead"');
+      var also = at(block, 'class="also"');
+      var table = at(block, 'class="compare-block"');
+      assert.ok(lead !== -1 && also !== -1 && table !== -1, dec.id + ": all three parts render");
+      assert.ok(lead < also && also < table, dec.id + ": proposal, then alternatives, then comparison");
+      assert.ok(at(block, "We propose") < also, dec.id + ": the case is made before the alternatives, not after them");
+      assert.ok(
+        at(block, 'data-name="' + win.id + '"') < also,
+        dec.id + ": and the proposed drawing is the one that leads",
+      );
+      dec.options.forEach(function (o) {
+        if (o.id === win.id) return;
+        assert.ok(at(block, 'data-name="' + o.id + '"') > also, dec.id + ": " + o.id + " sits under Also considered");
+      });
     });
   });
 
@@ -215,19 +270,26 @@ describe("assembleProposal (document)", function () {
     assert.throws(function () { assembleProposal(bad2); }, /proposal-data:.*nope/);
   });
 
-  it("gives every option in a decision the same width, whatever the author declared", function () {
+  it("equalises the options a decision did not propose, whatever the author declared", function () {
     var d = load();
     d.decisions[0].options[0].screen.width = 320;
     d.decisions[0].options[1].screen.width = 560;
     var out = assembleProposal(d);
-    var widths = (out.match(/class="proposal-screen" data-name="[^"]+" style="width:(\d+)px"/g) || [])
-      .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
-    var cols = (out.match(/class="proposal-screen__col" style="width:(\d+)px"/g) || [])
-      .map(function (m) { return Number(/width:(\d+)px/.exec(m)[1]); });
-    assert.deepStrictEqual(cols, widths, "the column and the drawing inside it carry the same width");
-    assert.strictEqual(widths.length, d.decisions[0].options.length, "one width per option");
-    widths.forEach(function (w) { assert.strictEqual(w, widths[0], "every option at the same width"); });
-    assert.ok(widths[0] >= 320, "and at least the widest the author asked for, or the row budget");
+    var block = out.slice(at(out, 'id="' + d.decisions[0].id + '"'));
+    block = block.slice(0, at(block, "</section>"));
+    var widths = (block.match(/class="proposal-screen" data-name="([^"]+)" style="width:(\d+)px"/g) || []).map(function (m) {
+      var p = /data-name="([^"]+)" style="width:(\d+)px/.exec(m);
+      return { id: p[1], w: Number(p[2]) };
+    });
+    assert.strictEqual(widths.length, d.decisions[0].options.length, "one drawing per option");
+    var lead = widths.filter(function (x) { return x.id === d.decisions[0].pick.optionId; });
+    var rest = widths.filter(function (x) { return x.id !== d.decisions[0].pick.optionId; });
+    assert.strictEqual(lead.length, 1, "the proposed option is drawn once");
+    rest.forEach(function (x) {
+      assert.strictEqual(x.w, rest[0].w, "every option it was chosen over is drawn at one width: " + x.id);
+    });
+    assert.ok(lead[0].w > rest[0].w, "and the proposal leads at a larger one");
+    assert.ok(lead[0].w >= 320, "never below the widest the author asked for, or the row budget");
   });
 
   it("caps the equalised width at the row budget for the option count", function () {
@@ -240,12 +302,36 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(w, budget, n + " options fit at " + budget + ", so 720 is capped");
   });
 
-  it("prints an option's annotations as phrases under its drawing, at most three", function () {
+  it("prints what each drawing is built from, and makes a new component loud", function () {
+    var d = load();
+    d.decisions[0].options[0].uses = ["read-only-tag", "tooltip-default"];
+    delete d.decisions[0].options[1].uses;
+    d.decisions[0].options[1].adds = [
+      { component: "access summary row", why: "no component holds a computed union over several groups" },
+    ];
+    var out = assembleProposal(d);
+    assert.ok(at(out, "Built from read-only-tag, tooltip-default") !== -1, "the ordinary case is stated plainly");
+    assert.ok(at(out, "access summary row. no component holds a computed union") !== -1, "an addition names itself and why");
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function rule(sel) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, sel);
+      return tpl.slice(i, tpl.indexOf("}", i));
+    }
+    assert.ok(rule(".option__built").indexOf("--fm-text-tertiary") !== -1, "built-from is quiet");
+    assert.ok(rule(".option__adds").indexOf("--fm-brand") !== -1, "an addition is not, because it is uncosted work");
+  });
+
+  it("prints an option's annotations as one quiet run, not an uppercase list", function () {
     var d = load();
     d.decisions[0].options[0].screen.notes = ["Group name, not its id", "One row, always"];
     var out = assembleProposal(d);
-    assert.ok(at(out, "Group name, not its id") !== -1);
-    assert.strictEqual(count(out, '<ul class="option__notes">'), 1, "only the option that has notes gets a list");
+    assert.ok(at(out, "Group name, not its id &middot; One row, always") !== -1, "joined by middots, in the order authored");
+    assert.strictEqual(count(out, '<ul class="option__notes">'), 0, "no list: that was the third voice under one drawing");
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    var i = tpl.indexOf("\n    .option__notes {");
+    assert.ok(i !== -1, "the annotations still have a rule");
+    assert.strictEqual(tpl.slice(i, tpl.indexOf("}", i)).indexOf("uppercase"), -1, "and it is not uppercase");
   });
 
   it("prints a blocker inside its decision, and never in the open questions", function () {
@@ -264,13 +350,93 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(at(out, "oq__kind"), -1, "no empty section");
   });
 
-  it("keeps the comparison table's glyphs so it survives greyscale", function () {
+  it("marks the picked column in every comparison, so the table says who won while it is read", function () {
+    var d = load();
+    var out = assembleProposal(d);
+    var blocks = out.split('<table class="compare">').slice(1);
+    assert.strictEqual(blocks.length, d.decisions.length, "one comparison per decision");
+    blocks.forEach(function (block, i) {
+      var table = block.slice(0, at(block, "</table>"));
+      var dec = d.decisions[i];
+      var head = table.slice(at(table, "<thead>"), at(table, "</thead>"));
+      var marked = head.split('class="compare__pick"').length - 1;
+      assert.strictEqual(marked, 1, dec.id + ": exactly one column is marked");
+      var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
+      var cell = head.slice(at(head, 'class="compare__pick"'));
+      assert.ok(at(cell, win.name) !== -1 && at(cell, win.name) < at(cell, "</th>"), dec.id + ": and it is the pick's column");
+      var body = table.slice(at(table, "<tbody>"));
+      assert.strictEqual(
+        body.split("compare__pick").length - 1,
+        dec.comparison.criteria.length,
+        dec.id + ": every row carries the mark down the picked column",
+      );
+    });
+  });
+
+  it("keeps the comparison scannable: a glyph on its own line over the phrase", function () {
     var doc = html();
     var body = doc.slice(doc.indexOf("<body>"));
     assert.ok(at(body, "tone-good") !== -1 || at(body, "tone-mixed") !== -1,
       "a tone class reaches the table, not just the stylesheet that defines it");
+    assert.ok(at(body, '<span class="compare__mark"></span>') !== -1, "every cell carries its mark as its own element");
     var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
-    assert.ok(at(tpl, '.tone-good::before') !== -1, "the glyph rule survives");
+    assert.ok(at(tpl, ".tone-good .compare__mark::before") !== -1, "the glyph rule survives, so it reads in greyscale and print");
+    var i = tpl.indexOf("\n    .compare__mark {");
+    assert.ok(tpl.slice(i, tpl.indexOf("}", i)).indexOf("display: block") !== -1, "and the mark is on its own line, not inline with the words");
+  });
+
+  it("never tells a reader the decision is made: the document proposes, the reader decides", function () {
+    var d = twoDecisions();
+    var out = body(assembleProposal(d));
+    ["What we decided", "What we picked", "We pick", ">Picked<", "Decision 1 of"].forEach(function (past) {
+      assert.strictEqual(out.indexOf(past), -1, "nothing a reader sees says: " + past);
+    });
+    ["What we propose", "We propose", ">Proposed<", "Question 1 of 2"].forEach(function (now) {
+      assert.ok(out.indexOf(now) !== -1, "the reader sees: " + now);
+    });
+  });
+
+  it("ranks a section label below a decision question, so only the statements are loud", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function ruleFor(sel) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, "the template still carries a rule for " + sel);
+      return tpl.slice(i, tpl.indexOf("}", i));
+    }
+    var label = ruleFor(".doc__section > h2");
+    var question = ruleFor(".decision > h2");
+    var answer = ruleFor(".answer");
+    assert.ok(label.indexOf("var(--doc-h2)") === -1, "a section label does not sit at question scale");
+    assert.ok(label.indexOf("var(--doc-label)") !== -1, "it sits on the label register");
+    assert.ok(label.indexOf("uppercase") !== -1, "and reads as a label, not a sentence");
+    assert.ok(question.indexOf("var(--doc-h2)") !== -1, "a decision question stays at h2");
+    assert.ok(answer.indexOf("var(--doc-h2)") !== -1, "and the answer is tied with it");
+  });
+
+  it("gives a decision block a heavier boundary than a framing section", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    function px(sel, prop) {
+      var i = tpl.indexOf("\n    " + sel + " {");
+      assert.ok(i !== -1, sel);
+      var rule = tpl.slice(i, tpl.indexOf("}", i));
+      var m = rule.match(new RegExp(prop + ":[^;]*?(\\d+)px"));
+      assert.ok(m, prop + " on " + sel);
+      return Number(m[1]);
+    }
+    assert.ok(
+      px(".decision", "border-top") > px(".doc__section", "border-top"),
+      "the argument is bounded more heavily than the framing around it",
+    );
+  });
+
+  it("leaves more air between two sections than inside one", function () {
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    var i = tpl.indexOf("\n    .doc__section {");
+    var rule = tpl.slice(i, tpl.indexOf("}", i));
+    var below = Number((rule.match(/margin: 0 0 (\d+)px/) || [])[1]);
+    var above = Number((rule.match(/padding: (\d+)px 0 0/) || [])[1]);
+    assert.ok(below && above, "the section rule still sets both");
+    assert.ok(below > above * 1.5, "the gap to the next section (" + below + ") clears the gap to its own heading (" + above + ")");
   });
 
   it("binds every size to a token: no raw font-size and no font shorthand", function () {
