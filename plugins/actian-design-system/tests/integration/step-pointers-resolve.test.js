@@ -108,8 +108,14 @@ describe("step pointers resolve", function () {
       });
       return;
     }
-    var ok = new RegExp("^#+ .*Step " + step.replace(".", "\\.") + "\\b", "m").test(body) ||
-             new RegExp("^\\s*" + step.replace(".", "\\.") + "\\.\\s", "m").test(body);
+    // Three spellings, because the repo uses three: a heading ("## Step 3"), a numbered item
+    // ("3. "), and a bold paragraph lead ("**Step 3, research.**"), which is how every step in
+    // design-proposal is written. Without the third, a pointer at a step that plainly exists
+    // fails, which is a checker reporting on its own vocabulary rather than on the documents.
+    var n = step.replace(".", "\\.");
+    var ok = new RegExp("^#+ .*Step " + n + "\\b", "m").test(body) ||
+             new RegExp("^\\s*" + n + "\\.\\s", "m").test(body) ||
+             new RegExp("^\\*\\*Step " + n + "\\b", "m").test(body);
     it(source + " -> " + target + " Step " + step, function () { assert.ok(ok, "no heading or numbered item for Step " + step + " in " + target); });
   }
 });

@@ -189,6 +189,13 @@
        ragged 13px text and put a goal beside a research finding as though they answered the
        same question. Two columns, each capped at the measure, wrap into 2x2 on a wide
        canvas and stack to one on a narrow one. */
+    /* The research. Three lanes stacked rather than columned: a reader reads down them in
+       order (what the market does, what the canon says, what we already own) rather than
+       holding them against each other, which is what the briefing's two columns are for. */
+    .research { display: flex; flex-direction: column; gap: 28px; }
+    .research__lane h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
+    .research__lane .doc__list { max-width: var(--doc-measure); }
+    .research__lane .doc__list li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
     .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 520px)); gap: 32px 48px; }
     .briefing__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .briefing__col .doc__list li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }

@@ -164,20 +164,50 @@ function briefingHtml(data) {
   function col(label, inner) {
     return '<div class="briefing__col"><h3>' + esc(label) + "</h3>" + inner + "</div>";
   }
-  var research = data.research.ran
-    ? list("doc__list", data.research.findings.map(function (f) {
-        return esc(f.claim) + ' <span class="doc__source">(' + esc(f.source) + ")</span>";
-      }))
-    : '<p class="doc__muted">Not researched: ' + esc(data.research.skippedBecause || "") + "</p>";
   var inner =
     '<div class="briefing">' +
     col("Goals", list("doc__list", data.scope.goals.map(esc))) +
     col("Not doing", list("doc__list", data.scope.nonGoals.map(esc))) +
     col("How it works today", list("doc__list", data.context.product.map(esc))) +
-    col("What comparable products do", research) +
     "</div>";
   if (data.context.gap) inner += '<p class="doc__gap">Gap: ' + esc(data.context.gap) + "</p>";
   return section("The briefing", inner);
+}
+
+// The four lanes, in the order a reader wants them: what the market does, what the canon
+// says, what we already own, which is the one that constrains rather than informs, and last
+// what the reader handed over themselves, which they already know and are checking we used.
+var RESEARCH_LANES = [
+  { id: "competitors", label: "Competitors" },
+  { id: "designSystems", label: "Design systems" },
+  { id: "ours", label: "Ours" },
+  { id: "yours", label: "Yours" },
+];
+
+function researchHtml(research) {
+  if (!research.ran) {
+    return section(
+      "What we found",
+      '<p class="doc__muted">Not researched: ' + esc(research.skippedBecause || "") + "</p>",
+    );
+  }
+  var groups = RESEARCH_LANES.map(function (lane) {
+    // A file written before the lanes existed carries findings with no lane. Refusing it
+    // would strand every proposal already on disk, and what that research was is not a
+    // mystery: it was the competitor sweep, because that was the only lane there was.
+    var mine = research.findings.filter(function (f) {
+      return (f.lane || "competitors") === lane.id;
+    });
+    if (!mine.length) return "";
+    return (
+      '<div class="research__lane"><h3>' + esc(lane.label) + "</h3>" +
+      list("doc__list", mine.map(function (f) {
+        return esc(f.claim) + ' <span class="doc__source">(' + esc(f.source) + ")</span>";
+      })) +
+      "</div>"
+    );
+  }).join("");
+  return section("What we found", '<div class="research">' + groups + "</div>");
 }
 
 // What a drawing is made of, printed where a reader can see it. "Built from" is quiet, and
@@ -428,6 +458,7 @@ function assembleProposal(data, options) {
     terrainHtml(data.breadboard) +
     glanceHtml(data.decisions) +
     briefingHtml(data) +
+    researchHtml(data.research) +
     jumpHtml(data.decisions) +
     data.decisions.map(function (d, i) { return decisionHtml(d, i, apps, total); }).join("") +
     openQuestionsHtml(data.openQuestions) +

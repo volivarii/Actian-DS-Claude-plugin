@@ -359,7 +359,14 @@ Research wizard patterns for multi-step configuration
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
 ```
 
-Routes to `/design-proposal`. The decisions the ticket forces are named in chat first, each with its two to four options and the one you would pick, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`: the answer in one sentence, the terrain, a decision table, the briefing (goals and non-goals, the product facts, the research, which is on by default and `--no-research` to skip), one block per decision with its options drawn inside the surface the question lives on, its comparison and its pick with the cost, then what is still open, what this changes and one line of latitude. A document with more than one decision pins a bar naming each of them, so a reader can see the shape of
+Routes to `/design-proposal`. The decisions the ticket forces are named in chat first, each with its two to four options and the one you would pick, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`: the answer in one sentence, the terrain, a decision table, the briefing (goals and non-goals, the product facts, what we found, in the lanes you asked for at the research gate), one block per decision with its options drawn inside the surface the question lives on, its comparison and its pick with the cost, then what is still open, what this changes and one line of latitude. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
+`designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours` (references you
+paste, which is the fastest lane when you already know the space). Answer `all`, `none`, a subset, or just
+paste links. `--research <lanes>` answers it without being asked and `--no-prompt` runs `ours` alone, so an
+unattended run is still grounded. What comes back is its own section in the document, grouped by lane, and
+a lane that found nothing prints nothing. One agent, `ds-researcher`, does the work for every DS skill.
+
+A document with more than one decision pins a bar naming each of them, so a reader can see the shape of
 the argument and move inside it from anywhere. Edit `proposals/proposal-data.json` and re-run with `--from`
 to adjust. No Figma push. The document can also be published
 as a page: Step 6 offers it, `--publish` skips the ask, and what the link buys over the file is the way

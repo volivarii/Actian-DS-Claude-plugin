@@ -21,6 +21,34 @@ are summarized at the release level.
 
 ### Added
 
+- **Research is a gate, in four lanes, with a section of its own**
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It used to run by default,
+  do at most two web searches, and land as one undifferentiated list inside the briefing under
+  "What comparable products do", which is one of the things a reader needs and the only one that
+  heading could say. Step 3 now asks first, and asks about four lanes: `competitors` (the product
+  space), `designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours`
+  (references the reader pastes, which is the fastest lane of all when they already know the space
+  better than a search does). Answer `all`, `none`, a subset, or just paste links. `--research
+  <lanes>` answers the gate without being asked; `--no-prompt` runs `ours` alone, so an unattended
+  run stays grounded rather than going ungrounded. The findings get their own document section,
+  "What we found", between the briefing and the decisions, because they are what the decisions are
+  argued from. A lane that found nothing prints nothing.
+  Two of the lanes borrow someone's authority, and the validator now makes each of them show it: a
+  finding in `ours` must cite a substrate source (`app-context:` `guideline:` `pattern:`
+  `accessibility:` `foundations:` `content:` `tokens:`), and a finding in `yours` must repeat one of
+  the references the reader actually gave. An agent asked for "our own knowledge" will otherwise
+  return a web result with our name on it, and once that claim is in the document beside the real
+  ones nobody downstream can tell which is which.
+  The work is done by **one agent, `ds-researcher`, shared by every DS skill.** The three lanes plus
+  the reader's refs are the same three lanes whatever is being researched; what differed between
+  `brief-researcher` and `flow-researcher` was never the research, it was the shape each one
+  synthesised into. `ds-researcher` returns one flat `{lane, claim, source}` list and each caller
+  shapes it in its own skill. `design-proposal` uses it today; moving `flow-researcher` and then
+  `brief-researcher` onto it is tracked separately, `brief-researcher` being the harder one because
+  `card-generator` parses its per-card shape.
+  A file written before this renders unchanged: findings with no lane are read as the competitor
+  sweep, because that is literally what they were.
+
 - **The proposal document is set to be read**
   ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). It was hard to read, hard to
   scan and hard to tell apart, and measuring it against three long-form documents that people

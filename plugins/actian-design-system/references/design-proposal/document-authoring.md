@@ -323,6 +323,46 @@ were the single word "item", which that ticket uses four times in its own text. 
 expect to keep the ticket's word. The whole procedure is the skill's: read each P1, keep or change the
 word, and say in chat which ones you kept and why. Do not silence the gate.
 
+## The research gate
+
+Step 3 asks before it researches, because the sweep costs time a reader may not want to spend and
+because the reader often already knows the space better than a search will.
+
+```
+Research before I propose? Four lanes:
+
+  1  competitors      how the product space solves this (Atlan, Collibra, Alation, Informatica)
+  2  design systems   what the canon says about this pattern (Material, Carbon, Polaris, Atlassian)
+  3  ours             our own substrate: guidelines, patterns, app-context for this surface
+  4  yours            references you paste: a URL, a product and screen, a file
+
+all / none / a subset ("1,3" or "competitors,ours") / paste your refs
+```
+
+Read the answer permissively: numbers, lane names, `all`, `none`, and any URLs or descriptions in the
+same message, which become the `yours` lane whether or not they said `4`. `--research <lanes>` answers
+the gate without asking. `--no-prompt` runs `ours` alone: it costs no web search, it is always relevant,
+and it keeps an unattended run grounded rather than ungrounded.
+
+Then dispatch `ds-researcher` once, with `subject` (the question from Step 1), `context` (the app,
+anchor surface and entity from Steps 1 and 2, so it re-derives nothing), `lanes`, `refs` when the reader
+pasted any, `grounding` (the substrate files the `ours` lane should read: the guideline docs for the
+components on this surface, `references/context/ux-patterns.md`, the app-context section for the anchor)
+and `outputPath` `proposals/proposal-research.json`. On ERROR, say what failed in one line and ask
+whether to proceed without research; never pad the file yourself.
+
+Copy its `findings` into `research.findings` as they are, and set `research.lanes` to what you asked
+for and `research.refs` to what the reader pasted. Three rules the validator enforces, so they are
+worth knowing before you write the file: at most four findings a lane; a finding in `ours` cites a
+substrate source (`app-context:` `guideline:` `pattern:` `accessibility:` `foundations:` `content:`
+`tokens:`); a finding in `yours` repeats one of `research.refs` exactly. The last two exist because
+those are the two lanes that borrow someone's authority, ours and the reader's, and a claim that
+borrows authority without a source is indistinguishable from one that earned it.
+
+The document renders the lanes as its own section, "What we found", between the briefing and the
+decisions: it is evidence the decisions are argued from, so it is read before them. A lane with no
+findings prints no heading.
+
 ## Publishing
 
 Step 6 offers the document as a page, and `--publish` takes the offer without asking. What the link buys

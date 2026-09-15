@@ -76,6 +76,15 @@ var RETIRED_KEYS = ["approaches", "comparison", "recommendation"];
 var MAX_SCOPE = 4;       // also schema maxItems
 var MAX_OPEN_QUESTIONS = 4; // also schema maxItems
 var MAX_FINDINGS = 5;
+// The three lanes a proposal may research, and how many findings each may carry. The cap is
+// per lane rather than per block: five was a cap on one undifferentiated list, and applied to
+// three lanes it would make the third lane pay for the first two.
+var RESEARCH_LANES = ["competitors", "designSystems", "ours", "yours"];
+var MAX_PER_LANE = 4;
+// What an "ours" finding has to cite. This is the check the lane exists for. An agent asked
+// for our own knowledge will return a web result with our name on it, and once that claim is
+// in the document beside the real ones nobody downstream can tell which is which.
+var SUBSTRATE_PREFIXES = ["app-context:", "guideline:", "pattern:", "accessibility:", "foundations:", "content:", "tokens:"];
 var MAX_REASONS = 4;
 var MIN_REASONS = 2;     // also schema minItems
 var MAX_FLOW_SCREENS = 4;
@@ -383,8 +392,33 @@ function validateProposal(data) {
   // research
   if (data.research.ran === false && !data.research.skippedBecause)
     findings.push(finding("P0", "research", "", "research.skippedBecause", "research did not run and says not why", "", "set skippedBecause (--no-research, the request said skip research, no web search in this session)"));
-  if (data.research.findings.length > MAX_FINDINGS)
+  var lanes = data.research.lanes;
+  if (lanes) {
+    if (lanes.indexOf("yours") !== -1 && !(data.research.refs || []).length)
+      findings.push(finding("P0", "research", "", "research.refs", "the yours lane ran with no reference behind it", "", "record what the reader pasted, or drop the lane"));
+    if (data.research.ran === true && lanes.length === 0)
+      findings.push(finding("P0", "research", "", "research.lanes", "ran is true and no lane was asked for", "", "name the lanes that ran, or set ran false with a skippedBecause"));
+    RESEARCH_LANES.forEach(function (l) {
+      var n = data.research.findings.filter(function (f) { return (f.lane || "competitors") === l; }).length;
+      if (n > MAX_PER_LANE)
+        findings.push(finding("P0", "bounds", "", "research.findings", n + " findings in " + l + "; at most " + MAX_PER_LANE + " a lane"));
+    });
+  } else if (data.research.findings.length > MAX_FINDINGS) {
+    // A file written before the lanes existed is one list, and one list keeps its old cap.
     findings.push(finding("P0", "bounds", "", "research.findings", data.research.findings.length + " findings; at most " + MAX_FINDINGS));
+  }
+  data.research.findings.forEach(function (f, i) {
+    var lane = f.lane || "competitors";
+    if (f.lane && lanes && lanes.indexOf(f.lane) === -1)
+      findings.push(finding("P0", "research", "", "research.findings[" + i + "].lane", "a finding from a lane that was not asked for", f.lane, "add " + f.lane + " to research.lanes, or drop the finding"));
+    if (lane === "ours" && !SUBSTRATE_PREFIXES.some(function (p) { return String(f.source || "").indexOf(p) === 0; }))
+      findings.push(finding("P0", "research", "", "research.findings[" + i + "].source", "an ours finding that cites nothing in the substrate", f.source, "prefix the source with one of " + SUBSTRATE_PREFIXES.join(" ")));
+    // The reader's own lane is the one place a claim carries their authority, so a finding in
+    // it has to come from a reference they actually gave. Without this, "yours" is a lane
+    // where anything at all can be said in their name.
+    if (lane === "yours" && (data.research.refs || []).indexOf(f.source) === -1)
+      findings.push(finding("P0", "research", "", "research.findings[" + i + "].source", "a yours finding that cites no reference the reader gave", f.source, "cite one of research.refs exactly, or move the finding to the lane it came from"));
+  });
   if (data.research.ran === false && data.research.findings.length > 0)
     findings.push(finding("P1", "research", "", "research.findings", "findings present while ran is false; they are not rendered", "", "set ran true or empty the findings"));
   if (stage === "evaluation" && data.research.ran === true)
