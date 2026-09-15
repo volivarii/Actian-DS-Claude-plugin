@@ -56,7 +56,7 @@ The proven precedent: `/component-brief` Step 1.5 batches card selection + resea
 **Per-skill batching:**
 - `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
-- `/design-proposal`: 1 gate, once the decisions are named in chat and before anything is drawn: the decisions, their options and the picks, for the reader to change while changing them is still a sentence. `--no-prompt` skips it. Research is not gated: it runs by default and `--no-research` (or "skip research" in the request) turns it off, with the document saying so.
+- `/design-proposal`: 2 gates. (1) Research, at Step 3, before the sweep is paid for: four lanes (competitors, design systems, ours, yours), answered `all`, `none`, a subset, or by pasting references. `--research <lanes>` answers it; `--no-prompt` runs `ours` alone, which costs no web search and keeps an unattended run grounded. (2) The decisions, once they are named in chat and before anything is drawn: the decisions, their options and the picks, for the reader to change while changing them is still a sentence. `--no-prompt` skips it.
 
 ## Gate prompt shape
 

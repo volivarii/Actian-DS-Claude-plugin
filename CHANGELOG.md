@@ -21,6 +21,83 @@ are summarized at the release level.
 
 ### Added
 
+- **Research is a gate, in four lanes, with a section of its own**
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It used to run by default,
+  do at most two web searches, and land as one undifferentiated list inside the briefing under
+  "What comparable products do", which is one of the things a reader needs and the only one that
+  heading could say. Step 3 now asks first, and asks about four lanes: `competitors` (the product
+  space), `designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours`
+  (references the reader pastes, which is the fastest lane of all when they already know the space
+  better than a search does). Answer `all`, `none`, a subset, or just paste links. `--research
+  <lanes>` answers the gate without being asked; `--no-prompt` runs `ours` alone, so an unattended
+  run stays grounded rather than going ungrounded. The findings get their own document section,
+  "What we found", between the briefing and the decisions, because they are what the decisions are
+  argued from. A lane that found nothing prints nothing.
+  Two of the lanes borrow someone's authority, and the validator now makes each of them show it: a
+  finding in `ours` must cite a substrate source (`app-context:` `guideline:` `pattern:`
+  `accessibility:` `foundations:` `content:` `tokens:`), and a finding in `yours` must repeat one of
+  the references the reader actually gave. An agent asked for "our own knowledge" will otherwise
+  return a web result with our name on it, and once that claim is in the document beside the real
+  ones nobody downstream can tell which is which.
+  The work is done by **one agent, `ds-researcher`, shared by every DS skill.** The three lanes plus
+  the reader's refs are the same three lanes whatever is being researched; what differed between
+  `brief-researcher` and `flow-researcher` was never the research, it was the shape each one
+  synthesised into. `ds-researcher` returns one flat `{lane, claim, source}` list and each caller
+  shapes it in its own skill. `design-proposal` uses it today; moving `flow-researcher` and then
+  `brief-researcher` onto it is tracked separately, `brief-researcher` being the harder one because
+  `card-generator` parses its per-card shape.
+  A file written before this renders unchanged: findings with no lane are read as the competitor
+  sweep, because that is literally what they were.
+
+- **The proposal document is set to be read**
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It was hard to read, hard to
+  scan and hard to tell apart, and measuring it against three long-form documents that people
+  actually read said why. Linear's changelog runs 17px at a 622px column, 73 characters. Shape Up
+  runs 21.9px at 795px, 73 characters. Tufte CSS runs 21px at 689px, 66 characters. All three run
+  one left edge and near-maximum text contrast. The proposal ran **13px** for most of its words,
+  because `--doc-caption` carried the decision table, the briefing, every pick reason, every cost,
+  the comparison and the citations; it declared a 512px measure and then let the cost column run
+  past a hundred characters; and it set muted text on a muted ground, so the white mockups were
+  the brightest thing in the document and outranked the argument they illustrate.
+  Now: the page is white and the text carries the contrast, with each drawing ringed in
+  `--fm-base-100` so it still reads as a figure. Running text is 17px at a 620px measure, 73
+  characters, and the caption register is 15px and reserved for captions. The pick statement gets
+  its own 20px step so it outranks its own reasons.
+  The decision block stopped leaving a hole: the drawing used to lead at whatever width the row
+  budget set, with the case beside it at the measure, so a 1200px block ended around 930 and the
+  last 270px were empty. The case now reads first on the document's own left edge and the drawing
+  it illustrates sits beside it.
+  A document with more than one decision pins a bar naming each of them. The map at the top
+  scrolled away after the first screen and never came back, and what it maps is over nine thousand
+  pixels long. The bar is that map, condensed to one line, and it hides on a phone.
+
+### Fixed
+
+- **A breadboard no longer spends width on the columns an author skipped**
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). DIP-I-496 authored its
+  places at columns 1 to 3, so the terrain drew 408px of nothing to the left of its first box: a
+  quarter of the figure, empty, and on a phone it is that empty quarter a reader lands on. The grid
+  now drops the leading offset. A gap between two columns in the middle is kept, because that one
+  is a layout the author asked for.
+
+- **A proposal can be published as a page, and read on a phone**
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). The document was a file:
+  to show it to someone you sent them HTML, and anything they thought about it came back
+  somewhere else, detached from the pick it argued with. Step 6 now offers to publish it, and
+  `--publish` does it without asking. A reader gets a link, and a comment they send to Claude
+  arrives attached to the decision it is about, which is the loop the document has been missing.
+  The mechanism is `--fragment` on `assemble-preview.js --type proposal`: the same render without
+  the `<!doctype>`, `<head>` and `<body>` a host supplies for itself, written beside the document
+  as `proposals/<slug>.artifact.html`. The three template seams it slices at are counted, and a
+  count that is not one throws, because the silent failure here is a slice that stops matching
+  and publishes a whole document nested inside another one.
+  The document also gained its first `@media` block. Everything in it made of prose already
+  reflowed; the drawings did not, and a three-up row of them is 1152px wide. They keep the width
+  they were drawn at, because that width is the proposal's claim about a real surface and
+  `rowBudget()` exists to hold it honest, and they scroll inside their own box instead, which is
+  the one thing the page itself must never do. Nothing above 640px changed: a re-render of the
+  same data file differs from the shipped document by the added rule and nothing else.
+
 - **The proposal stops once, after the decisions and before anything is drawn**
   ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). The skill already said the decomposition was
   what a reader pushes back on, "far cheaper than pushing back on three rendered blocks", and

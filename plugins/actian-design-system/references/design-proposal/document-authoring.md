@@ -78,8 +78,12 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **scope**: one to four goals and one to four non-goals. A goal comes from the ticket. A non-goal is
   a thing a reviewer would plausibly ask for that this change deliberately does not do; naming it is
   what stops the ask. Do not invent either to fill the slots; two of each is a full answer.
-- **research**: `ran` and up to five `findings` of `{ claim, source }`, the source as text (the document
-  loads nothing). When research did not run: `ran: false`, `findings: []`, `skippedBecause`.
+- **research**: `lanes` (what the Step 3 gate was answered with), `refs` (what the reader pasted, when
+  the `yours` lane ran), `ran`, and `findings` of `{ lane, claim, source }`, the source as text (the
+  document loads nothing), at most four a lane. Once `lanes` is present every finding states its `lane`:
+  the read-it-as-competitors fallback is only for a file written before the lanes existed. An `ours`
+  source starts with a substrate kind and a `yours` source repeats one of `refs` exactly. When research
+  did not run: `lanes: []`, `ran: false`, `findings: []`, `skippedBecause`.
 - **breadboard** (see below): `places[]` and `connections[]`, the terrain the decisions sit on.
 - **decisions**: one to four. Each is self-contained: `id` (a slug), `question`, `options`, `comparison`,
   `pick`, and an optional `blocker`.
@@ -258,14 +262,18 @@ reader a verdict instead of an argument.
 
 The block renders in three parts, in this order, and the renderer does it for you:
 
-1. **The proposal.** The picked option's drawing, with the case for it beside it: the reasons,
-   the cost, and the blocker when there is one.
+1. **The proposal.** The case for the pick on the document's left edge, the reasons, the cost
+   and the blocker when there is one, with the picked option's drawing beside it on the right.
 2. **Also considered.** Every other option, smaller, equal to each other, one line of annotation.
 3. **How they compare.** The full table, with the proposed column marked.
 
 What this asks of your authoring: the picked option's `whatItIs` and `breaksWhen` are read
 directly under the drawing a reader is looking at, so `breaksWhen` on the pick is the most
 load-bearing line in the block. It says where the thing we are proposing fails. Do not soften it.
+
+A document with more than one decision also pins a bar naming each of them, which is how a
+reader moves around nine thousand pixels of argument. The bar carries the `question`, so a
+question that only makes sense after reading its own block is a question that needs rewriting.
 
 A rejected option is skimmed, not weighed, so its `verdict` is what a reader actually reads of
 it. Make the verdict the sentence you would say out loud if someone asked why it lost.
@@ -318,6 +326,70 @@ settled against them. A real ticket is noisier: the DIP-I-522 run drew twenty P1
 were the single word "item", which that ticket uses four times in its own text. Expect repetition, and
 expect to keep the ticket's word. The whole procedure is the skill's: read each P1, keep or change the
 word, and say in chat which ones you kept and why. Do not silence the gate.
+
+## The research gate
+
+Step 3 asks before it researches, because the sweep costs time a reader may not want to spend and
+because the reader often already knows the space better than a search will.
+
+```
+Research before I propose? Four lanes:
+
+  1  competitors      how the product space solves this (Atlan, Collibra, Alation, Informatica)
+  2  design systems   what the canon says about this pattern (Material, Carbon, Polaris, Atlassian)
+  3  ours             our own substrate: guidelines, patterns, app-context for this surface
+  4  yours            references you paste: a URL, a product and screen, a file
+
+all / none / a subset ("1,3" or "competitors,ours") / paste your refs
+```
+
+Read the answer permissively: numbers, lane names, `all`, `none`, and any URLs or descriptions in the
+same message, which become the `yours` lane whether or not they said `4`. `--research <lanes>` answers
+the gate without asking. `--no-prompt` runs `ours` alone: it costs no web search, it is always relevant,
+and it keeps an unattended run grounded rather than ungrounded.
+
+Then dispatch `ds-researcher` once, with `subject` (the question from Step 1), `context` (the app,
+anchor surface and entity from Steps 1 and 2, so it re-derives nothing), `lanes`, `refs` when the reader
+pasted any, `grounding` (the substrate files the `ours` lane should read: the guideline docs for the
+components on this surface, `references/context/ux-patterns.md`, the app-context section for the anchor)
+and `outputPath` `proposals/proposal-research.json`. On ERROR, say what failed in one line and ask
+whether to proceed without research; never pad the file yourself.
+
+Copy its `findings` into `research.findings` as they are, and set `research.lanes` to what you asked
+for and `research.refs` to what the reader pasted. Three rules the validator enforces, so they are
+worth knowing before you write the file: at most four findings a lane; a finding in `ours` cites a
+substrate source (`app-context:` `guideline:` `pattern:` `accessibility:` `foundations:` `content:`
+`tokens:`); a finding in `yours` repeats one of `research.refs` exactly. The last two exist because
+those are the two lanes that borrow someone's authority, ours and the reader's, and a claim that
+borrows authority without a source is indistinguishable from one that earned it.
+
+The document renders the lanes as its own section, "What we found", between the briefing and the
+decisions: it is evidence the decisions are argued from, so it is read before them. A lane with no
+findings prints no heading.
+
+## Publishing
+
+Step 6 offers the document as a page, and `--publish` takes the offer without asking. What the link buys
+over the file is the way back: a reader can comment on any part of the document and send that thread to
+Claude, where it arrives attached to the decision it argues with. Say that line when you give the link.
+
+The page is a second render of the same data file. `--fragment` drops the `<!doctype>`, `<head>` and
+`<body>`, because the host supplies those and a fragment that keeps them nests one document inside
+another:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" {project_working_directory}/proposals/proposal-data.json --type proposal --fragment -o {project_working_directory}/proposals/<slug>.artifact.html
+```
+
+Then publish that file with the Artifact tool: `favicon` the straightedge emoji, `description` the answer
+sentence, no `title` (the fragment carries one), and the path exactly as written above, because a
+re-publish of the same path redeploys the same link and any other path is a second artifact. On a
+re-publish pass no `favicon`: the emoji is how a reader recognises the page, and a new one reads as a new
+document.
+
+The fragment is a render, not an edit: never hand-write or patch it, the same rule the HTML document
+lives under. A proposal at `stage: evaluation` has no document, so it has no page either.
 
 ## Run
 

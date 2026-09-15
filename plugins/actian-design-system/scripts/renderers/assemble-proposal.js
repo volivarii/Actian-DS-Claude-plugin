@@ -164,20 +164,50 @@ function briefingHtml(data) {
   function col(label, inner) {
     return '<div class="briefing__col"><h3>' + esc(label) + "</h3>" + inner + "</div>";
   }
-  var research = data.research.ran
-    ? list("doc__list", data.research.findings.map(function (f) {
-        return esc(f.claim) + ' <span class="doc__source">(' + esc(f.source) + ")</span>";
-      }))
-    : '<p class="doc__muted">Not researched: ' + esc(data.research.skippedBecause || "") + "</p>";
   var inner =
     '<div class="briefing">' +
     col("Goals", list("doc__list", data.scope.goals.map(esc))) +
     col("Not doing", list("doc__list", data.scope.nonGoals.map(esc))) +
     col("How it works today", list("doc__list", data.context.product.map(esc))) +
-    col("What comparable products do", research) +
     "</div>";
   if (data.context.gap) inner += '<p class="doc__gap">Gap: ' + esc(data.context.gap) + "</p>";
   return section("The briefing", inner);
+}
+
+// The four lanes, in the order a reader wants them: what the market does, what the canon
+// says, what we already own, which is the one that constrains rather than informs, and last
+// what the reader handed over themselves, which they already know and are checking we used.
+var RESEARCH_LANES = [
+  { id: "competitors", label: "Competitors" },
+  { id: "designSystems", label: "Design systems" },
+  { id: "ours", label: "Ours" },
+  { id: "yours", label: "Yours" },
+];
+
+function researchHtml(research) {
+  if (!research.ran) {
+    return section(
+      "What we found",
+      '<p class="doc__muted">Not researched: ' + esc(research.skippedBecause || "") + "</p>",
+    );
+  }
+  var groups = RESEARCH_LANES.map(function (lane) {
+    // A file written before the lanes existed carries findings with no lane. Refusing it
+    // would strand every proposal already on disk, and what that research was is not a
+    // mystery: it was the competitor sweep, because that was the only lane there was.
+    var mine = research.findings.filter(function (f) {
+      return (f.lane || "competitors") === lane.id;
+    });
+    if (!mine.length) return "";
+    return (
+      '<div class="research__lane"><h3>' + esc(lane.label) + "</h3>" +
+      list("doc__list", mine.map(function (f) {
+        return esc(f.claim) + ' <span class="doc__source">(' + esc(f.source) + ")</span>";
+      })) +
+      "</div>"
+    );
+  }).join("");
+  return section("What we found", '<div class="research">' + groups + "</div>");
 }
 
 // What a drawing is made of, printed where a reader can see it. "Built from" is quiet, and
@@ -291,8 +321,8 @@ function decisionHtml(d, index, apps, total) {
   var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
   var leadHtml =
     '<div class="decision__lead">' +
-    optionHtml(win, d.options.indexOf(win), apps, width, true) +
-    '<div class="decision__case">' + pickHtml(d) + "</div></div>";
+    '<div class="decision__case">' + pickHtml(d) + "</div>" +
+    optionHtml(win, d.options.indexOf(win), apps, width, true) + "</div>";
   var alsoHtml = rest.length
     ? '<div class="also"><h3>Also considered</h3><div class="approaches">' +
       rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
@@ -364,7 +394,58 @@ function footerHtml(meta) {
   return '  <p class="doc__footer">' + esc(meta.skill + (meta.model ? ", " + meta.model : "") + ", " + meta.date + ".") + "</p>\n";
 }
 
-function assembleProposal(data) {
+// The fragment an Artifact publish sends. The host supplies <!doctype>, <head> and
+// <body>, so those have to go or the page renders one document inside another; the title
+// stays, because the gallery reads it out of the first 8KB of what it is given.
+//
+// The three seams below are the template's, and a template edit is exactly what would
+// break this quietly: a slice that stops matching returns the whole document, which
+// publishes and looks right until the nesting bites. So each seam is counted, and a
+// count that is not one throws. The tests doctor each seam in turn to prove it can.
+var FRAGMENT_SEAMS = [
+  { name: "title", re: /<title>/g },
+  { name: "head-to-body", re: /\n<\/head>\n<body>\n/g },
+  // Deliberately not anchored to the end. Anchored, a document carrying the closing tags
+  // twice still counts one match, the guard passes, and the fragment keeps a stray
+  // </body></html> in its middle. Unanchored, a second pair is what it is: a seam that
+  // matched twice, which throws.
+  { name: "closing", re: /\n<\/body>\n<\/html>/g },
+];
+
+function toFragment(html) {
+  FRAGMENT_SEAMS.forEach(function (seam) {
+    var n = (html.match(seam.re) || []).length;
+    if (n !== 1) {
+      throw new Error(
+        "proposal fragment: the " + seam.name + " seam matched " + n + " times, expected 1. " +
+          "templates/proposal-document.html changed shape; update FRAGMENT_SEAMS with it.",
+      );
+    }
+  });
+  return html
+    .slice(html.indexOf("<title>"))
+    .replace(FRAGMENT_SEAMS[1].re, "\n")
+    .replace(FRAGMENT_SEAMS[2].re, "\n");
+}
+
+function jumpHtml(decisions) {
+  if (decisions.length < 2) return "";
+  return (
+    '  <nav class="doc__jump" aria-label="The decisions in this proposal">' +
+    decisions
+      .map(function (d, i) {
+        return (
+          '<a class="doc__jump-item" href="#' + esc(d.id) + '" title="' + esc(d.question) + '">' +
+          '<span class="doc__jump-num">' + (i + 1) + "</span>" +
+          '<span class="doc__jump-text">' + esc(d.question) + "</span></a>"
+        );
+      })
+      .join("") +
+    "</nav>\n"
+  );
+}
+
+function assembleProposal(data, options) {
   var errors = validateSchema(data, JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf8"))).filter(function (e) {
     return e.indexOf("(warning)") === -1;
   });
@@ -377,6 +458,8 @@ function assembleProposal(data) {
     terrainHtml(data.breadboard) +
     glanceHtml(data.decisions) +
     briefingHtml(data) +
+    researchHtml(data.research) +
+    jumpHtml(data.decisions) +
     data.decisions.map(function (d, i) { return decisionHtml(d, i, apps, total); }).join("") +
     openQuestionsHtml(data.openQuestions) +
     changeHtml(data.change) +
@@ -394,16 +477,18 @@ function assembleProposal(data) {
     "  model:   " + maskComment(meta.model || "") + "\n-->";
   var fmCss = readFileChecked(renderer.cssPaths.fmBase);
   var template = readFileChecked(TEMPLATE_PATH);
-  return template
+  var html = template
     .replace("{{META_COMMENT}}", function () { return metaComment; })
     .replace(/\{\{TITLE\}\}/g, function () { return esc(meta.title); })
     .replace("{{CONTEXT}}", function () { return esc(context); })
     .replace("{{FM_CSS}}", function () { return fmCss; })
     .replace("<!-- {{SECTIONS}} -->", function () { return sections; });
+  return options && options.fragment ? toFragment(html) : html;
 }
 
 module.exports = {
   assembleProposal: assembleProposal,
+  toFragment: toFragment,
   extractUnbalancedTag: unbalancedTag,
   rowBudget: rowBudget,
 };

@@ -1,7 +1,7 @@
 ---
 name: design-proposal
 description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. `--evaluate` stops after the decisions: what the ticket forces, with no options and no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
-argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--no-research] [--no-prompt] [--evaluate] [--from proposals/proposal-data.json]"
+argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--research all|none|<lanes>] [--no-prompt] [--evaluate] [--publish] [--from proposals/proposal-data.json]"
 ---
 
 # Design proposal
@@ -22,8 +22,8 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 One offline HTML document at `{project_working_directory}/proposals/<slug>.html`, in eight elements: the
 answer in one sentence above the picks; the terrain, a drawing of the places this touches, omitted when
 there is only one; the decision table of question, pick and cost, omitted when there is one decision; the
-briefing of goals and non-goals, the product facts and the research; then one block per decision, each
-with its options drawn side by side at one width, a comparison, and a pick whose reasons name the rows
+briefing of goals and non-goals and the product facts; what we found, in the lanes that ran; then one
+block per decision, each with its options drawn side by side at one width, a comparison, and a pick whose reasons name the rows
 they argue from and whose cost says what ships with it; what is still open, when anything is; what this
 changes for an admin and a user; and one line of latitude.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
@@ -39,16 +39,16 @@ so in one line and offer `/generate-flow`. Under `--evaluate` there is no docume
 |---|---|---|
 | Request | prose, with or without a ticket already in context | `/design-proposal show a user their roles in the account menu` |
 | Ticket | a ticket id, pasted text, or an attached PDF or screenshots | `/design-proposal DIP-I-496` |
-| Re-render | `--from proposals/proposal-data.json` after edits | `/design-proposal --from proposals/proposal-data.json` |
 
 ## Flags
 
 | Flag | Default | Behavior |
 |---|---|---|
 | `--concepts N` | 3 | Number of options inside a decision, 2 to 4 |
-| `--no-research` | off | Skip the web research; the document says so. "skip research" in the request does the same |
+| `--research <lanes>` | gate | Answer the Step 3 gate without being asked: `all`, `none`, or lanes from `competitors,designSystems,ours,yours`, plus any refs you are pasting. `--no-research` is `none`; "skip research" in the request does the same |
 | `--no-prompt` | off | Draw straight through: skip the Step 4 stop that asks before anything is drawn |
 | `--evaluate` | off | Stop after the decisions. Writes `proposals/proposal-data.json` at `stage: evaluation`: the framing, the product read, the scope and the questions, with no options, no comparison and no picks. No research and no document. Refused together with `--from` |
+| `--publish` | off | Publish the document as a shareable page at Step 6 without asking first; "Publishing" in `references/design-proposal/document-authoring.md` is the how. Refused together with `--evaluate`, which writes no document |
 | `--from <path>` | none | Resume a data file. One at `stage: evaluation` resumes into a proposal, without re-reading the ticket or the product (see "The evaluation stage" below); a finished proposal is validated and re-assembled, with no reading and no decisions in chat. A file authored before `2026.9.30` carries `approaches` and is refused with one P0 naming `scripts/migrations/proposal-approaches-to-decisions.js`; convert it, then write the three fields the converter leaves empty. A file authored before `2026.9.28` also has no `scope` |
 
 ## Pipeline
@@ -70,9 +70,11 @@ a captured part) and from the attachment. Three to six sentences: the anchor sur
 behind it, what an admin and a user see today. List the sources. When the anchor has no capture, say so
 in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 
-**Step 3, research** (unless `--no-research` or the request says skip). At most two web searches, at most
-five findings, each with a source named as text. Present them in chat in five lines or fewer. When it did
-not run, the document says `Not researched: <why>`. Not under `--evaluate`; on a resume it runs here.
+**Step 3, research.** A gate. Read "The research gate" in
+`references/design-proposal/document-authoring.md`, which is the whole of it: ask which of `competitors`,
+`designSystems`, `ours` (no web search) and `yours` (refs the reader pastes) to run, wait, dispatch
+`ds-researcher`, present it in five lines. `--research <lanes>` answers the gate; `--no-prompt` runs `ours`
+alone. Not under `--evaluate`; on a resume it runs here.
 
 **Step 4, decisions in chat.** First the scope in two lines: what this is for (the goals, from the ticket)
 and what it is not doing (the non-goals). Then name the decisions: one per question the feature forces
@@ -124,25 +126,26 @@ output; edit the data file and re-assemble.
 
 **Step 6, share.** Say: `Proposal ready: {project_working_directory}/proposals/<slug>.html (opens offline;
 in Cowork it appears in the panel)`. The document does not carry these, so offer them in one line each:
-"adjust" (add an option, compare on another criterion, drop the research: edit the data file, re-run with
-`--from`) and "make this a flow" (`/generate-flow --from proposals/proposal-data.json` composes every pick
-into one screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draws a rejected one).
+"adjust" (edit the data file, re-run with `--from`), "publish as a page" (`--publish` skips the ask) and
+"make this a flow" (`/generate-flow --from proposals/proposal-data.json` composes every pick into one
+screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draws a rejected one).
 
 ## Rules
 
-- Time budget: Steps 1 to 4 in under three minutes of reading, research included; the two references in
-  Step 5 are the whole read. Never open the renderer or the vendored component map.
+- Time budget: Steps 1 to 4 in under three minutes of reading, research included. One section of
+  `document-authoring.md` at Step 3 and the two references at Step 5 are the whole read. Never open the
+  renderer or the vendored component map.
 - The header strip, the app label and the nav are not yours to draw; the assembler adds the strip.
 - No hex colours, scripts, external loads, em dashes, invented product names or invented components: the
   validator checks each. A second pass is fine; report the pass count.
 - Terminology follows the vendored app-context; when a validator line contradicts the ticket's own words,
   keep the ticket's words and say so in chat, never silence the gate. On rationale prose these gates point
   rather than rule: keep the ordinary English word, and say which ones you kept.
-- A file written before `2026.9.30` carries `approaches`: convert it as the `--from` row says, then write the three fields the converter leaves empty.
 - The data file is the source: every follow-up edits it and re-renders, never the HTML.
 
 ## References
 
-- `references/design-proposal/document-authoring.md`, the sections, fragment contract and conventions
+- `references/design-proposal/document-authoring.md`, the research gate, the sections, the fragment
+  contract, publishing and the conventions
 - `references/ds-rules/fm-css-reference.md`, the Fat Marker palette and component styles
 - `schemas/proposal-data.schema.json`, `schemas/proposal-evaluation.schema.json`, `references/context/ux-patterns.md`

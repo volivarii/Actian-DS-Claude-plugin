@@ -34,16 +34,18 @@
        and quieter than a heading, and no step on this scale lands there. The test names that
        one exception by value, so it cannot spread. */
     :root {
-      --doc-measure: 512px;   /* about 66 characters at 16px Inter; 45 to 75 is the readable band */
-      --doc-body: 16px;
-      --doc-caption: 13px;
-      --doc-label: 13px;     /* a section's own name: caption scale, but uppercase and tracked, because it labels the section rather than stating anything */
-      --doc-micro: 11px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below caption is correct here, not drift */
-      --doc-h2: 25px;
-      --doc-h1: 31px;
+      --doc-measure: 620px;  /* 73 characters at --doc-body: where Linear's changelog (622px) and Shape Up (795px at 21.9px) both land */
+      --doc-wide: 1200px;    /* the widest a drawing row or a table may reach, on the same left edge as the text */
+      --doc-body: 17px;      /* every running sentence in the document */
+      --doc-lead: 20px;      /* the pick statement: the one line in a block that has to outrank its own reasons */
+      --doc-caption: 15px;   /* genuinely secondary text: comparison cells, drawing notes, the context line */
+      --doc-label: 13px;     /* a section's own name: uppercase and tracked, because it labels the section rather than stating anything */
+      --doc-micro: 12px;     /* uppercase tracked micro-labels only: uppercase reads optically larger, so a step below label is correct here, not drift */
+      --doc-h2: 30px;
+      --doc-h1: 40px;
     }
-    body { background: var(--fm-base-200); color: var(--fm-text-primary); padding: 40px 40px 96px; font-size: var(--doc-body); line-height: 1.6; }
-    .doc { max-width: 1200px; margin: 0 auto; }
+    body { background: var(--fm-base-white); color: var(--fm-text-primary); padding: 56px 40px 112px; font-size: var(--doc-body); line-height: 1.65; }
+    .doc { max-width: var(--doc-wide); margin: 0 auto; }
 
     .doc__head { margin: 0 0 8px; }
     .doc__title { font-size: var(--doc-h1); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 6px; max-width: 22ch; }
@@ -62,20 +64,32 @@
 
        Space says the same thing twice: the gap down to the next section's rule is more than
        twice the gap from a rule to the heading under it, so a boundary is never ambiguous. */
-    .doc__section { border-top: 1px solid var(--fm-base-400); padding: 24px 0 0; margin: 0 0 56px; }
+    .doc__section { border-top: 1px solid var(--fm-base-400); padding: 24px 0 0; margin: 0 0 64px; }
+
+    /* The decision bar. The map at the top of the document scrolled away after the first
+       screen and never came back, and what it was mapping is nine thousand pixels long, so
+       from there on a reader had no way to see the shape of what they were in or to move
+       inside it. This is that map, condensed to one line and pinned. It carries the question
+       rather than the pick, because a reader looking for a place is looking for the question;
+       the full text rides in the title attribute, since the line truncates. */
+    .doc__jump { position: sticky; top: 0; z-index: 2; display: flex; gap: 24px; align-items: stretch; background: var(--fm-base-white); border-bottom: 1px solid var(--fm-base-300); padding: 12px 0; margin: 0 0 56px; }
+    .doc__jump-item { flex: 1 1 0; min-width: 0; display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--fm-text-tertiary); font-size: var(--doc-caption); line-height: 1.4; }
+    .doc__jump-num { flex: none; width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-200); color: var(--fm-text-primary); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); font-weight: 700; }
+    .doc__jump-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .doc__jump-item:hover .doc__jump-text, .doc__jump-item:focus .doc__jump-text { color: var(--fm-text-primary); }
     .doc__section > h2 { font-size: var(--doc-label); font-weight: 700; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fm-text-primary); margin: 0 0 18px; max-width: var(--doc-measure); }
     .doc__section > p, .doc__section > ul { max-width: var(--doc-measure); }
     .doc__section p { margin: 0 0 12px; }
 
     /* Apparatus: what the document says about itself reads as a note, never as prose. */
-    .doc__muted { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); border-left: 2px solid var(--fm-base-300); padding-left: 12px; margin: 14px 0 0; }
-    .doc__gap { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 14px 0 0; }
+    .doc__muted { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-tertiary); border-left: 2px solid var(--fm-base-300); padding-left: 12px; margin: 14px 0 0; }
+    .doc__gap { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 14px 0 0; }
     .doc__list { margin: 0; padding-left: 20px; }
     .doc__list li { margin: 0 0 10px; }
     .doc__source { color: var(--fm-text-tertiary); font-size: var(--doc-caption); }
 
-    .approaches { display: flex; flex-wrap: wrap; gap: 32px 24px; align-items: flex-start; }
-    .proposal-screen__col { display: flex; flex-direction: column; }
+    .approaches { display: flex; flex-wrap: wrap; gap: 48px 40px; align-items: flex-start; }
+    .proposal-screen__col { display: flex; flex-direction: column; flex: none; }
     /* Two rows by construction, so every approach label is the same height and the drawings
        share a top edge. One row that wrapped used to push its drawing down by a line. */
     .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
@@ -87,11 +101,11 @@
     .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
     .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
-    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; }
+    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; box-shadow: 0 0 0 8px var(--fm-base-100); }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
     .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
-    .approach__lines { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 10px 0 0; max-width: 100%; }
+    .approach__lines { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); margin: 10px 0 0; max-width: 100%; }
     .approach__breaks { color: var(--fm-text-tertiary); font-weight: 600; }
     /* The verdict is the card's conclusion, so it carries a fill and reads as one object.
        The negative margin cancels the tag's own left padding, which otherwise indents it
@@ -136,7 +150,7 @@
     /* The feature's framing question, above the answer, and only in a document that holds
        more than one decision: with one decision it is the decision's own heading. Caption
        scale, because it is the setup and the answer is the statement. */
-    .doc__question { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
+    .doc__question { font-size: var(--doc-body); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
 
     /* The answer. One sentence at h2 scale is the document's first element, tied with a
        decision question rather than with the title above it, and nothing follows it inside
@@ -149,7 +163,7 @@
     .bb__box { stroke: var(--fm-base-400); stroke-width: 1; }
     .bb__box--new { stroke: var(--fm-brand); stroke-width: 2; stroke-dasharray: 6 4; }
     .bb__app { font-size: var(--doc-micro); font-weight: 700; letter-spacing: 0.08em; fill: var(--fm-text-tertiary); }
-    .bb__name { font-size: 15px; font-weight: 700; fill: var(--fm-text-primary); }
+    .bb__name { font-size: 18px; font-weight: 700; fill: var(--fm-text-primary); }
     .bb__rule { stroke: var(--fm-base-300); stroke-width: 1; }
     .bb__aff { font-size: var(--doc-caption); fill: var(--fm-text-secondary); }
     .bb__line { stroke: var(--fm-base-600); stroke-width: 2; }
@@ -175,18 +189,26 @@
        ragged 13px text and put a goal beside a research finding as though they answered the
        same question. Two columns, each capped at the measure, wrap into 2x2 on a wide
        canvas and stack to one on a narrow one. */
-    .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), var(--doc-measure))); gap: 28px 40px; }
+    /* The research. Three lanes stacked rather than columned: a reader reads down them in
+       order (what the market does, what the canon says, what we already own) rather than
+       holding them against each other, which is what the briefing's two columns are for. */
+    .research { display: flex; flex-direction: column; gap: 28px; }
+    .research__lane h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
+    .research__lane .doc__list { max-width: var(--doc-measure); }
+    .research__lane .doc__list li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
+    .briefing { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 520px)); gap: 32px 48px; }
     .briefing__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
-    .briefing__col .doc__list li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
+    .briefing__col .doc__list li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
 
     /* A decision block. The question is the heading; the number tells a reader where
        they are in a document that may hold four of these. The rule is heavier and darker
        than a framing section's, because these blocks are the argument and the sections
        around them are the setting. */
-    .decision { border-top: 3px solid var(--fm-base-800); padding: 24px 0 0; margin: 0 0 64px; }
+    .decision { border-top: 3px solid var(--fm-base-800); padding: 24px 0 0; margin: 0 0 80px; scroll-margin-top: 64px; }
+    .decision > .decision__kicker { padding-top: 8px; }
     .decision__kicker { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 6px; }
     .decision > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
-    .decision__blocker { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
+    .decision__blocker { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
     .decision__blocker b { color: var(--fm-text-primary); }
 
     /* Annotations on a drawing: phrases, never sentences, and one quiet run rather than a
@@ -208,8 +230,8 @@
        right, so a reader meets the answer and its argument together instead of reconstructing
        the answer from three equal options and a table. Both columns wrap to one on a narrow
        canvas. */
-    .decision__lead { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; margin: 0 0 40px; }
-    .decision__case { flex: 1 1 340px; min-width: 0; max-width: var(--doc-measure); }
+    .decision__lead { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; margin: 0 0 48px; }
+    .decision__case { flex: 1 1 380px; min-width: 0; max-width: var(--doc-measure); }
 
     /* What the proposal was chosen over. Smaller drawings, one line of annotation, and a
        heading that says what they are, because a reader who has read the proposal should be
@@ -221,19 +243,19 @@
 
     /* The pick. One line per reason, each naming the row it argues from, then the cost. */
     .pick { margin: 0; border-top: 0; padding: 0; max-width: var(--doc-measure); }
-    .pick__lead { font-size: var(--doc-body); font-weight: 600; margin: 0 0 14px; }
+    .pick__lead { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 18px; }
     .pick__lead .decision__kicker { color: var(--fm-brand-dark); }
-    .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .pick__reasons li { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); }
+    .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .pick__reasons li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
     .pick__crit { font-weight: 700; color: var(--fm-text-primary); }
-    .pick__cost { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 14px 0 0; }
+    .pick__cost { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); margin: 14px 0 0; }
     .pick__cost b { color: var(--fm-text-primary); }
 
     /* What this changes, and the latitude line that closes the document. */
-    .change { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), var(--doc-measure))); gap: 28px 40px; }
+    .change { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 520px)); gap: 32px 48px; }
     .change__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 8px; }
-    .change__col p { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-secondary); margin: 0; }
-    .doc__latitude { font-size: var(--doc-caption); line-height: 1.55; color: var(--fm-text-tertiary); margin: 0; max-width: var(--doc-measure); font-style: italic; }
+    .change__col p { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); margin: 0; }
+    .doc__latitude { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-tertiary); margin: 0; max-width: var(--doc-measure); font-style: italic; }
 
     /* Where this came from. A two-column grid rather than a list, so the kinds stack into
        one narrow column and the eye reads down the texts beside them. The kind column is
@@ -241,9 +263,36 @@
     .citations { display: grid; grid-template-columns: minmax(0, max-content) 1fr; gap: 6px 20px; max-width: var(--doc-measure); }
     .citations__row { display: contents; }
     .citations__kind { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-text-tertiary); line-height: 1.7; white-space: nowrap; }
-    .citations__text { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-secondary); }
+    .citations__text { font-size: var(--doc-body); line-height: 1.5; color: var(--fm-text-secondary); }
 
     [hidden] { display: none !important; }
+
+    /* Narrow screens. The document is read on a phone once it is a link rather than a file,
+       and everything here that is made of prose already reflows: the briefing and change
+       grids are auto-fit, the citations grid is two columns of text, and the terrain SVG scales
+       inside .bb. Three things do not, and this block is those three.
+
+       The drawings are the interesting case. A drawing is a mock of a real surface at a real
+       width, and rowBudget() exists to keep that width honest against the row it sits in;
+       reflowing it at 400px would not be the same proposal shown smaller, it would be a
+       different design, drawn by the browser, arguing for something nobody picked. So the
+       column keeps the width it was drawn at and scrolls inside its own box, which is the
+       one thing the page itself must never do. Same for the comparison table, which is a
+       table and reads as one or not at all.
+
+       The terrain is the exception, and it was tried the other way first. .bb already scrolls,
+       so letting .bb__svg past max-width: 100% should have shown it at full size; what it
+       actually shows is blank, because the breadboard's viewBox carries about 400px of empty
+       space to the left of its first box and that is precisely what a 360px scroll box lands
+       on. So the terrain still scales down, small and complete, until the viewBox is cropped
+       to its content. */
+    @media (max-width: 640px) {
+      body { padding: 16px 16px 64px; }
+      .proposal-screen__col { max-width: 100%; overflow-x: auto; }
+      .compare-block { max-width: 100%; overflow-x: auto; }
+      .decision__lead, .approaches { gap: 32px; }
+      .doc__jump { display: none; }
+    }
   </style>
 </head>
 <body>

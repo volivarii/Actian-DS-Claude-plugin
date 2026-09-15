@@ -235,12 +235,57 @@
     },
     "research": {
       "type": "object",
-      "description": "What comparable products do, bounded to five findings with a source each; always present, and honest when it did not run",
+      "description": "What the research found, in four lanes (competitors, designSystems, ours, yours), bounded to four findings a lane with a source each; always present, and honest when it did not run",
       "required": [
         "ran",
         "findings"
       ],
       "properties": {
+        "lanes": {
+          "description": "The lanes that were asked for at the Step 3 gate. Absent on a file written before the lanes existed, which is read as one competitor sweep",
+          "type": "array",
+          "items": {
+            "description": "One lane: competitors (the product space), designSystems (the public canon), ours (the Actian substrate), yours (references the reader supplied at the gate)",
+            "type": "string",
+            "enum": [
+              "competitors",
+              "designSystems",
+              "ours",
+              "yours"
+            ],
+            "examples": [
+              "competitors",
+              "ours"
+            ]
+          },
+          "examples": [
+            [
+              "competitors",
+              "designSystems",
+              "ours"
+            ],
+            [
+              "ours"
+            ]
+          ]
+        },
+        "refs": {
+          "description": "The references the reader pasted at the gate, one line each: a URL, a product and screen, or a file they attached. Required when the yours lane ran, and every yours finding must cite one",
+          "type": "array",
+          "items": {
+            "description": "One reference, as the reader gave it",
+            "type": "string",
+            "examples": [
+              "https://atlan.com/product/governance",
+              "the Okta admin console, groups page"
+            ]
+          },
+          "examples": [
+            [
+              "https://atlan.com/product/governance"
+            ]
+          ]
+        },
         "ran": {
           "description": "true when the web research ran; false when it was turned off or unavailable",
           "type": "boolean",
@@ -251,15 +296,29 @@
         },
         "findings": {
           "type": "array",
-          "description": "At most five findings (validator-enforced); empty when ran is false",
+          "description": "At most four findings a lane (validator-enforced); empty when ran is false",
           "items": {
             "type": "object",
-            "description": "One finding with its source",
+            "description": "One finding, with the lane it came from and its source",
             "required": [
               "claim",
               "source"
             ],
             "properties": {
+              "lane": {
+                "description": "Which lane found it. Absent on a file written before the lanes existed, which is read as competitors",
+                "type": "string",
+                "enum": [
+                  "competitors",
+                  "designSystems",
+                  "ours",
+                  "yours"
+                ],
+                "examples": [
+                  "competitors",
+                  "ours"
+                ]
+              },
               "claim": {
                 "description": "One sentence in the reader's words",
                 "type": "string",
@@ -268,10 +327,13 @@
                 ]
               },
               "source": {
-                "description": "The product or article the claim comes from, as text (the document loads nothing)",
+                "description": "The product, article, substrate file or reference the claim comes from, as text (the document loads nothing). A finding in the ours lane must prefix it with a substrate kind (app-context: guideline: pattern: accessibility: foundations: content: tokens:); a finding in the yours lane must repeat one of research.refs exactly",
                 "type": "string",
                 "examples": [
-                  "SaaS Permissions and Roles UX Patterns, SaaSUI Design"
+                  "SaaS Permissions and Roles UX Patterns, SaaSUI Design",
+                  "Carbon, Account menu",
+                  "guideline: read-only-tag",
+                  "the Okta admin console, groups page"
                 ]
               }
             }

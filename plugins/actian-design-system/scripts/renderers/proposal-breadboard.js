@@ -65,6 +65,13 @@ function layout(board) {
     cells.push({ p: p, row: row, col: col, h: boxHeight((p.affordances || []).length) });
   });
 
+  // Where a board starts is the author's arbitrary choice. DIP-I-496 authored its places at
+  // columns 1 to 3 and the drawing carried 408px of nothing to its left, a quarter of the
+  // figure, which is also the quarter a phone lands on first. Only the leading offset is
+  // removed: a gap between two columns in the middle is a layout the author asked for.
+  var minCol = cells.length ? Math.min.apply(null, cells.map(function (c) { return c.col; })) : 0;
+  if (minCol > 0) cells.forEach(function (c) { c.col -= minCol; });
+
   var rowHeight = {};
   var maxCol = 0;
   cells.forEach(function (c) {
