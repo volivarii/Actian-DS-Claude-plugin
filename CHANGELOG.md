@@ -22,7 +22,7 @@ are summarized at the release level.
 ### Added
 
 - **The proposal stops once, after the decisions and before anything is drawn**
-  (PR link to be added when the PR is opened). The skill already said the decomposition was
+  ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). The skill already said the decomposition was
   what a reader pushes back on, "far cheaper than pushing back on three rendered blocks", and
   then never paused for them to do it: a real run went from a pasted ticket to a finished
   document in twelve minutes with two user turns. It now names the decisions, the options and
@@ -31,7 +31,7 @@ are summarized at the release level.
   missing was concrete: a run proposed a fourth tag onto an identity row that already carried
   three, and the picked option's own `breaksWhen` said so, unread, until the document was done.
 - **A drawing wider than its row is a P1, with both numbers**
-  (PR link to be added when the PR is opened). `option-width` only fired when sibling widths
+  ([#383](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/383)). `option-width` only fired when sibling widths
   *disagreed*, so three options all declaring 480 sailed through; the renderer then capped every
   drawing to the 384 a three-option row allows and seven of nine drawings rendered content past
   their own frame, one of them putting a button on top of the rationale beside it. The budget is
