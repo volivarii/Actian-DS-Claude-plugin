@@ -21,6 +21,37 @@ are summarized at the release level.
 
 ### Added
 
+- **The proposal document is set to be read**
+  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). It was hard to read, hard to
+  scan and hard to tell apart, and measuring it against three long-form documents that people
+  actually read said why. Linear's changelog runs 17px at a 622px column, 73 characters. Shape Up
+  runs 21.9px at 795px, 73 characters. Tufte CSS runs 21px at 689px, 66 characters. All three run
+  one left edge and near-maximum text contrast. The proposal ran **13px** for most of its words,
+  because `--doc-caption` carried the decision table, the briefing, every pick reason, every cost,
+  the comparison and the citations; it declared a 512px measure and then let the cost column run
+  past a hundred characters; and it set muted text on a muted ground, so the white mockups were
+  the brightest thing in the document and outranked the argument they illustrate.
+  Now: the page is white and the text carries the contrast, with each drawing ringed in
+  `--fm-base-100` so it still reads as a figure. Running text is 17px at a 620px measure, 73
+  characters, and the caption register is 15px and reserved for captions. The pick statement gets
+  its own 20px step so it outranks its own reasons.
+  The decision block stopped leaving a hole: the drawing used to lead at whatever width the row
+  budget set, with the case beside it at the measure, so a 1200px block ended around 930 and the
+  last 270px were empty. The case now reads first on the document's own left edge and the drawing
+  it illustrates sits beside it.
+  A document with more than one decision pins a bar naming each of them. The map at the top
+  scrolled away after the first screen and never came back, and what it maps is over nine thousand
+  pixels long. The bar is that map, condensed to one line, and it hides on a phone.
+
+### Fixed
+
+- **A breadboard no longer spends width on the columns an author skipped**
+  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). DIP-I-496 authored its
+  places at columns 1 to 3, so the terrain drew 408px of nothing to the left of its first box: a
+  quarter of the figure, empty, and on a phone it is that empty quarter a reader lands on. The grid
+  now drops the leading offset. A gap between two columns in the middle is kept, because that one
+  is a layout the author asked for.
+
 - **A proposal can be published as a page, and read on a phone**
   ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). The document was a file:
   to show it to someone you sent them HTML, and anything they thought about it came back

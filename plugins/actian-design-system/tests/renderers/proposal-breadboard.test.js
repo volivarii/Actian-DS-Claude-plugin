@@ -326,6 +326,28 @@ describe("proposal-breadboard svg", function () {
     assert.ok(m[1].indexOf("carries") !== -1, "names the connections");
   });
 
+  // DIP-I-496 authored its places at columns 1 to 3 and the board rendered 408px of nothing
+  // to the left of its first box: a quarter of the figure, empty, and on a phone it is that
+  // empty quarter a reader lands on. Where a board starts is the author's arbitrary choice
+  // and not something the drawing should spend width on, so the grid is normalised.
+  it("spends no width on the columns and rows an author happened to skip", function () {
+    function shifted(dc, dr) {
+      var b = board();
+      b.places.forEach(function (p) { p.col += dc; p.row += dr; });
+      return b;
+    }
+    var base = bb.layout(board());
+    assert.strictEqual(bb.layout(shifted(1, 0)).width, base.width, "a column offset changes the width");
+    assert.strictEqual(bb.layout(shifted(3, 0)).width, base.width, "and a bigger one still does");
+    assert.strictEqual(bb.layout(shifted(0, 2)).height, base.height, "a row offset changes the height");
+    var box = bb.layout(shifted(2, 1)).boxes;
+    var minX = Math.min.apply(null, Object.keys(box).map(function (k) { return box[k].x; }));
+    var minY = Math.min.apply(null, Object.keys(box).map(function (k) { return box[k].y; }));
+    var base0 = base.boxes;
+    assert.strictEqual(minX, Math.min.apply(null, Object.keys(base0).map(function (k) { return base0[k].x; })), "the first box sits where it would have");
+    assert.strictEqual(minY, Math.min.apply(null, Object.keys(base0).map(function (k) { return base0[k].y; })), "on both axes");
+  });
+
   it("renders the same bytes twice", function () {
     assert.strictEqual(bb.breadboardSvg(board()), bb.breadboardSvg(board()));
   });

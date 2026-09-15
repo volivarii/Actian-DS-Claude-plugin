@@ -258,14 +258,18 @@ reader a verdict instead of an argument.
 
 The block renders in three parts, in this order, and the renderer does it for you:
 
-1. **The proposal.** The picked option's drawing, with the case for it beside it: the reasons,
-   the cost, and the blocker when there is one.
+1. **The proposal.** The case for the pick on the document's left edge, the reasons, the cost
+   and the blocker when there is one, with the picked option's drawing beside it on the right.
 2. **Also considered.** Every other option, smaller, equal to each other, one line of annotation.
 3. **How they compare.** The full table, with the proposed column marked.
 
 What this asks of your authoring: the picked option's `whatItIs` and `breaksWhen` are read
 directly under the drawing a reader is looking at, so `breaksWhen` on the pick is the most
 load-bearing line in the block. It says where the thing we are proposing fails. Do not soften it.
+
+A document with more than one decision also pins a bar naming each of them, which is how a
+reader moves around nine thousand pixels of argument. The bar carries the `question`, so a
+question that only makes sense after reading its own block is a question that needs rewriting.
 
 A rejected option is skimmed, not weighed, so its `verdict` is what a reader actually reads of
 it. Make the verdict the sentence you would say out loud if someone asked why it lost.

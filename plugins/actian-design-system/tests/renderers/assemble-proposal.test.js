@@ -109,11 +109,28 @@ describe("assembleProposal (document)", function () {
     assert.ok(at(out, 'class="decisions-at-a-glance"') !== -1, "the table is the summary instead");
   });
 
-  it("prints each decision's question twice at most: the summary row and its own heading", function () {
+  // The rule is that a reader never reads the same question three times on their way down
+  // the document. The decision bar added in 2026-09-15 is not on that way down: it is a
+  // pinned landmark, and its label has to name the place it goes to or it cannot be used.
+  // So the bar is cut out before counting, and the prose rule is unchanged underneath it.
+  it("prints each decision's question twice at most in the prose: the summary row and its own heading", function () {
     var d = twoDecisions();
     var out = body(assembleProposal(d));
+    var bar = out.indexOf('<nav class="doc__jump"');
+    if (bar !== -1) out = out.slice(0, bar) + out.slice(out.indexOf("</nav>", bar));
+    assert.strictEqual(out.indexOf('class="doc__jump"'), -1, "the bar is out of the count");
     d.decisions.forEach(function (dec) {
       assert.strictEqual(count(out, dec.question), 2, dec.id + ": summary row and heading, nothing more");
+    });
+  });
+
+  it("names every decision in the bar, once each, and nowhere else adds a restatement", function () {
+    var d = twoDecisions();
+    var out = assembleProposal(d);
+    var bar = out.slice(out.indexOf('<nav class="doc__jump"'));
+    bar = bar.slice(0, bar.indexOf("</nav>"));
+    d.decisions.forEach(function (dec) {
+      assert.strictEqual(count(bar, 'href="#' + dec.id + '"'), 1, dec.id + ": one link in the bar");
     });
   });
 
@@ -445,7 +462,9 @@ describe("assembleProposal (document)", function () {
     var raw = doc.match(/font-size:(?!\s*var\()[^;}]*/g) || [];
     // The breadboard place name is the one deliberate exception: it is drawn inside an
     // SVG at a size that has no token, and it is named here so it cannot spread silently.
-    var allowed = raw.filter(function (r) { return r.indexOf("15px") === -1; });
+    // It stepped 15px -> 18px when the scale moved on 2026-09-15, because it has to read
+    // above the affordances under it and those are --doc-caption, which is now 15px.
+    var allowed = raw.filter(function (r) { return r.indexOf("18px") === -1; });
     assert.deepStrictEqual(allowed, [], "every other font-size names a token");
     assert.deepStrictEqual(doc.match(/(^|[;{\s])font:[^;}]*/g) || [], [], "no font shorthand, which would set a size off the scale");
   });

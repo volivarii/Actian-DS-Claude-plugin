@@ -291,8 +291,8 @@ function decisionHtml(d, index, apps, total) {
   var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
   var leadHtml =
     '<div class="decision__lead">' +
-    optionHtml(win, d.options.indexOf(win), apps, width, true) +
-    '<div class="decision__case">' + pickHtml(d) + "</div></div>";
+    '<div class="decision__case">' + pickHtml(d) + "</div>" +
+    optionHtml(win, d.options.indexOf(win), apps, width, true) + "</div>";
   var alsoHtml = rest.length
     ? '<div class="also"><h3>Also considered</h3><div class="approaches">' +
       rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
@@ -398,6 +398,23 @@ function toFragment(html) {
     .replace(FRAGMENT_SEAMS[2].re, "\n");
 }
 
+function jumpHtml(decisions) {
+  if (decisions.length < 2) return "";
+  return (
+    '  <nav class="doc__jump" aria-label="The decisions in this proposal">' +
+    decisions
+      .map(function (d, i) {
+        return (
+          '<a class="doc__jump-item" href="#' + esc(d.id) + '" title="' + esc(d.question) + '">' +
+          '<span class="doc__jump-num">' + (i + 1) + "</span>" +
+          '<span class="doc__jump-text">' + esc(d.question) + "</span></a>"
+        );
+      })
+      .join("") +
+    "</nav>\n"
+  );
+}
+
 function assembleProposal(data, options) {
   var errors = validateSchema(data, JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf8"))).filter(function (e) {
     return e.indexOf("(warning)") === -1;
@@ -411,6 +428,7 @@ function assembleProposal(data, options) {
     terrainHtml(data.breadboard) +
     glanceHtml(data.decisions) +
     briefingHtml(data) +
+    jumpHtml(data.decisions) +
     data.decisions.map(function (d, i) { return decisionHtml(d, i, apps, total); }).join("") +
     openQuestionsHtml(data.openQuestions) +
     changeHtml(data.change) +
