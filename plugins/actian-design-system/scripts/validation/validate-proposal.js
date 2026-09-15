@@ -76,7 +76,7 @@ var RETIRED_KEYS = ["approaches", "comparison", "recommendation"];
 var MAX_SCOPE = 4;       // also schema maxItems
 var MAX_OPEN_QUESTIONS = 4; // also schema maxItems
 var MAX_FINDINGS = 5;
-// The three lanes a proposal may research, and how many findings each may carry. The cap is
+// The four lanes a proposal may research, and how many findings each may carry. The cap is
 // per lane rather than per block: five was a cap on one undifferentiated list, and applied to
 // three lanes it would make the third lane pay for the first two.
 var RESEARCH_LANES = ["competitors", "designSystems", "ours", "yours"];
@@ -409,6 +409,12 @@ function validateProposal(data) {
   }
   data.research.findings.forEach(function (f, i) {
     var lane = f.lane || "competitors";
+    // The default above is a shim for a file written before the lanes existed, which names no
+    // lanes at all. A file that DOES name its lanes names them on every finding: without this,
+    // a lane-less finding slipped through as a competitor one, the ours and yours grounding
+    // checks never ran on it, and the document printed a heading for a lane nobody asked for.
+    if (lanes && !f.lane)
+      findings.push(finding("P0", "research", "", "research.findings[" + i + "].lane", "a finding with no lane in a file that names its lanes", "", "set lane to one of " + lanes.join(", ")));
     if (f.lane && lanes && lanes.indexOf(f.lane) === -1)
       findings.push(finding("P0", "research", "", "research.findings[" + i + "].lane", "a finding from a lane that was not asked for", f.lane, "add " + f.lane + " to research.lanes, or drop the finding"));
     if (lane === "ours" && !SUBSTRATE_PREFIXES.some(function (p) { return String(f.source || "").indexOf(p) === 0; }))

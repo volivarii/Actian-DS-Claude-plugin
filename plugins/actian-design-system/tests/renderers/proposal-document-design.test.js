@@ -25,6 +25,18 @@ function ruleFor(sel) {
   assert.notStrictEqual(i, -1, "the template carries no rule for " + sel);
   return t.slice(i, t.indexOf("}", i));
 }
+// Every rule in the document-setting block, as selector and body. Reading the sheet by
+// regex over the whole string is what made the centring guard unfailable; walking the rules
+// means an assertion is about one rule and says which.
+function rules() {
+  var doc = tpl().slice(tpl().indexOf("Document setting"));
+  doc = doc.replace(/\/\*[\s\S]*?\*\//g, ""); // a comment may hold a brace or a colon
+  var out = [];
+  var re = /(^|\n)\s*([^{}@\n][^{}\n]*?)\s*\{([^{}]*)\}/g;
+  var m;
+  while ((m = re.exec(doc)) !== null) out.push({ selector: m[2].trim(), body: m[3] });
+  return out;
+}
 function tokenPx(name) {
   var m = tpl().match(new RegExp("--" + name + ":\\s*(\\d+)px"));
   assert.ok(m, "the scale declares --" + name);
@@ -92,13 +104,15 @@ describe("the proposal document is set to be read", function () {
       });
     });
 
+    // Written first as "collect every margin:auto, then look 200 characters back for .doc",
+    // which cannot fail: indexOf finds the FIRST occurrence of the matched text, so a second
+    // identical rule is judged against the first one's neighbourhood. Proved by adding
+    // ".research { margin: 0 auto; }" and watching it pass. It walks the rules now.
     it("centres nothing but the document itself", function () {
-      var doc = tpl().slice(at(tpl(), "Document setting"));
-      var centred = (doc.match(/margin:[^;]*auto/g) || []).filter(function (m) {
-        return doc.slice(doc.indexOf(m) - 200, doc.indexOf(m)).indexOf(".doc {") === -1;
+      var offenders = rules().filter(function (r) {
+        return r.selector !== ".doc" && (/margin:[^;]*\bauto\b/.test(r.body) || /text-align:\s*center/.test(r.body));
       });
-      assert.deepStrictEqual(doc.match(/text-align:\s*center/g) || [], [], "nothing is centre-set");
-      assert.ok(centred.length <= 1, "only .doc is centred, found " + centred.length + " auto margins");
+      assert.deepStrictEqual(offenders.map(function (r) { return r.selector; }), [], "these are centred");
     });
 
     // The dead space this closes: the drawing led the row at a width the row budget set, and

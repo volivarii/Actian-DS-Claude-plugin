@@ -31,6 +31,39 @@ var OK = {
   ],
 };
 
+// Found in review. The four lane names are authored three times over: the schema's enum, the
+// validator's list and the renderer's ordered labels. Nothing compared them, so adding a fifth
+// lane in two of the three would render it, refuse it, or silently drop it depending on which
+// one was missed. This is the comparison.
+describe("the lane vocabulary agrees everywhere it is written down", function () {
+  var SCHEMA = path.join(ROOT, "schemas", "proposal-data.schema.json");
+  var EVAL = path.join(ROOT, "schemas", "proposal-evaluation.schema.json");
+  function enumOf(file, where) {
+    var s = JSON.parse(fs.readFileSync(file, "utf8"));
+    var r = s.properties.research.properties;
+    return where === "lanes" ? r.lanes.items.enum : r.findings.items.properties.lane.enum;
+  }
+  function jsList(file, name) {
+    var src = fs.readFileSync(path.join(ROOT, file), "utf8");
+    var m = src.match(new RegExp("var " + name + " = \\[([\\s\\S]*?)\\];"));
+    assert.ok(m, name + " is not declared in " + file);
+    return (m[1].match(/["']([a-zA-Z]+)["']/g) || []).map(function (q) { return q.slice(1, -1); });
+  }
+
+  it("names the same four lanes in the schema, the validator and the renderer", function () {
+    var want = ["competitors", "designSystems", "ours", "yours"];
+    assert.deepStrictEqual(enumOf(SCHEMA, "lanes"), want, "proposal schema research.lanes");
+    assert.deepStrictEqual(enumOf(SCHEMA, "finding"), want, "proposal schema finding.lane");
+    assert.deepStrictEqual(enumOf(EVAL, "lanes"), want, "evaluation schema research.lanes");
+    assert.deepStrictEqual(jsList("scripts/validation/validate-proposal.js", "RESEARCH_LANES"), want, "the validator");
+    // The renderer's list is objects; its ids are the first string in each.
+    var rendered = jsList("scripts/renderers/assemble-proposal.js", "RESEARCH_LANES").filter(function (v) {
+      return want.indexOf(v) !== -1;
+    });
+    assert.deepStrictEqual(rendered, want, "the renderer, in reading order");
+  });
+});
+
 describe("validate-proposal: the research lanes", function () {
   it("passes the shape the gate produces", function () {
     assert.deepStrictEqual(severities(run(OK), "research"), [], "a clean research block reports something");
@@ -127,6 +160,18 @@ describe("validate-proposal: the research lanes", function () {
       assert.ok(f.length >= 1, "the yours lane ran on nothing");
       assert.strictEqual(f[0].severity, "P0");
     });
+  });
+
+  // Found in review. The default-to-competitors rule is a shim for files written before the
+  // lanes existed, which have no lanes key at all. Applied to a file that DOES name its lanes,
+  // it let a finding with no lane through: the validator said nothing, the ours and yours
+  // grounding checks never ran on it, and the document printed a Competitors heading for a
+  // lane nobody had asked for. A file that names its lanes names them on every finding.
+  it("refuses a finding with no lane at all once the file names its lanes", function () {
+    var bad = { lanes: ["ours"], ran: true, findings: [{ claim: "A claim from nowhere in particular.", source: "Some blog" }] };
+    var f = kinds(run(bad), "research.findings[0].lane");
+    assert.strictEqual(f.length, 1, "a lane-less finding passed a file that names its lanes");
+    assert.strictEqual(f[0].severity, "P0");
   });
 
   // Every proposal already on disk has no lanes key at all.

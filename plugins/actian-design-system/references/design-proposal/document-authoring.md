@@ -78,8 +78,12 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **scope**: one to four goals and one to four non-goals. A goal comes from the ticket. A non-goal is
   a thing a reviewer would plausibly ask for that this change deliberately does not do; naming it is
   what stops the ask. Do not invent either to fill the slots; two of each is a full answer.
-- **research**: `ran` and up to five `findings` of `{ claim, source }`, the source as text (the document
-  loads nothing). When research did not run: `ran: false`, `findings: []`, `skippedBecause`.
+- **research**: `lanes` (what the Step 3 gate was answered with), `refs` (what the reader pasted, when
+  the `yours` lane ran), `ran`, and `findings` of `{ lane, claim, source }`, the source as text (the
+  document loads nothing), at most four a lane. Once `lanes` is present every finding states its `lane`:
+  the read-it-as-competitors fallback is only for a file written before the lanes existed. An `ours`
+  source starts with a substrate kind and a `yours` source repeats one of `refs` exactly. When research
+  did not run: `lanes: []`, `ran: false`, `findings: []`, `skippedBecause`.
 - **breadboard** (see below): `places[]` and `connections[]`, the terrain the decisions sit on.
 - **decisions**: one to four. Each is self-contained: `id` (a slug), `question`, `options`, `comparison`,
   `pick`, and an optional `blocker`.

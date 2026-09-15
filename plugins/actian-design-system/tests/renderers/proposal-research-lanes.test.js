@@ -27,8 +27,8 @@ var THREE = {
 };
 
 // 2026-09-15. The research was one undifferentiated list rendered inside the briefing under
-// "What comparable products do", which is one of the three things a reader needs and the
-// only one it could say. It is now three lanes with a section of its own.
+// "What comparable products do", which is one of the four things a reader needs and the
+// only one it could say. It is now four lanes with a section of its own.
 describe("the research section", function () {
   it("is a section of the document, not a column of the briefing", function () {
     var out = assembleProposal(withResearch(THREE));
