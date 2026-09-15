@@ -50,7 +50,7 @@ are summarized at the release level.
   sweep, because that is literally what they were.
 
 - **The proposal document is set to be read**
-  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). It was hard to read, hard to
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It was hard to read, hard to
   scan and hard to tell apart, and measuring it against three long-form documents that people
   actually read said why. Linear's changelog runs 17px at a 622px column, 73 characters. Shape Up
   runs 21.9px at 795px, 73 characters. Tufte CSS runs 21px at 689px, 66 characters. All three run
@@ -74,14 +74,14 @@ are summarized at the release level.
 ### Fixed
 
 - **A breadboard no longer spends width on the columns an author skipped**
-  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). DIP-I-496 authored its
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). DIP-I-496 authored its
   places at columns 1 to 3, so the terrain drew 408px of nothing to the left of its first box: a
   quarter of the figure, empty, and on a phone it is that empty quarter a reader lands on. The grid
   now drops the leading offset. A gap between two columns in the middle is kept, because that one
   is a layout the author asked for.
 
 - **A proposal can be published as a page, and read on a phone**
-  ([#384](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/384)). The document was a file:
+  ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). The document was a file:
   to show it to someone you sent them HTML, and anything they thought about it came back
   somewhere else, detached from the pick it argued with. Step 6 now offers to publish it, and
   `--publish` does it without asking. A reader gets a link, and a comment they send to Claude
