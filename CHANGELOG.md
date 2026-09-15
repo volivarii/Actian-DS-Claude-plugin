@@ -22,7 +22,7 @@ are summarized at the release level.
 ### Added
 
 - **A proposal's drawings compose the design system, and the validator checks that they do**
-  (PR link to be added when the PR is opened). An option declares `uses`, the component slugs its
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). An option declares `uses`, the component slugs its
   drawing composes, or `adds` (`component` and `why`) when the system genuinely has no mechanism:
   a proposal may still argue for a new or changed component, it just has to say so, and the
   document prints that loudly because it is uncosted work. A slug the vendored snapshot does not
@@ -38,7 +38,7 @@ are summarized at the release level.
 ### Changed
 
 - **A proposal leads with the proposal, and never tells a reader the decision is made**
-  (PR link to be added when the PR is opened). A decision block ran question, three options at
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). A decision block ran question, three options at
   one width, a fifteen-cell table, and only then "We pick": the reader did the comparison
   themselves and then learned it had already been done, with two thirds of the drawings on the
   page being options we are not taking, at the same size as the one we are. A block now runs
@@ -50,7 +50,7 @@ are summarized at the release level.
   author chooses between and what `--decision` and `--option` address, but neither word reaches
   the page.
 - **One voice under a drawing, and a comparison that can be scanned**
-  (PR link to be added when the PR is opened). An option carried three uppercase annotation
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). An option carried three uppercase annotation
   lines over two bold-labelled sentences over a tag: four treatments for one idea, the loudest
   of them the least readable setting in the document. The annotations are one quiet run joined
   by middots, in sentence case. In the comparison, the mark moves onto its own line above the
@@ -59,7 +59,7 @@ are summarized at the release level.
 
 
 - **The proposal document reads as sections, says less twice, and cites the substrate at the end**
-  (PR link to be added when the PR is opened). Three things a reader hit on the DIP-I-496 run.
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). Three things a reader hit on the DIP-I-496 run.
   The answer block listed every question and pick, and "What we decided" listed them again with the
   cost added: measured on that document, each question was printed three times and each pick five.
   The answer is now one sentence and the table is the only summary. A section's name ("The briefing",
@@ -71,7 +71,7 @@ are summarized at the release level.
   from**, the last section before the latitude line, one row per source with the schema's own prefix
   as the row's kind. `context.gap` stays in the briefing, beside the facts it qualifies.
 - **A comparison marks the picked column where the evidence is read**
-  (PR link to be added when the PR is opened). The table gave no sign which option had won, so a
+  ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). The table gave no sign which option had won, so a
   reader scanned every column and learned the answer in the paragraph below it. The picked column
   carries a tint and the word `Picked` in its header, a word as well as a colour so it holds in
   greyscale and in print, the same reason every cell already carries a glyph. The briefing and
