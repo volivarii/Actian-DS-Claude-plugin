@@ -16,7 +16,9 @@
  * its OWN decision, and an empty cost), breadboard (P0 on the board, or a connection or anchor.place that is
  * malformed or resolves to nothing, P1 wherever the document says less about
  * the terrain than it could), unbalanced (P0), script (P0),
- * external-load (P0), decision (P1), option-width (P1), latitude (P1),
+ * external-load (P0), decision (P1), option-width (P1 when siblings disagree,
+ * and P1 when the widest exceeds the row budget the option count allows),
+ * latitude (P1),
  * template-unknown (P1), entity-unknown (P1), hardcoded-color (P1),
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
  * composition (P0 on a slug the vendored component snapshot does not know, P1
@@ -58,6 +60,7 @@ var PATHS = require("../lib/paths");
 var validateSchema = require("./validate-schema.js");
 var flowGates = require("./validate-flow-data.js");
 var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractUnbalancedTag;
+var rowBudget = require("../renderers/assemble-proposal.js").rowBudget;
 var isOldShape = require("../migrations/proposal-approaches-to-decisions.js").isOldShape;
 var dsComponents = require("../lib/ds-components.js");
 var NOT_A_SENTENCE_END = require("../migrations/proposal-approaches-to-decisions.js").NOT_A_SENTENCE_END;
@@ -545,6 +548,21 @@ function validateProposal(data) {
       });
       if (widths.length > 1 && Math.min.apply(null, widths) !== Math.max.apply(null, widths))
         findings.push(finding("P1", "option-width", "", dp + ".options", "declared widths " + widths.join(", ") + " differ", "", "the renderer equalises them to the widest, capped at the row budget; declare one width unless you mean the drawings to differ"));
+
+      // The sibling check above only fires when the widths DISAGREE. A run that declared 480 on
+      // all three options slipped past it, the renderer capped every drawing to 384, and seven of
+      // nine drawings rendered their content past their own frame: a button landed on the
+      // rationale text beside it. The budget is arithmetic the author cannot see and the renderer
+      // will not negotiate, so it is checked here rather than left as a sentence in a reference.
+      if (widths.length) {
+        var widest = Math.max.apply(null, widths);
+        var allowed = rowBudget(widths.length);
+        if (widest > allowed)
+          findings.push(finding("P1", "option-width", "", dp + ".options",
+            "width " + widest + " exceeds the " + allowed + " this row allows for " + widths.length + " options",
+            String(widest),
+            "draw at " + allowed + " or less: the renderer caps to the budget, so wider content is squeezed rather than scrolled. A rejected option renders at about 72% of that again, so keep the drawing fluid."));
+      }
 
       // comparison, scoped to this decision
       var critHere = Object.create(null);

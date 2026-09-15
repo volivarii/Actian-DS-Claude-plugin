@@ -348,6 +348,19 @@ describe("design-proposal is a document, not a gated board", function () {
     assert.ok(skill.indexOf("Research patterns before proposing?") === -1, "the gate question is gone");
     assert.ok(skill.indexOf("--no-research") !== -1, "the flag is documented");
   });
+  // Added after a Cowork run proposed a fourth tag onto an identity row that already carried
+  // three. The option's own breaksWhen said so, and nobody read it until the document was
+  // finished: the skill said the decomposition was what a reader pushes back on, and then
+  // never paused for them to do it.
+  it("stops after Step 4 to let a reader change the decomposition, and lets --no-prompt skip it", function () {
+    var step4 = skill.slice(skill.indexOf("**Step 4"), skill.indexOf("**The evaluation stage"));
+    assert.ok(/\*\*Then stop/.test(step4), "Step 4 stops: " + step4.slice(-400));
+    assert.ok(/wait for a reply/.test(step4), "and waits rather than announcing and continuing");
+    assert.ok(/`--no-prompt` skips it/.test(step4), "and the flag escapes it");
+    assert.ok(skill.indexOf("| `--no-prompt` | off | Draw straight through") !== -1, "the flag row says what it now does");
+    assert.ok(skill.indexOf("same as `--no-research`") === -1, "the compatibility-only wording is gone");
+  });
+
   it("stays under 150 lines and keeps the plugin-root block", function () {
     assert.ok(skill.split("\n").length < 150, "line count");
     assert.ok(skill.indexOf("<!-- plugin-root:begin -->") !== -1 && skill.indexOf("<!-- plugin-root:end -->") !== -1);

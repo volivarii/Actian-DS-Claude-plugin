@@ -49,6 +49,72 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(f.length, STANDING.length, JSON.stringify(f, null, 1));
     assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1"], JSON.stringify(f, null, 1));
   });
+  describe("option-width: the row budget the renderer will enforce", function () {
+    function widthFindings(mutate) {
+      var d = load();
+      mutate(d);
+      return validateProposal(d).findings.filter(function (f) { return f.check === "option-width"; });
+    }
+    function setWidths(d, widths) {
+      var base = d.decisions[0].options[0];
+      d.decisions[0].options = widths.map(function (w, i) {
+        var o = JSON.parse(JSON.stringify(base));
+        o.id = "opt-" + i;
+        o.screen.width = w;
+        return o;
+      });
+      d.decisions[0].comparison.cells = {};
+      d.decisions[0].options.forEach(function (o) {
+        d.decisions[0].comparison.cells[o.id] = d.decisions[0].comparison.criteria.reduce(function (acc, c) {
+          acc[c.id] = { text: "fits", tone: "good" };
+          return acc;
+        }, {});
+      });
+      d.decisions[0].pick.optionId = d.decisions[0].options[0].id;
+    }
+
+    it("says nothing when every drawing fits the budget its option count allows", function () {
+      var f = widthFindings(function (d) { setWidths(d, [384, 384, 384]); });
+      assert.deepStrictEqual(f, [], "384 x3 is exactly the budget: " + JSON.stringify(f));
+    });
+
+    // The Cowork run that produced this gate declared 480 on all three options. They did not
+    // differ, so the sibling check stayed silent, the renderer capped every drawing to 384,
+    // and seven of nine drawings rendered content past their own frame.
+    it("fires on three drawings that all declare the same over-budget width", function () {
+      var f = widthFindings(function (d) { setWidths(d, [480, 480, 480]); });
+      assert.strictEqual(f.length, 1, "expected exactly one width finding: " + JSON.stringify(f));
+      assert.strictEqual(f[0].severity, "P1");
+      assert.ok(/480/.test(f[0].value), "names the declared width: " + f[0].value);
+      assert.ok(/384/.test(f[0].value), "names the budget: " + f[0].value);
+      assert.ok(/3/.test(f[0].value), "names the option count: " + f[0].value);
+    });
+
+    it("scales the budget to the option count, so two wide drawings are fine and four are not", function () {
+      assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [560, 560]); }), [],
+        "two options may be 560");
+      var four = widthFindings(function (d) { setWidths(d, [560, 560, 560, 560]); });
+      assert.strictEqual(four.length, 1, "four options at 560 must fire");
+      assert.ok(/282/.test(four[0].value), "names the four-option budget: " + four[0].value);
+    });
+
+    it("measures the widest, because the renderer equalises every drawing to it", function () {
+      var f = widthFindings(function (d) { setWidths(d, [300, 300, 520]); });
+      // Mixed widths legitimately draw two findings: the sibling advisory AND the budget.
+      var over = f.filter(function (x) { return /exceeds/.test(x.value); });
+      assert.strictEqual(over.length, 1, "the widest sets the rendered width: " + JSON.stringify(f));
+      assert.ok(/520/.test(over[0].value), "measured against the widest, not the first: " + over[0].value);
+    });
+
+    it("keeps the budget single-sourced with the renderer that enforces it", function () {
+      var rowBudget = require("../../scripts/renderers/assemble-proposal.js").rowBudget;
+      assert.strictEqual(typeof rowBudget, "function", "the renderer exports its own budget");
+      assert.strictEqual(rowBudget(3), 384);
+      assert.strictEqual(rowBudget(2), 588);
+      assert.strictEqual(rowBudget(4), 282);
+    });
+  });
+
   describe("composition: what a drawing is built from", function () {
     function findings(mutate) {
       var d = load();

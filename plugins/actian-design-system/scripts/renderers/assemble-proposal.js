@@ -85,6 +85,13 @@ function section(title, inner, extraClass) {
 // reader the side-by-side comparison the block exists for.
 var ROW_BUDGET = { 1: 1200, 2: 588, 3: 384, 4: 282 };
 
+// Exported so the validator can warn about a width this will silently cap. The two
+// must never hold separate copies of these numbers: a drawing authored against a
+// budget the renderer does not share renders squeezed, and the author is told nothing.
+function rowBudget(count) {
+  return ROW_BUDGET[count] || ROW_BUDGET[4];
+}
+
 function list(cls, items) {
   return '<ul class="' + cls + '">' + items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>";
 }
@@ -273,7 +280,7 @@ function pickHtml(d) {
 var ALSO_SCALE = 0.72;
 
 function decisionHtml(d, index, apps, total) {
-  var budget = ROW_BUDGET[d.options.length] || ROW_BUDGET[4];
+  var budget = rowBudget(d.options.length);
   var widest = 0;
   d.options.forEach(function (o) { widest = Math.max(widest, Number(o.screen.width) || 360); });
   var width = Math.min(Math.max(widest, 280), budget);
@@ -398,4 +405,5 @@ function assembleProposal(data) {
 module.exports = {
   assembleProposal: assembleProposal,
   extractUnbalancedTag: unbalancedTag,
+  rowBudget: rowBudget,
 };
