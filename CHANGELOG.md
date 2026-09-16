@@ -120,6 +120,20 @@ are summarized at the release level.
   a new `init()` on the Alpine root), and every screen's declared `adds[]` is listed once on the
   cover under a "This flow adds N" disclosure.
 
+- **`layout: "freehand"`, the look tool, and the look gate step** (#TBD — PR not yet opened). Tasks
+  6.5/7.2/7.3 close out Slice 1's authoring and verification pieces: `prepare-flow.js` skips recipe
+  snapping entirely for a screen carrying `layout: "freehand"` (no pattern, archetype or pageRecipe;
+  the screen-generator agent classifies it `improvised` with the justification "freehand layout
+  requested"), `html-reference.md` gains a worked `goto`/`layer` authoring example (a detail
+  screen's primary button wired to a confirm modal, a toast screen layered over its base), and
+  `recipes/flow/overlay.json`'s skeleton gains a `layer` template. A new CLI,
+  `scripts/renderers/look.js`, renders one screen (through the same renderer and flow CSS the
+  flow-share deliverable uses, so DS leaves keep their real appearance) and screenshots it beside a
+  vendored product capture into a two-column `look-<n>.html` page with a "What differs, three
+  lines" prompt — a look, not a pixel diff. `references/generate-flow/gates.md` documents the step
+  (dormant until the next vendor refresh ships `derivedFrom.screenshot` on a recipe); `SKILL.md`
+  Step 7 points to it.
+
 ### Fixed
 
 - **A breadboard no longer spends width on the columns an author skipped**
