@@ -134,7 +134,7 @@ function assembleFlowShare(data) {
     for (var s = 0; s < procScreens.length; s++) {
       var id = s + 1;
       var sc = procScreens[s];
-      navArray.push({ id: id, label: sc.name || "Screen " + id });
+      navArray.push({ id: id, key: sc.id || "", label: sc.name || "Screen " + id });
       // A layered screen whose `over` target is missing renders as a plain
       // screen rather than throwing; the validator (Task 6.2) already
       // reports the missing target as an error.
@@ -214,6 +214,36 @@ function assembleFlowShare(data) {
   var skinOn = meta.skin === "lofi";
   var skinCss = skinOn ? require("./lofi-skin.js").lofiSkinCss(flowCss) : "";
 
+  // Additions cover (Task 6.4): every screen's adds[] entry (Task 6.1
+  // schema, declared per screen and rung in the render by Task 6.3) is
+  // listed once on the deliverable's cover so a reader sees what the flow
+  // invents without opening each screen.
+  var addsHtml = screens.reduce(function (acc, s) {
+    return acc.concat(
+      (s.adds || []).map(function (a) {
+        return (
+          "<li><strong>" +
+          esc(a.name) +
+          "</strong> from " +
+          esc((a.composedFrom || []).join(", ")) +
+          (a.newPrimitives && a.newPrimitives.length
+            ? "; new: " + esc(a.newPrimitives.join(", "))
+            : "") +
+          " (" +
+          esc(s.name) +
+          ")</li>"
+        );
+      }),
+    );
+  }, []);
+  var addsBlock = addsHtml.length
+    ? '<details class="proto-adds"><summary>This flow adds ' +
+      addsHtml.length +
+      "</summary><ul>" +
+      addsHtml.join("") +
+      "</ul></details>"
+    : "";
+
   // Use FUNCTION replacers everywhere so '$' inside CSS/JS/screens is not
   // interpreted as a replacement pattern by String.replace.
   // Strip the ASSEMBLER-STRIP-BEGIN…END block (developer-guidance comment that
@@ -248,6 +278,9 @@ function assembleFlowShare(data) {
     })
     .replace("{{SKIN_ATTR}}", function () {
       return skinOn ? ' data-skin="lofi"' : "";
+    })
+    .replace("{{ADDS_BLOCK}}", function () {
+      return addsBlock;
     })
     .replace("<!-- {{SCREENS}} -->", function () {
       return screensHtml;

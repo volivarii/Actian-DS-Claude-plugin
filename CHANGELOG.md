@@ -105,6 +105,21 @@ are summarized at the release level.
   cannot see because it only reads what a proposal declares, not what a screen actually draws.
   All seven finding kinds are CLI-visible.
 
+- **A layered screen renders, the ring shows what's new, and the prototype wrapper navigates and
+  lists it** (#TBD — PR not yet opened). Tasks 6.3/6.4, the render half of Slice 1: a screen
+  carrying `layer` now draws as a modal/drawer/toast/panel floating over its base screen, which
+  renders byte-identically underneath (`flow-renderer.js`'s new `renderLayered`, exported
+  alongside `renderScreen`); a FRAME root's declared `goto`/`adds` become `data-goto`/`data-adds`
+  plus the `flow-adds` ring (dashed outline, "new: `<name>`" label), and an INSTANCE root carrying
+  `goto` is wrapped in a `<span class="flow-goto" data-goto="…">` click target
+  (`render-node.js`). Both server-side render loops (the strip preview's `screens.forEach` and the
+  flow-share deliverable's per-screen loop) index screens by id and resolve a layer's base, falling
+  back to a plain screen when the `over` target is missing, which the validator (Task 6.2) already
+  flags rather than throwing. In the `flow-prototype-wrapper.html` deliverable, a `[data-goto]`
+  click now navigates the prototype (matched by the nav entry's `key`, the authored screen id, via
+  a new `init()` on the Alpine root), and every screen's declared `adds[]` is listed once on the
+  cover under a "This flow adds N" disclosure.
+
 ### Fixed
 
 - **A breadboard no longer spends width on the columns an author skipped**

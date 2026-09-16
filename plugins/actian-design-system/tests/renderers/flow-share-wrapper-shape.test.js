@@ -3,7 +3,9 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
-var { assembleFlowShare } = require("../../scripts/renderers/assemble-flow-share.js");
+var {
+  assembleFlowShare,
+} = require("../../scripts/renderers/assemble-flow-share.js");
 
 var WRAPPER = path.join(
   __dirname,
@@ -14,7 +16,12 @@ var WRAPPER = path.join(
 );
 var src = fs.readFileSync(WRAPPER, "utf8");
 
-var SKIN_FIXTURE = path.join(__dirname, "..", "fixtures", "admin-dashboard.json");
+var SKIN_FIXTURE = path.join(
+  __dirname,
+  "..",
+  "fixtures",
+  "admin-dashboard.json",
+);
 var skinFixtureData = JSON.parse(fs.readFileSync(SKIN_FIXTURE, "utf8"));
 
 test("wrapper declares the full placeholder contract", function () {
@@ -145,4 +152,64 @@ test("assembled HTML carries no skin when meta.skin is absent", function () {
   );
   assert.ok(html.indexOf(".flow-focus") === -1, "no .flow-focus");
   assert.ok(!/\{\{SKIN_[A-Z]+\}\}/.test(html), "no unfilled SKIN placeholder");
+});
+
+test("wrapper declares the additions placeholder", function () {
+  assert.ok(
+    src.indexOf("{{ADDS_BLOCK}}") !== -1,
+    "wrapper has the {{ADDS_BLOCK}} marker",
+  );
+});
+
+test("wrapper wires a data-goto click listener that delegates to goto()", function () {
+  assert.ok(
+    src.indexOf("closest('[data-goto]')") !== -1,
+    "init() delegates clicks on [data-goto] to goto()",
+  );
+});
+
+test("click-to-navigate: data-goto on the source node, and the cover lists declared additions (Task 6.4)", function () {
+  var data = {
+    meta: { feature: "Two Screen Flow", app: "Studio", pluginVersion: "1.0" },
+    screens: [
+      {
+        id: "s1",
+        name: "Screen One",
+        template: "bare",
+        content: [{ type: "FRAME", name: "Next", goto: "s2", children: [] }],
+      },
+      {
+        id: "s2",
+        name: "Screen Two",
+        template: "bare",
+        adds: [
+          {
+            name: "Data Steward panel",
+            composedFrom: ["drawer", "text-area"],
+            why: "no component holds a conversation",
+          },
+        ],
+        content: [],
+      },
+    ],
+  };
+  var html = assembleFlowShare(data);
+  assert.ok(
+    html.indexOf('data-goto="s2"') !== -1,
+    "data-goto emitted for the goto target",
+  );
+  assert.ok(html.indexOf("proto-adds") !== -1, "proto-adds block present");
+  assert.ok(
+    html.indexOf("Data Steward panel") !== -1,
+    "addition name listed on the cover",
+  );
+  assert.ok(
+    html.indexOf("drawer") !== -1 && html.indexOf("text-area") !== -1,
+    "composedFrom slugs listed on the cover",
+  );
+  assert.ok(
+    html.indexOf("closest('[data-goto]')") !== -1,
+    "data-goto click listener present in the assembled deliverable",
+  );
+  assert.ok(!/\{\{[A-Z_]+\}\}/.test(html), "no placeholder token leak");
 });
