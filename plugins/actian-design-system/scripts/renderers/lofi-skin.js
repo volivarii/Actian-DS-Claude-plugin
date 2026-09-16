@@ -8,14 +8,33 @@ function gray(hex) { var r = hexToRgb(hex); var y = 0.2126 * lin(r[0]) + 0.7152 
 // exactly these: text #101828, bars #e2e7f0, fills #f5f5fa, borders #cbd2e0).
 // A DS token is mapped by the ROLE in its name; anything unmapped becomes a
 // luminance gray so no brand colour survives.
+//
+// Token family names below were read from vendor/tokens/tokens.css directly
+// (2026-09-16), not assumed: the real families are --zen-color-text-*,
+// --zen-color-bg-* (NOT "-background-") and --zen-border-* (NOT
+// "-color-border-" -- that prefix does not exist in the vendored tokens; it
+// is kept below only as a defensive second prefix in case a future token
+// generation introduces it). Two real families are folded into an existing
+// group because they are direct sub-variants of a family already covered:
+// --zen-color-text-placeholder-subtle -> the placeholder group
+// (fm-text-tertiary), and --zen-color-bg-muted -> the subtle group
+// (fm-base-100), mirroring how "muted" already reads as a subtle/tertiary
+// synonym on the text side. --zen-color-text-success is added on its own
+// because fm-base.css declares a matching --fm-text-success. Every other
+// real family (text-disabled, text-reverse, text-warning,
+// bg-disabled/emphasis/error/info/overlay/primary/reverse/selected/success/
+// warning) has no FM-palette role counterpart and is left to the gray()
+// fallback below, which already satisfies "no brand colour survives" for
+// them without inventing a role that doesn't exist in the reference page.
 var FM_MAP = [
   [/^--zen-color-text-(default|primary)$/, "var(--fm-text-primary)"],
   [/^--zen-color-text-secondary$/, "var(--fm-text-secondary)"],
-  [/^--zen-color-text-(tertiary|muted|placeholder)$/, "var(--fm-text-tertiary)"],
+  [/^--zen-color-text-(tertiary|muted|placeholder|placeholder-subtle)$/, "var(--fm-text-tertiary)"],
   [/^--zen-color-text-error$/, "var(--fm-text-error)"],
-  [/^--zen-color-background-(default|white)$/, "var(--fm-base-white)"],
-  [/^--zen-color-background-(subtle|grey|gray|secondary)$/, "var(--fm-base-100)"],
-  [/^--zen-color-border-/, "var(--fm-border)"],
+  [/^--zen-color-text-success$/, "var(--fm-text-success)"],
+  [/^--zen-color-bg-(default|white)$/, "var(--fm-base-white)"],
+  [/^--zen-color-bg-(subtle|secondary|grey|gray|muted)$/, "var(--fm-base-100)"],
+  [/^(?:--zen-border-|--zen-color-border-)/, "var(--fm-border)"],
 ];
 function fmValueFor(name, hex) {
   for (var i = 0; i < FM_MAP.length; i++) if (FM_MAP[i][0].test(name)) return FM_MAP[i][1];
@@ -35,7 +54,11 @@ var PLACEHOLDER_RULES = [
 ];
 
 function lofiSkinCss(tokensCss) {
-  var re = /(--zen-color-[a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,6})\b/g, m, out = [];
+  // Every --zen-* custom property whose value is a hex literal is a colour
+  // (spacing/radius tokens are px and never match #[0-9a-fA-F]); scoping the
+  // scan to "--zen-color-*" would miss the real --zen-border-* family
+  // entirely, which is exactly the bug this scan used to have.
+  var re = /(--zen-[a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,6})\b/g, m, out = [];
   while ((m = re.exec(tokensCss || ""))) out.push("  " + m[1] + ": " + fmValueFor(m[1], m[2]) + ";");
   return '[data-skin="lofi"] {\n' + out.join("\n") + "\n}\n" + PLACEHOLDER_RULES.join("\n") + "\n";
 }
