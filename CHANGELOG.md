@@ -133,8 +133,9 @@ are summarized at the release level.
 
 ### Changed
 
-- **The proposal document leads with what ships, in plain words.** Written for a PM or designer
-  approving a direction. It used to open each block with a question ("Question 1 of 2: What does
+- **The proposal document opens with the ask and leads with what ships, in plain words**
+  ([#387](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/387)). Written for a PM or
+  designer approving a direction. It used to open each block with a question ("Question 1 of 2: What does
   the page show?"), and the DS-116 run in Cowork came out at 9 screens and 1,638 words for one menu
   row and one page. Now:
   - **The ask comes first:** the document opens with what was asked (a new optional `context.ask`,
