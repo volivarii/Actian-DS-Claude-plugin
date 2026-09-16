@@ -73,9 +73,8 @@ describe("validateProposal (document)", function () {
       d.decisions[0].pick.optionId = d.decisions[0].options[0].id;
     }
 
-    // 2026-09-16. The row budget this block used to test capped a drawing by its option count,
-    // and the renderer squeezed anything wider. The renderer no longer squeezes, so a wide
-    // drawing in a many-option decision is not a finding: it is drawn at its width and wraps.
+    // The renderer never squeezes a drawing, so a wide drawing in a many-option decision is
+    // not a finding: it is drawn at its width, and the options wrap.
     it("says nothing about wide drawings, whatever the option count", function () {
       assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [720, 720, 720, 720]); }), []);
       assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [1200, 1200, 1200]); }), []);

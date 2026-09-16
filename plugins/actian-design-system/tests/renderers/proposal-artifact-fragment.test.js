@@ -86,11 +86,16 @@ describe("the proposal document on a narrow screen", function () {
     assert.ok(/@media\s*\(max-width:\s*640px\)/.test(html()), "a 640px breakpoint");
   });
 
-  it("gives each drawing its own scroll box rather than widening the page", function () {
-    var m = html().match(/@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\n {4}\}/);
-    assert.ok(m, "the breakpoint block is readable");
-    assert.ok(/\.proposal-screen__col\s*\{[^}]*overflow-x:\s*auto/.test(m[0]), "the drawing column scrolls itself");
-    assert.ok(/\.proposal-screen__col\s*\{[^}]*max-width:\s*100%/.test(m[0]), "and never exceeds the page");
+  // At every width, not only on a phone: a drawing reaches 1200, so a laptop or a side panel
+  // narrower than that scrolled the whole page sideways while the rule sat in the breakpoint.
+  it("gives each drawing its own scroll box rather than widening the page, at every width", function () {
+    var i = html().indexOf("\n    .proposal-screen__col {");
+    assert.notStrictEqual(i, -1, "the drawing column has a rule outside any breakpoint");
+    var rule = html().slice(i, html().indexOf("}", i));
+    assert.ok(/overflow-x:\s*auto/.test(rule), "the drawing column scrolls itself: " + rule);
+    assert.ok(/max-width:\s*100%/.test(rule), "and never exceeds the page: " + rule);
+    assert.ok(/padding:\s*8px/.test(rule) && /margin:\s*-8px/.test(rule), "and keeps room for the ring it would clip: " + rule);
+    assert.ok(/box-sizing:\s*content-box/.test(rule), "outside the drawn width, so a drawing that fits does not scroll: " + rule);
   });
 
   it("drops the desktop page margin so the measure has the screen", function () {

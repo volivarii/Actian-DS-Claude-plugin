@@ -540,7 +540,7 @@
           },
           "options": {
             "type": "array",
-            "description": "Two to four options, each drawn inside its anchor surface; four is the ceiling the row budget can draw side by side",
+            "description": "Two to four options, each drawn inside its anchor surface; past four, a reader is weighing a list rather than a choice",
             "minItems": 2,
             "maxItems": 4,
             "items": {
@@ -660,7 +660,7 @@
                   ]
                 },
                 "verdict": {
-                  "description": "A few words printed as a tag on the card",
+                  "description": "A few words; under an option not chosen it prints in bold, then breaksWhen, as one line",
                   "type": "string",
                   "examples": [
                     "Scans well, scales to a few groups"

@@ -114,10 +114,8 @@ describe("the proposal document is set to be read", function () {
       assert.deepStrictEqual(offenders.map(function (r) { return r.selector; }), [], "these are centred");
     });
 
-    // The dead space this closes: the drawing led the row at a width the row budget set, and
-    // the case took the measure beside it, so a 1200px block ended at about 930 and the last
-    // 270px were empty. The case reads first now, on the document's own left edge, and the
-    // drawing it illustrates sits beside it.
+    // The case reads first, on the document's own left edge, and the drawing it illustrates
+    // sits beside it, or below it when the drawing is wider than 720.
     it("reads the case before the drawing that illustrates it", function () {
       var out = assembleProposal(load());
       var lead = out.slice(at(out, 'class="decision__lead"'));
@@ -135,6 +133,14 @@ describe("the proposal document is set to be read", function () {
     it("never shrinks a drawing to make the case beside it fit", function () {
       assert.match(ruleFor(".proposal-screen__col"), /flex:\s*none/, "the drawing can still shrink");
       assert.match(ruleFor(".decision__case"), /flex:\s*\d+\s+1\s/, "and the case cannot give way instead");
+    });
+
+    // A wide drawing takes the row below its case by turning the row into a column, and in a
+    // column the case's 380px basis is a height: a two-reason case left 156px of blank band
+    // above its drawing. Stacked, the case is as tall as what it says.
+    it("stacks a wide drawing under its case with no blank band between them", function () {
+      assert.match(ruleFor(".decision__lead--stacked"), /flex-direction:\s*column/, "the row turns into a column");
+      assert.match(ruleFor(".decision__lead--stacked .decision__case"), /flex:\s*none/, "the case keeps a width basis as its height");
     });
   });
 

@@ -296,11 +296,13 @@ function optionHtml(o, index, apps, width, lead, chosen) {
   // only when it is not the proposal's, and what it adds stays, because an addition is a cost.
   var sameSurface = chosen && chosen.anchor.app === o.anchor.app &&
     String(chosen.anchor.surface).trim().toLowerCase() === String(o.anchor.surface).trim().toLowerCase();
+  // The verdict closes as a sentence, unless it already ends on a stop, an ellipsis or a stop
+  // inside a quote; an empty one prints nothing rather than a lone bold period.
   var verdict = String(o.verdict).trim();
-  if (!/[.!?]$/.test(verdict)) verdict += ".";
+  if (verdict && !/[.!?\u2026]["'\u201d\u2019]?$/.test(verdict)) verdict += ".";
   return col + '<p class="option__name">' + esc(o.name) + "</p>" +
     (sameSurface ? "" : '<span class="proposal-screen__label">' + anchor + "</span>") +
-    frame + '<p class="option__why"><b>' + esc(verdict) + "</b> " + esc(o.breaksWhen) + "</p>" +
+    frame + '<p class="option__why">' + (verdict ? "<b>" + esc(verdict) + "</b> " : "") + esc(o.breaksWhen) + "</p>" +
     addsHtml(o) + "</div>\n";
 }
 

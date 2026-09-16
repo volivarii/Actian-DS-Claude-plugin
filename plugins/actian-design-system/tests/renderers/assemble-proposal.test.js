@@ -786,7 +786,7 @@ describe("an option not chosen, read at a glance", function () {
     var name = '<p class="option__name">' + esc(rival.name) + "</p>";
     assert.notStrictEqual(at(c, name), -1, "the card has no name: " + c.slice(0, 200));
     assert.ok(at(c, name) < at(c, 'class="proposal-screen"'), "the name does not head the card");
-    var verdict = esc(rival.verdict) + (/[.!?]$/.test(rival.verdict) ? "" : ".");
+    var verdict = esc(rival.verdict) + (/[.!?\u2026]["'\u201d\u2019]?$/.test(rival.verdict) ? "" : ".");
     var why = '<p class="option__why"><b>' + verdict + "</b> " + esc(rival.breaksWhen) + "</p>";
     assert.notStrictEqual(at(c, why), -1, "no single line of verdict and break: " + c.slice(c.lastIndexOf("</div></div>")));
     [esc(rival.whatItIs), "a phrase about the drawing", "Built from", "fm-tag"].forEach(function (gone) {
@@ -803,5 +803,32 @@ describe("an option not chosen, read at a glance", function () {
     p.rival.anchor.surface = "the user profile page";
     c = card(body(assembleProposal(d)), p.rival.id);
     assert.notStrictEqual(at(c, "the user profile page"), -1, "a different surface is not named");
+    p.rival.anchor = JSON.parse(JSON.stringify(p.chosen.anchor));
+    p.rival.anchor.app = p.chosen.anchor.app === "studio" ? "explorer" : "studio";
+    c = card(body(assembleProposal(d)), p.rival.id);
+    assert.notStrictEqual(at(c, "proposal-screen__anchor"), -1, "the same surface in another app is not named");
+  });
+
+  it("closes the verdict as a sentence once, and prints no lone stop for an empty one", function () {
+    var cases = [
+      ["Reads as a control", "<b>Reads as a control.</b> "],
+      ["Too heavy\u2026", "<b>Too heavy\u2026</b> "],
+      ["Reads as \"Edit.\"", "<b>" + esc("Reads as \"Edit.\"") + "</b> "],
+      ["Why a page?  ", "<b>Why a page?</b> "],
+    ];
+    cases.forEach(function (k) {
+      var d = load();
+      var rival = pieces(d).rival;
+      rival.verdict = k[0];
+      var c = card(body(assembleProposal(d)), rival.id);
+      assert.notStrictEqual(at(c, '<p class="option__why">' + k[1]), -1, JSON.stringify(k[0]) + " printed as: " + c.slice(at(c, "option__why") - 10, at(c, "option__why") + 120));
+    });
+    ["", "   "].forEach(function (empty) {
+      var d = load();
+      var rival = pieces(d).rival;
+      rival.verdict = empty;
+      var c = card(body(assembleProposal(d)), rival.id);
+      assert.notStrictEqual(at(c, '<p class="option__why">' + esc(rival.breaksWhen) + "</p>"), -1, JSON.stringify(empty) + " printed as: " + c.slice(at(c, "option__why") - 10, at(c, "option__why") + 120));
+    });
   });
 });
