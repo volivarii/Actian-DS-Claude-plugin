@@ -55,4 +55,21 @@ describe("lofi-skin", function () {
     assert.match(out, /__desc|__prop|__tech/, "a DS card's secondary text is barred, its title is not");
     assert.doesNotMatch(out, /\.flow-focus \.fm-text\b[^{]*\{[^}]*transparent/, "nothing inside focus is barred by the skin");
   });
+  it("the color:transparent bar rules use !important (2026-09-16 LOOK: an inline style=\"color:var(--zen-…)\" on every authored .fm-text span otherwise wins over the external rule and no bar is ever visible)", function () {
+    var out = skin.lofiSkinCss("");
+    assert.match(out, /\.fm-text:not\([^)]*\)[^{]*\{\s*color:\s*transparent\s*!important/, "the fm-text bar rule beats an inline color");
+    assert.match(out, /__helper[^{]*\{\s*color:\s*transparent\s*!important/, "the DS-leaf description bar rule beats an inline color too");
+  });
+  it("re-asserts the token remap under any nested [data-theme] scope (2026-09-16 LOOK: a rendered .screen always carries data-theme=\"…\", and tokens.css's own [data-theme=\"…\"] block re-declares the same --zen-* properties on that element — shadowing the [data-skin=\"lofi\"] ancestor's remap for the whole screen unless re-declared at least as specifically)", function () {
+    var out = skin.lofiSkinCss(":root{--zen-color-text-primary:#0f5fdc;}\n[data-theme=\"studio\"]{--zen-color-text-primary:#0283be;}");
+    assert.match(out, /\[data-skin="lofi"\]\s*\[data-theme\]\s*\{/, "re-declares the mapped tokens scoped under a nested [data-theme]");
+    var themedBlock = out.match(/\[data-skin="lofi"\]\s*\[data-theme\]\s*\{([^}]*)\}/);
+    assert.ok(themedBlock, "the nested-theme block exists");
+    assert.match(themedBlock[1], /--zen-color-text-primary:\s*var\(--fm-text-primary\)/, "the nested block maps the same token, never leaking the theme's brand hex");
+  });
+  it("bars an inactive DS app-chrome side-nav item's label, leaves the active one alone (2026-09-16 LOOK: .ds-sidenav is a separate markup vocabulary from .fm-text)", function () {
+    var out = skin.lofiSkinCss("");
+    assert.match(out, /\.ds-sidenav__item:not\(\.is-active\)\s*\.ds-sidenav__label\s*\{\s*color:\s*transparent\s*!important/, "inactive side-nav labels are barred");
+    assert.doesNotMatch(out, /\.ds-sidenav__item\.is-active[^{]*\{[^}]*transparent/, "the active side-nav item is never barred");
+  });
 });

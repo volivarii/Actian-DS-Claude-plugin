@@ -189,6 +189,14 @@ function assembleFlowShare(data) {
 
   var featureName = esc(meta.feature || meta.flow || "Flow");
 
+  // Lo-fi skin (Task 3.4): meta.skin === "lofi" scans the SAME tokens CSS
+  // string already inlined for {{FLOW_CSS}} (flowCss, not just the tokens
+  // slice of it) for --zen-* hex declarations and emits a
+  // [data-skin="lofi"] {...} override block + the FM placeholder rules.
+  // Off (meta.skin unset/other), both markers resolve to empty strings.
+  var skinOn = meta.skin === "lofi";
+  var skinCss = skinOn ? require("./lofi-skin.js").lofiSkinCss(flowCss) : "";
+
   // Use FUNCTION replacers everywhere so '$' inside CSS/JS/screens is not
   // interpreted as a replacement pattern by String.replace.
   // Strip the ASSEMBLER-STRIP-BEGIN…END block (developer-guidance comment that
@@ -217,6 +225,12 @@ function assembleFlowShare(data) {
     })
     .replace("{{SCREENS_ARRAY}}", function () {
       return navJson;
+    })
+    .replace("{{SKIN_CSS}}", function () {
+      return skinCss;
+    })
+    .replace("{{SKIN_ATTR}}", function () {
+      return skinOn ? ' data-skin="lofi"' : "";
     })
     .replace("<!-- {{SCREENS}} -->", function () {
       return screensHtml;

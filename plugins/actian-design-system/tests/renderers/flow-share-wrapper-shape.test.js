@@ -3,6 +3,7 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
+var { assembleFlowShare } = require("../../scripts/renderers/assemble-flow-share.js");
 
 var WRAPPER = path.join(
   __dirname,
@@ -12,6 +13,9 @@ var WRAPPER = path.join(
   "flow-prototype-wrapper.html",
 );
 var src = fs.readFileSync(WRAPPER, "utf8");
+
+var SKIN_FIXTURE = path.join(__dirname, "..", "fixtures", "admin-dashboard.json");
+var skinFixtureData = JSON.parse(fs.readFileSync(SKIN_FIXTURE, "utf8"));
 
 test("wrapper declares the full placeholder contract", function () {
   [
@@ -101,4 +105,44 @@ test("instruction block is wrapped in strip sentinels; vestigial tokens removed"
   ].forEach(function (t) {
     assert.ok(src.indexOf(t) === -1, "vestigial token removed: " + t);
   });
+});
+
+test("wrapper declares the skin placeholder contract", function () {
+  assert.ok(
+    src.indexOf('<style id="skin-css">{{SKIN_CSS}}</style>') !== -1,
+    "wrapper has the {{SKIN_CSS}} style tag",
+  );
+  assert.ok(
+    src.indexOf("{{SKIN_ATTR}}") !== -1,
+    "wrapper has the {{SKIN_ATTR}} marker",
+  );
+});
+
+test("assembled HTML carries the lofi skin when meta.skin is 'lofi'", function () {
+  var withSkin = Object.assign({}, skinFixtureData, {
+    meta: Object.assign({}, skinFixtureData.meta, { skin: "lofi" }),
+  });
+  var html = assembleFlowShare(withSkin);
+  assert.ok(html.indexOf('data-skin="lofi"') !== -1, 'has data-skin="lofi"');
+  assert.ok(
+    html.indexOf('[data-skin="lofi"] {') !== -1,
+    'has the [data-skin="lofi"] rule block',
+  );
+  assert.ok(html.indexOf(".flow-focus") !== -1, "has .flow-focus");
+  assert.ok(!/\{\{SKIN_[A-Z]+\}\}/.test(html), "no unfilled SKIN placeholder");
+});
+
+test("assembled HTML carries no skin when meta.skin is absent", function () {
+  var withoutSkin = Object.assign({}, skinFixtureData, {
+    meta: Object.assign({}, skinFixtureData.meta),
+  });
+  delete withoutSkin.meta.skin;
+  var html = assembleFlowShare(withoutSkin);
+  assert.ok(html.indexOf('data-skin="lofi"') === -1, 'no data-skin="lofi"');
+  assert.ok(
+    html.indexOf('[data-skin="lofi"] {') === -1,
+    'no [data-skin="lofi"] rule block',
+  );
+  assert.ok(html.indexOf(".flow-focus") === -1, "no .flow-focus");
+  assert.ok(!/\{\{SKIN_[A-Z]+\}\}/.test(html), "no unfilled SKIN placeholder");
 });

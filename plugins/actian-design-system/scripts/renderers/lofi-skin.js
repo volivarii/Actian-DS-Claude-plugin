@@ -47,10 +47,21 @@ function fmValueFor(name, hex) {
 // bar colour; a DS leaf keeps its title and bars its secondary spans. Inside
 // .flow-focus nothing is barred by the skin; an author who wants a bar inside
 // the feature authors an fmPlaceholder node. quality-tiers.md, "FM focus principle".
+// color: transparent needs !important: render-node.js's buildTextStyle bakes
+// node.color (the CLAUDE.md-mandated var(--zen-color-text-*) binding every
+// authored TEXT node carries) into an INLINE style="color:…" on the very
+// same .fm-text span, and an inline style always outranks a selector-based
+// rule for that property regardless of specificity — so without !important
+// every "barred" text stayed fully readable in the 2026-09-16 LOOK.
 var PLACEHOLDER_RULES = [
-  '[data-skin="lofi"] .fm-text:not(.flow-focus *):not(.fm-text--heading):not(.fm-text--keep) { color: transparent; background: var(--fm-base-300); border-radius: 4px; }',
-  '[data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__desc"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__prop"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__tech"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__helper"] { color: transparent; background: var(--fm-base-300); border-radius: 4px; }',
+  '[data-skin="lofi"] .fm-text:not(.flow-focus *):not(.fm-text--heading):not(.fm-text--keep) { color: transparent !important; background: var(--fm-base-300); border-radius: 4px; }',
+  '[data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__desc"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__prop"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__tech"], [data-skin="lofi"] .screen__content-area [class*="ds-"]:not(.flow-focus, .flow-focus *) [class*="__helper"] { color: transparent !important; background: var(--fm-base-300); border-radius: 4px; }',
   '[data-skin="lofi"] .flow-focus { outline: 1px solid var(--fm-base-400); outline-offset: 6px; }',
+  // App-chrome side-nav (ds-header/ds-sidenav — a separate markup vocabulary
+  // from the fm-text tree, .ds-sidenav__item[.is-active] .ds-sidenav__label,
+  // confirmed against the 2026-09-16 LOOK render): only the active item
+  // stays legible, same convention as everywhere else in the skin.
+  '[data-skin="lofi"] .ds-sidenav__item:not(.is-active) .ds-sidenav__label { color: transparent !important; background: var(--fm-base-300); border-radius: 4px; }',
 ];
 
 function lofiSkinCss(tokensCss) {
@@ -60,6 +71,24 @@ function lofiSkinCss(tokensCss) {
   // entirely, which is exactly the bug this scan used to have.
   var re = /(--zen-[a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,6})\b/g, m, out = [];
   while ((m = re.exec(tokensCss || ""))) out.push("  " + m[1] + ": " + fmValueFor(m[1], m[2]) + ";");
-  return '[data-skin="lofi"] {\n' + out.join("\n") + "\n}\n" + PLACEHOLDER_RULES.join("\n") + "\n";
+  var block = out.join("\n");
+  // vendor/tokens/tokens.css (the tokensCss this fn scans) carries per-app
+  // [data-theme="…"] blocks (actian/studio/explorer) alongside :root, and a
+  // rendered screen always carries one of those data-theme attributes on
+  // itself (.screen[data-theme="studio"], etc). CSS custom-property
+  // inheritance is per-element: a descendant that matches its OWN rule for
+  // a given --zen-* property gets that rule's value as its specified value,
+  // which shadows whatever the [data-skin="lofi"] ancestor set — so without
+  // this second block every themed screen keeps its original brand colours
+  // (2026-09-16 LOOK: the whole remap was invisible; "nothing blue" failed).
+  // Re-declaring the identical mapped values scoped to
+  // "[data-skin='lofi'] [data-theme]" (specificity 0,2,0) beats a lone
+  // [data-theme="x"] rule (0,1,0) on that same element, restoring the remap
+  // inside the theme subtree without touching the theme selectors themselves.
+  return (
+    '[data-skin="lofi"] {\n' + block + "\n}\n" +
+    '[data-skin="lofi"] [data-theme] {\n' + block + "\n}\n" +
+    PLACEHOLDER_RULES.join("\n") + "\n"
+  );
 }
 module.exports = { lofiSkinCss: lofiSkinCss, gray: gray, FM_MAP: FM_MAP, PLACEHOLDER_RULES: PLACEHOLDER_RULES };

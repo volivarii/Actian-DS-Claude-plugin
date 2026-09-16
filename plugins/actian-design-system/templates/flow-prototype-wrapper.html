@@ -247,6 +247,7 @@
   <style>
 {{FLOW_CSS}}
   </style>
+  <style id="skin-css">{{SKIN_CSS}}</style>
 </head>
 
 <body
@@ -343,7 +344,7 @@
        cell is a fixed overflow:hidden grid item and the screen is transform:scale(var(--ov-scale)),
        default 0.25, adjustable via the 25/50/100 zoom buttons.
   ASSEMBLER-STRIP-END -->
-  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }" :style="view === 'overview' ? '--ov-scale:' + ovScale : ''">
+  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }" :style="view === 'overview' ? '--ov-scale:' + ovScale : ''"{{SKIN_ATTR}}>
     <!-- {{SCREENS}} -->
   </main>
 
