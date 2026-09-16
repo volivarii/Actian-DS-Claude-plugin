@@ -37,6 +37,9 @@ Prototype files use the wrapper at:
 | `SCREENS` | Concatenated HTML of all screen `<section>` blocks (see Screen Sections below) |
 | `COMPONENT_SPECIFIC_CSS` | Any CSS classes needed for this prototype's components that aren't already in `tokens.css` |
 | `ADDITIONAL_STYLES` | Any prototype-specific override styles (error states, transition overrides, etc.) |
+| `{{SKIN_CSS}}` | The lo-fi skin's generated CSS (`lofi-skin.js`) when `meta.skin` is `"lofi"`; empty string otherwise |
+| `{{SKIN_ATTR}}` | ` data-skin="lofi"` on the stage element when `meta.skin` is `"lofi"`; empty string otherwise |
+| `{{ADDS_BLOCK}}` | The "This flow adds N" `<details>` disclosure listing every screen's declared `adds[]`; empty string when no screen declares one |
 
 ### Screen sections
 

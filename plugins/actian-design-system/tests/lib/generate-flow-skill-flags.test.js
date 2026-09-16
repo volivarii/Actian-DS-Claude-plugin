@@ -59,4 +59,18 @@ describe("generate-flow SKILL.md flags table — DS-native default", function ()
         JSON.stringify(defaultCol),
     );
   });
+
+  it("Step 5.0 writes `hifi: true` unless `--fm` is passed (behaviour, not just a table cell)", function () {
+    assert.ok(
+      src.indexOf("`hifi: true` unless `--fm`") !== -1,
+      "SKILL.md Step 5.0 must state that meta.hifi is written true unless --fm is passed",
+    );
+  });
+
+  it('Step 5.0 writes `skin: "lofi"` under `--lofi`', function () {
+    assert.ok(
+      src.indexOf('`skin: "lofi"` under `--lofi`') !== -1,
+      'SKILL.md Step 5.0 must state that meta.skin is written "lofi" under --lofi',
+    );
+  });
 });

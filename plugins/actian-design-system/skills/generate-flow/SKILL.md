@@ -1,10 +1,10 @@
 ---
 name: generate-flow
-description: Generate one or more lo-fi screens — single screen or multi-screen flow — from a feature idea, user story, or single-screen prompt. Also handles refine (URL + instruction), iterate (URL only), branch (URL + new variant), prototype wiring, and hifi conversion. HTML-first; Figma push is opt-in.
-argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --push --no-push --no-prompt]"
+description: Generate one or more DS-native screens — single screen or multi-screen flow — from a feature idea, user story, or single-screen prompt, DS-native by default with a lo-fi skin or FatMarker authoring on request. Also handles refine (URL + instruction), iterate (URL only), and branch (URL + new variant). HTML-first; Figma push is opt-in.
+argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --lofi --fm --layout freehand --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --push --no-push --no-prompt]"
 ---
 
-# Generate Fat Marker Flow
+# Generate Flow
 
 <!-- plugin-root:begin -->
 ## Where the plugin lives
@@ -17,7 +17,7 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 ```
 <!-- plugin-root:end -->
 
-Build one or more lo-fi screens (n≥1, single-screen output is first-class). HTML-first: the deliverable is one encapsulated, offline `flows/[feature].html` (two-view — clickable Prototype + all-screens Overview). Figma push is **opt-in**. FM components, Inter font, FM palette.
+Build one or more screens (n≥1, single-screen output is first-class), DS-native by default: DS Kit vocabulary, themed hi-fi HTML. `--lofi` renders the same tree in a focus-aware lo-fi skin; `--fm` authors FatMarker components, Inter font, FM palette instead. HTML-first: the deliverable is one encapsulated, offline `flows/[feature].html` (two-view — clickable Prototype + all-screens Overview). Figma push is **opt-in**.
 
 > **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
 > (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
@@ -39,7 +39,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Flag                   | Type        | Default | Behavior |
 | ---------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--hifi`               | bool        | on      | DS-native authoring is the default since 2026.9.x: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`), rendered as themed hi-fi HTML. Combines with `--push` for a DS whole-tree Figma push; incompatible with `--audit` (needs a lo-fi pushed frame — push lo-fi with `--fm --push`, then `--hifi --push`, then `/design-audit`). |
+| `--hifi`               | bool        | on      | DS-native authoring is the default since 2026.9.x: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`), rendered as themed hi-fi HTML. Combines with `--push` for a DS whole-tree Figma push; incompatible with `--audit` (needs a lo-fi pushed frame, push lo-fi with `--fm --push`, then `--hifi --push`, then `/design-audit`). |
 | `--lofi`               | bool        | off     | Same DS tree rendered in the lo-fi skin (`meta.skin:"lofi"`): the feature (nodes with `focus: true`) legible in gray, everything else placeholder. For layout tests and early reviews. |
 | `--layout freehand`    | string      | none    | Skips recipe snapping for every screen; each is classified improvised. For layout tests. Combine with `--lofi`. |
 | `--fm`                 | bool        | off     | FatMarker authoring (the pre-2026.9.x default). Required for a lo-fi Figma push; not combinable with `--lofi`. |
@@ -61,6 +61,7 @@ Parse args. Note which flags are explicitly passed:
 - `--push` / `--no-push`: parsed via `require("scripts/lib/parse-push.js")(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
 - `--no-prompt`: parsed via `scripts/lib/parse-no-prompt.js`. Suppresses the Gate 3 config questions + the Step 7.5 gate.
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
+- `--lofi`, `--fm`, `--layout freehand` — authoring-mode flags, not gated. `--fm` wins over `--lofi`/`--hifi` when more than one is passed; `--layout freehand` skips recipe snapping and combines with either.
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
 
 Classify input shape (Prompt / Refine / Iterate / Proposal per the table above). **Refine and Iterate skip Gate 3 entirely**: URL + prose (refine) or `--from <url>` (iterate) are already explicit intent. **Proposal enters at Gate 3** carrying the bridge's seed (`references/generate-flow/proposal-bridge.md`) as the screen list and brief: nothing to research, no app to infer.
@@ -86,7 +87,7 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 
 5.0. **Skeleton — render the encapsulated deliverable immediately.** As soon as the screen list is approved (Gate 3), render the structure to the canonical artifact so the user sees it instantly instead of an empty panel:
 
-- Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>", "layout": "freehand" (optional) }, …] }` (one entry per approved screen, in final order). `meta` carries only the keys something downstream reads: `feature`, `app`, `prompt` (read by `assemble-flow-share.js` and `validate-flow-data.js`), `mode` (`generate`, or `refine` in the refine shape), `hifi: true` under `--hifi` (legacy boolean, maps to DS rendering), and `_glossary` (added at Step 3.5, read by the validator's grounding advisories). `template` is one of `studio`, `explorer`, `admin` (alias `administration`), `no-sidebar`, `bare`, `compact`, `mobile`, `tablet`, `custom` (the chrome vocabulary in `scripts/renderers/html-renderers/ds-screen-tree.js`); any other value, such as an archetype name like `browse-search`, falls back to the legacy `appHeader`/`sidebar` fields and a screen carrying neither renders no chrome.
+- Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>", "layout": "freehand" (optional) }, …] }` (one entry per approved screen, in final order). `meta` carries only the keys something downstream reads: `feature`, `app`, `prompt` (read by `assemble-flow-share.js` and `validate-flow-data.js`), `mode` (`generate`, or `refine` in the refine shape), `hifi: true` unless `--fm` (legacy boolean, maps to DS rendering), `skin: "lofi"` under `--lofi`, and `_glossary` (added at Step 3.5, read by the validator's grounding advisories). `template` is one of `studio`, `explorer`, `admin` (alias `administration`), `no-sidebar`, `bare`, `compact`, `mobile`, `tablet`, `custom` (the chrome vocabulary in `scripts/renderers/html-renderers/ds-screen-tree.js`); any other value, such as an archetype name like `browse-search`, falls back to the legacy `appHeader`/`sidebar` fields and a screen carrying neither renders no chrome.
 - **Every screen count:** merge the screen list into `flow-data.json` (pending stubs) via the incremental merge against the (empty) partials dir, then render `--type flow-share`:
   ```bash
   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -98,12 +99,13 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
     {project_working_directory}/flows/flow-data.json --type flow-share \
     -o {project_working_directory}/flows/[feature].html
   ```
+  Add `--skin lofi` before `-o` when `meta.skin` is `"lofi"`.
 - Tell the user: `Preview ready (skeleton) → {project_working_directory}/flows/[feature].html — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
 - Then run `## Step 3.5` below to write the brief and its per-screen slices; Step 5's screen-generator dispatch reads what it writes.
 
 5. Build `flow-data.json`
    - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how the screen's content is authored.
-   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets only its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number (the slice's own `index`), and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` under `--hifi`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses its slice's `screen.archetype.skeleton` or `screen.pageRecipe.skeleton` as the starting point. Merge as instances land:
+   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets only its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number (the slice's own `index`), and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` unless `--fm`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses its slice's `screen.archetype.skeleton` or `screen.pageRecipe.skeleton` as the starting point. Merge as instances land:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
@@ -151,10 +153,15 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 - For each `missing-required-override` finding: add the missing prop to the INSTANCE node's `props` object with a real value.
 - For each `unknown-component` finding: correct the `ref` slug (the validator suggests near matches via Levenshtein when applicable).
 - For each `hardcoded-color` finding: replace the hex/rgb/`{r,g,b}` literal at the indicated path with a `var(--zen-…)` or `var(--fm-…)` token reference. **Never push hardcoded colors** — see `vendor/tokens/tokens.json` for the available token names.
+- `layer-target-missing`: point `layer.over` at an existing base screen id.
+- `layer-kind-unknown`: set `layer.kind` to modal, drawer, toast, or panel.
+- `layer-over-layer`: the screen `layer.over` points at must not itself be layered.
+- `goto-target-missing`: point `goto` at an existing screen id.
+- `adds-undeclared-name`: the node's `adds` must name an entry of the screen's own `adds[]`.
 - **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
 - **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
 
-For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`, `text-style`): exit 2, proceeds. `default-true-boolean-unset` also fires as a warning, but stays silent on the CLI by design (too high-volume) and surfaces only in the raw findings JSON `validate()` returns to a programmatic caller. Findings surface in the GenLog text node (and in the deliverable when pushed). Info-level grounding advisories (`chrome-ungrounded`, `chrome-divergence`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed`, `section-ungrounded`) print the same way and never block (exit 0).
+For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`, `text-style`, `unfilled-slot`, `density-floor`, `missing-focus`, `undeclared-invention` (DS-native flows only)): exit 2, proceeds. `default-true-boolean-unset` also fires as a warning, but stays silent on the CLI by design (too high-volume) and surfaces only in the raw findings JSON `validate()` returns to a programmatic caller. Findings surface in the GenLog text node (and in the deliverable when pushed). Info-level grounding advisories (`chrome-ungrounded`, `chrome-divergence`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed`, `section-ungrounded`, `prototype-dead-end`) print the same way and never block (exit 0).
 
 **`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker: the sidebar item in the slice's `glossary.chrome.sidebar` the feature lives under (Catalog for catalog objects in Studio). This honors the rule that non-feature chrome is ALWAYS placeholder; see `references/ds-rules/quality-tiers.md`.
 
@@ -170,6 +177,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   {project_working_directory}/flows/flow-data.json --type flow-share \
   -o {project_working_directory}/flows/[feature].html
 ```
+Add `--skin lofi` before `-o` when `meta.skin` is `"lofi"`.
 
 Tell the user: `Your flow is ready → {project_working_directory}/flows/[feature].html`. **If the render fails, surface the error and continue** — for the HTML-only default this is the deliverable, so a failure is worth reporting; for a push run it is an aid, never a gate. (The render reads only `flow-data.json`; it has no dependency on the push.)
 
