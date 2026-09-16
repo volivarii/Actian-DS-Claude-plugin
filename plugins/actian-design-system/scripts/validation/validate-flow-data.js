@@ -133,6 +133,14 @@ var STRUCTURAL_FIELD_KEYS = {
   layoutMode: true,
   library: true,
   dsSlug: true,
+  // adds[].composedFrom names existing DS slugs (catalog-quality Slice 1),
+  // the same identifier vocabulary as `dsSlug` above — a slug like "button"
+  // is a real component name that happens to also be a PLACEHOLDER_PATTERNS
+  // literal (/^Button$/i, the FM component's own leaked default). Walked
+  // unguarded, every adds[] entry naming the button leaf trips a false
+  // placeholder-text P0. adds[].name and adds[].why stay unguarded: both are
+  // authored prose, not a slug list, and should still be checked.
+  composedFrom: true,
 };
 
 function walkStringValues(node, currentPath, callback, parentKey) {

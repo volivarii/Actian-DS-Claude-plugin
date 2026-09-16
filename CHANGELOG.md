@@ -28,6 +28,18 @@ are summarized at the release level.
 
 ### Added
 
+- **acceptance flow: the Data Steward panel over the Catalog page** (#TBD — PR not yet opened).
+  The first hand-authored flow to exercise catalog-quality's own layering model end to end:
+  `plugins/actian-design-system/tests/fixtures/data-steward-over-catalog.flow.json` composes a
+  real Studio Catalog screen from the faceted-browse capture (every `{{...}}` placeholder filled
+  from the Figma reference frame 2703:173622) with a `layer: {kind: "panel", over: "catalog"}`
+  screen for the Data Steward panel, wired both ways (`Save filters` → the panel, the panel's
+  close icon → back to the catalog) and declaring two `adds` entries (the panel body and the
+  header's agent trigger, for which the renderer has no header slot). Also fixes a validator false
+  positive it surfaced: `adds[].composedFrom` names real DS slugs, and the slug `button` collided
+  with `placeholder-text`'s leaked-default pattern (`/^Button$/i`) because `composedFrom` was not
+  in the walker's structural-field allowlist alongside `ref`/`dsSlug`.
+
 - **Research is a gate, in four lanes, with a section of its own**
   ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It used to run by default,
   do at most two web searches, and land as one undifferentiated list inside the briefing under
