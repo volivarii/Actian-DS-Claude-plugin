@@ -21,24 +21,11 @@ are summarized at the release level.
 
 ### Changed
 
-- **generate-flow authors DS-native by default** (#TBD — PR not yet opened). generate-flow authors
-  DS-native by default; `--lofi` renders the same tree in a focus-aware lo-fi skin (`focus: true`
-  marks the feature, the rest is placeholder); `--fm` keeps FatMarker authoring for lo-fi Figma
-  pushes.
+- **generate-flow authors DS-native by default** (#TBD — PR not yet opened). `--lofi` renders the
+  same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
+  `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
 
 ### Added
-
-- **acceptance flow: the Data Steward panel over the Catalog page** (#TBD — PR not yet opened).
-  The first hand-authored flow to exercise catalog-quality's own layering model end to end:
-  `plugins/actian-design-system/tests/fixtures/data-steward-over-catalog.flow.json` composes a
-  real Studio Catalog screen from the faceted-browse capture (every `{{...}}` placeholder filled
-  from the Figma reference frame 2703:173622) with a `layer: {kind: "panel", over: "catalog"}`
-  screen for the Data Steward panel, wired both ways (`Save filters` → the panel, the panel's
-  close icon → back to the catalog) and declaring two `adds` entries (the panel body and the
-  header's agent trigger, for which the renderer has no header slot). Also fixes a validator false
-  positive it surfaced: `adds[].composedFrom` names real DS slugs, and the slug `button` collided
-  with `placeholder-text`'s leaked-default pattern (`/^Button$/i`) because `composedFrom` was not
-  in the walker's structural-field allowlist alongside `ref`/`dsSlug`.
 
 - **Research is a gate, in four lanes, with a section of its own**
   ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It used to run by default,
@@ -89,6 +76,20 @@ are summarized at the release level.
   A document with more than one decision pins a bar naming each of them. The map at the top
   scrolled away after the first screen and never came back, and what it maps is over nine thousand
   pixels long. The bar is that map, condensed to one line, and it hides on a phone.
+
+- **acceptance flow: the Data Steward panel over the Catalog page** (#TBD — PR not yet opened).
+  The first hand-authored flow to exercise catalog-quality's own layering model end to end:
+  `plugins/actian-design-system/tests/fixtures/data-steward-over-catalog.flow.json` composes a
+  real Studio Catalog screen from the faceted-browse capture (every `{{...}}` placeholder filled
+  from the Figma reference frame 2703:173622) with a `layer: {kind: "panel", over: "catalog"}`
+  screen for the Data Steward panel, wired both ways (the ringed "Data Steward" header entry →
+  the panel, the panel's own Close button, a Tertiary text button, not an icon → back to the
+  catalog) and declaring two `adds` entries (the panel body and the header's agent trigger, for
+  which the renderer has no header slot). The Completion level control stays an FM leaf
+  (`fmSlider`); the DS Kit has no slider. Also fixes a validator false positive it surfaced:
+  `adds[].composedFrom` names real DS slugs, and the slug `button` collided with
+  `placeholder-text`'s leaked-default pattern (`/^Button$/i`) because `composedFrom` was not in
+  the walker's structural-field allowlist alongside `ref`/`dsSlug`.
 
 - **A composed screen names its capture, and unfilled capture slots surface**
   (#TBD — PR not yet opened). A screen composed from a captured page recipe (adapted tier)

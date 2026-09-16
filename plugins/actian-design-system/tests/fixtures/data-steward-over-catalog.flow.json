@@ -5,7 +5,9 @@
     "user": "Data steward",
     "app": "Studio",
     "prompt": "Task 6.6: author the acceptance flow for the Data Steward panel over the Catalog page",
-    "duration": "n/a"
+    "duration": "n/a",
+    "hifi": true,
+    "library": "ds"
   },
   "screens": [
     {
@@ -76,7 +78,8 @@
                   "variant": "Type=Tertiary, State=Default",
                   "props": {
                     "Label": "Data Steward"
-                  }
+                  },
+                  "goto": "steward"
                 }
               ]
             }
@@ -836,8 +839,7 @@
                       "variant": "Type=Secondary, State=Default",
                       "props": {
                         "Label": "Save filters"
-                      },
-                      "goto": "steward"
+                      }
                     }
                   ]
                 },

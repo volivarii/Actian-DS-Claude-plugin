@@ -184,7 +184,7 @@ function main(argv, deps) {
   }
   if (path.extname(parsed.flowPath) !== ".json") {
     process.stderr.write(
-      "look: expected a flow-data .json path — the assembled flow-share HTML " +
+      "look: expected a flow-data .json path, the assembled flow-share HTML " +
         "bundles every screen with no per-screen URL, so ?screen=n cannot be " +
         "screenshotted; pass the flow-data JSON instead.\n",
     );

@@ -19,7 +19,7 @@ var FIXTURE = path.join(
   "data-steward-over-catalog.flow.json",
 );
 
-// The seven catalog-quality Slice-1 "hard" check kinds (validate-flow-data.js
+// The nine catalog-quality Slice-1 "hard" check kinds (validate-flow-data.js
 // HARD_KINDS-adjacent set): layer targeting, goto targeting, adds
 // declaration, and the two soft-warning composition checks this fixture must
 // also come up empty on (unfilled-slot/density-floor/missing-focus, per the
@@ -69,7 +69,7 @@ function breakCloseGoto(data) {
 }
 
 describe("data-steward-over-catalog.flow.json", function () {
-  it("validates clean: no P0 line, none of the seven hard-check kinds (GREEN)", function () {
+  it("validates clean: no P0 line, none of the nine hard-check kinds (GREEN)", function () {
     var data = loadFixture();
     var r = validate(data);
     assert.doesNotMatch(r.out, /P0 \[/);

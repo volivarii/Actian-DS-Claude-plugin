@@ -262,4 +262,5 @@
     600 11px/16px Inter,
     sans-serif;
   color: var(--zen-color-primary-500, #1a6ee0);
+  white-space: nowrap;
 }
