@@ -1218,6 +1218,19 @@ describe("parts and words, held exactly", function () {
     assert.strictEqual(hits[0].severity, "P1");
     assert.strictEqual(hits[0].path, "decisions[2].part");
     assert.ok(/decisions\[0\]/.test(hits[0].value), hits[0].value);
+    d.decisions[2].part = "Account menu.";
+    assert.strictEqual(only(d, "part").length, 1, "a full stop makes a second Account menu");
+  });
+
+  it("prose-checks the part an evaluation records, as it does the question", function () {
+    var e = read(EVAL);
+    e.decisions[0].part = "Account \u2014 menu";
+    var hits = only(e, "em-dash").filter(function (f) { return f.path === "decisions[0].part"; });
+    assert.strictEqual(hits.length, 1, JSON.stringify(only(e, "em-dash")));
+    var d = read(ACCEPTANCE);
+    d.decisions[0].part = "Account \u2014 menu";
+    hits = only(d, "em-dash").filter(function (f) { return f.path === "decisions[0].part"; });
+    assert.strictEqual(hits.length, 1, "a proposal's part is checked once, not twice: " + JSON.stringify(hits));
   });
 
   it("counts words, not the separators between them", function () {

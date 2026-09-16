@@ -4,11 +4,12 @@
  * assemble-proposal.js: assembles a design proposal document, one offline HTML
  * file, from proposals/proposal-data.json.
  *
- * The reader is a PM or a designer approving a direction, so the document leads
- * with what ships: the answer, a summary of the parts, one block per part with
- * the chosen drawing and why, how the parts connect, what to settle before
- * building, what changes, the background, then the options not chosen with
- * their comparison, the research, the sources and the closing line. A part is
+ * The reader is a PM or a designer approving a direction, so the document opens
+ * with what was asked and leads with what ships: the answer, a summary of the
+ * parts, one block per part with the chosen drawing and why, how the parts
+ * connect, what to settle before building, what changes, the background, then,
+ * folded, the options not chosen with their comparison and the research, then
+ * the sources and the closing line. A part is
  * headed by what it builds (decisions[].part), never by the question behind it:
  * the question frames the comparison and stays in the data.
  *
@@ -146,9 +147,13 @@ var TICKET_SYSTEMS = { aha: "Aha", jira: "Jira", github: "GitHub" };
 function askHtml(data) {
   var ask = String(data.context.ask || "").trim();
   var src = data.source || {};
-  var name = [TICKET_SYSTEMS[src.system] || "", String(src.id || "").trim()].filter(Boolean).join(" ");
+  var id = String(src.id || "").trim();
   var title = String(src.title || "").trim();
-  var ticket = name || title
+  // The H1 already prints a title the author kept in the ticket's own words.
+  if (title.toLowerCase() === String(data.meta.title || "").trim().toLowerCase()) title = "";
+  var name = [TICKET_SYSTEMS[src.system] || "", id].filter(Boolean).join(" ");
+  // A system alone names no ticket: "From Jira" tells a reader nothing.
+  var ticket = id || title
     ? '<p class="ask__ticket">From ' + esc(name || "the ticket") + (title ? ": &ldquo;" + esc(title) + "&rdquo;" : "") + "</p>"
     : "";
   if (!ask && !ticket) return "";

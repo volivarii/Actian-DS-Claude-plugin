@@ -94,7 +94,7 @@
     .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
     /* Two lines reserved for the name, so a name that wraps does not push its own drawing
        below its neighbour's. The comment above has always said the drawings share a top
-       edge; at the Also considered width, names wrap often enough that it needed saying in
+       edge; at the Other options width, names wrap often enough that it needed saying in
        CSS as well as in prose. */
     .proposal-screen__name { display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; min-height: 3.2em; }
     .proposal-screen__label--lead { margin-bottom: 8px; }
@@ -182,12 +182,11 @@
     .decisions-at-a-glance tbody th { font-weight: 600; color: var(--fm-text-primary); }
     .decisions-at-a-glance td { color: var(--fm-text-secondary); }
 
-    /* The briefing: four short columns in two pairs, never running prose. The pairing is
-       the point. Goals and Not doing are the scope; how it works today and what comparable
-       products do are the evidence. Four columns across 1200px made each one 260px of
-       ragged 13px text and put a goal beside a research finding as though they answered the
-       same question. Two columns, each capped at the measure, wrap into 2x2 on a wide
-       canvas and stack to one on a narrow one. */
+    /* The background: short columns, never running prose. Goals and Not doing are the scope;
+       how it works today is the evidence, and the research has a section of its own. Four
+       columns across 1200px once made each one 260px of ragged 13px text and put a goal beside
+       a research finding as though they answered the same question. Two columns, each capped
+       at the measure, wrap on a wide canvas and stack to one on a narrow one. */
     /* The research. Three lanes stacked rather than columned: a reader reads down them in
        order (what the market does, what the canon says, what we already own) rather than
        holding them against each other, which is what the briefing's two columns are for. */

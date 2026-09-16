@@ -98,7 +98,7 @@
       }
     },
     "answer": {
-      "description": "One sentence: what we are doing. The first thing in the document, above the picks. Not a summary paragraph: if it needs two sentences, the second belongs in a decision",
+      "description": "One sentence: what we are doing. It sits under the ask, labelled Proposal, above every part. Not a summary paragraph: if it needs two sentences, the second belongs in a decision",
       "type": "string",
       "examples": [
         "Give Administration a per-item view of what a share exposed, and let an admin revoke one item without unsharing the product."

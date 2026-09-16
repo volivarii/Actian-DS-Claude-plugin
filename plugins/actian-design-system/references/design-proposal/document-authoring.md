@@ -64,14 +64,15 @@ drifting into two data models.
 
 ## The keys and what each one is for
 
-The document leads with what ships: the answer, then one block per part. Each decision is one part.
+The document opens with what was asked, then leads with what ships: the answer, then one block per
+part. Each decision is one part.
 
 - **meta**: `title`, `date`, `apps`, `skill`, plus `ticket`, `prompt` and `model` when you have them.
   `title` is the ask in the requester's terms, ten words at most: what someone asked for, never the
   answer and never the constraints on it. DS-116 was titled "My access, with no new page and no new
   control", which is the answer and its constraints; "Show users their own roles and permissions" is
   the ask.
-- **answer**: one sentence, what we will build. It opens the document. If it needs two sentences the
+- **answer**: one sentence, what we will build. It follows the ask, labelled Proposal. If it needs two sentences the
   second one belongs inside a part.
 - **source** (optional in a proposal, required in an evaluation): the ticket as it arrived,
   `{ system, id, url, title, body }`. The document quotes its `id` and `title` under the ask, so a

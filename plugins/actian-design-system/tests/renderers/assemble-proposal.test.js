@@ -377,10 +377,14 @@ describe("assembleProposal (document)", function () {
       assert.strictEqual(out.indexOf(past), -1, "nothing a reader sees says: " + past);
     });
     // The list above names phrases, and the fold summary once said "not picked" past all of
-    // them. Read the words a reader sees, with the markup and its class names taken out.
-    var text = out.replace(/<[^>]*>/g, " ");
-    var hit = /.{0,40}\bpick(ed|s)?\b.{0,40}/i.exec(text);
-    assert.strictEqual(hit, null, "a reader sees the word pick: " + (hit && hit[0]));
+    // them. Read the words a reader sees, with the markup and its class names taken out, in
+    // both fixtures: authored text reaches the page too.
+    var acceptance = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json"), "utf8"));
+    [out, body(assembleProposal(acceptance))].forEach(function (page, i) {
+      var text = page.replace(/<[^>]*>/g, " ");
+      var hit = /.{0,40}\bpick(ed|s)?\b.{0,40}/i.exec(text);
+      assert.strictEqual(hit, null, "document " + i + ": a reader sees the word pick: " + (hit && hit[0]));
+    });
     assert.ok(out.indexOf(">Proposed<") !== -1, "the chosen column is marked Proposed");
   });
 
@@ -689,6 +693,23 @@ describe("the ask comes first", function () {
     assert.strictEqual(at(out, 'class="ask"'), -1, "an empty ask is printed");
     delete d.source;
     assert.strictEqual(at(body(assembleProposal(d)), "<h2>The ask</h2>"), -1, "an empty section is printed");
+  });
+
+  it("prints no ticket line for a source that names no ticket", function () {
+    [{ system: "jira" }, { system: "github", id: "  ", title: "  " }].forEach(function (src) {
+      var d = withAsk();
+      d.source = Object.assign({ body: "The ticket body." }, src);
+      var sec = askSection(body(assembleProposal(d)));
+      assert.strictEqual(at(sec, "ask__ticket"), -1, JSON.stringify(src) + " prints: " + sec);
+    });
+  });
+
+  it("does not quote the ticket title when it is already the page title", function () {
+    var d = withAsk();
+    d.source.title = d.meta.title;
+    var out = body(assembleProposal(d));
+    assert.strictEqual(count(out, d.meta.title), 1, "the title prints twice");
+    assert.notStrictEqual(at(askSection(out), "From Jira DS-116</p>"), -1, "the ticket id is dropped with it");
   });
 
   it("labels the answer as the proposal", function () {

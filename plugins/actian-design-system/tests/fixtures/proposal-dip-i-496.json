@@ -496,7 +496,7 @@
     "adminSide": "An optional Display name on the group form.",
     "userSide": "One badge per group, with its catalogs."
   },
-  "latitude": "The drawings are one placement; the picks are fixed.",
+  "latitude": "The drawings show one placement; what each part does is fixed.",
   "source": {
     "system": "pasted",
     "id": "DIP-I-496",

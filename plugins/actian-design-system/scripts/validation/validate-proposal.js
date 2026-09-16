@@ -610,7 +610,10 @@ function validateProposal(data) {
     // text an author wrote. It went through checkProse alone, so em dashes and hex were
     // caught and terminology and avoid-words were not, while this file said in three
     // places that those gates run over every text field.
-    addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]);
+    // part is checked beside it, at both stages, because an evaluation may record it too.
+    checkProse(d.part, "", dp + ".part", findings);
+    addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]
+      .concat(d.part ? [{ path: dp + ".part", text: d.part }] : []));
 
     // An evaluation has named the decisions and nothing else, so every check that reads an
     // option, a comparison, a pick, a drawing or a closing line has nothing to read. Skipped
@@ -626,7 +629,6 @@ function validateProposal(data) {
       // builds renders under a heading guessed from its chosen option's surface.
       if (!String(d.part || "").trim())
         findings.push(finding("P1", "part", "", dp + ".part", "the decision does not name the part it builds", "", "two to four of the product's words, for example Account menu"));
-      checkProse(d.part, "", dp + ".part", findings);
       if (d.options.length < MIN_OPTIONS)
         findings.push(finding("P1", "decision", "", dp + ".options", d.options.length + " option; a decision with one option is a statement", "", "give it a second option, or fold it into another decision's cost"));
       if (d.options.length > MAX_OPTIONS)
@@ -762,7 +764,6 @@ function validateProposal(data) {
       checkProse(d.pick.cost, "", pk + ".cost", findings);
       recEntries.push({ path: pk + ".cost", text: d.pick.cost });
       if (d.blocker) recEntries.push({ path: dp + ".blocker", text: d.blocker });
-      if (d.part) recEntries.push({ path: dp + ".part", text: d.part });
       addPseudo("doc:pick-" + di, "Pick " + (di + 1), recEntries);
     }
   });
@@ -796,7 +797,8 @@ function validateProposal(data) {
     // belong to either. A file with no parts is already asked for them one by one.
     var partSeen = Object.create(null);
     data.decisions.forEach(function (d, di) {
-      var key = String(d.part || "").trim().toLowerCase();
+      // Case, spacing and punctuation do not make a second name: "Account menu." is Account menu.
+      var key = String(d.part || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
       if (!key) return;
       if (partSeen[key] === undefined) partSeen[key] = di;
       else findings.push(finding("P1", "part", "", "decisions[" + di + "].part", "the same part as decisions[" + partSeen[key] + "]: " + String(d.part).trim(), "", "name what each one builds differently, or make them one decision"));
