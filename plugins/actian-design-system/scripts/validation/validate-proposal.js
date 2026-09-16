@@ -23,7 +23,9 @@
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
  * composition (P0 on a slug the vendored component snapshot does not know, P1
  * on a drawing that declares neither what it is built from nor what it adds,
- * and P1 on an addition the snapshot already has), em-dash (P2).
+ * and P1 on an addition the snapshot already has), part (P1 on a decision
+ * that does not name what it builds), length (P1 on a field past its word
+ * limit), em-dash (P2).
  *
  * Two things the check list above does not say on its own.
  *
@@ -91,6 +93,35 @@ var MAX_FLOW_SCREENS = 4;
 var MIN_WIDTH = 240;
 var MAX_WIDTH = 720;
 var TONES = ["good", "mixed", "bad"];
+
+// Word limits. The layout does not truncate: a field past its limit pushes the next thing down
+// the page, and a PM reading before a meeting stops there. The keys are the field names
+// references/design-proposal/document-authoring.md prints in its table, and a test holds the
+// two together, so change both or neither.
+var WORD_LIMITS = {
+  "answer": 20,
+  "decisions[].part": 4,
+  "options[].name": 5,
+  "options[].whatItIs": 14,
+  "options[].breaksWhen": 14,
+  "options[].verdict": 5,
+  "options[].screen.notes[]": 8,
+  "options[].adds[].why": 15,
+  "pick.reasons[].text": 15,
+  "pick.cost": 15,
+  "decisions[].blocker": 15,
+  "comparison.cells[][].text": 4,
+  "comparison.criteria[].label": 5,
+  "context.product[]": 15,
+  "context.gap": 15,
+  "scope.goals[]": 12,
+  "scope.nonGoals[]": 12,
+  "research.findings[].claim": 18,
+  "openQuestions[].text": 20,
+  "change.adminSide": 20,
+  "change.userSide": 20,
+  "latitude": 15,
+};
 var EM_DASH = "\u2014"; // written as an escape so no source line carries the character
 var COLOUR = /#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|\brgba?\(/g;
 
@@ -199,6 +230,63 @@ function checkFragment(html, approachId, p, findings) {
     });
     if (/position\s*:\s*absolute/i.test(css))
       findings.push(finding("P1", "in-flow", approachId, p, "position:absolute in a drawing", "position:absolute", "draw the overlay in flow inside its anchor; the frame no longer clips"));
+  });
+}
+
+function wordCount(s) {
+  return String(s == null ? "" : s).trim().split(/\s+/).filter(Boolean).length;
+}
+
+// Every measured field of a finished proposal, as { key, path, text }. Only the proposal stage
+// is measured: an evaluation has no document to fit.
+function lengthEntries(data) {
+  var out = [];
+  function add(key, p, text) {
+    if (typeof text === "string" && text.trim()) out.push({ key: key, path: p, text: text });
+  }
+  add("answer", "answer", data.answer);
+  add("latitude", "latitude", data.latitude);
+  (data.context.product || []).forEach(function (s, i) { add("context.product[]", "context.product[" + i + "]", s); });
+  add("context.gap", "context.gap", data.context.gap);
+  (data.scope.goals || []).forEach(function (s, i) { add("scope.goals[]", "scope.goals[" + i + "]", s); });
+  (data.scope.nonGoals || []).forEach(function (s, i) { add("scope.nonGoals[]", "scope.nonGoals[" + i + "]", s); });
+  (data.research.findings || []).forEach(function (f, i) { add("research.findings[].claim", "research.findings[" + i + "].claim", f.claim); });
+  (data.openQuestions || []).forEach(function (q, i) { add("openQuestions[].text", "openQuestions[" + i + "].text", q.text); });
+  add("change.adminSide", "change.adminSide", (data.change || {}).adminSide);
+  add("change.userSide", "change.userSide", (data.change || {}).userSide);
+  data.decisions.forEach(function (d, di) {
+    var dp = "decisions[" + di + "]";
+    add("decisions[].part", dp + ".part", d.part);
+    add("decisions[].blocker", dp + ".blocker", d.blocker);
+    d.options.forEach(function (o, oi) {
+      var op = dp + ".options[" + oi + "]";
+      add("options[].name", op + ".name", o.name);
+      add("options[].whatItIs", op + ".whatItIs", o.whatItIs);
+      add("options[].breaksWhen", op + ".breaksWhen", o.breaksWhen);
+      add("options[].verdict", op + ".verdict", o.verdict);
+      (o.screen.notes || []).forEach(function (n, ni) { add("options[].screen.notes[]", op + ".screen.notes[" + ni + "]", n); });
+      (o.adds || []).forEach(function (a, ai) { add("options[].adds[].why", op + ".adds[" + ai + "].why", a && a.why); });
+    });
+    d.comparison.criteria.forEach(function (c, ci) {
+      add("comparison.criteria[].label", dp + ".comparison.criteria[" + ci + "].label", c.label);
+    });
+    Object.keys(d.comparison.cells || {}).forEach(function (oid) {
+      Object.keys(d.comparison.cells[oid] || {}).forEach(function (cid) {
+        var cell = d.comparison.cells[oid][cid] || {};
+        add("comparison.cells[][].text", dp + ".comparison.cells." + oid + "." + cid + ".text", cell.text);
+      });
+    });
+    d.pick.reasons.forEach(function (r, ri) { add("pick.reasons[].text", dp + ".pick.reasons[" + ri + "].text", r.text); });
+    add("pick.cost", dp + ".pick.cost", d.pick.cost);
+  });
+  return out;
+}
+
+function checkLengths(data, findings) {
+  lengthEntries(data).forEach(function (e) {
+    var n = wordCount(e.text);
+    var max = WORD_LIMITS[e.key];
+    if (n > max) findings.push(finding("P1", "length", "", e.path, n + " words; at most " + max, e.text, "one idea, in " + max + " words or fewer"));
   });
 }
 
@@ -521,6 +609,11 @@ function validateProposal(data) {
       // the addPseudo below, only ran at the proposal stage. A blocker in an evaluation is a
       // P0 now, so the split had no reachable case left, only a misleading shape.
       checkProse(d.blocker, "", dp + ".blocker", findings);
+      // The page is headed by parts, not by questions, so a decision that does not say what it
+      // builds renders under a heading guessed from its chosen option's surface.
+      if (!String(d.part || "").trim())
+        findings.push(finding("P1", "part", "", dp + ".part", "the decision does not name the part it builds", "", "two to four of the product's words, for example Account menu"));
+      checkProse(d.part, "", dp + ".part", findings);
       if (d.options.length < MIN_OPTIONS)
         findings.push(finding("P1", "decision", "", dp + ".options", d.options.length + " option; a decision with one option is a statement", "", "give it a second option, or fold it into another decision's cost"));
       if (d.options.length > MAX_OPTIONS)
@@ -656,6 +749,7 @@ function validateProposal(data) {
       checkProse(d.pick.cost, "", pk + ".cost", findings);
       recEntries.push({ path: pk + ".cost", text: d.pick.cost });
       if (d.blocker) recEntries.push({ path: dp + ".blocker", text: d.blocker });
+      if (d.part) recEntries.push({ path: dp + ".part", text: d.part });
       addPseudo("doc:pick-" + di, "Pick " + (di + 1), recEntries);
     }
   });
@@ -685,6 +779,7 @@ function validateProposal(data) {
       { path: "answer", text: data.answer },
       { path: "latitude", text: data.latitude || "" },
     ]);
+    checkLengths(data, findings);
   }
 
   // The flow gates report screenId plus content[n]; map back to the field path.
@@ -705,7 +800,7 @@ function validateProposal(data) {
   return { findings: findings };
 }
 
-module.exports = { validateProposal: validateProposal, extractText: extractText };
+module.exports = { validateProposal: validateProposal, extractText: extractText, WORD_LIMITS: WORD_LIMITS };
 
 if (require.main === module) {
   if (process.argv.indexOf("--help") !== -1) {

@@ -516,8 +516,16 @@
               "how-a-user-sees-their-group"
             ]
           },
+          "part": {
+            "description": "What this decision builds, in two to four of the product's words. The document heads the part with it and lists it in What ships; the question never reaches the page. Optional so older files still render: the assembler falls back to the chosen option's anchor surface, and the validator asks for it",
+            "type": "string",
+            "examples": [
+              "Account menu",
+              "My access page"
+            ]
+          },
           "question": {
-            "description": "The decision as a question in one sentence",
+            "description": "The decision as a question in one sentence. It frames the comparison and the evaluation stage, and is never printed as a heading",
             "type": "string",
             "examples": [
               "How does a user see which group they belong to?"

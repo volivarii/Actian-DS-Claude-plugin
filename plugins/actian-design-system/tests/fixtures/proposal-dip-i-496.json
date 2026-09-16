@@ -52,6 +52,7 @@
   "decisions": [
     {
       "id": "how-a-user-sees-their-group",
+      "part": "Account menu",
       "question": "How does a user see which group they belong to?",
       "options": [
         {
@@ -226,6 +227,7 @@
     },
     {
       "id": "where-the-readable-name-comes-from",
+      "part": "Group form",
       "question": "Where does a readable name come from?",
       "options": [
         {
@@ -356,6 +358,7 @@
     },
     {
       "id": "access-scoped-per-catalog",
+      "part": "Catalog access",
       "question": "What shows when access differs between catalogs?",
       "options": [
         {

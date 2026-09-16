@@ -5,7 +5,7 @@ var fs = require("fs");
 var os = require("os");
 var path = require("path");
 var { spawnSync } = require("node:child_process");
-var { validateProposal, extractText } = require("../../scripts/validation/validate-proposal.js");
+var { validateProposal, extractText, WORD_LIMITS } = require("../../scripts/validation/validate-proposal.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var SCRIPT = path.join(ROOT, "scripts", "validation", "validate-proposal.js");
@@ -1080,6 +1080,87 @@ describe("the Checks list in the validator's header", function () {
       assert.match(site, /findings\.push\(finding\("P[012]", "[a-z-]+",/,
         "this call passes a severity or a check name the header gate cannot see, so it would" +
         " emit a check nothing holds against the header: " + site);
+    });
+  });
+});
+
+// A PM or designer reads the document once, before a meeting. Two gates hold it to that:
+// every decision names the part it builds, because the page is headed by parts rather than
+// questions, and every field fits the length its layout was built for.
+describe("plain words: part and length", function () {
+  var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
+  function evaluation() { return JSON.parse(fs.readFileSync(EVAL, "utf8")); }
+  function lengthFindings(d) {
+    return validateProposal(d).findings.filter(function (f) { return f.check === "length"; });
+  }
+
+  it("asks every decision of a proposal to name the part it builds", function () {
+    var d = load();
+    delete d.decisions[0].part;
+    var hits = validateProposal(d).findings.filter(function (f) { return f.check === "part"; });
+    assert.strictEqual(hits.length, 1);
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.strictEqual(hits[0].path, "decisions[0].part");
+  });
+
+  it("flags a field past its word limit, naming the count and the limit", function () {
+    var d = load();
+    d.answer = "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone";
+    var hits = lengthFindings(d);
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].path, "answer");
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.ok(hits[0].value.indexOf("21 words; at most 20") !== -1, hits[0].value);
+  });
+
+  it("does not flag a field at exactly its limit", function () {
+    var d = load();
+    d.answer = new Array(WORD_LIMITS.answer).fill("word").join(" ");
+    assert.deepStrictEqual(lengthFindings(d), []);
+  });
+
+  it("reads every field the limits table names", function () {
+    var d = load();
+    var long = new Array(30).fill("word").join(" ");
+    var dec = d.decisions[0];
+    var o = dec.options[0];
+    var crit = dec.comparison.criteria[0].id;
+    d.answer = long; d.latitude = long; d.context.product[0] = long; d.context.gap = long;
+    d.scope.goals[0] = long; d.scope.nonGoals[0] = long; d.change.userSide = long; d.change.adminSide = long;
+    d.research.findings = [{ lane: "competitors", claim: long, source: "Example" }];
+    d.openQuestions = [{ kind: "open question", text: long }];
+    dec.part = long; dec.blocker = long; dec.pick.cost = long; dec.pick.reasons[0].text = long;
+    dec.comparison.criteria[0].label = long;
+    dec.comparison.cells[o.id][crit].text = long;
+    o.name = long; o.whatItIs = long; o.breaksWhen = long; o.verdict = long;
+    o.screen.notes = [long]; o.adds = [{ component: "new-thing", why: long }];
+    var hits = lengthFindings(d);
+    var paths = hits.map(function (f) { return f.path; });
+    var expected = [
+      "answer", "latitude", "context.product[0]", "context.gap", "scope.goals[0]", "scope.nonGoals[0]",
+      "change.userSide", "change.adminSide", "research.findings[0].claim", "openQuestions[0].text",
+      "decisions[0].part", "decisions[0].blocker", "decisions[0].pick.cost", "decisions[0].pick.reasons[0].text",
+      "decisions[0].comparison.criteria[0].label",
+      "decisions[0].comparison.cells." + o.id + "." + crit + ".text",
+      "decisions[0].options[0].name", "decisions[0].options[0].whatItIs", "decisions[0].options[0].breaksWhen",
+      "decisions[0].options[0].verdict", "decisions[0].options[0].screen.notes[0]", "decisions[0].options[0].adds[0].why",
+    ];
+    expected.forEach(function (p) { assert.ok(paths.indexOf(p) !== -1, "no length finding on " + p); });
+    assert.strictEqual(hits.length, expected.length, "one finding per field: " + paths.join(", "));
+    assert.strictEqual(Object.keys(WORD_LIMITS).length, expected.length, "every limit has a field above, and no field is unlimited");
+  });
+
+  it("does not measure an evaluation, which has no document to fit", function () {
+    var d = evaluation();
+    d.context.product[0] = new Array(30).fill("word").join(" ");
+    assert.deepStrictEqual(lengthFindings(d), []);
+  });
+
+  it("finds nothing too long in either fixture, and every decision there names its part", function () {
+    var acceptance = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json"), "utf8"));
+    [load(), acceptance].forEach(function (d) {
+      assert.deepStrictEqual(lengthFindings(d), []);
+      assert.deepStrictEqual(only(d, "part"), []);
     });
   });
 });
