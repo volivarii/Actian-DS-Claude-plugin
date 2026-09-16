@@ -76,7 +76,6 @@ describe("the proposal document is set to be read", function () {
       [".briefing__col .doc__list li", "a briefing line"],
       [".decision__blocker", "a blocker"],
       [".approach__lines", "what an option is and where it breaks"],
-      [".doc__question", "the question the document answers"],
       [".citations__text", "a source"],
     ].forEach(function (row) {
       it("sets " + row[1] + " at body scale, not caption scale", function () {
@@ -122,7 +121,7 @@ describe("the proposal document is set to be read", function () {
     it("reads the case before the drawing that illustrates it", function () {
       var out = assembleProposal(load());
       var lead = out.slice(at(out, 'class="decision__lead"'));
-      lead = lead.slice(0, at(lead, 'class="also"'));
+      lead = lead.slice(0, at(lead, "</section>"));
       assert.ok(
         at(lead, 'class="decision__case"') < at(lead, 'class="proposal-screen__col"'),
         "the drawing still comes first",
@@ -162,13 +161,13 @@ describe("the proposal document is set to be read", function () {
     // 9,305px at the sizes this replaced, and more at these. The map at the top scrolls away
     // after the first screen and never comes back, so from there on a reader has no way to
     // see the shape of what they are in or to move inside it.
-    it("carries a decision bar that stays as the reader scrolls", function () {
+    it("carries a bar of the parts that stays as the reader scrolls", function () {
       var rule = ruleFor(".doc__jump");
       assert.ok(at(rule, "position: sticky") !== -1, "the bar does not stick");
       assert.ok(at(rule, "top:") !== -1, "and names no offset to stick at");
     });
 
-    it("puts every decision in it, each one a link to its block", function () {
+    it("puts every part in it, each one a link to its block", function () {
       var d = loadFull();
       assert.ok(d.decisions.length > 1, "the fixture carries more than one decision");
       var out = assembleProposal(d);

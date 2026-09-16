@@ -25,7 +25,7 @@
       ],
       "properties": {
         "title": {
-          "description": "Document title, printed as the page H1 and the document title",
+          "description": "What was asked, in the requester's terms and ten words at most: the page H1 and the document title. It names the ask, never the answer or the constraints on it",
           "type": "string",
           "examples": [
             "DIP-I-496: show role and permission for a logged-in user"
@@ -98,7 +98,7 @@
       }
     },
     "answer": {
-      "description": "One sentence: what we are doing. The first thing in the document, above the picks. Not a summary paragraph: if it needs two sentences, the second belongs in a decision",
+      "description": "One sentence: what we are doing. It sits under the ask, labelled Proposal, above every part. Not a summary paragraph: if it needs two sentences, the second belongs in a decision",
       "type": "string",
       "examples": [
         "Give Administration a per-item view of what a share exposed, and let an admin revoke one item without unsharing the product."
@@ -167,6 +167,13 @@
           "type": "string",
           "examples": [
             "How does a logged-in user see their assigned role and permission group?"
+          ]
+        },
+        "ask": {
+          "description": "What was asked, in one or two plain sentences from the ticket: who needs what, and why, plus any direction the request added. It opens the document under The ask, above the answer. Optional so older files still render; the validator asks for it",
+          "type": "string",
+          "examples": [
+            "A logged-in user cannot see which permission group they belong to, so they cannot find the guidelines that go with it."
           ]
         },
         "product": {
@@ -516,8 +523,16 @@
               "how-a-user-sees-their-group"
             ]
           },
+          "part": {
+            "description": "What this decision builds, in two to four of the product's words. The document heads the part with it and lists it in What ships; the question never reaches the page. Optional so older files still render: the assembler falls back to the chosen option's anchor surface, and the validator asks for it",
+            "type": "string",
+            "examples": [
+              "Account menu",
+              "My access page"
+            ]
+          },
           "question": {
-            "description": "The decision as a question in one sentence",
+            "description": "The decision as a question in one sentence. It frames the comparison and the evaluation stage, and is never printed as a heading",
             "type": "string",
             "examples": [
               "How does a user see which group they belong to?"

@@ -23,7 +23,10 @@
  * in-flow (P1), toggle-target (P1), terminology (P1), avoid-word (P1),
  * composition (P0 on a slug the vendored component snapshot does not know, P1
  * on a drawing that declares neither what it is built from nor what it adds,
- * and P1 on an addition the snapshot already has), em-dash (P2).
+ * and P1 on an addition the snapshot already has), part (P1 on a decision
+ * that does not name what it builds, or names the same part as another),
+ * ask (P1 on a proposal that does not say what was asked), length (P1 on a
+ * field past its word limit), em-dash (P2).
  *
  * Two things the check list above does not say on its own.
  *
@@ -91,6 +94,37 @@ var MAX_FLOW_SCREENS = 4;
 var MIN_WIDTH = 240;
 var MAX_WIDTH = 720;
 var TONES = ["good", "mixed", "bad"];
+
+// Word limits. The layout does not truncate: a field past its limit pushes the next thing down
+// the page, and a PM reading before a meeting stops there. The keys are the field names
+// references/design-proposal/document-authoring.md prints in its table, and a test holds the
+// two together, so change both or neither.
+var WORD_LIMITS = {
+  "meta.title": 10,
+  "answer": 20,
+  "decisions[].part": 4,
+  "options[].name": 5,
+  "options[].whatItIs": 14,
+  "options[].breaksWhen": 14,
+  "options[].verdict": 5,
+  "options[].screen.notes[]": 8,
+  "options[].adds[].why": 15,
+  "pick.reasons[].text": 15,
+  "pick.cost": 15,
+  "decisions[].blocker": 15,
+  "comparison.cells[][].text": 4,
+  "comparison.criteria[].label": 5,
+  "context.ask": 40,
+  "context.product[]": 15,
+  "context.gap": 15,
+  "scope.goals[]": 12,
+  "scope.nonGoals[]": 12,
+  "research.findings[].claim": 18,
+  "openQuestions[].text": 20,
+  "change.adminSide": 20,
+  "change.userSide": 20,
+  "latitude": 15,
+};
 var EM_DASH = "\u2014"; // written as an escape so no source line carries the character
 var COLOUR = /#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b|\brgba?\(/g;
 
@@ -199,6 +233,73 @@ function checkFragment(html, approachId, p, findings) {
     });
     if (/position\s*:\s*absolute/i.test(css))
       findings.push(finding("P1", "in-flow", approachId, p, "position:absolute in a drawing", "position:absolute", "draw the overlay in flow inside its anchor; the frame no longer clips"));
+  });
+}
+
+// A word carries a letter or a digit. A middot or a slash between words is punctuation, and
+// counting it put a four-word part over its limit.
+function wordCount(s) {
+  return String(s == null ? "" : s).trim().split(/\s+/).filter(function (w) { return /[\p{L}\p{N}]/u.test(w); }).length;
+}
+
+// What makes two part names one name. Case, spacing and punctuation do not; marks do, because in
+// most scripts a mark is part of the letter (a Devanagari vowel sign, a decomposed accent).
+function partKey(part) {
+  return String(part == null ? "" : part).normalize("NFC").toLowerCase().replace(/[^\p{L}\p{M}\p{N}]+/gu, " ").trim();
+}
+
+// Every measured field of a finished proposal, as { key, path, text }. Only the proposal stage
+// is measured: an evaluation has no document to fit.
+function lengthEntries(data) {
+  var out = [];
+  function add(key, p, text) {
+    if (typeof text === "string" && text.trim()) out.push({ key: key, path: p, text: text });
+  }
+  add("meta.title", "meta.title", data.meta.title);
+  add("answer", "answer", data.answer);
+  add("context.ask", "context.ask", data.context.ask);
+  add("latitude", "latitude", data.latitude);
+  (data.context.product || []).forEach(function (s, i) { add("context.product[]", "context.product[" + i + "]", s); });
+  add("context.gap", "context.gap", data.context.gap);
+  (data.scope.goals || []).forEach(function (s, i) { add("scope.goals[]", "scope.goals[" + i + "]", s); });
+  (data.scope.nonGoals || []).forEach(function (s, i) { add("scope.nonGoals[]", "scope.nonGoals[" + i + "]", s); });
+  (data.research.findings || []).forEach(function (f, i) { add("research.findings[].claim", "research.findings[" + i + "].claim", f.claim); });
+  (data.openQuestions || []).forEach(function (q, i) { add("openQuestions[].text", "openQuestions[" + i + "].text", q.text); });
+  add("change.adminSide", "change.adminSide", (data.change || {}).adminSide);
+  add("change.userSide", "change.userSide", (data.change || {}).userSide);
+  data.decisions.forEach(function (d, di) {
+    var dp = "decisions[" + di + "]";
+    add("decisions[].part", dp + ".part", d.part);
+    add("decisions[].blocker", dp + ".blocker", d.blocker);
+    d.options.forEach(function (o, oi) {
+      var op = dp + ".options[" + oi + "]";
+      add("options[].name", op + ".name", o.name);
+      add("options[].whatItIs", op + ".whatItIs", o.whatItIs);
+      add("options[].breaksWhen", op + ".breaksWhen", o.breaksWhen);
+      add("options[].verdict", op + ".verdict", o.verdict);
+      (o.screen.notes || []).forEach(function (n, ni) { add("options[].screen.notes[]", op + ".screen.notes[" + ni + "]", n); });
+      (o.adds || []).forEach(function (a, ai) { add("options[].adds[].why", op + ".adds[" + ai + "].why", a && a.why); });
+    });
+    d.comparison.criteria.forEach(function (c, ci) {
+      add("comparison.criteria[].label", dp + ".comparison.criteria[" + ci + "].label", c.label);
+    });
+    Object.keys(d.comparison.cells || {}).forEach(function (oid) {
+      Object.keys(d.comparison.cells[oid] || {}).forEach(function (cid) {
+        var cell = d.comparison.cells[oid][cid] || {};
+        add("comparison.cells[][].text", dp + ".comparison.cells." + oid + "." + cid + ".text", cell.text);
+      });
+    });
+    d.pick.reasons.forEach(function (r, ri) { add("pick.reasons[].text", dp + ".pick.reasons[" + ri + "].text", r.text); });
+    add("pick.cost", dp + ".pick.cost", d.pick.cost);
+  });
+  return out;
+}
+
+function checkLengths(data, findings) {
+  lengthEntries(data).forEach(function (e) {
+    var n = wordCount(e.text);
+    var max = WORD_LIMITS[e.key];
+    if (n > max) findings.push(finding("P1", "length", "", e.path, n + " words; at most " + max, e.text, "one idea, in " + max + " words or fewer"));
   });
 }
 
@@ -364,6 +465,10 @@ function validateProposal(data) {
   if (stage === "proposal") {
     checkProse(data.answer, "", "answer", findings);
     checkProse(data.latitude, "", "latitude", findings);
+    // The document opens with what was asked, so a reader who never saw the ticket knows what
+    // the answer answers.
+    if (!String(data.context.ask || "").trim())
+      findings.push(finding("P1", "ask", "", "context.ask", "the document does not say what was asked", "", "one or two sentences from the ticket: who needs what, and why"));
     if (!String(data.latitude || "").trim())
       findings.push(finding("P1", "latitude", "", "latitude", "the document does not say how much of it is fixed", "", "one line: what the team has latitude on and what it does not"));
   }
@@ -372,7 +477,9 @@ function validateProposal(data) {
   checkProse(data.context.question, "", "context.question", findings);
   data.context.product.forEach(function (f, i) { checkProse(f, "", "context.product[" + i + "]", findings); });
   checkProse(data.context.gap, "", "context.gap", findings);
+  checkProse(data.context.ask, "", "context.ask", findings);
   addPseudo("doc:context", "Context", [{ path: "context.question", text: data.context.question }]
+    .concat(data.context.ask ? [{ path: "context.ask", text: data.context.ask }] : [])
     .concat(data.context.product.map(function (f, i) { return { path: "context.product[" + i + "]", text: f }; }))
     .concat([{ path: "context.gap", text: data.context.gap || "" }]));
 
@@ -505,11 +612,14 @@ function validateProposal(data) {
     if (decisionIds[d.id]) findings.push(finding("P0", "bounds", "", dp + ".id", "duplicate decision id " + d.id));
     decisionIds[d.id] = true;
     checkProse(d.question, "", dp + ".question", findings);
-    // The question is this decision's heading, its line in the answer, and the first
-    // column of the table. It went through checkProse alone, so em dashes and hex were
+    // The question frames the comparison and the evaluation and never prints, but it is still
+    // text an author wrote. It went through checkProse alone, so em dashes and hex were
     // caught and terminology and avoid-words were not, while this file said in three
     // places that those gates run over every text field.
-    addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]);
+    // part is checked beside it, at both stages, because an evaluation may record it too.
+    checkProse(d.part, "", dp + ".part", findings);
+    addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]
+      .concat(d.part ? [{ path: dp + ".part", text: d.part }] : []));
 
     // An evaluation has named the decisions and nothing else, so every check that reads an
     // option, a comparison, a pick, a drawing or a closing line has nothing to read. Skipped
@@ -521,6 +631,11 @@ function validateProposal(data) {
       // the addPseudo below, only ran at the proposal stage. A blocker in an evaluation is a
       // P0 now, so the split had no reachable case left, only a misleading shape.
       checkProse(d.blocker, "", dp + ".blocker", findings);
+      // The page is headed by parts, not by questions, so a decision that does not say what it
+      // builds renders under a heading guessed from its chosen option's surface.
+      // Punctuation alone is no name, by the same key the duplicate check uses.
+      if (!partKey(d.part))
+        findings.push(finding("P1", "part", "", dp + ".part", "the decision does not name the part it builds", "", "two to four of the product's words, for example Account menu"));
       if (d.options.length < MIN_OPTIONS)
         findings.push(finding("P1", "decision", "", dp + ".options", d.options.length + " option; a decision with one option is a statement", "", "give it a second option, or fold it into another decision's cost"));
       if (d.options.length > MAX_OPTIONS)
@@ -685,6 +800,17 @@ function validateProposal(data) {
       { path: "answer", text: data.answer },
       { path: "latitude", text: data.latitude || "" },
     ]);
+    // Two parts with one name head two blocks alike, and a blocker naming that part could
+    // belong to either. A file with no parts is already asked for them one by one.
+    var partSeen = Object.create(null);
+    data.decisions.forEach(function (d, di) {
+      // "Account menu." is Account menu; partKey says why.
+      var key = partKey(d.part);
+      if (!key) return;
+      if (partSeen[key] === undefined) partSeen[key] = di;
+      else findings.push(finding("P1", "part", "", "decisions[" + di + "].part", "the same part as decisions[" + partSeen[key] + "]: " + String(d.part).trim(), "", "name what each one builds differently, or make them one decision"));
+    });
+    checkLengths(data, findings);
   }
 
   // The flow gates report screenId plus content[n]; map back to the field path.
@@ -705,13 +831,13 @@ function validateProposal(data) {
   return { findings: findings };
 }
 
-module.exports = { validateProposal: validateProposal, extractText: extractText };
+module.exports = { validateProposal: validateProposal, extractText: extractText, WORD_LIMITS: WORD_LIMITS };
 
 if (require.main === module) {
   if (process.argv.indexOf("--help") !== -1) {
     process.stdout.write(JSON.stringify({
       name: "validate-proposal",
-      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections and option anchors that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities.",
+      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections and option anchors that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities, what was asked, a distinct part named by every decision, and a word limit on each prose field.",
       flags: [
         { name: "--json", description: "Print { findings } as JSON instead of the table" },
         { name: "--help", description: "Show this help" },

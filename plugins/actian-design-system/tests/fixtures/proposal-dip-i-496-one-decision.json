@@ -11,14 +11,15 @@
     "model": "claude-sonnet-5",
     "skill": "design-proposal"
   },
-  "answer": "Ship the badges as the default under the name: for the many users who hold one group, that answers the ticket in the same glance as their email.",
+  "answer": "Show each permission group as a badge under the user's name in the account menu.",
   "context": {
     "question": "How does a logged-in user see which permission group they belong to, and where its guidelines are?",
+    "ask": "A logged-in user cannot see which permission group they belong to, so they cannot find the guidelines that go with it.",
     "product": [
-      "In Administration a permission group is a Group, and its name shows in the Users table, so an admin already sees who has what.",
-      "A user can belong to more than one group, and a Steward group scopes its catalog access per catalog.",
-      "The user never sees the group name, and some group names are technical, so the ticket asks for a separate display name set by an admin.",
-      "The account menu in Explorer shows the avatar, the name, the email, Support and Logout."
+      "In Administration, a permission group is a Group, shown in the Users table.",
+      "A user can belong to more than one group.",
+      "Users never see their group name, and some names are technical.",
+      "The Explorer account menu shows the avatar, name, email, Support and Logout."
     ],
     "sources": [
       "app-context: explorer chrome",
@@ -29,12 +30,12 @@
   },
   "scope": {
     "goals": [
-      "A user can read the name of their permission group from the account menu.",
-      "A permission group carries a human readable display name, not an internal key."
+      "A user reads their permission group in the account menu.",
+      "A group has a readable display name, not an internal key."
     ],
     "nonGoals": [
-      "Changing who can assign a permission group; assignment stays in Administration.",
-      "Showing the permissions a group grants, only the group's name."
+      "Changing who assigns groups; that stays in Administration.",
+      "Showing what each group allows."
     ]
   },
   "research": {
@@ -57,6 +58,7 @@
   "decisions": [
     {
       "id": "the-decision",
+      "part": "Account menu",
       "question": "How does a logged-in user see which permission group they belong to, and where its guidelines are?",
       "options": [
         {
@@ -72,7 +74,7 @@
             "read-only-tag"
           ],
           "whatItIs": "One plain text line under the email, showing the group's display name.",
-          "breaksWhen": "A user in more than one group: one line cannot list several names without wrapping.",
+          "breaksWhen": "Several groups: one line cannot list them without wrapping.",
           "verdict": "Simple, caps at one group",
           "screen": {
             "width": 320,
@@ -102,7 +104,7 @@
           ],
           "whatItIs": "Each assigned group as a small pill under the email.",
           "breaksWhen": "A user in many groups: the pills wrap into a paragraph.",
-          "verdict": "Scans well, scales to a few groups",
+          "verdict": "Scans well, few groups",
           "screen": {
             "width": 320,
             "html": "<div class=\"fm-menu\" style=\"width:100%\">\n  <div class=\"fm-user\"><div class=\"fm-user__avatar\">VO</div><div class=\"fm-user__name\">Vincent Olivari</div></div>\n  <div style=\"font-size:11px;color:var(--fm-text-tertiary);padding:0 12px 4px\">vincent.olivari@example.com</div>\n  <div style=\"margin:4px 12px 8px;border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px\"><span class=\"fm-badge\">Data Steward</span> <span class=\"fm-badge\">Explorer</span> <span class=\"fm-badge\">New</span></div>\n  <div class=\"fm-menu-item\">Support</div>\n  <div class=\"fm-menu-item\">Logout</div>\n</div>"
@@ -130,7 +132,7 @@
             "read-only-tag",
             "tooltip-default"
           ],
-          "whatItIs": "A collapsible row that expands to every group, the catalogs it covers and a link to its guidelines.",
+          "whatItIs": "A row that expands to each group, its catalogs and its guidelines link.",
           "breaksWhen": "One group, one catalog: the row is heavier than the answer needs.",
           "verdict": "Full picture, costs one click",
           "screen": {
@@ -192,11 +194,11 @@
               "tone": "good"
             },
             "multi-group": {
-              "text": "The line wraps or gets crowded",
+              "text": "Wraps, gets crowded",
               "tone": "bad"
             },
             "scoped": {
-              "text": "Cannot express per catalog access",
+              "text": "No per-catalog access",
               "tone": "bad"
             },
             "guidelines": {
@@ -210,7 +212,7 @@
           },
           "b": {
             "literal-ask": {
-              "text": "Close: same information, another form",
+              "text": "Close, different form",
               "tone": "mixed"
             },
             "single-group": {
@@ -222,15 +224,15 @@
               "tone": "good"
             },
             "scoped": {
-              "text": "Group visible, per catalog access still hidden",
+              "text": "Catalog access hidden",
               "tone": "mixed"
             },
             "guidelines": {
-              "text": "Needs a click-through added to the badge",
+              "text": "Needs a click-through",
               "tone": "mixed"
             },
             "build-cost": {
-              "text": "Low: a badge and the wrap rule",
+              "text": "Low: badge, wrap rule",
               "tone": "good"
             }
           },
@@ -248,15 +250,15 @@
               "tone": "good"
             },
             "scoped": {
-              "text": "Shows group and access per catalog",
+              "text": "Shows per-catalog access",
               "tone": "good"
             },
             "guidelines": {
-              "text": "The link is built into the row",
+              "text": "Link built in",
               "tone": "good"
             },
             "build-cost": {
-              "text": "Moderate: panel state and data per catalog",
+              "text": "Moderate: panel state",
               "tone": "mixed"
             }
           }
@@ -267,22 +269,22 @@
         "reasons": [
           {
             "criterionId": "single-group",
-            "text": "One group is the common case today, so a single badge answers the question in the same glance as the name, with no click required."
+            "text": "One group is the common case, and a badge answers it with no click."
           },
           {
             "criterionId": "multi-group",
-            "text": "Groups are multi-valued, and badges wrap cleanly into that where a plain text line would run straight into a paragraph."
+            "text": "Badges wrap cleanly when a user holds several groups; a text line does not."
           },
           {
             "criterionId": "guidelines",
-            "text": "The ticket asks for a way to find the internal guidelines, and the badge is exactly the click-through that opens into the panel that holds them."
+            "text": "The badge opens the panel that links to the guidelines."
           },
           {
             "criterionId": "build-cost",
-            "text": "Badge and expandable row are both existing kit patterns, so this ships inside the current account menu with no new component."
+            "text": "Badges and expandable rows already exist in the kit, so nothing new is built."
           }
         ],
-        "cost": "The badge alone does not show which catalogs a group applies to or the guidelines link, so a user who needs either must still open the My access panel, which is one more panel state to build and keep in sync with group data."
+        "cost": "To see catalogs or guidelines, a user still opens the My access panel."
       }
     }
   ],
@@ -298,7 +300,7 @@
   ],
   "change": {
     "adminSide": "One optional Display name field on the create and edit group form, defaulting to the group name.",
-    "userSide": "That display name, or names, surfaces as badges under the name in the account menu, opening into the My access panel when there is more than one."
+    "userSide": "Group names show as badges under the name in the account menu."
   },
-  "latitude": "The badge, its wrap point and the panel's layout are one way to draw this decision; the team has latitude on placement and visuals, not on which option wins."
+  "latitude": "Placement and visuals are open. Badges as the answer are not."
 }

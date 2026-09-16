@@ -5,7 +5,7 @@ var fs = require("fs");
 var os = require("os");
 var path = require("path");
 var { spawnSync } = require("node:child_process");
-var { validateProposal, extractText } = require("../../scripts/validation/validate-proposal.js");
+var { validateProposal, extractText, WORD_LIMITS } = require("../../scripts/validation/validate-proposal.js");
 
 var ROOT = path.resolve(__dirname, "..", "..");
 var SCRIPT = path.join(ROOT, "scripts", "validation", "validate-proposal.js");
@@ -290,6 +290,12 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="background:url(https://x.test/a.png)">x</div>'; }), "external-load").length, 1);
     var f = only(withMutation(function (d) { d.decisions[0].options[2].screen.html = "<div><span>open"; }), "unbalanced");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].screen, "c");
+    // The options not chosen render inside a <details>; a stray close in one of them ends the
+    // fold early and spills the rest of the section onto the page.
+    ["</details>", "</summary>"].forEach(function (stray) {
+      f = only(withMutation(function (d) { d.decisions[0].options[2].screen.html += stray; }), "unbalanced");
+      assert.strictEqual(f.length, 1, stray + " is not caught");
+    });
   });
   it("a data-toggle without its id, and an id reused across options, are P1 (check toggle-target)", function () {
     var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div data-toggle="ghost">x</div>'; }), "toggle-target");
@@ -1080,6 +1086,185 @@ describe("the Checks list in the validator's header", function () {
       assert.match(site, /findings\.push\(finding\("P[012]", "[a-z-]+",/,
         "this call passes a severity or a check name the header gate cannot see, so it would" +
         " emit a check nothing holds against the header: " + site);
+    });
+  });
+});
+
+// A PM or designer reads the document once, before a meeting. Two gates hold it to that:
+// every decision names the part it builds, because the page is headed by parts rather than
+// questions, and every field fits the length its layout was built for.
+describe("plain words: part and length", function () {
+  var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
+  function evaluation() { return JSON.parse(fs.readFileSync(EVAL, "utf8")); }
+  function lengthFindings(d) {
+    return validateProposal(d).findings.filter(function (f) { return f.check === "length"; });
+  }
+
+  it("asks every decision of a proposal to name the part it builds", function () {
+    var d = load();
+    delete d.decisions[0].part;
+    var hits = validateProposal(d).findings.filter(function (f) { return f.check === "part"; });
+    assert.strictEqual(hits.length, 1);
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.strictEqual(hits[0].path, "decisions[0].part");
+  });
+
+  // The document opens with what was asked, so a reader who never saw the ticket knows what
+  // the answer answers. An evaluation has no document to open.
+  it("asks a proposal to say what was asked, and leaves an evaluation alone", function () {
+    var d = load();
+    delete d.context.ask;
+    var hits = only(d, "ask");
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.strictEqual(hits[0].path, "context.ask");
+    var e = evaluation();
+    delete e.context.ask;
+    assert.deepStrictEqual(only(e, "ask"), []);
+  });
+
+  it("flags a field past its word limit, naming the count and the limit", function () {
+    var d = load();
+    d.answer = "one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twentyone";
+    var hits = lengthFindings(d);
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].path, "answer");
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.ok(hits[0].value.indexOf("21 words; at most 20") !== -1, hits[0].value);
+  });
+
+  it("does not flag a field at exactly its limit", function () {
+    var d = load();
+    d.answer = new Array(WORD_LIMITS.answer).fill("word").join(" ");
+    assert.deepStrictEqual(lengthFindings(d), []);
+  });
+
+  it("reads every field the limits table names", function () {
+    var d = load();
+    var long = new Array(45).fill("word").join(" ");
+    var dec = d.decisions[0];
+    var o = dec.options[0];
+    var crit = dec.comparison.criteria[0].id;
+    d.answer = long; d.latitude = long; d.context.product[0] = long; d.context.gap = long;
+    d.meta.title = long; d.context.ask = long;
+    d.scope.goals[0] = long; d.scope.nonGoals[0] = long; d.change.userSide = long; d.change.adminSide = long;
+    d.research.findings = [{ lane: "competitors", claim: long, source: "Example" }];
+    d.openQuestions = [{ kind: "open question", text: long }];
+    dec.part = long; dec.blocker = long; dec.pick.cost = long; dec.pick.reasons[0].text = long;
+    dec.comparison.criteria[0].label = long;
+    dec.comparison.cells[o.id][crit].text = long;
+    o.name = long; o.whatItIs = long; o.breaksWhen = long; o.verdict = long;
+    o.screen.notes = [long]; o.adds = [{ component: "new-thing", why: long }];
+    var hits = lengthFindings(d);
+    var paths = hits.map(function (f) { return f.path; });
+    var expected = [
+      "meta.title", "context.ask",
+      "answer", "latitude", "context.product[0]", "context.gap", "scope.goals[0]", "scope.nonGoals[0]",
+      "change.userSide", "change.adminSide", "research.findings[0].claim", "openQuestions[0].text",
+      "decisions[0].part", "decisions[0].blocker", "decisions[0].pick.cost", "decisions[0].pick.reasons[0].text",
+      "decisions[0].comparison.criteria[0].label",
+      "decisions[0].comparison.cells." + o.id + "." + crit + ".text",
+      "decisions[0].options[0].name", "decisions[0].options[0].whatItIs", "decisions[0].options[0].breaksWhen",
+      "decisions[0].options[0].verdict", "decisions[0].options[0].screen.notes[0]", "decisions[0].options[0].adds[0].why",
+    ];
+    expected.forEach(function (p) { assert.ok(paths.indexOf(p) !== -1, "no length finding on " + p); });
+    assert.strictEqual(hits.length, expected.length, "one finding per field: " + paths.join(", "));
+    assert.strictEqual(Object.keys(WORD_LIMITS).length, expected.length, "every limit has a field above, and every field above has a limit");
+  });
+
+  it("does not measure an evaluation, which has no document to fit", function () {
+    var d = evaluation();
+    d.context.product[0] = new Array(30).fill("word").join(" ");
+    assert.deepStrictEqual(lengthFindings(d), []);
+  });
+
+  it("finds nothing too long in either fixture, and every decision there names its part", function () {
+    var acceptance = JSON.parse(fs.readFileSync(path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json"), "utf8"));
+    [load(), acceptance].forEach(function (d) {
+      assert.deepStrictEqual(lengthFindings(d), []);
+      assert.deepStrictEqual(only(d, "part"), []);
+      assert.deepStrictEqual(only(d, "ask"), []);
+    });
+  });
+});
+
+// The reference prints the word limits for the author, and the validator enforces them. Two
+// copies of one table drift the day one of them is edited alone, so the printed table is read
+// back and held against the one the validator exports.
+describe("the word limits table in the authoring reference", function () {
+  it("prints exactly the limits the validator enforces", function () {
+    var ref = fs.readFileSync(path.join(ROOT, "references", "design-proposal", "document-authoring.md"), "utf8");
+    var printed = {};
+    ref.split("\n").forEach(function (line) {
+      var m = /^\| `([^`]+)` \| (\d+) \|$/.exec(line.trim());
+      if (m) printed[m[1]] = Number(m[2]);
+    });
+    assert.ok(Object.keys(printed).length > 0, "the table was read at all");
+    assert.deepStrictEqual(printed, WORD_LIMITS);
+  });
+});
+
+// 2026-09-16 review. What an independent pass found in the branch that added parts and word limits.
+describe("parts and words, held exactly", function () {
+  var ACCEPTANCE = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
+  var EVAL = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496-evaluation.json");
+  function read(p) { return JSON.parse(fs.readFileSync(p, "utf8")); }
+
+  it("flags a part that repeats another's name, which would head two blocks alike", function () {
+    var d = read(ACCEPTANCE);
+    d.decisions[2].part = "  account MENU ";
+    var hits = only(d, "part");
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].severity, "P1");
+    assert.strictEqual(hits[0].path, "decisions[2].part");
+    assert.ok(/decisions\[0\]/.test(hits[0].value), hits[0].value);
+    d.decisions[2].part = "Account menu.";
+    assert.strictEqual(only(d, "part").length, 1, "a full stop makes a second Account menu");
+  });
+
+  it("keeps names apart that differ only in marks, and counts punctuation alone as no name", function () {
+    var d = read(ACCEPTANCE);
+    d.decisions[0].part = "\u0915\u093f\u092e";
+    d.decisions[2].part = "\u0915\u093e\u092e";
+    assert.deepStrictEqual(only(d, "part"), [], "two Devanagari names that differ in a vowel sign are merged");
+    d = read(ACCEPTANCE);
+    d.decisions[0].part = "...";
+    var hits = only(d, "part");
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].path, "decisions[0].part");
+  });
+
+  it("prose-checks the part an evaluation records, as it does the question", function () {
+    var e = read(EVAL);
+    e.decisions[0].part = "Account \u2014 menu";
+    var hits = only(e, "em-dash").filter(function (f) { return f.path === "decisions[0].part"; });
+    assert.strictEqual(hits.length, 1, JSON.stringify(only(e, "em-dash")));
+    var d = read(ACCEPTANCE);
+    d.decisions[0].part = "Account \u2014 menu";
+    hits = only(d, "em-dash").filter(function (f) { return f.path === "decisions[0].part"; });
+    assert.strictEqual(hits.length, 1, "a proposal's part is checked once, not twice: " + JSON.stringify(hits));
+  });
+
+  it("counts words, not the separators between them", function () {
+    var d = load();
+    d.decisions[0].part = "Owner \u00b7 admin \u00b7 steward \u00b7 viewer";
+    assert.deepStrictEqual(only(d, "length"), [], "a middot is counted as a word");
+    d.decisions[0].part = "one / two / three / four / five";
+    var hits = only(d, "length");
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.ok(hits[0].value.indexOf("5 words; at most 4") !== -1, hits[0].value);
+  });
+
+  it("lets an evaluation record the part each decision builds, as Step 4 names them", function () {
+    var e = read(EVAL);
+    e.decisions[0].part = "Account menu";
+    assert.deepStrictEqual(only(e, "stage"), []);
+  });
+
+  it("writes invisible characters as escapes in the proposal scripts", function () {
+    ["scripts/renderers/assemble-proposal.js", "scripts/validation/validate-proposal.js"].forEach(function (rel) {
+      var src = fs.readFileSync(path.join(ROOT, rel), "utf8");
+      assert.ok(!/[\u200b-\u200d\u2060\ufeff]/.test(src), rel + " carries an invisible character; write it as an escape");
     });
   });
 });

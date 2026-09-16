@@ -25,12 +25,12 @@ Build me a ship-ready user registration flow end-to-end
 ```
 Show me three ways to do a notification preferences page
 ```
-*Proposal: three options with a pick, then a reasoned document (`/design-proposal`).*
+*Proposal: a plan in chat, then a document that leads with what ships (`/design-proposal`).*
 
 ```
 Show a logged-in user their roles and permissions in the account menu, a few approaches
 ```
-*Proposal: the decisions the ticket forces and their options, then a reasoned document (`/design-proposal`).*
+*Proposal: what it would build, part by part, then a document that leads with what ships (`/design-proposal`).*
 
 Single-screen output is first-class — `mock me X` produces one screen, `design a flow for X` produces multiple.
 
@@ -359,15 +359,15 @@ Research wizard patterns for multi-step configuration
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
 ```
 
-Routes to `/design-proposal`. The decisions the ticket forces are named in chat first, each with its two to four options and the one you would pick, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`: the answer in one sentence, the terrain, a decision table, the briefing (goals and non-goals, the product facts, what we found, in the lanes you asked for at the research gate), one block per decision with its options drawn inside the surface the question lives on, its comparison and its pick with the cost, then what is still open, what this changes and one line of latitude. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
+Routes to `/design-proposal`. It first says in chat what it would build, part by part, with the pick for each and the options it looked at, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`, which opens with what was asked and the ticket it came from, then leads with what ships: the answer in one sentence, What ships (one row per part), one block per part with the chosen drawing, why, where it breaks and what it costs, how the parts connect, what to settle before building, what changes, the background, then, folded until you open them, the other options with their comparison and the research (in the lanes you asked for at the research gate), and the sources. No question is printed as a heading, and its prose is held to word limits. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
 `designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours` (references you
 paste, which is the fastest lane when you already know the space). Answer `all`, `none`, a subset, or just
 paste links. `--research <lanes>` answers it without being asked and `--no-prompt` runs `ours` alone, so an
 unattended run is still grounded. What comes back is its own section in the document, grouped by lane, and
 a lane that found nothing prints nothing. One agent, `ds-researcher`, does the work for every DS skill.
 
-A document with more than one decision pins a bar naming each of them, so a reader can see the shape of
-the argument and move inside it from anywhere. Edit `proposals/proposal-data.json` and re-run with `--from`
+A document with more than one part pins a bar naming each part, so a reader can see the shape of the
+design and move inside it from anywhere. Edit `proposals/proposal-data.json` and re-run with `--from`
 to adjust. No Figma push. The document can also be published
 as a page: Step 6 offers it, `--publish` skips the ask, and what the link buys over the file is the way
 back, because a reader can comment on any part of the document and send the thread to Claude, where it
@@ -446,7 +446,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
-| `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A reasoned document: the answer, the terrain, the decision table, the briefing, one block per decision (options, comparison, pick, cost), what is still open, what this changes |
+| `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
 | `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
 | `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
 | `/design-proposal [ticket or request] --publish` | The same document, published as a shareable page whose comments come back to Claude |
