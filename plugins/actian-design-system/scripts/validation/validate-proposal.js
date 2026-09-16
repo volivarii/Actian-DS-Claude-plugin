@@ -242,6 +242,12 @@ function wordCount(s) {
   return String(s == null ? "" : s).trim().split(/\s+/).filter(function (w) { return /[\p{L}\p{N}]/u.test(w); }).length;
 }
 
+// What makes two part names one name. Case, spacing and punctuation do not; marks do, because in
+// most scripts a mark is part of the letter (a Devanagari vowel sign, a decomposed accent).
+function partKey(part) {
+  return String(part == null ? "" : part).normalize("NFC").toLowerCase().replace(/[^\p{L}\p{M}\p{N}]+/gu, " ").trim();
+}
+
 // Every measured field of a finished proposal, as { key, path, text }. Only the proposal stage
 // is measured: an evaluation has no document to fit.
 function lengthEntries(data) {
@@ -627,7 +633,8 @@ function validateProposal(data) {
       checkProse(d.blocker, "", dp + ".blocker", findings);
       // The page is headed by parts, not by questions, so a decision that does not say what it
       // builds renders under a heading guessed from its chosen option's surface.
-      if (!String(d.part || "").trim())
+      // Punctuation alone is no name, by the same key the duplicate check uses.
+      if (!partKey(d.part))
         findings.push(finding("P1", "part", "", dp + ".part", "the decision does not name the part it builds", "", "two to four of the product's words, for example Account menu"));
       if (d.options.length < MIN_OPTIONS)
         findings.push(finding("P1", "decision", "", dp + ".options", d.options.length + " option; a decision with one option is a statement", "", "give it a second option, or fold it into another decision's cost"));
@@ -797,8 +804,8 @@ function validateProposal(data) {
     // belong to either. A file with no parts is already asked for them one by one.
     var partSeen = Object.create(null);
     data.decisions.forEach(function (d, di) {
-      // Case, spacing and punctuation do not make a second name: "Account menu." is Account menu.
-      var key = String(d.part || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+      // "Account menu." is Account menu; partKey says why.
+      var key = partKey(d.part);
       if (!key) return;
       if (partSeen[key] === undefined) partSeen[key] = di;
       else findings.push(finding("P1", "part", "", "decisions[" + di + "].part", "the same part as decisions[" + partSeen[key] + "]: " + String(d.part).trim(), "", "name what each one builds differently, or make them one decision"));

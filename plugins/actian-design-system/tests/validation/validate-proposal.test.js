@@ -1222,6 +1222,18 @@ describe("parts and words, held exactly", function () {
     assert.strictEqual(only(d, "part").length, 1, "a full stop makes a second Account menu");
   });
 
+  it("keeps names apart that differ only in marks, and counts punctuation alone as no name", function () {
+    var d = read(ACCEPTANCE);
+    d.decisions[0].part = "\u0915\u093f\u092e";
+    d.decisions[2].part = "\u0915\u093e\u092e";
+    assert.deepStrictEqual(only(d, "part"), [], "two Devanagari names that differ in a vowel sign are merged");
+    d = read(ACCEPTANCE);
+    d.decisions[0].part = "...";
+    var hits = only(d, "part");
+    assert.strictEqual(hits.length, 1, JSON.stringify(hits));
+    assert.strictEqual(hits[0].path, "decisions[0].part");
+  });
+
   it("prose-checks the part an evaluation records, as it does the question", function () {
     var e = read(EVAL);
     e.decisions[0].part = "Account \u2014 menu";
