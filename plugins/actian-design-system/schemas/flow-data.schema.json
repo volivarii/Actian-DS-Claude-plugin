@@ -474,6 +474,76 @@
             "type": ["string", "null"],
             "minLength": 30,
             "description": "Required for tier 2 and 3; explains deviation or invention"
+          },
+          "layer": {
+            "type": "object",
+            "required": ["kind", "over"],
+            "additionalProperties": false,
+            "description": "This screen is a surface over another screen. Its content[] is the layer body only; the base renders byte-identically underneath (flow-renderer.js renderLayered).",
+            "properties": {
+              "kind": {
+                "enum": ["modal", "drawer", "toast", "panel"],
+                "description": "How the layer sits on the base: modal centred on a scrim, drawer 550px at the right edge, toast top-right, panel 420px at the right edge inside the content area.",
+                "examples": ["drawer"]
+              },
+              "over": {
+                "type": "string",
+                "description": "id of the base screen, which must not itself be layered.",
+                "examples": ["catalog"]
+              }
+            },
+            "examples": [{ "kind": "panel", "over": "catalog" }]
+          },
+          "adds": {
+            "type": "array",
+            "description": "What this screen adds to the design system. Each entry is ringed in the render and listed on the deliverable's cover.",
+            "items": {
+              "type": "object",
+              "required": ["name", "composedFrom", "why"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "What the addition would be called.",
+                  "examples": ["Data Steward panel"]
+                },
+                "composedFrom": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Existing DS slugs the addition is built from.",
+                  "examples": [
+                    ["drawer", "text-area", "toggle", "button", "read-only-tag"]
+                  ]
+                },
+                "newPrimitives": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Primitives no slug provides.",
+                  "examples": [["gradient background", "sparkle icon"]]
+                },
+                "why": {
+                  "type": "string",
+                  "description": "One line: what no existing component does.",
+                  "examples": [
+                    "no component holds a conversation with an agent"
+                  ]
+                }
+              },
+              "examples": [
+                {
+                  "name": "Data Steward panel",
+                  "composedFrom": ["drawer", "text-area"],
+                  "newPrimitives": ["sparkle icon"],
+                  "why": "no component holds a conversation"
+                }
+              ]
+            },
+            "examples": [[]]
+          },
+          "layout": {
+            "enum": ["freehand"],
+            "description": "freehand: the author asked for a layout test; prepare-flow.js attaches no archetype and no pageRecipe, and the classifier records improvised.",
+            "examples": ["freehand"]
           }
         },
         "allOf": [
@@ -632,6 +702,16 @@
           "type": "boolean",
           "description": "true keeps this TEXT legible in the lo-fi skin outside a focus subtree: the active nav item, a populated facet row, a title the reader needs for orientation.",
           "examples": [true]
+        },
+        "goto": {
+          "type": "string",
+          "description": "id of the screen this node navigates to when clicked in the prototype (render-node.js emits data-goto).",
+          "examples": ["confirm-modal"]
+        },
+        "adds": {
+          "type": "string",
+          "description": "Names an entry of the screen's adds[]; the renderer rings this node as new.",
+          "examples": ["Data Steward panel"]
         }
       }
     }
