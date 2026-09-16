@@ -35,24 +35,20 @@
       "adds": [
         {
           "name": "Data Steward header entry",
-          "composedFrom": [
-            "button"
-          ],
-          "newPrimitives": [
-            "sparkle icon"
-          ],
+          "composedFrom": ["button"],
+          "newPrimitives": ["sparkle icon"],
           "why": "no header slot opens an agent"
         }
       ],
       "content": [
         {
           "type": "FRAME",
-          "name": "Data Steward header entry",
-          "adds": "Data Steward header entry",
+          "name": "Data Steward header entry row",
           "layout": {
             "mode": "HORIZONTAL",
             "spacing": 0,
-            "primaryAxisAlignItems": "MAX"
+            "primaryAxisAlignItems": "MAX",
+            "padding": [0, 440, 0, 0]
           },
           "sizing": {
             "horizontal": "FILL",
@@ -60,13 +56,29 @@
           },
           "children": [
             {
-              "type": "INSTANCE",
-              "library": "ds",
-              "dsSlug": "button",
-              "variant": "Type=Tertiary, State=Default",
-              "props": {
-                "Label": "Data Steward"
-              }
+              "type": "FRAME",
+              "name": "Data Steward header entry",
+              "adds": "Data Steward header entry",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "primaryAxisAlignItems": "MAX"
+              },
+              "sizing": {
+                "horizontal": 160,
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "button",
+                  "variant": "Type=Tertiary, State=Default",
+                  "props": {
+                    "Label": "Data Steward"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -85,12 +97,7 @@
               "layout": {
                 "mode": "VERTICAL",
                 "spacing": 12,
-                "padding": [
-                  0,
-                  20,
-                  0,
-                  0
-                ]
+                "padding": [0, 20, 0, 0]
               },
               "children": [
                 {
@@ -106,12 +113,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -189,12 +191,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -600,12 +597,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -672,12 +664,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -723,12 +710,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -774,12 +756,7 @@
                   "layout": {
                     "mode": "VERTICAL",
                     "spacing": 10,
-                    "padding": [
-                      0,
-                      0,
-                      14,
-                      0
-                    ]
+                    "padding": [0, 0, 14, 0]
                   },
                   "children": [
                     {
@@ -871,12 +848,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 18,
-                    "padding": [
-                      10,
-                      0,
-                      10,
-                      0
-                    ],
+                    "padding": [10, 0, 10, 0],
                     "counterAxisAlignItems": "CENTER"
                   },
                   "children": [
@@ -943,12 +915,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1017,12 +984,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1091,12 +1053,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1165,12 +1122,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1239,12 +1191,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1313,12 +1260,7 @@
                   "layout": {
                     "mode": "HORIZONTAL",
                     "spacing": 12,
-                    "padding": [
-                      12,
-                      0,
-                      12,
-                      0
-                    ],
+                    "padding": [12, 0, 12, 0],
                     "counterAxisAlignItems": "MIN"
                   },
                   "children": [
@@ -1421,10 +1363,7 @@
             "button",
             "read-only-tag"
           ],
-          "newPrimitives": [
-            "gradient background",
-            "sparkle icon"
-          ],
+          "newPrimitives": ["gradient background", "sparkle icon"],
           "why": "no component holds a conversation with an agent"
         }
       ],
@@ -1451,12 +1390,7 @@
                 "spacing": 0,
                 "primaryAxisAlignItems": "SPACE_BETWEEN",
                 "counterAxisAlignItems": "CENTER",
-                "padding": [
-                  16,
-                  20,
-                  16,
-                  20
-                ]
+                "padding": [16, 20, 16, 20]
               },
               "sizing": {
                 "horizontal": "FILL",
@@ -1540,12 +1474,7 @@
               "layout": {
                 "mode": "VERTICAL",
                 "spacing": 10,
-                "padding": [
-                  16,
-                  20,
-                  16,
-                  20
-                ]
+                "padding": [16, 20, 16, 20]
               },
               "sizing": {
                 "horizontal": "FILL",
@@ -1617,12 +1546,7 @@
               "layout": {
                 "mode": "VERTICAL",
                 "spacing": 8,
-                "padding": [
-                  12,
-                  20,
-                  16,
-                  20
-                ]
+                "padding": [12, 20, 16, 20]
               },
               "sizing": {
                 "horizontal": "FILL",
@@ -1713,12 +1637,7 @@
               "layout": {
                 "mode": "VERTICAL",
                 "spacing": 0,
-                "padding": [
-                  8,
-                  20,
-                  16,
-                  20
-                ]
+                "padding": [8, 20, 16, 20]
               },
               "sizing": {
                 "horizontal": "FILL",
