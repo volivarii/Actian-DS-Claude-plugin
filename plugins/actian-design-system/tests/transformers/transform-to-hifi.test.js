@@ -17,6 +17,7 @@
  *   Part 6: transform (passthrough) — TEXT / DIVIDER nodes pass through unchanged
  *   Part 7: transform (propertyMap) — FM property names rewritten via propertyMap
  *   Part 8: transform (meta) — result always has meta.mode === "hifi"
+ *   Part 9: transform (defaultProps) — fmTag/fmChip map holes: text + leading icon default
  *
  * Run with: node --test plugins/actian-design-system/tests/transform-to-hifi.test.js
  */
@@ -534,6 +535,35 @@ describe("Transform-to-Hifi Tests", function () {
       var original = JSON.stringify(flowData);
       t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
       assert.strictEqual(JSON.stringify(flowData), original);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Part 9: transform (defaultProps)
+  // ---------------------------------------------------------------------------
+
+  describe("Part 9: transform (defaultProps)", function () {
+    it("fmTag carries its text into the DS Label and turns the leading icon off", function () {
+      var out = t.transform({
+        meta: {},
+        screens: [
+          {
+            name: "s",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmTag",
+                variant: "Style=Light",
+                props: { "Tag Text": "Dataset" },
+              },
+            ],
+          },
+        ],
+      });
+      var node = out.screens[0].content[0];
+      assert.strictEqual(node.dsSlug, "read-only-tag");
+      assert.strictEqual(node.props.Label, "Dataset");
+      assert.strictEqual(node.props["Leading icon show"], false);
     });
   });
 

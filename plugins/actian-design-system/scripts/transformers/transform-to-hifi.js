@@ -232,6 +232,14 @@ function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
     }
   }
 
+  // Apply defaultProps for any DS prop the source didn't already set
+  // (e.g. fmTag/fmChip's "Leading icon show" DS default of true would
+  // otherwise leak a leading icon FM never authored).
+  var defaultProps = mapping.defaultProps || {};
+  Object.keys(defaultProps).forEach(function (k) {
+    if (!(k in resultProps)) resultProps[k] = defaultProps[k];
+  });
+
   // Build transformed node
   var result = {
     type: "INSTANCE",
