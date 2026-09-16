@@ -2556,6 +2556,7 @@ if (require.main === module) {
     "enum-not-typed": true,
     "section-ungrounded": true,
     "text-style": true,
+    "missing-focus": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
