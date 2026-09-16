@@ -2,15 +2,17 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert/strict");
 var path = require("path");
-var FR = require(path.join(
-  __dirname,
-  "..",
-  "..",
-  "scripts",
-  "renderers",
-  "html-renderers",
-  "flow-renderer.js",
-));
+var FR = require(
+  path.join(
+    __dirname,
+    "..",
+    "..",
+    "scripts",
+    "renderers",
+    "html-renderers",
+    "flow-renderer.js",
+  ),
+);
 
 describe("layered screens", function () {
   var base = {
@@ -23,9 +25,7 @@ describe("layered screens", function () {
     id: "steward",
     name: "Steward",
     layer: { kind: "panel", over: "catalog" },
-    adds: [
-      { name: "Data Steward panel", composedFrom: ["drawer"], why: "w" },
-    ],
+    adds: [{ name: "Data Steward panel", composedFrom: ["drawer"], why: "w" }],
     content: [
       {
         type: "FRAME",
@@ -62,5 +62,44 @@ describe("layered screens", function () {
     assert.match(html, /class="fm-frame flow-adds"/);
     assert.match(html, /data-adds="P"/);
     assert.match(html, /data-goto="catalog"/);
+  });
+  it("keeps both flow-focus and flow-adds on the same FRAME when both are set", function () {
+    var html = FR.renderScreen({
+      id: "y",
+      name: "Y",
+      template: "bare",
+      content: [
+        {
+          type: "FRAME",
+          name: "F",
+          focus: true,
+          adds: "X",
+          children: [],
+        },
+      ],
+    });
+    assert.match(html, /class="fm-frame flow-focus flow-adds"/);
+  });
+  it("an INSTANCE root carrying goto wraps its rendered leaf in a flow-goto span", function () {
+    var html = FR.renderContentNode({
+      type: "INSTANCE",
+      ref: "fmButton",
+      variant: "Type=Primary, Size=md",
+      goto: "catalog",
+      props: { Label: "Click me" },
+    });
+    assert.ok(
+      html.indexOf('<span class="flow-goto" data-goto="catalog">') === 0,
+      "flow-goto span with data-goto opens the markup",
+    );
+    assert.ok(
+      html.indexOf("fm-button") !== -1,
+      "the wrapped leaf's own markup is still present",
+    );
+    assert.ok(
+      html.indexOf("Click me") !== -1,
+      "the wrapped leaf's content is still present",
+    );
+    assert.ok(html.endsWith("</span>"), "the span wrapper closes the markup");
   });
 });

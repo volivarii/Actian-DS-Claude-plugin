@@ -442,8 +442,8 @@
   }
 
   // -------------------------------------------------------------------------
-  // renderLayered — a screen carrying `layer:{kind,over}` (Task 6.1 schema)
-  // renders as a surface (modal/drawer/toast/panel) floating over its base
+  // renderLayered renders a screen carrying `layer:{kind,over}` (Task 6.1
+  // schema) as a surface (modal/drawer/toast/panel) floating over its base
   // screen. The base renders byte-identically underneath via screen(), and
   // the layer screen's own content[] is the layer body only (never mixed
   // with the base's content). FRAME/INSTANCE roots inside the body already

@@ -189,7 +189,7 @@
   }
 }
 
-/* ── Layered screens (Task 6.3) — a modal/drawer/toast/panel surface over
+/* ── Layered screens (Task 6.3). A modal/drawer/toast/panel surface over
    a base screen (screen-renderer.js renderLayered). Positions are all
    absolute inside the fixed 1440x960 frame, never fixed: this markup is
    embedded inline in a strip/deliverable, not the viewport. ── */
@@ -243,7 +243,7 @@
   background: rgba(16, 24, 40, 0.45);
 }
 
-/* ── Declared additions (Task 6.3) — a node.adds ring on its FRAME/INSTANCE
+/* ── Declared additions (Task 6.3). A node.adds ring on its FRAME/INSTANCE
    root. Under --skin lofi the primary token below is remapped to gray by
    lofi-skin.js's FM_MAP fallback (no rule matches --zen-color-primary-*),
    which is acceptable: the ring and "new:" label both still show, just not
