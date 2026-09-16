@@ -2975,7 +2975,28 @@ if (require.main === module) {
     var f = result.findings[fi];
     if (!CLI_VISIBLE_KINDS[f.kind]) continue;
     if (f._legacy) {
-      allIssues.push(f._legacy);
+      // Some raw-check families (findBannedTextRaw, findHardcodedColorsRaw)
+      // already write the legacy CLI vocabulary ("P0"/"P1") into their own
+      // severity field. Others (findUnfilledSlots, findMissingFocus,
+      // findLayerIssues, findUndeclaredInvention) write the newer
+      // "error"/"warning"/"info" vocabulary instead, which this loop used
+      // to push straight through: mapTier() runs only in the else branch
+      // below, so those findings never reached hasP0/hasP1 and the CLI
+      // exited 0 on flows carrying only P0-worthy layer/goto errors.
+      // Normalise here: only the newer vocabulary gets mapped, a value
+      // that is already P0/P1/P2 passes through unchanged.
+      var legacySeverity = f._legacy.severity;
+      if (
+        legacySeverity === "error" ||
+        legacySeverity === "warning" ||
+        legacySeverity === "info"
+      ) {
+        allIssues.push(
+          Object.assign({}, f._legacy, { severity: mapTier(legacySeverity) }),
+        );
+      } else {
+        allIssues.push(f._legacy);
+      }
     } else {
       allIssues.push({
         severity: mapTier(f.severity),
