@@ -2127,6 +2127,25 @@ function validate(data, opts) {
     }
   }
 
+  // Unfilled capture-slot + density-floor check (catalog-quality Move 4): a
+  // screen composed from screen.pageRecipe should fill every declared slot
+  // it does not mark undrawnSlots, and a filled results slot should meet
+  // DENSITY_FLOORS.results. Soft warning: the composition gate validates
+  // vocabulary, not density, so this flags rather than blocks.
+  if (data && Array.isArray(data.screens)) {
+    var slotIssues = findUnfilledSlots(data);
+    for (var usi = 0; usi < slotIssues.length; usi++) {
+      findings.push({
+        kind: slotIssues[usi].check,
+        severity: "warning",
+        path: slotIssues[usi].path,
+        screen: slotIssues[usi].screenId,
+        message: slotIssues[usi].value,
+        _legacy: slotIssues[usi],
+      });
+    }
+  }
+
   // Missing-focus check — a lo-fi flow (meta.skin === "lofi") must declare a
   // focus:true subtree per screen (FM focus principle); a freehand screen is
   // exempt. Soft warning: the lo-fi skin that reads it is a later task.
@@ -2425,6 +2444,90 @@ function findMissingFocus(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check: unfilled capture slots + density floor (catalog-quality Move 4)
+// ---------------------------------------------------------------------------
+//
+// A screen composed from a captured page recipe (screen.pageRecipe) names the
+// recipe's declared slots as its composition contract: each slot is either
+// filled by a node carrying `slot:"<key>"` (or, for a node that fills several
+// slots at once, `slot: ["<key>", ...]`) with at least one child, or it is
+// declared in the recipe's own `undrawnSlots` (slot keys the skeleton does
+// not draw, and so are never expected on a composed screen). A declared slot
+// that is neither filled nor undrawn is under-composed, silently dropped
+// rather than adapted. `results` additionally carries a density floor
+// (DENSITY_FLOORS.results): a results slot filled with fewer nodes than the
+// floor reads as a stub list, not a scaled catalog.
+
+var DENSITY_FLOORS = { results: 6 };
+
+function findUnfilledSlots(data, recipes) {
+  var issues = [];
+  if (!data || !Array.isArray(data.screens)) return issues;
+  var allRecipes =
+    recipes !== undefined
+      ? recipes
+      : require("../lib/app-context/resolve-patterns.js").loadPageRecipes();
+  data.screens.forEach(function (screen, si) {
+    if (!screen.pageRecipe) return;
+    var recipe = allRecipes.filter(function (r) {
+      return r && r.slug === screen.pageRecipe;
+    })[0];
+    if (!recipe || !recipe.slots) return;
+    var undrawnSlots = Array.isArray(recipe.undrawnSlots)
+      ? recipe.undrawnSlots
+      : [];
+    var filled = {};
+    (function walk(nodes) {
+      (nodes || []).forEach(function (n) {
+        if (n && n.slot && Array.isArray(n.children) && n.children.length) {
+          var keys = Array.isArray(n.slot) ? n.slot : [n.slot];
+          keys.forEach(function (key) {
+            filled[key] = n.children.length;
+          });
+        }
+        if (n && n.children) walk(n.children);
+      });
+    })(screen.content);
+    var base = {
+      screen: screen.name || "Screen " + (si + 1),
+      screenId: screen.id || "",
+    };
+    Object.keys(recipe.slots)
+      .filter(function (key) {
+        return undrawnSlots.indexOf(key) === -1;
+      })
+      .forEach(function (key) {
+        if (!filled[key]) {
+          issues.push(
+            Object.assign(
+              {
+                severity: "warning",
+                check: "unfilled-slot",
+                path: "slot:" + key,
+                value: recipe.slug,
+              },
+              base,
+            ),
+          );
+        } else if (DENSITY_FLOORS[key] && filled[key] < DENSITY_FLOORS[key]) {
+          issues.push(
+            Object.assign(
+              {
+                severity: "warning",
+                check: "density-floor",
+                path: "slot:" + key,
+                value: filled[key] + " of " + DENSITY_FLOORS[key],
+              },
+              base,
+            ),
+          );
+        }
+      });
+  });
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
@@ -2440,6 +2543,7 @@ module.exports = {
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
   findMissingFocus: findMissingFocus,
+  findUnfilledSlots: findUnfilledSlots,
   validate: validate,
   severityForTier: severityForTier,
   checkRecipeAdherence: checkRecipeAdherence,
@@ -2557,6 +2661,8 @@ if (require.main === module) {
     "section-ungrounded": true,
     "text-style": true,
     "missing-focus": true,
+    "unfilled-slot": true,
+    "density-floor": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;

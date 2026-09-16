@@ -78,6 +78,16 @@ are summarized at the release level.
   scrolled away after the first screen and never came back, and what it maps is over nine thousand
   pixels long. The bar is that map, condensed to one line, and it hides on a phone.
 
+- **A composed screen names its capture, and unfilled capture slots surface**
+  (#TBD — PR not yet opened). A screen composed from a captured page recipe (adapted tier)
+  now records `pageRecipe: "<slug>"` on itself, and `screen-generator.md` tells the author to
+  copy the capture's `slot` keys onto the FRAMEs that fill them. `validate-flow-data.js` reads
+  that back: `findUnfilledSlots` flags a declared slot no node carries (`unfilled-slot`, warning)
+  and a filled `results` slot under a six-item density floor (`density-floor`, warning), both
+  CLI-visible. A recipe can mark slots its skeleton never draws (`undrawnSlots`), which the
+  check subtracts before looking for a filler, and a node's `slot` can now be an array when one
+  FRAME fills more than one slot at once.
+
 ### Fixed
 
 - **A breadboard no longer spends width on the columns an author skipped**
