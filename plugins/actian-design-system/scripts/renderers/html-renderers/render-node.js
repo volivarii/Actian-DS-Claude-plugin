@@ -359,8 +359,14 @@
               return renderNode(child, opts);
             })
             .join("");
+          var frameClass =
+            "fm-frame" +
+            (node.focus === true ? " flow-focus" : "") +
+            (node.adds ? " flow-adds" : "");
           return (
-            '<div class="fm-frame" data-name="' +
+            '<div class="' +
+            frameClass +
+            '" data-name="' +
             esc(node.name || "") +
             '"' +
             (style ? ' style="' + esc(style) + '"' : "") +
@@ -372,8 +378,16 @@
 
         case "TEXT": {
           var style = buildTextStyle(node, opts);
+          var textClass =
+            "fm-text" +
+            (/Semi Bold|Bold/.test(node.font || "")
+              ? " fm-text--heading"
+              : "") +
+            (node.keep === true ? " fm-text--keep" : "");
           return (
-            '<span class="fm-text" data-name="' +
+            '<span class="' +
+            textClass +
+            '" data-name="' +
             esc(node.name || "") +
             '"' +
             (style ? ' style="' + esc(style) + '"' : "") +
