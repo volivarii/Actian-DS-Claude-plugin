@@ -98,6 +98,15 @@ describe("the proposal document on a narrow screen", function () {
     assert.ok(/box-sizing:\s*content-box/.test(rule), "outside the drawn width, so a drawing that fits does not scroll: " + rule);
   });
 
+  // Paper has no scroll: under the rule above, a 720 drawing printed without its right edge and
+  // a 960 one without a third of its width, each over a scrollbar.
+  it("prints a drawing whole rather than cut at its scroll box", function () {
+    var m = html().match(/@media\s+print\s*\{[\s\S]*?\n {4}\}/);
+    assert.ok(m, "a print block");
+    assert.ok(/\.proposal-screen__col\s*\{[^}]*overflow:\s*visible/.test(m[0]), "the column lets the drawing out on paper: " + m[0]);
+    assert.ok(/\.proposal-screen__col\s*\{[^}]*max-width:\s*none/.test(m[0]), "at its full width: " + m[0]);
+  });
+
   it("drops the desktop page margin so the measure has the screen", function () {
     var m = html().match(/@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\n {4}\}/);
     assert.ok(/body\s*\{[^}]*padding:\s*16px/.test(m[0]), "body padding steps down from 40px");

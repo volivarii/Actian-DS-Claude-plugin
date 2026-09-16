@@ -110,8 +110,10 @@
     /* An option not chosen: its name over the drawing and one line under it, the verdict in bold
        and then where it breaks. Body size, because that line is what a reader takes from the
        option; everything else it once carried is in the comparison below. */
-    .option__name { font-size: var(--doc-body); font-weight: 700; line-height: 1.4; margin: 0 0 12px; max-width: 100%; }
-    .option__why { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); margin: 8px 0 0; max-width: 100%; }
+    /* Both break inside a long word, since one unbroken name wider than the drawing would
+       scroll the whole column, drawing included. */
+    .option__name { font-size: var(--doc-body); font-weight: 700; line-height: 1.4; margin: 0 0 12px; max-width: 100%; overflow-wrap: anywhere; }
+    .option__why { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); margin: 8px 0 0; max-width: 100%; overflow-wrap: anywhere; }
     .option__why b { color: var(--fm-text-primary); }
 
     .compare { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
@@ -301,6 +303,13 @@
       .compare-block { max-width: 100%; overflow-x: auto; }
       .decision__lead, .approaches { gap: 32px; }
       .doc__jump { display: none; }
+    }
+
+    /* Paper has no scroll: a drawing column that scrolls on screen would print cut at its edge,
+       with a scrollbar under it. On paper the column lets the drawing out, and the browser
+       shrinks the page to fit it. */
+    @media print {
+      .proposal-screen__col { max-width: none; overflow: visible; }
     }
   </style>
 </head>
