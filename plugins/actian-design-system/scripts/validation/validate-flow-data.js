@@ -2723,6 +2723,10 @@ function findLayerIssues(data) {
 // addition), that candidate is an undeclared invention. Only the outermost
 // such FRAME in a subtree is reported; its nested FRAMEs are part of the
 // same invention, not separate findings.
+//
+// Runs only on DS-native flows (data.meta.hifi === true): FatMarker
+// authoring hand-draws chrome as a matter of course, so the same heuristic
+// fires on ordinary FM screens with no invention to report.
 
 var INVENTION_DEPTH_THRESHOLD = 2;
 
@@ -2789,6 +2793,7 @@ function walkForInvention(
 function findUndeclaredInvention(data) {
   var issues = [];
   if (!data || !Array.isArray(data.screens)) return issues;
+  if (!data.meta || data.meta.hifi !== true) return issues;
   data.screens.forEach(function (screen, si) {
     if (!screen || screen.layout === "freehand") return;
     var screenName = screen.name || "Screen " + (si + 1);

@@ -85,6 +85,7 @@ describe("undeclared invention", function () {
     assert.deepEqual(
       kinds(
         V.findUndeclaredInvention({
+          meta: { hifi: true },
           screens: [{ id: "a", name: "A", content: [deep] }],
         }),
       ),
@@ -95,6 +96,7 @@ describe("undeclared invention", function () {
     var declared = Object.assign({}, deep, { adds: "Panel" });
     assert.deepEqual(
       V.findUndeclaredInvention({
+        meta: { hifi: true },
         screens: [
           {
             id: "a",
@@ -108,7 +110,23 @@ describe("undeclared invention", function () {
     );
     assert.deepEqual(
       V.findUndeclaredInvention({
+        meta: { hifi: true },
         screens: [{ id: "a", name: "A", layout: "freehand", content: [deep] }],
+      }),
+      [],
+    );
+  });
+  it("is silent on the identical tree when meta.hifi is not true (FM authoring)", function () {
+    assert.deepEqual(
+      V.findUndeclaredInvention({
+        screens: [{ id: "a", name: "A", content: [deep] }],
+      }),
+      [],
+    );
+    assert.deepEqual(
+      V.findUndeclaredInvention({
+        meta: { hifi: false },
+        screens: [{ id: "a", name: "A", content: [deep] }],
       }),
       [],
     );
@@ -222,7 +240,7 @@ describe("CLI exit codes for layer/goto/invention findings", function () {
 
   it("an undeclared-invention-only flow exits 2 with a P1 line", function () {
     var data = {
-      meta: { feature: "CLI invention-only" },
+      meta: { feature: "CLI invention-only", hifi: true },
       screens: [
         {
           id: "a",
