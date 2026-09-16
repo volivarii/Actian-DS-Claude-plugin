@@ -66,6 +66,7 @@ function assembleFlowShare(data) {
   // Per-screen render reuse — the SAME function the strip preview uses.
   var flowRenderer = require("./html-renderers/flow-renderer.js");
   var renderScreen = flowRenderer.renderScreen;
+  var renderLayered = flowRenderer.renderLayered;
 
   // Hi-fi anatomy tier: this deliverable pre-renders each screen server-side in
   // Node (no `window`), so the assemble-time anatomy doc map for non-override
@@ -115,16 +116,32 @@ function assembleFlowShare(data) {
   // target in Overview (enter that screen); display:contents in Prototype.
   var screensHtml = "";
   var navArray = [];
+  // Resolve the per-screen library flag up front (same rule as inside the
+  // loop below) so the base-screen lookup for a layered screen sees the
+  // same augmented screen the base would render as on its own turn.
+  var procScreens = screens.map(function (sc) {
+    return metaLibrary && !sc.library
+      ? Object.assign({}, sc, { library: metaLibrary })
+      : sc;
+  });
+  var screenById = {};
+  for (var bi = 0; bi < procScreens.length; bi++) {
+    if (procScreens[bi].id) screenById[procScreens[bi].id] = procScreens[bi];
+  }
   dsHtmlMap.setAnatomyDocMap(docMap);
   dsHtmlMap.setVariantStyleMap(variantStyleMap);
   try {
-    for (var s = 0; s < screens.length; s++) {
+    for (var s = 0; s < procScreens.length; s++) {
       var id = s + 1;
-      var sc = screens[s];
-      if (metaLibrary && !sc.library) {
-        sc = Object.assign({}, sc, { library: metaLibrary });
-      }
+      var sc = procScreens[s];
       navArray.push({ id: id, label: sc.name || "Screen " + id });
+      // A layered screen whose `over` target is missing renders as a plain
+      // screen rather than throwing; the validator (Task 6.2) already
+      // reports the missing target as an error.
+      var screenHtml =
+        sc.layer && screenById[sc.layer.over]
+          ? renderLayered(sc, screenById[sc.layer.over])
+          : renderScreen(sc);
       screensHtml +=
         '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
         id +
@@ -138,7 +155,7 @@ function assembleFlowShare(data) {
         " x-show=\"view === 'overview' || screen === " +
         id +
         '">' +
-        renderScreen(sc) +
+        screenHtml +
         "</div></div>\n";
     }
   } finally {

@@ -442,6 +442,43 @@
   }
 
   // -------------------------------------------------------------------------
+  // renderLayered — a screen carrying `layer:{kind,over}` (Task 6.1 schema)
+  // renders as a surface (modal/drawer/toast/panel) floating over its base
+  // screen. The base renders byte-identically underneath via screen(), and
+  // the layer screen's own content[] is the layer body only (never mixed
+  // with the base's content). FRAME/INSTANCE roots inside the body already
+  // carry data-goto/flow-adds/data-adds via renderContentNode → render-node.js.
+  // -------------------------------------------------------------------------
+
+  function renderLayered(layerScreen, baseScreen) {
+    var kind = (layerScreen.layer && layerScreen.layer.kind) || "";
+    var isPending = layerScreen.status === "pending";
+    var body;
+    if (isPending) {
+      body = skeletonBody(layerScreen);
+    } else if (layerScreen.content && layerScreen.content.length) {
+      body = layerScreen.content.map(renderContentNode).join("");
+    } else {
+      body = layerScreen.contentHtml || "";
+    }
+    return (
+      '<div class="screen screen--layered" data-name="' +
+      esc(layerScreen.name || "") +
+      '">' +
+      '<div class="flow-layer-base">' +
+      screen(baseScreen) +
+      "</div>" +
+      '<div class="flow-layer flow-layer--' +
+      esc(kind) +
+      '">' +
+      (kind === "modal" ? '<div class="flow-layer__scrim"></div>' : "") +
+      '<div class="flow-layer__body">' +
+      body +
+      "</div></div></div>"
+    );
+  }
+
+  // -------------------------------------------------------------------------
   // Entry Point
   // -------------------------------------------------------------------------
 
@@ -480,8 +517,19 @@
         "</div></div></div>";
 
       var html = genCard(meta) + coverHtml;
+      var screenById = {};
       screens.forEach(function (s) {
-        html += renderScreen(s);
+        if (s.id) screenById[s.id] = s;
+      });
+      screens.forEach(function (s) {
+        // A layered screen whose `over` target is missing renders as a
+        // plain screen rather than throwing; the validator (Task 6.2)
+        // already reports the missing target as an error.
+        if (s.layer && screenById[s.layer.over]) {
+          html += renderLayered(s, screenById[s.layer.over]);
+        } else {
+          html += renderScreen(s);
+        }
       });
       container.innerHTML =
         '<div class="flow-row" data-name="Flow: ' +
@@ -511,6 +559,7 @@
       resolveChrome: resolveChrome,
       screen: screen,
       renderScreen: renderScreen,
+      renderLayered: renderLayered,
     };
   }
 
@@ -529,6 +578,7 @@
       resolveChrome: resolveChrome,
       screen: screen,
       renderScreen: renderScreen,
+      renderLayered: renderLayered,
       appHeader: appHeader,
     };
   }

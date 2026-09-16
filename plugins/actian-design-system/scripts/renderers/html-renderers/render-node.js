@@ -369,6 +369,8 @@
             '" data-name="' +
             esc(node.name || "") +
             '"' +
+            (node.goto ? ' data-goto="' + esc(node.goto) + '"' : "") +
+            (node.adds ? ' data-adds="' + esc(node.adds) + '"' : "") +
             (style ? ' style="' + esc(style) + '"' : "") +
             ">" +
             children +
@@ -398,10 +400,20 @@
         }
 
         case "INSTANCE": {
-          if (node.library === "ds" && dsMap.renderDSComponent) {
-            return dsMap.renderDSComponent(node);
+          var instanceHtml =
+            node.library === "ds" && dsMap.renderDSComponent
+              ? dsMap.renderDSComponent(node)
+              : renderFMComponent(node);
+          if (node.goto) {
+            return (
+              '<span class="flow-goto" data-goto="' +
+              esc(node.goto) +
+              '">' +
+              instanceHtml +
+              "</span>"
+            );
           }
-          return renderFMComponent(node);
+          return instanceHtml;
         }
 
         case "ELLIPSE": {

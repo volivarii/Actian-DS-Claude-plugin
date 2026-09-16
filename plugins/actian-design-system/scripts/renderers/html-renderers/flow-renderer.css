@@ -188,3 +188,78 @@
     background-position: 0 0;
   }
 }
+
+/* ── Layered screens (Task 6.3) — a modal/drawer/toast/panel surface over
+   a base screen (screen-renderer.js renderLayered). Positions are all
+   absolute inside the fixed 1440x960 frame, never fixed: this markup is
+   embedded inline in a strip/deliverable, not the viewport. ── */
+.screen--layered {
+  position: relative;
+  width: 1440px;
+  height: 960px;
+  overflow: hidden;
+}
+.flow-layer-base {
+  /* Holds the base screen's own .screen (1440x960, normal flow); no extra
+     positioning needed, .screen--layered above is the containing block for
+     the absolutely-positioned .flow-layer that floats over it. */
+  position: relative;
+}
+.flow-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.flow-layer__body {
+  position: absolute;
+  pointer-events: auto;
+  background: var(--zen-color-bg-default, #fff);
+  box-shadow: var(--zen-shadow-xl, 0 12px 32px rgba(16, 24, 40, 0.18));
+}
+.flow-layer--drawer .flow-layer__body {
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 550px;
+}
+.flow-layer--panel .flow-layer__body {
+  top: 64px;
+  right: 0;
+  height: calc(100% - 64px);
+  width: 420px;
+}
+.flow-layer--toast .flow-layer__body {
+  top: 16px;
+  right: 16px;
+}
+.flow-layer--modal .flow-layer__body {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.flow-layer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.45);
+}
+
+/* ── Declared additions (Task 6.3) — a node.adds ring on its FRAME/INSTANCE
+   root. Under --skin lofi the primary token below is remapped to gray by
+   lofi-skin.js's FM_MAP fallback (no rule matches --zen-color-primary-*),
+   which is acceptable: the ring and "new:" label both still show, just not
+   in brand blue. ── */
+.flow-adds {
+  outline: 2px dashed var(--zen-color-primary-500, #1a6ee0);
+  outline-offset: 4px;
+  position: relative;
+}
+.flow-adds::before {
+  content: "new: " attr(data-adds);
+  position: absolute;
+  top: -22px;
+  left: 0;
+  font:
+    600 11px/16px Inter,
+    sans-serif;
+  color: var(--zen-color-primary-500, #1a6ee0);
+}
