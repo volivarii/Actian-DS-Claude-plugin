@@ -99,6 +99,13 @@ var DRAWING_WIDTH = { min: 240, max: 1200 };
 // the case keeps 432px of the 1200, and anything wider squeezes it toward its 380px floor.
 var BESIDE_CASE = 720;
 
+// On paper a drawing gets the page's width, not the screen's. A4 at the browser's default margins
+// leaves about 718px and the body keeps 40px each side, so 620 fits A4 and Letter with the ring.
+// A wider drawing is zoomed down to it for print only, shrunk the way a screenshot is and never
+// reflowed, so the prose around it keeps its size. Left to the browser, a page with a drawing
+// wider than the paper shrank every line of it, and past about 1030px still cut the drawing.
+var PRINT_WIDTH = 620;
+
 // A section a reader opens on demand. The heading stays outside, in the section, because
 // inside a summary it takes the summary's button role and drops out of a screen reader's list
 // of headings. The summary says how much is folded, so closed is never mistaken for empty.
@@ -274,7 +281,9 @@ function optionHtml(o, index, apps, width, lead, chosen) {
   if (bad) throw new Error("proposal-data: unbalanced <" + bad + '> in option "' + o.id + '"');
   var type = flowRenderer.resolveChrome({ template: templateForApp(o.anchor.app) }).appHeaderType;
   var strip = flowRenderer.appHeader(type);
-  var col = '<div class="proposal-screen__col" style="width:' + width + 'px">';
+  var printWidth = Math.min(width, PRINT_WIDTH);
+  var col = '<div class="proposal-screen__col" style="width:' + width + "px;--print-width:" + printWidth +
+    "px;--print-zoom:" + Number((printWidth / width).toFixed(4)) + '">';
   var anchor = '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span>";
   var frame =
     '<div class="proposal-screen" data-name="' + esc(o.id) + '" style="width:' + width + 'px">' + strip +
@@ -553,4 +562,5 @@ module.exports = {
   toFragment: toFragment,
   extractUnbalancedTag: unbalancedTag,
   DRAWING_WIDTH: DRAWING_WIDTH,
+  PRINT_WIDTH: PRINT_WIDTH,
 };

@@ -98,14 +98,6 @@ describe("the proposal document on a narrow screen", function () {
     assert.ok(/box-sizing:\s*content-box/.test(rule), "outside the drawn width, so a drawing that fits does not scroll: " + rule);
   });
 
-  // Paper has no scroll: under the rule above, a 720 drawing printed without its right edge and
-  // a 960 one without a third of its width, each over a scrollbar.
-  it("prints a drawing whole rather than cut at its scroll box", function () {
-    var m = html().match(/@media\s+print\s*\{[\s\S]*?\n {4}\}/);
-    assert.ok(m, "a print block");
-    assert.ok(/\.proposal-screen__col\s*\{[^}]*overflow:\s*visible/.test(m[0]), "the column lets the drawing out on paper: " + m[0]);
-    assert.ok(/\.proposal-screen__col\s*\{[^}]*max-width:\s*none/.test(m[0]), "at its full width: " + m[0]);
-  });
 
   it("drops the desktop page margin so the measure has the screen", function () {
     var m = html().match(/@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\n {4}\}/);
@@ -138,5 +130,40 @@ describe("assemble-preview --type proposal --fragment", function () {
       help.flags.some(function (f) { return f.name === "--fragment"; }),
       "--help lists --fragment",
     );
+  });
+});
+
+// Paper has no scroll and is narrower than a drawing may be. Under the screen rule a 720 drawing
+// printed without its right edge and a 960 one without a third of its width, each over a
+// scrollbar; let out, a drawing past about 1030px was still cut, and every page printed smaller.
+describe("the proposal document on paper", function () {
+  var cached = null;
+  function html() { if (!cached) cached = assembleProposal(load()); return cached; }
+
+  it("zooms a drawing to its print width rather than cutting it or shrinking the page", function () {
+    var m = html().match(/@media\s+print\s*\{[\s\S]*?\n {4}\}/);
+    assert.ok(m, "a print block");
+    assert.ok(/\.proposal-screen__col\s*\{[^}]*width:\s*var\(--print-width\)\s*!important/.test(m[0]), "the column takes its print width over its inline one: " + m[0]);
+    assert.ok(/\.proposal-screen__col\s*\{[^}]*overflow:\s*visible/.test(m[0]), "and does not scroll on paper: " + m[0]);
+    assert.ok(/\.proposal-screen\s*\{[^}]*zoom:\s*var\(--print-zoom\)/.test(m[0]), "the frame is zoomed to fit it: " + m[0]);
+  });
+
+  it("comes after the column's screen rule, so it wins", function () {
+    var screenRule = html().indexOf("\n    .proposal-screen__col {");
+    assert.notStrictEqual(screenRule, -1, "the screen rule is there");
+    assert.ok(html().search(/@media\s+print/) > screenRule, "the print block sits before the rule it overrides");
+  });
+
+  it("gives each drawing a print width and zoom that fit the page", function () {
+    assert.strictEqual(require("../../scripts/renderers/assemble-proposal.js").PRINT_WIDTH, 620);
+    [[360, 360, 1], [620, 620, 1], [720, 620, 0.8611], [1200, 620, 0.5167]].forEach(function (k) {
+      var d = load();
+      d.decisions.forEach(function (dec) { dec.options.forEach(function (o) { o.screen.width = k[0]; }); });
+      var cols = assembleProposal(d).match(/class="proposal-screen__col" style="[^"]*"/g) || [];
+      assert.ok(cols.length > 0, "no drawing columns");
+      cols.forEach(function (c) {
+        assert.ok(c.indexOf("width:" + k[0] + "px;--print-width:" + k[1] + "px;--print-zoom:" + k[2] + '"') !== -1, k[0] + " drawn as: " + c);
+      });
+    });
   });
 });

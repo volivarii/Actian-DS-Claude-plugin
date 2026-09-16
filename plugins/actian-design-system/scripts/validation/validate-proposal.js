@@ -231,7 +231,7 @@ function checkFragment(html, approachId, p, findings) {
       findings.push(finding("P1", "hardcoded-color", approachId, p, c, c, "use a --fm-* variable (references/ds-rules/fm-css-reference.md)"));
     });
     if (/position\s*:\s*absolute/i.test(css))
-      findings.push(finding("P1", "in-flow", approachId, p, "position:absolute in a drawing", "position:absolute", "draw the overlay in flow inside its anchor; the drawing's column clips what sits outside the frame"));
+      findings.push(finding("P1", "in-flow", approachId, p, "position:absolute in a drawing", "position:absolute", "draw the overlay in flow inside its anchor; anything outside the frame is cut off on screen and covers the text under it in print"));
   });
 }
 

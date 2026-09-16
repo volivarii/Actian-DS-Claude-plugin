@@ -142,6 +142,9 @@ are summarized at the release level.
   - **Widths:** a drawing is drawn at the width it was composed at, 240 to 1200px, and never
     squeezed. The row budget that capped it by option count (588, 384, 282) and its P1 are gone, the
     options not chosen are no longer shrunk to 72%, and a drawing wider than 720 sits below its case.
+  - **Screen and paper:** a drawing wider than the space it sits in scrolls inside its own box at
+    every screen width, not only on a phone, so the page never scrolls sideways. On paper a drawing
+    wider than 620px is zoomed down to the page, so it prints whole and the text keeps its size.
 
 - **The proposal document opens with the ask and leads with what ships, in plain words**
   ([#387](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/387)). Written for a PM or

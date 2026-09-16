@@ -89,7 +89,7 @@ describe("the proposal document is set to be read", function () {
 
     // A 240px rival named "Accountmenuwithpermissionbadges" scrolled its whole column by 60px,
     // drawing included: the column scrolls, so text wider than it moves the drawing too.
-    [".option__name", ".option__why"].forEach(function (sel) {
+    [".option__name", ".option__why", ".proposal-screen__label", ".option__notes", ".option__built", ".option__adds"].forEach(function (sel) {
       it("breaks a long word in " + sel + " rather than scrolling the drawing with it", function () {
         assert.match(ruleFor(sel), /overflow-wrap:\s*anywhere/);
       });

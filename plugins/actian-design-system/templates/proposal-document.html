@@ -89,8 +89,8 @@
 
     .approaches { display: flex; flex-wrap: wrap; gap: 48px 40px; align-items: flex-start; }
     /* A drawing column keeps the width it was drawn at and never exceeds the space it sits in:
-       past that it scrolls inside its own box, at every width, since a drawing reaches 1200 and
-       a side panel or a laptop is narrower than that. A scroll box clips what is drawn outside
+       past that it scrolls inside its own box, at every screen width, since a drawing reaches
+       1200 and a side panel or a laptop is narrower than that. Paper is the print block. A scroll box clips what is drawn outside
        it, and the frame's ring is drawn 8px outside the frame, so the column carries 8px of
        padding for the ring and takes the same 8px back in margin: it sits where it did. The
        padding sits outside the drawn width (content-box), or the frame would overflow the
@@ -98,7 +98,7 @@
     .proposal-screen__col { display: flex; flex-direction: column; flex: none; box-sizing: content-box; max-width: 100%; overflow-x: auto; padding: 8px; margin: -8px; }
     /* The app and surface a drawing lives on, over it: on the chosen drawing always, on an
        option not chosen only when it is not the proposal's surface. */
-    .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
+    .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; overflow-wrap: anywhere; }
     .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
     /* The ring is drawn 8px outside the frame, so the frame keeps 8px below it: text set right
@@ -110,8 +110,10 @@
     /* An option not chosen: its name over the drawing and one line under it, the verdict in bold
        and then where it breaks. Body size, because that line is what a reader takes from the
        option; everything else it once carried is in the comparison below. */
-    /* Both break inside a long word, since one unbroken name wider than the drawing would
-       scroll the whole column, drawing included. */
+    /* Every line of text in a drawing column breaks inside a long word (these two, the label,
+       the notes, Built from and Adds), since one unbroken word wider than the drawing would
+       scroll the whole column, drawing included. Not on the column itself: it would reach the
+       product copy inside the drawing. */
     .option__name { font-size: var(--doc-body); font-weight: 700; line-height: 1.4; margin: 0 0 12px; max-width: 100%; overflow-wrap: anywhere; }
     .option__why { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); margin: 8px 0 0; max-width: 100%; overflow-wrap: anywhere; }
     .option__why b { color: var(--fm-text-primary); }
@@ -214,14 +216,14 @@
        stacked uppercase list. Uppercase is the least readable setting in the document and
        there were three lines of it under every drawing, above two more lines of prose and a
        tag: four treatments where one idea was being explained. */
-    .option__notes { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); }
+    .option__notes { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); overflow-wrap: anywhere; }
 
     /* What the drawing is made of. Built from is quiet: composing the system is the ordinary
        case and does not need announcing. Adds is not quiet, because a proposal that needs a
        component the system does not have is proposing work nobody has costed, and a reader
        should meet that beside the drawing rather than in a build ticket weeks later. */
-    .option__built { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); }
-    .option__adds { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 6px 8px; }
+    .option__built { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-tertiary); overflow-wrap: anywhere; }
+    .option__adds { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 6px 8px; overflow-wrap: anywhere; }
     .option__adds-kind { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-brand-dark); }
 
     /* A part block is one two-column row: the case for the part on the document's left edge,
@@ -289,7 +291,7 @@
        be a different design, drawn by the browser, arguing for something nobody picked. So the
        column keeps the width it was drawn at and scrolls inside its own box, which is the
        one thing the page itself must never do; that rule sits on .proposal-screen__col, since
-       it holds at every width. Same here for the comparison table, which is a table and reads
+       it holds at every screen width. Same here for the comparison table, which is a table and reads
        as one or not at all.
 
        The terrain is the exception, and it was tried the other way first. .bb already scrolls,
@@ -305,11 +307,15 @@
       .doc__jump { display: none; }
     }
 
-    /* Paper has no scroll: a drawing column that scrolls on screen would print cut at its edge,
-       with a scrollbar under it. On paper the column lets the drawing out, and the browser
-       shrinks the page to fit it. */
+    /* Paper has no scroll, and it is narrower than a drawing may be. A column that scrolls on
+       screen printed cut at its edge over a scrollbar; let out, a wide drawing made the browser
+       shrink every page and past about 1030px was still cut at the paper's edge. On paper the
+       column takes its print width (the drawn width, or the assembler's PRINT_WIDTH when that is
+       narrower) and the frame is zoomed to fit it: scaled like a screenshot, never reflowed, so
+       the prose keeps its size. Last in the sheet, so it wins over the column's own rule. */
     @media print {
-      .proposal-screen__col { max-width: none; overflow: visible; }
+      .proposal-screen__col { width: var(--print-width) !important; max-width: none; overflow: visible; }
+      .proposal-screen { zoom: var(--print-zoom); }
     }
   </style>
 </head>
