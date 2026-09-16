@@ -30,38 +30,39 @@ var THREE = {
 // "What comparable products do", which is one of the four things a reader needs and the
 // only one it could say. It is now four lanes with a section of its own.
 describe("the research section", function () {
-  it("is a section of the document, not a column of the briefing", function () {
+  it("is a section of the document, not a column of the background", function () {
     var out = assembleProposal(withResearch(THREE));
-    var briefing = out.slice(at(out, "The briefing"), at(out, "What we found"));
-    assert.notStrictEqual(at(out, "What we found"), -1, "there is no research section");
-    assert.strictEqual(at(briefing, "What comparable products do"), -1, "the briefing still carries the research column");
+    var background = out.slice(at(out, ">Background<"), at(out, ">Research<"));
+    assert.notStrictEqual(at(out, ">Research<"), -1, "there is no research section");
+    assert.strictEqual(at(background, "Atlan puts"), -1, "the background carries a finding");
   });
 
-  // It is evidence the decisions are argued from, so it is read before them and after the
-  // product read that frames it.
-  it("sits after the briefing and before the first decision", function () {
+  // 2026-09-16. It is evidence for the design, read by whoever wants to check it, so it
+  // follows the design and the options it was chosen over, and precedes the sources.
+  it("sits after the other options and before the sources", function () {
     var d = withResearch(THREE);
     var out = assembleProposal(d);
-    assert.ok(at(out, "The briefing") < at(out, "What we found"), "the research comes before the briefing");
-    assert.ok(at(out, "What we found") < at(out, 'id="' + d.decisions[0].id + '"'), "a decision is argued before its evidence");
+    assert.ok(at(out, 'id="' + d.decisions[0].id + '"') < at(out, ">Research<"), "the design comes first");
+    assert.ok(at(out, ">Other options<") < at(out, ">Research<"), "then what it was chosen over");
+    assert.ok(at(out, ">Research<") < at(out, 'class="citations"'), "then the research, then the sources");
   });
 
   it("groups the findings under the lane each came from", function () {
     var out = assembleProposal(withResearch(THREE));
-    var sec = out.slice(at(out, "What we found"));
-    ["Competitors", "Design systems", "Ours"].forEach(function (label) {
+    var sec = out.slice(at(out, ">Research<"));
+    ["Competitors", "Design systems", "Our product and design system"].forEach(function (label) {
       assert.notStrictEqual(at(sec, label), -1, "no group for " + label);
     });
     assert.ok(at(sec, "Atlan puts") > at(sec, "Competitors"), "a competitor finding is outside its group");
-    assert.ok(at(sec, "read-only tag") > at(sec, "Ours"), "an ours finding is outside its group");
+    assert.ok(at(sec, "read-only tag") > at(sec, "Our product and design system"), "an ours finding is outside its group");
   });
 
   it("prints no group for a lane that found nothing", function () {
     var one = { lanes: ["ours"], ran: true, findings: [THREE.findings[2]] };
     var sec = assembleProposal(withResearch(one));
-    sec = sec.slice(at(sec, "What we found"));
+    sec = sec.slice(at(sec, ">Research<"));
     sec = sec.slice(0, at(sec, "</section>"));
-    assert.notStrictEqual(at(sec, "Ours"), -1, "the lane that ran has no group");
+    assert.notStrictEqual(at(sec, "Our product and design system"), -1, "the lane that ran has no group");
     assert.strictEqual(at(sec, "Competitors"), -1, "a lane nobody asked for got a heading");
     assert.strictEqual(at(sec, "Design systems"), -1, "a lane nobody asked for got a heading");
   });
@@ -72,7 +73,7 @@ describe("the research section", function () {
   it("reads a finding with no lane as a competitor finding", function () {
     var old = { ran: true, findings: [{ claim: "Account menus put the role under the name.", source: "SaaSUI" }] };
     var out = assembleProposal(withResearch(old));
-    var sec = out.slice(at(out, "What we found"));
+    var sec = out.slice(at(out, ">Research<"));
     sec = sec.slice(0, at(sec, "</section>"));
     assert.notStrictEqual(at(sec, "Competitors"), -1, "the old findings landed in no group");
     assert.notStrictEqual(at(sec, "Account menus put"), -1, "the old finding is not rendered at all");
@@ -89,17 +90,17 @@ describe("the research section", function () {
       ],
     });
     var sec = assembleProposal(d);
-    sec = sec.slice(at(sec, "What we found"));
+    sec = sec.slice(at(sec, ">Research<"));
     sec = sec.slice(0, at(sec, "</section>"));
-    assert.notStrictEqual(at(sec, "Yours"), -1, "no group for the refs the reader gave");
-    assert.ok(at(sec, "Yours") > at(sec, "Competitors"), "the reader's own refs are buried above the sweep");
-    assert.ok(at(sec, "Okta prints") > at(sec, "Yours"), "a yours finding is outside its group");
+    assert.notStrictEqual(at(sec, "Your references"), -1, "no group for the refs the reader gave");
+    assert.ok(at(sec, "Your references") > at(sec, "Competitors"), "the reader's own refs are buried above the sweep");
+    assert.ok(at(sec, "Okta prints") > at(sec, "Your references"), "a yours finding is outside its group");
   });
 
   it("says what it did not do, and draws no empty groups, when nothing ran", function () {
     var none = { lanes: [], ran: false, findings: [], skippedBecause: "the request said skip research" };
     var out = assembleProposal(withResearch(none));
-    var sec = out.slice(at(out, "What we found"));
+    var sec = out.slice(at(out, ">Research<"));
     sec = sec.slice(0, at(sec, "</section>"));
     assert.notStrictEqual(at(sec, "Not researched: the request said skip research"), -1, "it does not say why");
     assert.strictEqual(count(sec, "research__lane"), 0, "it drew a group anyway");

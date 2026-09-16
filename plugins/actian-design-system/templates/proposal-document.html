@@ -100,7 +100,6 @@
     .proposal-screen__name { display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; min-height: 3.2em; }
     .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
-    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
     .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; box-shadow: 0 0 0 8px var(--fm-base-100); }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
@@ -147,14 +146,9 @@
 
     .doc__footer { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--fm-base-300); max-width: var(--doc-measure); }
 
-    /* The feature's framing question, above the answer, and only in a document that holds
-       more than one decision: with one decision it is the decision's own heading. Caption
-       scale, because it is the setup and the answer is the statement. */
-    .doc__question { font-size: var(--doc-body); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
-
     /* The answer. One sentence at h2 scale is the document's first element, tied with a
-       decision question rather than with the title above it, and nothing follows it inside
-       its own section: "What we propose" is the summary and this is the statement. */
+       part heading rather than with the title above it, and nothing follows it inside its
+       own section: "What ships" is the summary and this is the statement. */
     .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0; max-width: var(--doc-measure); }
 
     /* The terrain. The SVG carries no colour of its own; every value it draws with is here. */
@@ -205,8 +199,6 @@
        than a framing section's, because these blocks are the argument and the sections
        around them are the setting. */
     .decision { border-top: 3px solid var(--fm-base-800); padding: 24px 0 0; margin: 0 0 80px; scroll-margin-top: 64px; }
-    .decision > .decision__kicker { padding-top: 8px; }
-    .decision__kicker { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 6px; }
     .decision > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
     .decision__blocker { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
     .decision__blocker b { color: var(--fm-text-primary); }
@@ -225,26 +217,26 @@
     .option__adds { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 6px 8px; }
     .option__adds-kind { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-brand-dark); }
 
-    /* A decision block runs proposal, alternatives, evidence. The proposal is a two-column
-       row: the drawing on the left at the width the author asked for, the case for it on the
-       right, so a reader meets the answer and its argument together instead of reconstructing
-       the answer from three equal options and a table. Both columns wrap to one on a narrow
-       canvas. */
+    /* A part block is one two-column row: the case for the part on the document's left edge,
+       the chosen drawing beside it, so a reader meets what we will build and why together.
+       Both columns wrap to one on a narrow canvas. */
     .decision__lead { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; margin: 0 0 48px; }
     .decision__case { flex: 1 1 380px; min-width: 0; max-width: var(--doc-measure); }
 
-    /* What the proposal was chosen over. Smaller drawings, one line of annotation, and a
-       heading that says what they are, because a reader who has read the proposal should be
-       able to skim these rather than weigh them again. */
-    .also { margin: 0 0 32px; }
-    .also > h3, .compare-block > h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 16px; }
-    .also .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
+    /* Other options: what each part was chosen over, after the design. Smaller drawings, one
+       line of annotation, then the comparison, grouped under the part they lost to, so a
+       reader who has read the design can skim these rather than weigh them again. */
+    .other { margin: 0 0 56px; }
+    .other > h3 { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 20px; }
+    .other .approaches { margin: 0 0 32px; }
+    .other .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
     .compare-block { margin: 0; }
 
-    /* The pick. One line per reason, each naming the row it argues from, then the cost. */
+    /* The case for a part: what it is, then why, one line per reason naming the row it argues
+       from, then where it breaks and what it costs. */
     .pick { margin: 0; border-top: 0; padding: 0; max-width: var(--doc-measure); }
     .pick__lead { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 18px; }
-    .pick__lead .decision__kicker { color: var(--fm-brand-dark); }
+    .pick__label { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .pick__reasons li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
     .pick__crit { font-weight: 700; color: var(--fm-text-primary); }

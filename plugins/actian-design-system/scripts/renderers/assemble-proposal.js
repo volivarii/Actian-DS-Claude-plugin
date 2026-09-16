@@ -2,16 +2,20 @@
 
 /**
  * assemble-proposal.js: assembles a design proposal document, one offline HTML
- * file, from proposals/proposal-data.json: the answer, the terrain the feature
- * happens on, a table of what was decided, the briefing, one block per decision
- * with its options drawn inside their anchor and its pick argued from its own
- * comparison, what is still open, what this changes, and the latitude line.
+ * file, from proposals/proposal-data.json.
  *
- * The reader gets the answer first and a drawing second. Within a decision every
- * option renders at the same width, computed here rather than trusted from the
- * data: research on prototype fidelity found that unequal presentation corrupts
- * a stakeholder's judgement in both directions, so an author must not be able to
- * draw their favourite at 720 and its rival at 320.
+ * The reader is a PM or a designer approving a direction, so the document leads
+ * with what ships: the answer, a summary of the parts, one block per part with
+ * the chosen drawing and why, how the parts connect, what to settle before
+ * building, what changes, the background, then the options not chosen with
+ * their comparison, the research, the sources and the closing line. A part is
+ * headed by what it builds (decisions[].part), never by the question behind it:
+ * the question frames the comparison and stays in the data.
+ *
+ * Within a decision every option renders at the same width, computed here rather
+ * than trusted from the data: research on prototype fidelity found that unequal
+ * presentation corrupts a stakeholder's judgement in both directions, so an
+ * author must not be able to draw their favourite at 720 and its rival at 320.
  *
  * Grounding the author does not have to think about: the app header strip is
  * the flow renderer's own appHeader markup for the anchor's app (so the label
@@ -44,7 +48,7 @@ var BALANCED_TAGS = ["div", "span", "p", "section", "button", "a", "ul", "ol", "
 var TONES = { good: "tone-good", mixed: "tone-mixed", bad: "tone-bad" };
 
 function maskComment(s) {
-  return String(s == null ? "" : s).replace(/-(?=-)/g, "-\u200b");
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-​");
 }
 
 function stripComments(s) {
@@ -102,35 +106,51 @@ function findById(arr, id) {
   return hit;
 }
 
-// context.question is the feature's framing question and the schema requires it, so the
-// only honest reason not to render it is that the reader is already reading it: some
-// decision asks the same thing word for word, which is what the converter produces when
-// it derives decisions[0].question from this field. Anything else gets rendered.
-//
-// An earlier version suppressed it for every one-decision document, on the theory that the
-// two are always the same sentence there. They are only the same in a CONVERTED file. A
-// freshly authored one-decision proposal whose decision is narrower than its framing
-// question lost that question entirely, and no test noticed.
-function questionHtml(data) {
-  var repeated = data.decisions.some(function (d) { return d.question === data.context.question; });
-  if (repeated) return "";
-  return '<p class="doc__question">' + esc(data.context.question) + "</p>";
+// What a decision builds, as a reader names it. Authored as part. A file written before part
+// existed has none, and the chosen option's surface ("the account menu") is the closest name
+// it carries, so it is used with its article dropped rather than the question it replaced.
+function partName(d) {
+  if (d.part && String(d.part).trim()) return String(d.part).trim();
+  var win = findById(d.options, d.pick.optionId);
+  var s = String((win && win.anchor.surface) || d.id).replace(/^the\s+/i, "");
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-// The answer is one sentence and nothing else. It used to carry a question-and-pick list
-// under it, which "What we propose" printed again ten lines later with the cost added:
-// measured on the acceptance document, every question was printed three times and every
-// pick five. The table is the summary; this is the statement.
+// Every option in a decision renders at one width: the widest the author declared, floored
+// at 280 and capped at the row budget its option count allows. The part block and the other
+// options read it from here, so the two can never disagree about how wide a drawing is.
+function decisionWidth(d) {
+  var widest = 0;
+  d.options.forEach(function (o) { widest = Math.max(widest, Number(o.screen.width) || 360); });
+  return Math.min(Math.max(widest, 280), rowBudget(d.options.length));
+}
+
+// The answer is one sentence and nothing else: what we will build. The framing question used
+// to sit above it, which opened a proposal with a question when its reader came for the
+// answer; it stays in the data for the evaluation stage and the comparison.
 //
 // The pick lookup stays, because it is the only place that catches a pick naming an option
-// that does not exist before the decision blocks render. Dropping the list must not drop
-// the check with it.
+// that does not exist before any part renders.
 function answerHtml(data) {
   data.decisions.forEach(function (d) {
     if (!findById(d.options, d.pick.optionId))
       throw new Error('proposal-data: decision "' + d.id + '" picks optionId "' + d.pick.optionId + '", which names no option in it');
   });
-  return section("", questionHtml(data) + '<p class="answer">' + esc(data.answer) + "</p>");
+  return section("", '<p class="answer">' + esc(data.answer) + "</p>");
+}
+
+// What ships, one row per part: what it is and what it costs. Derived from decisions[], so
+// it cannot say something the parts below do not. One part needs no summary of itself.
+function shipsHtml(decisions) {
+  if (decisions.length < 2) return "";
+  var rows = decisions.map(function (d) {
+    var win = findById(d.options, d.pick.optionId);
+    return "<tr><th>" + esc(partName(d)) + "</th><td>" + esc(win.whatItIs) + "</td><td>" + esc(d.pick.cost) + "</td></tr>";
+  }).join("");
+  var table =
+    '<table class="decisions-at-a-glance"><thead><tr><th>Part</th><th>What we will build</th><th>Cost</th></tr></thead>' +
+    "<tbody>" + rows + "</tbody></table>";
+  return section("What ships", table);
 }
 
 function terrainHtml(board) {
@@ -138,29 +158,11 @@ function terrainHtml(board) {
   var svg = breadboard.breadboardSvg(board);
   var legend =
     '<p class="bb__legend"><span><i class="bb__swatch"></i>Exists today</span>' +
-    '<span><i class="bb__swatch bb__swatch--new"></i>What this adds</span></p>';
-  return section("The terrain", '<div class="bb">' + svg + "</div>" + legend);
+    '<span><i class="bb__swatch bb__swatch--new"></i>New</span></p>';
+  return section("How it connects", '<div class="bb">' + svg + "</div>" + legend);
 }
 
-// The document PROPOSES; the reader decides. So nothing a reader sees says "decided" or
-// "picked": the summary is "What we propose", a block is "Question N of M", the winning
-// column is "Proposed" and the lead is "We propose". The data model still calls them
-// decisions[] and pick, because that is what the author is choosing between and what the
-// flow bridge addresses by id, and renaming those would break every authored file and both
-// --decision and --option for no reader.
-function glanceHtml(decisions) {
-  if (decisions.length < 2) return "";
-  var rows = decisions.map(function (d) {
-    var win = findById(d.options, d.pick.optionId);
-    return "<tr><th>" + esc(d.question) + "</th><td>" + esc(win.name) + "</td><td>" + esc(d.pick.cost) + "</td></tr>";
-  }).join("");
-  var table =
-    '<table class="decisions-at-a-glance"><thead><tr><th>The question</th><th>What we propose</th><th>What it costs</th></tr></thead>' +
-    "<tbody>" + rows + "</tbody></table>";
-  return section("What we propose", table);
-}
-
-function briefingHtml(data) {
+function backgroundHtml(data) {
   function col(label, inner) {
     return '<div class="briefing__col"><h3>' + esc(label) + "</h3>" + inner + "</div>";
   }
@@ -170,8 +172,7 @@ function briefingHtml(data) {
     col("Not doing", list("doc__list", data.scope.nonGoals.map(esc))) +
     col("How it works today", list("doc__list", data.context.product.map(esc))) +
     "</div>";
-  if (data.context.gap) inner += '<p class="doc__gap">Gap: ' + esc(data.context.gap) + "</p>";
-  return section("The briefing", inner);
+  return section("Background", inner);
 }
 
 // The four lanes, in the order a reader wants them: what the market does, what the canon
@@ -180,14 +181,14 @@ function briefingHtml(data) {
 var RESEARCH_LANES = [
   { id: "competitors", label: "Competitors" },
   { id: "designSystems", label: "Design systems" },
-  { id: "ours", label: "Ours" },
-  { id: "yours", label: "Yours" },
+  { id: "ours", label: "Our product and design system" },
+  { id: "yours", label: "Your references" },
 ];
 
 function researchHtml(research) {
   if (!research.ran) {
     return section(
-      "What we found",
+      "Research",
       '<p class="doc__muted">Not researched: ' + esc(research.skippedBecause || "") + "</p>",
     );
   }
@@ -207,7 +208,7 @@ function researchHtml(research) {
       "</div>"
     );
   }).join("");
-  return section("What we found", '<div class="research">' + groups + "</div>");
+  return section("Research", '<div class="research">' + groups + "</div>");
 }
 
 // What a drawing is made of, printed where a reader can see it. "Built from" is quiet, and
@@ -231,33 +232,36 @@ function optionHtml(o, index, apps, width, lead) {
   if (bad) throw new Error("proposal-data: unbalanced <" + bad + '> in option "' + o.id + '"');
   var type = flowRenderer.resolveChrome({ template: templateForApp(o.anchor.app) }).appHeaderType;
   var strip = flowRenderer.appHeader(type);
-  // One voice under a drawing, not three. The annotations used to be an uppercase list, the
-  // two lines carried bold black labels, and the verdict floated as a fourth thing: four
-  // treatments for "tell me about this option", the loudest of them the hardest to read.
-  // Now it is a sentence, a qualifier, and a quiet run of the annotations joined by middots.
+  // One voice under a drawing, not three: a sentence, a qualifier, and a quiet run of the
+  // annotations joined by middots.
   var notes = (o.screen.notes || []).length
     ? '<p class="option__notes">' + o.screen.notes.map(esc).join(" &middot; ") + "</p>"
     : "";
-  // The proposed option is named and judged in the case beside it, so its own card carries
-  // neither: a name printed twice a hand's width apart, and a verdict tag over three reasons
-  // that say the same thing at length, are both the document agreeing with itself.
+  // The chosen option says what it is and where it breaks in the case beside it, so its own
+  // card carries neither: the same two lines a hand's width apart is the document agreeing
+  // with itself. An option not chosen carries its name, its two lines and its verdict.
+  var anchor = '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span>";
   var label = lead
-    ? '<span class="proposal-screen__label proposal-screen__label--lead">' +
-      '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span></span>"
-    : '<span class="proposal-screen__label">' +
-      '<span class="proposal-screen__name"><span class="proposal-screen__num">' + (index + 1) + "</span>" + esc(o.name) + "</span>" +
-      '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span></span>";
+    ? '<span class="proposal-screen__label proposal-screen__label--lead">' + anchor + "</span>"
+    : '<span class="proposal-screen__label"><span class="proposal-screen__name">' + esc(o.name) + "</span>" + anchor + "</span>";
+  var lines = lead
+    ? ""
+    : '<p class="approach__lines">' + esc(o.whatItIs) + '<br><span class="approach__breaks">Breaks when.</span> ' + esc(o.breaksWhen) + "</p>";
   var verdict = lead ? "" : '<p class="approach__verdict"><span class="fm-tag">' + esc(o.verdict) + "</span></p>";
   return (
     '<div class="proposal-screen__col" style="width:' + width + 'px">' + label +
     '<div class="proposal-screen" data-name="' + esc(o.id) + '" style="width:' + width + 'px">' + strip +
     '<div class="proposal-screen__body">' + o.screen.html + "</div></div>" + notes +
-    '<p class="approach__lines">' + esc(o.whatItIs) + '<br><span class="approach__breaks">Breaks when.</span> ' + esc(o.breaksWhen) + "</p>" +
-    compositionHtml(o) + verdict +
+    lines + compositionHtml(o) + verdict +
     "</div>\n"
   );
 }
 
+// The document PROPOSES; the reader decides. Nothing a reader sees says "decided" or
+// "picked": the chosen column is "Proposed". The data model still calls them decisions[]
+// and pick, because that is what the author is choosing between and what the flow bridge
+// addresses by id, and renaming those would break every authored file and both --decision
+// and --option for no reader.
 function comparisonHtml(cmp, options, pickedId) {
   var head =
     "<tr><th></th>" +
@@ -281,6 +285,9 @@ function comparisonHtml(cmp, options, pickedId) {
   return '<table class="compare"><thead>' + head + "</thead><tbody>" + rows + "</tbody></table>";
 }
 
+// The case for a part: what it is, why (each reason beside the criterion it argues from),
+// where it breaks, and what it costs. Where it breaks is the most load-bearing line here,
+// because it says where the thing we are proposing fails.
 function pickHtml(d) {
   var win = findById(d.options, d.pick.optionId);
   var reasons = d.pick.reasons.map(function (r) {
@@ -289,85 +296,79 @@ function pickHtml(d) {
       throw new Error('proposal-data: decision "' + d.id + '" has a reason naming criterionId "' + r.criterionId + '", which names no criterion in it');
     return '<li><span class="pick__crit">' + esc(crit.label) + "</span> " + esc(r.text) + "</li>";
   }).join("");
-  var inner =
-    '<div class="pick"><p class="pick__lead"><span class="decision__kicker">We propose</span>' + esc(win.name) + "</p>" +
-    '<ul class="pick__reasons">' + reasons + "</ul>" +
-    '<p class="pick__cost"><b>What it costs.</b> ' + esc(d.pick.cost) + "</p></div>";
-  if (d.blocker) inner += '<p class="decision__blocker"><b>Blocker.</b> ' + esc(d.blocker) + "</p>";
-  return inner;
-}
-
-// A decision block leads with what we propose and argues for it, then shows what it was
-// chosen over, then the evidence. It used to run the other way: the question, three options
-// at one width, a fifteen-cell table, and only at the bottom "We pick". A reader did the
-// comparison themselves and then learned it had already been done, and two thirds of the
-// drawings on the page were things we are not doing, at the same size as the thing we are.
-//
-// The rejected options still render at ONE width as each other, so none of them is flattered
-// over its peers; what changed is that the proposal leads and they follow, smaller, under a
-// heading that says what they are. The comparison below is unchanged and complete, which is
-// what keeps this a proposal rather than a sales sheet.
-var ALSO_SCALE = 0.72;
-
-function decisionHtml(d, index, apps, total) {
-  var budget = rowBudget(d.options.length);
-  var widest = 0;
-  d.options.forEach(function (o) { widest = Math.max(widest, Number(o.screen.width) || 360); });
-  var width = Math.min(Math.max(widest, 280), budget);
-  var alsoWidth = Math.max(240, Math.round(width * ALSO_SCALE));
-  var kicker = total > 1 ? '<span class="decision__kicker">Question ' + (index + 1) + " of " + total + "</span>" : "";
-
-  var win = findById(d.options, d.pick.optionId);
-  var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
-  var leadHtml =
-    '<div class="decision__lead">' +
-    '<div class="decision__case">' + pickHtml(d) + "</div>" +
-    optionHtml(win, d.options.indexOf(win), apps, width, true) + "</div>";
-  var alsoHtml = rest.length
-    ? '<div class="also"><h3>Also considered</h3><div class="approaches">' +
-      rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
-      "</div></div>"
-    : "";
-  var compareHtml =
-    '<div class="compare-block"><h3>How they compare</h3>' +
-    comparisonHtml(d.comparison, d.options, d.pick.optionId) +
-    "</div>";
-
   return (
-    '  <section class="decision" id="' + esc(d.id) + '">' + kicker + "<h2>" + esc(d.question) + "</h2>" +
-    leadHtml + alsoHtml + compareHtml + "</section>\n"
+    '<div class="pick"><p class="pick__lead">' + esc(win.whatItIs) + "</p>" +
+    '<h3 class="pick__label">Why</h3><ul class="pick__reasons">' + reasons + "</ul>" +
+    '<p class="pick__cost"><b>Breaks when.</b> ' + esc(win.breaksWhen) + "</p>" +
+    '<p class="pick__cost"><b>Cost.</b> ' + esc(d.pick.cost) + "</p></div>"
   );
 }
 
-function openQuestionsHtml(listed) {
-  if (!listed || !listed.length) return "";
-  var items = listed.map(function (q) {
-    var kind = q.kind === "rabbit hole" ? "Rabbit hole" : "Open question";
-    return '<span class="oq__kind">' + kind + "</span>" + esc(q.text);
+// One block per part: its name, the case, and the chosen drawing beside it. Nothing else.
+// The options not chosen and the comparison that chose between them follow the design, under
+// Other options, because a reader approving a direction reads the direction first.
+function partHtml(d, apps) {
+  var win = findById(d.options, d.pick.optionId);
+  return (
+    '  <section class="decision" id="' + esc(d.id) + '"><h2>' + esc(partName(d)) + "</h2>" +
+    '<div class="decision__lead"><div class="decision__case">' + pickHtml(d) + "</div>" +
+    optionHtml(win, d.options.indexOf(win), apps, decisionWidth(d), true) + "</div></section>\n"
+  );
+}
+
+// What each part was chosen over, and the comparison that chose it. Kept complete, which is
+// what keeps this a proposal rather than a sales sheet. The options not chosen render at one
+// width as each other, smaller than the part they lost to, so none is flattered over its peers.
+var ALSO_SCALE = 0.72;
+
+function otherOptionsHtml(decisions, apps) {
+  var groups = decisions.map(function (d) {
+    var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
+    if (!rest.length) return "";
+    var alsoWidth = Math.max(240, Math.round(decisionWidth(d) * ALSO_SCALE));
+    return (
+      '<div class="other" id="' + esc(d.id) + '-options">' +
+      (decisions.length > 1 ? "<h3>" + esc(partName(d)) + "</h3>" : "") +
+      '<div class="approaches">' +
+      rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
+      '</div><div class="compare-block">' + comparisonHtml(d.comparison, d.options, d.pick.optionId) + "</div></div>"
+    );
+  }).join("");
+  return groups ? section("Other options", groups) : "";
+}
+
+// What has to be settled before anyone builds: the blockers first, each naming its part,
+// because a blocker is a question that would change a pick; then the open questions and
+// risks, which by definition do not.
+function beforeWeBuildHtml(data) {
+  var blockers = data.decisions.filter(function (d) { return d.blocker; }).map(function (d) {
+    return '<p class="decision__blocker"><b>Blocker, ' + esc(partName(d)) + ".</b> " + esc(d.blocker) + "</p>";
+  }).join("");
+  var open = (data.openQuestions || []).map(function (q) {
+    return '<span class="oq__kind">' + (q.kind === "rabbit hole" ? "Risk" : "Open question") + "</span>" + esc(q.text);
   });
-  return section("What is still open", list("doc__list oq", items));
+  if (!blockers && !open.length) return "";
+  return section("Before we build", blockers + (open.length ? list("doc__list oq", open) : ""));
 }
 
 function changeHtml(change) {
   function col(label, text) {
     return text ? '<div class="change__col"><h3>' + esc(label) + "</h3><p>" + esc(text) + "</p></div>" : "";
   }
-  var inner = '<div class="change">' + col("Admin side", change.adminSide) + col("User side", change.userSide) + "</div>";
-  return section("What this changes", inner);
+  var inner = '<div class="change">' + col("For users", change.userSide) + col("For admins", change.adminSide) + "</div>";
+  return section("What changes", inner);
 }
 
-// Where the assessment meets the substrate. These used to be one semicolon-joined run-on
-// inside the briefing, which is where a reader is still learning the problem and has no use
-// for a bibliography. Each source is one row of kind and text, and the kind is the prefix
-// the schema already asks for, so the rows line up instead of repeating "app-context:" five
-// times down the left. A source with no recognised prefix renders as its own text, unkinded,
-// rather than being dropped: an unlabelled citation is still a citation.
+// Where the assessment meets the substrate. Each source is one row of kind and text, and the
+// kind is the prefix the schema already asks for, so the rows line up instead of repeating
+// "app-context:" five times down the left. A source with no recognised prefix renders as its
+// own text, unkinded, rather than being dropped: an unlabelled citation is still a citation.
 //
-// context.gap stays in the briefing. It says what the product read could NOT reach, which
-// qualifies the read rather than sourcing it, and a reader needs it beside the facts it
-// qualifies rather than at the end.
-function citationsHtml(sources) {
-  if (!sources || !sources.length) return "";
+// context.gap sits here too. It says what the product read could not reach, which is a note
+// about the sources, and a PM reading the design above has no use for it before then.
+function citationsHtml(context) {
+  var sources = context.sources || [];
+  if (!sources.length && !context.gap) return "";
   var rows = sources.map(function (src) {
     var cut = src.indexOf(": ");
     var kind = cut === -1 ? "" : src.slice(0, cut);
@@ -378,7 +379,8 @@ function citationsHtml(sources) {
       '<span class="citations__text">' + esc(text) + "</span></div>"
     );
   }).join("");
-  return section("Where this came from", '<div class="citations">' + rows + "</div>");
+  var gap = context.gap ? '<p class="doc__muted">' + esc(context.gap) + "</p>" : "";
+  return section("Sources", '<div class="citations">' + rows + "</div>" + gap);
 }
 
 function latitudeHtml(text) {
@@ -431,13 +433,14 @@ function toFragment(html) {
 function jumpHtml(decisions) {
   if (decisions.length < 2) return "";
   return (
-    '  <nav class="doc__jump" aria-label="The decisions in this proposal">' +
+    '  <nav class="doc__jump" aria-label="The parts of this proposal">' +
     decisions
       .map(function (d, i) {
+        var name = partName(d);
         return (
-          '<a class="doc__jump-item" href="#' + esc(d.id) + '" title="' + esc(d.question) + '">' +
+          '<a class="doc__jump-item" href="#' + esc(d.id) + '" title="' + esc(name) + '">' +
           '<span class="doc__jump-num">' + (i + 1) + "</span>" +
-          '<span class="doc__jump-text">' + esc(d.question) + "</span></a>"
+          '<span class="doc__jump-text">' + esc(name) + "</span></a>"
         );
       })
       .join("") +
@@ -452,18 +455,18 @@ function assembleProposal(data, options) {
   if (errors.length) throw new Error("proposal-data: schema: " + errors.join("; "));
   var meta = data.meta;
   var apps = loadApps();
-  var total = data.decisions.length;
   var sections =
     answerHtml(data) +
-    terrainHtml(data.breadboard) +
-    glanceHtml(data.decisions) +
-    briefingHtml(data) +
-    researchHtml(data.research) +
+    shipsHtml(data.decisions) +
     jumpHtml(data.decisions) +
-    data.decisions.map(function (d, i) { return decisionHtml(d, i, apps, total); }).join("") +
-    openQuestionsHtml(data.openQuestions) +
+    data.decisions.map(function (d) { return partHtml(d, apps); }).join("") +
+    terrainHtml(data.breadboard) +
+    beforeWeBuildHtml(data) +
     changeHtml(data.change) +
-    citationsHtml(data.context.sources) +
+    backgroundHtml(data) +
+    otherOptionsHtml(data.decisions, apps) +
+    researchHtml(data.research) +
+    citationsHtml(data.context) +
     latitudeHtml(data.latitude) +
     footerHtml(meta);
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]
