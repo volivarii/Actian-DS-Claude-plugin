@@ -2146,6 +2146,49 @@ function validate(data, opts) {
     }
   }
 
+  // Layer + goto + adds-declaration check (catalog-quality Slice 1): layer
+  // targeting (kind known, over resolves, base not itself layered), goto
+  // targeting, and a node's `adds` string all must resolve to something
+  // real in this flow. The five named kinds are hard errors, blocking push
+  // same as the other HARD_KINDS-adjacent checks above; prototype-dead-end
+  // is flow-level info (screen:"", see checkPropertiesGrounding /
+  // checkRelationshipGrounding above for the same flow-level convention).
+  if (data && Array.isArray(data.screens)) {
+    var layerIssues = findLayerIssues(data);
+    for (var lii = 0; lii < layerIssues.length; lii++) {
+      findings.push({
+        kind: layerIssues[lii].check,
+        severity: layerIssues[lii].severity,
+        path: layerIssues[lii].path,
+        screen: layerIssues[lii].screenId,
+        message: layerIssues[lii].value,
+        _legacy: layerIssues[lii],
+      });
+    }
+  }
+
+  // Undeclared-invention check (catalog-quality Slice 1): a hand-drawn
+  // FRAME subtree deep and DS-free enough to read as a deliberate
+  // composition, with no adds[] entry declaring it. Soft warning: the
+  // composition gate (#382) validates vocabulary, not novelty; this flags
+  // rather than blocks.
+  if (data && Array.isArray(data.screens)) {
+    var inventionIssues = findUndeclaredInvention(data);
+    for (var uii = 0; uii < inventionIssues.length; uii++) {
+      findings.push({
+        kind: inventionIssues[uii].check,
+        severity: inventionIssues[uii].severity,
+        path: inventionIssues[uii].path,
+        screen: inventionIssues[uii].screenId,
+        message:
+          "FRAME '" +
+          inventionIssues[uii].value +
+          "' looks hand-composed (2+ nested FRAMEs, no INSTANCE) with no adds[] entry declaring it",
+        _legacy: inventionIssues[uii],
+      });
+    }
+  }
+
   // Missing-focus check — a lo-fi flow (meta.skin === "lofi") must declare a
   // focus:true subtree per screen (FM focus principle); a freehand screen is
   // exempt. Soft warning: the lo-fi skin that reads it is a later task.
@@ -2528,6 +2571,233 @@ function findUnfilledSlots(data, recipes) {
 }
 
 // ---------------------------------------------------------------------------
+// Check: layer + goto + adds-declaration (catalog-quality Slice 1, the
+// layered-screen model)
+// ---------------------------------------------------------------------------
+//
+// A screen may declare `layer` (a modal/drawer/toast/panel surface over a
+// base screen, flow-renderer.js renderLayered) and a content node may carry
+// `goto` (a prototype navigation target, render-node.js data-goto) or `adds`
+// (naming an entry of its own screen's adds[], rung as new in the render).
+// This check validates all three point at real things:
+//   - layer.kind must be one of the four known surface kinds
+//   - layer.over must name a screen id present in this flow
+//   - the base a layer sits over must not itself be layered (no stacking)
+//   - goto must name a screen id present in this flow
+//   - adds must name an entry in the node's own screen's adds[]
+// A flow with no goto anywhere is a dead end for the prototype: reported
+// once, flow-level (screen:"" / screenId:"", the convention the flow-level
+// grounding checks above already use, see checkPropertiesGrounding /
+// checkRelationshipGrounding), at info severity, since plenty of
+// single-screen or not-yet-wired flows have no prototype and that's not an
+// error on its own.
+
+var LAYER_KINDS = ["modal", "drawer", "toast", "panel"];
+
+function findLayerIssues(data) {
+  var issues = [];
+  if (!data || !Array.isArray(data.screens)) return issues;
+
+  var screensById = {};
+  data.screens.forEach(function (screen) {
+    if (screen && screen.id) screensById[screen.id] = screen;
+  });
+
+  var anyGoto = false;
+
+  data.screens.forEach(function (screen, si) {
+    if (!screen) return;
+    var screenName = screen.name || "Screen " + (si + 1);
+    var screenId = screen.id || "";
+
+    if (screen.layer) {
+      var kind = screen.layer.kind;
+      var over = screen.layer.over;
+      if (LAYER_KINDS.indexOf(kind) === -1) {
+        issues.push({
+          severity: "error",
+          check: "layer-kind-unknown",
+          screen: screenName,
+          screenId: screenId,
+          path: "layer.kind",
+          value: kind,
+        });
+      }
+      var base = over ? screensById[over] : null;
+      if (!base) {
+        issues.push({
+          severity: "error",
+          check: "layer-target-missing",
+          screen: screenName,
+          screenId: screenId,
+          path: "layer.over",
+          value: over,
+        });
+      } else if (base.layer) {
+        issues.push({
+          severity: "error",
+          check: "layer-over-layer",
+          screen: screenName,
+          screenId: screenId,
+          path: "layer.over",
+          value: over,
+        });
+      }
+    }
+
+    var screenAddsNames = {};
+    (Array.isArray(screen.adds) ? screen.adds : []).forEach(function (a) {
+      if (a && typeof a.name === "string") screenAddsNames[a.name] = true;
+    });
+
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        if (!node) return;
+        if (typeof node.goto === "string") {
+          anyGoto = true;
+          if (!screensById[node.goto]) {
+            issues.push({
+              severity: "error",
+              check: "goto-target-missing",
+              screen: sName,
+              screenId: screenId,
+              path: nPath + ".goto",
+              value: node.goto,
+            });
+          }
+        }
+        if (typeof node.adds === "string") {
+          if (!screenAddsNames[node.adds]) {
+            issues.push({
+              severity: "error",
+              check: "adds-undeclared-name",
+              screen: sName,
+              screenId: screenId,
+              path: nPath + ".adds",
+              value: node.adds,
+            });
+          }
+        }
+      },
+    );
+  });
+
+  if (!anyGoto) {
+    issues.push({
+      severity: "info",
+      check: "prototype-dead-end",
+      screen: "",
+      screenId: "",
+      path: "",
+      value: "no node in this flow carries goto",
+    });
+  }
+
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
+// Check: undeclared invention (catalog-quality Slice 1)
+// ---------------------------------------------------------------------------
+//
+// The composition gate (proposal readability, #382) validates vocabulary,
+// since every drawing declares `uses` or `adds`, but a screen composed
+// straight from content nodes (no proposal behind it) can still hand-draw a
+// whole panel that no DS slug composes. A candidate is a FRAME whose
+// descendants reach 2+ levels of FRAME-only nesting below it (chrome deep
+// enough to be a deliberate composition, not a one-off wrapper) and hold no
+// INSTANCE anywhere in the subtree (nothing DS-sourced at all). On a screen
+// that isn't a declared `layout:"freehand"` layout test, and that neither
+// the node itself nor any ancestor names via `adds` (an intentional, ringed
+// addition), that candidate is an undeclared invention. Only the outermost
+// such FRAME in a subtree is reported; its nested FRAMEs are part of the
+// same invention, not separate findings.
+
+var INVENTION_DEPTH_THRESHOLD = 2;
+
+function frameDepthBelow(node) {
+  if (!node || !Array.isArray(node.children) || node.children.length === 0)
+    return 0;
+  var max = 0;
+  node.children.forEach(function (c) {
+    var contribution =
+      c && c.type === "FRAME" ? 1 + frameDepthBelow(c) : frameDepthBelow(c);
+    if (contribution > max) max = contribution;
+  });
+  return max;
+}
+
+function hasInstanceDescendant(node) {
+  if (!node || !Array.isArray(node.children)) return false;
+  return node.children.some(function (c) {
+    return (c && c.type === "INSTANCE") || hasInstanceDescendant(c);
+  });
+}
+
+function walkForInvention(
+  nodes,
+  screenName,
+  screenId,
+  ancestorDeclared,
+  issues,
+  pathPrefix,
+) {
+  (nodes || []).forEach(function (node, i) {
+    if (!node) return;
+    var nodePath = pathPrefix + "[" + i + "]";
+    var declared = ancestorDeclared || typeof node.adds === "string";
+    if (
+      node.type === "FRAME" &&
+      !declared &&
+      frameDepthBelow(node) >= INVENTION_DEPTH_THRESHOLD &&
+      !hasInstanceDescendant(node)
+    ) {
+      issues.push({
+        severity: "warning",
+        check: "undeclared-invention",
+        screen: screenName,
+        screenId: screenId,
+        path: nodePath,
+        value: node.name || "(unnamed FRAME)",
+      });
+      return; // outermost candidate only: nested FRAMEs are not reported separately
+    }
+    if (Array.isArray(node.children)) {
+      walkForInvention(
+        node.children,
+        screenName,
+        screenId,
+        declared,
+        issues,
+        nodePath + ".children",
+      );
+    }
+  });
+}
+
+function findUndeclaredInvention(data) {
+  var issues = [];
+  if (!data || !Array.isArray(data.screens)) return issues;
+  data.screens.forEach(function (screen, si) {
+    if (!screen || screen.layout === "freehand") return;
+    var screenName = screen.name || "Screen " + (si + 1);
+    var screenId = screen.id || "";
+    walkForInvention(
+      screen.content,
+      screenName,
+      screenId,
+      false,
+      issues,
+      "content",
+    );
+  });
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
@@ -2544,6 +2814,8 @@ module.exports = {
   findIntentMismatch: findIntentMismatch,
   findMissingFocus: findMissingFocus,
   findUnfilledSlots: findUnfilledSlots,
+  findLayerIssues: findLayerIssues,
+  findUndeclaredInvention: findUndeclaredInvention,
   validate: validate,
   severityForTier: severityForTier,
   checkRecipeAdherence: checkRecipeAdherence,
@@ -2663,6 +2935,13 @@ if (require.main === module) {
     "missing-focus": true,
     "unfilled-slot": true,
     "density-floor": true,
+    "layer-target-missing": true,
+    "layer-kind-unknown": true,
+    "layer-over-layer": true,
+    "goto-target-missing": true,
+    "adds-undeclared-name": true,
+    "prototype-dead-end": true,
+    "undeclared-invention": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;

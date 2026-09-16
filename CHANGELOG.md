@@ -88,6 +88,23 @@ are summarized at the release level.
   check subtracts before looking for a filler, and a node's `slot` can now be an array when one
   FRAME fills more than one slot at once.
 
+- **A screen can layer over another, wire a goto, and declare what it invents**
+  (#TBD — PR not yet opened). Slice 1 of the layered-screen model: `flow-data.schema.json` gains
+  `screen.layer` (`kind`: modal/drawer/toast/panel, `over`: the base screen's id, which must not
+  itself be layered), `screen.adds` (what the screen contributes to the design system: `name`,
+  `composedFrom`, optional `newPrimitives`, `why`, ringed in the render and listed on the cover),
+  `screen.layout: "freehand"` (an unclassified layout test), and a content node's `goto`
+  (prototype navigation target, `render-node.js` emits `data-goto`) and `adds` (names an entry of
+  its own screen's `adds[]`, rung as new). `validate-flow-data.js` reads all of it back:
+  `findLayerIssues` fires `layer-target-missing`, `layer-kind-unknown`, `layer-over-layer`,
+  `goto-target-missing` and `adds-undeclared-name` as errors, plus `prototype-dead-end` (info,
+  flow-level) when no node anywhere in the flow carries `goto`. `findUndeclaredInvention` fires
+  `undeclared-invention` (warning) on a FRAME with two levels of nested FRAMEs below it, no
+  INSTANCE anywhere in the subtree, and no `adds` on itself or an ancestor: a hand-drawn panel
+  passing as ordinary content, the failure the composition gate's `uses`/`adds` check (#382)
+  cannot see because it only reads what a proposal declares, not what a screen actually draws.
+  All seven finding kinds are CLI-visible.
+
 ### Fixed
 
 - **A breadboard no longer spends width on the columns an author skipped**
