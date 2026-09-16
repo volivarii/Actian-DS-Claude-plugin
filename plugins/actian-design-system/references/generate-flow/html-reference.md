@@ -250,6 +250,7 @@ same shape applies; `ds-components-authoring.md` points here rather than repeati
 | `width`, `height` | number (px) | explicit size; used when `sizing` omits that axis |
 | `opacity` | number 0-1 | |
 | `intent` | `"destructive-action"` \| `"success-confirmation"` \| `"error-state"` \| `"default"` | inherited by descendants unless overridden at a leaf (`intent-resolver.js`); drives the `intent-mismatch` gate under `--hifi` |
+| `goto` | string (a screen id) | any node; a prototype click target (`data-goto` in the render) — see below |
 
 INSTANCE nodes additionally carry `ref` (FM slug), `variant`, `props`; under `--hifi`,
 `library: "ds"` + `dsSlug` replace `ref`. Nodes that arrive inside a section (`screen.sections[].content` on the archetype path; for a capture the nodes are `null` there and live in `pageRecipe.skeleton` instead, under the FRAMEs named in `roots`) carry `ref` (FM) and, where a DS leaf exists, `ds` (its slug); under `--hifi` author the `ds` leaf and drop `ref`.
@@ -265,6 +266,34 @@ based on the screen `template`; see the `TEMPLATE_CHROME` map in
 `scripts/renderers/html-renderers/ds-screen-tree.js`. The structured
 content area is `.screen__content-area`; `bare`/`mobile`/`tablet`/`compact`/`custom` templates
 emit the content with no chrome wrapper.
+
+### Layered screens (`layer`) and navigation (`goto`)
+
+Any content node may carry `goto: "<screen id>"`, a click target that navigates the
+prototype to that screen (`data-goto` in the render, wired by
+`templates/flow-prototype-wrapper.html`). A screen may itself carry
+`layer: { "kind": "modal" | "drawer" | "toast" | "panel", "over": "<screen id>" }`:
+it is a surface over the named base screen, its own `content[]` is the layer body
+only, and the base renders unchanged underneath (`flow-renderer.js`'s
+`renderLayered`). Both validate against `schemas/flow-data.schema.json`
+(`goto-target-missing`, `layer-kind-unknown`, `layer-target-missing`).
+
+The detail screen's primary button, wired to a confirm modal:
+
+```json
+{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary", "name": "Publish", "goto": "confirm-publish", "props": { "Label": "Publish" } }
+```
+
+The toast that follows a successful action, layered over the published screen:
+
+```json
+{
+  "id": "toast-published",
+  "name": "Published",
+  "layer": { "kind": "toast", "over": "published" },
+  "content": [{ "type": "TEXT", "content": "Data product published" }]
+}
+```
 
 ## Default deliverable (`flow-share`)
 

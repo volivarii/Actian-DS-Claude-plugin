@@ -11,6 +11,7 @@
   "skeleton": {
     "chrome": "none",
     "pageHeader": null,
+    "layer": { "kind": "drawer", "over": "{{layer_over}}" },
     "content": [
       {
         "type": "FRAME",

@@ -45,7 +45,7 @@ The dispatcher pastes none of the brief or slice content; read the slice file yo
 ## Reads
 
 - Your slice (above): `index`, `total`, `glossary` (`chrome`, `useCases`, `entityProperties`, `relationships`, `entityPatterns`, `entityComponents`, `patterns`, already narrowed to the one pattern this screen realizes, or empty), `join`, `labels`, and `screen` (`name`, `template`, `pattern`, `archetype` (always present), `pageRecipe`, `components`, `propertyRules`).
-- `references/generate-flow/html-reference.md`: content node spec, FM component table.
+- `references/generate-flow/html-reference.md`: content node spec, FM component table, `goto`/`layer` authoring examples.
 - Under `library: "ds"`, also `references/generate-flow/ds-components-authoring.md`.
 
 Nothing else. Never open `recipes/**`, `schemas/**`, `vendor/**`, `scripts/**`, or the full `.brief.json`. The slice already carries everything your screen needs.
@@ -82,6 +82,8 @@ Your screen's tier records how directly a known shape covers it: the schema acce
 - **`recognized`**: no `pageRecipe`, and the archetype's skeleton fits with no structural deviation. `matchedRecipe` = `screen.archetype.archetype`; `composition` null; `justification` null.
 - **`adapted`**: either `pageRecipe` is present (compose from its capture, and write `pageRecipe: "<slug>"` on the screen, and `slot: "<key>"` on the FRAME that fills each of the capture's slots (copy the `slot` fields the skeleton already carries)), or the archetype fits but needs a density/tone deviation, or your screen's `pattern` explicitly names two composed concepts (rare; prefer a single recipe when in doubt). `matchedRecipe` = the archetype id (null only for a true composition, where `composition` instead carries the base archetype ids); `justification` required (≥30 chars): name the capture, or the deviation, or the two composed concepts.
 - **`improvised`**: neither the archetype nor `pageRecipe` covers the screen's purpose. `matchedRecipe` null; `composition` null; `justification` required: what was considered, why it failed, and at least one concrete component/pattern named in the invented structure (e.g. `Button[variant=primary]`). "Custom layout" alone is not sufficient.
+
+A slice with `screen.layout === "freehand"` is `improvised` with the justification `freehand layout requested`: `prepare-flow.js` already left `archetype` and `pageRecipe` null on such a slice, so there is no fit check to run, only the layout tests the flag was set up for.
 
 Mark the feature. Put `focus: true` on the FRAME(s) that are the feature under design, never on chrome. A lo-fi flow with no focus node draws a `missing-focus` warning. Under `--lofi` everything outside focus renders as placeholder, so the tier rules of `quality-tiers.md` apply to the focus subtree only.
 

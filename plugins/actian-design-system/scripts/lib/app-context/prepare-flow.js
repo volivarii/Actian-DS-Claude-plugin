@@ -12,7 +12,18 @@ var properties = require("./resolve-properties.js");
 var relationships = require("./resolve-relationships.js");
 var rules = require("../../validation/component-property-rules.js");
 
-var STOP = { the: 1, a: 1, an: 1, of: 1, to: 1, for: 1, with: 1, and: 1, in: 1, on: 1 };
+var STOP = {
+  the: 1,
+  a: 1,
+  an: 1,
+  of: 1,
+  to: 1,
+  for: 1,
+  with: 1,
+  and: 1,
+  in: 1,
+  on: 1,
+};
 var RECIPES_DIR = path.join(__dirname, "..", "..", "..", "recipes", "flow");
 
 // Words dropped when deriving R (a screen's name with the entity's own words
@@ -28,7 +39,11 @@ var DETAIL_WORDS = { detail: 1, overview: 1, general: 1 };
 // "product", "details" / "detail"). A blunt trailing-s strip, not real
 // pluralisation, but good enough for the word forms screen names use.
 function singularize(t) {
-  if (t.length > 1 && t.charAt(t.length - 1) === "s" && t.charAt(t.length - 2) !== "s") {
+  if (
+    t.length > 1 &&
+    t.charAt(t.length - 1) === "s" &&
+    t.charAt(t.length - 2) !== "s"
+  ) {
     return t.slice(0, -1);
   }
   return t;
@@ -40,9 +55,12 @@ function singularize(t) {
 // canonicalWords) so a plural/singular pair collapses to one word instead
 // of surviving a set difference as two.
 function baseTokens(name) {
-  return String(name || "").toLowerCase().split(/[^a-z]+/).filter(function (t) {
-    return t.length >= 3 && !STOP[t];
-  });
+  return String(name || "")
+    .toLowerCase()
+    .split(/[^a-z]+/)
+    .filter(function (t) {
+      return t.length >= 3 && !STOP[t];
+    });
 }
 
 // Archetype fallback: when no app pattern matches a screen name AND the
@@ -50,9 +68,35 @@ function baseTokens(name) {
 // keyword so every screen still gets a skeleton. First category whose
 // words overlap the screen-name tokens wins; order is the priority.
 var FALLBACK_ARCHETYPES = [
-  { words: ["list", "table", "browse", "catalog", "results"], archetype: "table-list" },
-  { words: ["create", "new", "setup", "edit", "configure", "wizard", "form", "settings"], archetype: "form-create" },
-  { words: ["confirm", "success", "done", "complete", "detail", "details", "overview"], archetype: "detail-view" },
+  {
+    words: ["list", "table", "browse", "catalog", "results"],
+    archetype: "table-list",
+  },
+  {
+    words: [
+      "create",
+      "new",
+      "setup",
+      "edit",
+      "configure",
+      "wizard",
+      "form",
+      "settings",
+    ],
+    archetype: "form-create",
+  },
+  {
+    words: [
+      "confirm",
+      "success",
+      "done",
+      "complete",
+      "detail",
+      "details",
+      "overview",
+    ],
+    archetype: "detail-view",
+  },
   { words: ["review", "summary"], archetype: "composition-form-with-footer" },
   { words: ["dashboard", "overview", "home"], archetype: "dashboard" },
 ];
@@ -70,7 +114,11 @@ function fallbackArchetype(name) {
   // ("Data products", "Access requests"). Anything else stays detail-view.
   var base = baseTokens(name);
   var last = base.length ? base[base.length - 1] : "";
-  if (last.length > 1 && last.charAt(last.length - 1) === "s" && last.charAt(last.length - 2) !== "s") {
+  if (
+    last.length > 1 &&
+    last.charAt(last.length - 1) === "s" &&
+    last.charAt(last.length - 2) !== "s"
+  ) {
     return "table-list";
   }
   return "detail-view";
@@ -156,7 +204,11 @@ function routeEntityScreen(name, entitySlug, entityPatterns) {
     return E.indexOf(t) === -1 && !ENTITY_ROUTING_STOP[t];
   });
   if (R.length === 0) {
-    var collection = firstEntityPatternByTag(entityPatterns, ["browse", "list", "search"]);
+    var collection = firstEntityPatternByTag(entityPatterns, [
+      "browse",
+      "list",
+      "search",
+    ]);
     return collection ? { pattern: collection } : { archetypeId: "table-list" };
   }
   var isDetail = R.every(function (t) {
@@ -178,7 +230,10 @@ function routeEntityScreen(name, entitySlug, entityPatterns) {
 // exactly, while access-request-workflow's authored "request" tag alone
 // scores higher under the tag/label weighting below).
 function normalizeLabel(s) {
-  return String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+  return String(s || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
 }
 
 // Score = 2 per tag hit (an authored/derived pattern tag exactly matching a
@@ -193,13 +248,17 @@ function normalizeLabel(s) {
 function pickPattern(name, appPatterns, entityPatternSlugs) {
   var normName = normalizeLabel(name);
   for (var e = 0; e < appPatterns.length; e++) {
-    if (normalizeLabel(appPatterns[e].label) === normName) return appPatterns[e];
+    if (normalizeLabel(appPatterns[e].label) === normName)
+      return appPatterns[e];
   }
 
   var entitySlugs = {};
-  (entityPatternSlugs || []).forEach(function (s) { entitySlugs[s] = 1; });
+  (entityPatternSlugs || []).forEach(function (s) {
+    entitySlugs[s] = 1;
+  });
   var toks = tokens(name);
-  var best = null, bestScore = 0;
+  var best = null,
+    bestScore = 0;
   for (var i = 0; i < appPatterns.length; i++) {
     var p = appPatterns[i];
     var tags = patterns.patternTags(p, p.slug).map(String);
@@ -210,8 +269,15 @@ function pickPattern(name, appPatterns, entityPatternSlugs) {
       if (new RegExp("\\b" + toks[t] + "\\b").test(label)) score += 1;
     }
     if (score > bestScore) {
-      best = p; bestScore = score;
-    } else if (score > 0 && score === bestScore && best && entitySlugs[p.slug] && !entitySlugs[best.slug]) {
+      best = p;
+      bestScore = score;
+    } else if (
+      score > 0 &&
+      score === bestScore &&
+      best &&
+      entitySlugs[p.slug] &&
+      !entitySlugs[best.slug]
+    ) {
       best = p;
     }
   }
@@ -223,13 +289,25 @@ function loadArchetype(sel) {
   // A caller that already knows the archetype id (the keyword fallback
   // above) passes no status at all; only reject a status that says the
   // ranker itself found no usable winner ("no-match" / "tie").
-  if (sel.status && sel.status !== "decisive" && sel.status !== "weak") return null;
+  if (sel.status && sel.status !== "decisive" && sel.status !== "weak")
+    return null;
   try {
-    var idx = JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
-    var row = idx.filter(function (r) { return r.archetype === sel.archetype; })[0];
+    var idx = JSON.parse(
+      fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"),
+    );
+    var row = idx.filter(function (r) {
+      return r.archetype === sel.archetype;
+    })[0];
     if (!row) return null;
-    var recipe = JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, row.file), "utf8"));
-    return { archetype: sel.archetype, file: row.file, skeleton: recipe.skeleton || null, slots: recipe.slots || null };
+    var recipe = JSON.parse(
+      fs.readFileSync(path.join(RECIPES_DIR, row.file), "utf8"),
+    );
+    return {
+      archetype: sel.archetype,
+      file: row.file,
+      skeleton: recipe.skeleton || null,
+      slots: recipe.slots || null,
+    };
   } catch (e) {
     return null;
   }
@@ -238,9 +316,18 @@ function loadArchetype(sel) {
 function loadPageRecipe(slug) {
   if (!slug) return null;
   var all = patterns.loadPageRecipes();
-  var r = all.filter(function (x) { return x && x.slug === slug; })[0];
+  var r = all.filter(function (x) {
+    return x && x.slug === slug;
+  })[0];
   if (!r) return null;
-  return { slug: r.slug, label: r.label, slots: r.slots || null, renderNotes: r.renderNotes || [], skeleton: r.skeleton || null, sections: Array.isArray(r.sections) ? r.sections : [] };
+  return {
+    slug: r.slug,
+    label: r.label,
+    slots: r.slots || null,
+    renderNotes: r.renderNotes || [],
+    skeleton: r.skeleton || null,
+    sections: Array.isArray(r.sections) ? r.sections : [],
+  };
 }
 
 // Roles a section can only fill when the screen is about one entity: a
@@ -252,7 +339,9 @@ var ENTITY_ROLES = { header: true, tabs: true, aside: true };
 // scope). archetypeRowFromIndex is the pure row lookup against it.
 function loadArchetypeIndex() {
   try {
-    return JSON.parse(fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"));
+    return JSON.parse(
+      fs.readFileSync(path.join(RECIPES_DIR, "_index.json"), "utf8"),
+    );
   } catch (e) {
     return null;
   }
@@ -260,7 +349,11 @@ function loadArchetypeIndex() {
 
 function archetypeRowFromIndex(idx, archetypeId) {
   if (!archetypeId || !Array.isArray(idx)) return null;
-  return idx.filter(function (r) { return r.archetype === archetypeId; })[0] || null;
+  return (
+    idx.filter(function (r) {
+      return r.archetype === archetypeId;
+    })[0] || null
+  );
 }
 
 // roots names a section's top-level nodes for both paths. content is the
@@ -268,14 +361,19 @@ function archetypeRowFromIndex(idx, archetypeId) {
 // already carries this section's skeleton inlined in its own content, so
 // repeating it here would ship the same bytes twice.
 function sectionView(section, role, source) {
-  var content = section.skeleton && Array.isArray(section.skeleton.content) ? section.skeleton.content : [];
+  var content =
+    section.skeleton && Array.isArray(section.skeleton.content)
+      ? section.skeleton.content
+      : [];
   return {
     slug: section.slug,
     role: role,
     label: section.label || section.slug,
     slots: section.slots || null,
     renderNotes: Array.isArray(section.renderNotes) ? section.renderNotes : [],
-    roots: content.map(function (n) { return (n && n.name) || (n && n.type) || ""; }),
+    roots: content.map(function (n) {
+      return (n && n.name) || (n && n.type) || "";
+    }),
     content: source === "archetype" ? content : null,
     source: source,
   };
@@ -306,8 +404,14 @@ function resolveSections(ctx) {
 }
 
 function uniq(list) {
-  var seen = {}, out = [];
-  list.forEach(function (x) { if (x && !seen[x]) { seen[x] = 1; out.push(x); } });
+  var seen = {},
+    out = [];
+  list.forEach(function (x) {
+    if (x && !seen[x]) {
+      seen[x] = 1;
+      out.push(x);
+    }
+  });
   return out;
 }
 
@@ -320,7 +424,7 @@ function uniq(list) {
 // the first hit, so "steward" still yields useCases[0], same as Gate 3's own
 // default when the prompt names no audience keyword.
 function matchesUseCaseAudience(uc, word) {
-  var audience = (uc && Array.isArray(uc.audience)) ? uc.audience : [];
+  var audience = uc && Array.isArray(uc.audience) ? uc.audience : [];
   var escaped = word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   var re = new RegExp("\\b" + escaped + "\\b");
   for (var i = 0; i < audience.length; i++) {
@@ -347,33 +451,79 @@ function prepareFlow(options) {
     if (matchedUseCase) {
       useCases = [matchedUseCase];
     } else {
-      process.stderr.write("prepare-flow: no use case matches " + options.useCase + ", keeping all\n");
+      process.stderr.write(
+        "prepare-flow: no use case matches " +
+          options.useCase +
+          ", keeping all\n",
+      );
     }
   }
-  var entityProperties = entity ? properties.resolveProperties(entity, ctx) || [] : [];
-  var rels = entity ? relationships.resolveRelationships(entity, ctx) || [] : [];
-  var entityPatterns = entity ? patterns.resolveEntityPatterns(entity, ctx) || [] : [];
-  var entityComponents = entity ? patterns.resolveEntityComponents(entity, ctx) || [] : [];
+  var entityProperties = entity
+    ? properties.resolveProperties(entity, ctx) || []
+    : [];
+  var rels = entity
+    ? relationships.resolveRelationships(entity, ctx) || []
+    : [];
+  var entityPatterns = entity
+    ? patterns.resolveEntityPatterns(entity, ctx) || []
+    : [];
+  var entityComponents = entity
+    ? patterns.resolveEntityComponents(entity, ctx) || []
+    : [];
   var join = entity ? patterns.entityJoinState(ctx) : null;
-  var entityPatternSlugs = entityPatterns.map(function (p) { return p.slug; });
+  var entityPatternSlugs = entityPatterns.map(function (p) {
+    return p.slug;
+  });
   var archetypeIndex = loadArchetypeIndex();
   var sectionsBySlugMap = patterns.sectionsBySlug(patterns.loadSections());
 
   var labels = uniq(
-    (chromeOut && chromeOut.sidebar ? chromeOut.sidebar.map(function (s) { return s.label; }) : [])
+    (chromeOut && chromeOut.sidebar
+      ? chromeOut.sidebar.map(function (s) {
+          return s.label;
+        })
+      : []
+    )
       .concat(chromeOut && chromeOut.header ? [chromeOut.header.type] : [])
-      .concat(entityProperties.map(function (p) { return p.label; }))
-      .concat(rels.map(function (r) { return r.label; }))
+      .concat(
+        entityProperties.map(function (p) {
+          return p.label;
+        }),
+      )
+      .concat(
+        rels.map(function (r) {
+          return r.label;
+        }),
+      ),
   );
 
   var screens = (options.screens || []).map(function (s) {
+    // layout: "freehand" (Task 6.5) opts a screen OUT of recipe snapping
+    // entirely: no pattern match, no archetype fallback, no pageRecipe. The
+    // screen-generator agent classifies it `improvised` from `screen.layout`
+    // alone (its own Step 0), never from an empty archetype read as a miss.
+    if (s.layout === "freehand") {
+      return {
+        name: s.name,
+        template: s.template,
+        layout: "freehand",
+        pattern: null,
+        archetype: null,
+        pageRecipe: null,
+        sections: [],
+        components: [],
+        propertyRules: {},
+      };
+    }
     // Entity-aware routing runs first (Task 13): a screen named after the
     // entity itself ("Data products", "Data product details") reaches the
     // entity's own collection or detail pattern, not whatever the raw name
     // happens to overlap. route is null when entity routing does not apply
     // (no entity, or the name is not just the entity's own words), in which
     // case the exact-label pass and the scoring below run as today.
-    var route = entity ? routeEntityScreen(s.name, entity, entityPatterns) : null;
+    var route = entity
+      ? routeEntityScreen(s.name, entity, entityPatterns)
+      : null;
     var p = route && route.pattern ? route.pattern : null;
     if (!route) {
       p = pickPattern(s.name, appPatterns, entityPatternSlugs);
@@ -385,7 +535,9 @@ function prepareFlow(options) {
     var sel = p ? patterns.selectRecipe(patterns.patternTags(p, p.slug)) : null;
     var components = p ? uniq(p.components || []) : [];
     var archetype =
-      route && !p && route.archetypeId ? loadArchetype({ archetype: route.archetypeId }) : loadArchetype(sel);
+      route && !p && route.archetypeId
+        ? loadArchetype({ archetype: route.archetypeId })
+        : loadArchetype(sel);
     if (!archetype) {
       // Applies whenever the ranker found nothing usable, whether or not a
       // pattern matched by name (a matched pattern's own tags can still
@@ -409,15 +561,26 @@ function prepareFlow(options) {
         defaultTrueBooleans: r.defaultTrueBooleans.map(stripPropId),
       };
     });
-    var pageRecipe = p ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app)) : null;
+    var pageRecipe = p
+      ? loadPageRecipe(patterns.selectPageRecipe(p.slug, app))
+      : null;
     var sections = resolveSections({
       pageRecipe: pageRecipe,
-      archetypeRow: archetype ? archetypeRowFromIndex(archetypeIndex, archetype.archetype) : null,
+      archetypeRow: archetype
+        ? archetypeRowFromIndex(archetypeIndex, archetype.archetype)
+        : null,
       hasEntity: !!entity,
       bySlug: sectionsBySlugMap,
     });
-    var hasHeaderSection = sections.some(function (s) { return s.role === "header"; });
-    if (hasHeaderSection && archetype && archetype.skeleton && archetype.skeleton.pageHeader) {
+    var hasHeaderSection = sections.some(function (s) {
+      return s.role === "header";
+    });
+    if (
+      hasHeaderSection &&
+      archetype &&
+      archetype.skeleton &&
+      archetype.skeleton.pageHeader
+    ) {
       // Enforced by data, not by agent text: with the product's item header
       // in the slice there is no generic header left to copy.
       archetype = Object.assign({}, archetype, {
@@ -452,7 +615,9 @@ function prepareFlow(options) {
     labels: labels,
     screens: screens,
     sectionsByScreen: screens.reduce(function (acc, s) {
-      acc[s.name] = s.sections.map(function (x) { return { slug: x.slug, role: x.role, roots: x.roots }; });
+      acc[s.name] = s.sections.map(function (x) {
+        return { slug: x.slug, role: x.role, roots: x.roots };
+      });
       return acc;
     }, {}),
   };
@@ -467,7 +632,9 @@ function sliceBrief(brief, n) {
   var screen = brief.screens[idx];
   var slug = screen && screen.pattern ? screen.pattern.slug : null;
   var patternsForScreen = slug
-    ? brief.glossary.patterns.filter(function (pat) { return pat.slug === slug; })
+    ? brief.glossary.patterns.filter(function (pat) {
+        return pat.slug === slug;
+      })
     : [];
   return {
     app: brief.app,
@@ -489,25 +656,45 @@ function sliceBrief(brief, n) {
   };
 }
 
-var USAGE = "usage: prepare-flow.js --app <app> [--entity <slug>] [--use-case <audience>] --screen-list <file> [-o <out>] | --list-entities\n";
+var USAGE =
+  "usage: prepare-flow.js --app <app> [--entity <slug>] [--use-case <audience>] --screen-list <file> [-o <out>] | --list-entities\n";
 
 function main(argv) {
   var args = argv.slice();
-  function take(flag) { var i = args.indexOf(flag); return i !== -1 && i + 1 < args.length ? args[i + 1] : null; }
+  function take(flag) {
+    var i = args.indexOf(flag);
+    return i !== -1 && i + 1 < args.length ? args[i + 1] : null;
+  }
   if (args.indexOf("--list-entities") !== -1) {
-    properties.listEntities().forEach(function (name) { process.stdout.write(name + "\n"); });
+    properties.listEntities().forEach(function (name) {
+      process.stdout.write(name + "\n");
+    });
     return 0;
   }
-  var app = take("--app"), entity = take("--entity"), list = take("--screen-list"), out = take("-o"), useCase = take("--use-case");
-  if (!app || !list) { process.stderr.write(USAGE); return 1; }
+  var app = take("--app"),
+    entity = take("--entity"),
+    list = take("--screen-list"),
+    out = take("-o"),
+    useCase = take("--use-case");
+  if (!app || !list) {
+    process.stderr.write(USAGE);
+    return 1;
+  }
   var screens;
   try {
     screens = JSON.parse(fs.readFileSync(list, "utf8")).screens || [];
   } catch (e) {
-    process.stderr.write("prepare-flow: cannot read " + list + ": " + e.message + "\n");
+    process.stderr.write(
+      "prepare-flow: cannot read " + list + ": " + e.message + "\n",
+    );
     return 1;
   }
-  var brief = prepareFlow({ app: app, entity: entity, screens: screens, useCase: useCase });
+  var brief = prepareFlow({
+    app: app,
+    entity: entity,
+    screens: screens,
+    useCase: useCase,
+  });
   var json = JSON.stringify(brief, null, 2);
   if (out) {
     fs.writeFileSync(out, json);
@@ -518,17 +705,35 @@ function main(argv) {
     });
     var sliceCount = 0;
     for (var n = 1; n <= brief.screens.length; n++) {
-      fs.writeFileSync(path.join(briefDir, n + ".json"), JSON.stringify(sliceBrief(brief, n), null, 2));
+      fs.writeFileSync(
+        path.join(briefDir, n + ".json"),
+        JSON.stringify(sliceBrief(brief, n), null, 2),
+      );
       sliceCount++;
     }
-    process.stderr.write("prepare-flow: wrote " + out + " (" + screens.length + " screens, " + sliceCount + " slices)\n");
+    process.stderr.write(
+      "prepare-flow: wrote " +
+        out +
+        " (" +
+        screens.length +
+        " screens, " +
+        sliceCount +
+        " slices)\n",
+    );
   } else {
     process.stdout.write(json + "\n");
   }
   return 0;
 }
 
-module.exports = { prepareFlow: prepareFlow, pickPattern: pickPattern, tokens: tokens, sliceBrief: sliceBrief, resolveSections: resolveSections, main: main };
+module.exports = {
+  prepareFlow: prepareFlow,
+  pickPattern: pickPattern,
+  tokens: tokens,
+  sliceBrief: sliceBrief,
+  resolveSections: resolveSections,
+  main: main,
+};
 
 if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));
