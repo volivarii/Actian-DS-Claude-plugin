@@ -39,7 +39,9 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Flag                   | Type        | Default | Behavior                                                                                                                                                                                                        |
 | ---------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--hifi`               | bool        | off     | DS-native authoring: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`) and rendered as themed hi-fi HTML (the deliverable). Combines with `--push` for a DS whole-tree Figma push (see push-sequence.md step 6 DS-screen path); incompatible with `--audit` (audit needs a lo-fi pushed frame, not DS-native). To audit a DS-native frame: push lo-fi with `--push`, then run `--hifi --push` on the same brief, then `/design-audit` the result.                        |
+| `--hifi`               | bool        | on      | DS-native authoring is the default since 2026.9.x: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`), rendered as themed hi-fi HTML (the deliverable). Combines with `--push` for a DS whole-tree Figma push; incompatible with `--audit` (which needs a lo-fi pushed frame, not DS-native — push lo-fi with `--fm --push`, then `--hifi --push`, then `/design-audit`). |
+| `--lofi`               | bool        | off     | Same DS tree rendered in the lo-fi skin (`meta.skin:"lofi"`): the feature (nodes with `focus: true`) legible in gray, everything else placeholder. For layout tests and early reviews. |
+| `--fm`                 | bool        | off     | FatMarker authoring (the pre-2026.9.x default). Required for a lo-fi Figma push; not combinable with `--lofi`. |
 | `--audit`              | bool        | off     | After a lo-fi push, runs `/design-audit` on the pushed Figma frame and reports findings (auto-fix needs `--audit --fix all`). Implies a Figma push, so it does not combine with `--hifi`. Passed together with `--hifi`, the skill warns, keeps `--hifi` (the HTML deliverable; `--push` still applies), and drops `--audit`.                                                                                                             |
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition), laid out side-by-side. Range 2-5; refuse above 5. Ignored when `--branch` is set. Provenance tracked in `.last-push.json`.                                                                              |
 | `--ref <url[,url]>`    | URL list    | none    | Biases recipe selection toward a reference's structural fingerprint. See `references/generate-flow/vision-refs.md`. |
@@ -221,27 +223,27 @@ Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "varia
 - **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
 - **Small direct calls:** Keep each `use_figma` call under 2KB
 - **No contentHtml:** Use structured content[] nodes (FRAME, TEXT, INSTANCE, DIVIDER) only
-- **Copy:** All visible text follows `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` (component-specific copy) — sentence case for all UI text, verb + object button labels ("Create data product"), no banned words — apply the full avoid-list in `vendor/content/dist/words-to-avoid.json` (do not inline a subset), placeholder text models input (never repeats the field label), empty states include a headline + body + CTA
+- **Copy:** All visible text follows `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` — sentence case for all UI text, verb + object button labels ("Create data product"), no banned words — apply the full avoid-list in `vendor/content/dist/words-to-avoid.json`, placeholder text models input (never repeats the field label), empty states include a headline + body + CTA
 
 ## References
 
-- `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
-- `references/generate-flow/html-reference.md`: HTML template structure, FM component table, content node spec
-- `references/generate-flow/ds-components-authoring.md`: DS Kit component vocabulary for `--hifi` DS-native authoring
-- `references/generate-flow/push-opt-in.md` — Figma push opt-in model, triggers, `--no-push` veto, combined gate prompt
-- `references/generate-flow/proposal-bridge.md`: seed a flow from a proposal's picked options
-- `references/generate-flow/refine.md` — refine detection + behavior (explicit-Figma path)
+- `references/figma/figma-push-patterns.md` — component keys, push patterns
+- `references/generate-flow/html-reference.md`: HTML template structure, FM component table
+- `references/generate-flow/ds-components-authoring.md`: DS Kit component vocabulary for DS-native authoring
+- `references/generate-flow/push-opt-in.md` — Figma push opt-in model, triggers, `--no-push` veto
+- `references/generate-flow/proposal-bridge.md`: seed a flow from a proposal
+- `references/generate-flow/refine.md` — refine detection + behavior
 - `references/generate-flow/vision-refs.md` — `--ref` vision fingerprinting loop
 - `references/generate-flow/push-sequence.md` — full Figma push sequence + rules
 - `references/generate-flow/share.md` — flow-share two-view deliverable internals
-- `references/generate-flow/research-guide.md` — competitor research, reference analysis
-- `references/ds-rules/interactive-gates.md` — gate conventions, `--no-prompt`, config grammar
-- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production concrete rules
-- `references/context/app-context.md` — app inference, entity model, terminology
-- `references/context/ux-patterns.md` — SaaS UX pattern library by flow type
+- `references/generate-flow/research-guide.md` — competitor research
+- `references/ds-rules/interactive-gates.md` — gate conventions, `--no-prompt`
+- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production rules
+- `references/context/app-context.md` — app inference, entity model
+- `references/context/ux-patterns.md` — SaaS UX pattern library
 - `references/ds-rules/layout-patterns.md` — canonical page layouts
 - `references/figma/parity-check.md` — post-push parity check
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist
-- `references/figma/prototype-reference.md` — interactive HTML prototype (opt-in)
-- `references/figma/prototype-wiring.md` — Figma prototype wiring (opt-in)
+- `references/figma/prototype-reference.md` — interactive HTML prototype
+- `references/figma/prototype-wiring.md` — Figma prototype wiring
 - `recipes/flow/_index.json` — archetype recipe catalog

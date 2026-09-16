@@ -2,6 +2,8 @@
 
 HTML template structure, FM component rules, and Figma output details for the generate-flow skill.
 
+> Since 2026.9.x, DS-native authoring is the default (see `ds-components-authoring.md`). The FatMarker (FM) component rules below apply to `--fm` flows and to lo-fi Figma pushes only.
+
 ## Required components per screen
 
 - **FM App_header** — top bar with logo, product label (Admin/Studio/Explorer), avatar

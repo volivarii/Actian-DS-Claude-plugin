@@ -7,6 +7,11 @@
  * Rewrites flow-data FM component refs to DS Kit refs using the mapping table.
  * Works as both a require()able module and a CLI tool.
  *
+ * Maintenance-only since 2026.9.x: new flows are authored DS-native; this
+ * transform serves `--fm` flows and pre-existing FatMarker captures only.
+ * Do not extend the map for new components; author them in
+ * `ds-components-authoring.md` instead.
+ *
  * Module API:
  *   var t = require('./transform-to-hifi');
  *   var hifi = t.transform(flowData);            // full transform

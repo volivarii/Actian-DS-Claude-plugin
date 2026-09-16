@@ -19,6 +19,13 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **generate-flow authors DS-native by default** (#TBD — PR not yet opened). generate-flow authors
+  DS-native by default; `--lofi` renders the same tree in a focus-aware lo-fi skin (`focus: true`
+  marks the feature, the rest is placeholder); `--fm` keeps FatMarker authoring for lo-fi Figma
+  pushes.
+
 ### Added
 
 - **Research is a gate, in four lanes, with a section of its own**

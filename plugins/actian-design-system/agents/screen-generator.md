@@ -83,6 +83,8 @@ Your screen's tier records how directly a known shape covers it: the schema acce
 - **`adapted`**: either `pageRecipe` is present (compose from its capture), or the archetype fits but needs a density/tone deviation, or your screen's `pattern` explicitly names two composed concepts (rare; prefer a single recipe when in doubt). `matchedRecipe` = the archetype id (null only for a true composition, where `composition` instead carries the base archetype ids); `justification` required (≥30 chars): name the capture, or the deviation, or the two composed concepts.
 - **`improvised`**: neither the archetype nor `pageRecipe` covers the screen's purpose. `matchedRecipe` null; `composition` null; `justification` required: what was considered, why it failed, and at least one concrete component/pattern named in the invented structure (e.g. `Button[variant=primary]`). "Custom layout" alone is not sufficient.
 
+Mark the feature. Put `focus: true` on the FRAME(s) that are the feature under design, never on chrome. A lo-fi flow with no focus node draws a `missing-focus` warning. Under `--lofi` everything outside focus renders as placeholder, so the tier rules of `quality-tiers.md` apply to the focus subtree only.
+
 ```json
 {
   "tier": "recognized" | "adapted" | "improvised",
