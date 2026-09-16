@@ -64,14 +64,14 @@ drifting into two data models.
 
 ## The keys and what each one is for
 
-The document leads with the answer, draws the terrain, then argues one decision at a time.
+The document leads with what ships: the answer, then one block per part. Each decision is one part.
 
 - **meta**: `title`, `date`, `apps`, `skill`, plus `ticket`, `prompt` and `model` when you have them.
-- **answer**: one sentence, what we are doing. It sits above the picks. If it needs two sentences the
-  second one belongs inside a decision.
+- **answer**: one sentence, what we will build. It opens the document. If it needs two sentences the
+  second one belongs inside a part.
 - **source** (optional in a proposal, required in an evaluation): the ticket as it arrived,
   `{ system, id, url, title, body }`. Nothing in the document reads it; it is the input record.
-- **context**: `question` (the one sentence from Step 1), `product` (three to six facts, **one line
+- **context**: `question` (the one sentence from Step 1; it frames the work and is never printed), `product` (three to six facts, **one line
   each, as separate strings, never a paragraph**: the anchor surface, the data model behind it, what an
   admin and a user see today), `sources` (one line each, `app-context: ...` or `attachment: ...`),
   `gap` (one sentence, only when the anchor surface has no capture in app-context).
@@ -84,9 +84,11 @@ The document leads with the answer, draws the terrain, then argues one decision 
   the read-it-as-competitors fallback is only for a file written before the lanes existed. An `ours`
   source starts with a substrate kind and a `yours` source repeats one of `refs` exactly. When research
   did not run: `lanes: []`, `ran: false`, `findings: []`, `skippedBecause`.
-- **breadboard** (see below): `places[]` and `connections[]`, the terrain the decisions sit on.
-- **decisions**: one to four. Each is self-contained: `id` (a slug), `question`, `options`, `comparison`,
-  `pick`, and an optional `blocker`.
+- **breadboard** (see below): `places[]` and `connections[]`, printed as How it connects.
+- **decisions**: one to four. Each is self-contained: `id` (a slug), `part` (two to four of the
+  product's words naming what it builds, such as Account menu; it heads the part on the page, and a
+  decision without one is a P1), `question` (frames the comparison, never printed), `options`,
+  `comparison`, `pick`, and an optional `blocker`.
 - **openQuestions**: at most four `{ kind, text }`, `kind` one of `rabbit hole` or `open question`.
   Non-blocking only. Omit the whole field when there are none; an invented question reads as padding
   and costs the document its credibility.
@@ -94,13 +96,12 @@ The document leads with the answer, draws the terrain, then argues one decision 
 - **latitude**: one line saying how much of this is fixed. The drawings are one way to answer the
   questions, not the only way.
 
-`context.sources` is not printed in the briefing. It renders as **Where this came from**, the
-document's last section before the latitude line, one row per source: the prefix becomes the
-row's kind and the rest becomes its text, so `app-context: explorer chrome` reads as a kind
-column beside a text column rather than as five lines each starting "app-context:". Write each
-source as `app-context: <what you read>` or `attachment: <what it was>`. A source with no
-recognised prefix still renders, unkinded. `context.gap` stays in the briefing, beside the facts
-it qualifies: it says what the read could not reach, which is a caveat rather than a citation.
+`context.sources` renders as **Sources**, the document's last section before the closing line, one
+row per source: the prefix becomes the row's kind and the rest becomes its text, so
+`app-context: explorer chrome` reads as a kind column beside a text column rather than as five lines
+each starting "app-context:". Write each source as `app-context: <what you read>` or
+`attachment: <what it was>`. A source with no recognised prefix still renders, unkinded.
+`context.gap` prints as a note under the sources: it says what the read could not reach.
 
 ### Inside a decision
 
@@ -147,9 +148,9 @@ to put. One line: what this choice buys trouble on, not a hedge.
 
 ## A blocker is not an open question
 
-A question that would change a pick if answered differently is that decision's `blocker` and lives in
-its block, beside the pick it would change. Everything that does not change a pick is an
-`openQuestions[]` entry at the end of the document. This is the RFC convention: unresolved questions
+A question that would change a pick if answered differently is that decision's `blocker`. It prints
+first under **Before we build**, naming its part. Everything that does not change a pick is an
+`openQuestions[]` entry, printed after the blockers. This is the RFC convention: unresolved questions
 are ones that do not block approval, so a question that blocks approval must not be filed as one.
 
 ## The breadboard
@@ -249,34 +250,40 @@ who is already confident. A P0 fires every time.
 The document prints `Built from <slugs>` quietly under each drawing, and prints an `adds` entry
 loudly, in the brand colour, because those are two different messages.
 
-## The document proposes; the reader decides
+## The order a reader meets
 
-Nothing a reader sees says the decision has been made. The summary is **What we propose**, a
-block is **Question N of M**, the winning column is **Proposed**, and the lead is **We propose**.
-The data model still calls them `decisions[]` and `pick`, because that is what the author is
-choosing between and what `--decision` and `--option` address by id, but those names never reach
-the page. If you write "we decided" or "the decision" into a text field, you have handed the
-reader a verdict instead of an argument.
+The reader is a PM or a designer deciding whether to approve a direction. They came for what we will
+build, so the document leads with it and every reason to trust it follows. The assembler lays this out;
+what it asks of you is that each field says what its place in this order needs.
 
-## A decision block leads with the proposal
+| # | Section | What prints there |
+|---|---|---|
+| 1 | (no heading) | `answer`, one sentence: what we will build |
+| 2 | What ships | One row per part: its `part`, the chosen option's `whatItIs`, its `pick.cost`. Only with two or more parts |
+| 3 | One block per part | Headed by `part`. The chosen drawing, and beside it `whatItIs`, why (each reason beside its criterion), where it breaks, what it costs, what it is built from |
+| 4 | How it connects | The breadboard, when there is one |
+| 5 | Before we build | Every `blocker`, naming its part, then `openQuestions` (a rabbit hole prints as a risk) |
+| 6 | What changes | `change.userSide`, then `change.adminSide` |
+| 7 | Background | Goals, not doing, and `context.product` as how it works today |
+| 8 | Other options | Per part: the options not chosen, smaller, then the comparison with the chosen column marked Proposed |
+| 9 | Research | The lanes that ran |
+| 10 | Sources | `context.sources`, then `context.gap` as a note |
+| 11 | Closing | `latitude`, then the footer |
 
-The block renders in three parts, in this order, and the renderer does it for you:
+No question reaches the page. `context.question` and `decisions[].question` frame the work and the
+comparison, and `--evaluate` is built on them, but a heading that asks something makes a reader
+answer it before they learn what we propose. Name the part instead.
 
-1. **The proposal.** The case for the pick on the document's left edge, the reasons, the cost
-   and the blocker when there is one, with the picked option's drawing beside it on the right.
-2. **Also considered.** Every other option, smaller, equal to each other, one line of annotation.
-3. **How they compare.** The full table, with the proposed column marked.
+The document still proposes; the reader decides. The chosen column is **Proposed**. The data model
+calls them `decisions[]` and `pick`, because that is what the author is choosing between and what
+`--decision` and `--option` address by id, but those words never reach the page. If you write "we
+decided" or "the decision" into a text field, you have handed the reader a verdict instead of an
+argument.
 
-What this asks of your authoring: the picked option's `whatItIs` and `breaksWhen` are read
-directly under the drawing a reader is looking at, so `breaksWhen` on the pick is the most
-load-bearing line in the block. It says where the thing we are proposing fails. Do not soften it.
-
-A document with more than one decision also pins a bar naming each of them, which is how a
-reader moves around nine thousand pixels of argument. The bar carries the `question`, so a
-question that only makes sense after reading its own block is a question that needs rewriting.
-
-A rejected option is skimmed, not weighed, so its `verdict` is what a reader actually reads of
-it. Make the verdict the sentence you would say out loud if someone asked why it lost.
+What this asks of your authoring: the chosen option's `breaksWhen` sits in its part block, beside the
+drawing a reader is looking at, so it is the most load-bearing line there. It says where the thing we
+are proposing fails. Do not soften it. An option not chosen is skimmed, not weighed, so its `verdict`
+is what a reader actually reads of it: the thing you would say out loud if asked why it lost.
 
 ## A comparison cell is scanned, not read
 
@@ -302,14 +309,60 @@ past it does not get truncated: it pushes the next thing off the screen.
 - **The answer is one sentence.** Nothing else sits in that section: the decision table below
   it is the summary, and repeating the picks above the table is how the document got long.
 
-The document prints each decision's question exactly twice, once in the table and once as its
-own heading, and each pick's name where a reader needs it: the table, the option card and the
-comparison header. Anything you write that restates one of those is the third copy.
+The document prints each part's name in the summary, the bar and its own heading, and what it
+builds in the summary and its block. Anything you write that restates one of those is the third copy.
 
-## Voice
+## Word limits
+
+The validator counts words and reports each field past its limit as a P1 `length`, naming the count.
+A `length` P1 is fixed by cutting, never explained: it is the one P1 with no case for keeping the text.
+
+| Field | Max words |
+|---|---|
+| `answer` | 20 |
+| `decisions[].part` | 4 |
+| `options[].name` | 5 |
+| `options[].whatItIs` | 14 |
+| `options[].breaksWhen` | 14 |
+| `options[].verdict` | 5 |
+| `options[].screen.notes[]` | 8 |
+| `options[].adds[].why` | 15 |
+| `pick.reasons[].text` | 15 |
+| `pick.cost` | 15 |
+| `decisions[].blocker` | 15 |
+| `comparison.cells[][].text` | 4 |
+| `comparison.criteria[].label` | 5 |
+| `context.product[]` | 15 |
+| `context.gap` | 15 |
+| `scope.goals[]` | 12 |
+| `scope.nonGoals[]` | 12 |
+| `research.findings[].claim` | 18 |
+| `openQuestions[].text` | 20 |
+| `change.adminSide` | 20 |
+| `change.userSide` | 20 |
+| `latitude` | 15 |
+
+## Plain words
+
+The reader has not read the ticket and reads each line once. Write so they understand it the first
+time.
+
+- One idea per sentence. Lead with the fact.
+- The product's words for product things, ordinary words for everything else.
+- No wordplay, slogans or metaphors. A line that sounds clever gets rewritten until it only informs.
+- No internal words: renderer, schema, data file, flag, script, app-context, substrate, terrain.
+- Text inside a drawing is product copy. It follows the writing rules read at Step 5
+  (`vendor/content/dist/writing.md`): sentence case, short labels with no period, second person, the
+  words to avoid. Those rules are how you write. They are never a research finding.
+
+| Before | After |
+|---|---|
+| One click, one number nobody asked for | Shows a count, not the catalogs |
+| Which catalogs you have costs a click, on a question people ask rarely but ask when they are already stuck | Your catalogs are one click away |
+| The canon has no pattern for explaining something that was never rendered | Design systems explain disabled controls, not hidden ones |
 
 The document never describes how it was made. No renderer, palette, schema, data file, flag or script
-name in anything a reader sees, including the notes, the cells and the latitude line. Provenance is one
+name in anything a reader sees, including the notes, the cells and the closing line. Provenance is one
 footer line saying who and when; the follow-ups ("adjust this", "make a pick a flow") are offered in
 chat, where the author already is, and never printed in the document.
 
@@ -344,7 +397,8 @@ all / none / a subset ("1,3" or "competitors,ours") / paste your refs
 ```
 
 Read the answer permissively: numbers, lane names, `all`, `none`, and any URLs or descriptions in the
-same message, which become the `yours` lane whether or not they said `4`. `--research <lanes>` answers
+same message, which become the `yours` lane whether or not they said `4`. `all` runs `yours` only when
+the reader pasted references; with nothing pasted, `all` means the other three. `--research <lanes>` answers
 the gate without asking. `--no-prompt` runs `ours` alone: it costs no web search, it is always relevant,
 and it keeps an unattended run grounded rather than ungrounded.
 
@@ -352,7 +406,9 @@ Then dispatch `ds-researcher` once, with `subject` (the question from Step 1), `
 anchor surface and entity from Steps 1 and 2, so it re-derives nothing), `lanes`, `refs` when the reader
 pasted any, `grounding` (the substrate files the `ours` lane should read: the guideline docs for the
 components on this surface, `references/context/ux-patterns.md`, the app-context section for the anchor)
-and `outputPath` `proposals/proposal-research.json`. On ERROR, say what failed in one line and ask
+and `outputPath` `proposals/proposal-research.json`. Every `grounding` path is absolute, under the plugin
+root named in the skill's base directory. The researcher reads with file tools, which in Cowork reach
+that host path and not the VM mount, so a relative path finds nothing and the lane comes back empty. On ERROR, say what failed in one line and ask
 whether to proceed without research; never pad the file yourself.
 
 Copy its `findings` into `research.findings` as they are, and set `research.lanes` to what you asked
@@ -363,9 +419,9 @@ substrate source (`app-context:` `guideline:` `pattern:` `accessibility:` `found
 those are the two lanes that borrow someone's authority, ours and the reader's, and a claim that
 borrows authority without a source is indistinguishable from one that earned it.
 
-The document renders the lanes as its own section, "What we found", between the briefing and the
-decisions: it is evidence the decisions are argued from, so it is read before them. A lane with no
-findings prints no heading.
+The document renders the lanes as their own section, "Research", after the other options and before
+the sources: it is evidence for the design, read by whoever wants to check it. A lane with no findings
+prints no heading.
 
 ## Publishing
 
@@ -399,8 +455,8 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" proposals/proposal-data.json --type proposal -o proposals/<slug>.html
 ```
 
-Re-run until no P0 remains and every remaining P1 is one you have explained in chat; P2 is voice, fix it
-when cheap.
+Re-run until no P0 remains and every remaining P1 is one you have explained in chat, except `length`
+and `part`, which are fixed rather than explained; P2 is voice, fix it when cheap.
 
 A `proposal-data.json` written before `2026.9.30` carries `approaches`, `comparison` and
 `recommendation` at the top level. Convert it first, then author the three fields the converter leaves

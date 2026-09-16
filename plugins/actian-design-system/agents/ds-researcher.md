@@ -68,7 +68,9 @@ grounding: `vendor/components/dist/guidelines/<slug>.json` (`domains.*`, each wi
 `approved`/`draft` are usable, `inherited`/`not-started` are not), `vendor/content/dist/global.md`,
 `vendor/accessibility/src/<slug>.md`, `vendor/foundations/src/<slug>.md`,
 `references/context/ux-patterns.md`, and app-context for the anchor surface. **No web search in
-this lane.** Every source string must start with one of: `app-context:` `guideline:` `pattern:`
+this lane.** Grounding paths are absolute. When one does not resolve, name it in `quality` and say
+the lane ran without it; never return an empty lane without saying why. The writing rules are how
+the caller writes, not a source for this lane. Every source string must start with one of: `app-context:` `guideline:` `pattern:`
 `accessibility:` `foundations:` `content:` `tokens:`.
 
 **`yours`** — only the references in `refs`. Fetch a URL with WebFetch, read a file with Read,

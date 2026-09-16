@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a reasoned document. One answer sentence, the terrain the feature sits on, then one block per decision the ticket forces: two to four options drawn inside the surface the question lives on, a comparison, a pick with reasons that name the row they argue from, and what the pick costs. `--evaluate` stops after the decisions: what the ticket forces, with no options and no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a short document for PMs and designers. What we will build in one sentence, then each part drawn inside the product with why and what it costs, what to settle before building, and last the other options, their comparison and the research. `--evaluate` stops after naming the decisions the ticket forces, with no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--research all|none|<lanes>] [--no-prompt] [--evaluate] [--publish] [--from proposals/proposal-data.json]"
 ---
 
@@ -19,13 +19,12 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 
 ## What this produces
 
-One offline HTML document at `{project_working_directory}/proposals/<slug>.html`, in eight elements: the
-answer in one sentence above the picks; the terrain, a drawing of the places this touches, omitted when
-there is only one; the decision table of question, pick and cost, omitted when there is one decision; the
-briefing of goals and non-goals and the product facts; what we found, in the lanes that ran; then one
-block per decision, each with its options drawn side by side at one width, a comparison, and a pick whose reasons name the rows
-they argue from and whose cost says what ships with it; what is still open, when anything is; what this
-changes for an admin and a user; and one line of latitude.
+One offline HTML document at `{project_working_directory}/proposals/<slug>.html`, for a PM or designer
+approving a direction, so it leads with what ships: the answer in one sentence; What ships, one row per
+part, when there are two or more; one block per part, headed by what it builds, with the chosen drawing,
+why, where it breaks and what it costs; how the parts connect; what to settle before building; what
+changes for a user and an admin; the background; then the other options with their comparison, the
+research, the sources and one closing line. No question is printed as a heading.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
 `dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
 `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
@@ -76,15 +75,15 @@ in one sentence; that sentence becomes `context.gap`. Ask for nothing.
 `ds-researcher`, present it in five lines. `--research <lanes>` answers the gate; `--no-prompt` runs `ours`
 alone. Not under `--evaluate`; on a resume it runs here.
 
-**Step 4, decisions in chat.** First the scope in two lines: what this is for (the goals, from the ticket)
-and what it is not doing (the non-goals). Then name the decisions: one per question the feature forces
-that a reader could answer differently, at most four, and one is the common case. A question that would
-change a pick is a decision or that decision's blocker, never an open question. Then, under each
-decision, N options, each a bold name and two lines: what it is, and the case where it breaks; and one
-sentence on which one you would pick and what it costs. No file yet. **Then stop, ask "change anything
-before I draw these?", and wait for a reply.** The decomposition and the picks are what a reader pushes
-back on, and here it costs a sentence; after Step 5 it costs every drawing. A reader who knows the
-surface catches the pick that is right in the abstract and wrong on their screen. `--no-prompt` skips it.
+**Step 4, what you would build, in chat.** Work out the decisions: one per question the feature forces
+that a reader could answer differently, at most four, one the common case; a question that would change a
+pick is a decision or its blocker, never an open question. Each decision is a part of what ships. Say it
+as a plan, not as questions, in plain words and under twenty lines: `What I'd build: <answer>`, then per
+part `<n>. <Part>: <pick, one line>. Cost: <one line>. Also looked at: <option> (<why not>)`, then
+`Not doing: <non-goals>` and `Change anything before I draw these?` No file yet.
+**Then stop, and wait for a reply.** The parts and the picks are what a reader pushes back on, and here it costs a sentence;
+after Step 5 it costs every drawing. A reader who knows the surface catches the pick that is right in the
+abstract and wrong on their screen. `--no-prompt` skips it.
 
 **The evaluation stage.** Only `--evaluate`, and `--from` a file at `stage: evaluation`, come here. `--evaluate` stops
 here: write the decisions to `proposals/proposal-data.json` at `stage: evaluation`, validate it and say
@@ -93,8 +92,10 @@ says; do not research, draw, compare, pick or write a document. `--from` a file 
 is the resume, and enters here rather than at Step 1: read that section first, because the ticket and
 the product are recorded in `source` and `context` and must not be read a second time.
 
-**Step 5, document.** Read `references/design-proposal/document-authoring.md` and the palette in
-`references/ds-rules/fm-css-reference.md` (nothing else). **Draw from the design system, never from
+**Step 5, document.** Read `references/design-proposal/document-authoring.md`, the palette in
+`references/ds-rules/fm-css-reference.md` and the Actian writing rules in `vendor/content/dist/writing.md`
+(nothing else). The writing rules govern every word: the labels inside a drawing and the document's own
+prose. **Draw from the design system, never from
 imagination:** list the components first, then compose the drawings out of them.
 
 ```bash
@@ -107,11 +108,12 @@ truly has no mechanism: a proposal may argue for a new component, it just has to
 is a P0.
 
 Author `proposals/proposal-data.json` against `schemas/proposal-data.schema.json` (an example on every
-field) and the reference's "The keys and what each one is for". `meta.date` is today. Four things the
-schema cannot say: the `decisions` are the ones you named in Step 4 and no others; every option is drawn
-**inside its anchor, in flow**, at a `width` sized to the idea; every `pick` reason names a `criterionId`
-in that decision's own comparison; and a question that would change a pick is that decision's `blocker`,
-never an `openQuestions` entry. Then:
+field) and the reference's "The keys and what each one is for". `meta.date` is today. Five things the
+schema cannot say: the `decisions` are the ones you named in Step 4 and no others, each naming its
+`part`; every option is drawn **inside its anchor, in flow**, at a `width` sized to the idea; every `pick`
+reason names a `criterionId` in that decision's own comparison; a question that would change a pick is
+that decision's `blocker`, never an `openQuestions` entry; and every field fits its word limit, in plain
+words (the reference's "Plain words" and "Word limits"). Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -120,7 +122,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 ```
 
 Fix every P0 and P1 the validator prints (a P1 terminology or avoid-word line names the word and the
-replacement). Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a
+replacement; a `length` or `part` P1 is fixed, never explained). Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a
 ticket's own word kept over a terminology hit); P2 is voice, fix it when cheap. Never hand-edit the HTML
 output; edit the data file and re-assemble.
 
@@ -133,7 +135,7 @@ screen list and a brief; `--decision <id>` takes one alone, `--option <id>` draw
 ## Rules
 
 - Time budget: Steps 1 to 4 in under three minutes of reading, research included. One section of
-  `document-authoring.md` at Step 3 and the two references at Step 5 are the whole read. Never open the
+  `document-authoring.md` at Step 3 and the three references at Step 5 are the whole read. Never open the
   renderer or the vendored component map.
 - The header strip, the app label and the nav are not yours to draw; the assembler adds the strip.
 - No hex colours, scripts, external loads, em dashes, invented product names or invented components: the

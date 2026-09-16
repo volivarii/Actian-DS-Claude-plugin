@@ -1164,3 +1164,19 @@ describe("plain words: part and length", function () {
     });
   });
 });
+
+// The reference prints the word limits for the author, and the validator enforces them. Two
+// copies of one table drift the day one of them is edited alone, so the printed table is read
+// back and held against the one the validator exports.
+describe("the word limits table in the authoring reference", function () {
+  it("prints exactly the limits the validator enforces", function () {
+    var ref = fs.readFileSync(path.join(ROOT, "references", "design-proposal", "document-authoring.md"), "utf8");
+    var printed = {};
+    ref.split("\n").forEach(function (line) {
+      var m = /^\| `([^`]+)` \| (\d+) \|$/.exec(line.trim());
+      if (m) printed[m[1]] = Number(m[2]);
+    });
+    assert.ok(Object.keys(printed).length > 0, "the table was read at all");
+    assert.deepStrictEqual(printed, WORD_LIMITS);
+  });
+});
