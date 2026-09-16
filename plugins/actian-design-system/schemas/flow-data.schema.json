@@ -460,6 +460,11 @@
             "type": ["string", "null"],
             "description": "Recipe ID matched at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or tier 3"
           },
+          "pageRecipe": {
+            "type": ["string", "null"],
+            "description": "Slug of the captured page recipe this screen composed from (adapted tier with a capture); null otherwise. Read by validate-flow-data.js findUnfilledSlots.",
+            "examples": ["faceted-browse"]
+          },
           "composition": {
             "type": ["array", "null"],
             "items": { "type": "string" },
