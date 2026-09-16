@@ -130,7 +130,7 @@ are summarized at the release level.
   `scripts/renderers/look.js`, renders one screen (through the same renderer and flow CSS the
   flow-share deliverable uses, so DS leaves keep their real appearance) and screenshots it beside a
   vendored product capture into a two-column `look-<n>.html` page with a "What differs, three
-  lines" prompt — a look, not a pixel diff. `references/generate-flow/gates.md` documents the step
+  lines" prompt, a look, not a pixel diff. `references/generate-flow/gates.md` documents the step
   (dormant until the next vendor refresh ships `derivedFrom.screenshot` on a recipe); `SKILL.md`
   Step 7 points to it.
 

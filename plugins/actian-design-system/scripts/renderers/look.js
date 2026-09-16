@@ -96,10 +96,11 @@ function readFlowCss() {
 
 // Renders screen `n` (1-based) of `flowData` to an HTML fragment, exactly
 // the way assemble-flow-share.js renders each screen: same per-screen
-// `library` defaulting, same anatomy-doc-map / variant-style-map injection
-// around the call (reset in a finally so module state never leaks), and the
-// same layer-vs-plain dispatch (a layered screen renders over its base,
-// looked up by id).
+// `library` defaulting, the same anatomy-doc-map / variant-style-map
+// injection around the call (assemble-shared.js's withDsMaps, shared with
+// assemble-flow-share.js so the setup and reset sequence lives in one
+// place), and the same layer-vs-plain dispatch (a layered screen renders
+// over its base, looked up by id).
 function renderScreenFragment(flowData, n) {
   var screens = Array.isArray(flowData.screens) ? flowData.screens : [];
   var idx = n - 1;
@@ -124,26 +125,12 @@ function renderScreenFragment(flowData, n) {
   });
 
   var flowRenderer = require("./html-renderers/flow-renderer.js");
-  var renderer = require("../lib/renderer.js");
-  var dsHtmlMap = renderer.dsHtmlMap;
-  var anatomyHelpers = renderer.dsAnatomyMap;
-  var dsSlugs = anatomyHelpers.collectDsSlugs(flowData);
-  var docMap = anatomyHelpers.buildDsAnatomyDocMap(dsSlugs);
-  var variantStyleMap = anatomyHelpers.buildDsVariantStyleMap(flowData);
-
   var sc = procScreens[idx];
-  var html;
-  dsHtmlMap.setAnatomyDocMap(docMap);
-  dsHtmlMap.setVariantStyleMap(variantStyleMap);
-  try {
-    html =
-      sc.layer && screenById[sc.layer.over]
-        ? flowRenderer.renderLayered(sc, screenById[sc.layer.over])
-        : flowRenderer.renderScreen(sc);
-  } finally {
-    dsHtmlMap.setAnatomyDocMap(null);
-    dsHtmlMap.setVariantStyleMap(null);
-  }
+  var html = assembleShared.withDsMaps(flowData, function () {
+    return sc.layer && screenById[sc.layer.over]
+      ? flowRenderer.renderLayered(sc, screenById[sc.layer.over])
+      : flowRenderer.renderScreen(sc);
+  });
   return { html: html, screen: sc };
 }
 

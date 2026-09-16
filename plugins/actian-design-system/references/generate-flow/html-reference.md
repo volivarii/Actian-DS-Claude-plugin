@@ -250,7 +250,7 @@ same shape applies; `ds-components-authoring.md` points here rather than repeati
 | `width`, `height` | number (px) | explicit size; used when `sizing` omits that axis |
 | `opacity` | number 0-1 | |
 | `intent` | `"destructive-action"` \| `"success-confirmation"` \| `"error-state"` \| `"default"` | inherited by descendants unless overridden at a leaf (`intent-resolver.js`); drives the `intent-mismatch` gate under `--hifi` |
-| `goto` | string (a screen id) | any node; a prototype click target (`data-goto` in the render) — see below |
+| `goto` | string (a screen id) | any node; a prototype click target (`data-goto` in the render), see below |
 
 INSTANCE nodes additionally carry `ref` (FM slug), `variant`, `props`; under `--hifi`,
 `library: "ds"` + `dsSlug` replace `ref`. Nodes that arrive inside a section (`screen.sections[].content` on the archetype path; for a capture the nodes are `null` there and live in `pageRecipe.skeleton` instead, under the FRAMEs named in `roots`) carry `ref` (FM) and, where a DS leaf exists, `ds` (its slug); under `--hifi` author the `ds` leaf and drop `ref`.

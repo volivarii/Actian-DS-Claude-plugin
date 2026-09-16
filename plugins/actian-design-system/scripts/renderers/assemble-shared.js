@@ -74,6 +74,32 @@ function buildDsIconsScript() {
   );
 }
 
+// DS anatomy-doc-map / variant-style-map injection (Phase 1B). Every
+// server-side flow renderer that pre-renders DS leaves in Node needs the
+// same setup, then reset, sequence around its render pass: build both maps
+// from `data` (collectDsSlugs walks the whole content-shaped tree), inject
+// them into ds-html-map.js's module-level seam so a DS instance with no
+// authored override still picks up its harvested per-instance appearance,
+// run `fn`, then reset to null in a finally so this render's state never
+// leaks into a later one. Shared by assemble-flow-share.js and look.js so
+// the injection pattern lives in one place. Returns fn()'s return value.
+function withDsMaps(data, fn) {
+  var renderer = require("../lib/renderer.js");
+  var dsHtmlMap = renderer.dsHtmlMap;
+  var anatomyHelpers = renderer.dsAnatomyMap;
+  var dsSlugs = anatomyHelpers.collectDsSlugs(data);
+  var docMap = anatomyHelpers.buildDsAnatomyDocMap(dsSlugs);
+  var variantStyleMap = anatomyHelpers.buildDsVariantStyleMap(data);
+  dsHtmlMap.setAnatomyDocMap(docMap);
+  dsHtmlMap.setVariantStyleMap(variantStyleMap);
+  try {
+    return fn();
+  } finally {
+    dsHtmlMap.setAnatomyDocMap(null);
+    dsHtmlMap.setVariantStyleMap(null);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Flow CSS list (single source of truth — shared by flow preview + flow-share)
 // ---------------------------------------------------------------------------
@@ -104,5 +130,6 @@ module.exports = {
   readFileChecked: readFileChecked,
   escapeJsonForScript: escapeJsonForScript,
   buildDsIconsScript: buildDsIconsScript,
+  withDsMaps: withDsMaps,
   FLOW_CSS: FLOW_CSS,
 };

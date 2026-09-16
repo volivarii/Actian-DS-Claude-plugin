@@ -68,27 +68,6 @@ function assembleFlowShare(data) {
   var renderScreen = flowRenderer.renderScreen;
   var renderLayered = flowRenderer.renderLayered;
 
-  // Hi-fi anatomy tier: this deliverable pre-renders each screen server-side in
-  // Node (no `window`), so the assemble-time anatomy doc map for non-override
-  // DS slugs must be injected into the renderer module rather than embedded
-  // for the browser. Build it from the flow-data (content-shaped) and inject;
-  // the loop below resets it in a finally so module state never leaks across
-  // calls.
-  var renderer = require("../lib/renderer.js");
-  var dsHtmlMap = renderer.dsHtmlMap;
-  var anatomyHelpers = renderer.dsAnatomyMap;
-  var dsSlugs = anatomyHelpers.collectDsSlugs(data);
-  // Phase 1B: anatomy DOC map (raw parsed docs, not pre-rendered HTML) for the
-  // default: seam's appearance-aware render path — each instance's own variant
-  // selects the right captured colors. (The legacy slug→pre-rendered-HTML
-  // anatomy map — "path c" — was retired in Group C.)
-  var docMap = anatomyHelpers.buildDsAnatomyDocMap(dsSlugs);
-  // Token-injection tier (slice 1: read-only-tag): { anatomyVariantKey ->
-  // inline-style-string } for delegated slugs, so their hand-authored
-  // templates render with the harvested variant-correct token instead of
-  // being replaced by anatomy HTML.
-  var variantStyleMap = anatomyHelpers.buildDsVariantStyleMap(data);
-
   // Assets (fail loudly if missing — same contract as readFileChecked).
   var wrapper = readFileChecked(WRAPPER_PATH);
   var alpine = readFileChecked(VENDOR_ALPINE);
@@ -128,13 +107,19 @@ function assembleFlowShare(data) {
   for (var bi = 0; bi < procScreens.length; bi++) {
     if (procScreens[bi].id) screenById[procScreens[bi].id] = procScreens[bi];
   }
-  dsHtmlMap.setAnatomyDocMap(docMap);
-  dsHtmlMap.setVariantStyleMap(variantStyleMap);
-  try {
+  // withDsMaps (assemble-shared.js) builds the anatomy doc map and variant
+  // style map from `data`, injects them for the render pass below, and
+  // resets to null in its own finally so module state never leaks across
+  // calls.
+  shared.withDsMaps(data, function () {
     for (var s = 0; s < procScreens.length; s++) {
       var id = s + 1;
       var sc = procScreens[s];
-      navArray.push({ id: id, key: sc.id || "", label: sc.name || "Screen " + id });
+      navArray.push({
+        id: id,
+        key: sc.id || "",
+        label: sc.name || "Screen " + id,
+      });
       // A layered screen whose `over` target is missing renders as a plain
       // screen rather than throwing; the validator (Task 6.2) already
       // reports the missing target as an error.
@@ -158,11 +143,7 @@ function assembleFlowShare(data) {
         screenHtml +
         "</div></div>\n";
     }
-  } finally {
-    // Reset module-level state so it never leaks into a later assembly.
-    dsHtmlMap.setAnatomyDocMap(null);
-    dsHtmlMap.setVariantStyleMap(null);
-  }
+  });
   // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
   // esc (not escapeJsonForScript) is required: a bare " in a screen name would
   // truncate the attribute and allow markup injection.
