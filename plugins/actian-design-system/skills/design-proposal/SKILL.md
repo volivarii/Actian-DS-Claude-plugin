@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a short document for PMs and designers. What we will build in one sentence, then each part drawn inside the product with why and what it costs, what to settle before building, and last the other options, their comparison and the research. `--evaluate` stops after naming the decisions the ticket forces, with no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a short document for PMs and designers. What we will build in one sentence, then each part drawn inside the product with why and what it costs, what to settle before building, and last, folded until opened, the other options, their comparison and the research. `--evaluate` stops after naming the decisions the ticket forces, with no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--research all|none|<lanes>] [--no-prompt] [--evaluate] [--publish] [--from proposals/proposal-data.json]"
 ---
 
@@ -23,8 +23,8 @@ One offline HTML document at `{project_working_directory}/proposals/<slug>.html`
 approving a direction, so it leads with what ships: the answer in one sentence; What ships, one row per
 part, when there are two or more; one block per part, headed by what it builds, with the chosen drawing,
 why, where it breaks and what it costs; how the parts connect; what to settle before building; what
-changes for a user and an admin; the background; then the other options with their comparison, the
-research, the sources and one closing line. No question is printed as a heading.
+changes for a user and an admin; the background; then, folded until opened, the other options with their
+comparison and the research; the sources and one closing line. No question is printed as a heading.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
 `dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
 `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a

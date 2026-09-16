@@ -563,3 +563,65 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
     });
   });
 });
+
+// 2026-09-16. The DS-116 document still ran 8.8 screens after the reorder, and 2,500px of that
+// was the options not chosen. A reader approving a direction reads the design; the options and
+// the research are there for the reader who asks why. So both sit folded under their heading,
+// one click open, and nothing above them folds.
+function foldedSection(out, heading) {
+  var start = at(out, "<h2>" + heading + "</h2>");
+  assert.notStrictEqual(start, -1, "there is no " + heading + " section");
+  var sec = out.slice(start);
+  return sec.slice(0, at(sec, "</section>"));
+}
+
+describe("what a reader opens on demand", function () {
+  it("folds the other options under their heading, every drawing and comparison inside", function () {
+    var d = twoDecisions();
+    var sec = foldedSection(body(assembleProposal(d)), "Other options");
+    assert.strictEqual(count(sec, '<details class="doc__more">'), 1, "one fold, closed");
+    assert.ok(at(sec, "<details") > at(sec, "<h2>Other options</h2>"), "the heading stays outside the fold, where a screen reader lists it");
+    var inside = sec.slice(at(sec, "</summary>"), sec.lastIndexOf("</details>"));
+    d.decisions.forEach(function (dec) {
+      dec.options.forEach(function (o) {
+        if (o.id !== dec.pick.optionId) assert.ok(at(inside, 'data-name="' + o.id + '"') !== -1, o.id + " is inside the fold");
+      });
+    });
+    assert.strictEqual(count(inside, 'class="compare"'), 2, "both comparisons are inside the fold");
+    var rest = d.decisions.reduce(function (n, dec) { return n + dec.options.length - 1; }, 0);
+    assert.ok(at(sec, "<summary>" + rest + " options not picked, and how they compare</summary>") !== -1, "the summary counts what is folded: " + sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
+  });
+
+  it("counts a single option in the singular", function () {
+    var d = load();
+    var dec = d.decisions[0];
+    var other = dec.options.filter(function (o) { return o.id !== dec.pick.optionId; })[0];
+    dec.options = dec.options.filter(function (o) { return o.id === dec.pick.optionId || o.id === other.id; });
+    Object.keys(dec.comparison.cells).forEach(function (id) {
+      if (id !== dec.pick.optionId && id !== other.id) delete dec.comparison.cells[id];
+    });
+    var sec = foldedSection(body(assembleProposal(d)), "Other options");
+    assert.ok(at(sec, "<summary>1 option not picked, and how it compares</summary>") !== -1, sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
+  });
+
+  it("folds nothing above the other options", function () {
+    var out = body(assembleProposal(twoDecisions()));
+    assert.strictEqual(at(out.slice(0, at(out, "<h2>Other options</h2>")), "<details"), -1, "part of the design is folded");
+  });
+
+  it("opens every fold before printing, so a saved PDF carries what the page folds", function () {
+    var out = body(assembleProposal(load()));
+    var script = out.slice(out.lastIndexOf("<script>") + "<script>".length, out.lastIndexOf("</script>"));
+    var listeners = {};
+    var folds = [{ open: false }, { open: false }];
+    var win = { addEventListener: function (type, fn) { listeners["window:" + type] = fn; } };
+    var doc = {
+      addEventListener: function (type, fn) { listeners["document:" + type] = fn; },
+      querySelectorAll: function () { return folds; },
+    };
+    new Function("window", "document", script)(win, doc);
+    assert.strictEqual(typeof listeners["window:beforeprint"], "function", "nothing opens the folds for print");
+    listeners["window:beforeprint"]();
+    folds.forEach(function (f, i) { assert.strictEqual(f.open, true, "fold " + i + " prints closed"); });
+  });
+});

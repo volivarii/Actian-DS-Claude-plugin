@@ -139,7 +139,8 @@ are summarized at the release level.
   row and one page. Now:
   - **Order:** the answer, What ships (one row per part), one block per part (the chosen drawing,
     why, where it breaks, cost), How it connects, Before we build (blockers, open questions,
-    risks), What changes, Background, Other options with their comparisons, Research, Sources.
+    risks), What changes, Background, then Other options with their comparisons and Research, both
+    folded until opened (print opens them), then Sources.
   - **Parts, not questions:** a new optional `decisions[].part` names what each decision builds and
     heads its block. Questions stay in the data and are never printed. Older files still render,
     named from the chosen option's surface.

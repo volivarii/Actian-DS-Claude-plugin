@@ -265,10 +265,14 @@ what it asks of you is that each field says what its place in this order needs.
 | 5 | Before we build | Every `blocker`, naming its part, then `openQuestions` (a rabbit hole prints as a risk) |
 | 6 | What changes | `change.userSide`, then `change.adminSide` |
 | 7 | Background | Goals, not doing, and `context.product` as how it works today |
-| 8 | Other options | Per part: the options not chosen, smaller, then the comparison with the chosen column marked Proposed |
-| 9 | Research | The lanes that ran |
+| 8 | Other options | Folded. Per part: the options not chosen, smaller, then the comparison with the chosen column marked Proposed |
+| 9 | Research | Folded. The lanes that ran |
 | 10 | Sources | `context.sources`, then `context.gap` as a note |
 | 11 | Closing | `latitude`, then the footer |
+
+Other options and Research sit folded under their heading, one click open, with a line that counts
+what is inside ("4 options not picked, and how they compare", "7 findings"). They argue for the design
+rather than being it, and on DS-116 they were more than a third of the page. Printing opens every fold.
 
 No question reaches the page. `context.question` and `decisions[].question` frame the work and the
 comparison, and `--evaluate` is built on them, but a heading that asks something makes a reader
@@ -420,7 +424,7 @@ those are the two lanes that borrow someone's authority, ours and the reader's, 
 borrows authority without a source is indistinguishable from one that earned it.
 
 The document renders the lanes as their own section, "Research", after the other options and before
-the sources: it is evidence for the design, read by whoever wants to check it. A lane with no findings
+the sources, folded until opened: it is evidence for the design, read by whoever wants to check it. A lane with no findings
 prints no heading.
 
 ## Publishing

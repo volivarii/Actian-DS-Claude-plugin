@@ -223,6 +223,13 @@
     .decision__lead { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; margin: 0 0 48px; }
     .decision__case { flex: 1 1 380px; min-width: 0; max-width: var(--doc-measure); }
 
+    /* A fold: Other options and Research sit closed under their heading, one click open, because
+       they argue for the design rather than being it. The summary counts what is inside. Print
+       opens every fold first (the script at the end), since a saved PDF has nothing to click. */
+    .doc__more > summary { cursor: pointer; width: fit-content; font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); padding: 4px 0; }
+    .doc__more > summary:hover { color: var(--fm-text-primary); }
+    .doc__more[open] > summary { margin: 0 0 32px; }
+
     /* Other options: what each part was chosen over, after the design. Smaller drawings, one
        line of annotation, then the comparison, grouped under the part they lost to, so a
        reader who has read the design can skim these rather than weigh them again. */
@@ -302,6 +309,10 @@
       if (!t) return;
       var el = document.getElementById(t.getAttribute("data-toggle"));
       if (el) el.hidden = !el.hidden;
+    });
+    // A fold prints closed, and a saved PDF has nothing to click, so print opens them all.
+    window.addEventListener("beforeprint", function () {
+      document.querySelectorAll("details").forEach(function (d) { d.open = true; });
     });
   </script>
 </body>

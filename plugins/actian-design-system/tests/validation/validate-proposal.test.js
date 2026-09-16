@@ -290,6 +290,12 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="background:url(https://x.test/a.png)">x</div>'; }), "external-load").length, 1);
     var f = only(withMutation(function (d) { d.decisions[0].options[2].screen.html = "<div><span>open"; }), "unbalanced");
     assert.strictEqual(f.length, 1); assert.strictEqual(f[0].screen, "c");
+    // The options not chosen render inside a <details>; a stray close in one of them ends the
+    // fold early and spills the rest of the section onto the page.
+    ["</details>", "</summary>"].forEach(function (stray) {
+      f = only(withMutation(function (d) { d.decisions[0].options[2].screen.html += stray; }), "unbalanced");
+      assert.strictEqual(f.length, 1, stray + " is not caught");
+    });
   });
   it("a data-toggle without its id, and an id reused across options, are P1 (check toggle-target)", function () {
     var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div data-toggle="ghost">x</div>'; }), "toggle-target");

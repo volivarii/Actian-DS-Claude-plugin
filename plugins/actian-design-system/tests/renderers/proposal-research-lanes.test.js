@@ -104,5 +104,27 @@ describe("the research section", function () {
     sec = sec.slice(0, at(sec, "</section>"));
     assert.notStrictEqual(at(sec, "Not researched: the request said skip research"), -1, "it does not say why");
     assert.strictEqual(count(sec, "research__lane"), 0, "it drew a group anyway");
+    assert.strictEqual(at(sec, "<details"), -1, "one line is folded behind a click");
+  });
+
+  // 2026-09-16. Research argues for the design; it is not the design. It sits folded under its
+  // heading, like the options not chosen, and the summary says how much is inside.
+  it("sits folded under its heading, every finding inside, counted in the summary", function () {
+    var out = assembleProposal(withResearch(THREE));
+    var sec = out.slice(at(out, "<h2>Research</h2>"));
+    sec = sec.slice(0, at(sec, "</section>"));
+    assert.strictEqual(count(sec, '<details class="doc__more">'), 1, "one fold, closed");
+    assert.ok(at(sec, "<details") > at(sec, "<h2>Research</h2>"), "the heading stays outside the fold");
+    var inside = sec.slice(at(sec, "</summary>"), sec.lastIndexOf("</details>"));
+    THREE.findings.forEach(function (f) { assert.notStrictEqual(at(inside, f.claim), -1, "outside the fold: " + f.claim); });
+    assert.notStrictEqual(at(sec, "<summary>3 findings</summary>"), -1, sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
+  });
+
+  it("counts a single finding in the singular", function () {
+    var one = JSON.parse(JSON.stringify(THREE));
+    one.lanes = ["competitors"];
+    one.findings = one.findings.slice(0, 1);
+    var out = assembleProposal(withResearch(one));
+    assert.notStrictEqual(at(out, "<summary>1 finding</summary>"), -1);
   });
 });

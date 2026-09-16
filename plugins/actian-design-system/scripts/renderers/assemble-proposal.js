@@ -43,8 +43,10 @@ var readFileChecked = shared.readFileChecked;
 var TEMPLATE_PATH = path.join(shared.TEMPLATES_DIR, "proposal-document.html");
 var SCHEMA_PATH = path.join(__dirname, "..", "..", "schemas", "proposal-data.schema.json");
 
-// Tags a fragment may open; each must close. Void elements are not listed.
-var BALANCED_TAGS = ["div", "span", "p", "section", "button", "a", "ul", "ol", "li", "table", "thead", "tbody", "tr", "td", "th", "label", "h1", "h2", "h3", "h4"];
+// Tags a fragment may open; each must close. Void elements are not listed. details and summary
+// are here because the options not chosen render inside a fold: a stray close in a drawing
+// would end it early and spill the rest of the section onto the page.
+var BALANCED_TAGS = ["div", "span", "p", "section", "button", "a", "ul", "ol", "li", "table", "thead", "tbody", "tr", "td", "th", "label", "h1", "h2", "h3", "h4", "details", "summary"];
 var TONES = { good: "tone-good", mixed: "tone-mixed", bad: "tone-bad" };
 
 function maskComment(s) {
@@ -92,6 +94,13 @@ var ROW_BUDGET = { 1: 1200, 2: 588, 3: 384, 4: 282 };
 // Exported so the validator can warn about a width this will silently cap. The two
 // must never hold separate copies of these numbers: a drawing authored against a
 // budget the renderer does not share renders squeezed, and the author is told nothing.
+// A section a reader opens on demand. The heading stays outside, in the section, because
+// inside a summary it takes the summary's button role and drops out of a screen reader's list
+// of headings. The summary says how much is folded, so closed is never mistaken for empty.
+function fold(summary, inner) {
+  return '<details class="doc__more"><summary>' + esc(summary) + "</summary>" + inner + "</details>";
+}
+
 function rowBudget(count) {
   return ROW_BUDGET[count] || ROW_BUDGET[4];
 }
@@ -192,6 +201,7 @@ function researchHtml(research) {
       '<p class="doc__muted">Not researched: ' + esc(research.skippedBecause || "") + "</p>",
     );
   }
+  var shown = 0;
   var groups = RESEARCH_LANES.map(function (lane) {
     // A file written before the lanes existed carries findings with no lane. Refusing it
     // would strand every proposal already on disk, and what that research was is not a
@@ -200,6 +210,7 @@ function researchHtml(research) {
       return (f.lane || "competitors") === lane.id;
     });
     if (!mine.length) return "";
+    shown += mine.length;
     return (
       '<div class="research__lane"><h3>' + esc(lane.label) + "</h3>" +
       list("doc__list", mine.map(function (f) {
@@ -208,7 +219,10 @@ function researchHtml(research) {
       "</div>"
     );
   }).join("");
-  return section("Research", '<div class="research">' + groups + "</div>");
+  var inner = '<div class="research">' + groups + "</div>";
+  // Research argues for the design; it is not the design, so it folds like the options not
+  // chosen. Nothing to count is nothing to fold.
+  return section("Research", shown ? fold(shown === 1 ? "1 finding" : shown + " findings", inner) : inner);
 }
 
 // What a drawing is made of, printed where a reader can see it. "Built from" is quiet, and
@@ -322,9 +336,11 @@ function partHtml(d, apps) {
 var ALSO_SCALE = 0.72;
 
 function otherOptionsHtml(decisions, apps) {
+  var notPicked = 0;
   var groups = decisions.map(function (d) {
     var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
     if (!rest.length) return "";
+    notPicked += rest.length;
     var alsoWidth = Math.max(240, Math.round(decisionWidth(d) * ALSO_SCALE));
     return (
       '<div class="other" id="' + esc(d.id) + '-options">' +
@@ -334,7 +350,10 @@ function otherOptionsHtml(decisions, apps) {
       '</div><div class="compare-block">' + comparisonHtml(d.comparison, d.options, d.pick.optionId) + "</div></div>"
     );
   }).join("");
-  return groups ? section("Other options", groups) : "";
+  // Folded: a reader approving a direction reads the design, and these are for the reader who
+  // asks what it was chosen over. On DS-116 they were 2,500px of an 8,000px page.
+  var summary = notPicked === 1 ? "1 option not picked, and how it compares" : notPicked + " options not picked, and how they compare";
+  return groups ? section("Other options", fold(summary, groups)) : "";
 }
 
 // What has to be settled before anyone builds: the blockers first, each naming its part,
