@@ -24,7 +24,7 @@
       ],
       "properties": {
         "title": {
-          "description": "Document title, printed as the page H1 and the document title",
+          "description": "What was asked, in the requester's terms and ten words at most: the page H1 and the document title. It names the ask, never the answer or the constraints on it",
           "type": "string",
           "examples": [
             "DIP-I-496: show role and permission for a logged-in user"
@@ -159,6 +159,13 @@
           "type": "string",
           "examples": [
             "How does a logged-in user see their assigned role and permission group?"
+          ]
+        },
+        "ask": {
+          "description": "What was asked, in one or two plain sentences from the ticket: who needs what, and why, plus any direction the request added. It opens the document under The ask, above the answer. Optional so older files still render; the validator asks for it",
+          "type": "string",
+          "examples": [
+            "A logged-in user cannot see which permission group they belong to, so they cannot find the guidelines that go with it."
           ]
         },
         "product": {
@@ -416,6 +423,13 @@
             "pattern": "^[a-z0-9][a-z0-9-]*$",
             "examples": [
               "how-a-user-sees-their-group"
+            ]
+          },
+          "part": {
+            "description": "What this decision builds, in two to four of the product's words, as Step 4 named it. Optional here; the finished document asks for it",
+            "type": "string",
+            "examples": [
+              "Account menu"
             ]
           },
           "question": {

@@ -14,6 +14,7 @@
   "answer": "Badge each group under the name, named by an admin, with its catalogs.",
   "context": {
     "question": "What does a user see about their permission group?",
+    "ask": "A logged-in user cannot see which permission group they belong to, so they do not know what they may do or where its guidelines are.",
     "product": [
       "A user can belong to several groups.",
       "Group names are technical keys that scripts reference.",

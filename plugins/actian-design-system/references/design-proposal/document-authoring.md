@@ -17,7 +17,7 @@ arrived, where `system`, `id` and `body` are all required, because an evaluation
 forces and cannot make that claim without naming it; `context` and `scope` exactly as a document writes
 them; `research` with `ran` false, `findings` empty and `skippedBecause` set to
 `"the evaluation names the decisions first; research runs against them on resume"`; `decisions[]` with
-`id` and `question` alone, one to four, each question one sentence ending in a question mark and no two
+`id`, `question` and the `part` Step 4 named, one to four, each question one sentence ending in a question mark and no two
 alike; and `openQuestions` for what the product read could not settle, which a `context.gap` makes a P1
 to leave empty. Nothing else: `answer`, `breadboard`, `change`, `latitude`, and a decision's `options`,
 `comparison`, `pick` or `blocker` are each a P0 naming the field, because a half-filled evaluation is a
@@ -67,11 +67,17 @@ drifting into two data models.
 The document leads with what ships: the answer, then one block per part. Each decision is one part.
 
 - **meta**: `title`, `date`, `apps`, `skill`, plus `ticket`, `prompt` and `model` when you have them.
+  `title` is the ask in the requester's terms, ten words at most: what someone asked for, never the
+  answer and never the constraints on it. DS-116 was titled "My access, with no new page and no new
+  control", which is the answer and its constraints; "Show users their own roles and permissions" is
+  the ask.
 - **answer**: one sentence, what we will build. It opens the document. If it needs two sentences the
   second one belongs inside a part.
 - **source** (optional in a proposal, required in an evaluation): the ticket as it arrived,
-  `{ system, id, url, title, body }`. Nothing in the document reads it; it is the input record.
-- **context**: `question` (the one sentence from Step 1; it frames the work and is never printed), `product` (three to six facts, **one line
+  `{ system, id, url, title, body }`. The document quotes its `id` and `title` under the ask, so a
+  reader can check the ask against the ticket; the `body` is the input record and never prints.
+- **context**: `ask` (one or two sentences from the ticket, in plain words: who needs what, and why,
+  plus any direction the request added; it opens the document), `question` (the one sentence from Step 1; it frames the work and is never printed), `product` (three to six facts, **one line
   each, as separate strings, never a paragraph**: the anchor surface, the data model behind it, what an
   admin and a user see today), `sources` (one line each, `app-context: ...` or `attachment: ...`),
   `gap` (one sentence, only when the anchor surface has no capture in app-context).
@@ -195,7 +201,7 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
   adding the `hidden` attribute. Ids are document-wide (P1 if reused).
 - No `src` or `href` that starts with `http`, `https` or `//` (P0). The document opens offline.
 - Every opened `div`, `span`, `p`, `section`, `button`, `a`, `ul`, `ol`, `li`, `table`, `tr`, `td`, `th`,
-  `label` and heading is closed (P0).
+  `label`, `details`, `summary` and heading is closed (P0).
 - Product words follow the vendored terminology and avoid-word rules; the validator runs both over every
   text field. No em dashes anywhere (P2): colon, comma or period.
 
@@ -252,26 +258,28 @@ loudly, in the brand colour, because those are two different messages.
 
 ## The order a reader meets
 
-The reader is a PM or a designer deciding whether to approve a direction. They came for what we will
-build, so the document leads with it and every reason to trust it follows. The assembler lays this out;
+The reader is a PM or a designer deciding whether to approve a direction, and may never have seen the
+ticket. So the document opens with what was asked, then leads with what we will build, and every reason
+to trust it follows. The assembler lays this out;
 what it asks of you is that each field says what its place in this order needs.
 
 | # | Section | What prints there |
 |---|---|---|
-| 1 | (no heading) | `answer`, one sentence: what we will build |
-| 2 | What ships | One row per part: its `part`, the chosen option's `whatItIs`, its `pick.cost`. Only with two or more parts |
-| 3 | One block per part | Headed by `part`. The chosen drawing, and beside it `whatItIs`, why (each reason beside its criterion), where it breaks, what it costs, what it is built from |
-| 4 | How it connects | The breadboard, when there is one |
-| 5 | Before we build | Every `blocker`, naming its part, then `openQuestions` (a rabbit hole prints as a risk) |
-| 6 | What changes | `change.userSide`, then `change.adminSide` |
-| 7 | Background | Goals, not doing, and `context.product` as how it works today |
-| 8 | Other options | Folded. Per part: the options not chosen, smaller, then the comparison with the chosen column marked Proposed |
-| 9 | Research | Folded. The lanes that ran |
-| 10 | Sources | `context.sources`, then `context.gap` as a note |
-| 11 | Closing | `latitude`, then the footer |
+| 1 | The ask | `context.ask`, then the ticket's `source.id` and `source.title`, quoted |
+| 2 | Proposal | `answer`, one sentence: what we will build |
+| 3 | What ships | One row per part: its `part`, the chosen option's `whatItIs`, its `pick.cost`. Only with two or more parts |
+| 4 | One block per part | Headed by `part`. The chosen drawing, and beside it `whatItIs`, why (each reason beside its criterion), where it breaks, what it costs, what it is built from |
+| 5 | How it connects | The breadboard, when there is one |
+| 6 | Before we build | Every `blocker`, naming its part, then `openQuestions` (a rabbit hole prints as a risk) |
+| 7 | What changes | `change.userSide`, then `change.adminSide` |
+| 8 | Background | Goals, not doing, and `context.product` as how it works today |
+| 9 | Other options | Folded. Per part: the options not chosen, smaller, then the comparison with the chosen column marked Proposed |
+| 10 | Research | Folded. The lanes that ran |
+| 11 | Sources | `context.sources`, then `context.gap` as a note |
+| 12 | Closing | `latitude`, then the footer |
 
 Other options and Research sit folded under their heading, one click open, with a line that counts
-what is inside ("4 options not picked, and how they compare", "7 findings"). They argue for the design
+what is inside ("4 options, compared with the proposal", "7 findings"). They argue for the design
 rather than being it, and on DS-116 they were more than a third of the page. Printing opens every fold.
 
 No question reaches the page. `context.question` and `decisions[].question` frame the work and the
@@ -310,7 +318,7 @@ past it does not get truncated: it pushes the next thing off the screen.
   three three-line facts do not.
 - **`whatItIs` and `breaksWhen` are one line each**, and `verdict` is a few words. The drawing
   carries the idea; these three say what a reader cannot see in it.
-- **The answer is one sentence.** Nothing else sits in that section: the decision table below
+- **The answer is one sentence.** Nothing else sits in that section: What ships below
   it is the summary, and repeating the picks above the table is how the document got long.
 
 The document prints each part's name in the summary, the bar and its own heading, and what it
@@ -319,10 +327,11 @@ builds in the summary and its block. Anything you write that restates one of tho
 ## Word limits
 
 The validator counts words and reports each field past its limit as a P1 `length`, naming the count.
-A `length` P1 is fixed by cutting, never explained: it is the one P1 with no case for keeping the text.
+A `length` P1 is fixed by cutting, never explained: like `part` and `ask`, it has no case for keeping the text.
 
 | Field | Max words |
 |---|---|
+| `meta.title` | 10 |
 | `answer` | 20 |
 | `decisions[].part` | 4 |
 | `options[].name` | 5 |
@@ -336,6 +345,7 @@ A `length` P1 is fixed by cutting, never explained: it is the one P1 with no cas
 | `decisions[].blocker` | 15 |
 | `comparison.cells[][].text` | 4 |
 | `comparison.criteria[].label` | 5 |
+| `context.ask` | 40 |
 | `context.product[]` | 15 |
 | `context.gap` | 15 |
 | `scope.goals[]` | 12 |
@@ -354,7 +364,8 @@ time.
 - One idea per sentence. Lead with the fact.
 - The product's words for product things, ordinary words for everything else.
 - No wordplay, slogans or metaphors. A line that sounds clever gets rewritten until it only informs.
-- No internal words: renderer, schema, data file, flag, script, app-context, substrate, terrain.
+- No internal words in prose: renderer, schema, data file, flag, script, app-context, substrate,
+  terrain. A source's `app-context:` prefix is not prose: it is the kind label Sources prints.
 - Text inside a drawing is product copy. It follows the writing rules read at Step 5
   (`vendor/content/dist/writing.md`): sentence case, short labels with no period, second person, the
   words to avoid. Those rules are how you write. They are never a research finding.
@@ -415,7 +426,7 @@ root named in the skill's base directory. The researcher reads with file tools, 
 that host path and not the VM mount, so a relative path finds nothing and the lane comes back empty. On ERROR, say what failed in one line and ask
 whether to proceed without research; never pad the file yourself.
 
-Copy its `findings` into `research.findings` as they are, and set `research.lanes` to what you asked
+Copy its `findings` into `research.findings`, cutting any claim past its 18 words, and set `research.lanes` to what you asked
 for and `research.refs` to what the reader pasted. Three rules the validator enforces, so they are
 worth knowing before you write the file: at most four findings a lane; a finding in `ours` cites a
 substrate source (`app-context:` `guideline:` `pattern:` `accessibility:` `foundations:` `content:`
@@ -459,8 +470,8 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" proposals/proposal-data.json --type proposal -o proposals/<slug>.html
 ```
 
-Re-run until no P0 remains and every remaining P1 is one you have explained in chat, except `length`
-and `part`, which are fixed rather than explained; P2 is voice, fix it when cheap.
+Re-run until no P0 remains and every remaining P1 is one you have explained in chat, except `length`,
+`part` and `ask`, which are fixed rather than explained; P2 is voice, fix it when cheap.
 
 A `proposal-data.json` written before `2026.9.30` carries `approaches`, `comparison` and
 `recommendation` at the top level. Convert it first, then author the three fields the converter leaves

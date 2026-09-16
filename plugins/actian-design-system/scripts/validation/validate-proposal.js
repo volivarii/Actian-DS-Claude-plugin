@@ -24,8 +24,9 @@
  * composition (P0 on a slug the vendored component snapshot does not know, P1
  * on a drawing that declares neither what it is built from nor what it adds,
  * and P1 on an addition the snapshot already has), part (P1 on a decision
- * that does not name what it builds), length (P1 on a field past its word
- * limit), em-dash (P2).
+ * that does not name what it builds, or names the same part as another),
+ * ask (P1 on a proposal that does not say what was asked), length (P1 on a
+ * field past its word limit), em-dash (P2).
  *
  * Two things the check list above does not say on its own.
  *
@@ -99,6 +100,7 @@ var TONES = ["good", "mixed", "bad"];
 // references/design-proposal/document-authoring.md prints in its table, and a test holds the
 // two together, so change both or neither.
 var WORD_LIMITS = {
+  "meta.title": 10,
   "answer": 20,
   "decisions[].part": 4,
   "options[].name": 5,
@@ -112,6 +114,7 @@ var WORD_LIMITS = {
   "decisions[].blocker": 15,
   "comparison.cells[][].text": 4,
   "comparison.criteria[].label": 5,
+  "context.ask": 40,
   "context.product[]": 15,
   "context.gap": 15,
   "scope.goals[]": 12,
@@ -233,8 +236,10 @@ function checkFragment(html, approachId, p, findings) {
   });
 }
 
+// A word carries a letter or a digit. A middot or a slash between words is punctuation, and
+// counting it put a four-word part over its limit.
 function wordCount(s) {
-  return String(s == null ? "" : s).trim().split(/\s+/).filter(Boolean).length;
+  return String(s == null ? "" : s).trim().split(/\s+/).filter(function (w) { return /[\p{L}\p{N}]/u.test(w); }).length;
 }
 
 // Every measured field of a finished proposal, as { key, path, text }. Only the proposal stage
@@ -244,7 +249,9 @@ function lengthEntries(data) {
   function add(key, p, text) {
     if (typeof text === "string" && text.trim()) out.push({ key: key, path: p, text: text });
   }
+  add("meta.title", "meta.title", data.meta.title);
   add("answer", "answer", data.answer);
+  add("context.ask", "context.ask", data.context.ask);
   add("latitude", "latitude", data.latitude);
   (data.context.product || []).forEach(function (s, i) { add("context.product[]", "context.product[" + i + "]", s); });
   add("context.gap", "context.gap", data.context.gap);
@@ -452,6 +459,10 @@ function validateProposal(data) {
   if (stage === "proposal") {
     checkProse(data.answer, "", "answer", findings);
     checkProse(data.latitude, "", "latitude", findings);
+    // The document opens with what was asked, so a reader who never saw the ticket knows what
+    // the answer answers.
+    if (!String(data.context.ask || "").trim())
+      findings.push(finding("P1", "ask", "", "context.ask", "the document does not say what was asked", "", "one or two sentences from the ticket: who needs what, and why"));
     if (!String(data.latitude || "").trim())
       findings.push(finding("P1", "latitude", "", "latitude", "the document does not say how much of it is fixed", "", "one line: what the team has latitude on and what it does not"));
   }
@@ -460,7 +471,9 @@ function validateProposal(data) {
   checkProse(data.context.question, "", "context.question", findings);
   data.context.product.forEach(function (f, i) { checkProse(f, "", "context.product[" + i + "]", findings); });
   checkProse(data.context.gap, "", "context.gap", findings);
+  checkProse(data.context.ask, "", "context.ask", findings);
   addPseudo("doc:context", "Context", [{ path: "context.question", text: data.context.question }]
+    .concat(data.context.ask ? [{ path: "context.ask", text: data.context.ask }] : [])
     .concat(data.context.product.map(function (f, i) { return { path: "context.product[" + i + "]", text: f }; }))
     .concat([{ path: "context.gap", text: data.context.gap || "" }]));
 
@@ -593,8 +606,8 @@ function validateProposal(data) {
     if (decisionIds[d.id]) findings.push(finding("P0", "bounds", "", dp + ".id", "duplicate decision id " + d.id));
     decisionIds[d.id] = true;
     checkProse(d.question, "", dp + ".question", findings);
-    // The question is this decision's heading, its line in the answer, and the first
-    // column of the table. It went through checkProse alone, so em dashes and hex were
+    // The question frames the comparison and the evaluation and never prints, but it is still
+    // text an author wrote. It went through checkProse alone, so em dashes and hex were
     // caught and terminology and avoid-words were not, while this file said in three
     // places that those gates run over every text field.
     addPseudo("doc:question:" + d.id, "Decision question", [{ path: dp + ".question", text: d.question }]);
@@ -779,6 +792,15 @@ function validateProposal(data) {
       { path: "answer", text: data.answer },
       { path: "latitude", text: data.latitude || "" },
     ]);
+    // Two parts with one name head two blocks alike, and a blocker naming that part could
+    // belong to either. A file with no parts is already asked for them one by one.
+    var partSeen = Object.create(null);
+    data.decisions.forEach(function (d, di) {
+      var key = String(d.part || "").trim().toLowerCase();
+      if (!key) return;
+      if (partSeen[key] === undefined) partSeen[key] = di;
+      else findings.push(finding("P1", "part", "", "decisions[" + di + "].part", "the same part as decisions[" + partSeen[key] + "]: " + String(d.part).trim(), "", "name what each one builds differently, or make them one decision"));
+    });
     checkLengths(data, findings);
   }
 
@@ -806,7 +828,7 @@ if (require.main === module) {
   if (process.argv.indexOf("--help") !== -1) {
     process.stdout.write(JSON.stringify({
       name: "validate-proposal",
-      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections and option anchors that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities.",
+      description: "Validate proposals/proposal-data.json (the document): the pre-decisions shape and half-converted leftovers, schema, app slugs, bounds, research honesty, every pick cross-reference resolved inside its OWN decision (optionId and each reason's criterionId) and a cost that says something, breadboard connections and option anchors that name a place and an affordance that exist, a latitude line, balanced in-flow drawings, no script, no external loads, terminology and avoid-words over every text field, hard-coded colours, toggle targets, em dashes, flow screen templates and entities, what was asked, a distinct part named by every decision, and a word limit on each prose field.",
       flags: [
         { name: "--json", description: "Print { findings } as JSON instead of the table" },
         { name: "--help", description: "Show this help" },

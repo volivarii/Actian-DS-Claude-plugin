@@ -1,6 +1,6 @@
 ---
 name: design-proposal
-description: Propose a design for a component-scale ticket as a short document for PMs and designers. What we will build in one sentence, then each part drawn inside the product with why and what it costs, what to settle before building, and last, folded until opened, the other options, their comparison and the research. `--evaluate` stops after naming the decisions the ticket forces, with no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
+description: Propose a design for a component-scale ticket as a short document for PMs and designers. What was asked, what we will build in one sentence, then each part drawn inside the product with why and what it costs, what to settle before building, and last, folded until opened, the other options, their comparison and the research. `--evaluate` stops after naming the decisions the ticket forces, with no document. Use for "approaches", "concepts", "options", "how should we", "which is best", a pasted ticket. No Figma push.
 argument-hint: "[ticket text, id, request or attached PDF] [--concepts N] [--research all|none|<lanes>] [--no-prompt] [--evaluate] [--publish] [--from proposals/proposal-data.json]"
 ---
 
@@ -20,11 +20,11 @@ The line is idempotent: when a later bash call finds the variable empty, run the
 ## What this produces
 
 One offline HTML document at `{project_working_directory}/proposals/<slug>.html`, for a PM or designer
-approving a direction, so it leads with what ships: the answer in one sentence; What ships, one row per
-part, when there are two or more; one block per part, headed by what it builds, with the chosen drawing,
-why, where it breaks and what it costs; how the parts connect; what to settle before building; what
-changes for a user and an admin; the background; then, folded until opened, the other options with their
-comparison and the research; the sources and one closing line. No question is printed as a heading.
+approving a direction: what was asked, and the ticket it came from; the answer in one sentence; What
+ships, one row per part, when there are two or more; one block per part, headed by what it builds, with
+the chosen drawing, why, where it breaks and what it costs; how the parts connect; what to settle before
+building; what changes for a user and an admin; the background; then, folded until opened, the other
+options with their comparison and the research; the sources and one closing line. No question is printed.
 `<slug>` is the ticket id lower-cased when there is one, else a kebab-case of the title, for example
 `dip-i-496.html`; a re-render with `--from` lands on the same file. Its source is
 `proposals/proposal-data.json`, which you author. Use this skill for component-scale questions (a menu, a
@@ -53,15 +53,15 @@ so in one line and offer `/generate-flow`. Under `--evaluate` there is no docume
 ## Pipeline
 
 **Step 1, frame.** Read the ticket and whatever the request attached (a PDF with the Read tool; screenshots
-as images). Name the app or apps, the anchor surface (the product surface the ticket lives on, in the
-product's words), the entity or "no entity", and the question in one sentence. Read the app's chrome:
+as images). Name the ask (who needs what, and why), the app or apps, the anchor surface (where the ticket
+lives, in the product's words), the entity or "no entity", and the question in one sentence. Read the app's chrome:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/resolve-chrome.js" --app <administration|explorer|studio>
 ```
 
-Say: `Proposal for <ticket or request>: <app label>, <anchor surface>, <entity or "no entity">. Question: <one sentence>.`
+Say: `Proposal for <ticket or request>: <app label>, <anchor surface>, <entity or "no entity">. Ask: <one sentence>. Question: <one sentence>.`
 
 **Step 2, product read.** From app-context (the chrome you just read, the entity when there is one through
 `resolve-patterns.js --entity <slug>`, and `vendor/app-context/dist/sections/<slug>.json` when the anchor is
@@ -108,12 +108,12 @@ truly has no mechanism: a proposal may argue for a new component, it just has to
 is a P0.
 
 Author `proposals/proposal-data.json` against `schemas/proposal-data.schema.json` (an example on every
-field) and the reference's "The keys and what each one is for". `meta.date` is today. Five things the
-schema cannot say: the `decisions` are the ones you named in Step 4 and no others, each naming its
-`part`; every option is drawn **inside its anchor, in flow**, at a `width` sized to the idea; every `pick`
-reason names a `criterionId` in that decision's own comparison; a question that would change a pick is
-that decision's `blocker`, never an `openQuestions` entry; and every field fits its word limit, in plain
-words (the reference's "Plain words" and "Word limits"). Then:
+field) and the reference's "The keys and what each one is for". `meta.date` is today. Six things the
+schema cannot say: `meta.title` is the ask, never the answer; the `decisions` are the ones you named in
+Step 4 and no others, each naming its own `part`; every option is drawn **inside its anchor, in flow**, at
+a `width` sized to the idea; every `pick` reason names a `criterionId` in that decision's own comparison;
+a question that would change a pick is that decision's `blocker`, never an `openQuestions` entry; and
+every field fits its word limit, in plain words (the reference's "Plain words" and "Word limits"). Then:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -122,7 +122,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 ```
 
 Fix every P0 and P1 the validator prints (a P1 terminology or avoid-word line names the word and the
-replacement; a `length` or `part` P1 is fixed, never explained). Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a
+replacement; a `length`, `part` or `ask` P1 is fixed, never explained). Re-run until no P0 remains and every remaining P1 is one you have explained in chat (a
 ticket's own word kept over a terminology hit); P2 is voice, fix it when cheap. Never hand-edit the HTML
 output; edit the data file and re-assemble.
 

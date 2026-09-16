@@ -91,7 +91,7 @@ Write this JSON to `outputPath`, nothing else:
 }
 ```
 
-- `claim` is one sentence, in the reader's words, stating what was found.
+- `claim` is one sentence of 18 words at most, in the reader's words, stating what was found.
 - `source` names where it came from as text. No URLs in `source` unless the reader's own ref was one.
 - At most **four findings per lane**. Fewer is normal and better than padding.
 

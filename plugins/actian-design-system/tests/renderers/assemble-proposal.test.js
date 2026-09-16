@@ -75,7 +75,7 @@ describe("assembleProposal (document)", function () {
     };
     var out = body(assembleProposal(d));
     var order = [
-      'class="answer"', 'class="decisions-at-a-glance"', '<section class="decision"', 'class="bb__svg"',
+      'class="ask"', 'class="answer"', 'class="decisions-at-a-glance"', '<section class="decision"', 'class="bb__svg"',
       ">Before we build<", 'class="change"', ">Background<", ">Other options<", ">Research<",
       'class="citations"', 'class="doc__latitude"',
     ];
@@ -87,11 +87,12 @@ describe("assembleProposal (document)", function () {
     });
   });
 
-  it("states the answer once, first", function () {
+  it("states the answer once, after the ask and before anything else", function () {
     var d = twoDecisions();
     var out = body(assembleProposal(d));
     assert.strictEqual(count(out, d.answer), 1, "the answer is stated once");
-    assert.ok(at(out, 'class="answer"') < at(out, "<h2>"), "before any heading");
+    assert.ok(at(out, 'class="ask"') !== -1 && at(out, 'class="ask"') < at(out, 'class="answer"'), "the ask comes first");
+    assert.ok(at(out, 'class="answer"') < at(out, "<h2>What ships</h2>"), "before the summary");
   });
 
   it("never prints a decision's question: parts are named by what they build", function () {
@@ -375,6 +376,11 @@ describe("assembleProposal (document)", function () {
     ["What we decided", "What we picked", "We pick", ">Picked<", "Decision 1 of"].forEach(function (past) {
       assert.strictEqual(out.indexOf(past), -1, "nothing a reader sees says: " + past);
     });
+    // The list above names phrases, and the fold summary once said "not picked" past all of
+    // them. Read the words a reader sees, with the markup and its class names taken out.
+    var text = out.replace(/<[^>]*>/g, " ");
+    var hit = /.{0,40}\bpick(ed|s)?\b.{0,40}/i.exec(text);
+    assert.strictEqual(hit, null, "a reader sees the word pick: " + (hit && hit[0]));
     assert.ok(out.indexOf(">Proposed<") !== -1, "the chosen column is marked Proposed");
   });
 
@@ -589,7 +595,7 @@ describe("what a reader opens on demand", function () {
     });
     assert.strictEqual(count(inside, 'class="compare"'), 2, "both comparisons are inside the fold");
     var rest = d.decisions.reduce(function (n, dec) { return n + dec.options.length - 1; }, 0);
-    assert.ok(at(sec, "<summary>" + rest + " options not picked, and how they compare</summary>") !== -1, "the summary counts what is folded: " + sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
+    assert.ok(at(sec, "<summary>" + rest + " options, compared with the proposal</summary>") !== -1, "the summary counts what is folded: " + sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
   });
 
   it("counts a single option in the singular", function () {
@@ -601,7 +607,7 @@ describe("what a reader opens on demand", function () {
       if (id !== dec.pick.optionId && id !== other.id) delete dec.comparison.cells[id];
     });
     var sec = foldedSection(body(assembleProposal(d)), "Other options");
-    assert.ok(at(sec, "<summary>1 option not picked, and how it compares</summary>") !== -1, sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
+    assert.ok(at(sec, "<summary>1 option, compared with the proposal</summary>") !== -1, sec.slice(at(sec, "<summary>"), at(sec, "</summary>")));
   });
 
   it("folds nothing above the other options", function () {
@@ -623,5 +629,93 @@ describe("what a reader opens on demand", function () {
     assert.strictEqual(typeof listeners["window:beforeprint"], "function", "nothing opens the folds for print");
     listeners["window:beforeprint"]();
     folds.forEach(function (f, i) { assert.strictEqual(f.open, true, "fold " + i + " prints closed"); });
+  });
+});
+
+// 2026-09-16. DS-116 was titled "My access, with no new page and no new control": the answer and
+// its constraints, not what anyone asked for, and the ticket record sat in the file unread. A
+// reader who never saw the ticket met a solution before they knew the problem. The document now
+// opens with the ask, and the ticket it came from, above the answer.
+describe("the ask comes first", function () {
+  function withAsk() {
+    var d = load();
+    d.context.ask = "A user cannot see which permission group they belong to, so they cannot find its guidelines.";
+    d.source = { system: "jira", id: "DS-116", title: "[EXPLORER] Ability to show user roles permission", body: "The ticket body as it arrived." };
+    return d;
+  }
+  function askSection(out) {
+    var start = at(out, "<h2>The ask</h2>");
+    assert.notStrictEqual(start, -1, "there is no ask section");
+    var sec = out.slice(start);
+    return sec.slice(0, at(sec, "</section>"));
+  }
+
+  it("opens with what was asked, before the answer", function () {
+    var d = withAsk();
+    var out = body(assembleProposal(d));
+    var first = out.slice(at(out, '<section class="doc__section">'));
+    first = first.slice(0, at(first, "</section>"));
+    assert.notStrictEqual(at(first, "<h2>The ask</h2>"), -1, "the first section is not the ask: " + first.slice(0, 160));
+    assert.notStrictEqual(at(first, '<p class="ask">' + d.context.ask + "</p>"), -1, "the ask is not printed in it");
+    assert.ok(at(out, 'class="ask"') < at(out, 'class="answer"'), "the answer comes before the ask");
+    assert.strictEqual(count(out, d.context.ask), 1, "the ask is printed once");
+  });
+
+  it("names the ticket it came from, in the ticket's own words, and not its body", function () {
+    var d = withAsk();
+    var sec = askSection(body(assembleProposal(d)));
+    assert.notStrictEqual(at(sec, "From Jira DS-116: &ldquo;[EXPLORER] Ability to show user roles permission&rdquo;"), -1, sec);
+    d.source.system = "pasted";
+    var out = body(assembleProposal(d));
+    assert.notStrictEqual(at(askSection(out), "From DS-116: &ldquo;"), -1, "a pasted ticket has no system to name");
+    assert.strictEqual(at(out, d.source.body), -1, "the ticket body is the input record, not the page");
+  });
+
+  it("escapes what it prints", function () {
+    var d = withAsk();
+    d.context.ask = "Show <b>groups</b> & roles.";
+    d.source.title = "Roles <i>now</i>";
+    var sec = askSection(body(assembleProposal(d)));
+    assert.strictEqual(at(sec, "<b>"), -1, "the ask is printed raw");
+    assert.strictEqual(at(sec, "<i>"), -1, "the ticket title is printed raw");
+    assert.notStrictEqual(at(sec, "Show &lt;b&gt;groups&lt;/b&gt; &amp; roles."), -1, sec);
+  });
+
+  it("prints the ticket alone for a file written before the ask, and no section with neither", function () {
+    var d = withAsk();
+    delete d.context.ask;
+    var out = body(assembleProposal(d));
+    assert.notStrictEqual(at(askSection(out), "From Jira DS-116"), -1, "the ticket is dropped");
+    assert.strictEqual(at(out, 'class="ask"'), -1, "an empty ask is printed");
+    delete d.source;
+    assert.strictEqual(at(body(assembleProposal(d)), "<h2>The ask</h2>"), -1, "an empty section is printed");
+  });
+
+  it("labels the answer as the proposal", function () {
+    var out = body(assembleProposal(withAsk()));
+    var start = at(out, "<h2>Proposal</h2>");
+    assert.notStrictEqual(start, -1, "the answer has no label");
+    var sec = out.slice(start);
+    sec = sec.slice(0, at(sec, "</section>"));
+    assert.notStrictEqual(at(sec, 'class="answer"'), -1, "the label is not on the answer");
+  });
+});
+
+// 2026-09-16 review. A file with no part is headed from its chosen option's surface, and the
+// surface is authored text: it can carry stray spaces, or be empty.
+describe("a part named from its surface", function () {
+  it("trims the surface, drops its article, and falls back to the id in words", function () {
+    var d = load();
+    var dec = d.decisions[0];
+    delete dec.part;
+    var win = dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0];
+    win.anchor.surface = "  the account menu ";
+    var out = body(assembleProposal(d));
+    assert.notStrictEqual(at(out, '<section class="decision" id="' + dec.id + '"><h2>Account menu</h2>'), -1, "the surface is not trimmed");
+    win.anchor.surface = "";
+    out = body(assembleProposal(d));
+    var words = dec.id.replace(/-/g, " ");
+    var expected = words.charAt(0).toUpperCase() + words.slice(1);
+    assert.notStrictEqual(at(out, '<section class="decision" id="' + dec.id + '"><h2>' + expected + "</h2>"), -1, "no heading from the id: " + expected);
   });
 });

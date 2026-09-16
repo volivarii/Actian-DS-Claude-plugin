@@ -50,7 +50,7 @@ var BALANCED_TAGS = ["div", "span", "p", "section", "button", "a", "ul", "ol", "
 var TONES = { good: "tone-good", mixed: "tone-mixed", bad: "tone-bad" };
 
 function maskComment(s) {
-  return String(s == null ? "" : s).replace(/-(?=-)/g, "-​");
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-\u200b");
 }
 
 function stripComments(s) {
@@ -94,15 +94,15 @@ var ROW_BUDGET = { 1: 1200, 2: 588, 3: 384, 4: 282 };
 // Exported so the validator can warn about a width this will silently cap. The two
 // must never hold separate copies of these numbers: a drawing authored against a
 // budget the renderer does not share renders squeezed, and the author is told nothing.
+function rowBudget(count) {
+  return ROW_BUDGET[count] || ROW_BUDGET[4];
+}
+
 // A section a reader opens on demand. The heading stays outside, in the section, because
 // inside a summary it takes the summary's button role and drops out of a screen reader's list
 // of headings. The summary says how much is folded, so closed is never mistaken for empty.
 function fold(summary, inner) {
   return '<details class="doc__more"><summary>' + esc(summary) + "</summary>" + inner + "</details>";
-}
-
-function rowBudget(count) {
-  return ROW_BUDGET[count] || ROW_BUDGET[4];
 }
 
 function list(cls, items) {
@@ -117,11 +117,13 @@ function findById(arr, id) {
 
 // What a decision builds, as a reader names it. Authored as part. A file written before part
 // existed has none, and the chosen option's surface ("the account menu") is the closest name
-// it carries, so it is used with its article dropped rather than the question it replaced.
+// it carries, so it is used with its article dropped rather than the question it replaced. The
+// surface is authored text too: it is trimmed, and an empty one falls back to the id in words.
 function partName(d) {
   if (d.part && String(d.part).trim()) return String(d.part).trim();
   var win = findById(d.options, d.pick.optionId);
-  var s = String((win && win.anchor.surface) || d.id).replace(/^the\s+/i, "");
+  var s = String((win && win.anchor.surface) || "").trim().replace(/^the\s+/i, "");
+  if (!s) s = String(d.id).replace(/-/g, " ");
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
@@ -134,9 +136,29 @@ function decisionWidth(d) {
   return Math.min(Math.max(widest, 280), rowBudget(d.options.length));
 }
 
-// The answer is one sentence and nothing else: what we will build. The framing question used
-// to sit above it, which opened a proposal with a question when its reader came for the
-// answer; it stays in the data for the evaluation stage and the comparison.
+// What was asked, before what we propose. DS-116 opened on its answer, under a title that was
+// the answer again, so a reader who never saw the ticket met a solution before the problem.
+// The ask is authored in plain words; the line under it is the ticket's own id and title,
+// quoted, so a reader can tell the two apart. The ticket body is the input record and never
+// prints.
+var TICKET_SYSTEMS = { aha: "Aha", jira: "Jira", github: "GitHub" };
+
+function askHtml(data) {
+  var ask = String(data.context.ask || "").trim();
+  var src = data.source || {};
+  var name = [TICKET_SYSTEMS[src.system] || "", String(src.id || "").trim()].filter(Boolean).join(" ");
+  var title = String(src.title || "").trim();
+  var ticket = name || title
+    ? '<p class="ask__ticket">From ' + esc(name || "the ticket") + (title ? ": &ldquo;" + esc(title) + "&rdquo;" : "") + "</p>"
+    : "";
+  if (!ask && !ticket) return "";
+  return section("The ask", (ask ? '<p class="ask">' + esc(ask) + "</p>" : "") + ticket);
+}
+
+// The answer is one sentence and nothing else: what we will build, labelled Proposal under the
+// ask. The framing question used to sit above it, which opened a proposal with a question when
+// its reader came for the answer; it stays in the data for the evaluation stage and the
+// comparison.
 //
 // The pick lookup stays, because it is the only place that catches a pick naming an option
 // that does not exist before any part renders.
@@ -145,7 +167,7 @@ function answerHtml(data) {
     if (!findById(d.options, d.pick.optionId))
       throw new Error('proposal-data: decision "' + d.id + '" picks optionId "' + d.pick.optionId + '", which names no option in it');
   });
-  return section("", '<p class="answer">' + esc(data.answer) + "</p>");
+  return section("Proposal", '<p class="answer">' + esc(data.answer) + "</p>");
 }
 
 // What ships, one row per part: what it is and what it costs. Derived from decisions[], so
@@ -336,11 +358,11 @@ function partHtml(d, apps) {
 var ALSO_SCALE = 0.72;
 
 function otherOptionsHtml(decisions, apps) {
-  var notPicked = 0;
+  var notChosen = 0;
   var groups = decisions.map(function (d) {
     var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
     if (!rest.length) return "";
-    notPicked += rest.length;
+    notChosen += rest.length;
     var alsoWidth = Math.max(240, Math.round(decisionWidth(d) * ALSO_SCALE));
     return (
       '<div class="other" id="' + esc(d.id) + '-options">' +
@@ -352,7 +374,8 @@ function otherOptionsHtml(decisions, apps) {
   }).join("");
   // Folded: a reader approving a direction reads the design, and these are for the reader who
   // asks what it was chosen over. On DS-116 they were 2,500px of an 8,000px page.
-  var summary = notPicked === 1 ? "1 option not picked, and how it compares" : notPicked + " options not picked, and how they compare";
+  // "compared with the proposal", never "not picked": nothing a reader sees says the choice is made.
+  var summary = notChosen + (notChosen === 1 ? " option" : " options") + ", compared with the proposal";
   return groups ? section("Other options", fold(summary, groups)) : "";
 }
 
@@ -475,6 +498,7 @@ function assembleProposal(data, options) {
   var meta = data.meta;
   var apps = loadApps();
   var sections =
+    askHtml(data) +
     answerHtml(data) +
     shipsHtml(data.decisions) +
     jumpHtml(data.decisions) +

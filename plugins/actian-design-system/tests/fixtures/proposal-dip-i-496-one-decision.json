@@ -14,6 +14,7 @@
   "answer": "Show each permission group as a badge under the user's name in the account menu.",
   "context": {
     "question": "How does a logged-in user see which permission group they belong to, and where its guidelines are?",
+    "ask": "A logged-in user cannot see which permission group they belong to, so they cannot find the guidelines that go with it.",
     "product": [
       "In Administration, a permission group is a Group, shown in the Users table.",
       "A user can belong to more than one group.",
