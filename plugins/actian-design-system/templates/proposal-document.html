@@ -90,11 +90,11 @@
     .approaches { display: flex; flex-wrap: wrap; gap: 48px 40px; align-items: flex-start; }
     /* A drawing column keeps the width it was drawn at and never exceeds the space it sits in:
        past that it scrolls inside its own box, at every screen width, since a drawing reaches
-       1200 and a side panel or a laptop is narrower than that. Paper is the print block. A scroll box clips what is drawn outside
-       it, and the frame's ring is drawn 8px outside the frame, so the column carries 8px of
-       padding for the ring and takes the same 8px back in margin: it sits where it did. The
-       padding sits outside the drawn width (content-box), or the frame would overflow the
-       column by 16px and every drawing would scroll. */
+       1200 and a side panel or a laptop is narrower than that. Paper is the print block.
+       A scroll box clips what is drawn outside it, and the frame's ring is drawn 8px outside
+       the frame, so the column carries 8px of padding for the ring and takes the same 8px back
+       in margin: it sits where it did. The padding sits outside the drawn width (content-box),
+       or the frame would overflow the column by 16px and every drawing would scroll. */
     .proposal-screen__col { display: flex; flex-direction: column; flex: none; box-sizing: content-box; max-width: 100%; overflow-x: auto; padding: 8px; margin: -8px; }
     /* The app and surface a drawing lives on, over it: on the chosen drawing always, on an
        option not chosen only when it is not the proposal's surface. */

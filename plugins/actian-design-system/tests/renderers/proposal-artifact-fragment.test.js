@@ -98,7 +98,6 @@ describe("the proposal document on a narrow screen", function () {
     assert.ok(/box-sizing:\s*content-box/.test(rule), "outside the drawn width, so a drawing that fits does not scroll: " + rule);
   });
 
-
   it("drops the desktop page margin so the measure has the screen", function () {
     var m = html().match(/@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\n {4}\}/);
     assert.ok(/body\s*\{[^}]*padding:\s*16px/.test(m[0]), "body padding steps down from 40px");
