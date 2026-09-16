@@ -89,29 +89,23 @@
 
     .approaches { display: flex; flex-wrap: wrap; gap: 48px 40px; align-items: flex-start; }
     .proposal-screen__col { display: flex; flex-direction: column; flex: none; }
-    /* Two rows by construction, so every approach label is the same height and the drawings
-       share a top edge. One row that wrapped used to push its drawing down by a line. */
+    /* The app and surface a drawing lives on, over it: on the chosen drawing always, on an
+       option not chosen only when it is not the proposal's surface. */
     .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
-    /* Two lines reserved for the name, so a name that wraps does not push its own drawing
-       below its neighbour's. The comment above has always said the drawings share a top
-       edge; at the Other options width, names wrap often enough that it needed saying in
-       CSS as well as in prose. */
-    .proposal-screen__name { display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; min-height: 3.2em; }
     .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
-    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; box-shadow: 0 0 0 8px var(--fm-base-100); }
+    /* The ring is drawn 8px outside the frame, so the frame keeps 8px below it: text set right
+       under a drawing used to sit on its ring. */
+    .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; box-shadow: 0 0 0 8px var(--fm-base-100); margin: 0 0 8px; }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
     .proposal-screen__body .fm-page-header { padding: 0 0 12px; }
-    .approach__lines { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); margin: 10px 0 0; max-width: 100%; }
-    .approach__breaks { color: var(--fm-text-tertiary); font-weight: 600; }
-    /* The verdict is the card's conclusion, so it carries a fill and reads as one object.
-       The negative margin cancels the tag's own left padding, which otherwise indents it
-       against the two lines above it by exactly the amount that looks like a mistake. The
-       fill is base-white over a border, not a grey: the document's own ground is base-200,
-       so a base-200 tag is an invisible tag. */
-    .approach__verdict { margin: 12px 0 0 -10px; }
-    .approach__verdict .fm-tag { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); color: var(--fm-base-800); }
+    /* An option not chosen: its name over the drawing and one line under it, the verdict in bold
+       and then where it breaks. Body size, because that line is what a reader takes from the
+       option; everything else it once carried is in the comparison below. */
+    .option__name { font-size: var(--doc-body); font-weight: 700; line-height: 1.4; margin: 0 0 12px; max-width: 100%; }
+    .option__why { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); margin: 8px 0 0; max-width: 100%; }
+    .option__why b { color: var(--fm-text-primary); }
 
     .compare { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
     .compare th, .compare td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--fm-base-300); }
@@ -226,6 +220,9 @@
        Both columns wrap to one on a narrow canvas. */
     .decision__lead { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; margin: 0 0 48px; }
     .decision__case { flex: 1 1 380px; min-width: 0; max-width: var(--doc-measure); }
+    /* A drawing wider than 720, a page region, takes the row below its case rather than
+       squeezing it, and the case keeps its measure above. */
+    .decision__lead--stacked { flex-direction: column; }
 
     /* A fold: Other options and Research sit closed under their heading, one click open, because
        they argue for the design rather than being it. The summary counts what is inside. Print
@@ -234,13 +231,13 @@
     .doc__more > summary:hover { color: var(--fm-text-primary); }
     .doc__more[open] > summary { margin: 0 0 32px; }
 
-    /* Other options: what each part was chosen over, after the design. Smaller drawings, one
-       line of annotation, then the comparison, grouped under the part they lost to, so a
-       reader who has read the design can skim these rather than weigh them again. */
+    /* Other options: what each part was chosen over, after the design. Each drawn at the
+       proposal's width, wrapping rather than shrinking, with one line each, then the comparison,
+       grouped under the part they lost to, so a reader who has read the design can skim these
+       rather than weigh them again. */
     .other { margin: 0 0 56px; }
     .other > h3 { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 20px; }
     .other .approaches { margin: 0 0 32px; }
-    .other .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
     .compare-block { margin: 0; }
 
     /* The case for a part: what it is, then why, one line per reason naming the row it argues
@@ -276,7 +273,7 @@
        inside .bb. Three things do not, and this block is those three.
 
        The drawings are the interesting case. A drawing is a mock of a real surface at a real
-       width, and rowBudget() exists to keep that width honest against the row it sits in;
+       width, and nothing on a wide screen squeezes it below that width either;
        reflowing it at 400px would not be the same proposal shown smaller, it would be a
        different design, drawn by the browser, arguing for something nobody picked. So the
        column keeps the width it was drawn at and scrolls inside its own box, which is the

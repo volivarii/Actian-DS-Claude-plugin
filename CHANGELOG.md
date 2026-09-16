@@ -133,6 +133,16 @@ are summarized at the release level.
 
 ### Changed
 
+- **A drawing is drawn at its own width, and an option not chosen reads in one line.** Under each
+  option not chosen sat six things (a caption, a run of notes, what it is, where it breaks, what it
+  is built from and a verdict tag that looked like a button) in a column squeezed to 276px. Now:
+  - **Cards:** an option not chosen shows its name, its drawing and one line: the verdict in bold,
+    then where it breaks. Its surface is named only when it is not the proposal's; what it adds
+    stays, because an addition is a cost.
+  - **Widths:** a drawing is drawn at the width it was composed at, 240 to 1200px, and never
+    squeezed. The row budget that capped it by option count (588, 384, 282) and its P1 are gone, the
+    options not chosen are no longer shrunk to 72%, and a drawing wider than 720 sits below its case.
+
 - **The proposal document opens with the ask and leads with what ships, in plain words**
   ([#387](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/387)). Written for a PM or
   designer approving a direction. It used to open each block with a question ("Question 1 of 2: What does

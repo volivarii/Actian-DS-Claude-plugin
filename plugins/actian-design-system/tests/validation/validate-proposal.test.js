@@ -49,7 +49,7 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(f.length, STANDING.length, JSON.stringify(f, null, 1));
     assert.deepEqual(f.map(function (x) { return x.severity; }), ["P1"], JSON.stringify(f, null, 1));
   });
-  describe("option-width: the row budget the renderer will enforce", function () {
+  describe("option-width: a drawing is drawn at its own width, never squeezed", function () {
     function widthFindings(mutate) {
       var d = load();
       mutate(d);
@@ -73,45 +73,27 @@ describe("validateProposal (document)", function () {
       d.decisions[0].pick.optionId = d.decisions[0].options[0].id;
     }
 
-    it("says nothing when every drawing fits the budget its option count allows", function () {
-      var f = widthFindings(function (d) { setWidths(d, [384, 384, 384]); });
-      assert.deepStrictEqual(f, [], "384 x3 is exactly the budget: " + JSON.stringify(f));
+    // 2026-09-16. The row budget this block used to test capped a drawing by its option count,
+    // and the renderer squeezed anything wider. The renderer no longer squeezes, so a wide
+    // drawing in a many-option decision is not a finding: it is drawn at its width and wraps.
+    it("says nothing about wide drawings, whatever the option count", function () {
+      assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [720, 720, 720, 720]); }), []);
+      assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [1200, 1200, 1200]); }), []);
     });
 
-    // The Cowork run that produced this gate declared 480 on all three options. They did not
-    // differ, so the sibling check stayed silent, the renderer capped every drawing to 384,
-    // and seven of nine drawings rendered content past their own frame.
-    it("fires on three drawings that all declare the same over-budget width", function () {
-      var f = widthFindings(function (d) { setWidths(d, [480, 480, 480]); });
-      assert.strictEqual(f.length, 1, "expected exactly one width finding: " + JSON.stringify(f));
-      assert.strictEqual(f[0].severity, "P1");
-      assert.ok(/480/.test(f[0].value), "names the declared width: " + f[0].value);
-      assert.ok(/384/.test(f[0].value), "names the budget: " + f[0].value);
-      assert.ok(/3/.test(f[0].value), "names the option count: " + f[0].value);
+    it("bounds a drawing at 1200, a page region, and no wider", function () {
+      function bounds(w) {
+        var d = load();
+        setWidths(d, [w, w]);
+        return validateProposal(d).findings.filter(function (f) { return f.check === "bounds" && /screen\.width$/.test(f.path); });
+      }
+      assert.deepStrictEqual(bounds(1200), [], "1200 is a page region");
+      assert.strictEqual(bounds(1201).length, 2, "one finding per option past 1200");
     });
 
-    it("scales the budget to the option count, so two wide drawings are fine and four are not", function () {
-      assert.deepStrictEqual(widthFindings(function (d) { setWidths(d, [560, 560]); }), [],
-        "two options may be 560");
-      var four = widthFindings(function (d) { setWidths(d, [560, 560, 560, 560]); });
-      assert.strictEqual(four.length, 1, "four options at 560 must fire");
-      assert.ok(/282/.test(four[0].value), "names the four-option budget: " + four[0].value);
-    });
-
-    it("measures the widest, because the renderer equalises every drawing to it", function () {
-      var f = widthFindings(function (d) { setWidths(d, [300, 300, 520]); });
-      // Mixed widths legitimately draw two findings: the sibling advisory AND the budget.
-      var over = f.filter(function (x) { return /exceeds/.test(x.value); });
-      assert.strictEqual(over.length, 1, "the widest sets the rendered width: " + JSON.stringify(f));
-      assert.ok(/520/.test(over[0].value), "measured against the widest, not the first: " + over[0].value);
-    });
-
-    it("keeps the budget single-sourced with the renderer that enforces it", function () {
-      var rowBudget = require("../../scripts/renderers/assemble-proposal.js").rowBudget;
-      assert.strictEqual(typeof rowBudget, "function", "the renderer exports its own budget");
-      assert.strictEqual(rowBudget(3), 384);
-      assert.strictEqual(rowBudget(2), 588);
-      assert.strictEqual(rowBudget(4), 282);
+    it("keeps the bounds single-sourced with the renderer that draws them", function () {
+      var DRAWING_WIDTH = require("../../scripts/renderers/assemble-proposal.js").DRAWING_WIDTH;
+      assert.deepStrictEqual(DRAWING_WIDTH, { min: 240, max: 1200 });
     });
   });
 
@@ -210,12 +192,12 @@ describe("validateProposal (document)", function () {
     assert.strictEqual(f[0].severity, "P0");
     assert.ok(/decisions\/\[0\]\/options: array has 5 items, maximum is 4/.test(f[0].value), f[0].value);
   });
-  it("bounds are P0: more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 720, duplicate option or criterion ids, an unknown tone, cells for an unknown option, a cell for an unknown criterion", function () {
+  it("bounds are P0: more than 5 findings, more than 4 reasons, more than 4 flow screens, width outside 240 to 1200, duplicate option or criterion ids, an unknown tone, cells for an unknown option, a cell for an unknown criterion", function () {
     function bounds(mutate) { return only(withMutation(mutate), "bounds"); }
     assert.ok(bounds(function (d) { for (var i = 0; i < 6; i++) d.research.findings.push({ claim: "c" + i, source: "s" }); }).some(function (f) { return /findings; at most 5/.test(f.value); }));
     assert.ok(bounds(function (d) { d.decisions[0].pick.reasons.push({ criterionId: "literal-ask", text: "w" }); }).some(function (f) { return /reasons; at most 4/.test(f.value); }));
     assert.ok(bounds(function (d) { for (var i = 0; i < 4; i++) d.decisions[0].options[0].screens.push(d.decisions[0].options[0].screens[0]); }).some(function (f) { return /screens; at most 4/.test(f.value); }));
-    assert.ok(bounds(function (d) { d.decisions[0].options[0].screen.width = 900; }).some(function (f) { return /outside 240 to 720/.test(f.value); }));
+    assert.ok(bounds(function (d) { d.decisions[0].options[0].screen.width = 1300; }).some(function (f) { return /outside 240 to 1200/.test(f.value); }));
     assert.ok(bounds(function (d) { d.decisions[0].options[1].id = "a"; }).some(function (f) { return /duplicate option id a/.test(f.value); }));
     assert.ok(bounds(function (d) { d.decisions[0].comparison.criteria[1].id = "literal-ask"; }).some(function (f) { return /duplicate criterion id/.test(f.value); }));
     assert.ok(bounds(function (d) { d.decisions[0].comparison.cells.a["literal-ask"].tone = "great"; }).some(function (f) { return /tone "great"/.test(f.value); }));

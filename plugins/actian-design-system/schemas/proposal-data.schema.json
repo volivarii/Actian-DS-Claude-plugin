@@ -675,7 +675,7 @@
                   ],
                   "properties": {
                     "width": {
-                      "description": "Intended drawing width in px, 240 to 720 (validator-enforced). The assembler equalises within a decision, so a wider sibling raises this one",
+                      "description": "The width the drawing is composed at, in px, 240 to 1200 (validator-enforced): about 320 for a menu, 400 for a form region, up to 1200 for a page region. It is drawn at exactly this width, never squeezed; up to 720 beside the case, wider below it. The assembler equalises within a decision, so a wider sibling raises this one",
                       "type": "integer",
                       "minimum": 240,
                       "examples": [

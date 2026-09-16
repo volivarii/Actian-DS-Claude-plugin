@@ -75,7 +75,7 @@ describe("the proposal document is set to be read", function () {
       [".change__col p", "what this changes for a reader"],
       [".briefing__col .doc__list li", "a briefing line"],
       [".decision__blocker", "a blocker"],
-      [".approach__lines", "what an option is and where it breaks"],
+      [".option__why", "why an option was not chosen"],
       [".citations__text", "a source"],
     ].forEach(function (row) {
       it("sets " + row[1] + " at body scale, not caption scale", function () {
@@ -128,8 +128,8 @@ describe("the proposal document is set to be read", function () {
       );
     });
 
-    // A two-option decision draws its lead at the 588px row budget, and 588 + 48 + a 620px
-    // case is 1256 in a 1200px row. Something has to give, and it must not be the drawing:
+    // A drawing at 720 beside its case, plus the 48px gap and a 620px case, is 1388 in a 1200px
+    // row. Something has to give, and it must not be the drawing:
     // a drawing that shrinks below the width it was composed at clips the mock inside it,
     // which is the one thing in this document that is asserting a fact about a real screen.
     it("never shrinks a drawing to make the case beside it fit", function () {
