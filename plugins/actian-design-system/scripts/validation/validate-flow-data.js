@@ -991,7 +991,8 @@ function findUnmutedChromeRaw(data) {
   var chromeSidebarLabels = {};
   if (glossary.chrome && Array.isArray(glossary.chrome.sidebar)) {
     glossary.chrome.sidebar.forEach(function (item) {
-      if (item && typeof item.label === "string") chromeSidebarLabels[item.label.toLowerCase()] = 1;
+      if (item && typeof item.label === "string")
+        chromeSidebarLabels[item.label.toLowerCase()] = 1;
     });
   }
   var featureContext = [
@@ -1340,9 +1341,7 @@ function checkTextStyle(screen, findings) {
 // as a graceful chip (warning — telemetry for leaf prioritization).
 var BUILT_DS_SLUGS = (function () {
   try {
-    return (
-      require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || []
-    );
+    return require("../lib/renderer.js").dsHtmlMap.BUILT_SLUGS || [];
   } catch (e) {
     return [];
   }
@@ -1472,9 +1471,15 @@ function contentHasFrameNamed(nodes, name) {
   var found = false;
   (function walk(v) {
     if (found || !v) return;
-    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (Array.isArray(v)) {
+      v.forEach(walk);
+      return;
+    }
     if (typeof v !== "object") return;
-    if (v.type === "FRAME" && v.name === name) { found = true; return; }
+    if (v.type === "FRAME" && v.name === name) {
+      found = true;
+      return;
+    }
     if (Array.isArray(v.children)) walk(v.children);
   })(nodes);
   return found;
@@ -1483,16 +1488,29 @@ function contentHasPageHeaderInstance(nodes) {
   var found = false;
   (function walk(v) {
     if (found || !v) return;
-    if (Array.isArray(v)) { v.forEach(walk); return; }
+    if (Array.isArray(v)) {
+      v.forEach(walk);
+      return;
+    }
     if (typeof v !== "object") return;
-    if (v.type === "INSTANCE" && (v.dsSlug === "page-header" || v.ref === "page-header" || v.ref === "fmPageHeader" || v.ref === "fm-page-header")) { found = true; return; }
+    if (
+      v.type === "INSTANCE" &&
+      (v.dsSlug === "page-header" ||
+        v.ref === "page-header" ||
+        v.ref === "fmPageHeader" ||
+        v.ref === "fm-page-header")
+    ) {
+      found = true;
+      return;
+    }
     if (Array.isArray(v.children)) walk(v.children);
   })(nodes);
   return found;
 }
 function checkSectionGrounding(data, findings) {
   var byName = data && data.meta && data.meta._sections;
-  if (!byName || typeof byName !== "object" || !Array.isArray(data.screens)) return; // backward-compat
+  if (!byName || typeof byName !== "object" || !Array.isArray(data.screens))
+    return; // backward-compat
   data.screens.forEach(function (screen) {
     if (!screen || typeof screen.name !== "string") return;
     var list = Array.isArray(byName[screen.name]) ? byName[screen.name] : [];
@@ -1506,16 +1524,34 @@ function checkSectionGrounding(data, findings) {
           kind: "section-ungrounded",
           severity: "info",
           screen: screen.id || "",
-          message: "Screen '" + screen.name + "' carries header section '" + sec.slug + "' but no FRAME named '" + root + "' is in its content",
+          message:
+            "Screen '" +
+            screen.name +
+            "' carries header section '" +
+            sec.slug +
+            "' but no FRAME named '" +
+            root +
+            "' is in its content",
         });
       }
-      var drawn = screen.pageHeader ? "pageHeader" : contentHasPageHeaderInstance(content) ? "page-header instance" : null;
+      var drawn = screen.pageHeader
+        ? "pageHeader"
+        : contentHasPageHeaderInstance(content)
+          ? "page-header instance"
+          : null;
       if (drawn) {
         findings.push({
           kind: "section-ungrounded",
           severity: "info",
           screen: screen.id || "",
-          message: "Screen '" + screen.name + "' carries header section '" + sec.slug + "' and also draws its own page header (" + drawn + ")",
+          message:
+            "Screen '" +
+            screen.name +
+            "' carries header section '" +
+            sec.slug +
+            "' and also draws its own page header (" +
+            drawn +
+            ")",
         });
       }
     });
@@ -2091,6 +2127,23 @@ function validate(data, opts) {
     }
   }
 
+  // Missing-focus check — a lo-fi flow (meta.skin === "lofi") must declare a
+  // focus:true subtree per screen (FM focus principle); a freehand screen is
+  // exempt. Soft warning: the lo-fi skin that reads it is a later task.
+  if (data && Array.isArray(data.screens)) {
+    var focusIssues = findMissingFocus(data);
+    for (var mfi = 0; mfi < focusIssues.length; mfi++) {
+      findings.push({
+        kind: "missing-focus",
+        severity: "warning",
+        path: focusIssues[mfi].path,
+        screen: focusIssues[mfi].screenId,
+        message: focusIssues[mfi].value,
+        _legacy: focusIssues[mfi],
+      });
+    }
+  }
+
   // Unmuted-chrome heuristic — soft warning. FM focus principle: non-feature
   // chrome (nav items, tabs) should use State=Placeholder variant or fmPlaceholder.
   if (data && Array.isArray(data.screens)) {
@@ -2328,6 +2381,50 @@ function findIntentMismatch(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check: missing focus (lo-fi skin — FM focus principle)
+// ---------------------------------------------------------------------------
+//
+// references/ds-rules/quality-tiers.md — the lo-fi skin renders everything
+// outside a `focus:true` subtree as placeholder. A lo-fi flow (meta.skin ===
+// "lofi") whose screen carries no focus node is under-specified: nothing
+// tells the skin what the feature is. A "freehand" layout screen is exempt —
+// it has no chrome to contrast against, so the whole screen is the feature.
+//
+// Soft warning, not error — the lo-fi skin (a later task) doesn't exist yet,
+// so this doesn't block anything today; it flags the gap early.
+
+function findMissingFocus(data) {
+  var issues = [];
+  if (
+    !data ||
+    !data.meta ||
+    data.meta.skin !== "lofi" ||
+    !Array.isArray(data.screens)
+  )
+    return issues;
+  data.screens.forEach(function (screen, si) {
+    if (screen.layout === "freehand") return;
+    var found = false;
+    (function walk(nodes) {
+      (nodes || []).forEach(function (n) {
+        if (n && n.focus === true) found = true;
+        if (n && n.children) walk(n.children);
+      });
+    })(screen.content);
+    if (!found)
+      issues.push({
+        severity: "warning",
+        check: "missing-focus",
+        screen: screen.name || "Screen " + (si + 1),
+        screenId: screen.id || "",
+        path: "content",
+        value: "no node carries focus:true",
+      });
+  });
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
@@ -2342,6 +2439,7 @@ module.exports = {
   findAvoidWords: findAvoidWords,
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
+  findMissingFocus: findMissingFocus,
   validate: validate,
   severityForTier: severityForTier,
   checkRecipeAdherence: checkRecipeAdherence,

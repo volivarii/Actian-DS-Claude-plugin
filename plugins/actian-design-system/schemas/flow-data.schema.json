@@ -617,6 +617,11 @@
         "text": {
           "type": "string",
           "description": "Text content fallback — read by render-node.js when node.content is absent. Callers that supply only node.text are supported for back-compat."
+        },
+        "focus": {
+          "type": "boolean",
+          "description": "true marks this subtree as the feature under design. The lo-fi skin renders everything outside a focus subtree as placeholder (bars for text, muted leaves); the hi-fi skin ignores it. Chrome is never focus.",
+          "examples": [true]
         }
       }
     }
