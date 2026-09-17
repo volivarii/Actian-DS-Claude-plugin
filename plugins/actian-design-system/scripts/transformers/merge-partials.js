@@ -207,6 +207,19 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
   });
 
   if (!meta) meta = {};
+  // A layer is declared in the screen list and validated by prepare-flow, so
+  // it is stamped here from data rather than trusted to each author agent.
+  // over names a screen number there; the rendered flow needs the base's id,
+  // which only exists once ids are stamped (main stamps again; it keeps ids).
+  require("../lib/screen-id.js").stampScreenIds({ meta, screens });
+  listScreens.forEach((entry, i) => {
+    if (!entry.layer || !screens[i]) return;
+    const base = screens[entry.layer.over - 1];
+    screens[i].layer = {
+      kind: entry.layer.kind,
+      over: base ? base.id : String(entry.layer.over),
+    };
+  });
   const pending = screens.filter((s) => s.status === "pending").length;
   log(
     "Incremental flow: " +
@@ -272,7 +285,8 @@ function main() {
 
   // Stamp stable screen ids on the plain flow merge too, so every write
   // site (incremental and plain) leaves flow-data.json with ids to refine.
-  if (args.type === "flow") require("../lib/screen-id.js").stampScreenIds(result);
+  if (args.type === "flow")
+    require("../lib/screen-id.js").stampScreenIds(result);
 
   fs.writeFileSync(args.output, JSON.stringify(result, null, 2));
 }
