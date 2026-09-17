@@ -11,6 +11,7 @@ var patterns = require("./resolve-patterns.js");
 var properties = require("./resolve-properties.js");
 var relationships = require("./resolve-relationships.js");
 var rules = require("../../validation/component-property-rules.js");
+var screenId = require("../screen-id.js");
 
 var STOP = {
   the: 1,
@@ -682,6 +683,28 @@ function prepareFlow(options) {
     };
   });
 
+  // The ids merge-partials will stamp (screen-id.js, feature + index), so an
+  // author agent can aim a goto at a screen that does not exist yet.
+  var flow = screens.map(function (s, i) {
+    return {
+      n: i + 1,
+      id: screenId.deriveScreenId(options.feature, i),
+      name: s.name,
+    };
+  });
+  // A declared layer rides on the brief screen with its base resolved, so the
+  // agent knows what renders underneath without reading the other slices.
+  (options.screens || []).forEach(function (s, i) {
+    if (!s.layer) return;
+    var base = flow[s.layer.over - 1];
+    screens[i].layer = {
+      kind: s.layer.kind,
+      over: s.layer.over,
+      overId: base.id,
+      overName: base.name,
+    };
+  });
+
   return {
     app: app,
     entity: entity,
@@ -697,6 +720,7 @@ function prepareFlow(options) {
     join: join,
     labels: labels,
     screens: screens,
+    flow: flow,
     sectionsByScreen: screens.reduce(function (acc, s) {
       acc[s.name] = s.sections.map(function (x) {
         return { slug: x.slug, role: x.role, roots: x.roots };
@@ -735,6 +759,7 @@ function sliceBrief(brief, n) {
     },
     join: brief.join,
     labels: brief.labels,
+    flow: brief.flow || [],
     screen: screen,
   };
 }
@@ -763,9 +788,11 @@ function main(argv) {
     process.stderr.write(USAGE);
     return 1;
   }
-  var screens;
+  var screens, feature;
   try {
-    screens = JSON.parse(fs.readFileSync(list, "utf8")).screens || [];
+    var listJson = JSON.parse(fs.readFileSync(list, "utf8"));
+    screens = listJson.screens || [];
+    feature = listJson.meta ? listJson.meta.feature : undefined;
   } catch (e) {
     process.stderr.write(
       "prepare-flow: cannot read " + list + ": " + e.message + "\n",
@@ -779,6 +806,7 @@ function main(argv) {
       entity: entity,
       screens: screens,
       useCase: useCase,
+      feature: feature,
     });
   } catch (e) {
     if (e.code !== "SCREEN_LIST_INVALID") throw e;

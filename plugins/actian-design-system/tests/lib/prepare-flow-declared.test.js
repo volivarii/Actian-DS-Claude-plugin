@@ -8,7 +8,13 @@ var path = require("path");
 var spawnSync = require("child_process").spawnSync;
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
-var SCRIPT = path.join(PLUGIN_ROOT, "scripts", "lib", "app-context", "prepare-flow.js");
+var SCRIPT = path.join(
+  PLUGIN_ROOT,
+  "scripts",
+  "lib",
+  "app-context",
+  "prepare-flow.js",
+);
 var prepare = require(SCRIPT);
 
 function writeList(list) {
@@ -25,11 +31,21 @@ describe("prepare-flow: a declared pattern routes the screen", function () {
       entity: "data-product",
       screens: [{ name: "Data products", template: "studio" }],
     });
-    assert.strictEqual(undeclared.screens[0].pattern.slug, "faceted-browse", "baseline: the name routes to faceted-browse");
+    assert.strictEqual(
+      undeclared.screens[0].pattern.slug,
+      "faceted-browse",
+      "baseline: the name routes to faceted-browse",
+    );
     var declared = prepare.prepareFlow({
       app: "studio",
       entity: "data-product",
-      screens: [{ name: "Data products", template: "studio", pattern: "asset-detail-360" }],
+      screens: [
+        {
+          name: "Data products",
+          template: "studio",
+          pattern: "asset-detail-360",
+        },
+      ],
     });
     assert.strictEqual(declared.screens[0].pattern.slug, "asset-detail-360");
     assert.strictEqual(declared.screens[0].pageRecipe.slug, "asset-detail-360");
@@ -38,15 +54,33 @@ describe("prepare-flow: a declared pattern routes the screen", function () {
   it("wins over name scoring: the side-panel name that scored data-steward-agent-panel reaches the quick-edit drawer capture", function () {
     var undeclared = prepare.prepareFlow({
       app: "studio",
-      screens: [{ name: "Write descriptions in the side panel", template: "studio" }],
+      screens: [
+        { name: "Write descriptions in the side panel", template: "studio" },
+      ],
     });
-    assert.strictEqual(undeclared.screens[0].pattern.slug, "data-steward-agent-panel", "baseline: the name scores the AI panel");
+    assert.strictEqual(
+      undeclared.screens[0].pattern.slug,
+      "data-steward-agent-panel",
+      "baseline: the name scores the AI panel",
+    );
     var declared = prepare.prepareFlow({
       app: "studio",
-      screens: [{ name: "Write descriptions in the side panel", template: "studio", pattern: "right-sliding-drawer" }],
+      screens: [
+        {
+          name: "Write descriptions in the side panel",
+          template: "studio",
+          pattern: "right-sliding-drawer",
+        },
+      ],
     });
-    assert.strictEqual(declared.screens[0].pattern.slug, "right-sliding-drawer");
-    assert.strictEqual(declared.screens[0].pageRecipe.slug, "studio-quick-edit-drawer");
+    assert.strictEqual(
+      declared.screens[0].pattern.slug,
+      "right-sliding-drawer",
+    );
+    assert.strictEqual(
+      declared.screens[0].pageRecipe.slug,
+      "studio-quick-edit-drawer",
+    );
   });
 
   it("refuses a slug the app lacks, naming the screen and listing the app's slugs", function () {
@@ -54,12 +88,17 @@ describe("prepare-flow: a declared pattern routes the screen", function () {
       function () {
         prepare.prepareFlow({
           app: "studio",
-          screens: [{ name: "Catalog", template: "studio", pattern: "catalog-browse" }],
+          screens: [
+            { name: "Catalog", template: "studio", pattern: "catalog-browse" },
+          ],
         });
       },
       function (e) {
         assert.strictEqual(e.code, "SCREEN_LIST_INVALID");
-        assert.match(e.message, /screen 1 "Catalog": pattern "catalog-browse" is not one of this app's patterns/);
+        assert.match(
+          e.message,
+          /screen 1 "Catalog": pattern "catalog-browse" is not one of this app's patterns/,
+        );
         assert.match(e.message, /faceted-browse/);
         return true;
       },
@@ -69,15 +108,30 @@ describe("prepare-flow: a declared pattern routes the screen", function () {
   it("ignores pattern on a freehand screen", function () {
     var brief = prepare.prepareFlow({
       app: "studio",
-      screens: [{ name: "Three panes", template: "studio", layout: "freehand", pattern: "not-a-pattern" }],
+      screens: [
+        {
+          name: "Three panes",
+          template: "studio",
+          layout: "freehand",
+          pattern: "not-a-pattern",
+        },
+      ],
     });
     assert.strictEqual(brief.screens[0].pattern, null);
   });
 
   it("the CLI exits 1 on an unknown slug and writes no brief", function () {
-    var t = writeList({ screens: [{ name: "Catalog", template: "studio", pattern: "catalog-browse" }] });
+    var t = writeList({
+      screens: [
+        { name: "Catalog", template: "studio", pattern: "catalog-browse" },
+      ],
+    });
     var out = path.join(t.dir, ".brief.json");
-    var r = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--screen-list", t.file, "-o", out], { encoding: "utf8" });
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", t.file, "-o", out],
+      { encoding: "utf8" },
+    );
     assert.strictEqual(r.status, 1, r.stderr);
     assert.match(r.stderr, /is not one of this app's patterns/);
     assert.strictEqual(fs.existsSync(out), false);
@@ -87,12 +141,185 @@ describe("prepare-flow: a declared pattern routes the screen", function () {
     var t = writeList({
       screens: [
         { name: "Several items selected", template: "studio" },
-        { name: "Catalog, no description", template: "studio", pattern: "faceted-browse" },
+        {
+          name: "Catalog, no description",
+          template: "studio",
+          pattern: "faceted-browse",
+        },
       ],
     });
-    var r = spawnSync(process.execPath, [SCRIPT, "--app", "studio", "--screen-list", t.file, "-o", path.join(t.dir, ".brief.json")], { encoding: "utf8" });
+    var r = spawnSync(
+      process.execPath,
+      [
+        SCRIPT,
+        "--app",
+        "studio",
+        "--screen-list",
+        t.file,
+        "-o",
+        path.join(t.dir, ".brief.json"),
+      ],
+      { encoding: "utf8" },
+    );
     assert.strictEqual(r.status, 0, r.stderr);
-    assert.match(r.stderr, /prepare-flow: screen 1 "Several items selected": no pattern declared or matched, archetype detail-view by keyword/);
-    assert.doesNotMatch(r.stderr, /screen 2 "Catalog, no description": no pattern/);
+    assert.match(
+      r.stderr,
+      /prepare-flow: screen 1 "Several items selected": no pattern declared or matched, archetype detail-view by keyword/,
+    );
+    assert.doesNotMatch(
+      r.stderr,
+      /screen 2 "Catalog, no description": no pattern/,
+    );
+  });
+});
+
+describe("prepare-flow: declared layers and the flow's screen ids", function () {
+  var screens = [
+    {
+      name: "Catalog, no description",
+      template: "studio",
+      pattern: "faceted-browse",
+    },
+    {
+      name: "Several items selected",
+      template: "studio",
+      pattern: "faceted-browse",
+    },
+    {
+      name: "Describe items",
+      template: "studio",
+      pattern: "right-sliding-drawer",
+      layer: { kind: "drawer", over: 2 },
+    },
+    {
+      name: "Descriptions saved",
+      template: "studio",
+      layer: { kind: "toast", over: 2 },
+    },
+  ];
+
+  it("lists every screen in flow with the id merge will stamp", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      feature: "Describe catalog items",
+      screens: screens,
+    });
+    assert.deepStrictEqual(
+      brief.flow.map(function (f) {
+        return [f.n, f.id, f.name];
+      }),
+      [
+        [1, "describe-catalog-items-1", "Catalog, no description"],
+        [2, "describe-catalog-items-2", "Several items selected"],
+        [3, "describe-catalog-items-3", "Describe items"],
+        [4, "describe-catalog-items-4", "Descriptions saved"],
+      ],
+    );
+  });
+
+  it("derives screen-<n> ids when the list names no feature, as stampScreenIds does", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      screens: screens.slice(0, 1),
+    });
+    assert.strictEqual(brief.flow[0].id, "screen-1");
+  });
+
+  it("carries a declared layer with its base's id and name, and nothing on an unlayered screen", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      feature: "Describe catalog items",
+      screens: screens,
+    });
+    assert.deepStrictEqual(brief.screens[2].layer, {
+      kind: "drawer",
+      over: 2,
+      overId: "describe-catalog-items-2",
+      overName: "Several items selected",
+    });
+    assert.strictEqual(brief.screens[0].layer, undefined);
+  });
+
+  it("hands every slice the flow and its own layer", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      feature: "Describe catalog items",
+      screens: screens,
+    });
+    var slice = prepare.sliceBrief(brief, 3);
+    assert.deepStrictEqual(slice.flow, brief.flow);
+    assert.deepStrictEqual(slice.screen.layer, brief.screens[2].layer);
+    assert.strictEqual(prepare.sliceBrief(brief, 1).screen.layer, undefined);
+  });
+
+  it("refuses each malformed layer, naming the screen", function () {
+    function problemsFor(list) {
+      return prepare
+        .screenListProblems(list, [{ slug: "faceted-browse" }])
+        .join("\n");
+    }
+    var a = { name: "A", template: "studio" };
+    assert.match(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "popover", over: 1 } },
+      ]),
+      /screen 2 "B": layer.kind must be panel, drawer, modal or toast/,
+    );
+    assert.match(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "drawer", over: 9 } },
+      ]),
+      /screen 2 "B": layer.over must be a screen number from 1 to 2/,
+    );
+    assert.match(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "drawer", over: "1" } },
+      ]),
+      /layer.over must be a screen number/,
+    );
+    assert.match(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "drawer", over: 2 } },
+      ]),
+      /screen 2 "B": layer.over cannot be the screen itself/,
+    );
+    assert.match(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "drawer", over: 1 } },
+        { name: "C", template: "studio", layer: { kind: "toast", over: 2 } },
+      ]),
+      /screen 3 "C": layer.over points at screen 2, which is itself a layer/,
+    );
+    assert.strictEqual(
+      problemsFor([
+        a,
+        { name: "B", template: "studio", layer: { kind: "drawer", over: 1 } },
+      ]),
+      "",
+    );
+  });
+
+  it("the CLI reads meta.feature into the slices' flow ids", function () {
+    var t = writeList({
+      meta: { feature: "Describe catalog items" },
+      screens: screens,
+    });
+    var out = path.join(t.dir, ".brief.json");
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", t.file, "-o", out],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 0, r.stderr);
+    var slice3 = JSON.parse(
+      fs.readFileSync(path.join(t.dir, ".brief", "3.json"), "utf8"),
+    );
+    assert.strictEqual(slice3.flow[3].id, "describe-catalog-items-4");
+    assert.strictEqual(slice3.screen.layer.overId, "describe-catalog-items-2");
   });
 });
