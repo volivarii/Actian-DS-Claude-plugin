@@ -284,7 +284,7 @@ The detail screen's primary button, wired to a confirm modal:
 { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary", "name": "Publish", "goto": "confirm-publish", "props": { "Label": "Publish" } }
 ```
 
-The toast that follows a successful action, layered over the published screen:
+The toast that follows a successful action, as the merged flow carries it over the published screen (merge writes this `layer` from the screen list; the author agent writes only `name` and `content`):
 
 ```json
 {
@@ -294,7 +294,7 @@ The toast that follows a successful action, layered over the published screen:
 }
 ```
 
-Both come from the brief, never from guesswork. A slice carries `flow`, every screen's `{ n, id, name }`
+Layers and `goto` targets come from the brief, never from guesswork. A slice carries `flow`, every screen's `{ n, id, name }`
 in order with the ids merge will stamp: aim `goto` at the next entry's `id`. A slice carrying
 `screen.layer` (`{ kind, over, overId, overName }`) is a layer: write only its body, because merge sets
 the screen's `layer` to `{ kind, over: overId }` from the screen list. When the slice also carries

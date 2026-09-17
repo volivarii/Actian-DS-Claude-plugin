@@ -44,7 +44,7 @@ The dispatcher pastes none of the brief or slice content; read the slice file yo
 
 ## Reads
 
-- Your slice (above): `index`, `total`, `glossary` (`chrome`, `useCases`, `entityProperties`, `relationships`, `entityPatterns`, `entityComponents`, `patterns`, already narrowed to the one pattern this screen realizes, or empty), `join`, `labels`, and `screen` (`name`, `template`, `pattern`, `archetype` (always present), `pageRecipe`, `components`, `propertyRules`).
+- Your slice (above): `index`, `total`, `glossary` (`chrome`, `useCases`, `entityProperties`, `relationships`, `entityPatterns`, `entityComponents`, `patterns`, already narrowed to the one pattern this screen realizes, or empty), `join`, `labels`, `flow` (every screen's `{ n, id, name }`), and `screen` (`name`, `template`, `pattern`, `archetype` (always present), `pageRecipe`, `components`, `propertyRules`, and `layer` when the screen is a surface over another).
 - `references/generate-flow/html-reference.md`: content node spec, FM component table, `goto`/`layer` authoring examples.
 - Under `library: "ds"`, also `references/generate-flow/ds-components-authoring.md`.
 

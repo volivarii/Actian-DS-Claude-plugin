@@ -19,6 +19,11 @@ describe("declared routing: the author agent's text", function () {
     assert.match(agent, /`flow`/);
     assert.match(agent, /Never emit `screen\.id`/);
     assert.doesNotMatch(agent, /you MAY emit a kebab-case `id`/);
+    assert.match(agent, /`flow` \(every screen's `\{ n, id, name \}`\)/);
+  });
+
+  it("html-reference clarifies that merge writes the layer, and author writes only body", function () {
+    assert.match(ref, /the author agent writes only `name` and `content`/);
   });
 
   it("html-reference shows goto aimed at a flow id and drops the hand-written screen id", function () {
