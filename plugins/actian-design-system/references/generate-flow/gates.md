@@ -3,8 +3,9 @@
 This file holds the generate-flow interactive gates, presented verbatim: Gate 1
 (research opt-in), Gate 2 (research findings), Gate 3 (screen list, detail
 level, and generation config), and Step 7.5 (the combined post-build gate
-offering push and audit). `skills/generate-flow/SKILL.md` points here from its
-Gates section; read each gate at the moment it is due, not before.
+offering push and audit). It also holds two non-gate sections: the Screen list
+contract (Step 5.0) and the Look (after the final render). `skills/generate-flow/SKILL.md`
+points here from its Gates section; read each gate at the moment it is due, not before.
 
 ## Gate 1 — Research
 
@@ -88,13 +89,13 @@ Does this work, or would you like to adjust?
 - **"push [Figma URL]"** — approve standard + push directly to Figma
 ```
 
-Parse the response for screen approval, detail level, AND config tokens (`hifi`, bare `1-3`, `ref:<url>`, `tablet`/`mobile`/`all`, `empty`/`error`/`loading`/`populated`). Default detail to **Standard**; default config to all-defaults. Invalid config token → re-prompt: "Unknown token `foo`. Valid: hifi, 1-3, ref:<url>, tablet, mobile, all, empty, error, loading, populated." 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use defaults, or pass flags directly." Full config grammar: `references/ds-rules/interactive-gates.md`.
+Parse the response for screen approval, detail level, AND config tokens (`hifi`, `lofi`, `fm`, bare `1-3`, `ref:<url>`, `tablet`/`mobile`/`all`, `empty`/`error`/`loading`/`populated`); `lofi` sets `meta.skin: "lofi"`, `fm` means FatMarker authoring instead of DS-native, and `fm` wins over `lofi`/`hifi`. Default detail to **Standard**; default config to all-defaults. Invalid config token → re-prompt: "Unknown token `foo`. Valid: hifi, lofi, fm, 1-3, ref:<url>, tablet, mobile, all, empty, error, loading, populated." 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use defaults, or pass flags directly." Full config grammar: `references/ds-rules/interactive-gates.md`.
 
 **FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
 ## Screen list (Step 5.0, gated or not)
 
-Each entry routes by what it declares, never by its name:
+Each entry routes by what it declares; a declared pattern outranks the name:
 
 - `pattern`: the slug of the app pattern that covers the screen, from the `patterns` array `resolve-patterns.js --app <app>` prints (the call that gives the use cases above). Declare one whenever a pattern's `description` fits the screen; a pattern with a `pageRecipe` makes the screen compose from the captured product page. Leave it out only when no pattern fits: `prepare-flow.js` then matches the name and says on stderr when it fell back to a keyword archetype.
 - `layer`: `{ "kind": "panel" | "drawer" | "modal" | "toast", "over": <n> }` when the screen is a surface over screen n of this list (a side panel, a drawer, a dialog, a confirmation toast). The base renders unchanged underneath, so the layered screen carries only its body. The base must not itself be a layer.
@@ -122,7 +123,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   --brief {project_working_directory}/flows/.brief.json -o {project_working_directory}/flows/look/
 ```
 
-Each `look: wrote <png> and <html> against <capture>` line is one screen composed from a captured product page. Read the render PNG and the capture PNG it names, then write three lines for that screen in the final message: the largest differences **in structure**, largest first (a region missing or extra, regions out of order, the wrong kind of surface, a list too sparse to read as real). The capture is a reference for page structure, never for appearance: the render draws the design system's Figma components on purpose and the product may still show older ones, so colour, type, spacing and component styling are never a difference, and neither is a region the flow adds or changes on purpose (its `adds`, or what the prompt asked for). `look: no screen composes from a capture with a screenshot` means there is nothing to compare: say so in one line. Exit 2 means Chrome is missing: say so in one line and finish. The Look never fails the run, and it is never a pixel diff.
+Each `look: wrote <png> and <html> against <capture>` line is one screen composed from a captured product page. Read the render PNG and the capture PNG it names, then write three lines for that screen in the final message: the largest differences **in structure**, largest first (a region missing or extra, regions out of order, the wrong kind of surface, a list too sparse to read as real). The capture is a reference for page structure, never for appearance: the render draws the design system's Figma components on purpose and the product may still show older ones, so colour, type, spacing and component styling are never a difference, and neither is a region the flow adds or changes on purpose (its `adds`, or what the prompt asked for). `look: no screen composes from a capture with a screenshot` means there is nothing to compare: say so in one line. Exit 1 means no brief, or a screen's render failed: report the stderr line and finish. Exit 2 means Chrome is missing: say so in one line and finish. The Look never fails the run, and it is never a pixel diff.
 
 ## Step 7.5 — Combined post-build gate (interactive)
 

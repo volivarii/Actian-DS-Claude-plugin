@@ -38,11 +38,16 @@ describe("declared routing: skill, gates and authoring text", function () {
   var gates = read("references/generate-flow/gates.md");
   var authoring = read("references/generate-flow/ds-components-authoring.md");
 
-  it("Step 5.0 declares pattern and layer and says names never route", function () {
+  it("Step 5.0 declares pattern and layer and says a declared pattern outranks the name", function () {
     assert.match(skill, /"pattern": "<slug>"/);
     assert.match(skill, /"layer": \{ "kind", "over": <n> \}/);
-    assert.match(skill, /names never route/);
+    assert.match(skill, /a declared pattern outranks the name/);
     assert.match(skill, /gates\.md, Screen list/);
+  });
+
+  it("gates.md's Gate 3 parser accepts lofi and fm as answers", function () {
+    assert.match(gates, /`hifi`, `lofi`, `fm`/);
+    assert.match(gates, /Valid: hifi, lofi, fm,/);
   });
 
   it("the Look is its own step after the final render, not a push sub-bullet", function () {
