@@ -32,3 +32,68 @@ describe("declared routing: the author agent's text", function () {
     assert.doesNotMatch(ref, /"id": "toast-published"/);
   });
 });
+
+describe("declared routing: skill, gates and authoring text", function () {
+  var skill = read("skills/generate-flow/SKILL.md");
+  var gates = read("references/generate-flow/gates.md");
+  var authoring = read("references/generate-flow/ds-components-authoring.md");
+
+  it("Step 5.0 declares pattern and layer and says names never route", function () {
+    assert.match(skill, /"pattern": "<slug>"/);
+    assert.match(skill, /"layer": \{ "kind", "over": <n> \}/);
+    assert.match(skill, /names never route/);
+    assert.match(skill, /gates\.md, Screen list/);
+  });
+
+  it("the Look is its own step after the final render, not a push sub-bullet", function () {
+    assert.match(skill, /6\.6\. \*\*Look\*\* \(gates\.md, Look\)/);
+    assert.doesNotMatch(
+      skill,
+      /Run the look \(gates\.md, Look\) before the Step 7\.5 gate/,
+    );
+  });
+
+  it("the skill's paths resolve from the plugin root and unknown-ds-slug has a recovery", function () {
+    assert.match(
+      skill,
+      /require\("\$\{CLAUDE_PLUGIN_ROOT\}\/scripts\/lib\/parse-push\.js"\)/,
+    );
+    assert.match(skill, /`pluginRoot` = `\$\{CLAUDE_PLUGIN_ROOT\}`/);
+    assert.match(skill, /`unknown-ds-slug`:/);
+  });
+
+  it("gates.md carries the screen list contract, the Look command, and no stale text", function () {
+    assert.match(gates, /## Screen list \(Step 5\.0, gated or not\)/);
+    assert.match(
+      gates,
+      /"pattern": "right-sliding-drawer", "layer": \{ "kind": "drawer", "over": 2 \}/,
+    );
+    assert.match(gates, /## Look \(after the final render\)/);
+    assert.match(
+      gates,
+      /look\.js" \{project_working_directory\}\/flows\/flow-data\.json/,
+    );
+    assert.match(
+      gates,
+      /--brief \{project_working_directory\}\/flows\/\.brief\.json/,
+    );
+    assert.match(gates, /largest differences \*\*in structure\*\*/);
+    assert.match(gates, /a reference for page structure, never for appearance/);
+    assert.doesNotMatch(gates, /Dormant today/);
+    assert.doesNotMatch(
+      gates,
+      /\*\*Fat Marker\*\* \(fast lo-fi wireframe, FM palette; default\)/,
+    );
+    assert.doesNotMatch(gates, /use case\.useCases = \[chosen\]/);
+    assert.doesNotMatch(gates, /`source scripts\/lib\/resolve-node\.sh/);
+  });
+
+  it("the unpublished steward panel keeps its example and says not to author it", function () {
+    var section = authoring
+      .split("### `chat-with-ai-steward`")[1]
+      .split("### `")[0];
+    assert.match(section, /Not published right now/);
+    assert.match(section, /`unknown-ds-slug`/);
+    assert.match(section, /"dsSlug": "chat-with-ai-steward"/);
+  });
+});

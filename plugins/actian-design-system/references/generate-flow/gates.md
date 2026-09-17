@@ -60,7 +60,7 @@ This single gate covers screen approval, detail level, AND generation config (th
 - "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
 - "with empty state", "add error state", "loading state" → infer `--states <list>`
 
-**Frame by use case (S2).** Resolve the app's use cases: `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-patterns.js --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; when the prompt names no audience keyword from either list, take `useCases[0]` and state it on its own line when presenting the screen list: `Use case: steward (say "engineer use case" to switch).` This is the one rule for when the use-case line is stated; `SKILL.md` states it the same way in one clause. Carry the chosen use case forward to Step 3.5 as `--use-case <audience word>` (steward, engineer, ...): the brief and every slice then hold that one use case.useCases = [chosen]`, and orient the screen names, empty states, and primary CTAs around its `jobs`.
+**Frame by use case (S2).** Resolve the app's use cases: `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/resolve-patterns.js" --app <app>` returns a `useCases` array of `{audience, jobs, patterns}`. If the app has **one** use case, frame the screen list around its `jobs` + `audience`. If it has **multiple** (Studio has 2), pick by prompt keywords: `import|wizard|engineer|connect|pipeline|ingest` → the data-engineer use case; `catalog|governance|steward|curate|lineage|glossary|quality` → the steward use case; when the prompt names no audience keyword from either list, take `useCases[0]` and state it on its own line when presenting the screen list: `Use case: steward (say "engineer use case" to switch).` This is the one rule for when the use-case line is stated; `SKILL.md` states it the same way in one clause. Carry the chosen use case forward to Step 3.5 as `--use-case <audience word>` (steward, engineer, ...): the brief and every slice then hold that one use case. Orient the screen names, empty states, and primary CTAs around its `jobs`.
 
 Present a numbered screen list, then copy verbatim:
 
@@ -75,7 +75,7 @@ Does this work, or would you like to adjust?
 - **production** — all states, edge cases, loading, empty, error
 
 **Config (defaults shown; only answer to change):**
-- Output:        **Fat Marker** (fast lo-fi wireframe, FM palette; default) | **hi-fi** (DS-native, themed, share-ready)
+- Output:        **DS-native** (themed, share-ready; default) | `--lofi` (same tree, focus-aware gray skin) | `--fm` (FatMarker authoring, for a lo-fi Figma push)
 - Variants:      1 (default) | 2 | 3
 - References:    none (default) | <paste Figma URL(s)>
 - Breakpoints:   desktop (default) | + tablet | + mobile | all
@@ -92,7 +92,37 @@ Parse the response for screen approval, detail level, AND config tokens (`hifi`,
 
 **FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
-**Look (S7).** When any screen's `pageRecipe` names a recipe whose vendored `derivedFrom.screenshot` exists, run `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/renderers/look.js <flow.json> --screen <n> --against <vendor path> -o flows/look/`, Read the PNG, and write the three lines into the gate summary before asking. No pixel diff; the three lines are the deliverable of this step. Dormant today: the vendored recipes carry no `derivedFrom.screenshot` yet, pending the next vendor refresh.
+## Screen list (Step 5.0, gated or not)
+
+Each entry routes by what it declares, never by its name:
+
+- `pattern`: the slug of the app pattern that covers the screen, from the `patterns` array `resolve-patterns.js --app <app>` prints (the call that gives the use cases above). Declare one whenever a pattern's `description` fits the screen; a pattern with a `pageRecipe` makes the screen compose from the captured product page. Leave it out only when no pattern fits: `prepare-flow.js` then matches the name and says on stderr when it fell back to a keyword archetype.
+- `layer`: `{ "kind": "panel" | "drawer" | "modal" | "toast", "over": <n> }` when the screen is a surface over screen n of this list (a side panel, a drawer, a dialog, a confirmation toast). The base renders unchanged underneath, so the layered screen carries only its body. The base must not itself be a layer.
+
+`prepare-flow.js` exits 1 on a slug the app lacks or a malformed `layer`, naming the screen: fix the list and run it again.
+
+A steward describing catalog items from a side panel:
+
+```json
+{ "screens": [
+  { "name": "Catalog, no description", "template": "studio", "pattern": "faceted-browse" },
+  { "name": "Several items selected", "template": "studio", "pattern": "faceted-browse" },
+  { "name": "Describe items", "template": "studio", "pattern": "right-sliding-drawer", "layer": { "kind": "drawer", "over": 2 } },
+  { "name": "Descriptions saved", "template": "studio", "layer": { "kind": "toast", "over": 2 } }
+] }
+```
+
+## Look (after the final render)
+
+Runs after SKILL.md Step 6.5 on every run that renders: push or not, `--no-prompt` or not.
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/look.js" {project_working_directory}/flows/flow-data.json \
+  --brief {project_working_directory}/flows/.brief.json -o {project_working_directory}/flows/look/
+```
+
+Each `look: wrote <png> and <html> against <capture>` line is one screen composed from a captured product page. Read the render PNG and the capture PNG it names, then write three lines for that screen in the final message: the largest differences **in structure**, largest first (a region missing or extra, regions out of order, the wrong kind of surface, a list too sparse to read as real). The capture is a reference for page structure, never for appearance: the render draws the design system's Figma components on purpose and the product may still show older ones, so colour, type, spacing and component styling are never a difference, and neither is a region the flow adds or changes on purpose (its `adds`, or what the prompt asked for). `look: no screen composes from a capture with a screenshot` means there is nothing to compare: say so in one line. Exit 2 means Chrome is missing: say so in one line and finish. The Look never fails the run, and it is never a pixel diff.
 
 ## Step 7.5 — Combined post-build gate (interactive)
 
