@@ -75,7 +75,7 @@ describe("the proposal document is set to be read", function () {
       [".change__col p", "what this changes for a reader"],
       [".briefing__col .doc__list li", "a briefing line"],
       [".decision__blocker", "a blocker"],
-      [".approach__lines", "what an option is and where it breaks"],
+      [".option__why", "why an option was not chosen"],
       [".citations__text", "a source"],
     ].forEach(function (row) {
       it("sets " + row[1] + " at body scale, not caption scale", function () {
@@ -84,6 +84,14 @@ describe("the proposal document is set to be read", function () {
           at(rule, "var(--doc-body)") !== -1,
           row[0] + " is still at " + (rule.match(/font-size:[^;]*/) || ["no font-size"])[0],
         );
+      });
+    });
+
+    // A 240px rival named "Accountmenuwithpermissionbadges" scrolled its whole column by 60px,
+    // drawing included: the column scrolls, so text wider than it moves the drawing too.
+    [".option__name", ".option__why", ".proposal-screen__label", ".option__notes", ".option__built", ".option__adds"].forEach(function (sel) {
+      it("breaks a long word in " + sel + " rather than scrolling the drawing with it", function () {
+        assert.match(ruleFor(sel), /overflow-wrap:\s*anywhere/);
       });
     });
   });
@@ -114,10 +122,8 @@ describe("the proposal document is set to be read", function () {
       assert.deepStrictEqual(offenders.map(function (r) { return r.selector; }), [], "these are centred");
     });
 
-    // The dead space this closes: the drawing led the row at a width the row budget set, and
-    // the case took the measure beside it, so a 1200px block ended at about 930 and the last
-    // 270px were empty. The case reads first now, on the document's own left edge, and the
-    // drawing it illustrates sits beside it.
+    // The case reads first, on the document's own left edge, and the drawing it illustrates
+    // sits beside it, or below it when the drawing is wider than 720.
     it("reads the case before the drawing that illustrates it", function () {
       var out = assembleProposal(load());
       var lead = out.slice(at(out, 'class="decision__lead"'));
@@ -128,13 +134,21 @@ describe("the proposal document is set to be read", function () {
       );
     });
 
-    // A two-option decision draws its lead at the 588px row budget, and 588 + 48 + a 620px
-    // case is 1256 in a 1200px row. Something has to give, and it must not be the drawing:
+    // A drawing at 720 beside its case, plus the 48px gap and a 620px case, is 1388 in a 1200px
+    // row. Something has to give, and it must not be the drawing:
     // a drawing that shrinks below the width it was composed at clips the mock inside it,
     // which is the one thing in this document that is asserting a fact about a real screen.
     it("never shrinks a drawing to make the case beside it fit", function () {
       assert.match(ruleFor(".proposal-screen__col"), /flex:\s*none/, "the drawing can still shrink");
       assert.match(ruleFor(".decision__case"), /flex:\s*\d+\s+1\s/, "and the case cannot give way instead");
+    });
+
+    // A wide drawing takes the row below its case by turning the row into a column, and in a
+    // column the case's 380px basis is a height: a two-reason case left 156px of blank band
+    // above its drawing. Stacked, the case is as tall as what it says.
+    it("stacks a wide drawing under its case with no blank band between them", function () {
+      assert.match(ruleFor(".decision__lead--stacked"), /flex-direction:\s*column/, "the row turns into a column");
+      assert.match(ruleFor(".decision__lead--stacked .decision__case"), /flex:\s*none/, "the case keeps a width basis as its height");
     });
   });
 

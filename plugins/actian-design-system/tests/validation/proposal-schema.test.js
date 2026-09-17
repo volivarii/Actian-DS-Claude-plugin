@@ -71,11 +71,10 @@ describe("proposal-data.schema.json", function () {
     assert.ok(e[0].indexOf("decisions") !== -1 && e[0].indexOf("maximum is 4") !== -1, e[0]);
   });
 
-  // The row budget the assembler draws with only goes to four (588/384/282 for two,
-  // three, four), and a fifth option falls back to the four-wide budget: 5*282 + 4*24
-  // overflows the 1200px document it was capped to fit. The schema is the gate that
-  // stops that reaching the renderer, since the assembler throws on any schema error.
-  it("bounds a decision's options to four, the widest the row budget can draw", function () {
+  // Past four options a reader is weighing a list rather than a choice, and the comparison
+  // table under them grows a column per option. The schema is the gate that stops a fifth
+  // reaching the renderer, since the assembler throws on any schema error.
+  it("bounds a decision's options to four", function () {
     var d = load();
     var opts = d.decisions[0].options;
     assert.deepStrictEqual(errors(d), [], "the fixture's options are fine");

@@ -114,7 +114,7 @@ each starting "app-context:". Write each source as `app-context: <what you read>
 
 - **options**: two to four. Each has an `id` (a slug), a `name`, an `anchor` (`app` slug and the
   `surface` in the product's words), `whatItIs` and `breaksWhen` (one line each), a `verdict` (a few
-  words, printed as a tag), a `screen` (`width`, `html`, and at most three `notes`, a phrase each) and
+  words; under an option not chosen it prints in bold, then `breaksWhen`), a `screen` (`width`, `html`, and at most three `notes`, a phrase each) and
   `screens` (one to four entries in generate-flow's screen-list shape: `name`, `template` from
   `recipes/flow/_index.json`, `app`, `entity` or null, `note`).
 - **comparison**: `criteria` rows (`id`, `label`, `source` one of `ticket goal`, `product fact`, `cost`)
@@ -208,12 +208,12 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
 
 ## Conventions that make the document read as a proposal
 
-- **Width to the idea, then the row decides.** 320 for a menu or popover, 360 to 400 for a form region,
-  720 for a page region. The options of one decision sit in one row of a 1200px document with a 24px
-  gap, so the count caps the width: two options fit at 588 each, three at 384, four at 282. A page-region
-  width is therefore only ever a two-option choice.
+- **Width to the idea.** 320 for a menu or popover, 360 to 400 for a form region, up to 1200 for a page
+  region. A drawing is drawn at exactly that width and never squeezed: up to 720 it sits beside its
+  case, wider it takes the row below, and the options not chosen wrap onto more rows rather than shrink.
+  Compose the drawing at the width you declare; nothing will lay it out narrower.
 - **The renderer equalises, it does not trust.** Within a decision the assembler takes the widest
-  declared width, caps it at that row budget, and applies the result to every option in the decision, so
+  declared width and applies it to every option in the decision, so
   the widest option raises its siblings and nobody can draw their favourite at 720 against a rival at
   320. Presentation quality moves a stakeholder's judgement in both directions, which is why this is
   enforced rather than asked for. A sibling declared at a different width is an informational P1, not an
@@ -222,8 +222,11 @@ above the drawing; do not draw an app name, a nav bar or an avatar strip.
   `style="border:2px dashed var(--fm-brand);background:var(--fm-brand-light);border-radius:var(--fm-radius);padding:8px 10px"`
   and add `<span class="fm-badge">New</span>` beside it. One emphasis per drawing.
 - **Two lines, one verdict.** `whatItIs` says what it is; `breaksWhen` names the case it does not survive;
-  `verdict` is the reader's shorthand ("Simple, caps at one group").
-- **Notes are phrases.** At most three per drawing, each one the rationale of a part of it.
+  `verdict` is the reader's shorthand ("Simple, caps at one group"). An option not chosen shows its
+  name, its drawing and one line, the verdict in bold and then `breaksWhen`, so write the two to be
+  read aloud together: **Reads as a control.** Edit and View are verbs in pills.
+- **Notes are phrases.** At most three per drawing, each one the rationale of a part of it. They print
+  under the chosen drawing; an option not chosen carries its verdict instead.
 - **The screen list is the bridge.** `screens[]` describes the pages a flow of this option would show,
   not the drawing; `note` says what the option changes on that page.
 
@@ -254,8 +257,9 @@ check, and reads as a design; the first mechanism that notices the system was ne
 a design lead looking at the finished document. Advice in a reference is read once, by an author
 who is already confident. A P0 fires every time.
 
-The document prints `Built from <slugs>` quietly under each drawing, and prints an `adds` entry
-loudly, in the brand colour, because those are two different messages.
+The document prints `Built from <slugs>` quietly under the chosen drawing, and prints an `adds` entry
+loudly, in the brand colour, under any drawing, because those are two different messages: what the
+proposal is made of, and work nobody has costed yet.
 
 ## The order a reader meets
 
@@ -367,7 +371,9 @@ time.
 - No wordplay, slogans or metaphors. A line that sounds clever gets rewritten until it only informs.
 - No internal words in prose: renderer, schema, data file, flag, script, app-context, substrate,
   terrain. A source's `app-context:` prefix is not prose: it is the kind label Sources prints.
-- Text inside a drawing is product copy. It follows the writing rules read at Step 5
+- Text inside a drawing is product copy, never a caption about the drawing: "Three rows, three pills,
+  and every row is already a target" is commentary, and it belongs in `verdict`, `breaksWhen` or
+  `screen.notes`. Product copy follows the writing rules read at Step 5
   (`vendor/content/dist/writing.md`): sentence case, short labels with no period, second person, the
   words to avoid. Those rules are how you write. They are never a research finding.
 

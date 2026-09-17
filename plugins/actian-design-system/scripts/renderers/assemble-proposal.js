@@ -13,10 +13,11 @@
  * headed by what it builds (decisions[].part), never by the question behind it:
  * the question frames the comparison and stays in the data.
  *
- * Within a decision every option renders at the same width, computed here rather
- * than trusted from the data: research on prototype fidelity found that unequal
- * presentation corrupts a stakeholder's judgement in both directions, so an
- * author must not be able to draw their favourite at 720 and its rival at 320.
+ * Within a decision every option renders at the same width, the widest declared,
+ * computed here rather than trusted from the data: research on prototype fidelity
+ * found that unequal presentation corrupts a stakeholder's judgement in both
+ * directions, so an author must not be able to draw their favourite at 720 and its
+ * rival at 320. Nothing squeezes a drawing below that width.
  *
  * Grounding the author does not have to think about: the app header strip is
  * the flow renderer's own appHeader markup for the anchor's app (so the label
@@ -87,17 +88,23 @@ function section(title, inner, extraClass) {
   return '  <section class="doc__section' + (extraClass ? " " + extraClass : "") + '">' + (title ? "<h2>" + esc(title) + "</h2>" : "") + inner + "</section>\n";
 }
 
-// The approaches sit in one row of a 1200px document with a 24px gap, so the
-// option count caps the width. Past the budget the row wraps, which costs the
-// reader the side-by-side comparison the block exists for.
-var ROW_BUDGET = { 1: 1200, 2: 588, 3: 384, 4: 282 };
+// A drawing is drawn at the width it was composed at, never squeezed: laid out narrower, its
+// content spills past its frame. A budget that capped width by option count (588, 384, 282) did
+// exactly that on DIP-I-540 and again on DS-116. About 320 is a menu, 400 a form region, and a page
+// region runs up to the 1200 the document is wide. Exported so the validator bounds a declared
+// width by the numbers this draws with, not by a copy of them.
+var DRAWING_WIDTH = { min: 240, max: 1200 };
 
-// Exported so the validator can warn about a width this will silently cap. The two
-// must never hold separate copies of these numbers: a drawing authored against a
-// budget the renderer does not share renders squeezed, and the author is told nothing.
-function rowBudget(count) {
-  return ROW_BUDGET[count] || ROW_BUDGET[4];
-}
+// Up to this width the chosen drawing sits beside its case; wider, it takes the row below. At 720
+// the case keeps 432px of the 1200, and anything wider squeezes it toward its 380px floor.
+var BESIDE_CASE = 720;
+
+// On paper a drawing gets the page's width, not the screen's. A4 at the browser's default margins
+// leaves about 718px and the body keeps 40px each side, so 620 fits A4 and Letter with the ring.
+// A wider drawing is zoomed down to it for print only, shrunk the way a screenshot is and never
+// reflowed, so the prose around it keeps its size. Left to the browser, a page with a drawing
+// wider than the paper shrank every line of it, and past about 1030px still cut the drawing.
+var PRINT_WIDTH = 620;
 
 // A section a reader opens on demand. The heading stays outside, in the section, because
 // inside a summary it takes the summary's button role and drops out of a screen reader's list
@@ -128,13 +135,13 @@ function partName(d) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-// Every option in a decision renders at one width: the widest the author declared, floored
-// at 280 and capped at the row budget its option count allows. The part block and the other
-// options read it from here, so the two can never disagree about how wide a drawing is.
+// Every option in a decision renders at one width: the widest the author declared, held inside
+// DRAWING_WIDTH. The part block and the other options read it from here, so the two can never
+// disagree about how wide a drawing is.
 function decisionWidth(d) {
   var widest = 0;
   d.options.forEach(function (o) { widest = Math.max(widest, Number(o.screen.width) || 360); });
-  return Math.min(Math.max(widest, 280), rowBudget(d.options.length));
+  return Math.min(Math.max(widest, DRAWING_WIDTH.min), DRAWING_WIDTH.max);
 }
 
 // What was asked, before what we propose. DS-116 opened on its answer, under a title that was
@@ -257,45 +264,55 @@ function researchHtml(research) {
 // does not have is proposing work nobody has costed, and that belongs beside the drawing
 // rather than in a build ticket three weeks later.
 function compositionHtml(o) {
-  var out = "";
-  if ((o.uses || []).length)
-    out += '<p class="option__built">Built from ' + o.uses.map(esc).join(", ") + "</p>";
-  (o.adds || []).forEach(function (a) {
-    out += '<p class="option__adds"><span class="option__adds-kind">Adds</span> ' + esc(a.component) + ". " + esc(a.why) + "</p>";
-  });
-  return out;
+  var built = (o.uses || []).length ? '<p class="option__built">Built from ' + o.uses.map(esc).join(", ") + "</p>" : "";
+  return built + addsHtml(o);
 }
 
-function optionHtml(o, index, apps, width, lead) {
+function addsHtml(o) {
+  return (o.adds || []).map(function (a) {
+    return '<p class="option__adds"><span class="option__adds-kind">Adds</span> ' + esc(a.component) + ". " + esc(a.why) + "</p>";
+  }).join("");
+}
+
+function optionHtml(o, index, apps, width, lead, chosen) {
   if (!apps[o.anchor.app])
     throw new Error('proposal-data: unknown app "' + o.anchor.app + '" in option "' + o.id + '"; known: ' + Object.keys(apps).join(", "));
   var bad = unbalancedTag(o.screen.html);
   if (bad) throw new Error("proposal-data: unbalanced <" + bad + '> in option "' + o.id + '"');
   var type = flowRenderer.resolveChrome({ template: templateForApp(o.anchor.app) }).appHeaderType;
   var strip = flowRenderer.appHeader(type);
-  // One voice under a drawing, not three: a sentence, a qualifier, and a quiet run of the
-  // annotations joined by middots.
-  var notes = (o.screen.notes || []).length
-    ? '<p class="option__notes">' + o.screen.notes.map(esc).join(" &middot; ") + "</p>"
-    : "";
-  // The chosen option says what it is and where it breaks in the case beside it, so its own
-  // card carries neither: the same two lines a hand's width apart is the document agreeing
-  // with itself. An option not chosen carries its name, its two lines and its verdict.
+  var printWidth = Math.min(width, PRINT_WIDTH);
+  var col = '<div class="proposal-screen__col" style="width:' + width + "px;--print-width:" + printWidth +
+    "px;--print-zoom:" + Number((printWidth / width).toFixed(4)) + '">';
   var anchor = '<span class="proposal-screen__anchor">' + esc(appLabel(apps, o.anchor.app) + ", " + o.anchor.surface) + "</span>";
-  var label = lead
-    ? '<span class="proposal-screen__label proposal-screen__label--lead">' + anchor + "</span>"
-    : '<span class="proposal-screen__label"><span class="proposal-screen__name">' + esc(o.name) + "</span>" + anchor + "</span>";
-  var lines = lead
-    ? ""
-    : '<p class="approach__lines">' + esc(o.whatItIs) + '<br><span class="approach__breaks">Breaks when.</span> ' + esc(o.breaksWhen) + "</p>";
-  var verdict = lead ? "" : '<p class="approach__verdict"><span class="fm-tag">' + esc(o.verdict) + "</span></p>";
-  return (
-    '<div class="proposal-screen__col" style="width:' + width + 'px">' + label +
+  var frame =
     '<div class="proposal-screen" data-name="' + esc(o.id) + '" style="width:' + width + 'px">' + strip +
-    '<div class="proposal-screen__body">' + o.screen.html + "</div></div>" + notes +
-    lines + compositionHtml(o) + verdict +
-    "</div>\n"
-  );
+    '<div class="proposal-screen__body">' + o.screen.html + "</div></div>";
+  if (lead) {
+    // The chosen option says what it is and where it breaks in the case beside it, so its own
+    // card carries neither: the same two lines a hand's width apart is the document agreeing
+    // with itself. Under it, one quiet run of its annotations and what it is built from.
+    var notes = (o.screen.notes || []).length
+      ? '<p class="option__notes">' + o.screen.notes.map(esc).join(" &middot; ") + "</p>"
+      : "";
+    return col + '<span class="proposal-screen__label proposal-screen__label--lead">' + anchor + "</span>" +
+      frame + notes + compositionHtml(o) + "</div>\n";
+  }
+  // An option not chosen: its name, its drawing, and one line, the verdict and then where it
+  // breaks. It once carried six things under the drawing (a caption, a run of notes, what it
+  // is, where it breaks, what it is built from and a verdict tag that looked like a button),
+  // mostly saying one thing twice; the comparison below carries the rest. Its surface is named
+  // only when it is not the proposal's, and what it adds stays, because an addition is a cost.
+  var sameSurface = chosen && chosen.anchor.app === o.anchor.app &&
+    String(chosen.anchor.surface).trim().toLowerCase() === String(o.anchor.surface).trim().toLowerCase();
+  // The verdict closes as a sentence, unless it already ends on a stop, an ellipsis or a stop
+  // inside a quote; an empty one prints nothing rather than a lone bold period.
+  var verdict = String(o.verdict).trim();
+  if (verdict && !/[.!?\u2026]["'\u201d\u2019]?$/.test(verdict)) verdict += ".";
+  return col + '<p class="option__name">' + esc(o.name) + "</p>" +
+    (sameSurface ? "" : '<span class="proposal-screen__label">' + anchor + "</span>") +
+    frame + '<p class="option__why">' + (verdict ? "<b>" + esc(verdict) + "</b> " : "") + esc(o.breaksWhen) + "</p>" +
+    addsHtml(o) + "</div>\n";
 }
 
 // The document PROPOSES; the reader decides. Nothing a reader sees says "decided" or
@@ -350,17 +367,19 @@ function pickHtml(d) {
 // Other options, because a reader approving a direction reads the direction first.
 function partHtml(d, apps) {
   var win = findById(d.options, d.pick.optionId);
+  var width = decisionWidth(d);
   return (
     '  <section class="decision" id="' + esc(d.id) + '"><h2>' + esc(partName(d)) + "</h2>" +
-    '<div class="decision__lead"><div class="decision__case">' + pickHtml(d) + "</div>" +
-    optionHtml(win, d.options.indexOf(win), apps, decisionWidth(d), true) + "</div></section>\n"
+    '<div class="decision__lead' + (width > BESIDE_CASE ? " decision__lead--stacked" : "") + '">' +
+    '<div class="decision__case">' + pickHtml(d) + "</div>" +
+    optionHtml(win, d.options.indexOf(win), apps, width, true) + "</div></section>\n"
   );
 }
 
 // What each part was chosen over, and the comparison that chose it. Kept complete, which is
-// what keeps this a proposal rather than a sales sheet. The options not chosen render at one
-// width as each other, smaller than the part they lost to, so none is flattered over its peers.
-var ALSO_SCALE = 0.72;
+// what keeps this a proposal rather than a sales sheet. The options not chosen render at the
+// proposal's own width, so none is flattered over its peers, and they wrap onto more rows rather
+// than shrink: they are folded, so the length costs nothing until a reader opens them.
 
 function otherOptionsHtml(decisions, apps) {
   var notChosen = 0;
@@ -368,12 +387,13 @@ function otherOptionsHtml(decisions, apps) {
     var rest = d.options.filter(function (o) { return o.id !== d.pick.optionId; });
     if (!rest.length) return "";
     notChosen += rest.length;
-    var alsoWidth = Math.max(240, Math.round(decisionWidth(d) * ALSO_SCALE));
+    var win = findById(d.options, d.pick.optionId);
+    var width = decisionWidth(d);
     return (
       '<div class="other" id="' + esc(d.id) + '-options">' +
       (decisions.length > 1 ? "<h3>" + esc(partName(d)) + "</h3>" : "") +
       '<div class="approaches">' +
-      rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, alsoWidth, false); }).join("") +
+      rest.map(function (o) { return optionHtml(o, d.options.indexOf(o), apps, width, false, win); }).join("") +
       '</div><div class="compare-block">' + comparisonHtml(d.comparison, d.options, d.pick.optionId) + "</div></div>"
     );
   }).join("");
@@ -541,5 +561,6 @@ module.exports = {
   assembleProposal: assembleProposal,
   toFragment: toFragment,
   extractUnbalancedTag: unbalancedTag,
-  rowBudget: rowBudget,
+  DRAWING_WIDTH: DRAWING_WIDTH,
+  PRINT_WIDTH: PRINT_WIDTH,
 };

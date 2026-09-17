@@ -243,41 +243,56 @@ describe("assembleProposal (document)", function () {
     assert.throws(function () { assembleProposal(bad2); }, /proposal-data:.*nope/);
   });
 
-  it("equalises the options a decision did not propose, whatever the author declared", function () {
-    var d = load();
-    d.decisions[0].options[0].screen.width = 320;
-    d.decisions[0].options[1].screen.width = 560;
-    var block = body(assembleProposal(d));
-    var widths = (block.match(/class="proposal-screen" data-name="([^"]+)" style="width:(\d+)px"/g) || []).map(function (m) {
+  function drawnWidths(out) {
+    return (out.match(/class="proposal-screen" data-name="([^"]+)" style="width:(\d+)px"/g) || []).map(function (m) {
       var p = /data-name="([^"]+)" style="width:(\d+)px/.exec(m);
       return { id: p[1], w: Number(p[2]) };
     });
+  }
+
+  it("draws every option in a decision at the widest declared width, the proposal and its rivals alike", function () {
+    var d = load();
+    d.decisions[0].options[0].screen.width = 320;
+    d.decisions[0].options[1].screen.width = 560;
+    var widths = drawnWidths(body(assembleProposal(d)));
     assert.strictEqual(widths.length, d.decisions[0].options.length, "one drawing per option");
-    var lead = widths.filter(function (x) { return x.id === d.decisions[0].pick.optionId; });
-    var rest = widths.filter(function (x) { return x.id !== d.decisions[0].pick.optionId; });
-    assert.strictEqual(lead.length, 1, "the proposed option is drawn once");
-    rest.forEach(function (x) {
-      assert.strictEqual(x.w, rest[0].w, "every option it was chosen over is drawn at one width: " + x.id);
-    });
-    assert.ok(lead[0].w > rest[0].w, "and the proposal leads at a larger one");
-    assert.ok(lead[0].w >= 320, "never below the widest the author asked for, or the row budget");
+    widths.forEach(function (x) { assert.strictEqual(x.w, 560, x.id + " is drawn at " + x.w + ", not at the widest declared"); });
   });
 
-  it("caps the equalised width at the row budget for the option count", function () {
+  // 2026-09-16. A budget capped every drawing by its decision's option count (588, 384, 282), so a
+  // drawing composed at 480 was laid out at 384 and its content spilled past the frame, on DIP-I-540
+  // and again on DS-116. Nothing squeezes a drawing now: it is drawn at the width it was composed at.
+  it("never squeezes a drawing, whatever the option count, and holds it at 1200 at most", function () {
     var d = load();
     d.decisions[0].options.forEach(function (o) { o.screen.width = 720; });
-    var n = d.decisions[0].options.length;
-    var budget = { 2: 588, 3: 384, 4: 282 }[n];
-    var out = assembleProposal(d);
-    var w = Number(/class="proposal-screen" data-name="[^"]+" style="width:(\d+)px"/.exec(out)[1]);
-    assert.strictEqual(w, budget, n + " options fit at " + budget + ", so 720 is capped");
+    drawnWidths(body(assembleProposal(d))).forEach(function (x) { assert.strictEqual(x.w, 720, x.id + " is squeezed to " + x.w); });
+    d.decisions[0].options.forEach(function (o) { o.screen.width = 1600; });
+    drawnWidths(body(assembleProposal(d))).forEach(function (x) { assert.strictEqual(x.w, 1200, x.id + " is drawn at " + x.w); });
+  });
+
+  it("sets a drawing wider than 720 below its case, and one at 720 beside it", function () {
+    var d = load();
+    d.decisions[0].options.forEach(function (o) { o.screen.width = 720; });
+    var out = body(assembleProposal(d));
+    assert.notStrictEqual(at(out, '<div class="decision__lead">'), -1, "a 720 drawing is not beside its case");
+    d.decisions[0].options.forEach(function (o) { o.screen.width = 960; });
+    out = body(assembleProposal(d));
+    assert.notStrictEqual(at(out, '<div class="decision__lead decision__lead--stacked">'), -1, "a 960 drawing is not below its case");
+    var tpl = fs.readFileSync(path.join(ROOT, "templates", "proposal-document.html"), "utf8");
+    var i = tpl.indexOf("\n    .decision__lead--stacked {");
+    assert.notStrictEqual(i, -1, "the stacked block has no rule");
+    assert.match(tpl.slice(i, tpl.indexOf("}", i)), /flex-direction:\s*column/, "and the rule does not stack it");
   });
 
   it("prints what each drawing is built from, and makes a new component loud", function () {
     var d = load();
-    d.decisions[0].options[0].uses = ["read-only-tag", "tooltip-default"];
-    delete d.decisions[0].options[1].uses;
-    d.decisions[0].options[1].adds = [
+    // The chosen drawing says what it is built from; a rival keeps only what it would add,
+    // because an addition is a cost and a list of components is not.
+    var chosen = d.decisions[0].options.filter(function (o) { return o.id === d.decisions[0].pick.optionId; })[0];
+    var rival = d.decisions[0].options.filter(function (o) { return o.id !== d.decisions[0].pick.optionId; })[0];
+    chosen.uses = ["read-only-tag", "tooltip-default"];
+    delete rival.uses;
+    rival.adds = [
       { component: "access summary row", why: "no component holds a computed union over several groups" },
     ];
     var out = assembleProposal(d);
@@ -295,7 +310,7 @@ describe("assembleProposal (document)", function () {
 
   it("prints an option's annotations as one quiet run, not an uppercase list", function () {
     var d = load();
-    d.decisions[0].options[0].screen.notes = ["Group name, not its id", "One row, always"];
+    d.decisions[0].options.filter(function (o) { return o.id === d.decisions[0].pick.optionId; })[0].screen.notes = ["Group name, not its id", "One row, always"];
     var out = assembleProposal(d);
     assert.ok(at(out, "Group name, not its id &middot; One row, always") !== -1, "joined by middots, in the order authored");
     assert.strictEqual(count(out, '<ul class="option__notes">'), 0, "no list: that was the third voice under one drawing");
@@ -738,5 +753,82 @@ describe("a part named from its surface", function () {
     var words = dec.id.replace(/-/g, " ");
     var expected = words.charAt(0).toUpperCase() + words.slice(1);
     assert.notStrictEqual(at(out, '<section class="decision" id="' + dec.id + '"><h2>' + expected + "</h2>"), -1, "no heading from the id: " + expected);
+  });
+});
+
+// 2026-09-16. Under each option not chosen sat six things: a caption, a run of notes joined by
+// middots, what it is, where it breaks, the components it is built from, and a verdict tag that
+// looked like a button. Most of them said the same thing, in a 276px column. A rival now carries
+// its name, its drawing, and one line: the verdict, then where it breaks.
+describe("an option not chosen, read at a glance", function () {
+  var esc = require("../../scripts/lib/renderer.js").fmHtmlMap.esc;
+  function card(out, id) {
+    var start = out.lastIndexOf('<div class="proposal-screen__col"', at(out, 'data-name="' + id + '"'));
+    assert.notStrictEqual(start, -1, "no card for " + id);
+    var rest = out.slice(start + 1);
+    var ends = [rest.indexOf('<div class="proposal-screen__col"'), rest.indexOf('<div class="compare-block">')].filter(function (i) { return i !== -1; });
+    return out.slice(start, start + 1 + Math.min.apply(null, ends));
+  }
+  function pieces(d) {
+    var dec = d.decisions[0];
+    return {
+      chosen: dec.options.filter(function (o) { return o.id === dec.pick.optionId; })[0],
+      rival: dec.options.filter(function (o) { return o.id !== dec.pick.optionId; })[0],
+    };
+  }
+
+  it("shows its name, its drawing, and one line: the verdict, then where it breaks", function () {
+    var d = load();
+    var rival = pieces(d).rival;
+    rival.uses = ["menu-dropdown"];
+    rival.screen.notes = ["a phrase about the drawing"];
+    var c = card(body(assembleProposal(d)), rival.id);
+    var name = '<p class="option__name">' + esc(rival.name) + "</p>";
+    assert.notStrictEqual(at(c, name), -1, "the card has no name: " + c.slice(0, 200));
+    assert.ok(at(c, name) < at(c, 'class="proposal-screen"'), "the name does not head the card");
+    var verdict = esc(rival.verdict) + (/[.!?\u2026]["'\u201d\u2019]?$/.test(rival.verdict) ? "" : ".");
+    var why = '<p class="option__why"><b>' + verdict + "</b> " + esc(rival.breaksWhen) + "</p>";
+    assert.notStrictEqual(at(c, why), -1, "no single line of verdict and break: " + c.slice(c.lastIndexOf("</div></div>")));
+    [esc(rival.whatItIs), "a phrase about the drawing", "Built from", "fm-tag"].forEach(function (gone) {
+      assert.strictEqual(at(c, gone), -1, "the card still carries: " + gone);
+    });
+  });
+
+  it("names its surface only when it differs from the proposal's", function () {
+    var d = load();
+    var p = pieces(d);
+    p.rival.anchor = JSON.parse(JSON.stringify(p.chosen.anchor));
+    var c = card(body(assembleProposal(d)), p.rival.id);
+    assert.strictEqual(at(c, "proposal-screen__anchor"), -1, "the same surface is named on every card");
+    p.rival.anchor.surface = "the user profile page";
+    c = card(body(assembleProposal(d)), p.rival.id);
+    assert.notStrictEqual(at(c, "the user profile page"), -1, "a different surface is not named");
+    p.rival.anchor = JSON.parse(JSON.stringify(p.chosen.anchor));
+    p.rival.anchor.app = p.chosen.anchor.app === "studio" ? "explorer" : "studio";
+    c = card(body(assembleProposal(d)), p.rival.id);
+    assert.notStrictEqual(at(c, "proposal-screen__anchor"), -1, "the same surface in another app is not named");
+  });
+
+  it("closes the verdict as a sentence once, and prints no lone stop for an empty one", function () {
+    var cases = [
+      ["Reads as a control", "<b>Reads as a control.</b> "],
+      ["Too heavy\u2026", "<b>Too heavy\u2026</b> "],
+      ["Reads as \"Edit.\"", "<b>" + esc("Reads as \"Edit.\"") + "</b> "],
+      ["Why a page?  ", "<b>Why a page?</b> "],
+    ];
+    cases.forEach(function (k) {
+      var d = load();
+      var rival = pieces(d).rival;
+      rival.verdict = k[0];
+      var c = card(body(assembleProposal(d)), rival.id);
+      assert.notStrictEqual(at(c, '<p class="option__why">' + k[1]), -1, JSON.stringify(k[0]) + " printed as: " + c.slice(at(c, "option__why") - 10, at(c, "option__why") + 120));
+    });
+    ["", "   "].forEach(function (empty) {
+      var d = load();
+      var rival = pieces(d).rival;
+      rival.verdict = empty;
+      var c = card(body(assembleProposal(d)), rival.id);
+      assert.notStrictEqual(at(c, '<p class="option__why">' + esc(rival.breaksWhen) + "</p>"), -1, JSON.stringify(empty) + " printed as: " + c.slice(at(c, "option__why") - 10, at(c, "option__why") + 120));
+    });
   });
 });

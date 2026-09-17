@@ -540,7 +540,7 @@
           },
           "options": {
             "type": "array",
-            "description": "Two to four options, each drawn inside its anchor surface; four is the ceiling the row budget can draw side by side",
+            "description": "Two to four options, each drawn inside its anchor surface; past four, a reader is weighing a list rather than a choice",
             "minItems": 2,
             "maxItems": 4,
             "items": {
@@ -660,7 +660,7 @@
                   ]
                 },
                 "verdict": {
-                  "description": "A few words printed as a tag on the card",
+                  "description": "A few words; under an option not chosen it prints in bold, then breaksWhen, as one line",
                   "type": "string",
                   "examples": [
                     "Scans well, scales to a few groups"
@@ -675,7 +675,7 @@
                   ],
                   "properties": {
                     "width": {
-                      "description": "Intended drawing width in px, 240 to 720 (validator-enforced). The assembler equalises within a decision, so a wider sibling raises this one",
+                      "description": "The width the drawing is composed at, in px, 240 to 1200 (validator-enforced): about 320 for a menu, 400 for a form region, up to 1200 for a page region. It is drawn at exactly this width, never squeezed; up to 720 beside the case, wider below it. The assembler equalises within a decision, so a wider sibling raises this one",
                       "type": "integer",
                       "minimum": 240,
                       "examples": [
