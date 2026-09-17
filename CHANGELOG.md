@@ -21,6 +21,19 @@ are summarized at the release level.
 
 ### Changed
 
+- **generate-flow routes each screen by what the screen list declares, not by its name**. A real run
+  on 2026-09-17 (installed 2026.9.46) reached no captured page, no layer, no screen link and no Look,
+  because a screen found its page only when its name happened to match a pattern, and nothing could say
+  "this panel opens over that list". Each screen-list entry may now name its `pattern` (a slug from
+  `resolve-patterns.js`) and its `layer` (`panel`, `drawer`, `modal` or `toast` over screen n).
+  `prepare-flow.js` routes a declared pattern first, refuses an unknown slug or a malformed layer by
+  name, says on stderr when a screen fell back to a keyword guess, and hands every author agent the
+  flow's screen ids so a primary action can link to the next screen. Merge stamps the declared layer, so
+  a panel renders over its base. The Look now runs after every render, push or not: `look.js --brief`
+  pairs each screen built on a captured page with that page's product screenshot, and compares page
+  structure only. The render draws the design system's Figma components on purpose, so a production
+  screen still showing older components is never reported as a difference. Gate text that still
+  called Fat Marker the default, and a Look note that said it was switched off, are gone.
 - **generate-flow authors DS-native by default** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). `--lofi` renders the
   same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
   `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
