@@ -281,7 +281,7 @@ only, and the base renders unchanged underneath (`flow-renderer.js`'s
 The detail screen's primary button, wired to a confirm modal:
 
 ```json
-{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary", "name": "Publish", "goto": "confirm-publish", "props": { "Label": "Publish" } }
+{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary", "name": "Publish", "goto": "publish-data-product-3", "props": { "Label": "Publish" } }
 ```
 
 The toast that follows a successful action, as the merged flow carries it over the published screen (merge writes this `layer` from the screen list; the author agent writes only `name` and `content`):
