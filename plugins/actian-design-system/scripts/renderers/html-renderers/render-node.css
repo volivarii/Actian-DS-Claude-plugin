@@ -33,6 +33,21 @@
   margin: 0;
 }
 
+/* An INSTANCE root carrying `goto` (Task 6.3) is wrapped in this span so the
+   prototype wrapper's `closest('[data-goto]')` click listener has a hit
+   target that does not depend on the wrapped leaf's own markup. `display:
+   contents` keeps the span out of layout: an ancestor `.fm-frame` is
+   `display: flex`, and without this a Fill-sized leaf inside the span would
+   size against the span's own shrink-to-fit box instead of the flex item it
+   would have been without the wrapper (the same technique
+   assemble-flow-share.js already uses for its "display:contents in
+   Prototype" screen cells). The span still stays in the DOM and in the
+   event path, so `closest('[data-goto]')` keeps resolving. */
+.flow-goto {
+  cursor: pointer;
+  display: contents;
+}
+
 /* Never-throws fallback chip (render-node.js B10 guard): a single malformed
    node degrades to this labeled placeholder instead of blanking the preview. */
 .render-error {

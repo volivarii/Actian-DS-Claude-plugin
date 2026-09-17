@@ -156,6 +156,7 @@ function parseArgs(argv) {
     annotations: true,
     refresh: 0,
     fragment: false,
+    skin: null,
   };
   var positionals = [];
   var i = 2; // skip node + script
@@ -172,6 +173,8 @@ function parseArgs(argv) {
       args.annotations = false;
     } else if (arg === "--refresh" && i + 1 < argv.length) {
       args.refresh = parseFloat(argv[++i]);
+    } else if (arg === "--skin" && i + 1 < argv.length) {
+      args.skin = argv[++i];
     } else if (arg.charAt(0) !== "-") {
       positionals.push(arg);
     }
@@ -265,6 +268,12 @@ function main() {
               description:
                 "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
+            {
+              name: "--skin",
+              required: false,
+              description:
+                'flow-share only: skin name to apply (currently "lofi"); sets meta.skin before assembling. Ignored by every other type.',
+            },
           ],
           types: ["flow-share", "proposal"].concat(Object.keys(TYPE_CONFIGS)),
         },
@@ -305,6 +314,10 @@ function main() {
       process.exit(1);
     }
     var shareData = JSON.parse(fs.readFileSync(args.input, "utf8"));
+    if (args.skin) {
+      shareData.meta = shareData.meta || {};
+      shareData.meta.skin = args.skin;
+    }
     var assembleFlowShare =
       require("./assemble-flow-share.js").assembleFlowShare;
     writeOutput(args.output, assembleFlowShare(shareData));

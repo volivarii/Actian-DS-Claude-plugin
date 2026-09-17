@@ -374,6 +374,9 @@
         "Icon": "Leading icon show",
         "↙ Icon": "Leading icon"
       },
+      "defaultProps": {
+        "Leading icon show": false
+      },
       "dropVariants": ["Outline"],
       "notes": "No DS chip component exists. Tag, Interactive is the closest equivalent. FM Outline axis has no DS mapping.",
       "dsKey": "19d8ed0dd3f5dc406017130026a6229f121f169d"
@@ -390,10 +393,14 @@
         }
       },
       "propertyMap": {
+        "Tag Text": "Label",
         "Icon Left": "Leading icon show",
         "↙ Icon L": "Leading icon",
         "Icon Right": "Trailing icon show",
         "↙ Icon R": "Trailing icon"
+      },
+      "defaultProps": {
+        "Leading icon show": false
       },
       "dropVariants": ["Style"],
       "notes": "DS tag-read-only uses a Type axis instead of Style. FM Style axis has no direct mapping.",
