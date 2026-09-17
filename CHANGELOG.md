@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Changed
 
-- **generate-flow authors DS-native by default** (#TBD — PR not yet opened). `--lofi` renders the
+- **generate-flow authors DS-native by default** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). `--lofi` renders the
   same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
   `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
 
@@ -77,7 +77,7 @@ are summarized at the release level.
   scrolled away after the first screen and never came back, and what it maps is over nine thousand
   pixels long. The bar is that map, condensed to one line, and it hides on a phone.
 
-- **acceptance flow: the Data Steward panel over the Catalog page** (#TBD — PR not yet opened).
+- **acceptance flow: the Data Steward panel over the Catalog page** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)).
   The first hand-authored flow to exercise catalog-quality's own layering model end to end:
   `plugins/actian-design-system/tests/fixtures/data-steward-over-catalog.flow.json` composes a
   real Studio Catalog screen from the faceted-browse capture (every `{{...}}` placeholder filled
@@ -92,7 +92,7 @@ are summarized at the release level.
   the walker's structural-field allowlist alongside `ref`/`dsSlug`.
 
 - **A composed screen names its capture, and unfilled capture slots surface**
-  (#TBD — PR not yet opened). A screen composed from a captured page recipe (adapted tier)
+  ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). A screen composed from a captured page recipe (adapted tier)
   now records `pageRecipe: "<slug>"` on itself, and `screen-generator.md` tells the author to
   copy the capture's `slot` keys onto the FRAMEs that fill them. `validate-flow-data.js` reads
   that back: `findUnfilledSlots` flags a declared slot no node carries (`unfilled-slot`, warning)
@@ -102,7 +102,7 @@ are summarized at the release level.
   FRAME fills more than one slot at once.
 
 - **A screen can layer over another, wire a goto, and declare what it invents**
-  (#TBD — PR not yet opened). Slice 1 of the layered-screen model: `flow-data.schema.json` gains
+  ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Slice 1 of the layered-screen model: `flow-data.schema.json` gains
   `screen.layer` (`kind`: modal/drawer/toast/panel, `over`: the base screen's id, which must not
   itself be layered), `screen.adds` (what the screen contributes to the design system: `name`,
   `composedFrom`, optional `newPrimitives`, `why`, ringed in the render and listed on the cover),
@@ -119,7 +119,7 @@ are summarized at the release level.
   All seven finding kinds are CLI-visible.
 
 - **A layered screen renders, the ring shows what's new, and the prototype wrapper navigates and
-  lists it** (#TBD — PR not yet opened). Tasks 6.3/6.4, the render half of Slice 1: a screen
+  lists it** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Tasks 6.3/6.4, the render half of Slice 1: a screen
   carrying `layer` now draws as a modal/drawer/toast/panel floating over its base screen, which
   renders byte-identically underneath (`flow-renderer.js`'s new `renderLayered`, exported
   alongside `renderScreen`); a FRAME root's declared `goto`/`adds` become `data-goto`/`data-adds`
@@ -133,7 +133,7 @@ are summarized at the release level.
   a new `init()` on the Alpine root), and every screen's declared `adds[]` is listed once on the
   cover under a "This flow adds N" disclosure.
 
-- **`layout: "freehand"`, the look tool, and the look gate step** (#TBD — PR not yet opened). Tasks
+- **`layout: "freehand"`, the look tool, and the look gate step** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Tasks
   6.5/7.2/7.3 close out Slice 1's authoring and verification pieces: `prepare-flow.js` skips recipe
   snapping entirely for a screen carrying `layout: "freehand"` (no pattern, archetype or pageRecipe;
   the screen-generator agent classifies it `improvised` with the justification "freehand layout
