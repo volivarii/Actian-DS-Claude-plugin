@@ -149,6 +149,17 @@ are summarized at the release level.
 
 ### Fixed
 
+- **A DS control drawn without a label shows no label**
+  ([#391](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/391)). Knowledge v0.34.212 is
+  vendored. Before it, a checkbox, radio, toggle, select or text input with no `Label` printed the
+  word "Label" on screen, and a search result card with no stage or glossary term printed "Stage" and
+  "VH Vehicle". Those regions are now left out, wrapper included. A new test renders each of these
+  components with and without the value, so a later refresh that brings the placeholder words back
+  fails before anyone sees them in a flow. The refresh also vendors the Catalog capture
+  (`faceted-browse`) rebuilt from DS components (all but one slider, which the DS does not have), with
+  `{{...}}` placeholders and a product screenshot. A capture with a screenshot is what switches on
+  generate-flow's Look step.
+
 - **A breadboard no longer spends width on the columns an author skipped**
   ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). DIP-I-496 authored its
   places at columns 1 to 3, so the terrain drew 408px of nothing to the left of its first box: a
