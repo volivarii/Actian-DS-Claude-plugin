@@ -393,13 +393,14 @@ describe("ds-html-map: input", function () {
     );
   });
 
-  it("falls back to default Label/Placeholder text when absent", function () {
+  it("draws no label row when absent, and keeps the default placeholder", function () {
     var html = render({
       dsSlug: "text-input",
       variant: "States=Default",
       props: {},
     });
-    assert.ok(html.indexOf("Label") !== -1, "default label");
+    assert.ok(html.indexOf("ds-field__label-row") === -1, "no label row");
+    assert.ok(html.indexOf("Label") === -1, "no placeholder label");
     assert.ok(html.indexOf("Placeholder text") !== -1, "default placeholder");
   });
 });
@@ -1287,9 +1288,10 @@ describe("ds-html-map: toggle (P1c)", function () {
     );
   });
 
-  it("falls back to 'Label' when no Label prop", function () {
+  it("draws no text wrapper when there is no Label and no helper", function () {
     var html = tg("Toggle location=Left, Selected=No", {});
-    assert.ok(html.indexOf(">Label</span>") !== -1, "default label");
+    assert.ok(html.indexOf("ds-toggle__text") === -1, "no empty wrapper");
+    assert.ok(html.indexOf(">Label<") === -1, "no placeholder label");
   });
 
   it("escapes a hostile Label", function () {
@@ -1390,9 +1392,10 @@ describe("ds-html-map: radio (P1c)", function () {
     );
   });
 
-  it("falls back to 'Label' when no Label prop", function () {
+  it("draws no text wrapper when there is no Label and no helper", function () {
     var html = rb("Format=Default, Selected=No", {});
-    assert.ok(html.indexOf(">Label</span>") !== -1, "default label");
+    assert.ok(html.indexOf("ds-radio__text") === -1, "no empty wrapper");
+    assert.ok(html.indexOf(">Label<") === -1, "no placeholder label");
   });
 
   it("escapes a hostile Label", function () {

@@ -91,7 +91,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 All 74 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 241 prop bindings in total.
+parenthesised value renders nothing until you supply it. 243 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -111,8 +111,8 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `card` | `Slot` | `Elevation` = Flat with border / Raised with shadow<br>`Size` = Small / Large | none |
 | `card-for-grouped-content` | `Body`, `Show info icon`, `Title` ("Grouped content") | `Property 1` = Default | none |
 | `card-for-perimeter` | `Completeness` ("50"), `Counter` ("23"), `Initials`, `Item type` ("Dataset"), `Item type initials`, `Label`, `Name` ("Dataset") | `Property 1` = Default | none |
-| `checkbox` | `Label` ("Label") | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
-| `checkbox-card` | `Slot` | `Selection` = Unselected / Selected / Indeterminate<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
+| `checkbox` | `Label` | `Selection` = Unchecked / Indeterminate / Checked<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `checkbox-card` | `Label`, `Slot` | `Selection` = Unselected / Selected / Indeterminate<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
 | `checkbox-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Orientation | none |
 | `collapse` | `Body`, `Title` ("Advanced settings") | `State` = Collapsed / Expanede | none |
 | `confirmation` | `Body` ("The selected items will be imported into the catalog. You will be notified once the import is complete."), `Cta` ("Open the catalog"), `Headline`, `Illustration` ("illustration-success"), `Primary`, `Secondary` ("Learn more"), `Title` ("Success!") | `Size` = Large | none |
@@ -121,7 +121,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `digram-item-types` | `Initials`, `Label` | `Item type` = Dataset / Data process / Data product / Field / Output port / Use case / Visualization / Category / Custom 1 / Custom 2 / Custom 3 / Custom 4 / Custom 5 / Custom 6 / Custom 7 / Custom 8 / Custom 9 / Custom 10 / Custom 11 / Custom 12 / Custom 13 / Custom 14 / Custom 16 / Glossary 1 / Glossary 2 / Glossary 3 / Glossary 4 / Glossary 5 / Topic 10 / Topic 1 / Topic 2 / Topic 3 / Topic 4 / Topic 5 / Topic 6 / Topic 7 / Topic 8 / Topic 9<br>`Size` = XS / SM / MD | Custom 1 = Category<br>Custom 2 = Data process<br>Custom 3 = Output port<br>Custom 6 = Output port |
 | `digram-topic` | `Initials`, `Label` | `Type` = Light purple / Dark purple / Light blue / Dark blue / Light green / Dark green / Yellow / Orange / Red / Dark orange | none |
 | `drawer` | `Catalog`, `Category`, `Completion`, `Connection`, `Description`, `Fields`, `Glossary items`, `Last updated`, `Name` ("Name"), `Show Back`, `Source description`, `Technical name`, `Type` ("Dataset") | `App` = Studio / Explorer | none |
-| `dropdown-select-default` | `Description`, `Helper`, `Label` ("Label"), `Placeholder` ("Select…"), `Value` | `Type` = Default / Search/Multiple / With avatar / Compact/Custom<br>`State` = Default / Hover / Focus / Active / Filled / Disabled | Search/Multiple = Default<br>With avatar = Default<br>Compact/Custom = Default<br>Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default |
+| `dropdown-select-default` | `Description`, `Helper`, `Label`, `Placeholder` ("Select…"), `Value` | `Type` = Default / Search/Multiple / With avatar / Compact/Custom<br>`State` = Default / Hover / Focus / Active / Filled / Disabled | Search/Multiple = Default<br>With avatar = Default<br>Compact/Custom = Default<br>Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default |
 | `empty-state` | `Body` ("Create policies to define how your platform operates."), `Cta` ("Create policy"), `Headline` ("No policies available"), `Illustration` ("illustration-empty-state"), `Primary`, `Secondary` ("Learn more"), `Title` | `Empty` = Default / Maintenance / Error state / Confirmation<br>`Size` = Large / Medium / Small | Maintenance = Default<br>Error state = Default<br>Confirmation = Default<br>Medium = Large<br>Small = Large |
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
 | `field` | `Leading icon` ("search"), `Show clear button`, `Show leading icon`, `Show trailing icon`, `Slot`, `Trailing icon` ("arrow-down") | `Size` = Compact / Default<br>`State` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default |
@@ -131,7 +131,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `identification-key` | none | none | none |
 | `interactive-tag` | `Label`, `Leading icon show`, `Trailing icon show` | `State` = Default / Disabled / Focus / Hover / Pressed<br>`Type` = Dismissible / Selectable / Dropdown-expanded / Dropdown / Selectable-selected | Focus = Default<br>Hover = Default<br>Pressed = Default<br>Selectable = Dismissible |
 | `item-type-tag` | `Counter` ("00"), `Label`, `Show Counter`, `Show counter` | `Type` = Glossary-1 / Glossary-2 / Glossary-3 / Glossary-4 / Glossary-5 / Category / Custom-1 / Custom-2 / Custom-3 / Custom-4 / Custom-5 / Custom-6 / Custom-7 / Custom-8 / Custom-9 / Custom-10 / Custom-11 / Custom-12 / Custom-13 / Custom-14 / Custom-15 / Dataset / Data process / Data product / Field / Output port / Use case / Visualization | none |
-| `label` | `* (Asterisk)`, `Description`, `Description text` ("A description helps users to define and understand the purpose of the input."), `Info icon`, `Label`, `Label text` ("Label") | `State` = Default / Disabled | none |
+| `label` | `* (Asterisk)`, `Description`, `Description text` ("A description helps users to define and understand the purpose of the input."), `Info icon`, `Label`, `Label text` | `State` = Default / Disabled | none |
 | `line-graph` | `Comparison`, `Labels`, `Max`, `Range` ("May 07, 2025 to June 07, 2025"), `Series`, `Title` ("Total incidents over timeframe") | none | none |
 | `lineage` | `Item type initials` ("PB"), `Label`, `Title` | `Type` = Individual main node / Individual sub item / Group sub item / Group main item / Connector up / Connector down / Connector straight<br>`State` = Default / Selected / Disabled / Expanded<br>`Fields` = Collapsed / Expanded / Default / Selected / Disabled / n/a | Group sub item = Individual sub item<br>Group main item = Individual main node<br>Connector up = Individual main node<br>Connector down = Individual main node<br>Connector straight = Individual main node<br>Expanded = Default<br>Default = Collapsed<br>Selected = Collapsed<br>Disabled = Collapsed<br>n/a = Collapsed |
 | `lineage-connecting-line` | `Show icon` | `Direction` = Down / Straight / up / Up<br>`State` = Default / Selected / Disabled | Up = up |
@@ -150,15 +150,15 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `pagination` | `Page` ("1"), `Pages` ("2") | none | none |
 | `popover` | `Body`, `Show info icon`, `Title` ("Popover") | `Type` = Interaction guide / Advanced search | none |
 | `progress-bar-small` | `Percent` | `Size` = Default / Large<br>`Completeness` = 0% / 100% / 50% | none |
-| `radio` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
-| `radio-card` | `Slot` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
+| `radio` | `Helper text`, `Label`, `Show Helper text` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `radio-card` | `Label`, `Slot` | `Selection` = Unselected / Selected<br>`State` = Default / Hover / Focus / Pressed / Disabled | Focus = Default |
 | `radio-group` | `Helper text`, `Items`, `Label`, `Selected`, `Show helper text`, `Show label` | `Orientation` = Vertical / Horizontal | none |
 | `read-only-tag` | `Label`, `Leading icon show` | `Type` = Default / Catalog / Shared / Stage-1 / Stage-2 / Stage-3 / Stage-4 / Stage-5 / Stage-6 / Stage-7 / Stage-8 / Status-error / Status-warning / Status-success | none |
 | `rich-text-froala` | none | `State` = Expanded / Default | none |
 | `scroll-bar` | `Label` ("Scroll region"), `Length`, `Orientation`, `Position` | `Property 1` = Default | none |
 | `search` | `Placeholder text` ("Search") | `Type` = Explorer home / Global header / Inline<br>`State` = Hovered / Focused / Filled / Active / Dsiabled / Default | Focused = Hovered<br>Filled = Hovered<br>Active = Hovered<br>Default = Hovered |
 | `search-dropdown-menu` | `Heading`, `Items`, `Query` ("orders"), `Results` | `Type` = No result / Before typed / After typed / Explorer home | none |
-| `search-result-card` | `Body`, `Catalog` ("Catalog"), `Description` ("A product is anything that can be offered to a market that might satisfy a want or need by potential customers."), `Featured property 1` ("Business Domain: IT"), `Featured property 2` ("Source Application: App 120"), `Glossary initials` ("VH"), `Glossary label` ("Vehicle"), `Stage` ("Stage"), `Tech name` ("[Financial Summary EY2024]"), `Title` ("Financial Summary EY2024"), `Type` ("Category") | `App` = Explorer / Studio<br>`State` = Default / Hover / Focus / Pressed / Selected | Studio = Explorer<br>Hover = Default<br>Pressed = Default |
+| `search-result-card` | `Body`, `Catalog` ("Catalog"), `Description` ("A product is anything that can be offered to a market that might satisfy a want or need by potential customers."), `Featured property 1` ("Business Domain: IT"), `Featured property 2` ("Source Application: App 120"), `Glossary initials`, `Glossary label`, `Stage`, `Tech name` ("[Financial Summary EY2024]"), `Title` ("Financial Summary EY2024"), `Type` ("Category") | `App` = Explorer / Studio<br>`State` = Default / Hover / Focus / Pressed / Selected | Studio = Explorer<br>Hover = Default<br>Pressed = Default |
 | `segmented-control` | `Active`, `Items`, `Segments` | none | none |
 | `side-nav` | `Active`, `Groups`, `Items` | `App` = Admin / Studio<br>`View` = Collapsed / Expanded | Studio = Admin |
 | `spinner` | `Label` ("Loading") | `Color mode` = On light bg / On dark bg<br>`Complete` = 50% / 75% / 100% / 25% | 75% = 50%<br>100% = 50%<br>25% = 50% |
@@ -166,10 +166,10 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `table` | `Columns`, `Rows` | `Built type` = By columns / By rows | By rows = By columns |
 | `tabs` | `Active`, `Items` | none | none |
 | `text-area` | `Character count`, `Helper text`, `Label`, `Show helper text`, `Show label`, `Slot` | `States` = Default / Warning / Hover / Focus / Active / Filled / Error / Disabled / Read-only | Hover = Default |
-| `text-input` | `Label` ("Label"), `Placeholder text` ("Placeholder text"), `Trailing icon` | `States` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default<br>Warning = Default<br>Read-only = Default |
+| `text-input` | `Label`, `Placeholder text` ("Placeholder text"), `Trailing icon` | `States` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default<br>Error = Default<br>Warning = Default<br>Read-only = Default |
 | `textfield-buttons` | none | none | none |
 | `toast` | `Action`, `Message` ("Item deleted") | `Type` = Default / Critical | none |
-| `toggle` | `Helper text`, `Label` ("Label"), `Show Helper text` | `Toggle position` = On right (default) / On left<br>`Selection` = Off / On<br>`State` = Default / Hover / Focus / Pressed / Disabled | On left = On right (default)<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
+| `toggle` | `Helper text`, `Label`, `Show Helper text` | `Toggle position` = On right (default) / On left<br>`Selection` = Off / On<br>`State` = Default / Hover / Focus / Pressed / Disabled | On left = On right (default)<br>Hover = Default<br>Focus = Default<br>Pressed = Default |
 | `toolbar` | `Show View scale` | `Type` = Single / Combined / Group<br>`Orientation` = Horizontal / Vertical | Combined = Single<br>Group = Single |
 | `tooltip-default` | `Body` ("Body line text lorem ipsum dolor sit amet, consectetur") | none | none |
 | `whats-new-dropdown` | `Detail`, `EmptyLabel` ("No release updates"), `Items`, `Title` ("What's new") | `Property 1` = Drilldown1 / Drilldown2 / Empty / List | Drilldown2 = Drilldown1 |

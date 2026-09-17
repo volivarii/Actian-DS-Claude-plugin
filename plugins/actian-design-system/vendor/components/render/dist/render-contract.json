@@ -363,8 +363,7 @@
       "group": "Form",
       "props": [
         {
-          "name": "Label",
-          "default": "Label"
+          "name": "Label"
         }
       ],
       "variants": {
@@ -395,6 +394,9 @@
     "checkbox-card": {
       "group": "Form",
       "props": [
+        {
+          "name": "Label"
+        },
         {
           "name": "Slot"
         }
@@ -737,8 +739,7 @@
           "name": "Helper"
         },
         {
-          "name": "Label",
-          "default": "Label"
+          "name": "Label"
         },
         {
           "name": "Placeholder",
@@ -1115,8 +1116,7 @@
           "name": "Label"
         },
         {
-          "name": "Label text",
-          "default": "Label"
+          "name": "Label text"
         }
       ],
       "variants": {
@@ -1637,8 +1637,7 @@
           "name": "Helper text"
         },
         {
-          "name": "Label",
-          "default": "Label"
+          "name": "Label"
         },
         {
           "name": "Show Helper text"
@@ -1671,6 +1670,9 @@
     "radio-card": {
       "group": "Form",
       "props": [
+        {
+          "name": "Label"
+        },
         {
           "name": "Slot"
         }
@@ -1887,16 +1889,13 @@
           "default": "Source Application: App 120"
         },
         {
-          "name": "Glossary initials",
-          "default": "VH"
+          "name": "Glossary initials"
         },
         {
-          "name": "Glossary label",
-          "default": "Vehicle"
+          "name": "Glossary label"
         },
         {
-          "name": "Stage",
-          "default": "Stage"
+          "name": "Stage"
         },
         {
           "name": "Tech name",
@@ -2122,8 +2121,7 @@
       "group": "Form",
       "props": [
         {
-          "name": "Label",
-          "default": "Label"
+          "name": "Label"
         },
         {
           "name": "Placeholder text",
@@ -2191,8 +2189,7 @@
           "name": "Helper text"
         },
         {
-          "name": "Label",
-          "default": "Label"
+          "name": "Label"
         },
         {
           "name": "Show Helper text"

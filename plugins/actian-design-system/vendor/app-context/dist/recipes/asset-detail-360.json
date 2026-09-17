@@ -37,6 +37,11 @@
     "right-suggestions": "Not drawn here. A four-way segmented control (Accepted, Rejected, Pending, All) over suggestion cards: author avatar, name, relative time, status at the right, body text, a comment textarea, and a Reject/Accept footer pair.",
     "toast": "Not drawn here. A transient error toast appears bottom-centre on a slow response. It is real chrome on this page, and the DS tier has no toast component to carry it."
   },
+  "undrawnSlots": [
+    "right-people",
+    "right-suggestions",
+    "toast"
+  ],
   "renderNotes": [
     "Inside a VERTICAL frame, never set `sizing.horizontal:\"FILL\"`. `render-node.js` emits `flex:1` for it with no axis awareness, so in a column it distributes HEIGHT; width already fills because the renderer only sets `align-items` when `counterAxisAlignItems` is given, so the flex default of `stretch` applies. FILL is correct only for children of a HORIZONTAL frame, which is why the two body columns carry it and nothing below them does. Plugin #298.",
     "`fmTabs` reads `Tabs` (a comma-separated string or an array) and `Active`. It has no per-tab children and no count badge, so a count has to be written into the label text.",
@@ -208,7 +213,8 @@
                 "size": 12,
                 "color": "var(--zen-color-text-tertiary)"
               }
-            ]
+            ],
+            "slot": "header"
           },
           {
             "type": "FRAME",
@@ -310,7 +316,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "slot": "tabs"
           },
           {
             "type": "DIVIDER"
@@ -326,6 +333,7 @@
               {
                 "type": "FRAME",
                 "name": "Left column",
+                "slot": "left",
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 22
@@ -1000,7 +1008,8 @@
                       }
                     ]
                   }
-                ]
+                ],
+                "slot": "right"
               }
             ]
           }

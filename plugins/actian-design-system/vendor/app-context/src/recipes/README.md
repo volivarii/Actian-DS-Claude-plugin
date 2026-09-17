@@ -96,6 +96,24 @@ claims to describe is a guess.
 Carry a `renderNotes` array. It records the renderer behaviours an author must know to make the
 composition draw correctly, so the next recipe does not rediscover them by looking at a broken page.
 
+A recipe's `slots` object names the regions the pattern promises (`../patterns/`'s prose already
+says what they are; the recipe says what covers them). A node's own `slot` field (a string, or an
+array when one node carries more than one region at once) says which declared key that node draws;
+`undrawnSlots` lists a declared key the skeleton deliberately does not draw at all, rather than
+silently missing it. The coverage rule every declared slot key must satisfy is: declared = carried
+∪ undrawn, and never both for the same key. `tests/app-context-recipes.test.js`'s slot-coverage gate
+checks this over every dist recipe, so a slot that is neither drawn nor named as skipped is caught
+before a consumer goes looking for a region that was never actually promised or actually built.
+
+`derivedFrom.screenshot` names the product screenshot a recipe was composed against, a relative path
+under `captures/` (e.g. `captures/faceted-browse.png`). What goes there is a screenshot of the real
+running product surface, never a Figma frame: the frame is the design, `derivedFrom.screenshot` is
+what a reader compares a render TO, and the two answer different questions. The plugin's look step is
+what reads it, opening the render beside this file so a person (or a future automated check) can tell
+a faithful composition from a guess. `faceted-browse.png`, the one committed today, is a dev-tenant
+capture carrying the pre-Actian wordmark and a personal avatar; swap it for a clean one at PR time if
+that matters for the audience, since neither affects what the recipe itself asserts.
+
 ## Status: wired
 
 A recipe is derived per slug to `app-context/dist/recipes/<slug>.json`, validated against
@@ -150,6 +168,14 @@ The fragments this file said belong with the renderer (`overlay`, `action-bar`, 
 `composition-*` archetypes) are still not captures, and that position stands for them. A section is
 the other thing: a capture of a part. See `../sections/README.md` for the rules.
 
+A `{ "type": "SECTION", "section": "<slug>" }` reference node may also carry `slot`, the one per-use
+exception to "a section's content is edited only in the section file": `inlineSections` stamps it
+onto root 0 of the spliced-in subtree (the first top-level node of the section's own
+`skeleton.content`), overriding whatever `slot` that root authored on itself. It reaches root 0
+only; any other root of a multi-root section keeps whatever `slot` it authored, stamped or not. Any
+OTHER key on a SECTION reference node besides `type`, `section` and `slot` is still rejected, so
+`slot` does not reopen per-use content overrides in general, just this one narrow, addressable case.
+
 ## Known gap in the pattern set
 
 `faceted-browse` now exists in `../patterns/`, added here because the derive refuses to emit a recipe
@@ -163,3 +189,64 @@ it. Tracked as #558, which found the deeper cause: the pattern schema is `additi
 over five fields with nowhere to record when a pattern applies or which neighbour to use instead, and
 25 of the 31 patterns claim `studio`. Correcting the prose alone would leave the next reader with the
 same 25-way choice, so the fix is a selection field first.
+
+## The third capture, 2026-09-16: composed from DS leaves
+
+`faceted-browse` was re-authored, leaf by leaf, from the FM-tier `fmCheckbox` + `fmTag` + TEXT
+compositions the second capture left behind to real DS-tier INSTANCE nodes: `{ "type": "INSTANCE",
+"library": "ds", "dsSlug": "<slug>", "variant": "...", "props": {...} }`, the same shape
+`render-node.js` already dispatches on for a generated screen's `library:"ds"` nodes. The two prior
+captures proved the FM vocabulary reached the page; this one proves the DS vocabulary does too, with
+no gap. `item-type-tag` gives every facet row and the rail a real per-type colour (the six Studio item
+types resolve straight onto its `Type` axis, no `Custom-N` or `Glossary-N` stand-in needed);
+`search-result-card` replaced the three hand-built result cards with six; `pagination` closes the
+results pane, which had none. `../sections/control-bar.json` moved the same way: its results-header
+and bulk-bar roots now carry `button` and `checkbox` instances instead of an `fmButton` + `fmCheckbox`
++ TEXT composition.
+
+**Held.** No new DS component was needed either, mirroring the first capture's FM finding: every leaf
+this composition reaches for (`checkbox`, `toggle`, `dropdown-select-default`, `item-type-tag`,
+`search-result-card`, `read-only-tag`, `progress-bar-small`, `pagination`, `button`) is already
+`**BUILT**` in `references/generate-flow/ds-components-authoring.md`.
+
+**Corrected.** `search-result-card` reads less than its variant vocabulary suggests, recorded in
+`renderNotes` rather than papered over: it carries no completion or sharing prop, so the completion
+meter and the Shared tag are siblings (`progress-bar-small`, `read-only-tag`) rather than something the
+card itself renders.
+
+**Review round 2, 2026-09-16 (plan defect, superseding the paragraph above in the original submission):
+the bulk bar first drew a `toolbar` instance for the four bulk verbs.** That was wrong on its own
+terms, not merely under-expressive: `toolbar`'s `Type` axis (Single/Combined/Group) has no rendering
+effect at all (only `Orientation` and `Show View scale` do), and its icon group is hardcoded to
+filter/sort/view/more, which the product's bulk bar does not show at all -- the four verbs it does
+show (Edit / Move to catalog / Delete / Export selection) were dropped entirely, and a second `Sort`
+control was left standing on the right redundant with the header's own sort. Fixed: `toolbar` removed;
+the four verbs restored as `button Type=Tertiary` leaves, capture content (the product always names
+these same four words here), with the row reordered to match the product -- checkbox, then `Sort
+{{sort_label}}` immediately after it, then the four verbs -- and the redundant second sort control
+gone. No DS-tier bulk-action-bar leaf exists (checked
+`ds-components-authoring.md`'s vocabulary table), named as a follow-up in `control-bar.json`'s own
+`renderNotes`.
+
+**A section gains its first DS-primary INSTANCE.** Every prior section kept the FM-primary `{ ref, ds
+}` pair the two `tests/app-context-sections.test.js` gates were written against. `control-bar.json`'s
+`checkbox` and `button` instances have no FM equivalent authored here either (this section was
+composed directly in the DS-primary shape, not converted from an FM one), so neither carries a `ref`;
+both gates (`every DS slug ... resolves in the DS kit registry` and `every INSTANCE ... carries a ds
+slug`) were extended to also recognise a `{ library: "ds", dsSlug }` node as a first-class DS identity,
+checked exactly as strictly as the `ref`+`ds` shape already was, not exempted from it. Proven RED before
+GREEN by planting an unregistered `dsSlug` and reverting it, per this repo's gate doctrine. Still true
+after the round-2 fix removed `toolbar`, the node that first exercised this: `checkbox` and `button`
+need the same extension on their own.
+
+Not a lo-fi regression: `render-node.js` dispatches per node on `library === "ds"`, straight to
+`ds-html-map.js`, independently of the `--skin lofi`/hi-fi choice (a CSS-only overlay,
+`lofi-skin.js`, that grays non-focus text and `[class*="ds-"]` sub-elements regardless of which map
+drew them). A DS-primary node was never FM-only territory; this capture just no longer carries an FM
+`ref` alongside it.
+
+Not done here, and named so the next reader does not assume it was: every OTHER recipe and section
+still authors FM-primary `{ ref, ds }` pairs, converted to their DS equivalent by a page generated with
+`--hifi` through `transform-to-hifi.js` + `fm-to-ds-map.json`. Unifying every capture onto one
+DS-primary vocabulary (so that hand-kept map has nothing left to do) is Move 2, tracked separately;
+this capture and `control-bar` are the first two composed directly in it, not a general migration.

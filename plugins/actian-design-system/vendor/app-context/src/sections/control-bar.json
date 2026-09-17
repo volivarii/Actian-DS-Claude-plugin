@@ -3,37 +3,33 @@
   "kind": "section",
   "slug": "control-bar",
   "label": "Control bar",
-  "description": "The two rows above a result list: the results header ('N results' and Save filters) and the bulk action bar (select-all checkbox, Edit, Move to catalog, Delete, Export selection; Sort on the right).",
+  "description": "The two rows above a result list: the results header ('N results' and Save filters) and the bulk action bar (select-all checkbox, Sort immediately after it, then Edit / Move to catalog / Delete / Export selection).",
   "role": "control-bar",
-  "apps": [
-    "studio"
-  ],
-  "patterns": [
-    "faceted-browse"
-  ],
-  "tags": [
-    "results",
-    "bulk",
-    "sort"
-  ],
+  "apps": ["studio"],
+  "patterns": ["faceted-browse"],
+  "tags": ["results", "bulk", "sort"],
   "derivedFrom": {
     "surface": "Studio > Catalog",
     "capturedOn": "2026-08-18",
     "productVersion": "studio-dev"
   },
   "slots": {
-    "results-header": "'{{result_count}} results' at 22px on the left, an outline pill 'Save filters' on the right.",
-    "bulk-bar": "A checkbox followed by the bulk verbs as plain text, and the sort control as text on the right."
+    "results-header": "'{{result_count}} results' at 24px on the left, a secondary 'Save filters' button on the right.",
+    "bulk-bar": "A select-all checkbox, the sort control as text immediately after it, then the four bulk-action verbs (Edit / Move to catalog / Delete / Export selection) as plain-text buttons, in that order, matching the product row."
   },
   "renderNotes": [
     "Two sibling frames, spliced in this order; the DIVIDER that follows them belongs to the page recipe.",
-    "`fmCheckbox` renders no text: the verbs are TEXT siblings."
+    "checkbox renders no label element when Label is the empty string (Task 1.2).",
+    "button's variant here (`Type=Secondary, State=Default` for Save filters; `Type=Tertiary, State=Default` for the four bulk verbs) is the renderer's legacy Type axis (ds-html-map.js button case, typeMap fallback), not the Intent/Emphasis/Size/State axis pair the authoring doc's vocabulary table documents as current; both are read by the same case, so this is a deliberate, working choice, not a stale example. Type=Tertiary paints `background: transparent` with no visible border (ds-base.css), which is the closest built equivalent to the capture's plain-text bulk verbs.",
+    "Review round 2 (Important, plan defect): the bulk bar previously drew a `toolbar` instance, which the product does not have here (it draws Filter/Sort/View/More icons instead, and dropped the four verbs the product actually shows). Removed. No DS-tier bulk-action-bar leaf exists at all (checked ds-components-authoring.md's vocabulary table), so the four verbs are carried as `button Type=Tertiary` leaves, capture content rather than placeholders (the product always shows these same four words on this row), until a dedicated component ships -- a follow-up, not done here.",
+    "This section's own {{...}} placeholders: {{result_count}} (also used independently by the page recipe's rail) and {{sort_label}}."
   ],
   "skeleton": {
     "content": [
       {
         "type": "FRAME",
         "name": "Results header",
+        "slot": "results-header",
         "layout": {
           "mode": "HORIZONTAL",
           "spacing": 0,
@@ -45,18 +41,16 @@
             "type": "TEXT",
             "content": "{{result_count}} results",
             "font": "Inter:Semi Bold",
-            "size": 22,
+            "size": 24,
             "color": "var(--zen-color-text-default)"
           },
           {
             "type": "INSTANCE",
-            "ref": "fmButton",
-            "ds": "button",
-            "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Type=Secondary, State=Default",
             "props": {
-              "Label#1411:32": "Save filters",
-              "👁 Leading Icon": false,
-              "👁 Trailing Icon": false
+              "Label": "Save filters"
             }
           }
         ]
@@ -64,75 +58,65 @@
       {
         "type": "FRAME",
         "name": "Bulk action bar",
+        "slot": "bulk-bar",
         "layout": {
           "mode": "HORIZONTAL",
-          "spacing": 0,
-          "padding": [
-            10,
-            0,
-            10,
-            0
-          ],
-          "primaryAxisAlignItems": "SPACE_BETWEEN",
+          "spacing": 18,
+          "padding": [10, 0, 10, 0],
           "counterAxisAlignItems": "CENTER"
         },
         "children": [
           {
-            "type": "FRAME",
-            "name": "Bulk left",
-            "layout": {
-              "mode": "HORIZONTAL",
-              "spacing": 18,
-              "counterAxisAlignItems": "CENTER"
-            },
-            "children": [
-              {
-                "type": "INSTANCE",
-                "ref": "fmCheckbox",
-                "ds": "checkbox",
-                "variant": "State=Off",
-                "props": {}
-              },
-              {
-                "type": "TEXT",
-                "content": "Edit",
-                "font": "Inter:Regular",
-                "size": 13,
-                "color": "var(--zen-color-text-secondary)"
-              },
-              {
-                "type": "TEXT",
-                "content": "Move to catalog",
-                "font": "Inter:Regular",
-                "size": 13,
-                "color": "var(--zen-color-text-secondary)"
-              },
-              {
-                "type": "TEXT",
-                "content": "Delete",
-                "font": "Inter:Regular",
-                "size": 13,
-                "color": "var(--zen-color-text-secondary)"
-              },
-              {
-                "type": "TEXT",
-                "content": "Export selection",
-                "font": "Inter:Regular",
-                "size": 13,
-                "color": "var(--zen-color-text-secondary)"
-              }
-            ],
-            "sizing": {
-              "horizontal": "HUG",
-              "vertical": "HUG"
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "checkbox",
+            "variant": "Selection=Unchecked, State=Default",
+            "props": {
+              "Label": ""
             }
           },
           {
             "type": "TEXT",
-            "content": "Sort by  Name ASC",
+            "content": "Sort  {{sort_label}}",
             "font": "Inter:Regular",
             "size": 13,
             "color": "var(--zen-color-text-default)"
+          },
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Type=Tertiary, State=Default",
+            "props": {
+              "Label": "Edit"
+            }
+          },
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Type=Tertiary, State=Default",
+            "props": {
+              "Label": "Move to catalog"
+            }
+          },
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Type=Tertiary, State=Default",
+            "props": {
+              "Label": "Delete"
+            }
+          },
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Type=Tertiary, State=Default",
+            "props": {
+              "Label": "Export selection"
+            }
           }
         ]
       }

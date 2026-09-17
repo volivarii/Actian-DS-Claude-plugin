@@ -27,3 +27,11 @@ The first five sections were extracted from the three Studio captures without ch
 derived page skeletons (proven by comparing dist skeletons before and after). `action-footer` was
 captured from Studio > New Item on 2026-09-11. The Explorer drawer header stays inline in
 `right-sliding-drawer` for now: a different shape for a different app.
+
+A section's own top-level `skeleton.content[]` node(s) may self-tag `slot`, naming which of a
+REFERENCING page recipe's declared slots that root fulfils (`control-bar.json`'s `results-header`
+and `bulk-bar` roots do this, so a page recipe that splices `control-bar` gets both slots covered
+without stamping anything itself). A page recipe's own SECTION reference node may still carry
+`slot` too, which wins over a section-authored value, but only on root 0 of the splice; any other
+root keeps whatever it self-tagged. See `../recipes/README.md`'s "Sections" section for the full
+stamping rule.

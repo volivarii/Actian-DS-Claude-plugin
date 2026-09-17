@@ -4,12 +4,8 @@
   "label": "Faceted browse",
   "description": "Three pane faceted browse over a large item set: app sidebar, a fixed-width filter rail of collapsible facet groups, and a result list of composed cards. The defining trait is scale: a live total, per-facet counts, and results that carry their own metadata rather than fitting table columns. Derived from the Studio Catalog page.",
   "when": "Use when the user browses or narrows a large collection by several independent facets at once. Do NOT use table-list: a table cannot hold a filter rail, per-facet counts, or a result unit richer than a row. Do NOT use search-filtered-table, which is explicitly the single-search-no-facets case.",
-  "apps": [
-    "studio"
-  ],
-  "patterns": [
-    "faceted-browse"
-  ],
+  "apps": ["studio"],
+  "patterns": ["faceted-browse"],
   "tags": [
     "search",
     "browse",
@@ -22,7 +18,8 @@
   "derivedFrom": {
     "surface": "Studio > Catalog",
     "capturedOn": "2026-08-18",
-    "productVersion": "studio-dev"
+    "productVersion": "studio-dev",
+    "screenshot": "captures/faceted-browse.png"
   },
   "slots": {
     "rail": "Filter rail: a range facet, a counted checkbox facet list, a toggle facet, and type-to-search selects",
@@ -34,7 +31,18 @@
     "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal:\"FILL\"` emits `flex:1`, which in a column container stretches them vertically and distributes the height evenly.",
     "fmSlider and fmProgressBar read the VARIANT (Progress= / Completion=), not props, and collapse to zero width inside a centred row unless hosted in a fixed-width frame.",
     "fmCheckbox and fmToggle render no text; pair them with a sibling TEXT node.",
-    "Use DIVIDER for full-width rules. RECT takes a fixed pixel width and will not span."
+    "Use DIVIDER for full-width rules. RECT takes a fixed pixel width and will not span.",
+    "The six facet rows carry item-type-tag Type values resolved straight off the registry axis, one per Studio item type: facet1=Data product, facet2=Dataset, facet3=Visualization, facet4=Data process, facet5=Use case, facet6=Category. That axis mapping is a structural fact of the page (the six Studio item types are always these six facets, in this order), so Type= is authored as a real value, not a placeholder. The chip's short initials (item-type-tag's Label prop) are NOT: review round 2 found captures/faceted-browse.png actually reads DP, Da, Vi, DP, UC, Ap, including two differently-coloured \"Data Products\" rows sharing the same two-letter initial, which makes the initials per-tenant data, not a registry fact this recipe can author once and reuse. Carried as placeholders {{facet1_initials}} through {{facet6_initials}} accordingly, one per facet row, matching the {{facetN_label}}/{{facetN_count}} placeholders already beside them. item-type-tag's own case (ds-html-map.js) falls back to the raw Type text when Label is empty, so an unsubstituted placeholder never regresses to a blank chip; a real render substitutes the tenant's own initials at render time.",
+    "item-type-tag reads props[\"Show counter\"] || props[\"Show Counter\"] (registry kept both spellings across the glossary/catalog fold-in); either one true shows the counter badge, and both default false, so the registry default is off, not on.",
+    "checkbox, toggle and dropdown-select-default render no label element at all when Label is the empty string (Task 1.2), which is how a facet row's own TEXT sibling stays the only visible label.",
+    "The results-header/bulk-bar leaves (button, checkbox) are authored in ../sections/control-bar.json, spliced in here as the SECTION node above; its own renderNotes carry their deviations.",
+    "search-result-card has no completion or sharing prop (Body, Catalog, Description, Featured property 1/2, Glossary initials/label, Stage, Tech name, Title, Type only). The completion meter is a sibling progress-bar-small (own Percent text, no separate TEXT, per the doubled-percent rule above); the Shared indicator is a sibling read-only-tag Type=Shared. read-only-tag's Type=Shared paints #cbe3ff (ds-base.css .ds-tag--shared), a light blue, not a literally dark fill; it is the leaf whose Type axis names Shared, and the closest built equivalent to the capture's dark filled fmTag.",
+    "search-result-card's own Type text renders inside a single always-colored eyebrow pill (.ds-search-result-card__type, background var(--zen-color-error-50)); the fill does not change with the Type value, only the text does.",
+    "All six results render a Shared tag; the recipe does not model a non-shared result, matching every sample row in the capture. The marker is a sibling read-only-tag placed BEFORE the search-result-card instance, not inside it: the leaf has no shared prop and no slot for one, so it sits to the left of the whole card rather than in the title row the way the product's own Shared indicator does. A leaf-level shared marker (a real prop or slot on search-result-card) is a follow-up, not done here.",
+    "derivedFrom.screenshot is a 2026-03-30 product capture of Studio > Catalog on the dev tenant (1583x1100), not the 2026-08-18 capture derivedFrom.capturedOn names: the original 08-18 screenshot was not retained on disk, and this is the closest real capture of the same surface, not the Figma frame (the design, not the product).",
+    "No DS-tier slider exists (checked ds-components-authoring.md's vocabulary table): the range facet keeps fmSlider, unreplaced, same as the pre-2.2 capture.",
+    "Review round 1 (Critical): search-result-card's Stage pill and glossary badge painted unconditional fallback text (\"Stage\", \"VH\", \"Vehicle\") even when the props were omitted, the same defect Task 1.2 fixed for Label elsewhere. Fixed in ds-html-map.js: no Stage prop draws no stage pill at all; no Glossary initials AND no Glossary label draws no glossary badge at all. This recipe's six cards set Stage, Glossary initials and Glossary label to \"\" because the captured product page names neither a lifecycle stage nor a glossary relationship for these six sample rows; a future capture that has real values for either should set them instead of leaving them empty.",
+    "Every {{...}} placeholder this recipe's own skeleton carries (71 keys), grouped so a future author can check coverage without grepping: facets -- {{facet1_count}}, {{facet1_initials}}, {{facet1_label}}, {{facet2_count}}, {{facet2_initials}}, {{facet2_label}}, {{facet3_count}}, {{facet3_initials}}, {{facet3_label}}, {{facet4_count}}, {{facet4_initials}}, {{facet4_label}}, {{facet5_count}}, {{facet5_initials}}, {{facet5_label}}, {{facet6_count}}, {{facet6_initials}}, {{facet6_label}}, {{facet_overflow}}, {{range_facet_label}}, {{select1_label}}, {{select2_label}}, {{select3_label}}, {{toggle_facet_label}}, {{toggle_label}}; results -- {{result_count}}, {{result_1_completion}}, {{result_1_connection}}, {{result_1_description}}, {{result_1_tech}}, {{result_1_title}}, {{result_1_type}}, {{result_1_updated}}, {{result_2_completion}}, {{result_2_connection}}, {{result_2_description}}, {{result_2_tech}}, {{result_2_title}}, {{result_2_type}}, {{result_2_updated}}, {{result_3_completion}}, {{result_3_connection}}, {{result_3_description}}, {{result_3_tech}}, {{result_3_title}}, {{result_3_type}}, {{result_3_updated}}, {{result_4_completion}}, {{result_4_connection}}, {{result_4_description}}, {{result_4_tech}}, {{result_4_title}}, {{result_4_type}}, {{result_4_updated}}, {{result_5_completion}}, {{result_5_connection}}, {{result_5_description}}, {{result_5_tech}}, {{result_5_title}}, {{result_5_type}}, {{result_5_updated}}, {{result_6_completion}}, {{result_6_connection}}, {{result_6_description}}, {{result_6_tech}}, {{result_6_title}}, {{result_6_type}}, {{result_6_updated}}; header -- {{app}}; pagination -- {{page_count}}; catalog -- {{catalog}}. The spliced-in ../sections/control-bar.json carries two more of its own ({{result_count}} again, plus {{sort_label}}), inventoried in its own renderNotes."
   ],
   "skeleton": {
     "chrome": "standard",
@@ -51,15 +59,11 @@
           {
             "type": "FRAME",
             "name": "Filter rail",
+            "slot": "rail",
             "layout": {
               "mode": "VERTICAL",
               "spacing": 12,
-              "padding": [
-                0,
-                20,
-                0,
-                0
-              ]
+              "padding": [0, 20, 0, 0]
             },
             "children": [
               {
@@ -75,12 +79,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -158,12 +157,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -193,7 +187,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Data Products",
+                    "name": "Facet: {{facet1_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -209,19 +203,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Data product",
                             "props": {
-                              "Tag Text": "DP"
+                              "Label": "{{facet1_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -231,15 +234,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "39",
+                        "content": "{{facet1_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -248,7 +247,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Datasets",
+                    "name": "Facet: {{facet2_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -264,19 +263,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Dataset",
                             "props": {
-                              "Tag Text": "Da"
+                              "Label": "{{facet2_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -286,15 +294,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "21515",
+                        "content": "{{facet2_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -303,7 +307,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Visualizations",
+                    "name": "Facet: {{facet3_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -319,19 +323,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Visualization",
                             "props": {
-                              "Tag Text": "Vi"
+                              "Label": "{{facet3_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -341,15 +354,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "225",
+                        "content": "{{facet3_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -358,7 +367,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Data Processes",
+                    "name": "Facet: {{facet4_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -374,19 +383,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Data process",
                             "props": {
-                              "Tag Text": "DP"
+                              "Label": "{{facet4_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -396,15 +414,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "375",
+                        "content": "{{facet4_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -413,7 +427,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Use Cases",
+                    "name": "Facet: {{facet5_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -429,19 +443,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Use case",
                             "props": {
-                              "Tag Text": "UC"
+                              "Label": "{{facet5_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -451,15 +474,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "14",
+                        "content": "{{facet5_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -468,7 +487,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Categories",
+                    "name": "Facet: {{facet6_label}}",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -484,19 +503,28 @@
                           "spacing": 8,
                           "counterAxisAlignItems": "CENTER"
                         },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
                         "children": [
                           {
                             "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
                           },
                           {
                             "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Category",
                             "props": {
-                              "Tag Text": "Ca"
+                              "Label": "{{facet6_initials}}",
+                              "Show counter": false
                             }
                           },
                           {
@@ -506,15 +534,11 @@
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
                           }
-                        ],
-                        "sizing": {
-                          "horizontal": "HUG",
-                          "vertical": "HUG"
-                        }
+                        ]
                       },
                       {
                         "type": "TEXT",
-                        "content": "1847",
+                        "content": "{{facet6_count}}",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -539,12 +563,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -591,9 +610,12 @@
                       },
                       {
                         "type": "INSTANCE",
-                        "ref": "fmToggle",
-                        "variant": "State=Off",
-                        "props": {}
+                        "library": "ds",
+                        "dsSlug": "toggle",
+                        "variant": "Toggle position=On right (default), Selection=Off, State=Default",
+                        "props": {
+                          "Label": ""
+                        }
                       }
                     ]
                   }
@@ -608,12 +630,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -643,11 +660,12 @@
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmDropdown",
-                    "variant": "Type=Placeholder",
+                    "library": "ds",
+                    "dsSlug": "dropdown-select-default",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Dropdown Text": "Choose a value",
-                      "Show label": false
+                      "Label": "",
+                      "Placeholder": "Type to search"
                     }
                   }
                 ]
@@ -658,12 +676,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -693,11 +706,12 @@
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmDropdown",
-                    "variant": "Type=Placeholder",
+                    "library": "ds",
+                    "dsSlug": "dropdown-select-default",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Dropdown Text": "Type to search",
-                      "Show label": false
+                      "Label": "",
+                      "Placeholder": "Type to search"
                     }
                   }
                 ]
@@ -708,12 +722,7 @@
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 10,
-                  "padding": [
-                    0,
-                    0,
-                    14,
-                    0
-                  ]
+                  "padding": [0, 0, 14, 0]
                 },
                 "children": [
                   {
@@ -743,11 +752,12 @@
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmDropdown",
-                    "variant": "Type=Placeholder",
+                    "library": "ds",
+                    "dsSlug": "dropdown-select-default",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Dropdown Text": "Type to search",
-                      "Show label": false
+                      "Label": "",
+                      "Placeholder": "Type to search"
                     }
                   }
                 ]
@@ -761,6 +771,7 @@
           {
             "type": "FRAME",
             "name": "Results pane",
+            "slot": "results",
             "layout": {
               "mode": "VERTICAL",
               "spacing": 8
@@ -775,98 +786,41 @@
               },
               {
                 "type": "FRAME",
-                "name": "Result: /why_not/table_with_slashes",
+                "name": "Result 1",
                 "layout": {
                   "mode": "HORIZONTAL",
                   "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
+                  "padding": [12, 0, 12, 0],
                   "counterAxisAlignItems": "MIN"
                 },
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmCheckbox",
-                    "variant": "State=Off",
-                    "props": {}
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
                   },
                   {
-                    "type": "FRAME",
-                    "name": "Card body",
-                    "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 5,
-                      "counterAxisAlignItems": "MIN"
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_1_type}}",
+                      "Title": "{{result_1_title}}",
+                      "Tech name": "[{{result_1_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_1_description}}",
+                      "Featured property 1": "Connection: {{result_1_connection}}",
+                      "Featured property 2": "Last updated: {{result_1_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
                     },
-                    "children": [
-                      {
-                        "type": "FRAME",
-                        "name": "Title row",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
-                            "props": {
-                              "Tag Text": "Dataset"
-                            }
-                          },
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Filled",
-                            "props": {
-                              "Tag Text": "Shared"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "/why_not/table_with_slashes",
-                            "font": "Inter:Semi Bold",
-                            "size": 14,
-                            "color": "var(--zen-color-text-primary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Category: 24 hour  /  Connection: snowflake_test_v2-thomas",
-                        "font": "Inter:Regular",
-                        "size": 12,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "No summary available",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Schema: PUBLIC",
-                        "font": "Inter:Regular",
-                        "size": 12,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "INSTANCE",
-                        "ref": "fmChip",
-                        "variant": "Outline=False",
-                        "props": {
-                          "Chip Text": "3 suggestions are pending."
-                        }
-                      }
-                    ],
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
@@ -874,72 +828,25 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Card meta",
+                    "name": "Meter",
                     "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 8,
-                      "counterAxisAlignItems": "MAX"
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
                     },
                     "children": [
                       {
-                        "type": "FRAME",
-                        "name": "Completion",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "primaryAxisAlignItems": "MAX",
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Outline",
-                            "props": {
-                              "Tag Text": "Draft"
-                            }
-                          },
-                          {
-                            "type": "FRAME",
-                            "name": "Meter",
-                            "layout": {
-                              "mode": "HORIZONTAL",
-                              "spacing": 0
-                            },
-                            "children": [
-                              {
-                                "type": "INSTANCE",
-                                "ref": "fmProgressBar",
-                                "variant": "Completion=20%",
-                                "props": {}
-                              }
-                            ],
-                            "sizing": {
-                              "horizontal": 96,
-                              "vertical": "HUG"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "20%",
-                            "font": "Inter:Regular",
-                            "size": 12,
-                            "color": "var(--zen-color-text-secondary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Last updated: Aug 18, 2026",
-                        "font": "Inter:Regular",
-                        "size": 11,
-                        "color": "var(--zen-color-text-tertiary)"
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_1_completion}}"
+                        }
                       }
-                    ],
-                    "sizing": {
-                      "horizontal": 230,
-                      "vertical": "HUG"
-                    }
+                    ]
                   }
                 ]
               },
@@ -948,91 +855,41 @@
               },
               {
                 "type": "FRAME",
-                "name": "Result: 24 hours",
+                "name": "Result 2",
                 "layout": {
                   "mode": "HORIZONTAL",
                   "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
+                  "padding": [12, 0, 12, 0],
                   "counterAxisAlignItems": "MIN"
                 },
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmCheckbox",
-                    "variant": "State=Off",
-                    "props": {}
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
                   },
                   {
-                    "type": "FRAME",
-                    "name": "Card body",
-                    "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 5,
-                      "counterAxisAlignItems": "MIN"
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_2_type}}",
+                      "Title": "{{result_2_title}}",
+                      "Tech name": "[{{result_2_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_2_description}}",
+                      "Featured property 1": "Connection: {{result_2_connection}}",
+                      "Featured property 2": "Last updated: {{result_2_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
                     },
-                    "children": [
-                      {
-                        "type": "FRAME",
-                        "name": "Title row",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
-                            "props": {
-                              "Tag Text": "Category"
-                            }
-                          },
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Filled",
-                            "props": {
-                              "Tag Text": "Shared"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "24 hours",
-                            "font": "Inter:Semi Bold",
-                            "size": 14,
-                            "color": "var(--zen-color-text-primary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "xw xw xw x xw x xw xw xw xwx",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-default)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Business Domain: Marketing;  IT",
-                        "font": "Inter:Regular",
-                        "size": 12,
-                        "color": "var(--zen-color-text-secondary)"
-                      },
-                      {
-                        "type": "INSTANCE",
-                        "ref": "fmChip",
-                        "variant": "Outline=False",
-                        "props": {
-                          "Chip Text": "2 suggestions are pending."
-                        }
-                      }
-                    ],
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
@@ -1040,64 +897,25 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Card meta",
+                    "name": "Meter",
                     "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 8,
-                      "counterAxisAlignItems": "MAX"
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
                     },
                     "children": [
                       {
-                        "type": "FRAME",
-                        "name": "Completion",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "primaryAxisAlignItems": "MAX",
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "FRAME",
-                            "name": "Meter",
-                            "layout": {
-                              "mode": "HORIZONTAL",
-                              "spacing": 0
-                            },
-                            "children": [
-                              {
-                                "type": "INSTANCE",
-                                "ref": "fmProgressBar",
-                                "variant": "Completion=70%",
-                                "props": {}
-                              }
-                            ],
-                            "sizing": {
-                              "horizontal": 96,
-                              "vertical": "HUG"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "70%",
-                            "font": "Inter:Regular",
-                            "size": 12,
-                            "color": "var(--zen-color-text-secondary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Last updated: Aug 6, 2026",
-                        "font": "Inter:Regular",
-                        "size": 11,
-                        "color": "var(--zen-color-text-tertiary)"
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_2_completion}}"
+                        }
                       }
-                    ],
-                    "sizing": {
-                      "horizontal": 230,
-                      "vertical": "HUG"
-                    }
+                    ]
                   }
                 ]
               },
@@ -1106,83 +924,41 @@
               },
               {
                 "type": "FRAME",
-                "name": "Result: 24/7",
+                "name": "Result 3",
                 "layout": {
                   "mode": "HORIZONTAL",
                   "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
+                  "padding": [12, 0, 12, 0],
                   "counterAxisAlignItems": "MIN"
                 },
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmCheckbox",
-                    "variant": "State=Off",
-                    "props": {}
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
                   },
                   {
-                    "type": "FRAME",
-                    "name": "Card body",
-                    "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 5,
-                      "counterAxisAlignItems": "MIN"
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_3_type}}",
+                      "Title": "{{result_3_title}}",
+                      "Tech name": "[{{result_3_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_3_description}}",
+                      "Featured property 1": "Connection: {{result_3_connection}}",
+                      "Featured property 2": "Last updated: {{result_3_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
                     },
-                    "children": [
-                      {
-                        "type": "FRAME",
-                        "name": "Title row",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Light",
-                            "props": {
-                              "Tag Text": "Category"
-                            }
-                          },
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmTag",
-                            "variant": "Style=Filled",
-                            "props": {
-                              "Tag Text": "Shared"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "24/7",
-                            "font": "Inter:Semi Bold",
-                            "size": 14,
-                            "color": "var(--zen-color-text-primary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "test",
-                        "font": "Inter:Regular",
-                        "size": 13,
-                        "color": "var(--zen-color-text-default)"
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Business Domain: Marketing",
-                        "font": "Inter:Regular",
-                        "size": 12,
-                        "color": "var(--zen-color-text-secondary)"
-                      }
-                    ],
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
@@ -1190,66 +966,246 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Card meta",
+                    "name": "Meter",
                     "layout": {
-                      "mode": "VERTICAL",
-                      "spacing": 8,
-                      "counterAxisAlignItems": "MAX"
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
                     },
                     "children": [
                       {
-                        "type": "FRAME",
-                        "name": "Completion",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 8,
-                          "primaryAxisAlignItems": "MAX",
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "FRAME",
-                            "name": "Meter",
-                            "layout": {
-                              "mode": "HORIZONTAL",
-                              "spacing": 0
-                            },
-                            "children": [
-                              {
-                                "type": "INSTANCE",
-                                "ref": "fmProgressBar",
-                                "variant": "Completion=50%",
-                                "props": {}
-                              }
-                            ],
-                            "sizing": {
-                              "horizontal": 96,
-                              "vertical": "HUG"
-                            }
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "50%",
-                            "font": "Inter:Regular",
-                            "size": 12,
-                            "color": "var(--zen-color-text-secondary)"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "Last updated: Aug 17, 2026",
-                        "font": "Inter:Regular",
-                        "size": 11,
-                        "color": "var(--zen-color-text-tertiary)"
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_3_completion}}"
+                        }
                       }
-                    ],
-                    "sizing": {
-                      "horizontal": 230,
-                      "vertical": "HUG"
-                    }
+                    ]
                   }
                 ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result 4",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [12, 0, 12, 0],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_4_type}}",
+                      "Title": "{{result_4_title}}",
+                      "Tech name": "[{{result_4_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_4_description}}",
+                      "Featured property 1": "Connection: {{result_4_connection}}",
+                      "Featured property 2": "Last updated: {{result_4_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
+                    },
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Meter",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_4_completion}}"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result 5",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [12, 0, 12, 0],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_5_type}}",
+                      "Title": "{{result_5_title}}",
+                      "Tech name": "[{{result_5_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_5_description}}",
+                      "Featured property 1": "Connection: {{result_5_connection}}",
+                      "Featured property 2": "Last updated: {{result_5_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
+                    },
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Meter",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_5_completion}}"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "FRAME",
+                "name": "Result 6",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "padding": [12, 0, 12, 0],
+                  "counterAxisAlignItems": "MIN"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
+                    "props": {
+                      "Label": "Shared",
+                      "Leading icon show": false
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "search-result-card",
+                    "variant": "App=Studio, State=Default",
+                    "props": {
+                      "Type": "{{result_6_type}}",
+                      "Title": "{{result_6_title}}",
+                      "Tech name": "[{{result_6_tech}}]",
+                      "Catalog": "{{catalog}}",
+                      "Description": "{{result_6_description}}",
+                      "Featured property 1": "Connection: {{result_6_connection}}",
+                      "Featured property 2": "Last updated: {{result_6_updated}}",
+                      "Stage": "",
+                      "Glossary initials": "",
+                      "Glossary label": ""
+                    },
+                    "sizing": {
+                      "horizontal": "FILL",
+                      "vertical": "HUG"
+                    }
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Meter",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 0
+                    },
+                    "sizing": {
+                      "horizontal": 96,
+                      "vertical": "HUG"
+                    },
+                    "children": [
+                      {
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "progress-bar-small",
+                        "props": {
+                          "Percent": "{{result_6_completion}}"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "DIVIDER"
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "pagination",
+                "props": {
+                  "Page": "1",
+                  "Pages": "{{page_count}}"
+                }
               }
             ],
             "sizing": {

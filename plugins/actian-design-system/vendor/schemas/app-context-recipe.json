@@ -19,7 +19,12 @@
     "_meta": {
       "type": "object",
       "description": "Stamped by the derive on the dist leaf only; absent from the authored source. Declared here because the root is additionalProperties:false, so without it no dist recipe validates against its own schema and the first validator wired into validate-schemas.yml would fail on every file.",
-      "examples": [{ "auto_generated": true, "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file." }]
+      "examples": [
+        {
+          "auto_generated": true,
+          "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+        }
+      ]
     },
     "slug": {
       "type": "string",
@@ -71,7 +76,9 @@
       "required": ["surface", "capturedOn"],
       "additionalProperties": false,
       "description": "Provenance of the composition. A recipe that has never been compared against the running product is a guess, so this field is required and records which screen it was taken from and when.",
-      "examples": [{ "surface": "Studio > Catalog", "capturedOn": "2026-08-18" }],
+      "examples": [
+        { "surface": "Studio > Catalog", "capturedOn": "2026-08-18" }
+      ],
       "properties": {
         "surface": {
           "type": "string",
@@ -88,6 +95,12 @@
           "type": "string",
           "description": "Version or environment of the product screen captured, when known.",
           "examples": ["studio-dev", "2026.8"]
+        },
+        "screenshot": {
+          "type": "string",
+          "pattern": "^captures/[a-z0-9-]+\\.png$",
+          "description": "Path, relative to app-context/src/recipes, of the product screenshot this composition was derived from. The plugin's look step opens a render beside it.",
+          "examples": ["captures/faceted-browse.png"]
         }
       }
     },
@@ -95,19 +108,32 @@
       "type": "object",
       "additionalProperties": { "type": "string" },
       "description": "Named regions of the page and what each holds, so a reader can see the shape without parsing the skeleton.",
-      "examples": [{ "rail": "Filter rail: a range facet, a counted checkbox facet list", "results": "Result cards" }]
+      "examples": [
+        {
+          "rail": "Filter rail: a range facet, a counted checkbox facet list",
+          "results": "Result cards"
+        }
+      ]
+    },
+    "undrawnSlots": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Keys of `slots` the skeleton does not draw at all (a fidelity or component gap, not an omission): no node carries that slot, by design. The reason lives in that slot's own prose in `slots`, not here. A key here must be a declared `slots` key, and must not also be carried by a skeleton node; `tests/app-context-recipes.test.js` enforces every declared slot as exactly one of carried or undrawn. The plugin's unfilled-slot check subtracts this list before flagging a slot as missing, so an entry here must mean the region is truly absent from the render, never merely untagged.",
+      "examples": [["results-header", "bulk-bar"], ["toast"]]
     },
     "renderNotes": {
       "type": "array",
       "items": { "type": "string" },
       "description": "Renderer behaviours an author must know for this composition to draw correctly. Written so the next recipe does not rediscover them by looking at a broken page.",
       "examples": [
-        ["Children of a VERTICAL frame must omit `sizing`: horizontal FILL emits flex:1, which in a column stretches them vertically."]
+        [
+          "Children of a VERTICAL frame must omit `sizing`: horizontal FILL emits flex:1, which in a column stretches them vertically."
+        ]
       ]
     },
     "skeleton": {
       "type": "object",
-      "description": "The composition itself: the node tree a consumer renders. Node-level shape is owned by the consuming renderer, so it is intentionally not constrained here beyond being an object.",
+      "description": "The composition itself: the node tree a consumer renders. Node-level shape is owned by the consuming renderer, so it is intentionally not constrained here beyond being an object. A node may carry \"slot\": \"<key>\" (or an array of keys, when one node is the sole carrier of more than one) naming key(s) of this recipe's slots; every slots key is either carried by a node this way or listed in undrawnSlots, and never both (tests/app-context-recipes.test.js). A { \"type\": \"SECTION\", \"section\": \"<slug>\" } splice node may also carry \"slot\"; the derive stamps it onto the root of the spliced-in subtree (the first root, if the section has several) so the region is still findable once the SECTION node itself is gone from dist (scripts/app-context/derive-recipes.js inlineSections).",
       "examples": [{ "chrome": "standard", "content": [] }]
     },
     "sections": {

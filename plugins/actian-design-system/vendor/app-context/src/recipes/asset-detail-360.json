@@ -4,20 +4,9 @@
   "label": "360 degree asset detail",
   "description": "The page every catalog object opens into: a full-width identity header, a tab bar across the object's facets, and a two-column body whose columns scroll independently. The left column holds the authored narrative (policy, glossary links, description, relations); the right column holds a completion meter over a second tab set (Properties, People, Suggestions) that is itself the densest form in the product. Derived from a Studio Dataset page.",
   "when": "Use for any single catalog object that has more facets than one screen can hold, where the facets are peers rather than steps. Do NOT use faceted-browse: this composes one object, not a collection. Do NOT use search-filtered-table for the whole page; that shape is real here but it is the content of ONE tab (Fields), not the page. The distinguishing trait is two independent tab levels plus two independently scrolling columns, so the tab bar and header stay fixed while either column moves. Observed in Studio; the pattern also claims Explorer, which this capture did not check.",
-  "apps": [
-    "studio"
-  ],
-  "patterns": [
-    "asset-detail-360"
-  ],
-  "tags": [
-    "detail",
-    "object",
-    "tabs",
-    "properties",
-    "stewardship",
-    "metadata"
-  ],
+  "apps": ["studio"],
+  "patterns": ["asset-detail-360"],
+  "tags": ["detail", "object", "tabs", "properties", "stewardship", "metadata"],
   "derivedFrom": {
     "surface": "Studio > Catalog > Dataset > General",
     "capturedOn": "2026-08-18",
@@ -32,6 +21,7 @@
     "right-suggestions": "Not drawn here. A four-way segmented control (Accepted, Rejected, Pending, All) over suggestion cards: author avatar, name, relative time, status at the right, body text, a comment textarea, and a Reject/Accept footer pair.",
     "toast": "Not drawn here. A transient error toast appears bottom-centre on a slow response. It is real chrome on this page, and the DS tier has no toast component to carry it."
   },
+  "undrawnSlots": ["right-people", "right-suggestions", "toast"],
   "renderNotes": [
     "Inside a VERTICAL frame, never set `sizing.horizontal:\"FILL\"`. `render-node.js` emits `flex:1` for it with no axis awareness, so in a column it distributes HEIGHT; width already fills because the renderer only sets `align-items` when `counterAxisAlignItems` is given, so the flex default of `stretch` applies. FILL is correct only for children of a HORIZONTAL frame, which is why the two body columns carry it and nothing below them does. Plugin #298.",
     "`fmTabs` reads `Tabs` (a comma-separated string or an array) and `Active`. It has no per-tab children and no count badge, so a count has to be written into the label text.",
@@ -60,11 +50,13 @@
         "children": [
           {
             "type": "SECTION",
-            "section": "item-header"
+            "section": "item-header",
+            "slot": "header"
           },
           {
             "type": "SECTION",
-            "section": "facet-tabs"
+            "section": "facet-tabs",
+            "slot": "tabs"
           },
           {
             "type": "DIVIDER"
@@ -80,6 +72,7 @@
               {
                 "type": "FRAME",
                 "name": "Left column",
+                "slot": "left",
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 22
@@ -232,12 +225,7 @@
                           "mode": "VERTICAL",
                           "spacing": 10,
                           "counterAxisAlignItems": "CENTER",
-                          "padding": [
-                            40,
-                            0,
-                            40,
-                            0
-                          ]
+                          "padding": [40, 0, 40, 0]
                         },
                         "children": [
                           {
@@ -261,7 +249,8 @@
               },
               {
                 "type": "SECTION",
-                "section": "properties-panel"
+                "section": "properties-panel",
+                "slot": "right"
               }
             ]
           }
