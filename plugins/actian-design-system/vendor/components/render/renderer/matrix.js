@@ -110,7 +110,7 @@ var CSS_OWNERS = {
   "dropdown-select-default": ["ds-dropdown-select"],
   "global-header": ["ds-header"],
   "lineage-grouped-node": ["ds-lineage-group"],
-  "lineage": ["ds-lineage-node"],
+  lineage: ["ds-lineage-node"],
   "notification-dropdown": ["ds-notification-menu"],
   "progress-bar-small": ["ds-progress"],
   "search-dropdown-menu": ["ds-search-menu"],
@@ -329,8 +329,10 @@ var MATRIX_OVERRIDES = {
       label: "Default",
       variant: "",
       props: {
-        Series: "79, 74, 73, 76, 71, 76, 72, 66, 69, 65, 27, 15, 61, 51, 72, 74, 71, 75, 74, 62, 75, 77, 72, 77, 72, 48, 58, 61, 60, 64, 60, 67, 75, 70",
-        Comparison: "74, 64, 65, 78, 74, 77, 73, 68, 68, 71, 74, 73, 63, 76, 78, 76, 79, 76, 75, 74, 76, 75, 77, 72, 68, 72, 53, 58, 71, 74, 72, 77, 78, 80",
+        Series:
+          "79, 74, 73, 76, 71, 76, 72, 66, 69, 65, 27, 15, 61, 51, 72, 74, 71, 75, 74, 62, 75, 77, 72, 77, 72, 48, 58, 61, 60, 64, 60, 67, 75, 70",
+        Comparison:
+          "74, 64, 65, 78, 74, 77, 73, 68, 68, 71, 74, 73, 63, 76, 78, 76, 79, 76, 75, 74, 76, 75, 77, 72, 68, 72, 53, 58, 71, 74, 72, 77, 78, 80",
       },
     },
   ],
@@ -575,6 +577,7 @@ var MATRIX_OVERRIDES = {
           "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
         "Featured property 1": "Business Domain: IT",
         "Featured property 2": "Source Application: App 120",
+        "Glossary initials": "VH",
         "Glossary label": "Vehicle",
       },
     },
@@ -591,6 +594,7 @@ var MATRIX_OVERRIDES = {
           "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
         "Featured property 1": "Business Domain: IT",
         "Featured property 2": "Source Application: App 120",
+        "Glossary initials": "VH",
         "Glossary label": "Vehicle",
       },
     },
@@ -669,16 +673,24 @@ var MATRIX_OVERRIDES = {
   // App (Studio/Explorer) is the identity axis, but this leaf reads
   // Name/Type/Show Back, not Label -- curate both cells so the gallery
   // shows the faithful Studio default plus the minimal Explorer accent.
-  "drawer": [
+  drawer: [
     {
       label: "Studio",
       variant: "App=Studio",
-      props: { Name: "Financial Summary EY2024", Type: "Dataset", Completion: 50 },
+      props: {
+        Name: "Financial Summary EY2024",
+        Type: "Dataset",
+        Completion: 50,
+      },
     },
     {
       label: "Explorer",
       variant: "App=Explorer",
-      props: { Name: "Financial Summary EY2024", Type: "Dataset", Completion: 50 },
+      props: {
+        Name: "Financial Summary EY2024",
+        Type: "Dataset",
+        Completion: 50,
+      },
     },
   ],
 
@@ -793,7 +805,7 @@ var MATRIX_OVERRIDES = {
   // title with no body. Curate two real cells (mirrors the empty-state
   // override's rationale). The "Expanede" value is the literal registry
   // typo -- see the case comment.
-  "collapse": [
+  collapse: [
     {
       label: "Collapsed",
       variant: "State=Collapsed",
@@ -891,6 +903,17 @@ var SPECIMEN_PROPS = {
   // unset -- and these strings exist so the gallery shows a card with something
   // in it rather than an empty rectangle.
   card: { Slot: "Rows read in the last 30 days" },
+  // Task K: checkbox-card/radio-card's child control lost its own Label
+  // fallback (Task 1.2), and `selectionCard` in ds-html-map.js now forwards
+  // the CARD's own top-level Label straight through to it. NO Label entry
+  // here though, for the same reason checkbox-group/radio-group have none
+  // above: variantMatrix already sets `Label` on every generic cell to the
+  // cell's own Selection value ("Unselected", "Selected", "Indeterminate",
+  // "Disabled"), and a specimen prop loses to a prop the cell already sets --
+  // verified by rendering both fragments, not assumed. That axis-value text
+  // is what labels the gallery's checkbox/radio child today; a Label entry
+  // here would never reach it. Do not add one back without first checking
+  // variantMatrix, as the checkbox-group comment above says.
   "checkbox-card": {
     Slot: "Includes every dataset in the Finance catalog.",
   },
@@ -952,7 +975,7 @@ var SPECIMEN_PROPS = {
   stepper: { Body: "Optional body" },
 
   // authored: the capture holds "Date", "*" and "mm/dd/yyyy" but no helper layer
-  "calendar": { Helper: "Use MM/DD/YYYY." },
+  calendar: { Helper: "Use MM/DD/YYYY." },
 
   "dropdown-select-default": {
     // capture: anatomy/dropdown-select-default.json layer "description"
@@ -976,6 +999,16 @@ var SPECIMEN_PROPS = {
   // specimen content in a customer-facing bundle is not acceptable, so the
   // structure is kept and the address replaced.
   "global-header-account-dropdown": { Email: "account.user@example.com" },
+
+  // substituted, not captured: anatomy/label.json's text layer reads "Label",
+  // the raw Figma placeholder -- the same word a flow now renders nothing for
+  // when Label text is omitted (see ds-html-map.js case "label"). variantMatrix
+  // auto-sets `Label` (the show/hide boolean this leaf also reads) to the
+  // cell's variant name on every cell, but that is a different prop from the
+  // text content `Label text` reads, so without an entry here the gallery's
+  // label leaf rendered visibly empty once the placeholder fallback was
+  // removed. The structure is kept and the text replaced with real content.
+  label: { "Label text": "Dataset name" },
 };
 
 // Merge, never replace, and never in place: a cell's own prop wins, and the

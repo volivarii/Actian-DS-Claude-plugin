@@ -39,7 +39,13 @@
     "tab-people": "Two role sections, Curator and Contact, each headed by its label with an assign-person icon button at the right edge. A filled role draws an avatar chip carrying initials, the person's name and their job title on a second line, plus a remove control. An empty role draws an empty state, illustration over the sentence 'No curator has been assigned.'",
     "tab-suggestions": "A segmented control filtering by suggestion state, Accepted, Rejected, Pending and All, with Pending selected by default, over the matching suggestions. When none match it draws an empty state reading 'There are no suggestions for this filter.'"
   },
+  "undrawnSlots": [
+    "tab-properties",
+    "tab-people",
+    "tab-suggestions"
+  ],
   "renderNotes": [
+    "The `drawer-header` section splices to one FRAME that is simultaneously this recipe's `header`, `subtitle` and `metrics` regions (title row, catalog line, metric strip are its children, not separate roots); its SECTION node's `slot` is therefore an array (`[\"header\", \"subtitle\", \"metrics\"]`), stamped onto that one FRAME rather than split across three.",
     "Do NOT compose this from `fmDialog`. It is a stub: it returns a hardcoded `<div class=\"fm-dialog__title\">Dialog</div>` and an empty body, reads no props at all, and cannot be given a title, an action or any content. The drawer surface is composed as a plain FRAME at the captured width instead. This is the same trap recorded on `right-sliding-drawer`, repeated here because a reader of one recipe does not read the other.",
     "`fmProgressBar` reads its value from the VARIANT and not from props: the renderer takes `v.Completion || v.Progress || \"0%\"` and drops it straight into a CSS `width`. So the completion bar must be written as `\"variant\": \"Completion={{completion_percent}}\"`, and a props-borne `Completion` renders an empty bar. Because the value lands in a CSS width rather than in text, an unsubstituted `{{completion_percent}}` produces `width:{{completion_percent}}`, which the browser discards silently: the bar draws empty instead of showing the broken token. That is plugin #306 (no `{{token}}` check) with a failure mode that is invisible rather than merely ugly.",
     "`fmTabs` reads `Tabs` (a comma string or an array) plus `Active`, and renders no count badge. That costs nothing here: Studio's drawer tabs genuinely carry no counts, unlike Explorer's, so for this capture the renderer and the product agree.",
@@ -285,11 +291,17 @@
                   }
                 ]
               }
+            ],
+            "slot": [
+              "header",
+              "subtitle",
+              "metrics"
             ]
           },
           {
             "type": "INSTANCE",
             "ref": "fmTabs",
+            "slot": "tabs",
             "variant": "Type=Default",
             "props": {
               "Tabs": "General, Properties, People, Suggestions",
@@ -299,6 +311,7 @@
           {
             "type": "FRAME",
             "name": "Tab panel: General",
+            "slot": "tab-general",
             "layout": {
               "mode": "VERTICAL",
               "spacing": 20,

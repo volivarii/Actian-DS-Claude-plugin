@@ -62,6 +62,7 @@
           {
             "type": "FRAME",
             "name": "Drawer header",
+            "slot": "header",
             "layout": {
               "mode": "HORIZONTAL",
               "spacing": 8,
@@ -142,6 +143,7 @@
               {
                 "type": "FRAME",
                 "name": "Tag row",
+                "slot": "tags",
                 "layout": {
                   "mode": "HORIZONTAL",
                   "spacing": 8
@@ -184,6 +186,7 @@
               {
                 "type": "FRAME",
                 "name": "Section: Summary",
+                "slot": "summary",
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 8
@@ -208,6 +211,7 @@
               {
                 "type": "FRAME",
                 "name": "Section: Featured properties",
+                "slot": "featured-properties",
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 8
@@ -283,6 +287,7 @@
               {
                 "type": "INSTANCE",
                 "ref": "fmTabs",
+                "slot": "tabs",
                 "variant": "Type=Default",
                 "props": {
                   "Tabs": "Description, Fields {{fields_count}}, Properties {{properties_count}}, Contacts {{contacts_count}}, Suggestions {{suggestions_count}}",
@@ -292,6 +297,7 @@
               {
                 "type": "FRAME",
                 "name": "Tab panel: Description",
+                "slot": "tabs",
                 "layout": {
                   "mode": "VERTICAL",
                   "spacing": 8,

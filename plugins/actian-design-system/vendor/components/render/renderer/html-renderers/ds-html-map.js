@@ -333,8 +333,7 @@
     var fg = DIGRAM_ITEM_TYPE_TEXT[itemType];
     if (fg) {
       var fgToken = DIGRAM_ITEM_TYPE_TEXT_TOKENS[itemType];
-      style +=
-        ";color:" + (fgToken ? "var(" + fgToken + ", " + fg + ")" : fg);
+      style += ";color:" + (fgToken ? "var(" + fgToken + ", " + fg + ")" : fg);
     }
     return style;
   }
@@ -595,17 +594,21 @@
     var cardState = CARD_PAINTED_STATES[o.state]
       ? " " + o.cls + "--" + o.state.toLowerCase()
       : "";
-    // No Label prop, deliberately. Neither card PUBLISHES one -- checkbox-card
-    // publishes Dynamic content and four booleans, radio-card publishes Slot --
-    // and the label belongs to the control, which carries its own fallback. A
-    // Label here would have read as the card inventing content for a prop it
-    // does not have, and would have DISPLACED the checkbox's own "Label".
+    // Neither card PUBLISHES a Label prop of its own (checkbox-card publishes
+    // Dynamic content and four booleans; radio-card publishes Slot only), so
+    // there is nothing here to invent. But the child control's own Label
+    // fallback is gone (Task 1.2): with nothing forwarded it now renders no
+    // label at all, not the placeholder word "Label" the old comment here
+    // was guarding against displacing. So a caller who wants a labelled
+    // control passes Label at the CARD's own top level -- the same key the
+    // child reads -- and it is threaded straight through; "" or omitted
+    // forwards as no label, exactly like the child leaf itself.
     var control = renderDSComponent({
       type: "INSTANCE",
       library: "ds",
       dsSlug: o.child,
       variant: parts.join(","),
-      props: {},
+      props: { Label: o.label },
     });
     // An unset Slot invents no body copy: the slot is a published SLOT prop, so
     // its content belongs to the caller. The slot ELEMENT goes with it, for the
@@ -977,7 +980,7 @@
         }
 
         case "text-input": {
-          var inLabel = esc(props.Label || "Label");
+          var inLabel = props.Label ? esc(props.Label) : "";
           var inPlaceholder = esc(
             props["Placeholder text"] || "Placeholder text",
           );
@@ -995,9 +998,11 @@
             '<div class="' +
             fieldCls +
             '">' +
-            '<div class="ds-field__label-row"><span class="ds-field__label">' +
-            inLabel +
-            "</span></div>" +
+            (inLabel
+              ? '<div class="ds-field__label-row"><span class="ds-field__label">' +
+                inLabel +
+                "</span></div>"
+              : "") +
             '<div class="ds-input"><span class="ds-input__text">' +
             inPlaceholder +
             "</span>" +
@@ -1018,7 +1023,7 @@
               '<svg class="ds-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="2" rx="1" fill="currentColor"/></svg>';
           }
           if (v.State === "Disabled") cbCls += " is-disabled";
-          var cbLabel = esc(props.Label || "Label");
+          var cbLabel = props.Label ? esc(props.Label) : "";
           return (
             '<label class="' +
             cbCls +
@@ -1026,9 +1031,11 @@
             '<span class="ds-checkbox__check">' +
             cbGlyph +
             "</span>" +
-            '</span><span class="ds-checkbox__label">' +
-            cbLabel +
-            "</span></label>"
+            "</span>" +
+            (cbLabel
+              ? '<span class="ds-checkbox__label">' + cbLabel + "</span>"
+              : "") +
+            "</label>"
           );
         }
 
@@ -1037,7 +1044,7 @@
           if (v.Selection === "Selected") rbCls += " ds-radio--checked";
           if (v.Format === "Card format") rbCls += " ds-radio--card";
           if (v.State === "Disabled") rbCls += " is-disabled";
-          var rbLabel = esc(props.Label || "Label");
+          var rbLabel = props.Label ? esc(props.Label) : "";
           // Optional slot: no helper prop, no helper element. The gallery's
           // helper string lives in matrix.js SPECIMEN_PROPS, not here.
           var rbHelper =
@@ -1046,16 +1053,25 @@
                 esc(props["Helper text"]) +
                 "</span>"
               : "";
+          // Guard hoisted one level: with neither a label nor a helper, the
+          // wrapper itself is the empty element now (the label fallback that
+          // used to fill it is gone), so it is omitted too, not just the
+          // (already-empty) label span inside it.
+          var rbText =
+            rbLabel || rbHelper
+              ? '<span class="ds-radio__text">' +
+                (rbLabel
+                  ? '<span class="ds-radio__label">' + rbLabel + "</span>"
+                  : "") +
+                rbHelper +
+                "</span>"
+              : "";
           return (
             '<label class="' +
             rbCls +
             '">' +
             '<span class="ds-radio__circle"><span class="ds-radio__dot"></span></span>' +
-            '<span class="ds-radio__text"><span class="ds-radio__label">' +
-            rbLabel +
-            "</span>" +
-            rbHelper +
-            "</span>" +
+            rbText +
             "</label>"
           );
         }
@@ -1160,7 +1176,9 @@
           // modifier (the unowned-modifier census is FM-tier only).
           var fbClear =
             props["Show clear button"] === true
-              ? '<span class="ds-fieldbox__icon">' + renderIcon("close") + "</span>"
+              ? '<span class="ds-fieldbox__icon">' +
+                renderIcon("close") +
+                "</span>"
               : "";
           var fbTrail =
             props["Show trailing icon"] === true
@@ -1177,7 +1195,9 @@
             : "";
 
           return (
-            '<div class="' + fbCls + '">' +
+            '<div class="' +
+            fbCls +
+            '">' +
             fbLead +
             fbText +
             fbClear +
@@ -1206,7 +1226,9 @@
           // addition. Both conditions have to hold.
           var taLabel =
             props["Show label"] !== false && props.Label
-              ? '<span class="ds-text-area__label">' + esc(props.Label) + "</span>"
+              ? '<span class="ds-text-area__label">' +
+                esc(props.Label) +
+                "</span>"
               : "";
 
           // The count is part of the helper ROW in the capture, so it goes with
@@ -1223,15 +1245,22 @@
             : "";
           var taHelper =
             props["Show helper text"] !== false && (taHelperText || taCount)
-              ? '<div class="ds-text-area__footer">' + taHelperText + taCount + "</div>"
+              ? '<div class="ds-text-area__footer">' +
+                taHelperText +
+                taCount +
+                "</div>"
               : "";
 
           return (
-            '<div class="' + taCls + '">' +
+            '<div class="' +
+            taCls +
+            '">' +
             taLabel +
             '<div class="ds-text-area__box">' +
             (props.Slot
-              ? '<span class="ds-text-area__text">' + esc(props.Slot) + "</span>"
+              ? '<span class="ds-text-area__text">' +
+                esc(props.Slot) +
+                "</span>"
               : "") +
             "</div>" +
             taHelper +
@@ -1244,7 +1273,7 @@
           if (v.Selection === "On") tgCls += " ds-toggle--on";
           if (v["Toggle location"] === "Right") tgCls += " ds-toggle--right";
           if (v.State === "Disabled") tgCls += " is-disabled";
-          var tgLabel = esc(props.Label || "Label");
+          var tgLabel = props.Label ? esc(props.Label) : "";
           // Same as radio: optional slot, omitted when the prop is absent.
           var tgHelper =
             props["Helper text"] && props["Show Helper text"] !== false
@@ -1252,16 +1281,23 @@
                 esc(props["Helper text"]) +
                 "</span>"
               : "";
+          // Same hoist as radio: an empty wrapper still claims the row's 8px
+          // gap next to the switch, so it is omitted with neither piece.
+          var tgText =
+            tgLabel || tgHelper
+              ? '<span class="ds-toggle__text">' +
+                (tgLabel
+                  ? '<span class="ds-toggle__label">' + tgLabel + "</span>"
+                  : "") +
+                tgHelper +
+                "</span>"
+              : "";
           return (
             '<label class="' +
             tgCls +
             '">' +
             '<span class="ds-toggle__switch"><span class="ds-toggle__thumb"></span></span>' +
-            '<span class="ds-toggle__text"><span class="ds-toggle__label">' +
-            tgLabel +
-            "</span>" +
-            tgHelper +
-            "</span>" +
+            tgText +
             "</label>"
           );
         }
@@ -1456,7 +1492,8 @@
           // one -- against Global header, which is the captured default and so
           // keeps the base rule. Search/Multiple carries no fact and gets none.
           var searchType = String(v.Type || "").toLowerCase();
-          if (searchType === "explorer home") searchCls += " ds-search--emphasis";
+          if (searchType === "explorer home")
+            searchCls += " ds-search--emphasis";
           if (searchType === "inline") searchCls += " ds-search--inline";
           // Accept the kit's typo "Dsiabled" as well as the canonical spelling.
           if (v.State === "Disabled" || v.State === "Dsiabled") {
@@ -1777,7 +1814,9 @@
             '<span class="ds-header__logo" aria-hidden="true">' +
             renderGraphic(hasLockup ? logoSlug : "actian-pyramid") +
             "</span>" +
-            (hasLockup ? "" : '<span class="ds-header__app">' + headerApp + "</span>") +
+            (hasLockup
+              ? ""
+              : '<span class="ds-header__app">' + headerApp + "</span>") +
             "</div>";
 
           // Context dropdown: micro label (Catalog) + value in --zen-color-primary-500.
@@ -2365,8 +2404,7 @@
           var notifTypeRaw = (v.Type || "Default").toLowerCase();
           var notifCritical = notifTypeRaw === "critical";
           var notifCls =
-            "ds-toast" +
-            (notifCritical ? " ds-toast--critical" : "");
+            "ds-toast" + (notifCritical ? " ds-toast--critical" : "");
           var notifRole = notifCritical ? "alert" : "status";
           // capture: anatomy/toast.json text layer "Item deleted"
           var notifMsg = esc(props.Message || "Item deleted");
@@ -2459,8 +2497,7 @@
               .toLowerCase()
               .indexOf("expan") === 0;
           var accCls =
-            "ds-collapse" +
-            (accExpanded ? " ds-collapse--expanded" : "");
+            "ds-collapse" + (accExpanded ? " ds-collapse--expanded" : "");
           var accBody = accExpanded
             ? '<div class="ds-collapse__body">' +
               esc(props.Body || "") +
@@ -2540,10 +2577,10 @@
           // caller still names the message, the switch only turns it off.
           var dateHelper =
             props.Helper && props["Show message"] !== false
-            ? '<span class="ds-calendar__helper">' +
-              esc(props.Helper) +
-              "</span>"
-            : "";
+              ? '<span class="ds-calendar__helper">' +
+                esc(props.Helper) +
+                "</span>"
+              : "";
           return (
             '<div class="' +
             dateCls +
@@ -2566,7 +2603,8 @@
           // a content area below the toolbar.
           var rtExpanded = v.State === "Expanded";
           var rtCls =
-            "ds-rich-text-froala" + (rtExpanded ? " ds-rich-text-froala--expanded" : "");
+            "ds-rich-text-froala" +
+            (rtExpanded ? " ds-rich-text-froala--expanded" : "");
           function rtBtn(iconSlug, label) {
             return (
               '<button class="ds-rich-text-froala__btn" type="button" aria-label="' +
@@ -2629,16 +2667,27 @@
               esc(props.Helper) +
               "</span>"
             : "";
+          var ddLabel = props.Label ? esc(props.Label) : "";
+          // Guard hoisted one level: with neither a label nor a description,
+          // the row itself is the empty element (an 8px column gap above the
+          // select with nothing in it), so it is omitted, not just its
+          // (already-empty) label span.
+          var ddLabelRow =
+            ddLabel || ddDesc
+              ? '<div class="ds-dropdown-select__label-row">' +
+                (ddLabel
+                  ? '<span class="ds-dropdown-select__label">' +
+                    ddLabel +
+                    "</span>"
+                  : "") +
+                ddDesc +
+                "</div>"
+              : "";
           return (
             '<div class="' +
             ddCls +
             '">' +
-            '<div class="ds-dropdown-select__label-row">' +
-            '<span class="ds-dropdown-select__label">' +
-            esc(props.Label || "Label") +
-            "</span>" +
-            ddDesc +
-            "</div>" +
+            ddLabelRow +
             '<div class="ds-dropdown-select__field">' +
             '<span class="' +
             ddValueCls +
@@ -3956,7 +4005,14 @@
           var srcTitle = esc(props.Title || "Financial Summary EY2024");
           var srcTech = esc(props["Tech name"] || "[Financial Summary EY2024]");
           var srcType = esc(props.Type || "Category");
-          var srcStage = esc(props.Stage || "Stage");
+          // Stage and the glossary badge are OPTIONAL slots, the same shape
+          // Task 1.2 fixed for checkbox/radio/toggle/dropdown-select-default/
+          // text-input/label: `esc(props.X || "placeholder")` fed markup that
+          // always drew, so a card authored without a stage or a glossary
+          // relationship printed "Stage" / "VH" / "Vehicle" verbatim rather
+          // than omitting the region. No prop, no markup at all, not even an
+          // empty span (see the two `? ... : ""` guards below in the return).
+          var srcStage = props.Stage ? esc(props.Stage) : "";
           var srcCatalog = esc(props.Catalog || "Catalog");
           var srcDesc = esc(
             props.Description ||
@@ -3969,8 +4025,12 @@
           var srcProp2 = esc(
             props["Featured property 2"] || "Source Application: App 120",
           );
-          var srcGlossaryLabel = esc(props["Glossary label"] || "Vehicle");
-          var srcGlossaryInitials = esc(props["Glossary initials"] || "VH");
+          var srcGlossaryLabel = props["Glossary label"]
+            ? esc(props["Glossary label"])
+            : "";
+          var srcGlossaryInitials = props["Glossary initials"]
+            ? esc(props["Glossary initials"])
+            : "";
           // The captured anatomy's Glossary badge resolves to #fff9e5 --
           // that is DIGRAM_ITEM_TYPE_COLORS["Glossary 1"] (also shared by
           // "Use case"), NOT "Category" (#ffdacf); "Glossary 1" is the
@@ -4003,10 +4063,12 @@
             srcTech +
             "</span>" +
             "</div>" +
-            '<span class="ds-tag ds-tag-stage ds-search-result-card__stage">' +
-            '<span class="ds-tag-stage__dot"></span>' +
-            srcStage +
-            "</span>" +
+            (srcStage
+              ? '<span class="ds-tag ds-tag-stage ds-search-result-card__stage">' +
+                '<span class="ds-tag-stage__dot"></span>' +
+                srcStage +
+                "</span>"
+              : "") +
             "</div>" +
             '<div class="ds-search-result-card__details">' +
             '<span class="ds-tag ds-tag--catalog ds-search-result-card__catalog">' +
@@ -4023,16 +4085,18 @@
             srcProp2 +
             "</span>" +
             "</div>" +
-            '<div class="ds-search-result-card__glossary">' +
-            '<span class="ds-item-type" style="' +
-            srcGlossaryBadge +
-            '">' +
-            srcGlossaryInitials +
-            "</span>" +
-            '<span class="ds-search-result-card__glossary-label">' +
-            srcGlossaryLabel +
-            "</span>" +
-            "</div>" +
+            (srcGlossaryInitials || srcGlossaryLabel
+              ? '<div class="ds-search-result-card__glossary">' +
+                '<span class="ds-item-type" style="' +
+                srcGlossaryBadge +
+                '">' +
+                srcGlossaryInitials +
+                "</span>" +
+                '<span class="ds-search-result-card__glossary-label">' +
+                srcGlossaryLabel +
+                "</span>" +
+                "</div>"
+              : "") +
             "</div>" +
             "</div>"
           );
@@ -4099,6 +4163,7 @@
             selection: v.Selection,
             state: v.State,
             slot: props.Slot,
+            label: props.Label,
           });
         }
 
@@ -4109,6 +4174,7 @@
             selection: v.Selection,
             state: v.State,
             slot: props.Slot,
+            label: props.Label,
           });
         }
 
@@ -4120,7 +4186,7 @@
           // also the strings in the capture.
           var lblDisabled = v.State === "Disabled";
           var lblCls = "ds-label" + (lblDisabled ? " is-disabled" : "");
-          var lblText = esc(props["Label text"] || "Label");
+          var lblText = props["Label text"] ? esc(props["Label text"]) : "";
           var lblDesc = esc(
             props["Description text"] ||
               "A description helps users to define and understand the purpose of the input.",
@@ -4131,15 +4197,21 @@
           var lblShowStar = props["* (Asterisk)"] !== false;
           var lblShowInfo = props["Info icon"] !== false;
           var lblShowDesc = props.Description !== false;
+          // `lblShowLabel` alone used to gate the row, so an unauthored
+          // `Label text` (the fallback for which is gone) left the row
+          // rendering with only a lone "*" and the info icon: the row's own
+          // text is optional, but the row is not empty-safe, so it also needs
+          // real text to appear at all.
+          var lblRowVisible = lblShowLabel && !!lblText;
           return (
             '<div class="' +
             lblCls +
             '">' +
-            (lblShowLabel
+            (lblRowVisible
               ? '<span class="ds-label__row">' +
-                '<span class="ds-label__text">' +
-                lblText +
-                "</span>" +
+                (lblText
+                  ? '<span class="ds-label__text">' + lblText + "</span>"
+                  : "") +
                 (lblShowStar
                   ? '<span class="ds-label__required">*</span>'
                   : "") +

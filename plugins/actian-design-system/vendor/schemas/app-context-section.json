@@ -112,8 +112,8 @@
         "content": {
           "type": "array",
           "minItems": 1,
-          "description": "Sibling nodes spliced in document order. A section holds at least one root node: an empty section splices nothing and is not a capture of anything.",
-          "examples": [[{ "type": "FRAME", "name": "Results header", "children": [] }]]
+          "description": "Sibling nodes spliced in document order. A section holds at least one root node: an empty section splices nothing and is not a capture of anything. A root node (content[0], content[1], ...) may carry \"slot\": \"<key>\" (or an array of keys) naming key(s) of the REFERENCING page recipe's own `slots` (not this section's `slots` above, a different namespace) that this root fulfils once spliced in, the same shape as a recipe skeleton node's \"slot\" (schemas/app-context-recipe.json skeleton). A page recipe's SECTION reference node may also stamp \"slot\"; when it does, that reference-level value overrides content[0]'s own \"slot\" in the spliced dist (content[0] only: a reference cannot reach any other root, so a section with several roots tags root 1 and beyond here, in its own file). See scripts/app-context/derive-recipes.js inlineSections and tests/app-context-recipes.test.js.",
+          "examples": [[{ "type": "FRAME", "name": "Results header", "slot": "results-header", "children": [] }]]
         }
       }
     }

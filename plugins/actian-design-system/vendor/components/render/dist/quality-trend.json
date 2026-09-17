@@ -3,7 +3,7 @@
     "auto_generated": true,
     "source": "scripts/render/derive-quality-trend.js",
     "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
-    "sourcesLastChangedAt": "2026-09-09"
+    "sourcesLastChangedAt": "2026-09-16"
   },
   "measures": {
     "unexplainedCollapses": {
@@ -416,6 +416,30 @@
   ],
   "collapseSeries": [
     {
+      "date": "2026-09-16",
+      "version": "0.34.209",
+      "sha": "b154a929",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-16",
+      "version": "0.34.209",
+      "sha": "91a6d9dd",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-16",
+      "version": "0.34.209",
+      "sha": "8c291f99",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-16",
+      "version": "0.34.209",
+      "sha": "e36fa9e1",
+      "unexplained": 41
+    },
+    {
       "date": "2026-09-09",
       "version": "0.34.205",
       "sha": "f8a5731e",
@@ -462,30 +486,6 @@
       "version": "0.34.177",
       "sha": "a9ca5179",
       "unexplained": 44
-    },
-    {
-      "date": "2026-08-31",
-      "version": "0.34.159",
-      "sha": "0014e8f3",
-      "unexplained": 54
-    },
-    {
-      "date": "2026-08-26",
-      "version": "0.34.155",
-      "sha": "8ea49c54",
-      "unexplained": 54
-    },
-    {
-      "date": "2026-08-26",
-      "version": "0.34.154",
-      "sha": "c8340c77",
-      "unexplained": 65
-    },
-    {
-      "date": "2026-08-24",
-      "version": "0.34.146",
-      "sha": "b05c40c1",
-      "unexplained": 43
     }
   ]
 }
