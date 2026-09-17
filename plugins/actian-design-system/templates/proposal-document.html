@@ -10,23 +10,23 @@
   </style>
   <style>
     /* Document setting. The FM sheet above owns every component style; this block sets the
-       document: one measure and one 1.25 scale off 16px, and no card, because the answer is
-       the first element and nothing has to be lifted off the page to find it. Section
+       document: one measure and one 1.25 scale off 16px, and no card, because the ask and the
+       answer open the page and nothing has to be lifted off it to find them. Section
        registers follow the readability findings of 2026-09-13.
 
        Size encodes role, not section, so a new section reads its size off this list and not
        off the section beside it. --doc-body (16px) is running prose at the measure: section
        paragraphs and the open-questions list. A caption block's own title steps back up to
        body, which is why the pick lead is body above caption-sized reasons. --doc-caption
-       (13px) is anything in a column or a note: the answer picks, the briefing columns, the
-       decision table, the approach lines, the comparison table, the pick reasons and its
+       (13px) is anything in a column or a note: the ticket line under the ask, the background
+       columns, What ships, the approach lines, the comparison table, the pick reasons and its
        cost, the blocker, the change columns, the sources, the latitude line, the footer.
        --doc-micro (11px) is uppercase tracked labels, plus the three marks that sit at label
-       scale without being words: the option numeral in its badge, the criterion source under
+       scale without being words: the part numeral in the bar, the criterion source under
        a comparison row heading, and the phrases annotating a drawing.
 
-       The h3 elements are the briefing and change column labels, which are labels, which is
-       why they are micro. --doc-h2 carries the answer and every decision question alike:
+       The h3 elements are the background and change column labels, which are labels, which is
+       why they are micro. --doc-h2 carries the answer and every part heading alike:
        those are the document's load-bearing statements and neither outranks the other.
 
        One size is drawn rather than set. .bb__name, the place name inside a breadboard box,
@@ -51,27 +51,27 @@
     .doc__title { font-size: var(--doc-h1); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 6px; max-width: 22ch; }
     .doc__context { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 0; letter-spacing: 0.02em; }
 
-    /* A section is a rule and space. Nothing is lifted: the answer opens the document,
-       so no card has to tell a reader where to start.
+    /* A section is a rule and space. Nothing is lifted: the ask opens the document, so no
+       card has to tell a reader where to start.
 
-       Rank is the whole of the section rhythm. A section's name ("The terrain", "The
-       briefing", "Where this came from") is a LABEL: it says which drawer you are in and
-       states nothing. A decision's question and the answer are STATEMENTS, and they are what
+       Rank is the whole of the section rhythm. A section's name ("The ask", "How it
+       connects", "Sources") is a LABEL: it says which drawer you are in and states
+       nothing. A part's name and the answer are STATEMENTS, and they are what
        a reader came for. Those two were set identically at h2 until 2026-09-14, so a
        document with three decisions had ten things shouting at the same volume and no way
        to tell a heading from a claim. Labels now sit on --doc-label, uppercase and tracked,
-       and the only elements left at h2 are the answer and one question per decision.
+       and the only elements left at h2 are the answer and one heading per part.
 
        Space says the same thing twice: the gap down to the next section's rule is more than
        twice the gap from a rule to the heading under it, so a boundary is never ambiguous. */
     .doc__section { border-top: 1px solid var(--fm-base-400); padding: 24px 0 0; margin: 0 0 64px; }
 
-    /* The decision bar. The map at the top of the document scrolled away after the first
+    /* The parts bar. The map at the top of the document scrolled away after the first
        screen and never came back, and what it was mapping is nine thousand pixels long, so
        from there on a reader had no way to see the shape of what they were in or to move
-       inside it. This is that map, condensed to one line and pinned. It carries the question
-       rather than the pick, because a reader looking for a place is looking for the question;
-       the full text rides in the title attribute, since the line truncates. */
+       inside it. This is that map, condensed to one line and pinned. It carries each part's
+       name, the words that head the part's own block, so a reader looking for a place finds it;
+       the full name rides in the title attribute, since the line truncates. */
     .doc__jump { position: sticky; top: 0; z-index: 2; display: flex; gap: 24px; align-items: stretch; background: var(--fm-base-white); border-bottom: 1px solid var(--fm-base-300); padding: 12px 0; margin: 0 0 56px; }
     .doc__jump-item { flex: 1 1 0; min-width: 0; display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--fm-text-tertiary); font-size: var(--doc-caption); line-height: 1.4; }
     .doc__jump-num { flex: none; width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-200); color: var(--fm-text-primary); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); font-weight: 700; }
@@ -83,7 +83,6 @@
 
     /* Apparatus: what the document says about itself reads as a note, never as prose. */
     .doc__muted { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-tertiary); border-left: 2px solid var(--fm-base-300); padding-left: 12px; margin: 14px 0 0; }
-    .doc__gap { font-size: var(--doc-body); line-height: 1.55; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 14px 0 0; }
     .doc__list { margin: 0; padding-left: 20px; }
     .doc__list li { margin: 0 0 10px; }
     .doc__source { color: var(--fm-text-tertiary); font-size: var(--doc-caption); }
@@ -95,12 +94,11 @@
     .proposal-screen__label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fm-text-secondary); margin-bottom: 10px; }
     /* Two lines reserved for the name, so a name that wraps does not push its own drawing
        below its neighbour's. The comment above has always said the drawings share a top
-       edge; at the Also considered width, names wrap often enough that it needed saying in
+       edge; at the Other options width, names wrap often enough that it needed saying in
        CSS as well as in prose. */
     .proposal-screen__name { display: flex; align-items: flex-start; gap: 8px; line-height: 1.6; min-height: 3.2em; }
     .proposal-screen__label--lead { margin-bottom: 8px; }
     .proposal-screen__anchor { font-weight: 400; color: var(--fm-text-tertiary); }
-    .proposal-screen__num { width: 20px; height: 20px; border-radius: 4px; background: var(--fm-base-800); color: var(--fm-base-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--doc-micro); }
     .proposal-screen { background: var(--fm-base-white); border: 1px solid var(--fm-base-400); border-radius: 6px; overflow: visible; box-shadow: 0 0 0 8px var(--fm-base-100); }
     .proposal-screen .fm-app-header { width: 100%; }
     .proposal-screen__body { position: relative; padding: 16px; }
@@ -147,14 +145,14 @@
 
     .doc__footer { font-size: var(--doc-caption); color: var(--fm-text-tertiary); margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--fm-base-300); max-width: var(--doc-measure); }
 
-    /* The feature's framing question, above the answer, and only in a document that holds
-       more than one decision: with one decision it is the decision's own heading. Caption
-       scale, because it is the setup and the answer is the statement. */
-    .doc__question { font-size: var(--doc-body); line-height: 1.5; color: var(--fm-text-tertiary); margin: 0 0 10px; max-width: var(--doc-measure); }
+    /* The ask. What was asked, before what we propose: running text at the measure, quieter
+       than the answer under it, with the ticket's own id and title as a note. */
+    .ask { font-size: var(--doc-body); line-height: 1.6; margin: 0; max-width: var(--doc-measure); }
+    .ask__ticket { font-size: var(--doc-caption); line-height: 1.5; color: var(--fm-text-tertiary); margin: 10px 0 0; max-width: var(--doc-measure); }
 
-    /* The answer. One sentence at h2 scale is the document's first element, tied with a
-       decision question rather than with the title above it, and nothing follows it inside
-       its own section: "What we propose" is the summary and this is the statement. */
+    /* The answer. One sentence at h2 scale under the ask, tied with a part heading rather
+       than with the title above it, and nothing follows it inside its own section: "What
+       ships" is the summary and this is the statement. */
     .answer { font-size: var(--doc-h2); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; margin: 0; max-width: var(--doc-measure); }
 
     /* The terrain. The SVG carries no colour of its own; every value it draws with is here. */
@@ -176,19 +174,19 @@
     .bb__swatch { width: 22px; border-top: 2px solid var(--fm-base-600); }
     .bb__swatch--new { border-top: 2px dashed var(--fm-brand); }
 
-    /* The decision table: what was decided, at a glance, before any of it is argued. */
+    /* What ships: each part, what it builds and what it costs, at a glance, before any of it
+       is argued. */
     .decisions-at-a-glance { width: 100%; border-collapse: collapse; font-size: var(--doc-caption); }
     .decisions-at-a-glance th, .decisions-at-a-glance td { text-align: left; vertical-align: top; padding: 10px 24px 10px 0; border-top: 1px solid var(--fm-base-300); }
     .decisions-at-a-glance thead th { border-top: 0; color: var(--fm-text-tertiary); font-size: var(--doc-micro); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
     .decisions-at-a-glance tbody th { font-weight: 600; color: var(--fm-text-primary); }
     .decisions-at-a-glance td { color: var(--fm-text-secondary); }
 
-    /* The briefing: four short columns in two pairs, never running prose. The pairing is
-       the point. Goals and Not doing are the scope; how it works today and what comparable
-       products do are the evidence. Four columns across 1200px made each one 260px of
-       ragged 13px text and put a goal beside a research finding as though they answered the
-       same question. Two columns, each capped at the measure, wrap into 2x2 on a wide
-       canvas and stack to one on a narrow one. */
+    /* The background: short columns, never running prose. Goals and Not doing are the scope;
+       how it works today is the evidence, and the research has a section of its own. Four
+       columns across 1200px once made each one 260px of ragged 13px text and put a goal beside
+       a research finding as though they answered the same question. Two columns, each capped
+       at the measure, wrap on a wide canvas and stack to one on a narrow one. */
     /* The research. Three lanes stacked rather than columned: a reader reads down them in
        order (what the market does, what the canon says, what we already own) rather than
        holding them against each other, which is what the briefing's two columns are for. */
@@ -200,13 +198,11 @@
     .briefing__col h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .briefing__col .doc__list li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
 
-    /* A decision block. The question is the heading; the number tells a reader where
-       they are in a document that may hold four of these. The rule is heavier and darker
+    /* A part block, headed by the part's name, so a reader knows what it builds before
+       reading why. The rule is heavier and darker
        than a framing section's, because these blocks are the argument and the sections
        around them are the setting. */
     .decision { border-top: 3px solid var(--fm-base-800); padding: 24px 0 0; margin: 0 0 80px; scroll-margin-top: 64px; }
-    .decision > .decision__kicker { padding-top: 8px; }
-    .decision__kicker { display: block; font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 6px; }
     .decision > h2 { font-size: var(--doc-h2); font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 18px; max-width: var(--doc-measure); }
     .decision__blocker { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 10px 12px; margin: 18px 0 0; max-width: var(--doc-measure); }
     .decision__blocker b { color: var(--fm-text-primary); }
@@ -225,26 +221,33 @@
     .option__adds { margin: 8px 0 0; font-size: var(--doc-micro); line-height: 1.5; color: var(--fm-text-secondary); border-left: 2px solid var(--fm-brand); background: var(--fm-brand-light); padding: 6px 8px; }
     .option__adds-kind { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-brand-dark); }
 
-    /* A decision block runs proposal, alternatives, evidence. The proposal is a two-column
-       row: the drawing on the left at the width the author asked for, the case for it on the
-       right, so a reader meets the answer and its argument together instead of reconstructing
-       the answer from three equal options and a table. Both columns wrap to one on a narrow
-       canvas. */
+    /* A part block is one two-column row: the case for the part on the document's left edge,
+       the chosen drawing beside it, so a reader meets what we will build and why together.
+       Both columns wrap to one on a narrow canvas. */
     .decision__lead { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; margin: 0 0 48px; }
     .decision__case { flex: 1 1 380px; min-width: 0; max-width: var(--doc-measure); }
 
-    /* What the proposal was chosen over. Smaller drawings, one line of annotation, and a
-       heading that says what they are, because a reader who has read the proposal should be
-       able to skim these rather than weigh them again. */
-    .also { margin: 0 0 32px; }
-    .also > h3, .compare-block > h3 { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 16px; }
-    .also .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
+    /* A fold: Other options and Research sit closed under their heading, one click open, because
+       they argue for the design rather than being it. The summary counts what is inside. Print
+       opens every fold first (the script at the end), since a saved PDF has nothing to click. */
+    .doc__more > summary { cursor: pointer; width: fit-content; font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); padding: 4px 0; }
+    .doc__more > summary:hover { color: var(--fm-text-primary); }
+    .doc__more[open] > summary { margin: 0 0 32px; }
+
+    /* Other options: what each part was chosen over, after the design. Smaller drawings, one
+       line of annotation, then the comparison, grouped under the part they lost to, so a
+       reader who has read the design can skim these rather than weigh them again. */
+    .other { margin: 0 0 56px; }
+    .other > h3 { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 20px; }
+    .other .approaches { margin: 0 0 32px; }
+    .other .approach__lines { font-size: var(--doc-micro); line-height: 1.5; }
     .compare-block { margin: 0; }
 
-    /* The pick. One line per reason, each naming the row it argues from, then the cost. */
+    /* The case for a part: what it is, then why, one line per reason naming the row it argues
+       from, then where it breaks and what it costs. */
     .pick { margin: 0; border-top: 0; padding: 0; max-width: var(--doc-measure); }
     .pick__lead { font-size: var(--doc-lead); font-weight: 700; line-height: 1.35; margin: 0 0 18px; }
-    .pick__lead .decision__kicker { color: var(--fm-brand-dark); }
+    .pick__label { font-size: var(--doc-micro); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fm-text-tertiary); margin: 0 0 10px; }
     .pick__reasons { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .pick__reasons li { font-size: var(--doc-body); line-height: 1.6; color: var(--fm-text-secondary); }
     .pick__crit { font-weight: 700; color: var(--fm-text-primary); }
@@ -310,6 +313,10 @@
       if (!t) return;
       var el = document.getElementById(t.getAttribute("data-toggle"));
       if (el) el.hidden = !el.hidden;
+    });
+    // A fold prints closed, and a saved PDF has nothing to click, so print opens them all.
+    window.addEventListener("beforeprint", function () {
+      document.querySelectorAll("details").forEach(function (d) { d.open = true; });
     });
   </script>
 </body>

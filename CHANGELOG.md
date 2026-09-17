@@ -209,6 +209,34 @@ are summarized at the release level.
 
 ### Changed
 
+- **The proposal document opens with the ask and leads with what ships, in plain words**
+  ([#387](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/387)). Written for a PM or
+  designer approving a direction. It used to open each block with a question ("Question 1 of 2: What does
+  the page show?"), and the DS-116 run in Cowork came out at 9 screens and 1,638 words for one menu
+  row and one page. Now:
+  - **The ask comes first:** the document opens with what was asked (a new optional `context.ask`,
+    one or two sentences, which the validator asks for as a P1 `ask`) and the ticket's own id and
+    title, quoted; the answer sits under it, labelled Proposal. `meta.title` names the ask, never the
+    answer: DS-116 was titled "My access, with no new page and no new control".
+  - **Order:** the ask, the answer, What ships (one row per part), one block per part (the chosen drawing,
+    why, where it breaks, cost), How it connects, Before we build (blockers, open questions,
+    risks), What changes, Background, then Other options with their comparisons and Research, both
+    folded until opened (print opens them), then Sources.
+  - **Parts, not questions:** a new optional `decisions[].part` names what each decision builds and
+    heads its block, and an evaluation may record it. Questions stay in the data and are never
+    printed. Older files still render, named from the chosen option's surface.
+  - **Word limits:** the validator reports a field past its limit as a P1 `length`, counting words
+    rather than separators, and a decision with no `part`, or the same `part` as another, as a P1
+    `part`. Both are fixed, not explained. The limits table in
+    `document-authoring.md` is tested against the validator.
+  - **Writing rules are read:** Step 5 now reads `vendor/content/dist/writing.md`. Before, it said
+    to read two references and "nothing else", so no run ever saw the Actian writing rules.
+  - **Chat:** Step 4 states a plan (what I'd build, per part, what else it looked at), not a list
+    of questions.
+  - **Research:** `all` at the gate skips `yours` when nothing was pasted. Grounding paths are
+    absolute, because relative ones found nothing in Cowork and the `ours` lane came back empty.
+    `ds-researcher` now names a path it could not read, and keeps a claim to 18 words.
+
 - **A proposal leads with the proposal, and never tells a reader the decision is made**
   ([#382](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/382)). A decision block ran question, three options at
   one width, a fifteen-cell table, and only then "We pick": the reader did the comparison
