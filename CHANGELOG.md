@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Changed
 
-- **generate-flow routes each screen by what the screen list declares, not by its name**. A real run
+- **generate-flow routes each screen by what the screen list declares, not by its name** ([#393](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/393)). A real run
   on 2026-09-17 (installed 2026.9.46) reached no captured page, no layer, no screen link and no Look,
   because a screen found its page only when its name happened to match a pattern, and nothing could say
   "this panel opens over that list". Each screen-list entry may now name its `pattern` (a slug from
