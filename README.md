@@ -10,7 +10,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 **Sketch → Hifi → Audit.** Most design work flows through this loop.
 
-1. **Sketch.** Describe a feature; get a Fat Marker lo-fi flow (one screen or many) with correct app chrome, structured around real layout patterns from the product.
+1. **Sketch.** Describe a feature; get a DS-native flow (one screen or many) with correct app chrome, structured around real layout patterns from the product. `--lofi` renders the same tree in a gray skin; `--fm` opts into Fat Marker authoring.
 2. **Hifi.** Convert the wireframe to high-fidelity — DS Kit components, real tokens, production-ready.
 3. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
 
@@ -121,7 +121,7 @@ Three input shapes cover almost everything. The companion routes; you don't memo
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
-| **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, lo-fi or hifi, with the right app chrome |
+| **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, DS-native by default (lo-fi or Fat Marker on request), with the right app chrome |
 | **URL + intent** | `<figma url>` + "rename CTA to Publish" / "make it hifi" / "audit the copy" | Surgical refine, hifi convert, scoped audit, branch, or iterate — picked from your prose |
 | **URL + URL** | `<v1 url>` + `<v2 url>` + "compare these" | Side-by-side analysis routed to `/compare-flows` |
 
@@ -176,7 +176,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
+| `/generate-flow` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
 | `/design-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/generate-flow --from proposals/proposal-data.json`. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
