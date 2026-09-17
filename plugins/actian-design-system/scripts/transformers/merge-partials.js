@@ -207,13 +207,31 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
   });
 
   if (!meta) meta = {};
+  // Ids and layers are data from the screen list, not text an agent can
+  // write or drop: every id is derived here from the LIST's own
+  // meta.feature (never a partial's meta, so a list with no meta matches
+  // what prepare-flow.js put in `flow`), unconditionally, so a clashing or
+  // made-up agent-written id never survives merge and never shifts another
+  // screen's id. This runs as its own full pass, before the layer pass
+  // below, so a layer whose base comes later in the list still finds that
+  // base's id already stamped.
+  const { deriveScreenId } = require("../lib/screen-id.js");
+  const idFeature = (list.meta && list.meta.feature) || "";
+  listScreens.forEach((entry, i) => {
+    if (!screens[i]) return;
+    screens[i].id = deriveScreenId(idFeature, i);
+  });
   // A layer is declared in the screen list and validated by prepare-flow, so
   // it is stamped here from data rather than trusted to each author agent.
   // over names a screen number there; the rendered flow needs the base's id,
-  // which only exists once ids are stamped (main stamps again; it keeps ids).
-  require("../lib/screen-id.js").stampScreenIds({ meta, screens });
+  // stamped above. A screen the list does not layer keeps no layer, even if
+  // an agent wrote one.
   listScreens.forEach((entry, i) => {
-    if (!entry.layer || !screens[i]) return;
+    if (!screens[i]) return;
+    if (!entry.layer) {
+      delete screens[i].layer;
+      return;
+    }
     const base = screens[entry.layer.over - 1];
     screens[i].layer = {
       kind: entry.layer.kind,
