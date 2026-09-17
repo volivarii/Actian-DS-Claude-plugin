@@ -209,7 +209,8 @@ describe("look.captureScreens", function () {
     assert.ok(fs.existsSync(pairs[0].against), "the screenshot exists on disk");
   });
 
-  it("skips a recipe with no screenshot and one whose screenshot file is missing", function () {
+  it("skips a recipe with no screenshot silently, and warns for one whose screenshot file is missing", function () {
+    var warnings = [];
     var pairs = look.captureScreens(
       {
         screens: [
@@ -230,6 +231,9 @@ describe("look.captureScreens", function () {
         exists: function (p) {
           return p === path.join("/recipes", "captures", "here.png");
         },
+        warn: function (msg) {
+          warnings.push(msg);
+        },
       },
     );
     assert.deepStrictEqual(pairs, [
@@ -238,6 +242,38 @@ describe("look.captureScreens", function () {
         slug: "here",
         against: path.join("/recipes", "captures", "here.png"),
       },
+    ]);
+    assert.strictEqual(warnings.length, 1);
+    assert.match(
+      warnings[0],
+      /look: screen 2: recipe gone names .*gone\.png, not on disk/,
+    );
+  });
+
+  it("a recipe whose screenshot does not exist yields no pair and exactly that warning", function () {
+    var warnings = [];
+    var pairs = look.captureScreens(
+      { screens: [{ pageRecipe: { slug: "faceted-browse" } }] },
+      {
+        readRecipe: function () {
+          return { derivedFrom: { screenshot: "captures/faceted-browse.png" } };
+        },
+        srcDir: function () {
+          return "/recipes";
+        },
+        exists: function () {
+          return false;
+        },
+        warn: function (msg) {
+          warnings.push(msg);
+        },
+      },
+    );
+    assert.deepStrictEqual(pairs, []);
+    assert.deepStrictEqual(warnings, [
+      "look: screen 1: recipe faceted-browse names " +
+        path.join("/recipes", "captures", "faceted-browse.png") +
+        ", not on disk\n",
     ]);
   });
 
@@ -373,5 +409,67 @@ describe("look.main --brief", function () {
       r.out,
       /look: wrote .*look-1\.png and .*look-1\.html against .*faceted-browse\.png/,
     );
+  });
+
+  function captureStderr(fn) {
+    var out = "";
+    var real = process.stderr.write;
+    process.stderr.write = function (s) {
+      out += s;
+      return true;
+    };
+    try {
+      return { code: fn(), out: out };
+    } finally {
+      process.stderr.write = real;
+    }
+  }
+
+  it("reports a brief that cannot be read as a read failure, naming the real error", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "look-brief-bad-"));
+    fs.writeFileSync(path.join(dir, ".brief.json"), "{not json");
+    fs.writeFileSync(path.join(dir, "flow-data.json"), "{}");
+    var r = captureStderr(function () {
+      return look.main(
+        [
+          path.join(dir, "flow-data.json"),
+          "--brief",
+          path.join(dir, ".brief.json"),
+          "-o",
+          path.join(dir, "look"),
+        ],
+        { resolveBinaries: neverChrome },
+      );
+    });
+    assert.strictEqual(r.code, 1);
+    assert.match(
+      r.out,
+      new RegExp(
+        "look: cannot read " +
+          path.join(dir, ".brief.json").replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+      ),
+    );
+  });
+
+  it("reports a later failure separately from a brief read failure, naming the real error", function () {
+    // The brief parses fine as JSON; its shape is what breaks captureScreens
+    // (screens is not an array), so this must not be reported as "cannot
+    // read <brief>" -- the brief was read just fine.
+    var dir = tmpFiles({ screens: "not-an-array" }, {});
+    var r = captureStderr(function () {
+      return look.main(
+        [
+          path.join(dir, "flow-data.json"),
+          "--brief",
+          path.join(dir, ".brief.json"),
+          "-o",
+          path.join(dir, "look"),
+        ],
+        { resolveBinaries: neverChrome },
+      );
+    });
+    assert.strictEqual(r.code, 1);
+    assert.doesNotMatch(r.out, /cannot read/);
+    assert.match(r.out, /^look: .*forEach/);
   });
 });

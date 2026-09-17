@@ -206,8 +206,9 @@ function parseArgs(argv) {
 // copy of a recipe has no captures folder beside it. A recipe that cannot be
 // read is warned about, not silently folded into "no capture" (an unreadable
 // recipe and a recipe that legitimately has no screenshot look identical to
-// the caller otherwise); a recipe with no derivedFrom.screenshot, or one
-// whose screenshot file does not exist, stays a silent skip.
+// the caller otherwise); a recipe whose screenshot file is missing is
+// warned about too, for the same reason. Only a recipe with no
+// derivedFrom.screenshot at all (it never claimed one) stays a silent skip.
 function captureScreens(brief, deps) {
   deps = deps || {};
   var readRecipe =
@@ -248,7 +249,18 @@ function captureScreens(brief, deps) {
     var rel = recipe && recipe.derivedFrom && recipe.derivedFrom.screenshot;
     if (!rel) return;
     var against = path.join(srcDir(slug), rel);
-    if (!exists(against)) return;
+    if (!exists(against)) {
+      warn(
+        "look: screen " +
+          (i + 1) +
+          ": recipe " +
+          slug +
+          " names " +
+          against +
+          ", not on disk\n",
+      );
+      return;
+    }
     out.push({ n: i + 1, slug: slug, against: against });
   });
   return out;
@@ -337,12 +349,19 @@ function main(argv, deps) {
 
   var pairs;
   if (parsed.brief) {
+    var briefData;
     try {
-      pairs = captureScreens(JSON.parse(fs.readFileSync(parsed.brief, "utf8")));
+      briefData = JSON.parse(fs.readFileSync(parsed.brief, "utf8"));
     } catch (e) {
       process.stderr.write(
         "look: cannot read " + parsed.brief + ": " + e.message + "\n",
       );
+      return 1;
+    }
+    try {
+      pairs = captureScreens(briefData);
+    } catch (e) {
+      process.stderr.write("look: " + e.message + "\n");
       return 1;
     }
     if (!pairs.length) {
