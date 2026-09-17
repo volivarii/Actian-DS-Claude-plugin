@@ -288,11 +288,23 @@ The toast that follows a successful action, layered over the published screen:
 
 ```json
 {
-  "id": "toast-published",
   "name": "Published",
-  "layer": { "kind": "toast", "over": "published" },
+  "layer": { "kind": "toast", "over": "publish-data-product-2" },
   "content": [{ "type": "TEXT", "content": "Data product published" }]
 }
+```
+
+Both come from the brief, never from guesswork. A slice carries `flow`, every screen's `{ n, id, name }`
+in order with the ids merge will stamp: aim `goto` at the next entry's `id`. A slice carrying
+`screen.layer` (`{ kind, over, overId, overName }`) is a layer: write only its body, because merge sets
+the screen's `layer` to `{ kind, over: overId }` from the screen list. When the slice also carries
+`screen.pageRecipe` (a drawer composed from `studio-quick-edit-drawer`, say), that capture's skeleton
+already is the body. Do not write the screen's `id`.
+
+A drawer layer's primary action, moving on to screen 4 of `flow`:
+
+```json
+{ "type": "INSTANCE", "library": "ds", "dsSlug": "button", "variant": "Intent=Default, Emphasis=Filled, Size=Default, State=Default", "name": "Save descriptions", "goto": "describe-catalog-items-4", "props": { "Label": "Save descriptions" } }
 ```
 
 ## Default deliverable (`flow-share`)
