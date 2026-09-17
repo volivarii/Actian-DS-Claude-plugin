@@ -1,0 +1,1663 @@
+{
+  "meta": {
+    "feature": "Data Steward panel over Catalog",
+    "flow": "Data Steward acceptance: the Catalog page with the Data Steward panel layered on top",
+    "user": "Data steward",
+    "app": "Studio",
+    "prompt": "Task 6.6: author the acceptance flow for the Data Steward panel over the Catalog page",
+    "duration": "n/a",
+    "hifi": true,
+    "library": "ds"
+  },
+  "screens": [
+    {
+      "id": "catalog",
+      "name": "Catalog",
+      "template": "studio",
+      "library": "ds",
+      "pageRecipe": "faceted-browse",
+      "sidebar": {
+        "activeItem": "Catalog",
+        "items": [
+          "Dashboard",
+          "Catalog",
+          "Topics",
+          "Import",
+          "Access requests",
+          "Catalog design",
+          "Analytics"
+        ]
+      },
+      "header": {
+        "context": "Catalog",
+        "contextValue": "Common",
+        "search": true,
+        "account": "CN"
+      },
+      "adds": [
+        {
+          "name": "Data Steward header entry",
+          "composedFrom": ["button"],
+          "newPrimitives": ["sparkle icon"],
+          "why": "no header slot opens an agent"
+        }
+      ],
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Data Steward header entry row",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 0,
+            "primaryAxisAlignItems": "MAX",
+            "padding": [0, 440, 0, 0]
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          },
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Data Steward header entry",
+              "adds": "Data Steward header entry",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "primaryAxisAlignItems": "MAX"
+              },
+              "sizing": {
+                "horizontal": 160,
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "button",
+                  "variant": "Type=Tertiary, State=Default",
+                  "props": {
+                    "Label": "Data Steward"
+                  },
+                  "goto": "steward"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "FRAME",
+          "name": "Browse layout",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 20
+          },
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Filter rail",
+              "slot": "rail",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 12,
+                "padding": [0, 20, 0, 0]
+              },
+              "children": [
+                {
+                  "type": "TEXT",
+                  "content": "Filters",
+                  "font": "Inter:Semi Bold",
+                  "size": 18,
+                  "color": "var(--zen-color-text-default)"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: Completion level",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Completion level header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Completion level",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "TEXT",
+                      "content": "98 results",
+                      "font": "Inter:Regular",
+                      "size": 12,
+                      "color": "var(--zen-color-text-secondary)"
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "ref": "fmSlider",
+                      "variant": "Progress=100%",
+                      "props": {}
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Range bounds",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "0%",
+                          "font": "Inter:Regular",
+                          "size": 11,
+                          "color": "var(--zen-color-text-tertiary)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "100%",
+                          "font": "Inter:Regular",
+                          "size": 11,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: Item",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Item header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Item",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Data Products",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Data product",
+                              "props": {
+                                "Label": "DP",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Data Products",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "10",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Datasets",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Dataset",
+                              "props": {
+                                "Label": "Ds",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Datasets",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "8",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Visualizations",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Visualization",
+                              "props": {
+                                "Label": "Vi",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Visualizations",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "28",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Data Processes",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Data process",
+                              "props": {
+                                "Label": "DP",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Data Processes",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "15",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Use Cases",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Use case",
+                              "props": {
+                                "Label": "UC",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Use Cases",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "8",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Facet: Categories",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "FRAME",
+                          "name": "Facet left",
+                          "layout": {
+                            "mode": "HORIZONTAL",
+                            "spacing": 8,
+                            "counterAxisAlignItems": "CENTER"
+                          },
+                          "sizing": {
+                            "horizontal": "HUG",
+                            "vertical": "HUG"
+                          },
+                          "children": [
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "checkbox",
+                              "variant": "Selection=Unchecked, State=Default",
+                              "props": {
+                                "Label": ""
+                              }
+                            },
+                            {
+                              "type": "INSTANCE",
+                              "library": "ds",
+                              "dsSlug": "item-type-tag",
+                              "variant": "Type=Category",
+                              "props": {
+                                "Label": "Ca",
+                                "Show counter": false
+                              }
+                            },
+                            {
+                              "type": "TEXT",
+                              "content": "Categories",
+                              "font": "Inter:Regular",
+                              "size": 13,
+                              "color": "var(--zen-color-text-default)"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "10",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-secondary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "TEXT",
+                      "content": "View more (3)",
+                      "font": "Inter:Regular",
+                      "size": 12,
+                      "color": "var(--zen-color-text-primary)"
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: User Suggestions",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "User Suggestions header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "User suggestion",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Toggle row",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN",
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Show items with pending suggestions",
+                          "font": "Inter:Regular",
+                          "size": 13,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "toggle",
+                          "variant": "Toggle position=On right (default), Selection=Off, State=Default",
+                          "props": {
+                            "Label": ""
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: Item Lifecycle Event",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Item Lifecycle Event header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Item lifecycle event",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "dropdown-select-default",
+                      "variant": "Type=Default, State=Default",
+                      "props": {
+                        "Label": "",
+                        "Placeholder": "Type to search"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: Curator",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Curator header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Curator",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "dropdown-select-default",
+                      "variant": "Type=Default, State=Default",
+                      "props": {
+                        "Label": "",
+                        "Placeholder": "Type to search"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Section: Contact",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 10,
+                    "padding": [0, 0, 14, 0]
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Contact header",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0,
+                        "primaryAxisAlignItems": "SPACE_BETWEEN"
+                      },
+                      "children": [
+                        {
+                          "type": "TEXT",
+                          "content": "Contact",
+                          "font": "Inter:Semi Bold",
+                          "size": 14,
+                          "color": "var(--zen-color-text-default)"
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "v",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-tertiary)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "dropdown-select-default",
+                      "variant": "Type=Default, State=Default",
+                      "props": {
+                        "Label": "",
+                        "Placeholder": "Type to search"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "sizing": {
+                "horizontal": 300,
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Results pane",
+              "slot": "results",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 8
+              },
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "Results header",
+                  "slot": "results-header",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 0,
+                    "primaryAxisAlignItems": "SPACE_BETWEEN",
+                    "counterAxisAlignItems": "CENTER"
+                  },
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "98 results",
+                      "font": "Inter:Semi Bold",
+                      "size": 24,
+                      "color": "var(--zen-color-text-default)"
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Secondary, State=Default",
+                      "props": {
+                        "Label": "Save filters"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Bulk action bar",
+                  "slot": "bulk-bar",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 18,
+                    "padding": [10, 0, 10, 0],
+                    "counterAxisAlignItems": "CENTER"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "checkbox",
+                      "variant": "Selection=Unchecked, State=Default",
+                      "props": {
+                        "Label": ""
+                      }
+                    },
+                    {
+                      "type": "TEXT",
+                      "content": "Sort  Name ASC",
+                      "font": "Inter:Regular",
+                      "size": 13,
+                      "color": "var(--zen-color-text-default)"
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Edit"
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Move to catalog"
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Delete"
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Export selection"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 1",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Category",
+                        "Title": "Acquisition",
+                        "Tech name": "[Acquisition]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: PowerBI",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 2",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Dataset",
+                        "Title": "Financial Summary EY2024",
+                        "Tech name": "[Financial_summary EY2024]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: Snowflake",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 3",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Data process",
+                        "Title": "Actual Sales",
+                        "Tech name": "[Actual_sales]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: Snowflake",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 4",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Data product",
+                        "Title": "Air Booking",
+                        "Tech name": "[Air_booking_data_product]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: PowerBI",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 5",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Dataset",
+                        "Title": "Auth User",
+                        "Tech name": "[auth_user]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: PowerBI",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Result 6",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 12,
+                    "padding": [12, 0, 12, 0],
+                    "counterAxisAlignItems": "MIN"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "read-only-tag",
+                      "variant": "Type=Shared",
+                      "props": {
+                        "Label": "Shared",
+                        "Leading icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "search-result-card",
+                      "variant": "App=Studio, State=Default",
+                      "props": {
+                        "Type": "Visualization",
+                        "Title": "Bank Customer",
+                        "Tech name": "[bank_customer]",
+                        "Catalog": "Common",
+                        "Description": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers. That product is the sum of all physical, psychological, symbolic, and service attributes associated with it. There are two basic types of products.",
+                        "Featured property 1": "Connection: Snowflake",
+                        "Featured property 2": "Last updated: Mar 2, 2026",
+                        "Stage": "",
+                        "Glossary initials": "",
+                        "Glossary label": ""
+                      },
+                      "sizing": {
+                        "horizontal": "FILL",
+                        "vertical": "HUG"
+                      }
+                    },
+                    {
+                      "type": "FRAME",
+                      "name": "Meter",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 0
+                      },
+                      "sizing": {
+                        "horizontal": 96,
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "progress-bar-small",
+                          "props": {
+                            "Percent": "50"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "DIVIDER"
+                },
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "pagination",
+                  "props": {
+                    "Page": "1",
+                    "Pages": "10"
+                  }
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        }
+      ]
+    },
+    {
+      "id": "steward",
+      "name": "Data Steward panel",
+      "layer": {
+        "kind": "panel",
+        "over": "catalog"
+      },
+      "adds": [
+        {
+          "name": "Data Steward panel",
+          "composedFrom": [
+            "drawer",
+            "text-area",
+            "toggle",
+            "button",
+            "read-only-tag"
+          ],
+          "newPrimitives": ["gradient background", "sparkle icon"],
+          "why": "no component holds a conversation with an agent"
+        }
+      ],
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Data Steward panel",
+          "adds": "Data Steward panel",
+          "focus": true,
+          "layout": {
+            "mode": "VERTICAL",
+            "spacing": 0
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "FILL"
+          },
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Panel header",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "primaryAxisAlignItems": "SPACE_BETWEEN",
+                "counterAxisAlignItems": "CENTER",
+                "padding": [16, 20, 16, 20]
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "TEXT",
+                  "content": "Data Steward",
+                  "font": "Inter:Semi Bold",
+                  "size": 16,
+                  "color": "var(--zen-color-text-default)"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Panel header actions",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 8,
+                    "counterAxisAlignItems": "CENTER"
+                  },
+                  "sizing": {
+                    "horizontal": "HUG",
+                    "vertical": "HUG"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Edit"
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "More"
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "button",
+                      "variant": "Type=Tertiary, State=Default",
+                      "props": {
+                        "Label": "Close"
+                      },
+                      "goto": "catalog"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "DIVIDER"
+            },
+            {
+              "type": "FRAME",
+              "name": "Conversation area",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 0
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "FILL"
+              },
+              "children": []
+            },
+            {
+              "type": "DIVIDER"
+            },
+            {
+              "type": "FRAME",
+              "name": "Suggestions",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 10,
+                "padding": [16, 20, 16, 20]
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "TEXT",
+                  "content": "Suggestions",
+                  "font": "Inter:Semi Bold",
+                  "size": 13,
+                  "color": "var(--zen-color-text-default)"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Suggestion chips",
+                  "layout": {
+                    "mode": "VERTICAL",
+                    "spacing": 8
+                  },
+                  "sizing": {
+                    "horizontal": "FILL",
+                    "vertical": "HUG"
+                  },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "interactive-tag",
+                      "variant": "State=Default",
+                      "props": {
+                        "Label": "Show all datasets I own",
+                        "Leading icon show": false,
+                        "Trailing icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "interactive-tag",
+                      "variant": "State=Default",
+                      "props": {
+                        "Label": "Show datasets without descriptions",
+                        "Leading icon show": false,
+                        "Trailing icon show": false
+                      }
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "interactive-tag",
+                      "variant": "State=Default",
+                      "props": {
+                        "Label": "Show recently updated items I own",
+                        "Leading icon show": false,
+                        "Trailing icon show": false
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "DIVIDER"
+            },
+            {
+              "type": "FRAME",
+              "name": "Message input",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 8,
+                "padding": [12, 20, 16, 20]
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "text-area",
+                  "variant": "States=Default",
+                  "props": {
+                    "Slot": "Message Data Steward",
+                    "Show helper text": false
+                  }
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Input footer",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "spacing": 0,
+                    "primaryAxisAlignItems": "SPACE_BETWEEN",
+                    "counterAxisAlignItems": "CENTER"
+                  },
+                  "sizing": {
+                    "horizontal": "FILL",
+                    "vertical": "HUG"
+                  },
+                  "children": [
+                    {
+                      "type": "FRAME",
+                      "name": "Input footer left",
+                      "layout": {
+                        "mode": "HORIZONTAL",
+                        "spacing": 8,
+                        "counterAxisAlignItems": "CENTER"
+                      },
+                      "sizing": {
+                        "horizontal": "HUG",
+                        "vertical": "HUG"
+                      },
+                      "children": [
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "button",
+                          "variant": "Type=Tertiary, State=Default",
+                          "props": {
+                            "Label": "+"
+                          }
+                        },
+                        {
+                          "type": "TEXT",
+                          "content": "Context:",
+                          "font": "Inter:Regular",
+                          "size": 12,
+                          "color": "var(--zen-color-text-secondary)"
+                        },
+                        {
+                          "type": "INSTANCE",
+                          "library": "ds",
+                          "dsSlug": "read-only-tag",
+                          "variant": "Type=Default",
+                          "props": {
+                            "Label": "Common catalog",
+                            "Leading icon show": false
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "toggle",
+                      "variant": "Toggle position=On right (default), Selection=Off, State=Default",
+                      "props": {
+                        "Label": "Planning"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Disclaimer row",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 0,
+                "padding": [8, 20, 16, 20]
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              },
+              "children": [
+                {
+                  "type": "TEXT",
+                  "content": "Data Steward can make mistakes. Double-check responses.",
+                  "font": "Inter:Regular",
+                  "size": 11,
+                  "color": "var(--zen-color-text-tertiary)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

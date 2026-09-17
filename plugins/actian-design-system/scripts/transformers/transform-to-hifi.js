@@ -7,6 +7,11 @@
  * Rewrites flow-data FM component refs to DS Kit refs using the mapping table.
  * Works as both a require()able module and a CLI tool.
  *
+ * Maintenance-only since 2026.9.x: new flows are authored DS-native; this
+ * transform serves `--fm` flows and pre-existing FatMarker captures only.
+ * Do not extend the map for new components; author them in
+ * `ds-components-authoring.md` instead.
+ *
  * Module API:
  *   var t = require('./transform-to-hifi');
  *   var hifi = t.transform(flowData);            // full transform
@@ -231,6 +236,14 @@ function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
       resultProps[srcPropName] = srcPropValue;
     }
   }
+
+  // Apply defaultProps for any DS prop the source didn't already set
+  // (e.g. fmTag/fmChip's "Leading icon show" DS default of true would
+  // otherwise leak a leading icon FM never authored).
+  var defaultProps = mapping.defaultProps || {};
+  Object.keys(defaultProps).forEach(function (k) {
+    if (!(k in resultProps)) resultProps[k] = defaultProps[k];
+  });
 
   // Build transformed node
   var result = {

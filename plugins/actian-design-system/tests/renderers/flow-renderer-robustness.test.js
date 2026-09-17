@@ -27,3 +27,30 @@ test("multi-line TEXT (content with newline) clips without forcing nowrap", func
     "multi-line must NOT force nowrap",
   );
 });
+
+test("TEXT node with a Semi Bold font gets fm-text--heading", function () {
+  var html = flow.renderContentNode({
+    type: "TEXT",
+    content: "Section title",
+    font: "Inter:Semi Bold",
+  });
+  assert.match(html, /class="fm-text fm-text--heading"/);
+});
+
+test("TEXT node with keep:true gets fm-text--keep", function () {
+  var html = flow.renderContentNode({
+    type: "TEXT",
+    content: "Active item",
+    keep: true,
+  });
+  assert.match(html, /class="fm-text fm-text--keep"/);
+});
+
+test("FRAME node with focus:true gets flow-focus", function () {
+  var html = flow.renderContentNode({
+    type: "FRAME",
+    focus: true,
+    children: [],
+  });
+  assert.match(html, /class="fm-frame flow-focus"/);
+});

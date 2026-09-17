@@ -8,7 +8,7 @@ Your design system teammate. Three input shapes — prompt, URL + intent, URL + 
 
 ### 1. Prompt — describe what you need
 
-Single screen or full flow, lo-fi or hifi, draft to production. The companion handles screen count, detail level, and chrome.
+Single screen or full flow, DS-native by default (`--lofi` or `--fm` to opt out), draft to production. The companion handles screen count, detail level, and chrome.
 
 ```
 Mock me a connection setup screen for Administration
@@ -113,7 +113,7 @@ rename "Submit" to "Connect" and tighten the help text under the password field
 make it hifi
 ```
 
-Routes to `/generate-flow X --hifi`. The same screens are authored against the DS Kit vocabulary and rendered with real components and tokens in a new HTML deliverable next to the wireframe. Add "push to Figma" to also get the frames.
+DS-native is already the default for a new flow; this re-rolls an existing `--fm` or `--lofi` flow into DS-native. The same screens are authored against the DS Kit vocabulary and rendered with real components and tokens in a new HTML deliverable next to the wireframe. Add "push to Figma" to also get the frames.
 
 ### 5. Audit before ship
 
@@ -252,7 +252,7 @@ Design a table view for the Administration users page with filters and bulk acti
 
 At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
 
-**HiFi conversion:** Add `--hifi` for a DS-native hi-fi HTML deliverable; add `--push` for a Figma artifact. Or regenerate later with `--hifi` from the same brief.
+**DS-native by default:** every generation is a hi-fi HTML deliverable unless `--lofi` or `--fm` opts out; add `--push` for a Figma artifact. Regenerate later from the same brief to drop back to DS-native.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
@@ -445,7 +445,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
-| `/generate-flow [description] --hifi` | Hi-fi HTML deliverable (DS-native); add `--push` for a Figma artifact |
+| `/generate-flow [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
 | `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
 | `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
 | `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |

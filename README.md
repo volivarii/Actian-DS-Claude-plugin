@@ -289,7 +289,7 @@ Companion + skills read at runtime
 - **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
-**Hi-fi:** `/generate-flow X --hifi` authors the same screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
+**DS-native by default:** `/generate-flow X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
 
 ---
 

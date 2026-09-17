@@ -215,6 +215,12 @@
     .proto-topbar__title { font-size: 13px; font-weight: 600; color: #fff; }
     .proto-topbar__meta { font-size: 12px; color: rgba(255,255,255,0.55); }
     .proto-topbar__spacer { flex: 1; }
+    .proto-adds { font-size: 12px; color: rgba(255,255,255,0.75); }
+    .proto-adds summary { cursor: pointer; color: rgba(255,255,255,0.6); list-style: none; }
+    .proto-adds summary::-webkit-details-marker { display: none; }
+    .proto-adds[open] summary { color: #fff; }
+    .proto-adds ul { margin: 6px 0 0 0; padding-left: 16px; }
+    .proto-adds li { margin-top: 2px; }
     .proto-toggle { display: flex; gap: 2px; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 2px; }
     .proto-toggle__btn {
       font: inherit; font-size: 12px; cursor: pointer;
@@ -247,6 +253,7 @@
   <style>
 {{FLOW_CSS}}
   </style>
+  <style id="skin-css">{{SKIN_CSS}}</style>
 </head>
 
 <body
@@ -271,6 +278,17 @@
 
     /* ── Screens nav metadata: [{ id, label }] — filled by the assembler ── */
     screens: {{SCREENS_ARRAY}},
+
+    /* ── A [data-goto] click (render-node.js's flow-goto/data-goto target)
+       navigates by matching the nav entry whose `key` (the authored screen
+       id) equals the clicked node's data-goto value ── */
+    init() {
+      document.querySelector('.proto-stage').addEventListener('click', (e) => {
+        const t = e.target.closest('[data-goto]'); if (!t) return;
+        const i = this.screens.findIndex((s) => s.key === t.dataset.goto);
+        if (i !== -1) this.goto(this.screens[i].id);
+      });
+    },
 
     /* ── Navigate to a specific screen by 1-based index ── */
     goto(index) {
@@ -311,6 +329,7 @@
   <header class="proto-topbar">
     <div class="proto-topbar__title">{{FEATURE_NAME}}</div>
     <div class="proto-topbar__meta">{{SHARE_META}}</div>
+    {{ADDS_BLOCK}}
     <div class="proto-topbar__spacer"></div>
     <div class="proto-toggle" role="tablist" aria-label="View">
       <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'prototype' }" @click="view = 'prototype'" :aria-selected="view === 'prototype'">Prototype</button>
@@ -343,7 +362,7 @@
        cell is a fixed overflow:hidden grid item and the screen is transform:scale(var(--ov-scale)),
        default 0.25, adjustable via the 25/50/100 zoom buttons.
   ASSEMBLER-STRIP-END -->
-  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }" :style="view === 'overview' ? '--ov-scale:' + ovScale : ''">
+  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }" :style="view === 'overview' ? '--ov-scale:' + ovScale : ''"{{SKIN_ATTR}}>
     <!-- {{SCREENS}} -->
   </main>
 

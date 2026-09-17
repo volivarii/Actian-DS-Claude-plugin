@@ -19,6 +19,12 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **generate-flow authors DS-native by default** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). `--lofi` renders the
+  same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
+  `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
+
 ### Added
 
 - **Research is a gate, in four lanes, with a section of its own**
@@ -70,6 +76,76 @@ are summarized at the release level.
   A document with more than one decision pins a bar naming each of them. The map at the top
   scrolled away after the first screen and never came back, and what it maps is over nine thousand
   pixels long. The bar is that map, condensed to one line, and it hides on a phone.
+
+- **acceptance flow: the Data Steward panel over the Catalog page** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)).
+  The first hand-authored flow to exercise catalog-quality's own layering model end to end:
+  `plugins/actian-design-system/tests/fixtures/data-steward-over-catalog.flow.json` composes a
+  real Studio Catalog screen from the faceted-browse capture (every `{{...}}` placeholder filled
+  from the Figma reference frame 2703:173622) with a `layer: {kind: "panel", over: "catalog"}`
+  screen for the Data Steward panel, wired both ways (the ringed "Data Steward" header entry →
+  the panel, the panel's own Close button, a Tertiary text button, not an icon → back to the
+  catalog) and declaring two `adds` entries (the panel body and the header's agent trigger, for
+  which the renderer has no header slot). The Completion level control stays an FM leaf
+  (`fmSlider`); the DS Kit has no slider. Also fixes a validator false positive it surfaced:
+  `adds[].composedFrom` names real DS slugs, and the slug `button` collided with
+  `placeholder-text`'s leaked-default pattern (`/^Button$/i`) because `composedFrom` was not in
+  the walker's structural-field allowlist alongside `ref`/`dsSlug`.
+
+- **A composed screen names its capture, and unfilled capture slots surface**
+  ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). A screen composed from a captured page recipe (adapted tier)
+  now records `pageRecipe: "<slug>"` on itself, and `screen-generator.md` tells the author to
+  copy the capture's `slot` keys onto the FRAMEs that fill them. `validate-flow-data.js` reads
+  that back: `findUnfilledSlots` flags a declared slot no node carries (`unfilled-slot`, warning)
+  and a filled `results` slot under a six-item density floor (`density-floor`, warning), both
+  CLI-visible. A recipe can mark slots its skeleton never draws (`undrawnSlots`), which the
+  check subtracts before looking for a filler, and a node's `slot` can now be an array when one
+  FRAME fills more than one slot at once.
+
+- **A screen can layer over another, wire a goto, and declare what it invents**
+  ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Slice 1 of the layered-screen model: `flow-data.schema.json` gains
+  `screen.layer` (`kind`: modal/drawer/toast/panel, `over`: the base screen's id, which must not
+  itself be layered), `screen.adds` (what the screen contributes to the design system: `name`,
+  `composedFrom`, optional `newPrimitives`, `why`, ringed in the render and listed on the cover),
+  `screen.layout: "freehand"` (an unclassified layout test), and a content node's `goto`
+  (prototype navigation target, `render-node.js` emits `data-goto`) and `adds` (names an entry of
+  its own screen's `adds[]`, rung as new). `validate-flow-data.js` reads all of it back:
+  `findLayerIssues` fires `layer-target-missing`, `layer-kind-unknown`, `layer-over-layer`,
+  `goto-target-missing` and `adds-undeclared-name` as errors, plus `prototype-dead-end` (info,
+  flow-level) when no node anywhere in the flow carries `goto`. `findUndeclaredInvention` fires
+  `undeclared-invention` (warning) on a FRAME with two levels of nested FRAMEs below it, no
+  INSTANCE anywhere in the subtree, and no `adds` on itself or an ancestor: a hand-drawn panel
+  passing as ordinary content, the failure the composition gate's `uses`/`adds` check (#382)
+  cannot see because it only reads what a proposal declares, not what a screen actually draws.
+  All seven finding kinds are CLI-visible.
+
+- **A layered screen renders, the ring shows what's new, and the prototype wrapper navigates and
+  lists it** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Tasks 6.3/6.4, the render half of Slice 1: a screen
+  carrying `layer` now draws as a modal/drawer/toast/panel floating over its base screen, which
+  renders byte-identically underneath (`flow-renderer.js`'s new `renderLayered`, exported
+  alongside `renderScreen`); a FRAME root's declared `goto`/`adds` become `data-goto`/`data-adds`
+  plus the `flow-adds` ring (dashed outline, "new: `<name>`" label), and an INSTANCE root carrying
+  `goto` is wrapped in a `<span class="flow-goto" data-goto="…">` click target
+  (`render-node.js`). Both server-side render loops (the strip preview's `screens.forEach` and the
+  flow-share deliverable's per-screen loop) index screens by id and resolve a layer's base, falling
+  back to a plain screen when the `over` target is missing, which the validator (Task 6.2) already
+  flags rather than throwing. In the `flow-prototype-wrapper.html` deliverable, a `[data-goto]`
+  click now navigates the prototype (matched by the nav entry's `key`, the authored screen id, via
+  a new `init()` on the Alpine root), and every screen's declared `adds[]` is listed once on the
+  cover under a "This flow adds N" disclosure.
+
+- **`layout: "freehand"`, the look tool, and the look gate step** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). Tasks
+  6.5/7.2/7.3 close out Slice 1's authoring and verification pieces: `prepare-flow.js` skips recipe
+  snapping entirely for a screen carrying `layout: "freehand"` (no pattern, archetype or pageRecipe;
+  the screen-generator agent classifies it `improvised` with the justification "freehand layout
+  requested"), `html-reference.md` gains a worked `goto`/`layer` authoring example (a detail
+  screen's primary button wired to a confirm modal, a toast screen layered over its base), and
+  `recipes/flow/overlay.json`'s skeleton gains a `layer` template. A new CLI,
+  `scripts/renderers/look.js`, renders one screen (through the same renderer and flow CSS the
+  flow-share deliverable uses, so DS leaves keep their real appearance) and screenshots it beside a
+  vendored product capture into a two-column `look-<n>.html` page with a "What differs, three
+  lines" prompt, a look, not a pixel diff. `references/generate-flow/gates.md` documents the step
+  (dormant until the next vendor refresh ships `derivedFrom.screenshot` on a recipe); `SKILL.md`
+  Step 7 points to it.
 
 ### Fixed
 

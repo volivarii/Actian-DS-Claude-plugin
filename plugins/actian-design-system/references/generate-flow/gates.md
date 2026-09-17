@@ -92,6 +92,8 @@ Parse the response for screen approval, detail level, AND config tokens (`hifi`,
 
 **FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
+**Look (S7).** When any screen's `pageRecipe` names a recipe whose vendored `derivedFrom.screenshot` exists, run `source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/renderers/look.js <flow.json> --screen <n> --against <vendor path> -o flows/look/`, Read the PNG, and write the three lines into the gate summary before asking. No pixel diff; the three lines are the deliverable of this step. Dormant today: the vendored recipes carry no `derivedFrom.screenshot` yet, pending the next vendor refresh.
+
 ## Step 7.5 — Combined post-build gate (interactive)
 
 **Skipped if:** `--no-prompt` is set, OR refine/iterate/branch path (designer-driven, push already happened — at most offer audit per the reference).
