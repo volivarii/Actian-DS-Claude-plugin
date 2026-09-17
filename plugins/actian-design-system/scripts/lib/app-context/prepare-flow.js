@@ -577,6 +577,25 @@ function prepareFlow(options) {
         propertyRules: {},
       };
     }
+    // A screen that declares layer and no pattern composes its body from
+    // screen.layer.kind alone (a toast, a modal with no app pattern behind
+    // it): skip entity routing, name matching and the keyword fallback the
+    // same way the freehand branch skips them, so it never inherits a
+    // whole-page skeleton it will not use. layout stays whatever the screen
+    // list declared (not "freehand"); the layer itself is attached below,
+    // after this map, for every screen that declares one.
+    if (s.layer && !s.pattern) {
+      return {
+        name: s.name,
+        template: s.template,
+        pattern: null,
+        archetype: null,
+        pageRecipe: null,
+        sections: [],
+        components: [],
+        propertyRules: {},
+      };
+    }
     // Entity-aware routing runs first (Task 13): a screen named after the
     // entity itself ("Data products", "Data product details") reaches the
     // entity's own collection or detail pattern, not whatever the raw name

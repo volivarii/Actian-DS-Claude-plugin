@@ -322,4 +322,48 @@ describe("prepare-flow: declared layers and the flow's screen ids", function () 
     assert.strictEqual(slice3.flow[3].id, "describe-catalog-items-4");
     assert.strictEqual(slice3.screen.layer.overId, "describe-catalog-items-2");
   });
+
+  it("a layer with no declared pattern gets no page skeleton, and prints no keyword-guess line", function () {
+    var t = writeList({
+      meta: { feature: "Describe catalog items" },
+      screens: screens,
+    });
+    var out = path.join(t.dir, ".brief.json");
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", t.file, "-o", out],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 0, r.stderr);
+    assert.doesNotMatch(r.stderr, /screen 4 .*by keyword/);
+    var brief = JSON.parse(fs.readFileSync(out, "utf8"));
+    var toastScreen = brief.screens[3];
+    assert.strictEqual(toastScreen.archetype, null);
+    assert.strictEqual(toastScreen.pageRecipe, null);
+    assert.deepStrictEqual(toastScreen.sections, []);
+    assert.deepStrictEqual(toastScreen.components, []);
+    assert.strictEqual(toastScreen.layer.overId, "describe-catalog-items-2");
+    assert.strictEqual(toastScreen.layout, undefined);
+    assert.deepStrictEqual(brief.sectionsByScreen["Descriptions saved"], []);
+    var slice4 = JSON.parse(
+      fs.readFileSync(path.join(t.dir, ".brief", "4.json"), "utf8"),
+    );
+    assert.strictEqual(slice4.screen.archetype, null);
+    assert.strictEqual(slice4.screen.pageRecipe, null);
+  });
+
+  it("a screen declaring both layer and pattern still carries that pattern's page recipe", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      feature: "Describe catalog items",
+      screens: screens,
+    });
+    var drawerScreen = brief.screens[2];
+    assert.strictEqual(drawerScreen.pattern.slug, "right-sliding-drawer");
+    assert.strictEqual(
+      drawerScreen.pageRecipe.slug,
+      "studio-quick-edit-drawer",
+    );
+    assert.strictEqual(drawerScreen.layer.overId, "describe-catalog-items-2");
+  });
 });
