@@ -29,9 +29,9 @@ are summarized at the release level.
   `prepare-flow.js` routes a declared pattern first, refuses an unknown slug or a malformed layer by
   name, says on stderr when a screen fell back to a keyword guess, and hands every author agent the
   flow's screen ids so a primary action can link to the next screen. Merge stamps the declared layer, so
-  a panel renders over its base. The Look now runs after every render, push or not: `look.js --brief`
-  pairs each screen built on a captured page with that page's product screenshot, and compares page
-  structure only. The render draws the design system's Figma components on purpose, so a production
+  a panel renders over its base. The Look now runs after the final render, push or not: `look.js --brief`
+  pairs each screen whose page recipe carries a product screenshot with that screenshot, and compares
+  page structure only. The render draws the design system's Figma components on purpose, so a production
   screen still showing older components is never reported as a difference. Gate text that still
   called Fat Marker the default, and a Look note that said it was switched off, are gone.
 - **generate-flow authors DS-native by default** ([#389](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/389)). `--lofi` renders the
