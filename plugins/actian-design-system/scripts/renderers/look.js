@@ -203,7 +203,11 @@ function parseArgs(argv) {
 // carries a product screenshot that exists on disk, with that screenshot's
 // path. derivedFrom.screenshot is relative to the recipe's SOURCE directory
 // (vendor/app-context/src/recipes), where the capture PNG lives; the dist
-// copy of a recipe has no captures folder beside it.
+// copy of a recipe has no captures folder beside it. A recipe that cannot be
+// read is warned about, not silently folded into "no capture" (an unreadable
+// recipe and a recipe that legitimately has no screenshot look identical to
+// the caller otherwise); a recipe with no derivedFrom.screenshot, or one
+// whose screenshot file does not exist, stays a silent skip.
 function captureScreens(brief, deps) {
   deps = deps || {};
   var readRecipe =
@@ -217,6 +221,11 @@ function captureScreens(brief, deps) {
       return path.dirname(PATHS.appContextRecipesSrc(slug));
     };
   var exists = deps.exists || fs.existsSync;
+  var warn =
+    deps.warn ||
+    function (msg) {
+      process.stderr.write(msg);
+    };
   var out = [];
   ((brief && brief.screens) || []).forEach(function (s, i) {
     var slug = s && s.pageRecipe && s.pageRecipe.slug;
@@ -225,6 +234,15 @@ function captureScreens(brief, deps) {
     try {
       recipe = readRecipe(slug);
     } catch (e) {
+      warn(
+        "look: screen " +
+          (i + 1) +
+          ": cannot read recipe " +
+          slug +
+          ": " +
+          e.message +
+          "\n",
+      );
       return;
     }
     var rel = recipe && recipe.derivedFrom && recipe.derivedFrom.screenshot;

@@ -240,6 +240,33 @@ describe("look.captureScreens", function () {
       },
     ]);
   });
+
+  it("warns and skips when a recipe cannot be read, instead of silently skipping it", function () {
+    var warnings = [];
+    var pairs = look.captureScreens(
+      { screens: [{ pageRecipe: { slug: "broken" } }] },
+      {
+        readRecipe: function () {
+          throw new Error("boom");
+        },
+        srcDir: function () {
+          return "/recipes";
+        },
+        exists: function () {
+          return true;
+        },
+        warn: function (msg) {
+          warnings.push(msg);
+        },
+      },
+    );
+    assert.deepStrictEqual(pairs, []);
+    assert.strictEqual(warnings.length, 1);
+    assert.match(
+      warnings[0],
+      /look: screen 1: cannot read recipe broken: boom/,
+    );
+  });
 });
 
 describe("look.main --brief", function () {
