@@ -105,13 +105,15 @@ Each entry routes by what it declares; a declared pattern outranks the name:
 A steward describing catalog items from a side panel:
 
 ```json
-{ "screens": [
-  { "name": "Catalog, no description", "template": "studio", "pattern": "faceted-browse" },
-  { "name": "Several items selected", "template": "studio", "pattern": "faceted-browse" },
-  { "name": "Describe items", "template": "studio", "pattern": "right-sliding-drawer", "layer": { "kind": "drawer", "over": 2 } },
+{ "meta": { "mode": "generate", "nav": "catalog" }, "screens": [
+  { "name": "Catalog, no description", "template": "studio", "pattern": "faceted-browse", "exit": "selects several items" },
+  { "name": "Several items selected", "template": "studio", "pattern": "faceted-browse", "exit": "Describe, in the bulk bar" },
+  { "name": "Describe items", "template": "studio", "pattern": "right-sliding-drawer", "layer": { "kind": "drawer", "over": 2 }, "exit": "Save descriptions" },
   { "name": "Descriptions saved", "template": "studio", "layer": { "kind": "toast", "over": 2 } }
 ] }
 ```
+
+**The rail and the exits are declared here too.** `meta.nav` is the sidebar id the flow lives under (`resolve-chrome.js --app <app>` prints the ids); a screen's own `nav` overrides it for a flow that crosses sections. Merge stamps the rail and its active item on every app screen from `meta._glossary.chrome` and that id, and removes whatever an agent wrote, so two screens of one page cannot disagree. A layer draws no rail of its own. `exit` is a short phrase for what the user does on a screen to reach the next one: it tells the author which element carries `goto`, and merge records it on the screen with the next id. `prepare-flow.js` refuses the list on an unknown `nav`, on an `exit` on the last screen, and, when `meta.mode` is `generate`, on any other screen with no `exit`. After merge, `screen-no-exit` (P1) names a screen whose declared exit no node carries a `goto` for, and `chrome-active-undeclared` (P1) a rail with no active item because no `nav` was declared.
 
 ## Look (after the final render)
 

@@ -295,7 +295,10 @@ The toast that follows a successful action, as the merged flow carries it over t
 ```
 
 Layers and `goto` targets come from the brief, never from guesswork. A slice carries `flow`, every screen's `{ n, id, name }`
-in order with the ids merge will stamp: aim `goto` at the next entry's `id`. A slice carrying
+in order with the ids merge will stamp. A slice whose screen leads onward also carries `screen.exit`:
+`via` (what the user does to move on), `toId` and `toName`. Put `goto: "<toId>"` on the element `via`
+names. When that element lives inside a leaf (a table row, a page-header action), put `goto` on the
+leaf INSTANCE. A slice carrying
 `screen.layer` (`{ kind, over, overId, overName }`) is a layer: write only its body, because merge sets
 the screen's `layer` to `{ kind, over: overId }` from the screen list. When the slice also carries
 `screen.pageRecipe` (a drawer composed from `studio-quick-edit-drawer`, say), that capture's skeleton
