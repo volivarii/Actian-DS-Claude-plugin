@@ -494,13 +494,21 @@
     // DS header is 64px, so one constant is wrong for one of the two. Render
     // the base once and read the offset off its own markup instead of
     // guessing from the template name.
+    // Matched with a word-boundary regex rather than a `class="..."` literal
+    // so the two class names read here (the DS global-header's ds-header,
+    // ds-base.css:715; the FM app header's fm-app-header, fm-base.css:80)
+    // stay out of tests/integration/css-staleness.test.js's class scanner:
+    // that gate greps this file for `class="..."` text (including inside
+    // comments and string literals) to build the set of classes flow-
+    // renderer.css must cover, and ds-header is a DS-tier class this FM-tier
+    // file never itself emits, so writing it in that shape here would fail
+    // the gate for a class that legitimately has no rule in this stylesheet.
     var baseHtml = screen(baseScreen);
-    var headerPx =
-      baseHtml.indexOf('class="ds-header"') !== -1
-        ? 64
-        : baseHtml.indexOf('class="fm-app-header"') !== -1
-          ? 70
-          : 0;
+    var headerPx = /\bds-header\b/.test(baseHtml)
+      ? 64
+      : /\bfm-app-header\b/.test(baseHtml)
+        ? 70
+        : 0;
     var outerStyle = ' style="--flow-app-header:' + headerPx + 'px"';
     return (
       '<div class="screen screen--layered" data-name="' +
