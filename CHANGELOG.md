@@ -21,6 +21,19 @@ are summarized at the release level.
 
 ### Changed
 
+- **generate-flow: every screen of a flow shares one side rail, and every screen says how the user leaves it** ([#404](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/404))
+  The acceptance run of #393 showed a Catalog page with Dashboard highlighted in the rail, and a first
+  screen with no link onward, so the prototype opened on a dead end. Both were left to each screen's
+  author agent. The screen list now declares the sidebar section a flow lives under (`meta.nav`, or
+  `nav` on one screen) and, per screen, what the user does to move on (`exit`). Merge stamps the rail
+  and its active item on every app screen from that, removing whatever an agent wrote; a layer draws
+  none. Each author agent is handed its exit with the next screen's id and told which element carries
+  `goto`. `prepare-flow.js` refuses an unknown `nav`, an `exit` on the last screen and, when
+  `meta.mode` is `generate`, any other screen with no `exit`. Two new P1 findings:
+  `screen-no-exit` (a declared exit no node carries a `goto` for) and `chrome-active-undeclared` (a
+  rail with no active item). An older flow that declares no exits keeps its flow-level
+  `prototype-dead-end` info and its exit code.
+  Closes #396, #352, #397.
 - **generate-flow routes each screen by what the screen list declares, not by its name** ([#393](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/393)). A real run
   on 2026-09-17 (installed 2026.9.46) reached no captured page, no layer, no screen link and no Look,
   because a screen found its page only when its name happened to match a pattern, and nothing could say

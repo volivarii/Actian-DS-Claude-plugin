@@ -31,6 +31,9 @@ each prefixed with the question its decision answers when there is more than one
 left unprefixed. Two picks that disagree on a merged screen's `template`, `app` or `entity` are a P0
 naming both decisions, because guessing a winner builds a flow nobody asked for.
 
+The seed carries no `nav` or `exit`; the skill adds both when it writes the list (gates.md, Screen
+list).
+
 A proposal's `screens[].template` names a flow archetype (`recipes/flow/_index.json`: `overlay`,
 `form-create`, `detail-view`), and that is a different vocabulary from `/generate-flow`'s own
 screen-list `template`, which names chrome (`studio`, `explorer`, `administration`, ...; see the

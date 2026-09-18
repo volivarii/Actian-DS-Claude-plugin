@@ -61,6 +61,40 @@ describe("layer and goto", function () {
       ["prototype-dead-end"],
     );
   });
+
+  it("reports a declared exit that no node carries a goto for, and only that", function () {
+    var data = {
+      screens: [
+        { id: "a", name: "A", exit: { via: "selects rows", to: "b" }, content: [{ type: "FRAME", name: "f", children: [] }] },
+        {
+          id: "b",
+          name: "B",
+          exit: { via: "Save", to: "c" },
+          content: [{ type: "FRAME", name: "f", children: [{ type: "INSTANCE", name: "Save", goto: "c" }] }],
+        },
+        { id: "c", name: "C", content: [] },
+        { id: "d", name: "D", status: "pending", exit: { via: "later", to: "e" } },
+      ],
+    };
+    var noExit = V.findLayerIssues(data).filter(function (x) {
+      return x.check === "screen-no-exit";
+    });
+    assert.equal(noExit.length, 1);
+    assert.equal(noExit[0].screenId, "a");
+    assert.equal(noExit[0].severity, "warning");
+    assert.match(noExit[0].value, /selects rows/);
+    assert.match(noExit[0].value, /\bb\b/);
+  });
+
+  it("an unwired flow that declares no exits still gets only the flow-level info", function () {
+    var data = {
+      screens: [
+        { id: "a", name: "A", content: [] },
+        { id: "b", name: "B", content: [] },
+      ],
+    };
+    assert.deepEqual(kinds(V.findLayerIssues(data)), ["prototype-dead-end"]);
+  });
 });
 
 describe("undeclared invention", function () {

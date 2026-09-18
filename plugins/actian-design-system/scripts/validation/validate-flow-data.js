@@ -1882,6 +1882,36 @@ function checkChromeCoherence(screen, glossaryChrome, findings) {
   });
 }
 
+// The side-nav leaf always highlights something: with no active item it
+// highlights the first, which reads as a navigation bug (a Catalog page under
+// Dashboard). merge-partials stamps the active item from the screen list's
+// nav; this reports a grounded rail that still has none. Same guard as
+// checkChromeCoherence: a flow with no grounded chrome is skipped.
+function checkChromeActive(screen, glossaryChrome, findings) {
+  if (!glossaryChrome || !Array.isArray(glossaryChrome.sidebar)) return;
+  if (!screen || screen.layer) return;
+  var nav = screen.navItems;
+  if (!Array.isArray(nav) || nav.length === 0) return;
+  if (screen.activeNavItem) return;
+  var on = nav.some(function (it) {
+    return (
+      it &&
+      typeof it === "object" &&
+      it.state &&
+      String(it.state).toLowerCase() === "on"
+    );
+  });
+  if (on) return;
+  findings.push({
+    kind: "chrome-active-undeclared",
+    severity: "warning",
+    screen: screen.id || "",
+    message:
+      "The side rail has no active item, so the first one is highlighted. " +
+      "Declare meta.nav (a sidebar id) in the screen list and merge again.",
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Aggregator entry point. Returns { findings: [...] } using the unified shape
 // { severity, kind, screen, message } plus any extra fields needed by legacy
@@ -1937,6 +1967,7 @@ function validate(data, opts) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
       checkChromeCoherence(data.screens[si], glossaryChrome, findings);
+      checkChromeActive(data.screens[si], glossaryChrome, findings);
       checkTextStyle(data.screens[si], findings);
     }
   }
@@ -2617,6 +2648,7 @@ function findLayerIssues(data) {
     if (!screen) return;
     var screenName = screen.name || "Screen " + (si + 1);
     var screenId = screen.id || "";
+    var screenHasGoto = false;
 
     if (screen.layer) {
       var kind = screen.layer.kind;
@@ -2666,6 +2698,7 @@ function findLayerIssues(data) {
         if (!node) return;
         if (typeof node.goto === "string") {
           anyGoto = true;
+          screenHasGoto = true;
           if (!screensById[node.goto]) {
             issues.push({
               severity: "error",
@@ -2691,6 +2724,31 @@ function findLayerIssues(data) {
         }
       },
     );
+
+    // A screen that declares an exit (merge-partials stamps it from the screen
+    // list) and carries no goto is a dead end inside a flow that said it was
+    // wired. A flow declaring no exits keeps the flow-level info below. A
+    // pending stub has no content yet.
+    if (
+      screen.exit &&
+      typeof screen.exit.via === "string" &&
+      screen.status !== "pending" &&
+      !screenHasGoto
+    ) {
+      issues.push({
+        severity: "warning",
+        check: "screen-no-exit",
+        screen: screenName,
+        screenId: screenId,
+        path: "exit",
+        value:
+          'declares the exit "' +
+          screen.exit.via +
+          '" and no node carries goto: put goto "' +
+          screen.exit.to +
+          '" on the element that exit names',
+      });
+    }
   });
 
   if (!anyGoto) {
@@ -2939,6 +2997,7 @@ if (require.main === module) {
     "chrome-drift": true,
     "chrome-ungrounded": true,
     "chrome-incoherent": true,
+    "chrome-active-undeclared": true,
     "pattern-ungrounded": true,
     "relationships-ungrounded": true,
     "properties-ungrounded": true,
@@ -2952,6 +3011,7 @@ if (require.main === module) {
     "layer-kind-unknown": true,
     "layer-over-layer": true,
     "goto-target-missing": true,
+    "screen-no-exit": true,
     "adds-undeclared-name": true,
     "prototype-dead-end": true,
     "undeclared-invention": true,

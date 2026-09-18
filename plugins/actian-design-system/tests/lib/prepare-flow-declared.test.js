@@ -367,3 +367,195 @@ describe("prepare-flow: declared layers and the flow's screen ids", function () 
     assert.strictEqual(drawerScreen.layer.overId, "describe-catalog-items-2");
   });
 });
+
+describe("prepare-flow: declared nav and exits", function () {
+  var TWO = [
+    { name: "Catalog", template: "studio", exit: "selects the rows" },
+    { name: "Catalog, rows selected", template: "studio" },
+  ];
+
+  it("refuses a meta.nav the app's rail lacks, listing the rail's ids", function () {
+    assert.throws(
+      function () {
+        prepare.prepareFlow({ app: "studio", screens: TWO, nav: "marketplace" });
+      },
+      function (e) {
+        assert.strictEqual(e.code, "SCREEN_LIST_INVALID");
+        assert.match(e.message, /meta\.nav "marketplace"/);
+        assert.match(e.message, /dashboard, catalog, topics/);
+        return true;
+      },
+    );
+  });
+
+  it("refuses a screen's nav the rail lacks, naming the screen", function () {
+    assert.throws(
+      function () {
+        prepare.prepareFlow({
+          app: "studio",
+          screens: [
+            { name: "Catalog", template: "studio", nav: "nope", exit: "x" },
+            { name: "Done", template: "studio" },
+          ],
+        });
+      },
+      function (e) {
+        assert.match(e.message, /screen 1 "Catalog": nav "nope"/);
+        return true;
+      },
+    );
+  });
+
+  it("refuses any nav on an app with no rail, saying so", function () {
+    assert.throws(
+      function () {
+        prepare.prepareFlow({
+          app: "explorer",
+          screens: [{ name: "Search", template: "explorer" }],
+          nav: "catalog",
+        });
+      },
+      /this app has no side rail/,
+    );
+  });
+
+  it("accepts a valid meta.nav and a valid per-screen nav", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      nav: "catalog",
+      screens: [
+        { name: "Catalog", template: "studio", nav: "topics", exit: "x" },
+        { name: "Done", template: "studio" },
+      ],
+    });
+    assert.strictEqual(brief.screens.length, 2);
+  });
+
+  it("under mode generate, refuses a non-final screen with no exit, naming it and the screen it should reach", function () {
+    assert.throws(
+      function () {
+        prepare.prepareFlow({
+          app: "studio",
+          mode: "generate",
+          screens: [
+            { name: "Catalog", template: "studio" },
+            { name: "Done", template: "studio" },
+          ],
+        });
+      },
+      function (e) {
+        assert.match(e.message, /screen 1 "Catalog": exit is required/);
+        assert.match(e.message, /screen 2 "Done"/);
+        return true;
+      },
+    );
+  });
+
+  it("with no mode, or mode refine, a missing exit is accepted", function () {
+    var screens = [
+      { name: "Catalog", template: "studio" },
+      { name: "Done", template: "studio" },
+    ];
+    assert.doesNotThrow(function () {
+      prepare.prepareFlow({ app: "studio", screens: screens });
+    });
+    assert.doesNotThrow(function () {
+      prepare.prepareFlow({ app: "studio", mode: "refine", screens: screens });
+    });
+  });
+
+  it("a single-screen generate flow needs no exit", function () {
+    assert.doesNotThrow(function () {
+      prepare.prepareFlow({
+        app: "studio",
+        mode: "generate",
+        screens: [{ name: "Catalog", template: "studio" }],
+      });
+    });
+  });
+
+  it("refuses an exit on the last screen, and an exit that is not a phrase", function () {
+    assert.throws(function () {
+      prepare.prepareFlow({
+        app: "studio",
+        screens: [
+          { name: "Catalog", template: "studio", exit: "x" },
+          { name: "Done", template: "studio", exit: "y" },
+        ],
+      });
+    }, /screen 2 "Done": exit: nothing follows the last screen/);
+    assert.throws(function () {
+      prepare.prepareFlow({
+        app: "studio",
+        screens: [
+          { name: "Catalog", template: "studio", exit: "   " },
+          { name: "Done", template: "studio" },
+        ],
+      });
+    }, /screen 1 "Catalog": exit must be a short phrase/);
+  });
+
+  it("carries the exit on the brief screen and the slice, aimed at the id merge will stamp", function () {
+    var brief = prepare.prepareFlow({
+      app: "studio",
+      feature: "Describe catalog items",
+      screens: TWO,
+    });
+    assert.deepStrictEqual(brief.screens[0].exit, {
+      via: "selects the rows",
+      toId: "describe-catalog-items-2",
+      toName: "Catalog, rows selected",
+    });
+    assert.strictEqual(brief.screens[0].exit.toId, brief.flow[1].id);
+    assert.strictEqual(brief.screens[1].exit, undefined);
+    var slice = prepare.sliceBrief(brief, 1);
+    assert.strictEqual(slice.screen.exit.toId, "describe-catalog-items-2");
+  });
+
+  it("accepts a nav the list's own justified chrome adds, through the CLI", function () {
+    var w = writeList({
+      meta: {
+        feature: "F",
+        nav: "reports",
+        _glossary: {
+          chrome: {
+            app: "studio",
+            header: { type: "Studio" },
+            sidebar: [
+              { label: "Catalog", id: "catalog" },
+              { label: "Reports", id: "reports" },
+            ],
+          },
+        },
+      },
+      screens: [{ name: "Reports", template: "studio" }],
+    });
+    var out = path.join(w.dir, ".brief.json");
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", w.file, "-o", out],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 0, r.stderr);
+    assert.strictEqual(fs.existsSync(out), true);
+  });
+
+  it("the CLI reads meta.mode and meta.nav from the list", function () {
+    var w = writeList({
+      meta: { feature: "F", mode: "generate", nav: "marketplace" },
+      screens: [
+        { name: "Catalog", template: "studio" },
+        { name: "Done", template: "studio" },
+      ],
+    });
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", w.file, "-o", path.join(w.dir, ".brief.json")],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 1);
+    assert.match(r.stderr, /meta\.nav "marketplace"/);
+    assert.match(r.stderr, /exit is required/);
+    assert.strictEqual(fs.existsSync(path.join(w.dir, ".brief.json")), false);
+  });
+});

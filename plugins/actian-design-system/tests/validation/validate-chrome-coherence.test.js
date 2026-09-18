@@ -77,4 +77,40 @@ describe("validate-chrome-coherence (check B)", function () {
   it("omitted navItems → skipped (inherits flow chrome)", function () {
     assert.strictEqual(incoherent(flowWithScreen(undefined)).length, 0);
   });
+
+  it("reports a grounded rail with no active item, and is silent once one is set, on a layer, or on an ungrounded flow", function () {
+    function flow(screen, grounded) {
+      return {
+        meta: grounded === false ? {} : { _glossary: { chrome: STUDIO } },
+        screens: [
+          Object.assign(
+            { id: "s1", name: "S", template: "studio", content: [] },
+            screen,
+          ),
+        ],
+      };
+    }
+    function active(data) {
+      return validate.validate(data, QUIET).findings.filter(function (f) {
+        return f.kind === "chrome-active-undeclared";
+      });
+    }
+    var rail = STUDIO.sidebar.map(function (s) {
+      return { label: s.label };
+    });
+    var railOn = STUDIO.sidebar.map(function (s) {
+      return s.id === "catalog"
+        ? { label: s.label, state: "On" }
+        : { label: s.label };
+    });
+    var hit = active(flow({ navItems: rail }));
+    assert.equal(hit.length, 1);
+    assert.equal(hit[0].severity, "warning");
+    assert.equal(hit[0].screen, "s1");
+    assert.match(hit[0].message, /meta\.nav/);
+    assert.equal(active(flow({ navItems: rail, activeNavItem: "Catalog" })).length, 0);
+    assert.equal(active(flow({ navItems: railOn })).length, 0);
+    assert.equal(active(flow({ navItems: rail, layer: { kind: "panel", over: "x" } })).length, 0);
+    assert.equal(active(flow({ navItems: rail }, false)).length, 0);
+  });
 });

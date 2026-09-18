@@ -109,4 +109,22 @@ describe("declared routing: skill, gates and authoring text", function () {
     assert.match(section, /`unknown-ds-slug`/);
     assert.match(section, /"dsSlug": "chat-with-ai-steward"/);
   });
+
+  it("the rail and the exits are declared in the screen list, and the agent no longer writes the rail", function () {
+    var agent = read("agents/screen-generator.md");
+    var ref = read("references/generate-flow/html-reference.md");
+    assert.match(skill, /"exit": "<what the user does to move on>"/);
+    assert.match(skill, /`meta\.nav`/);
+    assert.match(skill, /`screen-no-exit`/);
+    assert.match(skill, /`chrome-active-undeclared`/);
+    assert.doesNotMatch(skill, /authoritative shell every screen shares/);
+    assert.match(agent, /Never write `navItems`, `activeNavItem` or `sidebar`/);
+    assert.doesNotMatch(agent, /MUST set `navItems`/);
+    assert.match(agent, /goto: "<screen\.exit\.toId>"/);
+    assert.match(agent, /`screen\.exit\.via`/);
+    assert.doesNotMatch(agent, /Put `goto` on the primary action/);
+    assert.match(gates, /`meta\.nav`/);
+    assert.match(gates, /`exit`/);
+    assert.match(ref, /`screen\.exit`/);
+  });
 });
