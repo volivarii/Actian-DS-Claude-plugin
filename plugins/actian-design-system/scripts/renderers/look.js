@@ -280,9 +280,23 @@ function lookOne(o) {
   fs.mkdirSync(o.outDir, { recursive: true });
 
   // The look folder is something a person sends on or serves: a path back into
-  // the plugin cache only resolves on the machine that wrote it.
+  // the plugin cache only resolves on the machine that wrote it. The look is
+  // advisory and must never fail the run: a copy that cannot be made falls
+  // back to the old relative reference (a broken image in that one case is
+  // exactly what shipped before this copy existed) instead of raising, and
+  // stderr says why.
+  var outDirAbs = path.resolve(o.outDir);
   var productPng = "look-" + o.screen + "-product" + path.extname(o.against);
-  fs.copyFileSync(o.against, path.join(o.outDir, productPng));
+  var againstRef;
+  try {
+    fs.copyFileSync(o.against, path.join(o.outDir, productPng));
+    againstRef = productPng;
+  } catch (e) {
+    process.stderr.write(
+      "look: cannot copy " + o.against + ": " + e.message + "\n",
+    );
+    againstRef = path.relative(outDirAbs, path.resolve(o.against));
+  }
 
   var page = buildStandalonePage(rendered.html, readFlowCss());
   var tmpHtml = path.join(
@@ -313,7 +327,7 @@ function lookOne(o) {
   var title = (rendered.screen && rendered.screen.name) || "Screen " + o.screen;
   var lookHtml = buildLookHtml({
     renderPng: "look-" + o.screen + ".png",
-    againstPng: productPng,
+    againstPng: againstRef,
     title: title,
   });
   var outHtmlPath = path.join(o.outDir, "look-" + o.screen + ".html");
