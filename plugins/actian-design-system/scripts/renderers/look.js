@@ -279,6 +279,11 @@ function lookOne(o) {
 
   fs.mkdirSync(o.outDir, { recursive: true });
 
+  // The look folder is something a person sends on or serves: a path back into
+  // the plugin cache only resolves on the machine that wrote it.
+  var productPng = "look-" + o.screen + "-product" + path.extname(o.against);
+  fs.copyFileSync(o.against, path.join(o.outDir, productPng));
+
   var page = buildStandalonePage(rendered.html, readFlowCss());
   var tmpHtml = path.join(
     os.tmpdir(),
@@ -306,10 +311,9 @@ function lookOne(o) {
   }
 
   var title = (rendered.screen && rendered.screen.name) || "Screen " + o.screen;
-  var outDirAbs = path.resolve(o.outDir);
   var lookHtml = buildLookHtml({
     renderPng: "look-" + o.screen + ".png",
-    againstPng: path.relative(outDirAbs, path.resolve(o.against)),
+    againstPng: productPng,
     title: title,
   });
   var outHtmlPath = path.join(o.outDir, "look-" + o.screen + ".html");
