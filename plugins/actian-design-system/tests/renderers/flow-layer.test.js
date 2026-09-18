@@ -167,4 +167,21 @@ describe("layered screens", function () {
     );
     assert.match(css, /--flow-app-header:\s*64px/);
   });
+  it("a layer over a headerless base overrides --flow-app-header to 0", function () {
+    var bareBase = {
+      id: "bare-base",
+      name: "Bare base",
+      template: "bare",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, bareBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:0px">/,
+    );
+  });
+  it("a layer over a chromed base keeps the stylesheet's --flow-app-header default", function () {
+    var html = FR.renderLayered(panel, base);
+    assert.doesNotMatch(html, /--flow-app-header:0px/);
+  });
 });

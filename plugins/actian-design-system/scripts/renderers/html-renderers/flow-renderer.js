@@ -236,6 +236,23 @@
     );
   }
 
+  // hasChrome — true unless the screen's template is one of the no-chrome
+  // templates (bare/mobile/tablet/compact/custom), which screen() renders
+  // with no header/sidebar wrapper at all. renderLayered() calls this on the
+  // BASE screen too, so a layer over a headerless base never docks against a
+  // header that was never rendered; the two call sites share this one check
+  // so they cannot drift.
+  function hasChrome(s) {
+    var template = s.template || "";
+    return (
+      template !== "bare" &&
+      template !== "mobile" &&
+      template !== "tablet" &&
+      template !== "compact" &&
+      template !== "custom"
+    );
+  }
+
   function screen(s) {
     var type = s.type || "standard";
     var w = 1440;
@@ -259,13 +276,7 @@
 
     // Bare/mobile/tablet/compact/custom → no chrome wrapper
     var template = s.template || "";
-    if (
-      template === "bare" ||
-      template === "mobile" ||
-      template === "tablet" ||
-      template === "compact" ||
-      template === "custom"
-    ) {
+    if (!hasChrome(s)) {
       return (
         '<div class="screen screen--' +
         esc(template) +
@@ -473,10 +484,23 @@
     var bodyStyle = declaredWidth
       ? ' style="width:' + Math.min(declaredWidth, 1440) + 'px"'
       : "";
+    // A layer over a headerless base (bare/mobile/tablet/compact/custom, the
+    // same no-chrome check screen() uses) must dock edge to edge: there is no
+    // rendered header to dock below. The stylesheet's --flow-app-header:64px
+    // default is only correct when the base actually renders one, so override
+    // it to 0 on the outer .screen--layered div for a headerless base.
+    var outerDeclarations = hasChrome(baseScreen)
+      ? []
+      : ["--flow-app-header:0px"];
+    var outerStyle = outerDeclarations.length
+      ? ' style="' + outerDeclarations.join(";") + '"'
+      : "";
     return (
       '<div class="screen screen--layered" data-name="' +
       esc(layerScreen.name || "") +
-      '">' +
+      '"' +
+      outerStyle +
+      ">" +
       '<div class="flow-layer-base">' +
       screen(baseScreen) +
       "</div>" +
