@@ -125,6 +125,18 @@ describe("direct brief", () => {
     ].forEach((k) =>
       assert.ok(fs.existsSync(d.assets[k]), k + " " + d.assets[k]),
     );
+    // frameCss is what the assembled page inlines, in order. The frame's own
+    // layout lives in render-node.css and flow-renderer.css, which none of the
+    // single-file entries above names, so a brief without this list cannot
+    // draw a styled app frame.
+    d.assets.frameCss.forEach((f) => assert.ok(fs.existsSync(f), f));
+    assert.strictEqual(d.assets.frameCss[0], d.assets.tokensCss);
+    ["render-node.css", "flow-renderer.css", "ds-base.css"].forEach((name) =>
+      assert.ok(
+        d.assets.frameCss.some((f) => f.endsWith(name)),
+        "frameCss does not name " + name,
+      ),
+    );
     ["writing", "patterns", "product"].forEach((k) =>
       assert.ok(
         fs.existsSync(d.assets.content[k]),

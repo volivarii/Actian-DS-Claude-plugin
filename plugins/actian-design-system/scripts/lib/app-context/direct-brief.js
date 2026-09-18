@@ -11,6 +11,14 @@ var path = require("path");
 var PATHS = require("../paths");
 var cssPaths = require("../renderer.js").cssPaths;
 
+// The stylesheets the app frame renders with, in the order the flow renderer
+// documents: tokens first, then FLOW_CSS. assemble-shared.js owns that list
+// and look.js reads the same one to render a screen standalone, so the brief
+// names it rather than restating a set of its own. The three single-file
+// entries beside it in `assets` are what an author READS (token names, DS
+// class names); this is what the page inlines.
+var FLOW_CSS = require("../../renderers/assemble-shared.js").FLOW_CSS;
+
 // No manifest entry resolves terminology.yml: the manifest's own appContextSrc
 // collection note says "Terminology lives in terminology.yml (not covered by
 // this collection)", and validate-flow-data.js's loadTerminology reads the
@@ -141,6 +149,7 @@ function directBrief(brief, opts) {
       tokensCss: abs(PATHS.tokens.css),
       baseCss: abs(cssPaths.base),
       fontsCss: abs(cssPaths.fonts),
+      frameCss: [abs(PATHS.tokens.css)].concat(FLOW_CSS.map(abs)),
       terminology: abs(TERMINOLOGY_SRC),
       content: {
         writing: abs(PATHS.content.writingMd),

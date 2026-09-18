@@ -1,0 +1,10 @@
+{
+  "adds": [
+    {
+      "name": "Describe action",
+      "composedFrom": ["button"],
+      "why": "The bulk bar has no verb for writing descriptions one by one."
+    }
+  ],
+  "justification": "Catalog capture plus a queue panel."
+}
