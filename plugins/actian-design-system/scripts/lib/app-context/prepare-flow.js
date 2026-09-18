@@ -538,12 +538,20 @@ function prepareFlow(options) {
   var appPatterns = patterns.resolvePatterns(app, ctx) || [];
   var useCases = patterns.resolveUseCases(app, ctx) || [];
   var problems = screenListProblems(options.screens || [], appPatterns, {
-    sidebarIds:
-      chromeOut && Array.isArray(chromeOut.sidebar)
-        ? chromeOut.sidebar.map(function (s) {
-            return s.id;
-          })
-        : [],
+    // The app's rail, plus the list's own chrome when it carries one: a flow
+    // that restructures the app (chromeJustification) adds sections the app
+    // does not have, and merge stamps the rail from the list's chrome.
+    sidebarIds: uniq(
+      (chromeOut && Array.isArray(chromeOut.sidebar) ? chromeOut.sidebar : [])
+        .concat(
+          options.listChrome && Array.isArray(options.listChrome.sidebar)
+            ? options.listChrome.sidebar
+            : [],
+        )
+        .map(function (s) {
+          return s.id;
+        }),
+    ),
     nav: options.nav,
     mode: options.mode,
   });
@@ -867,13 +875,17 @@ function main(argv) {
     process.stderr.write(USAGE);
     return 1;
   }
-  var screens, feature, mode, nav;
+  var screens, feature, mode, nav, listChrome;
   try {
     var listJson = JSON.parse(fs.readFileSync(list, "utf8"));
     screens = listJson.screens || [];
     feature = listJson.meta ? listJson.meta.feature : undefined;
     mode = listJson.meta ? listJson.meta.mode : undefined;
     nav = listJson.meta ? listJson.meta.nav : undefined;
+    listChrome =
+      listJson.meta && listJson.meta._glossary
+        ? listJson.meta._glossary.chrome
+        : undefined;
   } catch (e) {
     process.stderr.write(
       "prepare-flow: cannot read " + list + ": " + e.message + "\n",
@@ -890,6 +902,7 @@ function main(argv) {
       feature: feature,
       mode: mode,
       nav: nav,
+      listChrome: listChrome,
     });
   } catch (e) {
     if (e.code !== "SCREEN_LIST_INVALID") throw e;

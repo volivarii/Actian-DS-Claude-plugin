@@ -512,6 +512,34 @@ describe("prepare-flow: declared nav and exits", function () {
     assert.strictEqual(slice.screen.exit.toId, "describe-catalog-items-2");
   });
 
+  it("accepts a nav the list's own justified chrome adds, through the CLI", function () {
+    var w = writeList({
+      meta: {
+        feature: "F",
+        nav: "reports",
+        _glossary: {
+          chrome: {
+            app: "studio",
+            header: { type: "Studio" },
+            sidebar: [
+              { label: "Catalog", id: "catalog" },
+              { label: "Reports", id: "reports" },
+            ],
+          },
+        },
+      },
+      screens: [{ name: "Reports", template: "studio" }],
+    });
+    var out = path.join(w.dir, ".brief.json");
+    var r = spawnSync(
+      process.execPath,
+      [SCRIPT, "--app", "studio", "--screen-list", w.file, "-o", out],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 0, r.stderr);
+    assert.strictEqual(fs.existsSync(out), true);
+  });
+
   it("the CLI reads meta.mode and meta.nav from the list", function () {
     var w = writeList({
       meta: { feature: "F", mode: "generate", nav: "marketplace" },
