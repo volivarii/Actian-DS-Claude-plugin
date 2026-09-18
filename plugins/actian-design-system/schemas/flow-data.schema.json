@@ -357,9 +357,28 @@
             "enum": ["ds"],
             "description": "Per-screen DS chrome/leaf routing; overrides meta.library for mixed flows."
           },
+          "exit": {
+            "type": "object",
+            "description": "Stamped by merge-partials from the screen list: what the user does on this screen to move on (via) and the id of the screen it leads to (to). Never authored.",
+            "examples": [
+              { "via": "Save descriptions", "to": "describe-catalog-items-4" }
+            ],
+            "properties": {
+              "via": {
+                "type": "string",
+                "description": "What the user does to move on.",
+                "examples": ["selects the rows with no description"]
+              },
+              "to": {
+                "type": "string",
+                "description": "Id of the next screen.",
+                "examples": ["describe-catalog-items-2"]
+              }
+            }
+          },
           "activeNavItem": {
             "type": "string",
-            "description": "Label for the active sidebar nav item"
+            "description": "Label for the active sidebar nav item. Stamped by merge-partials from the screen list's nav on an incremental merge."
           },
           "navItems": {
             "oneOf": [

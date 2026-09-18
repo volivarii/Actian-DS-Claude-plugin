@@ -70,9 +70,11 @@ describe("validate-chrome integration (A + B together)", function () {
     var data = {
       meta: { feature: "f", app: "Studio", library: "ds", _glossary: { app: "Studio", chrome: diverged } },
       screens: [
-        // s1 coherent with the diverged 8-item chrome; s2 out of step
+        // s1 coherent with the diverged 8-item chrome; s2 out of step. s2 marks
+        // an active item so the only thing wrong with it is its labels: a rail
+        // with no active item is chrome-active-undeclared, a separate finding.
         { id: "s1", name: "s1", template: "studio", navItems: navD("Reports"), content: [] },
-        { id: "s2", name: "s2", template: "studio", navItems: [{ label: "Dashboard" }, { label: "Catalog" }], content: [] },
+        { id: "s2", name: "s2", template: "studio", navItems: [{ label: "Dashboard" }, { label: "Catalog", state: "On" }], content: [] },
       ],
     };
     assert.deepStrictEqual(kinds(data), ["chrome-drift", "chrome-incoherent"]);
