@@ -440,11 +440,30 @@ var LAYER_KINDS = { panel: 1, drawer: 1, modal: 1, toast: 1 };
 // one message per problem, each naming the screen. Empty when the list is
 // sound. A freehand screen opts out of recipe snapping, so its pattern is
 // not checked (it is ignored downstream).
-function screenListProblems(screens, appPatterns) {
+function screenListProblems(screens, appPatterns, opts) {
   var problems = [];
   var slugs = (appPatterns || []).map(function (p) {
     return p.slug;
   });
+  // opts is absent for callers that only check patterns and layers; nav and
+  // exit are checked only when the caller says what the app's rail is.
+  var sidebarIds =
+    opts && Array.isArray(opts.sidebarIds) ? opts.sidebarIds : null;
+  function navProblem(subject, value) {
+    if (value == null || !sidebarIds) return;
+    if (sidebarIds.length === 0) {
+      problems.push(subject + ' "' + value + '": this app has no side rail');
+    } else if (sidebarIds.indexOf(value) === -1) {
+      problems.push(
+        subject +
+          ' "' +
+          value +
+          "\" is not one of this app's sidebar ids: " +
+          sidebarIds.join(", "),
+      );
+    }
+  }
+  navProblem("meta.nav", opts && opts.nav);
   (screens || []).forEach(function (s, i) {
     var label = "screen " + (i + 1) + ' "' + s.name + '"';
     if (
@@ -485,6 +504,28 @@ function screenListProblems(screens, appPatterns) {
         );
       }
     }
+    navProblem(label + ": nav", s.nav);
+    var isLast = i === screens.length - 1;
+    if (s.exit != null) {
+      if (typeof s.exit !== "string" || !s.exit.trim()) {
+        problems.push(
+          label +
+            ": exit must be a short phrase naming what the user does to move on",
+        );
+      } else if (isLast) {
+        problems.push(label + ": exit: nothing follows the last screen");
+      }
+    } else if (opts && opts.mode === "generate" && !isLast) {
+      var next = screens[i + 1];
+      problems.push(
+        label +
+          ": exit is required: say what the user does here to reach screen " +
+          (i + 2) +
+          ' "' +
+          next.name +
+          '"',
+      );
+    }
   });
   return problems;
 }
@@ -496,7 +537,16 @@ function prepareFlow(options) {
   var chromeOut = chrome.resolveChrome(app);
   var appPatterns = patterns.resolvePatterns(app, ctx) || [];
   var useCases = patterns.resolveUseCases(app, ctx) || [];
-  var problems = screenListProblems(options.screens || [], appPatterns);
+  var problems = screenListProblems(options.screens || [], appPatterns, {
+    sidebarIds:
+      chromeOut && Array.isArray(chromeOut.sidebar)
+        ? chromeOut.sidebar.map(function (s) {
+            return s.id;
+          })
+        : [],
+    nav: options.nav,
+    mode: options.mode,
+  });
   if (problems.length) {
     var invalid = new Error(problems.join("\n"));
     invalid.code = "SCREEN_LIST_INVALID";
@@ -723,6 +773,16 @@ function prepareFlow(options) {
       overName: base.name,
     };
   });
+  // A declared exit rides on the brief screen with its target resolved, so
+  // the agent knows which element carries goto and what id to aim it at.
+  (options.screens || []).forEach(function (s, i) {
+    if (typeof s.exit !== "string" || !flow[i + 1]) return;
+    screens[i].exit = {
+      via: s.exit.trim(),
+      toId: flow[i + 1].id,
+      toName: flow[i + 1].name,
+    };
+  });
 
   return {
     app: app,
@@ -807,11 +867,13 @@ function main(argv) {
     process.stderr.write(USAGE);
     return 1;
   }
-  var screens, feature;
+  var screens, feature, mode, nav;
   try {
     var listJson = JSON.parse(fs.readFileSync(list, "utf8"));
     screens = listJson.screens || [];
     feature = listJson.meta ? listJson.meta.feature : undefined;
+    mode = listJson.meta ? listJson.meta.mode : undefined;
+    nav = listJson.meta ? listJson.meta.nav : undefined;
   } catch (e) {
     process.stderr.write(
       "prepare-flow: cannot read " + list + ": " + e.message + "\n",
@@ -826,6 +888,8 @@ function main(argv) {
       screens: screens,
       useCase: useCase,
       feature: feature,
+      mode: mode,
+      nav: nav,
     });
   } catch (e) {
     if (e.code !== "SCREEN_LIST_INVALID") throw e;
