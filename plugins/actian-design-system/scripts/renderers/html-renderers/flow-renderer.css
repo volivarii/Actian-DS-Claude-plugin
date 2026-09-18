@@ -198,8 +198,12 @@
   width: 1440px;
   height: 960px;
   overflow: hidden;
-  /* The app shell's header height: every layer docks against it, the way the
-     product docks its drawer below the header rather than over it. */
+  /* Fallback only: renderLayered() (flow-renderer.js) now writes this custom
+     property inline on every .screen--layered element it emits, reading the
+     real offset (0/64/70) off the base screen's own rendered markup, so this
+     declaration is unreachable through that path. Left in case something
+     someday renders .screen--layered markup without going through
+     renderLayered(); 64px matches the DS header, the more common chrome. */
   --flow-app-header: 64px;
 }
 .flow-layer-base {

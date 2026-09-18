@@ -238,10 +238,12 @@
 
   // hasChrome — true unless the screen's template is one of the no-chrome
   // templates (bare/mobile/tablet/compact/custom), which screen() renders
-  // with no header/sidebar wrapper at all. renderLayered() calls this on the
-  // BASE screen too, so a layer over a headerless base never docks against a
-  // header that was never rendered; the two call sites share this one check
-  // so they cannot drift.
+  // with no header/sidebar wrapper at all. A "does this template take the
+  // chrome wrapper?" question, not "did a header actually render?" (a
+  // template screen() doesn't recognize also answers true here, though no
+  // header renders for it) — renderLayered() does NOT reuse this check to
+  // size a layer's header offset; it reads the base's own rendered HTML
+  // instead, because that question needs the second answer, not this one.
   function hasChrome(s) {
     var template = s.template || "";
     return (
@@ -484,17 +486,22 @@
     var bodyStyle = declaredWidth
       ? ' style="width:' + Math.min(declaredWidth, 1440) + 'px"'
       : "";
-    // A layer over a headerless base (bare/mobile/tablet/compact/custom, the
-    // same no-chrome check screen() uses) must dock edge to edge: there is no
-    // rendered header to dock below. The stylesheet's --flow-app-header:64px
-    // default is only correct when the base actually renders one, so override
-    // it to 0 on the outer .screen--layered div for a headerless base.
-    var outerDeclarations = hasChrome(baseScreen)
-      ? []
-      : ["--flow-app-header:0px"];
-    var outerStyle = outerDeclarations.length
-      ? ' style="' + outerDeclarations.join(";") + '"'
-      : "";
+    // The layer must dock below whatever header the base actually renders,
+    // not below what its template NAME implies: a base with no template, or
+    // one screen() doesn't recognize, renders no header at all even though
+    // hasChrome() (a "does this template take the chrome wrapper?" check)
+    // would call it chromed; and an FM base's header is 70px tall where the
+    // DS header is 64px, so one constant is wrong for one of the two. Render
+    // the base once and read the offset off its own markup instead of
+    // guessing from the template name.
+    var baseHtml = screen(baseScreen);
+    var headerPx =
+      baseHtml.indexOf('class="ds-header"') !== -1
+        ? 64
+        : baseHtml.indexOf('class="fm-app-header"') !== -1
+          ? 70
+          : 0;
+    var outerStyle = ' style="--flow-app-header:' + headerPx + 'px"';
     return (
       '<div class="screen screen--layered" data-name="' +
       esc(layerScreen.name || "") +
@@ -502,7 +509,7 @@
       outerStyle +
       ">" +
       '<div class="flow-layer-base">' +
-      screen(baseScreen) +
+      baseHtml +
       "</div>" +
       '<div class="flow-layer flow-layer--' +
       esc(kind) +

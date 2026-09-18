@@ -137,7 +137,7 @@ describe("layered screens", function () {
     var html = FR.renderLayered(toast, base);
     assert.match(html, /class="flow-layer__body">/);
   });
-  it("no layer is placed over the app header", function () {
+  it("the drawer, panel and toast rules position from --flow-app-header, and the toast keeps its extra 16px", function () {
     var css = fs.readFileSync(
       path.join(
         __dirname,
@@ -155,19 +155,39 @@ describe("layered screens", function () {
     };
     assert.match(
       rule(".flow-layer--drawer .flow-layer__body"),
-      /var\(--flow-app-header/,
+      /top:\s*var\(--flow-app-header\)/,
     );
     assert.match(
       rule(".flow-layer--panel .flow-layer__body"),
-      /var\(--flow-app-header/,
+      /top:\s*var\(--flow-app-header\)/,
     );
     assert.match(
       rule(".flow-layer--toast .flow-layer__body"),
-      /var\(--flow-app-header/,
+      /top:\s*calc\(var\(--flow-app-header\)\s*\+\s*16px\)/,
     );
-    assert.match(css, /--flow-app-header:\s*64px/);
   });
-  it("a layer over a headerless base overrides --flow-app-header to 0", function () {
+  it("a layer over a DS-chromed base carries --flow-app-header:64px", function () {
+    var dsBase = {
+      id: "ds-base",
+      name: "DS base",
+      template: "admin",
+      library: "ds",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, dsBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:64px">/,
+    );
+  });
+  it("a layer over an FM-chromed base carries --flow-app-header:70px", function () {
+    var html = FR.renderLayered(panel, base);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:70px">/,
+    );
+  });
+  it("a layer over a bare base carries --flow-app-header:0px", function () {
     var bareBase = {
       id: "bare-base",
       name: "Bare base",
@@ -180,8 +200,17 @@ describe("layered screens", function () {
       /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:0px">/,
     );
   });
-  it("a layer over a chromed base keeps the stylesheet's --flow-app-header default", function () {
-    var html = FR.renderLayered(panel, base);
-    assert.doesNotMatch(html, /--flow-app-header:0px/);
+  it("a layer over a base with no recognized template carries the offset its own rendered HTML contains (0, no header emitted)", function () {
+    var unknownBase = {
+      id: "unknown-base",
+      name: "Unknown base",
+      template: "browse-search",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, unknownBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:0px">/,
+    );
   });
 });
