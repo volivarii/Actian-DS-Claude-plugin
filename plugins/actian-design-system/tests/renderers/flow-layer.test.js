@@ -2,6 +2,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert/strict");
 var path = require("path");
+var fs = require("fs");
 var FR = require(
   path.join(
     __dirname,
@@ -135,5 +136,35 @@ describe("layered screens", function () {
     };
     var html = FR.renderLayered(toast, base);
     assert.match(html, /class="flow-layer__body">/);
+  });
+  it("no layer is placed over the app header", function () {
+    var css = fs.readFileSync(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "scripts",
+        "renderers",
+        "html-renderers",
+        "flow-renderer.css",
+      ),
+      "utf8",
+    );
+    var rule = function (sel) {
+      return css.slice(css.indexOf(sel), css.indexOf("}", css.indexOf(sel)));
+    };
+    assert.match(
+      rule(".flow-layer--drawer .flow-layer__body"),
+      /var\(--flow-app-header/,
+    );
+    assert.match(
+      rule(".flow-layer--panel .flow-layer__body"),
+      /var\(--flow-app-header/,
+    );
+    assert.match(
+      rule(".flow-layer--toast .flow-layer__body"),
+      /var\(--flow-app-header/,
+    );
+    assert.match(css, /--flow-app-header:\s*64px/);
   });
 });

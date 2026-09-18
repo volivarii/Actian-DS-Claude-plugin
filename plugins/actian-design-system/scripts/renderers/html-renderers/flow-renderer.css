@@ -198,6 +198,9 @@
   width: 1440px;
   height: 960px;
   overflow: hidden;
+  /* The app shell's header height: every layer docks against it, the way the
+     product docks its drawer below the header rather than over it. */
+  --flow-app-header: 64px;
 }
 .flow-layer-base {
   /* Holds the base screen's own .screen (1440x960, normal flow); no extra
@@ -217,19 +220,19 @@
   box-shadow: var(--zen-shadow-xl, 0 12px 32px rgba(16, 24, 40, 0.18));
 }
 .flow-layer--drawer .flow-layer__body {
-  top: 0;
+  top: var(--flow-app-header);
   right: 0;
-  height: 100%;
+  height: calc(100% - var(--flow-app-header));
   width: 550px;
 }
 .flow-layer--panel .flow-layer__body {
-  top: 64px;
+  top: var(--flow-app-header);
   right: 0;
-  height: calc(100% - 64px);
+  height: calc(100% - var(--flow-app-header));
   width: 420px;
 }
 .flow-layer--toast .flow-layer__body {
-  top: 16px;
+  top: calc(var(--flow-app-header) + 16px);
   right: 16px;
 }
 .flow-layer--modal .flow-layer__body {
