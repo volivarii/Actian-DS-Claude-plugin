@@ -102,4 +102,38 @@ describe("layered screens", function () {
     );
     assert.ok(html.endsWith("</span>"), "the span wrapper closes the markup");
   });
+  it("a layer body takes the width its root frame declares", function () {
+    var drawer = {
+      id: "steward",
+      name: "Quick edit",
+      layer: { kind: "panel", over: "catalog" },
+      content: [
+        {
+          type: "FRAME",
+          name: "Quick edit drawer",
+          sizing: { horizontal: 550, vertical: "FILL" },
+          children: [],
+        },
+      ],
+    };
+    var html = FR.renderLayered(drawer, base);
+    assert.match(html, /class="flow-layer__body" style="width:550px"/);
+  });
+  it("a layer body with no declared width keeps the stylesheet's width", function () {
+    var toast = {
+      id: "saved",
+      name: "Saved",
+      layer: { kind: "toast", over: "catalog" },
+      content: [
+        {
+          type: "FRAME",
+          name: "Toast",
+          sizing: { horizontal: "HUG" },
+          children: [],
+        },
+      ],
+    };
+    var html = FR.renderLayered(toast, base);
+    assert.match(html, /class="flow-layer__body">/);
+  });
 });

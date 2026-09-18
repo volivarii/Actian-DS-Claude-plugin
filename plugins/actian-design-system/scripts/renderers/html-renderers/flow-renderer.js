@@ -461,6 +461,18 @@
     } else {
       body = layerScreen.contentHtml || "";
     }
+    var root = (layerScreen.content && layerScreen.content[0]) || null;
+    var declaredWidth =
+      root && root.sizing && typeof root.sizing.horizontal === "number"
+        ? root.sizing.horizontal
+        : null;
+    // The captured surface knows its own width (studio-quick-edit-drawer is
+    // 550): a stylesheet constant narrower than that clips the layer's action
+    // row, because .screen--layered hides overflow. Cap at the frame so a
+    // wider-than-the-page layer still fits.
+    var bodyStyle = declaredWidth
+      ? ' style="width:' + Math.min(declaredWidth, 1440) + 'px"'
+      : "";
     return (
       '<div class="screen screen--layered" data-name="' +
       esc(layerScreen.name || "") +
@@ -472,7 +484,9 @@
       esc(kind) +
       '">' +
       (kind === "modal" ? '<div class="flow-layer__scrim"></div>' : "") +
-      '<div class="flow-layer__body">' +
+      '<div class="flow-layer__body"' +
+      bodyStyle +
+      ">" +
       body +
       "</div></div></div>"
     );
