@@ -177,6 +177,27 @@ describe("merge-partials --incremental: the rail is stamped from the screen list
   });
 });
 
+describe("merge-partials --incremental: the list's template", function () {
+  it("is restored on a screen whose agent wrote none, and an authored one is kept", function () {
+    var partials = [
+      { screens: [{ name: "Catalog, rows selected", content: [] }] },
+      { screens: [{ name: "Edit descriptions", content: [] }] },
+      { screens: [{ name: "Catalog", template: "no-sidebar", content: [] }] },
+    ];
+    // What the fix is for: a page screen with no template renders no chrome.
+    assert.deepStrictEqual(TREE.resolveChrome(partials[0].screens[0]), {
+      appHeaderType: null,
+      hasSidebar: false,
+    });
+    var res = run(list(), partials);
+    assert.strictEqual(res.screens[1].template, "studio");
+    assert.strictEqual(TREE.resolveChrome(res.screens[1]).appHeaderType, "Studio");
+    assert.strictEqual(TREE.resolveChrome(res.screens[1]).hasSidebar, true);
+    assert.strictEqual(res.screens[2].template, "studio");
+    assert.strictEqual(res.screens[0].template, "no-sidebar");
+  });
+});
+
 describe("merge-partials --incremental: a declared exit", function () {
   it("is stamped with the next screen's id, replacing what an agent wrote", function () {
     var res = run(list(), [
