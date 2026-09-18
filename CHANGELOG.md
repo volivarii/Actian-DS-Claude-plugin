@@ -53,6 +53,14 @@ are summarized at the release level.
 
 ### Fixed
 
+- **generate-flow: a screen whose author wrote no `template` gets the screen list's** ([#405](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/405))
+  The acceptance run of #404 on the installed 2026.9.51 produced a side panel with no `template`:
+  its author agent omitted the key and merge kept only what the agent wrote, although `template` is
+  one of the screen list's two required keys. On a layer that changes nothing on screen, because a
+  layer draws over its base; on a page screen it means no app header and no side rail. Merge now
+  restores it from the list when the agent wrote none, and keeps one the agent did write. The same
+  run read a Step 5.0 sentence in `SKILL.md` that had lost its separator in #404 ("covers the screen
+  `layer` where"); the comma is back.
 - **A layer is drawn where the product puts it, and a look folder can be sent to someone** ([#402](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/402)). The first
   real run of declared routing drew a side panel wider than the box it was given, so its Cancel and
   Save row was cut off, and put a confirmation toast on top of the app header. A layer body now takes

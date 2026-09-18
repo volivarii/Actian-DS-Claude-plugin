@@ -200,7 +200,15 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
 
   const screens = listScreens.map((entry) => {
     const real = byName[canonicalName(entry.name)];
-    if (real) return { ...real, name: entry.name };
+    // template is one of the list's two required keys, and a page screen
+    // without it renders no chrome at all. A screen whose agent wrote none
+    // gets the list's; one it wrote stays.
+    if (real) {
+      const merged = { ...real, name: entry.name };
+      if (merged.template == null && entry.template != null)
+        merged.template = entry.template;
+      return merged;
+    }
     const stub = { name: entry.name, status: "pending" };
     if (entry.template != null) stub.template = entry.template;
     return stub;
