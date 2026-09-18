@@ -50,4 +50,34 @@ describe("check-direct", () => {
     assert.strictEqual(f[0].severity, "error");
     assert.strictEqual(f[0].path, "app.js");
   });
+  it("step-mismatch: an inline array closed with a semicolon inside arrive() stays clean (review finding 1)", () => {
+    const appJs =
+      'proto.steps = [{ id: "f-1", arrive: function () { var xs = [1, 2]; return xs; } }, ' +
+      '{ id: "f-2", arrive: function () {} }];';
+    assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
+  });
+  it("step-mismatch: an id-shaped key inside arrive() is not read as the step id", () => {
+    const appJs = ok.appJs.replace("arrive: function () {}", 'arrive: function () { id: "zzz"; }');
+    assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
+  });
+  it("step-mismatch: a bracket inside a string inside arrive() does not break extraction", () => {
+    const appJs = ok.appJs.replace("arrive: function () {}", 'arrive: function () { var s = "]"; }');
+    assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
+  });
+  it("step-mismatch: a genuinely reordered list is still reported", () => {
+    assert.ok(kinds({ appJs: 'proto.steps = [{ id: "f-2" }, { id: "f-1" }];' }).includes("step-mismatch"));
+  });
+  it("unknown-ds-class: a class named only inside a CSS comment is not defined (review finding 2)", () => {
+    const found = kinds({
+      css: css + "/* .ds-comment-only { color: red; } */",
+      body: ok.body.replace('class="ds-button"', 'class="ds-button ds-comment-only"'),
+    });
+    assert.ok(found.includes("unknown-ds-class"));
+  });
+  it("accepts single-quoted attributes the same as double-quoted (review minor)", () => {
+    const body =
+      "<div data-app-frame><button class='ds-button' data-new='X'>" +
+      "<span data-icon='edit'></span></button></div>";
+    assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { body })), []);
+  });
 });
