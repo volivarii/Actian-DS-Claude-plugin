@@ -11,6 +11,7 @@ var patterns = require("./resolve-patterns.js");
 var properties = require("./resolve-properties.js");
 var relationships = require("./resolve-relationships.js");
 var rules = require("../../validation/component-property-rules.js");
+var screenId = require("../screen-id.js");
 
 var STOP = {
   the: 1,
@@ -433,6 +434,61 @@ function matchesUseCaseAudience(uc, word) {
   return false;
 }
 
+var LAYER_KINDS = { panel: 1, drawer: 1, modal: 1, toast: 1 };
+
+// Pure: every problem in a screen list that the brief cannot route around,
+// one message per problem, each naming the screen. Empty when the list is
+// sound. A freehand screen opts out of recipe snapping, so its pattern is
+// not checked (it is ignored downstream).
+function screenListProblems(screens, appPatterns) {
+  var problems = [];
+  var slugs = (appPatterns || []).map(function (p) {
+    return p.slug;
+  });
+  (screens || []).forEach(function (s, i) {
+    var label = "screen " + (i + 1) + ' "' + s.name + '"';
+    if (
+      s.pattern != null &&
+      s.layout !== "freehand" &&
+      slugs.indexOf(s.pattern) === -1
+    ) {
+      problems.push(
+        label +
+          ': pattern "' +
+          s.pattern +
+          "\" is not one of this app's patterns: " +
+          slugs.join(", "),
+      );
+    }
+    if (s.layer != null) {
+      var layer = s.layer;
+      if (!layer || !LAYER_KINDS[layer.kind]) {
+        problems.push(
+          label + ": layer.kind must be panel, drawer, modal or toast",
+        );
+      }
+      var over = layer && layer.over;
+      if (!Number.isInteger(over) || over < 1 || over > screens.length) {
+        problems.push(
+          label +
+            ": layer.over must be a screen number from 1 to " +
+            screens.length,
+        );
+      } else if (over === i + 1) {
+        problems.push(label + ": layer.over cannot be the screen itself");
+      } else if (screens[over - 1].layer != null) {
+        problems.push(
+          label +
+            ": layer.over points at screen " +
+            over +
+            ", which is itself a layer",
+        );
+      }
+    }
+  });
+  return problems;
+}
+
 function prepareFlow(options) {
   var app = options.app;
   var entity = options.entity || null;
@@ -440,6 +496,12 @@ function prepareFlow(options) {
   var chromeOut = chrome.resolveChrome(app);
   var appPatterns = patterns.resolvePatterns(app, ctx) || [];
   var useCases = patterns.resolveUseCases(app, ctx) || [];
+  var problems = screenListProblems(options.screens || [], appPatterns);
+  if (problems.length) {
+    var invalid = new Error(problems.join("\n"));
+    invalid.code = "SCREEN_LIST_INVALID";
+    throw invalid;
+  }
   if (options.useCase) {
     var matchedUseCase = null;
     for (var u = 0; u < useCases.length; u++) {
@@ -497,7 +559,7 @@ function prepareFlow(options) {
       ),
   );
 
-  var screens = (options.screens || []).map(function (s) {
+  var screens = (options.screens || []).map(function (s, i) {
     // layout: "freehand" (Task 6.5) opts a screen OUT of recipe snapping
     // entirely: no pattern match, no archetype fallback, no pageRecipe. The
     // screen-generator agent classifies it `improvised` from `screen.layout`
@@ -515,17 +577,45 @@ function prepareFlow(options) {
         propertyRules: {},
       };
     }
+    // A screen that declares layer and no pattern composes its body from
+    // screen.layer.kind alone (a toast, a modal with no app pattern behind
+    // it): skip entity routing, name matching and the keyword fallback the
+    // same way the freehand branch skips them, so it never inherits a
+    // whole-page skeleton it will not use. layout stays whatever the screen
+    // list declared (not "freehand"); the layer itself is attached below,
+    // after this map, for every screen that declares one.
+    if (s.layer && !s.pattern) {
+      return {
+        name: s.name,
+        template: s.template,
+        pattern: null,
+        archetype: null,
+        pageRecipe: null,
+        sections: [],
+        components: [],
+        propertyRules: {},
+      };
+    }
     // Entity-aware routing runs first (Task 13): a screen named after the
     // entity itself ("Data products", "Data product details") reaches the
     // entity's own collection or detail pattern, not whatever the raw name
     // happens to overlap. route is null when entity routing does not apply
     // (no entity, or the name is not just the entity's own words), in which
     // case the exact-label pass and the scoring below run as today.
-    var route = entity
-      ? routeEntityScreen(s.name, entity, entityPatterns)
+    // A pattern the screen list declares wins outright: the author chose it
+    // from resolve-patterns.js, so neither entity routing nor the name gets a
+    // vote. screenListProblems already refused a slug the app lacks.
+    var declared = s.pattern
+      ? appPatterns.filter(function (x) {
+          return x.slug === s.pattern;
+        })[0] || null
       : null;
-    var p = route && route.pattern ? route.pattern : null;
-    if (!route) {
+    var route =
+      !declared && entity
+        ? routeEntityScreen(s.name, entity, entityPatterns)
+        : null;
+    var p = declared || (route && route.pattern ? route.pattern : null);
+    if (!declared && !route) {
       p = pickPattern(s.name, appPatterns, entityPatternSlugs);
     }
     // No raw-token ranker on the no-pattern branch: an unmatched screen goes
@@ -543,7 +633,20 @@ function prepareFlow(options) {
       // pattern matched by name (a matched pattern's own tags can still
       // rank to a tie or no-match -- e.g. "Activity timeline", "Discussion
       // threads" among Studio's patterns), so every screen gets a skeleton.
-      archetype = loadArchetype({ archetype: fallbackArchetype(s.name) });
+      var fallbackId = fallbackArchetype(s.name);
+      archetype = loadArchetype({ archetype: fallbackId });
+      if (!p) {
+        // Absence does not state its cause: say which screen guessed.
+        process.stderr.write(
+          "prepare-flow: screen " +
+            (i + 1) +
+            ' "' +
+            s.name +
+            '": no pattern declared or matched, archetype ' +
+            fallbackId +
+            " by keyword\n",
+        );
+      }
     }
     var rawPropertyRules = rules.inspectSlugs(components);
     var propertyRules = {};
@@ -599,6 +702,28 @@ function prepareFlow(options) {
     };
   });
 
+  // The ids merge-partials will stamp (screen-id.js, feature + index), so an
+  // author agent can aim a goto at a screen that does not exist yet.
+  var flow = screens.map(function (s, i) {
+    return {
+      n: i + 1,
+      id: screenId.deriveScreenId(options.feature, i),
+      name: s.name,
+    };
+  });
+  // A declared layer rides on the brief screen with its base resolved, so the
+  // agent knows what renders underneath without reading the other slices.
+  (options.screens || []).forEach(function (s, i) {
+    if (!s.layer) return;
+    var base = flow[s.layer.over - 1];
+    screens[i].layer = {
+      kind: s.layer.kind,
+      over: s.layer.over,
+      overId: base.id,
+      overName: base.name,
+    };
+  });
+
   return {
     app: app,
     entity: entity,
@@ -614,6 +739,7 @@ function prepareFlow(options) {
     join: join,
     labels: labels,
     screens: screens,
+    flow: flow,
     sectionsByScreen: screens.reduce(function (acc, s) {
       acc[s.name] = s.sections.map(function (x) {
         return { slug: x.slug, role: x.role, roots: x.roots };
@@ -652,6 +778,7 @@ function sliceBrief(brief, n) {
     },
     join: brief.join,
     labels: brief.labels,
+    flow: brief.flow || [],
     screen: screen,
   };
 }
@@ -680,21 +807,33 @@ function main(argv) {
     process.stderr.write(USAGE);
     return 1;
   }
-  var screens;
+  var screens, feature;
   try {
-    screens = JSON.parse(fs.readFileSync(list, "utf8")).screens || [];
+    var listJson = JSON.parse(fs.readFileSync(list, "utf8"));
+    screens = listJson.screens || [];
+    feature = listJson.meta ? listJson.meta.feature : undefined;
   } catch (e) {
     process.stderr.write(
       "prepare-flow: cannot read " + list + ": " + e.message + "\n",
     );
     return 1;
   }
-  var brief = prepareFlow({
-    app: app,
-    entity: entity,
-    screens: screens,
-    useCase: useCase,
-  });
+  var brief;
+  try {
+    brief = prepareFlow({
+      app: app,
+      entity: entity,
+      screens: screens,
+      useCase: useCase,
+      feature: feature,
+    });
+  } catch (e) {
+    if (e.code !== "SCREEN_LIST_INVALID") throw e;
+    process.stderr.write(
+      "prepare-flow: " + list + " cannot be routed:\n" + e.message + "\n",
+    );
+    return 1;
+  }
   var json = JSON.stringify(brief, null, 2);
   if (out) {
     fs.writeFileSync(out, json);
@@ -732,6 +871,7 @@ module.exports = {
   tokens: tokens,
   sliceBrief: sliceBrief,
   resolveSections: resolveSections,
+  screenListProblems: screenListProblems,
   main: main,
 };
 
