@@ -40,7 +40,7 @@ are summarized at the release level.
 
 ### Fixed
 
-- **A layer is drawn where the product puts it, and a look folder can be sent to someone.** The first
+- **A layer is drawn where the product puts it, and a look folder can be sent to someone** ([#402](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/402)). The first
   real run of declared routing drew a side panel wider than the box it was given, so its Cancel and
   Save row was cut off, and put a confirmation toast on top of the app header. A layer body now takes
   the width its own root frame declares, and drawers, panels and toasts dock below the header instead
