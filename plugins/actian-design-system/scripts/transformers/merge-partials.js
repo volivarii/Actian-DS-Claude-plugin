@@ -238,6 +238,53 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
       over: base ? base.id : String(entry.layer.over),
     };
   });
+  // A declared exit is data too: what the user does to move on, and the id it
+  // leads to. The validator reads it from the screen to report a declared
+  // exit no node carries a goto for.
+  listScreens.forEach((entry, i) => {
+    if (!screens[i]) return;
+    const next = screens[i + 1];
+    if (typeof entry.exit === "string" && entry.exit.trim() && next) {
+      screens[i].exit = { via: entry.exit.trim(), to: next.id };
+    } else {
+      delete screens[i].exit;
+    }
+  });
+  // The rail is the same on every screen of a flow, so it is stamped from the
+  // list's chrome (a justified custom chrome included), never authored per
+  // screen. A layer renders over its base and draws no chrome of its own. A
+  // template that speaks for no app, or a list with no chrome, is left alone.
+  const {
+    TEMPLATE_APP,
+  } = require("../renderers/html-renderers/ds-screen-tree.js");
+  const listChrome =
+    list.meta && list.meta._glossary && list.meta._glossary.chrome;
+  const rail =
+    listChrome && Array.isArray(listChrome.sidebar) ? listChrome.sidebar : [];
+  listScreens.forEach((entry, i) => {
+    const sc = screens[i];
+    if (!sc) return;
+    if (entry.layer) {
+      delete sc.navItems;
+      delete sc.activeNavItem;
+      delete sc.sidebar;
+      return;
+    }
+    if (!rail.length || !TEMPLATE_APP[entry.template]) return;
+    const navId = entry.nav || (list.meta && list.meta.nav) || null;
+    let active = null;
+    sc.navItems = rail.map((it) => {
+      const item = { label: it.label };
+      if (navId && it.id === navId) {
+        item.state = "On";
+        active = it.label;
+      }
+      return item;
+    });
+    delete sc.sidebar;
+    if (active) sc.activeNavItem = active;
+    else delete sc.activeNavItem;
+  });
   const pending = screens.filter((s) => s.status === "pending").length;
   log(
     "Incremental flow: " +
