@@ -38,6 +38,16 @@ are summarized at the release level.
   same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
   `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
 
+### Fixed
+
+- **A layer is drawn where the product puts it, and a look folder can be sent to someone** ([#402](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/402)). The first
+  real run of declared routing drew a side panel wider than the box it was given, so its Cancel and
+  Save row was cut off, and put a confirmation toast on top of the app header. A layer body now takes
+  the width its own root frame declares, and drawers, panels and toasts dock below the header instead
+  of over it. The look step copies each product screenshot into the look folder, so the page still
+  opens when the folder is served, zipped or read after a plugin update. Gate text says what a
+  layered screen with no pattern does, and how to report a Look where only some screens paired.
+
 ### Added
 
 - **Research is a gate, in four lanes, with a section of its own**

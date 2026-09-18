@@ -2,6 +2,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert/strict");
 var path = require("path");
+var fs = require("fs");
 var FR = require(
   path.join(
     __dirname,
@@ -101,5 +102,115 @@ describe("layered screens", function () {
       "the wrapped leaf's content is still present",
     );
     assert.ok(html.endsWith("</span>"), "the span wrapper closes the markup");
+  });
+  it("a layer body takes the width its root frame declares", function () {
+    var drawer = {
+      id: "steward",
+      name: "Quick edit",
+      layer: { kind: "panel", over: "catalog" },
+      content: [
+        {
+          type: "FRAME",
+          name: "Quick edit drawer",
+          sizing: { horizontal: 550, vertical: "FILL" },
+          children: [],
+        },
+      ],
+    };
+    var html = FR.renderLayered(drawer, base);
+    assert.match(html, /class="flow-layer__body" style="width:550px"/);
+  });
+  it("a layer body with no declared width keeps the stylesheet's width", function () {
+    var toast = {
+      id: "saved",
+      name: "Saved",
+      layer: { kind: "toast", over: "catalog" },
+      content: [
+        {
+          type: "FRAME",
+          name: "Toast",
+          sizing: { horizontal: "HUG" },
+          children: [],
+        },
+      ],
+    };
+    var html = FR.renderLayered(toast, base);
+    assert.match(html, /class="flow-layer__body">/);
+  });
+  it("the drawer, panel and toast rules position from --flow-app-header, and the toast keeps its extra 16px", function () {
+    var css = fs.readFileSync(
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "scripts",
+        "renderers",
+        "html-renderers",
+        "flow-renderer.css",
+      ),
+      "utf8",
+    );
+    var rule = function (sel) {
+      return css.slice(css.indexOf(sel), css.indexOf("}", css.indexOf(sel)));
+    };
+    assert.match(
+      rule(".flow-layer--drawer .flow-layer__body"),
+      /top:\s*var\(--flow-app-header\)/,
+    );
+    assert.match(
+      rule(".flow-layer--panel .flow-layer__body"),
+      /top:\s*var\(--flow-app-header\)/,
+    );
+    assert.match(
+      rule(".flow-layer--toast .flow-layer__body"),
+      /top:\s*calc\(var\(--flow-app-header\)\s*\+\s*16px\)/,
+    );
+  });
+  it("a layer over a DS-chromed base carries --flow-app-header:64px", function () {
+    var dsBase = {
+      id: "ds-base",
+      name: "DS base",
+      template: "admin",
+      library: "ds",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, dsBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:64px">/,
+    );
+  });
+  it("a layer over an FM-chromed base carries --flow-app-header:70px", function () {
+    var html = FR.renderLayered(panel, base);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:70px">/,
+    );
+  });
+  it("a layer over a bare base carries --flow-app-header:0px", function () {
+    var bareBase = {
+      id: "bare-base",
+      name: "Bare base",
+      template: "bare",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, bareBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:0px">/,
+    );
+  });
+  it("a layer over a base with no recognized template carries the offset its own rendered HTML contains (0, no header emitted)", function () {
+    var unknownBase = {
+      id: "unknown-base",
+      name: "Unknown base",
+      template: "browse-search",
+      content: [{ type: "TEXT", content: "content" }],
+    };
+    var html = FR.renderLayered(panel, unknownBase);
+    assert.match(
+      html,
+      /<div class="screen screen--layered" data-name="[^"]*" style="--flow-app-header:0px">/,
+    );
   });
 });

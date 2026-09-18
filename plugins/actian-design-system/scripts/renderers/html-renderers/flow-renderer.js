@@ -236,6 +236,25 @@
     );
   }
 
+  // hasChrome — true unless the screen's template is one of the no-chrome
+  // templates (bare/mobile/tablet/compact/custom), which screen() renders
+  // with no header/sidebar wrapper at all. A "does this template take the
+  // chrome wrapper?" question, not "did a header actually render?" question
+  // (a template screen() doesn't recognize also answers true here, though no
+  // header renders for it). renderLayered() does NOT reuse this check to
+  // size a layer's header offset; it reads the base's own rendered HTML
+  // instead, because that question needs the second answer, not this one.
+  function hasChrome(s) {
+    var template = s.template || "";
+    return (
+      template !== "bare" &&
+      template !== "mobile" &&
+      template !== "tablet" &&
+      template !== "compact" &&
+      template !== "custom"
+    );
+  }
+
   function screen(s) {
     var type = s.type || "standard";
     var w = 1440;
@@ -259,13 +278,7 @@
 
     // Bare/mobile/tablet/compact/custom → no chrome wrapper
     var template = s.template || "";
-    if (
-      template === "bare" ||
-      template === "mobile" ||
-      template === "tablet" ||
-      template === "compact" ||
-      template === "custom"
-    ) {
+    if (!hasChrome(s)) {
       return (
         '<div class="screen screen--' +
         esc(template) +
@@ -461,18 +474,58 @@
     } else {
       body = layerScreen.contentHtml || "";
     }
+    var root = (layerScreen.content && layerScreen.content[0]) || null;
+    var declaredWidth =
+      root && root.sizing && typeof root.sizing.horizontal === "number"
+        ? root.sizing.horizontal
+        : null;
+    // The captured surface knows its own width (studio-quick-edit-drawer is
+    // 550): a stylesheet constant narrower than that clips the layer's action
+    // row, because .screen--layered hides overflow. Cap at the frame so a
+    // wider-than-the-page layer still fits.
+    var bodyStyle = declaredWidth
+      ? ' style="width:' + Math.min(declaredWidth, 1440) + 'px"'
+      : "";
+    // The layer must dock below whatever header the base actually renders,
+    // not below what its template NAME implies: a base with no template, or
+    // one screen() doesn't recognize, renders no header at all even though
+    // hasChrome() (a "does this template take the chrome wrapper?" check)
+    // would call it chromed; and an FM base's header is 70px tall where the
+    // DS header is 64px, so one constant is wrong for one of the two. Render
+    // the base once and read the offset off its own markup instead of
+    // guessing from the template name.
+    // Matched with a word-boundary regex rather than a `class="..."` literal
+    // so the two class names read here (the DS global-header's ds-header,
+    // ds-base.css:715; the FM app header's fm-app-header, fm-base.css:80)
+    // stay out of tests/integration/css-staleness.test.js's class scanner:
+    // that gate greps this file for `class="..."` text (including inside
+    // comments and string literals) to build the set of classes flow-
+    // renderer.css must cover, and ds-header is a DS-tier class this FM-tier
+    // file never itself emits, so writing it in that shape here would fail
+    // the gate for a class that legitimately has no rule in this stylesheet.
+    var baseHtml = screen(baseScreen);
+    var headerPx = /\bds-header\b/.test(baseHtml)
+      ? 64
+      : /\bfm-app-header\b/.test(baseHtml)
+        ? 70
+        : 0;
+    var outerStyle = ' style="--flow-app-header:' + headerPx + 'px"';
     return (
       '<div class="screen screen--layered" data-name="' +
       esc(layerScreen.name || "") +
-      '">' +
+      '"' +
+      outerStyle +
+      ">" +
       '<div class="flow-layer-base">' +
-      screen(baseScreen) +
+      baseHtml +
       "</div>" +
       '<div class="flow-layer flow-layer--' +
       esc(kind) +
       '">' +
       (kind === "modal" ? '<div class="flow-layer__scrim"></div>' : "") +
-      '<div class="flow-layer__body">' +
+      '<div class="flow-layer__body"' +
+      bodyStyle +
+      ">" +
       body +
       "</div></div></div>"
     );

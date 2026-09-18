@@ -409,6 +409,72 @@ describe("look.main --brief", function () {
       r.out,
       /look: wrote .*look-1\.png and .*look-1\.html against .*faceted-browse\.png/,
     );
+    // The --brief path runs through the same lookOne as --screen/--against,
+    // so it must carry the same travel-safe copy of the capture.
+    assert.ok(fs.existsSync(path.join(outDir, "look-1-product.png")));
+    var html = fs.readFileSync(path.join(outDir, "look-1.html"), "utf8");
+    assert.match(html, /src="look-1-product\.png"/);
+    assert.doesNotMatch(html, /\.\.\//);
+  });
+
+  it("copies the capture separately per screen when two screens compare against the same capture", function () {
+    var dir = tmpFiles(
+      {
+        screens: [
+          { pageRecipe: { slug: "faceted-browse" } },
+          { pageRecipe: { slug: "faceted-browse" } },
+        ],
+      },
+      {
+        meta: {},
+        screens: [
+          {
+            name: "Catalog",
+            template: "bare",
+            content: [{ type: "TEXT", content: "Catalog" }],
+          },
+          {
+            name: "Selected",
+            template: "bare",
+            content: [{ type: "TEXT", content: "Selected" }],
+          },
+        ],
+      },
+    );
+    var fakeChrome = {
+      resolveAll: function () {
+        return { chrome: "/fake/chrome" };
+      },
+      requireAll: function () {},
+    };
+    var fakeRenderLeaf = {
+      screenshot: function (o) {
+        fs.writeFileSync(o.outPng, "");
+      },
+    };
+    var outDir = path.join(dir, "look");
+    var r = captureStdout(function () {
+      return look.main(
+        [
+          path.join(dir, "flow-data.json"),
+          "--brief",
+          path.join(dir, ".brief.json"),
+          "-o",
+          outDir,
+        ],
+        {
+          resolveBinaries: fakeChrome,
+          renderLeaf: fakeRenderLeaf,
+        },
+      );
+    });
+    assert.strictEqual(r.code, 0);
+    assert.ok(fs.existsSync(path.join(outDir, "look-1-product.png")));
+    assert.ok(fs.existsSync(path.join(outDir, "look-2-product.png")));
+    var html1 = fs.readFileSync(path.join(outDir, "look-1.html"), "utf8");
+    var html2 = fs.readFileSync(path.join(outDir, "look-2.html"), "utf8");
+    assert.match(html1, /src="look-1-product\.png"/);
+    assert.match(html2, /src="look-2-product\.png"/);
   });
 
   function captureStderr(fn) {
@@ -471,5 +537,134 @@ describe("look.main --brief", function () {
     assert.strictEqual(r.code, 1);
     assert.doesNotMatch(r.out, /cannot read/);
     assert.match(r.out, /^look: .*forEach/);
+  });
+
+  it("a copy failure does not fail the run: the screen still gets its page with the old reference, the warning names the source once, and a later screen still gets its own copy", function () {
+    var dir = tmpFiles(
+      {
+        screens: [
+          { pageRecipe: { slug: "faceted-browse" } },
+          { pageRecipe: { slug: "faceted-browse" } },
+        ],
+      },
+      {
+        meta: {},
+        screens: [
+          {
+            name: "Catalog",
+            template: "bare",
+            content: [{ type: "TEXT", content: "Catalog" }],
+          },
+          {
+            name: "Selected",
+            template: "bare",
+            content: [{ type: "TEXT", content: "Selected" }],
+          },
+        ],
+      },
+    );
+    var outDir = path.join(dir, "look");
+    // Force the screen-1 copy to fail without needing root: pre-create a
+    // directory at the destination path, so fs.copyFileSync cannot write
+    // there.
+    fs.mkdirSync(path.join(outDir, "look-1-product.png"), {
+      recursive: true,
+    });
+
+    var fakeChrome = {
+      resolveAll: function () {
+        return { chrome: "/fake/chrome" };
+      },
+      requireAll: function () {},
+    };
+    var fakeRenderLeaf = {
+      screenshot: function (o) {
+        fs.writeFileSync(o.outPng, "");
+      },
+    };
+    var r = captureStderr(function () {
+      return look.main(
+        [
+          path.join(dir, "flow-data.json"),
+          "--brief",
+          path.join(dir, ".brief.json"),
+          "-o",
+          outDir,
+        ],
+        {
+          resolveBinaries: fakeChrome,
+          renderLeaf: fakeRenderLeaf,
+        },
+      );
+    });
+    assert.strictEqual(r.code, 0);
+    assert.ok(fs.existsSync(path.join(outDir, "look-1.png")));
+    assert.ok(fs.existsSync(path.join(outDir, "look-1.html")));
+    var warnings = r.out.match(/look: cannot copy/g) || [];
+    assert.strictEqual(warnings.length, 1);
+    assert.match(r.out, /look: cannot copy .*faceted-browse\.png:/);
+    // Screen 1 falls back to the old relative reference: a broken image in
+    // that one case is exactly what shipped before this change, and the
+    // run still succeeds.
+    var html1 = fs.readFileSync(path.join(outDir, "look-1.html"), "utf8");
+    assert.match(html1, /\.\.\//);
+    // Screen 2 is unaffected: its own copy is made and referenced by name.
+    assert.ok(fs.existsSync(path.join(outDir, "look-2-product.png")));
+    var html2 = fs.readFileSync(path.join(outDir, "look-2.html"), "utf8");
+    assert.match(html2, /src="look-2-product\.png"/);
+    assert.doesNotMatch(html2, /\.\.\//);
+  });
+});
+
+describe("look.main writes a self-contained look folder", function () {
+  var fs = require("fs");
+  var os = require("os");
+
+  // The look folder is something a person sends on or serves: a path back
+  // into the plugin cache (nine "../" segments from the acceptance run)
+  // only resolves on the machine that wrote it. The page must carry its
+  // own copy of the capture instead of pointing at it by relative path.
+  it("the look page references a copy of the capture inside its own folder", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "look-travel-"));
+    var flowData = {
+      meta: {},
+      screens: [
+        {
+          name: "Catalog",
+          template: "bare",
+          content: [{ type: "TEXT", content: "Catalog" }],
+        },
+      ],
+    };
+    var flowPath = path.join(dir, "flow-data.json");
+    fs.writeFileSync(flowPath, JSON.stringify(flowData));
+    var capturePath = path.join(dir, "faceted-browse.png");
+    fs.writeFileSync(capturePath, "fake-png-bytes");
+    var outDir = path.join(dir, "look");
+
+    var fakeResolveBinaries = {
+      resolveAll: function () {
+        return { chrome: "/fake/chrome" };
+      },
+      requireAll: function () {},
+    };
+    var fakeRenderLeaf = {
+      screenshot: function (o) {
+        fs.writeFileSync(o.outPng, "");
+      },
+    };
+
+    var code = look.main(
+      [flowPath, "--screen", "1", "--against", capturePath, "-o", outDir],
+      { resolveBinaries: fakeResolveBinaries, renderLeaf: fakeRenderLeaf },
+    );
+    assert.strictEqual(code, 0);
+    var html = fs.readFileSync(path.join(outDir, "look-1.html"), "utf8");
+    assert.match(html, /src="look-1-product\.png"/);
+    assert.doesNotMatch(html, /\.\.\//);
+    assert.strictEqual(
+      fs.existsSync(path.join(outDir, "look-1-product.png")),
+      true,
+    );
   });
 });
