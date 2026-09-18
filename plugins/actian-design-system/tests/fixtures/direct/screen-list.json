@@ -1,0 +1,1030 @@
+{
+  "meta": {
+    "feature": "Describe catalog items",
+    "app": "studio",
+    "mode": "generate",
+    "hifi": true,
+    "nav": "catalog",
+    "_glossary": {
+      "chrome": {
+        "app": "studio",
+        "header": {
+          "type": "Studio"
+        },
+        "sidebar": [
+          {
+            "label": "Dashboard",
+            "id": "dashboard"
+          },
+          {
+            "label": "Catalog",
+            "id": "catalog"
+          },
+          {
+            "label": "Topics",
+            "id": "topics"
+          },
+          {
+            "label": "Import",
+            "id": "import"
+          },
+          {
+            "label": "Access requests",
+            "id": "access-requests"
+          },
+          {
+            "label": "Catalog design",
+            "id": "catalog-design"
+          },
+          {
+            "label": "Analytics",
+            "id": "analytics"
+          }
+        ]
+      },
+      "patterns": [
+        {
+          "slug": "access-request-management",
+          "label": "Access request management",
+          "description": "Table with Requester, Item, Created at, Last updated, Status and Actions, the first four sortable. Each row ends in a decision pair: an outline Reject beside a filled Approve. Above the table, right aligned, a status multi-select holds the active filters as removable chips.\n\nCorrected 2026-08-18 from the running product: this record previously said \"Status tabs: Pending / Done\". There are no status tabs. Filtering is the multi-select described above, and the values seen were Pending and Error.",
+          "tags": [
+            "queue",
+            "review",
+            "approve",
+            "table",
+            "requests"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "table-list",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "table-list",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "table",
+            "button",
+            "dropdown-select-default",
+            "interactive-tag",
+            "read-only-tag"
+          ]
+        },
+        {
+          "slug": "access-request-workflow",
+          "label": "Access request workflow",
+          "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval.",
+          "tags": [
+            "request",
+            "approve",
+            "form",
+            "workflow",
+            "permissions"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "form-create",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "form-create",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "button",
+            "dropdown-select-default",
+            "text-input",
+            "read-only-tag"
+          ]
+        },
+        {
+          "slug": "activity-timeline",
+          "label": "Activity timeline",
+          "description": "Chronological timeline with date headers, user avatars, action descriptions.",
+          "tags": [
+            "timeline",
+            "history",
+            "chronological",
+            "audit",
+            "single-object"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": [
+            "avatar"
+          ]
+        },
+        {
+          "slug": "analytics-dashboard",
+          "label": "Analytics dashboard",
+          "description": "Two columns. The main one is a grid of per-type completion cards, each a type badge, the type name, its\nitem count, a progress bar and a percentage, with `N/A` where the count is zero; below it a Custom\nAnalysis section whose empty state carries a Create an analysis button. The rail holds adoption rate as\ntwo radial gauges (a large percentage inside the ring, a fraction and a role beneath), then adoption rate\nevolution as a dual-axis time chart with a segmented control switching the series, then a numbered list\nof most popular items with type badges.\n\nCorrected 2026-08-18 against the running product. This record named `card-for-items`; the completion\ncards are the `card-for-perimeter` shape, verified against that component's own `default.webp` capture,\nand `card-for-perimeter` is a different component that the current sync does not retire. `line-graph` is left in place: the evolution chart is\nline-shaped, so it is defensible. `bar-graph` was left beside it on 2026-08-18 because the page was not\nread to its end and removing it would have been an assertion from absence. It leaves the list on\n2026-08-31 for a different reason, which is not an assertion from absence: the component is deleted from\nthe Figma library, so nothing here can realise it whatever the page shows.\n\nKnown gap, and it is the reason the rail cannot be drawn today: **no radial gauge component exists in\neither kit**, under `gauge`, `donut`, `radial`, `ring` or `circular`. A bar chart is now a second gap of\nthe same kind, since `bar-graph` was retired upstream with no replacement. The two adoption gauges lead this\npage and the design system cannot express them.",
+          "tags": [
+            "dashboard",
+            "metrics",
+            "charts",
+            "monitor",
+            "adoption"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "dashboard",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "dashboard",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "card-for-perimeter",
+            "progress-bar-small",
+            "segmented-control",
+            "line-graph",
+            "page-header"
+          ]
+        },
+        {
+          "slug": "asset-detail-360",
+          "label": "360-degree asset detail view",
+          "description": "The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold.",
+          "tags": [
+            "detail",
+            "single-object",
+            "tabs",
+            "properties",
+            "stewardship"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "detail-view",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "detail-view",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": "asset-detail-360",
+          "components": [
+            "tabs",
+            "page-header",
+            "breadcrumb",
+            "side-nav",
+            "drawer",
+            "avatar",
+            "progress-bar-small",
+            "read-only-tag",
+            "interactive-tag",
+            "button",
+            "checkbox",
+            "empty-state",
+            "segmented-control",
+            "dropdown-select-default",
+            "text-area",
+            "calendar"
+          ]
+        },
+        {
+          "slug": "bulk-edit",
+          "label": "Bulk Edit",
+          "description": "Multi-item batch update of properties, contacts, and glossary links across the catalog.",
+          "tags": [
+            "bulk",
+            "edit",
+            "collection",
+            "batch",
+            "multi-select"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "form-create",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "form-create",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "table",
+            "checkbox",
+            "button",
+            "modal"
+          ]
+        },
+        {
+          "slug": "data-profiling-sampling",
+          "label": "Data profiling and sampling",
+          "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling).\n\nThe profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on\n2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays\nbecause it is a real component; the gap is recorded rather than hidden by dropping the pattern.",
+          "tags": [
+            "profiling",
+            "sample",
+            "charts",
+            "fields",
+            "statistics"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": [
+            "line-graph",
+            "table"
+          ]
+        },
+        {
+          "slug": "data-steward-agent-panel",
+          "label": "Data Steward Agent Panel",
+          "description": "AI metadata-curation agent panel with approval-gated writes, tenant memory, and plan mode, assisting stewards in Studio.",
+          "tags": [
+            "ai",
+            "agent",
+            "panel",
+            "curate",
+            "approval"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 1,
+            "status": "tie",
+            "candidates": [
+              {
+                "archetype": "overlay",
+                "score": 1
+              },
+              {
+                "archetype": "search-results-ai",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "drawer",
+            "confirmation",
+            "button"
+          ]
+        },
+        {
+          "slug": "discussion-threads",
+          "label": "Discussion threads",
+          "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages.",
+          "tags": [
+            "threads",
+            "comments",
+            "conversation",
+            "collaboration",
+            "single-object"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": [
+            "rich-text-froala",
+            "avatar",
+            "text-input",
+            "button"
+          ]
+        },
+        {
+          "slug": "documentation-completion-dashboard",
+          "label": "Documentation Completion Dashboard",
+          "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc.",
+          "tags": [
+            "dashboard",
+            "completion",
+            "metrics",
+            "stewardship",
+            "monitor"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "dashboard",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "dashboard",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "progress-bar-small",
+            "table"
+          ]
+        },
+        {
+          "slug": "faceted-browse",
+          "label": "Faceted browse",
+          "description": "Three pane browse over a large item set: app sidebar, a filter rail, and a result list. The rail holds several independent facet groups (a range facet, a counted checkbox list of item types, a boolean toggle, and type-to-search selects), each collapsible. Results are composed cards rather than table rows: each carries type and sharing tags, a title, source metadata, a summary, domain values, a pending-suggestion chip, and a right-hand meta column with a completion meter and a last-updated date. A bulk action bar sits above the list with select-all, batch actions and a sort control.\n\nThe defining trait is scale. A live total is shown against the current filter state, and each facet value carries its own count, so narrowing is visible before it is committed. Studio Catalog is the canonical instance.\n\nDistinct from `search-filtered-table`, which is the single-search-input case with no facet rail, and from `table-with-tabs`, where pre-filtering is by one categorical axis rather than several independent ones. Choose this pattern whenever more than one facet narrows the same collection.",
+          "tags": [
+            "browse",
+            "search",
+            "facets",
+            "filter",
+            "results",
+            "collection"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "browse-search",
+            "score": 4,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "browse-search",
+                "score": 4
+              }
+            ]
+          },
+          "pageRecipe": "faceted-browse",
+          "components": [
+            "checkbox",
+            "toggle",
+            "dropdown-select-default",
+            "progress-bar-small",
+            "read-only-tag",
+            "button",
+            "search",
+            "table"
+          ]
+        },
+        {
+          "slug": "federated-knowledge-graph",
+          "label": "Federated knowledge graph",
+          "description": "Underlying architecture connecting all metadata with domain-specific ontologies.",
+          "tags": [
+            "graph",
+            "architecture",
+            "metadata",
+            "ontology",
+            "federation"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "data-visualization",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "data-visualization",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": []
+        },
+        {
+          "slug": "import-wizard",
+          "label": "Multi-step import wizard",
+          "description": "7-step horizontal stepper: Data source \u2192 Connection \u2192 Items \u2192 Curator \u2192 Contact \u2192 Category \u2192 Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.",
+          "tags": [
+            "wizard",
+            "stepper",
+            "import",
+            "create",
+            "sequence"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "form-create",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "form-create",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "stepper",
+            "button",
+            "text-input",
+            "dropdown-select-default",
+            "radio-card",
+            "action-bar"
+          ]
+        },
+        {
+          "slug": "interactive-graph",
+          "label": "Interactive graph visualization",
+          "description": "Used for lineage (DAG), View 360 (radial knowledge graph), and Data Model (ER diagram). Nodes are clickable.",
+          "tags": [
+            "graph",
+            "canvas",
+            "nodes",
+            "explore",
+            "visualization"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "data-visualization",
+            "score": 4,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "data-visualization",
+                "score": 4
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "lineage",
+            "lineage-grouped-node",
+            "lineage-connecting-line"
+          ]
+        },
+        {
+          "slug": "lineage-graph",
+          "label": "Lineage Graph",
+          "description": "Directional data-flow graph with field-level path highlighting and an incomplete-process filter; rendered from data-process input/output edges.",
+          "tags": [
+            "graph",
+            "canvas",
+            "lineage",
+            "dataflow",
+            "nodes"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "data-visualization",
+            "score": 4,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "data-visualization",
+                "score": 4
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "lineage",
+            "lineage-grouped-node",
+            "lineage-connecting-line"
+          ]
+        },
+        {
+          "slug": "mcp-server",
+          "label": "Actian MCP Server",
+          "description": "7 tools for AI integrations (Find Glossary, Semantic Search, Get Data Model, etc.).",
+          "tags": [
+            "mcp",
+            "server"
+          ],
+          "tagSource": "slug",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": []
+        },
+        {
+          "slug": "metamodel-designer",
+          "label": "Metamodel Designer",
+          "description": "Drag-and-drop configuration of templates and properties per item type in Studio Catalog Design.",
+          "tags": [
+            "configure",
+            "canvas",
+            "split",
+            "editor",
+            "drag-drop"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "data-visualization",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "data-visualization",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "metamodel",
+            "button",
+            "text-input"
+          ]
+        },
+        {
+          "slug": "notification-system",
+          "label": "Notification system",
+          "description": "Bell icon with unread counter. Three notification types with click-to-action redirects.",
+          "tags": [
+            "notifications",
+            "popover",
+            "panel",
+            "alerts"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "overlay",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "overlay",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "toast",
+            "notification-dropdown",
+            "global-header"
+          ]
+        },
+        {
+          "slug": "right-sliding-drawer",
+          "label": "Right sliding drawer",
+          "description": "Opens from list row click. Studio: quick edit. Explorer: quick view with Request Access.",
+          "tags": [
+            "drawer",
+            "overlay",
+            "panel",
+            "quick-view",
+            "single-object"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "overlay",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "overlay",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": "studio-quick-edit-drawer",
+          "components": [
+            "drawer",
+            "button"
+          ]
+        },
+        {
+          "slug": "search-filtered-table",
+          "label": "Search-filtered list table",
+          "description": "List table with an inline Search input directly above it (no separate filter sidebar). Common for member directories, group lists, scanner inventories, connection lists. Pairs Page header \u2192 Search \u2192 Table. Search filters table contents in place; no other facets.",
+          "tags": [
+            "search",
+            "table",
+            "list",
+            "collection",
+            "single-search"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "table-list",
+            "score": 2,
+            "status": "decisive",
+            "candidates": [
+              {
+                "archetype": "table-list",
+                "score": 2
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "search",
+            "table"
+          ]
+        },
+        {
+          "slug": "smart-suggestions",
+          "label": "Smart suggestions",
+          "description": "AI-powered metadata enrichment: suggestion counts inline, dedicated Suggestions tab.",
+          "tags": [
+            "suggestions",
+            "ai",
+            "review",
+            "curate",
+            "single-object"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "search-results-ai",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "search-results-ai",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "tabs",
+            "badge",
+            "button"
+          ]
+        },
+        {
+          "slug": "suggestion-workflow",
+          "label": "Suggestion workflow",
+          "description": "Explorer users submit suggestions, curators review (accept/decline with comment).",
+          "tags": [
+            "suggestions",
+            "review",
+            "approve",
+            "workflow",
+            "curate"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": [
+            "button",
+            "confirmation",
+            "text-input",
+            "read-only-tag"
+          ]
+        },
+        {
+          "slug": "table-with-tabs",
+          "label": "Tab-filtered dashboard table",
+          "description": "Page header \u2192 Tabs \u2192 Table layout. Tabs split the table by status (Active / Pending / Archived), type (My / Shared / All), or role-scoped view. Used for admin dashboards, queue views, and any list where users mentally pre-filter by category before scanning rows.",
+          "tags": [
+            "table",
+            "tabs",
+            "collection",
+            "status",
+            "partition"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 1,
+            "status": "tie",
+            "candidates": [
+              {
+                "archetype": "detail-view",
+                "score": 1
+              },
+              {
+                "archetype": "table-list",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "page-header",
+            "tabs",
+            "table"
+          ]
+        },
+        {
+          "slug": "template-builder",
+          "label": "Drag-and-drop template builder",
+          "description": "Studio feature for creating documentation templates via Catalog Design page.",
+          "tags": [
+            "configure",
+            "builder",
+            "templates",
+            "editor"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": null,
+            "score": 0,
+            "status": "no-match",
+            "candidates": []
+          },
+          "pageRecipe": null,
+          "components": [
+            "metamodel",
+            "button",
+            "text-input"
+          ]
+        },
+        {
+          "slug": "type-picker-grid",
+          "label": "Type picker grid",
+          "description": "A full page, not an overlay. A required Name field over an information banner explaining that a key is\ngenerated from it, then an Item type section: a segmented control filtering All Types / Glossary Types /\nPhysical & Logical Types, a search input, and grids of selectable tiles grouped under family headings.\nEach tile is a radio control, a two-letter colour-coded type badge and the type name, truncated when\nlong. A persistent action bar at the foot of the page carries a single Confirm, disabled until a name\nand a type are both chosen.\n\nCorrected 2026-08-18 against the running product, where this record was wrong twice. It named `modal`:\ncreation is a full page at `/new-item`, carrying the app sidebar and a pinned action bar, with no overlay\ninvolved. And it named `card-for-items`: the tiles are radio cards, verified by comparing the page\nagainst `card-for-items`' own `default.webp`, which is a badge, a title, a catalog chip and body prose,\nand is nothing like a type tile.",
+          "tags": [
+            "grid",
+            "picker",
+            "create",
+            "types",
+            "selection"
+          ],
+          "tagSource": "authored",
+          "recipe": {
+            "archetype": "form-create",
+            "score": 1,
+            "status": "weak",
+            "candidates": [
+              {
+                "archetype": "form-create",
+                "score": 1
+              }
+            ]
+          },
+          "pageRecipe": null,
+          "components": [
+            "radio-card",
+            "segmented-control",
+            "search",
+            "text-input",
+            "action-bar",
+            "page-header"
+          ]
+        }
+      ],
+      "useCases": [
+        {
+          "audience": [
+            "Data steward",
+            "Data architect"
+          ],
+          "jobs": [
+            "Govern and curate the catalog",
+            "Manage lineage and the business glossary",
+            "Enrich metadata and design catalog structure"
+          ],
+          "patterns": [
+            "asset-detail-360",
+            "search-filtered-table",
+            "table-with-tabs"
+          ]
+        }
+      ],
+      "entityProperties": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "label": "Type",
+          "type": "enum",
+          "example": "Dataset, Visualization, Data Process, Custom Item, Glossary Item, Data Product"
+        },
+        {
+          "name": "documentation completion",
+          "label": "Documentation completion",
+          "type": "number",
+          "example": "percentage (0\u2013100) from 4 criteria: description, contact, glossary link, properties filled"
+        },
+        {
+          "name": "owner",
+          "label": "Owner",
+          "type": "string"
+        },
+        {
+          "name": "contacts",
+          "label": "Contacts",
+          "type": "string"
+        },
+        {
+          "name": "last modified",
+          "label": "Last modified",
+          "type": "string"
+        }
+      ],
+      "relationships": [
+        {
+          "relationship": "belongsTo",
+          "relatedEntity": "domain",
+          "label": "Domain"
+        },
+        {
+          "relationship": "uses",
+          "relatedEntity": "connection",
+          "label": "Connection"
+        },
+        {
+          "relationship": "contains",
+          "relatedEntity": "metadata",
+          "label": "Metadata"
+        },
+        {
+          "relationship": "contains",
+          "relatedEntity": "lineage",
+          "label": "Lineage"
+        },
+        {
+          "relationship": "contains",
+          "relatedEntity": "discussion-thread",
+          "label": "Discussion thread"
+        },
+        {
+          "relationship": "contains",
+          "relatedEntity": "suggestion",
+          "label": "Suggestion"
+        },
+        {
+          "relationship": "contains",
+          "relatedEntity": "observability-signal",
+          "label": "Observability signal"
+        },
+        {
+          "relationship": "relatesTo",
+          "relatedEntity": "glossary-item",
+          "label": "Glossary item"
+        },
+        {
+          "relationship": "relatesTo",
+          "relatedEntity": "governance-policy",
+          "label": "Governance policy"
+        }
+      ],
+      "entityPatterns": [
+        {
+          "slug": "faceted-browse",
+          "label": "Faceted browse",
+          "apps": [
+            "studio",
+            "explorer"
+          ],
+          "components": [
+            "checkbox",
+            "toggle",
+            "dropdown-select-default",
+            "progress-bar-small",
+            "read-only-tag",
+            "button",
+            "search",
+            "table"
+          ]
+        },
+        {
+          "slug": "asset-detail-360",
+          "label": "360-degree asset detail view",
+          "apps": [
+            "studio",
+            "explorer"
+          ],
+          "components": [
+            "tabs",
+            "page-header",
+            "breadcrumb",
+            "side-nav",
+            "drawer",
+            "avatar",
+            "progress-bar-small",
+            "read-only-tag",
+            "interactive-tag",
+            "button",
+            "checkbox",
+            "empty-state",
+            "segmented-control",
+            "dropdown-select-default",
+            "text-area",
+            "calendar"
+          ]
+        },
+        {
+          "slug": "activity-timeline",
+          "label": "Activity timeline",
+          "apps": [
+            "studio"
+          ],
+          "components": [
+            "avatar"
+          ]
+        },
+        {
+          "slug": "bulk-edit",
+          "label": "Bulk Edit",
+          "apps": [
+            "studio"
+          ],
+          "components": [
+            "table",
+            "checkbox",
+            "button",
+            "modal"
+          ]
+        },
+        {
+          "slug": "right-sliding-drawer",
+          "label": "Right sliding drawer",
+          "apps": [
+            "studio",
+            "explorer"
+          ],
+          "components": [
+            "drawer",
+            "button"
+          ]
+        }
+      ],
+      "entityComponents": [
+        "checkbox",
+        "toggle",
+        "dropdown-select-default",
+        "progress-bar-small",
+        "read-only-tag",
+        "button",
+        "search",
+        "table",
+        "tabs",
+        "page-header",
+        "breadcrumb",
+        "side-nav",
+        "drawer",
+        "avatar",
+        "interactive-tag",
+        "empty-state",
+        "segmented-control",
+        "text-area",
+        "calendar",
+        "modal"
+      ]
+    }
+  },
+  "screens": [
+    {
+      "name": "Catalog, no description",
+      "template": "studio",
+      "pattern": "faceted-browse",
+      "exit": "selects several items"
+    },
+    {
+      "name": "Several items selected",
+      "template": "studio",
+      "pattern": "faceted-browse",
+      "exit": "Describe, in the bulk bar"
+    },
+    {
+      "name": "Describe items",
+      "template": "studio",
+      "pattern": "right-sliding-drawer",
+      "layer": {
+        "kind": "panel",
+        "over": 2
+      },
+      "exit": "Save descriptions"
+    },
+    {
+      "name": "Descriptions saved",
+      "template": "studio",
+      "layer": {
+        "kind": "toast",
+        "over": 2
+      }
+    }
+  ]
+}

@@ -871,6 +871,7 @@ function main(argv) {
     list = take("--screen-list"),
     out = take("-o"),
     useCase = take("--use-case");
+  var direct = args.indexOf("--direct") !== -1;
   if (!app || !list) {
     process.stderr.write(USAGE);
     return 1;
@@ -911,7 +912,20 @@ function main(argv) {
     );
     return 1;
   }
+  if (direct) {
+    var navByScreen = screens.map(function (s) {
+      return s.nav || null;
+    });
+    brief = require("./direct-brief.js").toDirect(brief, { nav: nav, navByScreen: navByScreen });
+  }
   var json = JSON.stringify(brief, null, 2);
+  if (out && direct) {
+    fs.writeFileSync(out, json);
+    process.stderr.write(
+      "prepare-flow: wrote " + out + " (" + screens.length + " steps, direct, no slices)\n",
+    );
+    return 0;
+  }
   if (out) {
     fs.writeFileSync(out, json);
     var briefDir = path.join(path.dirname(out), ".brief");
