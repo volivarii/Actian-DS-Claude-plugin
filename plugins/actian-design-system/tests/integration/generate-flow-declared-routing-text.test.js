@@ -93,6 +93,14 @@ describe("declared routing: skill, gates and authoring text", function () {
     assert.doesNotMatch(gates, /`source scripts\/lib\/resolve-node\.sh/);
   });
 
+  it("gates.md says what a layered screen with no pattern does", function () {
+    assert.match(gates, /layer[^.]*no pattern[^.]*no page skeleton/i);
+  });
+
+  it("gates.md says how to report a Look that pairs some screens", function () {
+    assert.match(gates, /screens? (that|which) paired/i);
+  });
+
   it("the unpublished steward panel keeps its example and says not to author it", function () {
     var section = authoring
       .split("### `chat-with-ai-steward`")[1]
