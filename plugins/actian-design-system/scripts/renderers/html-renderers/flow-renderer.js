@@ -239,9 +239,9 @@
   // hasChrome — true unless the screen's template is one of the no-chrome
   // templates (bare/mobile/tablet/compact/custom), which screen() renders
   // with no header/sidebar wrapper at all. A "does this template take the
-  // chrome wrapper?" question, not "did a header actually render?" (a
-  // template screen() doesn't recognize also answers true here, though no
-  // header renders for it) — renderLayered() does NOT reuse this check to
+  // chrome wrapper?" question, not "did a header actually render?" question
+  // (a template screen() doesn't recognize also answers true here, though no
+  // header renders for it). renderLayered() does NOT reuse this check to
   // size a layer's header offset; it reads the base's own rendered HTML
   // instead, because that question needs the second answer, not this one.
   function hasChrome(s) {
