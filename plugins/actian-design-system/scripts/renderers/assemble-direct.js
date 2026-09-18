@@ -73,6 +73,23 @@ function dockLayers(html) {
   );
 }
 
+// The author's app.js goes into a <script> element, and script data ends at
+// the first `</script` the HTML parser sees, wherever it sits: a `"</script>"`
+// inside a JS string literal truncates the page with no error anywhere.
+//
+// assemble-shared.js's escapeJsonForScript is the codebase's answer to this
+// and is used below for the hints JSON, but its blanket `</` -> `<\/` is only
+// safe where every `/` may be backslash-escaped, which is true of a JSON
+// string and not of JS SOURCE: a regex literal ending in `<`, as `/^</` does,
+// carries `</` as its last two characters, and escaping those leaves an
+// unterminated regex. So the author's source gets the narrow form, which only
+// breaks the one sequence the parser looks for. Inside a string, a template
+// literal, a regex or a comment `<\/script` reads identically to `</script`;
+// outside those four there is no JS in which that sequence is valid.
+function escapeScriptSource(src) {
+  return String(src == null ? "" : src).replace(/<\/(script)/gi, "<\\/$1");
+}
+
 function assemble(o) {
   var frame = renderFrame(o.brief);
   var body = dockLayers(inlineIcons(o.body, o.icons));
@@ -87,6 +104,9 @@ function assemble(o) {
   );
   var inside = body.slice(start, end);
   var rest = body.slice(0, open.index) + body.slice(end + "</div>".length);
+  // dockLayers has already classed every layer, so this asks the docked body
+  // whether any of them is a modal rather than re-reading the author's syntax.
+  var scrim = body.indexOf("proto-layer--modal") !== -1 ? shell.SCRIM : "";
   var steps = o.brief.direct.steps;
   var hints = steps.map(function (s) {
     return s.exit ? "Next: " + s.exit.via : "";
@@ -112,14 +132,15 @@ function assemble(o) {
     inside +
     frame.after +
     rest +
+    scrim +
     "</div>" +
     "<script>window.PROTO_HINTS=" +
-    JSON.stringify(hints) +
+    assembleShared.escapeJsonForScript(JSON.stringify(hints)) +
     ";" +
     shell.RUNTIME +
     "</script>" +
     "<script>" +
-    (o.appJs || "") +
+    escapeScriptSource(o.appJs) +
     "</script><script>" +
     shell.BOOT +
     "</script>" +
@@ -202,6 +223,7 @@ function main(argv) {
 
 module.exports = {
   assemble: assemble,
+  escapeScriptSource: escapeScriptSource,
   renderFrame: renderFrame,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,

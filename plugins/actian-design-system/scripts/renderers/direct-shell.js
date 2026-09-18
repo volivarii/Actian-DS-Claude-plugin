@@ -27,6 +27,15 @@ var CSS = [
   ".proto-layer--drawer{top:var(--proto-app-header);right:0;bottom:0;width:550px;max-width:100%}",
   ".proto-layer--panel{top:var(--proto-app-header);right:0;bottom:0;width:420px;max-width:100%}",
   ".proto-layer--modal{top:50%;left:50%;transform:translate(-50%,-50%);max-width:90%;max-height:90%}",
+  // A modal sits on a scrim, and the script draws it: flow-renderer.js does the
+  // same for its own modal layer, and the brief's `layers.modal.dock` says
+  // "centred on a scrim". It covers the stage, so the app but never the strip,
+  // and z-index 19 puts it under the modal's 20 and over everything else.
+  // :has ties it to the modal's own `hidden` attribute, which is the only
+  // thing the author toggles, and unlike a sibling rule it needs no ordering
+  // between the two elements and stays right with more than one modal.
+  ".proto-scrim{display:none;position:absolute;inset:0;z-index:19;background:var(--zen-color-bg-overlay,rgba(0,0,0,.4))}",
+  ".proto-stage:has(.proto-layer--modal:not([hidden])) .proto-scrim{display:block}",
   ".proto-layer--toast{box-shadow:none;background:transparent}",
   // Bottom left: every layer this shell docks goes to the right edge (drawer,
   // panel) or the middle (modal), and the app header owns the top. A note that
@@ -96,8 +105,12 @@ function strip(steps, adds) {
   );
 }
 
+// Emitted into the stage only when the author declares a modal layer.
+var SCRIM = '<div class="proto-scrim"></div>';
+
 module.exports = {
   CSS: CSS,
+  SCRIM: SCRIM,
   RUNTIME: RUNTIME,
   BOOT: BOOT,
   strip: strip,

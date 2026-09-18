@@ -120,3 +120,75 @@ describe("assemble-direct", () => {
     assert.match(noDirect.stderr, /no direct block/);
   });
 });
+
+describe("assemble-direct: a modal on a scrim, and an author's own script", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const brief = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const page = (body, appJs, b) =>
+    assemble({
+      brief: b || brief,
+      body,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+    });
+  const FRAME = "<div data-app-frame><p>2 results</p></div>";
+  const MODAL =
+    FRAME +
+    '<aside data-layer="modal" id="confirm" hidden><h2>Save 2 descriptions?</h2></aside>';
+
+  it("draws the scrim a modal sits on, which no author writes", () => {
+    const html = page(MODAL);
+    assert.ok(
+      /class="proto-layer proto-layer--modal"/.test(html),
+      "the modal is not docked",
+    );
+    assert.strictEqual((html.match(/class="proto-scrim"/g) || []).length, 1);
+    // It covers the stage (so the app, never the strip) and sits under the
+    // modal: the modal's z-index is 20, the scrim's is below it.
+    assert.match(html, /\.proto-scrim\{[^}]*position:absolute[^}]*inset:0[^}]*\}/);
+    assert.match(html, /\.proto-scrim\{[^}]*z-index:19[^}]*\}/);
+    // And it follows the modal's own hidden attribute, which is the only
+    // thing the author toggles.
+    assert.ok(
+      html.includes(".proto-layer--modal:not([hidden])"),
+      "nothing ties the scrim to the modal's hidden state",
+    );
+  });
+  it("draws no scrim when no layer is a modal", () => {
+    const html = page(
+      FRAME + '<aside data-layer="panel" hidden><p>Item 1 of 2</p></aside>',
+    );
+    assert.ok(!/class="proto-scrim"/.test(html));
+  });
+  it("an author's script cannot end its own element", () => {
+    const appJs = 'var truncator = "</script>";\nwindow.afterTruncator = 1;';
+    const html = page(MODAL, appJs);
+    assert.ok(
+      !html.includes('"</script>"'),
+      "the author's raw </script> reached the page",
+    );
+    assert.ok(
+      html.includes('"<\\/script>"'),
+      "the author's </script> was not escaped",
+    );
+    // The closing tag is what ends a script element, so counting closers
+    // counts elements: hints + runtime, the author's, boot.
+    assert.strictEqual((html.match(/<\/script>/g) || []).length, 3);
+    assert.ok(
+      html.indexOf("URLSearchParams") > html.indexOf("afterTruncator"),
+      "the boot script did not survive the author's",
+    );
+  });
+  it("a step hint cannot end the script element either", () => {
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.steps[0].exit = { via: "Describe</script><script>x=1" };
+    const html = page(FRAME, "", b);
+    assert.ok(!html.includes("Describe</script>"));
+    assert.strictEqual((html.match(/<\/script>/g) || []).length, 3);
+  });
+});
