@@ -103,8 +103,10 @@ describe("direct brief", () => {
     });
     assert.strictEqual(d.steps[0].exit.via, "clicks Describe");
   });
-  it("gives a captured step its slots, notes and an absolute screenshot path, never a skeleton", () => {
-    const c = directBrief(brief(), { nav: "catalog", deps }).steps[0].capture;
+  it("names a captured step's capture by slug, and the slug's full capture carries the slots, notes and an absolute screenshot path, never a skeleton", () => {
+    const d = directBrief(brief(), { nav: "catalog", deps });
+    assert.strictEqual(d.steps[0].capture, "faceted-browse");
+    const c = d.captures["faceted-browse"];
     assert.strictEqual(c.slug, "faceted-browse");
     assert.deepStrictEqual(c.slots, { rail: "Filter rail" });
     assert.ok(
@@ -112,6 +114,14 @@ describe("direct brief", () => {
         c.screenshot.endsWith("captures/faceted-browse.png"),
     );
     assert.strictEqual(c.skeleton, undefined);
+  });
+  it("direct.captures is keyed by slug, and a capture two steps share is stored once", () => {
+    const b = brief();
+    b.screens[1].pageRecipe = JSON.parse(JSON.stringify(b.screens[0].pageRecipe));
+    const d = directBrief(b, { nav: "catalog", deps });
+    assert.deepStrictEqual(Object.keys(d.captures), ["faceted-browse"]);
+    assert.strictEqual(d.steps[0].capture, "faceted-browse");
+    assert.strictEqual(d.steps[1].capture, "faceted-browse");
   });
   it("gives an uncaptured step null and keeps its pattern", () => {
     const s = directBrief(brief(), { nav: "catalog", deps }).steps[1];
@@ -159,8 +169,21 @@ describe("direct brief", () => {
     t.screens.forEach((s) => {
       assert.strictEqual(s.archetype, undefined);
       assert.strictEqual(s.propertyRules, undefined);
-      assert.ok(!s.pageRecipe || s.pageRecipe.skeleton === undefined);
+      assert.strictEqual(s.pageRecipe, undefined);
+      assert.strictEqual(s.sections, undefined);
     });
+  });
+  it("replaces glossary.patterns with only the patterns a step declares", () => {
+    const b = brief();
+    b.glossary.patterns = [
+      { slug: "faceted-browse", label: "Faceted browse" },
+      { slug: "unused-pattern", label: "Never declared" },
+    ];
+    const t = toDirect(b, { nav: "catalog", deps });
+    assert.deepStrictEqual(
+      t.glossary.patterns.map((p) => p.slug),
+      ["faceted-browse"],
+    );
   });
 });
 
@@ -183,6 +206,26 @@ describe("direct brief: a layer brings its component", () => {
     directBrief(briefWithLayers(["toast"]), { deps });
     directBrief(briefWithLayers(["toast"]), { deps });
     assert.ok(!("usageNotes" in LAYERS.toast));
+  });
+});
+
+describe("direct brief: direct.fragments names every fragment on disk, not only what captures and screens name", () => {
+  it("reads through deps.listFragments, stripping .html and sorting", () => {
+    const injected = Object.assign({}, deps, {
+      listFragments: () => ["zeta.html", "alpha.html", "not-a-fragment.txt"],
+    });
+    const d = directBrief(brief(), { nav: "catalog", deps: injected });
+    assert.deepStrictEqual(d.fragments.slugs, ["alpha", "zeta"]);
+  });
+  it("dir and usageNotesDir are absolute, and text-area and tabs are among the real substrate's slugs", () => {
+    const d = directBrief(brief(), { nav: "catalog" }); // real fs
+    assert.ok(path.isAbsolute(d.fragments.dir));
+    assert.ok(path.isAbsolute(d.fragments.usageNotesDir));
+    assert.ok(fs.existsSync(d.fragments.dir));
+    assert.ok(fs.existsSync(d.fragments.usageNotesDir));
+    assert.ok(d.fragments.slugs.includes("text-area"));
+    assert.ok(d.fragments.slugs.includes("tabs"));
+    assert.deepStrictEqual(d.fragments.slugs, d.fragments.slugs.slice().sort());
   });
 });
 
@@ -216,10 +259,49 @@ describe("prepare-flow --direct (CLI)", () => {
     assert.strictEqual(r.status, 0, r.stderr);
     const b = JSON.parse(fs.readFileSync(out, "utf8"));
     assert.strictEqual(b.direct.steps.length, 4);
-    assert.ok(
-      b.direct.steps[0].capture && b.direct.steps[0].capture.screenshot,
-    );
+    assert.strictEqual(typeof b.direct.steps[0].capture, "string");
+    assert.ok(b.direct.captures[b.direct.steps[0].capture].screenshot);
     assert.ok(!fs.existsSync(path.join(dir, ".brief")));
+  });
+  it("a capture two steps share is one entry in direct.captures", () => {
+    const { r, out } = run(["--direct"]);
+    assert.strictEqual(r.status, 0, r.stderr);
+    const b = JSON.parse(fs.readFileSync(out, "utf8"));
+    assert.strictEqual(b.direct.steps[0].capture, b.direct.steps[1].capture);
+    assert.strictEqual(Object.keys(b.direct.captures).length, 2);
+  });
+  it("glossary.patterns holds only the patterns the steps declare, and the written brief is far smaller (S4)", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "direct-brief-size-"));
+    const out = path.join(dir, ".brief.json");
+    const r = cp.spawnSync(
+      process.execPath,
+      [
+        path.resolve(__dirname, "../../scripts/lib/app-context/prepare-flow.js"),
+        "--app",
+        "studio",
+        "--entity",
+        "catalog-object",
+        "--use-case",
+        "steward",
+        "--screen-list",
+        LIST,
+        "--direct",
+        "-o",
+        out,
+      ],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(r.status, 0, r.stderr);
+    const size = fs.statSync(out).size;
+    assert.ok(size < 70000, "expected under 70000 bytes, measured " + size);
+    const b = JSON.parse(fs.readFileSync(out, "utf8"));
+    const declared = new Set(
+      b.direct.steps.map((s) => s.pattern && s.pattern.slug).filter(Boolean),
+    );
+    assert.deepStrictEqual(
+      b.glossary.patterns.map((p) => p.slug).sort(),
+      Array.from(declared).sort(),
+    );
   });
   it("leaves the default run alone: slices written, no direct block", () => {
     const { r, dir, out } = run([]);

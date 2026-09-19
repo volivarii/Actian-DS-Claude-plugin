@@ -100,9 +100,14 @@ function directBrief(brief, opts) {
           fs.readFileSync(PATHS.appContextRecipes(slug), "utf8"),
         );
       },
+    listFragments: d.listFragments || fs.readdirSync,
   };
   var chrome = (brief.glossary && brief.glossary.chrome) || {};
   var found = {};
+  // Keyed by capture slug: two steps drawing the same captured page (a list
+  // screen before and after a selection, say) name the same slug instead of
+  // carrying the capture's slots, notes and screenshot path a second time.
+  var captures = {};
   var steps = (brief.screens || []).map(function (s, i) {
     (s.components || []).forEach(function (c) {
       found[c] = true;
@@ -112,6 +117,8 @@ function directBrief(brief, opts) {
     if (s.layer && LAYER_COMPONENT[s.layer.kind])
       found[LAYER_COMPONENT[s.layer.kind]] = true;
     var f = (brief.flow || [])[i] || {};
+    var capture = captureOf(s, deps);
+    if (capture) captures[capture.slug] = capture;
     return {
       n: i + 1,
       id: f.id,
@@ -120,7 +127,7 @@ function directBrief(brief, opts) {
       pattern: s.pattern || null,
       layer: s.layer || null,
       exit: s.exit || null,
-      capture: captureOf(s, deps),
+      capture: capture ? capture.slug : null,
     };
   });
   var components = Object.keys(found)
@@ -148,6 +155,17 @@ function directBrief(brief, opts) {
       usageNotes: deps.exists(globalToastNotes) ? abs(globalToastNotes) : null,
     }),
   });
+  var fragmentsDir = path.dirname(PATHS.components.render.fragments("x"));
+  var usageNotesDir = path.dirname(PATHS.components.render.usageNotes("x"));
+  var fragmentSlugs = deps
+    .listFragments(fragmentsDir)
+    .filter(function (name) {
+      return /\.html$/.test(name);
+    })
+    .map(function (name) {
+      return name.slice(0, -".html".length);
+    })
+    .sort();
   return {
     app: {
       slug: chrome.app || (brief.app && brief.app.slug) || null,
@@ -156,7 +174,13 @@ function directBrief(brief, opts) {
       activeNav: opts.nav || null,
     },
     steps: steps,
+    captures: captures,
     components: components,
+    fragments: {
+      dir: abs(fragmentsDir),
+      usageNotesDir: abs(usageNotesDir),
+      slugs: fragmentSlugs,
+    },
     assets: {
       renderContract: abs(PATHS.components.render.contract),
       icons: abs(PATHS.components.icons.svg),
@@ -175,14 +199,52 @@ function directBrief(brief, opts) {
   };
 }
 
+// direct.steps[].pattern.slug, deduplicated: the set of patterns an author
+// actually needs, against the app's whole pattern catalog in glossary.
+// patterns.
+function declaredPatternSlugs(steps) {
+  var out = {};
+  (steps || []).forEach(function (s) {
+    if (s.pattern && s.pattern.slug) out[s.pattern.slug] = true;
+  });
+  return out;
+}
+
+// glossary.patterns is an array of pattern objects keyed by their own .slug
+// field (checked against a real prepare-flow.js --direct run before writing
+// this). A plain object already keyed by slug is trimmed the same way, entry
+// by entry, in case a caller ever hands one; anything else is left as it
+// stands rather than guessed at.
+function trimPatterns(patterns, declaredSlugs) {
+  if (Array.isArray(patterns))
+    return patterns.filter(function (p) {
+      return p && declaredSlugs[p.slug];
+    });
+  if (patterns && typeof patterns === "object") {
+    var out = {};
+    Object.keys(patterns).forEach(function (slug) {
+      if (declaredSlugs[slug]) out[slug] = patterns[slug];
+    });
+    return out;
+  }
+  return patterns;
+}
+
 function toDirect(brief, opts) {
   var out = JSON.parse(JSON.stringify(brief));
   out.direct = directBrief(brief, opts);
   (out.screens || []).forEach(function (s) {
     delete s.archetype;
     delete s.propertyRules;
-    if (s.pageRecipe) delete s.pageRecipe.skeleton;
+    delete s.pageRecipe;
+    delete s.sections;
   });
+  if (out.glossary) {
+    out.glossary.patterns = trimPatterns(
+      out.glossary.patterns,
+      declaredPatternSlugs(out.direct.steps),
+    );
+  }
   return out;
 }
 
