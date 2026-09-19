@@ -80,8 +80,8 @@ describe("retired skills stay hidden", function () {
     );
     assert.strictEqual(
       agentFiles.length,
-      9,
-      "expected 9 agents/*.md files, found " + agentFiles.length,
+      10,
+      "expected 10 agents/*.md files, found " + agentFiles.length,
     );
 
     files.forEach(function (rel) {
