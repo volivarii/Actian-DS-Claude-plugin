@@ -165,17 +165,30 @@ function screenshotArgs(opts) {
     "--virtual-time-budget=2000",
     "--window-size=" + width + "," + height,
     "--screenshot=" + opts.outPng,
-    url.pathToFileURL(opts.htmlPath).href,
+    typeof opts.url === "string"
+      ? opts.url
+      : url.pathToFileURL(opts.htmlPath).href,
   ];
 }
 
 // Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
+// opts.timeoutMs bounds the shot. execFileSync's timeout sends its killSignal
+// and then WAITS for the child to exit, and a wedged headless Chrome can ignore
+// SIGTERM for as long again as the bound, so a bounded shot kills with SIGKILL.
+// A caller that passes no timeout gets execOpts exactly as before. opts.exec
+// (default cp.execFileSync) is the seam the tests drive this through.
 function screenshot(opts) {
   var chrome = opts.chrome; // resolved path
   var outPng = opts.outPng;
   var args = screenshotArgs(opts);
+  var execOpts = { stdio: "pipe" };
+  if (opts.timeoutMs) {
+    execOpts.timeout = opts.timeoutMs;
+    execOpts.killSignal = "SIGKILL";
+  }
+  var exec = opts.exec || cp.execFileSync;
   try {
-    cp.execFileSync(chrome, args, { stdio: "pipe" });
+    exec(chrome, args, execOpts);
   } catch (e) {
     var detail = (e.stderr || "").toString().slice(0, 500);
     throw new Error(

@@ -71,6 +71,19 @@ are summarized at the release level.
 
 ### Added
 
+- **The scripts of a direct prototype route.** ([#406](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/406))
+  `prepare-flow.js --direct` writes one brief naming every vendored file an author needs (the
+  captured page's screenshot and regions, component markup, stylesheets, icons, terminology,
+  content rules) and no slices. `assemble-direct.js` wraps an author's four files into one
+  self-contained page and draws the app frame, the icons, the layer docking with its scrim, and
+  the step strip itself, and moves the rail's active item to each step's own. `check-direct.js`
+  reports fourteen kinds of finding on the source, reading the steps by running the author's
+  script in a throwaway context rather than scanning it. `look-direct.js` screenshots every step
+  at two widths through the plugin's one screenshot helper, and ends with exit 2 when there is no
+  browser or it does not answer within 60 seconds. Nothing reaches a user yet: the agent and the
+  skill's `--direct` flag land next. Terminology is not checked until knowledge #720 settles the
+  word item.
+
 - **Research is a gate, in four lanes, with a section of its own**
   ([#385](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/385)). It used to run by default,
   do at most two web searches, and land as one undifferentiated list inside the briefing under
