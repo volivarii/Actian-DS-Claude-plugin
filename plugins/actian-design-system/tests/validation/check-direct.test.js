@@ -72,6 +72,39 @@ describe("check-direct", () => {
     ).filter((x) => x.check === "unknown-token");
     assert.deepStrictEqual(f, []);
   });
+  it("unknown-ds-class: a class a named fragment carries is known, rule or no rule", () => {
+    const body = ok.body.replace("</div>", '<span class="ds-tag ds-tag--hook-only">x</span></div>');
+    const css2 = css + "\n.ds-tag{display:inline-flex}";
+    assert.ok(kinds({ body, css: css2 }).includes("unknown-ds-class"), "fires without the fragment");
+    assert.ok(
+      !kinds({ body, css: css2, fragments: ['<span class="ds-tag ds-tag--hook-only">Label</span>'] }).includes("unknown-ds-class"),
+      "a class from the design system's own markup was reported",
+    );
+    assert.ok(
+      kinds({ body: body.replace("ds-tag--hook-only", "ds-tag--invented"), css: css2, fragments: ["<span class='ds-tag ds-tag--hook-only'>Label</span>"] }).includes("unknown-ds-class"),
+      "an invented class passed because a fragment was given",
+    );
+  });
+  it("unknown-ds-class: the CLI reads the fragments the brief names", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cd-frag-"));
+    const frag = path.join(dir, "tag.html");
+    fs.writeFileSync(frag, '<span class="ds-tag--hook-only">Label</span>');
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.components = [{ slug: "tag", fragment: frag, usageNotes: null }];
+    const cssFile = path.join(dir, "page.css");
+    const iconFile = path.join(dir, "icons.json");
+    fs.writeFileSync(cssFile, css);
+    fs.writeFileSync(iconFile, JSON.stringify({ icons }));
+    b.direct.assets = { frameCss: [cssFile], icons: iconFile };
+    fs.writeFileSync(path.join(dir, "brief.json"), JSON.stringify(b));
+    const author = path.join(dir, "author");
+    fs.mkdirSync(author);
+    fs.writeFileSync(path.join(author, "body.html"), '<div data-app-frame><span class="ds-tag--hook-only">x</span></div>');
+    fs.writeFileSync(path.join(author, "app.js"), ok.appJs);
+    const cp = require("child_process");
+    const r = cp.spawnSync(process.execPath, [path.join(__dirname, "../../scripts/validation/check-direct.js"), path.join(dir, "brief.json"), "--author", author], { encoding: "utf8" });
+    assert.strictEqual(r.stdout, "check-direct: clean\n", r.stdout + r.stderr);
+  });
   it("unknown-ds-class", () =>
     assert.ok(
       kinds({ body: ok.body.replace("ds-button", "ds-buton") }).includes(

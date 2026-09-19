@@ -194,6 +194,17 @@ function checkDirect(o) {
   all(/\.(ds-[a-z0-9_-]+)/gi, cssM).forEach(function (c) {
     classes[c] = true;
   });
+  // The design system's own markup carries classes the stylesheet has no rule
+  // for (hooks such as ds-tag--default): a class a named fragment carries is
+  // known, rule or no rule. An author is told to keep a fragment's classes.
+  (o.fragments || []).forEach(function (html) {
+    allAttr("class", html)
+      .join(" ")
+      .split(/\s+/)
+      .forEach(function (c) {
+        if (/^ds-/.test(c)) classes[c] = true;
+      });
+  });
 
   [
     ["body.html", body],
@@ -265,7 +276,7 @@ function checkDirect(o) {
           "error",
           "unknown-ds-class",
           "body.html",
-          "." + c + " has no rule in the stylesheet",
+          "." + c + " is in no stylesheet rule and no component fragment",
         ),
       );
   });
@@ -505,6 +516,9 @@ function main(argv) {
     meta: meta ? JSON.parse(meta) : {},
     css: css,
     icons: icons,
+    fragments: (brief.direct.components || []).map(function (c) {
+      return rd(c.fragment);
+    }),
   });
   findings.forEach(function (x) {
     process.stdout.write(
