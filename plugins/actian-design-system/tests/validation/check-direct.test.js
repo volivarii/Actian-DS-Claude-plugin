@@ -29,7 +29,6 @@ describe("check-direct", () => {
   });
   it("frame-redrawn", () => assert.ok(kinds({ body: ok.body + '<nav class="ds-side-nav"></nav>' }).includes("frame-redrawn")));
   it("frame-missing", () => assert.ok(kinds({ body: "<p>x</p>" }).includes("frame-missing")));
-  it("step-mismatch", () => assert.ok(kinds({ appJs: 'proto.steps = [{ id: "f-2" }, { id: "f-1" }];' }).includes("step-mismatch")));
   it("new-undeclared and add-unplaced", () => {
     assert.ok(kinds({ meta: { adds: [] } }).includes("new-undeclared"));
     assert.ok(kinds({ body: ok.body.replace(' data-new="X"', "") }).includes("add-unplaced"));
@@ -50,7 +49,13 @@ describe("check-direct", () => {
     assert.strictEqual(f[0].severity, "error");
     assert.strictEqual(f[0].path, "app.js");
   });
-  it("step-mismatch: an inline array closed with a semicolon inside arrive() stays clean (review finding 1)", () => {
+  it("step-mismatch: a regex literal's own character class does not confuse evaluation (review round 2)", () => {
+    const appJs =
+      'proto.steps = [{ id: "f-1", arrive: function () { var re = /[\\]]/; } }, ' +
+      '{ id: "f-2", arrive: function () {} }];';
+    assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
+  });
+  it("step-mismatch: an inline array closed with a semicolon inside arrive() stays clean", () => {
     const appJs =
       'proto.steps = [{ id: "f-1", arrive: function () { var xs = [1, 2]; return xs; } }, ' +
       '{ id: "f-2", arrive: function () {} }];';
@@ -60,12 +65,37 @@ describe("check-direct", () => {
     const appJs = ok.appJs.replace("arrive: function () {}", 'arrive: function () { id: "zzz"; }');
     assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
   });
-  it("step-mismatch: a bracket inside a string inside arrive() does not break extraction", () => {
-    const appJs = ok.appJs.replace("arrive: function () {}", 'arrive: function () { var s = "]"; }');
+  it("step-mismatch: steps built programmatically are read correctly, which no text scanner could do", () => {
+    const appJs = 'proto.steps = ["f-1", "f-2"].map(function (id) { return { id: id, arrive: function () {} }; });';
     assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { appJs })), []);
   });
-  it("step-mismatch: a genuinely reordered list is still reported", () => {
-    assert.ok(kinds({ appJs: 'proto.steps = [{ id: "f-2" }, { id: "f-1" }];' }).includes("step-mismatch"));
+  it("step-mismatch: a genuinely reordered list is reported as an error", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: 'proto.steps = [{ id: "f-2" }, { id: "f-1" }];' }));
+    const m = f.filter((x) => x.check === "step-mismatch");
+    assert.strictEqual(m.length, 1);
+    assert.strictEqual(m[0].severity, "error");
+  });
+  it("step-mismatch: proto.steps never assigned is reported as an error", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: "var x = 1;" }));
+    const m = f.filter((x) => x.check === "step-mismatch");
+    assert.strictEqual(m.length, 1);
+    assert.strictEqual(m[0].severity, "error");
+  });
+  it("steps-unread: a syntax error in app.js is exactly one warning, never also a step-mismatch", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: "function ( {" }));
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].check, "steps-unread");
+    assert.strictEqual(f[0].severity, "warning");
+    assert.strictEqual(f[0].path, "app.js");
+  });
+  it("steps-unread: an infinite loop at top level times out in about a second instead of hanging", () => {
+    const start = Date.now();
+    const f = checkDirect(Object.assign({}, ok, { appJs: "while (true) {}" }));
+    const elapsed = Date.now() - start;
+    assert.ok(elapsed < 3000, "took " + elapsed + "ms");
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].check, "steps-unread");
+    assert.strictEqual(f[0].severity, "warning");
   });
   it("unknown-ds-class: a class named only inside a CSS comment is not defined (review finding 2)", () => {
     const found = kinds({

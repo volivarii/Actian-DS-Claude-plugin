@@ -2,7 +2,14 @@
 "use strict";
 
 // check-direct.js: what a script can know about a direct prototype's source,
-// in the validator's finding shape. Reads the author's files, not the page.
+// in the validator's finding shape. Reads the author's files, not the page -
+// except app.js's proto.steps, which no text scan can read reliably (a regex
+// literal's own character class, an array built with .map(), and plenty more
+// all look enough like object/array syntax to fool a bracket counter). That
+// one part is EVALUATED: app.js runs for real, inside a throwaway node:vm
+// context with a permissive browser-global stub and a 1-second timeout, and
+// checkDirect reads whatever the script actually left on proto.steps.
+// checkDirect itself stays synchronous and pure apart from that evaluation.
 // Twelve checks: eleven read what the four files declare or omit; the
 // twelfth (unsafe-embed) reads for the two escape sequences assemble-direct.js
 // deliberately does not rewrite when it embeds extra.css in a <style> element
@@ -15,6 +22,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var vm = require("vm");
 
 function finding(sev, check, p, value) {
   return { severity: sev, check: check, path: p, value: value };
@@ -48,102 +56,65 @@ function allAttr(name, s) {
   return out;
 }
 
-// Advances past one string literal (', ", `) or comment (//, /* */) starting
-// at s[i], returning the index just after it, or -1 if s[i] starts neither.
-// Every bracket-depth walk below calls this first so a stray [ ] { } inside
-// a quoted string or a comment is never mistaken for real nesting.
-function skipStringOrComment(s, i) {
-  var n = s.length, c = s[i];
-  if (c === '"' || c === "'" || c === "`") {
-    var quote = c, j = i + 1;
-    while (j < n) {
-      if (s[j] === "\\") { j += 2; continue; }
-      if (s[j] === quote) { j++; break; }
-      j++;
-    }
-    return j;
-  }
-  if (c === "/" && s[i + 1] === "/") {
-    var nl = s.indexOf("\n", i);
-    return nl === -1 ? n : nl + 1;
-  }
-  if (c === "/" && s[i + 1] === "*") {
-    var end = s.indexOf("*/", i + 2);
-    return end === -1 ? n : end + 2;
-  }
-  return -1;
+// A permissive stand-in for a browser global this checker does not model
+// itself (document, navigator, localStorage, ...): every property read,
+// call, or construct on it just returns the same stub, so an author's
+// top-level DOM code (document.getElementById(...).addEventListener(...),
+// for instance) runs to completion instead of throwing on the first access
+// into a plain {}. Symbol.toPrimitive/Symbol.iterator/length/then are given
+// harmless real values so the stub is never coerced into something odd or
+// mistaken for a promise or a non-empty iterable.
+function browserStub() {
+  var stub;
+  var handler = {
+    get: function (target, prop) {
+      if (prop === Symbol.toPrimitive) return function () { return ""; };
+      if (prop === Symbol.iterator)
+        return function () { return { next: function () { return { done: true, value: undefined }; } }; };
+      if (prop === "then") return undefined;
+      if (prop === "length") return 0;
+      return stub;
+    },
+    apply: function () { return stub; },
+    construct: function () { return stub; },
+  };
+  stub = new Proxy(function () {}, handler);
+  return stub;
 }
 
-// The naive /proto\.steps\s*=\s*\[([\s\S]*?)\];/ is non-greedy up to the
-// FIRST literal "];", so an arrive() body containing its own array
-// terminated by a semicolon (e.g. "var xs = [1, 2]; return xs;") truncates
-// the capture there and reports a false step-mismatch on a clean file.
-// Walk the source instead, tracking [ ] { } nesting depth (skipping strings
-// and comments) so only the array's own matching "]" ends it. Depth 1 is
-// "inside the steps array"; a "{" there opens one top-level step object
-// (depth 2); arrive()'s own body is a further brace (depth 3+), so it never
-// gets mistaken for a second array element.
-function topLevelStepObjects(js) {
-  var i = js.indexOf("proto.steps");
-  if (i === -1) return [];
-  var eq = js.indexOf("=", i);
-  var open = eq === -1 ? -1 : js.indexOf("[", eq);
-  if (open === -1) return [];
-  var n = js.length, depth = 0, objStart = -1, objects = [];
-  var j = open;
-  while (j < n) {
-    var skip = skipStringOrComment(js, j);
-    if (skip !== -1) { j = skip; continue; }
-    var c = js[j];
-    if (c === "[" || c === "{") {
-      depth++;
-      if (c === "{" && depth === 2) objStart = j;
-      j++;
-      continue;
-    }
-    if (c === "]" || c === "}") {
-      if (c === "}" && depth === 2 && objStart !== -1) {
-        objects.push(js.slice(objStart, j + 1));
-        objStart = -1;
-      }
-      depth--;
-      j++;
-      if (depth === 0) break;
-      continue;
-    }
-    j++;
+// Reads proto.steps by actually RUNNING app.js, not by scanning its text -
+// see the file header for why a text scan cannot do this reliably. Runs in
+// a throwaway node:vm context stocked with a real proto object and window
+// pointing at the same sandbox (so window.proto and the bare identifier
+// proto are the same object, matching how the assembled page's own runtime
+// script sets window.proto before app.js runs - see direct-shell.js's
+// RUNTIME), plus a permissive stub for whatever other browser globals
+// top-level code touches. A 1-second timeout keeps a script that loops
+// forever from hanging the checker.
+function evaluateProtoSteps(js) {
+  var proto = { steps: [], current: 0, go: function () {} };
+  var sandbox = {};
+  sandbox.proto = proto;
+  sandbox.window = sandbox;
+  sandbox.document = browserStub();
+  sandbox.location = { search: "", pathname: "/" };
+  sandbox.localStorage = browserStub();
+  sandbox.navigator = browserStub();
+  sandbox.console = {
+    log: function () {}, warn: function () {}, error: function () {}, info: function () {}, debug: function () {},
+  };
+  sandbox.setTimeout = function () { return 0; };
+  sandbox.setInterval = function () { return 0; };
+  sandbox.clearTimeout = function () {};
+  sandbox.clearInterval = function () {};
+  sandbox.requestAnimationFrame = function () { return 0; };
+  sandbox.URLSearchParams = URLSearchParams;
+  try {
+    vm.runInNewContext(js, sandbox, { timeout: 1000 });
+    return { ok: true, steps: Array.isArray(proto.steps) ? proto.steps : [] };
+  } catch (e) {
+    return { ok: false, error: e && e.message ? e.message : String(e) };
   }
-  return objects;
-}
-
-// The id: key belongs to a step object only when it sits directly inside
-// that object's own braces (structural depth 1, counted from the object's
-// own opening "{"); anything nested deeper - arrive()'s function body and
-// everything inside it - is masked to spaces first (character for
-// character, strings and comments skipped the same way as above) so an
-// id-shaped key written inside arrive() is never read as the step's id.
-function topLevelIdOf(objSrc) {
-  var n = objSrc.length, depth = 0, out = "", i = 0;
-  while (i < n) {
-    var skip = skipStringOrComment(objSrc, i);
-    if (skip !== -1) {
-      var chunk = objSrc.slice(i, skip);
-      out += depth <= 1 ? chunk : chunk.replace(/[^\n]/g, " ");
-      i = skip;
-      continue;
-    }
-    var c = objSrc[i];
-    if (c === "[" || c === "{") { depth++; out += depth <= 1 ? c : " "; i++; continue; }
-    if (c === "]" || c === "}") { out += depth <= 1 ? c : " "; depth--; i++; continue; }
-    out += depth <= 1 ? c : " ";
-    i++;
-  }
-  var m = /\bid\s*:\s*["'`]([^"'`]+)["'`]/.exec(out);
-  return m ? m[1] : null;
-}
-
-function extractProtoStepIds(js) {
-  return topLevelStepObjects(js).map(topLevelIdOf);
 }
 
 function checkDirect(o) {
@@ -179,9 +150,14 @@ function checkDirect(o) {
   if (/\bds-header\b|\bds-side-nav\b/.test(body))
     f.push(finding("error", "frame-redrawn", "body.html", "the header and the side navigation are drawn by the assembler"));
   var want = ((o.brief.direct && o.brief.direct.steps) || []).map(function (s) { return s.id; });
-  var got = extractProtoStepIds(js);
-  if (JSON.stringify(got) !== JSON.stringify(want))
-    f.push(finding("error", "step-mismatch", "app.js", "proto.steps ids are [" + got.join(", ") + "], the screen list's are [" + want.join(", ") + "]"));
+  var evaluated = evaluateProtoSteps(js);
+  if (!evaluated.ok) {
+    f.push(finding("warning", "steps-unread", "app.js", "app.js could not be evaluated to read proto.steps: " + evaluated.error));
+  } else {
+    var got = evaluated.steps.map(function (s) { return s && s.id; });
+    if (JSON.stringify(got) !== JSON.stringify(want))
+      f.push(finding("error", "step-mismatch", "app.js", "proto.steps ids are [" + got.join(", ") + "], the screen list's are [" + want.join(", ") + "]"));
+  }
   var placed = uniq(allAttr("data-new", body));
   var declared = (((o.meta || {}).adds) || []).map(function (a) { return a.name; });
   placed.forEach(function (n) {
