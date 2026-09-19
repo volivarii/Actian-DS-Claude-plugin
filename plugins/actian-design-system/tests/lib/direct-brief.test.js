@@ -270,7 +270,7 @@ describe("prepare-flow --direct (CLI)", () => {
     assert.strictEqual(b.direct.steps[0].capture, b.direct.steps[1].capture);
     assert.strictEqual(Object.keys(b.direct.captures).length, 2);
   });
-  it("glossary.patterns holds only the patterns the steps declare, and the written brief is far smaller (S4)", () => {
+  it("glossary.patterns holds only the patterns the steps declare, and the written brief is far smaller", () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "direct-brief-size-"));
     const out = path.join(dir, ".brief.json");
     const r = cp.spawnSync(

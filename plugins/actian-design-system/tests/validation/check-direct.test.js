@@ -147,6 +147,34 @@ describe("check-direct", () => {
     const r = cp.spawnSync(process.execPath, [path.join(__dirname, "../../scripts/validation/check-direct.js"), path.join(dir, "brief.json"), "--author", author], { encoding: "utf8" });
     assert.strictEqual(r.stdout, "check-direct: clean\n", r.stdout + r.stderr);
   });
+  it("unknown-ds-class: the CLI knows the classes of every fragment in the directory the brief indexes, not only the components it lists", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cd-fragdir-"));
+    const fragDir = path.join(dir, "fragments");
+    fs.mkdirSync(fragDir);
+    fs.writeFileSync(path.join(fragDir, "read-only-tag.html"), '<span class="ds-tag--indexed-only">Label</span>');
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.components = [];
+    b.direct.fragments = { dir: fragDir, usageNotesDir: fragDir, slugs: ["read-only-tag"] };
+    const cssFile = path.join(dir, "page.css");
+    const iconFile = path.join(dir, "icons.json");
+    fs.writeFileSync(cssFile, css);
+    fs.writeFileSync(iconFile, JSON.stringify({ icons }));
+    b.direct.assets = { frameCss: [cssFile], icons: iconFile };
+    fs.writeFileSync(path.join(dir, "brief.json"), JSON.stringify(b));
+    const author = path.join(dir, "author");
+    fs.mkdirSync(author);
+    fs.writeFileSync(path.join(author, "app.js"), ok.appJs);
+    const cp = require("child_process");
+    const runWith = (cls) => {
+      fs.writeFileSync(path.join(author, "body.html"), '<div data-app-frame><span class="' + cls + '">x</span></div>');
+      return cp.spawnSync(process.execPath, [path.join(__dirname, "../../scripts/validation/check-direct.js"), path.join(dir, "brief.json"), "--author", author], { encoding: "utf8" });
+    };
+    const clean = runWith("ds-tag--indexed-only");
+    assert.strictEqual(clean.stdout, "check-direct: clean\n", clean.stdout + clean.stderr);
+    const invented = runWith("ds-tag--invented");
+    assert.match(invented.stdout, /^P0 \[unknown-ds-class\]/m);
+    assert.strictEqual(invented.status, 1);
+  });
   it("unknown-ds-class", () =>
     assert.ok(
       kinds({ body: ok.body.replace("ds-button", "ds-buton") }).includes(

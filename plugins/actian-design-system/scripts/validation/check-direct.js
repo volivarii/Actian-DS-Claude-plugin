@@ -484,6 +484,22 @@ function checkDirect(o) {
   return f;
 }
 
+// The markup whose classes an author may keep. The brief lists the
+// components its captures and layers name, and indexes every other fragment
+// on disk (direct.fragments) for the author to reach for: a class from either
+// is the design system's own. A brief with no index falls back to its list.
+function fragmentSources(direct, rd) {
+  var out = (direct.components || []).map(function (c) {
+    return rd(c.fragment);
+  });
+  var dir = direct.fragments && direct.fragments.dir;
+  if (dir && fs.existsSync(dir))
+    fs.readdirSync(dir).forEach(function (name) {
+      if (/\.html$/.test(name)) out.push(rd(path.join(dir, name)));
+    });
+  return out;
+}
+
 function main(argv) {
   var a = argv.indexOf("--author");
   if (!argv[0] || a === -1) {
@@ -544,9 +560,7 @@ function main(argv) {
     meta: meta ? JSON.parse(meta) : {},
     css: css,
     icons: icons,
-    fragments: (brief.direct.components || []).map(function (c) {
-      return rd(c.fragment);
-    }),
+    fragments: fragmentSources(brief.direct, rd),
   });
   findings.forEach(function (x) {
     process.stdout.write(

@@ -24,7 +24,7 @@ Prose that asks for a Figma push gets the same line. `--no-prompt`, `--ref` and 
 
 ## Steps
 
-Pipeline items 1 to 4.5 of the skill run as written: the app, the three gates, vision references. One difference: Gate 3 presents the screens and nothing of its config block, which offers only options this route refuses; an answer that names one of them gets the refusal line. Then, in place of items 5.0 to 9:
+Pipeline items 1 to 4.5 of the skill run as written: the app, the three gates, vision references. One difference: Gate 3 presents the screens and the References row of its config block, and neither the detail level nor the other rows. This route draws at one level of detail, and the other rows offer options it refuses; an answer that names one of them gets the refusal line. Then, in place of items 5.0 to 9:
 
 **D1. The screen list.** Write `{project_working_directory}/flows/screen-list.json` exactly as item 5.0 says: `pattern` where an app pattern covers the screen, `layer` where it is a surface over another screen, `exit` on every screen but the last, `meta.nav`. A layer's `kind` is the width the page docks it at (`drawer` 550, `panel` 420): give a surface whose pattern is a captured drawer the kind `drawer`. Skip 5.0's merge and render: a direct run has no `flow-data.json`.
 
