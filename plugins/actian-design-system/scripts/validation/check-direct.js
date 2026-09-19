@@ -32,6 +32,7 @@ var vm = require("vm");
 var assembleDirect = require("../renderers/assemble-direct.js");
 var frameEnd = assembleDirect.frameEnd;
 var LAYER_KINDS = assembleDirect.LAYER_KINDS;
+var attrInJs = assembleDirect.attrInJs;
 var shellCss = require("../renderers/direct-shell.js").CSS;
 
 function finding(sev, check, p, value) {
@@ -126,6 +127,11 @@ function browserStub() {
 // the sandbox could spring on its caller - becomes this function's own
 // { error } result instead of an exception checkDirect would have to catch
 // a second time. checkDirect never touches proto or its steps directly.
+// `var proto`, `let proto`, `const proto`, `window.proto =`, or a bare
+// `proto =` that is not a comparison and not a property of something else.
+var REPLACES_PROTO =
+  /\b(?:var|let|const)\s+proto\b|\bwindow\.proto\s*=(?!=)|(?:^|[^.\w$])proto\s*=(?!=)/m;
+
 function evaluateProtoSteps(js) {
   var proto = { steps: [], current: 0, go: function () {} };
   var sandbox = {};
@@ -162,7 +168,9 @@ function evaluateProtoSteps(js) {
       if (id === undefined || id === null) return "";
       return String(id);
     });
-    return { ids: ids };
+    // A script that declares or replaces `proto` leaves this object untouched,
+    // so its steps read as none: say which happened, the ids alone do not.
+    return { ids: ids, replaced: sandbox.proto !== proto || REPLACES_PROTO.test(js) };
   } catch (e) {
     return { error: e && e.message ? e.message : String(e) };
   }
@@ -194,6 +202,17 @@ function checkDirect(o) {
   all(/\.(ds-[a-z0-9_-]+)/gi, cssM).forEach(function (c) {
     classes[c] = true;
   });
+  // The design system's own markup carries classes the stylesheet has no rule
+  // for (hooks such as ds-tag--default): a class a named fragment carries is
+  // known, rule or no rule. An author is told to keep a fragment's classes.
+  (o.fragments || []).forEach(function (html) {
+    allAttr("class", html)
+      .join(" ")
+      .split(/\s+/)
+      .forEach(function (c) {
+        if (/^ds-/.test(c)) classes[c] = true;
+      });
+  });
 
   [
     ["body.html", body],
@@ -222,16 +241,24 @@ function checkDirect(o) {
         ),
       );
   });
-  uniq(allAttr("data-icon", body)).forEach(function (slug) {
-    if (!(o.icons || {})[slug])
-      f.push(
-        finding(
-          "error",
-          "unknown-icon",
-          "body.html",
-          'no icon "' + slug + '" in icons.json',
-        ),
-      );
+  // app.js draws icons from state as a matter of course (the agent file
+  // tells the author to), so a slug it names is read the same as one
+  // body.html names, and reported against the file it was found in.
+  [
+    [uniq(allAttr("data-icon", body)), "body.html"],
+    [uniq(attrInJs("data-icon", js)), "app.js"],
+  ].forEach(function (pair) {
+    pair[0].forEach(function (slug) {
+      if (!(o.icons || {})[slug])
+        f.push(
+          finding(
+            "error",
+            "unknown-icon",
+            pair[1],
+            'no icon "' + slug + '" in icons.json',
+          ),
+        );
+    });
   });
   // Scanned per file, not on the two joined, so a bad var() is reported
   // against the file it actually sits in rather than always "extra.css".
@@ -265,7 +292,7 @@ function checkDirect(o) {
           "error",
           "unknown-ds-class",
           "body.html",
-          "." + c + " has no rule in the stylesheet",
+          "." + c + " is in no stylesheet rule and no component fragment",
         ),
       );
   });
@@ -394,27 +421,39 @@ function checkDirect(o) {
             got.join(", ") +
             "], the screen list's are [" +
             want.join(", ") +
-            "]",
+            "]" +
+            (evaluated.replaced && !got.length
+              ? ": the page creates `proto` before app.js runs: assign `proto.steps`, never declare or replace `proto`"
+              : ""),
         ),
       );
   }
-  var placed = uniq(allAttr("data-new", body));
+  // app.js draws content from state as a matter of course, so a data-new it
+  // writes with innerHTML is the normal case, not an edge: reading body.html
+  // alone reports it, falsely, as unplaced.
+  var placedInBody = uniq(allAttr("data-new", body));
+  var placedInJs = uniq(attrInJs("data-new", js));
   var declared = ((o.meta || {}).adds || []).map(function (a) {
     return a.name;
   });
-  placed.forEach(function (n) {
-    if (declared.indexOf(n) === -1)
-      f.push(
-        finding(
-          "warning",
-          "new-undeclared",
-          "body.html",
-          'data-new "' + n + '" has no entry in meta.adds',
-        ),
-      );
+  [
+    [placedInBody, "body.html"],
+    [placedInJs, "app.js"],
+  ].forEach(function (pair) {
+    pair[0].forEach(function (n) {
+      if (declared.indexOf(n) === -1)
+        f.push(
+          finding(
+            "warning",
+            "new-undeclared",
+            pair[1],
+            'data-new "' + n + '" has no entry in meta.adds',
+          ),
+        );
+    });
   });
   declared.forEach(function (n) {
-    if (placed.indexOf(n) === -1)
+    if (placedInBody.indexOf(n) === -1 && placedInJs.indexOf(n) === -1)
       f.push(
         finding(
           "warning",
@@ -443,6 +482,22 @@ function checkDirect(o) {
       ),
     );
   return f;
+}
+
+// The markup whose classes an author may keep. The brief lists the
+// components its captures and layers name, and indexes every other fragment
+// on disk (direct.fragments) for the author to reach for: a class from either
+// is the design system's own. A brief with no index falls back to its list.
+function fragmentSources(direct, rd) {
+  var out = (direct.components || []).map(function (c) {
+    return rd(c.fragment);
+  });
+  var dir = direct.fragments && direct.fragments.dir;
+  if (dir && fs.existsSync(dir))
+    fs.readdirSync(dir).forEach(function (name) {
+      if (/\.html$/.test(name)) out.push(rd(path.join(dir, name)));
+    });
+  return out;
 }
 
 function main(argv) {
@@ -505,6 +560,7 @@ function main(argv) {
     meta: meta ? JSON.parse(meta) : {},
     css: css,
     icons: icons,
+    fragments: fragmentSources(brief.direct, rd),
   });
   findings.forEach(function (x) {
     process.stdout.write(

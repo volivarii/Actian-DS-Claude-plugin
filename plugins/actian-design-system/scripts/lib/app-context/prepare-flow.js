@@ -852,7 +852,7 @@ function sliceBrief(brief, n) {
 }
 
 var USAGE =
-  "usage: prepare-flow.js --app <app> [--entity <slug>] [--use-case <audience>] --screen-list <file> [-o <out>] | --list-entities\n";
+  "usage: prepare-flow.js --app <app> [--entity <slug>] [--use-case <audience>] --screen-list <file> [--direct] [-o <out>] | --list-entities\n";
 
 function main(argv) {
   var args = argv.slice();

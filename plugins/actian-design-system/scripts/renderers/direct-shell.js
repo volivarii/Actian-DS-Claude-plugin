@@ -14,18 +14,34 @@ var CSS = [
   ".proto-strip button{font:inherit;color:inherit;background:transparent;border:1px solid #555;border-radius:12px;padding:2px 10px;cursor:pointer}",
   ".proto-strip button[aria-current=step]{background:#fff;color:#111;border-color:#fff}",
   ".proto-strip .proto-hint{flex:1;opacity:.8;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}",
-  ".proto-stage{position:relative;flex:1 1 auto;min-height:0;overflow:auto;--proto-app-header:64px}",
+  // The stage clips and cannot scroll: the app frame scrolls its own content
+  // area, as the product does. A scrollable stage moves the header and every
+  // docked layer with it, and focusing a control inside a layer is enough to
+  // scroll one, even under overflow:hidden (the browser brings the focused
+  // element into view). overflow:clip has no scroll position at all.
+  ".proto-stage{position:relative;flex:1 1 auto;min-height:0;overflow:clip;--proto-app-header:64px}",
   // The flow renderer sizes a screen as a 1440x960 card, because in a flow
   // strip it IS a card: rounded, shadowed, one of several. A prototype is the
   // app, so the same markup fills the window instead. Inline width/height are
   // what the renderer writes on the element, so this override has to be
-  // important; nothing else in this stylesheet is.
+  // important. Each important in this stylesheet says beside it what it has
+  // to win over.
   ".proto-stage>.screen{width:100%!important;height:100%!important;border-radius:0;box-shadow:none}",
   ".proto-icon{width:1em;height:1em;vertical-align:-.125em;fill:currentColor}",
   ".proto-layer{position:absolute;z-index:20;background:var(--zen-color-bg-default,#fff);box-shadow:0 0 24px rgba(0,0,0,.18);overflow:auto}",
   ".proto-layer[hidden]{display:none}",
+  // A design system class such as .ds-drawer__section sets its own
+  // display and loads after the browser's own [hidden] rule, so the
+  // attribute alone does not hide an element carrying one: important
+  // forces it under any class the design system draws with, anywhere
+  // on the stage where an author's markup lives.
+  ".proto-stage [hidden]{display:none!important}",
   ".proto-layer--drawer{top:var(--proto-app-header);right:0;bottom:0;width:550px;max-width:100%}",
   ".proto-layer--panel{top:var(--proto-app-header);right:0;bottom:0;width:420px;max-width:100%}",
+  // top and bottom dock a drawer and a panel; a height an author adds (100%
+  // is the usual one) would win over them and push the layer's foot, where
+  // its actions sit, under the stage's edge.
+  ".proto-layer--drawer,.proto-layer--panel{height:auto!important;max-height:none!important}",
   ".proto-layer--modal{top:50%;left:50%;transform:translate(-50%,-50%);max-width:90%;max-height:90%}",
   // A modal sits on a scrim, and the script draws it: flow-renderer.js does the
   // same for its own modal layer, and the brief's `layers.modal.dock` says
@@ -66,7 +82,21 @@ var RUNTIME = [
   "it.classList.remove('is-active');",
   "var lb=it.querySelector('.ds-sidenav__label');",
   "if(lb&&lb.textContent.trim()===nl)it.classList.add('is-active');});}",
-  "var h=document.querySelector('.proto-hint');if(h)h.textContent=(window.PROTO_HINTS||[])[n-1]||'';}};",
+  "var h=document.querySelector('.proto-hint');if(h)h.textContent=(window.PROTO_HINTS||[])[n-1]||'';}",
+  // An icon app.js draws with innerHTML at runtime never ran through
+  // inlineIcons (assemble-direct.js), which touches body.html once, before
+  // app.js exists: it stays an empty span, silently, unless something
+  // replaces it after the fact. root itself is checked, not only its
+  // descendants, so a span added directly (not inside a wrapper) is caught
+  // too. An unlisted slug is left exactly as app.js wrote it, the same as
+  // inlineIcons leaves one body.html names.
+  ",icons:function(root){var m=window.PROTO_ICONS||{};function fix(el){",
+  "var ic=m[el.getAttribute('data-icon')];if(!ic)return;",
+  "var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');",
+  "svg.setAttribute('class','proto-icon');svg.setAttribute('viewBox',ic.viewBox);",
+  "svg.setAttribute('aria-hidden','true');svg.innerHTML=ic.body;el.replaceWith(svg);}",
+  "if(root.getAttribute&&root.getAttribute('data-icon')!=null)fix(root);",
+  "if(root.querySelectorAll)Array.prototype.forEach.call(root.querySelectorAll('span[data-icon]'),fix);}};",
 ].join("");
 
 // Runs after the author's app.js.
@@ -74,6 +104,11 @@ var BOOT = [
   "document.querySelectorAll('[data-proto-step]').forEach(function(b){b.addEventListener('click',function(){proto.go(+b.getAttribute('data-proto-step'));});});",
   "document.querySelector('[data-proto-new]').addEventListener('click',function(){document.body.toggleAttribute('data-show-new');});",
   "document.querySelector('[data-proto-restart]').addEventListener('click',function(){location.href=location.pathname;});",
+  "var protoStage=document.querySelector('.proto-stage');proto.icons(protoStage);",
+  "if(typeof MutationObserver!=='undefined'){new MutationObserver(function(muts){",
+  "muts.forEach(function(mu){Array.prototype.forEach.call(mu.addedNodes,function(n){",
+  "if(n.nodeType===1)proto.icons(n);});});",
+  "}).observe(protoStage,{childList:true,subtree:true});}",
   "proto.go(+(new URLSearchParams(location.search).get('step'))||1);",
 ].join("");
 

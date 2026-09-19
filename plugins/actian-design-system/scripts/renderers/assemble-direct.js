@@ -5,12 +5,13 @@
 // prototype out. Draws what a script can know: the stylesheet, the app frame
 // (through the renderer that draws it for every flow), the icons, the strip.
 //
-// CLI: assemble-direct.js <brief.json> --author <dir> -o <file.html>
+// CLI: assemble-direct.js <brief.json> --author <dir> -o <file.html> [--run <run.json>]
 
 var fs = require("fs");
 var path = require("path");
 var assembleShared = require("./assemble-shared");
 var shell = require("./direct-shell.js");
+var maskComment = require("./assemble-flow-share.js").maskComment;
 
 var MARK = "@@DIRECT-CONTENT@@";
 
@@ -95,6 +96,52 @@ var LAYER_TAG = new RegExp(
   "g",
 );
 
+// Reads an attribute's value out of app.js SOURCE, where the same markup
+// body.html carries in HTML can appear as a JS string literal: plain when
+// the literal's own delimiter is the other quote character, backslash-
+// escaped when it is the same one. Four spellings, no more:
+// name="x", name='x', name=\"x\", name=\'x\'.
+// A value app.js builds at run time ('<span data-icon="' + it.icon + '">',
+// or "${it.icon}" in a template literal) reads here as a piece of source, not
+// a name: it is dropped, so no caller reports it as a name nobody declared.
+var BUILT_VALUE = /\$\{|['"`]\s*\+|\+\s*['"`]/;
+
+function attrInJs(name, js) {
+  var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"\\\\]*)\"|'([^'\\\\]*)'|\\\\\"([^\"\\\\]*)\\\\\"|\\\\'([^'\\\\]*)\\\\')", "g");
+  var out = [],
+    m;
+  while ((m = re.exec(js))) {
+    var v = m[1];
+    if (v === undefined) v = m[2];
+    if (v === undefined) v = m[3];
+    if (v === undefined) v = m[4];
+    if (!BUILT_VALUE.test(v)) out.push(v);
+  }
+  return out;
+}
+
+// The slugs app.js names by data-icon, kept only where the icon map has
+// them: {slug: {viewBox, body}}, ready to embed as window.PROTO_ICONS.
+// check-direct.js reports a slug this drops as unknown-icon; drawing it
+// anyway would draw nothing, silently. A slug app.js keeps in its state
+// ({ icon: "edit" }) and writes into data-icon at run time never appears
+// beside the attribute, so every quoted string that is exactly an icon's
+// slug is carried as well: a word that happens to be one costs its bytes.
+var QUOTED_WORD = /(["'`])([a-z0-9][a-z0-9_-]*)\1/gi;
+
+function iconsUsedInJs(js, icons) {
+  var out = {};
+  var slugs = attrInJs("data-icon", js),
+    m;
+  QUOTED_WORD.lastIndex = 0;
+  while ((m = QUOTED_WORD.exec(js))) slugs.push(m[2]);
+  slugs.forEach(function (slug) {
+    if (icons && Object.prototype.hasOwnProperty.call(icons, slug))
+      out[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
+  });
+  return out;
+}
+
 function dockLayers(html) {
   return html.replace(
     LAYER_TAG,
@@ -169,6 +216,32 @@ function frameEnd(body, start) {
   throw new Error("assemble-direct: <div data-app-frame> is never closed");
 }
 
+// maskComment (assemble-flow-share.js) defuses "--" so a value can never
+// close the comment early; it leaves '<' alone, which is safe for the
+// audience-safe meta line its own caller builds (never a raw prompt). A
+// run's prompt is free text and can carry a literal "<script>", so this
+// also breaks up '<' before the value reaches the comment, without
+// changing maskComment's own behavior for its existing caller.
+function maskProvenance(s) {
+  return maskComment(s).replace(/</g, "<\u200b");
+}
+
+function provenanceComment(run) {
+  var prompt = String(run.prompt == null ? "" : run.prompt).slice(0, 200);
+  return (
+    "<!--\n" +
+    "  Actian Design System: generate-flow --direct (prototype)\n" +
+    "  skill:    " + maskProvenance(run.skill) + "\n" +
+    "  feature:  " + maskProvenance(run.feature) + "\n" +
+    "  prompt:   " + maskProvenance(prompt) + "\n" +
+    "  date:     " + maskProvenance(run.date) + "\n" +
+    "  duration: " + maskProvenance(run.duration) + "\n" +
+    "  model:    " + maskProvenance(run.model) + "\n" +
+    "  plugin:   " + maskProvenance(run.pluginVersion) + "\n" +
+    "-->\n"
+  );
+}
+
 function assemble(o) {
   var frame = renderFrame(o.brief);
   var body = dockLayers(inlineIcons(o.body, o.icons));
@@ -202,6 +275,7 @@ function assemble(o) {
     return item ? item.label : null;
   });
   return (
+    (o.run ? provenanceComment(o.run) : "") +
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
     "<title>" +
     shell.esc((o.brief.direct.app.slug || "") + " prototype") +
@@ -228,6 +302,10 @@ function assemble(o) {
     assembleShared.escapeJsonForScript(JSON.stringify(navLabels)) +
     ";window.PROTO_HINTS=" +
     assembleShared.escapeJsonForScript(JSON.stringify(hints)) +
+    ";window.PROTO_ICONS=" +
+    assembleShared.escapeJsonForScript(
+      JSON.stringify(iconsUsedInJs(o.appJs, o.icons)),
+    ) +
     ";" +
     shell.RUNTIME +
     "</script>" +
@@ -246,12 +324,25 @@ function main(argv) {
     oi = argv.indexOf("-o");
   if (!briefPath || a === -1 || oi === -1) {
     process.stderr.write(
-      "usage: assemble-direct.js <brief.json> --author <dir> -o <file.html>\n",
+      "usage: assemble-direct.js <brief.json> --author <dir> -o <file.html> [--run <run.json>]\n",
     );
     return 1;
   }
   var dir = argv[a + 1],
     out = argv[oi + 1];
+  var ri = argv.indexOf("--run");
+  var run;
+  if (ri !== -1) {
+    var runPath = argv[ri + 1];
+    try {
+      run = JSON.parse(fs.readFileSync(runPath, "utf8"));
+    } catch (e) {
+      process.stderr.write(
+        "assemble-direct: --run " + runPath + " is missing or not valid JSON\n",
+      );
+      return 1;
+    }
+  }
   var read = function (f, optional) {
     var p = path.join(dir, f);
     if (!fs.existsSync(p)) {
@@ -306,6 +397,7 @@ function main(argv) {
         meta: meta ? JSON.parse(meta) : {},
         icons: iconDoc.icons,
         css: css,
+        run: run,
       }),
     );
   } catch (e) {
@@ -322,6 +414,8 @@ module.exports = {
   renderFrame: renderFrame,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
+  attrInJs: attrInJs,
+  iconsUsedInJs: iconsUsedInJs,
   LAYER_KINDS: LAYER_KINDS,
   frameEnd: frameEnd,
   main: main,

@@ -51,6 +51,35 @@ describe("check-direct", () => {
         "unknown-icon",
       ),
     ));
+  it("unknown-icon: app.js draws icons from state as a matter of course, so it is read too, and reported against it", () => {
+    const appJs = ok.appJs + "\nel.innerHTML = '<span data-icon=\"nope\"></span>';";
+    const f = checkDirect(Object.assign({}, ok, { appJs })).filter(
+      (x) => x.check === "unknown-icon",
+    );
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].path, "app.js");
+  });
+  it("unknown-icon: a known icon named only in app.js does not fire", () => {
+    const appJs = ok.appJs + "\nel.innerHTML = '<span data-icon=\"edit\"></span>';";
+    assert.deepStrictEqual(
+      checkDirect(Object.assign({}, ok, { appJs })).filter(
+        (x) => x.check === "unknown-icon",
+      ),
+      [],
+    );
+  });
+  it("a data-icon or data-new whose value app.js builds at run time is not read as a name", () => {
+    const appJs =
+      ok.appJs +
+      "\nel.innerHTML = '<span data-icon=\"' + it.icon + '\" data-new=\"' + it.mark + '\"></span>';" +
+      "\nel.innerHTML = `<span data-icon=\"${it.icon}\" data-new=\"${it.mark}\"></span>`;";
+    assert.deepStrictEqual(
+      checkDirect(Object.assign({}, ok, { appJs })).filter(
+        (x) => x.check === "unknown-icon" || x.check === "new-undeclared",
+      ),
+      [],
+    );
+  });
   it("unknown-token", () =>
     assert.ok(
       kinds({ extraCss: ".p{color:var(--made-up)}" }).includes("unknown-token"),
@@ -71,6 +100,80 @@ describe("check-direct", () => {
       }),
     ).filter((x) => x.check === "unknown-token");
     assert.deepStrictEqual(f, []);
+  });
+  it("step-mismatch: an app.js that declares or replaces proto is told so, in every spelling", () => {
+    const steps = '{steps:[{id:"f-1",arrive(){}},{id:"f-2",arrive(){}}]}';
+    ["var proto=" + steps + ";", "const proto=" + steps + ";", "let proto=" + steps + ";", "window.proto=" + steps + ";", "proto=" + steps + ";"].forEach((js) => {
+      const f = checkDirect(Object.assign({}, ok, { appJs: js })).filter((x) => x.check === "step-mismatch");
+      assert.strictEqual(f.length, 1, js);
+      assert.match(f[0].value, /the page creates `proto` before app\.js runs: assign `proto\.steps`, never declare or replace `proto`/, js);
+    });
+  });
+  it("step-mismatch: a plain mismatch does not blame proto, and comparisons are not assignments", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: 'if (proto.current == 1 || window.proto === proto) {} proto.steps=[{id:"x"}];' })).filter((x) => x.check === "step-mismatch");
+    assert.strictEqual(f.length, 1);
+    assert.doesNotMatch(f[0].value, /never declare or replace/);
+  });
+  it("unknown-ds-class: a class a named fragment carries is known, rule or no rule", () => {
+    const body = ok.body.replace("</div>", '<span class="ds-tag ds-tag--hook-only">x</span></div>');
+    const css2 = css + "\n.ds-tag{display:inline-flex}";
+    assert.ok(kinds({ body, css: css2 }).includes("unknown-ds-class"), "fires without the fragment");
+    assert.ok(
+      !kinds({ body, css: css2, fragments: ['<span class="ds-tag ds-tag--hook-only">Label</span>'] }).includes("unknown-ds-class"),
+      "a class from the design system's own markup was reported",
+    );
+    assert.ok(
+      kinds({ body: body.replace("ds-tag--hook-only", "ds-tag--invented"), css: css2, fragments: ["<span class='ds-tag ds-tag--hook-only'>Label</span>"] }).includes("unknown-ds-class"),
+      "an invented class passed because a fragment was given",
+    );
+  });
+  it("unknown-ds-class: the CLI reads the fragments the brief names", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cd-frag-"));
+    const frag = path.join(dir, "tag.html");
+    fs.writeFileSync(frag, '<span class="ds-tag--hook-only">Label</span>');
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.components = [{ slug: "tag", fragment: frag, usageNotes: null }];
+    const cssFile = path.join(dir, "page.css");
+    const iconFile = path.join(dir, "icons.json");
+    fs.writeFileSync(cssFile, css);
+    fs.writeFileSync(iconFile, JSON.stringify({ icons }));
+    b.direct.assets = { frameCss: [cssFile], icons: iconFile };
+    fs.writeFileSync(path.join(dir, "brief.json"), JSON.stringify(b));
+    const author = path.join(dir, "author");
+    fs.mkdirSync(author);
+    fs.writeFileSync(path.join(author, "body.html"), '<div data-app-frame><span class="ds-tag--hook-only">x</span></div>');
+    fs.writeFileSync(path.join(author, "app.js"), ok.appJs);
+    const cp = require("child_process");
+    const r = cp.spawnSync(process.execPath, [path.join(__dirname, "../../scripts/validation/check-direct.js"), path.join(dir, "brief.json"), "--author", author], { encoding: "utf8" });
+    assert.strictEqual(r.stdout, "check-direct: clean\n", r.stdout + r.stderr);
+  });
+  it("unknown-ds-class: the CLI knows the classes of every fragment in the directory the brief indexes, not only the components it lists", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cd-fragdir-"));
+    const fragDir = path.join(dir, "fragments");
+    fs.mkdirSync(fragDir);
+    fs.writeFileSync(path.join(fragDir, "read-only-tag.html"), '<span class="ds-tag--indexed-only">Label</span>');
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.components = [];
+    b.direct.fragments = { dir: fragDir, usageNotesDir: fragDir, slugs: ["read-only-tag"] };
+    const cssFile = path.join(dir, "page.css");
+    const iconFile = path.join(dir, "icons.json");
+    fs.writeFileSync(cssFile, css);
+    fs.writeFileSync(iconFile, JSON.stringify({ icons }));
+    b.direct.assets = { frameCss: [cssFile], icons: iconFile };
+    fs.writeFileSync(path.join(dir, "brief.json"), JSON.stringify(b));
+    const author = path.join(dir, "author");
+    fs.mkdirSync(author);
+    fs.writeFileSync(path.join(author, "app.js"), ok.appJs);
+    const cp = require("child_process");
+    const runWith = (cls) => {
+      fs.writeFileSync(path.join(author, "body.html"), '<div data-app-frame><span class="' + cls + '">x</span></div>');
+      return cp.spawnSync(process.execPath, [path.join(__dirname, "../../scripts/validation/check-direct.js"), path.join(dir, "brief.json"), "--author", author], { encoding: "utf8" });
+    };
+    const clean = runWith("ds-tag--indexed-only");
+    assert.strictEqual(clean.stdout, "check-direct: clean\n", clean.stdout + clean.stderr);
+    const invented = runWith("ds-tag--invented");
+    assert.match(invented.stdout, /^P0 \[unknown-ds-class\]/m);
+    assert.strictEqual(invented.status, 1);
   });
   it("unknown-ds-class", () =>
     assert.ok(
@@ -178,6 +281,34 @@ describe("check-direct", () => {
         "add-unplaced",
       ),
     );
+  });
+  it("a data-new only app.js writes satisfies a declared add, and is never add-unplaced", () => {
+    const appJs =
+      ok.appJs + "\n" + "el.innerHTML = '<span data-new=\"Z\"></span>';";
+    const body = ok.body.replace(' data-new="X"', "");
+    const meta = { adds: [{ name: "Z", composedFrom: ["button"], why: "w" }] };
+    const f = checkDirect(Object.assign({}, ok, { appJs, body, meta }));
+    assert.ok(!f.some((x) => x.check === "add-unplaced"));
+    assert.ok(!f.some((x) => x.check === "new-undeclared"));
+  });
+  it("a data-new only app.js writes and never declares reports new-undeclared against app.js, in each of the four spellings", () => {
+    const spellings = [
+      "el.innerHTML = '<span data-new=\"Z\"></span>';",
+      "el.innerHTML = \"<span data-new='Z'></span>\";",
+      "el.innerHTML = \"<span data-new=\\\"Z\\\"></span>\";",
+      "el.innerHTML = '<span data-new=\\'Z\\'></span>';",
+    ];
+    spellings.forEach((line) => {
+      const appJs = ok.appJs + "\n" + line;
+      const body = ok.body.replace(' data-new="X"', "");
+      const f = checkDirect(
+        Object.assign({}, ok, { appJs, body, meta: { adds: [] } }),
+      );
+      const m = f.filter(
+        (x) => x.check === "new-undeclared" && x.path === "app.js",
+      );
+      assert.strictEqual(m.length, 1, "spelling: " + line);
+    });
   });
   it("unsafe-embed: a literal </style in extra.css would close the assembler's style element early", () => {
     const f = checkDirect(

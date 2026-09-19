@@ -81,6 +81,12 @@ describe("assemble-direct", () => {
     assert.ok(/\.ds-sidenav\b/.test(html), "no ds-base.css");
     assert.ok(/--zen-spacing-lg\s*:/.test(html), "no tokens.css");
   });
+  it("forces [hidden] to beat a design system class that sets its own display, anywhere on the stage", () => {
+    assert.ok(
+      html.includes(".proto-stage [hidden]{display:none!important}"),
+      "the general hidden-forcing rule is missing from the shell CSS",
+    );
+  });
   it("inlines icons and leaves no data-icon behind", () => {
     assert.ok(!/data-icon=/.test(html));
     assert.ok(/<svg[^>]*class="proto-icon"/.test(html));
@@ -122,6 +128,56 @@ describe("assemble-direct", () => {
     );
     assert.strictEqual(noDirect.status, 1);
     assert.match(noDirect.stderr, /no direct block/);
+  });
+  it("--run <file>: the written page opens with the run's provenance comment", () => {
+    const runPath = path.join(dir, "run.json");
+    fs.writeFileSync(
+      runPath,
+      JSON.stringify({
+        skill: "generate-flow --direct",
+        feature: "Describe items",
+        prompt: "describe items",
+        date: "2026-09-19",
+        duration: "1m",
+        model: "claude-sonnet-5",
+        pluginVersion: "2026.9.54",
+      }),
+    );
+    const withRun = path.join(dir, "flow-run.html");
+    const withRunResult = cp.spawnSync(
+      process.execPath,
+      [
+        path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+        out,
+        "--author",
+        path.join(FIX, "author"),
+        "-o",
+        withRun,
+        "--run",
+        runPath,
+      ],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(withRunResult.status, 0, withRunResult.stderr);
+    assert.ok(fs.readFileSync(withRun, "utf8").startsWith("<!--\n"));
+  });
+  it("--run <file> missing or unparsable: one sentence on stderr, exit 1", () => {
+    const badRun = cp.spawnSync(
+      process.execPath,
+      [
+        path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+        out,
+        "--author",
+        path.join(FIX, "author"),
+        "-o",
+        path.join(dir, "never.html"),
+        "--run",
+        path.join(dir, "does-not-exist.json"),
+      ],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(badRun.status, 1);
+    assert.match(badRun.stderr, /assemble-direct: --run/);
   });
 });
 
@@ -253,6 +309,19 @@ describe("assemble-direct: dockLayers keeps the author's own class and data-laye
     assert.ok(html.includes('data-layer="toast"'), "data-layer was dropped");
     assert.ok(html.includes('id="t"'));
     assert.ok(html.includes("hidden"));
+  });
+});
+
+describe("direct-shell: the stage never scrolls", () => {
+  it("the stage clips, so a focused layer cannot scroll the app header out of view", () => {
+    const { CSS } = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+    const rule = (CSS.match(/\.proto-stage\{[^}]*\}/) || [""])[0];
+    assert.match(rule, /overflow:clip/);
+    assert.doesNotMatch(rule, /overflow:(auto|hidden|scroll)/);
+  });
+  it("a docked layer's box is the page's: an author's height cannot push it past the stage", () => {
+    const { CSS } = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+    assert.match(CSS, /\.proto-layer--drawer,\.proto-layer--panel\{height:auto!important;max-height:none!important\}/);
   });
 });
 
@@ -493,6 +562,125 @@ describe("assemble-direct: PROTO_NAV moves the active rail item as a flow crosse
   });
 });
 
+describe("assemble-direct: PROTO_ICONS carries the icon geometry app.js can draw with, and the runtime redraws it", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const shell = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+  const briefBase = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const BODY = "<div data-app-frame><p>x</p></div>";
+  const ICONS = {
+    edit: { viewBox: "0 0 16 16", body: '<path d="m1"/>' },
+    trash: { viewBox: "0 0 16 16", body: '<path d="m2"/>' },
+  };
+  const page = (appJs) =>
+    assemble({
+      brief: briefBase,
+      body: BODY,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: ICONS,
+      css: "",
+    });
+  const protoIconsOf = (html) => {
+    const m = html.match(/window\.PROTO_ICONS=([\s\S]*?);window\.proto=/);
+    assert.ok(m, "PROTO_ICONS was not embedded");
+    return JSON.parse(m[1]);
+  };
+
+  it("collects the slugs app.js names by data-icon, in each of the four spellings, dropping one the icon map does not have", () => {
+    const appJs = [
+      "el.a='<span data-icon=\"edit\"></span>';",
+      "el.b=\"<span data-icon='edit'></span>\";",
+      "el.c=\"<span data-icon=\\\"trash\\\"></span>\";",
+      "el.d='<span data-icon=\\'trash\\'></span>';",
+      "el.e='<span data-icon=\"nope\"></span>';",
+    ].join("\n");
+    const parsed = protoIconsOf(page(appJs));
+    assert.deepStrictEqual(Object.keys(parsed).sort(), ["edit", "trash"]);
+    assert.deepStrictEqual(parsed.edit, ICONS.edit);
+    assert.deepStrictEqual(parsed.trash, ICONS.trash);
+  });
+
+  it("a slug app.js keeps in its state and writes into data-icon at run time is carried too, and the built value is not", () => {
+    const appJs = [
+      'var actions = [{ icon: "edit" }, { icon: \'trash\' }, { icon: "nope" }];',
+      "el.innerHTML = '<span data-icon=\"' + actions[0].icon + '\"></span>';",
+    ].join("\n");
+    const parsed = protoIconsOf(page(appJs));
+    assert.deepStrictEqual(Object.keys(parsed).sort(), ["edit", "trash"]);
+  });
+
+  it("app.js names no data-icon: PROTO_ICONS is an empty object", () => {
+    assert.deepStrictEqual(protoIconsOf(page("")), {});
+  });
+
+  // A minimal fake DOM proving the runtime's own icon-replacement function,
+  // not the build-time collection above: createElementNS returns a fake
+  // element with a settable attrs map, and replaceWith records what it was
+  // replaced with, so a span "added after boot" (however it got there) is
+  // provably swapped for the same svg markup inlineIcons draws server-side.
+  function fakeIconSpan(slug) {
+    return {
+      nodeType: 1,
+      attrs: { "data-icon": slug },
+      getAttribute: function (n) {
+        return this.attrs[n];
+      },
+      replaceWith: function (node) {
+        this.replacedWith = node;
+      },
+    };
+  }
+  function fakeWrapper(children) {
+    return {
+      nodeType: 1,
+      querySelectorAll: function (sel) {
+        return sel === "span[data-icon]" ? children : [];
+      },
+    };
+  }
+  function runIconsRuntime(protoIcons) {
+    const sandbox = {
+      document: {
+        createElementNS: function () {
+          return { attrs: {}, setAttribute: function (n, v) { this.attrs[n] = v; }, innerHTML: "" };
+        },
+        querySelectorAll: function () {
+          return [];
+        },
+      },
+    };
+    sandbox.window = sandbox;
+    vm.createContext(sandbox);
+    vm.runInContext(shell.RUNTIME, sandbox);
+    sandbox.PROTO_ICONS = protoIcons;
+    return sandbox.proto;
+  }
+
+  it("proto.icons replaces a span added after boot with the vendored svg markup", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const span = fakeIconSpan("edit");
+    proto.icons(span);
+    assert.ok(span.replacedWith, "the span itself was not replaced");
+    assert.strictEqual(span.replacedWith.attrs.class, "proto-icon");
+    assert.strictEqual(span.replacedWith.attrs.viewBox, ICONS.edit.viewBox);
+    assert.strictEqual(span.replacedWith.attrs["aria-hidden"], "true");
+    assert.strictEqual(span.replacedWith.innerHTML, ICONS.edit.body);
+  });
+
+  it("proto.icons replaces a span nested inside an added wrapper, and leaves an unknown slug alone", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const nested = fakeIconSpan("edit");
+    proto.icons(fakeWrapper([nested]));
+    assert.ok(nested.replacedWith, "a span nested inside an added node was not replaced");
+    const unknown = fakeIconSpan("mystery");
+    proto.icons(unknown);
+    assert.ok(!unknown.replacedWith, "an icon absent from PROTO_ICONS must not be replaced");
+  });
+});
+
 describe("assemble-direct: F7 regression - a layer aside written inside the frame", () => {
   const { assemble } = require(
     path.join(ROOT, "scripts/renderers/assemble-direct.js"),
@@ -528,5 +716,51 @@ describe("assemble-direct: F7 regression - a layer aside written inside the fram
       !html.includes("data-app-frame>"),
       "the placeholder text leaked into the page",
     );
+  });
+});
+
+describe("assemble-direct: the page carries its provenance", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const brief = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const BODY_OK = "<div data-app-frame><p>2 results</p></div>";
+  const page = (body, appJs, run) =>
+    assemble({
+      brief,
+      body,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+      run,
+    });
+
+  it("the page opens with its provenance, and a comment cannot be closed from inside", () => {
+    const html = page(BODY_OK, "", {
+      skill: "generate-flow --direct",
+      feature: "Describe items",
+      prompt: "describe --> <script>x</script>",
+      date: "2026-09-19",
+      duration: "6m 10s",
+      model: "claude-sonnet-5",
+      pluginVersion: "2026.9.54",
+    });
+    assert.ok(html.startsWith("<!--\n"));
+    const end = html.indexOf("-->");
+    assert.ok(html.slice(0, end).includes("prompt:"));
+    assert.ok(html.slice(0, end).includes("2026.9.54"));
+    assert.strictEqual(
+      html.slice(end + 3).trimStart().indexOf("<!doctype html>"),
+      0,
+    );
+    assert.ok(
+      !html.slice(0, end).includes("<script>"),
+      "the prompt reached the comment unmasked",
+    );
+  });
+  it("no run file: no comment, the page starts at the doctype", () => {
+    assert.ok(page(BODY_OK).startsWith("<!doctype html>"));
   });
 });

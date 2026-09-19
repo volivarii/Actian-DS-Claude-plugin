@@ -215,17 +215,14 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
       };
     });
 
-    // No agent in this plugin carries Bash in its `tools:` frontmatter (they
-    // are Read/Grep/Glob/Write/WebFetch/WebSearch only), so none can
-    // legitimately run a plugin script via `${CLAUDE_PLUGIN_ROOT}/scripts`:
-    // an agent that named this pattern in prose without Bash access would
-    // itself be a defect (an instruction the agent has no tool to carry
-    // out), and indeed as of this writing none does. Collecting by that
-    // substring would therefore silently drop every agent from this loop,
-    // including one (screen-generator) that still carries the canonical
-    // block for its general "paths are plugin-root-relative" framing even
-    // without a script to run. Key on the block's own marker instead, so
-    // any agent that carries it stays checked regardless of why.
+    // One agent carries Bash and runs plugin scripts through
+    // `$CLAUDE_PLUGIN_ROOT/scripts` (prototype-author); every other agent is
+    // Read/Grep/Glob/Write/WebFetch/WebSearch only, and one of those
+    // (screen-generator) carries the canonical block for its "paths are
+    // plugin-root-relative" framing with no script to run. Collecting agents
+    // by a script-path substring would drop that one from this loop, so
+    // agents are keyed on the block's own marker: any agent that carries it
+    // stays checked, whatever it carries it for.
     fs.readdirSync(AGENTS_DIR).forEach(function (f) {
       if (!/\.md$/.test(f)) return;
       var full = path.join(AGENTS_DIR, f);

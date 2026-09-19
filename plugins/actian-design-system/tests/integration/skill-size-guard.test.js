@@ -55,6 +55,12 @@ const HTML_ONLY_SET = [
   "references/generate-flow/share.md",
   "references/ds-rules/quality-tiers.md",
 ];
+// What a --direct run loads on top of the gates: the skill and its route file.
+const MAX_DIRECT_BYTES = 40000;
+const DIRECT_SET = [
+  "skills/generate-flow/SKILL.md",
+  "references/generate-flow/direct.md",
+];
 
 describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
   it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
@@ -74,6 +80,16 @@ describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
     assert.ok(
       total < MAX_REACHABLE_BYTES,
       `reachable set is ${total} bytes (ceiling ${MAX_REACHABLE_BYTES}): ${HTML_ONLY_SET.join(", ")}`,
+    );
+  });
+  it(`the --direct set is under ${MAX_DIRECT_BYTES} bytes`, () => {
+    const total = DIRECT_SET.reduce(
+      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
+      0,
+    );
+    assert.ok(
+      total < MAX_DIRECT_BYTES,
+      `--direct set is ${total} bytes (ceiling ${MAX_DIRECT_BYTES}): ${DIRECT_SET.join(", ")}`,
     );
   });
 });

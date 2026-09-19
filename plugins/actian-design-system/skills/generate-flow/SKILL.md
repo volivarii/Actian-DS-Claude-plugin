@@ -38,11 +38,12 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 ## Flags
 
 | Flag                   | Type        | Default | Behavior |
-| ---------------------- | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------------- | ----------- | ------- | -------- |
 | `--hifi`               | bool        | on      | DS-native authoring is the default since 2026.9.x: screens built against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`), rendered as themed hi-fi HTML. Combines with `--push` for a DS whole-tree Figma push; incompatible with `--audit` (needs a lo-fi pushed frame, push lo-fi with `--fm --push`, then `--hifi --push`, then `/design-audit`). |
 | `--lofi`               | bool        | off     | Same DS tree rendered in the lo-fi skin (`meta.skin:"lofi"`): the feature (nodes with `focus: true`) legible in gray, everything else placeholder. For layout tests and early reviews. |
 | `--layout freehand`    | string      | none    | Skips recipe snapping for every screen; each is classified improvised. For layout tests. Combine with `--lofi`. |
 | `--fm`                 | bool        | off     | FatMarker authoring (the pre-2026.9.x default). Required for a lo-fi Figma push; not combinable with `--lofi`. |
+| `--direct`             | bool        | off     | One author draws the whole flow as one clickable HTML prototype, checks it and looks at it. HTML only. See `references/generate-flow/direct.md`. |
 | `--audit`              | bool        | off     | After a lo-fi push, runs `/design-audit` on the pushed Figma frame and reports findings (auto-fix needs `--audit --fix all`). Implies a Figma push, so it does not combine with `--hifi`. Passed together with `--hifi`, the skill warns, keeps `--hifi` (`--push` still applies), and drops `--audit`. |
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition), laid out side-by-side. Range 2-5; refuse above 5. Ignored when `--branch` is set. Provenance tracked in `.last-push.json`. |
 | `--ref <url[,url]>`    | URL list    | none    | Biases recipe selection toward a reference's structural fingerprint. See `references/generate-flow/vision-refs.md`. |
@@ -62,6 +63,7 @@ Parse args. Note which flags are explicitly passed:
 - `--no-prompt`: parsed via `${CLAUDE_PLUGIN_ROOT}/scripts/lib/parse-no-prompt.js`. Suppresses the Gate 3 config questions + the Step 7.5 gate.
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
 - `--lofi`, `--fm` — accepted as Gate 3 answers though not asked there; `--fm` wins over `--lofi`/`--hifi` when more than one is passed. `--layout freehand` stays not gated, skips recipe snapping, and combines with either.
+- `--direct`: read `references/generate-flow/direct.md` now; it refuses the flags it does not combine with, and replaces the pipeline after item 4.5.
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
 
 Classify input shape (Prompt / Refine / Iterate / Proposal per the table above). **Refine and Iterate skip Gate 3 entirely**: URL + prose (refine) or `--from <url>` (iterate) are already explicit intent. **Proposal enters at Gate 3** carrying the bridge's seed (`references/generate-flow/proposal-bridge.md`) as the screen list and brief: nothing to research, no app to infer.
@@ -105,7 +107,7 @@ A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; d
 
 5. Build `flow-data.json`
    - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how the screen's content is authored.
-   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets `pluginRoot` = `${CLAUDE_PLUGIN_ROOT}`, its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number (the slice's own `index`), and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` unless `--fm`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else; the agent uses its slice's `screen.archetype.skeleton` or `screen.pageRecipe.skeleton` as the starting point. Merge as instances land:
+   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets `pluginRoot` = `${CLAUDE_PLUGIN_ROOT}`, its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number (the slice's own `index`), and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` unless `--fm`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/generate-flow/html-reference.md` (and `references/generate-flow/ds-components-authoring.md` under `--hifi`), nothing else. Merge as instances land:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
@@ -244,6 +246,7 @@ Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "varia
 - `references/generate-flow/ds-components-authoring.md`: DS Kit vocabulary
 - `references/generate-flow/push-opt-in.md` — triggers, `--no-push` veto
 - `references/generate-flow/proposal-bridge.md`: seed from a proposal
+- `references/generate-flow/direct.md`: the `--direct` route
 - `references/generate-flow/refine.md` — detection + behavior
 - `references/generate-flow/vision-refs.md` — `--ref` fingerprinting
 - `references/generate-flow/push-sequence.md` — sequence + rules

@@ -272,4 +272,7 @@ function assembleFlowShare(data) {
 // Exports
 // ---------------------------------------------------------------------------
 
-module.exports = { assembleFlowShare: assembleFlowShare };
+module.exports = {
+  assembleFlowShare: assembleFlowShare,
+  maskComment: maskComment,
+};
