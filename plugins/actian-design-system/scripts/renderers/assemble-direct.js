@@ -148,12 +148,17 @@ function escapeScriptSource(src) {
 // nearest-</div>-before-the-first-<aside search cuts the page in two right
 // there. Every <div and every </div between `start` and the match counts;
 // nothing else does, so an <aside> (matched or not) never perturbs the count.
+// HTML comments are masked to spaces first (never stripped, so every offset
+// still points into `body`): a comment that mentions a tag is not a tag.
 function frameEnd(body, start) {
   var depth = 1;
   var re = /<(\/?)div\b/gi;
   re.lastIndex = start;
+  var masked = body.replace(/<!--[\s\S]*?-->/g, function (c) {
+    return c.replace(/[^\n]/g, " ");
+  });
   var m;
-  while ((m = re.exec(body))) {
+  while ((m = re.exec(masked))) {
     if (m[1]) {
       depth--;
       if (depth === 0) return m.index;
@@ -174,7 +179,9 @@ function assemble(o) {
   var start = open.index + open[0].length;
   var end = frameEnd(body, start);
   var inside = body.slice(start, end);
-  var rest = body.slice(0, open.index) + body.slice(end + "</div>".length);
+  // The close may be written `</div >`: it ends at its own `>`, not six
+  // characters on.
+  var rest = body.slice(0, open.index) + body.slice(body.indexOf(">", end) + 1);
   // dockLayers has already classed every layer, so this asks the docked body
   // whether any of them is a modal rather than re-reading the author's syntax.
   var scrim = body.indexOf("proto-layer--modal") !== -1 ? shell.SCRIM : "";

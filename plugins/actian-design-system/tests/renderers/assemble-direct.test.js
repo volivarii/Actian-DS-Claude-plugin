@@ -273,6 +273,14 @@ describe("assemble-direct: frameEnd finds the frame's matching close by depth", 
     assert.strictEqual(body.slice(end, end + 6), "</div>");
   });
 
+  it("a </div> or a <div inside an HTML comment does not count", () => {
+    const body =
+      "<div data-app-frame><!-- the old </div> went here --><p>x</p><!-- <div> --></div>TAIL";
+    const start = body.indexOf(">") + 1;
+    const end = frameEnd(body, start);
+    assert.strictEqual(body.slice(end), "</div>TAIL");
+  });
+
   it("throws when the frame is never closed", () => {
     const body = "<div data-app-frame><p>unclosed";
     const start = body.indexOf(">") + 1;
@@ -298,6 +306,13 @@ describe("assemble-direct: the frame end is found by depth, not by guessing near
       icons: {},
       css: "",
     });
+
+  it("a close written </div > leaves no stray character behind", () => {
+    const html = page("<div data-app-frame><p>Results here</p></div >");
+    assert.ok(html.includes("Results here"));
+    assert.ok(!/<\/div>\s*>/.test(html), "a stray > followed the frame");
+    assert.ok(!html.includes("</p>>"), "a stray > followed the content");
+  });
 
   it("content using an aside inside the frame (a filter rail) is not cut off", () => {
     const body =
