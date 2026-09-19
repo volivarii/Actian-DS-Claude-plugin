@@ -51,6 +51,23 @@ describe("check-direct", () => {
         "unknown-icon",
       ),
     ));
+  it("unknown-icon: app.js draws icons from state as a matter of course, so it is read too, and reported against it", () => {
+    const appJs = ok.appJs + "\nel.innerHTML = '<span data-icon=\"nope\"></span>';";
+    const f = checkDirect(Object.assign({}, ok, { appJs })).filter(
+      (x) => x.check === "unknown-icon",
+    );
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].path, "app.js");
+  });
+  it("unknown-icon: a known icon named only in app.js does not fire", () => {
+    const appJs = ok.appJs + "\nel.innerHTML = '<span data-icon=\"edit\"></span>';";
+    assert.deepStrictEqual(
+      checkDirect(Object.assign({}, ok, { appJs })).filter(
+        (x) => x.check === "unknown-icon",
+      ),
+      [],
+    );
+  });
   it("unknown-token", () =>
     assert.ok(
       kinds({ extraCss: ".p{color:var(--made-up)}" }).includes("unknown-token"),

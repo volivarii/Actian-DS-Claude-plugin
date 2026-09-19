@@ -234,16 +234,24 @@ function checkDirect(o) {
         ),
       );
   });
-  uniq(allAttr("data-icon", body)).forEach(function (slug) {
-    if (!(o.icons || {})[slug])
-      f.push(
-        finding(
-          "error",
-          "unknown-icon",
-          "body.html",
-          'no icon "' + slug + '" in icons.json',
-        ),
-      );
+  // app.js draws icons from state as a matter of course (the agent file
+  // tells the author to), so a slug it names is read the same as one
+  // body.html names, and reported against the file it was found in.
+  [
+    [uniq(allAttr("data-icon", body)), "body.html"],
+    [uniq(attrInJs("data-icon", js)), "app.js"],
+  ].forEach(function (pair) {
+    pair[0].forEach(function (slug) {
+      if (!(o.icons || {})[slug])
+        f.push(
+          finding(
+            "error",
+            "unknown-icon",
+            pair[1],
+            'no icon "' + slug + '" in icons.json',
+          ),
+        );
+    });
   });
   // Scanned per file, not on the two joined, so a bad var() is reported
   // against the file it actually sits in rather than always "extra.css".

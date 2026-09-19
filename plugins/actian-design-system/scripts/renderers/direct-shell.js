@@ -72,7 +72,21 @@ var RUNTIME = [
   "it.classList.remove('is-active');",
   "var lb=it.querySelector('.ds-sidenav__label');",
   "if(lb&&lb.textContent.trim()===nl)it.classList.add('is-active');});}",
-  "var h=document.querySelector('.proto-hint');if(h)h.textContent=(window.PROTO_HINTS||[])[n-1]||'';}};",
+  "var h=document.querySelector('.proto-hint');if(h)h.textContent=(window.PROTO_HINTS||[])[n-1]||'';}",
+  // An icon app.js draws with innerHTML at runtime never ran through
+  // inlineIcons (assemble-direct.js), which touches body.html once, before
+  // app.js exists: it stays an empty span, silently, unless something
+  // replaces it after the fact. root itself is checked, not only its
+  // descendants, so a span added directly (not inside a wrapper) is caught
+  // too. An unlisted slug is left exactly as app.js wrote it, the same as
+  // inlineIcons leaves one body.html names.
+  ",icons:function(root){var m=window.PROTO_ICONS||{};function fix(el){",
+  "var ic=m[el.getAttribute('data-icon')];if(!ic)return;",
+  "var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');",
+  "svg.setAttribute('class','proto-icon');svg.setAttribute('viewBox',ic.viewBox);",
+  "svg.setAttribute('aria-hidden','true');svg.innerHTML=ic.body;el.replaceWith(svg);}",
+  "if(root.getAttribute&&root.getAttribute('data-icon')!=null)fix(root);",
+  "if(root.querySelectorAll)Array.prototype.forEach.call(root.querySelectorAll('span[data-icon]'),fix);}};",
 ].join("");
 
 // Runs after the author's app.js.
@@ -80,6 +94,11 @@ var BOOT = [
   "document.querySelectorAll('[data-proto-step]').forEach(function(b){b.addEventListener('click',function(){proto.go(+b.getAttribute('data-proto-step'));});});",
   "document.querySelector('[data-proto-new]').addEventListener('click',function(){document.body.toggleAttribute('data-show-new');});",
   "document.querySelector('[data-proto-restart]').addEventListener('click',function(){location.href=location.pathname;});",
+  "var protoStage=document.querySelector('.proto-stage');proto.icons(protoStage);",
+  "if(typeof MutationObserver!=='undefined'){new MutationObserver(function(muts){",
+  "muts.forEach(function(mu){Array.prototype.forEach.call(mu.addedNodes,function(n){",
+  "if(n.nodeType===1)proto.icons(n);});});",
+  "}).observe(protoStage,{childList:true,subtree:true});}",
   "proto.go(+(new URLSearchParams(location.search).get('step'))||1);",
 ].join("");
 

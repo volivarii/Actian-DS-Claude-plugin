@@ -549,6 +549,116 @@ describe("assemble-direct: PROTO_NAV moves the active rail item as a flow crosse
   });
 });
 
+describe("assemble-direct: PROTO_ICONS carries the icon geometry app.js can draw with, and the runtime redraws it", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const shell = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+  const briefBase = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const BODY = "<div data-app-frame><p>x</p></div>";
+  const ICONS = {
+    edit: { viewBox: "0 0 16 16", body: '<path d="m1"/>' },
+    trash: { viewBox: "0 0 16 16", body: '<path d="m2"/>' },
+  };
+  const page = (appJs) =>
+    assemble({
+      brief: briefBase,
+      body: BODY,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: ICONS,
+      css: "",
+    });
+  const protoIconsOf = (html) => {
+    const m = html.match(/window\.PROTO_ICONS=([\s\S]*?);window\.proto=/);
+    assert.ok(m, "PROTO_ICONS was not embedded");
+    return JSON.parse(m[1]);
+  };
+
+  it("collects the slugs app.js names by data-icon, in each of the four spellings, dropping one the icon map does not have", () => {
+    const appJs = [
+      "el.a='<span data-icon=\"edit\"></span>';",
+      "el.b=\"<span data-icon='edit'></span>\";",
+      "el.c=\"<span data-icon=\\\"trash\\\"></span>\";",
+      "el.d='<span data-icon=\\'trash\\'></span>';",
+      "el.e='<span data-icon=\"nope\"></span>';",
+    ].join("\n");
+    const parsed = protoIconsOf(page(appJs));
+    assert.deepStrictEqual(Object.keys(parsed).sort(), ["edit", "trash"]);
+    assert.deepStrictEqual(parsed.edit, ICONS.edit);
+    assert.deepStrictEqual(parsed.trash, ICONS.trash);
+  });
+
+  it("app.js names no data-icon: PROTO_ICONS is an empty object", () => {
+    assert.deepStrictEqual(protoIconsOf(page("")), {});
+  });
+
+  // A minimal fake DOM proving the runtime's own icon-replacement function,
+  // not the build-time collection above: createElementNS returns a fake
+  // element with a settable attrs map, and replaceWith records what it was
+  // replaced with, so a span "added after boot" (however it got there) is
+  // provably swapped for the same svg markup inlineIcons draws server-side.
+  function fakeIconSpan(slug) {
+    return {
+      nodeType: 1,
+      attrs: { "data-icon": slug },
+      getAttribute: function (n) {
+        return this.attrs[n];
+      },
+      replaceWith: function (node) {
+        this.replacedWith = node;
+      },
+    };
+  }
+  function fakeWrapper(children) {
+    return {
+      nodeType: 1,
+      querySelectorAll: function (sel) {
+        return sel === "span[data-icon]" ? children : [];
+      },
+    };
+  }
+  function runIconsRuntime(protoIcons) {
+    const sandbox = {
+      document: {
+        createElementNS: function () {
+          return { attrs: {}, setAttribute: function (n, v) { this.attrs[n] = v; }, innerHTML: "" };
+        },
+        querySelectorAll: function () {
+          return [];
+        },
+      },
+    };
+    sandbox.window = sandbox;
+    vm.createContext(sandbox);
+    vm.runInContext(shell.RUNTIME, sandbox);
+    sandbox.PROTO_ICONS = protoIcons;
+    return sandbox.proto;
+  }
+
+  it("proto.icons replaces a span added after boot with the vendored svg markup", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const span = fakeIconSpan("edit");
+    proto.icons(span);
+    assert.ok(span.replacedWith, "the span itself was not replaced");
+    assert.strictEqual(span.replacedWith.attrs.class, "proto-icon");
+    assert.strictEqual(span.replacedWith.attrs.viewBox, ICONS.edit.viewBox);
+    assert.strictEqual(span.replacedWith.attrs["aria-hidden"], "true");
+    assert.strictEqual(span.replacedWith.innerHTML, ICONS.edit.body);
+  });
+
+  it("proto.icons replaces a span nested inside an added wrapper, and leaves an unknown slug alone", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const nested = fakeIconSpan("edit");
+    proto.icons(fakeWrapper([nested]));
+    assert.ok(nested.replacedWith, "a span nested inside an added node was not replaced");
+    const unknown = fakeIconSpan("mystery");
+    proto.icons(unknown);
+    assert.ok(!unknown.replacedWith, "an icon absent from PROTO_ICONS must not be replaced");
+  });
+});
+
 describe("assemble-direct: F7 regression - a layer aside written inside the frame", () => {
   const { assemble } = require(
     path.join(ROOT, "scripts/renderers/assemble-direct.js"),

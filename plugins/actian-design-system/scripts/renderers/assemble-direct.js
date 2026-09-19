@@ -115,6 +115,19 @@ function attrInJs(name, js) {
   return out;
 }
 
+// The slugs app.js names by data-icon, kept only where the icon map has
+// them: {slug: {viewBox, body}}, ready to embed as window.PROTO_ICONS.
+// check-direct.js reports a slug this drops as unknown-icon; drawing it
+// anyway would draw nothing, silently.
+function iconsUsedInJs(js, icons) {
+  var out = {};
+  attrInJs("data-icon", js).forEach(function (slug) {
+    if (icons && Object.prototype.hasOwnProperty.call(icons, slug))
+      out[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
+  });
+  return out;
+}
+
 function dockLayers(html) {
   return html.replace(
     LAYER_TAG,
@@ -275,6 +288,10 @@ function assemble(o) {
     assembleShared.escapeJsonForScript(JSON.stringify(navLabels)) +
     ";window.PROTO_HINTS=" +
     assembleShared.escapeJsonForScript(JSON.stringify(hints)) +
+    ";window.PROTO_ICONS=" +
+    assembleShared.escapeJsonForScript(
+      JSON.stringify(iconsUsedInJs(o.appJs, o.icons)),
+    ) +
     ";" +
     shell.RUNTIME +
     "</script>" +
@@ -384,6 +401,7 @@ module.exports = {
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
   attrInJs: attrInJs,
+  iconsUsedInJs: iconsUsedInJs,
   LAYER_KINDS: LAYER_KINDS,
   frameEnd: frameEnd,
   main: main,
