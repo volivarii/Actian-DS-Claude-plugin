@@ -71,7 +71,7 @@ are summarized at the release level.
 
 ### Added
 
-- **The scripts of a direct prototype route.** ([#PRNUM](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/PRNUM))
+- **The scripts of a direct prototype route.** ([#406](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/406))
   `prepare-flow.js --direct` writes one brief naming every vendored file an author needs (the
   captured page's screenshot and regions, component markup, stylesheets, icons, terminology,
   content rules) and no slices. `assemble-direct.js` wraps an author's four files into one
