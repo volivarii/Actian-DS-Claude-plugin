@@ -254,6 +254,8 @@ At every level, only the feature you're designing gets detailed content — side
 
 **DS-native by default:** every generation is a hi-fi HTML deliverable unless `--lofi` or `--fm` opts out; add `--push` for a Figma artifact. Regenerate later from the same brief to drop back to DS-native.
 
+**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and the author looks at a screenshot of every step before handing over; the handover says whether anyone looked. It is HTML only: no Figma push, no audit, no compare, and two runs of one prompt differ in structure. Without the flag nothing changes.
+
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
 ### Variants — explore alternatives side-by-side
@@ -446,6 +448,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
+| `/generate-flow --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked and looked at before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
 | `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
 | `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
 | `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
