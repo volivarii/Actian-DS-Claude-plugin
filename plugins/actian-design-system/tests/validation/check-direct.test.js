@@ -119,6 +119,27 @@ describe("check-direct", () => {
   });
   it("frame-missing", () =>
     assert.ok(kinds({ body: "<p>x</p>" }).includes("frame-missing")));
+  it("layer-misplaced: a kind the assembler does not dock", () => {
+    const f = checkDirect(
+      Object.assign({}, ok, {
+        body: ok.body + "<aside data-layer='sheet' hidden>x</aside>",
+      }),
+    );
+    const m = f.filter((x) => x.check === "layer-misplaced");
+    assert.strictEqual(m.length, 1);
+    assert.strictEqual(
+      m[0].value,
+      '"sheet" is not a kind of layer (drawer, panel, modal, toast): it is never docked',
+    );
+  });
+  it("layer-misplaced: a single-quoted layer of a known kind, after the frame, does not fire", () => {
+    const f = checkDirect(
+      Object.assign({}, ok, {
+        body: ok.body + "<aside data-layer='toast' hidden>x</aside>",
+      }),
+    );
+    assert.ok(!f.some((x) => x.check === "layer-misplaced"));
+  });
   it("layer-misplaced: any element other than aside carrying data-layer is never docked", () => {
     const f = checkDirect(
       Object.assign({}, ok, {
@@ -142,7 +163,7 @@ describe("check-direct", () => {
     assert.strictEqual(m[0].severity, "error");
     assert.strictEqual(
       m[0].value,
-      "a layer sits outside <div data-app-frame>, after it",
+      "a layer inside <div data-app-frame>: write it after the frame closes",
     );
   });
   it("layer-misplaced: a correctly placed aside layer, outside the frame, does not fire", () => {

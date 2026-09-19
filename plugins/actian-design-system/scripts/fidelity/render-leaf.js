@@ -172,13 +172,11 @@ function screenshotArgs(opts) {
 }
 
 // Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
-// F6: a wedged headless Chrome does not always die on SIGTERM. execFileSync's
-// timeout sends SIGTERM and then WAITS for the child to exit, so a 60s bound
-// measured 120s wall time tonight; killSignal SIGKILL forces the exit instead
-// of waiting on a process that never answers it. Only set once a timeout is
-// set at all, so a caller that passes none sees execOpts unchanged. opts.exec
-// (default cp.execFileSync) is the injection seam this behaviour is tested
-// through, since launching Chrome for real is not something a unit test does.
+// opts.timeoutMs bounds the shot. execFileSync's timeout sends its killSignal
+// and then WAITS for the child to exit, and a wedged headless Chrome can ignore
+// SIGTERM for as long again as the bound, so a bounded shot kills with SIGKILL.
+// A caller that passes no timeout gets execOpts exactly as before. opts.exec
+// (default cp.execFileSync) is the seam the tests drive this through.
 function screenshot(opts) {
   var chrome = opts.chrome; // resolved path
   var outPng = opts.outPng;

@@ -10,15 +10,16 @@
 // context with a permissive browser-global stub and a 1-second timeout, and
 // checkDirect reads whatever the script actually left on proto.steps.
 // checkDirect itself stays synchronous and pure apart from that evaluation.
-// Fourteen checks: eleven read what the four files declare or omit; the
-// twelfth (unsafe-embed) reads for the two escape sequences assemble-direct.js
-// deliberately does not rewrite when it embeds extra.css in a <style> element
-// and app.js in a <script> element (it escapes </script, nothing else); the
-// thirteenth (steps-unread) is the warning app.js's evaluation prints when it
-// cannot be run at all, in place of the step-mismatch it cannot then compute;
-// the fourteenth (layer-misplaced) reads assemble-direct.js's own frameEnd to
-// know where <div data-app-frame> closes, since a layer the assembler cannot
-// dock this way says nothing today.
+// Fourteen kinds of finding. Eleven read what the four files declare or omit.
+// unsafe-embed reads for the two escape sequences assemble-direct.js does not
+// rewrite when it embeds extra.css in a <style> element and app.js in a
+// <script> element (it escapes </script, nothing else). steps-unread is the
+// warning printed when app.js cannot be run, in place of the step-mismatch
+// that cannot then be computed. layer-misplaced names a layer the assembler
+// will not dock: another element than <aside>, a kind it does not know, or an
+// aside inside <div data-app-frame> (it reads assemble-direct.js's own
+// frameEnd and LAYER_KINDS, so both scripts agree on where the frame closes
+// and on what a layer is).
 //
 // Terminology is not checked here on purpose: knowledge #720 shows
 // terminology.yml contradicts the running product on "item", so wiring a
@@ -28,7 +29,9 @@
 var fs = require("fs");
 var path = require("path");
 var vm = require("vm");
-var frameEnd = require("../renderers/assemble-direct.js").frameEnd;
+var assembleDirect = require("../renderers/assemble-direct.js");
+var frameEnd = assembleDirect.frameEnd;
+var LAYER_KINDS = assembleDirect.LAYER_KINDS;
 var shellCss = require("../renderers/direct-shell.js").CSS;
 
 function finding(sev, check, p, value) {
@@ -306,12 +309,11 @@ function checkDirect(o) {
         "the header and the side navigation are drawn by the assembler",
       ),
     );
-  // A layer is only ever docked by assemble-direct.js's dockLayers, which
-  // matches `<aside ... data-layer="...">`: any other element carrying
-  // data-layer is never docked, and an aside carrying it INSIDE the frame div
-  // sits in the content area (F3), where position:absolute docks it against
-  // the wrong box. frameEnd is required from assemble-direct.js so this reads
-  // the same range assembly draws from, not a second guess at it.
+  // A layer is docked by assemble-direct.js's dockLayers, which matches an
+  // <aside> whose data-layer is one of LAYER_KINDS. Any other element carrying
+  // data-layer, or any other kind, is never docked; an aside carrying it
+  // INSIDE the frame div stays in the content area, where position:absolute
+  // docks it against the wrong box.
   var openFrame = body.match(/<div[^>]*\sdata-app-frame[^>]*>/);
   var frameStart = openFrame ? openFrame.index + openFrame[0].length : null;
   var frameCloseIdx = null;
@@ -323,7 +325,7 @@ function checkDirect(o) {
     }
   }
   var layerTagRe =
-    /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\sdata-layer\s*=\s*(?:"[^"]*"|'[^']*')[^>]*>/g;
+    /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\sdata-layer\s*=\s*(?:"([^"]*)"|'([^']*)')[^>]*>/g;
   var lm;
   while ((lm = layerTagRe.exec(body))) {
     var tag = lm[1];
@@ -337,6 +339,21 @@ function checkDirect(o) {
         ),
       );
     } else if (
+      LAYER_KINDS.indexOf(lm[2] !== undefined ? lm[2] : lm[3]) === -1
+    ) {
+      f.push(
+        finding(
+          "error",
+          "layer-misplaced",
+          "body.html",
+          '"' +
+            (lm[2] !== undefined ? lm[2] : lm[3]) +
+            '" is not a kind of layer (' +
+            LAYER_KINDS.join(", ") +
+            "): it is never docked",
+        ),
+      );
+    } else if (
       frameStart !== null &&
       frameCloseIdx !== null &&
       lm.index >= frameStart &&
@@ -347,7 +364,7 @@ function checkDirect(o) {
           "error",
           "layer-misplaced",
           "body.html",
-          "a layer sits outside <div data-app-frame>, after it",
+          "a layer inside <div data-app-frame>: write it after the frame closes",
         ),
       );
     }

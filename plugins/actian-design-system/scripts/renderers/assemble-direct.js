@@ -85,10 +85,20 @@ function takeClassAttr(s) {
   };
 }
 
+// The four kinds of layer this assembler docks. check-direct.js reads the same
+// list, so a kind one script docks is a kind the other accepts.
+var LAYER_KINDS = ["drawer", "panel", "modal", "toast"];
+var LAYER_TAG = new RegExp(
+  "<aside([^>]*?)\\sdata-layer\\s*=\\s*([\"'])(" +
+    LAYER_KINDS.join("|") +
+    ")\\2([^>]*)>",
+  "g",
+);
+
 function dockLayers(html) {
   return html.replace(
-    /<aside([^>]*?)\sdata-layer="(drawer|panel|modal|toast)"([^>]*)>/g,
-    function (all, a, kind, b) {
+    LAYER_TAG,
+    function (all, a, quote, kind, b) {
       var proto = "proto-layer proto-layer--" + kind;
       var fromA = takeClassAttr(a);
       var author = fromA.value;
@@ -305,6 +315,7 @@ module.exports = {
   renderFrame: renderFrame,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
+  LAYER_KINDS: LAYER_KINDS,
   frameEnd: frameEnd,
   main: main,
 };

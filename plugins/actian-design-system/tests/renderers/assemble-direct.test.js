@@ -233,6 +233,17 @@ describe("assemble-direct: dockLayers keeps the author's own class and data-laye
     assert.ok(html.includes('class="proto-layer proto-layer--modal ds-modal"'));
     assert.ok(html.includes('data-layer="modal"'));
   });
+  it("single-quoted data-layer is docked like a double-quoted one", () => {
+    const html = dockLayers("<aside data-layer='drawer' id=\"d\">x</aside>");
+    assert.strictEqual(oneClassAttr(html), 1);
+    assert.ok(html.includes('class="proto-layer proto-layer--drawer"'));
+    assert.ok(html.includes('data-layer="drawer"'));
+    assert.ok(html.includes('id="d"'));
+  });
+  it("a kind the assembler does not know is left as written", () => {
+    const src = '<aside data-layer="sheet">x</aside>';
+    assert.strictEqual(dockLayers(src), src);
+  });
   it("no class attribute: the proto classes are added as today, and data-layer survives", () => {
     const html = dockLayers(
       '<aside data-layer="toast" id="t" hidden>x</aside>',

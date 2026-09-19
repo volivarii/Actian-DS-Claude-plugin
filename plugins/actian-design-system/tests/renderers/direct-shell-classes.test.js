@@ -43,23 +43,21 @@ function literalProtoClasses(src) {
 
 // dockLayers in assemble-direct.js never writes proto-layer--drawer,
 // proto-layer--panel, proto-layer--modal or proto-layer--toast as literals:
-// it appends the kind captured by its own
-// data-layer="(drawer|panel|modal|toast)" regex to a "proto-layer--" stem.
-// Since F2, that stem (and the plain "proto-layer" base class beside it)
-// lives in its own string literal built ahead of the returned markup, not
-// inside a literal `class="..."` attribute, so literalProtoClasses above
-// cannot see either one: find the whole literal that is immediately joined
+// it appends one of its exported LAYER_KINDS to a "proto-layer--" stem. That
+// stem (and the plain "proto-layer" base class beside it) lives in its own
+// string literal built ahead of the returned markup, not inside a literal
+// `class="..."` attribute, so literalProtoClasses above cannot see either
+// one: find the whole literal that is immediately joined
 // to the bare identifier `kind` (either quote style, via a backreference),
 // read every whitespace-separated token out of it, and treat the LAST one as
 // the stem each kind is appended to; any other clean token in that same
 // literal (here, "proto-layer") is a static class emitted as-is.
 function dockLayerClasses(src) {
-  const kindsMatch = src.match(/data-layer="\(([a-z|]+)\)"/);
+  const kinds = require(ASSEMBLE_PATH).LAYER_KINDS;
   assert.ok(
-    kindsMatch,
-    "expected assemble-direct.js dockLayers to declare its data-layer kinds",
+    Array.isArray(kinds) && kinds.length,
+    "expected assemble-direct.js to export its LAYER_KINDS",
   );
-  const kinds = kindsMatch[1].split("|");
   const literalMatch = src.match(/(["'])((?:(?!\1).)*)\1\s*\+\s*kind\b/);
   assert.ok(
     literalMatch,
