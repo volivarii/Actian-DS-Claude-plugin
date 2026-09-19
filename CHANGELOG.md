@@ -21,7 +21,7 @@ are summarized at the release level.
 
 ### Added
 
-- **`/generate-flow --direct`: one author draws the whole flow as a clickable prototype, checks it and looks at it.** ([#PRNUM](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/PRNUM))
+- **`/generate-flow --direct`: one author draws the whole flow as a clickable prototype, checks it and looks at it.** ([#408](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/408))
   Opt in with `--direct`. One `prototype-author` agent reads a single brief that names the captured pages, the
   design system's own component markup, the stylesheets, the icons and the content rules, and writes four small
   files. Scripts draw the app's header and side navigation with the right item active on every step, the icons, the
