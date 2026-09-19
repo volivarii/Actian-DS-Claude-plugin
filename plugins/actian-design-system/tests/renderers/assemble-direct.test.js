@@ -603,6 +603,15 @@ describe("assemble-direct: PROTO_ICONS carries the icon geometry app.js can draw
     assert.deepStrictEqual(parsed.trash, ICONS.trash);
   });
 
+  it("a slug app.js keeps in its state and writes into data-icon at run time is carried too, and the built value is not", () => {
+    const appJs = [
+      'var actions = [{ icon: "edit" }, { icon: \'trash\' }, { icon: "nope" }];',
+      "el.innerHTML = '<span data-icon=\"' + actions[0].icon + '\"></span>';",
+    ].join("\n");
+    const parsed = protoIconsOf(page(appJs));
+    assert.deepStrictEqual(Object.keys(parsed).sort(), ["edit", "trash"]);
+  });
+
   it("app.js names no data-icon: PROTO_ICONS is an empty object", () => {
     assert.deepStrictEqual(protoIconsOf(page("")), {});
   });

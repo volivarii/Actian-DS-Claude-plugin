@@ -68,6 +68,18 @@ describe("check-direct", () => {
       [],
     );
   });
+  it("a data-icon or data-new whose value app.js builds at run time is not read as a name", () => {
+    const appJs =
+      ok.appJs +
+      "\nel.innerHTML = '<span data-icon=\"' + it.icon + '\" data-new=\"' + it.mark + '\"></span>';" +
+      "\nel.innerHTML = `<span data-icon=\"${it.icon}\" data-new=\"${it.mark}\"></span>`;";
+    assert.deepStrictEqual(
+      checkDirect(Object.assign({}, ok, { appJs })).filter(
+        (x) => x.check === "unknown-icon" || x.check === "new-undeclared",
+      ),
+      [],
+    );
+  });
   it("unknown-token", () =>
     assert.ok(
       kinds({ extraCss: ".p{color:var(--made-up)}" }).includes("unknown-token"),

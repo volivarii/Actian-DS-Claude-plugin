@@ -101,6 +101,11 @@ var LAYER_TAG = new RegExp(
 // the literal's own delimiter is the other quote character, backslash-
 // escaped when it is the same one. Four spellings, no more:
 // name="x", name='x', name=\"x\", name=\'x\'.
+// A value app.js builds at run time ('<span data-icon="' + it.icon + '">',
+// or "${it.icon}" in a template literal) reads here as a piece of source, not
+// a name: it is dropped, so no caller reports it as a name nobody declared.
+var BUILT_VALUE = /\$\{|['"`]\s*\+|\+\s*['"`]/;
+
 function attrInJs(name, js) {
   var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"\\\\]*)\"|'([^'\\\\]*)'|\\\\\"([^\"\\\\]*)\\\\\"|\\\\'([^'\\\\]*)\\\\')", "g");
   var out = [],
@@ -110,7 +115,7 @@ function attrInJs(name, js) {
     if (v === undefined) v = m[2];
     if (v === undefined) v = m[3];
     if (v === undefined) v = m[4];
-    out.push(v);
+    if (!BUILT_VALUE.test(v)) out.push(v);
   }
   return out;
 }
@@ -118,10 +123,19 @@ function attrInJs(name, js) {
 // The slugs app.js names by data-icon, kept only where the icon map has
 // them: {slug: {viewBox, body}}, ready to embed as window.PROTO_ICONS.
 // check-direct.js reports a slug this drops as unknown-icon; drawing it
-// anyway would draw nothing, silently.
+// anyway would draw nothing, silently. A slug app.js keeps in its state
+// ({ icon: "edit" }) and writes into data-icon at run time never appears
+// beside the attribute, so every quoted string that is exactly an icon's
+// slug is carried as well: a word that happens to be one costs its bytes.
+var QUOTED_WORD = /(["'`])([a-z0-9][a-z0-9_-]*)\1/gi;
+
 function iconsUsedInJs(js, icons) {
   var out = {};
-  attrInJs("data-icon", js).forEach(function (slug) {
+  var slugs = attrInJs("data-icon", js),
+    m;
+  QUOTED_WORD.lastIndex = 0;
+  while ((m = QUOTED_WORD.exec(js))) slugs.push(m[2]);
+  slugs.forEach(function (slug) {
     if (icons && Object.prototype.hasOwnProperty.call(icons, slug))
       out[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
   });
