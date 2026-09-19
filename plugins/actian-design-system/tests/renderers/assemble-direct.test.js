@@ -312,6 +312,19 @@ describe("assemble-direct: dockLayers keeps the author's own class and data-laye
   });
 });
 
+describe("direct-shell: the stage never scrolls", () => {
+  it("the stage clips, so a focused layer cannot scroll the app header out of view", () => {
+    const { CSS } = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+    const rule = (CSS.match(/\.proto-stage\{[^}]*\}/) || [""])[0];
+    assert.match(rule, /overflow:clip/);
+    assert.doesNotMatch(rule, /overflow:(auto|hidden|scroll)/);
+  });
+  it("a docked layer's box is the page's: an author's height cannot push it past the stage", () => {
+    const { CSS } = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+    assert.match(CSS, /\.proto-layer--drawer,\.proto-layer--panel\{height:auto!important;max-height:none!important\}/);
+  });
+});
+
 describe("assemble-direct: frameEnd finds the frame's matching close by depth", () => {
   const { frameEnd } = require(
     path.join(ROOT, "scripts/renderers/assemble-direct.js"),

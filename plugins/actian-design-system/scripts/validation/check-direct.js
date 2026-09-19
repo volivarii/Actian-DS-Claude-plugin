@@ -127,6 +127,11 @@ function browserStub() {
 // the sandbox could spring on its caller - becomes this function's own
 // { error } result instead of an exception checkDirect would have to catch
 // a second time. checkDirect never touches proto or its steps directly.
+// `var proto`, `let proto`, `const proto`, `window.proto =`, or a bare
+// `proto =` that is not a comparison and not a property of something else.
+var REPLACES_PROTO =
+  /\b(?:var|let|const)\s+proto\b|\bwindow\.proto\s*=(?!=)|(?:^|[^.\w$])proto\s*=(?!=)/m;
+
 function evaluateProtoSteps(js) {
   var proto = { steps: [], current: 0, go: function () {} };
   var sandbox = {};
@@ -163,7 +168,9 @@ function evaluateProtoSteps(js) {
       if (id === undefined || id === null) return "";
       return String(id);
     });
-    return { ids: ids };
+    // A script that declares or replaces `proto` leaves this object untouched,
+    // so its steps read as none: say which happened, the ids alone do not.
+    return { ids: ids, replaced: sandbox.proto !== proto || REPLACES_PROTO.test(js) };
   } catch (e) {
     return { error: e && e.message ? e.message : String(e) };
   }
@@ -414,7 +421,10 @@ function checkDirect(o) {
             got.join(", ") +
             "], the screen list's are [" +
             want.join(", ") +
-            "]",
+            "]" +
+            (evaluated.replaced && !got.length
+              ? ": the page creates `proto` before app.js runs: assign `proto.steps`, never declare or replace `proto`"
+              : ""),
         ),
       );
   }

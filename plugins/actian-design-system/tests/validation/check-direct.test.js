@@ -89,6 +89,19 @@ describe("check-direct", () => {
     ).filter((x) => x.check === "unknown-token");
     assert.deepStrictEqual(f, []);
   });
+  it("step-mismatch: an app.js that declares or replaces proto is told so, in every spelling", () => {
+    const steps = '{steps:[{id:"f-1",arrive(){}},{id:"f-2",arrive(){}}]}';
+    ["var proto=" + steps + ";", "const proto=" + steps + ";", "let proto=" + steps + ";", "window.proto=" + steps + ";", "proto=" + steps + ";"].forEach((js) => {
+      const f = checkDirect(Object.assign({}, ok, { appJs: js })).filter((x) => x.check === "step-mismatch");
+      assert.strictEqual(f.length, 1, js);
+      assert.match(f[0].value, /the page creates `proto` before app\.js runs: assign `proto\.steps`, never declare or replace `proto`/, js);
+    });
+  });
+  it("step-mismatch: a plain mismatch does not blame proto, and comparisons are not assignments", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: 'if (proto.current == 1 || window.proto === proto) {} proto.steps=[{id:"x"}];' })).filter((x) => x.check === "step-mismatch");
+    assert.strictEqual(f.length, 1);
+    assert.doesNotMatch(f[0].value, /never declare or replace/);
+  });
   it("unknown-ds-class: a class a named fragment carries is known, rule or no rule", () => {
     const body = ok.body.replace("</div>", '<span class="ds-tag ds-tag--hook-only">x</span></div>');
     const css2 = css + "\n.ds-tag{display:inline-flex}";
