@@ -123,6 +123,56 @@ describe("assemble-direct", () => {
     assert.strictEqual(noDirect.status, 1);
     assert.match(noDirect.stderr, /no direct block/);
   });
+  it("--run <file>: the written page opens with the run's provenance comment", () => {
+    const runPath = path.join(dir, "run.json");
+    fs.writeFileSync(
+      runPath,
+      JSON.stringify({
+        skill: "generate-flow --direct",
+        feature: "Describe items",
+        prompt: "describe items",
+        date: "2026-09-19",
+        duration: "1m",
+        model: "claude-sonnet-5",
+        pluginVersion: "2026.9.54",
+      }),
+    );
+    const withRun = path.join(dir, "flow-run.html");
+    const withRunResult = cp.spawnSync(
+      process.execPath,
+      [
+        path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+        out,
+        "--author",
+        path.join(FIX, "author"),
+        "-o",
+        withRun,
+        "--run",
+        runPath,
+      ],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(withRunResult.status, 0, withRunResult.stderr);
+    assert.ok(fs.readFileSync(withRun, "utf8").startsWith("<!--\n"));
+  });
+  it("--run <file> missing or unparsable: one sentence on stderr, exit 1", () => {
+    const badRun = cp.spawnSync(
+      process.execPath,
+      [
+        path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+        out,
+        "--author",
+        path.join(FIX, "author"),
+        "-o",
+        path.join(dir, "never.html"),
+        "--run",
+        path.join(dir, "does-not-exist.json"),
+      ],
+      { encoding: "utf8" },
+    );
+    assert.strictEqual(badRun.status, 1);
+    assert.match(badRun.stderr, /assemble-direct: --run/);
+  });
 });
 
 describe("assemble-direct: a modal on a scrim, and an author's own script", () => {
@@ -528,5 +578,51 @@ describe("assemble-direct: F7 regression - a layer aside written inside the fram
       !html.includes("data-app-frame>"),
       "the placeholder text leaked into the page",
     );
+  });
+});
+
+describe("assemble-direct: the page carries its provenance", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const brief = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const BODY_OK = "<div data-app-frame><p>2 results</p></div>";
+  const page = (body, appJs, run) =>
+    assemble({
+      brief,
+      body,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+      run,
+    });
+
+  it("the page opens with its provenance, and a comment cannot be closed from inside", () => {
+    const html = page(BODY_OK, "", {
+      skill: "generate-flow --direct",
+      feature: "Describe items",
+      prompt: "describe --> <script>x</script>",
+      date: "2026-09-19",
+      duration: "6m 10s",
+      model: "claude-sonnet-5",
+      pluginVersion: "2026.9.54",
+    });
+    assert.ok(html.startsWith("<!--\n"));
+    const end = html.indexOf("-->");
+    assert.ok(html.slice(0, end).includes("prompt:"));
+    assert.ok(html.slice(0, end).includes("2026.9.54"));
+    assert.strictEqual(
+      html.slice(end + 3).trimStart().indexOf("<!doctype html>"),
+      0,
+    );
+    assert.ok(
+      !html.slice(0, end).includes("<script>"),
+      "the prompt reached the comment unmasked",
+    );
+  });
+  it("no run file: no comment, the page starts at the doctype", () => {
+    assert.ok(page(BODY_OK).startsWith("<!doctype html>"));
   });
 });

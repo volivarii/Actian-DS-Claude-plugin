@@ -47,6 +47,10 @@ var LAYERS = {
   toast: { width: null, dock: "as the global-toast usage note says" },
 };
 
+// The component each kind of layer is drawn with. A panel is a drawer at the
+// panel's width.
+var LAYER_COMPONENT = { drawer: "drawer", panel: "drawer", modal: "modal", toast: "toast" };
+
 function abs(p) {
   return p ? path.resolve(p) : null;
 }
@@ -105,6 +109,8 @@ function directBrief(brief, opts) {
     });
     if (s.pageRecipe && s.pageRecipe.skeleton)
       slugsIn(s.pageRecipe.skeleton.content || s.pageRecipe.skeleton, found);
+    if (s.layer && LAYER_COMPONENT[s.layer.kind])
+      found[LAYER_COMPONENT[s.layer.kind]] = true;
     var f = (brief.flow || [])[i] || {};
     return {
       n: i + 1,
@@ -134,6 +140,14 @@ function directBrief(brief, opts) {
         ? c
         : { slug: c.slug, fragment: c.fragment, usageNotes: null };
     });
+  // A copy, never the exported LAYERS itself: other code may hold that
+  // reference, and a toast's usage note is only known here, per call.
+  var globalToastNotes = PATHS.components.render.usageNotes("global-toast");
+  var layers = Object.assign({}, LAYERS, {
+    toast: Object.assign({}, LAYERS.toast, {
+      usageNotes: deps.exists(globalToastNotes) ? abs(globalToastNotes) : null,
+    }),
+  });
   return {
     app: {
       slug: chrome.app || (brief.app && brief.app.slug) || null,
@@ -157,7 +171,7 @@ function directBrief(brief, opts) {
         product: abs(PATHS.content.productMd),
       },
     },
-    layers: LAYERS,
+    layers: layers,
   };
 }
 
@@ -176,4 +190,5 @@ module.exports = {
   directBrief: directBrief,
   toDirect: toDirect,
   LAYERS: LAYERS,
+  LAYER_COMPONENT: LAYER_COMPONENT,
 };

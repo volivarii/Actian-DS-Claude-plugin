@@ -7,6 +7,7 @@ const path = require("path");
 const {
   directBrief,
   toDirect,
+  LAYERS,
 } = require("../../scripts/lib/app-context/direct-brief.js");
 
 const skeleton = {
@@ -73,6 +74,14 @@ const deps = {
   exists: () => true,
 };
 
+// A minimal brief with one plain screen plus one screen per layer kind, so
+// a test can ask what components a declared layer brings in.
+const briefWithLayers = (kinds) => ({
+  screens: [{ name: "Plain" }].concat(
+    kinds.map((k) => ({ name: k, layer: { kind: k } })),
+  ),
+});
+
 describe("direct brief", () => {
   it("names the frame, the active item and every step", () => {
     const d = directBrief(brief(), { nav: "catalog", deps });
@@ -111,7 +120,7 @@ describe("direct brief", () => {
   it("lists the capture's components with the screen's, each with files that exist", () => {
     const d = directBrief(brief(), { nav: "catalog" }); // real fs for this one
     const slugs = d.components.map((c) => c.slug);
-    assert.deepStrictEqual(slugs, ["button", "checkbox", "search-result-card"]);
+    assert.deepStrictEqual(slugs, ["button", "checkbox", "drawer", "search-result-card"]);
     d.components.forEach((c) =>
       assert.ok(fs.existsSync(c.fragment), c.fragment),
     );
@@ -152,6 +161,28 @@ describe("direct brief", () => {
       assert.strictEqual(s.propertyRules, undefined);
       assert.ok(!s.pageRecipe || s.pageRecipe.skeleton === undefined);
     });
+  });
+});
+
+describe("direct brief: a layer brings its component", () => {
+  it("a declared layer brings the component it is drawn with", () => {
+    const d = directBrief(briefWithLayers(["panel", "toast", "modal", "drawer"]), { deps });
+    const slugs = d.components.map((c) => c.slug);
+    ["drawer", "modal", "toast"].forEach((s) => assert.ok(slugs.includes(s), s + " missing"));
+    assert.strictEqual(slugs.filter((s) => s === "drawer").length, 1, "panel and drawer share one entry");
+  });
+  it("the toast layer names the global-toast usage note", () => {
+    const d = directBrief(briefWithLayers(["toast"]), { deps });
+    assert.ok(/usage-notes\/global-toast\.md$/.test(d.layers.toast.usageNotes));
+  });
+  it("a flow with no layer lists no layer component it did not ask for", () => {
+    const d = directBrief(briefWithLayers([]), { deps });
+    assert.ok(!d.components.some((c) => c.slug === "toast"));
+  });
+  it("does not mutate the exported LAYERS constant across calls", () => {
+    directBrief(briefWithLayers(["toast"]), { deps });
+    directBrief(briefWithLayers(["toast"]), { deps });
+    assert.ok(!("usageNotes" in LAYERS.toast));
   });
 });
 
