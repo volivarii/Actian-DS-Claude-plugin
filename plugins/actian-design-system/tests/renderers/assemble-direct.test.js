@@ -81,6 +81,12 @@ describe("assemble-direct", () => {
     assert.ok(/\.ds-sidenav\b/.test(html), "no ds-base.css");
     assert.ok(/--zen-spacing-lg\s*:/.test(html), "no tokens.css");
   });
+  it("forces [hidden] to beat a design system class that sets its own display, anywhere on the stage", () => {
+    assert.ok(
+      html.includes(".proto-stage [hidden]{display:none!important}"),
+      "the general hidden-forcing rule is missing from the shell CSS",
+    );
+  });
   it("inlines icons and leaves no data-icon behind", () => {
     assert.ok(!/data-icon=/.test(html));
     assert.ok(/<svg[^>]*class="proto-icon"/.test(html));

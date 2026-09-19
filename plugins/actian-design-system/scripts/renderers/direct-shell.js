@@ -19,11 +19,17 @@ var CSS = [
   // strip it IS a card: rounded, shadowed, one of several. A prototype is the
   // app, so the same markup fills the window instead. Inline width/height are
   // what the renderer writes on the element, so this override has to be
-  // important; nothing else in this stylesheet is.
+  // important; one other rule in this stylesheet is too, above.
   ".proto-stage>.screen{width:100%!important;height:100%!important;border-radius:0;box-shadow:none}",
   ".proto-icon{width:1em;height:1em;vertical-align:-.125em;fill:currentColor}",
   ".proto-layer{position:absolute;z-index:20;background:var(--zen-color-bg-default,#fff);box-shadow:0 0 24px rgba(0,0,0,.18);overflow:auto}",
   ".proto-layer[hidden]{display:none}",
+  // A design system class such as .ds-drawer__section sets its own
+  // display and loads after the browser's own [hidden] rule, so the
+  // attribute alone does not hide an element carrying one: important
+  // forces it under any class the design system draws with, anywhere
+  // on the stage where an author's markup lives.
+  ".proto-stage [hidden]{display:none!important}",
   ".proto-layer--drawer{top:var(--proto-app-header);right:0;bottom:0;width:550px;max-width:100%}",
   ".proto-layer--panel{top:var(--proto-app-header);right:0;bottom:0;width:420px;max-width:100%}",
   ".proto-layer--modal{top:50%;left:50%;transform:translate(-50%,-50%);max-width:90%;max-height:90%}",
