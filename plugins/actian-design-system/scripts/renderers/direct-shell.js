@@ -55,6 +55,17 @@ var RUNTIME = [
   "if(typeof s.arrive==='function')s.arrive();",
   "document.querySelectorAll('[data-proto-step]').forEach(function(b){",
   "if(String(n)===b.getAttribute('data-proto-step'))b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});",
+  // The rail is drawn once, active on the app's default nav; a step whose
+  // PROTO_NAV entry names a different rail item moves it there by label
+  // (the only thing distinguishing the active item is is-active on
+  // .ds-sidenav__item, its label sitting in .ds-sidenav__label). A null
+  // entry (no nav declared for this step, or an id the rail does not carry)
+  // leaves the rail exactly as drawn.
+  "var nl=(window.PROTO_NAV||[])[n-1];if(typeof nl==='string'){",
+  "document.querySelectorAll('.ds-sidenav__item').forEach(function(it){",
+  "it.classList.remove('is-active');",
+  "var lb=it.querySelector('.ds-sidenav__label');",
+  "if(lb&&lb.textContent.trim()===nl)it.classList.add('is-active');});}",
   "var h=document.querySelector('.proto-hint');if(h)h.textContent=(window.PROTO_HINTS||[])[n-1]||'';}};",
 ].join("");
 
@@ -90,7 +101,9 @@ function strip(steps, adds) {
     .join("");
   var list = (adds || [])
     .map(function (a) {
-      return "<li><strong>" + esc(a.name) + "</strong>: " + esc(a.why) + "</li>";
+      return (
+        "<li><strong>" + esc(a.name) + "</strong>: " + esc(a.why) + "</li>"
+      );
     })
     .join("");
   return (

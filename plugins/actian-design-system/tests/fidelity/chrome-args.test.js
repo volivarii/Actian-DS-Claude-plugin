@@ -25,3 +25,36 @@ describe("chrome arg builders carry the Linux-determinism flags", function () {
     assert.ok(a.indexOf("--window-size=360,900") !== -1);
   });
 });
+
+// F6: a wedged headless Chrome ignores SIGTERM for a while; execFileSync's
+// timeout sends SIGTERM and then WAITS for the child to exit, so a screenshot
+// bounded at 60s can still take much longer in the wedged case. killSignal
+// SIGKILL only matters once a timeout is set at all, so callers that pass no
+// timeout must see no killSignal either: execOpts stays exactly {stdio:"pipe"}.
+describe("screenshot sets killSignal SIGKILL only when a timeout is set", function () {
+  it("no timeoutMs: execOpts is exactly {stdio:\"pipe\"}, no timeout, no killSignal", function () {
+    var seen = null;
+    H.screenshot({
+      chrome: "/chrome",
+      outPng: "/tmp/x.png",
+      htmlPath: "/tmp/x.html",
+      width: 100,
+      height: 50,
+      exec: function (bin, args, execOpts) { seen = execOpts; },
+    });
+    assert.deepStrictEqual(seen, { stdio: "pipe" });
+  });
+  it("a timeoutMs sets both timeout and killSignal SIGKILL", function () {
+    var seen = null;
+    H.screenshot({
+      chrome: "/chrome",
+      outPng: "/tmp/x.png",
+      htmlPath: "/tmp/x.html",
+      width: 100,
+      height: 50,
+      timeoutMs: 60000,
+      exec: function (bin, args, execOpts) { seen = execOpts; },
+    });
+    assert.deepStrictEqual(seen, { stdio: "pipe", timeout: 60000, killSignal: "SIGKILL" });
+  });
+});

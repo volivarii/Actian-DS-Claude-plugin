@@ -34,7 +34,8 @@ function literalProtoClasses(src) {
   let m;
   while ((m = re.exec(src))) {
     m[1].split(/\s+/).forEach(function (tok) {
-      if (/^proto-[a-z0-9-]+$/.test(tok) && out.indexOf(tok) === -1) out.push(tok);
+      if (/^proto-[a-z0-9-]+$/.test(tok) && out.indexOf(tok) === -1)
+        out.push(tok);
     });
   }
   return out;
@@ -44,30 +45,49 @@ function literalProtoClasses(src) {
 // proto-layer--panel, proto-layer--modal or proto-layer--toast as literals:
 // it appends the kind captured by its own
 // data-layer="(drawer|panel|modal|toast)" regex to a "proto-layer--" stem.
-// Read both halves from the source instead of hand-listing the four names.
-function layerVariantClasses(src) {
+// Since F2, that stem (and the plain "proto-layer" base class beside it)
+// lives in its own string literal built ahead of the returned markup, not
+// inside a literal `class="..."` attribute, so literalProtoClasses above
+// cannot see either one: find the whole literal that is immediately joined
+// to the bare identifier `kind` (either quote style, via a backreference),
+// read every whitespace-separated token out of it, and treat the LAST one as
+// the stem each kind is appended to; any other clean token in that same
+// literal (here, "proto-layer") is a static class emitted as-is.
+function dockLayerClasses(src) {
   const kindsMatch = src.match(/data-layer="\(([a-z|]+)\)"/);
   assert.ok(
     kindsMatch,
     "expected assemble-direct.js dockLayers to declare its data-layer kinds",
   );
   const kinds = kindsMatch[1].split("|");
-  const prefixMatch = src.match(/class="proto-layer\s+([a-z-]+)'\s*\+\s*kind\b/);
+  const literalMatch = src.match(/(["'])((?:(?!\1).)*)\1\s*\+\s*kind\b/);
   assert.ok(
-    prefixMatch,
+    literalMatch,
     "expected assemble-direct.js dockLayers to build a proto-layer--<kind> class from kind",
   );
-  const prefix = prefixMatch[1];
-  return kinds.map(function (k) {
-    return prefix + k;
+  const tokens = literalMatch[2].trim().split(/\s+/);
+  const stem = tokens[tokens.length - 1];
+  assert.ok(
+    /^proto-[a-z0-9-]+$/.test(stem),
+    "expected the stem joined to kind to be a clean proto-* token, got: " +
+      stem,
+  );
+  const staticClasses = tokens.slice(0, -1).filter(function (t) {
+    return /^proto-[a-z0-9-]+$/.test(t);
   });
+  const variants = kinds.map(function (k) {
+    return stem + k;
+  });
+  return staticClasses.concat(variants);
 }
 
 // The full set of proto-* classes both files emit in markup, derived from the
 // source rather than hand-listed.
 function emittedProtoClasses() {
-  const out = literalProtoClasses(shellSrc).concat(literalProtoClasses(assembleSrc));
-  layerVariantClasses(assembleSrc).forEach(function (c) {
+  const out = literalProtoClasses(shellSrc).concat(
+    literalProtoClasses(assembleSrc),
+  );
+  dockLayerClasses(assembleSrc).forEach(function (c) {
     if (out.indexOf(c) === -1) out.push(c);
   });
   return out;
@@ -97,16 +117,34 @@ function missingRules(css, classes) {
 describe("direct-shell CSS covers every emitted proto-* class", function () {
   it("every proto-* class direct-shell.js and assemble-direct.js emit in markup has a CSS rule", function () {
     const classes = emittedProtoClasses();
+    // The real count after F2 (dockLayers keeps data-layer + the author's own
+    // class) and F4 (PROTO_NAV moves the rail): 11, unchanged by either since
+    // neither adds a new proto-* class. F9: this floor must never drop again.
     assert.ok(
-      classes.length >= 8,
-      "expected several proto-* classes from direct-shell.js and assemble-direct.js, found: " +
+      classes.length >= 11,
+      "expected at least 11 proto-* classes from direct-shell.js and assemble-direct.js, found: " +
         classes.join(", "),
     );
+    [
+      "proto-layer--drawer",
+      "proto-layer--panel",
+      "proto-layer--modal",
+      "proto-layer--toast",
+    ].forEach(function (variant) {
+      assert.ok(
+        classes.indexOf(variant) !== -1,
+        "expected " +
+          variant +
+          " among the derived classes, found: " +
+          classes.join(", "),
+      );
+    });
     const missing = missingRules(shell.CSS, classes);
     assert.deepStrictEqual(
       missing,
       [],
-      "proto-* classes with no rule in direct-shell.js CSS: " + missing.join(", "),
+      "proto-* classes with no rule in direct-shell.js CSS: " +
+        missing.join(", "),
     );
   });
 
@@ -123,12 +161,16 @@ describe("direct-shell CSS covers every emitted proto-* class", function () {
     assert.strictEqual(
       missingRules(brokenCss, [target]).length,
       1,
-      "test setup: " + target + " should have no rule left in the broken CSS copy",
+      "test setup: " +
+        target +
+        " should have no rule left in the broken CSS copy",
     );
     const missing = missingRules(brokenCss, classes);
     assert.ok(
       missing.indexOf(target) !== -1,
-      "the checker did not report " + target + " as missing once its rule was removed",
+      "the checker did not report " +
+        target +
+        " as missing once its rule was removed",
     );
   });
 });

@@ -6,6 +6,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const cp = require("node:child_process");
+const vm = require("node:vm");
 const ROOT = path.resolve(__dirname, "../..");
 const FIX = path.join(ROOT, "tests/fixtures/direct");
 
@@ -49,7 +50,10 @@ describe("assemble-direct", () => {
 
   it("exits 0 and writes one self-contained page", () => {
     assert.strictEqual(r.status, 0, r.stderr);
-    assert.ok(!/(src|href)="https?:/.test(html), "an external URL reached the page");
+    assert.ok(
+      !/(src|href)="https?:/.test(html),
+      "an external URL reached the page",
+    );
     assert.ok(!/<link /.test(html));
   });
   it("draws the app frame itself, with the declared rail item active", () => {
@@ -150,7 +154,10 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
     assert.strictEqual((html.match(/class="proto-scrim"/g) || []).length, 1);
     // It covers the stage (so the app, never the strip) and sits under the
     // modal: the modal's z-index is 20, the scrim's is below it.
-    assert.match(html, /\.proto-scrim\{[^}]*position:absolute[^}]*inset:0[^}]*\}/);
+    assert.match(
+      html,
+      /\.proto-scrim\{[^}]*position:absolute[^}]*inset:0[^}]*\}/,
+    );
     assert.match(html, /\.proto-scrim\{[^}]*z-index:19[^}]*\}/);
     // And it follows the modal's own hidden attribute, which is the only
     // thing the author toggles.
@@ -190,5 +197,310 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
     const html = page(FRAME, "", b);
     assert.ok(!html.includes("Describe</script>"));
     assert.strictEqual((html.match(/<\/script>/g) || []).length, 3);
+  });
+});
+
+describe("assemble-direct: dockLayers keeps the author's own class and data-layer", () => {
+  const { dockLayers } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const oneClassAttr = (html) => (html.match(/class="/g) || []).length;
+
+  it("class attribute before data-layer: both proto classes and the author's class survive, one class attribute", () => {
+    const html = dockLayers(
+      '<aside class="ds-drawer" data-layer="drawer">x</aside>',
+    );
+    assert.strictEqual(oneClassAttr(html), 1);
+    assert.ok(
+      html.includes('class="proto-layer proto-layer--drawer ds-drawer"'),
+    );
+    assert.ok(html.includes('data-layer="drawer"'), "data-layer was dropped");
+  });
+  it("class attribute after data-layer: both proto classes and the author's class survive, one class attribute", () => {
+    const html = dockLayers(
+      '<aside data-layer="panel" class="ds-panel" id="p">x</aside>',
+    );
+    assert.strictEqual(oneClassAttr(html), 1);
+    assert.ok(html.includes('class="proto-layer proto-layer--panel ds-panel"'));
+    assert.ok(html.includes('data-layer="panel"'), "data-layer was dropped");
+    assert.ok(html.includes('id="p"'));
+  });
+  it("single-quoted class attribute is read the same as double-quoted", () => {
+    const html = dockLayers(
+      "<aside data-layer=\"modal\" class='ds-modal'>x</aside>",
+    );
+    assert.strictEqual(oneClassAttr(html), 1);
+    assert.ok(html.includes('class="proto-layer proto-layer--modal ds-modal"'));
+    assert.ok(html.includes('data-layer="modal"'));
+  });
+  it("no class attribute: the proto classes are added as today, and data-layer survives", () => {
+    const html = dockLayers(
+      '<aside data-layer="toast" id="t" hidden>x</aside>',
+    );
+    assert.strictEqual(oneClassAttr(html), 1);
+    assert.ok(html.includes('class="proto-layer proto-layer--toast"'));
+    assert.ok(html.includes('data-layer="toast"'), "data-layer was dropped");
+    assert.ok(html.includes('id="t"'));
+    assert.ok(html.includes("hidden"));
+  });
+});
+
+describe("assemble-direct: frameEnd finds the frame's matching close by depth", () => {
+  const { frameEnd } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+
+  it("nested divs inside the frame do not end it early", () => {
+    const body =
+      '<div data-app-frame><div class="a"><div class="b">x</div></div>SOMETHING</div>trailing';
+    const start = body.indexOf(">") + 1;
+    const end = frameEnd(body, start);
+    assert.strictEqual(
+      body.slice(start, end),
+      '<div class="a"><div class="b">x</div></div>SOMETHING',
+    );
+    assert.strictEqual(body.slice(end, end + 6), "</div>");
+  });
+
+  it("throws when the frame is never closed", () => {
+    const body = "<div data-app-frame><p>unclosed";
+    const start = body.indexOf(">") + 1;
+    assert.throws(
+      () => frameEnd(body, start),
+      /assemble-direct: <div data-app-frame> is never closed/,
+    );
+  });
+});
+
+describe("assemble-direct: the frame end is found by depth, not by guessing near the first aside", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const brief = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const page = (body, appJs) =>
+    assemble({
+      brief,
+      body,
+      appJs: appJs || "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+    });
+
+  it("content using an aside inside the frame (a filter rail) is not cut off", () => {
+    const body =
+      '<div data-app-frame><aside class="filters">Filter rail</aside><p>Results here</p></div>' +
+      '<aside data-layer="panel" hidden>Queue</aside>';
+    const html = page(body);
+    assert.ok(html.includes("Filter rail"), "the filter rail was lost");
+    assert.ok(
+      html.includes("Results here"),
+      "content after the aside was cut off",
+    );
+    // Both proto-layer and proto-layer--panel also name a CSS rule up in
+    // <head>, so comparing against the bare substring would always be true;
+    // the docked layer's own class ATTRIBUTE only appears once, in <body>.
+    assert.ok(
+      html.indexOf("Filter rail") <
+        html.indexOf('class="proto-layer proto-layer--panel"'),
+      "the filter rail did not land inside the frame, ahead of the docked layer",
+    );
+    assert.ok(
+      !html.includes("data-app-frame>"),
+      "the placeholder text leaked into the page",
+    );
+  });
+
+  it("a layer written after the frame stays outside it", () => {
+    const body =
+      "<div data-app-frame><p>Results</p></div>" +
+      '<aside data-layer="drawer" hidden>Detail</aside>';
+    const html = page(body);
+    assert.ok(
+      html.indexOf("Results") <
+        html.indexOf('class="proto-layer proto-layer--drawer"'),
+    );
+  });
+});
+
+describe("assemble-direct: PROTO_NAV moves the active rail item as a flow crosses rail sections", () => {
+  const { assemble, renderFrame } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const shell = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+  const briefBase = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const BODY = "<div data-app-frame><p>x</p></div>";
+
+  it("renderFrame draws the active rail label inside .ds-sidenav__label, which is what the runtime matches on", () => {
+    // Pinned to a REAL render of the fixture's own rail (direct.app.rail),
+    // not a string this test typed, so a renderer change breaks this test
+    // rather than a user's rail.
+    const frame = renderFrame(briefBase);
+    const html = frame.before + frame.after;
+    const activeLabel = briefBase.direct.app.rail.filter(
+      (r) => r.id === briefBase.direct.app.activeNav,
+    )[0].label;
+    const re = new RegExp(
+      'class="ds-sidenav__item is-active">[\\s\\S]{0,200}?ds-sidenav__label">' +
+        activeLabel +
+        "<",
+    );
+    assert.ok(
+      re.test(html),
+      ".ds-sidenav__label does not carry the active rail item's label text",
+    );
+  });
+
+  it("PROTO_NAV carries the rail label per step, and null when the step names no nav or an unknown one", () => {
+    const b = JSON.parse(JSON.stringify(briefBase));
+    b.direct.steps[0].nav = "catalog";
+    b.direct.steps[1].nav = "catalog";
+    b.direct.steps[2].nav = "topics";
+    b.direct.steps[3].nav = "not-a-real-rail-id";
+    const html = assemble({
+      brief: b,
+      body: BODY,
+      appJs: "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+    });
+    const m = html.match(/window\.PROTO_NAV=(\[[^\]]*\]);/);
+    assert.ok(m, "PROTO_NAV was not embedded");
+    assert.deepStrictEqual(JSON.parse(m[1]), [
+      "Catalog",
+      "Catalog",
+      "Topics",
+      null,
+    ]);
+  });
+
+  it("PROTO_NAV is null for a step that names no nav at all", () => {
+    const b = JSON.parse(JSON.stringify(briefBase));
+    b.direct.steps.forEach((s) => {
+      delete s.nav;
+    });
+    const html = assemble({
+      brief: b,
+      body: BODY,
+      appJs: "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+    });
+    const m = html.match(/window\.PROTO_NAV=(\[[^\]]*\]);/);
+    assert.deepStrictEqual(JSON.parse(m[1]), [null, null, null, null]);
+  });
+
+  // A minimal fake DOM: sidenav items with a real classList (add/remove/
+  // contains) and a queryable .ds-sidenav__label child, so the RUNTIME string
+  // runs unmodified in node:vm exactly as it will run in a browser.
+  function fakeSidenavItem(label, active) {
+    const classes = active
+      ? ["ds-sidenav__item", "is-active"]
+      : ["ds-sidenav__item"];
+    return {
+      classList: {
+        add: (c) => {
+          if (classes.indexOf(c) === -1) classes.push(c);
+        },
+        remove: (c) => {
+          const i = classes.indexOf(c);
+          if (i !== -1) classes.splice(i, 1);
+        },
+        contains: (c) => classes.indexOf(c) !== -1,
+      },
+      querySelector: (sel) =>
+        sel === ".ds-sidenav__label" ? { textContent: label } : null,
+    };
+  }
+
+  function runRuntime(navSequence) {
+    const items = [
+      fakeSidenavItem("Catalog", true),
+      fakeSidenavItem("Topics", false),
+    ];
+    const fakeDocument = {
+      querySelectorAll: (sel) => {
+        if (sel === "[data-proto-step]") return [];
+        if (sel === ".ds-sidenav__item") return items;
+        return [];
+      },
+      querySelector: () => null,
+    };
+    const sandbox = { document: fakeDocument, PROTO_NAV: navSequence };
+    sandbox.window = sandbox;
+    vm.createContext(sandbox);
+    vm.runInContext(shell.RUNTIME, sandbox);
+    sandbox.proto.steps = navSequence.map(() => ({}));
+    return { proto: sandbox.proto, items };
+  }
+
+  it("go(n) moves is-active to the rail item whose label matches PROTO_NAV[n-1]", () => {
+    const { proto, items } = runRuntime(["Topics", null]);
+    proto.go(1);
+    assert.ok(
+      !items[0].classList.contains("is-active"),
+      "Catalog should no longer be active",
+    );
+    assert.ok(
+      items[1].classList.contains("is-active"),
+      "Topics should now be active",
+    );
+  });
+
+  it("go(n) leaves the rail alone when PROTO_NAV[n-1] is null", () => {
+    const { proto, items } = runRuntime(["Topics", null]);
+    proto.go(1);
+    proto.go(2);
+    assert.ok(
+      !items[0].classList.contains("is-active"),
+      "a null nav entry must not touch the rail",
+    );
+    assert.ok(
+      items[1].classList.contains("is-active"),
+      "a null nav entry must not touch the rail",
+    );
+  });
+});
+
+describe("assemble-direct: F7 regression - a layer aside written inside the frame", () => {
+  const { assemble } = require(
+    path.join(ROOT, "scripts/renderers/assemble-direct.js"),
+  );
+  const brief = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+  const page = (body) =>
+    assemble({
+      brief,
+      body,
+      appJs: "",
+      extraCss: "",
+      meta: {},
+      icons: {},
+      css: "",
+    });
+
+  // Before F3, a nearest-</div>-before-the-first-<aside search on this exact
+  // shape found no </div> ahead of the aside at all (the frame had just
+  // opened), so lastIndexOf returned -1: the content duplicated and the
+  // literal text "data-app-frame>" leaked into the page (reproduced through
+  // the CLI in the final whole-branch review). F3's depth scan ends it: this
+  // pins the fix at the assemble level, on the exact shape that broke.
+  it("does not duplicate content or leak the placeholder text", () => {
+    const body =
+      '<div data-app-frame><aside data-layer="panel" hidden><p>Item 1 of 2</p></aside><p>2 results</p></div>';
+    const html = page(body);
+    assert.strictEqual(
+      (html.match(/2 results/g) || []).length,
+      1,
+      "content was duplicated",
+    );
+    assert.ok(
+      !html.includes("data-app-frame>"),
+      "the placeholder text leaked into the page",
+    );
   });
 });

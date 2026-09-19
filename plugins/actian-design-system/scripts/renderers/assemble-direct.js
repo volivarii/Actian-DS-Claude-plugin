@@ -41,10 +41,17 @@ function renderFrame(brief) {
       return flowRenderer.renderScreen(screen);
     },
   );
-  var m = html.match(new RegExp("<([a-z0-9]+)[^>]*>\\s*" + MARK + "\\s*</\\1>"));
+  var m = html.match(
+    new RegExp("<([a-z0-9]+)[^>]*>\\s*" + MARK + "\\s*</\\1>"),
+  );
   if (!m)
-    throw new Error("assemble-direct: the frame did not render the content marker");
-  return { before: html.slice(0, m.index), after: html.slice(m.index + m[0].length) };
+    throw new Error(
+      "assemble-direct: the frame did not render the content marker",
+    );
+  return {
+    before: html.slice(0, m.index),
+    after: html.slice(m.index + m[0].length),
+  };
 }
 
 function inlineIcons(html, icons) {
@@ -64,11 +71,45 @@ function inlineIcons(html, icons) {
   );
 }
 
+// Reads a class attribute (either quote style) out of an attribute string and
+// returns { value, rest }: rest is the string with that one attribute cut out,
+// so the author's own class survives instead of becoming a second, ignored
+// class="" duplicate.
+var LAYER_CLASS_ATTR = /\s*class\s*=\s*(?:"([^"]*)"|'([^']*)')/;
+function takeClassAttr(s) {
+  var m = s.match(LAYER_CLASS_ATTR);
+  if (!m) return { value: null, rest: s };
+  return {
+    value: m[1] !== undefined ? m[1] : m[2],
+    rest: s.slice(0, m.index) + s.slice(m.index + m[0].length),
+  };
+}
+
 function dockLayers(html) {
   return html.replace(
     /<aside([^>]*?)\sdata-layer="(drawer|panel|modal|toast)"([^>]*)>/g,
     function (all, a, kind, b) {
-      return '<aside class="proto-layer proto-layer--' + kind + '"' + a + b + ">";
+      var proto = "proto-layer proto-layer--" + kind;
+      var fromA = takeClassAttr(a);
+      var author = fromA.value;
+      a = fromA.rest;
+      if (author === null) {
+        var fromB = takeClassAttr(b);
+        author = fromB.value;
+        b = fromB.rest;
+      }
+      var cls = author ? proto + " " + author : proto;
+      return (
+        '<aside class="' +
+        cls +
+        '"' +
+        a +
+        ' data-layer="' +
+        kind +
+        '"' +
+        b +
+        ">"
+      );
     },
   );
 }
@@ -90,6 +131,29 @@ function escapeScriptSource(src) {
   return String(src == null ? "" : src).replace(/<\/(script)/gi, "<\\/$1");
 }
 
+// Finds the index of the "</div" that closes the <div data-app-frame> whose
+// open tag ends at `start`, by depth rather than by guessing at the first
+// <aside in the body: a page whose content uses an <aside> of its own (a
+// filter rail, say) sits INSIDE the frame, ahead of its real close, and a
+// nearest-</div>-before-the-first-<aside search cuts the page in two right
+// there. Every <div and every </div between `start` and the match counts;
+// nothing else does, so an <aside> (matched or not) never perturbs the count.
+function frameEnd(body, start) {
+  var depth = 1;
+  var re = /<(\/?)div\b/gi;
+  re.lastIndex = start;
+  var m;
+  while ((m = re.exec(body))) {
+    if (m[1]) {
+      depth--;
+      if (depth === 0) return m.index;
+    } else {
+      depth++;
+    }
+  }
+  throw new Error("assemble-direct: <div data-app-frame> is never closed");
+}
+
 function assemble(o) {
   var frame = renderFrame(o.brief);
   var body = dockLayers(inlineIcons(o.body, o.icons));
@@ -98,10 +162,7 @@ function assemble(o) {
     throw new Error("assemble-direct: body.html has no <div data-app-frame>");
   // The frame wraps what sits inside data-app-frame; layers stay outside it.
   var start = open.index + open[0].length;
-  var end = body.lastIndexOf(
-    "</div>",
-    body.indexOf("<aside") === -1 ? body.length : body.indexOf("<aside"),
-  );
+  var end = frameEnd(body, start);
   var inside = body.slice(start, end);
   var rest = body.slice(0, open.index) + body.slice(end + "</div>".length);
   // dockLayers has already classed every layer, so this asks the docked body
@@ -110,6 +171,18 @@ function assemble(o) {
   var steps = o.brief.direct.steps;
   var hints = steps.map(function (s) {
     return s.exit ? "Next: " + s.exit.via : "";
+  });
+  // The rail is drawn once, active on direct.app.activeNav; a step whose own
+  // `nav` names a different rail item needs the runtime to move it there, so
+  // each step gets the rail LABEL to move to (direct.app.rail is {id,label}),
+  // or null when the step names no nav or names one the rail does not carry.
+  var rail = o.brief.direct.app.rail || [];
+  var navLabels = steps.map(function (s) {
+    if (!s.nav) return null;
+    var item = rail.filter(function (r) {
+      return r.id === s.nav;
+    })[0];
+    return item ? item.label : null;
   });
   return (
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
@@ -134,7 +207,9 @@ function assemble(o) {
     rest +
     scrim +
     "</div>" +
-    "<script>window.PROTO_HINTS=" +
+    "<script>window.PROTO_NAV=" +
+    assembleShared.escapeJsonForScript(JSON.stringify(navLabels)) +
+    ";window.PROTO_HINTS=" +
     assembleShared.escapeJsonForScript(JSON.stringify(hints)) +
     ";" +
     shell.RUNTIME +
@@ -197,8 +272,11 @@ function main(argv) {
     var iconDoc = JSON.parse(fs.readFileSync(as.icons, "utf8"));
     if (!iconDoc.icons || typeof iconDoc.icons !== "object")
       throw new Error(
-        "assemble-direct: " + as.icons + " has no '.icons' map (found: " +
-          Object.keys(iconDoc).join(", ") + ")",
+        "assemble-direct: " +
+          as.icons +
+          " has no '.icons' map (found: " +
+          Object.keys(iconDoc).join(", ") +
+          ")",
       );
     var meta = read("meta.json", true);
     fs.writeFileSync(
@@ -227,6 +305,7 @@ module.exports = {
   renderFrame: renderFrame,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
+  frameEnd: frameEnd,
   main: main,
 };
 if (require.main === module) process.exitCode = main(process.argv.slice(2));

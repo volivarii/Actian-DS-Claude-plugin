@@ -10,10 +10,15 @@
 // context with a permissive browser-global stub and a 1-second timeout, and
 // checkDirect reads whatever the script actually left on proto.steps.
 // checkDirect itself stays synchronous and pure apart from that evaluation.
-// Twelve checks: eleven read what the four files declare or omit; the
+// Fourteen checks: eleven read what the four files declare or omit; the
 // twelfth (unsafe-embed) reads for the two escape sequences assemble-direct.js
 // deliberately does not rewrite when it embeds extra.css in a <style> element
-// and app.js in a <script> element (it escapes </script, nothing else).
+// and app.js in a <script> element (it escapes </script, nothing else); the
+// thirteenth (steps-unread) is the warning app.js's evaluation prints when it
+// cannot be run at all, in place of the step-mismatch it cannot then compute;
+// the fourteenth (layer-misplaced) reads assemble-direct.js's own frameEnd to
+// know where <div data-app-frame> closes, since a layer the assembler cannot
+// dock this way says nothing today.
 //
 // Terminology is not checked here on purpose: knowledge #720 shows
 // terminology.yml contradicts the running product on "item", so wiring a
@@ -23,15 +28,20 @@
 var fs = require("fs");
 var path = require("path");
 var vm = require("vm");
+var frameEnd = require("../renderers/assemble-direct.js").frameEnd;
+var shellCss = require("../renderers/direct-shell.js").CSS;
 
 function finding(sev, check, p, value) {
   return { severity: sev, check: check, path: p, value: value };
 }
 function uniq(a) {
-  return a.filter(function (x, i) { return a.indexOf(x) === i; });
+  return a.filter(function (x, i) {
+    return a.indexOf(x) === i;
+  });
 }
 function all(re, s) {
-  var out = [], m;
+  var out = [],
+    m;
   while ((m = re.exec(s))) out.push(m[1]);
   return out;
 }
@@ -51,7 +61,8 @@ function maskCssComments(s) {
 // capture slot: whichever quote matched is the one with a defined group.
 function allAttr(name, s) {
   var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)')", "g");
-  var out = [], m;
+  var out = [],
+    m;
   while ((m = re.exec(s))) out.push(m[1] !== undefined ? m[1] : m[2]);
   return out;
 }
@@ -68,15 +79,28 @@ function browserStub() {
   var stub;
   var handler = {
     get: function (target, prop) {
-      if (prop === Symbol.toPrimitive) return function () { return ""; };
+      if (prop === Symbol.toPrimitive)
+        return function () {
+          return "";
+        };
       if (prop === Symbol.iterator)
-        return function () { return { next: function () { return { done: true, value: undefined }; } }; };
+        return function () {
+          return {
+            next: function () {
+              return { done: true, value: undefined };
+            },
+          };
+        };
       if (prop === "then") return undefined;
       if (prop === "length") return 0;
       return stub;
     },
-    apply: function () { return stub; },
-    construct: function () { return stub; },
+    apply: function () {
+      return stub;
+    },
+    construct: function () {
+      return stub;
+    },
   };
   stub = new Proxy(function () {}, handler);
   return stub;
@@ -109,13 +133,23 @@ function evaluateProtoSteps(js) {
   sandbox.localStorage = browserStub();
   sandbox.navigator = browserStub();
   sandbox.console = {
-    log: function () {}, warn: function () {}, error: function () {}, info: function () {}, debug: function () {},
+    log: function () {},
+    warn: function () {},
+    error: function () {},
+    info: function () {},
+    debug: function () {},
   };
-  sandbox.setTimeout = function () { return 0; };
-  sandbox.setInterval = function () { return 0; };
+  sandbox.setTimeout = function () {
+    return 0;
+  };
+  sandbox.setInterval = function () {
+    return 0;
+  };
   sandbox.clearTimeout = function () {};
   sandbox.clearInterval = function () {};
-  sandbox.requestAnimationFrame = function () { return 0; };
+  sandbox.requestAnimationFrame = function () {
+    return 0;
+  };
   sandbox.URLSearchParams = URLSearchParams;
   try {
     vm.runInNewContext(js, sandbox, { timeout: 1000 });
@@ -133,69 +167,296 @@ function evaluateProtoSteps(js) {
 
 function checkDirect(o) {
   var f = [];
-  var body = o.body || "", js = o.appJs || "", extra = o.extraCss || "";
+  var body = o.body || "",
+    js = o.appJs || "",
+    extra = o.extraCss || "";
   var cssM = maskCssComments(o.css || "");
   var extraM = maskCssComments(extra);
   var defined = {};
-  all(/(--[a-z0-9-]+)\s*:/gi, cssM).forEach(function (t) { defined[t] = true; });
-  all(/(--[a-z0-9-]+)\s*:/gi, extraM).forEach(function (t) { defined[t] = true; });
+  all(/(--[a-z0-9-]+)\s*:/gi, cssM).forEach(function (t) {
+    defined[t] = true;
+  });
+  all(/(--[a-z0-9-]+)\s*:/gi, extraM).forEach(function (t) {
+    defined[t] = true;
+  });
+  // direct-shell.js's own CSS defines a handful of tokens the assembler
+  // draws with (--proto-app-header, the header offset a layer legitimately
+  // docks against with top:var(--proto-app-header)): those ship on every
+  // page exactly like frameCss and extra.css do, so an author using one is
+  // not using an unknown token.
+  all(/(--[a-z0-9-]+)\s*:/gi, maskCssComments(shellCss)).forEach(function (t) {
+    defined[t] = true;
+  });
   var classes = {};
-  all(/\.(ds-[a-z0-9_-]+)/gi, cssM).forEach(function (c) { classes[c] = true; });
+  all(/\.(ds-[a-z0-9_-]+)/gi, cssM).forEach(function (c) {
+    classes[c] = true;
+  });
 
-  [["body.html", body], ["app.js", js], ["extra.css", extra]].forEach(function (pair) {
-    if (/\b(?:src|href)\s*=\s*["']?(?:https?:)?\/\//i.test(pair[1]) || /url\(\s*["']?https?:/i.test(pair[1]))
-      f.push(finding("error", "external-url", pair[0], "an external URL: the page must open offline"));
+  [
+    ["body.html", body],
+    ["app.js", js],
+    ["extra.css", extra],
+  ].forEach(function (pair) {
+    if (
+      /\b(?:src|href)\s*=\s*["']?(?:https?:)?\/\//i.test(pair[1]) ||
+      /url\(\s*["']?https?:/i.test(pair[1])
+    )
+      f.push(
+        finding(
+          "error",
+          "external-url",
+          pair[0],
+          "an external URL: the page must open offline",
+        ),
+      );
     if (pair[1].indexOf("{{") !== -1)
-      f.push(finding("error", "unfilled-token", pair[0], "a {{placeholder}} was left in"));
+      f.push(
+        finding(
+          "error",
+          "unfilled-token",
+          pair[0],
+          "a {{placeholder}} was left in",
+        ),
+      );
   });
   uniq(allAttr("data-icon", body)).forEach(function (slug) {
-    if (!(o.icons || {})[slug]) f.push(finding("error", "unknown-icon", "body.html", 'no icon "' + slug + '" in icons.json'));
+    if (!(o.icons || {})[slug])
+      f.push(
+        finding(
+          "error",
+          "unknown-icon",
+          "body.html",
+          'no icon "' + slug + '" in icons.json',
+        ),
+      );
   });
-  uniq(all(/var\(\s*(--[a-z0-9-]+)/gi, body + extraM)).forEach(function (t) {
-    if (!defined[t]) f.push(finding("error", "unknown-token", "extra.css", t + " is not a design system token"));
+  // Scanned per file, not on the two joined, so a bad var() is reported
+  // against the file it actually sits in rather than always "extra.css".
+  [
+    ["body.html", body],
+    ["extra.css", extraM],
+  ].forEach(function (pair) {
+    uniq(all(/var\(\s*(--[a-z0-9-]+)/gi, pair[1])).forEach(function (t) {
+      if (!defined[t])
+        f.push(
+          finding(
+            "error",
+            "unknown-token",
+            pair[0],
+            t + " is not a design system token",
+          ),
+        );
+    });
   });
-  uniq(allAttr("class", body).join(" ").split(/\s+/).filter(function (c) { return /^ds-/.test(c); })).forEach(function (c) {
-    if (!classes[c]) f.push(finding("error", "unknown-ds-class", "body.html", "." + c + " has no rule in the stylesheet"));
+  uniq(
+    allAttr("class", body)
+      .join(" ")
+      .split(/\s+/)
+      .filter(function (c) {
+        return /^ds-/.test(c);
+      }),
+  ).forEach(function (c) {
+    if (!classes[c])
+      f.push(
+        finding(
+          "error",
+          "unknown-ds-class",
+          "body.html",
+          "." + c + " has no rule in the stylesheet",
+        ),
+      );
   });
   if (/#[0-9a-f]{3,8}\b|rgba?\(/i.test(extraM.replace(/var\([^)]*\)/g, "")))
-    f.push(finding("warning", "raw-colour", "extra.css", "a colour typed by hand: use a token"));
+    f.push(
+      finding(
+        "warning",
+        "raw-colour",
+        "extra.css",
+        "a colour typed by hand: use a token",
+      ),
+    );
   if (!/<div[^>]*\sdata-app-frame/.test(body))
-    f.push(finding("error", "frame-missing", "body.html", "no <div data-app-frame> around the content area"));
-  if (/\bds-header\b|\bds-side-nav\b/.test(body))
-    f.push(finding("error", "frame-redrawn", "body.html", "the header and the side navigation are drawn by the assembler"));
-  var want = ((o.brief.direct && o.brief.direct.steps) || []).map(function (s) { return s.id; });
+    f.push(
+      finding(
+        "error",
+        "frame-missing",
+        "body.html",
+        "no <div data-app-frame> around the content area",
+      ),
+    );
+  var redrawnTokens = allAttr("class", body)
+    .join(" ")
+    .split(/\s+/)
+    .filter(function (c) {
+      return (
+        c === "ds-header" ||
+        c === "ds-sidenav" ||
+        /^ds-header__/.test(c) ||
+        /^ds-header--/.test(c) ||
+        /^ds-sidenav__/.test(c) ||
+        /^ds-sidenav--/.test(c)
+      );
+    });
+  if (redrawnTokens.length)
+    f.push(
+      finding(
+        "error",
+        "frame-redrawn",
+        "body.html",
+        "the header and the side navigation are drawn by the assembler",
+      ),
+    );
+  // A layer is only ever docked by assemble-direct.js's dockLayers, which
+  // matches `<aside ... data-layer="...">`: any other element carrying
+  // data-layer is never docked, and an aside carrying it INSIDE the frame div
+  // sits in the content area (F3), where position:absolute docks it against
+  // the wrong box. frameEnd is required from assemble-direct.js so this reads
+  // the same range assembly draws from, not a second guess at it.
+  var openFrame = body.match(/<div[^>]*\sdata-app-frame[^>]*>/);
+  var frameStart = openFrame ? openFrame.index + openFrame[0].length : null;
+  var frameCloseIdx = null;
+  if (frameStart !== null) {
+    try {
+      frameCloseIdx = frameEnd(body, frameStart);
+    } catch (e) {
+      frameCloseIdx = null;
+    }
+  }
+  var layerTagRe =
+    /<([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*\sdata-layer\s*=\s*(?:"[^"]*"|'[^']*')[^>]*>/g;
+  var lm;
+  while ((lm = layerTagRe.exec(body))) {
+    var tag = lm[1];
+    if (tag.toLowerCase() !== "aside") {
+      f.push(
+        finding(
+          "error",
+          "layer-misplaced",
+          "body.html",
+          "a layer is an <aside data-layer>: " + tag + " is never docked",
+        ),
+      );
+    } else if (
+      frameStart !== null &&
+      frameCloseIdx !== null &&
+      lm.index >= frameStart &&
+      lm.index < frameCloseIdx
+    ) {
+      f.push(
+        finding(
+          "error",
+          "layer-misplaced",
+          "body.html",
+          "a layer sits outside <div data-app-frame>, after it",
+        ),
+      );
+    }
+  }
+  var want = ((o.brief.direct && o.brief.direct.steps) || []).map(function (s) {
+    return s.id;
+  });
   var evaluated = evaluateProtoSteps(js);
   if (evaluated.error) {
-    f.push(finding("warning", "steps-unread", "app.js", "app.js could not be evaluated to read proto.steps: " + evaluated.error));
+    f.push(
+      finding(
+        "warning",
+        "steps-unread",
+        "app.js",
+        "app.js could not be evaluated to read proto.steps: " + evaluated.error,
+      ),
+    );
   } else {
     var got = evaluated.ids;
     if (JSON.stringify(got) !== JSON.stringify(want))
-      f.push(finding("error", "step-mismatch", "app.js", "proto.steps ids are [" + got.join(", ") + "], the screen list's are [" + want.join(", ") + "]"));
+      f.push(
+        finding(
+          "error",
+          "step-mismatch",
+          "app.js",
+          "proto.steps ids are [" +
+            got.join(", ") +
+            "], the screen list's are [" +
+            want.join(", ") +
+            "]",
+        ),
+      );
   }
   var placed = uniq(allAttr("data-new", body));
-  var declared = (((o.meta || {}).adds) || []).map(function (a) { return a.name; });
+  var declared = ((o.meta || {}).adds || []).map(function (a) {
+    return a.name;
+  });
   placed.forEach(function (n) {
-    if (declared.indexOf(n) === -1) f.push(finding("warning", "new-undeclared", "body.html", 'data-new "' + n + '" has no entry in meta.adds'));
+    if (declared.indexOf(n) === -1)
+      f.push(
+        finding(
+          "warning",
+          "new-undeclared",
+          "body.html",
+          'data-new "' + n + '" has no entry in meta.adds',
+        ),
+      );
   });
   declared.forEach(function (n) {
-    if (placed.indexOf(n) === -1) f.push(finding("warning", "add-unplaced", "meta.json", 'meta.adds "' + n + '" marks nothing on the page'));
+    if (placed.indexOf(n) === -1)
+      f.push(
+        finding(
+          "warning",
+          "add-unplaced",
+          "meta.json",
+          'meta.adds "' + n + '" marks nothing on the page',
+        ),
+      );
   });
   if (/<\/style/i.test(extra))
-    f.push(finding("error", "unsafe-embed", "extra.css", "a literal </style would close the assembler's style element early"));
+    f.push(
+      finding(
+        "error",
+        "unsafe-embed",
+        "extra.css",
+        "a literal </style would close the assembler's style element early",
+      ),
+    );
   if (js.indexOf("<!--") !== -1)
-    f.push(finding("error", "unsafe-embed", "app.js", "a literal <!-- is left unescaped inside the assembler's script element"));
+    f.push(
+      finding(
+        "error",
+        "unsafe-embed",
+        "app.js",
+        "a literal <!-- is left unescaped inside the assembler's script element",
+      ),
+    );
   return f;
 }
 
 function main(argv) {
   var a = argv.indexOf("--author");
   if (!argv[0] || a === -1) {
-    process.stderr.write("usage: check-direct.js <brief.json> --author <dir>\n");
+    process.stderr.write(
+      "usage: check-direct.js <brief.json> --author <dir>\n",
+    );
     return 1;
   }
   var dir = argv[a + 1];
-  var rd = function (p) { return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : ""; };
-  var brief = JSON.parse(fs.readFileSync(argv[0], "utf8"));
+  var rd = function (p) {
+    return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
+  };
+  var brief;
+  try {
+    brief = JSON.parse(fs.readFileSync(argv[0], "utf8"));
+  } catch (e) {
+    process.stderr.write(
+      "check-direct: " + argv[0] + " could not be read: " + e.message + "\n",
+    );
+    return 1;
+  }
+  if (!brief || !brief.direct) {
+    process.stderr.write(
+      "check-direct: " +
+        argv[0] +
+        " has no direct block (run prepare-flow.js --direct)\n",
+    );
+    return 1;
+  }
   var as = brief.direct.assets;
   var meta = rd(path.join(dir, "meta.json"));
   // The page's own stylesheet is every file in assets.frameCss joined, so
@@ -203,24 +464,49 @@ function main(argv) {
   // ships" (assemble-direct.js reads the same list, in the same order).
   // Older briefs that predate frameCss fall back to the two single-file
   // entries an author reads.
-  var css = Array.isArray(as.frameCss) && as.frameCss.length
-    ? as.frameCss.map(function (p) { return rd(p); }).join("\n")
-    : rd(as.tokensCss) + "\n" + rd(as.baseCss);
+  var css =
+    Array.isArray(as.frameCss) && as.frameCss.length
+      ? as.frameCss
+          .map(function (p) {
+            return rd(p);
+          })
+          .join("\n")
+      : rd(as.tokensCss) + "\n" + rd(as.baseCss);
   // icons.json is {_schema_version, _meta, icons: {<slug>: {...}}}; unwrap to
   // the flat slug map checkDirect takes. A file that is already a flat map
   // (no top-level "icons" key) is accepted as-is.
   var iconDoc = JSON.parse(rd(as.icons) || "{}");
-  var icons = iconDoc.icons && typeof iconDoc.icons === "object" ? iconDoc.icons : iconDoc;
+  var icons =
+    iconDoc.icons && typeof iconDoc.icons === "object"
+      ? iconDoc.icons
+      : iconDoc;
   var findings = checkDirect({
-    brief: brief, body: rd(path.join(dir, "body.html")), appJs: rd(path.join(dir, "app.js")),
-    extraCss: rd(path.join(dir, "extra.css")), meta: meta ? JSON.parse(meta) : {},
-    css: css, icons: icons,
+    brief: brief,
+    body: rd(path.join(dir, "body.html")),
+    appJs: rd(path.join(dir, "app.js")),
+    extraCss: rd(path.join(dir, "extra.css")),
+    meta: meta ? JSON.parse(meta) : {},
+    css: css,
+    icons: icons,
   });
   findings.forEach(function (x) {
-    process.stdout.write((x.severity === "error" ? "P0" : "P1") + " [" + x.check + "] " + x.path + " → " + x.value + "\n");
+    process.stdout.write(
+      (x.severity === "error" ? "P0" : "P1") +
+        " [" +
+        x.check +
+        "] " +
+        x.path +
+        " → " +
+        x.value +
+        "\n",
+    );
   });
   process.stdout.write(findings.length ? "" : "check-direct: clean\n");
-  return findings.some(function (x) { return x.severity === "error"; }) ? 1 : 0;
+  return findings.some(function (x) {
+    return x.severity === "error";
+  })
+    ? 1
+    : 0;
 }
 
 module.exports = { checkDirect: checkDirect, main: main };
