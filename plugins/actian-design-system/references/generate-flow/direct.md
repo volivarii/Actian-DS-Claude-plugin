@@ -26,7 +26,7 @@ Prose that asks for a Figma push gets the same line. `--no-prompt`, `--ref` and 
 
 Pipeline items 1 to 4.5 of the skill run as written: the app, the three gates, vision references. One difference: Gate 3 presents the screens and nothing of its config block, which offers only options this route refuses; an answer that names one of them gets the refusal line. Then, in place of items 5.0 to 9:
 
-**D1. The screen list.** Write `{project_working_directory}/flows/screen-list.json` exactly as item 5.0 says: `pattern` where an app pattern covers the screen, `layer` where it is a surface over another screen, `exit` on every screen but the last, `meta.nav`. Skip 5.0's merge and render: a direct run has no `flow-data.json`.
+**D1. The screen list.** Write `{project_working_directory}/flows/screen-list.json` exactly as item 5.0 says: `pattern` where an app pattern covers the screen, `layer` where it is a surface over another screen, `exit` on every screen but the last, `meta.nav`. A layer's `kind` is the width the page docks it at (`drawer` 550, `panel` 420): give a surface whose pattern is a captured drawer the kind `drawer`. Skip 5.0's merge and render: a direct run has no `flow-data.json`.
 
 **D2. The brief.** One call, with the `--app`, `--entity` and `--use-case` rules of the skill's Step 3.5:
 
@@ -35,12 +35,13 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/prepare-flow.js" --app <app> --entity <slug> --use-case <audience> --screen-list {project_working_directory}/flows/screen-list.json --direct -o {project_working_directory}/flows/.brief.json
 ```
 
-It writes one brief and no slices. Its `direct` block names every file the author needs: for each step the captured page's screenshot, regions and render notes; for each component its rendered markup and usage notes; the stylesheets, the icons, the content rules. Read `brief.join` as Step 3.5 says before trusting an empty join.
+It writes one brief and no slices. Its `direct` block names every file the author needs: the captured pages with their screenshot, regions and render notes, each stored once; for each component its rendered markup and usage notes, and an index of every other component; the stylesheets, the icons, the content rules. Read `brief.join` as Step 3.5 says before trusting an empty join.
 
 **D3. Provenance.** Write `{project_working_directory}/flows/.direct/run.json`: `{ "skill": "generate-flow --direct", "feature": "...", "prompt": "<first 200 characters>", "date": "<ISO date>", "duration": "", "model": "...", "pluginVersion": "..." }`. Note the start time.
 
 **D4. The author.** Dispatch ONE `prototype-author` agent with:
 
+- `request` = the user's prompt, word for word
 - `pluginRoot` = `${CLAUDE_PLUGIN_ROOT}`
 - `briefPath` = `{project_working_directory}/flows/.brief.json`
 - `authorDir` = `{project_working_directory}/flows/.direct`
