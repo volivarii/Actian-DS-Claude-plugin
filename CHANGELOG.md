@@ -19,6 +19,29 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Added
+
+- **`/generate-flow --direct`: one author draws the whole flow as a clickable prototype, checks it and looks at it.** ([#PRNUM](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/PRNUM))
+  Opt in with `--direct`. One `prototype-author` agent reads a single brief that names the captured pages, the
+  design system's own component markup, the stylesheets, the icons and the content rules, and writes four small
+  files. Scripts draw the app's header and side navigation with the right item active on every step, the icons, the
+  docking of a drawer, a panel, a modal and a toast, a strip to jump between steps and a switch that marks what the
+  product does not have today; they check the files (fourteen kinds of finding) and screenshot every step at two
+  widths, and the author reads the screenshots before handing over. The handover says whether anyone looked. HTML
+  only: no `flow-data.json`, so no Figma push, audit or compare, and two runs of one prompt differ in structure; the
+  route refuses `--push`, `--fm`, `--lofi`, `--audit`, `--variants`, `--breakpoints`, `--states`, `--from`,
+  `--branch` and a refine URL. Without the flag nothing changes.
+  Rehearsed twice on 2026-09-19 from the branch, on Claude Sonnet, with the reference Catalog prompt: both
+  prototypes work end to end (live selection, a one by one queue in the real quick-edit drawer, the list behind it
+  updating on each save, a toast, the filter shown applied on the second run), 0 findings, every style value a
+  design system token. Cost: 30.4 min and 356 K tokens, then 42.0 min and 443 K, against 15.0 min and 236 K for a
+  plain assistant reading the knowledge repository on 2026-09-18. The runs exposed eleven defects in the scripts and
+  the instructions, all fixed here, among them: icons and new-marks written by the author's script were never drawn
+  or checked; a component's own `display` defeated `hidden`; the brief was 99 KB and is 41 KB; an author that
+  declared its own `proto` was told only that its step ids were empty; a focused control in a drawer scrolled the
+  app header out of view. The measured acceptance run on the installed build decides whether `--direct` becomes
+  the HTML default, in its own PR.
+
 ### Changed
 
 - **generate-flow: every screen of a flow shares one side rail, and every screen says how the user leaves it** ([#404](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/404))
