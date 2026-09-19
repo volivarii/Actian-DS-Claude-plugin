@@ -97,6 +97,23 @@ describe("check-direct", () => {
     assert.strictEqual(f[0].check, "steps-unread");
     assert.strictEqual(f[0].severity, "warning");
   });
+  it("steps-unread: a throwing getter on a step's id does not escape checkDirect as an exception (review round 3)", () => {
+    const appJs = 'proto.steps = [{ get id() { throw new Error("boom"); } }];';
+    let f;
+    assert.doesNotThrow(() => {
+      f = checkDirect(Object.assign({}, ok, { appJs }));
+    });
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].check, "steps-unread");
+    assert.strictEqual(f[0].severity, "warning");
+    assert.strictEqual(f[0].path, "app.js");
+  });
+  it("step-mismatch: proto.steps set to a non-array value is reported, not a crash (review round 3)", () => {
+    const f = checkDirect(Object.assign({}, ok, { appJs: 'proto.steps = "nope";' }));
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].check, "step-mismatch");
+    assert.strictEqual(f[0].severity, "error");
+  });
   it("unknown-ds-class: a class named only inside a CSS comment is not defined (review finding 2)", () => {
     const found = kinds({
       css: css + "/* .ds-comment-only { color: red; } */",

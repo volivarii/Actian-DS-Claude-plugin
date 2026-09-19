@@ -91,6 +91,14 @@ function browserStub() {
 // RUNTIME), plus a permissive stub for whatever other browser globals
 // top-level code touches. A 1-second timeout keeps a script that loops
 // forever from hanging the checker.
+//
+// Returns PLAIN data only, never a sandbox object: every read off proto.steps
+// (including each step's own .id, which can be a getter written by the
+// author's script) happens inside the same try this function's evaluation
+// runs in, so a throwing getter - or any other surprise a live object from
+// the sandbox could spring on its caller - becomes this function's own
+// { error } result instead of an exception checkDirect would have to catch
+// a second time. checkDirect never touches proto or its steps directly.
 function evaluateProtoSteps(js) {
   var proto = { steps: [], current: 0, go: function () {} };
   var sandbox = {};
@@ -111,9 +119,15 @@ function evaluateProtoSteps(js) {
   sandbox.URLSearchParams = URLSearchParams;
   try {
     vm.runInNewContext(js, sandbox, { timeout: 1000 });
-    return { ok: true, steps: Array.isArray(proto.steps) ? proto.steps : [] };
+    var steps = Array.isArray(proto.steps) ? proto.steps : [];
+    var ids = steps.map(function (s) {
+      var id = s && s.id; // the property read stays inside this try
+      if (id === undefined || id === null) return "";
+      return String(id);
+    });
+    return { ids: ids };
   } catch (e) {
-    return { ok: false, error: e && e.message ? e.message : String(e) };
+    return { error: e && e.message ? e.message : String(e) };
   }
 }
 
@@ -151,10 +165,10 @@ function checkDirect(o) {
     f.push(finding("error", "frame-redrawn", "body.html", "the header and the side navigation are drawn by the assembler"));
   var want = ((o.brief.direct && o.brief.direct.steps) || []).map(function (s) { return s.id; });
   var evaluated = evaluateProtoSteps(js);
-  if (!evaluated.ok) {
+  if (evaluated.error) {
     f.push(finding("warning", "steps-unread", "app.js", "app.js could not be evaluated to read proto.steps: " + evaluated.error));
   } else {
-    var got = evaluated.steps.map(function (s) { return s && s.id; });
+    var got = evaluated.ids;
     if (JSON.stringify(got) !== JSON.stringify(want))
       f.push(finding("error", "step-mismatch", "app.js", "proto.steps ids are [" + got.join(", ") + "], the screen list's are [" + want.join(", ") + "]"));
   }
