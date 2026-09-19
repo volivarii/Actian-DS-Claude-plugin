@@ -212,6 +212,34 @@ describe("check-direct", () => {
       ),
     );
   });
+  it("a data-new only app.js writes satisfies a declared add, and is never add-unplaced", () => {
+    const appJs =
+      ok.appJs + "\n" + "el.innerHTML = '<span data-new=\"Z\"></span>';";
+    const body = ok.body.replace(' data-new="X"', "");
+    const meta = { adds: [{ name: "Z", composedFrom: ["button"], why: "w" }] };
+    const f = checkDirect(Object.assign({}, ok, { appJs, body, meta }));
+    assert.ok(!f.some((x) => x.check === "add-unplaced"));
+    assert.ok(!f.some((x) => x.check === "new-undeclared"));
+  });
+  it("a data-new only app.js writes and never declares reports new-undeclared against app.js, in each of the four spellings", () => {
+    const spellings = [
+      "el.innerHTML = '<span data-new=\"Z\"></span>';",
+      "el.innerHTML = \"<span data-new='Z'></span>\";",
+      "el.innerHTML = \"<span data-new=\\\"Z\\\"></span>\";",
+      "el.innerHTML = '<span data-new=\\'Z\\'></span>';",
+    ];
+    spellings.forEach((line) => {
+      const appJs = ok.appJs + "\n" + line;
+      const body = ok.body.replace(' data-new="X"', "");
+      const f = checkDirect(
+        Object.assign({}, ok, { appJs, body, meta: { adds: [] } }),
+      );
+      const m = f.filter(
+        (x) => x.check === "new-undeclared" && x.path === "app.js",
+      );
+      assert.strictEqual(m.length, 1, "spelling: " + line);
+    });
+  });
   it("unsafe-embed: a literal </style in extra.css would close the assembler's style element early", () => {
     const f = checkDirect(
       Object.assign({}, ok, {

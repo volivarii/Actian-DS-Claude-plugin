@@ -32,6 +32,7 @@ var vm = require("vm");
 var assembleDirect = require("../renderers/assemble-direct.js");
 var frameEnd = assembleDirect.frameEnd;
 var LAYER_KINDS = assembleDirect.LAYER_KINDS;
+var attrInJs = assembleDirect.attrInJs;
 var shellCss = require("../renderers/direct-shell.js").CSS;
 
 function finding(sev, check, p, value) {
@@ -409,23 +410,32 @@ function checkDirect(o) {
         ),
       );
   }
-  var placed = uniq(allAttr("data-new", body));
+  // app.js draws content from state as a matter of course, so a data-new it
+  // writes with innerHTML is the normal case, not an edge: reading body.html
+  // alone reports it, falsely, as unplaced.
+  var placedInBody = uniq(allAttr("data-new", body));
+  var placedInJs = uniq(attrInJs("data-new", js));
   var declared = ((o.meta || {}).adds || []).map(function (a) {
     return a.name;
   });
-  placed.forEach(function (n) {
-    if (declared.indexOf(n) === -1)
-      f.push(
-        finding(
-          "warning",
-          "new-undeclared",
-          "body.html",
-          'data-new "' + n + '" has no entry in meta.adds',
-        ),
-      );
+  [
+    [placedInBody, "body.html"],
+    [placedInJs, "app.js"],
+  ].forEach(function (pair) {
+    pair[0].forEach(function (n) {
+      if (declared.indexOf(n) === -1)
+        f.push(
+          finding(
+            "warning",
+            "new-undeclared",
+            pair[1],
+            'data-new "' + n + '" has no entry in meta.adds',
+          ),
+        );
+    });
   });
   declared.forEach(function (n) {
-    if (placed.indexOf(n) === -1)
+    if (placedInBody.indexOf(n) === -1 && placedInJs.indexOf(n) === -1)
       f.push(
         finding(
           "warning",

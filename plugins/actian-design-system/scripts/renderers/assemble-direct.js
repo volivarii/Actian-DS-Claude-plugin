@@ -96,6 +96,25 @@ var LAYER_TAG = new RegExp(
   "g",
 );
 
+// Reads an attribute's value out of app.js SOURCE, where the same markup
+// body.html carries in HTML can appear as a JS string literal: plain when
+// the literal's own delimiter is the other quote character, backslash-
+// escaped when it is the same one. Four spellings, no more:
+// name="x", name='x', name=\"x\", name=\'x\'.
+function attrInJs(name, js) {
+  var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"\\\\]*)\"|'([^'\\\\]*)'|\\\\\"([^\"\\\\]*)\\\\\"|\\\\'([^'\\\\]*)\\\\')", "g");
+  var out = [],
+    m;
+  while ((m = re.exec(js))) {
+    var v = m[1];
+    if (v === undefined) v = m[2];
+    if (v === undefined) v = m[3];
+    if (v === undefined) v = m[4];
+    out.push(v);
+  }
+  return out;
+}
+
 function dockLayers(html) {
   return html.replace(
     LAYER_TAG,
@@ -364,6 +383,7 @@ module.exports = {
   renderFrame: renderFrame,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
+  attrInJs: attrInJs,
   LAYER_KINDS: LAYER_KINDS,
   frameEnd: frameEnd,
   main: main,
