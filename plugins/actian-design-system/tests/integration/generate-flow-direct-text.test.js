@@ -114,3 +114,55 @@ describe("prototype-author: the agent file agrees with the scripts", () => {
     );
   });
 });
+
+describe("generate-flow --direct: the skill routes to direct.md, and direct.md agrees with the scripts", () => {
+  const skill = read("skills/generate-flow/SKILL.md");
+  const direct = read("references/generate-flow/direct.md");
+
+  it("SKILL.md has the flag row, the routing line and the reference", () => {
+    assert.ok(skill.split("\n").some((l) => l.indexOf("| `--direct`") === 0));
+    assert.ok(skill.split("\n").some((l) => l.indexOf("- `--direct`: read `references/generate-flow/direct.md`") === 0));
+  });
+
+  it("direct.md names every kind of finding check-direct can report, and no other", () => {
+    const src = read("scripts/validation/check-direct.js");
+    const kinds = [
+      ...new Set(
+        [...src.matchAll(/"(?:error|warning)",\s*"([a-z-]+)"/g)].map((m) => m[1]),
+      ),
+    ];
+    assert.ok(kinds.length >= 14, "derived " + kinds.length + " kinds");
+    const rows = [...direct.matchAll(/^\| `([a-z-]+)` \| (P0|P1) \|/gm)];
+    assert.deepStrictEqual(rows.map((r) => r[1]).sort(), kinds.slice().sort());
+    rows.forEach((r) => {
+      const sev = new RegExp('"(error|warning)",\\s*"' + r[1] + '"').exec(src)[1];
+      assert.strictEqual(r[2], sev === "error" ? "P0" : "P1", r[1] + " level");
+    });
+  });
+
+  it("direct.md refuses the flags the route does not combine with, and each is a flag the skill has", () => {
+    ["--push", "--fm", "--lofi", "--audit", "--variants", "--breakpoints", "--states", "--from", "--branch"].forEach((f) => {
+      assert.ok(direct.includes("`" + f + "`"), f + " not refused in direct.md");
+      assert.ok(skill.split("\n").some((l) => l.indexOf("| `" + f) === 0), f + " is not a flag of the skill");
+    });
+  });
+
+  it("every flag on a script line in direct.md exists in that script's source", () => {
+    assert.ok(flagsExist(direct, "direct.md") >= 5);
+  });
+
+  it("the inputs direct.md hands the agent are the inputs the agent file names", () => {
+    const agent = read("agents/prototype-author.md");
+    ["pluginRoot", "briefPath", "authorDir", "outPath", "lookDir", "runPath"].forEach((k) => {
+      assert.ok(direct.includes("`" + k + "`"), k + " not in direct.md");
+      assert.ok(agent.includes("`" + k + "`"), k + " not in the agent file");
+    });
+    assert.ok(direct.includes("`scripts: not run`") && agent.includes("`scripts: not run`"));
+  });
+
+  it("direct.md states check-direct's trust assumption and the handover's look line", () => {
+    assert.match(direct, /wrote in this session/);
+    assert.match(direct, /Not looked at/);
+    assert.match(direct, /differ in structure/);
+  });
+});

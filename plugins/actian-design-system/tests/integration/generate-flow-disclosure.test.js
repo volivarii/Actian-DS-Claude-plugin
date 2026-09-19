@@ -26,6 +26,7 @@ const TOPICS = [
   "references/generate-flow/push-opt-in.md",
   "references/generate-flow/figma-push.md",
   "references/generate-flow/gates.md",
+  "references/generate-flow/direct.md",
 ];
 
 describe("generate-flow progressive disclosure reachability", () => {
