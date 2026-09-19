@@ -14,6 +14,10 @@ describe("chrome arg builders carry the Linux-determinism flags", function () {
     assert.ok(a.indexOf("--screenshot=/tmp/x.png") !== -1);
     assert.ok(a.indexOf("--window-size=100,50") !== -1);
   });
+  it("screenshotArgs uses opts.url in place of the htmlPath file URL when given", function () {
+    var a = H.screenshotArgs({ outPng: "/tmp/x.png", url: "file:///tmp/other.html?step=2", width: 100, height: 50 });
+    assert.strictEqual(a[a.length - 1], "file:///tmp/other.html?step=2");
+  });
   it("measureArgs includes the flags + --dump-dom", function () {
     var a = S.measureArgs({ htmlPath: "/tmp/x.html", width: 360 });
     LINUX.forEach(function (f) { assert.ok(a.indexOf(f) !== -1, "missing " + f); });

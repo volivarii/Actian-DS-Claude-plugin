@@ -165,7 +165,9 @@ function screenshotArgs(opts) {
     "--virtual-time-budget=2000",
     "--window-size=" + width + "," + height,
     "--screenshot=" + opts.outPng,
-    url.pathToFileURL(opts.htmlPath).href,
+    typeof opts.url === "string"
+      ? opts.url
+      : url.pathToFileURL(opts.htmlPath).href,
   ];
 }
 
@@ -174,8 +176,10 @@ function screenshot(opts) {
   var chrome = opts.chrome; // resolved path
   var outPng = opts.outPng;
   var args = screenshotArgs(opts);
+  var execOpts = { stdio: "pipe" };
+  if (opts.timeoutMs) execOpts.timeout = opts.timeoutMs;
   try {
-    cp.execFileSync(chrome, args, { stdio: "pipe" });
+    cp.execFileSync(chrome, args, execOpts);
   } catch (e) {
     var detail = (e.stderr || "").toString().slice(0, 500);
     throw new Error(

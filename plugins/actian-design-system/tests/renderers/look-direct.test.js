@@ -9,29 +9,50 @@ describe("look-direct", () => {
     const s = look.shots(2, [1440, 1280]);
     assert.deepStrictEqual(s.map((x) => x.file), ["step-1-1440.png", "step-1-1280.png", "step-2-1440.png", "step-2-1280.png"]);
   });
-  it("asks Chrome for ?step=<n> at the width, with time for arrive() to run", () => {
-    const a = look.chromeArgs({ url: "file:///p.html?step=3", outPng: "/o/s.png", width: 1280, height: 900 });
-    assert.ok(a.includes("--window-size=1280,900"));
-    assert.ok(a.includes("--screenshot=/o/s.png"));
-    assert.ok(a.some((x) => /^--virtual-time-budget=\d+$/.test(x)));
-    assert.strictEqual(a[a.length - 1], "file:///p.html?step=3");
+  it("passes url (ending in ?step=<n>), outPng, width and chrome to the injected screenshot function", () => {
+    const calls = [];
+    const code = look.main(["/p.html", "--steps", "1", "-o", "/o", "--widths", "1280"], {
+      resolveChrome: () => "/chrome", screenshot: (opts) => calls.push(opts),
+      stderr: () => {}, mkdir: () => {},
+    });
+    assert.strictEqual(code, 0);
+    assert.strictEqual(calls.length, 1);
+    assert.strictEqual(calls[0].chrome, "/chrome");
+    assert.ok(/\?step=1$/.test(calls[0].url));
+    assert.strictEqual(calls[0].outPng, require("path").join("/o", "step-1-1280.png"));
+    assert.strictEqual(calls[0].width, 1280);
   });
   it("exits 2 and says why when there is no browser", () => {
     let err = "";
     const code = look.main(["/p.html", "--steps", "2", "-o", "/o"], {
       resolveChrome: () => { throw new Error("Chrome/Chromium (set CHROME_BIN, or install Google Chrome)"); },
-      stderr: (m) => { err += m; }, exec: () => assert.fail("must not run"), mkdir: () => {},
+      stderr: (m) => { err += m; }, screenshot: () => assert.fail("must not run"), mkdir: () => {},
     });
     assert.strictEqual(code, 2);
     assert.ok(/not looked at/.test(err) && /CHROME_BIN/.test(err));
   });
-  it("runs one Chrome per shot and exits 0", () => {
+  it("runs one shot per step and exits 0", () => {
     const calls = [];
     const code = look.main(["/p.html", "--steps", "2", "-o", "/o", "--widths", "1440"], {
-      resolveChrome: () => "/chrome", exec: (bin, args) => calls.push([bin, args[args.length - 1]]),
+      resolveChrome: () => "/chrome", screenshot: (opts) => calls.push(opts.url),
       stderr: () => {}, mkdir: () => {},
     });
     assert.strictEqual(code, 0);
-    assert.deepStrictEqual(calls.map((c) => c[1]), ["file:///p.html?step=1", "file:///p.html?step=2"]);
+    assert.deepStrictEqual(calls, ["file:///p.html?step=1", "file:///p.html?step=2"]);
+  });
+  it("stops at the first shot the browser does not answer, and tries no further shot", () => {
+    let err = "";
+    const calls = [];
+    const code = look.main(["/p.html", "--steps", "2", "-o", "/o", "--widths", "1440"], {
+      resolveChrome: () => "/chrome",
+      screenshot: (opts) => { calls.push(opts.url); throw new Error("Command failed: timed out after 60000ms\nstderr noise"); },
+      stderr: (m) => { err += m; }, mkdir: () => {},
+    });
+    assert.strictEqual(code, 2);
+    assert.strictEqual(calls.length, 1);
+    assert.ok(/not looked at/.test(err));
+    assert.ok(/the browser did not answer/.test(err));
+    assert.ok(/Command failed: timed out after 60000ms/.test(err));
+    assert.ok(!/stderr noise/.test(err));
   });
 });
