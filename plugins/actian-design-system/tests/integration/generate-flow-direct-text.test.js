@@ -98,7 +98,7 @@ describe("prototype-author: the agent file agrees with the scripts", () => {
       { deps: { exists: () => true, readRecipe: () => null } },
     );
     const named = [...agent.matchAll(/`direct\.([a-zA-Z.[\]]+)`/g)].map((m) => m[1]);
-    assert.ok(named.length >= 8, "derived " + named.length + " field names");
+    assert.ok(named.length >= 10, "derived " + named.length + " field names");
     named.forEach((p) => {
       let cur = d;
       p.replace(/\[\]/g, ".0").split(".").forEach((k) => {
@@ -153,10 +153,13 @@ describe("generate-flow --direct: the skill routes to direct.md, and direct.md a
 
   it("the inputs direct.md hands the agent are the inputs the agent file names", () => {
     const agent = read("agents/prototype-author.md");
-    ["pluginRoot", "briefPath", "authorDir", "outPath", "lookDir", "runPath"].forEach((k) => {
-      assert.ok(direct.includes("`" + k + "`"), k + " not in direct.md");
-      assert.ok(agent.includes("`" + k + "`"), k + " not in the agent file");
-    });
+    // The inputs are D4's own bullets, so an input added there and not to the
+    // agent file fails here.
+    const inputs = [...direct.matchAll(/^- `([a-zA-Z]+)` = /gm)].map((m) => m[1]);
+    assert.ok(inputs.length >= 7, "derived " + inputs.length + " inputs from D4");
+    inputs.forEach((k) =>
+      assert.ok(agent.includes("`" + k + "`"), k + " is handed over by direct.md and not named in the agent file"),
+    );
     assert.ok(direct.includes("`scripts: not run`") && agent.includes("`scripts: not run`"));
   });
 

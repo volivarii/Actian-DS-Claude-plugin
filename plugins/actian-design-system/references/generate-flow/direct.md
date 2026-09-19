@@ -16,7 +16,7 @@ One self-contained file at `{project_working_directory}/flows/[feature].html`:
 
 No `flow-data.json`. So there is nothing to push to Figma, nothing for `/design-audit` or `/compare-flows`, and no lo-fi or FatMarker rendering. Two direct runs of one prompt differ in structure.
 
-Before Gate 1, refuse a run that combines `--direct` with `--push`, `--fm`, `--lofi`, `--audit`, `--variants`, `--breakpoints`, `--states`, `--from` or `--branch`, in one line:
+Before Gate 1, refuse a run that combines `--direct` with `--push`, `--fm`, `--lofi`, `--audit`, `--variants`, `--breakpoints`, `--states`, `--from` or `--branch`, or with a Figma URL to refine, in one line, and stop:
 
 `--direct draws an HTML prototype only: drop <flag>, or drop --direct for the data-file route.`
 
@@ -24,7 +24,7 @@ Prose that asks for a Figma push gets the same line. `--no-prompt`, `--ref` and 
 
 ## Steps
 
-Pipeline items 1 to 4.5 of the skill run as written: the app, the three gates, vision references. Then, in place of items 5.0 to 9:
+Pipeline items 1 to 4.5 of the skill run as written: the app, the three gates, vision references. One difference: Gate 3 presents the screens and nothing of its config block, which offers only options this route refuses; an answer that names one of them gets the refusal line. Then, in place of items 5.0 to 9:
 
 **D1. The screen list.** Write `{project_working_directory}/flows/screen-list.json` exactly as item 5.0 says: `pattern` where an app pattern covers the screen, `layer` where it is a surface over another screen, `exit` on every screen but the last, `meta.nav`. Skip 5.0's merge and render: a direct run has no `flow-data.json`.
 
@@ -47,7 +47,7 @@ It writes one brief and no slices. Its `direct` block names every file the autho
 - `outPath` = `{project_working_directory}/flows/[feature].html`
 - `lookDir` = `{project_working_directory}/flows/look`
 - `runPath` = `{project_working_directory}/flows/.direct/run.json`
-- `references` = `meta.references[]` when Step 4.5 produced fingerprints
+- `references` = `meta.references[]` when item 4.5 produced fingerprints
 
 Paste no brief content. Print `Drawing <feature> (<M> steps, one author)`. The agent writes `body.html`, `app.js`, `extra.css` and `meta.json` under `authorDir`, assembles the page, checks it, and looks at it.
 
@@ -63,15 +63,16 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 **D6. When the agent could not run scripts.** A report that says `scripts: not run` means Bash was not available where the agent ran. Run the three commands yourself, then send the findings and the screenshot paths back to the agent, at most twice:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-direct.js" {project_working_directory}/flows/.brief.json --author {project_working_directory}/flows/.direct --run {project_working_directory}/flows/.direct/run.json -o {project_working_directory}/flows/[feature].html
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/check-direct.js" {project_working_directory}/flows/.brief.json --author {project_working_directory}/flows/.direct
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/look-direct.js" {project_working_directory}/flows/[feature].html --steps <M> -o {project_working_directory}/flows/look
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-direct.js" {project_working_directory}/flows/.brief.json --author {project_working_directory}/flows/.direct --run {project_working_directory}/flows/.direct/run.json -o {project_working_directory}/flows/[feature].html
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/check-direct.js" {project_working_directory}/flows/.brief.json --author {project_working_directory}/flows/.direct
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/look-direct.js" {project_working_directory}/flows/[feature].html --steps <M> -o {project_working_directory}/flows/look
 ```
+
+Each line runs on its own.
 
 `look-direct.js` exits 2 when there is no browser here or it does not answer within 60 seconds. The run continues; the prototype is "not looked at".
 
-**D7. Finish.** Set `duration` in `run.json`, run the `assemble-direct.js` command of D6 once more so the page's provenance is complete, and hand over.
+**D7. Finish.** Set `duration` in `run.json`, run the `assemble-direct.js` line of D6 once more so the page's provenance is complete, and hand over.
 
 ## Handover
 
