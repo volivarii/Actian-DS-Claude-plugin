@@ -239,125 +239,6 @@ Research how Stripe, Linear, and Notion handle empty states
 
 ---
 
-## Component briefs
-
-### From Figma URL
-
-```
-Brief this component https://figma.com/design/FILEKEY/DS?node-id=123-456
-```
-
-```
-Document the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
-```
-
-### By name
-
-```
-Component brief for Button
-```
-
-```
-Spec the Text Input component
-```
-
-### Specific cards
-
-```
-Component brief for Modal, only cards 2, 4, 5
-```
-
-### At the preview gate
-
-```
-push                    # Send all cards to Figma
-push 2,4,5              # Send specific cards only
-playground              # Generate interactive state explorer
-```
-
----
-
-## Create components
-
-```
-Create a Page Header component with title, subtitle, and action buttons variants
-```
-
-```
-Build an FM Status Badge with types: info, success, warning, error
-```
-
-```
-Create a Data Product Card component for Explorer
-States: Default, Hover, Selected
-Properties: title, description, quality score, owner avatar, domain tag
-```
-
-```
-Add a compact size variant to the existing Button component
-```
-
----
-
-## Compare designs
-
-```
-Compare these two flows:
-https://figma.com/design/FILEKEY/File?node-id=111-222
-https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
-```
-Which version is better for onboarding?
-v1: https://figma.com/design/FILEKEY/File?node-id=111-222
-v2: https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
-```
-Compare the old and new catalog browsing flow — what improved?
-Old: https://figma.com/design/FILEKEY/File?node-id=111-222
-New: https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
----
-
-## Presentations
-
-```
-Create a presentation about Q1 design system adoption metrics
-```
-
-```
-Present the data contract strategy to product leadership
-Goal: get approval for the contract-first approach
-```
-
-```
-Quick draft deck on sprint highlights
-```
-
----
-
-## Sync
-
-```
-Sync the design system
-```
-
-```
-Sync components only
-```
-
-```
-Sync the Button guidelines
-```
-
-```
-Check if the local files are up to date with Figma
-```
-
----
-
 ## Guideline proposals
 
 ```
@@ -399,10 +280,7 @@ Fix all auto-fixable findings
 ```
 /generate-flow Admin Dashboard for Administration
 /generate-flow Connection settings in Studio --hifi
-/component-brief Button
 /design-audit https://figma.com/design/FILEKEY/File?node-id=123-456
-/compare-flows https://figma.com/design/FILEKEY/File?node-id=111-222 https://figma.com/design/FILEKEY/File?node-id=333-444
-/create-component Status Badge with info, success, warning, error types
 /release-notes
 ```
 

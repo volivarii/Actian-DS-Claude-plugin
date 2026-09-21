@@ -74,6 +74,15 @@ are summarized at the release level.
   same tree in a focus-aware lo-fi skin (`focus: true` marks the feature, the rest is placeholder);
   `--fm` keeps FatMarker authoring for lo-fi Figma pushes.
 
+### Removed
+
+- **Three designer-facing skills retired: `/compare-flows`, `/component-brief`, `/create-component`.** ([#411](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/411))
+  Moved to `retired/` with the four agents only they dispatched (`brief-researcher`, `card-generator`,
+  `brief-data-validator`, and `parity-analyzer`, which nothing live has dispatched since 2026-04-02), the same move as the 2026-09-10 retirement: nothing under `retired/` registers, and
+  one `git mv` brings a skill back. The companion no longer routes "compare these" or "brief for this", and a
+  second Figma URL in a message is a reference. Their code, schemas, renderer, recipes, eval lane and tests stay
+  in place for a deletion PR. The plugin carries four skills and six agents. Roadmap 711.
+
 ### Fixed
 
 - **generate-flow: a screen whose author wrote no `template` gets the screen list's** ([#405](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/405))

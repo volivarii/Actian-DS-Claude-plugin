@@ -98,6 +98,12 @@ behavioral effect, mark the section `N/A — <one-line reason>` and proceed.
 
 ### Component-brief / push-pattern PRs: automated eval lane
 
+> Retired 2026-09-21: `/component-brief` is hidden under `retired/` (see `retired/README.md`).
+> The lane below runs against the installed marketplace cache and its prompts never invoke
+> `/component-brief`, so once an installed build carries this retirement the subagent improvises a brief and
+> the grader scores that: a run after this point measures nothing. The lane and this section
+> stay for the deletion PR.
+
 For PRs that touch `references/component-brief/`,
 `scripts/renderers/figma-table/`, or the brief skill itself, the smoke
 evidence is the output of the component-brief eval lane:
@@ -105,7 +111,7 @@ evidence is the output of the component-brief eval lane:
 ```bash
 plugins/actian-design-system/scripts/evals/run-component-brief.sh plan
 # dispatch the printed subagent prompts via the Agent tool, then:
-plugins/actian-design-system/scripts/evals/run-component-brief.sh aggregate <iteration-id>
+plugins/actian-design-system/scripts/evals/run-component-brief.sh summarize <iteration-id>
 ```
 
 Paste the resulting `benchmark.md` into the Smoke evidence section. See

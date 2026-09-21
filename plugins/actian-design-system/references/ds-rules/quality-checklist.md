@@ -50,9 +50,9 @@ When generating HTML for local preview, the checklist translates to:
 
 ---
 
-## Component Brief
+## Component Brief (retired skill, kept for the deletion PR)
 
-Items specific to the `component-brief` skill, in addition to Universal.
+Items specific to the retired `component-brief` skill, in addition to Universal.
 
 | # | Check | Pass criteria |
 |---|-------|---------------|
@@ -106,9 +106,9 @@ Items specific to the `generate-presentation` skill, in addition to Universal.
 
 ---
 
-## Create Component
+## Create Component (retired skill, kept for the deletion PR)
 
-Items specific to the `create-component` skill, in addition to Universal.
+Items specific to the retired `create-component` skill, in addition to Universal.
 
 | # | Check | Pass criteria |
 |---|-------|---------------|

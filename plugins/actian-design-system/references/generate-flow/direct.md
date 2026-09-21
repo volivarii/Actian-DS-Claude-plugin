@@ -14,7 +14,7 @@ One self-contained file at `{project_working_directory}/flows/[feature].html`:
 
 ## What it does not give
 
-No `flow-data.json`. So there is nothing to push to Figma, nothing for `/design-audit` or `/compare-flows`, and no lo-fi or FatMarker rendering. Two direct runs of one prompt differ in structure.
+No `flow-data.json`. So there is nothing to push to Figma, nothing for `/design-audit`, and no lo-fi or FatMarker rendering. Two direct runs of one prompt differ in structure.
 
 Before Gate 1, refuse a run that combines `--direct` with `--push`, `--fm`, `--lofi`, `--audit`, `--variants`, `--breakpoints`, `--states`, `--from` or `--branch`, or with a Figma URL to refine, in one line, and stop:
 

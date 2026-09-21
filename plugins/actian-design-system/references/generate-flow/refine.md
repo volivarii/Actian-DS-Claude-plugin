@@ -29,7 +29,7 @@ If any condition fails, fall back per the table below.
 | Manifest file unreadable / missing | `manifest unreadable` | Treat as new generation; warn: "no prior push manifest found at this location, treating as new flow." |
 | Snapshot sidecar (`flow-data.snapshot.json`) missing or corrupt | n/a | Treat as new generation; warn: "no usable snapshot found, treating as new flow." |
 | `derive-scope.js` returns `null` (AI's edit produced no actual data difference) | n/a | Abort: "no changes detected; nothing to push." Don't push or rewrite manifest. |
-| Refine instruction the data model can't represent (e.g., "add a 3D shader") | n/a | Return error; suggest alternative or `/create-component`. |
+| Refine instruction the data model can't represent (e.g., "add a 3D shader") | n/a | Return error; suggest an alternative. |
 | Refine instruction conflicts with glossary | n/a | Validator flags; companion presents conflict and asks. |
 | Refine on a hifi unit | n/a | Re-route through `/generate-flow` refine on the underlying lo-fi data model (hifi is downstream); explain to designer. |
 

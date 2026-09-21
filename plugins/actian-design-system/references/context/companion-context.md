@@ -137,9 +137,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Skill | Push patterns reference | Data model |
 |-------|----------------------|------------|
-| component-brief | `references/component-brief/push-patterns.md` | brief-data.json |
 | generate-flow | `references/figma/figma-push-patterns.md` | flow-data.json |
-| create-component | `references/create-component/push-patterns.md` | component-spec.json |
 
 ## On-Demand References
 
@@ -164,8 +162,9 @@ declares the anatomy/variants/motion-refs/a11y-refs that apply across
 every component in the category. Components without curated guideline
 content — a stub guideline, or no per-component doc at all (most of the
 catalog; 61 guideline docs cover 54 components + 7 registry-key aliases) —
-lift these defaults into the brief grounding payload via
-`scripts/transformers/category-defaults-loader.js`.
+lifted these defaults into the retired brief skill's grounding payload via
+`scripts/transformers/category-defaults-loader.js`; the loader's live consumer is the
+accessibility resolver (`scripts/lib/knowledge/a11y.js`).
 
 **Authoring workflow** lives in the knowledge repo at
 `components/src/categories/<slug>.md` (YAML frontmatter — the data —
@@ -176,24 +175,8 @@ content. Category defaults are seeded engineering drafts at
 refine via PRs that flip the field to `team-reviewed` or
 `team-authored`.
 
-**When the plugin reads defaults at brief time:**
-
-1. `ctx.category` is read directly from the dskit registry's
-   `categorySlug` field (the substrate-canonical slug, = slugify(category),
-   e.g. "form"; knowledge #189) — no plugin-side
-   re-derivation from the label.
-2. `ctx.categoryDefaults` is loaded via
-   `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.
-3. Phase B cards (`anatomy`, `variants`, `accessibility`)
-   receive defaults as additional grounding. The card-generator adapts
-   rather than echoes (see `agents/card-generator.md` for the exact
-   rule).
-4. `motion` falls back to the category's first `motion_refs` ref
-   when the component-guideline has no `behavior.motion.pattern`. Motion
-   patterns are resolved O(1) via the substrate's slug-keyed index
-   `vendor/foundations/dist/tokens/motion.json#bySlug[<slug>]` (knowledge
-   #188 — no scanning; `.patterns` is keyed by short name like `drawer`
-   but `bySlug` is keyed by the slug like `drawer-open-close`).
-5. Accessibility refs in the defaults are slugs into
-   `vendor/accessibility/dist/a11y-index.json#bySlug[<slug>]`.
-   Unresolved refs return null gracefully.
+The retired component-brief skill read these defaults at brief time through
+`scripts/transformers/category-defaults-loader.js` and `brief-sourcing.js`. Both transformers are
+shared and stay whatever the deletion PR removes: `validate-flow-data.js` reads `brief-sourcing.js`
+for stub-guideline detection, and `scripts/lib/knowledge/a11y.js` resolves accessibility refs
+through the loader.

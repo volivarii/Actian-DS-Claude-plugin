@@ -59,14 +59,51 @@ function deriveAgents() {
   }).length;
 }
 
-function deriveRecipes() {
-  var root = path.join(PLUGIN_ROOT, "recipes");
+// Only the recipe kinds a live skill reads are counted. A kind is live when a
+// skills/*/SKILL.md names a path under recipes/<kind>/ (its catalog, or a file
+// in it: generate-flow names recipes/flow/_index.json, the retired brief skill
+// names recipes/brief/<file>). recipes/brief and recipes/presentation belong to
+// retired skills, whose SKILL.md files sit under retired/ and are not scanned,
+// so they stay on disk for the deletion PR without inflating the number the
+// docs advertise, and a restored skill brings its kind back with no edit here.
+// Two limits, both visible: a prose mention of another kind's path in a live
+// SKILL.md would count it, and a total of zero (no kind named, or a named kind
+// whose directory is missing or empty) is thrown rather than returned, so that
+// neither the fixer (it runs first in the nightly vendor workflow) nor the
+// guard writes or accepts 0. Both take the plugin root as a parameter so
+// doc-counts-recipes.test.js can prove the throw fires.
+function liveRecipeKinds(pluginRoot) {
+  var root = pluginRoot || PLUGIN_ROOT;
+  var kinds = {};
+  listDirs(path.join(root, "skills")).forEach(function (d) {
+    var p = path.join(root, "skills", d, "SKILL.md");
+    if (!fs.existsSync(p)) return;
+    var re = /recipes\/([a-z][a-z0-9-]*)\//g;
+    var text = fs.readFileSync(p, "utf8");
+    var m;
+    while ((m = re.exec(text)) !== null) kinds[m[1]] = true;
+  });
+  return Object.keys(kinds).sort();
+}
+
+function deriveRecipes(pluginRoot) {
+  var root = path.join(pluginRoot || PLUGIN_ROOT, "recipes");
   var total = 0;
-  listDirs(root).forEach(function (kind) {
-    fs.readdirSync(path.join(root, kind)).forEach(function (f) {
+  var kinds = liveRecipeKinds(pluginRoot);
+  kinds.forEach(function (kind) {
+    var dir = path.join(root, kind);
+    if (!fs.existsSync(dir)) return;
+    fs.readdirSync(dir).forEach(function (f) {
       if (f.endsWith(".json") && f !== "_index.json") total++;
     });
   });
+  if (total === 0) {
+    throw new Error(
+      "doc-counts: the recipe count derived to 0 (live kinds named: " +
+        (kinds.length ? kinds.join(", ") : "none") +
+        "); a SKILL.md mention or a recipe directory was lost, and 0 must not reach the docs",
+    );
+  }
   return total;
 }
 
@@ -279,9 +316,9 @@ function buildChecks(c) {
         },
         { str: c.RECIPES + " recipes", fixRx: /\d+ recipes/g },
         { str: "WCAG 2.2 AA" },
-        { str: "brief-researcher" },
+        { str: "prototype-author" },
       ],
-      notContains: ["WCAG 2.1 AA", "sync-design-system", "24 recipes"],
+      notContains: ["WCAG 2.1 AA", "sync-design-system"],
     },
     {
       file: "plugins/actian-design-system/.claude-plugin/plugin.json",
@@ -455,4 +492,7 @@ module.exports = {
   syncDocCounts: syncDocCounts,
   // Exposed for any consumer that wants a single registry's numbers.
   deriveRegistry: deriveRegistry,
+  // Exposed with their root parameter so a test can prove the zero throw.
+  liveRecipeKinds: liveRecipeKinds,
+  deriveRecipes: deriveRecipes,
 };

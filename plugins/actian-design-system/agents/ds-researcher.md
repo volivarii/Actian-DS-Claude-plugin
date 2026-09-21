@@ -114,6 +114,5 @@ Write this JSON to `outputPath`, nothing else:
 
 ## Callers
 
-`design-proposal` consumes this today. `generate-flow` and `component-brief` still run their own
-`flow-researcher` and `brief-researcher`; converging them onto this agent is tracked separately,
-and `brief-researcher` is the harder one because `card-generator` parses its per-card shape.
+`design-proposal` consumes this today. `generate-flow` still runs its own `flow-researcher`;
+converging it onto this agent is tracked separately.

@@ -22,11 +22,10 @@ Design system teammate on the Actian UX team. Handles anything design-related �
 > **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
 > (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
 
-Designers learn three input shapes; the companion does the rest:
+Designers learn two input shapes; the companion does the rest:
 
 1. **Prompt** — "design me X" → routes to a generator skill.
 2. **URL + intent** — "[figma url] edit X to Y" / "audit this" / "make it hifi" → routes to refine, audit, or hi-fi regeneration (`/generate-flow --hifi`).
-3. **URL + URL** — "compare these" → routes to `/compare-flows`.
 
 ## Step 1 — Load context
 
@@ -81,14 +80,14 @@ The companion is the API. Match the user's prose against this table; pick the mo
 | 12 | "fix the copy" / "rewrite the text" | yes | `/design-audit <url> --scope copy --fix all --no-prompt` |
 | 13 | "UX-wise, how does this read?" / "heuristic check" / "usability review" | yes | `/design-audit <url> --scope heuristic --no-prompt` |
 | 14 | "fix #N" (in audit context) | yes | `/design-audit --fix N --no-prompt` |
-| 15 | "compare X and Y" / "diff these two" | 2 URLs | `/compare-flows <url1> <url2>` |
 | 16 | "find every empty state" / "where do we use FilterChip" / "show me all X in our library" | optional | answer inline (no skill invocation) |
 | 17 | Ticket URL (Jira / Confluence / Google doc) | yes (non-Figma) | `/generate-flow --from <url>` (URL-type detection → spec mode) |
 | 18 | "add empty + error states" / "state coverage for X" | yes | `/generate-flow <url> --states empty,error --no-prompt` |
 | 19 | "make this realistic" / "use real data" / "fill with proper content" | yes | `/generate-flow <url> "use realistic data drawn from app-context"` (refine) |
 | 20 | "responsive" / "for tablet" / "mobile version" | yes | `/generate-flow <url> --breakpoints tablet,mobile --no-prompt` |
-| 21 | "document this component" / "brief for this" | yes (component) | `/component-brief <url>` |
 | 22 | "a few approaches" / "concepts" / "options" / "proposal" / "how should we" / "which is best" / a pasted ticket asking for a solution | no (a ticket id or text may be present) | `/design-proposal X` (HTML document, no push; "in Figma" in the prose is answered in one line and routed to `/generate-flow X --push` instead) |
+
+Rows 15 and 21 (the compare and brief routes) were retired on 2026-09-21; the numbering is kept so the citations below stay valid.
 
 Invoke the chosen skill via the Skill tool with the user's message as argument. If no row fits, proceed to Step 4 (direct help).
 
@@ -111,9 +110,9 @@ The companion classifies URLs to disambiguate intent:
 - **Figma frame URL** → operate on the specific frame (audit, hifi, refine)
 - **Jira / Confluence / Google doc URL** → spec input for `--from`
 - **Image URL** (PNG, JPG, screenshot host) → reference for `--ref`
-- **Multiple URLs in one message** → first is primary, rest are references — unless prose says "compare", which routes to `/compare-flows`
+- **Multiple URLs in one message** → first is primary, rest are references
 
-### 3.2 Refine vs iterate vs branch (URL + URL)
+### 3.2 Refine vs iterate vs branch (URL + intent)
 
 All three operate on existing URLs. Pick by prose:
 

@@ -142,7 +142,7 @@ omit it fall through to greenfield with a documented warning.
 
 **Field notes:**
 
-- `skill` — the slug of the skill that performed the push (e.g. `generate-flow`, `component-brief`, `generate-presentation`, `create-component`)
+- `skill` — the slug of the skill that performed the push (`generate-flow`; manifests written by retired skills keep their own slug)
 - `fileKey` — Figma file key used for all `use_figma` calls in this session
 - `pageNodeId` — node ID of the Figma page (not a frame — the top-level page)
 - `pushedNodes` — one entry per node pushed. Each entry contains:
@@ -175,9 +175,6 @@ omit it fall through to greenfield with a documented warning.
 | Skill | Manifest path |
 |---|---|
 | `generate-flow` | `{project_dir}/flows/.last-push.json` |
-| `component-brief` | `{project_dir}/components/{name}/.last-push.json` |
-| `generate-presentation` | `{project_dir}/presentations/{slug}/.last-push.json` |
-| `create-component` | `{project_dir}/components/{name}/.last-push.json` |
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
 
@@ -222,9 +219,6 @@ For `propertyDefaultsHash`: include the JSON object produced by `PROPERTY_DEFAUL
 
 `$SOURCE_FILE` is the path to the source data file:
 - `generate-flow`: the `flow-data.json` file
-- `component-brief`: the `brief-data.json` file
-- `generate-presentation`: the `presentation-data.json` file
-- `create-component`: the primary data file produced during build
 
 ### Tier summary line
 
