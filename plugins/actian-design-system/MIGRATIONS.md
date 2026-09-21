@@ -99,8 +99,8 @@ behavioral effect, mark the section `N/A — <one-line reason>` and proceed.
 ### Component-brief / push-pattern PRs: automated eval lane
 
 > Retired 2026-09-21: `/component-brief` is hidden under `retired/` (see `retired/README.md`).
-> The lane below runs against the installed marketplace cache and its prompts never name the
-> skill, so once an installed build carries this retirement the subagent improvises a brief and
+> The lane below runs against the installed marketplace cache and its prompts never invoke
+> `/component-brief`, so once an installed build carries this retirement the subagent improvises a brief and
 > the grader scores that: a run after this point measures nothing. The lane and this section
 > stay for the deletion PR.
 

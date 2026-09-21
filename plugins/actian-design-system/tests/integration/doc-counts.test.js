@@ -26,8 +26,9 @@
  *   - agents   = agents/*.md files
  *   - recipes  = recipes/<kind>/*.json files excluding _index.json, for the
  *                kinds a live skills/<name>/SKILL.md names a path under
- *                (recipes/<kind>/...); losing the only mention makes the
- *                floor below fail
+ *                (recipes/<kind>/...); a total of 0 throws inside deriveCounts,
+ *                which runs at load, so this whole file then fails to build
+ *                (doc-counts-recipes.test.js proves that throw fires)
  *   - DS/FM/Meta components + sets = vendor/components/dist/registries/*.json
  *   - guideline docs = vendor/components/dist/guidelines/*.json (minus the bundle)
  *

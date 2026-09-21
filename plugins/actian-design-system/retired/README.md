@@ -29,6 +29,6 @@ now carries companion, design-audit, design-proposal and generate-flow.
 To bring one back: `git mv` the directory to its old path, restore the routing rows the
 retiring commit removed from `skills/companion/SKILL.md`, repin
 `tests/integration/retired-skills.test.js` (its skill and agent counts, its lists and its
-banned names), name its agents again in `.claude-plugin/marketplace.json`, and for
+banned names), name its agents again in the repository-root `.claude-plugin/marketplace.json`, and for
 component-brief re-add its entry to `tests/integration/contract.test.js`. The counts in the
 docs follow from `scripts/vendor/sync-doc-counts.js`.
