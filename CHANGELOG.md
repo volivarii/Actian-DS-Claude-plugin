@@ -24,10 +24,11 @@ are summarized at the release level.
 - **The four skills are renamed `actian-ux`, `actian-ux-prototype`, `actian-ux-proposal` and `actian-ux-audit`** (was `companion`, `generate-flow`, `design-proposal`, `design-audit`). ([#412](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/412))
   One prefix names the family in any skill list, and the word after it names the deliverable: a clickable
   prototype (the skill also draws single screens, so "flow" named one shape of many), a proposal document, an
-  audit; the entry point is the family itself. Directories, references, tests and every loaded document carry
-  the new names; each skill's description says what it was formerly called, so a request in the old words still
-  routes; no alias skills. Output folders and data file names do not change. The schemas accept the old
-  `meta.skill` values, so files authored before this version keep validating and `--from` keeps working on them.
+  audit; the entry point is the family itself. Directories, references, tests and every document this repo
+  owns carry the new names (the vendored knowledge snapshot still says `generate-flow` until knowledge renames
+  it); each skill's description says what it was formerly called, so a request in the old words still routes;
+  no alias skills. Output folders and data file names do not change. The schemas accept the old `meta.skill`
+  values, so files authored before this version keep validating and `--from` keeps working on them.
 
 ### Added
 

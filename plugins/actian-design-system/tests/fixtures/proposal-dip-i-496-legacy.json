@@ -6,7 +6,7 @@
     "apps": ["explorer", "administration"],
     "prompt": "Propose a design for this ticket: DIP-I-496",
     "model": "claude-sonnet-5",
-    "skill": "actian-ux-proposal"
+    "skill": "design-proposal"
   },
   "context": {
     "question": "How does a logged-in user see which permission group they belong to, and where its guidelines are?",

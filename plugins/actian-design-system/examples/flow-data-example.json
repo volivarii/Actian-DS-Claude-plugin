@@ -8,7 +8,7 @@
     "prompt": "Design a connection settings page in Studio",
     "duration": "30s",
     "model": "claude-opus-4-6",
-    "pluginVersion": "1.31.0",
+    "pluginVersion": "2026.9.59",
     "skill": "actian-ux-prototype",
     "generatedAt": "2026-04-03T00:00:00Z"
   },

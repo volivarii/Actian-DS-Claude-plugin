@@ -142,7 +142,7 @@ omit it fall through to greenfield with a documented warning.
 
 **Field notes:**
 
-- `skill` — the slug of the skill that performed the push (`actian-ux-prototype`; manifests written by retired skills keep their own slug)
+- `skill` — the slug of the skill that performed the push (`actian-ux-prototype`, or `generate-flow` in a manifest written before 2026.9.59, the same skill; manifests written by retired skills keep their own slug)
 - `fileKey` — Figma file key used for all `use_figma` calls in this session
 - `pageNodeId` — node ID of the Figma page (not a frame — the top-level page)
 - `pushedNodes` — one entry per node pushed. Each entry contains:
