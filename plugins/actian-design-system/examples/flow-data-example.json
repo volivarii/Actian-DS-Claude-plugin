@@ -9,7 +9,7 @@
     "duration": "30s",
     "model": "claude-opus-4-6",
     "pluginVersion": "1.31.0",
-    "skill": "generate-flow",
+    "skill": "actian-ux-prototype",
     "generatedAt": "2026-04-03T00:00:00Z"
   },
   "screens": [

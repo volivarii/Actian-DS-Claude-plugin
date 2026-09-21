@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-// The built-leaf props section of references/generate-flow/ds-components-authoring.md
+// The built-leaf props section of references/actian-ux-prototype/ds-components-authoring.md
 // is GENERATED from the substrate's render contract, the same way the vocabulary
 // table above it is generated from the registry + BUILT_SLUGS
 // (render-authoring-table.js). Regenerate with:
@@ -35,7 +35,7 @@ var MD_PATH = path.resolve(
   "..",
   "..",
   "references",
-  "generate-flow",
+  "actian-ux-prototype",
   "ds-components-authoring.md",
 );
 

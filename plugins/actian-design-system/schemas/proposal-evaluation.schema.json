@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "proposal-evaluation",
-  "description": "What /design-proposal --evaluate writes: the framing, the product read, the scope, and the decisions the ticket forces, with no options, no comparison and no picks. Completed into a proposal-data.json by adding keys, never by renaming one.",
+  "description": "What /actian-ux-proposal --evaluate writes: the framing, the product read, the scope, and the decisions the ticket forces, with no options, no comparison and no picks. Completed into a proposal-data.json by adding keys, never by renaming one.",
   "type": "object",
   "required": [
     "meta",
@@ -74,13 +74,14 @@
           ]
         },
         "skill": {
-          "description": "Always design-proposal; lets a reader tell this file from a flow-data.json",
+          "description": "Always actian-ux-proposal (design-proposal before 2026.9.59, still accepted); lets a reader tell this file from a flow-data.json",
           "type": "string",
           "enum": [
+            "actian-ux-proposal",
             "design-proposal"
           ],
           "examples": [
-            "design-proposal"
+            "actian-ux-proposal"
           ]
         },
         "stage": {

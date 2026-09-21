@@ -17,7 +17,7 @@ function evaluation() {
       title: "DIP-I-496: show role and permission for a logged-in user",
       date: "2026-09-14",
       apps: ["explorer"],
-      skill: "design-proposal",
+      skill: "actian-ux-proposal",
       stage: "evaluation",
     },
     source: {

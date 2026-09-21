@@ -7,7 +7,7 @@ repo root.
 ## What this plugin is
 
 Actian's federated DS substrate, packaged as a Claude Code plugin. Provides
-4 skills (companion, generate-flow, design-proposal, design-audit)
+4 skills (actian-ux, actian-ux-prototype, actian-ux-proposal, actian-ux-audit)
 that author and audit Figma designs against the
 Actian DS via the official Figma MCP server.
 

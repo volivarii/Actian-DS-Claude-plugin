@@ -40,4 +40,4 @@ Each follows the contract above:
 - **graph / inverse-edge queries** — "which components reference WCAG 2.1.1 / this
   token?" (consume the dormant `graph.json`).
 - **companion multi-domain routing** — route a free-text question to the right helper.
-- **design-audit consumer** — check a design against a component's linked criteria.
+- **actian-ux-audit consumer** — check a design against a component's linked criteria.

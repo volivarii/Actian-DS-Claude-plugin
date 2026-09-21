@@ -230,7 +230,7 @@ function provenanceComment(run) {
   var prompt = String(run.prompt == null ? "" : run.prompt).slice(0, 200);
   return (
     "<!--\n" +
-    "  Actian Design System: generate-flow --direct (prototype)\n" +
+    "  Actian Design System: actian-ux-prototype --direct (prototype)\n" +
     "  skill:    " + maskProvenance(run.skill) + "\n" +
     "  feature:  " + maskProvenance(run.feature) + "\n" +
     "  prompt:   " + maskProvenance(prompt) + "\n" +

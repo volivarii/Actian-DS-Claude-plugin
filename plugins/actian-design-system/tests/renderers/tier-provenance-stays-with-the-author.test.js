@@ -13,7 +13,7 @@
  * .proto-stage--overview", on the reasoning that the Overview contact sheet's
  * reader is the author. It is not: the deliverable is ONE html file with a
  * Prototype/Overview toggle in its own top bar, and
- * `references/generate-flow/share.md` says that file is "the shareable
+ * `references/actian-ux-prototype/share.md` says that file is "the shareable
  * artifact handed to stakeholders, reviewers, or anyone who doesn't use
  * Figma". Both buttons ship, always rendered and always enabled. So the
  * previous fix moved the leak one click away rather than closing it, and its

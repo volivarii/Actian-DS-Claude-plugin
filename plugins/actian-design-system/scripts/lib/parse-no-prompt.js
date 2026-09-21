@@ -2,7 +2,7 @@
 
 // Parses the --no-prompt flag from CLI args.
 //
-// Used by /generate-flow, /design-audit, /convert-to-hifi to decide whether
+// Used by /actian-ux-prototype, /actian-ux-audit, /convert-to-hifi to decide whether
 // to run interactive gates or skip with documented defaults. The flag is the
 // single skill-wide suppressor for the gate convention defined in
 // references/ds-rules/interactive-gates.md.

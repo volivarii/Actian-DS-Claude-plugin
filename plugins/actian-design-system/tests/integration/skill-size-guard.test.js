@@ -50,26 +50,26 @@ describe("SKILL.md size ceiling (progressive disclosure)", () => {
 const MAX_BYTES = 30000;
 const MAX_REACHABLE_BYTES = 48000;
 const HTML_ONLY_SET = [
-  "skills/generate-flow/SKILL.md",
-  "references/generate-flow/gates.md",
-  "references/generate-flow/share.md",
+  "skills/actian-ux-prototype/SKILL.md",
+  "references/actian-ux-prototype/gates.md",
+  "references/actian-ux-prototype/share.md",
   "references/ds-rules/quality-tiers.md",
 ];
 // What a --direct run loads on top of the gates: the skill and its route file.
 const MAX_DIRECT_BYTES = 40000;
 const DIRECT_SET = [
-  "skills/generate-flow/SKILL.md",
-  "references/generate-flow/direct.md",
+  "skills/actian-ux-prototype/SKILL.md",
+  "references/actian-ux-prototype/direct.md",
 ];
 
-describe("generate-flow byte ceilings (what an HTML-only run loads)", () => {
+describe("actian-ux-prototype byte ceilings (what an HTML-only run loads)", () => {
   it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
     const bytes = fs.statSync(
-      path.join(PLUGIN_ROOT, "skills/generate-flow/SKILL.md"),
+      path.join(PLUGIN_ROOT, "skills/actian-ux-prototype/SKILL.md"),
     ).size;
     assert.ok(
       bytes < MAX_BYTES,
-      `generate-flow/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
+      `actian-ux-prototype/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
     );
   });
   it(`the HTML-only reachable set is under ${MAX_REACHABLE_BYTES} bytes`, () => {

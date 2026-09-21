@@ -54,9 +54,9 @@ Gates are batched per **pipeline phase**, not per flag. Reasons:
 The precedent: the retired component-brief skill's card gate batched card selection + research scope into one prompt with one combined parser. This convention generalizes that.
 
 **Per-skill batching:**
-- `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
-- `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
-- `/design-proposal`: 2 gates. (1) Research, at Step 3, before the sweep is paid for: four lanes (competitors, design systems, ours, yours), answered `all`, `none`, a subset, or by pasting references. `--research <lanes>` answers it; `--no-prompt` runs `ours` alone, which costs no web search and keeps an unattended run grounded. (2) The decisions, once they are named in chat and before anything is drawn: the decisions, their options and the picks, for the reader to change while changing them is still a sentence. `--no-prompt` skips it.
+- `/actian-ux-prototype`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
+- `/actian-ux-audit`: 2 single-flag gates — scope at start, fix after findings reported.
+- `/actian-ux-proposal`: 2 gates. (1) Research, at Step 3, before the sweep is paid for: four lanes (competitors, design systems, ours, yours), answered `all`, `none`, a subset, or by pasting references. `--research <lanes>` answers it; `--no-prompt` runs `ours` alone, which costs no web search and keeps an unattended run grounded. (2) The decisions, once they are named in chat and before anything is drawn: the decisions, their options and the picks, for the reader to change while changing them is still a sentence. `--no-prompt` skips it.
 
 ## Gate prompt shape
 
@@ -86,10 +86,10 @@ Examples:
 
 ## Companion's responsibility
 
-The companion skill (`skills/companion/SKILL.md`) routes designer prose to specific skills. When companion routes:
+The companion skill (`skills/actian-ux/SKILL.md`) routes designer prose to specific skills. When companion routes:
 
-- **Pass `--no-prompt`** when ALL flags relevant to the route's intent have been confidently extracted from prose. Example: companion row 3 ("ship-ready X") extracts `--hifi`, so it routes `/generate-flow X --hifi --no-prompt`.
-- **Don't pass `--no-prompt`** when intent is partial or vague. Let the downstream skill gate. Example: companion row 1 ("design me a settings page") extracts no flags; routes `/generate-flow "settings page"` (no `--no-prompt`), letting the skill gate on output mode, variants, refs, and breakpoints.
+- **Pass `--no-prompt`** when ALL flags relevant to the route's intent have been confidently extracted from prose. Example: companion row 3 ("ship-ready X") extracts `--hifi`, so it routes `/actian-ux-prototype X --hifi --no-prompt`.
+- **Don't pass `--no-prompt`** when intent is partial or vague. Let the downstream skill gate. Example: companion row 1 ("design me a settings page") extracts no flags; routes `/actian-ux-prototype "settings page"` (no `--no-prompt`), letting the skill gate on output mode, variants, refs, and breakpoints.
 
 The downstream skill gate is the canonical UX. Companion's job is intent classification and partial-flag pre-fill, not UX duplication.
 
@@ -99,7 +99,7 @@ The downstream skill gate is the canonical UX. Companion's job is intent classif
 |---|---|---|
 | 1 ("design me X") | none | No — let skill gate everything |
 | 3 ("ship-ready X") | `--hifi` | Yes: append `--hifi --no-prompt` |
-| 4 ("alternatives", "three ways to do X") | `--concepts` | No: route to `/design-proposal X --concepts 3`, no gate (`--variants` stays on `/generate-flow` by explicit flag) |
+| 4 ("alternatives", "three ways to do X") | `--concepts` | No: route to `/actian-ux-proposal X --concepts 3`, no gate (`--variants` stays on `/actian-ux-prototype` by explicit flag) |
 | 9 ("match this style" + refs) | `--ref` | Conditional — only if no other intent missing |
 | 18 ("add empty + error states") | `--states` | Yes — append `--states empty,error --no-prompt` |
 | 20 ("responsive") | `--breakpoints` | Yes — append `--breakpoints tablet,mobile --no-prompt` |
@@ -112,20 +112,20 @@ This table is the source of truth for "what does the skill do when a flag is mis
 
 | Flag | Skill | Default if missing AND `--no-prompt` |
 |---|---|---|
-| `--push` | `/generate-flow` | false (HTML-only; no Figma push). Override: `--no-push` (absolute veto) |
-| `--hifi` | `/generate-flow` | false (lo-fi output) |
-| `--audit` | `/generate-flow` | false (skip post-gen audit). Implies a Figma push when set. |
-| `--variants <N>` | `/generate-flow` | 1 |
-| `--ref <url>` | `/generate-flow` | none |
-| `--breakpoints <list>` | `/generate-flow` | desktop only |
-| `--from <url>` | `/generate-flow` | none |
-| `--branch <name>` | `/generate-flow` | none |
-| `--states <list>` | `/generate-flow` | none |
-| `--scope <list>` | `/design-audit` | all |
-| `--fix <N\|all>` | `/design-audit` | skip |
-| `--concepts <N>` | `/design-proposal` | 3 |
-| `--from <path>` | `/design-proposal` | none (re-render an edited data file) |
-| `--no-research` | `/design-proposal` | off; `--no-prompt` implies it (research skipped, the document says so) |
+| `--push` | `/actian-ux-prototype` | false (HTML-only; no Figma push). Override: `--no-push` (absolute veto) |
+| `--hifi` | `/actian-ux-prototype` | false (lo-fi output) |
+| `--audit` | `/actian-ux-prototype` | false (skip post-gen audit). Implies a Figma push when set. |
+| `--variants <N>` | `/actian-ux-prototype` | 1 |
+| `--ref <url>` | `/actian-ux-prototype` | none |
+| `--breakpoints <list>` | `/actian-ux-prototype` | desktop only |
+| `--from <url>` | `/actian-ux-prototype` | none |
+| `--branch <name>` | `/actian-ux-prototype` | none |
+| `--states <list>` | `/actian-ux-prototype` | none |
+| `--scope <list>` | `/actian-ux-audit` | all |
+| `--fix <N\|all>` | `/actian-ux-audit` | skip |
+| `--concepts <N>` | `/actian-ux-proposal` | 3 |
+| `--from <path>` | `/actian-ux-proposal` | none (re-render an edited data file) |
+| `--no-research` | `/actian-ux-proposal` | off; `--no-prompt` implies it (research skipped, the document says so) |
 
 These match silent-default behavior pre-v1.63.0. No behavior change for automation that already passes flags.
 
@@ -143,7 +143,7 @@ When adopting this convention in a new skill:
 2. Update the skill's `argument-hint` frontmatter field to include `[--no-prompt]`.
 3. Add Step 0 (parse) and Step 0.x (gate) sections to `SKILL.md`, following the prompt shape above.
 4. Document each gate's parser rules inline (valid tokens, retries, abort behavior).
-5. Update `references/context/companion-context.md` and `skills/companion/SKILL.md` if companion has a row that should route to your skill.
+5. Update `references/context/companion-context.md` and `skills/actian-ux/SKILL.md` if actian-ux has a row that should route to your skill.
 
 ## Out of scope for this convention
 

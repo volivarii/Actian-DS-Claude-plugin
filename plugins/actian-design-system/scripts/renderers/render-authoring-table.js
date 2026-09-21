@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
-// The vocabulary table in references/generate-flow/ds-components-authoring.md
-// mis-steers screen-generator/generate-flow when it drifts from the code (at
+// The vocabulary table in references/actian-ux-prototype/ds-components-authoring.md
+// mis-steers screen-generator/actian-ux-prototype when it drifts from the code (at
 // audit time: 16 BUILT slugs marked chip, `input` listed after it left the
 // registry, text-input missing). The table is GENERATED from the two sources
 // of truth — the vendored dskit registry (authorable slugs, names, variant
@@ -20,7 +20,7 @@ var MD_PATH = path.resolve(
   "..",
   "..",
   "references",
-  "generate-flow",
+  "actian-ux-prototype",
   "ds-components-authoring.md",
 );
 

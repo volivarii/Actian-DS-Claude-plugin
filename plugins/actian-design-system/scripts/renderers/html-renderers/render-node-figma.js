@@ -34,7 +34,7 @@ var DS_KEYS = sharedConstants.buildKeyMapFromRegistry("dskit", "ds");
 // Lookup-ref derivation
 // For FM nodes: always node.ref (camelCase, e.g. "fmButton").
 // For DS nodes: node.ref if present (convert-to-hifi path), else derive from
-// node.dsSlug via slugToRef (canonical generate-flow --hifi path).
+// node.dsSlug via slugToRef (canonical actian-ux-prototype --hifi path).
 // ---------------------------------------------------------------------------
 function resolveDsRef(node) {
   if (typeof node.ref === "string" && node.ref) return node.ref;

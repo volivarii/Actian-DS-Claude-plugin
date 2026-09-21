@@ -225,17 +225,27 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
-// Test: Validator catches const mismatch
+// Test: Validator catches const mismatch (brief-data's skill is still a const;
+// flow-data's became an enum at the 2026.9.59 rename, covered next)
 // ---------------------------------------------------------------------------
 
 const badConst = {
-  meta: { feature: "Test", skill: "wrong-skill" },
-  screens: [{ name: "S1", content: [] }],
+  meta: { component: "Button", skill: "wrong-skill" },
 };
-const constErrors = validate(badConst, schemas["flow-data.schema.json"]);
+const constErrors = validate(badConst, schemas["brief-data.schema.json"]);
 assert(
   constErrors.some((e) => e.includes("expected const")),
   "Detects const mismatch for skill field",
+);
+
+const badSkill = {
+  meta: { feature: "Test", skill: "wrong-skill" },
+  screens: [{ name: "S1", content: [] }],
+};
+const skillErrors = validate(badSkill, schemas["flow-data.schema.json"]);
+assert(
+  skillErrors.some((e) => e.includes("skill") && e.includes("not in enum")),
+  "Detects a skill name outside the enum for flow-data",
 );
 
 // ---------------------------------------------------------------------------

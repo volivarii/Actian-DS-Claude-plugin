@@ -46,7 +46,7 @@
  * No regex separates a product noun from its ordinary sense, and these do not
  * try. They point; the author rules and says so.
  *
- * A file carrying meta.stage "evaluation" is the partial /design-proposal --evaluate
+ * A file carrying meta.stage "evaluation" is the partial /actian-ux-proposal --evaluate
  * writes: the framing, the scope and the decisions named but not answered. It is read
  * against proposal-evaluation.schema.json, and every check that reads an option, a
  * comparison, a pick, a drawing or a closing line is skipped, because an evaluation
@@ -96,7 +96,7 @@ var TONES = ["good", "mixed", "bad"];
 
 // Word limits. The layout does not truncate: a field past its limit pushes the next thing down
 // the page, and a PM reading before a meeting stops there. The keys are the field names
-// references/design-proposal/document-authoring.md prints in its table, and a test holds the
+// references/actian-ux-proposal/document-authoring.md prints in its table, and a test holds the
 // two together, so change both or neither.
 var WORD_LIMITS = {
   "meta.title": 10,

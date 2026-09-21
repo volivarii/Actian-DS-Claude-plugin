@@ -1,0 +1,264 @@
+---
+name: actian-ux-prototype
+description: Generate one or more DS-native screens — single screen or multi-screen flow — from a feature idea, user story, or single-screen prompt, DS-native by default with a lo-fi skin or FatMarker authoring on request. Also handles refine (URL + instruction), iterate (URL only), and branch (URL + new variant). HTML-first; Figma push is opt-in. Formerly /generate-flow.
+argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --lofi --fm --layout freehand --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --push --no-push --no-prompt]"
+---
+
+# Generate Flow
+
+<!-- plugin-root:begin -->
+## Where the plugin lives
+
+Bare `references/`, `vendor/`, `agents/`, `recipes/`, `templates/` and `scripts/` paths in this file are relative to the plugin root: the directory holding `.claude-plugin/plugin.json`, the parent of the `skills/` directory named in the base directory above. They are never relative to the project working directory. Every command in this file expects `CLAUDE_PLUGIN_ROOT` to name that root. In Cowork, bash runs inside a VM where the plugin is mounted under `/sessions/<vm>/mnt/.remote-plugins/<plugin id>/`, so set the variable once per shell before anything else:
+The line is idempotent: when a later bash call finds the variable empty, run the line again before the command.
+
+```bash
+{ [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -f "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" ]; } || export CLAUDE_PLUGIN_ROOT="$(for d in ${CLAUDE_REMOTE_PLUGINS_ROOT:-/sessions/*/mnt/.remote-plugins}/*/; do grep -qs '"name": *"actian-design-system"' "${d}.claude-plugin/plugin.json" && printf '%s' "${d%/}" && break; done)"; [ -n "$CLAUDE_PLUGIN_ROOT" ] || echo "plugin root not found: export CLAUDE_PLUGIN_ROOT=<the directory holding .claude-plugin/plugin.json>" >&2
+```
+<!-- plugin-root:end -->
+
+Build one or more screens (n≥1, single-screen output is first-class), DS-native by default: DS Kit vocabulary, themed hi-fi HTML. `--lofi` renders the same tree in a focus-aware lo-fi skin; `--fm` authors FatMarker components, Inter font, FM palette instead. HTML-first: the deliverable is one encapsulated, offline `flows/[feature].html` (two-view — clickable Prototype + all-screens Overview). Figma push is **opt-in**.
+
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
+## Input shapes
+
+The skill accepts four shapes; detection happens before the pipeline runs.
+
+| Shape                | Pattern                         | Example |
+| -------------------- | ------------------------------- | ------------------------------------------------------------ |
+| **Prompt**           | Feature description, no URL     | `/actian-ux-prototype create a data product` |
+| **Refine**           | Figma URL + prose instruction   | `/actian-ux-prototype <url> "rename the primary CTA to 'Publish'"` |
+| **Iterate / Branch** | `--from <url>` (no instruction) | `/actian-ux-prototype --from <url> --branch v2` |
+| **Proposal**         | `--from <proposal-data.json>`   | `/actian-ux-prototype --from proposals/proposal-data.json` |
+
+Refine activates when ALL of: a Figma URL is provided, prose instruction is provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the wrapper `pageNodeId`) in `.last-push.json`. See **Refine shape** below for the full detection + behavior spec.
+
+## Flags
+
+| Flag                   | Type        | Default | Behavior |
+| ---------------------- | ----------- | ------- | -------- |
+| `--hifi`               | bool        | on      | DS-native authoring is the default since 2026.9.x: screens built against the DS vocabulary (`references/actian-ux-prototype/ds-components-authoring.md`), rendered as themed hi-fi HTML. Combines with `--push` for a DS whole-tree Figma push; incompatible with `--audit` (needs a lo-fi pushed frame, push lo-fi with `--fm --push`, then `--hifi --push`, then `/actian-ux-audit`). |
+| `--lofi`               | bool        | off     | Same DS tree rendered in the lo-fi skin (`meta.skin:"lofi"`): the feature (nodes with `focus: true`) legible in gray, everything else placeholder. For layout tests and early reviews. |
+| `--layout freehand`    | string      | none    | Skips recipe snapping for every screen; each is classified improvised. For layout tests. Combine with `--lofi`. |
+| `--fm`                 | bool        | off     | FatMarker authoring (the pre-2026.9.x default). Required for a lo-fi Figma push; not combinable with `--lofi`. |
+| `--direct`             | bool        | off     | One author draws the whole flow as one clickable HTML prototype, checks it and looks at it. HTML only. See `references/actian-ux-prototype/direct.md`. |
+| `--audit`              | bool        | off     | After a lo-fi push, runs `/actian-ux-audit` on the pushed Figma frame and reports findings (auto-fix needs `--audit --fix all`). Implies a Figma push, so it does not combine with `--hifi`. Passed together with `--hifi`, the skill warns, keeps `--hifi` (`--push` still applies), and drops `--audit`. |
+| `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition), laid out side-by-side. Range 2-5; refuse above 5. Ignored when `--branch` is set. Provenance tracked in `.last-push.json`. |
+| `--ref <url[,url]>`    | URL list    | none    | Biases recipe selection toward a reference's structural fingerprint. See `references/actian-ux-prototype/vision-refs.md`. |
+| `--breakpoints <list>` | string list | none    | Comma-separated: `tablet`, `mobile`, `custom-Npx`. Each breakpoint adds a variant alongside the desktop base (collapse/stack decisions only); combined with `--variants`, outputs multiply (3 variants with one breakpoint give 6), hard-capped at 9 total. |
+| `--from <url>`         | URL         | none    | URL-type detected: Figma URL iterates on the existing flow (preserves data model, re-rolls recipes); Jira/Confluence/Google doc URL is spec input (user story, acceptance criteria); image URL is a primary visual reference. A local `proposal-data.json` is the proposal bridge: see `references/actian-ux-prototype/proposal-bridge.md`. |
+| `--branch <name>`      | string      | none    | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`; provenance in `.last-push.json`. |
+| `--states <list>`      | string list | none    | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants. |
+| `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is HTML only, no push — `--push` (or prose "push to figma", `--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/actian-ux-prototype/push-opt-in.md`. |
+| `--no-push`            | bool        | off     | Absolute veto. Overrides every push trigger (`--push`, prose intent, `--audit`, the gate) and wins ties when both `--push` and `--no-push` are present. |
+| `--no-prompt`          | bool        | false   | Skips the interactive gates (the Gate 3 config questions and the Step 7.5 combined post-build gate), using defaults for unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit). |
+
+## Step 0 — Parse args + classify input shape
+
+Parse args. Note which flags are explicitly passed:
+
+- `--push` / `--no-push`: parsed via `require("${CLAUDE_PLUGIN_ROOT}/scripts/lib/parse-push.js")(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
+- `--no-prompt`: parsed via `${CLAUDE_PLUGIN_ROOT}/scripts/lib/parse-no-prompt.js`. Suppresses the Gate 3 config questions + the Step 7.5 gate.
+- `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
+- `--lofi`, `--fm` — accepted as Gate 3 answers though not asked there; `--fm` wins over `--lofi`/`--hifi` when more than one is passed. `--layout freehand` stays not gated, skips recipe snapping, and combines with either.
+- `--direct`: read `references/actian-ux-prototype/direct.md` now; it refuses the flags it does not combine with, and replaces the pipeline after item 4.5.
+- `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
+
+Classify input shape (Prompt / Refine / Iterate / Proposal per the table above). **Refine and Iterate skip Gate 3 entirely**: URL + prose (refine) or `--from <url>` (iterate) are already explicit intent. **Proposal enters at Gate 3** carrying the bridge's seed (`references/actian-ux-prototype/proposal-bridge.md`) as the screen list and brief: nothing to research, no app to infer.
+
+## Push opt-in
+
+Push is opt-in and resolved before Step 7; the detection rules and the `--push` / `--no-push` precedence are in `references/actian-ux-prototype/push-opt-in.md`; the push sequence itself is in `references/actian-ux-prototype/figma-push.md` (read it only when push resolved to true).
+
+## Refine shape
+
+A Figma URL plus a prose instruction on a flow this plugin pushed is a refine; detection and behaviour are in `references/actian-ux-prototype/refine.md`, and the push half in `references/actian-ux-prototype/figma-push.md`.
+
+## Pipeline (3 gates, then build + render; push opt-in) — for prompt + greenfield generation
+
+1. Determine the app (Studio/Explorer/Administration). An explicit app in the prompt ("in Studio") always wins: read `references/context/app-context.md` only when the prompt does not name the app. Disambiguate against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps.<id>.signals` (an object keyed by app id, e.g. `apps.studio.signals`: steward/govern/curate/lineage…; `apps.explorer.signals`: browse/discover/marketplace…).
+
+   **Announce the app (S2).** State one line: `Generating for **<App>**`. Add the parenthesis `(inferred, say "use Explorer" to switch)` only when the app was inferred, never when the prompt named it, then continue without waiting. Accept an override only if it matches a known app (`scripts/lib/app-context/resolve-patterns.js` / `resolve-chrome.js` list the apps). **Hard-ask** which app *only* when signals match **zero** apps, or **two or more** apps with equal strength. This keeps the HTML-first "no new mandatory gate" rule: it's an announcement with an escape hatch, not a gate.
+
+2. **Gate 1 — Research** (present verbatim, see below)
+3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
+4. **Gate 3 — Screen list + detail + config** (single merged gate — screen approval, detail level, AND generation config; see below). Prose pre-inference runs first.
+   4.5. **Vision analysis on `meta.references[]`** (C-vision, opt-in): when `--ref <url>` was provided and `meta.references[]` is non-empty, extract a structural fingerprint per reference before building flow-data; skip entirely when empty. **REQUIRED:** read `references/actian-ux-prototype/vision-refs.md` for the per-ref loop, the vision-extraction prompt template, and failure-mode handling.
+
+5.0. **Skeleton — render the encapsulated deliverable immediately.** As soon as the screen list is approved (Gate 3), render the structure to the canonical artifact so the user sees it instantly instead of an empty panel:
+
+- Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>", "pattern": "<slug>", "layer": { "kind", "over": <n> }, "exit": "<what the user does to move on>", "layout": "freehand" }, …] }` (one entry per approved screen, in final order; all but name and template optional). Set `pattern` (a slug from `resolve-patterns.js --app`) where an app pattern covers the screen, `layer` where it is a surface over screen n, `exit` on every screen but the last, and `meta.nav` (the sidebar id the flow lives under, from `resolve-chrome.js --app`); a declared pattern outranks the name (gates.md, Screen list). `meta` carries only the keys something downstream reads: `feature`, `app`, `prompt` (read by `assemble-flow-share.js` and `validate-flow-data.js`), `mode` (`generate`, or `refine` in the refine shape), `hifi: true` unless `--fm` (legacy boolean, maps to DS rendering), `skin: "lofi"` under `--lofi`, and `_glossary` (added at Step 3.5, read by the validator's grounding advisories). `template` is one of `studio`, `explorer`, `admin` (alias `administration`), `no-sidebar`, `bare`, `compact`, `mobile`, `tablet`, `custom` (the chrome vocabulary in `scripts/renderers/html-renderers/ds-screen-tree.js`); any other value falls back to the legacy `appHeader`/`sidebar` fields and a screen carrying neither renders no chrome.
+- **Every screen count:** merge the screen list into `flow-data.json` (pending stubs) via the incremental merge against the (empty) partials dir, then render `--type flow-share`:
+  ```bash
+  source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+  "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
+    --type flow --partials-dir {project_working_directory}/flows/.partial \
+    --output {project_working_directory}/flows/flow-data.json \
+    --incremental --screen-list {project_working_directory}/flows/screen-list.json
+  "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
+    {project_working_directory}/flows/flow-data.json --type flow-share \
+    -o {project_working_directory}/flows/[feature].html
+  ```
+  Add `--skin lofi` before `-o` when `meta.skin` is `"lofi"`.
+- Tell the user: `Preview ready (skeleton) → {project_working_directory}/flows/[feature].html — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
+- Then run `## Step 3.5` below to write the brief and its per-screen slices; Step 5's screen-generator dispatch reads what it writes.
+
+5. Build `flow-data.json`
+   - **Tier classification (REQUIRED for every screen):** the `screen-generator` agent applies the classifier per screen via its own Step 0. Every screen object in its output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section, and its "Tier-aware generation rules" section governs how the screen's content is authored.
+   - **Authoring (every screen count):** dispatch one `screen-generator` agent per screen, all in parallel: screen count does not change the shape of the dispatch. Each instance gets `pluginRoot` = `${CLAUDE_PLUGIN_ROOT}`, its slice path `{project_working_directory}/flows/.brief/<n>.json`, `_index` = the screen's 1-based number (the slice's own `index`), and its partial output path `{project_working_directory}/flows/.partial/screens-<n>.json` (plus `library: "ds"` unless `--fm`, and `references` = `meta.references[]` when Step 4.5 produced fingerprints). The dispatcher pastes no brief content; the agent reads its own slice plus `references/actian-ux-prototype/html-reference.md` (and `references/actian-ux-prototype/ds-components-authoring.md` under `--hifi`), nothing else. Merge as instances land:
+     ```bash
+     source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
+       --type flow --partials-dir {project_working_directory}/flows/.partial \
+       --output {project_working_directory}/flows/flow-data.json \
+       --incremental --screen-list {project_working_directory}/flows/screen-list.json
+     ```
+     The main agent prepares, merges, validates and renders; it does not author screen content.
+   - **Progress (chat) + live streaming:** this is the longest silent phase, so keep the user informed AND populate the deliverable as screens land. Print one line per screen as it lands, as each screen's partial merges: `✓ <N>/<M> <screen name>`. Lead with `Building <feature> (<M> screens)` before the first. **After each `✓` line, re-emit the `--type flow-share` deliverable to `flows/[feature].html`** so the panel/browser fills in live: re-run the `merge-partials.js --incremental` + `assemble-preview.js … --type flow-share` pair from Step 5.0 (present partials replace their `pending` stub and carry no status field; the rest stay shimmer). Every streaming render is fail-open (a render error never blocks the build).
+6. **Validate flow data** — run the validation script before rendering the final deliverable / pushing:
+
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
+     {project_working_directory}/flows/flow-data.json \
+     --write-ids
+   ```
+
+   - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
+   - Exit 2 (P1s only): report terminology or token warnings to user, proceed.
+   - Exit 0: clean, proceed.
+
+   **Refine runs — pass `--scope`:** when this run is a refine (URL + prose, modifying one or more existing screens rather than full regenerate), pass the affected screen ids via `--scope`. Validator findings will then exclude unchanged screens, so designers don't see noise about pre-existing issues on screens they didn't touch.
+
+   ```bash
+   # Single-screen refine
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
+     {project_working_directory}/flows/flow-data.json \
+     --scope single-unit:notification-preferences-2 \
+     --write-ids
+
+   # Multi-screen refine
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
+     {project_working_directory}/flows/flow-data.json \
+     --scope multi-unit:[notification-preferences-1,notification-preferences-3] \
+     --write-ids
+   ```
+
+   Scope is a runtime flag, not a data field — flow-data.json itself does not carry scope. Set `meta.mode = "refine"` on the artifact when applicable (that's the artifact-level signal).
+
+**On validation failure (exit 1 / error findings):**
+
+- Open `flow-data.json` with the Edit tool.
+- For each `placeholder-text` finding: replace the placeholder string at the indicated path with the real content (typically derivable from `screens[N].name` or the user prompt).
+- For each `missing-required-override` finding: add the missing prop to the INSTANCE node's `props` object with a real value.
+- For each `unknown-component` finding: correct the `ref` slug (the validator suggests near matches via Levenshtein when applicable).
+- `unknown-ds-slug`: remove the node, or use a slug `ds-components-authoring.md` lists.
+- For each `hardcoded-color` finding: replace the hex/rgb/`{r,g,b}` literal at the indicated path with a `var(--zen-…)` or `var(--fm-…)` token reference. **Never push hardcoded colors** — see `vendor/tokens/tokens.json` for the available token names.
+- `layer-target-missing`: point `layer.over` at an existing base screen id.
+- `layer-kind-unknown`: set `layer.kind` to modal, drawer, toast, or panel.
+- `layer-over-layer`: the screen `layer.over` points at must not itself be layered.
+- `goto-target-missing`: point `goto` at an existing screen id.
+- `adds-undeclared-name`: the node's `adds` must name an entry of the screen's own `adds[]`.
+- **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
+- **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
+
+For warning-level findings printed as CLI bracket labels (`token`, `terminology`, `avoid-word`, `unmuted-chrome`, `text-style`, `unfilled-slot`, `density-floor`, `missing-focus`, `screen-no-exit`, `chrome-active-undeclared`, `undeclared-invention` (DS-native flows only)): exit 2, proceeds. Findings surface in the GenLog text node (and in the deliverable when pushed). Info-level grounding advisories (`chrome-ungrounded`, `chrome-divergence`, `pattern-ungrounded`, `relationships-ungrounded`, `properties-ungrounded`, `enum-not-typed`, `section-ungrounded`, `prototype-dead-end`) print the same way and never block (exit 0).
+
+**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker: the sidebar item in the slice's `glossary.chrome.sidebar` the feature lives under (Catalog for catalog objects in Studio). This honors the rule that non-feature chrome is ALWAYS placeholder; see `references/ds-rules/quality-tiers.md`.
+
+**`text-style` warning recovery:** make `font` a `Family:Weight` string and `color` a `var(--zen-color-text-*)` token.
+
+**`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
+
+6.5. **Final render — the canonical encapsulated deliverable.** Validation passed: every `pending` stub has been replaced (merged screens carry no status field). Render the FINAL two-view deliverable (Prototype + Overview), self-contained and offline. This is the artifact you share; it is also the live preview's final state. No `--refresh`, no annotation inlining — annotations are **opt-in** (server-only via `ensure-server.sh`), structurally absent from the flow-share file:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
+  {project_working_directory}/flows/flow-data.json --type flow-share \
+  -o {project_working_directory}/flows/[feature].html
+```
+Add `--skin lofi` before `-o` when `meta.skin` is `"lofi"`.
+
+Tell the user: `Your flow is ready → {project_working_directory}/flows/[feature].html`. **If the render fails, surface the error and continue** — for the HTML-only default this is the deliverable, so a failure is worth reporting; for a push run it is an aid, never a gate. (The render reads only `flow-data.json`; it has no dependency on the push.)
+
+6.6. **Look** (gates.md, Look): after every final render, push or not, `--no-prompt` or not.
+
+7. **Push to Figma — OPT-IN (only if push resolved).** Skipped otherwise (HTML-only default). Push runs when **`--push`**, prose "push to figma", `--audit`, the explicit-Figma exemption (refine/iterate/branch), or acceptance at the Step 7.5 gate resolved push to true — and `--no-push` did not veto. See the **Push to Figma** section below and `references/actian-ux-prototype/push-opt-in.md`.
+   - **Progress (chat):** print `Pushing <N>/<M> to Figma…` as each screen frame is pushed, so the push phase is never silent.
+     7.5. **Combined post-build gate** (interactive — see Step 7.5 below) — single prompt offering push + audit. Skipped when `--no-prompt` is set, or for refine/iterate paths.
+8. Annotations (opt-in) — the flow-share deliverable is annotation-free. To inspect annotations, re-serve the work dir via `ensure-server.sh`:
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/renderers/ensure-server.sh "{project_working_directory}" 8765)
+   ```
+9. Parity check (opt-in, push runs only) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
+
+---
+
+## Step 7.5 — Combined post-build gate (interactive)
+
+Presented verbatim from `references/actian-ux-prototype/gates.md` after the final render: done (default), push to Figma, or push to Figma + audit. Read it at that moment, not before.
+
+## Gates
+
+The three interactive gates are presented verbatim from `references/actian-ux-prototype/gates.md`: Gate 1 (research; default when the user gives no answer or `--no-prompt` is set: "No, just build it", say so in one line), Gate 2 (findings, only when research was opted in), Gate 3 (screen list + detail + config; the use case line defaults to `useCases[0]` and is stated when the prompt names no audience keyword). Read `gates.md` at the moment each gate is due, not before.
+
+## Step 3.5 — Build flow glossary
+
+Runs after Step 5.0's screen list, before Step 5. Run once, using the app from Pipeline step 1, the entity slug (the `entities` key of app-context naming the feature's primary object; `prepare-flow.js --list-entities` prints them), and `--use-case <audience>` (a word of the chosen use case's audience, e.g. steward, engineer, ...):
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/app-context/prepare-flow.js" \
+  --app <app> --entity <slug> --use-case <audience> \
+  --screen-list {project_working_directory}/flows/screen-list.json \
+  -o {project_working_directory}/flows/.brief.json
+```
+
+Omit `--entity` when the feature has no primary entity. This also writes one `flows/.brief/<n>.json` slice per screen (n = 1-based screen index) for the `screen-generator` agents dispatched at Step 5. Copy `brief.glossary` into `meta._glossary` and `brief.sectionsByScreen` into `meta._sections` of `screen-list.json` (merge-partials carries `meta` on every merge, so set once here; the brief copy already carries the use case chosen at Gate 3). Read `brief.join` before trusting an empty entity answer: `present: false` means the vendored snapshot predates the edge. On refine or iterate of an existing flow keep the existing `meta._glossary.chrome` and `chromeJustification`. The brief is the only app-context input the author agents read, each through its own slice.
+
+---
+
+## Push to Figma
+
+Only when push resolved to true: read `references/actian-ux-prototype/figma-push.md` and follow its sequence (DS-native authoring under `--hifi`, the audit pass under `--audit`, parity, wiring).
+
+## Examples
+
+Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "variant": "Type=Default", "name": "Input: Platform name", "props": { "Input Text": "Actian Data Intelligence", "Label Text": "Platform name", "Caption Text": "Displayed in the header", "Show label": true, "Caption": true, "Required": false } }`
+
+## Key rules
+
+- **Button booleans:** Set `"👁 Leading Icon": false, "👁 Trailing Icon": false` on every button by default
+- **SPACE_BETWEEN:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for opposite-side layouts — never Spacer frames
+- **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
+- **Small direct calls:** Keep each `use_figma` call under 2KB
+- **No contentHtml:** Use structured content[] nodes (FRAME, TEXT, INSTANCE, DIVIDER) only
+- **Copy:** All visible text follows `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` — sentence case for all UI text, verb + object button labels ("Create data product"), no banned words — apply the full avoid-list in `vendor/content/dist/words-to-avoid.json`, placeholder text models input (never repeats the field label), empty states include a headline + body + CTA
+
+## References
+
+- `references/figma/figma-push-patterns.md` — component keys, patterns
+- `references/actian-ux-prototype/html-reference.md`: HTML template, FM components
+- `references/actian-ux-prototype/ds-components-authoring.md`: DS Kit vocabulary
+- `references/actian-ux-prototype/push-opt-in.md` — triggers, `--no-push` veto
+- `references/actian-ux-prototype/proposal-bridge.md`: seed from a proposal
+- `references/actian-ux-prototype/direct.md`: the `--direct` route
+- `references/actian-ux-prototype/refine.md` — detection + behavior
+- `references/actian-ux-prototype/vision-refs.md` — `--ref` fingerprinting
+- `references/actian-ux-prototype/push-sequence.md` — sequence + rules
+- `references/actian-ux-prototype/share.md` — internals
+- `references/actian-ux-prototype/research-guide.md` — research
+- `references/ds-rules/interactive-gates.md` — gate conventions, `--no-prompt`
+- `references/ds-rules/quality-tiers.md` — Draft/Standard/Production
+- `references/context/app-context.md` — inference, entity
+- `references/context/ux-patterns.md` — pattern library
+- `references/ds-rules/layout-patterns.md`
+- `references/figma/parity-check.md`
+- `references/ds-rules/quality-checklist.md` — cleanup
+- `references/figma/prototype-reference.md` — HTML prototype
+- `references/figma/prototype-wiring.md`
+- `recipes/flow/_index.json` — recipe catalog

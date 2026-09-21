@@ -13,9 +13,9 @@
 // union), but from a DIFFERENT substrate (guideline meta.a11y_refs plus
 // category-defaults, via the a11y-index), and returns a short body_excerpt
 // rather than the full rule list. This module reads the knowledge GRAPH
-// (graph.json a11y_ref edges, per the design-audit program's "consume
+// (graph.json a11y_ref edges, per the actian-ux-audit program's "consume
 // graph.json" goal) plus the accessibility bundle, for the full per-component
-// rules design-audit needs. The two intentionally differ; reconcile
+// rules actian-ux-audit needs. The two intentionally differ; reconcile
 // deliberately if the domain rule is ever unified.
 
 var fs = require("fs");

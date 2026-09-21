@@ -56,7 +56,7 @@ var DS_KEYS = shared.buildKeyMapFromRegistry("dskit", "ds");
 // ---------------------------------------------------------------------------
 // Production-shaped --hifi flow fixture
 // ---------------------------------------------------------------------------
-// Mirrors the shape that generate-flow --hifi produces: meta.library:"ds",
+// Mirrors the shape that actian-ux-prototype --hifi produces: meta.library:"ds",
 // template "studio" → resolves chrome (global-header + side-nav + page-header),
 // content[] holds real DS INSTANCE nodes with the correct authoring vocabulary.
 //

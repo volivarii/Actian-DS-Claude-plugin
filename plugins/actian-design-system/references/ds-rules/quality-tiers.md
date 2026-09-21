@@ -13,7 +13,7 @@ Tier is chosen by the user at the detail level gate (after screen list approval)
 
 Non-feature chrome is ALWAYS placeholder — muted text, generic labels, greyed-out variants. Only elements relevant to the feature being designed get real content. The tier controls how detailed the **feature-relevant** content is, not how detailed the whole screen is.
 
-## generate-flow tiers (concrete rules)
+## actian-ux-prototype tiers (concrete rules)
 
 ### Draft
 **Purpose:** Quick structural sketch — "is this the right layout?" Not detailed.

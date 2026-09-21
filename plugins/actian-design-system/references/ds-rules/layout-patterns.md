@@ -599,6 +599,6 @@ Source: Design Consistency 2026 — Forms (file key in `.figma-keys.json` -> `de
 
 | Skill | How to use this reference |
 |-------|--------------------------|
-| **generate-flow** | Match screen type to pattern, use FM content nodes as starting point |
+| **actian-ux-prototype** | Match screen type to pattern, use FM content nodes as starting point |
 | **companion** | Reference patterns when suggesting layouts for new features |
-| **design-audit** | Check if existing designs follow these canonical patterns |
+| **actian-ux-audit** | Check if existing designs follow these canonical patterns |

@@ -4,7 +4,7 @@
 // scripts/renderers/render-authoring-table.js). This test fails whenever the
 // committed table drifts from those sources — the exact failure mode the
 // 2026-07-05 audit found (16 BUILT slugs marked chip, a retired `input` row,
-// text-input missing), which mis-steers screen-generator/generate-flow.
+// text-input missing), which mis-steers screen-generator/actian-ux-prototype.
 "use strict";
 var test = require("node:test");
 var assert = require("node:assert/strict");

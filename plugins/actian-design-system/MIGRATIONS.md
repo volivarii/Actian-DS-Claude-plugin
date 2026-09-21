@@ -55,7 +55,7 @@ in production, then narrow.
 
 `render-node-figma.js` (the deterministic content-tree emitter, twin of the HTML
 `render-node.js`) is the **canonical** path for pushing `screen.content[]` in
-`/generate-flow`. The hand-walk in `generate-flow/SKILL.md` push step 6d is the
+`/actian-ux-prototype`. The hand-walk in `actian-ux-prototype/SKILL.md` push step 6d is the
 **documented fallback**, kept functional per step 2 above. Cutover (deleting the
 fallback) happens only after the emitter shows sustained adoption across the
 recipe set — a later MINOR/PATCH, not this PR.
@@ -149,6 +149,23 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
 ## Schema migrations
 
+### The skills renamed to `actian-ux-*` (2026.9.59)
+
+| Was | Is |
+|---|---|
+| `/companion` | `/actian-ux` |
+| `/generate-flow` | `/actian-ux-prototype` |
+| `/design-proposal` | `/actian-ux-proposal` |
+| `/design-audit` | `/actian-ux-audit` |
+
+Directories, references, tests and every loaded document carry the new names; there are
+no alias skills, and each skill's description says what it was formerly called so a
+request in the old words still routes. Output folders (`flows/`, `proposals/`) and data
+file names are unchanged. `meta.skill` in `flow-data.json`, `proposal-data.json` and the
+evaluation file is written with the new name; the schemas accept the old name too, so a
+file authored before this version keeps validating and `--from` keeps working on it.
+The `.last-push.json` manifest's `skill` slug follows the same rule.
+
 ### `scope` required (2026.9.28)
 
 `proposal-data.json`'s schema gained a required `scope` object (one to four
@@ -167,7 +184,7 @@ and the authoring reference were updated to instruct the agent to write
 both, but instructing is not adopting; per Rule 1, that instruction is
 unproven until a real run shows it taken.
 
-**The check, run on 2026-09-13: passed.** `/design-proposal` was run against
+**The check, run on 2026-09-13: passed.** `/actian-ux-proposal` was run against
 DIP-I-522 (see what a share exposed, and pull back one item) and the authored
 `proposals/proposal-data.json` carried `scope.goals` with three goals in the
 ticket's own words, `scope.nonGoals` with two, and four `openQuestions`, two
@@ -205,7 +222,7 @@ acceptance fixture are all tested. None of that proves an authoring agent
 N variants, which is the old shape wearing the new schema.
 
 **The check, not yet run:** after `2026.9.30` is installed, run
-`/design-proposal` against a ticket that plainly forces more than one question,
+`/actian-ux-proposal` against a ticket that plainly forces more than one question,
 and read the authored `proposal-data.json`. It passes if `decisions[]` holds
 one entry per question a reader could answer differently, each with its own
 comparison, and if every `pick.reasons[].criterionId` names a row that reason
@@ -250,7 +267,7 @@ machinery and the prose work, and it is not evidence that the stage names what a
 careful author names. What is still owed is a run by a session that has read only
 the skill. That is the same check this file already asks for against `2026.9.28`
 and the `scope` field, so it is one run, not two: install the release, run
-`/design-proposal` on a real ticket, and read what the agent authored.
+`/actian-ux-proposal` on a real ticket, and read what the agent authored.
 
 The one piece of independent support, which is worth more than either half alone:
 a second agent, reviewing the skill's prose and working from the DIP-I-522 ticket

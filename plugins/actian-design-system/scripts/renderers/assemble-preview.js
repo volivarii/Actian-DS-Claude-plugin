@@ -12,7 +12,7 @@
  *   flow-share    — CANONICAL deliverable: self-contained two-view file
  *                   (clickable Prototype + all-screens Overview; inlines Alpine +
  *                   flow CSS; fully offline). This is the default streaming target
- *                   and the shareable output for the generate-flow pipeline.
+ *                   and the shareable output for the actian-ux-prototype pipeline.
  *   flow          — INTERNAL strip renderer retained for streaming-fallback and
  *                   existing tests; NOT the canonical pipeline output.
  *                   (fm-flow.css, fm-html-map + flow-renderer)

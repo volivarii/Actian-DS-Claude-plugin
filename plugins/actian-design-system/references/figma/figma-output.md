@@ -70,7 +70,7 @@ This returns in <1 second and tells you exactly what the node is. Costs 1 `use_f
 | `PAGE` | Read `children[]` — find the `COMPONENT_SET`, `FRAME`, or `SECTION` you need, use its `id` for subsequent calls |
 | `COMPONENT_SET` | Use directly — ideal target for component-level work |
 | `COMPONENT` | Use directly |
-| `FRAME` | Use directly — ideal target for generate-flow, design-audit |
+| `FRAME` | Use directly — ideal target for actian-ux-prototype, actian-ux-audit |
 | `SECTION` | Read `children[]` — find the frame inside, use its `id` |
 | `GROUP` | Read `children[]` — find the frame inside, use its `id` |
 | `INSTANCE` | Resolve to source component via `get_design_context` on this node |
@@ -107,7 +107,7 @@ The classify-node step should prevent this. If it still occurs:
 
 All Figma output uses `use_figma` — build directly in Figma via Plugin API JavaScript.
 
-**Two emitters, one data model.** The encapsulated `flows/[feature].html` — rendered via `assemble-preview.js --type flow-share` — is the **default, first-class deliverable** for generate-flow. It is a self-contained **twin deliverable**: one file, two in-page views (Prototype + Overview), offline-capable, safe to email or host, and the same file used as the live streaming preview. The Figma push (`use_figma`) is the **opt-in** second output — triggered by `--push`, a gate confirmation, or implicitly by refine/iterate/branch flows that operate on an existing Figma frame. Do not confuse the streaming `--type flow` preview (a local render aid) with the `flow-share` deliverable (which is that same file, finalized).
+**Two emitters, one data model.** The encapsulated `flows/[feature].html` — rendered via `assemble-preview.js --type flow-share` — is the **default, first-class deliverable** for actian-ux-prototype. It is a self-contained **twin deliverable**: one file, two in-page views (Prototype + Overview), offline-capable, safe to email or host, and the same file used as the live streaming preview. The Figma push (`use_figma`) is the **opt-in** second output — triggered by `--push`, a gate confirmation, or implicitly by refine/iterate/branch flows that operate on an existing Figma frame. Do not confuse the streaming `--type flow` preview (a local render aid) with the `flow-share` deliverable (which is that same file, finalized).
 
 ## Direct Push Pattern (all skills)
 
@@ -121,7 +121,7 @@ data-model.json → AI reads JSON → AI emits small use_figma calls → Figma n
 
 | Skill | Push patterns | Data model |
 |-------|--------------|------------|
-| generate-flow | `references/figma/figma-push-patterns.md` | flow-data.json |
+| actian-ux-prototype | `references/figma/figma-push-patterns.md` | flow-data.json |
 
 ### Benefits
 
@@ -132,8 +132,8 @@ data-model.json → AI reads JSON → AI emits small use_figma calls → Figma n
 
 ### When to use direct calls vs. other patterns
 
-- **Output skills** (generate-flow; the retired brief, presentation and create-component skills used the same path): direct push from data model
-- **design-audit**: reads existing Figma nodes, doesn't build from a data model
+- **Output skills** (actian-ux-prototype; the retired brief, presentation and create-component skills used the same path): direct push from data model
+- **actian-ux-audit**: reads existing Figma nodes, doesn't build from a data model
 - **One-off operations**: direct Plugin API code (no data model needed)
 
 ## DS-specific import patterns
@@ -265,7 +265,7 @@ Every output must include a visible generation metadata frame as the **first sib
 | Field | Value | How to get it |
 |-------|-------|---------------|
 | **GENERATED** | Static label | Hardcoded |
-| **Skill** | Skill name from SKILL.md frontmatter | e.g., "generate-flow" |
+| **Skill** | Skill name from SKILL.md frontmatter | e.g., "actian-ux-prototype" |
 | **Prompt** | User's exact input, truncated to 200 chars | The message that triggered this skill |
 | **Date** | ISO 8601 date+time when output is written | `new Date().toISOString()` |
 | **Duration** | Time from prompt to output completion | e.g., "2m 34s" |
@@ -370,11 +370,11 @@ Separate data extraction from rendering for cleaner, more debuggable `use_figma`
 3. use_figma: clone section-header, fill title="Button"; clone table rows, fill props...
 ```
 
-Skills that audit existing components (design-audit) benefit most from two-tier extraction. Skills that build from scratch (generate-flow) can skip Tier 1.
+Skills that audit existing components (actian-ux-audit) benefit most from two-tier extraction. Skills that build from scratch (actian-ux-prototype) can skip Tier 1.
 
 ## Data Model Pattern (recommended for all output skills)
 
-For skills that generate both HTML and Figma output (generate-flow; the retired brief and presentation skills followed the same pattern), use a structured JSON data model as the single source of truth:
+For skills that generate both HTML and Figma output (actian-ux-prototype; the retired brief and presentation skills followed the same pattern), use a structured JSON data model as the single source of truth:
 
 ```
 Research (AI) → data-model.json → HTML renderer (mechanical)
@@ -387,14 +387,14 @@ Research (AI) → data-model.json → HTML renderer (mechanical)
 - Post-push iteration reads the data model to understand what was generated
 - Incremental re-rendering: change one card's data → re-render only that card
 
-**Implementation:** the retired component-brief references under `references/component-brief/` carry the worked example; generate-flow follows the same pattern with `flow-data.json`.
+**Implementation:** the retired component-brief references under `references/component-brief/` carry the worked example; actian-ux-prototype follows the same pattern with `flow-data.json`.
 
 ## Node tracking with `getSharedPluginData`
 
 After creating or pushing nodes, tag them so parity checks and post-push fixes can find them later:
 
 ```js
-node.setSharedPluginData('actian_ds', 'skill', 'generate-flow');
+node.setSharedPluginData('actian_ds', 'skill', 'actian-ux-prototype');
 node.setSharedPluginData('actian_ds', 'screen', 'Screen 3: Login form');
 node.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
 ```
@@ -424,7 +424,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Tag pushed nodes** with `setSharedPluginData('actian_ds', ...)` for reliable retrieval.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.
-- **HTML has two roles:** the streaming `--type flow` render is a local preview aid; the `--type flow-share` render is the **default, first-class self-contained twin deliverable** — emitted automatically on every generate-flow run, no flag required. Figma push is opt-in.
+- **HTML has two roles:** the streaming `--type flow` render is a local preview aid; the `--type flow-share` render is the **default, first-class self-contained twin deliverable** — emitted automatically on every actian-ux-prototype run, no flag required. Figma push is opt-in.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.

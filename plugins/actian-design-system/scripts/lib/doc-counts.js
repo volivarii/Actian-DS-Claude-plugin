@@ -61,7 +61,7 @@ function deriveAgents() {
 
 // Only the recipe kinds a live skill reads are counted. A kind is live when a
 // skills/*/SKILL.md names a path under recipes/<kind>/ (its catalog, or a file
-// in it: generate-flow names recipes/flow/_index.json, the retired brief skill
+// in it: actian-ux-prototype names recipes/flow/_index.json, the retired brief skill
 // names recipes/brief/<file>). recipes/brief and recipes/presentation belong to
 // retired skills, whose SKILL.md files sit under retired/ and are not scanned,
 // so they stay on disk for the deletion PR without inflating the number the

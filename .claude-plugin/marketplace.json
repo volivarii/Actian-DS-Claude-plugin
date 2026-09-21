@@ -10,7 +10,7 @@
     {
       "name": "actian-design-system",
       "source": "./plugins/actian-design-system",
-      "description": "Actian Design System 2026 toolkit: 4 skills + 6 agents. Skills: companion, design-audit, generate-flow, design-proposal. Agents: flow-researcher, wiring-analyzer, flow-consistency, screen-generator, ds-researcher, prototype-author. Direct Figma MCP extraction, 12 recipes, 3-tier fallback ladder for novel patterns, 155 tokens (3 themes, 8 collections), WCAG 2.2 AA."
+      "description": "Actian Design System 2026 toolkit: 4 skills + 6 agents. Skills: actian-ux, actian-ux-audit, actian-ux-prototype, actian-ux-proposal. Agents: flow-researcher, wiring-analyzer, flow-consistency, screen-generator, ds-researcher, prototype-author. Direct Figma MCP extraction, 12 recipes, 3-tier fallback ladder for novel patterns, 155 tokens (3 themes, 8 collections), WCAG 2.2 AA."
     }
   ]
 }

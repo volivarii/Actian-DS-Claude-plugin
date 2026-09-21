@@ -1,7 +1,7 @@
 # Demo flows — DS-native hi-fi (v1.106.0)
 
 Two DS-native hi-fi flows for the Friday demo, authored against the DS component
-vocabulary (`plugins/actian-design-system/references/generate-flow/ds-components-authoring.md`).
+vocabulary (`plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md`).
 The `.flow.json` sources are committed; the rendered `.html` deliverables are regenerable
 (and gitignored — each embeds ~340kb of woff2 fonts).
 

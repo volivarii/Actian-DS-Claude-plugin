@@ -11,12 +11,12 @@
  * A pointer is either:
  *   (a) an explicit path to a markdown doc under agents/, skills/, or
  *       references/ (e.g. `agents/screen-generator.md`,
- *       `skills/generate-flow/SKILL.md`, `references/figma/prototype-wiring.md`),
+ *       `skills/actian-ux-prototype/SKILL.md`, `references/figma/prototype-wiring.md`),
  *       optionally backtick-wrapped, followed within 60 characters on the
  *       same line by "Step N" (either case, "Step" or "step"): the target
  *       is that path; or
  *   (b) a bare `<skill-name>` (a directory under skills/, e.g.
- *       "generate-flow Step 5.5" or "`/component-brief` Step 1.5"),
+ *       "actian-ux-prototype Step 5.5" or "`/component-brief` Step 1.5"),
  *       optionally backtick-wrapped and/or slash-prefixed, followed within
  *       60 characters by "Step N" (either case): the target is that
  *       skill's SKILL.md.
@@ -63,7 +63,7 @@ var PATH_RE = /`?((?:agents|skills|references)\/[\w-]+(?:\/[\w-]+)*\.md)`?[^\n]{
 // skill is covered automatically. Sorted longest-first so no alternative
 // shadows a longer one that shares its prefix. The negative lookbehind
 // keeps this from matching a skill name that is really a segment of a
-// form-(a) path (e.g. the "generate-flow" inside "skills/generate-flow/SKILL.md"),
+// form-(a) path (e.g. the "actian-ux-prototype" inside "skills/actian-ux-prototype/SKILL.md"),
 // and the negative lookahead keeps it from matching a prefix of a longer
 // identifier.
 var SKILL_NAMES = fs
@@ -110,7 +110,7 @@ describe("step pointers resolve", function () {
     }
     // Three spellings, because the repo uses three: a heading ("## Step 3"), a numbered item
     // ("3. "), and a bold paragraph lead ("**Step 3, research.**"), which is how every step in
-    // design-proposal is written. Without the third, a pointer at a step that plainly exists
+    // actian-ux-proposal is written. Without the third, a pointer at a step that plainly exists
     // fails, which is a checker reporting on its own vocabulary rather than on the documents.
     var n = step.replace(".", "\\.");
     var ok = new RegExp("^#+ .*Step " + n + "\\b", "m").test(body) ||

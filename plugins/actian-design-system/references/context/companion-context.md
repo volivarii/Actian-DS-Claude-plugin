@@ -129,7 +129,7 @@ Counts and full membership: `vendor/components/dist/categories.json` (source of 
 
 ## Interactive Gates
 
-`/generate-flow`, `/design-audit` and `/design-proposal` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
+`/actian-ux-prototype`, `/actian-ux-audit` and `/actian-ux-proposal` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
 
 ## Figma Output
 
@@ -137,7 +137,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Skill | Push patterns reference | Data model |
 |-------|----------------------|------------|
-| generate-flow | `references/figma/figma-push-patterns.md` | flow-data.json |
+| actian-ux-prototype | `references/figma/figma-push-patterns.md` | flow-data.json |
 
 ## On-Demand References
 

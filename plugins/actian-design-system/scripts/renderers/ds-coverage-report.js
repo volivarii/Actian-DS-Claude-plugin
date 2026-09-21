@@ -74,7 +74,7 @@ function authorableSlugs() {
     "..",
     "..",
     "references",
-    "generate-flow",
+    "actian-ux-prototype",
     "ds-components-authoring.md",
   );
   var mdContent = fs.readFileSync(mdPath, "utf8");

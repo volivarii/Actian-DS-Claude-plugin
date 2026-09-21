@@ -150,7 +150,7 @@ jobs:
           node scripts/vendor/sync-doc-counts.js
 
       - name: Regenerate the authoring vocabulary table
-        # The vocabulary table in references/generate-flow/
+        # The vocabulary table in references/actian-ux-prototype/
         # ds-components-authoring.md is generated from the vendored dskit
         # registry + BUILT_SLUGS, and the drift gate
         # (tests/integration/authoring-table-sync.test.js) fails when they
@@ -276,7 +276,7 @@ jobs:
             .claude-plugin/marketplace.json
             plugins/actian-design-system/references/context/companion-context.md
             plugins/actian-design-system/references/figma/figma-push-patterns.md
-            plugins/actian-design-system/references/generate-flow/ds-components-authoring.md
+            plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md
             plugins/actian-design-system/tests/renderers/blank-box-baseline.json
             plugins/actian-design-system/tests/renderers/__goldens__/**
             plugins/actian-design-system/tests/renderers/fixtures/**

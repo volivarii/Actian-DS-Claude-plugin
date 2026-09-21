@@ -3,13 +3,13 @@
 
 /**
  * proposal-to-flow.js: composes a proposals/proposal-data.json into the seed
- * /generate-flow already takes, a screen list and a brief.
+ * /actian-ux-prototype already takes, a screen list and a brief.
  *
  * Every option in a proposal carries a screens[] list naming a flow archetype (its
  * `template`, from recipes/flow/_index.json: overlay, form-create, detail-view), an app
  * and an entity, and until this script nothing read it: a person read the document and
  * retyped it, so the most expensive judgement in the pipeline was made twice. That
- * archetype is not generate-flow's own screen-list `template`, which names chrome
+ * archetype is not actian-ux-prototype's own screen-list `template`, which names chrome
  * (studio, explorer, administration, ...): toScreen() below carries the app forward as
  * `template` and keeps the archetype under its own `archetype` key.
  *
@@ -155,7 +155,7 @@ function merge(selected, findings) {
 // two questions, so prefixing them would print the same question twice.
 //
 // The proposal's screens[].template names a flow archetype (recipes/flow/_index.json:
-// overlay, form-create, detail-view). generate-flow's own screen-list template names chrome
+// overlay, form-create, detail-view). actian-ux-prototype's own screen-list template names chrome
 // instead (studio, explorer, administration, ...; SKILL.md's Flags table + ds-screen-tree.js
 // TEMPLATE_CHROME). Those are two different vocabularies over the same key, so the emitted
 // screen carries the app as template, which resolveChrome() already knows how to render, and
@@ -277,7 +277,7 @@ function compose(data, options) {
   if (stage === "evaluation") {
     findings.push(finding("P0", "stage", "meta.stage",
       "an evaluation has no options, so there are no screens to build from",
-      "resume it first: /design-proposal --from <this file>"));
+      "resume it first: /actian-ux-proposal --from <this file>"));
     return { screens: [], brief: "", findings: findings };
   }
   var selected = select(data, opts, findings);
