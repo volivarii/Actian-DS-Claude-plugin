@@ -17,10 +17,23 @@ function load(rel) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"));
 }
 
+// Only the errors raised at meta.skill itself: the validator prefixes each
+// error with its JSON path, so an unrelated error that mentions "skill" in
+// its text cannot count.
 function skillErrors(data, schema) {
   return validate(data, schema).filter(function (e) {
-    return /skill/.test(e);
+    return /^\/meta\/skill:/.test(e);
   });
+}
+
+function assertRejected(errors, name) {
+  assert.ok(errors.length > 0, name + " is rejected");
+  assert.ok(
+    errors.every(function (e) {
+      return e.indexOf("not in enum") !== -1;
+    }),
+    name + " is rejected by the enum, not by something else: " + errors.join("; "),
+  );
 }
 
 describe("meta.skill accepts the name before the rename and the name after it", function () {
@@ -35,7 +48,7 @@ describe("meta.skill accepts the name before the rename and the name after it", 
       assert.deepStrictEqual(skillErrors(data, flowSchema), [], name);
     });
     data.meta.skill = "make-flow";
-    assert.ok(skillErrors(data, flowSchema).length > 0, "an unknown skill name is rejected");
+    assertRejected(skillErrors(data, flowSchema), "make-flow");
   });
 
   it("proposal-data: actian-ux-proposal and design-proposal validate, another name does not", function () {
@@ -45,15 +58,17 @@ describe("meta.skill accepts the name before the rename and the name after it", 
       assert.deepStrictEqual(skillErrors(data, proposalSchema), [], name);
     });
     data.meta.skill = "propose";
-    assert.ok(skillErrors(data, proposalSchema).length > 0, "an unknown skill name is rejected");
+    assertRejected(skillErrors(data, proposalSchema), "propose");
   });
 
-  it("proposal evaluation: both names validate", function () {
+  it("proposal evaluation: both names validate, another name does not", function () {
     var data = load("tests/fixtures/proposal-dip-i-496-evaluation.json");
     ["actian-ux-proposal", "design-proposal"].forEach(function (name) {
       data.meta.skill = name;
       assert.deepStrictEqual(skillErrors(data, evaluationSchema), [], name);
     });
+    data.meta.skill = "evaluate";
+    assertRejected(skillErrors(data, evaluationSchema), "evaluate");
   });
 
   it("the example and the fixtures carry the new name", function () {

@@ -164,7 +164,6 @@ request in the old words still routes. Output folders (`flows/`, `proposals/`) a
 file names are unchanged. `meta.skill` in `flow-data.json`, `proposal-data.json` and the
 evaluation file is written with the new name; the schemas accept the old name too, so a
 file authored before this version keeps validating and `--from` keeps working on it.
-The `.last-push.json` manifest's `skill` slug follows the same rule.
 
 ### `scope` required (2026.9.28)
 

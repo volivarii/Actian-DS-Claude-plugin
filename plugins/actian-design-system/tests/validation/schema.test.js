@@ -225,14 +225,15 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
-// Test: Validator catches const mismatch (brief-data's skill is still a const;
-// flow-data's became an enum at the 2026.9.59 rename, covered next)
+// Test: Validator catches const mismatch (on an inline schema: flow-data's
+// skill became an enum at the 2026.9.59 rename, covered next)
 // ---------------------------------------------------------------------------
 
-const badConst = {
-  meta: { component: "Button", skill: "wrong-skill" },
+const constSchema = {
+  type: "object",
+  properties: { skill: { type: "string", const: "only-this" } },
 };
-const constErrors = validate(badConst, schemas["brief-data.schema.json"]);
+const constErrors = validate({ skill: "wrong-skill" }, constSchema);
 assert(
   constErrors.some((e) => e.includes("expected const")),
   "Detects const mismatch for skill field",

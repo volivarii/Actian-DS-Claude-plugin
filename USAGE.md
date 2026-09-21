@@ -1,6 +1,6 @@
 # Usage Guide
 
-Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion routes; you don't memorize commands.
+Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion (`/actian-ux`) routes; you don't memorize commands.
 
 ---
 

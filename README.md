@@ -114,7 +114,7 @@ rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
 
 ## How to work with the companion
 
-Two input shapes cover almost everything. The companion routes; you don't memorize commands.
+Two input shapes cover almost everything. The companion (`/actian-ux`) routes; you don't memorize commands.
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
